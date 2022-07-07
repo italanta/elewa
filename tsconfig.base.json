@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
+      "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"]
     }
   },
