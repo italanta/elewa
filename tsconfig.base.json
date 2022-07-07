@@ -17,7 +17,10 @@
     "paths": {
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
-      "@iote/time": ["libs/util/iote/time/src/index.ts"]
+      "@iote/time": ["libs/util/iote/time/src/index.ts"],
+      "@ngfi/firestore-qbuilder": [
+        "libs/util/ngfi/firestore-qbuilder/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
