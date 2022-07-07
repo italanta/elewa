@@ -1,1 +1,1 @@
-export * from './lib/util-iote-cqrs';
+export * from './lib';
