@@ -19,8 +19,10 @@
     "@angular/platform-browser": "~14.0.0",
     "@angular/platform-browser-dynamic": "~14.0.0",
     "@angular/router": "~14.0.0",
+    "@firebase/firestore-types": "^2.5.0",
     "@nrwl/angular": "14.4.2",
     "@nrwl/node": "^14.4.2",
+    "moment": "^2.29.4",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

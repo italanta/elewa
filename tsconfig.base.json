@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"]
+      "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
+      "@iote/time": ["libs/util/iote/time/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

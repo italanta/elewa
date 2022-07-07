@@ -1,11 +1,5 @@
-# util-iote-bricks
+# @iote/bricks
 
-This library was generated with [Nx](https://nx.dev).
+Base package of the iote and ngfi libraries. 
 
-## Running unit tests
-
-Run `nx test util-iote-bricks` to execute the unit tests via [Jest](https://jestjs.io).
-
-## Running lint
-
-Run `nx lint util-iote-bricks` to execute the lint via [ESLint](https://eslint.org/).
+Contains a set of base types which are required throughout the libs.

@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "conv-learning-manager": "apps/conv-learning-manager",
-    "util-iote-bricks": "libs/util/iote/bricks"
+    "util-iote-bricks": "libs/util/iote/bricks",
+    "util-iote-time": "libs/util/iote/time"
   }
 }
