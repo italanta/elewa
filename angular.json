@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "conv-learning-manager": "apps/conv-learning-manager",
+    "conv-learning-manager-e2e": "apps/conv-learning-manager-e2e"
+  }
+}
