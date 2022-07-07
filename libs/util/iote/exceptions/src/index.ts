@@ -1,1 +1,1 @@
-export * from './lib/util-iote-exceptions';
+export * from './lib/custom-exception.class';
