@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "conv-learning-manager": "apps/conv-learning-manager"
+    "conv-learning-manager": "apps/conv-learning-manager",
+    "util-iote-bricks": "libs/util/iote/bricks"
   }
 }
