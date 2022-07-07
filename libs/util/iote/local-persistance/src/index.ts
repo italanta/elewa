@@ -1,1 +1,2 @@
-export * from './lib/util-iote-local-persistance';
+export * from './lib/local-persistance.module';
+export * from './lib/local-persistance.service';

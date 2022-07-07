@@ -23,6 +23,7 @@
     "@nrwl/angular": "14.4.2",
     "@nrwl/node": "^14.4.2",
     "moment": "^2.29.4",
+    "ngx-webstorage-service": "^5.0.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
