@@ -1,1 +1,1 @@
-export * from './lib/util-ngfi-state';
+export * from './lib/data.store';

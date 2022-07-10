@@ -1,4 +1,16 @@
 {
   "name": "@ngfi/state",
-  "version": "0.0.1"
+  "version": "2.0.0",
+
+  "description": "Akita stores for connecting to firestore and other GCP data sources.",
+
+  "peerDependencies": {
+    "rxjs": "",
+    "lodash": "",
+
+    "@iote/bricks": "^2.0.0",
+    "@iote/state": "^2.0.0",
+    "@iote/bricks-angular": "^2.0.0",
+    "@ngfi/angular": "^2.0.0"
+  }
 }
