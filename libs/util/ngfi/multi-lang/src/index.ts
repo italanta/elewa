@@ -1,1 +1,2 @@
-export * from './lib/util-ngfi-multi-lang.module';
+export * from './lib/services/translate.service';
+export * from './lib/multi-lang.module';
