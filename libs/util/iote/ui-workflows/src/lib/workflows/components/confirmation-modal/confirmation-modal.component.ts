@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
-import { TranslateService} from '@s4y/utils/ngfi/multi-lang';
+import { TranslateService} from '@ngfi/multi-lang';
 
 /**
  *  Dialog.

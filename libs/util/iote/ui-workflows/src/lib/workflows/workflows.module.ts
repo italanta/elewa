@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MultiLangModule } from '@s4y/utils/ngfi/multi-lang';
-import { MaterialBricksModule } from '@s4y/utils/iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
+import { MaterialBricksModule } from '@iote/bricks-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MaterialDesignModule } from '@s4y/utils/iote/bricks-angular';
+import { MaterialDesignModule } from '@iote/bricks-angular';
 import { DeleteConfirmationDialogComponent } from './components/delete-confirmation-modal/delete-confirmation-modal.component';
 import { InfoPanelComponent } from './components/info-panel/info-panel.component';
 import { ConfirmationDialogComponent } from './components/confirmation-modal/confirmation-modal.component';

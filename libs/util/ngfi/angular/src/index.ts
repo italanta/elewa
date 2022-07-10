@@ -1,1 +1,1 @@
-export * from './lib/util-ngfi-angular.module';
+export * from './lib';

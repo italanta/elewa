@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MaterialDesignModule, FlexLayoutModule } from '@s4y/utils/iote/bricks-angular';
+import { MaterialDesignModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { UIModalComponent } from './components/modal/modal.component';
 import { PDFModalComponent } from './components/pdf-modal/pdf-modal.component';
 

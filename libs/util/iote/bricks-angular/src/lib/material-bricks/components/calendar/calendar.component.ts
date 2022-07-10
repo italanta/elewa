@@ -4,7 +4,7 @@ import { MatCalendar, MatCalendarCellCssClasses } from '@angular/material/datepi
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { AppDate } from '@s4y/utils/iote/time';
+import { AppDate } from '@iote/time';
 
 import { Logger } from '../../../util/services/logger.service';
 
