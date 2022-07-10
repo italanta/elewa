@@ -5,6 +5,7 @@
     "conv-learning-manager": "apps/conv-learning-manager",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
+    "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "util-iote-bricks": "libs/util/iote/bricks",
     "util-iote-bricks-angular": "libs/util/iote/bricks-angular",
     "util-iote-cqrs": "libs/util/iote/cqrs",
