@@ -8,7 +8,7 @@ import { EntityStore } from '@iote/state';
 import { IObject } from '@iote/bricks';
 import { Logger } from '@iote/bricks-angular';
 
-// import { ToastService } from '@s4y/utils/iote/bricks-angular';
+// import { ToastService } from '@iote/bricks-angular';
 
 /**
  * @export
