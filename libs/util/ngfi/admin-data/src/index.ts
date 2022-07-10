@@ -1,1 +1,2 @@
-export * from './lib/util-ngfi-admin-data';
+export * from './lib/admin-repository.class';
+export * from './lib/admin-repository.factory';

@@ -23,6 +23,7 @@
     "@firebase/firestore-types": "^2.5.0",
     "@nrwl/angular": "14.4.2",
     "@nrwl/node": "^14.4.2",
+    "firebase-admin": "^11.0.0",
     "moment": "^2.29.4",
     "ngx-webstorage-service": "^5.0.0",
     "rxjs": "~7.4.0",
