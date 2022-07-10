@@ -11,6 +11,7 @@
     "util-iote-state": "libs/util/iote/state",
     "util-iote-time": "libs/util/iote/time",
     "util-iote-ui-workflows": "libs/util/iote/ui-workflows",
+    "util-ngfi-admin-data": "libs/util/ngfi/admin-data",
     "util-ngfi-firestore-qbuilder": "libs/util/ngfi/firestore-qbuilder"
   }
 }
