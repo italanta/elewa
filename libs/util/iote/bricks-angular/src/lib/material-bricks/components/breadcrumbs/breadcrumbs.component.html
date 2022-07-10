@@ -1,0 +1,6 @@
+<a *ngFor="let crumb of breadcrumbs; let last = last;" class="breadcrumb">
+
+  <span class="breadcrumb-label clickable" (click)="crumb.callback()">{{ crumb.label }} </span>
+  <span class="breadcrumb-divider" *ngIf="!last"> &gt; </span>
+
+</a>

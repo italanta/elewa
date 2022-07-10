@@ -1,0 +1,90 @@
+.action-tile {
+  width: 200px;
+  height: 200px;
+  margin: 24px;
+  /* Primary color of theme */
+  background-color: #3f51b5;
+}
+    .action-tile:hover {
+      cursor: pointer;
+    }
+
+.action-tile.small {
+  width: 150px;
+  height: 150px;
+  margin: 0;
+}
+
+.action-tile.short {
+  height: 150px;
+}
+    /* Used in the swiper-view. Width and height take up margin*/
+.action-tile.nomarg {
+  margin: 0;
+}
+.action-tile:hover {
+  cursor: pointer;
+}
+    .icon-holder {
+      height: 170px;
+    }
+        .action-tile.short .icon-holder {
+          height: 120px;
+        }
+        .action-tile.small .icon-holder {
+          height: 120px;
+        }
+        .icon-holder img {
+          padding: 20px;
+          opacity: 0.75;
+        }
+
+    .name-holder {
+      background-color: rgba(0,0,0,0.3);
+      text-align: center;
+      height: 30px;
+    }
+        .name-holder h2 {
+          margin: 0;
+          font-size: 1.3em;
+          line-height: 1.3em;
+          color: white;
+        }
+        .action-tile.small .name-holder h2 {
+          font-size: 1.1em;
+          line-height: 1.8em;
+          font-weight: 600;
+        }
+
+    /*.icon-body-text {}*/
+    .icon-text {
+      font-size: 120px;
+      margin-top: 20px;
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+      color: whitesmoke;
+    }
+
+      .action-tile.small .icon-text {
+        font-size: 100px;
+        line-height: 120px;
+      }
+
+i.fa:hover {
+  background: none;
+}
+
+.tile-container {
+  position: relative;
+}
+
+.disabled{
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
