@@ -19,6 +19,9 @@
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
       "@iote/exceptions": ["libs/util/iote/exceptions/src/index.ts"],
+      "@iote/local-persistance": [
+        "libs/util/iote/local-persistance/src/index.ts"
+      ],
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
       "@ngfi/firestore-qbuilder": [

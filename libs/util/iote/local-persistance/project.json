@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/util/iote/local-persistance/src",
+  "prefix": "italanta-apps",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/util/iote/local-persistance"],
+      "options": {
+        "project": "libs/util/iote/local-persistance/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/util/iote/local-persistance/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/util/iote/local-persistance/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/util/iote/local-persistance"],
+      "options": {
+        "jestConfig": "libs/util/iote/local-persistance/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/util/iote/local-persistance/**/*.ts",
+          "libs/util/iote/local-persistance/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

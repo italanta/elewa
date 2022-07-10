@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../../dist/libs/util/iote/local-persistance",
+  "lib": {
+    "entryFile": "src/index.ts"
+  }
+}
