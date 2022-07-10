@@ -1,0 +1,47 @@
+.modal-header {
+  padding: 20px;
+  color: #fff;
+  font-size: 18px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+  .headerNoBorder {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+.danger {
+  background: #ff4444 !important;
+}
+
+.modal-content {
+  padding: 20px 40px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.close-btn-top {
+  float: right;
+  cursor: pointer;
+}
+
+.modal-footer {
+  padding: 20px;
+}
+  .footerBeShaded {
+    background: #efefef;
+  }
+
+.delete-btn {
+  background-color: #ff4444;
+  color: #fff;
+}
+
+.cancel-btn {
+  margin-left: 10px;
+  color: #888;
+}
+
+.loading-btn {
+  opacity: .5;
+}
