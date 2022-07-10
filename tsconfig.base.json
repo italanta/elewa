@@ -24,6 +24,7 @@
       ],
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
+      "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
       "@ngfi/firestore-qbuilder": [
         "libs/util/ngfi/firestore-qbuilder/src/index.ts"
       ]
