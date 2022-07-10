@@ -1,0 +1,11 @@
+{
+  "name": "@ngfi/functions",
+  "version": "0.0.1",
+
+  "peerDependencies": {
+    "@iote/bricks": "^2.0.0",
+    "@iote/cqrs": "^2.0.0",
+
+    "@ngfi/admin-data": "^2.0.0"
+  }
+}
