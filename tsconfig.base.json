@@ -31,7 +31,8 @@
         "libs/util/ngfi/firestore-qbuilder/src/index.ts"
       ],
       "@ngfi/functions": ["libs/util/ngfi/functions/src/index.ts"],
-      "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"]
+      "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
+      "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

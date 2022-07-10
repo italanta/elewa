@@ -15,6 +15,7 @@
     "util-ngfi-angular": "libs/util/ngfi/angular",
     "util-ngfi-firestore-qbuilder": "libs/util/ngfi/firestore-qbuilder",
     "util-ngfi-functions": "libs/util/ngfi/functions",
-    "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang"
+    "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
+    "util-ngfi-state": "libs/util/ngfi/state"
   }
 }
