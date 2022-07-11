@@ -14,7 +14,7 @@ When a story is created, two Blocks will implicetely be created as well, namely 
 
 `* When a story ends, it goes back to the main loop 
 
-**Section Data Model** 
+**StorySection Data Model** 
 ---
 | Column  | Type   | Description    |
 |---------|--------|----------------|
@@ -23,7 +23,7 @@ When a story is created, two Blocks will implicetely be created as well, namely 
 | Name    | STRING | Section name |
 | storyID?   | GUID   | Optional FK to Story |
 
-A section acts just like a story, only that it can be re-used. Whereas a story is loaded into a "channel" (communication channel i.e. whatsapp, messenger, Telegram, ...), a section is loaded by a specific "section-block".
+A StorySection acts just like a story, only that it can be re-used. Whereas a story is loaded into a "channel" (communication channel i.e. whatsapp, messenger, Telegram, ...), a section is loaded by a specific "section-block".
 
 
 <!--
