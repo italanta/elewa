@@ -1,4 +1,5 @@
 import { IObject } from "@iote/bricks";
+import { StoryBlockTypes } from "./story-block-types.enum";
 
 /**
  * A block is a main element of conversation. 
@@ -15,5 +16,6 @@ import { IObject } from "@iote/bricks";
  */
 export interface StoryBlock extends IObject
 {
-  // No params - Type to be inherited by all the different blocks.
+  type: StoryBlockTypes;
+  // ! Type to be inherited by all the different blocks.
 }

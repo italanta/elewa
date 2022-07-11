@@ -1,4 +1,4 @@
-import { IObject } from "@iote/bricks";
+import { Story } from "./story.interface";
 
 /**
  * A story-section is a conversational flow that models the 
@@ -9,11 +9,4 @@ import { IObject } from "@iote/bricks";
  * The difference between a story section and a story is that a story is often the root entry point of a conversation,
  *  while sections are hierarchicaclly added and organised through section blocks.
  */
-export interface StorySection extends IObject
-{
-  /* Foreign Key to Organisation holding the story. */
-  orgId: string;
-
-  /* Name of the story */
-  name: string;
-}
+export interface StorySection extends Story { }
