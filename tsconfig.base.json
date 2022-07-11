@@ -34,6 +34,9 @@
       "@italanta-apps/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@italanta-apps/model/convs-mgr/stories/main": [
+        "libs/model/convs-mgr/stories/main/src/index.ts"
+      ],
       "@ngfi/admin-data": ["libs/util/ngfi/admin-data/src/index.ts"],
       "@ngfi/angular": ["libs/util/ngfi/angular/src/index.ts"],
       "@ngfi/firestore-qbuilder": [
