@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/editor/src",
+  "prefix": "italanta-apps",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/features/convs-mgr/stories/editor"],
+      "options": {
+        "jestConfig": "libs/features/convs-mgr/stories/editor/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/convs-mgr/stories/editor/**/*.ts",
+          "libs/features/convs-mgr/stories/editor/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

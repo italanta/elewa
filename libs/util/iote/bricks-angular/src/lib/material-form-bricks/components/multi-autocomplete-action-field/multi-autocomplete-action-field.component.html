@@ -1,0 +1,33 @@
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="start center">
+
+  <mat-form-field fxFlex="100"> <!-- [fxFlex]="isNew || isCustomApproved ? 95 : 100"> -->
+
+    <mat-label><ng-content select="[label]"></ng-content></mat-label>
+
+    <span matPrefix *ngIf="icon"> <i [class]="icon"></i>&nbsp;&nbsp;</span>
+    <input matInput [matAutocomplete]="auto"
+                    [(ngModel)]="selectedItemNow"
+                    (keyup)="onKeyUp($event)"
+                    [required]="required"
+                    fxFlex="90"/>
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
+      <mat-optgroup *ngFor="let group of groupsDisplay$ | async" [label]="groupName(group)">
+
+        <mat-option *ngFor="let item of groupItemsInner(group)" [value]="item">
+          <span fxFlex="100" [class.highlight]="highlightFn && highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
+        </mat-option>
+
+      </mat-optgroup>
+    </mat-autocomplete>
+
+  </mat-form-field>
+
+  <!-- <div class="flex-spacer"></div> -->
+
+  <!--
+  <i class="fas fa-plus"  [class.hidden]="!isNew || (isNew && isCustomApproved)" (click)="approve()" [matTooltip]="tooltipNeedApproval"></i>
+  <i class="fas fa-check" [class.hidden]="!isCustomApproved" [matTooltip]="tooltipIsApproved"></i> -->
+
+  <!-- <div class="flex-spacer"></div> -->
+</div>

@@ -1,0 +1,21 @@
+{
+  "name": "@iote/local-persistance",
+  "version": "2.0.0",
+
+  "description": "Angular helper services to work with local storage and online/offline.",  
+
+  "author": { 
+    "name": "jrosseel",
+    "email": "rosseeljente@gmail.com",
+    "url": "https://italanta.net"
+  },
+  
+  "peerDependencies": {
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "ngx-webstorage-service": "^5.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

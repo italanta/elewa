@@ -1,0 +1,11 @@
+<iote-modal (exit)="exitModal()">
+  <div modalTitle><ng-content select="[modalTitle]"></ng-content></div>
+  <div modalSubTitle><ng-content select="[modalSubTitle]"></ng-content></div>
+
+  <div *ngIf="isLoaded" class="pdf-container">
+    <object [data]="pdfUrl" type="application/pdf">
+      <p>Your browser does not support PDFs.
+        <a [href]="pdfUrl">Download the PDF</a>.</p>
+    </object>
+  </div>
+</iote-modal>

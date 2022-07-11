@@ -1,0 +1,19 @@
+<mat-form-field fxFlex="100">
+
+  <mat-label><ng-content select="[label]"></ng-content></mat-label>
+
+  <span matPrefix *ngIf="icon"><i [class]="icon"></i>&nbsp;&nbsp;</span>
+
+  <input matInput [type]="inputType" [disabled]="disable"
+         [matAutocomplete]="auto"
+         [(ngModel)]="selectedItemNow" (keyup)="onType($event)" (change)="onTypeSelectedItem($event)"
+         [required]="required" />
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectItem($event)">
+    <mat-option *ngFor="let item of displayItems"
+                [value]="item" [disabled]="selectedItemNow === itemFieldDisplayFn(item)">
+      <span fxFlex="100" [class.highlight]="highlightFn && highlightFn(item)">{{ itemFieldDisplayFn(item) }}</span> <span *ngIf="highlightFn && highlightFn(item)">IND</span>
+    </mat-option>
+  </mat-autocomplete>
+
+</mat-form-field>

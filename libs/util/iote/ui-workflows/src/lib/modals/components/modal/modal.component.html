@@ -1,0 +1,21 @@
+<div fxLayout="column">
+  <div fxLayout="row">
+    <h2 class="mat-title modal-title"><ng-content select="[modalTitle]"></ng-content></h2>
+    <div style="flex: 1;"></div>
+    <div style="text-align: right">
+      <span (click)="exitModal()" class="close-modal-btn">
+        <i class="far fa-times-circle"></i><span>Close</span>
+      </span>
+    </div>
+  </div>
+  <div class="top-subtitle"><ng-content select="[modalSubTitle]"></ng-content></div>
+</div>
+<hr class="title-line" />
+
+<div class="modal-body">
+  <ng-content></ng-content>
+</div>
+
+<div fxLayout="row" fxLayoutAlign="end">
+  <ng-content select="[footer]"></ng-content>
+</div>

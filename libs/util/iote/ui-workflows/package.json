@@ -1,0 +1,19 @@
+{
+  "name": "@iote/ui-workflows",
+  "version": "2.0.0",
+  "description": "Base UI helpers/configured components for angular projects.",
+
+  "author": { 
+    "name": "jrosseel",
+    "email": "rosseeljente@gmail.com",
+    "url": "https://italanta.net"
+  },
+  
+  "peerDependencies": {
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

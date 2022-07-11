@@ -1,0 +1,8 @@
+<div class="highlight-section" >
+  <div class="highlight-section-title" [ngStyle]="headerStyle()">
+    <ng-content select="[title]"></ng-content>
+  </div>
+  <div class="highlight-section-body" [ngStyle]="bodyStyle()">
+    <ng-content></ng-content>
+  </div>
+</div>
