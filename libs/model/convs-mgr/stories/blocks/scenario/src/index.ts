@@ -1,1 +1,1 @@
-export * from './lib/model-convs-mgr-stories-blocks-scenario';
+export * from './lib/buttons-block.interface';
