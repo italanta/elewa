@@ -34,6 +34,9 @@
       "@italanta-apps/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@italanta-apps/model/convs-mgr/stories/blocks/main": [
+        "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
+      ],
       "@italanta-apps/model/convs-mgr/stories/main": [
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],

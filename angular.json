@@ -6,6 +6,7 @@
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
+    "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
     "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
     "util-iote-bricks": "libs/util/iote/bricks",
     "util-iote-bricks-angular": "libs/util/iote/bricks-angular",
