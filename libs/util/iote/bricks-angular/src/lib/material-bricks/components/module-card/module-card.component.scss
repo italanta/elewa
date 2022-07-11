@@ -1,0 +1,37 @@
+.module-card {
+  background: #fff; 
+  padding: 40px 20px; 
+  margin-bottom: 40px; 
+  border-radius: 5px;
+
+  -webkit-box-shadow: 0px 2px 10px 2px rgba(173,173,173,0.33);
+  -moz-box-shadow: 0px 2px 10px 2px rgba(173,173,173,0.33);
+  box-shadow: 0px 2px 10px 2px rgba(173,173,173,0.33);
+}
+
+.module-card:hover {
+  border-left: 5px solid #FFCE32; 
+  cursor: pointer;
+  transition-duration: .2s;
+}
+
+.module-card:focus {
+  outline: none !important;
+}
+
+.module-icon {
+  font-size: 60px;
+  color: #FFCE32;
+}
+
+.module-title {
+  margin-top: 30px;
+  color: #3C3C3C;
+  font-size: 18px;
+}
+
+.module-subtitle {
+  font-size: 14px;
+  margin-top: 7px;
+  color: #888888;
+}

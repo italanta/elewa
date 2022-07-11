@@ -1,0 +1,25 @@
+<div class="tile-container">
+    <div (click)="doAction()" 
+            [ngClass]="getClasses()" 
+            [ngStyle]="getStyles()" 
+            class="action-tile" 
+            (mouseover)="toggleHoverStyle($event)"
+            (mouseout)="toggleHoverStyle($event)">
+
+        <div class="icon-holder">
+            <!-- Recommended. Bind icon OR iconUrl OR text -->
+            <img *ngIf="iconUrl" class="icon-body responsive-img" [alt]="label" [src]="iconUrl" />
+
+            <div class="icon-body icon-body-text">
+                <div class="icon-text" *ngIf="text">{{ text }}</div>
+                <i *ngIf="icon" class="icon-text" [ngClass]="icon"></i>
+            </div>
+        </div>
+        <div class="name-holder">
+            <h2>{{ label }}</h2>
+        </div>
+        
+    </div>
+    
+    <div [class.disabled]="disabled"></div>
+</div>

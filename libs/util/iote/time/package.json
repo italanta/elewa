@@ -1,0 +1,16 @@
+{
+  "name": "@iote/time",
+  "version": "2.0.0",
+
+  "description": "Library with helpers for e.g. managing time and converting between serialized and moment dates.",
+  
+  "author": { 
+    "name": "jrosseel",
+    "email": "rosseeljente@gmail.com",
+    "url": "https://italanta.net"
+  },
+  "peerDependencies": {
+    "@firebase/firestore-types": "^2.5.0",
+    "moment": "^2.29.4"
+  }
+}

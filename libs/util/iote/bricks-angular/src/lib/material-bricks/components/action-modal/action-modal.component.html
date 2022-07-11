@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="header">
+  <h3>{{  title }}</h3>
+  <div (click)="exitModal()" class="close-modal-btn clickable"><i class="far fa-times-circle"></i> </div>
+</div>
+
+<div class="content">
+  {{ message  }}
+</div>
+
+<div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="end">
+  <button *ngIf="closeText" (click)="exitModal()" mat-button  class="accent">
+    <span>{{  closeText }}</span>
+  </button>
+  <button *ngIf="confirmText" (click)="confirm()" mat-raised-button color="primary">
+      <span>{{  confirmText }}</span>
+  </button>
+</div>

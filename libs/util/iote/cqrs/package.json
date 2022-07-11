@@ -1,0 +1,17 @@
+{
+  "name": "@iote/cqrs",
+  "version": "2.0.0",
+
+  "description": "Set of interfaces for working with an abstract backend with decoupled services which have access to context, data-layer and logging infrastructure.",
+  
+  "author": { 
+    "name": "jrosseel",
+    "email": "rosseeljente@gmail.com",
+    "url": "https://italanta.net"
+  },
+
+  "peerDependencies": {
+    "@iote/bricks": "^2.0.0",
+    "ngfi/firestore-qbuilder": "^2.0.0"
+  }
+}

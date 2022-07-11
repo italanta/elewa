@@ -1,0 +1,19 @@
+<div class="modal-container">
+  <div class="modal-header danger" [class.headerNoBorder]="data.noPad">
+    <div class="header-txt">{{ 'CONFIRM DELETE' |transloco}}
+      <span (click)="closeModal(false)" class="close-btn-top"><i class="fas fa-times"></i></span>
+    </div>
+  </div>
+
+  <div class="modal-content">
+    <div>{{ data.content }}</div>
+  </div>
+
+  <div class="modal-footer" [class.footerBeShaded]="data.noPad">
+    <button (click)="closeModal(true)" mat-raised-button class="delete-btn">
+      <i class="fas fa-trash-alt"></i> {{'ACTIONS.DELETE' | transloco}}
+    </button>
+
+    <button (click)="closeModal(false)" class="cancel-btn" mat-raised-button><i class="fas fa-times"></i> {{ 'CANCEL.DELETE.COMMAND' | transloco }}</button>
+  </div>
+</div>

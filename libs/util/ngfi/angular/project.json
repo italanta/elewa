@@ -1,0 +1,41 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/util/ngfi/angular/src",
+  "prefix": "italanta-apps",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/util/ngfi/angular"],
+      "options": {
+        "project": "libs/util/ngfi/angular/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/util/ngfi/angular/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/util/ngfi/angular/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/util/ngfi/angular"],
+      "options": {
+        "jestConfig": "libs/util/ngfi/angular/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/util/ngfi/angular/**/*.ts",
+          "libs/util/ngfi/angular/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

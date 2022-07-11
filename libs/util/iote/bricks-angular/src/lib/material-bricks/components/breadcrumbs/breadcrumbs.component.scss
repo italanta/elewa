@@ -1,0 +1,16 @@
+.breadcrumb {
+  font-size:1.5em;
+  display:inline-block;
+}
+  .breadcrumb:before { vertical-align:middle; padding: 50px; }
+
+
+.breadcrumb-label {
+  padding: 6px 10px; 
+  margin: 0 5px;
+}
+  .breadcrumb-label:hover {
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    cursor: pointer;
+  }
+/* .breadcrumb-divider {} */

@@ -1,0 +1,24 @@
+<div class="modal-container" fxLayout="column" fxLayoutGap="30px">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="modal-header">
+    <div class="section-title modal-title">
+      {{ data.title |transloco}}
+    </div>
+    <button (click)="closeModal(false)" mat-icon-button>
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="modal-content">
+    <div>{{ data.content | transloco}}</div>
+  </div>
+
+  <div class="modal-footer" fxLayyout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+    <button (click)="closeModal(false)" mat-raised-button color="primary">
+      {{ 'ACTIONS.CANCEL-BTN' | transloco }}
+    </button>
+
+    <button (click)="closeModal(true)" mat-raised-button color="primary" [class.danger]="data.isCritical">
+      <i class="fas fa-exclamation-triangle"></i> {{ confirmText | transloco}}
+    </button>
+  </div>
+</div>

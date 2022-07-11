@@ -1,0 +1,9 @@
+<div id="page-loader" *ngIf="loading" 
+                      fxFlexFill>
+  <app-spinner></app-spinner> {{ loadingText }}
+</div>
+<div id="app-page" *ngIf="! loading" fxFlexFill>
+  <app-frame [theme]="theme" fxFlexFill>
+    <ng-content></ng-content>
+  </app-frame>
+</div>

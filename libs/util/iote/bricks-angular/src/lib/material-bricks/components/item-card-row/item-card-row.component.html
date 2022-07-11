@@ -1,0 +1,15 @@
+<div class="item-card-row"
+     [ngClass]="{ 'selected': selected }"
+     fxLayout="row" fxLayoutAlign="center"
+     (click)="onClick()">
+
+  <mat-icon class="row-icon" [ngClass]="icon" fxFlex="15"></mat-icon>
+
+  <div fxFlex="70">{{ label }}</div>
+
+  <div *ngIf="actionIcon"
+        class="action-icon" fxFlex="15">
+    <mat-icon [ngClass]="actionIcon"></mat-icon>
+  </div>
+
+</div>
