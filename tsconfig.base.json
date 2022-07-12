@@ -32,6 +32,9 @@
       "@app/elements/layout/user-menu": [
         "libs/elements/layout/user-menu/src/index.ts"
       ],
+      "@app/features/app/auth/login": [
+        "libs/features/app/auth/login/src/index.ts"
+      ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
@@ -50,6 +53,9 @@
       "@app/model/convs-mgr/stories/blocks/scenario": [
         "libs/model/convs-mgr/stories/blocks/scenario/src/index.ts"
       ],
+      "@app/model/convs-mgr/stories/blocks/structural": [
+        "libs/model/convs-mgr/stories/blocks/structural/src/index.ts"
+      ],
       "@app/model/convs-mgr/stories/main": [
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
@@ -65,9 +71,6 @@
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
       "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
-      "@app/model/convs-mgr/stories/blocks/structural": [
-        "libs/model/convs-mgr/stories/blocks/structural/src/index.ts"
-      ],
       "@ngfi/admin-data": ["libs/util/ngfi/admin-data/src/index.ts"],
       "@ngfi/angular": ["libs/util/ngfi/angular/src/index.ts"],
       "@ngfi/firestore-qbuilder": [
