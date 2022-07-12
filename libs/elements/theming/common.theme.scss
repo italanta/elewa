@@ -1,0 +1,271 @@
+@import '~@angular/material/theming';
+
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$mat-ele: (
+  50: #e3efff,
+  100: #c3d8e9,
+  200: #a5bdd2,
+  300: #85a2bb,
+  400: #0071BC,
+  500: #000000,
+  600: #486b86,
+  700: #39576f,
+  800: #151B4A,
+  900: #000839,
+  A100: #02B3FE,
+  A200: #ffce32,
+  A400: #EB6766,
+  A700: #000BC4,
+  contrast: (
+    50: #666,
+    100: #666,
+    200: #666,
+    300: #666,
+    400: $white-87-opacity,
+    500: #ffffff,
+    600: $white-87-opacity,
+    700: $white-87-opacity,
+    800: $white-87-opacity,
+    900: white,
+    A100: $black-87-opacity,
+    A200: black,
+    A400: white,
+    A700: white,
+  )
+);
+
+/*  A100: #b9e4f8,
+  A200: #8ed2f3,
+  A400: #4998d4,
+  A700: #4285c0, */
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$primary: mat-palette($mat-ele);
+$accent:  mat-palette($mat-ele, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$theme: mat-light-theme($primary, $accent, $warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($theme);
+
+// COMPONENT STYLES
+//
+
+.mat-toolbar.mat-primary {
+  background:#ffffff;
+  color: $black-87-opacity;
+  font-family: "Varela Round", "Open Sans", "Segoe UI", Tahoma, sans-serif;
+}
+
+// GLOBAL STYLES
+//
+
+// Typography: https://medium.com/razroo/angular-material-typography-a63dbd0c1ed4
+$custom-typography: mat-typography-config(
+  $font-family: 'Lato, sans-serif',
+
+  $display-4:  mat-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
+  $display-3:  mat-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
+  $display-2:  mat-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
+  $display-1:  mat-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
+
+  $headline:       mat-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
+  $title:          mat-typography-level(20px, 32px, 500, 'Varela Round, sans-serif'),
+  $subheading-2:   mat-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
+  $subheading-1:   mat-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
+
+  $body-2:  mat-typography-level(14px, 24px, 500),
+  $body-1:  mat-typography-level(14px, 20px, 500),
+  $caption: mat-typography-level(12px, 20px, 400),
+  $button:  mat-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
+  $input:   mat-typography-level(inherit, 1.125, 400)
+);
+@include angular-material-typography($custom-typography);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Lato", sans-serif; background-color: #F2F6F9 }
+
+button:focus {outline:0;}
+a:focus {outline:0;}
+
+.container { padding: 16px; }
+
+.flex-spacer, .fill-remaining {
+  flex-grow: 1;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+.center-text {
+  text-align: center;
+}
+
+/* Screen Types */
+
+/* Screen with only a single card. */
+.card-screen {
+  min-height: 600px;
+  padding-top: 20px;
+}
+
+/* Main card component within card-screen */
+.screen-card {
+  min-width: 600px;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: #32382D;
+}
+
+/* Component Default Styles */
+.mat-card-title {
+  font-weight: 500;
+}
+
+.mat-cell {
+  color: #444;
+  font-size: 14px;
+}
+
+.page-heading {
+  text-align: center;
+}
+
+.page-heading .mat-display-1 {
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin: 10px inherit;
+}
+
+  .form-field-label {
+    margin-right: 15px;
+    margin-bottom: 5px;
+  }
+
+.breadcrumbs-container {
+  background: #fff;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  color: #3c3c3c;
+  font-size: 14px;
+}
+
+.mat-list-base {
+  padding-top: 0;
+}
+
+/** Font awesome **/
+.mat-mini-fab .mat-button-wrapper {
+  position: relative;
+  bottom: 4px;
+}
+
+.section-container{
+  margin-bottom: 20px;
+  background-color: #ffffff;
+}
+
+.section-header {
+  padding: 10px 15px;
+}
+
+.section-body {
+  padding: 0 16px;
+}
+
+.header-area{
+  min-height: 50px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: capitalize;
+  color: darkblue;
+}
+
+
+/*
+ *  Scrollbar styling
+ */
+ ::-webkit-scrollbar-track
+ {
+   box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+   -webkit-box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+   background-color: #F5F5F5;
+   border-radius: 2px;
+ }
+
+ ::-webkit-scrollbar
+ {
+ width: 5px;
+ height: 5px;
+ background-color: #F5F5F5;
+ }
+
+
+ ::-webkit-scrollbar-thumb
+ {
+   background-color: #e2e2e2;
+   border: 5px solid #C1C1C1;
+   border-radius: 3px;
+
+ }
+
+ ::-webkit-scrollbar:hover {
+   width: 10px;
+ }
+
+/** Responsive tables **/
+// Note ***: Table has to include the '.mobile-label'
+// class for this to work as it should
+.mobile-label {
+  display: none;
+}
+
+@media(max-width: 600px) {
+  .mobile-label {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-right: 5px;
+  }
+
+  mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type{
+    margin-left: -24px !important;
+  }
+
+  mat-cell{
+    max-width: 100% !important;
+    align-items: start !important;
+  }
+
+  mat-header-row {
+    display: none !important;
+  }
+
+  mat-row {
+    flex-direction: column !important;
+    align-items: start !important;
+    padding: 20px 5px;
+  }
+}
+

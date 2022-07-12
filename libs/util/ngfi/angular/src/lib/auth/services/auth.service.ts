@@ -8,18 +8,21 @@ import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat
 import { User, UserProfile, Roles, } from "@iote/bricks";
 import { ToastService, Logger } from '@iote/bricks-angular';
 import { AuthEnvironment } from "@iote/cqrs";
+
 /**
  * Authentication Service
  *
  * @see https://angularfirebase.com/lessons/google-user-auth-with-firestore-custom-data/
  */
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService 
+{
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private router: Router,
               private _logger: Logger,
               private _toastService: ToastService,
+              
               @Inject('ENVIRONMENT') private _env: AuthEnvironment)
   { }
 
@@ -38,8 +41,8 @@ export class AuthService {
 
     return firebase.auth()
                .sendPasswordResetEmail( email, actionCodeSettings )
-               .then(() => this._toastService.doSimpleToast('A password reset link has been sent to your email address.'))
-               .catch(() => this._toastService.doSimpleToast('An error occurred while attempting to reset your password. Please contact support.'));
+               //.then(() => this._toastService.doSimpleToast('A password reset link has been sent to your email address.'))
+               //.catch(() => this._toastService.doSimpleToast('An error occurred while attempting to reset your password. Please contact support.'));
   }
 
   public createUserWithEmailAndPassword(displayName: string, email: string, password: string, userProfile: UserProfile, roles: Roles)
@@ -174,7 +177,7 @@ export class AuthService {
 
     else if (errorCode === 'auth/cancelled-popup-request' || errorCode === 'auth/popup-closed-by-user')
     { // Do nothing. User cancelled him or herself.
-      // this._toastService.doSimpleToast("Popup sign in was canceled");
+      this._toastService.doSimpleToast("Popup sign in was canceled");
     }
     else {
       const errorMsg = `Login failed. Please try again. If this error persists, contact support. Code ${error.code}`;

@@ -3,7 +3,7 @@ import { EventLogger } from '@iote/bricks-angular';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from '@ngfi/angular';
-import { ForgotPasswordModal } from '../../modals/forgot-password-modal/forgot-password-modal.component';
+import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'app-login-traditional',
@@ -40,7 +40,7 @@ export class TraditionalLoginComponent
 
   forgotPass() {
     this._dialog
-          .open(ForgotPasswordModal, {
+          .open(ForgotPasswordModalComponent, {
             width: '500px'
           });
   }
