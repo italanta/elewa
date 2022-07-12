@@ -16,16 +16,6 @@
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "paths": {
-      "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
-      "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
-      "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
-      "@iote/exceptions": ["libs/util/iote/exceptions/src/index.ts"],
-      "@iote/local-persistance": [
-        "libs/util/iote/local-persistance/src/index.ts"
-      ],
-      "@iote/state": ["libs/util/iote/state/src/index.ts"],
-      "@iote/time": ["libs/util/iote/time/src/index.ts"],
-      "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
@@ -39,6 +29,9 @@
         "libs/elements/base/firebase/src/index.ts"
       ],
       "@app/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
+      "@app/elements/layout/user-menu": [
+        "libs/elements/layout/user-menu/src/index.ts"
+      ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
@@ -62,6 +55,16 @@
       ],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
+      "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
+      "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
+      "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
+      "@iote/exceptions": ["libs/util/iote/exceptions/src/index.ts"],
+      "@iote/local-persistance": [
+        "libs/util/iote/local-persistance/src/index.ts"
+      ],
+      "@iote/state": ["libs/util/iote/state/src/index.ts"],
+      "@iote/time": ["libs/util/iote/time/src/index.ts"],
+      "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
       "@italanta-apps/model/convs-mgr/stories/blocks/structural": [
         "libs/model/convs-mgr/stories/blocks/structural/src/index.ts"
       ],
