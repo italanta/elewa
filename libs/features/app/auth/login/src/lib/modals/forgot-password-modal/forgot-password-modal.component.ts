@@ -12,7 +12,7 @@ import { User } from '@iote/bricks';
   styleUrls: ['forgot-password-modal.component.scss'],
   templateUrl: 'forgot-password-modal.component.html',
 })
-export class ForgotPasswordModal
+export class ForgotPasswordModalComponent
 {
   userList: User[];
 
@@ -21,7 +21,7 @@ export class ForgotPasswordModal
   });
 
   constructor(private _fb: FormBuilder,
-              private _dialogRef: MatDialogRef<ForgotPasswordModal>,
+              private _dialogRef: MatDialogRef<ForgotPasswordModalComponent>,
               private _authservice: AuthService)
   { }
 
