@@ -59,7 +59,7 @@
       "@app/model/convs-mgr/stories/main": [
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
-      "@app/model/organisation/main": [
+      "@app/model/organisation": [
         "libs/model/organisation/main/src/index.ts"
       ],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
