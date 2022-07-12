@@ -1,1 +1,1 @@
-export * from './lib/elements-base-firebase.module';
+export * from './lib/firebase-configuration.module';
