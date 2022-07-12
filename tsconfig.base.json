@@ -25,6 +25,9 @@
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
       "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
+      "@ital/elements/base/authorisation": [
+        "libs/elements/base/authorisation/src/index.ts"
+      ],
       "@italanta-apps/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
