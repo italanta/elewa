@@ -1,0 +1,46 @@
+<div *ngIf="user$ | async; else showLogin">
+
+    <app-navbar [backButton]="false">
+      <!-- <app-user-menu></app-user-menu> -->
+    </app-navbar>
+
+    <app-spinner></app-spinner>
+
+</div>
+
+<ng-template #showLogin>
+  <div class="auth-page" fxxLayout="row" fxLayoutAlign="center center">
+    <div fxFlexLayout="row" class="auth-card mat-elevation-z4">
+      <div fxFlex="50" fxFlex.md="100" fxLayout="column" fxLayoutAlign="space-between stretch"
+           class="actual-form">
+
+        <div class="form" fxLayout="column" fxLayoutGap="2">
+          <div class="tiny-logo" fxLayoutAlign="center">
+            <img style="max-width: 100px;" src="assets/images/elewa_logo_black.png" alt="">
+          </div>
+          <router-outlet fxFlex></router-outlet>
+        </div>
+
+        <div class="blue-area" (click)="toggleMode()">
+          <div mat-raised-button fxLayoutAlign="center">
+            <span *ngIf="isLogin" class="bottom-content uppercase-txt" >
+              {{ "LOGIN.NO-ACCOUNT" | transloco }}
+            </span>
+            <span *ngIf="!isLogin" class="bottom-content uppercase-txt">
+              {{ "LOGIN.ACCOUNT-ALREADY" | transloco }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div fxFlex="50" class="elewa-info">
+        <div fxLayoutAlign="center">
+          <img id="ele-logo-sub" src="assets/images/elewa_logo_white.png" alt="" >
+        </div>
+        <p>{{ 'LOGIN.APP-INTRODUCTION' | transloco }}</p>
+      </div>
+
+    </div>
+
+  </div>
+</ng-template>
