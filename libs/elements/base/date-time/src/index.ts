@@ -1,1 +1,1 @@
-export * from './lib/elements-base-date-time.module';
+export * from './lib/date-configuration.module';
