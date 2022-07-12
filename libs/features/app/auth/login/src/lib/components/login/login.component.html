@@ -1,0 +1,91 @@
+<div fxLayout="column" fxLayoutAlign="start">
+
+  <div fxLayout="column" cardContent fxFill>
+    <div fxLayout="column" fxLayoutAlign="center">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="auth-header uppercase-txt">
+          {{ 'LOGIN.LOGIN' | transloco }}
+        </div>
+
+        <mat-select id="lang-selector" [(ngModel)]="lang"
+                    data-intercom-tooltip="Language selector"
+                    fxFlex="15" matTooltip="{{ 'FORMS.SELECT-LANGUAGE' | transloco }}">
+          <mat-option value="en" (click)="setLang('en')">EN</mat-option>
+          <mat-option value="fr" (click)="setLang('fr')">FR</mat-option>
+        </mat-select>
+      </div>
+
+      <div fxLayout="column" class="form-body" fxLayoutGap="15px">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="icon-box form-field-icon" fxLayoutAlign="center center">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <mat-form-field id="email-input" class="special-input" appearance="outline" fxFlex>
+            <input matInput name="email" type="email"
+                  [(ngModel)]="email" required ngvemail
+                  placeholder="{{ 'FORMS.FIELDS.ENTER-EMAIL' | transloco }}">
+            <mat-error>{{ 'FORMS.ERRORS.INVALID-EMAIL' | transloco }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="icon-box form-field-icon" fxLayoutAlign="center center">
+            <i class="fas fa-unlock-alt"></i>
+          </div>
+
+          <mat-form-field id="password-input" class="special-input" appearance="outline" fxFlex>
+            <input matInput placeholder="{{ 'FORMS.FIELDS.ENTER-PASSWORD' | transloco }}"
+                  name="password" type="password"
+                  [(ngModel)]="password"
+                  (keyup)="detectEnter($event)" required>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div>
+            <mat-checkbox [checked]="true" class="small-txt">{{ "LOGIN.REMEMBER-ME" | transloco }}</mat-checkbox>
+          </div>
+
+          <div>
+            <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
+              {{"LOGIN.FORGOT-PASSWORD-MODAL.TITLE" |transloco}}
+            </button>
+          </div>
+        </div>
+
+        <div fxLayoutAlign="end">
+          <app-spinner *ngIf="isLoading" [diameter]="25"></app-spinner>
+          &nbsp;
+          <button class="uppercase-txt" mat-raised-button color="primary"
+                  (click)="loginUser()" [disabled]="!validateLoginCred()" >
+            {{ 'LOGIN.LOGIN' | transloco }}
+          </button>
+        </div>
+
+        <div class="hr-with-text" fxFlex="row" fxLayoutAlign="center">
+          {{ 'LOGIN.OR' | transloco }}
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start stretch">
+          <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="center center">
+            <i class="fab fa-microsoft"></i>
+          </div>
+
+          <button mat-raised-button id="msBtn" class="uppercase-txt" (click)="loginMicrosoft()" fxFlex>
+            {{ "LOGIN.WITH-MICROSOFT" | transloco }}
+          </button>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start stretch">
+          <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
+            <i class="fab fa-google"></i>
+          </div>
+
+          <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
+            {{ "LOGIN.WITH-GOOGLE" | transloco }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

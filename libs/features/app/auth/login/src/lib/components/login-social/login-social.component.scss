@@ -1,0 +1,52 @@
+/** Login Buttons */
+
+.btn-social-login {
+  width: 180px;
+  font-size: 0.9em;
+  line-height: 2.5em;
+  font-weight: normal;
+  margin-bottom: 15px;
+  @media screen and (max-width: 768px) {
+    width: 120px;
+    font-size: 0.8em;
+    padding: auto 10px;
+
+  }
+}
+
+
+  .btn-social-login:right {
+    margin-right: 0;
+  }
+
+
+  .btn-facebook {
+    background: #3B5998;
+    color: white;
+  }
+    .btn-facebook:hover { background: #3B599840; }
+
+  .btn-microsoft {
+    background: #00a2ed;
+    color: white;
+  }
+    .btn-microsoft:hover { background: #00a2ed40; }
+
+  .btn-google {
+    background: #DB4C3F;
+    color: white;
+  }
+    .btn-google:hover { background: #db4c3fab; }
+
+  .icon-space-right {
+    margin-right: 10px
+  }
+
+.sideways {
+  margin-left: 15px;
+  width: 200px;
+}
+
+.sideways .btn-social-login {
+  width: 200px;
+}
