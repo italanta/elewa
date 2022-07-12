@@ -28,6 +28,7 @@
       "@ital/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
+      "@ital/model/user/base": ["libs/model/user/base/src/index.ts"],
       "@ital/state/user": ["libs/state/user/base/src/index.ts"],
       "@italanta-apps/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
