@@ -23,6 +23,7 @@ import { OrgStateModule } from '@app/state/organisation';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -55,7 +56,7 @@ import { AppComponent } from './app.component';
     // MessagingStateModule.forRoot(),
     // CommChannelsStateModule.forRoot(),
 
-    // AppRoutingModule
+    AppRoutingModule
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   ],
   providers: [],
