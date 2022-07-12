@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/util/iote/bricks-angular/src",
-  "prefix": "italanta-apps",
+  "prefix": "iote",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

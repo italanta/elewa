@@ -1,0 +1,21 @@
+<div class="sub-navbar" fxLayout="row" [class.hover]="isScrolled">
+  <!-- <i (click)="goBack()" *ngIf="backButton" class="fas fa-arrow-left back-ic"></i> -->
+
+  <!-- <div class="breadcrumb-holder" *ngFor="let breadcrumb of breadcrumbs; let i = index">
+
+    <span [ngClass]="(breadcrumb.isActive) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
+          [routerLink]="[ breadcrumb.link ]">
+
+          {{ breadcrumb.text }}
+    </span>
+    <span *ngIf="i + 1 < breadcrumbs.length">&gt;</span>
+  </div> -->
+
+  <div fxFlex></div>
+
+  <div fxFlexAlign="end start">
+    <!-- <app-user-menu></app-user-menu> -->
+  </div>
+
+</div>
+<div class="behind-bar"></div>

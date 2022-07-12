@@ -1,0 +1,22 @@
+<iote-page [loading]="loading" fxFlexFill>
+
+  <app-version-manager-bar></app-version-manager-bar>
+
+  <app-nav-wrapper *ngIf="!noside" fxFlex="column" fxFill>
+    <div class="content-wrapper-outer" fxLayout="column" fxFlexFill>
+
+      <app-navbar (toggleMenu)="toggleSideNav()">
+        <div title *ngIf="title">{{title}}</div>
+        <!-- <app-user-menu></app-user-menu> -->
+      </app-navbar>
+
+      <div class="content-wrapper-inner" fxLayout="column" #page>
+        <ng-content></ng-content>
+      </div>
+
+    </div>
+  </app-nav-wrapper>
+
+  <ng-content select="[fullContent]"></ng-content>
+
+</iote-page>

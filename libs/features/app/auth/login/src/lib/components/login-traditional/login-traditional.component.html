@@ -1,0 +1,31 @@
+<div fxLayout="column" >
+  <form fxFlex="100" fxLayout="column">
+    <mat-form-field class="form-field" fxFlex="100">
+      <input matInput name="email" type="email" [placeholder]="'FORMS.FIELDS.ENTER-EMAIL' | transloco"
+        [(ngModel)]="email" required ngvemail>
+    </mat-form-field>
+
+    <mat-form-field class="form-field" fxFlex="100">
+      <input matInput 
+             name="password"
+             type="password"
+             [placeholder]="'FORMS.FIELDS.ENTER-PASSWORD' | transloco"
+             [(ngModel)]="password"
+             (keyup)="detectEnter($event)" required>
+    </mat-form-field>
+  </form>
+
+  <div fxFlex="100" fxLayout="row" class="login-footer">
+    <button fxFlex="50" mat-button color="primary" (click)="forgotPass()">
+      {{"LOGIN.FORGOT-PASSWORD-MODAL.TITLE" |transloco}}
+    </button>
+
+    <div fxFlex="50" fxLayoutAlign="end">
+      <button class="login-btn" (click)="loginUser()" [disabled]="!validateLoginCred()" mat-raised-button><i
+          class="fas fa-sign-in-alt"></i> {{'LOGIN.LOGIN' | transloco }}
+      </button>
+    </div>
+
+  </div>
+
+</div>

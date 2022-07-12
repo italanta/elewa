@@ -1,1 +1,2 @@
-export * from './lib/model-convs-mgr-stories-blocks-structural';
+export * from './lib/go-to-block.interface';
+export * from './lib/section-block.interface';

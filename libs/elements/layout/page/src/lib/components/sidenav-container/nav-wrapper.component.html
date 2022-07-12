@@ -1,0 +1,19 @@
+<div class="page-content-wrapper"  *ngIf="user$ | async as user; else loading">
+
+  <mat-sidenav-container autosize>
+
+    <mat-sidenav #sidenav [mode]="mode" [(opened)]="opened" class="mat-elevation-z4">
+
+      <app-sidemenu [user]="user" fxFlex="column" fxFill></app-sidemenu>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content fxFlexFill fxFlex="100" fxLayout="column">
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</div>
+
+<ng-template #loading></ng-template>

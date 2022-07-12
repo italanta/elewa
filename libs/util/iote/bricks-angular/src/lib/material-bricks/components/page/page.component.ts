@@ -8,7 +8,7 @@ import { ThemingService } from '../../services/theming.service';
 
 
 @Component({
-  selector:    'app-page',
+  selector:    'iote-page',
   templateUrl: './page.component.html',
   styles: ['.spin-holder { width: 50px; height: 50px;}', '#page-loader { text-align: center; }']
 })

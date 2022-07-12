@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/state/organisation/main/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/organisation/main"],
+      "options": {
+        "jestConfig": "libs/state/organisation/main/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/state/organisation/main/**/*.ts",
+          "libs/state/organisation/main/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
