@@ -5,6 +5,7 @@
     "conv-learning-manager": "apps/conv-learning-manager",
     "elements-base-authorisation": "libs/elements/base/authorisation",
     "elements-base-configuration": "libs/elements/base/configuration",
+    "elements-base-date-time": "libs/elements/base/date-time",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",

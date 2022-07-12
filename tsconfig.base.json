@@ -31,6 +31,9 @@
       "@ital/elements/base/configuration": [
         "libs/elements/base/configuration/src/index.ts"
       ],
+      "@ital/elements/base/date-time": [
+        "libs/elements/base/date-time/src/index.ts"
+      ],
       "@ital/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
