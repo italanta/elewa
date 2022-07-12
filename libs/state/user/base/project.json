@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/state/user/base/src",
+  "prefix": "ital",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/user/base"],
+      "options": {
+        "jestConfig": "libs/state/user/base/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/state/user/base/**/*.ts",
+          "libs/state/user/base/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
