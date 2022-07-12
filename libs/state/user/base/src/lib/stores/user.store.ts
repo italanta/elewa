@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { UserService as UService } from '@ngfi/angular';
 import { Query } from '@ngfi/firestore-qbuilder';
 
-import { ItalUser } from '@ital/model/user';
+import { iTalUser } from '@ital/model/user';
 
 /**
  * User Service for the scope of the iTalanta EcoSystem of Apps.
@@ -14,9 +14,9 @@ import { ItalUser } from '@ital/model/user';
  * @see @ngfi/angular/auth/UserService
  */
 @Injectable({ providedIn: 'root' })
-export class UserStore extends UService<ItalUser>
+export class UserStore extends UService<iTalUser>
 {
-  getUser(): Observable<ItalUser | null>
+  getUser(): Observable<iTalUser | null>
   {
     const user = super.getUser();
 
