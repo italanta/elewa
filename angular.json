@@ -19,6 +19,7 @@
     "model-convs-mgr-stories-blocks-structural": "libs/model/convs-mgr/stories/blocks/structural",
     "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
     "model-user": "libs/model/user/base",
+    "state-organisation-main": "libs/state/organisation/main",
     "state-user": "libs/state/user/base",
     "util-iote-bricks": "libs/util/iote/bricks",
     "util-iote-bricks-angular": "libs/util/iote/bricks-angular",

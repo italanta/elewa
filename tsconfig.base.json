@@ -60,6 +60,9 @@
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
+      "@app/state/organisation/main": [
+        "libs/state/organisation/main/src/index.ts"
+      ],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
