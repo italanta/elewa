@@ -1,7 +1,7 @@
 import { User } from '@iote/bricks';
 
-import { iTalUserProfile } from './ital-user-profile.interface';
-import { iTalUserRoles } from './ital-user-roles.interface';
+import { iTalUserProfile } from './app-user-profile.interface';
+import { iTalUserRoles } from './app-user-roles.interface';
 
 export interface iTalUser extends User
 {

@@ -14,6 +14,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strictPropertyInitialization": false,
     "paths": {
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
@@ -25,42 +26,42 @@
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
       "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
-      "@ital/elements/base/authorisation": [
+      "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
-      "@ital/elements/base/configuration": [
+      "@app/elements/base/configuration": [
         "libs/elements/base/configuration/src/index.ts"
       ],
-      "@ital/elements/base/date-time": [
+      "@app/elements/base/date-time": [
         "libs/elements/base/date-time/src/index.ts"
       ],
-      "@ital/elements/base/firebase": [
+      "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
       ],
-      "@ital/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
-      "@ital/features/convs-mgr/home": [
+      "@app/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
+      "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
-      "@ital/features/convs-mgr/stories/editor": [
+      "@app/features/convs-mgr/stories/editor": [
         "libs/features/convs-mgr/stories/editor/src/index.ts"
       ],
-      "@ital/features/convs-mgr/stories/home": [
+      "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
-      "@ital/model/convs-mgr/stories/blocks/main": [
+      "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
       ],
-      "@ital/model/convs-mgr/stories/blocks/messaging": [
+      "@app/model/convs-mgr/stories/blocks/messaging": [
         "libs/model/convs-mgr/stories/blocks/messaging/src/index.ts"
       ],
-      "@ital/model/convs-mgr/stories/blocks/scenario": [
+      "@app/model/convs-mgr/stories/blocks/scenario": [
         "libs/model/convs-mgr/stories/blocks/scenario/src/index.ts"
       ],
-      "@ital/model/convs-mgr/stories/main": [
+      "@app/model/convs-mgr/stories/main": [
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
-      "@ital/model/user": ["libs/model/user/base/src/index.ts"],
-      "@ital/state/user": ["libs/state/user/base/src/index.ts"],
+      "@app/model/user": ["libs/model/user/base/src/index.ts"],
+      "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@italanta-apps/model/convs-mgr/stories/blocks/structural": [
         "libs/model/convs-mgr/stories/blocks/structural/src/index.ts"
       ],
