@@ -37,7 +37,7 @@ export class ForgotPasswordModal
 
   resetPassword()
   {
-    const email = this.changePasswordForm.get('email').value;
+    const email = this.changePasswordForm.get('email')?.value;
     this._authservice.resetPassword( email );
     this.exitModal()
     // if(this.ifEmailExists(email))

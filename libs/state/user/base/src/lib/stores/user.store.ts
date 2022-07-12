@@ -16,11 +16,11 @@ import { iTalUser } from '@app/model/user';
 @Injectable({ providedIn: 'root' })
 export class UserStore extends UService<iTalUser>
 {
-  getUser(): Observable<iTalUser | null>
+  override getUser(): Observable<iTalUser>
   {
     const user = super.getUser();
 
-    return user.pipe(map(u => (u && u.roles.access) ? u : null));
+    return user.pipe(map(u => ((u && u.roles.access) ? u : null) as iTalUser));
   }
 
   getUsers = () => this.getUsersBase(new Query().where('roles.access', '==', true));

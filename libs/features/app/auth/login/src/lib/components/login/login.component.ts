@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit
   validateLoginCred = () => this.email && this.password;
 
   // When user clicks enter, try log in.
-  detectEnter = (event) => (event.key === "Enter") ? this.loginUser() : 'noop';
+  detectEnter = (event: any) => (event.key === "Enter") ? this.loginUser() : 'noop';
 
   loginUser()
   {

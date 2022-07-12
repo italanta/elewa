@@ -27,7 +27,7 @@ export class IsLoggedInGuard implements CanActivate, CanLoad
   {
     return this.authService
                .getUser()
-               .pipe(map(u => u && u != null));
+               .pipe(map(u => !!u));
   }
 
 }

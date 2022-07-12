@@ -15,7 +15,7 @@ import { TranslateService } from '@ngfi/multi-lang';
 export class RegisterComponent
 {
   registerForm: FormGroup;
-  confirmPassword;
+  confirmPassword: string;
   phoneFormat: string;
   lang : 'fr' | 'en' | 'nl';
   isLoading = false;
@@ -80,7 +80,7 @@ export class RegisterComponent
     }
   }
 
-  countryChanged($event)
+  countryChanged($event: any)
   {
     const splitPlaceholder = ($event.placeHolder).split($event.dialCode);
     this.phoneFormat = `${splitPlaceholder[0]}${$event.dialCode}   ${splitPlaceholder[1]}`;
@@ -92,7 +92,7 @@ export class RegisterComponent
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
 
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
         // return if another validator has already found an error on the matchingControl
         return;
       }
