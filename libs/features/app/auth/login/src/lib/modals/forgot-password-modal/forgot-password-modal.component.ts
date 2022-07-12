@@ -1,8 +1,8 @@
-import {Component, Inject } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component } from '@angular/core';
+import {MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { AuthService } from '@ngfire/angular';
+import { AuthService } from '@ngfi/angular';
 import { User } from '@iote/bricks';
 
 // import { UserStore } from '@elewa/state/user';
