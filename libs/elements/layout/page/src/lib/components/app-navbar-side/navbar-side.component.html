@@ -1,0 +1,30 @@
+<mat-toolbar id="nav-toolbar" color="primary"> <!-- class="mat-elevation-z2"> -->
+
+  <div class="link-toggle">
+    <a [routerLink]="['/home']">
+      <img class="logo" [src]="getLogo()" />
+    </a>
+  </div>
+
+  <div class="breadcrumb-holder" *ngFor="let breadcrumb of breadcrumbs; let i = index">
+
+    <span *ngIf="i === 0" class="br-seperator br-first">/</span>
+
+    <span [ngClass]="(breadcrumb.isActive) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
+          [routerLink]="[ breadcrumb.link ]">
+
+          {{ breadcrumb.text }}
+    </span>
+
+    <span *ngIf="i + 1 < breadcrumbs.length" class="br-seperator">/</span>
+  </div>
+
+  <div class="flex-spacer"></div>
+
+  <button *ngIf="promoteInstall" (click)="install()"
+          class="btn-small" mat-raised-button color="accent">
+    <i class="fas fa-plus"></i>Install
+  </button>
+
+  <ng-content></ng-content>
+</mat-toolbar>

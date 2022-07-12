@@ -1,0 +1,81 @@
+.auth-header{
+  color: #210A59;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.uppercase-txt{
+  text-transform: uppercase;
+}
+
+#googleBtn{
+  background-color: #de5246;
+  color: white;
+}
+
+#fbBtn{
+  background-color: #4267B2;
+  color: white;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix{
+  padding: 0 !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper{
+  background-color: #00000000 !important;
+}
+
+.small-txt{
+  font-size: 14px;
+}
+
+.hr-with-text{
+  color: #919698;
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.hr-with-text::before, .hr-with-text::after{
+  content: '';
+  width: 20px;
+  flex: 1;
+  border-bottom: 1px solid #919698;  
+  margin: 0 3px 8px 3px;
+  opacity: 0.6;
+}
+
+#forgot-btn{
+  padding-right: 0;
+}
+
+.icon-box{
+  padding: 15px;
+  // border: 1px solid #FDFDFD;  
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin-right: -2px;
+
+  &.form-field-icon{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #919698;
+    background-color: #70739D0D;
+    max-height: 35px;
+  }
+
+  &.google-icon{
+    color: white;
+    background-color: #8b0000;
+  }
+
+  &.fb-icon{
+    color: white;
+    background-color: #29487D;
+  }
+}
+
+.special-input{
+  min-height: 40px;
+}

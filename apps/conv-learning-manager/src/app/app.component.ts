@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'italanta-apps-root',
+  selector: 'convl-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

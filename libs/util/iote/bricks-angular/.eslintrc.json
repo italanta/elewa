@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "italantaApps",
+            "prefix": "iote",
             "style": "camelCase"
           }
         ],

@@ -33,7 +33,7 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
     super([], true);
   }
 
-  get(entityFilter? : (t: T) => boolean) : Observable<T[]>
+  override get(entityFilter? : (t: T) => boolean) : Observable<T[]>
   {
     return this.state$.pipe(debounceTime(400),
                             filter(state => !state.loading),

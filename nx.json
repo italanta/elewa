@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "italanta-apps",
+  "npmScope": "app",
   "affected": {
     "defaultBase": "main"
   },

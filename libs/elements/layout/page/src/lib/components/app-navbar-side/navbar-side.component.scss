@@ -1,0 +1,46 @@
+mat-toolbar {
+  height: 54px;
+  z-index: 999;
+
+  background-color: #fff !important;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+.link-toggle {
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+img {
+  width: 200px;
+}
+
+.br-seperator {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+  .br-first {
+    margin-left: 20px;
+  }
+
+
+.breadcrumb-holder {
+  margin-top:5px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #B5B5B3;
+}
+
+.breadcrumb-item:hover {
+  cursor: pointer;
+  color: #0071BC;
+}
+
+.breadcrumb-item:focus {
+  outline: none;
+}
+
+// .active-breadcrumb {
+//   color: #000;
+// }
+

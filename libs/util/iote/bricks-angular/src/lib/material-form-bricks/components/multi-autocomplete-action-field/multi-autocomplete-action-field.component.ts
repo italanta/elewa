@@ -4,7 +4,7 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import * as _ from 'lodash';
+import { clone as ___clone } from 'lodash';
 
 @Component({
   selector: 'iote-multi-autocomplete-action-field',
@@ -76,7 +76,7 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnChanges
     return groups.map(g => { filter = this._cleanFilter(filter);
                              if(this._cleanFilter(this.groupName(g)).indexOf(filter) >= 0)
                              { // Pass = Don't filter any of the group children
-                               const cp = _.clone(g) as any;
+                               const cp = ___clone(g) as any;
                                cp.pass = true;
                                return cp;
                              }
@@ -92,7 +92,7 @@ export class MultiAutocompleteActionFieldComponent<G,I> implements OnChanges
                   .filter(g => g != null);
   }
 
-  private _showAll = (gs: G[]) => gs.map(g => { g = _.clone(g); (g as any).pass = true; return g; });
+  private _showAll = (gs: G[]) => gs.map(g => { g = ___clone(g); (g as any).pass = true; return g; });
 
   groupItemsInner(group: G)
   {

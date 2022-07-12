@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import * as _ from 'lodash';
+import { filter as ___filter, orderBy as ___orderBy } from 'lodash';
 
 @Component({
   selector: 'iote-autocomplete-action-field',
@@ -73,13 +73,13 @@ export class AutocompleteActionFieldComponent<T> implements OnInit, OnChanges
       return items;
 
     const filter = this._sanitize(this._filter);
-    return _.filter(items, i =>  this._sanitize(this._getName(i)).indexOf(filter) >= 0) as T[];
+    return ___filter(items, (i: T) =>  this._sanitize(this._getName(i)).indexOf(filter) >= 0) as T[];
   }
 
   // Src: https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
   private _sanitize = (tr: string) => tr.replace(' ', '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
-  private _sortFn   = (items: T[]) => _.orderBy(items, i => this._getName(i), 'asc');
+  private _sortFn   = (items: T[]) => ___orderBy(items, i => this._getName(i), 'asc');
 
   private _getName  = (item: T)    => this.itemFieldDisplayFn ? this.itemFieldDisplayFn(item) : (item as any) as string;
 }
