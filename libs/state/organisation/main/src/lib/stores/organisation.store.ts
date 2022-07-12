@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { User } from '@iote/bricks';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
-import { throttleTime, switchMap } from 'rxjs/operators';
+import { tap, map, throttleTime, switchMap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 import { Query } from '@ngfi/firestore-qbuilder';
@@ -12,6 +13,7 @@ import { UserStore } from '@app/state/user';
 import { iTalUser  } from '@app/model/user';
 
 import { Organisation } from '@app/model/organisation';
+import { of } from 'rxjs';
 
 @Injectable()
 export class OrgStore extends DataStore<Organisation>
@@ -19,6 +21,8 @@ export class OrgStore extends DataStore<Organisation>
   protected store = 'org-store';
   protected _activeRepo: Repository<Organisation>;
 
+  private _activeUser: User;
+  
   // Question to dev's reviewing:
   //   Will this always get all the organisations?
   //     i.e. Even if no organisations need to be loaded for a specific piece of functionaly e.g. invites, do we still load all organisations?
@@ -33,8 +37,13 @@ export class OrgStore extends DataStore<Organisation>
     this._activeRepo = _repoFac.getRepo<Organisation>('orgs');
 
     const data$ = _userService.getUser()
-                              .pipe(switchMap((user: iTalUser | null) => 
-                                        user ? this._activeRepo.getDocuments(this._getDomain(user)) : []),
+                              .pipe(tap((user: iTalUser | null) => this._activeUser = user as User),
+                                    switchMap((user: iTalUser | null) => 
+                                        user ? this._activeRepo.getDocuments(this._getDomain(user)) : of([] as Organisation[])),
+                                    
+                                    // If no organisations are set, set to the default org which is of uid
+                                    map((orgs: Organisation[]) => orgs.length > 0 ? orgs : [this._getDefaultOrg(this._activeUser)]),
+                                    
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(properties => {
@@ -48,11 +57,25 @@ export class OrgStore extends DataStore<Organisation>
 
     if(!user.roles.admin)
     {
-          // @warning: In-query poses hard limit of max 10 orgs per user!
-      q = q.where('users', 'array-contains', user.id);
+      // Default org has ID = User ID
+      q = q.where('id', '==', user.id);
     }
 
     return q;
+  }
+
+  private _getDefaultOrg(u: User) : Organisation | null 
+  {
+    if(!u) return null;
+
+    return {
+      id: u.id,
+      name: u.displayName ?? 'Unidentified',
+      contact: {
+        name: u.displayName ?? 'Unidentified',
+        email: u.email
+      }
+    };
   }
 
   /** Updates organisation information.
