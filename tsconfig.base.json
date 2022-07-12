@@ -60,7 +60,7 @@
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
-      "@app/state/organisation/main": [
+      "@app/state/organisation": [
         "libs/state/organisation/main/src/index.ts"
       ],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
