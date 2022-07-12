@@ -1,1 +1,2 @@
-export * from './lib/state-user-base.module';
+export * from './lib/stores/user.store';
+export * from './lib/user-state.module';
