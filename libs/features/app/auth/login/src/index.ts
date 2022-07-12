@@ -1,1 +1,2 @@
-export * from './lib/features-app-auth-login.module';
+export * from './lib/auth-router.module';
+export * from './lib/auth.module';
