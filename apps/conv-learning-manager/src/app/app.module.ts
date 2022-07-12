@@ -8,9 +8,11 @@ import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialBricksModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { AuthorisationModule } from '@app/elements/base/authorisation';
 import { AppConfigurationModule } from '@app/elements/base/configuration';
@@ -28,7 +30,7 @@ import { AppRoutingModule } from './app.routing.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule,
+    BrowserModule, BrowserAnimationsModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
@@ -42,7 +44,7 @@ import { AppRoutingModule } from './app.routing.module';
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
     FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
-    // MultiLangModule.forRoot(false),
+    MultiLangModule.forRoot(false),
     // UserNavModule,
 
     MatProgressBarModule,

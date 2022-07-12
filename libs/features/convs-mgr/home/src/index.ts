@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-home.module';
+export * from './lib/convs-mgr-home.module';

@@ -132,17 +132,12 @@ export class RegisterComponent
 
   getTermsLink()
   {
-    switch(this.lang)
-    {
-
-    }
+    return '';
   }
 
   getPolicyLink()
   {
-    switch(this.lang)
-    {
-    }
+    return '';
   }
 
 }

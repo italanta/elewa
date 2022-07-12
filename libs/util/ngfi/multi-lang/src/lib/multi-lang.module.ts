@@ -27,7 +27,7 @@ import { CustomLanguageLoader } from './config/multi-lang-loader.service';
 
 
 export class MultiLangModule {
-  static forRoot(loadHttp: boolean, s4yLangsFactory:any, langs?: string[]): ModuleWithProviders<MultiLangModule> {
+  static forRoot(loadHttp: boolean, langs?: string[]): ModuleWithProviders<MultiLangModule> {
     return {
       ngModule: MultiLangModule,
       providers: [
@@ -42,20 +42,19 @@ export class MultiLangModule {
             prodMode: true
           })
         },
-        (loadCustomProviders(loadHttp, s4yLangsFactory))
+        (loadCustomProviders(loadHttp))
       ].filter(a => a != null)
     };
   }
 }
 
 //Load providers for custom language loader.
-function loadCustomProviders(loadHttp: boolean, s4yLangsFactory:any) {
+function loadCustomProviders(loadHttp: boolean) {
   if (loadHttp) {
     return { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader }
   } else {
     return [
-            { provide: TRANSLOCO_LOADER, useClass: CustomLanguageLoader },
-            { provide: 'S4Y_LANGS', deps: [PLATFORM_ID, NgZone], useFactory: s4yLangsFactory },
+            { provide: TRANSLOCO_LOADER, useClass: CustomLanguageLoader }
            ];
   }
 

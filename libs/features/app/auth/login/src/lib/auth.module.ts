@@ -13,7 +13,7 @@ import { LoginComponent }            from './components/login/login.component';
 import { SocialLoginComponent }      from './components/login-social/login-social.component';
 import { TraditionalLoginComponent } from './components/login-traditional/login-traditional.component';
 import { RegisterComponent }         from './components/register/register.component';
-import { ForgotPasswordModal }       from './modals/forgot-password-modal/forgot-password-modal.component';
+import { ForgotPasswordModalComponent }       from './modals/forgot-password-modal/forgot-password-modal.component';
 
 import { AuthPageComponent } from './pages/auth/auth.page.component';
 import { AuthRouterModule }  from './auth-router.module';
@@ -30,7 +30,7 @@ import { AuthRouterModule }  from './auth-router.module';
             AuthRouterModule],
 
   declarations: [LoginComponent, SocialLoginComponent, TraditionalLoginComponent,
-                 RegisterComponent, ForgotPasswordModal,
+                 RegisterComponent, ForgotPasswordModalComponent,
 
                   AuthPageComponent],
 
