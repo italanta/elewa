@@ -65,7 +65,7 @@
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
       "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
-      "@italanta-apps/model/convs-mgr/stories/blocks/structural": [
+      "@app/model/convs-mgr/stories/blocks/structural": [
         "libs/model/convs-mgr/stories/blocks/structural/src/index.ts"
       ],
       "@ngfi/admin-data": ["libs/util/ngfi/admin-data/src/index.ts"],

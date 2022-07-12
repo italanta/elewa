@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
-
-import { UserMenuModule } from '@app/elements/user/menu';
+ 
+import { UserMenuModule } from '@app/elements/layout/user-menu';
 
 import { PageComponent }             from './components/app-page/page.component';
 import { NavbarComponent }           from './components/app-navbar/navbar.component';
@@ -13,7 +13,7 @@ import { NavbarSideComponent }       from './components/app-navbar-side/navbar-s
 import { SideNavContainerComponent } from './components/sidenav-container/nav-wrapper.component';
 import { SideMenuFooterComponent }   from './components/sidemenu-footer/sidemenu-footer.component';
 import { SubNavBarComponent }        from './components/sub-bar/sub-navbar.component';
-import { VersionManagerBar }         from './components/version-manager-bar/version-manager-bar.component';
+import { VersionManagerBarComponent } from './components/version-manager-bar/version-manager-bar.component';
 import { SideMenuComponent }         from './components/sidemenu/sidemenu.component';
 
 /**
@@ -22,13 +22,13 @@ import { SideMenuComponent }         from './components/sidemenu/sidemenu.compon
 @NgModule({
   imports: [CommonModule,  RouterModule,
             MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-            ],
+            UserMenuModule],
 
   declarations: [PageComponent, NavbarSideComponent, SideMenuComponent, NavbarComponent,
-                 SideNavContainerComponent, VersionManagerBar,
+                 SideNavContainerComponent, VersionManagerBarComponent,
                  SideMenuFooterComponent, SubNavBarComponent,],
 
   providers: [],
-  exports: [ElePageComponent, VersionManagerBar],
+  exports: [PageComponent, VersionManagerBarComponent],
 })
 export class iTalPageModule { }

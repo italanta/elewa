@@ -7,7 +7,7 @@ import { SubSink } from 'subsink';
   templateUrl: './version-manager-bar.component.html',
   styleUrls: [ './version-manager-bar.component.scss' ]
 })
-export class VersionManagerBar implements OnInit
+export class VersionManagerBarComponent implements OnInit
 {
   private _sbS = new SubSink();
 
