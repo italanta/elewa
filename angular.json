@@ -7,6 +7,7 @@
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
     "elements-base-firebase": "libs/elements/base/firebase",
+    "elements-layout-page": "libs/elements/layout/page",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
