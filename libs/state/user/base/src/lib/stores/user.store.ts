@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { UserService as UService } from '@ngfi/angular';
 import { Query } from '@ngfi/firestore-qbuilder';
 
-import { iTalUser } from '@ital/model/user';
+import { iTalUser } from '@app/model/user';
 
 /**
  * User Service for the scope of the iTalanta EcoSystem of Apps.

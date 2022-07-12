@@ -4,7 +4,7 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanLo
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { UserStore } from '@ital/state/user';
+import { UserStore } from '@app/state/user';
 
 @Injectable()
 export class IsAdminGuard implements CanActivate, CanLoad

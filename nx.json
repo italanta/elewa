@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "ital",
+  "npmScope": "app",
   "affected": {
     "defaultBase": "main"
   },
