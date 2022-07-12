@@ -1,1 +1,1 @@
-export * from './lib/elements-base-configuration.module';
+export * from './lib/app-config.module';
