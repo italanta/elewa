@@ -4,7 +4,7 @@ import { EventLogger } from '@iote/bricks-angular';
 
 import { AuthService } from '@ngfi/angular';
 import { TranslateService } from '@ngfi/multi-lang';
-import { ForgotPasswordModal } from '../../modals/forgot-password-modal/forgot-password-modal.component';
+import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 
 @Component({
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit
 
   forgotPass() {
     this._dialog
-          .open(ForgotPasswordModal, {
+          .open(ForgotPasswordModalComponent, {
             width: '500px'
           });
   }

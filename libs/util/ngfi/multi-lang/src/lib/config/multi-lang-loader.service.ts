@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { TranslocoLoader, Translation } from '@ngneat/transloco';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CustomLanguageLoader implements TranslocoLoader
 {
-  constructor(@Inject('S4Y_LANGS') private _afs: AngularFirestore)
+  constructor(private _afs: AngularFirestore)
   { }
 
   getTranslation(lang: string): Observable<Translation>
