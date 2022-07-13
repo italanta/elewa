@@ -8,13 +8,12 @@ import { TransclusionHelper, Logger } from '@iote/bricks-angular';
 })
 export class NavbarComponent implements OnInit, AfterViewInit 
 {
-  @Input() navbarTitle: string;
+  @Input() title: string;
   @Input() backButton = true;
 
   @Input() logo: string;
 
   @Output() toggleMenu: EventEmitter<any> = new EventEmitter();
-
 
   constructor(
     private _logger: Logger,

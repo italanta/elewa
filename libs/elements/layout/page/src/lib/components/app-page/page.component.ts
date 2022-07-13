@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { Breadcrumb } from '@iote/bricks-angular';
+
 import { SideNavContainerComponent } from '../sidenav-container/nav-wrapper.component';
 
 @Component({

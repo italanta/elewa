@@ -34,7 +34,7 @@ export class SideNavContainerComponent
   }
 
   @HostListener('window: resize', ['$event'])
-  onResize(event) {
+  onResize() {
     this._checkIsDesktop();
   }
 

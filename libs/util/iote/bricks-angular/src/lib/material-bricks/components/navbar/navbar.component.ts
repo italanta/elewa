@@ -4,13 +4,13 @@ import { TransclusionHelper } from '../../../util/services/transclusion-helper.s
 import { Logger } from '../../../util/services/logger.service';
 
 @Component({
-  selector: "app-navbar",
+  selector: "iote-navbar",
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit, AfterViewInit
 {
-  @Input() navbarTitle: string;
+  @Input() title: string;
   @Input() backButton = true;
 
   @Input() logo: string;
