@@ -16,8 +16,8 @@ export class SideMenuComponent implements OnInit, OnDestroy
 
   @Input() user: any;
 
-  orgId:  string;
-  flowId: string;
+  projectName: string;
+  projectInfo: string;
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
@@ -26,8 +26,8 @@ export class SideMenuComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
-    this.orgId  = this._env.project.name;
-    this.flowId = this._env.project.flows[0];
+    this.projectName = this._env.project.name;
+    this.projectInfo = this._env.project.info;
   }
 
   getLogo = () => 'assets/images/italanta-logo.png'

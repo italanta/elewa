@@ -9,6 +9,8 @@ import { UIWorkflowModule } from '@iote/ui-workflows';
 import { UserStateModule } from '@app/state/user';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
+import { iTalPageModule } from '@app/elements/layout/page';
+
 import { LoginComponent }            from './components/login/login.component';
 import { SocialLoginComponent }      from './components/login-social/login-social.component';
 import { TraditionalLoginComponent } from './components/login-traditional/login-traditional.component';
@@ -26,6 +28,8 @@ import { AuthRouterModule }  from './auth-router.module';
             MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
             FormsModule, ReactiveFormsModule,
             UserStateModule,
+
+            iTalPageModule,
 
             AuthRouterModule],
 

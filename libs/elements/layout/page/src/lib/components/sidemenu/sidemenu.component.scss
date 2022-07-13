@@ -1,7 +1,7 @@
 // Import theming functions
 @import '@angular/material/theming';
 // Import your custom theme
-@import 'libs/elements/theming/theme.scss';
+@import 'libs/elements/theming/common.theme.scss';
 
 #side-menu {
   min-width: 200px;
@@ -31,7 +31,7 @@ mat-nav-list {
   border-radius: 5px;
 }
 
-.address-info {
+.proj-info {
   font-size: 0.7em;
   font-weight: 200;
   color: #ccc;
@@ -111,8 +111,4 @@ mat-nav-list {
 .hov:hover, .child-header:hover {
   cursor: pointer;
   background-color: mat-color($accent, A200);
-}
-
-s4y-sidemenu-footer {
-  display: flex;
 }

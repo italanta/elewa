@@ -15,11 +15,11 @@
          mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
 
       <!-- <i matListIcon class="fas fa-columns"></i> -->
-      <img class=" list-icon icon-top" src="assets/images/ele-small-ico.png">
+      <img class="list-icon icon-top" src="assets/images/ele-small-ico.png">
       <div fxLayout="column">
-        <div class="prop-name">Elewa Backend</div>
-        <div class="address-info">
-          Learning Management System
+        <div class="proj-name">{{ projectName }}</div>
+        <div class="proj-info">
+          {{ projectInfo }}
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
     <hr id="menu-header-seperator"/>
 
     <!-- Section Dashboard -->
-    <div [routerLink]="['/org', orgId, 'flows', flowId]"  routerLinkActive #rlaHome="routerLinkActive"
+    <!-- <div [routerLink]="['/org', orgId, 'flows', flowId]"  routerLinkActive #rlaHome="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
       <div fxLayout="row">
@@ -45,10 +45,10 @@
           Dashboard
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Section Chats -->
-    <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
+    <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaChats.isActive" [class.hov]="!rlaChats.isActive" fxLayout="column">
 
       <div fxLayout="row">
@@ -68,13 +68,13 @@
         <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats', 'participants']"  routerLinkActive="highlight-active"
               mat-list-item class="child-header child-1">
             Participants
-        </div>
+        </div> -->
         <!-- <div [routerLink]="['/assessments']"  routerLinkActive="highlight-active"
               mat-list-item class="child-header">
             Assessments
         </div> -->
-      </div>
-    </div>
+      <!-- </div>
+    </div> -->
 
 
     <!-- Section Sales -->

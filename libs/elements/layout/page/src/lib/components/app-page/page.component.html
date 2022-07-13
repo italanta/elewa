@@ -1,6 +1,4 @@
-<iote-page [loading]="loading" fxFlexFill>
-
-  <app-version-manager-bar></app-version-manager-bar>
+<div class="page" fxFlexFill>
 
   <app-nav-wrapper *ngIf="!noside" fxFlex="column" fxFill>
     <div class="content-wrapper-outer" fxLayout="column" fxFlexFill>
@@ -19,4 +17,4 @@
 
   <ng-content select="[fullContent]"></ng-content>
 
-</iote-page>
+</div>
