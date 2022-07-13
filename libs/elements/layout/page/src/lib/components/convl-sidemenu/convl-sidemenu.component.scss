@@ -1,0 +1,114 @@
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+
+#side-menu {
+  min-width: 200px;
+  font-family: mat-font-family($custom-typography, subheading-2);
+}
+
+mat-nav-list {
+  overflow: auto;
+}
+
+
+.logo {
+  max-height: 50px;
+  margin: 10px 0 0 20px;
+}
+
+.list-icon {
+  margin-right: 10px;
+  -webkit-text-stroke: 0.5px mat-color($primary, 900);
+}
+
+.icon-top {
+  font-size: 1.5em;
+  margin-right: 15px;
+  color: mat-color($accent, A200);
+  max-width: 25px;
+  border-radius: 5px;
+}
+
+.proj-info {
+  font-size: 0.7em;
+  font-weight: 200;
+  color: #ccc;
+}
+
+#menu-header-seperator {
+  border: 0.5px solid rgba(255,255,255,.1);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.header {
+  padding: 12px 25px;
+  border-bottom: 0.8px solid rgba(255,255,255,.1);
+  font-size: 14px;
+  outline: none;
+}
+
+.header-main-item:before {
+  content: "";
+  border-left: 3px solid mat-color($accent, A200);;
+  padding: 10px 5px;
+}
+
+.top-header {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  border-bottom: 5px solid #fafafa;
+  margin-bottom: 10px;
+}
+
+.chevron-down {
+  margin-left: auto;
+  margin-top: 5px;
+  text-align: right;
+  font-size: 0.8em;
+}
+
+.right{
+  transform: rotate(270deg);
+}
+
+.child-header {
+  outline: none;
+  padding: 7px;
+  padding-left: 0;
+  text-transform: capitalize;
+  margin-right: -20px;
+  border-radius: 5px;
+  // margin-bottom: 5px;
+}
+
+.child-header::before
+{
+  content: "";
+  border-left: 2px solid hsla(0,0%,100%,0);
+  margin: 5px;
+  padding: 4px;
+}
+
+.child-1 {
+  margin-top: 8px;
+}
+
+.highlight-active {
+  background-color: mat-color($accent, A200);;
+  outline: none;
+}
+
+.highlight-active:before {
+  content: "";
+  // border-left: 3px solid mat-color($accent, A200);;
+  // padding: 10px 5px;
+}
+
+.hov:hover, .child-header:hover {
+  cursor: pointer;
+  background-color: mat-color($accent, A200);
+}
