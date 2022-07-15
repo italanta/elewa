@@ -17,8 +17,9 @@
           "apps/conv-learning-manager/src/favicon.ico",
           "apps/conv-learning-manager/src/assets"
         ],
-        "styles": ["apps/conv-learning-manager/src/styles.scss",
-                   "libs/elements/theming/common.theme.scss"],
+        "styles": [
+          "apps/conv-learning-manager/src/styles.scss",
+          "libs/elements/theming/common.theme.scss"],
         "scripts": []
       },
       "configurations": {

@@ -10,6 +10,7 @@
         </a>
       </span>
     </div> -->
+
     <div [routerLink]="['/']"
          mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
 
@@ -25,8 +26,8 @@
 
     <hr id="menu-header-seperator"/>
 
-    <!-- Section Dashboard -->
-    <div routerLinkActive #rlaHome="routerLinkActive"
+    <!-- Section Home -->
+    <div [routerLink]="['/']"  routerLinkActive #rlaHome="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
       <div fxLayout="row">
@@ -38,15 +39,13 @@
         <ng-template #icon2><i class="fas fa-sort-down chevron-down"></i></ng-template>
       </div>
 
-      <div class="category-children"  fxLayout="column" fxLayoutGap="5px">
-        <div 
+      <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
+        <div [routerLink]="['/org']"
              mat-list-item class="child-header child-1">
-          Dashboard - Success !
+          Dashboard
         </div>
       </div>
     </div>
-
-    TEST
 
     <!-- Section Chats -->
     <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
