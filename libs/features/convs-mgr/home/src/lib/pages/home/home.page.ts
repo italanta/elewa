@@ -2,17 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router }    from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
-import { User } from '@iote/bricks';
 import { Breadcrumb } from '@iote/bricks-angular';
 
-import { iTalUser } from '@app/model/user';
-import { Organisation } from '@app/model/organisation';
-
-import { UserStore } from '@app/state/user';
-import { ActiveOrgStore } from '@app/state/organisation';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
@@ -29,29 +23,14 @@ export class HomePageComponent implements OnDestroy
 
   breadcrumbs: Breadcrumb[] = [];
 
-  user$: Observable<iTalUser>;
-  org$ : Observable<Organisation>;
+  stories$: Observable<Story[]> = of([{ name: 'Story 1', orgId: 'a'}, { name: 'Story 2', orgId: 'a' }]) as any as Observable<Story[]>;
 
   loading = true;
 
-  constructor(_user$$: UserStore,
-              _org$$ : ActiveOrgStore,
-
+  constructor(
               private _router: Router)
   {
-    this.user$ = _user$$.getUser();
-    this.org$  = _org$$.get();
     this.breadcrumbs = [HOME_CRUMB(_router, true)]
-  }
-
-  getUserName = (u: User | null) => u?.displayName as string;
-  orgName$  = () => this.org$ .pipe(map(u => u?.id as string));
-
-  goTo(area: string)
-  {
-    this._sb.sink =
-      this.org$.pipe(take(1))
-          .subscribe((org) => this._router.navigate(['org', org.id, area]));
   }
 
   ngOnDestroy()
