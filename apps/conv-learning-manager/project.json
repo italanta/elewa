@@ -19,7 +19,8 @@
         ],
         "styles": [
           "apps/conv-learning-manager/src/styles.scss",
-          "libs/elements/theming/common.theme.scss"],
+          "libs/elements/theming/common.theme.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -43,7 +44,7 @@
             },
             {
               "replace": "libs/elements/layout/page/src/lib/ital-page.module.ts",
-              "with":    "libs/elements/layout/page/src/lib/convl-page.module.ts"
+              "with": "libs/elements/layout/page/src/lib/convl-page.module.ts"
             }
           ],
           "outputHashing": "all"
@@ -58,7 +59,7 @@
           "fileReplacements": [
             {
               "replace": "libs/elements/layout/page/src/lib/ital-page.module.ts",
-              "with":    "libs/elements/layout/page/src/lib/convl-page.module.ts"
+              "with": "libs/elements/layout/page/src/lib/convl-page.module.ts"
             }
           ]
         }
