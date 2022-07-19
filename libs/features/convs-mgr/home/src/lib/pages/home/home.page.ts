@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { Breadcrumb } from '@iote/bricks-angular';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
@@ -23,14 +24,15 @@ export class HomePageComponent implements OnDestroy
 
   breadcrumbs: Breadcrumb[] = [];
 
-  stories$: Observable<Story[]> = of([{ name: 'Story 1', orgId: 'a'}, { name: 'Story 2', orgId: 'a' }]) as any as Observable<Story[]>;
+  stories$: Observable<Story[]>;
 
   loading = true;
 
-  constructor(
+  constructor(private _stories$$: StoriesStore,
               private _router: Router)
   {
-    this.breadcrumbs = [HOME_CRUMB(_router, true)]
+    this.breadcrumbs = [HOME_CRUMB(_router, true)];
+    this.stories$ = this._stories$$.get();
   }
 
   ngOnDestroy()
