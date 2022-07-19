@@ -1,41 +1,28 @@
-import { Component, Input, ChangeDetectorRef, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, Input } from '@angular/core';
+
+import { Breadcrumb } from '@iote/bricks-angular';
 
 // import { BreadCrumb } from './breadcrumb.interface';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'convl-sub-navbar',
   templateUrl: './sub-navbar.component.html',
   styleUrls: ['./sub-navbar.component.scss']
 })
-export class SubNavBarComponent implements AfterViewInit
+export class SubNavBarComponent
 {
   @Input() pageEl: any;
 
   isScrolled = false;
-  // @Input() backButton: boolean;
-  // @Input() breadcrumbs: BreadCrumb[];
+  @Input() backButton: boolean;
+  @Input() breadcrumbs: Breadcrumb[];
 
   // @Input() bgColor: string;
   // @Input() color:   string;
   // @Input() nomarg:  boolean;
 
-  constructor(private _location: Location,
-              private _cd: ChangeDetectorRef)
-  { }
-
-  count = 0;
-
-  ngAfterViewInit(): void
-  {
-    this.pageEl.addEventListener('scroll', () => {
-      this.isScrolled = this.pageEl.scrollTop > 0;
-      this._cd.detectChanges();
-    });
-  }
-
-  goBack = () => this._location.back();
+  goBack = () => history.back();
+  goToCrumb = (crumb: Breadcrumb) => crumb.callback();
 
   // getStyles()
   // {
