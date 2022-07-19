@@ -1,0 +1,12 @@
+<convl-page [breadcrumbs]="breadcrumbs" [title]="'Story overview :: ' + story.name">
+  
+  <div *ngIf="!loading; else load" fxFlexFill>
+    <pre>{{story | json}}</pre>
+  </div>
+
+</convl-page>
+
+
+<ng-template #load>
+  <app-spinner></app-spinner>
+</ng-template>
