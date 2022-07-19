@@ -21,6 +21,7 @@ import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
+import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 
 import { environment } from '../environments/environment';
 
@@ -53,6 +54,7 @@ import { AppRoutingModule } from './app.routing.module';
 
     // DataModule.forRoot(),
     OrgStateModule.forRoot(),
+    StoriesStateModule.forRoot(),
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),
