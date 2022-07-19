@@ -8,6 +8,7 @@
     "elements-base-date-time": "libs/elements/base/date-time",
     "elements-base-firebase": "libs/elements/base/firebase",
     "elements-layout-page": "libs/elements/layout/page",
+    "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
