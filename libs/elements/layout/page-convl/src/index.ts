@@ -1,1 +1,3 @@
-export * from './lib/elements-layout-page-convl.module';
+export * from './lib/convl-page.module';
+
+export * from './lib/components/convl-page/convl-page.component';

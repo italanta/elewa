@@ -1,0 +1,19 @@
+// Import theming functions
+@import '@angular/material/theming';
+
+.mat-drawer {
+  // background-color: mat-color($primary, 900);
+  // color: mat-contrast($primary, 900);
+
+  // background-color: #32382D;
+  border-right: none;
+  // color: #ffffff;
+}
+
+mat-sidenav {
+  max-width: 240px;
+}
+
+mat-sidenav, mat-sidenav-container, .page-content-wrapper, mat-sidenav-content {
+  height: 100%;
+}

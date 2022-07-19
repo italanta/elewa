@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-sub-navbar',
+  selector: 'convl-sub-navbar',
   templateUrl: './sub-navbar.component.html',
   styleUrls: ['./sub-navbar.component.scss']
 })

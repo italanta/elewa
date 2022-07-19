@@ -10,7 +10,7 @@ import { SubSink } from 'subsink';
  * @see convl-page.module to learn more about how we determine usage of this component.
  */
 @Component({
-  selector: 'app-sidemenu',
+  selector: 'convl-sidemenu',
   templateUrl: './convl-sidemenu.component.html',
   styleUrls: [ './convl-sidemenu.component.scss' ]
 })

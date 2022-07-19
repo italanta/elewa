@@ -12,7 +12,6 @@ import { NavbarSideComponent }       from './components/app-navbar-side/navbar-s
 
 import { SideNavContainerComponent } from './components/sidenav-container/nav-wrapper.component';
 import { SideMenuFooterComponent }   from './components/sidemenu-footer/sidemenu-footer.component';
-import { SubNavBarComponent }        from './components/sub-bar/sub-navbar.component';
 import { SideMenuComponent }         from './components/sidemenu/sidemenu.component';
 
 /**
@@ -25,7 +24,7 @@ import { SideMenuComponent }         from './components/sidemenu/sidemenu.compon
 
   declarations: [PageComponent, NavbarSideComponent, SideMenuComponent, NavbarComponent,
                  SideNavContainerComponent,
-                 SideMenuFooterComponent, SubNavBarComponent,],
+                 SideMenuFooterComponent],
 
   providers: [],
   exports: [PageComponent, NavbarComponent],
