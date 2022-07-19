@@ -6,6 +6,8 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
+import { StoryEditorFrameComponent } from './components/editor-frame/editor-frame.component';
+
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 
 @NgModule({
@@ -17,6 +19,6 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
 
     ConvlStoryEditorRouterModule],
 
-    declarations: [StoryEditorPageComponent]
+    declarations: [StoryEditorPageComponent, StoryEditorFrameComponent]
 })
 export class ConvlStoryEditorModule {}
