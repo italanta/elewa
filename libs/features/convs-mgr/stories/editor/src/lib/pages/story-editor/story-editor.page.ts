@@ -34,7 +34,7 @@ export class StoryEditorPageComponent implements OnDestroy
       (story: Story) => {
         this.story = story;
 
-        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id as string, story.name, true)];
+        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
         this.loading = false;
       }
     ); 
