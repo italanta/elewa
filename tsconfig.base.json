@@ -35,6 +35,9 @@
       "@app/elements/layout/user-menu": [
         "libs/elements/layout/user-menu/src/index.ts"
       ],
+      "@app/elements/nav/convl/breadcrumbs": [
+        "libs/elements/nav/convl/breadcrumbs/src/index.ts"
+      ],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],

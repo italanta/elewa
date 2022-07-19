@@ -10,6 +10,7 @@
     "elements-layout-page": "libs/elements/layout/page",
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
+    "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
