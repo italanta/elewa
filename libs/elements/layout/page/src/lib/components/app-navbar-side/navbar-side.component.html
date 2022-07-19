@@ -10,10 +10,10 @@
 
     <span *ngIf="i === 0" class="br-seperator br-first">/</span>
 
-    <span [ngClass]="(breadcrumb.isActive) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
-          [routerLink]="[ breadcrumb.link ]">
+    <span [ngClass]="(breadcrumb.active) ? 'breadcrumb-item active-breadcrumb' : 'breadcrumb-item'"
+          (click)="breadcrumb.callback">
 
-          {{ breadcrumb.text }}
+          {{ breadcrumb.label }}
     </span>
 
     <span *ngIf="i + 1 < breadcrumbs.length" class="br-seperator">/</span>

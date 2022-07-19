@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Logger } from '@iote/bricks-angular';
+import { Breadcrumb, Logger } from '@iote/bricks-angular';
 // import { AngularFireAnalytics } from '@angular/fire/analytics';
-import { BreadCrumb } from '../sub-bar/breadcrumb.interface';
 
 declare const window: Window;
 
@@ -12,7 +11,7 @@ declare const window: Window;
 })
 export class NavbarSideComponent implements OnInit
 {
-  @Input() breadcrumbs: BreadCrumb[];
+  @Input() breadcrumbs: Breadcrumb[];
 
   promoteInstall = false;
   installPrompt: any;

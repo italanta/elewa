@@ -8,7 +8,7 @@
         <!-- <convl-user-menu></convl-user-menu> -->
       </convl-navbar>
 
-      <convl-sub-navbar><ng-content select=[subbar]></ng-content></convl-sub-navbar>
+      <convl-sub-navbar [breadcrumbs]="breadcrumbs"><ng-content select=[subbar]></ng-content></convl-sub-navbar>
 
       <div class="content-wrapper-inner" fxLayout="column" #page>
        

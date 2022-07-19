@@ -5,13 +5,16 @@ import { SubSink } from 'subsink';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
+import { User } from '@iote/bricks';
+import { Breadcrumb } from '@iote/bricks-angular';
+
 import { iTalUser } from '@app/model/user';
 import { Organisation } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
 import { ActiveOrgStore } from '@app/state/organisation';
-import { User } from '@iote/bricks';
 
+import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 @Component({
   selector: 'convl-home',
@@ -23,6 +26,8 @@ export class HomePageComponent implements OnDestroy
   private _sb = new SubSink();
 
   title: string;
+
+  breadcrumbs: Breadcrumb[] = [];
 
   user$: Observable<iTalUser>;
   org$ : Observable<Organisation>;
@@ -36,6 +41,7 @@ export class HomePageComponent implements OnDestroy
   {
     this.user$ = _user$$.getUser();
     this.org$  = _org$$.get();
+    this.breadcrumbs = [HOME_CRUMB(_router, true)]
   }
 
   getUserName = (u: User | null) => u?.displayName as string;
