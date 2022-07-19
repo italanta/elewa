@@ -18,11 +18,9 @@ export class StoryListItemComponent implements OnDestroy
 
   loading = true;
 
-  constructor(
-              private _router: Router)
-  {
-    
-  }
+  constructor(private _router: Router) { }
+
+  goTo = () => this._router.navigate(['/stories', this.story.id]);
 
   ngOnDestroy()
   {
