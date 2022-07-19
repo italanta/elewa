@@ -1,0 +1,36 @@
+@import '@angular/material/theming';
+@import 'libs/elements/theming/common.theme.scss';
+
+#sidemenu-footer {
+  text-align: center;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.credentials {
+  padding: 10px;
+  font-size: 0.7em;
+  color: #aaa;
+}
+
+.language-holder {
+  padding: 15px;
+}
+  .lang {
+    font-size: 0.9em;
+    padding: 8px;
+    margin: 0 10px;
+    color: #eee;
+    background-color: mat-color($primary, 800);
+  }
+    .lang:hover {
+      background-color: mat-color($accent, 'A400');
+      cursor: pointer;
+    }
+
+  .lang.active {
+    background-color: mat-color($accent, 'A400');
+  }
+    .lang.active:hover {
+      background-color: mat-color($accent, 'A400');
+    }

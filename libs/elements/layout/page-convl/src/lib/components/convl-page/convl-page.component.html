@@ -1,0 +1,21 @@
+<div class="page" fxFlexFill>
+
+  <convl-nav-wrconvler *ngIf="!noside" fxFlex="column" fxFill>
+    <div class="content-wrapper-outer" fxLayout="column" fxFlexFill>
+
+      <convl-navbar (toggleMenu)="toggleSideNav()">
+        <div title *ngIf="title">{{title}}</div>
+        <!-- <convl-user-menu></convl-user-menu> -->
+      </convl-navbar>
+
+      <div class="content-wrapper-inner" fxLayout="column" #page>
+        <convl-sub-navbar></convl-sub-navbar>
+        <ng-content></ng-content>
+      </div>
+
+    </div>
+  </vc-nav-wrconvler>
+
+  <ng-content select="[fullContent]"></ng-content>
+
+</div>

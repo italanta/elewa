@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 
-import { iTalPageModule } from '@app/elements/layout/page';
+import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 import { HomePageComponent } from './pages/home/home.page';
@@ -13,7 +13,7 @@ import { HomePageComponent } from './pages/home/home.page';
     CommonModule,
     MaterialDesignModule, FlexLayoutModule,
 
-    iTalPageModule,
+    ConvlPageModule,
 
     ConvsMgrHomeRouterModule],
 
