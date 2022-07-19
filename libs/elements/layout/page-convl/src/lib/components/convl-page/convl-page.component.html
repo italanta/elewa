@@ -1,6 +1,6 @@
 <div class="page" fxFlexFill>
 
-  <convl-nav-wrconvler *ngIf="!noside" fxFlex="column" fxFill>
+  <convl-nav-wrapper *ngIf="!noside" fxFlex="column" fxFill>
     <div class="content-wrapper-outer" fxLayout="column" fxFlexFill>
 
       <convl-navbar (toggleMenu)="toggleSideNav()">
@@ -8,13 +8,15 @@
         <!-- <convl-user-menu></convl-user-menu> -->
       </convl-navbar>
 
+      <convl-sub-navbar></convl-sub-navbar>
+
       <div class="content-wrapper-inner" fxLayout="column" #page>
-        <convl-sub-navbar></convl-sub-navbar>
+       
         <ng-content></ng-content>
       </div>
 
     </div>
-  </vc-nav-wrconvler>
+  </convl-nav-wrapper>
 
   <ng-content select="[fullContent]"></ng-content>
 

@@ -11,6 +11,7 @@ import { ConvlSideMenuComponent } from './components/convl-sidemenu/convl-sideme
 import { SideMenuFooterComponent } from './components/convl-sidemenu-footer/sidemenu-footer.component';
 import { ConlvSideNavContainerComponent } from './components/convl-sidenav-container/nav-wrapper.component';
 import { SubNavBarComponent } from './components/sub-bar/sub-navbar.component';
+import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component';
 
 
 /**
@@ -27,7 +28,8 @@ import { SubNavBarComponent } from './components/sub-bar/sub-navbar.component';
             MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
             UserMenuModule],
 
-  declarations: [ConvlPageComponent, ConvlSideMenuComponent, SideMenuFooterComponent, 
+  declarations: [ConvlPageComponent, ConvlNavbarComponent, ConvlSideMenuComponent, 
+                  SideMenuFooterComponent, 
                   ConlvSideNavContainerComponent, SubNavBarComponent],
 
   providers: [],
