@@ -41,10 +41,6 @@
             {
               "replace": "apps/conv-learning-manager/src/environments/environment.ts",
               "with": "apps/conv-learning-manager/src/environments/environment.prod.ts"
-            },
-            {
-              "replace": "libs/elements/layout/page/src/lib/ital-page.module.ts",
-              "with": "libs/elements/layout/page/src/lib/convl-page.module.ts"
             }
           ],
           "outputHashing": "all"
@@ -57,10 +53,6 @@
           "sourceMap": true,
           "namedChunks": true,
           "fileReplacements": [
-            {
-              "replace": "libs/elements/layout/page/src/lib/ital-page.module.ts",
-              "with": "libs/elements/layout/page/src/lib/convl-page.module.ts"
-            }
           ]
         }
       },

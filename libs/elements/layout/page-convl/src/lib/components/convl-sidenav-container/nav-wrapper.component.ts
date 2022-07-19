@@ -7,11 +7,11 @@ import { UserStore } from '@app/state/user';
 // import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
-  selector: 'app-nav-wrapper',
+  selector: 'convl-nav-wrapper',
   templateUrl: './nav-wrapper.component.html',
   styleUrls: ['./nav-wrapper.component.scss']
 })
-export class SideNavContainerComponent
+export class ConlvSideNavContainerComponent
 {
   user$: Observable<User>;
 
