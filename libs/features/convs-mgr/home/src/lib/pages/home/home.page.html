@@ -1,6 +1,14 @@
-<convl-page title="Home" [breadcrumbs]="breadcrumbs">
-  Hello world !
+<convl-page title="Home" [breadcrumbs]="breadcrumbs"
+  fxLayout="column" fxFlexFill>
 
-  Welcome {{ getUserName(user$ | async) }} of 
-    organisation {{ orgName$() | async }} !
+  <h2>My bots</h2>
+
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div class="bot-selector">
+      Placeholder
+
+    </div>
+
+  </div>
+
 </convl-page>

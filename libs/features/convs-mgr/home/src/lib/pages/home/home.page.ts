@@ -19,7 +19,7 @@ import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 @Component({
   selector: 'convl-home',
   templateUrl: './home.page.html',
- // styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.page.scss']
 })
 export class HomePageComponent implements OnDestroy
 {
