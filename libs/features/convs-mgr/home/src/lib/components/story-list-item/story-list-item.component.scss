@@ -2,11 +2,15 @@
   padding: 10px;  
   margin-bottom: 20px;
 }
+    .story-list-item:last-child { margin-bottom: 0; }
 
   .title-holder {
     padding: 15px 15px;
+    font-weight: bold;
   }
 
   .action-holder {
     padding: 15px 15px 15px 15px;
   }
+
+  
