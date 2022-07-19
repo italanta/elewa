@@ -5,10 +5,10 @@
 
   <div fxLayout="row" fxLayoutAlign="center">
     <div class="bot-selector">
-      Placeholder
-
+      <ng-template ngFor [ngForOf]="stories$ | async" let-story>
+        <convl-story-list-item [story]="story"> </convl-story-list-item>
+      </ng-template>
     </div>
-
   </div>
 
 </convl-page>
