@@ -8,6 +8,8 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { HomePageComponent } from './pages/home/home.page';
 import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
 
+import { NewStoryService } from './services/new-story.service';
+
 import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 
 @NgModule({
@@ -19,6 +21,8 @@ import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 
     ConvsMgrHomeRouterModule],
 
-    declarations: [HomePageComponent, StoryListItemComponent]
+    declarations: [HomePageComponent, StoryListItemComponent],
+
+    providers: [NewStoryService]
 })
 export class ConvsMgrHomeModule {}
