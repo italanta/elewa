@@ -13,6 +13,8 @@
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
+    "features-convs-mgr-stories-blocks-library": "libs/features/convs-mgr/stories/blocks/library",
+    "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",

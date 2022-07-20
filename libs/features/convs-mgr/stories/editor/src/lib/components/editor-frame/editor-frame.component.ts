@@ -1,5 +1,6 @@
 import { BrowserJsPlumbInstance, newInstance as initJsPlumb } from '@jsplumb/browser-ui';
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { StoryEditorInitialiserService } from '@app/features/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'convl-story-editor-frame',
@@ -12,14 +13,14 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
 
   private _jsplumb: BrowserJsPlumbInstance;
 
-  constructor(private _renderer: Renderer2) 
+  constructor(private _renderer: Renderer2,
+              private _frameInitialiser: StoryEditorInitialiserService) 
   { }
 
   ngAfterViewInit() {
-    this._jsplumb = initJsPlumb({
-      container: this.editorVC.nativeElement
-    });
-    
+    const frame = this._frameInitialiser.initialiseEditor(this._renderer, this.editorVC);
+
+    frame.draw();
   }
   
 
