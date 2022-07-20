@@ -1,9 +1,13 @@
 <convl-page *ngIf="!loading; else load" 
             [breadcrumbs]="breadcrumbs" 
-            [title]="'Story overview :: ' + story.name">
+            [title]="'Story overview :: ' + story.name" [nomarg]="true">
+  <div fxLayout="row" fxFlexFill>
+  
+    <app-blocks-library fxFlex="10"></app-blocks-library>
+    
+    <convl-story-editor-frame fxFlex="90" fxFlexFill></convl-story-editor-frame>
 
-  <convl-story-editor-frame fxFlexFill></convl-story-editor-frame>
-
+  </div>
 </convl-page>
 
 
