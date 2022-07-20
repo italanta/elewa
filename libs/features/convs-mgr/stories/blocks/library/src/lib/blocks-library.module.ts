@@ -9,6 +9,8 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { BlockComponent } from './components/block/block.component';
 import { MessageBlockComponent } from './components/message-block/message-block.component';
 
+import { BlockInjectorService } from './providers/block-injector.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,8 @@ import { MessageBlockComponent } from './components/message-block/message-block.
     ConvlPageModule],
 
     declarations: [BlockComponent, MessageBlockComponent],
-    exports: [BlockComponent, MessageBlockComponent]
+
+    // Injector which creates all block types within the editor context.
+    providers: [BlockInjectorService]
 })
 export class BlocksLibraryModule {}

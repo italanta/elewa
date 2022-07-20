@@ -4,12 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { BlockInjectorService } from './providers/block-injector.service';
-
-// import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
 /** 
- * Module which renders blocks in the story editorr
+ * Unused placeholder for later functionality.
  */
 @NgModule({
   imports: [
@@ -18,6 +15,6 @@ import { BlockInjectorService } from './providers/block-injector.service';
 
     ConvlPageModule],
 
-    providers: [BlockInjectorService]
+    providers: []
 })
 export class BlockManagerModule {}

@@ -23,6 +23,4 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
 
     this.frameLoaded.emit(frame);
   }
-  
-
 }

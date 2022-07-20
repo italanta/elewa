@@ -18,7 +18,7 @@ export class BlockComponent implements OnInit
 
   type: StoryBlockTypes;
 
-  messagetype = StoryBlockTypes.Output;
+  messagetype = StoryBlockTypes.TextMessage;
 
   constructor(private _logger: Logger) 
   { }

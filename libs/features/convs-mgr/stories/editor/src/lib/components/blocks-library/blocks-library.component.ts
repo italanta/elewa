@@ -4,13 +4,11 @@ import { Logger } from '@iote/bricks-angular';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/main';
-
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
 /**
  * Component which holds a library (list) of all blocks that can be created 
- *    in the story editor
+ *    in the story editor.
  */
 @Component({
   selector: 'convl-blocks-library',
@@ -21,7 +19,7 @@ export class BlocksLibraryComponent implements OnInit
 {
   @Input() frame: StoryEditorFrame;
 
-  blockTemplates: TextMessageBlock[] = [{ id: 'io-block', type: StoryBlockTypes.Output, message: 'Text Block' } as TextMessageBlock];
+  blockTemplates: TextMessageBlock[] = [{ id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock];
 
   constructor(private _logger: Logger) 
   { }
@@ -35,8 +33,8 @@ export class BlocksLibraryComponent implements OnInit
   addBlock(type: StoryBlockTypes)
   {
     switch(type) {
-      case StoryBlockTypes.Output:
-        this.frame.newBlock(StoryBlockTypes.Output);
+      case StoryBlockTypes.TextMessage:
+        this.frame.newBlock(StoryBlockTypes.TextMessage);
     }
   }
   
