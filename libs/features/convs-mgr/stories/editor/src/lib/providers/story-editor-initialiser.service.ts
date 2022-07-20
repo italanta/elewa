@@ -21,7 +21,7 @@ export class StoryEditorInitialiserService
     const _jsplumb = initJsPlumb({ 
       container,
 
-      paintStyle: { strokeWidth: 1 },
+      // paintStyle: { strokeWidth: 1 },
       // anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
     });
 
