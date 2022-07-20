@@ -5,7 +5,7 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
+// import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
 /** 
  * Module which configures the story-editor by 
@@ -18,8 +18,6 @@ import { StoryEditorInitialiserService } from './providers/story-editor-initiali
     CommonModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
 
-    ConvlPageModule],
-
-    providers: [StoryEditorInitialiserService]
+    ConvlPageModule]
 })
 export class StoryBlockManagerModule {}

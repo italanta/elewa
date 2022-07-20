@@ -5,7 +5,6 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-import { BlocksLibraryComponent } from './components/blocks-library/blocks-library.component';
 
 @NgModule({
   imports: [
@@ -14,7 +13,7 @@ import { BlocksLibraryComponent } from './components/blocks-library/blocks-libra
 
     ConvlPageModule],
 
-    declarations: [BlocksLibraryComponent],
-    exports: [BlocksLibraryComponent]
+    declarations: [],
+    exports: []
 })
 export class BlocksLibraryModule {}

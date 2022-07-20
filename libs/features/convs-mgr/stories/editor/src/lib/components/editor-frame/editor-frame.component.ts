@@ -1,6 +1,7 @@
 import { BrowserJsPlumbInstance, newInstance as initJsPlumb } from '@jsplumb/browser-ui';
 import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { StoryEditorInitialiserService } from '@app/features/convs-mgr/stories/blocks/main';
+
+import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
 
 @Component({
   selector: 'convl-story-editor-frame',
