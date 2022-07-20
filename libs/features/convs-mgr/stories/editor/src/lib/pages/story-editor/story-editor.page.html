@@ -1,8 +1,8 @@
-<convl-page [breadcrumbs]="breadcrumbs" [title]="'Story overview :: ' + story.name">
-  
-  <div *ngIf="!loading; else load" fxFlexFill>
-    <pre>{{story | json}}</pre>
-  </div>
+<convl-page *ngIf="!loading; else load" 
+            [breadcrumbs]="breadcrumbs" 
+            [title]="'Story overview :: ' + story.name">
+
+  <convl-story-editor-frame fxFlexFill></convl-story-editor-frame>
 
 </convl-page>
 
