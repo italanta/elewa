@@ -17,19 +17,21 @@ import { BlockComponent } from "../block/block.component";
 export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
 {
   jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is source (This Block -> Other Block)
+    source: true,
+
     // Type of endpoint to render
     endpoint: 'Dot',
     // Where to position the anchor
-    anchor: "Right",
-    // Whether the anchor is source (This Block -> Other Block)
-    source: true
+    anchor: "Right"
   });
 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    target: true,
+
     endpoint: 'Rectangle',
     anchor: "Left",
-    // Whether the anchor is target (Other Block -> This Block)
-    target: true
   });
 
   return comp;
