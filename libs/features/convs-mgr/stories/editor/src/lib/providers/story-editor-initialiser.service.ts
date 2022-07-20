@@ -1,6 +1,7 @@
 import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/main';
 import { newInstance as initJsPlumb } from '@jsplumb/browser-ui';
+
+import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
 
 import { StoryEditorFrame } from '../model/story-editor-frame.model';
 

@@ -1,9 +1,10 @@
 import { ViewContainerRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+
+import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
 
 /**
  * Model which holds the state of a story-editor.
@@ -24,12 +25,11 @@ export class StoryEditorFrame
 
   // draw()
   // {
-    
   // }
 
   newBlock(type: StoryBlockTypes)
   {
-    const block = { id: `${this._cnt}`, type: StoryBlockTypes.Output, message: 'New message' } as TextMessageBlock;
+    const block = { id: `${this._cnt}`, type: StoryBlockTypes.TextMessage, message: 'New message' } as TextMessageBlock;
     this._cnt++;
 
     return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport);

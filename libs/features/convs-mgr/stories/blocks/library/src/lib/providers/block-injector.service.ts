@@ -1,9 +1,15 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { BlockComponent } from '@app/features/convs-mgr/stories/blocks/library';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { BlockComponent } from '../components/block/block.component';
+import { _MessageBlockDecoratePlumb } from '../components/message-block/message-block.jsplumb';
+
+/**
+ * The BlockInjector is part of the engine of the story-editor. 
+ *  It creates blocks and positions them on editor.
+ */
 @Injectable()
 export class BlockInjectorService 
 {
@@ -22,18 +28,7 @@ export class BlockInjectorService
     viewport.insert(blockComp.hostView);
 
     // 2. Init JS plumb
-
-    jsPlumb.addEndpoint(blockComp.location.nativeElement, {
-      endpoint: 'Dot',
-      anchor: "Right",
-      source: true
-    });
-
-    jsPlumb.addEndpoint(blockComp.location.nativeElement, {
-      endpoint: 'Rectangle',
-      anchor: "Left",
-      target: true
-    });
+    _MessageBlockDecoratePlumb(block, blockComp, jsPlumb);
 
     return blockComp;
   }
