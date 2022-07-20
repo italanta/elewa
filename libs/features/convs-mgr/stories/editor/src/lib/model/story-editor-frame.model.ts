@@ -29,7 +29,12 @@ export class StoryEditorFrame
 
   newBlock(type: StoryBlockTypes)
   {
-    const block = { id: `${this._cnt}`, type: StoryBlockTypes.TextMessage, message: 'New message' } as TextMessageBlock;
+    const block = { id: `${this._cnt}`, 
+                    type: StoryBlockTypes.TextMessage, 
+                    message: 'New message', 
+                    position: { x: 200, y: 50 } 
+    } as TextMessageBlock;
+    
     this._cnt++;
 
     return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport);

@@ -1,4 +1,6 @@
 import { IObject } from "@iote/bricks";
+
+import { Position } from "./position.interface";
 import { StoryBlockTypes } from "./story-block-types.enum";
 
 /**
@@ -17,5 +19,8 @@ import { StoryBlockTypes } from "./story-block-types.enum";
 export interface StoryBlock extends IObject
 {
   type: StoryBlockTypes;
+
+  position: Position
+
   // ! Type to be inherited by all the different blocks.
 }
