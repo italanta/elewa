@@ -3,9 +3,14 @@
             [title]="'Story overview :: ' + story.name" [nomarg]="true">
   <div fxLayout="row" fxFlexFill>
   
-    <app-blocks-library fxFlex="10"></app-blocks-library>
-    
-    <convl-story-editor-frame fxFlex="90" fxFlexFill></convl-story-editor-frame>
+    <div fxFlex="10">
+      <convl-blocks-library *ngIf="frame" [frame]="frame">
+      </convl-blocks-library>
+    </div>
+
+    <convl-story-editor-frame (frameLoaded)="onFrameLoaded($event)"
+                              fxFlex="90" fxFlexFill>
+    </convl-story-editor-frame>
 
   </div>
 </convl-page>

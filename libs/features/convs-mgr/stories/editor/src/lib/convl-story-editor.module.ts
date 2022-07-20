@@ -5,7 +5,7 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-import { StoryBlockManagerModule } from '@app/features/convs-mgr/stories/blocks/main'
+import { BlockManagerModule } from '@app/features/convs-mgr/stories/blocks/main'
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library';
 
 import { StoryEditorPageComponent }  from './pages/story-editor/story-editor.page';
@@ -25,7 +25,7 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
 
     ConvlStoryEditorRouterModule,
     
-    StoryBlockManagerModule, BlocksLibraryModule],
+    BlockManagerModule, BlocksLibraryModule],
 
     declarations: [StoryEditorPageComponent, 
                       StoryEditorFrameComponent, BlocksLibraryComponent],

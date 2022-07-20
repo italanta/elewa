@@ -1,5 +1,5 @@
-import { BrowserJsPlumbInstance, newInstance as initJsPlumb } from '@jsplumb/browser-ui';
-import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
+import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
 import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
 
@@ -10,45 +10,18 @@ import { StoryEditorInitialiserService } from '../../providers/story-editor-init
 })
 export class StoryEditorFrameComponent implements AfterViewInit //implements OnDestroy
 {
-  @ViewChild('editor') editorVC: ElementRef;
-  @ViewChild('block1') block1: ElementRef<HTMLInputElement>;
-  @ViewChild('block2') block2: ElementRef<HTMLInputElement>;
-  @ViewChild('block3') block3: ElementRef<HTMLInputElement>;
+  @ViewChild('editor') editorVC: ElementRef<HTMLElement>;
+  @ViewChild('viewport', { read: ViewContainerRef, static: true }) viewport : ViewContainerRef;
 
-  private _jsplumb: BrowserJsPlumbInstance;
+  @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
 
-  constructor(private _renderer: Renderer2,
-              private _frameInitialiser: StoryEditorInitialiserService) 
+  constructor(private _frameInitialiser: StoryEditorInitialiserService) 
   { }
 
   ngAfterViewInit() {
-    // const frame = this._frameInitialiser.initialiseEditor(this._renderer, this.editorVC);
+    const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
 
-    // frame.draw();
-    
-    this._jsplumb = initJsPlumb({
-      container: this.editorVC.nativeElement
-    });
-    // start playing
-    this._jsplumb.addEndpoint(this.block1.nativeElement, {
-      endpoint: 'Dot',
-      anchor: "Right",
-      source: true,
-
-
-    });
-    this._jsplumb.addEndpoint(this.block2.nativeElement, {
-      endpoint: 'Rectangle',
-      anchor: "Top",
-      target: true,
-    });
-
-    this._jsplumb.addEndpoint(this.block3.nativeElement, {
-      endpoint: 'Rectangle',
-      anchor: "Left",
-      target: true,
-
-    });
+    this.frameLoaded.emit(frame);
   }
   
 

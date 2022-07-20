@@ -1,4 +1,5 @@
-import { ElementRef, Injectable, Renderer2 } from '@angular/core';
+import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
+import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/main';
 import { newInstance as initJsPlumb } from '@jsplumb/browser-ui';
 
 import { StoryEditorFrame } from '../model/story-editor-frame.model';
@@ -6,7 +7,11 @@ import { StoryEditorFrame } from '../model/story-editor-frame.model';
 @Injectable()
 export class StoryEditorInitialiserService 
 {
-  initialiseEditor(renderer: Renderer2, editorContainer: ElementRef)
+  constructor(private _blocksInjector: BlockInjectorService) 
+  {}
+
+  initialiseEditor(editorContainer: ElementRef<HTMLElement>, 
+                   viewport: ViewContainerRef)
   {
     // Get inner HTML element from reference
     const container = editorContainer.nativeElement;
@@ -16,14 +21,9 @@ export class StoryEditorInitialiserService
       container,
 
       paintStyle: { strokeWidth: 1 },
-      anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
+      // anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
     });
 
-    const els = container.children;
-    for (const el of els) 
-      _jsplumb.setDraggable(el, true);
-
-
-    return new StoryEditorFrame(renderer, _jsplumb);
+    return new StoryEditorFrame(_jsplumb, this._blocksInjector, viewport);
   }
 }

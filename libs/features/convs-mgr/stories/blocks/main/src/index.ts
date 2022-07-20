@@ -1,2 +1,2 @@
-
-export * from './lib/story-block-manager.module';
+export * from './lib/providers/block-injector.service';
+export * from './lib/block-manager.module';

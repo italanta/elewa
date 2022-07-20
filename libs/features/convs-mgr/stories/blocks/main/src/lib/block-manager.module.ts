@@ -4,20 +4,20 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { BlockInjectorService } from './providers/block-injector.service';
 
 // import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
 /** 
- * Module which configures the story-editor by 
- *    initialising the frame and preloading the previously saved state.
- * 
- * Initialises the story-editor-frame-model which manages the state of the editor.
+ * Module which renders blocks in the story editorr
  */
 @NgModule({
   imports: [
     CommonModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
 
-    ConvlPageModule]
+    ConvlPageModule],
+
+    providers: [BlockInjectorService]
 })
-export class StoryBlockManagerModule {}
+export class BlockManagerModule {}
