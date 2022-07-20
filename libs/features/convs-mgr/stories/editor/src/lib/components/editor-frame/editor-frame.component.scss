@@ -4,7 +4,10 @@
   border-color: lightgrey;
 
   background: papayawhip;
+  background-image: url(^/assets/bg/graphy.png);
+  background-repeat: repeat;
   position: relative;
+
 }
 
 #editor-frame .block {
@@ -26,4 +29,8 @@
     color: darkblue;
     font-weight: bold;
     position: absolute;
+  }
+
+  app-message-block {
+    position: relative;
   }

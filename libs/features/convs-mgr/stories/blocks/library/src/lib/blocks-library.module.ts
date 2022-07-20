@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { MessageBlockComponent } from './components/message-block/message-block.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,9 +13,11 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
     CommonModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
 
+    ReactiveFormsModule,
+
     ConvlPageModule],
 
-    declarations: [],
-    exports: []
+    declarations: [MessageBlockComponent],
+    exports: [MessageBlockComponent]
 })
 export class BlocksLibraryModule {}
