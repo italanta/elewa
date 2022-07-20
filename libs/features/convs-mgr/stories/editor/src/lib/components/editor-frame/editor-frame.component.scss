@@ -14,20 +14,13 @@
   position: absolute;
 }
   .block {
-    border-color: cornflowerblue;
-    border-radius: 10px;
-    border-width: 2px;
-    border-style: dashed;
-    width: 80px;
-    height: 100px;
     text-align: center;
     cursor: move;
-    background-color: white;
+   
     display: flex;
     justify-content: center;
     align-items: center;
-    color: darkblue;
-    font-weight: bold;
+    
     position: absolute;
   }
 
