@@ -10,6 +10,9 @@ import { StoryEditorInitialiserService } from '@app/features/convs-mgr/stories/b
 export class StoryEditorFrameComponent implements AfterViewInit //implements OnDestroy
 {
   @ViewChild('editor') editorVC: ElementRef;
+  @ViewChild('block1') block1: ElementRef<HTMLInputElement>;
+  @ViewChild('block2') block2: ElementRef<HTMLInputElement>;
+  @ViewChild('block3') block3: ElementRef<HTMLInputElement>;
 
   private _jsplumb: BrowserJsPlumbInstance;
 
@@ -18,9 +21,33 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
   { }
 
   ngAfterViewInit() {
-    const frame = this._frameInitialiser.initialiseEditor(this._renderer, this.editorVC);
+    // const frame = this._frameInitialiser.initialiseEditor(this._renderer, this.editorVC);
 
-    frame.draw();
+    // frame.draw();
+    
+    this._jsplumb = initJsPlumb({
+      container: this.editorVC.nativeElement
+    });
+    // start playing
+    this._jsplumb.addEndpoint(this.block1.nativeElement, {
+      endpoint: 'Dot',
+      anchor: "Right",
+      source: true,
+
+
+    });
+    this._jsplumb.addEndpoint(this.block2.nativeElement, {
+      endpoint: 'Rectangle',
+      anchor: "Top",
+      target: true,
+    });
+
+    this._jsplumb.addEndpoint(this.block3.nativeElement, {
+      endpoint: 'Rectangle',
+      anchor: "Left",
+      target: true,
+
+    });
   }
   
 

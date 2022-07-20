@@ -1,15 +1,29 @@
 #editor-frame {
+  border-width: 2px;
+  border-style: solid;
+  border-color: lightgrey;
+
+  background: papayawhip;
   position: relative;
 }
 
-.base {
-  color: red;
-  left: 100px;
-
-  height: 200px !important;
-  width: 200px !important;
+#editor-frame .block {
+  position: absolute;
 }
-
-app-blocks-library {
-  display: block;
-}
+  .block {
+    border-color: cornflowerblue;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: dashed;
+    width: 80px;
+    height: 100px;
+    text-align: center;
+    cursor: move;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkblue;
+    font-weight: bold;
+    position: absolute;
+  }

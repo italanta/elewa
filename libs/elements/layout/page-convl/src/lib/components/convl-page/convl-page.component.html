@@ -10,7 +10,7 @@
 
       <convl-sub-navbar [breadcrumbs]="breadcrumbs"><ng-content select=[subbar]></ng-content></convl-sub-navbar>
 
-      <div class="content-wrapper-inner" fxLayout="column" #page>
+      <div class="content-wrapper-inner" [class.nomarg]="nomarg" fxLayout="column" #page>
        
         <ng-content></ng-content>
       </div>
