@@ -12,7 +12,17 @@ export class StoryEditorInitialiserService
     const container = editorContainer.nativeElement;
     
     // Initialise div as a _jsPlumb instance
-    const _jsplumb = initJsPlumb({ container });
+    const _jsplumb = initJsPlumb({ 
+      container,
+
+      paintStyle: { strokeWidth: 1 },
+      anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
+    });
+
+    const els = container.children;
+    for (const el of els) 
+      _jsplumb.setDraggable(el, true);
+
 
     return new StoryEditorFrame(renderer, _jsplumb);
   }

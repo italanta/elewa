@@ -8,8 +8,11 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { StoryBlockManagerModule } from '@app/features/convs-mgr/stories/blocks/main'
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library';
 
-import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
+import { StoryEditorPageComponent }  from './pages/story-editor/story-editor.page';
 import { StoryEditorFrameComponent } from './components/editor-frame/editor-frame.component';
+import { BlocksLibraryComponent }    from './components/blocks-library/blocks-library.component';
+
+import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 
@@ -24,6 +27,8 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
     
     StoryBlockManagerModule, BlocksLibraryModule],
 
-    declarations: [StoryEditorPageComponent, StoryEditorFrameComponent]
+    declarations: [StoryEditorPageComponent, 
+                      StoryEditorFrameComponent, BlocksLibraryComponent],
+    providers: [StoryEditorInitialiserService]
 })
 export class ConvlStoryEditorModule {}
