@@ -44,6 +44,12 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library": [
+        "libs/features/convs-mgr/stories/blocks/library/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/main": [
+        "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/editor": [
         "libs/features/convs-mgr/stories/editor/src/index.ts"
       ],
