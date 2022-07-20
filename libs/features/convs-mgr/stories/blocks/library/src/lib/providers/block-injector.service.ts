@@ -4,7 +4,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { BlockComponent } from '../components/block/block.component';
-import { _MessageBlockDecoratePlumb } from '../components/message-block/message-block.jsplumb';
+import { _JsPlumbComponentDecorator } from './jsplumb-decorator.function';
 
 /**
  * The BlockInjector is part of the engine of the story-editor. 
@@ -23,12 +23,12 @@ export class BlockInjectorService
     blockComp.instance.block = block;
 
     // Set style to absolute to be draggable in jsPlumb
-    blockComp.location.nativeElement.style = `position: absolute; left: 50px; top: 50px;`;
+    blockComp.location.nativeElement.style = `position: absolute; left: ${block.position.x}px; top: ${block.position.y}px;`;
 
     viewport.insert(blockComp.hostView);
 
     // 2. Init JS plumb
-    _MessageBlockDecoratePlumb(block, blockComp, jsPlumb);
+    _JsPlumbComponentDecorator(block, blockComp, jsPlumb);
 
     return blockComp;
   }
