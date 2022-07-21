@@ -1,7 +1,8 @@
 import { ViewContainerRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { Story } from '@app/model/convs-mgr/stories/main';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
@@ -10,11 +11,15 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
  * Model which holds the state of a story-editor.
  * 
  * For each JsPlumb frame, an instance of this class is created which 1-on-1 manages the frame state.
+ * Responsible for keeping track of editor data and for re-loading past saved states.
  */
 export class StoryEditorFrame 
 {
   private _cnt = 1;
   loaded = false;
+
+  private _story: Story;
+  private _blocks: StoryBlock[] = [];
 
   constructor(private _jsPlumb: BrowserJsPlumbInstance,
               private _blocksInjector: BlockInjectorService,
@@ -23,20 +28,57 @@ export class StoryEditorFrame
     this.loaded = true;
   }
 
-  // draw()
-  // {
-  // }
+  /**
+   * Function which produces the initial state of the story editor frame.
+   *  It draws the previously saved blocks on the screen.
+   * 
+   * @param story   - Story visualised by the editor
+   * @param blocks  - Blocks to render on the story
+   */
+  init(story: Story, blocks?: StoryBlock[])
+  {
+    this._story = story;
+    this._blocks = blocks ?? [];
 
+    // Init frame
+    for(const block of this._blocks) {
+      this._injectBlockToFrame(block);
+      this._cnt++;
+    }
+  }
+
+  /** 
+   * Snapshot of the story blocks-state as edited and loaded in the frame. 
+   */
+  get blocks(): StoryBlock[] {
+    return this._blocks;
+  }
+
+  /** 
+   * Create a new block for the frame.
+   * TODO: Move this to a factory later
+   */
   newBlock(type: StoryBlockTypes)
   {
+    // TODO - Dynamic rendering of default blocks.
     const block = { id: `${this._cnt}`, 
                     type: StoryBlockTypes.TextMessage, 
                     message: 'New message', 
+                    // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 } 
     } as TextMessageBlock;
-    
+
     this._cnt++;
 
+    this._blocks.push(block);
+    return this._injectBlockToFrame(block);
+  }
+
+  /** 
+   * Private method which draws the block on the frame.
+   * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
+   */
+  private _injectBlockToFrame(block: StoryBlock) {
     return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport);
   }
 }
