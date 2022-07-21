@@ -1,5 +1,7 @@
 import { ComponentRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { BezierConnector } from "@jsplumb/connector-bezier"
+
 
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -23,7 +25,13 @@ export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: Compon
     // Type of endpoint to render
     endpoint: 'Dot',
     // Where to position the anchor
-    anchor: "Right"
+    anchor: "Right",
+    connector: {
+      type: BezierConnector.type,
+      options: { 
+        curviness: 100
+      }
+    }
   });
 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
@@ -31,7 +39,7 @@ export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: Compon
     target: true,
 
     endpoint: 'Rectangle',
-    anchor: "Left",
+    anchor: "Left"
   });
 
   return comp;
