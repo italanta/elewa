@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router }    from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, take } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
