@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { flatten as ___flatten } from 'lodash';
+import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
 import { combineLatest, Observable } from 'rxjs';
-import { map, switchMap, tap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
@@ -38,20 +37,14 @@ export class StoryEditorStateService
    */
   get() : Observable<StoryEditorState>
   {
-    let story: Story;
-
-    const state$ = this._story$$
-      .get().pipe(
-        // 1. Story local ref. for later aggregation
-        tap(storyDb => story = storyDb),
-        // 2. Get all active blocks of the story
-        switchMap(() => this._blocks$$.get()),
-        // 3. Put the two together into a state 
-        map((blocks) => ({ story, blocks }) as StoryEditorState));
+    const state$ = 
+      combineLatest([this._story$$.get(), this._blocks$$.get()])
+        .pipe(
+          map(([story, blocks]) => ({ story, blocks }) as StoryEditorState));
 
     // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
-    state$.pipe(take(1)).subscribe(state => this._lastLoadedState = state);
-
+    state$.pipe(take(1)).subscribe(state => this._lastLoadedState = ___cloneDeep(state));
+      
     // Return state.
     return state$;
   }
@@ -85,7 +78,6 @@ export class StoryEditorStateService
     // Blocks which were updated.
     const updBlocks = blocks.filter(nBl => !newBlocks.concat(delBlocks)
                                                        .find(aBl => nBl.id === aBl.id));
-   
     const newBlocks$ = newBlocks.map(bl => this._createBlock(bl));
     const delBlocks$ = delBlocks.map(bl => this._deleteBlock(bl));
     const updBlocks$ = updBlocks.map(bl => this._updateBlock(bl));

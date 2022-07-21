@@ -67,7 +67,8 @@ export class StoryEditorPageComponent implements OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
-    this._editorStateService.persist(this.state);
+    this._editorStateService.persist(this.state)
+        .subscribe();
   }
 
   ngOnDestroy()
