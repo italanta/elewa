@@ -4,11 +4,9 @@ import { Router }    from '@angular/router';
 import { SubSink } from 'subsink';
 import { BehaviorSubject, filter, take } from 'rxjs';
 
-import { Breadcrumb } from '@iote/bricks-angular';
+import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
-import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
-
+import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -24,24 +22,31 @@ export class StoryEditorPageComponent implements OnDestroy
 
   pageName: string;
 
-  story: Story;
+  state: StoryEditorState;
   breadcrumbs: Breadcrumb[] = [];
 
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
-  constructor(private _story$$: ActiveStoryStore,
+  constructor(private _editorStateService: StoryEditorStateService,
               private _cd: ChangeDetectorRef,
+              private _logger: Logger,
               _router: Router)
   {
-    this._story$$.get().subscribe(
-      (story: Story) => {
-        this.story = story;
-        this.pageName = 'Story overview :: ' + story.name;
+    this._editorStateService.get()
+                            .pipe(take(1))
+        .subscribe((state: StoryEditorState) => 
+        {
+          this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
+          this._logger.log(() => state);
 
-        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
-        this.loading.next(false);
-      }
+          this.state = state;
+          this.pageName = `Story overview :: ${ state.story.name }`;
+
+          const story = state.story;
+          this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
+          this.loading.next(false);
+        }
     ); 
   }
 
@@ -54,7 +59,7 @@ export class StoryEditorPageComponent implements OnDestroy
       this.loading.pipe(filter(loading => !loading),
                         take(1))
             .subscribe(() => 
-              this.frame.init(this.story)
+              this.frame.init(this.state)
             );
       
     this._cd.detectChanges();
@@ -62,7 +67,7 @@ export class StoryEditorPageComponent implements OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
-    // this.frame.
+    this._editorStateService.persist(this.state);
   }
 
   ngOnDestroy()

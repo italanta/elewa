@@ -57,10 +57,10 @@ export class StoryEditorStateService
   }
 
   /** Persists a story editor state. */
-  persist(story: Story, blocks: StoryBlock[])
+  persist(state: StoryEditorState)
   {
-    const updateStory$ = this._story$$.update(story);
-    const blockActions$ = this._determineBlockActions(blocks);
+    const updateStory$ = this._story$$.update(state.story);
+    const blockActions$ = this._determineBlockActions(state.blocks);
 
     const actions$ = blockActions$.concat([updateStory$ as any]);
 
