@@ -17,6 +17,9 @@ import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
  */
 export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance)
 {
+  /** Lift component into jsPlumb world. */
+  jsPlumb.manage(comp.location.nativeElement, block.id);
+
   switch(block.type)
   {
     case StoryBlockTypes.TextMessage:
