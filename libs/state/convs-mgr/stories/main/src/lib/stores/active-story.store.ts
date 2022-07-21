@@ -16,12 +16,12 @@ export class ActiveStoryStore extends Store<Story>
   protected store = 'active-story-store';
   _activeStory : string;
 
-  constructor(stories$$: StoriesStore,
+  constructor(private _stories$$: StoriesStore,
               _router: Router)
   {
     super(null as any);
 
-    const stories$ = stories$$.get();
+    const stories$ = _stories$$.get();
     const route$ = _router.events.pipe(filter((ev) => ev instanceof NavigationEnd),
                                        map(ev => ev as NavigationEnd));
 
@@ -52,4 +52,6 @@ export class ActiveStoryStore extends Store<Story>
   }
 
   override get = () => super.get().pipe(filter(val => val != null));
+
+  update = (story: Story) => this._stories$$.update(story);
 }

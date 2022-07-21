@@ -26,6 +26,7 @@
     "model-user": "libs/model/user/base",
     "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
     "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
+    "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
     "state-organisation": "libs/state/organisation/main",
     "state-user": "libs/state/user/base",
     "util-iote-bricks": "libs/util/iote/bricks",
