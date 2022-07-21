@@ -46,6 +46,7 @@ export class StoryEditorFrame
 
     // Clear any previously drawn items.
     this._viewport.clear();
+    this._jsPlumb.reset();
 
     // Init frame
     for(const block of this._blocks) {
