@@ -9,7 +9,6 @@ import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
 
-
 /**
  * Model which holds the state of a story-editor.
  * 
@@ -44,6 +43,8 @@ export class StoryEditorFrame
     this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
+
+    this._viewport.clear();
 
     // Init frame
     for(const block of this._blocks) {

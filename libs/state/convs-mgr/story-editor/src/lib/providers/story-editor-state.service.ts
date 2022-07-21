@@ -22,7 +22,7 @@ export class StoryEditorStateService
 {
   /** The first load of each time the story editor service was called.
    *  We need this param to diff. between discarded and newly loaded blocks. */
-  private _lastLoadedState : StoryEditorState;
+  private _lastLoadedState : StoryEditorState | null;
 
   constructor(private _story$$: ActiveStoryStore,
               private _blocks$$: StoryBlocksStore,
@@ -31,6 +31,7 @@ export class StoryEditorStateService
 
   /**
    * Service which returns the data state of the editor.
+   *  To use in onInit
    *
    * @warn    : For the persistance to work, the story editor page should only take one of these on load.
    * @returns : The initial state of the story editor @see {StoryEditorState}
@@ -69,7 +70,7 @@ export class StoryEditorStateService
    */
   private _determineBlockActions(blocks: StoryBlock[])
   {
-    const oldBlocks = this._lastLoadedState.blocks;
+    const oldBlocks = (this._lastLoadedState as StoryEditorState).blocks;
 
     // Blocks which are newly created and newly configured
     const newBlocks = blocks.filter(nBl => !oldBlocks.find(oBl => nBl.id === oBl.id));
@@ -100,5 +101,12 @@ export class StoryEditorStateService
 
   private _updateBlock(block: StoryBlock) {
     return this._blocks$$.update(block);
+  }
+
+  /** 
+   * Reset the state to null 
+   *  - to use in onDestroy */
+  flush() {
+    this._lastLoadedState = null;
   }
 }

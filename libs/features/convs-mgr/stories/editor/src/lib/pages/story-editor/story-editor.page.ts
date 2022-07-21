@@ -34,7 +34,6 @@ export class StoryEditorPageComponent implements OnDestroy
               _router: Router)
   {
     this._editorStateService.get()
-                            .pipe(take(1))
         .subscribe((state: StoryEditorState) => 
         {
           this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
@@ -56,8 +55,7 @@ export class StoryEditorPageComponent implements OnDestroy
 
     // After both frame AND data are loaded (hence the subscribe), draw frame blocks on the frame.
     this._sb.sink = 
-      this.loading.pipe(filter(loading => !loading),
-                        take(1))
+      this.loading.pipe(filter(loading => !loading))
             .subscribe(() => 
               this.frame.init(this.state)
             );
@@ -73,6 +71,7 @@ export class StoryEditorPageComponent implements OnDestroy
 
   ngOnDestroy()
   {
+    this._editorStateService.flush();
     this._sb.unsubscribe();
   }
 }
