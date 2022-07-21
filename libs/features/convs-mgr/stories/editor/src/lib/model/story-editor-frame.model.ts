@@ -48,11 +48,15 @@ export class StoryEditorFrame
     this._viewport.clear();
     this._jsPlumb.reset();
 
+    this._jsPlumb.setSuspendDrawing(true);           // Start loading drawing
+
     // Init frame
     for(const block of this._blocks) {
       this._injectBlockToFrame(block);
       this._cnt++;
     }
+
+    this._jsPlumb.setSuspendDrawing(false, true);   // All drawing data loaded. Now draw
   }
 
   /** 
