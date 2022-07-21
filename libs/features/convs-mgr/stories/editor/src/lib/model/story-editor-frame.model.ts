@@ -41,6 +41,7 @@ export class StoryEditorFrame
    */
   init(state: StoryEditorState)
   {
+    this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
 
