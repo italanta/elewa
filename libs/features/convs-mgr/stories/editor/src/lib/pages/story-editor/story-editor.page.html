@@ -1,21 +1,26 @@
-<convl-page *ngIf="!loading; else load" 
-            [breadcrumbs]="breadcrumbs" 
-            [title]="'Story overview :: ' + story.name" [nomarg]="true">
+<convl-page [breadcrumbs]="breadcrumbs" 
+            [title]="pageName" [nomarg]="true">
+
+  <!-- Convl page subbar -->
+  <div subbar>
+    <button (click)="save()"
+            mat-raised-button color="primary" class="subbar-btn" >
+      Save
+    </button>
+  </div>
+
+  <!-- Main body page -->
   <div fxLayout="row" fxFlexFill>
+
   
     <div fxFlex="10">
       <convl-blocks-library *ngIf="frame" [frame]="frame">
       </convl-blocks-library>
     </div>
 
-    <convl-story-editor-frame (frameLoaded)="onFrameLoaded($event)"
+    <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)"
                               fxFlex="90" fxFlexFill>
     </convl-story-editor-frame>
 
   </div>
 </convl-page>
-
-
-<ng-template #load>
-  <app-spinner></app-spinner>
-</ng-template>

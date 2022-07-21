@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router }    from '@angular/router';
 
 import { SubSink } from 'subsink';
+import { BehaviorSubject, filter, take } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
@@ -21,12 +22,12 @@ export class StoryEditorPageComponent implements OnDestroy
 {
   private _sb = new SubSink();
 
-  title: string;
+  pageName: string;
 
   story: Story;
   breadcrumbs: Breadcrumb[] = [];
 
-  loading = true;
+  loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
   constructor(private _story$$: ActiveStoryStore,
@@ -36,17 +37,32 @@ export class StoryEditorPageComponent implements OnDestroy
     this._story$$.get().subscribe(
       (story: Story) => {
         this.story = story;
+        this.pageName = 'Story overview :: ' + story.name;
 
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
-        this.loading = false;
+        this.loading.next(false);
       }
     ); 
   }
 
-  onFrameLoaded(frame: StoryEditorFrame)
+  onFrameViewLoaded(frame: StoryEditorFrame)
   {
     this.frame = frame;
+
+    // After both frame AND data are loaded (hence the subscribe), draw frame blocks on the frame.
+    this._sb.sink = 
+      this.loading.pipe(filter(loading => !loading),
+                        take(1))
+            .subscribe(() => 
+              this.frame.init(this.story)
+            );
+      
     this._cd.detectChanges();
+  }
+
+  /** Save the changes made in the data model. */
+  save() {
+    // this.frame.
   }
 
   ngOnDestroy()

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -38,6 +38,7 @@ export class BlockComponent implements OnInit
     const left = this._getPosFromStyle(style, 'left');
     const top  = this._getPosFromStyle(style, 'top');
 
+    // Update block data model (for saving and loading)
     this.block.position = {
       x: left ? left : this.block.position.x,
       y: top  ? top  : this.block.position.y
