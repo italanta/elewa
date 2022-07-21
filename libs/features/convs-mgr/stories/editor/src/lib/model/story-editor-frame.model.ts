@@ -44,6 +44,7 @@ export class StoryEditorFrame
     this._story = state.story;
     this._blocks = state.blocks;
 
+    // Clear any previously drawn items.
     this._viewport.clear();
 
     // Init frame
