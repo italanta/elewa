@@ -5,7 +5,10 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
+
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
+
 
 /**
  * Model which holds the state of a story-editor.
@@ -18,6 +21,7 @@ export class StoryEditorFrame
   private _cnt = 1;
   loaded = false;
 
+  private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
 
@@ -35,10 +39,10 @@ export class StoryEditorFrame
    * @param story   - Story visualised by the editor
    * @param blocks  - Blocks to render on the story
    */
-  init(story: Story, blocks?: StoryBlock[])
+  init(state: StoryEditorState)
   {
-    this._story = story;
-    this._blocks = blocks ?? [];
+    this._story = state.story;
+    this._blocks = state.blocks;
 
     // Init frame
     for(const block of this._blocks) {
@@ -50,8 +54,8 @@ export class StoryEditorFrame
   /** 
    * Snapshot of the story blocks-state as edited and loaded in the frame. 
    */
-  get blocks(): StoryBlock[] {
-    return this._blocks;
+  get state(): StoryEditorState {
+    return this._state;
   }
 
   /** 

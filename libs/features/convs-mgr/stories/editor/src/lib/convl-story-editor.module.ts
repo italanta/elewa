@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
+import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
+
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library';
@@ -24,7 +26,9 @@ import { ConvlStoryEditorRouterModule }  from './convs-story-editor.router.modul
 
     ConvlStoryEditorRouterModule,
     
-    BlocksLibraryModule],
+    BlocksLibraryModule, 
+    
+    StoryEditorStateModule],
 
     declarations: [StoryEditorPageComponent, 
                       StoryEditorFrameComponent, BlocksLibraryComponent],
