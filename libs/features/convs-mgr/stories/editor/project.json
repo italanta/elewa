@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/editor/src",
-  "prefix": "italanta-apps",
+  "prefix": "convl",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",

@@ -44,6 +44,12 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library": [
+        "libs/features/convs-mgr/stories/blocks/library/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/main": [
+        "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/editor": [
         "libs/features/convs-mgr/stories/editor/src/index.ts"
       ],
@@ -67,6 +73,15 @@
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
+      "@app/state/convs-mgr/stories": [
+        "libs/state/convs-mgr/stories/main/src/index.ts"
+      ],
+      "@app/state/convs-mgr/stories/blocks": [
+        "libs/state/convs-mgr/stories/blocks/src/index.ts"
+      ],
+      "@app/state/convs-mgr/story-editor": [
+        "libs/state/convs-mgr/story-editor/src/index.ts"
+      ],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],

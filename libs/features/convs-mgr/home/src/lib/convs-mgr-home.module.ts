@@ -5,8 +5,12 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 import { HomePageComponent } from './pages/home/home.page';
+import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
+
+import { NewStoryService } from './services/new-story.service';
+
+import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 
 @NgModule({
   imports: [
@@ -17,6 +21,8 @@ import { HomePageComponent } from './pages/home/home.page';
 
     ConvsMgrHomeRouterModule],
 
-    declarations: [HomePageComponent]
+    declarations: [HomePageComponent, StoryListItemComponent],
+
+    providers: [NewStoryService]
 })
 export class ConvsMgrHomeModule {}

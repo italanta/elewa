@@ -1,0 +1,30 @@
+#editor-frame {
+  border-width: 2px;
+  border-style: solid;
+  border-color: lightgrey;
+
+  background: papayawhip;
+  background-image: url(^/assets/bg/graphy.png);
+  background-repeat: repeat;
+  position: relative;
+
+}
+
+#editor-frame .block {
+  position: absolute;
+}
+  .block {
+    text-align: center;
+    cursor: move;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    position: absolute;
+  }
+
+  app-message-block {
+    position: relative;
+  }
+  
