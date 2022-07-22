@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
@@ -9,13 +9,17 @@ import { Breadcrumb } from '@iote/bricks-angular';
   templateUrl: './sub-navbar.component.html',
   styleUrls: ['./sub-navbar.component.scss']
 })
-export class SubNavBarComponent
+export class SubNavBarComponent implements OnInit
 {
   @Input() pageEl: any;
 
   isScrolled = false;
   @Input() backButton: boolean;
   @Input() breadcrumbs: Breadcrumb[];
+
+  ngOnInit() {
+    console.log(this.breadcrumbs);
+  }
 
   // @Input() bgColor: string;
   // @Input() color:   string;

@@ -1,4 +1,6 @@
 import { IObject } from "@iote/bricks";
+
+import { Position } from "./position.interface";
 import { StoryBlockTypes } from "./story-block-types.enum";
 
 /**
@@ -16,6 +18,14 @@ import { StoryBlockTypes } from "./story-block-types.enum";
  */
 export interface StoryBlock extends IObject
 {
+  /** Block Type */
   type: StoryBlockTypes;
+
+  /** Position of the block on the editor */
+  position: Position;
+
+  /** Whether the block has been deleted and should no longer be used in new flows */
+  deleted: boolean;
+
   // ! Type to be inherited by all the different blocks.
 }

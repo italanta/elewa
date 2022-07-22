@@ -1,6 +1,18 @@
-<convl-page title="Home">
-  Hello world !
+<convl-page title="Home" [breadcrumbs]="breadcrumbs"
+  fxLayout="column" fxFlexFill>
 
-  Welcome {{ getUserName(user$ | async) }} of 
-    organisation {{ orgName$() | async }} !
+  <h2>My bots</h2>
+
+  <div fxLayout="row" fxLayoutAlign="center">
+    <div class="bot-selector">
+      <ng-template ngFor [ngForOf]="stories$ | async" let-story>
+        <convl-story-list-item [story]="story"> </convl-story-list-item>
+      </ng-template>
+    </div>
+  </div>
+
+  <div id="add-btn-holder" fxLayout="row" fxLayoutAlign="center">
+    <button mat-raised-button (click)="add()">+ New story</button>
+  </div>
+
 </convl-page>

@@ -4,12 +4,12 @@
 export enum StoryBlockTypes 
 {
   /** 
-   * Block only produces output and will not wait for input. 
+   * Block only produces message output and will not wait for input. 
    * 
-   * Block examples: Messages, sending photos, sending audio, ...
+   * Block examples: Sending messages
    * Usage         : Operator sends a message, terminal chatflow, ...
    */
-  Output = 1,
+  TextMessage = 1,
   
   /** 
    * Block only waits for input and has no leading message. 
