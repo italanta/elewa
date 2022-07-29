@@ -1,1 +1,1 @@
-console.log('Hello World!');
+export * from './app/a-basic-function';
