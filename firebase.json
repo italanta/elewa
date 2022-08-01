@@ -1,0 +1,35 @@
+{
+  "functions": {
+    "source": "dist/apps/convl-lm-backend",
+    "predeploy": [
+      "yarn build convl-lm-backend --skip-nx-cache --prod",
+      "node tools/scripts/build-gc-functions-package.js"
+    ]
+  },
+  "hosting": {
+    "target": "convl-manager",
+    "public": "dist/apps/conv-learning-manager",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
+}
