@@ -1,16 +1,16 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/serverless/src",
+  "sourceRoot": "apps/convl-lm-backend/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/serverless",
-        "main": "apps/serverless/src/main.ts",
-        "tsConfig": "apps/serverless/tsconfig.app.json",
-        "assets": ["apps/serverless/src/assets"]
+        "outputPath": "dist/apps/convl-lm-backend",
+        "main": "apps/convl-lm-backend/src/main.ts",
+        "tsConfig": "apps/convl-lm-backend/tsconfig.app.json",
+        "assets": ["apps/convl-lm-backend/src/assets"]
       },
       "configurations": {
         "production": {
@@ -19,8 +19,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/serverless/src/environments/environment.ts",
-              "with": "apps/serverless/src/environments/environment.prod.ts"
+              "replace": "apps/convl-lm-backend/src/environments/environment.ts",
+              "with": "apps/convl-lm-backend/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -29,11 +29,11 @@
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "serverless:build"
+        "buildTarget": "convl-lm-backend:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "serverless:build:production"
+          "buildTarget": "convl-lm-backend:build:production"
         }
       }
     },
@@ -41,14 +41,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/serverless/**/*.ts"]
+        "lintFilePatterns": ["apps/convl-lm-backend/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/serverless"],
+      "outputs": ["coverage/apps/convl-lm-backend"],
       "options": {
-        "jestConfig": "apps/serverless/jest.config.ts",
+        "jestConfig": "apps/convl-lm-backend/jest.config.ts",
         "passWithNoTests": true
       }
     }

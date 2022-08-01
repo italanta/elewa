@@ -20,7 +20,7 @@ console.log(
   JSON.stringify(firebaseFunctionsPackageJson, null, 2)
 );
 
-const path = 'dist/apps/serverless/package.json'; // Where to save generated package.json file
+const path = 'dist/apps/convl-lm-backend/package.json'; // Where to save generated package.json file
 
 fs.writeFileSync(path, JSON.stringify(firebaseFunctionsPackageJson));
 console.log(`${path} written successfully.`);

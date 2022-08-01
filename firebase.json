@@ -1,8 +1,8 @@
 {
   "functions": {
-    "source": "dist/apps/serverless",
+    "source": "dist/apps/convl-lm-backend",
     "predeploy": [
-      "yarn build serverless --skip-nx-cache --prod",
+      "yarn build convl-lm-backend --skip-nx-cache --prod",
       "node tools/scripts/build-gc-functions-package.js"
     ]
   },

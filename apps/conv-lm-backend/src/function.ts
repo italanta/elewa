@@ -8,7 +8,7 @@ import { GCFunction, FunctionRegistrar, Guard, FunctionHandler } from "@ngfi/fun
  * @param T: The data expected by the function
  * @param R: The result returned from the function
  */
-export class ServerlessFunction<T, R> extends GCFunction<T, R>
+export class convl-lm-backendFunction<T, R> extends GCFunction<T, R>
 {
   constructor(name: string, registrar: FunctionRegistrar<T, R>, guards: Guard<T>[], handler: FunctionHandler<T, R>) {
     super(name, registrar, guards, handler);
