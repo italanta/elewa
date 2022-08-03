@@ -1,8 +1,8 @@
 {
   "functions": {
-    "source": "dist/apps/convl-lm-backend",
+    "source": "dist/apps/conv-lm-backend",
     "predeploy": [
-      "yarn build convl-lm-backend --skip-nx-cache --prod",
+      "yarn build conv-lm-backend --skip-nx-cache --prod",
       "node tools/scripts/build-gc-functions-package.js"
     ]
   },

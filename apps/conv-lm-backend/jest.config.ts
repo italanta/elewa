@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'convl-lm-backend',
+  displayName: 'conv-lm-backend',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/convl-lm-backend',
+  coverageDirectory: '../../coverage/apps/conv-lm-backend',
 };
