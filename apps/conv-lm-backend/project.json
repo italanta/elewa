@@ -1,16 +1,16 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/convl-lm-backend/src",
+  "sourceRoot": "apps/conv-lm-backend/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/convl-lm-backend",
-        "main": "apps/convl-lm-backend/src/main.ts",
-        "tsConfig": "apps/convl-lm-backend/tsconfig.app.json",
-        "assets": ["apps/convl-lm-backend/src/assets"]
+        "outputPath": "dist/apps/conv-lm-backend",
+        "main": "apps/conv-lm-backend/src/main.ts",
+        "tsConfig": "apps/conv-lm-backend/tsconfig.app.json",
+        "assets": ["apps/conv-lm-backend/src/assets"]
       },
       "configurations": {
         "production": {
@@ -19,8 +19,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/convl-lm-backend/src/environments/environment.ts",
-              "with": "apps/convl-lm-backend/src/environments/environment.prod.ts"
+              "replace": "apps/conv-lm-backend/src/environments/environment.ts",
+              "with": "apps/conv-lm-backend/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -29,11 +29,11 @@
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "convl-lm-backend:build"
+        "buildTarget": "conv-lm-backend:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "convl-lm-backend:build:production"
+          "buildTarget": "conv-lm-backend:build:production"
         }
       }
     },
@@ -41,14 +41,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/convl-lm-backend/**/*.ts"]
+        "lintFilePatterns": ["apps/conv-lm-backend/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/convl-lm-backend"],
+      "outputs": ["coverage/apps/conv-lm-backend"],
       "options": {
-        "jestConfig": "apps/convl-lm-backend/jest.config.ts",
+        "jestConfig": "apps/conv-lm-backend/jest.config.ts",
         "passWithNoTests": true
       }
     }
