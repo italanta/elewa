@@ -24,7 +24,7 @@ import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 
-import { environment } from '../environments/environment';
+import { environment } from '../environments/evironment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
