@@ -12,6 +12,8 @@ import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { NewStoryService } from '../../services/new-story.service';
+import { ActiveOrgStore } from '@app/state/organisation';
+import { Organisation } from '@app/model/organisation';
 
 @Component({
   selector: 'convl-home',
@@ -27,14 +29,17 @@ export class HomePageComponent implements OnDestroy
   breadcrumbs: Breadcrumb[] = [];
 
   stories$: Observable<Story[]>;
+  org$: Observable<Organisation>;
 
   loading = true;
 
-  constructor(private _stories$$: StoriesStore,
+  constructor(private _org$$: ActiveOrgStore,
+              private _stories$$: StoriesStore,
               _router: Router,
               private _addStory$: NewStoryService)
   {
     this.breadcrumbs = [HOME_CRUMB(_router, true)];
+    this.org$ = _org$$.get();
     this.stories$ = this._stories$$.get();
   }
 
