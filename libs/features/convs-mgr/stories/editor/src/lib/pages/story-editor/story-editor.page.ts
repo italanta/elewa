@@ -28,6 +28,8 @@ export class StoryEditorPageComponent implements OnDestroy
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
+  stateSaved: boolean = true;
+
   constructor(private _editorStateService: StoryEditorStateService,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
@@ -65,8 +67,14 @@ export class StoryEditorPageComponent implements OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
+    this.stateSaved = false;
+
     this._editorStateService.persist(this.state)
-        .subscribe();
+        .subscribe((success) => {
+          if (success) {
+            this.stateSaved = true;
+          }
+        });
   }
 
   ngOnDestroy()
