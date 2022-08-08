@@ -1,1 +1,5 @@
-<p>default-option-field works!</p>
+<div *ngIf="blockFormGroup" fxFlex>
+  <div [formGroup]="blockFormGroup" fxFlex>
+    <input [id]="inputUniqueId" formControlName="defaultTarget" type="text" placeholder="Default" fxFlexFill>
+  </div>
+</div>
