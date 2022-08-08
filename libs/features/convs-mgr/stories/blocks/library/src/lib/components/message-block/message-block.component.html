@@ -4,7 +4,9 @@
     <form [formGroup]="textMessageForm" fxLayout="column" fxLayoutALign="start center">
 
       <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
-      <input type="text" formControlName="defaultTarget" placeholder="Default">
+
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="textMessageForm" ></app-default-option-field>
+      <!-- <input type="text" formControlName="defaultTarget" placeholder="Default"> -->
 
     </form>
   </mat-card-content>
