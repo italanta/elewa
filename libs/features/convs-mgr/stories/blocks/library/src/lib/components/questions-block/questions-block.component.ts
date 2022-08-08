@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 @Component({
   selector: 'app-questions-block',
@@ -16,6 +17,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() block: QuestionMessageBlock;
   @Input() questionMessageBlock: FormGroup;
+  @Input() jsPlumb: BrowserJsPlumbInstance;
 
   questionOptions: FormGroup;
 

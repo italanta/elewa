@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { Logger } from '@iote/bricks-angular';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -20,6 +22,7 @@ export class BlockComponent implements OnInit
   @Input() id: string;
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
+  @Input() jsPlumb: BrowserJsPlumbInstance;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
