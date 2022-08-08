@@ -1,1 +1,1 @@
-export * from './lib/elements-convs-mgr-controls-input-fields.module';
+export * from './lib/convs-mgr-input-fields.module';
