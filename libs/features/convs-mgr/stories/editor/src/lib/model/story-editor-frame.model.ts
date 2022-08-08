@@ -4,7 +4,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
@@ -24,6 +24,7 @@ export class StoryEditorFrame
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
+  private _connections: StoryBlockConnection[];
 
   blocksArray: FormArray;
 
@@ -42,11 +43,12 @@ export class StoryEditorFrame
    * @param story   - Story visualised by the editor
    * @param blocks  - Blocks to render on the story
    */
-  init(state: StoryEditorState)
+  async init(state: StoryEditorState)
   {
     this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
+    this._connections = state.connections;
 
     // Clear any previously drawn items.
     this._viewport.clear();
@@ -63,6 +65,17 @@ export class StoryEditorFrame
     }
 
     this._jsPlumb.setSuspendDrawing(false, true);   // All drawing data loaded. Now draw
+    
+    await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+
+    // draw connections
+    for(const connection of this._connections) {
+      this._jsPlumb.connect({
+        source: this._jsPlumb.getManagedElement(connection.sourceId),
+        target: this._jsPlumb.getManagedElement(connection.targetId),
+        endpointStyle:{ fill: "yellow" }
+      });
+    }
   }
 
   /** 
@@ -77,6 +90,10 @@ export class StoryEditorFrame
    */
   get updatedBlocks(): FormArray {
     return this.blocksArray;
+  }
+
+  getJsInstance() {
+    return this._jsPlumb.getConnections();
   }
 
   /** 

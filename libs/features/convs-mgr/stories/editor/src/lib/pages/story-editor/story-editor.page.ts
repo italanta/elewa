@@ -7,6 +7,8 @@ import { BehaviorSubject, filter } from 'rxjs';
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
+
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -31,6 +33,7 @@ export class StoryEditorPageComponent implements OnDestroy
   stateSaved: boolean = true;
 
   constructor(private _editorStateService: StoryEditorStateService,
+              private _cStore: BlockConnectionsService,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               _router: Router)
@@ -72,6 +75,18 @@ export class StoryEditorPageComponent implements OnDestroy
     let updatedState = this.state;
     updatedState.blocks = [...this.frame.blocksArray.value];
 
+    let connections = this.frame.getJsInstance() as any[];
+
+    console.log(connections);
+    
+    connections = connections.map(c => {return {
+      id: c.id,
+      sourceId : c.sourceId,
+      targetId : c.targetId,
+    }})
+
+    this._cStore.addMultipleConnections(connections);
+  
     this._editorStateService.persist(this.state)
         .subscribe((success) => {
           if (success) {
