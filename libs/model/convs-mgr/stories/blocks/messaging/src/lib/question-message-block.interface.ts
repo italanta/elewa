@@ -11,6 +11,8 @@ export interface QuestionMessageBlock extends StoryBlock{
   /** Actual question */
   message?: string;
 
+  defaultTarget?: string;
+
   /** Response options */
   options?: ButtonsBlockButton<any>[];
 }

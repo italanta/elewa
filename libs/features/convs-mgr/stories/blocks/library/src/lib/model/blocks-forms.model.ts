@@ -7,7 +7,7 @@ export function _CreateTextMessageBlockForm(_fb: FormBuilder, blockData: TextMes
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    defaultTarget: [''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     type: [blockData.type ?? 1],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
@@ -17,7 +17,7 @@ export function _CreateQuestionBlockMessageForm(_fb: FormBuilder, blockData: Que
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    defaultTarget: [''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     options: _fb.array([]),
     type: [blockData.type ?? 3],
     position: [blockData.position ?? { x: 200, y: 50 }]
