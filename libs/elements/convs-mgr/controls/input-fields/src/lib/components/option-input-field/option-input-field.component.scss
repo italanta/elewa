@@ -1,0 +1,16 @@
+.option {
+  width: 100%
+}
+
+input {
+  width: 95%;
+  text-align: center;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 3px;
+  caret-color: white;
+  color: white;
+  outline: none;
+  border: none;
+  background-color: rgba($color: #6418C3, $alpha: 0.3);
+}

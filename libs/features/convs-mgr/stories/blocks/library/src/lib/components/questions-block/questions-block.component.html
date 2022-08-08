@@ -4,12 +4,13 @@
     <form [formGroup]="questionMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
       <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+      
       <input type="text" formControlName="defaultTarget" placeholder="Default">
 
       <div formArrayName="options" fxFlexFill>
         <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
-          <span [formGroupName]="i">
-            <input #inputOption formControlName="message" type="text" placeholder="New Option" fxFlex>
+          <span [formGroupName]="i" fxFlex>
+            <app-option-input-field [blockFormGroup]="questionMessageBlock" [formGroupNameInput]="i"></app-option-input-field>
           </span>
         </div>
       </div>
