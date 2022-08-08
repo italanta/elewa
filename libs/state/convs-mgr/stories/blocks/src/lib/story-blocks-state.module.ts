@@ -17,7 +17,7 @@ export class StoryBlocksStateModule
     return {
       ngModule: StoryBlocksStateModule,
       providers: [
-        StoryBlocksStore
+        StoryBlocksStore,
       ]
     };
   }
