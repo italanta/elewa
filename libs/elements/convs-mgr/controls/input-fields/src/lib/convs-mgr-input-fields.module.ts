@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { OptionInputFieldComponent } from './components/option-input-field/option-input-field.component';
+import { DefaultOptionFieldComponent } from './components/default-option-field/default-option-field.component';
 
 @NgModule({
   imports: [
@@ -11,8 +12,15 @@ import { OptionInputFieldComponent } from './components/option-input-field/optio
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [OptionInputFieldComponent],
 
-  exports: [OptionInputFieldComponent]
+  declarations: [
+    OptionInputFieldComponent,
+    DefaultOptionFieldComponent
+  ],
+
+  exports: [
+    OptionInputFieldComponent,
+    DefaultOptionFieldComponent
+  ],
 })
 export class ConvsMgrInputFieldsModule {}
