@@ -48,7 +48,7 @@ export class StoryEditorPageComponent implements OnDestroy
           this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
           this.loading.next(false);
         }
-    ); 
+    );     
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame)
@@ -68,6 +68,9 @@ export class StoryEditorPageComponent implements OnDestroy
   /** Save the changes made in the data model. */
   save() {
     this.stateSaved = false;
+
+    let updatedState = this.state;
+    updatedState.blocks = [...this.frame.blocksArray.value];
 
     this._editorStateService.persist(this.state)
         .subscribe((success) => {

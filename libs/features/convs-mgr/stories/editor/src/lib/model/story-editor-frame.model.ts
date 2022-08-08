@@ -1,9 +1,10 @@
 import { ViewContainerRef } from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
@@ -24,7 +25,10 @@ export class StoryEditorFrame
   private _story: Story;
   private _blocks: StoryBlock[] = [];
 
-  constructor(private _jsPlumb: BrowserJsPlumbInstance,
+  blocksArray: FormArray;
+
+  constructor(private _fb: FormBuilder,
+              private _jsPlumb: BrowserJsPlumbInstance,
               private _blocksInjector: BlockInjectorService,
               private _viewport: ViewContainerRef)
   {
@@ -50,6 +54,8 @@ export class StoryEditorFrame
 
     this._jsPlumb.setSuspendDrawing(true);           // Start loading drawing
 
+    this.blocksArray = this._fb.array([]);
+
     // Init frame
     for(const block of this._blocks) {
       this._injectBlockToFrame(block);
@@ -67,6 +73,13 @@ export class StoryEditorFrame
   }
 
   /** 
+   * Snapshot of the story blocks as edited. 
+   */
+  get updatedBlocks(): FormArray {
+    return this.blocksArray;
+  }
+
+  /** 
    * Create a new block for the frame.
    * TODO: Move this to a factory later
    */
@@ -74,11 +87,11 @@ export class StoryEditorFrame
   {
     // TODO - Dynamic rendering of default blocks.
     const block = { id: `${this._cnt}`, 
-                    type: StoryBlockTypes.TextMessage, 
+                    type: type, 
                     message: 'New message', 
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 } 
-    } as TextMessageBlock;
+    } as any;
 
     this._cnt++;
 
@@ -91,6 +104,6 @@ export class StoryEditorFrame
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
    */
   private _injectBlockToFrame(block: StoryBlock) {
-    return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport);
+    return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport, this.blocksArray);
   }
 }
