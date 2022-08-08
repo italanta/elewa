@@ -1,4 +1,5 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -13,7 +14,7 @@ import { _JsPlumbComponentDecorator } from './jsplumb-decorator.function';
 @Injectable()
 export class BlockInjectorService 
 {
-  newBlock(block: StoryBlock, jsPlumb: BrowserJsPlumbInstance, viewport: ViewContainerRef) : ComponentRef<BlockComponent>
+  newBlock(block: StoryBlock, jsPlumb: BrowserJsPlumbInstance, viewport: ViewContainerRef, blocksGroup: FormArray) : ComponentRef<BlockComponent>
   {
     // 1. Init Angular component
     const blockComp = viewport.createComponent(BlockComponent);
@@ -21,6 +22,8 @@ export class BlockInjectorService
     // Set block params
     blockComp.instance.id = block.id as string;
     blockComp.instance.block = block;
+
+    blockComp.instance.blocksGroup = blocksGroup;
 
     // Set style to absolute to be draggable in jsPlumb
     blockComp.location.nativeElement.style = `position: absolute; left: ${block.position.x}px; top: ${block.position.y}px;`;

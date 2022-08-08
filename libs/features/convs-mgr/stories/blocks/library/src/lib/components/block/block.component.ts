@@ -1,7 +1,11 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Logger } from '@iote/bricks-angular';
+
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
+import { _CreateQuestionBlockMessageForm, _CreateTextMessageBlockForm } from '../../model/blocks-forms.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -15,16 +19,37 @@ export class BlockComponent implements OnInit
 {
   @Input() id: string;
   @Input() block: StoryBlock;
+  @Input() blocksGroup: FormArray;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
+  questiontype = StoryBlockTypes.IO;
+
+  blockFormGroup: FormGroup;
 
   constructor(private _el: ElementRef,
+              private _fb: FormBuilder,
               private _logger: Logger) 
   { }
   
   ngOnInit(): void {
     this.type = this.block.type;
+
+    switch (this.type) {
+      case 1:
+        this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case 3:
+        this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+
+      default:
+        break;
+    }
+
   }
 
   /** 

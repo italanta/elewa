@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Logger } from '@iote/bricks-angular';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -19,7 +19,10 @@ export class BlocksLibraryComponent implements OnInit
 {
   @Input() frame: StoryEditorFrame;
 
-  blockTemplates: TextMessageBlock[] = [{ id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock];
+  blockTemplates: TextMessageBlock[] = [
+    { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
+    { id: 'io-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock
+  ];
 
   constructor(private _logger: Logger) 
   { }
@@ -35,6 +38,10 @@ export class BlocksLibraryComponent implements OnInit
     switch(type) {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
+        break
+
+      case StoryBlockTypes.IO:
+        this.frame.newBlock(StoryBlockTypes.IO);
     }
   }
   
