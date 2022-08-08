@@ -9,6 +9,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
 
@@ -26,6 +27,7 @@ export class StoryEditorStateService
 
   constructor(private _story$$: ActiveStoryStore,
               private _blocks$$: StoryBlocksStore,
+              private _connections$$: StoryConnectionsStore,
               private _logger: Logger)
   { }
 
@@ -39,9 +41,9 @@ export class StoryEditorStateService
   get() : Observable<StoryEditorState>
   {
     const state$ = 
-      combineLatest([this._story$$.get(), this._blocks$$.get()])
+      combineLatest([this._story$$.get(), this._blocks$$.get(), this._connections$$.get()])
         .pipe(
-          map(([story, blocks]) => ({ story, blocks }) as StoryEditorState));
+          map(([story, blocks, connections]) => ({ story, blocks, connections }) as StoryEditorState));
 
     // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
     state$.pipe(take(1)).subscribe(state => this._lastLoadedState = ___cloneDeep(state));
