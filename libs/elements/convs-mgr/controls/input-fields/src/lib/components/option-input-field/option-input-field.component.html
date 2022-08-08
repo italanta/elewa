@@ -2,7 +2,7 @@
   <div [formGroup]="blockFormGroup" fxFlex>
     <div formArrayName="options" fxFlex>
       <div [formGroupName]="formGroupNameInput" class="option" fxFlex>
-        <input #inputOption formControlName="message" type="text" placeholder="New Option" fxFlexFill>
+        <input [id]="inputUniqueId" formControlName="message" type="text" placeholder="New Option" fxFlexFill>
       </div>
     </div>
   </div>
