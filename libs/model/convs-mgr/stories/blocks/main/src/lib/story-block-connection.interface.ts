@@ -7,11 +7,12 @@
  */
 export interface StoryBlockConnection
 {
+  id: string;
   /** The StoryBlock ID from which the connection originates. */
-  source: string;
+  sourceId: string;
   /** The output slot on the StoryBlock ID from which the connection originates. (JSPlumb Anchor) */
   slot: number;
 
   /** The target block at which the connection points. */
-  target: string;
+  targetId: string;
 }
