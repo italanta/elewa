@@ -1,8 +1,11 @@
-<mat-card>
+<mat-card *ngIf="textMessageForm">
   <mat-card-title>Message Block {{id}}</mat-card-title>
   <mat-card-content>
-    <form [formGroup]="blockFrm">
-      <input id="message" name="message" type="text" />
+    <form [formGroup]="textMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+      <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+      <input type="text" formControlName="defaultTarget" placeholder="Default">
+
     </form>
   </mat-card-content>
 </mat-card>

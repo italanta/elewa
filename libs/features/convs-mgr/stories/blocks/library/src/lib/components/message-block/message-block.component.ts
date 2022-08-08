@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -17,16 +17,13 @@ export class MessageBlockComponent implements OnInit
 {
   @Input() id: string;
   @Input() block: TextMessageBlock;
-  blockFrm: FormGroup;
+
+  @Input() textMessageForm: FormGroup
 
   constructor(private _fb: FormBuilder,
               private _logger: Logger) 
   { }
   
-  ngOnInit(): void {
-      this.blockFrm = this._fb.group([
-        { name: 'message' }
-      ])
-  }
+  ngOnInit(): void {}
 
 }
