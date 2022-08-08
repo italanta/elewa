@@ -5,7 +5,11 @@
   </div>
 
   <div *ngSwitchCase="questiontype">
-    <app-questions-block [id]="id" [block]="block" [questionMessageBlock]="blockFormGroup" class="block"></app-questions-block>
+    <app-questions-block 
+      [id]="id" [block]="block" 
+      [questionMessageBlock]="blockFormGroup" 
+      [jsPlumb]="jsPlumb"
+      class="block"></app-questions-block>
   </div>
 
 </div>

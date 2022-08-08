@@ -10,7 +10,7 @@
       <div formArrayName="options" fxFlexFill>
         <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
           <span [formGroupName]="i" fxFlex>
-            <app-option-input-field [blockFormGroup]="questionMessageBlock" [formGroupNameInput]="i"></app-option-input-field>
+            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock" [formGroupNameInput]="i"></app-option-input-field>
           </span>
         </div>
       </div>
