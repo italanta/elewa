@@ -4,8 +4,10 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { BlockComponent } from '../components/block/block.component';
 
+import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+
 import { _MessageBlockDecoratePlumb } from '../components/message-block/message-block.jsplumb';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { _QuestionsBlockDecoratePlumb } from '../components/questions-block/questions-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -24,6 +26,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
   {
     case StoryBlockTypes.TextMessage:
       return _MessageBlockDecoratePlumb(block as TextMessageBlock, comp, jsPlumb);
+
+    case StoryBlockTypes.IO:
+      return _QuestionsBlockDecoratePlumb(block as QuestionMessageBlock, comp, jsPlumb);
   }
 
   // Default case
