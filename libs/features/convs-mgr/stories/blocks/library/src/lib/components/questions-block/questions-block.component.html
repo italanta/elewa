@@ -5,7 +5,7 @@
 
       <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
       
-      <input type="text" formControlName="defaultTarget" placeholder="Default">
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"></app-default-option-field>
 
       <div formArrayName="options" fxFlexFill>
         <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
