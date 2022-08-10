@@ -33,7 +33,7 @@ export class StoryEditorPageComponent implements OnDestroy
   stateSaved: boolean = true;
 
   constructor(private _editorStateService: StoryEditorStateService,
-              private _cStore: BlockConnectionsService,
+              private _blockConnectionsService: BlockConnectionsService,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               _router: Router)
@@ -89,7 +89,7 @@ export class StoryEditorPageComponent implements OnDestroy
 
     /** is only true when a new connection(s) is added/updated */
     if (connections.length > 0) {
-      this._cStore.addMultipleConnections(connections);
+      this._blockConnectionsService.addMultipleConnections(connections);
     }
   
     this._editorStateService.persist(this.state)
