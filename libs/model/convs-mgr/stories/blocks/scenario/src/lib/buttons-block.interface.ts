@@ -1,4 +1,4 @@
-import { StoryBlock } from "@italanta-apps/model/convs-mgr/stories/blocks/main";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * A block which asks a question and displays multiple buttons with potential answers.
@@ -6,12 +6,12 @@ import { StoryBlock } from "@italanta-apps/model/convs-mgr/stories/blocks/main";
 export interface ButtonsBlock<T> extends StoryBlock
 {
   /** The message which asks the question */
-  message: string;
+  message?: string;
 
   /** 
    * A list of buttons with question answers.
    * @note - Each button acts as a JSPlumb anchor and can thus connect a previous and next. */
-  buttons: ButtonsBlockButton<T>[];
+  buttons?: ButtonsBlockButton<T>[];
 }
 
 /**

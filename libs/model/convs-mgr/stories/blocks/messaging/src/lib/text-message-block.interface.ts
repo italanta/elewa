@@ -7,4 +7,5 @@ export interface TextMessageBlock extends StoryBlock
 {
   /** Message to accompany image. */
   message?: string;
+  defaultPath?: string;
 }
