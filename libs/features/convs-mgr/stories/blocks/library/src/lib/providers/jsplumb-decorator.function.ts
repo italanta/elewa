@@ -1,3 +1,5 @@
+import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+
 import { ComponentRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -5,7 +7,8 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 import { BlockComponent } from '../components/block/block.component';
 
 import { _MessageBlockDecoratePlumb } from '../components/message-block/message-block.jsplumb';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { TextMessageBlock,QuestionButtonsBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+ import { _ButtonsBlockDecoratePlumb } from '../components/question-block/questions-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -24,6 +27,10 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
   {
     case StoryBlockTypes.TextMessage:
       return _MessageBlockDecoratePlumb(block as TextMessageBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.IO:
+      return _ButtonsBlockDecoratePlumb(block as unknown as  QuestionButtonsBlock<any>, comp, jsPlumb);
+      break;
   }
 
   // Default case
