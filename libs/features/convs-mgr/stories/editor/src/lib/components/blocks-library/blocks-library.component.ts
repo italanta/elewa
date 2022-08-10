@@ -1,8 +1,11 @@
+import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { ButtonsBlock, } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { Component, Input, OnInit } from '@angular/core';
 import { Logger } from '@iote/bricks-angular';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { TextMessageBlock, QuestionButtonsBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -15,11 +18,12 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit
+export class BlocksLibraryComponent<T> implements OnInit
 {
-  @Input() frame: StoryEditorFrame;
+  @Input() frame: StoryEditorFrame<T>;
 
-  blockTemplates: TextMessageBlock[] = [{ id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock];
+  blockTemplates: TextMessageBlock[] = [{ id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock, ];
+  blockQuestions: QuestionButtonsBlock<T>[] = [{ id: 'io-block', type: StoryBlockTypes.IO, message: 'Question Block',buttons:[{id:'io-block', message: 'buttons block', value: {}} as ButtonsBlockButton<T>]} as QuestionButtonsBlock<T>];
 
   constructor(private _logger: Logger) 
   { }
@@ -35,6 +39,10 @@ export class BlocksLibraryComponent implements OnInit
     switch(type) {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
+        break;
+      case StoryBlockTypes.IO:
+        this.frame.newBlock(StoryBlockTypes.IO);
+        break;
     }
   }
   

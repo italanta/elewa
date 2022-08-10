@@ -11,12 +11,13 @@ import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcru
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
+
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnDestroy
+export class StoryEditorPageComponent<T> implements OnDestroy
 {
   private _sb = new SubSink();
 
@@ -25,8 +26,9 @@ export class StoryEditorPageComponent implements OnDestroy
   state: StoryEditorState;
   breadcrumbs: Breadcrumb[] = [];
 
+  stateSaved: boolean = true;
   loading = new BehaviorSubject<boolean>(true);
-  frame: StoryEditorFrame;
+  frame: StoryEditorFrame<T>;
 
   constructor(private _editorStateService: StoryEditorStateService,
               private _cd: ChangeDetectorRef,
@@ -49,7 +51,7 @@ export class StoryEditorPageComponent implements OnDestroy
     ); 
   }
 
-  onFrameViewLoaded(frame: StoryEditorFrame)
+  onFrameViewLoaded(frame: StoryEditorFrame<T>)
   {
     this.frame = frame;
 
@@ -64,9 +66,29 @@ export class StoryEditorPageComponent implements OnDestroy
   }
 
   /** Save the changes made in the data model. */
+    //load /** Save the changes made in the data model. */
   save() {
-    this._editorStateService.persist(this.state)
-        .subscribe();
+    this.stateSaved = false;
+
+    let updatedState = this.state;
+    updatedState.blocks = [...this.frame.blocksArray.value];
+
+    let connections = this.frame.getJsInstance() as any[];
+
+    console.log(connections);
+
+    connections = connections.map(c => {return {
+      id: c.id,
+      sourceId : c.sourceId,
+      targetId : c.targetId,
+    }})
+
+  
+    this._editorStateService.persist(this.state).subscribe((success) => {
+          if (success) {
+            this.stateSaved = true;
+          }
+        });
   }
 
   ngOnDestroy()

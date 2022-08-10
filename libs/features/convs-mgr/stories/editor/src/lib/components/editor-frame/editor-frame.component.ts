@@ -8,12 +8,12 @@ import { StoryEditorInitialiserService } from '../../providers/story-editor-init
   templateUrl: './editor-frame.component.html',
   styleUrls: ['./editor-frame.component.scss']
 })
-export class StoryEditorFrameComponent implements AfterViewInit //implements OnDestroy
+export class StoryEditorFrameComponent<T> implements AfterViewInit //implements OnDestroy
 {
   @ViewChild('editor') editorVC: ElementRef<HTMLElement>;
   @ViewChild('viewport', { read: ViewContainerRef, static: true }) viewport : ViewContainerRef;
 
-  @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
+  @Output() frameLoaded = new EventEmitter<StoryEditorFrame<T>>();
 
   constructor(private _frameInitialiser: StoryEditorInitialiserService) 
   { }

@@ -22,4 +22,4 @@ export function _CreateQuestionBlockMessageForm<T>(_fb: FormBuilder, blockData: 
     type: [blockData.type ?? 3],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
-} 
+}
