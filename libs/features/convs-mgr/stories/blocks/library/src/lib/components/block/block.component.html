@@ -1,7 +1,10 @@
-<div [id]="'block-' + id" [ngSwitch]="type">
+<div [id]="id" [ngSwitch]="type">
 
-  <div *ngSwitchCase="messagetype">
-    <app-message-block [id]="id" [block]="block" class="block"></app-message-block>
-  </div>
+    <div *ngSwitchCase="text">
+        <app-message-block [id]="id" [block]="block" [textMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-message-block>
 
+    </div>
+    <div *ngSwitchCase="buttonsIOBlock">
+        <app-questions [id]="id" [block]="block" [questionsButtonsBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-questions>
+    </div>
 </div>
