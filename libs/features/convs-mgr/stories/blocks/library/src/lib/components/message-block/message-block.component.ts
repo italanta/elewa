@@ -1,5 +1,6 @@
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup,FormArray } from '@angular/forms';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -16,17 +17,14 @@ import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
 export class MessageBlockComponent implements OnInit
 {
   @Input() id: string;
-  @Input() block: TextMessageBlock;
-  blockFrm: FormGroup;
+  @Input() block: TextMessageBlock
+  @Input() textMessageForm: FormGroup;
+  @Input() jsPlumb: BrowserJsPlumbInstance
 
   constructor(private _fb: FormBuilder,
               private _logger: Logger) 
   { }
   
   ngOnInit(): void {
-      this.blockFrm = this._fb.group([
-        { name: 'message' }
-      ])
+    }
   }
-
-}
