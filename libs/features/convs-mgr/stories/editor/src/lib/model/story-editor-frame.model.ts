@@ -1,13 +1,15 @@
+import { ButtonsBlock } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { ViewContainerRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { StoryBlock, StoryBlockTypes, StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
+import { TextMessageBlock, QuestionButtonsBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
+import { FormArray, FormBuilder } from '@angular/forms';
 
 /**
  * Model which holds the state of a story-editor.
@@ -15,18 +17,21 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
  * For each JsPlumb frame, an instance of this class is created which 1-on-1 manages the frame state.
  * Responsible for keeping track of editor data and for re-loading past saved states.
  */
-export class StoryEditorFrame 
+export class StoryEditorFrame<T> 
 {
   private _cnt = 1;
   loaded = false;
-
+  
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
+  blocksArray: FormArray;
 
-  constructor(private _jsPlumb: BrowserJsPlumbInstance,
-              private _blocksInjector: BlockInjectorService,
-              private _viewport: ViewContainerRef)
+  constructor(private _fb: FormBuilder,
+              private _jsPlumb: BrowserJsPlumbInstance,
+              private _viewport: ViewContainerRef,
+              private _blocksInjector: BlockInjectorService
+            )
   {
     this.loaded = true;
   }
@@ -44,6 +49,7 @@ export class StoryEditorFrame
     this._story = state.story;
     this._blocks = state.blocks;
 
+    this.blocksArray = this._fb.array([]);
     // Clear any previously drawn items.
     this._viewport.clear();
     this._jsPlumb.reset();
@@ -67,18 +73,50 @@ export class StoryEditorFrame
   }
 
   /** 
+  * Snapshot of the story blocks-state when updated
+  **/
+  get updatedBlocks(): FormArray {
+    return this.blocksArray;
+  }
+
+  getJsInstance() {
+    return this._jsPlumb.getConnections();
+  }
+  
+  /** 
    * Create a new block for the frame.
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes)
   {
     // TODO - Dynamic rendering of default blocks.
-    const block = { id: `${this._cnt}`, 
-                    type: StoryBlockTypes.TextMessage, 
-                    message: 'New message', 
-                    // TODO: Positioning in the middle + offset based on _cnt
-                    position: { x: 200, y: 50 } 
-    } as TextMessageBlock;
+
+    let block:TextMessageBlock | QuestionButtonsBlock<T>;
+
+    switch (type) {
+      case StoryBlockTypes.TextMessage:
+        block = { id: `${this._cnt}`, 
+        type: StoryBlockTypes.TextMessage, 
+        message: 'New message', 
+        // TODO: Positioning in the middle + offset based on _cnt
+        position: { x: 200, y: 50 } } as TextMessageBlock;
+        break;
+      case StoryBlockTypes.IO:
+          block = { id: `${this._cnt}`, 
+          type: StoryBlockTypes.IO, 
+          question: 'New question', 
+          // TODO: Positioning in the middle + offset based on _cnt
+          position: { x: 200, y: 50 },
+          deleted:false } as QuestionButtonsBlock<T>; //REMEMBER TO REVIEW THIS
+          break;
+      default:
+        block = { id: `${this._cnt}`, 
+        type: StoryBlockTypes.TextMessage, 
+        message: 'New message', 
+        // TODO: Positioning in the middle + offset based on _cnt
+        position: { x: 200, y: 50 } } as TextMessageBlock;
+        break;
+    }
 
     this._cnt++;
 
@@ -91,6 +129,6 @@ export class StoryEditorFrame
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
    */
   private _injectBlockToFrame(block: StoryBlock) {
-    return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport);
+    return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport,this.blocksArray);
   }
 }
