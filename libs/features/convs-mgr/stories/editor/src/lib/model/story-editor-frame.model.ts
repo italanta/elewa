@@ -68,12 +68,20 @@ export class StoryEditorFrame
     
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
 
+    let domSourceInputs = Array.from(document.querySelectorAll('input'));
+    let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
+
     // draw connections
-    for(const connection of this._connections) {
+    for(const connection of this._connections) {      
+      
+      let sourceElement =  domSourceInputs.filter((el) => {return el.id == connection.sourceId})[0];
+      let targetElement =  domBlockCards.filter((el) => {return el.id == connection.targetId})[0];
+
       this._jsPlumb.connect({
-        source: this._jsPlumb.getManagedElement(connection.sourceId),
-        target: this._jsPlumb.getManagedElement(connection.targetId),
-        endpointStyle:{ fill: "yellow" }
+        source: sourceElement as Element,
+        target: targetElement as Element,
+        anchors:["Right", "Left" ],
+        endpoints:["Dot", "Rectangle"],
       });
     }
   }
@@ -92,7 +100,7 @@ export class StoryEditorFrame
     return this.blocksArray;
   }
 
-  getJsInstance() {
+  get getJsPlumbConnections() {
     return this._jsPlumb.getConnections();
   }
 
