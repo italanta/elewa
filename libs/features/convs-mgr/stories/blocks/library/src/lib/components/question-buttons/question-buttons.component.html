@@ -1,0 +1,7 @@
+<div [formGroup]="buttonsBlock">
+    <div formArrayName="buttons">
+        <div [formGroupName]="formGroupNameInput" class="buttons">
+            <input [disabled]="click" (click)="onButtonclick()" [id]="inputID" formControlName="message" type="text" placeholder="New Option">
+        </div>
+    </div>
+</div>

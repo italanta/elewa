@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-title>Questions Block {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]=" questionsButtonsBlock">
+
+            <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+
+            <app-default-button [jsPlumb]="jsPlumb" [blockFormGroup]=" questionsButtonsBlock"></app-default-button>
+
+            <div formArrayName="buttons">
+                <div *ngFor="let buttons of buttons.controls; let i = index" class="full-width">
+                    <span [formGroupName]="i" *ngIf="i<5">
+                  <app-question-buttons [jsPlumb]="jsPlumb" [buttonsBlock]=" questionsButtonsBlock" [formGroupNameInput]="i"></app-question-buttons>
+          </span>
+                </div>
+            </div>
+
+        </form>
+
+        <button (click)="addNewOption()" class="add-button">
+      Add New Option
+    </button>
+    </mat-card-content>
+</mat-card>
