@@ -8,7 +8,7 @@ import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/co
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
+import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
 
 /**
  * Model which holds the state of a story-editor.
