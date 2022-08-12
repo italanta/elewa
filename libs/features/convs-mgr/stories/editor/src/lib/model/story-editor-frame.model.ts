@@ -9,6 +9,7 @@ import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/co
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -54,7 +55,7 @@ export class StoryEditorFrame
     this._viewport.clear();
     this._jsPlumb.reset();
 
-    this._jsPlumb.setSuspendDrawing(true);           // Start loading drawing
+    this._jsPlumb.setSuspendDrawing(true);   // Start loading drawing
 
     this.blocksArray = this._fb.array([]);
 
@@ -66,17 +67,27 @@ export class StoryEditorFrame
 
     this._jsPlumb.setSuspendDrawing(false, true);   // All drawing data loaded. Now draw
     
-    await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+    await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
+    // returns a static NodeList representing a list of the document's elements 
+    // that match the specified selector.
+    // here we're holding the elements in an array inorder to find the source
+    // and target elements for connection drawing later
+    // sources are mostly inputs
+    // targets (blocks) are wrapped inside a mat-card 
     let domSourceInputs = Array.from(document.querySelectorAll('input'));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
 
     // draw connections
+    // Here we're perfoming a key feature of the frame which is drawing the existing
+    // connections from the connections collection
     for(const connection of this._connections) {      
-      
+      // fetching the source (input) that matches the connection source id
       let sourceElement =  domSourceInputs.filter((el) => {return el.id == connection.sourceId})[0];
+      // fetching the target (block) that matches the connection target id
       let targetElement =  domBlockCards.filter((el) => {return el.id == connection.targetId})[0];
 
+      // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
         source: sourceElement as Element,
         target: targetElement as Element,
@@ -116,7 +127,8 @@ export class StoryEditorFrame
                     message: 'New message', 
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 } 
-    } as any;
+                    
+    } as TextMessageBlock | QuestionMessageBlock;
 
     this._cnt++;
 
