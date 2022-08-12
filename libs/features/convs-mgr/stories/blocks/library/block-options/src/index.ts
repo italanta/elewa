@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-block-options.module';
+export * from './lib/convs-mgr-block-options.module';
