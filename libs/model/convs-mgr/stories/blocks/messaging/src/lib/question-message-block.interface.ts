@@ -14,5 +14,13 @@ export interface QuestionMessageBlock extends StoryBlock{
   defaultTarget?: string;
 
   /** Response options */
-  options?: ButtonsBlockButton<any>[];
+  options?: ButtonsBlockButton<Button>[];
+}
+
+interface Button {
+  id: string;
+  /** Message to display as answer */
+  message: string;
+  /** Value the answer holds. */
+  value?: string;
 }

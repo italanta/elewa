@@ -23,5 +23,5 @@ export interface ButtonsBlockButton<T>
   /** Message to display as answer */
   message: string;
   /** Value the answer holds. */
-  value?: T;
+  value?: string;
 }
