@@ -2,7 +2,8 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { BezierConnector } from '@jsplumb/connector-bezier';
+
+import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
 
 @Component({
   selector: 'app-default-option-field',
@@ -23,24 +24,15 @@ export class DefaultOptionFieldComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    let input = document.getElementById(this.inputUniqueId) as Element;
-
     if (this.jsPlumb) {
-      this.jsPlumb.addEndpoint(input, {
-        // Whether the anchor is source (This Block -> Other Block)
-        source: true,
+      this._decorateInput();
+    }
+  }
 
-        // Type of endpoint to render
-        endpoint: 'Dot',
-        // Where to position the anchor
-        anchor: 'Right',
-        connector: {
-          type: BezierConnector.type,
-          options: {
-            curviness: 100,
-          },
-        },
-      });
+  private _decorateInput() {
+    let input = document.getElementById(this.inputUniqueId) as Element;
+    if (this.jsPlumb) {
+      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
 }
