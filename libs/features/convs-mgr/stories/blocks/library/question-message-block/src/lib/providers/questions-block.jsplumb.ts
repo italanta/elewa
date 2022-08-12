@@ -1,11 +1,9 @@
 import { ComponentRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { BezierConnector } from "@jsplumb/connector-bezier"
-
 
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { BlockComponent } from "../block/block.component";
+import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/main";
 
 /**
  * Decorates MessageBlock with JS plumb connectors.

@@ -11,13 +11,13 @@ import {
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/question-message-block';
 
 import { BlockComponent } from './components/block/block.component';
 import { MessageBlockComponent } from './components/message-block/message-block.component';
 
-import { QuestionsBlockComponent } from './components/questions-block/questions-block.component';
-
 import { BlockInjectorService } from './providers/block-injector.service';
+
 
 @NgModule({
   imports: [
@@ -29,13 +29,13 @@ import { BlockInjectorService } from './providers/block-injector.service';
     ReactiveFormsModule,
 
     ConvlPageModule,
+    ConvsMgrQuestionBlockModule,
     ConvsMgrBlockOptionsModule
   ],
 
   declarations: [
     BlockComponent,
     MessageBlockComponent,
-    QuestionsBlockComponent,
   ],
 
   // Injector which creates all block types within the editor context.
