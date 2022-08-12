@@ -21,7 +21,7 @@ export class BlocksLibraryComponent implements OnInit
 
   blockTemplates: TextMessageBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
-    { id: 'io-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock
+    { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock
   ];
 
   constructor(private _logger: Logger) 
