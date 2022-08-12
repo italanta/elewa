@@ -10,14 +10,14 @@ import {
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-import { ConvsMgrInputFieldsModule } from '@app/elements/convs-mgr/controls/input-fields';
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { BlockComponent } from './components/block/block.component';
 import { MessageBlockComponent } from './components/message-block/message-block.component';
 
-import { BlockInjectorService } from './providers/block-injector.service';
 import { QuestionsBlockComponent } from './components/questions-block/questions-block.component';
 
+import { BlockInjectorService } from './providers/block-injector.service';
 
 @NgModule({
   imports: [
@@ -29,7 +29,7 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
     ReactiveFormsModule,
 
     ConvlPageModule,
-    ConvsMgrInputFieldsModule
+    ConvsMgrBlockOptionsModule
   ],
 
   declarations: [
