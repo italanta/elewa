@@ -6,7 +6,7 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _MessageBlockDecoratePlumb } from '../components/message-block/message-block.jsplumb';
+import { _MessageBlockDecoratePlumb } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
 import { _QuestionsBlockDecoratePlumb } from '@app/features/convs-mgr/stories/blocks/library/question-message-block';
 
 /**
