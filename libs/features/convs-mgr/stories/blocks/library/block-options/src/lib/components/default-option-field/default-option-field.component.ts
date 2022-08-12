@@ -20,7 +20,7 @@ export class DefaultOptionFieldComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.inputUniqueId = `default-input-${this.blockFormGroup.value.id}`;
+    this.inputUniqueId = `defo-${this.blockFormGroup.value.id}`;
   }
 
   ngAfterViewInit(): void {

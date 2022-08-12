@@ -21,7 +21,7 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.inputUniqueId = `input-${this.formGroupNameInput}$-${this.blockFormGroup.value.id}`;
+    this.inputUniqueId = `i-${this.formGroupNameInput}-${this.blockFormGroup.value.id}`;
   }
 
   ngAfterViewInit(): void {
