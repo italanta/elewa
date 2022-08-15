@@ -14,6 +14,13 @@ import { SubNavBarComponent } from './components/sub-bar/sub-navbar.component';
 import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component';
 
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+
+
 /**
  *  Conversational Learning Page Module. Holds the page holder.
  *      - CONVL project specific
@@ -26,7 +33,12 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
 @NgModule({
   imports: [CommonModule,  RouterModule,
             MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-            UserMenuModule],
+            UserMenuModule,
+            MatToolbarModule,
+            MatSidenavModule,
+            MatButtonModule,
+            MatIconModule,
+            MatDividerModule,],
 
   declarations: [ConvlPageComponent, ConvlNavbarComponent, ConvlSideMenuComponent, 
                   SideMenuFooterComponent, 
