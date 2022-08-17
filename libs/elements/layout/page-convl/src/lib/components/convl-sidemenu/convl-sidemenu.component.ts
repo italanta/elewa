@@ -1,16 +1,12 @@
-import { Component, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-
-
-
-
 
 // import { ActiveOrgStore } from '@elewa/state/organisation';
 // import { ActiveCommFlowStore } from '@elewa/state/comms/flows/main'
 
 /**
- * Sidemenu component for the CONVERSATIONAL LEARNING project. 
+
  * @see convl-page.module to learn more about how we determine usage of this component.
  */
 @Component({
@@ -18,18 +14,8 @@ import { SubSink } from 'subsink';
   templateUrl: './convl-sidemenu.component.html',
   styleUrls: [ './convl-sidemenu.component.scss' ]
 })
-
-
-
-
-
 export class ConvlSideMenuComponent implements OnInit, OnDestroy
 {
-  @ViewChild(MatSidenav)
-  sidenav!: MatSidenav;
-
-  
-
   private _sbS = new SubSink();
 
   @Input() user: any;
@@ -41,7 +27,7 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
               // private _flow$$: ActiveCommFlowStore,
               @Inject('ENVIRONMENT') private _env: any)
   {}
-  
+
   ngOnInit()
   {
     this.projectName = this._env.project.name;
@@ -55,5 +41,3 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
     this._sbS.unsubscribe();
   }
 }
-
-
