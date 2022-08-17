@@ -2,25 +2,26 @@
   <mat-nav-list>
 
 <mat-toolbar class="mat-elevation-z8">
-  <button
-    mat-icon-button
-    *ngIf="sidenav.mode === 'over'"
-    (click)="sidenav.toggle()"
-  >
-    <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-    <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-  </button>
+
 
   <div [routerLink]="['/']"
   mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
   
   <!-- <i matListIcon class="fas fa-columns"></i> -->
-  <img class="list-icon icon-top" src="assets/images/ele-small-ico.png">
+  <img class="list-icon icon-top" src="assets/images/new2.png">
   <div class="proj-name">{{ projectName }}</div>
   <div class="proj-info">
    {{ projectInfo }}
   </div>
   </div>
+  <button
+  mat-icon-button
+  *ngIf="sidenav.mode === 'over'"
+  (click)="sidenav.toggle()"
+>
+  <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+  <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+</button>
   
   <hr id="menu-header-seperator"/>
 </mat-toolbar>
