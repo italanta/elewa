@@ -19,6 +19,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 
 /**
@@ -38,7 +39,8 @@ import { MatDividerModule } from '@angular/material/divider';
             MatSidenavModule,
             MatButtonModule,
             MatIconModule,
-            MatDividerModule,],
+            MatDividerModule,
+            MatButtonToggleModule,],
 
   declarations: [ConvlPageComponent, ConvlNavbarComponent, ConvlSideMenuComponent, 
                   SideMenuFooterComponent, 
