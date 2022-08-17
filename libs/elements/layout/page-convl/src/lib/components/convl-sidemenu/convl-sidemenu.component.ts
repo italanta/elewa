@@ -2,10 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular
 
 import { SubSink } from 'subsink';
 
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
-import {filter } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+
 
 
 
