@@ -1,4 +1,50 @@
 // Import theming functions
+//@import '@angular/material/theming';
+// Import your custom theme
+//@import 'libs/elements/theming/common.theme.scss';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+new css styles by meshack
+
+mat-toolbar {
+  background: #004a9f;
+  color: white;
+}
+
+mat-sidenav {
+  margin: 16px;
+  width: 200px;
+  border-right: none;
+  background: #002b5c;
+  color: white;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+}
+
+
+ mat-icon {
+    margin-right: 5px;
+  }
+
+
+
+mat-divider {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+
+
+// Import theming functions
 @import '@angular/material/theming';
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
