@@ -5,17 +5,16 @@
 
 
   <div [routerLink]="['/']"
-  mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
+  mat-list-item class="header top-header" fxLayout="row">
   
   <!-- <i matListIcon class="fas fa-columns"></i> -->
-  <img class="list-icon icon-top" src="assets/images/new2.png">
+  <img class="list-icon icon-top" src="assets/images/new.png">
   <div class="proj-name">{{ projectName }}</div>
   <div class="proj-info">
    {{ projectInfo }}
   </div>
   </div>
-  <button
-  mat-icon-button
+  <button mat-icon-button class="sidenavmenu"
   *ngIf="sidenav.mode === 'over'"
   (click)="sidenav.toggle()"
 >
