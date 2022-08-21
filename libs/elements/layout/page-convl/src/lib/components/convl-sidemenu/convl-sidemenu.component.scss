@@ -5,9 +5,6 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 //new css styles by meshack
-.sidebar-menu{
-  background: white;
-}
 
 
 mat-sidenav {
@@ -19,17 +16,22 @@ mat-sidenav {
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
+  
+}
+.sidebar-menu{
+  background: white;
 }
 
 
  mat-icon {
-    margin-right:1.5px;
+    margin-right:1px;
   }
 
 
 
 
 #side-menu {
+  border: 3px solid red;
   min-width:200px;
   font-family: mat-font-family($custom-typography, subheading-2);
 }
