@@ -1,12 +1,19 @@
 // Import theming functions
-//@import '@angular/material/theming';
+@import '@angular/material/theming';
 // Import your custom theme
-//@import 'libs/elements/theming/common.theme.scss';
+@import 'libs/elements/theming/common.theme.scss';
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 //new css styles by meshack
 
+img{
+  height:60px !important ;
+  width: 150px !important;
 
+}
+.sidenavmenu{
+  left: 20px;
+}
 
 mat-sidenav {
   margin: 16px;
