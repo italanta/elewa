@@ -1,7 +1,7 @@
 <div id="side-menu" fxLayout="column">
   <mat-nav-list>
 
-<mat-toolbar class="mat-elevation-z8">
+<mat-toolbar class="sidebar-menu">
 
 
   <div [routerLink]="['/']"
@@ -19,7 +19,7 @@
   (click)="sidenav.toggle()"
 >
   <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-  <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+  <mat-icon *ngIf="sidenav.opened"> menu </mat-icon>  <!-- close -->
 </button>
   
   <hr id="menu-header-seperator"/>
