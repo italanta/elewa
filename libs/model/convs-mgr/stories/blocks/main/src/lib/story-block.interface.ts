@@ -27,5 +27,7 @@ export interface StoryBlock extends IObject
   /** Whether the block has been deleted and should no longer be used in new flows */
   deleted: boolean;
 
+  blockTitle: string;
+  blockIcon: string;
   // ! Type to be inherited by all the different blocks.
 }
