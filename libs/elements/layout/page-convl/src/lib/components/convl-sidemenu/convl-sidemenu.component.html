@@ -16,18 +16,13 @@
   </div>
   <button mat-icon-button class="sidenavmenu"
   *ngIf="sidenav.mode === 'over'"
-  (click)="sidenav.toggle()"
->
+  (click)="sidenav.toggle()">  
   <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
   <mat-icon *ngIf="sidenav.opened"> menu </mat-icon>  <!-- close -->
 </button>
   
   <hr id="menu-header-seperator"/>
 </mat-toolbar>
-
-
-
-
 
 
     <!-- Section Home -->
