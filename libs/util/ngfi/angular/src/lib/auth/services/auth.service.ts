@@ -185,7 +185,7 @@ export class AuthService
     }
   }
 
-  signOut(route?: string)
+  public async signOut(route?: string)
   {
     return this.afAuth.signOut().then(() => {
       this.router.navigate([route ?? '/']);
