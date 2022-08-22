@@ -1,3 +1,4 @@
+import { Form, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
@@ -14,6 +15,7 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 })
 export class LoginComponent implements OnInit
 {
+
   isLoading: boolean;
   email: string;
   password: string;
