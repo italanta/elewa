@@ -33,7 +33,8 @@ export class RegisterComponent
   private _initForm()
   {
     this.registerForm = this._fb.group({
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', [Validators.required]],
@@ -49,8 +50,8 @@ export class RegisterComponent
       this.isLoading = true;
       const frm = this.registerForm.value;
 
-      const firstName = frm.name.split(' ')[0];
-      const lastName = frm.name.split(' ')[1] ?? '';
+      const firstName = frm.firstName;
+      const lastName = frm.lastName;
 
       const user  = {
         email: frm.email,
