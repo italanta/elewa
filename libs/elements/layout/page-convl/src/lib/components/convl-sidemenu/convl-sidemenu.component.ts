@@ -1,4 +1,3 @@
-import { AuthService } from '@ngfi/angular';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
@@ -24,10 +23,8 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   projectName: string;
   projectInfo: string;
 
-
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
-              private _authService: AuthService,
               @Inject('ENVIRONMENT') private _env: any)
   {}
 
@@ -42,9 +39,5 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   ngOnDestroy()
   {
     this._sbS.unsubscribe();
-  }
-
-  logout(){
-    this._authService.signOut('/auth/login');
   }
 }
