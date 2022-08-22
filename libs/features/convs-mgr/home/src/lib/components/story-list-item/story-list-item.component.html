@@ -1,11 +1,19 @@
-<div class="story-list-item mat-elevation-z2" fxLayout="row" fxLayoutAlign="center center">
+<div class="#" fxLayout="column" fxLayoutAlign="center">
 
-  <div class="title-holder">{{ story.name }}</div>
-  <div class="flex-spacer"></div>
-
+<mat-card class="example-card">
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <h2 class="bot">WhatsApp Bot <span class="bot-number">(6 bots)</span></h2>
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+      bred for hunting. 
+    </p>
+  </mat-card-content>
   <div class="action-holder">
-    <button mat-raised-button (click)="goTo()">
-      Go
+    <button mat-raised-button color="accent" (click)="goTo()">
+      Open bot
     </button>
   </div>
+</mat-card>
 </div>

@@ -1,16 +1,20 @@
-.story-list-item {
-  padding: 10px;  
-  margin-bottom: 20px;
+.example-card {
+  max-width: 300px;
+  border-radius: 25px;
 }
-    .story-list-item:last-child { margin-bottom: 0; }
 
-  .title-holder {
-    padding: 15px 15px;
-    font-weight: bold;
-  }
+.mat-card-image{
+  border-radius: 25px;
+}
 
-  .action-holder {
-    padding: 15px 15px 15px 15px;
-  }
-
-  
+.mat-raised-button {
+  width: 100%;
+  border-radius: 10px;
+}
+.bot{
+  margin-left: 0%;
+  font-size: medium;
+}
+.bot-number{
+  font-size: smaller;
+}
