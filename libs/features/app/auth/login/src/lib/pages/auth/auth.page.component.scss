@@ -1,85 +1,112 @@
-$light-white: #f8f8fa;
-$navy-blue: #5312B3;
-
-#ele-logo-sub {
-  max-width: 220px;
-}
-
-.auth-page {
-	min-width: 100%;
-	min-height: 100%;
-	background-color: $light-white;
-}
-
-.form {
-	padding: 30px;
-}
-
-.auth-card {
-	max-width: 800px;
-	height: auto;
-	min-height: 500px;
-	border-radius: 8px;
-	background: white;
-	box-shadow: 0px 3px 6px #70739D0B;
-	border: 1px solid #fdfdfd;
-	border-radius: 8px;
-}
-
-.elewa-info {
-	background-color: $navy-blue;
-	color: white;
-	padding: 20px;
-	font-weight: 400;
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-
-	@media screen and (max-width: 768px) {
-		display: none;
-  }
-}
-
-.logoImg {
-	width: 200px;
-	padding: 20px;
-}
-
-.maison {
-	width: 350px;
-	height: auto;
-	margin-left: 150px;
-	margin-bottom: -150px;
-}
-
-.blue-area{
-	background-color: #ffc200;
-	border-bottom-left-radius: 8px;
-	padding: 10px 5px;
-	text-align: center;
-	cursor: pointer;
-
-	@media screen and (max-width: 768px) {
-		border-bottom-right-radius: 8px;
-	}
-}
-
-.bottom-content{
-  color: white;
-  font-size: 18px;
-	text-transform: uppercase;
-}
-
-.actual-form{
-	@media screen and (max-width: 768px) {
-    max-width: 100% !important;
-  }
-}
-
-.tiny-logo{
-	display: none !important;
-
-	@media screen and (max-width: 768px) {
-		display: flex !important;
-		margin-bottom: 10px;
-  }
-}
+    $light-white: #f8f8fa;
+    $navy-blue: #5312B3;
+    #ele-logo-sub {
+        max-width: 220px;
+    }
+    
+    .auth-page {
+        min-width: 100%;
+        min-height: 100%;
+        background-color: $light-white;
+    }
+    
+    .form {
+        padding: 30px;
+    }
+    
+    .auth-card {
+        max-width: 100%;
+        min-height: 100%;
+        border-radius: 8px;
+        background: white;
+        box-shadow: 0px 3px 6px #70739D0B;
+        border: 1px solid #fdfdfd;
+    }
+    
+    .elewa-info {
+        text-align: center;
+        color: white;
+        padding: 20px;
+        font-weight: 400;
+        background: rgb(255, 177, 0);
+        background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+    
+    .logoImg {
+        width: 200px;
+        padding: 20px;
+    }
+    
+    .maison {
+        width: 350px;
+        height: auto;
+        margin-left: 150px;
+        margin-bottom: -150px;
+    }
+    
+    .button-area {
+        background-color: #f8f8fa;
+        text-align: center;
+        align-self: center;
+        width: 40%;
+        cursor: pointer;
+        @media screen and (max-width: 768px) {
+            border-bottom-right-radius: 8px;
+            max-width: 100%;
+        }
+        @media screen and (max-width: 320px) {
+            border-bottom-right-radius: 8px;
+        }
+    }
+    
+    .bottom-content {
+        color: white;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+    
+    .actual-form {
+        @media screen and (max-width: 768px) {
+            max-width: 100% !important;
+        }
+        ;
+    }
+    
+    .tiny-logo {
+        margin-bottom: 30px;
+        @media screen and (max-width: 768px) {
+            display: flex !important;
+            margin-bottom: 30px;
+        }
+    }
+    
+    button {
+        background-color: white;
+        width: 50%;
+        border: none;
+        // border-bottom: 3px solid rgba(255, 194, 0);
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        font-size: 20px;
+        font-weight: 5;
+    }
+    
+    .login-button {
+        border-bottom: 3px solid rgba(255, 194, 0);
+        border-width: 50%;
+    }
+    
+    .title {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .description {
+        font-size: 20px;
+        font-weight: 6;
+        line-height: 2;
+    }

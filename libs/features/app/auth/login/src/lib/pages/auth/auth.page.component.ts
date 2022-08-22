@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 
 import { User } from '@iote/bricks';
 import { UserStore } from '@app/state/user';
+import { TranslateService } from '@ngfi/multi-lang';
 
 @Component({
   selector: 'app-auth-page',
@@ -15,10 +16,12 @@ export class AuthPageComponent implements OnInit, OnDestroy
   isLoading = true;
   user$: Observable<User>;
   isLogin = true;
+  lang = 'en';
 
   private _userSubscr : Subscription;
 
   constructor(userService: UserStore,
+               private _translateService: TranslateService,
               private _router: Router)
   {
     this.user$ = userService.getUser();
@@ -26,6 +29,7 @@ export class AuthPageComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+    this.lang = this._translateService.initialise();
     this._userSubscr = this.user$.subscribe(user =>
     {
       if(user != null)
@@ -46,15 +50,28 @@ export class AuthPageComponent implements OnInit, OnDestroy
 
   toggleMode()
   {
-    this.isLogin = !this.isLogin;
+    this.isLogin=false;
 
-    if(this.isLogin)
+    if(!this.isLogin)
     {
-      this._router.navigate(['/auth/login']);
-    }
-    else {
+      console.log(this.isLogin);
       this._router.navigate(['/auth/register']);
     }
+  }
+
+
+  toggleModeLogin(){
+
+    this.isLogin=true;
+
+    if(this.isLogin){
+      this._router.navigate(['/auth/login']);
+    }
+  }
+
+  setLang(lang: 'en' | 'fr')
+  {
+    this._translateService.setLang(lang);
   }
 
 }
