@@ -8,7 +8,6 @@
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
     "elements-base-firebase": "libs/elements/base/firebase",
-    "elements-convs-mgr-controls-input-fields": "libs/elements/convs-mgr/controls/input-fields",
     "elements-layout-page": "libs/elements/layout/page",
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
