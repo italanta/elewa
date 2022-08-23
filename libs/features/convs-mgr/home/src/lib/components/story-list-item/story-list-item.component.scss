@@ -1,12 +1,12 @@
 .example-card {
   max-width: 270px;
-  border-radius: 25px;
+  border-radius: 15px;
   margin: 13px;
 }
 
 .mat-card-image{
-  border-radius: 25px;
-  height: 200px;
+  border-radius: 15px;
+  height: 180px;
 }
 
 .mat-raised-button {
@@ -21,4 +21,16 @@
 }
 .bot-number{
   font-size: x-small;
+}
+
+.btn-dotted{
+  height: 5px;
+  width: 5px;
+  background-color: rgb(51, 49, 49);
+  border-radius: 50%;
+  margin: 2px 0;
+}
+
+.dots{
+margin-top: 7px;
 }
