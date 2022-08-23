@@ -1,10 +1,8 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '@ngfi/angular';
 
 import { SubSink } from 'subsink';
 
-// import { ActiveOrgStore } from '@elewa/state/organisation';
-// import { ActiveCommFlowStore } from '@elewa/state/comms/flows/main'
+import { AuthService } from '@ngfi/angular';
 
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
