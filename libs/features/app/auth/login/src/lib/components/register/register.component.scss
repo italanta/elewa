@@ -1,5 +1,12 @@
+$authentication-header: #210A59;
+$icon-color: #919698;
+$proceed-button: #ffc200;
+$button-icon-colour: white;
+$mat-appearance-color: #00000000;
+$google-button:#de5246;
+$microsoft-button: #29487D;
 .auth-header {
-    color: #210A59;
+    color: $authentication-header;
     font-size: 20px;
     margin-bottom: 10px;
 }
@@ -9,13 +16,13 @@
 }
 
 #googleBtn {
-    background-color: #de5246;
-    color: white;
+    background-color: $google-button;
+    color: $button-icon-colour;
 }
 
-#fbBtn {
-    background-color: #4267B2;
-    color: white;
+#msBtn {
+    background-color: $microsoft-button;
+    color: $button-icon-colour;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -23,7 +30,7 @@
 }
 
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
-    background-color: #00000000 !important;
+    background-color: $mat-appearance-color !important;
 }
 
 .small-txt {
@@ -31,7 +38,7 @@
 }
 
 .hr-with-text {
-    color: #919698;
+    color: $icon-color;
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 10px;
@@ -42,7 +49,7 @@
     content: '';
     width: 20px;
     flex: 1;
-    border-bottom: 1px solid #919698;
+    border-bottom: 1px solid $icon-color;
     margin: 0 3px 8px 3px;
     opacity: 0.6;
 }
@@ -60,17 +67,17 @@
     &.form-field-icon {
         padding-top: 10px;
         padding-bottom: 10px;
-        color: #919698;
+        color: $icon-color;
         background-color: #70739D0D;
         max-height: 35px;
     }
     &.google-icon {
-        color: white;
-        background-color: #8b0000;
+        color: $button-icon-colour;
+        background-color: $google-button;
     }
     &.fb-icon {
-        color: white;
-        background-color: #29487D;
+        color: $button-icon-colour;
+        background-color: $microsoft-button;
     }
 }
 
@@ -79,14 +86,14 @@
 }
 
 input {
-    background-color: white;
+    background-color: $button-icon-colour;
     border: none;
     width: 100%!important;
 }
 
 #register-button {
     width: 100%;
-    background-color: #ffc200;
+    background-color: $proceed-button;
     font-size: 12px;
     height: 30px;
 }
