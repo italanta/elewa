@@ -71,6 +71,8 @@ export class BlockComponent implements OnInit
       x: left ? left : this.block.position.x,
       y: top  ? top  : this.block.position.y
     };
+
+    this.blockFormGroup.value.position = this.block.position;
   }
 
   /** 
