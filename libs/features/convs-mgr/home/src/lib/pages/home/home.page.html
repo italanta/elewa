@@ -1,11 +1,14 @@
-<convl-page title="Home" [breadcrumbs]="breadcrumbs"
-  fxLayout="" >
+<convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column">
 
+  <div fxLayout="row" fxLayoutAlign="space-between">
+<div>
   <h2>My Bots</h2>
-  
-  <div id="add-btn-holder" fxLayout="row" fxLayoutAlign="end">
-    <button mat-raised-button color="accent" (click)="add()">+ Create Bot</button>
+</div>
+    <div id="add-btn-holder">
+      <button mat-raised-button color="accent" (click)="add()">+ Create Bot</button>
   </div>
+  </div>
+ 
 
     <div class="bot-selector" fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="26px grid">
       <ng-template ngFor [ngForOf]="stories$ | async" let-story>
