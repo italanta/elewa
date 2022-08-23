@@ -9,4 +9,14 @@ import { Story } from "./story.interface";
  * The difference between a story section and a story is that a story is often the root entry point of a conversation,
  *  while sections are hierarchicaclly added and organised through section blocks.
  */
-export interface StorySection extends Story { }
+export interface StorySection extends Story {
+
+    /* image of the story */
+    imageField: string;
+    
+    /* description of the story */
+
+     description: string;
+
+
+ }
