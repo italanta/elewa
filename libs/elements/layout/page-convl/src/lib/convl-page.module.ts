@@ -14,14 +14,6 @@ import { SubNavBarComponent } from './components/sub-bar/sub-navbar.component';
 import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component';
 
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
-
 /**
  *  Conversational Learning Page Module. Holds the page holder.
  *      - CONVL project specific
@@ -34,13 +26,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 @NgModule({
   imports: [CommonModule,  RouterModule,
             MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-            UserMenuModule,
-            MatToolbarModule,
-            MatSidenavModule,
-            MatButtonModule,
-            MatIconModule,
-            MatDividerModule,
-            MatButtonToggleModule,],
+            UserMenuModule],
 
   declarations: [ConvlPageComponent, ConvlNavbarComponent, ConvlSideMenuComponent, 
                   SideMenuFooterComponent, 
@@ -50,3 +36,5 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
   exports: [ConvlPageComponent],
 })
 export class ConvlPageModule { }
+
+
