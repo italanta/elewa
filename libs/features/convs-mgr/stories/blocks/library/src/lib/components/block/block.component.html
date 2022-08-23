@@ -4,4 +4,23 @@
     <app-message-block [id]="id" [block]="block" class="block"></app-message-block>
   </div>
 
+  <div *ngSwitchCase="block">
+     <div class="story-block">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            {{block.blockIcon}}
+          </div>
+          <div class="col-sm">
+            {{block.blockTitle}}
+          </div>
+          <div class="col-sm">
+            <div class="test"></div>
+          </div>
+        </div>
+      </div>
+        
+     </div>
+  </div>
+
 </div>

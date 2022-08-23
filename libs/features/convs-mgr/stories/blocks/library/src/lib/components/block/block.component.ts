@@ -16,6 +16,9 @@ export class BlockComponent implements OnInit
   @Input() id: string;
   @Input() block: StoryBlock;
 
+  blockIcon: string;
+  blockTitle: string;
+
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
 
@@ -25,6 +28,8 @@ export class BlockComponent implements OnInit
   
   ngOnInit(): void {
     this.type = this.block.type;
+    this.blockIcon = this.block.blockIcon;
+    this.blockTitle = this.block.blockTitle;
   }
 
   /** 

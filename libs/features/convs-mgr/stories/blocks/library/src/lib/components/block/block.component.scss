@@ -1,4 +1,15 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
 .block {
   position: relative;
   cursor: move;
+  border-radius: 10px;
 }
+.story-block {
+  border-radius: 10px;
+}
+
+.test {
+  content: '\2807';
+  font-size: 100px;
+  }
