@@ -1,20 +1,24 @@
 .example-card {
-  max-width: 300px;
+  max-width: 270px;
   border-radius: 25px;
+  margin: 13px;
 }
 
 .mat-card-image{
   border-radius: 25px;
+  height: 200px;
 }
 
 .mat-raised-button {
   width: 100%;
   border-radius: 10px;
+  color:  #6418C3;
+  background-color: #dbcbf0;
 }
 .bot{
   margin-left: 0%;
   font-size: medium;
 }
 .bot-number{
-  font-size: smaller;
+  font-size: x-small;
 }
