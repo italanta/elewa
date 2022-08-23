@@ -5,9 +5,10 @@
       <button fxHide.gt-sm (click)="toggleMenu.emit()" mat-icon-button color="accent" class="icon-top">
         <i class="fas fa-bars"></i>
       </button>
-
-      <div #titleEl id="navbar-title">
-        <ng-content select="[title]"></ng-content>
+     
+      <div #titleEl id="navbar-title"> Toolbar
+        <!-- <ng-content select="[title]">
+        </ng-content> -->
       </div>
 
       <!-- <span *ngIf="titleIsEmpty(titleEl)">
@@ -17,11 +18,12 @@
       </span> -->
 
       <ng-content select="[left-links]"></ng-content>
-
+      
       <div class="flex-spacer"></div>
 
       <!-- Default ng-content -->
-      <ng-content></ng-content>
-
+      <!-- <ng-content></ng-content> -->
+      <app-user-menu></app-user-menu>
   </mat-toolbar>
+  
 </nav>

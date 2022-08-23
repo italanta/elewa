@@ -6,7 +6,7 @@ import { SubSink } from 'subsink';
 // import { ActiveCommFlowStore } from '@elewa/state/comms/flows/main'
 
 /**
- * Sidemenu component for the CONVERSATIONAL LEARNING project. 
+
  * @see convl-page.module to learn more about how we determine usage of this component.
  */
 @Component({
