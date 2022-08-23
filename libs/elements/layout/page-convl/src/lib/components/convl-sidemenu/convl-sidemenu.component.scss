@@ -4,7 +4,7 @@
 @import 'libs/elements/theming/common.theme.scss';
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
-
+$white: white;
 
 //new css styles by meshack
 
@@ -12,7 +12,7 @@
 mat-sidenav {
   width: 200px;
   border-right: none;
-  color: white;
+  color: $white;
 }
 
 
@@ -21,7 +21,7 @@ mat-sidenav-container {
   
 }
 .sidebar-menu{
-  background: white;
+  background: $white;
 }
 
 
