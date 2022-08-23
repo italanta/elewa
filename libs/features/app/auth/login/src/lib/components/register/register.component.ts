@@ -15,10 +15,12 @@ import { TranslateService } from '@ngfi/multi-lang';
 export class RegisterComponent
 {
   registerForm: FormGroup;
+  checkForm: FormGroup;
   confirmPassword: string;
   phoneFormat: string;
   lang : 'fr' | 'en' | 'nl';
   isLoading = false;
+  isValid: boolean;
 
   constructor(private _fb: FormBuilder,
               private _translateService: TranslateService,
@@ -43,13 +45,12 @@ export class RegisterComponent
     { validator: this._mustMatch('password', 'confirmPassword') });
   }
 
-  doRegister()
-  {
+  doRegister(event: any){
+  
     if(this.registerForm.valid)
     {
       this.isLoading = true;
       const frm = this.registerForm.value;
-
       const firstName = frm.firstName;
       const lastName = frm.lastName;
 
@@ -109,7 +110,7 @@ export class RegisterComponent
 
   formIsInvalid()
   {
-    return this.registerForm.invalid || !this.registerForm.value.acceptConditions;
+    this.registerForm.invalid || !this.registerForm.value.acceptConditions;
   }
 
   loginGoogle() {
