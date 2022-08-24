@@ -1,4 +1,9 @@
-.example-card {
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+
+.bot-card {
   max-width: 270px;
   border-radius: 15px;
   margin: 13px;
@@ -12,8 +17,11 @@
 .mat-raised-button {
   width: 100%;
   border-radius: 10px;
-  color:  #6418C3;
-  background-color: #dbcbf0;
+  color: mat-color($mat-ele, A900);
+  background-color: mat-color($mat-ele, A800);
+
+
+
 }
 .bot{
   margin-left: 0%;
@@ -26,7 +34,7 @@
 .btn-dotted{
   height: 5px;
   width: 5px;
-  background-color: rgb(51, 49, 49);
+  background-color: mat-color($mat-ele, 500);
   border-radius: 50%;
   margin: 2px 0;
 }
