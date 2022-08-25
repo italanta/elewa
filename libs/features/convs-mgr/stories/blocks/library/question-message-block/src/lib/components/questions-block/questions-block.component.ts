@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 @Component({
   selector: 'app-questions-block',

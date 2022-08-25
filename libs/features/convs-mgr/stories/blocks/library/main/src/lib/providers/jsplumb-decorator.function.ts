@@ -6,8 +6,8 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _MessageBlockDecoratePlumb } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
-import { _QuestionsBlockDecoratePlumb } from '@app/features/convs-mgr/stories/blocks/library/question-message-block';
+import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
+import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 

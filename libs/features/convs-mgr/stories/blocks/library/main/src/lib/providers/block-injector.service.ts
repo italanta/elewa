@@ -1,10 +1,12 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { BlockComponent } from '../components/block/block.component';
+
 import { _JsPlumbComponentDecorator } from './jsplumb-decorator.function';
 
 /**
