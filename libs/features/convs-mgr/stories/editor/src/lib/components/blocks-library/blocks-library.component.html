@@ -1,9 +1,19 @@
-<mat-list role="list">
-  <mat-list-item *ngFor="let block of blockTemplates" role="list-item">
-    
-    <div class="list-item" (click)="addBlock(block.type)">
-      {{ block.message }}
-    </div>
+<div class="nav">
+  <h4>All Components</h4>
 
-  </mat-list-item>
-</mat-list>
+  <!-- <mat-form-field appearance="legacy">
+    <input matInput placeholder="search for a block">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field> -->
+
+  <mat-list role="list">
+    <mat-list-item *ngFor="let block of blockTemplates" role="list-item">
+
+      <button mat-raised-button class="list-item" (click)="addBlock(block.type)">
+        {{ block.message }}
+      </button>
+
+    </mat-list-item>
+  </mat-list>
+
+</div>

@@ -7,6 +7,8 @@ import { BehaviorSubject, filter } from 'rxjs';
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
+
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -28,7 +30,10 @@ export class StoryEditorPageComponent implements OnDestroy
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
+  stateSaved: boolean = true;
+
   constructor(private _editorStateService: StoryEditorStateService,
+              private _blockConnectionsService: BlockConnectionsService,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               _router: Router)
@@ -46,7 +51,7 @@ export class StoryEditorPageComponent implements OnDestroy
           this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
           this.loading.next(false);
         }
-    ); 
+    );     
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame)
@@ -65,8 +70,24 @@ export class StoryEditorPageComponent implements OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
+    this.stateSaved = false;
+
+    let updatedState = this.state;
+    updatedState.blocks = [...this.frame.blocksArray.value];
+
+    //TODO: compare old state connections to updated connections
+    // from getConnections()
+    // find a jsPlumb types library to replace any with strict type
+    let connections = this.frame.getJsPlumbConnections as any[];
+    
+    this.state.connections = connections;
+  
     this._editorStateService.persist(this.state)
-        .subscribe();
+        .subscribe((success) => {
+          if (success) {
+            this.stateSaved = true;
+          }
+        });
   }
 
   ngOnDestroy()
