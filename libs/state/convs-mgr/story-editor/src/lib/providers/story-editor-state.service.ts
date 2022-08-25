@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
-import { combineLatest, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
-import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
+import { BlockConnectionsService, StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
 
@@ -24,10 +24,12 @@ export class StoryEditorStateService
   /** The first load of each time the story editor service was called.
    *  We need this param to diff. between discarded and newly loaded blocks. */
   private _lastLoadedState : StoryEditorState | null;
+  private _isSaving = false;
 
   constructor(private _story$$: ActiveStoryStore,
               private _blocks$$: StoryBlocksStore,
               private _connections$$: StoryConnectionsStore,
+              private _blockConnectionsService: BlockConnectionsService,
               private _logger: Logger)
   { }
 
@@ -55,13 +57,29 @@ export class StoryEditorStateService
   /** Persists a story editor state. */
   persist(state: StoryEditorState)
   {
-    const updateStory$ = this._story$$.update(state.story);
-    const blockActions$ = this._determineBlockActions(state.blocks);
+    if(this._isSaving)
+      throw new Error('Story editor already saving. Wait for earlier save to be done.')
+    // Avoid double save
+    this._isSaving = true;
 
-    const actions$ = blockActions$.concat([updateStory$ as any]);
+    // let connections = state. .getJsPlumbConnections as any[];
+
+    const newConnections = this._determineConnectiontions(state.connections);
+
+    const updateStory$ = this._story$$.update(state.story);
+
+    // return the save stream for new connections only when new connections are available
+    const addNewConnections$ = newConnections.length > 0 
+                                                  ? this._blockConnectionsService.addNewConnections(newConnections)
+                                                  : of(false);
+
+    const blockActions$ = this._determineBlockActions(state.blocks);
+    const actions$ = blockActions$.concat([updateStory$ as any, addNewConnections$]);
 
     // Persist the story and all the blocks
-    return combineLatest(actions$);
+    return combineLatest(actions$)
+              .pipe(tap(() => this._lastLoadedState = ___cloneDeep(state)),
+                    tap(() => this._isSaving = false));
   }
 
   /**
@@ -73,7 +91,7 @@ export class StoryEditorStateService
   private _determineBlockActions(blocks: StoryBlock[])
   {
     const oldBlocks = (this._lastLoadedState as StoryEditorState).blocks;
-
+    
     // Blocks which are newly created and newly configured
     const newBlocks = blocks.filter(nBl => !oldBlocks.find(oBl => nBl.id === oBl.id));
     // Blocks which were deleted
@@ -90,6 +108,16 @@ export class StoryEditorStateService
     ]);
   }
 
+  // Todo: check for deleted connections and upated conections
+  private _determineConnectiontions(connections: StoryBlockConnection[])
+  {
+    // fetches only the new connections
+    const newConnections = this.fetchNewJsPlumbCOnnections(connections);
+
+    //TODO: chain connections actions -> refer to determineBlockActions
+    return newConnections;
+  }
+
   private _createBlock(block: StoryBlock) {
     return this._blocks$$.add(block, block.id);
   }
@@ -103,6 +131,20 @@ export class StoryEditorStateService
 
   private _updateBlock(block: StoryBlock) {
     return this._blocks$$.update(block);
+  }
+
+  private fetchNewJsPlumbCOnnections(connections: StoryBlockConnection[]): StoryBlockConnection[] {
+
+    /** after add multiple jsplumb adds a target connection to state */
+    /** the filter removes the jsplumb duplicate connection as it's not needed */
+    /** it also ensures every save has only unique values i.e length > 0 */
+   return connections.filter((c) => !c.targetId.includes('jsplumb'))
+                      .map(c => {return {
+                      id: c.id,
+                      sourceId : c.sourceId,
+                      slot: 0,
+                      targetId : c.targetId,
+                      }});
   }
 
   /** 
