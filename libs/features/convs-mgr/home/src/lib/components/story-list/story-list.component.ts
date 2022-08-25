@@ -6,7 +6,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 @Component({
   selector: 'convl-italanta-apps-story-list',
   templateUrl: './story-list.component.html',
-  styleUrls: ['./story-list.component.css'],
+  styleUrls: ['./story-list.component.scss'],
 })
 export class StoryListComponent  {
 
