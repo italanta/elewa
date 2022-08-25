@@ -1,34 +1,22 @@
-import { SubSink } from 'subsink';
-
-import { Component, Input, OnDestroy } from '@angular/core';
-import { Router }    from '@angular/router';
+import { Component } from '@angular/core';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { Observable } from 'rxjs';
-
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 @Component({
-  selector: 'convl-story-list',
+  selector: 'convl-italanta-apps-story-list',
   templateUrl: './story-list.component.html',
-  styleUrls: ['./story-list.component.scss']
+  styleUrls: ['./story-list.component.css'],
 })
-export class StoryListItemComponent implements OnDestroy
-{
-  private _sb = new SubSink();
+export class StoryListComponent  {
 
-  @Input() story: Story;
-
-  loading = true;
+  
   stories$: Observable<Story[]>;
 
-  constructor(private _stories$$: StoriesStore,private _router: Router) { 
+  constructor(private _stories$$: StoriesStore,) {
     this.stories$ = this._stories$$.get();
 
   }
 
-
-  ngOnDestroy()
-  {
-    this._sb.unsubscribe();
-  }
+  
 }
