@@ -23,6 +23,8 @@ import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
+import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
+
 
 import { environment } from '../environments/evironment';
 
@@ -57,6 +59,7 @@ import { AppRoutingModule } from './app.routing.module';
     OrgStateModule.forRoot(),
     StoriesStateModule.forRoot(),
     StoryBlocksStateModule.forRoot(),
+    StoryBlockConnectionsStateModule.forRoot(),
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),

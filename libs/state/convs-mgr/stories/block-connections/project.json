@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/state/convs-mgr/stories/block-connections/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/convs-mgr/stories/block-connections"],
+      "options": {
+        "jestConfig": "libs/state/convs-mgr/stories/block-connections/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/state/convs-mgr/stories/block-connections/**/*.ts",
+          "libs/state/convs-mgr/stories/block-connections/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
