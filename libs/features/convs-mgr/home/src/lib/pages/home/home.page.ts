@@ -6,7 +6,10 @@ import { Observable } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
+import { Organisation } from '@app/model/organisation';
 import { Story } from '@app/model/convs-mgr/stories/main';
+
+import { ActiveOrgStore } from '@app/state/organisation';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
@@ -27,14 +30,17 @@ export class HomePageComponent implements OnDestroy
   breadcrumbs: Breadcrumb[] = [];
 
   stories$: Observable<Story[]>;
+  org$: Observable<Organisation>;
 
   loading = true;
 
-  constructor(private _stories$$: StoriesStore,
+  constructor(private _org$$: ActiveOrgStore,
+              private _stories$$: StoriesStore,
               _router: Router,
               private _addStory$: NewStoryService)
   {
     this.breadcrumbs = [HOME_CRUMB(_router, true)];
+    this.org$ = _org$$.get();
     this.stories$ = this._stories$$.get();
   }
 

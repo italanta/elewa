@@ -1,0 +1,105 @@
+// convs-mgric Variables and Theming. For more info, please see:
+// http://convs-mgricframework.com/docs/theming/
+/** convs-mgric CSS Variables **/
+
+:root {
+
+  /** primary **/
+  --convs-mgr-color-primary-yellow: #FFAB2D;
+  --convs-mgr-color-primary-purple: #6418C3;
+  --convs-mgr-color-primary-red: red;
+  --convs-mgr-color-primary-white: #fff;
+  --convs-mgr-color-primary-black: #000;
+  --convs-mgr-color-text-black: #263446;
+  --convs-mgr-color-text-white: #fff;
+  --convs-mgr-color-nav-inactive: #C6CDD8;
+  --convs-mgr-color-text-inactive-bolder: #88949E;
+  --convs-mgr-color-primary-background: #F3F5F9;
+  --convs-mgr-color-text-background: #D9EAFD;
+  --convs-mgr-color-primary-shade: #0d8a4d;
+  --convs-mgr-color-primary-tint: #27a769;
+  --background-checked: #ffa225;
+  --background-border: #DFE5F0;
+  /** secondary **/
+  --convs-mgr-color-secondary: #ffa225;
+  --convs-mgr-color-secondary-rgb: 255,162,37;
+  --convs-mgr-color-secondary-contrast: #000000;
+  --convs-mgr-color-secondary-contrast-rgb: 0,0,0;
+  --convs-mgr-color-secondary-shade: #e08f21;
+  --convs-mgr-color-secondary-tint: #ffab3b;
+
+  /** tertiary **/
+  --convs-mgr-color-tertiary: #cbcbcb;
+  --convs-mgr-color-tertiary-rgb: 203,203,203;
+  --convs-mgr-color-tertiary-contrast: #000000;
+  --convs-mgr-color-tertiary-contrast-rgb: 0,0,0;
+  --convs-mgr-color-tertiary-shade: #b3b3b3;
+  --convs-mgr-color-tertiary-tint: #d0d0d0;
+
+  /** success **/
+  --convs-mgr-color-success: #2dd36f;
+  --convs-mgr-color-success-rgb: 45, 211, 111;
+  --convs-mgr-color-success-contrast: #ffffff;
+  --convs-mgr-color-success-contrast-rgb: 255, 255, 255;
+  --convs-mgr-color-success-shade: #28ba62;
+  --convs-mgr-color-success-tint: #42d77d;
+
+  /** warning **/
+  --convs-mgr-color-warning: #ffc409;
+  --convs-mgr-color-warning-rgb: 255, 196, 9;
+  --convs-mgr-color-warning-contrast: #000000;
+  --convs-mgr-color-warning-contrast-rgb: 0, 0, 0;
+  --convs-mgr-color-warning-shade: #e0ac08;
+  --convs-mgr-color-warning-tint: #ffca22;
+
+  /** danger **/
+  --convs-mgr-color-danger: #eb445a;
+  --convs-mgr-color-danger-rgb: 235, 68, 90;
+  --convs-mgr-color-danger-contrast: #ffffff;
+  --convs-mgr-color-danger-contrast-rgb: 255, 255, 255;
+  --convs-mgr-color-danger-shade: #cf3c4f;
+  --convs-mgr-color-danger-tint: #ed576b;
+
+  /** dark **/
+  --convs-mgr-color-dark: #222428;
+  --convs-mgr-color-dark-rgb: 34, 36, 40;
+  --convs-mgr-color-dark-contrast: #ffffff;
+  --convs-mgr-color-dark-contrast-rgb: 255, 255, 255;
+  --convs-mgr-color-dark-shade: #1e2023;
+  --convs-mgr-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --convs-mgr-color-medium: #92949c;
+  --convs-mgr-color-medium-rgb: 146, 148, 156;
+  --convs-mgr-color-medium-contrast: #ffffff;
+  --convs-mgr-color-medium-contrast-rgb: 255, 255, 255;
+  --convs-mgr-color-medium-shade: #808289;
+  --convs-mgr-color-medium-tint: #9d9fa6;
+
+  /** light **/
+  --convs-mgr-color-light: #f4f5f8;
+  --convs-mgr-color-light-rgb: 244, 245, 248;
+  --convs-mgr-color-light-contrast: #000000;
+  --convs-mgr-color-light-contrast-rgb: 0, 0, 0;
+  --convs-mgr-color-light-shade: #d7d8da;
+  --convs-mgr-color-light-tint: #f5f6f9;
+
+  /** pop **/
+  --convs-mgr-color-pop: #f4f5f8;
+  --convs-mgr-color-pop-rgb: 244, 245, 248;
+  --convs-mgr-color-pop-contrast: #9d9d9d;
+  --convs-mgr-color-pop-contrast-rgb: 157, 157, 157;
+  --convs-mgr-color-pop-shade: #d7d8da;
+  --convs-mgr-color-pop-tint: #f5f6f9;
+
+  /** Font family **/
+  --convs-mgr-font-poppins-family: 'Poppins';
+  --convs-mgr-font-family: Gilroy-Medium;
+
+  convs-mgr-tab-button.tab-selected {
+    convs-mgr-icon, convs-mgr-label {
+      color: var(--convs-mgr-color-farm) !important;
+      --convs-mgr-color-base: var(--convs-mgr-color-farm) !important;
+    }
+  }
+}
