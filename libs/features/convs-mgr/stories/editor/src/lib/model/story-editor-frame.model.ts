@@ -1,13 +1,15 @@
 import { ViewContainerRef } from '@angular/core';
+import { FormArray, FormBuilder } from '@angular/forms';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
-import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library';
+import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -23,8 +25,12 @@ export class StoryEditorFrame
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
+  private _connections: StoryBlockConnection[];
 
-  constructor(private _jsPlumb: BrowserJsPlumbInstance,
+  blocksArray: FormArray;
+
+  constructor(private _fb: FormBuilder,
+              private _jsPlumb: BrowserJsPlumbInstance,
               private _blocksInjector: BlockInjectorService,
               private _viewport: ViewContainerRef)
   {
@@ -38,25 +44,22 @@ export class StoryEditorFrame
    * @param story   - Story visualised by the editor
    * @param blocks  - Blocks to render on the story
    */
-  init(state: StoryEditorState)
+  async init(state: StoryEditorState)
   {
     this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
+    this._connections = state.connections;
 
     // Clear any previously drawn items.
     this._viewport.clear();
     this._jsPlumb.reset();
 
-    this._jsPlumb.setSuspendDrawing(true);           // Start loading drawing
+    this.drawBlocks();
+    
+    await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
-    // Init frame
-    for(const block of this._blocks) {
-      this._injectBlockToFrame(block);
-      this._cnt++;
-    }
-
-    this._jsPlumb.setSuspendDrawing(false, true);   // All drawing data loaded. Now draw
+    this.drawConnections();
   }
 
   /** 
@@ -67,6 +70,69 @@ export class StoryEditorFrame
   }
 
   /** 
+   * Snapshot of the story blocks as edited. 
+   */
+  get updatedBlocks(): FormArray {
+    return this.blocksArray;
+  }
+
+  get getJsPlumbConnections() {
+    return this._jsPlumb.getConnections();
+  }
+
+  /**
+  * Function which draw the blocks.
+  * 
+  */
+  drawBlocks() {
+    this._jsPlumb.setSuspendDrawing(true);   // Start loading drawing
+
+    this.blocksArray = this._fb.array([]);
+
+    // Init frame
+    for(const block of this._blocks) {
+      this._injectBlockToFrame(block);
+      this._cnt++;
+    }
+
+    this._jsPlumb.setSuspendDrawing(false, true);   // All drawing data loaded. Now draw
+  }
+
+  /**
+  * Function which draw connections.
+  * It draws the previously saved blocks on the screen.
+  * Here we're perfoming a key feature of the frame which is drawing the existing
+  * connections from the connections collection
+  * 
+  */
+  drawConnections() {
+    // returns a static NodeList representing a list of the document's elements 
+    // that match the specified selector.
+    // here we're holding the elements in an array inorder to find the source
+    // and target elements for connection drawing later
+    // sources are mostly inputs
+    // targets (blocks) are wrapped inside a mat-card 
+    let domSourceInputs = Array.from(document.querySelectorAll('input'));
+    let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
+
+    for(const connection of this._connections) {      
+      // fetching the source (input) that matches the connection source id
+      let sourceElement =  domSourceInputs.filter((el) => {return el.id == connection.sourceId})[0];
+      // fetching the target (block) that matches the connection target id
+      let targetElement =  domBlockCards.filter((el) => {return el.id == connection.targetId})[0];
+
+      // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
+      this._jsPlumb.connect({
+        source: sourceElement as Element,
+        target: targetElement as Element,
+        anchors:["Right", "Left" ],
+        endpoints:["Dot", "Rectangle"],
+      });
+    }
+
+  }
+
+  /** 
    * Create a new block for the frame.
    * TODO: Move this to a factory later
    */
@@ -74,11 +140,12 @@ export class StoryEditorFrame
   {
     // TODO - Dynamic rendering of default blocks.
     const block = { id: `${this._cnt}`, 
-                    type: StoryBlockTypes.TextMessage, 
+                    type: type, 
                     message: 'New message', 
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 } 
-    } as TextMessageBlock;
+                    
+    } as TextMessageBlock | QuestionMessageBlock;
 
     this._cnt++;
 
@@ -91,6 +158,6 @@ export class StoryEditorFrame
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
    */
   private _injectBlockToFrame(block: StoryBlock) {
-    return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport);
+    return this._blocksInjector.newBlock(block, this._jsPlumb, this._viewport, this.blocksArray);
   }
 }
