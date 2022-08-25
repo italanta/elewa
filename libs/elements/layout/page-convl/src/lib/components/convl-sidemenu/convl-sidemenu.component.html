@@ -1,35 +1,27 @@
 <div id="side-menu" fxLayout="column">
   <mat-nav-list>
 
-    <!-- <div [routerLink]="['/home']"
-    mat-list-item [class.hov]="!rlaProp.isActive" fxLayout="row">
+<mat-toolbar class="sidebar-menu">
 
-      <span>
-        <a routerLink="/">
-          <img class="logo" [src]="getLogo()" />
-        </a>
-      </span>
-    </div> -->
 
-    <div [routerLink]="['/']"
-         mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
-
-      <!-- <i matListIcon class="fas fa-columns"></i> -->
-      <img class="list-icon icon-top" src="assets/images/elewa-logo.png">
-      <div fxLayout="column">
-        <div class="proj-name">{{ projectName }}</div>
-        <div class="proj-info">
-          {{ projectInfo }}
-        </div>
-      </div>
-    </div>
-        <button mat-icon-button class="sidenavmenu"
-      *ngIf="sidenav.mode === 'over'"
-      (click)="sidenav.toggle()">  
-      <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
-       </button>
-
-    <hr id="menu-header-seperator"/>
+  <div [routerLink]="['/']"
+  mat-list-item class="header top-header" fxLayout="row">
+  
+  <!-- <i matListIcon class="fas fa-columns"></i> -->
+  <img class="list-icon icon-top" src="assets/images/elewa-logo.png">
+  <div class="proj-name">{{ projectName }}</div>
+  <div class="proj-info">
+   {{ projectInfo }}
+  </div>
+  </div>
+  <button mat-icon-button class="sidenavmenu"
+  *ngIf="sidenav.mode === 'over'"
+  (click)="sidenav.toggle()">  
+  <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+</button>
+  
+  <hr id="menu-header-seperator"/>
+</mat-toolbar>
 
     <!-- Section Home -->
     <div [routerLink]="['/']"  routerLinkActive #rlaHome="routerLinkActive"
