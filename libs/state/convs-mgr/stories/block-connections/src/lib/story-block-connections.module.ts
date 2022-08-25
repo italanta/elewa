@@ -6,11 +6,11 @@ import { StoryConnectionsStore } from './stores/story-connections.store';
 @NgModule({
   imports: [CommonModule],
 })
-export class StroyBlockConnectionsStateModule {
-  static forRoot(): ModuleWithProviders<StroyBlockConnectionsStateModule>
+export class StoryBlockConnectionsStateModule {
+  static forRoot(): ModuleWithProviders<StoryBlockConnectionsStateModule>
   {
     return {
-      ngModule: StroyBlockConnectionsStateModule,
+      ngModule: StoryBlockConnectionsStateModule,
       providers: [
         StoryConnectionsStore
       ]
