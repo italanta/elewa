@@ -23,9 +23,10 @@
   <hr id="menu-header-seperator"/>
 </mat-toolbar>
 
+
     <!-- Section Home -->
 
-   <mat-sidenav-container>
+<mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" >
   
 
@@ -41,14 +42,23 @@
           </ng-template>
       
 
+         <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
+          <div  [routerLink]="['/org']"
+               mat-list-item class="child-header child-1"> 
+              <!-- <i class='fa-solid fa-gauge-high fa-lg'></i>  -->
 
-      <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
-        <div [routerLink]="['/org']"
-             mat-list-item class="child-header child-1">
-          Dashboard
+            Dashboard
+          </div>
         </div>
-      </div>
-    </div>
+
+    
+
+   </div>
+
+  </mat-sidenav>
+
+</mat-sidenav-container>
+
 
     <!-- Section Chats -->
     <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
