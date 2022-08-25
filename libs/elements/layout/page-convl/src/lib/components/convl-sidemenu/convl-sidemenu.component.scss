@@ -3,6 +3,8 @@
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
 
 $white: white;
 
