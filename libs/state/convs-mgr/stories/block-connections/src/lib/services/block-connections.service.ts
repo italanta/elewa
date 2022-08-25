@@ -17,7 +17,7 @@ export class BlockConnectionsService {
     return this._connections$$.get();
   }
 
-  addMultipleConnections(connections: StoryBlockConnection[]) {
-    this._connections$$.addMultiple(connections as StoryBlockConnection[], true).subscribe();
+  addNewConnections(connections: StoryBlockConnection[]): Observable<StoryBlockConnection[]> {
+    return this._connections$$.addMultiple(connections as StoryBlockConnection[], true);
   }
 }

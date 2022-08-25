@@ -75,22 +75,12 @@ export class StoryEditorPageComponent implements OnDestroy
     let updatedState = this.state;
     updatedState.blocks = [...this.frame.blocksArray.value];
 
+    //TODO: compare old state connections to updated connections
+    // from getConnections()
+    // find a jsPlumb types library to replace any with strict type
     let connections = this.frame.getJsPlumbConnections as any[];
     
-    /** after add multiple jsplumb adds a target connection to state */
-    /** the filter removes the jsplumb duplicate connection as it's not needed */
-    /** it also ensures every save has only unique values i.e length > 0 */
-    connections = connections.filter((c) => {return !c.targetId.includes('jsplumb')})
-                              .map(c => {return {
-                                id: c.id,
-                                sourceId : c.sourceId,
-                                targetId : c.targetId,
-                              }});
-
-    /** is only true when a new connection(s) is added/updated */
-    if (connections.length > 0) {
-      this._blockConnectionsService.addMultipleConnections(connections);
-    }
+    this.state.connections = connections;
   
     this._editorStateService.persist(this.state)
         .subscribe((success) => {
