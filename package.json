@@ -25,6 +25,8 @@
     "@angular/platform-browser-dynamic": "~14.0.0",
     "@angular/router": "~14.0.0",
     "@firebase/firestore-types": "^2.5.0",
+    "@fortawesome/fontawesome-svg-core": "^6.1.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@jsplumb/browser-ui": "^5.9.4",
     "@jsplumb/connector-bezier": "^5.9.4",
     "@jsplumb/connector-flowchart": "^5.9.4",

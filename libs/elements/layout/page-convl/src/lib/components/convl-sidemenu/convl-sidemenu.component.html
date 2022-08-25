@@ -35,9 +35,10 @@
         
         
           <i matListIcon class="fas fa-home list-icon"></i>
+          <!-- <i class="fa-regular fa-dash"></i> -->
+          <!-- <i class="fa fa-sort-down"></i> -->
           Main
           <div class="chevron-down" [class.right]="rlaHome.isActive">
-            <i class="fas fa-sort-down"></i>
           </div>
           <ng-template #icon2><i class="fas fa-sort-down chevron-down"></i></ng-template>
       
@@ -45,8 +46,11 @@
          <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
           <div  [routerLink]="['/org']"
                mat-list-item class="child-header child-1">
-           
-           <i class="fa fa-home" aria-hidden="true"></i>
+               <i class="fa-solid fa-gauge-simple-max"></i>
+               <!-- <i class='fa-solid fa-gauge-high'></i> -->
+               
+           <!-- <i class="fa fa-home" aria-hidden="true"></i> -->
+
             Dashboard
           </div>
         </div>
