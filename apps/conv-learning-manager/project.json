@@ -21,6 +21,11 @@
           "apps/conv-learning-manager/src/styles.scss",
           "libs/elements/theming/common.theme.scss"
         ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/elements/theming"
+          ]
+        },
         "scripts": []
       },
       "configurations": {

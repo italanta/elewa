@@ -1,4 +1,4 @@
-import { StoryBlock } from "@italanta-apps/model/convs-mgr/stories/blocks/main";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * A block which asks a question and displays multiple buttons with potential answers.
@@ -23,5 +23,5 @@ export interface ButtonsBlockButton<T>
   /** Message to display as answer */
   message: string;
   /** Value the answer holds. */
-  value?: T;
+  value?: string;
 }
