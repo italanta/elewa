@@ -12,11 +12,11 @@ import { Story } from "./story.interface";
 export interface StorySection extends Story {
 
     /* image of the story */
-    imageField: string;
+    imageField?: string;
     
     /* description of the story */
 
-     description: string;
+     description?: string;
 
 
  }
