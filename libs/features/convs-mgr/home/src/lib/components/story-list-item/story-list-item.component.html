@@ -1,11 +1,32 @@
-<div class="story-list-item mat-elevation-z2" fxLayout="row" fxLayoutAlign="center center">
+<div>
+  <mat-card class="bot-card">
+    <img
+      mat-card-image
+      src="{{story.imageField}}"
+      alt="story img"
+    />
 
-  <div class="title-holder">{{ story.name }}</div>
-  <div class="flex-spacer"></div>
+    <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
+      <div class="bot-text">
+        <h2 class="bot">
+          {{story.name }} <span class="bot-number">(6 bots)</span>
+        </h2>
+      </div>
 
-  <div class="action-holder">
-    <button mat-raised-button (click)="goTo()">
-      Go
-    </button>
-  </div>
+      <div class="dots">
+        <div class="btn-dotted"></div>
+        <div class="btn-dotted"></div>
+        <div class="btn-dotted"></div>
+      </div>
+    </div>
+
+    <mat-card-content>
+      <p>
+  {{story.description}}
+      </p>
+    </mat-card-content>
+    <div class="action-holder">
+      <button mat-raised-button (click)="goTo()">Open bot</button>
+    </div>
+  </mat-card>
 </div>

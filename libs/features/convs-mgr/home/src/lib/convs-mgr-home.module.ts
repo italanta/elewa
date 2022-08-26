@@ -11,18 +11,21 @@ import { StoryListItemComponent } from './components/story-list-item/story-list-
 import { NewStoryService } from './services/new-story.service';
 
 import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
+import { StoryListComponent } from './components/story-list/story-list.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    MaterialDesignModule, FlexLayoutModule,
+    MaterialDesignModule,
+    FlexLayoutModule,
 
     ConvlPageModule,
 
-    ConvsMgrHomeRouterModule],
+    ConvsMgrHomeRouterModule,
+  ],
 
-    declarations: [HomePageComponent, StoryListItemComponent],
+  declarations: [HomePageComponent, StoryListItemComponent, StoryListComponent],
 
-    providers: [NewStoryService]
+  providers: [NewStoryService],
 })
 export class ConvsMgrHomeModule {}

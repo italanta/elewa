@@ -1,76 +1,95 @@
-.auth-header{
-  color: #7b1fa2;
-  font-size: 20px;
-  margin-bottom: 10px;
+$primary-icon-color: #919698;
+$primary-color: #ffc200;
+$secondary-elements-color: white;
+.uppercase-txt {
+    text-transform: uppercase;
 }
 
-.uppercase-txt{
-  text-transform: uppercase;
+#googleBtn {
+    background-color: #de5246;
+    color: $secondary-elements-color;
 }
 
-#googleBtn{
-  background-color: #de5246;
-  color: white;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-infix{
-  padding: 0 !important;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-wrapper{
-  background-color: #00000000 !important;
-}
-
-.small-txt{
-  font-size: 14px;
-}
-
-.hr-with-text{
-  color: #919698;
-  opacity: 0.8;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.hr-with-text::before, .hr-with-text::after{
-  content: '';
-  width: 20px;
-  flex: 1;
-  border-bottom: 1px solid #919698;
-  margin: 0 3px 8px 3px;
-  opacity: 0.6;
-}
-
-#forgot-btn{
-  padding-right: 0;
-}
-
-.icon-box{
-  padding: 15px;
-  // border: 1px solid #FDFDFD;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  margin-right: -2px;
-
-  &.form-field-icon{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: #919698;
-    background-color: #70739D0D;
-    max-height: 35px;
-  }
-
-  &.google-icon{
-    color: white;
-    background-color: #8b0000;
-  }
-
-  &.fb-icon{
-    color: white;
+#msBtn {
     background-color: #29487D;
-  }
+    color: $secondary-elements-color;
 }
 
-.special-input{
-  min-height: 40px;
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+    background-color: #00000000 !important;
+}
+
+.small-txt {
+    font-size: 14px;
+}
+
+.hr-with-text {
+    color: $primary-icon-color;
+    opacity: 0.8;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.hr-with-text::before,
+.hr-with-text::after {
+    content: '';
+    width: 20px;
+    flex: 1;
+    border-bottom: 1px solid $primary-icon-color;
+    margin: 0 3px 8px 3px;
+    opacity: 0.6;
+}
+
+#forgot-btn {
+    padding-right: 0;
+}
+
+.icon-box {
+    padding: 15px;
+    // border: 1px solid #FDFDFD;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-right: -2px;
+    &.form-field-icon {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: $primary-icon-color;
+        background-color: #70739D0D;
+        max-height: 35px;
+    }
+    &.google-icon {
+        color: $secondary-elements-color;
+        background-color: #de5246;
+    }
+    &.fb-icon {
+        color: $secondary-elements-color;
+        background-color: #29487D;
+    }
+}
+
+.special-input {
+    min-height: 40px;
+}
+
+input {
+    background-color: $secondary-elements-color;
+    border: none;
+    // border-bottom: 1px solid black;
+    width: 100%;
+}
+
+#login-button {
+    width: 100%;
+    background-color: $primary-color;
+    font-size: 12px;
+    height: 30px;
+}
+
+.form-body {
+    align-self: center;
+    width: 100%
 }
