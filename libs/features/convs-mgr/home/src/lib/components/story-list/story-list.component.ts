@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { Observable } from 'rxjs';
+import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 @Component({
