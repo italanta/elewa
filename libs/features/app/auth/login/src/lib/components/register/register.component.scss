@@ -1,28 +1,18 @@
-$authentication-header: #210A59;
-$icon-color: #919698;
-$proceed-button: #ffc200;
-$button-icon-colour: white;
-$mat-appearance-color: #00000000;
-$google-button:#de5246;
-$microsoft-button: #29487D;
-.auth-header {
-    color: $authentication-header;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
+$primary-icon-color: #919698;
+$primary-color: #ffc200;
+$secondary-elements-color: white;
 .uppercase-txt {
     text-transform: uppercase;
 }
 
 #googleBtn {
-    background-color: $google-button;
-    color: $button-icon-colour;
+    background-color: #de5246;
+    color: $secondary-elements-color;
 }
 
 #msBtn {
-    background-color: $microsoft-button;
-    color: $button-icon-colour;
+    background-color: #29487D;
+    color: $secondary-elements-color;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -30,7 +20,7 @@ $microsoft-button: #29487D;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
-    background-color: $mat-appearance-color !important;
+    background-color: #000000 !important;
 }
 
 .small-txt {
@@ -38,7 +28,7 @@ $microsoft-button: #29487D;
 }
 
 .hr-with-text {
-    color: $icon-color;
+    color: $primary-icon-color;
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 10px;
@@ -49,7 +39,7 @@ $microsoft-button: #29487D;
     content: '';
     width: 20px;
     flex: 1;
-    border-bottom: 1px solid $icon-color;
+    border-bottom: 1px solid $primary-icon-color;
     margin: 0 3px 8px 3px;
     opacity: 0.6;
 }
@@ -67,17 +57,17 @@ $microsoft-button: #29487D;
     &.form-field-icon {
         padding-top: 10px;
         padding-bottom: 10px;
-        color: $icon-color;
+        color: $primary-icon-color;
         background-color: #70739D0D;
         max-height: 35px;
     }
     &.google-icon {
-        color: $button-icon-colour;
-        background-color: $google-button;
+        color: $secondary-elements-color;
+        background-color: #de5246;
     }
     &.fb-icon {
-        color: $button-icon-colour;
-        background-color: $microsoft-button;
+        color: $secondary-elements-color;
+        background-color: #29487D;
     }
 }
 
@@ -86,19 +76,19 @@ $microsoft-button: #29487D;
 }
 
 input {
-    background-color: $button-icon-colour;
+    background-color: $secondary-elements-color;
     border: none;
     width: 100%!important;
 }
 
 #register-button {
     width: 100%;
-    background-color: $proceed-button;
+    background-color: $primary-color;
     font-size: 12px;
     height: 30px;
 }
 
 .form-body {
     align-self: center;
-    width: 80%
+    width: 80%;
 }

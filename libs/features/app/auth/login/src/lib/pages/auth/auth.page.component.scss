@@ -1,10 +1,6 @@
-$authentication-header: #210A59;
-$icon-color: #919698;
-$proceed-button: #ffc200;
-$button-icon-colour: white;
-$mat-appearance-color: #00000000;
-$google-button:#de5246;
-$microsoft-button: #29487D;
+$primary-icon-color: #919698;
+$primary-color: #ffc200;
+$secondary-elements-color: white;
 #ele-logo-sub {
     max-width: 220px;
 }
@@ -12,7 +8,7 @@ $microsoft-button: #29487D;
 .auth-page {
     min-width: 100%;
     min-height: 100%;
-    background-color: $button-icon-colour;
+    background-color: $secondary-elements-color;
 }
 
 .form {
@@ -23,17 +19,17 @@ $microsoft-button: #29487D;
     max-width: 100%;
     min-height: 100%;
     border-radius: 8px;
-    background: $button-icon-colour;
+    background: $secondary-elements-color;
     // box-shadow: 0px 3px 6px #70739D0B;
-    border: 1px solid $button-icon-colour;
+    border: 1px solid $secondary-elements-color;
 }
 
 .elewa-info {
     text-align: center;
-    color: $button-icon-colour;
+    color: $primary-icon-color;
     padding: 20px;
     font-weight: 400;
-    background: $proceed-button;
+    background: $primary-color;
     background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
     @media screen and (max-width: 768px) {
         display: none;
@@ -53,7 +49,7 @@ $microsoft-button: #29487D;
 }
 
 .button-area {
-    background-color: $button-icon-colour;
+    background-color: $secondary-elements-color;
     text-align: center;
     align-self: center;
     width: 40%;
@@ -68,7 +64,7 @@ $microsoft-button: #29487D;
 }
 
 .bottom-content {
-    color: $button-icon-colour;
+    color: $secondary-elements-color;
     font-size: 18px;
     text-transform: uppercase;
 }
@@ -89,7 +85,7 @@ $microsoft-button: #29487D;
 }
 
 button {
-    background-color: $button-icon-colour;
+    background-color: $secondary-elements-color;
     width: 50%;
     border: none;
     // border-bottom: 3px solid rgba(255, 194, 0);
@@ -100,7 +96,7 @@ button {
 }
 
 .login-button {
-    border-bottom: 3px solid $proceed-button;
+    border-bottom: 3px solid $primary-color;
     border-width: 50%;
 }
 
