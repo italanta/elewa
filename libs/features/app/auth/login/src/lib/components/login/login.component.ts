@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
 
 import { AuthService } from '@ngfi/angular';
-import { TranslateService } from '@ngfi/multi-lang';
 import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 
@@ -14,23 +13,21 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 })
 export class LoginComponent implements OnInit
 {
+
   isLoading: boolean;
   email: string;
   password: string;
 
   // isLoading: boolean;
   isLogin = true;
-  lang = 'en';
 
-  constructor(private _translateService: TranslateService,
-              private _authService: AuthService,
+  constructor( private _authService: AuthService,
               private _dialog: MatDialog,
               private _analytics: EventLogger)
   {  }
 
   ngOnInit()
   {
-    this.lang = this._translateService.initialise();
   }
 
   validateLoginCred = () => this.email && this.password;
@@ -74,8 +71,4 @@ export class LoginComponent implements OnInit
     return this._authService.loadMicrosoftLogin();
   }
 
-  setLang(lang: 'en' | 'fr')
-  {
-    this._translateService.setLang(lang);
-  }
 }

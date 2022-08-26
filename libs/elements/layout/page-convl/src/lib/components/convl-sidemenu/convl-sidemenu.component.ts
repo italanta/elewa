@@ -2,8 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 
-// import { ActiveOrgStore } from '@elewa/state/organisation';
-// import { ActiveCommFlowStore } from '@elewa/state/comms/flows/main'
+import { AuthService } from '@ngfi/angular';
 
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
@@ -25,6 +24,7 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
+              private _authService:AuthService,
               @Inject('ENVIRONMENT') private _env: any)
   {}
 
@@ -39,5 +39,9 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   ngOnDestroy()
   {
     this._sbS.unsubscribe();
+  }
+
+  logout(){
+    this._authService.signOut('/auth/login');
   }
 }
