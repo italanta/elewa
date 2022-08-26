@@ -30,13 +30,12 @@
 
       <div [routerLink]="['/']"  routerLinkActive #rlaHome="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
-          <!-- <i matListIcon class="fas fa-home list-icon"></i> -->
-          <!-- <i class="fa fa-sort-down"></i> -->
+          
           Main
           <div class="chevron-down" [class.right]="rlaHome.isActive">
           </div>
           <ng-template #icon2>
-            <i class="fas fa-sort-down chevron-down"></i>
+            <i class="fa fa-sort-down chevron-down"></i>
           </ng-template>
       
 
