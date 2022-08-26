@@ -22,5 +22,6 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
     const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
 
     this.frameLoaded.emit(frame);
+
   }
 }

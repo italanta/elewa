@@ -1,0 +1,19 @@
+mat-card {
+  min-width: fit-content;
+  padding: 10px;
+}
+
+.mat-card-title {
+  font-size: 1.2rem!important;
+  color: #6418C3;
+}
+
+textarea {
+  margin: 5px 0;
+}
+
+.add-button {
+  width: 100%;
+  background-color: var(--convs-mgr-color-primary-purple);
+  color: white;
+}
