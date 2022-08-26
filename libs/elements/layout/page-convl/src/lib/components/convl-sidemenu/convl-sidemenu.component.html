@@ -3,23 +3,21 @@
 
 <mat-toolbar class="sidebar-menu">
 
-
   <div [routerLink]="['/']"
   mat-list-item class="header top-header" fxLayout="row">
   
-  <!-- <i matListIcon class="fas fa-columns"></i> -->
-  <img class="list-icon icon-top" src="assets/images/elewa-logo.png">
-  <div class="proj-name">{{ projectName }}</div>
-  <div class="proj-info">
-   {{ projectInfo }}
+    <img class="list-icon icon-top" src="assets/images/elewa-logo.png">
+    <div class="proj-name">{{ projectName }}</div>
+    <div class="proj-info">
+    {{ projectInfo }}
+    </div>
   </div>
-  </div>
-  <button mat-icon-button class="sidenavmenu"
-  *ngIf="sidenav.mode === 'over'"
-  (click)="sidenav.toggle()">  
-  <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
-</button>
-  
+    <button mat-icon-button class="sidenavmenu"
+    *ngIf="sidenav.mode === 'over'"
+    (click)="sidenav.toggle()">  
+    <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+  </button>
+    
   <hr id="menu-header-seperator"/>
 </mat-toolbar>
 
