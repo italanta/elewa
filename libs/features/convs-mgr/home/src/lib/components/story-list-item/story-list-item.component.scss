@@ -1,16 +1,44 @@
-.story-list-item {
-  padding: 10px;  
-  margin-bottom: 20px;
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+
+.bot-card {
+  max-width: 270px;
+  border-radius: 15px;
+  margin: 13px;
 }
-    .story-list-item:last-child { margin-bottom: 0; }
 
-  .title-holder {
-    padding: 15px 15px;
-    font-weight: bold;
-  }
+.mat-card-image{
+  border-radius: 15px;
+  height: 180px;
+}
 
-  .action-holder {
-    padding: 15px 15px 15px 15px;
-  }
+.mat-raised-button {
+  width: 100%;
+  border-radius: 10px;
+  color: mat-color($mat-ele, A900);
+  background-color: mat-color($mat-ele, A800);
 
-  
+
+
+}
+.bot{
+  margin-left: 0%;
+  font-size: medium;
+}
+.bot-number{
+  font-size: x-small;
+}
+
+.btn-dotted{
+  height: 5px;
+  width: 5px;
+  background-color: mat-color($mat-ele, 500);
+  border-radius: 50%;
+  margin: 2px 0;
+}
+
+.dots{
+margin-top: 7px;
+}

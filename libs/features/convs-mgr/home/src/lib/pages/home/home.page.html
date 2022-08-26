@@ -1,20 +1,13 @@
-<convl-page title="Home" [breadcrumbs]="breadcrumbs"
-  fxLayout="column" fxFlexFill>
+<convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="space-between">
+  <div>
 
-  <div *ngIf="org$ | async as org">
-    <h2>{{ org.name }} bots</h2>
-  </div>
-
-  <div fxLayout="row" fxLayoutAlign="center">
-    <div class="bot-selector">
-      <ng-template ngFor [ngForOf]="stories$ | async" let-story>
-        <convl-story-list-item [story]="story"> </convl-story-list-item>
-      </ng-template>
+    <div *ngIf="org$ | async as org">
+      <h2>{{ org.name }} bots</h2>
+    </div>  </div>
+      <div id="add-btn-holder">
+        <button mat-raised-button  (click)="add()">+ Create Bot</button>
     </div>
-  </div>
-
-  <div id="add-btn-holder" fxLayout="row" fxLayoutAlign="center">
-    <button mat-raised-button (click)="add()">+ New story</button>
-  </div>
-
-</convl-page>
+    </div>
+    <convl-italanta-apps-story-list></convl-italanta-apps-story-list>
+  </convl-page>
