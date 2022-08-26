@@ -1,14 +1,9 @@
-h2 {
-  text-align: center;
-}
-
-.bot-selector {
-  width: 85%;
-  border: 1px solid black;
-  padding: 10px;
-  text-align: center;
-}
-
-#add-btn-holder {
-  margin-top: 20px;
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+.mat-raised-button{
+    margin-top: 13px;
+    color: $white-87-opacity;
+    background-color: mat-color($mat-ele, A200);
 }
