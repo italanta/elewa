@@ -2,7 +2,7 @@
   <mat-card class="bot-card">
     <img
       mat-card-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      src="{{story.imageField}}"
       alt="story img"
     />
 
@@ -22,9 +22,7 @@
 
     <mat-card-content>
       <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz
-        breeds of dog from Japan. A small, agile dog that copes very well with
-        mountainous terrain.
+  {{story.description}}
       </p>
     </mat-card-content>
     <div class="action-holder">
