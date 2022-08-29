@@ -1,3 +1,4 @@
+$warn: warn;
 .logo {
   max-height: 48px;
 }
@@ -26,11 +27,17 @@
 #nav-toolbar {
   height: 46px;
   padding: 0 12px;
+  
+  
 }
 
 #navbar-title{
-  font-size: 18px;
+  font-size:10px;
+  color: $warn;
+  padding-left: 600px;
+  
 }
+
 
 .icon-top{
   margin-right: 10px;
