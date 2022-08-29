@@ -28,4 +28,10 @@ export interface StoryBlock extends IObject
   deleted: boolean;
 
   // ! Type to be inherited by all the different blocks.
+
+  /** title of the block on the editor */
+   blockTitle : string;
+
+  /** icon of the block on the editor */
+   blockIcon: string
 }
