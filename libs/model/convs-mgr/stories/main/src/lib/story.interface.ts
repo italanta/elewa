@@ -13,4 +13,11 @@ export interface Story extends IObject
 
   /* Name of the story */
   name: string;
+
+  /* image of the story */
+  imageField?: string;
+
+  /* description of the story */
+
+    description?: string;
 }
