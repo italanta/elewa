@@ -1,7 +1,7 @@
 
 <div *ngIf="user$ | async as user">
-
   <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
+    {{ user.photoUrl }}
     <i class="far fa-user-circle user-image"></i> {{ user.displayName }}&nbsp;<!-- -&nbsp;{{user.phone}}&nbsp; -->
     <i class="fas fa-caret-down"></i>
   </button>
