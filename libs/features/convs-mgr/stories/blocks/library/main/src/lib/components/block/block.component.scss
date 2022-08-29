@@ -1,4 +1,26 @@
-.block {
-  position: relative;
-  cursor: move;
+.block-base-card{
+  max-width: 400px;
+  border-radius:10px;
+
 }
+
+.content-card{
+  border-radius:10px;
+}
+
+.header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+
+.mat-icon-button{
+  margin-bottom: 5px;
+}
+
+.mat-mini-fab{
+  width: 20px;
+  height: 20px;
+  margin-top: 0%;
+}
+
