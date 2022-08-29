@@ -1,20 +1,60 @@
-<div [id]="id" [ngSwitch]="type">
+<mat-card class="block-base-card">
+  <div [id]="id" [ngSwitch]="type" class="content-card">
+    <div fxLayoutAlign="center" class="target-connector">
+      <button mat-mini-fab  aria-label="target connector">
+        <mat-icon></mat-icon>
+      </button>
+    </div>
 
-  <div *ngSwitchCase="messagetype">
-    <app-message-block 
-    [id]="id" 
-    [block]="block"
-    [jsPlumb]="jsPlumb"
-    class="block" [textMessageForm]="blockFormGroup"></app-message-block>
+    <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
+        <mat-card-header>
+          <div mat-card-avatar class="header-image">
+            
+          </div>
+          <mat-card-title>block title</mat-card-title>
+        </mat-card-header>
+
+      <div fxLayoutAlign="end">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="block-options-menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>assignment</mat-icon>
+            <span>Copy</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="messagetype">
+      <mat-card-title>
+        <app-message-block
+          [id]="id"
+          [block]="block"
+          [jsPlumb]="jsPlumb"
+          class="block"
+          [textMessageForm]="blockFormGroup"
+        ></app-message-block
+      ></mat-card-title>
+    </div>
+
+    <div *ngSwitchCase="questiontype" fxLayoutAlign="start">
+      <app-questions-block
+        [id]="id"
+        [block]="block"
+        [questionMessageBlock]="blockFormGroup"
+        [jsPlumb]="jsPlumb"
+        class="block"
+      ></app-questions-block>
+    </div>
   </div>
-
-  <div *ngSwitchCase="questiontype">
-    <app-questions-block 
-      [id]="id" 
-      [block]="block" 
-      [questionMessageBlock]="blockFormGroup" 
-      [jsPlumb]="jsPlumb"
-      class="block"></app-questions-block>
-  </div>
-
-</div>
+</mat-card>
