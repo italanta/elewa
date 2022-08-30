@@ -57,9 +57,11 @@ export class BlocksLibraryComponent implements OnInit
     }
   }
 
+  //A function that subscribes to when the search control changes and filters the blocks components list 
   filterBlockTemplates(){
     this.searchControl.valueChanges.pipe(startWith('')).subscribe((value: string) => {
       this.filteredBlockTemplates= value != ""
+                                  //this filters the block Templates if the value entered is not empty.
                                   ? this.blockTemplates.filter((blocks)=>{return blocks.message?.toLowerCase().includes(value.toLowerCase())})
                                   :this.blockTemplates
     })
