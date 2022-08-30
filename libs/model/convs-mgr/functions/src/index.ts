@@ -1,1 +1,1 @@
-export * from './lib/model-convs-mgr-functions';
+export * from './lib/whatsapp/raw-whatsapp-payload.model';
