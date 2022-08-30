@@ -8,6 +8,7 @@ import { Logger } from '@iote/bricks-angular';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateQuestionBlockMessageForm, _CreateTextMessageBlockForm } from '../../model/blocks-forms.model';
+import { SubSink } from 'subsink';
 
 /**
  * Block which sends a message from bot to user.
