@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/layout/user-menu"],
+      "outputs": [
+        "coverage/libs/elements/layout/user-menu"
+      ],
       "options": {
         "jestConfig": "libs/elements/layout/user-menu/jest.config.ts",
         "passWithNoTests": true
