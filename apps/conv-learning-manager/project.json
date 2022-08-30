@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/conv-learning-manager",
         "index": "apps/conv-learning-manager/src/index.html",
@@ -15,7 +17,8 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/conv-learning-manager/src/favicon.ico",
-          "apps/conv-learning-manager/src/assets"
+          "apps/conv-learning-manager/src/assets",
+          "apps/conv-learning-manager/src/manifest.webmanifest"
         ],
         "styles": [
           "apps/conv-learning-manager/src/styles.scss",
@@ -26,7 +29,9 @@
             "libs/elements/theming"
           ]
         },
-        "scripts": []
+        "scripts": [],
+        "serviceWorker": true,
+        "ngswConfigPath": "apps/conv-learning-manager/ngsw-config.json"
       },
       "configurations": {
         "production": {
@@ -91,7 +96,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/conv-learning-manager"],
+      "outputs": [
+        "coverage/apps/conv-learning-manager"
+      ],
       "options": {
         "jestConfig": "apps/conv-learning-manager/jest.config.ts",
         "passWithNoTests": true

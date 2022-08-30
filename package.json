@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~14.0.0",
     "@angular/platform-browser-dynamic": "~14.0.0",
     "@angular/router": "~14.0.0",
+    "@angular/service-worker": "^14.2.0",
     "@firebase/firestore-types": "^2.5.0",
     "@jsplumb/browser-ui": "^5.9.4",
     "@jsplumb/connector-bezier": "^5.9.4",
