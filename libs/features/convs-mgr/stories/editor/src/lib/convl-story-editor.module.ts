@@ -1,3 +1,5 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialFormBricksModule } from './../../../../../../util/iote/bricks-angular/src/lib/material-form-bricks/material-form-bricks.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,10 +19,12 @@ import { StoryEditorInitialiserService } from './providers/story-editor-initiali
 
 import { ConvlStoryEditorRouterModule }  from './convs-story-editor.router.module';
 
+
 @NgModule({
   imports: [
     CommonModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
+    MaterialFormBricksModule, ReactiveFormsModule,
 
     ConvlPageModule,
 

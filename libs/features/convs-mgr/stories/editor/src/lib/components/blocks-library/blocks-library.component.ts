@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
 import { Logger } from '@iote/bricks-angular';
 
+import { SubSink } from 'subsink';
+import { startWith } from 'rxjs';
+
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -18,11 +24,16 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 export class BlocksLibraryComponent implements OnInit
 {
   @Input() frame: StoryEditorFrame;
+  private _sbs=new SubSink();
+  searchControl: FormControl= new FormControl('');
 
-  blockTemplates: TextMessageBlock[] = [
+
+  blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
     { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock
   ];
+
+  filteredBlockTemplates: StoryBlock[];
 
   constructor(private _logger: Logger) 
   { }
@@ -31,6 +42,7 @@ export class BlocksLibraryComponent implements OnInit
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
     if(!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
+      this.filterBlockTemplates();
   }
 
   addBlock(type: StoryBlockTypes)
@@ -43,6 +55,18 @@ export class BlocksLibraryComponent implements OnInit
       case StoryBlockTypes.IO:
         this.frame.newBlock(StoryBlockTypes.IO);
     }
+  }
+
+  filterBlockTemplates(){
+    this.searchControl.valueChanges.pipe(startWith('')).subscribe((value: string) => {
+      this.filteredBlockTemplates= value != ""
+                                  ? this.blockTemplates.filter((blocks)=>{return blocks.message?.toLowerCase().includes(value.toLowerCase())})
+                                  :this.blockTemplates
+    })
+  }
+
+  ngOnDestroy(){
+    this._sbs.unsubscribe();
   }
   
 }
