@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/convs-mgr/stories/block-connections"],
+      "outputs": [
+        "coverage/libs/state/convs-mgr/stories/block-connections"
+      ],
       "options": {
         "jestConfig": "libs/state/convs-mgr/stories/block-connections/jest.config.ts",
         "passWithNoTests": true

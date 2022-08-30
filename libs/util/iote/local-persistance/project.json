@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/iote/local-persistance"],
+      "outputs": [
+        "dist/libs/util/iote/local-persistance"
+      ],
       "options": {
         "project": "libs/util/iote/local-persistance/ng-package.json"
       },
@@ -21,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/iote/local-persistance"],
+      "outputs": [
+        "coverage/libs/util/iote/local-persistance"
+      ],
       "options": {
         "jestConfig": "libs/util/iote/local-persistance/jest.config.ts",
         "passWithNoTests": true
