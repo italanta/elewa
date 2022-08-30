@@ -68,6 +68,11 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/functions/base": ["libs/functions/base/src/index.ts"],
+      "@app/functions/webhooks": ["libs/functions/webhooks/src/index.ts"],
+      "@app/model/convs-mgr/functions": [
+        "libs/model/convs-mgr/functions/src/index.ts"
+      ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
       ],
