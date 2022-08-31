@@ -22,6 +22,7 @@
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "functions-base": "libs/functions/base",
+    "functions-messages-whatsapp": "libs/functions/messages/whatsapp",
     "functions-webhooks": "libs/functions/webhooks",
     "model-convs-mgr-functions": "libs/model/convs-mgr/functions",
     "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
