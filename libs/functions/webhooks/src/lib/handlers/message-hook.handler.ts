@@ -1,6 +1,5 @@
 import { HandlerTools } from "@iote/cqrs";
-import { FunctionHandler } from "@ngfi/functions";
-import { HttpsContext } from "libs/util/ngfi/functions/src/lib/context/https-context.interface";
+import { FunctionHandler, HttpsContext } from "@ngfi/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
 import { __VerifyWhatsAppTokenWebHook } from "../utils/initial-whatsapp-verifier.util";
 
@@ -19,9 +18,6 @@ export class MessageHookHandler extends FunctionHandler<{val:any}, any>
      tools.Logger.log(() =>`${dataT.entry}`);
      tools.Logger.log(() =>`${dataT.object}`);
 
-  
-
-    
   }
   
 }
