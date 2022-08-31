@@ -7,7 +7,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { _CreateQuestionBlockMessageForm, _CreateTextMessageBlockForm } from '../../model/blocks-forms.model';
+import { _CreateQuestionBlockMessageForm, _CreateTextMessageBlockForm, _CreateLocationBlockForm } from '../../model/blocks-forms.model';
 import { SubSink } from 'subsink';
 
 /**
@@ -28,6 +28,7 @@ export class BlockComponent implements OnInit
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   questiontype = StoryBlockTypes.IO;
+  locationtype=StoryBlockTypes.Input;
 
   blockFormGroup: FormGroup;
 
@@ -49,7 +50,12 @@ export class BlockComponent implements OnInit
         this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break
-
+      
+      case 2: 
+        this.blockFormGroup=_CreateLocationBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+        
       default:
         break;
     }
