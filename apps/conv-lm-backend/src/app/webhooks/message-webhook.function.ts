@@ -1,5 +1,5 @@
 import { MessageHookHandler } from "@app/functions/webhooks";
-import { EndpointRegistrar, RestRegistrar } from "@ngfi/functions";
+import { EndpointRegistrar } from "@ngfi/functions";
 import { ConvLearnFunction } from "../../conv-learn-func.class";
 
 const handler = new MessageHookHandler();
