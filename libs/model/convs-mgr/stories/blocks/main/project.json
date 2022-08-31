@@ -5,14 +5,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/model/convs-mgr/stories/blocks/main/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/model/convs-mgr/stories/blocks/main/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/convs-mgr/stories/blocks/main"],
+      "outputs": [
+        "coverage/libs/model/convs-mgr/stories/blocks/main"
+      ],
       "options": {
         "jestConfig": "libs/model/convs-mgr/stories/blocks/main/jest.config.ts",
         "passWithNoTests": true
