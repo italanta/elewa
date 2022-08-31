@@ -1,6 +1,6 @@
 import { FormBuilder, FormGroup } from "@angular/forms";
 
-import { QuestionMessageBlock, TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { QuestionMessageBlock, TextMessageBlock, LocationMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 /**
  * 
@@ -31,6 +31,18 @@ export function _CreateQuestionBlockMessageForm(_fb: FormBuilder, blockData: Que
     defaultTarget: [blockData.defaultTarget ?? ''],
     options: _fb.array([]),
     type: [blockData.type ?? 3],
+    position: [blockData.position ?? { x: 200, y: 50 }]
+  })
+}
+
+
+export function _CreateLocationBlockForm(_fb: FormBuilder, blockData: LocationMessageBlock): FormGroup {
+  return _fb.group({
+    id: [blockData?.id! ?? ''],
+    message: [blockData?.message! ?? ''],
+    location: [blockData?.location ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
+    type: [blockData.type ?? 2],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
 }
