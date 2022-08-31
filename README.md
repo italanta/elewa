@@ -12,10 +12,9 @@
   <br/>
 
   <p>
-
     The Elewa LMS is worlds first conversational learning manager. The Elewa LMS allows you to build, host and manage courses that run over a conversational platform such as WhatsApp, Telegram, Messenger or our very own web platform. And best of all, it's fully open source!
-
   </p>
+
   <p>
     The Elewa LMS packs three elements:
     
@@ -35,13 +34,10 @@
 
 </div>
 
-<br/>
 <h3><b>Contributing</b></h3>
 
 To contribute, refer to the [iTalanta/Moringa Open-Source](https://github.com/italanta/open-source) Documentation.
 
-
-<br/>
 <h3><b>Partners:</b></h3>
 
   <a href="https://italanta.net/for-devs">
