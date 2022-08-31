@@ -1,20 +1,17 @@
 <div [id]="id" [ngSwitch]="type">
-
   <div *ngSwitchCase="messagetype">
-    <app-message-block 
-    [id]="id" 
+    <app-message-block
+    [id]="id"
     [block]="block"
     [jsPlumb]="jsPlumb"
     class="block" [textMessageForm]="blockFormGroup"></app-message-block>
   </div>
-
   <div *ngSwitchCase="questiontype">
-    <app-questions-block 
-      [id]="id" 
-      [block]="block" 
-      [questionMessageBlock]="blockFormGroup" 
+    <app-questions-block
+      [id]="id"
+      [block]="block"
+      [questionMessageBlock]="blockFormGroup"
       [jsPlumb]="jsPlumb"
       class="block"></app-questions-block>
   </div>
-
 </div>

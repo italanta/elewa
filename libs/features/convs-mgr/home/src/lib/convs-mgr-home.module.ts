@@ -12,6 +12,8 @@ import { NewStoryService } from './services/new-story.service';
 
 import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 import { StoryListComponent } from './components/story-list/story-list.component';
+import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 @NgModule({
   imports: [
@@ -22,9 +24,15 @@ import { StoryListComponent } from './components/story-list/story-list.component
     ConvlPageModule,
 
     ConvsMgrHomeRouterModule,
+    MultiLangModule
   ],
 
-  declarations: [HomePageComponent, StoryListItemComponent, StoryListComponent],
+  declarations: [
+    HomePageComponent,
+    StoryListItemComponent,
+    StoryListComponent,
+    CreateBotModalComponent,
+  ],
 
   providers: [NewStoryService],
 })
