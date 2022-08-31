@@ -5,4 +5,5 @@ import * as admin from 'firebase-admin';
 const conf = config().firebase;
 admin.initializeApp(conf);
 
-export * from './app/webhooks/message-webhook.function';
+export * from './functions/fns-webhooks';
+export * from './functions/fns-messages';

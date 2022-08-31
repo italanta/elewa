@@ -1,1 +1,1 @@
-export * from './lib/functions-messages-whatsapp';
+export * from './lib/handlers/send-message.handler';
