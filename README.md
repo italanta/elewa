@@ -44,6 +44,8 @@ To contribute, refer to the [iTalanta/Moringa Open-Source](https://github.com/it
     <img src="docs/images/italanta-logo.jpg"  alt="Logo" width="200">
   </a>
   
+  <br/>
+  
   <a href="https://moringaschool.com/">
     &nbsp;<img src="docs/images/moringa-logo.png" alt="Logo" width="200">
   </a>
