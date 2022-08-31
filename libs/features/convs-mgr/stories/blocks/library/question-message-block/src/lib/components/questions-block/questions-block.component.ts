@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -13,6 +15,8 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
 })
 export class QuestionsBlockComponent implements OnInit, AfterViewInit {
 
+  faAdd = faAdd;
+  
   @ViewChild('inputOtion') inputOtion: ElementRef;
 
   @Input() id: string;
