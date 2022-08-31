@@ -1,17 +1,17 @@
-<h2 class="create-bot-header">Create a new bot</h2>
+<h2 class="create-bot-header">{{ "BOTS.CREATE-MODAL.TITLE" | transloco }}</h2>
 <form>
-  <h4 class="create-bot-name">Name</h4>
+  <h4 class="create-bot-name">{{ 'BOTS.CREATE-MODAL.FIELDS.NAME' | transloco }}</h4>
   <input type="text" placeholder="My first bot" />
-  <h4>Description</h4>
+  <h4>{{ 'BOTS.CREATE-MODAL.FIELDS.DESC' | transloco }}</h4>
   <textarea placeholder="This is a new bot .."></textarea>
 
   <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
     <div>
-      <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+      <button mat-button mat-dialog-close class="cancel-btn">{{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}</button>
     </div>
 
     <div>
-      <button mat-raised-button class="add-btn">Create Bot</button>
+      <button mat-raised-button class="add-btn">{{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}</button>
     </div>
   </div>
 </form>
