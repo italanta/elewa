@@ -8,7 +8,7 @@ import { startWith } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -30,7 +30,8 @@ export class BlocksLibraryComponent implements OnInit
 
   blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
-    { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock
+    { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock,
+    {id:'input-location-block', type: StoryBlockTypes.Input, message:'Location Block'} as LocationMessageBlock
   ];
 
   filteredBlockTemplates: StoryBlock[];
@@ -54,6 +55,11 @@ export class BlocksLibraryComponent implements OnInit
 
       case StoryBlockTypes.IO:
         this.frame.newBlock(StoryBlockTypes.IO);
+        break
+      
+        case StoryBlockTypes.Input:
+          this.frame.newBlock(StoryBlockTypes.Input);
+          break
     }
   }
 
