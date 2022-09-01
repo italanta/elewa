@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Logger } from '@iote/bricks-angular';
 
 import { SubSink } from 'subsink';
-import { startWith } from 'rxjs';
+import { startWith, Observable, BehaviorSubject } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -21,60 +21,64 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit
-{
+export class BlocksLibraryComponent implements OnInit {
   @Input() frame: StoryEditorFrame;
-  private _sbs=new SubSink();
-  searchControl: FormControl= new FormControl('');
+
+  private _sbS = new SubSink();
+  searchControl: FormControl = new FormControl('');
 
 
   blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
-    { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock,
-    {id:'input-location-block', type: StoryBlockTypes.Input, message:'Location Block'} as LocationMessageBlock
+    { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
+    { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock
   ];
 
+  filterInput$$: BehaviorSubject<string> = new BehaviorSubject('');
   filteredBlockTemplates: StoryBlock[];
 
-  constructor(private _logger: Logger) 
-  { }
+  constructor(private _logger: Logger) {}
+  
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
-    if(!this.frame || !this.frame.loaded)
+    if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
-      this.filterBlockTemplates();
+    this.filterBlockTemplates();
   }
 
-  addBlock(type: StoryBlockTypes)
-  {
-    switch(type) {
+  addBlock(type: StoryBlockTypes) {
+    switch (type) {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
         break
 
-      case StoryBlockTypes.IO:
-        this.frame.newBlock(StoryBlockTypes.IO);
+      case StoryBlockTypes.QuestionBlock:
+        this.frame.newBlock(StoryBlockTypes.QuestionBlock);
         break
-      
-        case StoryBlockTypes.Input:
-          this.frame.newBlock(StoryBlockTypes.Input);
-          break
+
+      case StoryBlockTypes.Location:
+        this.frame.newBlock(StoryBlockTypes.Location);
+        break
     }
   }
 
   //A function that subscribes to when the search control changes and filters the blocks components list 
-  filterBlockTemplates(){
-    this.searchControl.valueChanges.pipe(startWith('')).subscribe((value: string) => {
-      this.filteredBlockTemplates= value != ""
-                                  //this filters the block Templates if the value entered is not empty.
-                                  ? this.blockTemplates.filter((blocks)=>{return blocks.message?.toLowerCase().includes(value.toLowerCase())})
-                                  :this.blockTemplates
+  filterBlockTemplates() {
+
+     this._sbS.sink= this.filterInput$$.subscribe((value: string) => {
+      this.filteredBlockTemplates= value != ''
+        ? this.blockTemplates.filter((blocks) => { return blocks.message?.toLowerCase().includes(value.toLowerCase())})
+        : this.blockTemplates
     })
   }
 
-  ngOnDestroy(){
-    this._sbs.unsubscribe();
+  filterBlocks(event : any){
+    this.filterInput$$.next(event.target.value);
   }
-  
+
+  ngOnDestroy() {
+    this._sbS.unsubscribe();
+  }
+
 }
