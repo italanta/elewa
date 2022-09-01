@@ -5,14 +5,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/util/ngfi/functions/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/util/ngfi/functions/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/functions"],
+      "outputs": [
+        "coverage/libs/util/ngfi/functions"
+      ],
       "options": {
         "jestConfig": "libs/util/ngfi/functions/jest.config.ts",
         "passWithNoTests": true
@@ -20,13 +26,17 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/util/ngfi/functions",
         "tsConfig": "libs/util/ngfi/functions/tsconfig.lib.json",
         "packageJson": "libs/util/ngfi/functions/package.json",
         "main": "libs/util/ngfi/functions/src/index.ts",
-        "assets": ["libs/util/ngfi/functions/*.md"]
+        "assets": [
+          "libs/util/ngfi/functions/*.md"
+        ]
       }
     }
   },
