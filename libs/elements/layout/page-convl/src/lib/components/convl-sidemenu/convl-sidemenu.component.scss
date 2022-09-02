@@ -3,6 +3,18 @@
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
 
+$white: white;
+
+//new css styles by meshack
+
+
+mat-sidenav {
+  width: 200px;
+  border-right: none;
+  color: $white;
+}
+
+
 #side-menu {
   min-width: 200px;
   font-family: mat-font-family($custom-typography, subheading-2);
