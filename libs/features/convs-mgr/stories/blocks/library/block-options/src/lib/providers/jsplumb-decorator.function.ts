@@ -1,5 +1,6 @@
 import { BrowserJsPlumbInstance } from "@jsplumb/browser-ui";
 import { BezierConnector } from "@jsplumb/connector-bezier";
+import { FlowchartConnector } from "@jsplumb/connector-flowchart";
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -17,10 +18,13 @@ export function _JsPlumbComponentDecorator(sourceElement: Element, jsPlumb: Brow
     // Where to position the anchor
     anchor: "Right",
     connector: {
-      type: BezierConnector.type,
+      // type: BezierConnector.type,
+        type: FlowchartConnector.type,
       options: { 
         curviness: 100
       }
     }
+    
+
   });  return sourceElement;
 }
