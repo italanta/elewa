@@ -15,32 +15,43 @@ mat-sidenav {
 }
 
 
+mat-sidenav-container {
+  height: calc(100vh - 65px);
+  
+}
+.sidebar-menu{
+  background: $white;
+}
+
+
+ mat-icon {
+    margin-right:1px;
+  }
+
+
+
+
 #side-menu {
-  min-width: 200px;
+  min-width:200px;
   font-family: mat-font-family($custom-typography, subheading-2);
 }
 
 mat-nav-list {
   overflow: auto;
+  
 }
-
-
-.logo {
-  max-height: 50px;
-  margin: 10px 0 0 20px;
-}
-
 .list-icon {
-  margin-right: 10px;
+  margin-right: 110px;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
 }
 
 .icon-top {
   font-size: 1.5em;
-  margin-right: 15px;
+  margin-right:5px;
+  max-width:100px;
+  height: 100px;
   color: mat-color($accent, A200);
-  max-width: 25px;
-  border-radius: 5px;
+  padding-top: 35px;
 }
 
 .proj-info {
@@ -110,8 +121,10 @@ mat-nav-list {
 }
 
 .highlight-active {
-  background-color: mat-color($accent, A200);;
+  //background-color: mat-color($accent, A200);;
   outline: none;
+  border-left: 3px solid mat-color($accent, A200);;
+  
 }
 
 .highlight-active:before {
@@ -122,5 +135,23 @@ mat-nav-list {
 
 .hov:hover, .child-header:hover {
   cursor: pointer;
-  background-color: mat-color($accent, A200);
+  //background-color: mat-color($accent, A200);
+  background-color:#E0C4EC;
+  border-right: 7px solid #351393;
+  color: #351393;
+
+
 }
+
+.fa-gauge-high{
+  color:#351393;
+}
+
+
+
+
+.logo {
+  max-height: 50px;
+  margin: 10px 0 0 20px;
+}
+
