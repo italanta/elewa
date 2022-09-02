@@ -22,25 +22,36 @@ mat-list-item class="header top-header" fxLayout="row">
 </mat-toolbar>
 
         <!-- Section Home -->
-        <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
-            <div fxLayout="row">
-                <i matListIcon class="fas fa-home list-icon"></i> Home
-                <div class="chevron-down" [class.right]="rlaHome.isActive">
-                    <i class="fas fa-sort-down"></i>
-                </div>
-                <ng-template #icon2><i class="fas fa-sort-down chevron-down"></i></ng-template>
-            </div>
-
-            <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
-                <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
+        <mat-sidenav-container>
+          <mat-sidenav #sidenav="matSidenav" >
+              <div [routerLink]="['/']"  routerLinkActive #rlaHome="routerLinkActive"
+                 mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
+                  
+                  Main
+                  <div class="chevron-down" [class.right]="rlaHome.isActive">
+                  </div>
+                  <ng-template #icon2>
+                    <i class="fa fa-sort-down chevron-down"></i>
+                  </ng-template>
+              
+        
+                 <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
+                  <div  [routerLink]="['/org']"
+                       mat-list-item class="child-header child-1"> 
+                      <i class='fa-solid fa-gauge-high fa-lg'></i> 
+        
                     Dashboard
+                  </div>
                 </div>
-            </div>
-            <button mat-raised-button (click)="logout()">
-        Log out
-      </button>
-        </div>
+        
+            
+        
+           </div>
+        
+          </mat-sidenav>
+        
+        </mat-sidenav-container>
 
         <!-- Section Chats -->
         <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
