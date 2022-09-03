@@ -1,5 +1,5 @@
 import { BrowserJsPlumbInstance } from "@jsplumb/browser-ui";
-import { BezierConnector } from "@jsplumb/connector-bezier";
+import { FlowchartConnector } from "@jsplumb/connector-flowchart";
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -8,19 +8,16 @@ import { BezierConnector } from "@jsplumb/connector-bezier";
  * @param sourceElement    - Angular component rendered in the viewport 
  * @param jsPlumb - Active jsPlumb instance
  */
+
 export function _JsPlumbComponentDecorator(sourceElement: Element, jsPlumb: BrowserJsPlumbInstance): Element
 {
   jsPlumb.addEndpoint(sourceElement, {
     source: true,
     // Type of endpoint to render
+    cssClass:"block_endpoint",
     endpoint: 'Dot',
     // Where to position the anchor
     anchor: "Right",
-    connector: {
-      type: BezierConnector.type,
-      options: { 
-        curviness: 100
-      }
-    }
+    connector : FlowchartConnector.type
   });  return sourceElement;
 }
