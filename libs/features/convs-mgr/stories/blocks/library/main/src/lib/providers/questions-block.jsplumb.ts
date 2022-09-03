@@ -20,8 +20,9 @@ export function _QuestionsBlockDecoratePlumb(block: QuestionMessageBlock, comp: 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
+    cssClass:"block_endpoint",
 
-    endpoint: 'Rectangle',
+    endpoint: 'Dot',
     anchor: "Left"
   });
 
