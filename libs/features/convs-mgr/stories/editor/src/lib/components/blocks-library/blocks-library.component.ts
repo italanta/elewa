@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+
 
 import { Logger } from '@iote/bricks-angular';
 
 import { SubSink } from 'subsink';
-import { startWith, Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -12,33 +12,32 @@ import { LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@a
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
+
 /**
  * Component which holds a library (list) of all blocks that can be created 
  *    in the story editor.
  */
+
 @Component({
   selector: 'convl-blocks-library',
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
 export class BlocksLibraryComponent implements OnInit {
+  private _sbS = new SubSink();
+
   @Input() frame: StoryEditorFrame;
 
-  private _sbS = new SubSink();
-  searchControl: FormControl = new FormControl('');
-
+  filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
     { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock
   ];
-
-  filterInput$$: BehaviorSubject<string> = new BehaviorSubject('');
-  filteredBlockTemplates: StoryBlock[];
+  blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
   constructor(private _logger: Logger) {}
-  
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
@@ -65,15 +64,14 @@ export class BlocksLibraryComponent implements OnInit {
 
   //A function that subscribes to when the search control changes and filters the blocks components list 
   filterBlockTemplates() {
-
-     this._sbS.sink= this.filterInput$$.subscribe((value: string) => {
-      this.filteredBlockTemplates= value != ''
-        ? this.blockTemplates.filter((blocks) => { return blocks.message?.toLowerCase().includes(value.toLowerCase())})
-        : this.blockTemplates
-    })
+    this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
+                            .pipe(map(([filter, blocksArray]) => blocksArray
+                            .filter((block: StoryBlock) => {
+                              return block.message!.toString().toLowerCase().includes(filter)
+                            })))
   }
 
-  filterBlocks(event : any){
+  filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
   }
 
