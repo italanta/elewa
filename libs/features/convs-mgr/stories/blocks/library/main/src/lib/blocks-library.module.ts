@@ -17,6 +17,7 @@ import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/blo
 import { BlockComponent } from './components/block/block.component';
 
 import { BlockInjectorService } from './providers/block-injector.service';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { BlockInjectorService } from './providers/block-injector.service';
     ConvlPageModule,
     ConvsMgrTextMessageBlockModule,
     ConvsMgrQuestionBlockModule,
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    MultiLangModule
   ],
 
   declarations: [
