@@ -4,8 +4,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Logger } from '@iote/bricks-angular';
 
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
- 
-import { _JsPlumbComponentDecorator } from '../../../../../block-options/src/lib/providers/jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator-function'
 
 
 @Component({
@@ -15,18 +14,19 @@ import { _JsPlumbComponentDecorator } from '../../../../../block-options/src/lib
 })
 export class LocationBlockComponent implements OnInit, AfterViewInit {
 
-    @Input() id: string;
-    @Input() block: LocationMessageBlock;
-    @Input() jsPlumb: BrowserJsPlumbInstance;
-  
-    @Input() locationMessageForm: FormGroup;
+  @Input() id: string;
+  @Input() block: LocationMessageBlock;
+  @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() locationMessageForm: FormGroup;
 
- 
-  
+
+
   constructor(private _fb: FormBuilder,
-              private _logger:Logger){}
+              private _logger: Logger)
+   {}
 
-  ngOnInit(): void {}
+  ngOnInit():void 
+  {}
 
 
 
