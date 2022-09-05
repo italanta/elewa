@@ -34,6 +34,7 @@ mat-sidenav-container {
 #side-menu {
   min-width:200px;
   font-family: mat-font-family($custom-typography, subheading-2);
+  padding-bottom: 20px;
 }
 
 mat-nav-list {
@@ -43,17 +44,21 @@ mat-nav-list {
 .list-icon {
   // margin-right: 110px;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
+ 
 }
 
 .icon-top {
   font-size: 1.5em;
   margin-right:5px;
   max-width:100px;
-  height: 100px;
+  height:40px;
   color: mat-color($accent, A200);
-  padding-top: 35px;
+  padding-top:35px;
 }
-
+.category-children{
+  background-color:#E0C4EC;
+  border-right: 7px solid #351393;
+}
 .proj-info {
   font-size: 0.7em;
   font-weight: 200;
@@ -123,7 +128,7 @@ mat-nav-list {
 .highlight-active {
   //background-color: mat-color($accent, A200);;
   outline: none;
-  border-left: 3px solid mat-color($accent, A200);;
+  border-left: 3px solid mat-color($accent, A200);
   
 }
 
