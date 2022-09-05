@@ -11,7 +11,7 @@ import {
 import {MultiLangModule}from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { LocationBlockComponent } from './components/location-block/location-block.component';
+import { ImageBlockComponent } from './components /image-block/image-block.component';
 
 @NgModule({
   imports: [
@@ -27,8 +27,8 @@ import { LocationBlockComponent } from './components/location-block/location-blo
     ConvsMgrBlockOptionsModule
   ],
 
-  declarations: [LocationBlockComponent],
+  declarations: [ImageBlockComponent],
 
-  exports: [LocationBlockComponent],
+  exports: [ImageBlockComponent],
 })
-export class ConvsMgrLocationMessageBlockModule {}
+export class ConvsMgrImageMessageBlockModule {}
