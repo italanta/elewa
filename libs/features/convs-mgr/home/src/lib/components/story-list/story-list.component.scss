@@ -1,0 +1,31 @@
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+
+.search-icon {
+    color: mat-color($mat-ele, A900);
+    margin: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    transform: rotate(90deg);
+  }
+  
+  .mat-form {
+    border: none;
+    background-color: white;
+    opacity: 500px;
+    width: 100%;
+  }
+  
+  ::ng-deep .mat-focused .mat-form-field {
+    /*change color of label*/
+    color: #ffc50c !important;
+  }
+  
+  ::ng-deep .mat-focused .mat-form-field-outline {
+    /*change color of underline when focused*/
+    color: white !important;
+  }
+  
