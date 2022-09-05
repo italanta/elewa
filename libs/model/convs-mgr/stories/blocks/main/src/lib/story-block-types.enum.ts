@@ -26,5 +26,8 @@ export enum StoryBlockTypes
   /**
    * Block redirects to StorySection with other scenario.
    * Usage         : structuring and reusing scenario-designs */
-  Structural = 9
+  Structural = 9,
+
+
+  Image = 5
 }
