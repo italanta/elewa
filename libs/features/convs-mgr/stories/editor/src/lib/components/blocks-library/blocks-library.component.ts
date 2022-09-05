@@ -23,7 +23,8 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit {
+export class BlocksLibraryComponent implements OnInit
+ {
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;

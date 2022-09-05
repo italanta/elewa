@@ -23,20 +23,22 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
 
   constructor(private _fb: FormBuilder,
               private _logger: Logger)
-   {}
+              {}
 
   ngOnInit():void 
   {}
 
 
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void 
+  {
     if (this.jsPlumb) {
       this._decorateInput();
     }
   }
 
-  private _decorateInput() {
+  private _decorateInput()
+  {
     let input = document.getElementById('location') as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
