@@ -1,19 +1,19 @@
 <mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
   <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
-    <img src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000"
-      class="avatar-img" alt="Avatar" />
-    <h4 class="block-title">Block title</h4>
+    <img src=""
+      class="avatar-img" alt="storyicon" />
+    <h4 class="block-title"></h4>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>assignment</mat-icon>
-        <span>Copy</span>
+        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
       </button>
       <button mat-menu-item>
         <mat-icon>delete</mat-icon>
-        <span>Delete</span>
+        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
       </button>
     </mat-menu>
   </div>
