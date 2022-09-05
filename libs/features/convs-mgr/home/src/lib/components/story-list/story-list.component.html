@@ -1,3 +1,12 @@
+<mat-form-field appearance="outline" class="mat-form">
+  <input matInput type="text" placeholder="Search for a bot"/>
+
+  <span matPrefix>
+    <mat-icon matPrefix class="search-icon">search</mat-icon>
+  </span>
+</mat-form-field>
+
+
 <div class="bot-selector" fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="26px grid">
     <ng-template ngFor [ngForOf]="stories$ | async" let-story>
       <convl-story-list-item [story]="story"> </convl-story-list-item>
