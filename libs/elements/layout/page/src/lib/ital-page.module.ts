@@ -17,7 +17,7 @@ import { NavbarSideComponent } from './components/app-navbar-side/navbar-side.co
 import { SideNavContainerComponent } from './components/sidenav-container/nav-wrapper.component';
 import { SideMenuFooterComponent } from './components/sidemenu-footer/sidemenu-footer.component';
 import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
-import { BlockCardComponent } from './components/block-card/block-card.component';
+
 
 /**
  *  Elewa Page Module. Shows an overview of the page.
@@ -39,7 +39,6 @@ import { BlockCardComponent } from './components/block-card/block-card.component
     NavbarComponent,
     SideNavContainerComponent,
     SideMenuFooterComponent,
-    BlockCardComponent,
   ],
 
   providers: [],
