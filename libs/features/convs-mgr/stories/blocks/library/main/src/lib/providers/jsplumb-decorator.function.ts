@@ -10,6 +10,7 @@ import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
 import { _LocationBlockDecoratePlumb } from './location-block.jsplumb';
 import { _ImageBlockDecoratePlumb } from './image-block.jsplumb';
+import { _NameBlockDecoratePlumb } from './name-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -36,6 +37,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
     case StoryBlockTypes.Image:
       return _ImageBlockDecoratePlumb(block as ImageMessageBlock, comp, jsPlumb);
       break;
+    case StoryBlockTypes.Name:
+        return _NameBlockDecoratePlumb(block as ImageMessageBlock, comp, jsPlumb);
+        break;
   }
 
   // Default case
