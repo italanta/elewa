@@ -40,15 +40,20 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
 
   }
 
-  private async createSubject(provider: Provider, phoneNumber: number, tools: HandlerTools){
+  private async createSubject(provider: Provider, phoneNumber: number, tools: HandlerTools): Promise<StoryBlock>{
+
+    // Get the default block
     const defaultBlock: DefaultBlock = await this._getDefaultBlock(provider, tools);
 
     const subjectRepo$ = tools.getRepository<any>(`subjects/${phoneNumber}/stories/${provider.storyId}/milestones`);
 
-    //Create subject
+    // Create subject
     await subjectRepo$.write(defaultBlock, defaultBlock.blockId)
 
-    return defaultBlock;
+    // Get the next block using the default block
+    const nextBlock: StoryBlock = await this._getBlockById(defaultBlock.nextBlock, provider, tools)
+
+    return nextBlock;
   }
 
   private async updateSubject(provider: Provider, data: {phoneNumber: number; message: string}, tools: HandlerTools){
@@ -93,6 +98,18 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
     let block: any;
 
     return block 
+  }
+
+  private async _getBlockById(id: string, provider: any, tools: HandlerTools): Promise<StoryBlock>{
+    const orgRepo$ = tools.getRepository<StoryBlock>(`orgs/${provider.orgId}/stories/${provider.storyId}/blocks`);
+
+    const block: StoryBlock = await orgRepo$.getDocumentById(id)
+
+    if(!block){
+      throw new Error('Block does not exist')
+    }
+
+    return block
   }
 }
 
