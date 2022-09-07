@@ -29,5 +29,7 @@ export enum StoryBlockTypes
   Structural = 9,
 
 
-  Image = 5
+  Image = 5,
+
+  Name=10
 }
