@@ -77,6 +77,9 @@
       "@app/model/bot/blocks/story-block": [
         "libs/model/bot/blocks/story-block/src/index.ts"
       ],
+      "@app/model/bot/main/provider": [
+        "libs/model/bot/main/provider/src/index.ts"
+      ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
       ],
