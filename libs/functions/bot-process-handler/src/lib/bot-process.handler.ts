@@ -1,11 +1,15 @@
-import { IObject } from "@iote/bricks";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 
+import { DefaultBlock } from "@app/model/bot/blocks/default-block";
+import { StoryBlock } from "@app/model/bot/blocks/story-block";
+import { Provider } from "@app/model/bot/main/provider";
+import { MessageData } from "@app/model/bot/main/message-data";
 
-export class BotProcessHandler extends FunctionHandler<any, any> {
 
-  public async execute(data: any, context: FunctionContext, tools: HandlerTools): Promise<any> {
+export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> {
+
+  public async execute(data: MessageData, context: FunctionContext, tools: HandlerTools): Promise<StoryBlock> {
 
     const nextBlock = await this._mainProcess(data, tools)
 
@@ -13,7 +17,7 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
       
   }
 
-  private async _mainProcess(data: {phoneNumber: number; message: string}, tools: HandlerTools){
+  private async _mainProcess(data: MessageData, tools: HandlerTools){
     let block: any;
 
     // Read the Providers collection and extract story id and org id
@@ -40,7 +44,7 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
 
   }
 
-  private async createSubject(provider: Provider, phoneNumber: number, tools: HandlerTools): Promise<StoryBlock>{
+  private async createSubject(provider: Provider, phoneNumber: string, tools: HandlerTools): Promise<StoryBlock>{
 
     // Get the default block
     const defaultBlock: DefaultBlock = await this._getDefaultBlock(provider, tools);
@@ -56,7 +60,7 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
     return nextBlock;
   }
 
-  private async updateSubject(provider: Provider, data: {phoneNumber: number; message: string}, tools: HandlerTools){
+  private async updateSubject(provider: Provider, data: {phoneNumber: string; message: string}, tools: HandlerTools){
     const nextBlock: StoryBlock = this._getNextBlock();
 
     //Update milestone
@@ -67,19 +71,19 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
     return nextBlock;
   }
 
-  private _readSubjects(phoneNumber: number, tools: HandlerTools){
+  private _readSubjects(phoneNumber: string, tools: HandlerTools){
     // Get subject
     // TODO: Create a type for subjects 
     const subjectRepo$ = tools.getRepository<any>(`subjects`);
-    const subject = subjectRepo$.getDocumentById(phoneNumber.toString())
+    const subject = subjectRepo$.getDocumentById(phoneNumber)
 
     return subject
   }
 
-  private async _readProviders(phoneNumber: number, tools: HandlerTools): Promise<Provider>{
+  private async _readProviders(phoneNumber: string, tools: HandlerTools): Promise<Provider>{
     // Get providers
     const subjectRepo$ = tools.getRepository<Provider>('providers');
-    const subject = await subjectRepo$.getDocumentById(phoneNumber.toString())
+    const subject = await subjectRepo$.getDocumentById(phoneNumber)
     
     return subject
   }
@@ -111,37 +115,4 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
 
     return block
   }
-}
-
-interface DefaultBlock extends IObject{
-  blockId: string;
-  nextBlock: string;
-}
-
-interface StoryBlock extends IObject{
-  blockId: string;
-  message: string;
-  options: BlockOptions[];
-}
-
-interface Subject {
-  id: string
-}
-
-interface BlockOptions {
-  id: string;
-  message: string;
-  value: string;
-}
-
-interface Provider {
-  id: string;
-  orgId: string;
-  platform: Platforms;
-  storyId: string;
-}
-
-enum Platforms {
-  WhatsApp = 1,
-  Telegram = 2
 }
