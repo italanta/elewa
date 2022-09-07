@@ -24,6 +24,7 @@
     "functions-bot-process-handler": "libs/functions/bot-process-handler",
     "model-bot-blocks-default-block": "libs/model/bot/blocks/default-block",
     "model-bot-blocks-story-block": "libs/model/bot/blocks/story-block",
+    "model-bot-main-provider": "libs/model/bot/main/provider",
     "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
     "model-convs-mgr-stories-blocks-messaging": "libs/model/convs-mgr/stories/blocks/messaging",
     "model-convs-mgr-stories-blocks-scenario": "libs/model/convs-mgr/stories/blocks/scenario",
