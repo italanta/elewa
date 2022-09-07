@@ -1,3 +1,4 @@
+import { IObject } from "@iote/bricks";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 
@@ -16,7 +17,7 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
     let block: any;
 
     // Read the Providers collection and extract story id and org id
-    const provider  = this._readProviders(data.phoneNumber, tools)
+    const provider  = await this._readProviders(data.phoneNumber, tools)
 
     // Throw error if the provider does not exist
     if(!provider){
@@ -24,68 +25,68 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
     }
 
     // Get the subject
-    const subject =  this._readSubjects(data.phoneNumber, tools)
+    const subject =  await this._readSubjects(data.phoneNumber, tools)
     
     if(!subject){
       // If subject does not exist, create a new subject
-     block = await this.createSubject(data.phoneNumber,tools);
+     block = await this.createSubject(provider, data.phoneNumber,tools);
     } else {
 
       //If subject exists update the existing subject
-      block = this.updateSubject(data.phoneNumber,tools);
-    }
+      block = this.updateSubject(provider, data,tools);
+    } 
 
     return block
 
   }
 
-  private async createSubject(phoneNumber: number, tools: HandlerTools){
-    const newSubjectData = {phoneNumber};
-    const defaultBlock = this._getDefaultBlock(tools)
+  private async createSubject(provider: Provider, phoneNumber: number, tools: HandlerTools){
+    const defaultBlock: DefaultBlock = await this._getDefaultBlock(provider, tools);
 
-    const subjectRepo$ = tools.getRepository<any>(`Subjects/${phoneNumber}/stories`);
+    const subjectRepo$ = tools.getRepository<any>(`subjects/${phoneNumber}/stories/${provider.storyId}/milestones`);
 
     //Create subject
-    const data = await subjectRepo$.create(newSubjectData, phoneNumber.toString())
+    await subjectRepo$.write(defaultBlock, defaultBlock.blockId)
 
-    //Create milestone
-    const milestoneRepo$ = tools.getRepository<any>('milestones');
-    const milestone = milestoneRepo$.create(defaultBlock, defaultBlock.id)
     return defaultBlock;
   }
 
-  private async updateSubject(phoneNumber: number, tools: HandlerTools){
-    const nextBlock = this._getNextBlock();
-
-    // Get subject
-    const subject = this._readSubjects(phoneNumber, tools)
+  private async updateSubject(provider: Provider, data: {phoneNumber: number; message: string}, tools: HandlerTools){
+    const nextBlock: StoryBlock = this._getNextBlock();
 
     //Update milestone
-    const milestoneRepo$ = tools.getRepository<any>('milestones');
-    const milestone = milestoneRepo$.update(nextBlock);
+    const milestoneRepo$ = tools.getRepository<StoryBlock>(`subjects/${data.phoneNumber}/stories/${provider.storyId}/milestones`);
+    await milestoneRepo$.update(nextBlock);
+
+    // Return next block
     return nextBlock;
   }
 
   private _readSubjects(phoneNumber: number, tools: HandlerTools){
     // Get subject
-    const subjectRepo$ = tools.getRepository<any>(`Subjects`);
+    // TODO: Create a type for subjects 
+    const subjectRepo$ = tools.getRepository<any>(`subjects`);
     const subject = subjectRepo$.getDocumentById(phoneNumber.toString())
 
     return subject
   }
 
-  private _readProviders(phoneNumber: number, tools: HandlerTools){
+  private async _readProviders(phoneNumber: number, tools: HandlerTools): Promise<Provider>{
     // Get providers
-    const subjectRepo$ = tools.getRepository<any>('providers');
-    const subject = subjectRepo$.getDocumentById(phoneNumber.toString())
+    const subjectRepo$ = tools.getRepository<Provider>('providers');
+    const subject = await subjectRepo$.getDocumentById(phoneNumber.toString())
     
     return subject
   }
 
-  private _getDefaultBlock(tools: HandlerTools): any{
-    let block: any;
-    const orgRepo$ = tools.getRepository<any>('orgs');
-    return block 
+  private async _getDefaultBlock(provider: Provider, tools: HandlerTools): Promise<DefaultBlock>{
+    const orgRepo$ = tools.getRepository<DefaultBlock>(`orgs/${provider.orgId}/stories/${provider.storyId}/blocks`);
+
+    const defaultBlock = orgRepo$.getDocumentById('default');
+    if(!defaultBlock){
+      throw new Error('No default block set');
+    }
+    return defaultBlock 
   }
 
   private _getNextBlock(): any{
@@ -93,4 +94,37 @@ export class BotProcessHandler extends FunctionHandler<any, any> {
 
     return block 
   }
+}
+
+interface DefaultBlock extends IObject{
+  blockId: string;
+  nextBlock: string;
+}
+
+interface StoryBlock extends IObject{
+  blockId: string;
+  message: string;
+  options: BlockOptions[];
+}
+
+interface Subject {
+  id: string
+}
+
+interface BlockOptions {
+  id: string;
+  message: string;
+  value: string;
+}
+
+interface Provider {
+  id: string;
+  orgId: string;
+  platform: Platforms;
+  storyId: string;
+}
+
+enum Platforms {
+  WhatsApp = 1,
+  Telegram = 2
 }
