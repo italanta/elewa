@@ -11,6 +11,7 @@ import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
 import { _CreateQuestionBlockMessageForm } from '../../model/questions-block-form.model';
 import { _CreateTextMessageBlockForm } from '../../model/message-block-form.model';
+import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -31,6 +32,7 @@ export class BlockComponent implements OnInit {
   questiontype = StoryBlockTypes.IO;
   locationtype = StoryBlockTypes.Input;
   imagetype = StoryBlockTypes.Image;
+  nametype=StoryBlockTypes.Name;
 
   blockFormGroup: FormGroup;
 
@@ -59,6 +61,11 @@ export class BlockComponent implements OnInit {
 
       case StoryBlockTypes.Image:
         this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+      
+      case StoryBlockTypes.Name:
+        this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 

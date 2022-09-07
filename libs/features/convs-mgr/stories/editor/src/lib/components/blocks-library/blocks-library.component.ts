@@ -8,7 +8,7 @@ import { startWith } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -34,7 +34,8 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
     { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Input, message: 'Location Block' } as LocationMessageBlock,
-    { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image Block' } as ImageMessageBlock
+    { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image Block' } as ImageMessageBlock,
+    { id: 'io-name-block', type: StoryBlockTypes.Name, message:'Name Block' } as NameMessageBlock
   ];
 
   filteredBlockTemplates: StoryBlock[];
@@ -61,6 +62,9 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Image:
         this.frame.newBlock(StoryBlockTypes.Image);
+        break;
+      case StoryBlockTypes.Name:
+        this.frame.newBlock(StoryBlockTypes.Name);
         break;
     }
   }
