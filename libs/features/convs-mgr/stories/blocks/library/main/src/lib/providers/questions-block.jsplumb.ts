@@ -22,7 +22,7 @@ export function _QuestionsBlockDecoratePlumb(block: QuestionMessageBlock, comp: 
     target: true,
 
     endpoint: 'Rectangle',
-    anchor: "Left"
+    anchor: "Top"
   });
 
   return comp;
