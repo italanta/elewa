@@ -3,9 +3,8 @@
     <mat-card-content>
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <input matInput type="text" name="fileSrc" formControlName="fileSrc" id="fileSrc" placeholder="Upload your image url here!" />
-            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>
-
+            <input (change)="processImage($event)" #imageInput type="file" name="fileSrc" formControlName="fileSrc" id="fileSrc" placeholder="Upload your image url here!" />
+            <button type="button" (click)="onUpload()">Upload image</button>
 
         </form>
     </mat-card-content>
