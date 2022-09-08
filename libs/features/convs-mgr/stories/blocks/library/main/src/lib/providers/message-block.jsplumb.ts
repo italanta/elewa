@@ -22,7 +22,7 @@ export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: Compon
     target: true,
 
     endpoint: 'Rectangle',
-    anchor: "Left"
+    anchor: "Top"
   });
 
   return comp;
