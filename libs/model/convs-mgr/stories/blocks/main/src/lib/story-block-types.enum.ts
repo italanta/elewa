@@ -36,5 +36,10 @@ export enum StoryBlockTypes
   /**
    * Block that waits for the user to return their name as input
    */
-  Name=10
+  Name=10,
+
+  /**
+   * Block that waits for the user to enter their email address as input
+   */
+  Email=11,
 }
