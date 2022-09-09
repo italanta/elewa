@@ -1,5 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialFormBricksModule } from './../../../../../../util/iote/bricks-angular/src/lib/material-form-bricks/material-form-bricks.module';
+import { MaterialFormBricksModule } from '@iote/bricks-angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
