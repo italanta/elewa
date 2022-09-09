@@ -1,5 +1,4 @@
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from "./text-message-block.interface";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * Block which sends a message to ask the name.
