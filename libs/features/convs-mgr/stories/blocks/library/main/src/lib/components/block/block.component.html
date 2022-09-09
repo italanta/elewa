@@ -20,5 +20,9 @@
         <app-name-block [id]="id" [block]="block" [nameMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-name-block>
     </div>
 
+    <div *ngSwitchCase="emailtype">
+        <app-email-block [id]="id" [block]="block" [emailMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-email-block>
+    </div>
+
 
 </div>
