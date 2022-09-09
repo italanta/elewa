@@ -50,6 +50,9 @@
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
       ],
