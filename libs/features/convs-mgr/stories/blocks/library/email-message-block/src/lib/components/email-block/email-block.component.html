@@ -1,0 +1,12 @@
+<mat-card [id]="id" *ngIf=" emailMessageForm">
+    <mat-card-title>Email Block {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="emailMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+            <!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
+            <input matInput type="text" id="message" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.EMAIL' | transloco }}" />
+
+
+        </form>
+    </mat-card-content>
+</mat-card>
