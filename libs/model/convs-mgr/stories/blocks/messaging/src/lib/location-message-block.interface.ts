@@ -1,5 +1,8 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
+/**
+ * This block sends a loction as a message to thee user.
+ */
 export interface LocationMessageBlock extends StoryBlock
 {
 
