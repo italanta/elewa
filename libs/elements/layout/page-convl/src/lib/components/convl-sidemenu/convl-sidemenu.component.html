@@ -22,6 +22,7 @@ mat-list-item class="header top-header" fxLayout="row">
 </mat-toolbar>
 
         <!-- Section Home -->
+
         <mat-sidenav-container>
           <mat-sidenav #sidenav="matSidenav" >
               <div [routerLink]="['/']"  routerLinkActive #rlaHome="routerLinkActive"
@@ -52,24 +53,6 @@ mat-list-item class="header top-header" fxLayout="row">
           </mat-sidenav>
         
         </mat-sidenav-container>
-
-            <div fxLayout="row">
-                <i matListIcon class="fas fa-home list-icon"></i> Home
-                <div class="chevron-down" [class.right]="rlaHome.isActive">
-                    <i class="fas fa-sort-down"></i>
-                </div>
-                <ng-template #icon2><i class="fas fa-sort-down chevron-down"></i></ng-template>
-            </div>
-
-            <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
-                <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
-                    {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
-                </div>
-            </div>
-            <button mat-raised-button (click)="logout()">
-        {{'PAGE-CONTENT.SIDE-MENU.LOG-OUT' | transloco }}
-      </button>
-        </div>
 
         <!-- Section Chats -->
         <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
