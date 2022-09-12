@@ -37,3 +37,13 @@
   left: 0pc;
   width: 50px;
 }
+
+.mat-focused {
+  mat-icon {
+    display: none !important;
+  }
+  ::placeholder {
+    display: none !important;
+  }
+  border: none !important;
+}
