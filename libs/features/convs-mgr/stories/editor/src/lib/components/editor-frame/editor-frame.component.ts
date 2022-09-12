@@ -11,12 +11,11 @@ import { StoryEditorInitialiserService } from '../../providers/story-editor-init
 export class StoryEditorFrameComponent implements AfterViewInit //implements OnDestroy
 {
   @ViewChild('editor') editorVC: ElementRef<HTMLElement>;
-  @ViewChild('viewport', { read: ViewContainerRef, static: true }) viewport : ViewContainerRef;
+  @ViewChild('viewport', { read: ViewContainerRef, static: true }) viewport: ViewContainerRef;
 
   @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
 
-  constructor(private _frameInitialiser: StoryEditorInitialiserService) 
-  { }
+  constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
 
   ngAfterViewInit() {
     const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);

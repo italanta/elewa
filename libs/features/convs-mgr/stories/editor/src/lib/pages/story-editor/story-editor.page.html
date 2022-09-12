@@ -1,8 +1,8 @@
 <convl-page [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
 
-  <!-- Convl page subbar -->
-  <div subbar>
-    <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+    <!-- Convl page subbar -->
+    <div subbar>
+        <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
       <span *ngIf="stateSaved; else saving"> Save </span>
       <ng-template #saving>
         <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -11,18 +11,18 @@
         </span>
       </ng-template>
     </button>
-  </div>
-
-  <!-- Main body page -->
-  <div fxLayout="row" fxFlexFill>
-
-    <div fxFlex="15">
-      <convl-blocks-library *ngIf="frame" [frame]="frame">
-      </convl-blocks-library>
     </div>
 
-    <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" fxFlexFill>
-    </convl-story-editor-frame>
+    <!-- Main body page -->
+    <div fxLayout="row" fxFlexFill>
 
-  </div>
+        <div fxFlex="15">
+            <convl-blocks-library *ngIf="frame" [frame]="frame">
+            </convl-blocks-library>
+        </div>
+
+        <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" fxFlexFill>
+        </convl-story-editor-frame>
+
+    </div>
 </convl-page>
