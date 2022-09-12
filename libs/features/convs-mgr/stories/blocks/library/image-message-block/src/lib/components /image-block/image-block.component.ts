@@ -8,7 +8,7 @@ import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 
 import { ImageUploadService } from '../../providers/image-upload.service';
 import { _JsPlumbComponentDecorator } from '../../providers/image-jsplumb-decorator.function';
-import { Storage,ref,uploadBytesResumable, getDownloadURL } from  '@angular/fire/storage';
+import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 
 
 
@@ -26,16 +26,20 @@ export class ImageBlockComponent implements OnInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   imageLink: string = "";
-  fileReader= new FileReader();
+  fileReader = new FileReader();
   isLoadingImage: boolean = false;
   file: File;
+  imageInputId: string;
+  defaultImage: string ="assets/images/image-placeholder.jpg"
 
 
   constructor(private _fb: FormBuilder,
     private _logger: Logger,
     private _imageUploadService: ImageUploadService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.imageInputId = `image-${this.id}`
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
@@ -45,24 +49,16 @@ export class ImageBlockComponent implements OnInit {
 
   processImage(event: any) {
     this.file = event.target.files[0];
-    
-  }
-
-  onUpload() {
-
-    this.isLoadingImage = !this.isLoadingImage;
-    this._imageUploadService.upload(this.file).subscribe((event: any) => {
-      if (typeof (event) === 'object') {
-        this.imageLink  = event.link;
-        this.isLoadingImage = false;
-      }
-      ;
-    });
+    this.fileReader.readAsDataURL(this.file);
+    this.fileReader.onload = () => {
+      this.isLoadingImage = true;
+      this.imageLink = this.fileReader.result as string;
+    }
 
   }
 
   private _decorateInput() {
-    let input = document.getElementById('fileSrc') as Element;
+    let input = document.getElementById(this.imageInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
