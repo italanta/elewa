@@ -1,5 +1,5 @@
 <mat-form-field appearance="outline" class="mat-form">
-  <input matInput type="text" placeholder="Search for a bot"/>
+  <input matInput type="text" placeholder="Search for a bot" (input)="filterBots($event)"/>
 
   <span matPrefix>
     <mat-icon matPrefix class="search-icon">search</mat-icon>
