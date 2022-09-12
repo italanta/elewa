@@ -4,7 +4,7 @@
 @import 'libs/elements/theming/common.theme.scss';
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 $white: white;
-
+$color: #351393;
 //new css styles by meshack
 
 
@@ -57,8 +57,8 @@ mat-nav-list {
 }
 .category-children{
   background-color:#E0C4EC;
-  border-right: 7px solid #351393;
-  color: #351393;
+  border-right: 7px solid $color;
+  color: $color;
 }
 .proj-info {
   font-size: 0.7em;
@@ -127,7 +127,6 @@ mat-nav-list {
 }
 
 .highlight-active {
-  //background-color: mat-color($accent, A200);;
   outline: none;
   border-left: 3px solid mat-color($accent, A200);
   
@@ -148,7 +147,7 @@ mat-nav-list {
 }
 
 .fa-gauge-high{
-  color:#351393;
+  color:$color;
 }
 
 
