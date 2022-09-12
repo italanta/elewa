@@ -22,7 +22,7 @@ export class PageComponent implements OnInit, OnDestroy
   private _slug = new BehaviorSubject<string>("default");
 
   @Input()  set slug(value) { this._slug.next(value); }
-            get slug()      {  return this._slug.getValue(); }
+            get slug() {  return this._slug.getValue(); }
 
   theme: string;
 
