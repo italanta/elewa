@@ -4,28 +4,36 @@
 @import 'libs/elements/theming/common.theme.scss';
 
 .search-icon {
-    color: mat-color($mat-ele, A900);
-    margin: 10px;
-    width: 30px;
-    height: 30px;
-    font-size: 30px;
-    transform: rotate(90deg);
-  }
-  
-  .mat-form {
-    border: none;
-    background-color: white;
-    opacity: 500px;
-    width: 100%;
-  }
-  
-  ::ng-deep .mat-focused .mat-form-field {
-    /*change color of label*/
-    color: #ffc50c !important;
-  }
-  
-  ::ng-deep .mat-focused .mat-form-field-outline {
-    /*change color of underline when focused*/
-    color: white !important;
-  }
-  
+  color: mat-color($mat-ele, A900);
+  margin-left: 15px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 31px;
+  transform: rotate(90deg);
+  font-weight: 500;
+}
+
+.mat-form-field {
+  border: none;
+  background-color: white;
+  width: 100%;
+  border-radius: 3px;
+  filter: opacity(1) drop-shadow(0 0 0 transparent);
+}
+
+::placeholder {
+  position: absolute;
+  left: 3pc !important;
+  font-size: 15px;
+  letter-spacing: 0px;
+  color: #aaaaaa;
+  opacity: 1;
+}
+
+.prefix {
+  position: absolute;
+  top: -2pc;
+  left: 0pc;
+  width: 50px;
+}
