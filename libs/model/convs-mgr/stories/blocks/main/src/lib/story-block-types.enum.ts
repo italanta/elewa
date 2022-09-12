@@ -42,4 +42,9 @@ export enum StoryBlockTypes
    * Block that waits for the user to enter their email address as input
    */
   Email=11,
+
+  /**
+   * Block that waits for the user to enter their phone-number as input
+   */
+  PhoneNumber=12
 }
