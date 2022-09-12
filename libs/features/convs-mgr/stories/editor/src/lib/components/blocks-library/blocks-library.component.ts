@@ -8,7 +8,7 @@ import { startWith } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -26,7 +26,7 @@ export class BlocksLibraryComponent implements OnInit {
   @Input() frame: StoryEditorFrame;
 
   private _sbs = new SubSink();
-  
+
   searchControl: FormControl = new FormControl('');
 
 
@@ -35,8 +35,9 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Input, message: 'Location Block' } as LocationMessageBlock,
     { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image Block' } as ImageMessageBlock,
-    { id: 'io-name-block', type: StoryBlockTypes.Name, message:'Name Block' } as NameMessageBlock,
-    { id: 'io-email-block', type:StoryBlockTypes.Email, message:'Email Block' } as EmailMessageBlock
+    { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
+    { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
+    { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock
   ];
 
   filteredBlockTemplates: StoryBlock[];
@@ -68,8 +69,10 @@ export class BlocksLibraryComponent implements OnInit {
         this.frame.newBlock(StoryBlockTypes.Name);
         break;
       case StoryBlockTypes.Email:
-          this.frame.newBlock(StoryBlockTypes.Email);
-          break;
+        this.frame.newBlock(StoryBlockTypes.Email);
+        break;
+      case StoryBlockTypes.PhoneNumber:
+        this.frame.newBlock(StoryBlockTypes.PhoneNumber);
     }
   }
 
