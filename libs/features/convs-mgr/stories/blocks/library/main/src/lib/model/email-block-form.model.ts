@@ -13,7 +13,7 @@ export function _CreateEmailMessageBlockForm(_fb: FormBuilder, blockData: EmailM
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    type: [blockData.type ?? StoryBlockTypes.Name],
+    type: [blockData.type ?? StoryBlockTypes.Email],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
 }
