@@ -13,6 +13,7 @@ import { _CreateQuestionBlockMessageForm } from '../../model/questions-block-for
 import { _CreateTextMessageBlockForm } from '../../model/message-block-form.model';
 import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
+import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -33,8 +34,9 @@ export class BlockComponent implements OnInit {
   questiontype = StoryBlockTypes.IO;
   locationtype = StoryBlockTypes.Input;
   imagetype = StoryBlockTypes.Image;
-  nametype=StoryBlockTypes.Name;
-  emailtype= StoryBlockTypes.Email;
+  nametype = StoryBlockTypes.Name;
+  emailtype = StoryBlockTypes.Email;
+  phonetype = StoryBlockTypes.PhoneNumber;
 
   blockFormGroup: FormGroup;
 
@@ -65,16 +67,21 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-      
+
       case StoryBlockTypes.Name:
         this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 
       case StoryBlockTypes.Email:
-          this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
+        this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+        
+      case StoryBlockTypes.PhoneNumber:
+        this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
 
       default:
         break;
