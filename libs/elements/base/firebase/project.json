@@ -5,7 +5,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/base/firebase"],
+      "outputs": [
+        "coverage/libs/elements/base/firebase"
+      ],
       "options": {
         "jestConfig": "libs/elements/base/firebase/jest.config.ts",
         "passWithNoTests": true
