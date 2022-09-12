@@ -1,7 +1,7 @@
-<mat-form-field appearance="outline" class="mat-form">
-  <input matInput type="text" placeholder="Search for a bot" (input)="filterBots($event)"/>
+<mat-form-field appearance="outline">
+  <input matInput type="text" placeholder="Search for a bot" class="mat-form" (input)="filterBots($event)"/>
 
-  <span matPrefix>
+  <span matPrefix class="prefix">
     <mat-icon matPrefix class="search-icon">search</mat-icon>
   </span>
 </mat-form-field>
