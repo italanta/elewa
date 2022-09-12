@@ -6,11 +6,11 @@ import {
   MaterialBricksModule,
   MaterialDesignModule,
 } from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
 import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/question-message-block';
-import { MultiLangModule } from '@ngfi/multi-lang';
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
