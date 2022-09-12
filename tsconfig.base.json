@@ -71,6 +71,9 @@
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
       ],
+      "@app/model/bot/blocks/connection": [
+        "libs/model/bot/blocks/connection/src/index.ts"
+      ],
       "@app/model/bot/blocks/default-block": [
         "libs/model/bot/blocks/default-block/src/index.ts"
       ],
