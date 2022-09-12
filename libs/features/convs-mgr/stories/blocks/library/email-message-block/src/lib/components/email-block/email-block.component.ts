@@ -4,7 +4,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '../../providers/email-jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
 
 @Component({
   selector: 'app-email-block',
@@ -20,20 +20,26 @@ export class EmailBlockComponent implements OnInit, AfterViewInit
   @Input() block: EmailMessageBlock;
   @Input() emailMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() blockFormGroup: FormGroup;
+
+  emailInputId: string;
 
 
   constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.emailInputId = `email-${this.id}`;
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
       this._decorateInput();
     }
   }
+  
 
   private _decorateInput() {
-    let input = document.getElementById('message') as Element;
+    let input = document.getElementById(this.emailInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }

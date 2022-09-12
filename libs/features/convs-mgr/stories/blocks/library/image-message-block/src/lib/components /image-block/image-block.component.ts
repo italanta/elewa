@@ -21,10 +21,14 @@ export class ImageBlockComponent implements OnInit
   @Input () imageMessageForm: FormGroup;
   @Input () jsPlumb: BrowserJsPlumbInstance;
 
+  imageInputId: string;
+
   constructor(private _fb:FormBuilder,
               private _logger:Logger) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.imageInputId=`image-${this.id}`
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
@@ -33,7 +37,7 @@ export class ImageBlockComponent implements OnInit
   }
 
   private _decorateInput() {
-    let input = document.getElementById('fileSrc') as Element;
+    let input = document.getElementById(this.imageInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }

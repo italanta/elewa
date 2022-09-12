@@ -4,7 +4,7 @@
         <form [formGroup]="phoneMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
-            <input matInput type="text" id="phoneNumber" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.PHONE-NUMBER' | transloco }}" />
+            <input [id]="phoneInputId" matInput type="text" name="phoneNumber" id="phoneNumber" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.PHONE-NUMBER' | transloco }}" />
 
 
         </form>

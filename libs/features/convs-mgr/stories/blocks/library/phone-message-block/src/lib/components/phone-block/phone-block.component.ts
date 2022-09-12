@@ -5,6 +5,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _JsPlumbComponentDecorator } from '../../providers/phone-jsplumb-decorator.function';
+
 @Component({
   selector: 'app-phone-block',
   templateUrl: './phone-block.component.html',
@@ -17,9 +18,13 @@ export class PhoneBlockComponent implements OnInit {
   @Input() block: PhoneMessageBlock;
   @Input() phoneMessageForm: FormGroup;
 
+  phoneInputId: string;
+
   constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.phoneInputId = `phone-${this.id}`;
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
@@ -28,7 +33,7 @@ export class PhoneBlockComponent implements OnInit {
   }
 
   private _decorateInput() {
-    let input = document.getElementById('phoneNumber') as Element;
+    let input = document.getElementById(this.phoneInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
