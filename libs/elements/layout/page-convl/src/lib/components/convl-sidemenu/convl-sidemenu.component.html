@@ -38,11 +38,11 @@
 
             <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
                 <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
-                    Dashboard
+                    {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
                 </div>
             </div>
             <button mat-raised-button (click)="logout()">
-        Log out
+        {{'PAGE-CONTENT.SIDE-MENU.LOG-OUT' | transloco }}
       </button>
         </div>
 
