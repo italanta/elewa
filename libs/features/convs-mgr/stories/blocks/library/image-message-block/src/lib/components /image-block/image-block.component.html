@@ -3,9 +3,15 @@
     <mat-card-content>
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <input (change)="processImage($event)" #imageInput type="file" name="fileSrc" formControlName="fileSrc" id="fileSrc" placeholder="Upload your image url here!" />
-            <button type="button" (click)="onUpload()">Upload image</button>
+            <div [id]="imageInputId">
+                <label>
+                    <img [src]="imageLink ? imageLink : defaultImage" class="image">
+                    <input (change)="processImage($event)" #imageInput type="file" placeholder="assets/images/image-placeholder.jpg" class="fileSrc" formControlName="fileSrc">
+                </label>
+            </div>
 
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}} " name="caption " id="caption ">
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco}} " name="image-link " id="image-link ">
         </form>
     </mat-card-content>
 </mat-card>
