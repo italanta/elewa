@@ -22,6 +22,7 @@
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "functions-bot-process-handler": "libs/functions/bot-process-handler",
+    "model-bot-blocks-connection": "libs/model/bot/blocks/connection",
     "model-bot-blocks-default-block": "libs/model/bot/blocks/default-block",
     "model-bot-blocks-story-block": "libs/model/bot/blocks/story-block",
     "model-bot-main-message-data": "libs/model/bot/main/message-data",
