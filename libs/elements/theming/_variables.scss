@@ -96,6 +96,11 @@
   --convs-mgr-font-poppins-family: 'Poppins';
   --convs-mgr-font-family: Gilroy-Medium;
 
+  /** Jsplumb Endpoint & Connector **/
+  --connector-color: #ffab2d;
+  --endpoint-outline: #6418c3;
+  --endpoint-color: white;
+
   convs-mgr-tab-button.tab-selected {
     convs-mgr-icon, convs-mgr-label {
       color: var(--convs-mgr-color-farm) !important;
