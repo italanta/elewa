@@ -13,18 +13,20 @@ import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.fu
 })
 
 
-export class NameBlockComponent implements OnInit, AfterViewInit 
-{
-  
+export class NameBlockComponent implements OnInit, AfterViewInit {
+
   @Input() id: string;
   @Input() block: NameMessageBlock;
   @Input() nameMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  nameInputId: string;
 
   constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.nameInputId = `name-${this.id}`
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
@@ -33,7 +35,7 @@ export class NameBlockComponent implements OnInit, AfterViewInit
   }
 
   private _decorateInput() {
-    let input = document.getElementById('message') as Element;
+    let input = document.getElementById(this.nameInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
