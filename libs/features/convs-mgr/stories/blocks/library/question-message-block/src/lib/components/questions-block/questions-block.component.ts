@@ -1,6 +1,9 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -11,8 +14,7 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './questions-block.component.html',
   styleUrls: ['./questions-block.component.scss'],
 })
-export class QuestionsBlockComponent implements OnInit, AfterViewInit {
-
+export class QuestionsBlockComponent implements OnInit, AfterViewInit {  
   @ViewChild('inputOtion') inputOtion: ElementRef;
 
   @Input() id: string;
@@ -21,6 +23,8 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   questionOptions: FormGroup;
+
+  faAdd: IconDefinition = faAdd;
 
   constructor(private _fb: FormBuilder) {}
 
