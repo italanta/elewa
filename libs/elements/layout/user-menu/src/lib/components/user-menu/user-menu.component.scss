@@ -1,5 +1,36 @@
 @import 'libs/elements/theming/common.theme.scss';
 
-.user-btn{
-  background-color: mat-color($accent, A200);;
+// .user-btn{
+//   background-color: mat-color($accent, A200);;
+// }
+
+.outer {
+  background-color: white;
+}
+
+.user-img {
+  border-radius: 10px;
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+
+.outer {
+  height: 49px;
+  width: 170px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.outer:hover {
+  background-color: #fafafa;
+}
+
+#dropdown-icon {
+  border-spacing: 10px;
+  color: #ffab2d;
+}
+
+.role {
+  display: inline-block;
 }
