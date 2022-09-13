@@ -1,12 +1,16 @@
 <div *ngIf="user$ | async as user" class="outer">
   <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
-    <img src="{{ user.photoUrl }}" alt="" class="user-img">
-    {{ user.displayName }}&nbsp;
-    <!-- <small class="role">Admin</small> &nbsp; -->
+    <div class="items">
+      <img src="{{ user.photoUrl }}" alt="" class="user-img">
+      <span class="username">{{ user.displayName }}.&nbsp;</span>
+      <span class="material-icons" id="dropdown-icon">arrow_drop_down</span>
+    </div>
+    <div class="role">
+      Admin&nbsp;
+    </div>
   </button>
   <mat-menu #userMenu="matMenu">
     <button mat-menu-item>My profile</button>
     <app-app-logout></app-app-logout>
   </mat-menu>
-  <span class="material-icons" id="dropdown-icon">arrow_drop_down</span>
 </div>

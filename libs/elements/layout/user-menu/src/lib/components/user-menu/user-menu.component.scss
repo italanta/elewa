@@ -1,23 +1,19 @@
 @import 'libs/elements/theming/common.theme.scss';
 
-// .user-btn{
-//   background-color: mat-color($accent, A200);;
-// }
-
-.outer {
-  background-color: white;
+.user-btn {
+  padding: 10px;
 }
 
 .user-img {
   border-radius: 10px;
-  height: 40px;
-  width: 40px;
+  height: 35px;
+  width: 35px;
   margin: 5px;
 }
 
 .outer {
   height: 49px;
-  width: 170px;
+  width: 210px;
   background-color: white;
   border-radius: 5px;
 }
@@ -29,8 +25,24 @@
 #dropdown-icon {
   border-spacing: 10px;
   color: #ffab2d;
+  margin-top: 1pc;
+  margin-left: 0.8pc;
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
 }
 
 .role {
-  display: inline-block;
+  margin-top: -1.5pc;
+  font-size: small;
+  margin-left: -1.7pc;
+color: #8F8F8F;
+}
+
+.username {
+  margin-left: 1pc;
+  font-size: large;
+  font-weight: bolder;
 }
