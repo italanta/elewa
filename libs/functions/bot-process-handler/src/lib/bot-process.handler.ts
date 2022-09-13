@@ -1,11 +1,15 @@
+import { find as __find } from "lodash";
+
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { DefaultBlock } from "@app/model/bot/blocks/default-block";
 import { StoryBlock } from "@app/model/bot/blocks/story-block";
 import { Provider } from "@app/model/bot/main/provider";
 import { MessageData } from "@app/model/bot/main/message-data";
-
+import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { Connection } from "@app/model/bot/blocks/connection";
 
 export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> {
 
@@ -18,7 +22,7 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
   }
 
   private async _mainProcess(data: MessageData, tools: HandlerTools){
-    let block: any;
+    let block: StoryBlock;
 
     // Read the Providers collection and extract story id and org id
     const provider  = await this._readProviders(data.phoneNumber, tools)
@@ -29,7 +33,7 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
     }
 
     // Get the subject
-    const subject =  await this._readSubjects(data.phoneNumber, tools)
+    const subject =  await this._readSubjects(data.phoneNumber, tools);
     
     if(!subject){
       // If subject does not exist, create a new subject
@@ -37,7 +41,7 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
     } else {
 
       //If subject exists update the existing subject
-      block = this.updateSubject(provider, data,tools);
+      block = await this.updateSubject(provider, data,tools);
     } 
 
     return block
@@ -49,22 +53,28 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
     // Get the default block
     const defaultBlock: DefaultBlock = await this._getDefaultBlock(provider, tools);
 
-    const subjectRepo$ = tools.getRepository<any>(`subjects/${phoneNumber}/stories/${provider.storyId}/milestones`);
+    const subjectRepo$ = tools.getRepository<DefaultBlock>(`subjects/${phoneNumber}/stories/${provider.storyId}/milestones`);
 
     // Create subject
-    await subjectRepo$.write(defaultBlock, defaultBlock.blockId)
+    await subjectRepo$.write(defaultBlock, defaultBlock.id)
 
     // Get the next block using the default block
     const nextBlock: StoryBlock = await this._getBlockById(defaultBlock.nextBlock, provider, tools)
 
+    const storyBlockRepo$ = tools.getRepository<StoryBlock>(`subjects/${phoneNumber}/stories/${provider.storyId}/milestones`);
+
+    await storyBlockRepo$.write(nextBlock, nextBlock.id)
+
     return nextBlock;
   }
 
-  private async updateSubject(provider: Provider, data: {phoneNumber: string; message: string}, tools: HandlerTools){
-    const nextBlock: StoryBlock = this._getNextBlock();
+  private async updateSubject(provider: Provider, data: {phoneNumber: string; message: string}, tools: HandlerTools): Promise<StoryBlock>{
+    const milestoneRepo$ = tools.getRepository<StoryBlock>(`subjects/${data.phoneNumber}/stories/${provider.storyId}/milestones`);
+    const latestBlock = await milestoneRepo$.getDocuments(new Query().orderBy('createdOn',"desc").limit(1))
+
+    const nextBlock: StoryBlock = await this._getNextBlock(latestBlock[0].id, data.message, provider, tools, this.exactMatch);
 
     //Update milestone
-    const milestoneRepo$ = tools.getRepository<StoryBlock>(`subjects/${data.phoneNumber}/stories/${provider.storyId}/milestones`);
     await milestoneRepo$.update(nextBlock);
 
     // Return next block
@@ -90,18 +100,40 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
 
   private async _getDefaultBlock(provider: Provider, tools: HandlerTools): Promise<DefaultBlock>{
     const orgRepo$ = tools.getRepository<DefaultBlock>(`orgs/${provider.orgId}/stories/${provider.storyId}/blocks`);
+    const id = 'default';
 
-    const defaultBlock = orgRepo$.getDocumentById('default');
+    const defaultBlock = await orgRepo$.getDocumentById(id);
+
     if(!defaultBlock){
       throw new Error('No default block set');
     }
     return defaultBlock 
   }
 
-  private _getNextBlock(): any{
-    let block: any;
+  private async _getNextBlock(lastBlockId: string, message: string, provider: Provider, tools: HandlerTools, matchFn: any): Promise<StoryBlock>{
+    const lastBlockData = await this._getBlockById(lastBlockId, provider, tools);
 
-    return block 
+    // Throw an error for now if the block type does not expect input from user
+    if (lastBlockData.type != 3){
+      throw new Error ('Response for block not implemented!')
+    }
+    const question: QuestionMessageBlock = lastBlockData
+
+    const optionSelected = matchFn(message, question.options);
+
+    if (!optionSelected){
+      throw new Error('The message did not match any option found')
+    }
+
+    const optionConnection = await this._getConnByOption(optionSelected.id, provider, tools)
+
+    const newBlock = await this._getBlockById(optionConnection.targetId, provider, tools)
+
+    return newBlock 
+  }
+
+  exactMatch(message: string, options: any[]): any | undefined {
+    return __find(options, (o)=> o.message == message)
   }
 
   private async _getBlockById(id: string, provider: any, tools: HandlerTools): Promise<StoryBlock>{
@@ -114,5 +146,17 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
     }
 
     return block
+  }
+
+  private async _getConnByOption(id: string, provider: Provider, tools: HandlerTools): Promise<Connection>{
+    const orgRepo$ = tools.getRepository<Connection>(`orgs/${provider.orgId}/stories/${provider.storyId}/connections`);
+
+    const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id))[0]
+
+    if(!conn[0]){
+      throw new Error('Connection does not exist')
+    }
+
+    return conn[0]
   }
 }
