@@ -6,3 +6,22 @@
 * {
   font-family: 'Poppins', sans-serif;
 }
+
+//Block Connectors
+//endpoint
+.block_endpoint circle {
+  fill: var(--endpoint-color);
+  stroke-width: 1px;
+  stroke: var(--endpoint-outline);
+}
+
+//endpoint class when connected
+.block_endpoint.jtk-endpoint-connected {
+  z-index: 2;
+}
+
+//connector
+.jsplumb_instance svg path {
+  stroke: var(--connector-color);
+  stroke-width: 5px;
+}
