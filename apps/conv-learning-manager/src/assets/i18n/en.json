@@ -1,0 +1,42 @@
+{
+  "LOGIN": {
+    "LOGIN": "Login",
+    "OR": "or",
+    "CREATE-ACCOUNT": "Create account",
+    "LOGIN-FORM": {
+      "FLD-ENTER-EMAIL": "Enter email",
+      "FLD-ENTER-PASSWD": "Enter password",
+      "SUBMIT": "Login"
+    },
+    "CREATE-ACC-FORM": {
+      "FLD-FNAME": "First name",
+      "FLD-LNAME": "Last name",
+      "FLD-EMAIL": "Email",
+      "FLD-PASSWD": "Password",
+      "FLD-CONF-PASSWD": "Confirm password",
+      "SUBMIT": "Create account"
+    },
+    "TOS": {
+      "P1": "By registering I agree to",
+      "P2-LINK": "the terms of service",
+      "P3": "and",
+      "P4-LINK": "the privacy policy"
+    },
+    "BTN-WITH-GOOGLE": "With Google",
+    "BTN-WITH-MICROSOFT": "With Microsoft",
+    "HERO": {
+      "TITLE": "Karibu Elewa Conversational Learning!",
+      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
+      "LEARN-MORE": "Learn more on",
+      "LEARN-MORE-LINK": "the Elewa website." 
+    }
+  },
+  "PAGE-CONTENT": {
+    "BLOCKS": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Location"
+      }
+    }
+  }
+}
