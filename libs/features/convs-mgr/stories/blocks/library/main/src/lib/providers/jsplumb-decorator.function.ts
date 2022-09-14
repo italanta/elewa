@@ -4,11 +4,12 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { BlockComponent } from '../components/block/block.component';
 
-import { LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
+import { _MessageBlockDecoratePlumb } from './message-block.jsplumb'; 
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
 import { _LocationBlockDecoratePlumb } from './location-block.jsplumb';
+import { _ImageBlockDecoratePlumb } from './image-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -31,6 +32,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       break;
     case StoryBlockTypes.Location:
       return _LocationBlockDecoratePlumb(block as LocationMessageBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.Image:
+      return _ImageBlockDecoratePlumb(block as ImageMessageBlock, comp, jsPlumb);
       break;
   }
 

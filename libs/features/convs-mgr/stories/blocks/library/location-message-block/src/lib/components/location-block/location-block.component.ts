@@ -1,11 +1,12 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { Logger } from '@iote/bricks-angular';
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator-function'
-
 
 @Component({
   selector: 'app-location-block',
@@ -22,12 +23,10 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
 
 
   constructor(private _fb: FormBuilder,
-              private _logger: Logger)
-              {}
+              private _logger: Logger) { }
 
-  ngOnInit():void 
-  {}
-
+  ngOnInit(): void { }
+  
 
 
   ngAfterViewInit(): void 
