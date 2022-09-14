@@ -7,7 +7,7 @@ import {
   MaterialBricksModule,
   FlexLayoutModule,
 } from '@iote/bricks-angular';
-
+import { MultiLangModule } from '@ngfi/multi-lang'
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { AppLogoutComponent } from './components/app-logout/app-logout.component';
 
@@ -18,6 +18,7 @@ import { AppLogoutComponent } from './components/app-logout/app-logout.component
   imports: [
     CommonModule,
     RouterModule,
+    MultiLangModule,
     MaterialDesignModule,
     MaterialBricksModule,
     FlexLayoutModule,
