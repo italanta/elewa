@@ -1,19 +1,30 @@
 {
+  "ELS": {
+    "TOGGLES": {
+      "SWITCH-LANG": "Switch language"
+    }
+  },
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "or",
     "CREATE-ACCOUNT": "Create account",
     "LOGIN-FORM": {
-      "FLD-ENTER-EMAIL": "Enter email",
-      "FLD-ENTER-PASSWD": "Enter password",
+      "FLD-EMAIL": "Enter email",
+      "FLD-EMAIL-ERR": "Please provide a valid email address",
+      "FLD-PASSWD": "Enter password",
+      "FLD-REMEMBER-ME": "Remember me",
       "SUBMIT": "Login"
     },
+    "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
       "FLD-FNAME": "First name",
       "FLD-LNAME": "Last name",
+      "FLD-NAME-REQ": "Name is required",
       "FLD-EMAIL": "Email",
+      "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Password",
       "FLD-CONF-PASSWD": "Confirm password",
+      "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
       "SUBMIT": "Create account"
     },
     "TOS": {
@@ -28,7 +39,7 @@
       "TITLE": "Karibu Elewa Conversational Learning!",
       "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
       "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "the Elewa website." 
+      "LEARN-MORE-LINK": "https://elewa.education" 
     }
   },
   "PAGE-CONTENT": {
