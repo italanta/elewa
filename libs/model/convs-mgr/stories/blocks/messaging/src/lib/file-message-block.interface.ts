@@ -9,7 +9,7 @@ export interface FileMessageBlock extends StoryBlock
   message?: string;
 
   /** File source of the message block */
-  fileSrc?: string;
+  src?: string;
 }
 
 /**
@@ -17,7 +17,7 @@ export interface FileMessageBlock extends StoryBlock
  */
 export interface ImageMessageBlock extends FileMessageBlock {
   /**Links to the image. an image url */
-  link?:string;
+
  }
 
 /**

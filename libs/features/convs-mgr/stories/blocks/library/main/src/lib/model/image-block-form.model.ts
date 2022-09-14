@@ -13,7 +13,7 @@ import { ImageMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    fileSrc:[blockData?.fileSrc! ?? ''],
+    src:[blockData?.src! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Image],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
