@@ -1,9 +1,8 @@
 <mat-card [id]="id" *ngIf=" phoneMessageForm">
-    <mat-card-title>Phone Block {{id}}</mat-card-title>
+    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.PHONE' | transloco }} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="phoneMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
             <input [id]="phoneInputId" matInput type="text" name="phoneNumber" id="phoneNumber" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.PHONE-NUMBER' | transloco }}" />
 
 

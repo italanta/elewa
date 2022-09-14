@@ -2,9 +2,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _JsPlumbComponentDecorator } from '../../providers/phone-jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+import { PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-phone-block',
