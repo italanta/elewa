@@ -67,15 +67,13 @@ export class BlocksLibraryComponent implements OnInit
         break;
       case StoryBlockTypes.PhoneNumber:
         this.frame.newBlock(StoryBlockTypes.PhoneNumber);
-        break
-
+        break;
       case StoryBlockTypes.QuestionBlock:
         this.frame.newBlock(StoryBlockTypes.QuestionBlock);
-        break
-
+        break;
       case StoryBlockTypes.Location:
         this.frame.newBlock(StoryBlockTypes.Location);
-        break
+        break;
     }
   }
 
