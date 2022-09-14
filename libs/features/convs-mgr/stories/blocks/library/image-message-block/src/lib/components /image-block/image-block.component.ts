@@ -4,12 +4,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { ImageUploadService } from '../../providers/image-upload.service';
-import { _JsPlumbComponentDecorator } from '../../providers/image-jsplumb-decorator.function';
-import { Storage, ref, uploadBytesResumable, getDownloadURL } from '@angular/fire/storage';
 
+import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
 @Component({
@@ -30,7 +28,7 @@ export class ImageBlockComponent implements OnInit {
   isLoadingImage: boolean = false;
   file: File;
   imageInputId: string;
-  defaultImage: string ="assets/images/image-placeholder.jpg"
+  defaultImage: string ="assets/images/lib/block-builder/image-block-placeholder.jpg"
 
 
   constructor(private _fb: FormBuilder,
@@ -38,7 +36,7 @@ export class ImageBlockComponent implements OnInit {
     private _imageUploadService: ImageUploadService) { }
 
   ngOnInit(): void {
-    this.imageInputId = `image-${this.id}`
+    this.imageInputId = `img-${this.id}`
   }
 
   ngAfterViewInit(): void {
