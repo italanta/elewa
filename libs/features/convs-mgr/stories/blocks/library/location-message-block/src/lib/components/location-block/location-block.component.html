@@ -4,9 +4,10 @@
         <form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
-            <input matInput type="text" name="location" formControlName="location" id="location" placeholder="Enter your location" />
+            <input matInput type="text" name="location" formControlName="location" id="location" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.LOCATION'| transloco}}" />
 
-            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm"></app-default-option-field>
+            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
+            </app-default-option-field>
 
         </form>
     </mat-card-content>
