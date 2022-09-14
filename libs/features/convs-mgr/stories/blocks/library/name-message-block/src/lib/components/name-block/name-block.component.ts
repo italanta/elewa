@@ -4,7 +4,8 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { NameMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
+
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-name-block',
@@ -13,18 +14,21 @@ import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.fu
 })
 
 
-export class NameBlockComponent implements OnInit, AfterViewInit 
-{
-  
+export class NameBlockComponent implements OnInit, AfterViewInit {
+
   @Input() id: string;
   @Input() block: NameMessageBlock;
   @Input() nameMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  nameInputId: string;
+
 
   constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.nameInputId=`name-${this.id}`
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
@@ -33,7 +37,7 @@ export class NameBlockComponent implements OnInit, AfterViewInit
   }
 
   private _decorateInput() {
-    let input = document.getElementById('message') as Element;
+    let input = document.getElementById(this.nameInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
