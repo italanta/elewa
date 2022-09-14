@@ -5,13 +5,13 @@ mat-card {
 
 mat-card-title {
     font-size: 1.2rem!important;
-    color: #6418C3;
+    color: var(--convs-mgr-color-primary-purple);
 }
 
 input {
     margin: 5px 0;
-    width: 250px;
-    height: 40px;
-    border-radius: 5px;
+    width: 180px;
+    height: 32px;
+    border-radius: 10px;
     border: 1px solid black;
 }

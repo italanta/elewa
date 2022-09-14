@@ -48,4 +48,4 @@ import { BlockComponent } from './components/block/block.component';
   // Injector which creates all block types within the editor context.
   providers: [BlockInjectorService],
 })
-export class BlocksLibraryModule { }
+export class  BlocksLibraryModule {}

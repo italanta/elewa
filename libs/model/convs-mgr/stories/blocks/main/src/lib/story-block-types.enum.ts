@@ -22,11 +22,7 @@ export enum StoryBlockTypes {
  */
   Location = 4,
 
-  /**
-   * Block that sends a question or poses a question to the user and expects input to from the user.
-   * The input entered will determine the direction in which th user will follow
-   */
-  QuestionBlock = 99,
+  QuestionBlock = 6,
 
   /** 
    * Block sends message then expects input.
