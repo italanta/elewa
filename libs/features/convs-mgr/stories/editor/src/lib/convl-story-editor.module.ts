@@ -1,9 +1,9 @@
-import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialFormBricksModule } from './../../../../../../util/iote/bricks-angular/src/lib/material-form-bricks/material-form-bricks.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule, MaterialFormBricksModule } from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
 
@@ -23,6 +23,7 @@ import { ConvlStoryEditorRouterModule }  from './convs-story-editor.router.modul
 @NgModule({
   imports: [
     CommonModule,
+    MultiLangModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
     MaterialFormBricksModule, ReactiveFormsModule,
 
