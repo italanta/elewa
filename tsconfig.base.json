@@ -74,7 +74,24 @@
       ],
       "@app/functions/webhooks": ["libs/functions/webhooks/src/index.ts"],
       "@app/model/convs-mgr/functions": [
-        "libs/model/convs-mgr/functions/src/index.ts"
+        "libs/model/convs-mgr/functions/src/index.ts"],
+      "@app/functions/bot-process-handler": [
+        "libs/functions/bot-process-handler/src/index.ts"
+      ],
+      "@app/model/bot/blocks/connection": [
+        "libs/model/bot/blocks/connection/src/index.ts"
+      ],
+      "@app/model/bot/blocks/default-block": [
+        "libs/model/bot/blocks/default-block/src/index.ts"
+      ],
+      "@app/model/bot/blocks/story-block": [
+        "libs/model/bot/blocks/story-block/src/index.ts"
+      ],
+      "@app/model/bot/main/message-data": [
+        "libs/model/bot/main/message-data/src/index.ts"
+      ],
+      "@app/model/bot/main/provider": [
+        "libs/model/bot/main/provider/src/index.ts"
       ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
