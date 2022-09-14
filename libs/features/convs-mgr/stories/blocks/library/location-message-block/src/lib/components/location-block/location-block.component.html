@@ -1,11 +1,12 @@
 <mat-card [id]="id" *ngIf="locationMessageForm">
-    <mat-card-title>Location Block {{id}}</mat-card-title>
+    <mat-card-title> {{'PAGE-CONTENT.BLOCK.TITLES.LOCATION'| transloco }} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <input [id]="locationInputId" matInput type="text" name="location" formControlName="location" id="location" placeholder="Enter your location" appearance="outline" />
 
-            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm"></app-default-option-field>
+            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
+            </app-default-option-field>
 
         </form>
     </mat-card-content>

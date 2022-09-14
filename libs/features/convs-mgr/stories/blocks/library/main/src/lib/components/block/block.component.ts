@@ -75,8 +75,7 @@ export class BlockComponent implements OnInit {
       case StoryBlockTypes.QuestionBlock:
         this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
-        break
-
+        break;
       case StoryBlockTypes.Location:
         this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
