@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MultiLangModule } from '@ngfi/multi-lang';
+
 import {
   FlexLayoutModule,
   MaterialBricksModule,
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
-import { MultiLangModule } from '@ngfi/multi-lang';
-
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { LocationBlockComponent } from './components/location-block/location-block.component';
+
+import { NameBlockComponent } from './components/name-block/name-block.component';
 
 @NgModule({
   imports: [
@@ -27,8 +28,9 @@ import { LocationBlockComponent } from './components/location-block/location-blo
     ConvsMgrBlockOptionsModule
   ],
 
-  declarations: [LocationBlockComponent],
+  declarations: [NameBlockComponent],
 
-  exports: [LocationBlockComponent],
+  exports: [NameBlockComponent],
 })
-export class ConvsMgrLocationMessageBlockModule { }
+
+export class ConvsMgrNameMessageBlockModule { }

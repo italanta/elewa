@@ -17,6 +17,7 @@
     "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
     "features-convs-mgr-stories-blocks-library-image-message-block": "libs/features/convs-mgr/stories/blocks/library/image-message-block",
     "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
+    "features-convs-mgr-stories-blocks-library-name-message-block": "libs/features/convs-mgr/stories/blocks/library/name-message-block",
     "features-convs-mgr-stories-blocks-library-question-message-block": "libs/features/convs-mgr/stories/blocks/library/question-message-block",
     "features-convs-mgr-stories-blocks-library-text-message-block": "libs/features/convs-mgr/stories/blocks/library/text-message-block",
     "features-convs-mgr-stories-blocks-library/main": "libs/features/convs-mgr/stories/blocks/library/main",
