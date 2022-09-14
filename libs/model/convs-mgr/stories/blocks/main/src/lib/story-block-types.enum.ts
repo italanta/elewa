@@ -21,7 +21,7 @@ export enum StoryBlockTypes {
   Location = 4,
 
 
-  QuestionBlock = 99,
+  QuestionBlock = 6,
 
   /** 
    * Block sends message then expects input.
