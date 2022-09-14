@@ -4,8 +4,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Logger } from '@iote/bricks-angular';
 
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
-import { _JsPlumbComponentDecorator } from '../../../../../block-options/src/lib/providers/jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator-function'
 
 
 @Component({
@@ -32,7 +31,8 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
 
 
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void 
+  {
     if (this.jsPlumb) {
       this._decorateInput();
     }
