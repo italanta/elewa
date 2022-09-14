@@ -4,7 +4,7 @@
         <form [formGroup]="emailMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
-            <input matInput type="text" id="message" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.EMAIL' | transloco }}" />
+            <input [id]="emailInputId" matInput type="text" id="message" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.EMAIL' | transloco }}" />
 
 
         </form>
