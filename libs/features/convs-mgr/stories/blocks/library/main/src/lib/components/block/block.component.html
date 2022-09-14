@@ -1,7 +1,25 @@
-<div [id]="id" [ngSwitch]="type">
+<mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
+    <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
+        <img src="{{block.blockIcon}}" class="avatar-img" alt="storyicon" />
+        <h4 class="block-title">{{block.blockTitle}}</h4>
 
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+        <mat-icon>assignment</mat-icon>
+        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
+      </button>
+            <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
+      </button>
+        </mat-menu>
+    </div>
     <div *ngSwitchCase="messagetype">
-        <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" class="block" [textMessageForm]="blockFormGroup"></app-message-block>
+        <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
+        </app-message-block>
     </div>
 
     <div *ngSwitchCase="questiontype">
@@ -19,4 +37,4 @@
 
 
 
-</div>
+    </div>
