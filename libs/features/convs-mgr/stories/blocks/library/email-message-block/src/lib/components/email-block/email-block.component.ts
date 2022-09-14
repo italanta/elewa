@@ -1,10 +1,10 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 
-import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '../../providers/email-jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-email-block',
