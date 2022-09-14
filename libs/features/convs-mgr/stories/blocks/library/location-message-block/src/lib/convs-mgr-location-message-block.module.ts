@@ -8,7 +8,7 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
-import {MultiLangModule}from '@ngfi/multi-lang';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { LocationBlockComponent } from './components/location-block/location-block.component';
@@ -31,4 +31,4 @@ import { LocationBlockComponent } from './components/location-block/location-blo
 
   exports: [LocationBlockComponent],
 })
-export class ConvsMgrLocationMessageBlockModule {}
+export class ConvsMgrLocationMessageBlockModule { }

@@ -16,6 +16,7 @@ import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories
 import { ConvsMgrNameMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/name-message-block';
 import { ConvsMgrEmailMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/email-message-block';
 
+    
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
@@ -46,4 +47,4 @@ import { BlockComponent } from './components/block/block.component';
   // Injector which creates all block types within the editor context.
   providers: [BlockInjectorService],
 })
-export class BlocksLibraryModule { }
+export class  BlocksLibraryModule {}
