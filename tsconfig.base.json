@@ -59,6 +59,9 @@
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/name-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/name-message-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/question-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/question-message-block/src/index.ts"
       ],

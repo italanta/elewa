@@ -13,7 +13,8 @@ import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/
 import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/question-message-block';
 import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-message-block';
 import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
-
+import { ConvsMgrNameMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/name-message-block';
+    
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
@@ -31,6 +32,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrQuestionBlockModule,
     ConvsMgrLocationMessageBlockModule,
     ConvsMgrImageMessageBlockModule,
+    ConvsMgrNameMessageBlockModule,
     ConvsMgrBlockOptionsModule,
     MultiLangModule
   ],
@@ -42,4 +44,4 @@ import { BlockComponent } from './components/block/block.component';
   // Injector which creates all block types within the editor context.
   providers: [BlockInjectorService],
 })
-export class BlocksLibraryModule { }
+export class  BlocksLibraryModule {}
