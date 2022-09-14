@@ -4,7 +4,8 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { NameMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
+
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-name-block',
