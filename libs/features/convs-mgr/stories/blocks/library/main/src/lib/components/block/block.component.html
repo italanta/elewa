@@ -28,11 +28,16 @@
     </div>
 
     <div *ngSwitchCase="nametype">
-        <app-name-block [id]="id" [block]="block" [nameMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-name-block>
+        <app-name-block [id]="id" [block]="block" [nameMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+        </app-name-block>
     </div>
 
     <div *ngSwitchCase="emailtype">
         <app-email-block [id]="id" [block]="block" [emailMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-email-block>
+    </div>
+
+    <div *ngSwitchCase="phonetype">
+        <app-phone-block [id]="id" [block]="block" [phoneMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-phone-block>
     </div>
 
     <div *ngSwitchCase="questiontype">

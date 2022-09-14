@@ -17,7 +17,9 @@ export enum StoryBlockTypes {
   Input = 2,
 
   
-
+/**
+ * Block that sends a location to the userxs
+ */
   Location = 4,
 
   QuestionBlock = 6,
@@ -47,4 +49,9 @@ export enum StoryBlockTypes {
    * Block that waits for the user to enter their email address as input
    */
   Email=11,
+
+  /**
+   * Block that waits for the user to enter their phone-number as input
+   */
+  PhoneNumber=12
 }

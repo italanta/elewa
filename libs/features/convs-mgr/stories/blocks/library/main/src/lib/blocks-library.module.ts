@@ -15,8 +15,8 @@ import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stor
 import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
 import { ConvsMgrNameMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/name-message-block';
 import { ConvsMgrEmailMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/email-message-block';
+import { ConvsMgrPhoneMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/phone-message-block';
 
-    
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
@@ -36,6 +36,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrImageMessageBlockModule,
     ConvsMgrNameMessageBlockModule,
     ConvsMgrEmailMessageBlockModule,
+    ConvsMgrPhoneMessageBlockModule,
     ConvsMgrBlockOptionsModule,
     MultiLangModule
   ],

@@ -18,9 +18,10 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() block: LocationMessageBlock;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
   @Input() locationMessageForm: FormGroup;
 
-
+  locationInputId: string;
 
   constructor(private _fb: FormBuilder,
               private _logger: Logger) { }
@@ -36,9 +37,8 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private _decorateInput()
-  {
-    let input = document.getElementById('location') as Element;
+  private _decorateInput() {
+    let input = document.getElementById(this.locationInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }

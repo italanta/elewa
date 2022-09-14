@@ -18,7 +18,7 @@
             "options": {
                 "lintFilePatterns": [
                     "libs/features/convs-mgr/stories/blocks/library/email-message-block/**/*.ts",
-                    "libs/features/convs-mgr/stories/blocks/library/nemail-message-block/**/*.html"
+                    "libs/features/convs-mgr/stories/blocks/library/email-message-block/**/*.html"
                 ]
             }
         }
