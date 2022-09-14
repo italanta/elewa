@@ -1,5 +1,5 @@
 <mat-card [id]="id" *ngIf=" emailMessageForm">
-    <mat-card-title>Email Block {{id}}</mat-card-title>
+    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.EMAIL' | transloco }} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="emailMessageForm" fxLayout="column" fxLayoutALign="start center">
 
