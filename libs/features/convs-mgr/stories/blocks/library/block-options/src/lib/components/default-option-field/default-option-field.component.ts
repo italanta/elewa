@@ -10,7 +10,8 @@ import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.fu
   templateUrl: './default-option-field.component.html',
   styleUrls: ['./default-option-field.component.scss'],
 })
-export class DefaultOptionFieldComponent implements OnInit, AfterViewInit {
+export class DefaultOptionFieldComponent implements OnInit, AfterViewInit 
+{
   
   @Input() blockFormGroup: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
@@ -19,17 +20,20 @@ export class DefaultOptionFieldComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.inputUniqueId = `defo-${this.blockFormGroup.value.id}`;
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void
+  {
     if (this.jsPlumb) {
       this._decorateInput();
     }
   }
 
-  private _decorateInput() {
+  private _decorateInput() 
+  {
     let input = document.getElementById(this.inputUniqueId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);

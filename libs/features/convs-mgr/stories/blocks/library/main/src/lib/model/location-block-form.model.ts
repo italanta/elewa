@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder,FormGroup } from "@angular/forms";
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -13,8 +13,8 @@ export function _CreateLocationBlockForm(_fb: FormBuilder, blockData: LocationMe
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    location: [blockData?.location ?? ''],
-    defaultTarget: [blockData.defaultTarget ?? ''],
+    locationInput: [blockData?.locationInput ?? {longitude: '', latitude:''}],
+    defaultTarget: [blockData?.defaultTarget ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Input],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
