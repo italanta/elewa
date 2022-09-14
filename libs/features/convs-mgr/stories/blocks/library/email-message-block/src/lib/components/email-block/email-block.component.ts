@@ -11,8 +11,6 @@ import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   templateUrl: './email-block.component.html',
   styleUrls: ['./email-block.component.scss'],
 })
-
-
 export class EmailBlockComponent implements OnInit, AfterViewInit 
 {
   
@@ -20,21 +18,22 @@ export class EmailBlockComponent implements OnInit, AfterViewInit
   @Input() block: EmailMessageBlock;
   @Input() emailMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() blockFormGroup: FormGroup;
 
-  emailInputId:string;
-
+  emailInputId: string;
 
   constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void {
-    this.emailInputId = `email-${this.id}`
-   }
+  ngOnInit(): void { 
+    this.emailInputId = `email-${this.id}`;
+  }
 
   ngAfterViewInit(): void {
     if (this.jsPlumb) {
       this._decorateInput();
     }
   }
+  
 
   private _decorateInput() {
     let input = document.getElementById(this.emailInputId) as Element;

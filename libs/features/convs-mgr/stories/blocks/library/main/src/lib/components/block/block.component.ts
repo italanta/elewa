@@ -13,6 +13,7 @@ import { _CreateQuestionBlockMessageForm } from '../../model/questions-block-for
 import { _CreateTextMessageBlockForm } from '../../model/message-block-form.model';
 import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
+import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -31,8 +32,9 @@ export class BlockComponent implements OnInit {
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
-  nametype=StoryBlockTypes.Name;
-  emailtype= StoryBlockTypes.Email;
+  nametype = StoryBlockTypes.Name;
+  emailtype = StoryBlockTypes.Email;
+  phonetype = StoryBlockTypes.PhoneNumber;
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
 
@@ -51,6 +53,25 @@ export class BlockComponent implements OnInit {
         this.blocksGroup.push(this.blockFormGroup);
         break;
 
+      case StoryBlockTypes.Image:
+        this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case StoryBlockTypes.Name:
+        this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case StoryBlockTypes.Email:
+        this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+        
+      case StoryBlockTypes.PhoneNumber:
+        this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
       case StoryBlockTypes.QuestionBlock:
         this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
@@ -60,21 +81,6 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-
-      case StoryBlockTypes.Image:
-        this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
- 
-      case StoryBlockTypes.Name:
-        this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Email:
-          this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
 
       default:
         break;
