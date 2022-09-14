@@ -27,6 +27,8 @@ export class StoryEditorInitialiserService
       // anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
     });
 
+    _jsplumb.addClass(container,"jsplumb_instance")
+
     return new StoryEditorFrame(this._fb, _jsplumb, this._blocksInjector, viewport);
   }
 }
