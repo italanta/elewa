@@ -11,8 +11,6 @@ import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   templateUrl: './email-block.component.html',
   styleUrls: ['./email-block.component.scss'],
 })
-
-
 export class EmailBlockComponent implements OnInit, AfterViewInit 
 {
   
@@ -23,7 +21,6 @@ export class EmailBlockComponent implements OnInit, AfterViewInit
   @Input() blockFormGroup: FormGroup;
 
   emailInputId: string;
-
 
   constructor(private _fb: FormBuilder) { }
 
