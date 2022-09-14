@@ -15,6 +15,8 @@ import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { NewStoryService } from '../../services/new-story.service';
+import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'convl-home',
@@ -37,7 +39,9 @@ export class HomePageComponent implements OnDestroy
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
               _router: Router,
-              private _addStory$: NewStoryService)
+              private _addStory$: NewStoryService,
+              private dialog : MatDialog
+              )
   {
     this.breadcrumbs = [HOME_CRUMB(_router, true)];
     this.org$ = _org$$.get();
@@ -49,5 +53,13 @@ export class HomePageComponent implements OnDestroy
   ngOnDestroy()
   {
     this._sb.unsubscribe();
+  }
+
+  openDialog(){
+    this.dialog.open(CreateBotModalComponent,{
+      height: '480px',
+      width: '600px',
+
+    });
   }
 }
