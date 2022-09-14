@@ -4,17 +4,16 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { NameMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
+
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-name-block',
   templateUrl: './name-block.component.html',
   styleUrls: ['./name-block.component.scss'],
 })
-
-
-export class NameBlockComponent implements OnInit, AfterViewInit {
-
+export class NameBlockComponent implements OnInit, AfterViewInit 
+{
   @Input() id: string;
   @Input() block: NameMessageBlock;
   @Input() nameMessageForm: FormGroup;
@@ -42,5 +41,3 @@ export class NameBlockComponent implements OnInit, AfterViewInit {
   }
 
 }
-
-
