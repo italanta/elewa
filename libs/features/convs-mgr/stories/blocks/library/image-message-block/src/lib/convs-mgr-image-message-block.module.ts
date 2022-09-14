@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  HttpClientModule } from '@angular/common/http';
+
 
 import {
   FlexLayoutModule,
@@ -11,7 +13,9 @@ import {
 import {MultiLangModule}from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { LocationBlockComponent } from './components/location-block/location-block.component';
+
+import { ImageUploadService } from './providers/image-upload.service';
+import { ImageBlockComponent } from './components /image-block/image-block.component';
 
 @NgModule({
   imports: [
@@ -24,11 +28,17 @@ import { LocationBlockComponent } from './components/location-block/location-blo
     FormsModule,
     ReactiveFormsModule,
 
+    HttpClientModule,
+
     ConvsMgrBlockOptionsModule
   ],
 
-  declarations: [LocationBlockComponent],
+  declarations: [ImageBlockComponent],
 
-  exports: [LocationBlockComponent],
+  providers: [
+      ImageUploadService
+  ],
+
+  exports: [ImageBlockComponent],
 })
-export class ConvsMgrLocationMessageBlockModule {}
+export class ConvsMgrImageMessageBlockModule {}
