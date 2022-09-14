@@ -47,4 +47,4 @@ import { BlockInjectorService } from './providers/block-injector.service';
   // Injector which creates all block types within the editor context.
   providers: [BlockInjectorService],
 })
-export class BlocksLibraryModule {}
+export class  BlocksLibraryModule {}

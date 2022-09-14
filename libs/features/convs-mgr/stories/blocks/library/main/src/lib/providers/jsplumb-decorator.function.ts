@@ -40,6 +40,12 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
     case StoryBlockTypes.Name:
         return _NameBlockDecoratePlumb(block as ImageMessageBlock, comp, jsPlumb);
         break;
+    case StoryBlockTypes.QuestionBlock:
+      return _QuestionsBlockDecoratePlumb(block as QuestionMessageBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.Location:
+      return _LocationBlockDecoratePlumb(block as LocationMessageBlock, comp, jsPlumb);
+      break;
   }
 
   // Default case
