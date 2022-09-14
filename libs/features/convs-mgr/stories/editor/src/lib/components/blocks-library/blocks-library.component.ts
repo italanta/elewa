@@ -33,10 +33,10 @@ export class BlocksLibraryComponent implements OnInit
 
   blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
-    { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock,
-    { id: 'input-location-block', type: StoryBlockTypes.Input, message: 'Location Block' } as LocationMessageBlock,
     { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image Block' } as ImageMessageBlock,
-    { id: 'io-name-block', type: StoryBlockTypes.Name, message:'Name Block' } as NameMessageBlock
+    { id: 'io-name-block', type: StoryBlockTypes.Name, message:'Name Block' } as NameMessageBlock,
+    { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
+    { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
@@ -54,17 +54,17 @@ export class BlocksLibraryComponent implements OnInit
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
         break;
-      case StoryBlockTypes.IO:
-        this.frame.newBlock(StoryBlockTypes.IO);
-        break;
-      case StoryBlockTypes.Input:
-        this.frame.newBlock(StoryBlockTypes.Input);
-        break;
       case StoryBlockTypes.Image:
         this.frame.newBlock(StoryBlockTypes.Image);
         break;
       case StoryBlockTypes.Name:
         this.frame.newBlock(StoryBlockTypes.Name);
+        break;
+      case StoryBlockTypes.QuestionBlock:
+        this.frame.newBlock(StoryBlockTypes.QuestionBlock);
+        break;
+      case StoryBlockTypes.Location:
+        this.frame.newBlock(StoryBlockTypes.Location);
         break;
     }
   }

@@ -28,9 +28,6 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
     case StoryBlockTypes.TextMessage:
       return _MessageBlockDecoratePlumb(block as TextMessageBlock, comp, jsPlumb);
       break;
-    case StoryBlockTypes.IO:
-      return _QuestionsBlockDecoratePlumb(block as QuestionMessageBlock, comp, jsPlumb);
-      break;
     case StoryBlockTypes.Input:
       return _LocationBlockDecoratePlumb(block as LocationMessageBlock, comp, jsPlumb);
       break;
