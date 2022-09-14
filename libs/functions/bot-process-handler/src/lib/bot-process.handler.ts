@@ -1,5 +1,3 @@
-import { find as __find } from "lodash";
-
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { Query } from '@ngfi/firestore-qbuilder';
@@ -10,6 +8,8 @@ import { Provider } from "@app/model/bot/main/provider";
 import { MessageData } from "@app/model/bot/main/message-data";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { Connection } from "@app/model/bot/blocks/connection";
+import { MatchOptions } from "./match-options.handler";
+import { NextBlock } from "./next-block.handler";
 
 export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> {
 
@@ -71,8 +71,20 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
   private async updateSubject(provider: Provider, data: {phoneNumber: string; message: string}, tools: HandlerTools): Promise<StoryBlock>{
     const milestoneRepo$ = tools.getRepository<StoryBlock>(`subjects/${data.phoneNumber}/stories/${provider.storyId}/milestones`);
     const latestBlock = await milestoneRepo$.getDocuments(new Query().orderBy('createdOn',"desc").limit(1))
+    let nextBlock: StoryBlock; 
 
-    const nextBlock: StoryBlock = await this._getNextBlock(latestBlock[0].id, data.message, provider, tools, this.exactMatch);
+    const BlockFn = new NextBlock()
+    switch (latestBlock[0].type) {
+      case 3:
+        nextBlock = await BlockFn.getNextBlockFromOption(latestBlock[0].id, data.message, provider, tools, new MatchOptions(1).match)
+        break;
+      case 1:
+        nextBlock = await BlockFn.getNextBlockDefault(latestBlock[0].id, provider, tools)
+        break;
+      default:
+        nextBlock = await BlockFn.getNextBlockDefault(latestBlock[0].id, provider, tools)
+        break;
+  }
 
     //Update milestone
     await milestoneRepo$.update(nextBlock);
@@ -110,32 +122,6 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
     return defaultBlock 
   }
 
-  private async _getNextBlock(lastBlockId: string, message: string, provider: Provider, tools: HandlerTools, matchFn: any): Promise<StoryBlock>{
-    const lastBlockData = await this._getBlockById(lastBlockId, provider, tools);
-
-    // Throw an error for now if the block type does not expect input from user
-    if (lastBlockData.type != 3){
-      throw new Error ('Response for block not implemented!')
-    }
-    const question: QuestionMessageBlock = lastBlockData
-
-    const optionSelected = matchFn(message, question.options);
-
-    if (!optionSelected){
-      throw new Error('The message did not match any option found')
-    }
-
-    const optionConnection = await this._getConnByOption(optionSelected.id, provider, tools)
-
-    const newBlock = await this._getBlockById(optionConnection.targetId, provider, tools)
-
-    return newBlock 
-  }
-
-  exactMatch(message: string, options: any[]): any | undefined {
-    return __find(options, (o)=> o.message == message)
-  }
-
   private async _getBlockById(id: string, provider: any, tools: HandlerTools): Promise<StoryBlock>{
     const orgRepo$ = tools.getRepository<StoryBlock>(`orgs/${provider.orgId}/stories/${provider.storyId}/blocks`);
 
@@ -148,15 +134,5 @@ export class BotProcessHandler extends FunctionHandler<MessageData, StoryBlock> 
     return block
   }
 
-  private async _getConnByOption(id: string, provider: Provider, tools: HandlerTools): Promise<Connection>{
-    const orgRepo$ = tools.getRepository<Connection>(`orgs/${provider.orgId}/stories/${provider.storyId}/connections`);
 
-    const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id))[0]
-
-    if(!conn[0]){
-      throw new Error('Connection does not exist')
-    }
-
-    return conn[0]
-  }
 }
