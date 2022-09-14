@@ -1,6 +1,10 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
-export interface LocationMessageBlock extends StoryBlock{
+/**
+ * This block sends a loction as a message to thee user.
+ */
+export interface LocationMessageBlock extends StoryBlock
+{
 
     /**Stores the location in longitude and latitude pairs */
     locationInput?: Location;
