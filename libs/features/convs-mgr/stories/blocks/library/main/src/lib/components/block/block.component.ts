@@ -30,11 +30,11 @@ export class BlockComponent implements OnInit {
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
-  questiontype = StoryBlockTypes.IO;
-  locationtype = StoryBlockTypes.Input;
   imagetype = StoryBlockTypes.Image;
   nametype=StoryBlockTypes.Name;
   emailtype= StoryBlockTypes.Email;
+  questiontype = StoryBlockTypes.QuestionBlock;
+  locationtype = StoryBlockTypes.Location;
 
   blockFormGroup: FormGroup;
 
@@ -50,22 +50,19 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-
-      case StoryBlockTypes.IO:
+      case StoryBlockTypes.QuestionBlock:
         this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-
-      case StoryBlockTypes.Input:
+      case StoryBlockTypes.Location:
         this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-
       case StoryBlockTypes.Image:
         this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-      
+ 
       case StoryBlockTypes.Name:
         this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);

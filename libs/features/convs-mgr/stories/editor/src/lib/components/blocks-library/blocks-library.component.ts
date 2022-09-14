@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+
 
 import { Logger } from '@iote/bricks-angular';
 
 import { SubSink } from 'subsink';
-import { startWith } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -12,36 +12,36 @@ import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMess
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
+
 /**
  * Component which holds a library (list) of all blocks that can be created 
  *    in the story editor.
  */
+
 @Component({
   selector: 'convl-blocks-library',
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit {
+export class BlocksLibraryComponent implements OnInit
+ {
+  private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
 
-  private _sbs = new SubSink();
-  
-  searchControl: FormControl = new FormControl('');
-
+  filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
-    { id: 'io-questions-block', type: StoryBlockTypes.IO, message: 'Question Block' } as QuestionMessageBlock,
-    { id: 'input-location-block', type: StoryBlockTypes.Input, message: 'Location Block' } as LocationMessageBlock,
+    { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
+    { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock,
     { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image Block' } as ImageMessageBlock,
     { id: 'io-name-block', type: StoryBlockTypes.Name, message:'Name Block' } as NameMessageBlock,
     { id: 'io-email-block', type:StoryBlockTypes.Email, message:'Email Block' } as EmailMessageBlock
   ];
+  blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
-  filteredBlockTemplates: StoryBlock[];
-
-  constructor(private _logger: Logger) { }
+  constructor(private _logger: Logger) {}
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
@@ -55,12 +55,6 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
         break;
-      case StoryBlockTypes.IO:
-        this.frame.newBlock(StoryBlockTypes.IO);
-        break;
-      case StoryBlockTypes.Input:
-        this.frame.newBlock(StoryBlockTypes.Input);
-        break;
       case StoryBlockTypes.Image:
         this.frame.newBlock(StoryBlockTypes.Image);
         break;
@@ -70,21 +64,30 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.Email:
           this.frame.newBlock(StoryBlockTypes.Email);
           break;
+      case StoryBlockTypes.QuestionBlock:
+        this.frame.newBlock(StoryBlockTypes.QuestionBlock);
+        break;
+      case StoryBlockTypes.Location:
+        this.frame.newBlock(StoryBlockTypes.Location);
+        break;
     }
   }
 
   //A function that subscribes to when the search control changes and filters the blocks components list 
   filterBlockTemplates() {
-    this.searchControl.valueChanges.pipe(startWith('')).subscribe((value: string) => {
-      this.filteredBlockTemplates = value != ""
-        //this filters the block Templates if the value entered is not empty.
-        ? this.blockTemplates.filter((blocks) => { return blocks.message?.toLowerCase().includes(value.toLowerCase()) })
-        : this.blockTemplates
-    })
+    this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
+                            .pipe(map(([filter, blocksArray]) => blocksArray
+                            .filter((block: StoryBlock) => {
+                              return block.message!.toString().toLowerCase().includes(filter)
+                            })))
+  }
+
+  filterBlocks(event: any) {
+    this.filterInput$$.next(event.target.value);
   }
 
   ngOnDestroy() {
-    this._sbs.unsubscribe();
+    this._sbS.unsubscribe();
   }
 
 }
