@@ -14,7 +14,7 @@ import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/blo
 import { ConvsMgrLocationMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-message-block';
 import { ConvsMgrImageMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-message-block';
 import { ConvsMgrNameMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/name-message-block';
-
+    
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
