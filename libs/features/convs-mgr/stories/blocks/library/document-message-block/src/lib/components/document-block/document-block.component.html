@@ -1,0 +1,17 @@
+<mat-card [id]="id" *ngIf="documentMessageForm">
+    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT' | transloco }} {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+            <div [id]="documentInputId">
+                <label>
+                  <img [src]="documentLink ? documentLink : defaultLink" class="image">
+                  <input #documentInput type="file" placeholder="" class="fileSrc" formControlName="fileSrc">
+              </label>
+            </div>
+
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco}} " name="fileName " id="fileName ">
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco}} " name="document-link " id="document-link ">
+        </form>
+    </mat-card-content>
+</mat-card>
