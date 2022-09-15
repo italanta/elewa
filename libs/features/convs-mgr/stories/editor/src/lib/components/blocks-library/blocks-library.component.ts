@@ -62,6 +62,7 @@ export class BlocksLibraryComponent implements OnInit
         break
     }
   }
+  
 
   //A function that subscribes to when the search control changes and filters the blocks components list 
   filterBlockTemplates() {

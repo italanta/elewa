@@ -11,7 +11,7 @@ import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { BlockComponent, BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library/main';
 
 import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
 import { StoryEditorFrameComponent } from './components/editor-frame/editor-frame.component';

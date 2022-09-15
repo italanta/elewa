@@ -14,6 +14,8 @@ import { ConvsMgrQuestionBlockModule } from '@app/features/convs-mgr/stories/blo
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -27,11 +29,14 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrTextMessageBlockModule,
     ConvsMgrQuestionBlockModule,
     ConvsMgrBlockOptionsModule,
-    MultiLangModule
+    MultiLangModule,
+    
   ],
 
   declarations: [
-    BlockComponent
+    BlockComponent,
+    
+    
   ],
 
   // Injector which creates all block types within the editor context.

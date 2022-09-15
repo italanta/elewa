@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef,  HostListener, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -25,6 +25,15 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  
+  @Output() deleteBlock: EventEmitter<string> = new EventEmitter<string>();
+  
+  delete()  {
+    let confirmDelete = confirm('Are you sure you want to delete this block?')
+    if(confirmDelete){
+      this.deleteBlock.emit()
+    }
+  }
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;

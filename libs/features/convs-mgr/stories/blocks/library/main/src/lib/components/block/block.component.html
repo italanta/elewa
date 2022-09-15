@@ -13,8 +13,10 @@
       </button>
       <button mat-menu-item>
         <mat-icon>delete</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
+        <span (click)="delete()">{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
+
       </button>
+
     </mat-menu>
   </div>
   <div *ngSwitchCase="messagetype">
