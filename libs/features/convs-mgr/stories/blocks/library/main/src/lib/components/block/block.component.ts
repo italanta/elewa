@@ -29,7 +29,7 @@ export class BlockComponent implements OnInit {
   @Output() deleteBlock: EventEmitter<string> = new EventEmitter<string>();
   
   delete()  {
-    let confirmDelete = confirm('Are you sure you want to delete this block?')
+    let confirmDelete = confirm('Are you sure you want to delete this block')
     if(confirmDelete){
       this.deleteBlock.emit()
     }
