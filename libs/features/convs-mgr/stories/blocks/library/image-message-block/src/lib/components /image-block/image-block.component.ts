@@ -28,7 +28,7 @@ export class ImageBlockComponent implements OnInit {
   isLoadingImage: boolean = false;
   file: File;
   imageInputId: string;
-  defaultImage: string ="assets/images/lib/block-builder/image-block-placeholder.jpg"
+  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg"
 
 
   constructor(private _fb: FormBuilder,
