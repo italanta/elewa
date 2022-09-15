@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxj
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -34,6 +34,12 @@ export class BlocksLibraryComponent implements OnInit
   blockTemplates: StoryBlock[] = [
     { id: 'io-block', type: StoryBlockTypes.TextMessage, message: 'Text Block' } as TextMessageBlock,
     { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
+    { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock,
+    { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image Block' } as ImageMessageBlock,
+    { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
+    { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
+    { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
+    { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -51,15 +57,25 @@ export class BlocksLibraryComponent implements OnInit
     switch (type) {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
-        break
-
+        break;
+      case StoryBlockTypes.Image:
+        this.frame.newBlock(StoryBlockTypes.Image);
+        break;
+      case StoryBlockTypes.Name:
+        this.frame.newBlock(StoryBlockTypes.Name);
+        break;
+      case StoryBlockTypes.Email:
+        this.frame.newBlock(StoryBlockTypes.Email);
+        break;
+      case StoryBlockTypes.PhoneNumber:
+        this.frame.newBlock(StoryBlockTypes.PhoneNumber);
+        break;
       case StoryBlockTypes.QuestionBlock:
         this.frame.newBlock(StoryBlockTypes.QuestionBlock);
-        break
-
+        break;
       case StoryBlockTypes.Location:
         this.frame.newBlock(StoryBlockTypes.Location);
-        break
+        break;
     }
   }
 

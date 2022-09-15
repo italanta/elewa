@@ -9,7 +9,7 @@ import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/co
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
-import { QuestionMessageBlock, TextMessageBlock, LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+
 
 /**
  * Model which holds the state of a story-editor.
@@ -145,7 +145,7 @@ export class StoryEditorFrame
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 } 
                     
-    } as TextMessageBlock | QuestionMessageBlock | LocationMessageBlock;
+    } as StoryBlock;
 
     this._cnt++;
 

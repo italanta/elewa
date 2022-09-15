@@ -1,7 +1,7 @@
 <div id="side-menu" fxLayout="column">
-  <mat-nav-list>
+    <mat-nav-list>
 
-    <!-- <div [routerLink]="['/home']"
+        <!-- <div [routerLink]="['/home']"
     mat-list-item [class.hov]="!rlaProp.isActive" fxLayout="row">
 
       <span>
@@ -11,23 +11,22 @@
       </span>
     </div> -->
 
-    <div [routerLink]="['/']"
-         mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
+        <div [routerLink]="['/']" mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
 
-      <!-- <i matListIcon class="fas fa-columns"></i> -->
-      <img class="list-icon icon-top" src="assets/images/ele-small-ico.png">
-      <div fxLayout="column">
-        <div class="proj-name">{{ projectName }}</div>
-        <div class="proj-info">
-          {{ projectInfo }}
+            <!-- <i matListIcon class="fas fa-columns"></i> -->
+            <img class="list-icon icon-top" src="assets/images/ele-small-ico.png">
+            <div fxLayout="column">
+                <div class="proj-name">{{ projectName }}</div>
+                <div class="proj-info">
+                    {{ projectInfo }}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <hr id="menu-header-seperator"/>
+        <hr id="menu-header-seperator" />
 
-    <!-- Section Dashboard -->
-    <!-- <div [routerLink]="['/org', orgId, 'flows', flowId]"  routerLinkActive #rlaHome="routerLinkActive"
+        <!-- Section Dashboard -->
+        <!-- <div [routerLink]="['/org', orgId, 'flows', flowId]"  routerLinkActive #rlaHome="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
       <div fxLayout="row">
@@ -47,8 +46,8 @@
       </div>
     </div> -->
 
-    <!-- Section Chats -->
-    <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
+        <!-- Section Chats -->
+        <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaChats.isActive" [class.hov]="!rlaChats.isActive" fxLayout="column">
 
       <div fxLayout="row">
@@ -73,12 +72,12 @@
               mat-list-item class="child-header">
             Assessments
         </div> -->
-      <!-- </div>
+        <!-- </div>
     </div> -->
 
 
-    <!-- Section Sales -->
-    <!-- <div *ngIf="user?.roles.admin || user?.roles.finance"
+        <!-- Section Sales -->
+        <!-- <div *ngIf="user?.roles.admin || user?.roles.finance"
         [routerLink]="['/sales']"  routerLinkActive #rlaSales="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaSales.isActive" [class.hov]="!rlaSales.isActive" fxLayout="column">
 
@@ -98,8 +97,8 @@
       </div>
     </div> -->
 
-    <!-- Section Statistics -->
-    <!-- <div *ngIf="user?.roles.admin || user?.roles.finance"
+        <!-- Section Statistics -->
+        <!-- <div *ngIf="user?.roles.admin || user?.roles.finance"
         [routerLink]="['/statistics']"  routerLinkActive #rlaStats="routerLinkActive"
          mat-list-item class="header" [class.active]="rlaStats.isActive" [class.hov]="!rlaStats.isActive" fxLayout="column">
 
@@ -123,5 +122,5 @@
       </div>
     </div> -->
 
-  </mat-nav-list>
+    </mat-nav-list>
 </div>
