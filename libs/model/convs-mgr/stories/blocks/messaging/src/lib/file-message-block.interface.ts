@@ -24,3 +24,8 @@ export interface ImageMessageBlock extends FileMessageBlock {
  * Block which sends a message in the form of a voice message.
  */
 export interface VoiceMessageBlock extends FileMessageBlock { }
+
+/**
+ * Blocks which sends a message in the form of a sticker message
+ */
+export interface StickerMessageBlock extends FileMessageBlock { }
