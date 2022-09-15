@@ -15,7 +15,8 @@
                 <div class="tiny-logo" fxLayoutAlign="center">
                     <img style="max-width: 100px;" src="assets/images/elewa-logo.png/" />
                     <div fxLayout="row" fxLayoutAlign="end center">
-                        <mat-select id="lang-selector" [(ngModel)]="lang" style="margin-left:30px;" data-intercom-tooltip="Language selector" fxFlex="7-" matTooltip="{{ 'FORMS.SELECT-LANGUAGE' | transloco }}">
+                        <mat-select id="lang-selector" [(ngModel)]="lang" style="margin-left:30px;" data-intercom-tooltip="Language selector" fxFlex="7-" 
+                                    [matTooltip]="'ELS.TOGGLES.SWITCH-LANG' | transloco">
                             <mat-option value="en" (click)="setLang('en')">EN</mat-option>
                             <mat-option value="fr" (click)="setLang('fr')">FR</mat-option>
                         </mat-select>
@@ -47,10 +48,10 @@
             </div>
 
             <div fxFlex fxLayout="column" fxLayoutAlign="center" class="elewa-info">
-                <p class="title">{{ 'LOGIN.APP-INTRODUCTION.TITLE' | transloco }}</p>
-                <p class="description"> {{'LOGIN.APP-INTRODUCTION.DESCRIPTION' | transloco}}</p>
-                <p class="hyperlink">{{'LOGIN.APP-INTRODUCTION.HYPERLINK-TEXT' | transloco}}
-                    <a href="{{'LOGIN.APP-INTRODUCTION.HYPER-LINK'}}">{{'LOGIN.APP-INTRODUCTION.HYPER-LINK'| transloco}}</a>
+                <p class="title">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
+                <p class="description"> {{'LOGIN.HERO.DESCRIPTION' | transloco}}</p>
+                <p class="hyperlink">{{'LOGIN.HERO.LEARN-MORE' | transloco}}
+                    <a [href]="'LOGIN.HERO.LEARN-MORE-LINK' | transloco">{{'LOGIN.HERO.LEARN-MORE-LINK'| transloco}}</a>
                 </p>
             </div>
 
