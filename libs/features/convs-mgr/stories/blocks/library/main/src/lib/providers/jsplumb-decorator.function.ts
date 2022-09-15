@@ -4,7 +4,7 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { BlockComponent } from '../components/block/block.component';
 
-import { AudioMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, NameMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { VoiceMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, NameMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb'; 
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
@@ -50,7 +50,7 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _LocationBlockDecoratePlumb(block as LocationMessageBlock, comp, jsPlumb);
       break;
     case StoryBlockTypes.Audio:
-        return _AudioBlockDecoratePlumb(block as AudioMessageBlock, comp, jsPlumb);
+        return _AudioBlockDecoratePlumb(block as VoiceMessageBlock, comp, jsPlumb);
         break;
   }
 
