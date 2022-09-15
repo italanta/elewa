@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxj
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -23,8 +23,7 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit
- {
+export class BlocksLibraryComponent implements OnInit {
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
@@ -39,12 +38,11 @@ export class BlocksLibraryComponent implements OnInit
     { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
     { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
-    { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
-    { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock
+    { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker Block' } as StickerMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
-  constructor(private _logger: Logger) {}
+  constructor(private _logger: Logger) { }
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
@@ -76,16 +74,19 @@ export class BlocksLibraryComponent implements OnInit
       case StoryBlockTypes.Location:
         this.frame.newBlock(StoryBlockTypes.Location);
         break;
+      case StoryBlockTypes.Sticker:
+        this.frame.newBlock(StoryBlockTypes.Sticker);
+        break;
     }
   }
 
   //A function that subscribes to when the search control changes and filters the blocks components list 
   filterBlockTemplates() {
     this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
-                            .pipe(map(([filter, blocksArray]) => blocksArray
-                            .filter((block: StoryBlock) => {
-                              return block.message!.toString().toLowerCase().includes(filter)
-                            })))
+      .pipe(map(([filter, blocksArray]) => blocksArray
+        .filter((block: StoryBlock) => {
+          return block.message!.toString().toLowerCase().includes(filter)
+        })))
   }
 
   filterBlocks(event: any) {
