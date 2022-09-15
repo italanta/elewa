@@ -23,7 +23,3 @@ export interface ImageMessageBlock extends FileMessageBlock {}
 export interface VoiceMessageBlock extends FileMessageBlock { }
 
 
-/**
- * Block that sends a message in the form of an audio file
- */
-export interface AudioMessageBlock extends FileMessageBlock{}

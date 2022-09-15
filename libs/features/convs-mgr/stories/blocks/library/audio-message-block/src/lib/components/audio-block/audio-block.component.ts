@@ -6,7 +6,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { AudioMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
 @Component({
@@ -18,7 +18,7 @@ export class AudioBlockComponent implements OnInit {
 
 
 @Input() id: string;
-@Input() block: AudioMessageBlock;
+@Input() block: VoiceMessageBlock;
 @Input() audioMessageForm: FormGroup;
 @Input() jsPlumb: BrowserJsPlumbInstance;
 
