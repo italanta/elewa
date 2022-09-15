@@ -15,12 +15,13 @@ export interface FileMessageBlock extends StoryBlock
 /**
  * Block which sends a message in the form of an image.
  */
-export interface ImageMessageBlock extends FileMessageBlock {
-  /**Links to the image. an image url */
-
- }
-
+export interface ImageMessageBlock extends FileMessageBlock {}
 /**
  * Block which sends a message in the form of a voice message.
  */
 export interface VoiceMessageBlock extends FileMessageBlock { }
+
+/**
+ * Block that sends a message in the form of a document to the user 
+ */
+export interface DocumentMessageBlock extends FileMessageBlock{}
