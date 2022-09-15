@@ -14,8 +14,9 @@
             <button mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span (click)="delete()">{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
-
       </button>
+        </mat-menu>
+    </div>
 
     <div *ngSwitchCase="messagetype">
         <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
