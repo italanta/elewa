@@ -38,7 +38,7 @@ export class BlockComponent implements OnInit {
   phonetype = StoryBlockTypes.PhoneNumber;
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
-  audioType=StoryBlockTypes.Audio;
+  audioType = StoryBlockTypes.Audio;
 
   blockFormGroup: FormGroup;
 
@@ -69,7 +69,7 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-        
+
       case StoryBlockTypes.PhoneNumber:
         this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
@@ -87,7 +87,7 @@ export class BlockComponent implements OnInit {
       case StoryBlockTypes.Audio:
         this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
-         break;
+        break;
 
       default:
         break;
