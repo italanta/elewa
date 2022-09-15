@@ -12,6 +12,7 @@ import { LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@a
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
+import { cloneDeep } from 'lodash';
 
 /**
  * Component which holds a library (list) of all blocks that can be created 
