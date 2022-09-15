@@ -39,8 +39,6 @@ export class BlocksLibraryComponent implements OnInit
     { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
     { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
-    { id: 'io-questions-block', type: StoryBlockTypes.QuestionBlock, message: 'Question Block' } as QuestionMessageBlock,
-    { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location Block' } as LocationMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
