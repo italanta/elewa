@@ -1,6 +1,5 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { HandlerTools } from "@iote/cqrs";
-import * as request from 'request-promise';
+
 
 export class SendWhatsAppMessageModel{
   constructor(){ }
