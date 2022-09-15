@@ -1,0 +1,17 @@
+<mat-card [id]="id" *ngIf="stickerMessageForm">
+    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.STICKER' | transloco }} {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="stickerMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+            <div [id]="stickerInputId">
+                <label>
+                  <img [src]="stickerLink ? stickerLink : defaultImage" class="image">
+                  <input  #stickerInput type="file"  class="fileSrc" formControlName="Src">
+              </label>
+            </div>
+
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}} " name="caption " id="caption ">
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.STICKER-LINK' | transloco}} " name="sticker-link " id="sticker-link ">
+        </form>
+    </mat-card-content>
+</mat-card>
