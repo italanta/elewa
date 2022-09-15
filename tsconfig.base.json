@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "paths": {
-
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
@@ -51,11 +50,8 @@
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/blocks/library/document-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/document-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/location-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/location-message-block/src/index.ts"
@@ -63,8 +59,8 @@
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/document-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/document-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/name-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/name-message-block/src/index.ts"
@@ -77,6 +73,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/text-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/text-message-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/main": [
         "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
