@@ -2,8 +2,10 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 
 export class SendWhatsAppMessageModel{
-  constructor(){ }
+  constructor(_){ }
   async sendMessage(message?:StoryBlock){
+    const authorizationHeader = process.env.AUTHORIZATION_HEADER;
+    
     const PHONE_NUMBER = 103844892462329 //Refers to business number to be used
     const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER}/messages`
     const data = {
