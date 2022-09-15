@@ -1,0 +1,15 @@
+<mat-card [id]="id" *ngIf="audioMessageForm">
+    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.AUDIO' | transloco }} {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+            <div [id]="audioInputId">
+                <label>
+                  <img [src]="audioLink ? audioLink : defaultImage" class="image">
+                  <input #audioInput type="file" class="fileSrc" formControlName="fileSrc">
+              </label>
+            </div>
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco}} " name="audio-link " id="audio-link ">
+        </form>
+    </mat-card-content>
+</mat-card>
