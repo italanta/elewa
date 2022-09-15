@@ -22,6 +22,7 @@
     "features-convs-mgr-stories-blocks-library-phone-message-block": "libs/features/convs-mgr/stories/blocks/library/phone-message-block",
     "features-convs-mgr-stories-blocks-library-question-message-block": "libs/features/convs-mgr/stories/blocks/library/question-message-block",
     "features-convs-mgr-stories-blocks-library-text-message-block": "libs/features/convs-mgr/stories/blocks/library/text-message-block",
+    "features-convs-mgr-stories-blocks-library-video-message-block": "libs/features/convs-mgr/stories/blocks/library/video-message-block",
     "features-convs-mgr-stories-blocks-library/main": "libs/features/convs-mgr/stories/blocks/library/main",
     "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
