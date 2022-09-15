@@ -25,7 +25,7 @@ import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 
-
+import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -45,6 +45,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
     UserStateModule.forRoot(),
     AuthorisationModule.forRoot(environment, environment.production),
+    EnvironmentConfigModule.forRoot(environment),
 
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
