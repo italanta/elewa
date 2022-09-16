@@ -91,6 +91,7 @@
   "firebase-functions-dependencies": [
     "firebase-functions",
     "firebase-admin",
-    "lodash"
+    "lodash",
+    "axios"
   ]
 }
