@@ -1,10 +1,10 @@
-import { botProvider } from "@app/model/convs-mgr/functions";
+import { BotProvider } from "@app/model/convs-mgr/functions";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext } from "@ngfi/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
 import { __VerifyWhatsAppTokenWebHook } from "../utils/initial-whatsapp-verifier.util";
 
-export class MessageHookHandler extends FunctionHandler<{val:botProvider}, void>
+export class MessageHookHandler extends FunctionHandler<{val:BotProvider}, void>
 {
   public async execute(data:any, context:HttpsContext, tools:HandlerTools)
   {  
