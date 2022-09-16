@@ -2,7 +2,7 @@ import { IObject } from '@iote/bricks';
 import { MessageTypes } from './message-types.enum';
 import { MessageOrigins } from './message-origins.enum';
 
-import { CommunicationChannelTypes } from '@elewa/model/admin/system';
+import { CommunicationChannelTypes } from '@app/model/convs-mgr/conversations/admin/system';
 
 export interface RawMessageWrapper
 {
