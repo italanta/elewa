@@ -1,8 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
-import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfire/functions';
+import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { LandbotService } from '../services/landbot.service';
-import { Chat, ChatFlowStatus, CHAT_ID } from '@elewa/model/conversations/chats';
+import { LandbotService } from '../services/main-chatbot.service';
+import { Chat, ChatFlowStatus, CHAT_ID } from '@app/model/convs-mgr/conversations/chats';
 
 
 const WHATSAPP_BOT_ID = 644268;

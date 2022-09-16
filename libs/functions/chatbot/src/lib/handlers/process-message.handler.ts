@@ -1,10 +1,9 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import * as moment from 'moment';
-import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfire/functions';
+import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { Chat, ChatFlowStatus, ChatStatus } from '@elewa/model/conversations/chats';
-import { RawMessageWrapper, RawMessage, ChatMessage } from '@elewa/model/conversations/messages';
+import { Chat, ChatFlowStatus, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
+import { RawMessageWrapper, RawMessage, ChatMessage } from '@app/model/convs-mgr/conversations/messages';
 import { createMessage } from '../model/create-message.model';
 
 /** Cache across function invocations. */
