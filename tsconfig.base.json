@@ -83,6 +83,7 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
       "@app/model/convs-mgr/conversations/chats": [
         "libs/model/convs-mgr/conversations/chats/src/index.ts"
       ],
