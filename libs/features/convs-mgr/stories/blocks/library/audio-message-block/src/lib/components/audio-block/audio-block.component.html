@@ -5,8 +5,12 @@
 
             <div [id]="audioInputId">
                 <label>
+                <div class="image-div">
                   <img [src]="audioLink ? audioLink : defaultImage" class="image">
+                  </div>
+                  <div>
                   <input #audioInput type="file" class="fileSrc" formControlName="src">
+                  </div>
               </label>
             </div>
             <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco}} " name="audio-link " id="audio-link ">
