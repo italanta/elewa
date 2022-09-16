@@ -9,7 +9,7 @@ import { createMessage } from '../model/create-message.model';
 /** Cache across function invocations. */
 const __KnownChats: string[] = [];
 
-export class RecordMessageHandler extends FunctionHandler<RawMessageWrapper, RestResult200>
+export class ProcessMessageHandler extends FunctionHandler<RawMessageWrapper, RestResult200>
 {
   /**
    * Incoming message hook from Landbot.

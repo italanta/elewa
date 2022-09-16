@@ -16,7 +16,7 @@ const DEFAULT_START_BLOCK = 'Bkcd6dit6->brick_start';
  *
  * */
 
-export class CancelHelpRequestHandler extends FunctionHandler<{ chatId: string }, RestResult200>
+export class CancelOperatorRequestHandler extends FunctionHandler<{ chatId: string }, RestResult200>
 {
   public async execute(req: { chatId: string }, context: FunctionContext, tools: HandlerTools): Promise<any> {
     tools.Logger.log(() => `[CancelHelpRequestHandler].execute: Open up channel to talk to Human Agent.`);

@@ -19,7 +19,7 @@ const AGENT_UNAVAILABLE_ID_BEFORE_PURCHASE = 'Bkf6krntz->Nkf6kuhmq';
 const AGENT_UNAVAILABLE_ID_BEFORE_LEARNING_BY_DOING = 'Bkcd6dit6->Bkcd6dikq->Bkcd6dicc->Bkcd6di74->Bkf6mskom->Nkf6kuhmq';
 const AGENT_UNAVAILABLE_ID_AFTER_AREA_STRUCTURE = 'Bkcd8662t->Bkf6nefvk->Nkf6kuhmq ';
 
-export class TalkToHumanHandler extends FunctionHandler<{ id: string, name?: string, isGlitch?: number }, RestResult200>
+export class RequestOperatorHandler extends FunctionHandler<{ id: string, name?: string, isGlitch?: number }, RestResult200>
 {
   /**
    * Put a break on execution and halt the system to talk to a Human agent. */
