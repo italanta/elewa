@@ -7,5 +7,5 @@ admin.initializeApp(conf);
 
 export * from './functions/fns-webhooks';
 export * from './functions/fns-messages';
-export * from './app/a-basic-function';
+
 export * from './app/functions/botProcess.function';
