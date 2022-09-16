@@ -87,6 +87,9 @@
       "@app/model/convs-mgr/conversations/chats": [
         "libs/model/convs-mgr/conversations/chats/src/index.ts"
       ],
+      "@app/model/convs-mgr/conversations/messages": [
+        "libs/model/convs-mgr/conversations/messages/src/index.ts"
+      ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
       ],
