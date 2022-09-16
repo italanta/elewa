@@ -40,3 +40,6 @@ Thumbs.db
 
 .angular
 *.log
+
+json files
+package-lock.json
