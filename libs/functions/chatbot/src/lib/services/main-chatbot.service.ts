@@ -6,7 +6,7 @@ import { config } from '../environment/environment';
 /**
  * Integrates with the Landbot API to exchange information back and forth.
  */
-export class LandbotService
+export class ChatBotService
 {
   constructor(private _logger: Logger) { }
 
