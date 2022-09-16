@@ -1,7 +1,7 @@
 import * as fetch from 'node-fetch';
 import { Logger } from '@iote/cqrs';
 
-import { LANDBOT_API_KEY, LANDBOT_BASE_URL, CALLBACK_MANAGER_URL } from '../environment/environment';
+import { config } from '../environment/environment';
 
 /**
  * Integrates with the Landbot API to exchange information back and forth.

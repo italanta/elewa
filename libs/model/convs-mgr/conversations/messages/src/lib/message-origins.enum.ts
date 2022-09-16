@@ -5,6 +5,6 @@ export enum MessageOrigins
   Bot = 'bot',
   /** Chat end user */
   User = 'customer',
-  /** Kenya Scouts or Elewa Operator */
-  Operator = 'agent'
+  /** Story Operator */
+  Operator = 'operator'
 }

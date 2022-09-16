@@ -1,4 +1,3 @@
-export * from './lib/communication-channel-types.enum';
-export * from './lib/supported-communication-connectors.enum';
+export * from './lib/platform-types.enum';
 
-export * from './lib/communication-channel.interface';
+export * from './lib/platform.interface';
