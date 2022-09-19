@@ -1,9 +1,10 @@
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Query } from '@ngfi/firestore-qbuilder';
-import { IObject } from '@iote/bricks';
 import { HandlerTools } from "@iote/cqrs";
-import { TextMessageBlock, QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+
+import { Activity, Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+import { Chat, ChatStatus } from "@app/model/convs-mgr/conversations/messages";
+import { Block, ChatInfo, Connection, DefaultBlock } from "@app/model/convs-mgr/conversations/chats";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * Contains all the required database flow methods for the chatbot
@@ -16,8 +17,8 @@ export class ChatBotStore {
 
     /** Cursor */
 
-    async getLatestActivity(user: EndUser): Promise<Block> {
-        const cursorRepo$ = this.tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
+    async getLatestActivity(chatInfo: ChatInfo): Promise<Block> {
+        const cursorRepo$ = this.tools.getRepository<Block>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
     
         const latestBlock = await cursorRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));
     
@@ -38,27 +39,17 @@ export class ChatBotStore {
         return block;
       }
     
-      async getActivity(user: EndUser) {
+      async getActivity(chatInfo: ChatInfo) {
         // Get subject
         // TODO: Create a type for user-activity
-        const activityRepo$ = this.tools.getRepository<Activity>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
-        const activity = await activityRepo$.getDocumentById(user.id);
+        const activityRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
+        const activity = await activityRepo$.getDocumentById(chatInfo.id);
     
         return activity;
       }
     
 
-      /*Users */
-
-      async getEndUser(phoneNumber: string): Promise<EndUser> {
-        // Get users
-        const userRepo$ = this.tools.getRepository<EndUser>('end-users');
-        const user = await userRepo$.getDocumentById(phoneNumber);
-        if (!user) {
-          throw new Error('User does not exist!');
-        }
-        return user;
-      }
+      /** Chat Info */
 
       async getChatInfo(phoneNumber: string, platform: Platforms): Promise<ChatInfo> {
         // Get users
@@ -99,8 +90,8 @@ export class ChatBotStore {
         return nextBlock;
       }
     
-      async getDefaultBlock(user: ChatInfo): Promise<DefaultBlock> {
-        const orgRepo$ = this.tools.getRepository<DefaultBlock>(`orgs/${user.orgId}/stories/${user.storyId}/blocks`);
+      async getDefaultBlock(chatInfo: ChatInfo): Promise<DefaultBlock> {
+        const orgRepo$ = this.tools.getRepository<DefaultBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
         const id = 'default';
     
         const defaultBlock = await orgRepo$.getDocumentById(id);
@@ -111,8 +102,8 @@ export class ChatBotStore {
         return defaultBlock;
       }
     
-      async getConnByOption(id: string, user: EndUser): Promise<Connection>{
-        const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${user.orgId}/stories/${user.storyId}/connections`);
+      async getConnByOption(id: string, chatInfo: ChatInfo): Promise<Connection>{
+        const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
     
         const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id))[0]
     
@@ -123,8 +114,8 @@ export class ChatBotStore {
         return conn[0]
       }
     
-      async getConnBySourceId(blockId: string, user: EndUser): Promise<Connection>{
-        const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${user.orgId}/stories/${user.storyId}/connections`);
+      async getConnBySourceId(blockId: string, chatInfo: ChatInfo): Promise<Connection>{
+        const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
     
         const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `defo-${blockId}`))[0]
     
@@ -135,8 +126,8 @@ export class ChatBotStore {
         return conn[0]
       }
     
-      async getBlockById(id: string, user: ChatInfo): Promise<Block>{
-        const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${user.orgId}/stories/${user.storyId}/blocks`);
+      async getBlockById(id: string, chatInfo: ChatInfo): Promise<Block>{
+        const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
     
         const block: Block = await orgRepo$.getDocumentById(id)
     
@@ -163,69 +154,25 @@ export class ChatBotStore {
         return newChat
       }
 
-      async getChatStatus(user: ChatInfo, platform: Platforms){
-        const chatId = platform + '_' + user.storyId
-        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats`);
+      async getChatStatus(chatInfo: ChatInfo, platform: Platforms){
+        const chatId = platform + '_' + chatInfo.storyId
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.id}/chats`);
 
         const chatStatus = await chatRepo$.getDocumentById(chatId)
 
         return chatStatus
       }
 
-      async updateChatStatus(user: EndUser, status: ChatStatus){
-        const chatId = user.platform + '_' + user.storyId
+      async updateChatStatus(chatInfo: ChatInfo, status: ChatStatus, platform: Platforms){
+        const chatId = platform + '_' + chatInfo.storyId
 
-        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats/${chatId}`);
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.id}/chats/${chatId}`);
 
         const newStatus: Chat = {
           chatId,
           status,
-          platform: user.platform
+          platform
         }
         chatRepo$.write(newStatus, chatId)
       }
 }
-
-
-export interface Chat extends IObject{
-  chatId: string;
-  status: ChatStatus;
-  platform: Platforms;
-
-}
-
-export enum ChatStatus {
-  Running           = 0,
-  Paused            = 5,
-  ChatWithOperator  = 10,
-  Ended             = 15
-}
-export interface Connection extends IObject {
-    slot: number;
-    sourceId: string;
-    targetId: string;
-  }
-  
-  export interface EndUser {
-    id: string;
-    orgId: string;
-    storyId: string;
-    platform: Platforms;
-  }
-
-  export interface ChatInfo {
-    id: string;
-    orgId: string;
-    storyId: string;
-  }
-  
-  export interface DefaultBlock extends StoryBlock {
-    nextBlock: string;
-  }
-
-  export interface Activity extends IObject{
-    chatId: string;
-    block: Block;
-  }
-  
-  export type Block = TextMessageBlock | QuestionMessageBlock;

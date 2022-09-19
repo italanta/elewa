@@ -3,6 +3,7 @@ import { IObject } from '@iote/bricks';
 
 import { MessageTypes }   from './message-types.enum';
 import { MessageOrigins } from './message-origins.enum';
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 
 export interface ChatMessage extends IObject
 {
@@ -38,4 +39,18 @@ export interface ResourceMessage extends ChatMessage
   export interface ImageMessage extends ResourceMessage
   {
     type: MessageTypes.Image;
+  }
+
+  export interface Chat extends IObject{
+    chatId: string;
+    status: ChatStatus;
+    platform: Platforms;
+  
+  }
+  
+  export enum ChatStatus {
+    Running           = 0,
+    Paused            = 5,
+    ChatWithOperator  = 10,
+    Ended             = 15
   }
