@@ -11,8 +11,9 @@ export class SendMessageHandler extends FunctionHandler<{val:StoryBlock, type: B
     tools.Logger.log(() =>`[SendMessageHandler] Started execution with : ${data.type} ${data.val} ${data.type}`)
     const messageBlock = data.val;
     const provider = data.type;
+    const env = context.environment;
 
-    return new SendWhatsAppMessageModel(tools).sendMessage(messageBlock)
+    return new SendWhatsAppMessageModel(tools).sendMessage(messageBlock, env)
 
 
   }
