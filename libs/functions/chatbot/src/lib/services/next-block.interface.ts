@@ -1,4 +1,4 @@
-import { Block, EndUser } from "./main-chatbot.service";
+import { Block, EndUser } from "./chatbot.store";
 
 export interface NextBlockInterface {
     userInput: string;

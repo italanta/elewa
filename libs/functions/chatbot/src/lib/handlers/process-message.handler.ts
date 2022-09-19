@@ -6,6 +6,7 @@ import { RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 import { createMessage } from '../model/create-message.model';
 import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block.factory';
+import { ChatBotStore } from '../services/chatbot.store';
 
 
 export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestResult200>
@@ -30,18 +31,19 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestR
     tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
     const chatService =  new ChatBotService(tools.Logger)
+    const chatBotRepo$ =  new ChatBotStore(tools)
 
-    const endUser = await chatService.getEndUser(msg.phoneNumber, tools)
+    const endUser = await chatBotRepo$.getEndUser(msg.phoneNumber)
 
     if(!endUser)
       tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    const userActivity =  await chatService.getActivity(endUser, tools);
+    const userActivity =  await chatBotRepo$.getActivity(endUser);
 
     if(!userActivity){
       return await this._initSession(endUser, chatService, msg, tools)
     } else {
-      return await this._nextBlock(endUser, chatService, msg, tools)
+      return await this._nextBlock(endUser, chatBotRepo$, msg, tools)
     }
   }
 
@@ -55,13 +57,24 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestR
     return firstBlock
   }
 
-  private async _nextBlock(endUser: any, chatService: ChatBotService, msg: RawMessageData, tools: HandlerTools){
-    const latestBlock = await chatService.getLatestActivity(endUser,tools)
+
+  /**
+   * Gets the next block and updates the user activity
+   * @param endUser 
+   * @param chatService 
+   * @param msg 
+   * @param tools 
+   * @returns 
+   */
+  private async _nextBlock(endUser: any, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools){
+    const latestBlock = await chatBotRepo$.getLatestActivity(endUser)
     const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
 
-    const nextBlock = nextBlockService.getNextBlock(endUser, msg.message, latestBlock)
+    const nextBlock = await nextBlockService.getNextBlock(endUser, msg.message, latestBlock)
 
-    return nextBlock;
+    const block = await chatBotRepo$.updateActivity(endUser, nextBlock)
+
+    return block;
   }
 
 }
