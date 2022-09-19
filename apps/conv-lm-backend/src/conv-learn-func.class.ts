@@ -1,4 +1,5 @@
 import { FunctionHandler, FunctionRegistrar, GCFunction, Guard } from "@ngfi/functions";
+import { environment } from "./environments/environment";
 
 /**
  * @Description Implementation of GCFunction for the scope of this project. Adds in Environment.
@@ -10,6 +11,6 @@ import { FunctionHandler, FunctionRegistrar, GCFunction, Guard } from "@ngfi/fun
 
 export class ConvLearnFunction<T, R> extends GCFunction<T,R>{
   constructor(name: string, registrar: FunctionRegistrar<T, R>, guards: Guard<T>[], handler: FunctionHandler<T, R>) {
-    super(name, registrar, guards, handler);
+    super(name, registrar, guards, handler, environment);
   }
 }

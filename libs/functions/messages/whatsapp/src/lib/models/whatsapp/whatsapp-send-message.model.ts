@@ -1,29 +1,32 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { HandlerTools } from "@iote/cqrs";
 import axios from "axios";
-
-
+import { GetWhatsAppMessageTypeService } from "../../services/get-whatsapp-message-type.service";
 export class SendWhatsAppMessageModel {
 
   private _tools: HandlerTools;
 
-  constructor(tools: HandlerTools) {
+  constructor(tools: HandlerTools, ) {
     this._tools = tools;
   }
 
-  async sendMessage(message?: StoryBlock) {
+  async sendMessage(message: StoryBlock, env:any) {
 
-    const authorizationHeader = process.env.AUTHORIZATION_HEADER;
-    this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: 🔑🔐authorizationHeader: ${authorizationHeader}`);
+    //Service to get data to send to to whatsapp api
+    const getMessageTypeService = new GetWhatsAppMessageTypeService(this._tools)
 
-    this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: ✉✉Message is =====>${JSON.stringify(message)}`);
-
+    //Auth token gotten from facebook api
+    const authorizationHeader = env.AUTHORIZATION_HEADER;
+   
+    /**
+     * https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
     const PHONE_NUMBER = 103844892462329 //Refers to business number to be used
     const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER}/messages`
     const data = {
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
-      "to": "254706165412",
+      "to": "0706165412",
       "type": "text",
       "text": {
         "preview_url": false,
@@ -33,15 +36,15 @@ export class SendWhatsAppMessageModel {
 
     const res = await axios.post(
       url,
-      data,
+      JSON.stringify(data),
       {
           headers: {
-            'Authorization': `Bearer ${authorizationHeader}` ,
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Authorization': `Bearer ${authorizationHeader}`,
+            'Content-Type': 'application/json'
           }
       }
   ).then(response => {
-        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Response is ${response}`);
+        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Successful in sending message ${JSON.stringify(response)}`);
       }).catch(error => {
         if (error.response) {
           // Request made and server responded
