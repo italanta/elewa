@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { LandbotService } from '../services/main-chatbot.service';
+import { ChatBotService } from '../services/main-chatbot.service';
 import { Chat, ChatFlowStatus, CHAT_ID } from '@app/model/convs-mgr/conversations/chats';
 
 
@@ -22,7 +22,7 @@ export class CancelOperatorRequestHandler extends FunctionHandler<{ chatId: stri
     tools.Logger.log(() => `[CancelHelpRequestHandler].execute: Open up channel to talk to Human Agent.`);
     tools.Logger.log(() => JSON.stringify(req));
     
-    const landbot = new LandbotService(tools.Logger);  
+    const landbot = new ChatBotService(tools.Logger);  
     
     const chatRepo = tools.getRepository<Chat>(`sessions`);
     const chat = await chatRepo.getDocumentById(CHAT_ID(req.chatId));

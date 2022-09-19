@@ -1,7 +1,7 @@
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 import { HandlerTools, Repository } from '@iote/cqrs';
 
-import { Chat, ChatFlowStatus, ChatStatus, CHAT_ID } from '@app/model/conversations/chats';
+import { Chat, ChatFlowStatus, ChatStatus, CHAT_ID } from '@app/model/convs-mgr/conversations/chats';
 import { ChatBotService } from '@app/functions/chatbot';
 import { User } from '@iote/bricks';
 
