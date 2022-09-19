@@ -2,12 +2,13 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 
 import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block.factory';
-import { ChatBotStore, ChatStatus, EndUser } from '../services/chatbot.store';
+import { ChatBotStore } from '../services/chatbot.store';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 
 export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestResult200>
@@ -31,30 +32,30 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestR
     const chat = await chatBotRepo$.getChatStatus(chatInfo, platform);
 
     if (chat.status == ChatStatus.Running){
-      await this._processMessage(req, tools, platform)
+      await this._processMessage(chatInfo, req, tools, platform)
     } else if (chat.status == ChatStatus.Paused){
       tools.Logger.log(() => `[ProcessMessageHandler].execute: Chat has been paused.`);
     }
     return { success: true } as RestResult200;
   }
 
-  private async _processMessage(msg: RawMessageData, tools: HandlerTools, platform: Platforms)
+  private async _processMessage(chatInfo: ChatInfo, msg: RawMessageData, tools: HandlerTools, platform: Platforms)
   {
     tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
     const chatBotRepo$ =  new ChatBotStore(tools)
 
-    const endUser = await chatBotRepo$.getEndUser(msg.phoneNumber)
+    // const chatInfo = await chatBotRepo$.getChatInfo(msg.phoneNumber, platform)
 
-    if(!endUser)
+    if(!chatInfo)
       tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    const userActivity =  await chatBotRepo$.getActivity(endUser);
+    const userActivity =  await chatBotRepo$.getActivity(chatInfo);
 
     if(!userActivity){
-      return await this._initSession(endUser, msg, tools, platform)
+      return await this._initSession(chatInfo, msg, tools, platform)
     } else {
-      return await this._contSession(endUser, chatBotRepo$, msg, tools, platform)
+      return await this._contSession(chatInfo, chatBotRepo$, msg, tools, platform)
     }
   }
 
@@ -80,13 +81,13 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestR
    * @param tools 
    * @returns 
    */
-  private async _contSession(endUser: EndUser, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools, platform: Platforms){
-    const latestBlock = await chatBotRepo$.getLatestActivity(endUser)
+  private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools, platform: Platforms){
+    const latestBlock = await chatBotRepo$.getLatestActivity(chatInfo)
     const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
 
-    const nextBlock = await nextBlockService.getNextBlock(endUser, msg.message, latestBlock)
+    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
 
-    const block = await chatBotRepo$.updateCursor(endUser, nextBlock, platform)
+    const block = await chatBotRepo$.updateCursor(chatInfo, nextBlock, platform)
 
     return block;
   }
