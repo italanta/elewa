@@ -21,11 +21,15 @@ export class ChatBotStore {
         return latestBlock[0];
       }
     
-      async updateActivity(user: EndUser, newBlock: Block): Promise<Block> {
-        const cursorRepo$ = this.tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
+      async updateCursor(user: EndUser, newBlock: Block): Promise<Activity> {
+        const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
     
+        const newActivity: Activity = {
+          chatId: user.platform + '_' + user.storyId,
+          block: newBlock
+        }
         //Update milestone
-        const block = await cursorRepo$.update(newBlock);
+        const block = await cursorRepo$.update(newActivity);
     
         // Return next block
         return block;
@@ -34,7 +38,7 @@ export class ChatBotStore {
       async getActivity(user: EndUser) {
         // Get subject
         // TODO: Create a type for user-activity
-        const activityRepo$ = this.tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
+        const activityRepo$ = this.tools.getRepository<Activity>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
         const activity = await activityRepo$.getDocumentById(user.id);
     
         return activity;
@@ -96,8 +100,8 @@ export class ChatBotStore {
         return conn[0]
       }
     
-      async getBlockById(id: string, provider: any): Promise<Block>{
-        const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${provider.orgId}/stories/${provider.storyId}/blocks`);
+      async getBlockById(id: string, user: EndUser): Promise<Block>{
+        const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${user.orgId}/stories/${user.storyId}/blocks`);
     
         const block: Block = await orgRepo$.getDocumentById(id)
     
@@ -107,8 +111,49 @@ export class ChatBotStore {
     
         return block
       }
+
+      async initChatStatus(user: EndUser){
+        const chatId = user.platform + '_' + user.storyId
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats/${chatId}`);
+
+        const newStatus: Chat = {
+          chatId,
+          status: ChatStatus.Running,
+          platform: user.platform
+        }
+        const newChat = await chatRepo$.write(newStatus, chatId)
+
+        return newChat
+      }
+
+      async updateChatStatus(user: EndUser, status: ChatStatus){
+        const chatId = user.platform + '_' + user.storyId
+
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats/${chatId}`);
+
+        const newStatus: Chat = {
+          chatId,
+          status,
+          platform: user.platform
+        }
+        chatRepo$.write(newStatus, chatId)
+      }
 }
 
+
+export interface Chat extends IObject{
+  chatId: string;
+  status: ChatStatus;
+  platform: Platforms;
+
+}
+
+export enum ChatStatus {
+  Running           = 0,
+  Paused            = 5,
+  ChatWithOperator  = 10,
+  Ended             = 15
+}
 export interface Connection extends IObject {
     slot: number;
     sourceId: string;
@@ -129,6 +174,11 @@ export interface Connection extends IObject {
   
   export interface DefaultBlock extends StoryBlock {
     nextBlock: string;
+  }
+
+  export interface Activity extends IObject{
+    chatId: string;
+    block: Block;
   }
   
   export type Block = TextMessageBlock | QuestionMessageBlock;
