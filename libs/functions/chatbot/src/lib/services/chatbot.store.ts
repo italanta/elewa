@@ -3,6 +3,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { IObject } from '@iote/bricks';
 import { HandlerTools } from "@iote/cqrs";
 import { TextMessageBlock, QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 
 /**
  * Contains all the required database flow methods for the chatbot
@@ -23,11 +24,11 @@ export class ChatBotStore {
         return latestBlock[0];
       }
     
-      async updateCursor(user: EndUser, newBlock: Block): Promise<Activity> {
-        const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
+      async updateCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
+        const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
     
         const newActivity: Activity = {
-          chatId: user.platform + '_' + user.storyId,
+          chatId: platform + '_' + chatInfo.storyId,
           block: newBlock
         }
         //Update milestone
@@ -88,17 +89,17 @@ export class ChatBotStore {
 
       /** Blocks and Connections */
     
-      async getNextBlockFromDefault(user: EndUser, defaultBlock: DefaultBlock): Promise<Block> {
-        const nextBlock: Block = await this.getBlockById(defaultBlock.nextBlock, user);
+      async getNextBlockFromDefault(chatInfo: ChatInfo, defaultBlock: DefaultBlock): Promise<Block> {
+        const nextBlock: Block = await this.getBlockById(defaultBlock.nextBlock, chatInfo);
     
-        const BlockRepo$ = this.tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
+        const BlockRepo$ = this.tools.getRepository<Block>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
     
         await BlockRepo$.write(nextBlock, nextBlock.id);
     
         return nextBlock;
       }
     
-      async getDefaultBlock(user: EndUser): Promise<DefaultBlock> {
+      async getDefaultBlock(user: ChatInfo): Promise<DefaultBlock> {
         const orgRepo$ = this.tools.getRepository<DefaultBlock>(`orgs/${user.orgId}/stories/${user.storyId}/blocks`);
         const id = 'default';
     
@@ -134,7 +135,7 @@ export class ChatBotStore {
         return conn[0]
       }
     
-      async getBlockById(id: string, user: EndUser): Promise<Block>{
+      async getBlockById(id: string, user: ChatInfo): Promise<Block>{
         const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${user.orgId}/stories/${user.storyId}/blocks`);
     
         const block: Block = await orgRepo$.getDocumentById(id)
@@ -148,18 +149,27 @@ export class ChatBotStore {
 
       /** Chat */
 
-      async initChatStatus(user: EndUser){
-        const chatId = user.platform + '_' + user.storyId
-        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats/${chatId}`);
+      async initChatStatus(chatInfo: ChatInfo, platform: Platforms){
+        const chatId = platform + '_' + chatInfo.storyId
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.id}/chats/${chatId}`);
 
         const newStatus: Chat = {
           chatId,
           status: ChatStatus.Running,
-          platform: user.platform
+          platform: platform
         }
         const newChat = await chatRepo$.write(newStatus, chatId)
 
         return newChat
+      }
+
+      async getChatStatus(user: ChatInfo, platform: Platforms){
+        const chatId = platform + '_' + user.storyId
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats`);
+
+        const chatStatus = await chatRepo$.getDocumentById(chatId)
+
+        return chatStatus
       }
 
       async updateChatStatus(user: EndUser, status: ChatStatus){
@@ -207,12 +217,6 @@ export interface Connection extends IObject {
     id: string;
     orgId: string;
     storyId: string;
-  }
-  
-  
-  export enum Platforms {
-    WhatsApp = 'whatsapp',
-    Telegram = 'telegram',
   }
   
   export interface DefaultBlock extends StoryBlock {
