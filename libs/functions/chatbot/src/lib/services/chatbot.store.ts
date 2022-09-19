@@ -13,6 +13,8 @@ export class ChatBotStore {
     this.tools = tools
     }
 
+    /** Cursor */
+
     async getLatestActivity(user: EndUser): Promise<Block> {
         const cursorRepo$ = this.tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
     
@@ -44,6 +46,9 @@ export class ChatBotStore {
         return activity;
       }
     
+
+      /*Users */
+
       async getEndUser(phoneNumber: string): Promise<EndUser> {
         // Get users
         const userRepo$ = this.tools.getRepository<EndUser>('end-users');
@@ -53,6 +58,35 @@ export class ChatBotStore {
         }
         return user;
       }
+
+      async getChatInfo(phoneNumber: string, platform: Platforms): Promise<ChatInfo> {
+        // Get users
+        const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${phoneNumber}/platforms`);
+        const chatInfo = await userRepo$.getDocumentById(platform);
+        if (!chatInfo) {
+          throw new Error('User does not exist!');
+        }
+        return chatInfo;
+      }
+
+      async registerChatInfo(info: {phoneNumber: string, orgId: string, storyId: string}, platform: Platforms): Promise<ChatInfo> {
+        // Get users
+        const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${info.phoneNumber}/platforms`);
+
+        const chatInfo: ChatInfo = {
+          id: info.phoneNumber,
+          orgId: info.orgId,
+          storyId: info.storyId,
+        }
+        if (!chatInfo) {
+          throw new Error('User does not exist!');
+        }
+
+        await userRepo$.write(chatInfo, platform)
+        return chatInfo;
+      }
+
+      /** Blocks and Connections */
     
       async getNextBlockFromDefault(user: EndUser, defaultBlock: DefaultBlock): Promise<Block> {
         const nextBlock: Block = await this.getBlockById(defaultBlock.nextBlock, user);
@@ -112,6 +146,8 @@ export class ChatBotStore {
         return block
       }
 
+      /** Chat */
+
       async initChatStatus(user: EndUser){
         const chatId = user.platform + '_' + user.storyId
         const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${user.id}/chats/${chatId}`);
@@ -166,6 +202,13 @@ export interface Connection extends IObject {
     storyId: string;
     platform: Platforms;
   }
+
+  export interface ChatInfo {
+    id: string;
+    orgId: string;
+    storyId: string;
+  }
+  
   
   export enum Platforms {
     WhatsApp = 'whatsapp',
