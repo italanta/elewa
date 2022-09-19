@@ -2,111 +2,66 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { Chat, ChatFlowStatus, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
-import { RawMessageWrapper, RawMessage, ChatMessage } from '@app/model/convs-mgr/conversations/messages';
+import { RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 import { createMessage } from '../model/create-message.model';
+import { ChatBotService } from '../services/main-chatbot.service';
+import { NextBlockFactory } from '../services/next-block.factory';
 
-/** Cache across function invocations. */
-const __KnownChats: string[] = [];
 
-export class ProcessMessageHandler extends FunctionHandler<RawMessageWrapper, RestResult200>
+export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestResult200>
 {
   /**
-   * Incoming message hook from Landbot.
+   * Incoming message hook from the chat platforms e.g. Whatsapp, Telegram...
    *
    * Registers incoming messages and processes them as readable information in our system.
    */
-  public async execute(req: RawMessageWrapper, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: RawMessageData, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[RecordMessageHandler].execute: New incoming chat from channels.`);
+    tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
 
-    await Promise.all(req.messages.map(msg => this._processMessage(msg, tools)));
+    await this._processMessage(req, tools)
 
     return { success: true } as RestResult200;
   }
 
-  private async _processMessage(msg: RawMessage, tools: HandlerTools)
+  private async _processMessage(msg: RawMessageData, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[RecordMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
+    tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
-    /** Always link the chatId to the customer, as multiple senders are involved in a chat. */
-    const chatId = `${msg.customer.id}`;
+    const chatService =  new ChatBotService(tools.Logger)
 
-    if(!__KnownChats.find(c => c === chatId))
-      await this._initSession(chatId, msg, tools);
+    const endUser = await chatService.getEndUser(msg.phoneNumber, tools)
 
-    const messageRepo = tools.getRepository<ChatMessage>(`sessions/${chatId}/messages`);
-    const message = createMessage(msg);
+    if(!endUser)
+      tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    await this._updateChat(chatId, message, tools);
+    const userActivity =  await chatService.getActivity(endUser, tools);
 
-    return messageRepo.create(message);
+    if(!userActivity){
+      return await this._initSession(endUser, chatService, msg, tools)
+    } else {
+      return await this._nextBlock(endUser, chatService, msg, tools)
+    }
   }
 
-  /** If a chat session has not yet been recorded on this container, we need to verify if the chat exists.
-   *    Therefore,
+  /** If a chat session has not yet been recorded on this container, we create a new one and return the first block
+   *  
   */
-  private async _initSession(chatId: string, msg: RawMessage, tools: HandlerTools)
+  private async _initSession(endUser: any, chatService: ChatBotService, msg: RawMessageData, tools: HandlerTools)
   {
-    const chatRepo = tools.getRepository<Chat>(`sessions`);
-    const chat = await chatRepo.getDocumentById(chatId);
+    const firstBlock = await chatService.init(endUser, tools)
 
-    if(chat)
-      __KnownChats.push(chat.id);
-    else {
-      const nChat: Chat = {
-        id: chatId,
-        name: msg.customer.name,
-        phone: msg.customer.phone,
-        flow: ChatFlowStatus.Flowing,
-        onboardedOn: new Date(),
-
-        status: ChatStatus.New,
-        channel: msg.channel.type,
-        channelId: `${msg.channel.id}`,
-        channelName: msg.channel.name,
-        updatedOn: new Date()
-      };
-
-      await chatRepo.create(nChat, chatId);
-      __KnownChats.push(chat.id);
-    }
+    return firstBlock
   }
 
-  private async _updateChat(chatId: string, message: ChatMessage, tools: HandlerTools)
-  {
-    let chatIsChanged = false;
+  private async _nextBlock(endUser: any, chatService: ChatBotService, msg: RawMessageData, tools: HandlerTools){
+    const latestBlock = await chatService.getLatestActivity(endUser,tools)
+    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
 
-    const chatRepo = tools.getRepository<Chat>('sessions');
-    const chat = await chatRepo.getDocumentById(chatId);
+    const nextBlock = nextBlockService.getNextBlock(endUser, msg.message, latestBlock)
 
-    if(message.origin === 'agent' && chat.awaitingResponse)
-    {
-      chat.awaitingResponse = false;
-      chatIsChanged = true;
-    }
-    else if(message.origin === 'customer')
-    {
-      if(chat.flow === ChatFlowStatus.Paused || chat.flow === ChatFlowStatus.PausedByAgent
-          || chat.flow === ChatFlowStatus.Completed)
-      {
-        chat.awaitingResponse = true;
-        chatIsChanged = true;
-      }
-      else if(chat.status === ChatStatus.Stashed || chat.flow === ChatFlowStatus.Stashed)
-      {
-        chat.status = ChatStatus.New;
-        chat.flow = ChatFlowStatus.PausedByAgent;
-        chat.stashed = {reason: '', stashedBy: ''};
-        chatIsChanged = true;
-      }
-    }
-
-    if(chatIsChanged)
-    {
-      await chatRepo.update(chat);
-    }
+    return nextBlock;
   }
 
 }

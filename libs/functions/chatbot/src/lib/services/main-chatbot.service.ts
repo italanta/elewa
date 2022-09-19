@@ -1,14 +1,14 @@
 import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/cqrs';
+import { IObject } from '@iote/bricks';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { config } from '../environment/environment';
 
 /**
- * Handles all Firestore processes
+ * Handles the main processes of the ChatBot
  */
 export class ChatBotService {
   constructor(private _logger: Logger) {}
@@ -17,7 +17,7 @@ export class ChatBotService {
     // Get the default block
     const defaultBlock: DefaultBlock = await this._getDefaultBlock(user, tools);
 
-    const activityRepo$ = tools.getRepository<DefaultBlock>(`user-activity/${user.id}/stories/${user.storyId}/milestones`);
+    const activityRepo$ = tools.getRepository<DefaultBlock>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
 
     // Create subject
     await activityRepo$.write(defaultBlock, defaultBlock.id);
@@ -49,13 +49,13 @@ export class ChatBotService {
   async getActivity(user: EndUser, tools: HandlerTools) {
     // Get subject
     // TODO: Create a type for user-activity
-    const activityRepo$ = tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/milestones`);
+    const activityRepo$ = tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
     const activity = await activityRepo$.getDocumentById(user.id);
 
     return activity;
   }
 
-  async getUser(phoneNumber: string, tools: HandlerTools): Promise<EndUser> {
+  async getEndUser(phoneNumber: string, tools: HandlerTools): Promise<EndUser> {
     // Get users
     const userRepo$ = tools.getRepository<EndUser>('end-users');
     const user = await userRepo$.getDocumentById(phoneNumber);
@@ -68,7 +68,7 @@ export class ChatBotService {
   private async _getNextBlockFromDefault(user: EndUser, defaultBlock: DefaultBlock, tools: HandlerTools): Promise<Block> {
     const nextBlock: Block = await this._getBlockById(defaultBlock.nextBlock, user, tools);
 
-    const BlockRepo$ = tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/milestones`);
+    const BlockRepo$ = tools.getRepository<Block>(`user-activity/${user.id}/stories/${user.storyId}/cursor`);
 
     await BlockRepo$.write(nextBlock, nextBlock.id);
 
@@ -98,6 +98,48 @@ export class ChatBotService {
 
     return block;
   }
+
+  async getConnByOption(id: string, user: EndUser, tools: HandlerTools): Promise<Connection>{
+    const orgRepo$ = tools.getRepository<Connection>(`orgs/${user.orgId}/stories/${user.storyId}/connections`);
+
+    const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id))[0]
+
+    if(!conn[0]){
+      throw new Error('Connection does not exist')
+    }
+
+    return conn[0]
+  }
+
+  async getConnBySourceId(blockId: string, user: EndUser, tools: HandlerTools): Promise<Connection>{
+    const orgRepo$ = tools.getRepository<Connection>(`orgs/${user.orgId}/stories/${user.storyId}/connections`);
+
+    const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `defo-${blockId}`))[0]
+
+    if(!conn[0]){
+      throw new Error('Connection does not exist')
+    }
+
+    return conn[0]
+  }
+
+  async getBlockById(id: string, provider: any, tools: HandlerTools): Promise<Block>{
+    const orgRepo$ = tools.getRepository<StoryBlock>(`orgs/${provider.orgId}/stories/${provider.storyId}/blocks`);
+
+    const block: Block = await orgRepo$.getDocumentById(id)
+
+    if(!block){
+      throw new Error('Block does not exist')
+    }
+
+    return block
+  }
+}
+
+export interface Connection extends IObject {
+  slot: number;
+  sourceId: string;
+  targetId: string;
 }
 
 export interface EndUser {
