@@ -83,8 +83,21 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
+      "@app/functions/conversations/onboarding": [
+        "libs/functions/conversations/onboarding/src/index.ts"
+      ],
+      "@app/functions/conversations/progression": [
+        "libs/functions/conversations/progression/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/admin/system": [
+        "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
+      ],
       "@app/model/convs-mgr/conversations/chats": [
         "libs/model/convs-mgr/conversations/chats/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/messages": [
+        "libs/model/convs-mgr/conversations/messages/src/index.ts"
       ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
