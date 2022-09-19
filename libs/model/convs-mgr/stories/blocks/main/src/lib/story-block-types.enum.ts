@@ -53,5 +53,9 @@ export enum StoryBlockTypes {
   /**
    * Block that waits for the user to enter their phone-number as input
    */
-  PhoneNumber=12
+  PhoneNumber=12,
+  /**
+   * Block that sends a message to the user and expects a list of items to be returned
+   */
+  List=15
 }
