@@ -5,9 +5,9 @@
   "description": "Akita stores for connecting to firestore and other GCP data sources.",
 
   "peerDependencies": {
-    "rxjs": "",
-    "lodash": "",
-
+    "rxjs": "^7.4.0",
+    "lodash": "^4.17.21",
+    
     "@iote/bricks": "^2.0.0",
     "@iote/state": "^2.0.0",
     "@iote/bricks-angular": "^2.0.0",
