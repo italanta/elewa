@@ -1,6 +1,7 @@
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HandlerTools, Logger } from "@iote/cqrs";
-import { Block, ChatBotService, EndUser } from "../main-chatbot.service";
+import { Block, ChatBotStore, EndUser } from "../chatbot.store";
+
 import { MatchInputService } from "../match-input.service";
 import { NextBlockInterface } from "../next-block.interface";
 
@@ -17,7 +18,7 @@ export class QuestionMessageService implements NextBlockInterface {
 
     async getNextBlock(user: EndUser, message: string, lastBlock?: QuestionMessageBlock): Promise<Block>{
         const matchInput = new MatchInputService();
-        const chatService = new ChatBotService(this._logger)
+        const chatBotRepo$ =  new ChatBotStore(this.tools)
 
         const selectedOptionIndex = matchInput.exactMatch(message, lastBlock.options)
 
@@ -27,9 +28,9 @@ export class QuestionMessageService implements NextBlockInterface {
       
         const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`
 
-        const connection = await chatService.getConnByOption(sourceId, user, this.tools)
+        const connection = await chatBotRepo$.getConnByOption(sourceId, user)
 
-        const nextBlock = await chatService.getBlockById(connection.targetId, user, this.tools)
+        const nextBlock = await chatBotRepo$.getBlockById(connection.targetId, user)
 
         return nextBlock
     }
