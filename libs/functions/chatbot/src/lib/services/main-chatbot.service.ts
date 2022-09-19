@@ -1,7 +1,8 @@
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/cqrs';
 
-import { Block, ChatBotStore, ChatStatus, DefaultBlock, EndUser } from './chatbot.store';
+import { Block, ChatBotStore, ChatInfo, ChatStatus, DefaultBlock, EndUser } from './chatbot.store';
 
 
 /**
@@ -10,21 +11,22 @@ import { Block, ChatBotStore, ChatStatus, DefaultBlock, EndUser } from './chatbo
 export class ChatBotService {
 
   chatId: string;
-  constructor(private _logger: Logger) {}
 
-  async init(user: EndUser, tools: HandlerTools): Promise<Block> {
+  constructor(private _logger: Logger, private _platform: Platforms) {}
+
+  async init(chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> {
     this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
     const chatBotRepo$ =  new ChatBotStore(tools)
     // Get the default block
-    const defaultBlock: DefaultBlock = await chatBotRepo$.getDefaultBlock(user);
+    const defaultBlock: DefaultBlock = await chatBotRepo$.getDefaultBlock(chatInfo);
 
     // Get the next block using the default block
-    const nextBlock: Block = await chatBotRepo$.getNextBlockFromDefault(user, defaultBlock);
-    const chatData = await chatBotRepo$.initChatStatus(user); 
+    const nextBlock: Block = await chatBotRepo$.getNextBlockFromDefault(chatInfo, defaultBlock);
+    const chatData = await chatBotRepo$.initChatStatus(chatInfo, this._platform); 
 
     this.chatId = chatData.chatId;
     // Save User Activity
-    await chatBotRepo$.updateCursor(user, nextBlock);
+    await chatBotRepo$.updateCursor(chatInfo, nextBlock, this._platform);
 
     return nextBlock;
   }
@@ -56,7 +58,7 @@ export class ChatBotService {
     const chatBotRepo$ =  new ChatBotStore(tools)
     const newBlock = await chatBotRepo$.getBlockById(blockId, user)
     
-    await chatBotRepo$.updateCursor(user, newBlock);
+    await chatBotRepo$.updateCursor(user, newBlock, this._platform);
 
     return newBlock
   }
