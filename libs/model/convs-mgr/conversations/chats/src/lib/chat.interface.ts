@@ -3,7 +3,9 @@ import { Timestamp } from '@firebase/firestore-types';
 import { IObject } from '@iote/bricks';
 
 import { ChatStatus } from './chat-status.enum';
-import { CommunicationChannelTypes } from '@elewa/model/admin/system';
+// import { CommunicationChannelTypes } from '@elewa/model/admin/system';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { TextMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 export interface Chat extends IObject
 {
@@ -17,7 +19,7 @@ export interface Chat extends IObject
 
   info?: ChatUserInfo;
 
-  channel: CommunicationChannelTypes;
+  // channel: CommunicationChannelTypes;
   channelId: string;
   channelName: string;
 
@@ -54,3 +56,22 @@ export interface ChatUserInfo {
 
   scoutBefore: boolean;
 }
+
+export interface ChatInfo {
+  id: string;
+  orgId: string;
+  storyId: string;
+}
+
+export interface Connection extends IObject {
+  slot: number;
+  sourceId: string;
+  targetId: string;
+}
+
+
+export interface DefaultBlock extends StoryBlock {
+  nextBlock: string;
+}
+
+export type Block = TextMessageBlock | QuestionMessageBlock;
