@@ -4,6 +4,9 @@ import { IObject } from '@iote/bricks';
 import { HandlerTools } from "@iote/cqrs";
 import { TextMessageBlock, QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
+/**
+ * Contains all the required database flow methods for the chatbot
+ */
 export class ChatBotStore {
     tools: HandlerTools;
     constructor(tools: HandlerTools){
