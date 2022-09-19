@@ -84,6 +84,9 @@
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
       "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
+      "@app/functions/conversations/onboarding": [
+        "libs/functions/conversations/onboarding/src/index.ts"
+      ],
       "@app/functions/conversations/progression": [
         "libs/functions/conversations/progression/src/index.ts"
       ],
