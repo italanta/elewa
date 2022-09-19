@@ -48,5 +48,10 @@
         <app-location-block [id]="id" [block]="block" [locationMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-location-block>
     </div>
 
+    <div *ngSwitchCase="listType">
+        <app-list-block [id]="id" [block]="block" [listMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-list-block>
+    </div>
+
+
 
 </mat-card>
