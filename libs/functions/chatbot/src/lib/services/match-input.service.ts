@@ -1,5 +1,9 @@
 import { findIndex as __findIndex } from 'lodash';
 
+/**
+ * [Work In Progress]
+ * Contains methods to match options and user input
+ */
 export class MatchInputService{
     constructor(){}
 
