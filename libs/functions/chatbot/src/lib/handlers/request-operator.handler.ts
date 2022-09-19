@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
 import { Chat, ChatFlowStatus, CHAT_ID } from '@app/model/convs-mgr/conversations/chats';
-import { LandbotService } from '../services/main-chatbot.service';
+import { ChatBotService } from '../services/main-chatbot.service';
 import { User } from '@iote/bricks';
 
 const WHATSAPP_BOT_ID = 644268;
@@ -28,7 +28,7 @@ export class RequestOperatorHandler extends FunctionHandler<{ id: string, name?:
     tools.Logger.log(() => `[TalkToHumanHandler].execute: Open up channel to talk to Human Agent.`);
     tools.Logger.log(() => JSON.stringify(req));
 
-    const landbot = new LandbotService(tools.Logger);
+    const landbot = new ChatBotService(tools.Logger);
 
     const chatRepo = tools.getRepository<Chat>(`sessions`);
     const chat = await chatRepo.getDocumentById(CHAT_ID(req.id));
