@@ -4,6 +4,14 @@ import { MessageOrigins } from './message-origins.enum';
 
 import { CommunicationChannelTypes } from '@app/model/convs-mgr/conversations/admin/system';
 
+
+export interface RawMessageData {
+  id: string;
+  phoneNumber: string;
+  platform: string;
+  message: string;
+
+}
 export interface RawMessageWrapper
 {
   messages: RawMessage[];
