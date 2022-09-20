@@ -61,12 +61,12 @@ export class ChatBotStore {
         return chatInfo;
       }
 
-      async registerChatInfo(info: {phoneNumber: string, orgId: string, storyId: string}, platform: Platforms): Promise<ChatInfo> {
+      async registerChatInfo(info: ChatInfo, platform: Platforms): Promise<ChatInfo> {
         // Get users
-        const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${info.phoneNumber}/platforms`);
+        const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${info.id}/platforms`);
 
         const chatInfo: ChatInfo = {
-          id: info.phoneNumber,
+          id: info.id,
           orgId: info.orgId,
           storyId: info.storyId,
         }

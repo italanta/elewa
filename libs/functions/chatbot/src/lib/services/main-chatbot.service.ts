@@ -1,8 +1,10 @@
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChatInfo, Block, DefaultBlock } from '@app/model/convs-mgr/conversations/chats';
+import { ChatStatus } from '@app/model/convs-mgr/conversations/messages';
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/cqrs';
 
-import { Block, ChatBotStore, ChatInfo, ChatStatus, DefaultBlock, EndUser } from './chatbot.store';
+import { ChatBotStore } from './chatbot.store';
 
 
 /**
@@ -31,34 +33,34 @@ export class ChatBotService {
     return nextBlock;
   }
 
-  async pause(user: EndUser, tools: HandlerTools){
+  async pause(chatInfo: ChatInfo, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].pause - Pausing Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.updateChatStatus(user, ChatStatus.Paused)
+    await chatBotRepo$.updateChatStatus(chatInfo, ChatStatus.Paused, this._platform)
   }
 
-  async resume(user: EndUser, tools: HandlerTools){
+  async resume(chatInfo: ChatInfo, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].resume - Resuming Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.updateChatStatus(user, ChatStatus.Running)
+    await chatBotRepo$.updateChatStatus(chatInfo, ChatStatus.Running, this._platform)
   }
 
-  async end(user: EndUser, tools: HandlerTools){
+  async end(chatInfo: ChatInfo, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].end - Ending Session`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.updateChatStatus(user, ChatStatus.Ended)
+    await chatBotRepo$.updateChatStatus(chatInfo, ChatStatus.Ended, this._platform)
   }
 
-  async jumpToBlock(blockId: string, user: EndUser, tools: HandlerTools){
+  async jumpToBlock(blockId: string, chatInfo: ChatInfo, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].Jump - Jumping to block ${blockId}`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    const newBlock = await chatBotRepo$.getBlockById(blockId, user)
+    const newBlock = await chatBotRepo$.getBlockById(blockId, chatInfo)
     
-    await chatBotRepo$.updateCursor(user, newBlock, this._platform);
+    await chatBotRepo$.updateCursor(chatInfo, newBlock, this._platform);
 
     return newBlock
   }
