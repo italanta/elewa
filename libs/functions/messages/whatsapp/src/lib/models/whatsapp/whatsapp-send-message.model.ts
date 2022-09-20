@@ -1,6 +1,6 @@
+import axios from "axios";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { HandlerTools } from "@iote/cqrs";
-import axios from "axios";
 import { GetWhatsAppMessageTypeService } from "../../services/get-whatsapp-message-type.service";
 export class SendWhatsAppMessageModel {
 
@@ -13,7 +13,9 @@ export class SendWhatsAppMessageModel {
   async sendMessage(message: StoryBlock, env:any) {
 
     //Service to get data to send to to whatsapp api
-    const getMessageTypeService = new GetWhatsAppMessageTypeService(this._tools)
+    const getMessageTypeService = new GetWhatsAppMessageTypeService(this._tools);
+
+    const dataToSend = getMessageTypeService.getDataToSend(message);
 
     //Auth token gotten from facebook api
     const authorizationHeader = env.AUTHORIZATION_HEADER;
@@ -21,22 +23,22 @@ export class SendWhatsAppMessageModel {
     /**
      * https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const PHONE_NUMBER = 103844892462329 //Refers to business number to be used
-    const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER}/messages`
+    const PHONE_NUMBER_ID = 103844892462329 //Refers to business number to be used
+    const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
     const data = {
       "messaging_product": "whatsapp",
       "recipient_type": "individual",
-      "to": "0706165412",
+      "to": "254706165412", 
       "type": "text",
       "text": {
         "preview_url": false,
-        "body": "test"
+        "body": `${dataToSend}`
       }
     }
 
     const res = await axios.post(
       url,
-      JSON.stringify(data),
+      data,
       {
           headers: {
             'Authorization': `Bearer ${authorizationHeader}`,
