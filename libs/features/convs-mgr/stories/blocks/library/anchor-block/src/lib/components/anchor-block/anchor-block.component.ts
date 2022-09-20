@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
+import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-anchor-block',
@@ -6,6 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./anchor-block.component.scss']
 })
 export class AnchorBlockComponent implements OnInit {
+  
+  @Input() id: string;
+  @Input() block: TextMessageBlock;
+  @Input() jsPlumb: BrowserJsPlumbInstance;
 
   constructor() { }
 
