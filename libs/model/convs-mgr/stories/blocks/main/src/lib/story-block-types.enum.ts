@@ -2,6 +2,12 @@
  * Different types and roles a block can play
  */
 export enum StoryBlockTypes {
+
+  /**
+   * Block that marks the beginning of a story
+   * Automatically loaded on the editor when user creates a story
+   */
+  AnchorBlock = 0,
   /** 
    * Block only produces message output and will not wait for input. 
    * 
