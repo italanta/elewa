@@ -1,23 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { Logger } from '@iote/bricks-angular';
 
+import { AnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 @Component({
   selector: 'app-anchor-block',
   templateUrl: './anchor-block.component.html',
-  styleUrls: ['./anchor-block.component.scss']
+  styleUrls: ['./anchor-block.component.scss'],
 })
 export class AnchorBlockComponent implements OnInit {
-  
   @Input() id: string;
-  @Input() block: TextMessageBlock;
+  @Input() block: AnchorBlock;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  constructor() { }
+  @Input() anchorBlockForm: FormGroup;
 
-  ngOnInit(): void {
-  }
+  constructor() {}
 
+  ngOnInit(): void {}
 }
