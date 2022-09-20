@@ -8,7 +8,7 @@ import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxj
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, ReplyMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -39,6 +39,7 @@ export class BlocksLibraryComponent implements OnInit
     { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
     { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
+    { id:'input-reply-block', type:StoryBlockTypes.Reply, message:'Reply Block' } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
@@ -73,6 +74,9 @@ export class BlocksLibraryComponent implements OnInit
         break;
       case StoryBlockTypes.Location:
         this.frame.newBlock(StoryBlockTypes.Location);
+        break;
+      case StoryBlockTypes.Reply:
+        this.frame.newBlock(StoryBlockTypes.Reply);
         break;
     }
   }
