@@ -47,6 +47,11 @@
     <div *ngSwitchCase="locationtype">
         <app-location-block [id]="id" [block]="block" [locationMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-location-block>
     </div>
+    <div *ngSwitchCase="replyType">
+        <app-reply-block [id]="id" [block]="block" [replyMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-reply-block>
+    </div>
+
+
 
 
 </mat-card>
