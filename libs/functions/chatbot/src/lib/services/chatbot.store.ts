@@ -54,7 +54,7 @@ export class ChatBotStore {
       async getChatInfo(phoneNumber: string, platform: Platforms): Promise<ChatInfo> {
         // Get users
         const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${phoneNumber}/platforms`);
-        const chatInfo = await userRepo$.getDocumentById(platform);
+        const chatInfo = await userRepo$.getDocumentById(platform.toString());
         if (!chatInfo) {
           throw new Error('User does not exist!');
         }
@@ -74,7 +74,7 @@ export class ChatBotStore {
           throw new Error('User does not exist!');
         }
 
-        await userRepo$.write(chatInfo, platform)
+        await userRepo$.write(chatInfo, platform.toString())
         return chatInfo;
       }
 
@@ -92,7 +92,7 @@ export class ChatBotStore {
     
       async getDefaultBlock(chatInfo: ChatInfo): Promise<DefaultBlock> {
         const orgRepo$ = this.tools.getRepository<DefaultBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
-        const id = 'default';
+        const id = chatInfo.storyId;
     
         const defaultBlock = await orgRepo$.getDocumentById(id);
     
