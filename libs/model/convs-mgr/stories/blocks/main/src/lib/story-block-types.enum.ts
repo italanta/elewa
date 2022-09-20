@@ -16,10 +16,10 @@ export enum StoryBlockTypes {
    * Usage         : operator awaits feedback, ... */
   Input = 2,
 
-  
-/**
- * Block that sends a location to the userxs
- */
+
+  /**
+   * Block that sends a location to the userxs
+   */
   Location = 4,
 
   QuestionBlock = 6,
@@ -39,19 +39,23 @@ export enum StoryBlockTypes {
    * Block that sends an image and expects no input from the user 
    */
   Image = 5,
-  
+
   /**
    * Block that waits for the user to return their name as input
    */
-  Name=10,
+  Name = 10,
 
   /**
    * Block that waits for the user to enter their email address as input
    */
-  Email=11,
+  Email = 11,
 
   /**
    * Block that waits for the user to enter their phone-number as input
    */
-  PhoneNumber=12
+  PhoneNumber = 12,
+  /**
+  * Block that expects input from the user by replying to a message
+  */
+  Reply = 17
 }
