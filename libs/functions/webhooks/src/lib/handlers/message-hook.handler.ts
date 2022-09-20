@@ -14,6 +14,7 @@ export class MessageHookHandler extends FunctionHandler<{val:BotProvider}, void>
       return __VerifyWhatsAppTokenWebHook(context, tools, token);
     }
      tools.Logger.log(() =>`Processing data from webhook...⌚⌚`);
+     tools.Logger.log(() =>`${JSON.stringify(data)}`);
      
      const dataT = __ConvertWhatsAppApiPayload(data);
      tools.Logger.log(() =>`${dataT.entry}`);
