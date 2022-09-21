@@ -19,11 +19,11 @@ export class ChatBotService {
   async init(chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> {
     this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
     const chatBotRepo$ =  new ChatBotStore(tools)
-    // Get the default block
-    const defaultBlock: DefaultBlock = await chatBotRepo$.getDefaultBlock(chatInfo);
 
-    // Get the next block using the default block
-    const nextBlock: Block = await chatBotRepo$.getNextBlockFromDefault(chatInfo, defaultBlock);
+    // Get the first block using the anchor block - which uses the story id
+    const connection = await chatBotRepo$.getConnBySourceId(chatInfo.storyId, chatInfo)
+    let nextBlock: Block = await chatBotRepo$.getBlockById(connection.targetId, chatInfo)
+
     const chatData = await chatBotRepo$.initChatStatus(chatInfo, this._platform); 
 
     this.chatId = chatData.chatId;
