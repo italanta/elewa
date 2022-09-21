@@ -80,16 +80,6 @@ export class ChatBotStore {
 
       /** Blocks and Connections */
     
-      async getNextBlockFromDefault(chatInfo: ChatInfo, defaultBlock: DefaultBlock): Promise<Block> {
-        const nextBlock: Block = await this.getBlockById(defaultBlock.nextBlock, chatInfo);
-    
-        const BlockRepo$ = this.tools.getRepository<Block>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
-    
-        await BlockRepo$.write(nextBlock, nextBlock.id);
-    
-        return nextBlock;
-      }
-    
       async getDefaultBlock(chatInfo: ChatInfo): Promise<DefaultBlock> {
         const orgRepo$ = this.tools.getRepository<DefaultBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
         const id = chatInfo.storyId;
