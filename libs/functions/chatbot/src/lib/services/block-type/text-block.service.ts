@@ -1,6 +1,8 @@
+import { Block, ChatInfo } from "@app/model/convs-mgr/conversations/chats";
 import { TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HandlerTools, Logger } from "@iote/cqrs";
-import { ChatBotStore, EndUser, Block } from "../chatbot.store";
+import { ChatBotStore } from "../chatbot.store";
+// import { ChatBotStore, Block } from "../chatbot.store";
 import { NextBlockInterface } from "../next-block.interface";
 
 export class TextMessageService implements NextBlockInterface {
@@ -11,11 +13,11 @@ export class TextMessageService implements NextBlockInterface {
         this.tools = tools
     }
 
-    async getNextBlock(user: EndUser, message: string, lastBlock: TextMessageBlock): Promise<Block>{
+    async getNextBlock(chatInfo: ChatInfo, message: string, lastBlock: TextMessageBlock): Promise<Block>{
         const chatBotRepo$ =  new ChatBotStore(this.tools)
         
-        const connection = await chatBotRepo$.getConnBySourceId(lastBlock.id, user)
-        let nextBlock: Block = await chatBotRepo$.getBlockById(connection.targetId, user)
+        const connection = await chatBotRepo$.getConnBySourceId(lastBlock.id, chatInfo)
+        let nextBlock: Block = await chatBotRepo$.getBlockById(connection.targetId, chatInfo)
 
         return nextBlock
     }
