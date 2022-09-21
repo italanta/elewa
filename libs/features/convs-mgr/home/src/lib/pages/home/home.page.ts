@@ -56,7 +56,7 @@ export class HomePageComponent implements OnDestroy
     this._addStory$.add().subscribe((story: Story)=>{
       let d = story
     setTimeout(() => {
-      this._anchor$$.create(d.id as string)
+      this._anchor$$.create(d.id as string).subscribe()
     }, 800);
     })
 
