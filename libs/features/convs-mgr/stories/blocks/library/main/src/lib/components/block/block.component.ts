@@ -11,6 +11,7 @@ import { _CreateQuestionBlockMessageForm } from '../../model/question-block-form
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
 import { _CreateTextMessageBlockForm } from '../../model/text-message-block-form.model';
 
+import { cloneDeep } from 'lodash';
 
 /**
  * Block which sends a message from bot to user.
@@ -25,6 +26,7 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() blockCopy: StoryBlock;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -36,6 +38,14 @@ export class BlockComponent implements OnInit {
   constructor(private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger) { }
+  
+  copyBlock(event: any) {
+    this.blockCopy = cloneDeep(this.block);
+    this.blocksGroup.push(this.blockFormGroup);
+    console.log(this.blockCopy);
+    console.log(this.block);
+
+  }
 
   ngOnInit(): void {
     this.type = this.block.type;

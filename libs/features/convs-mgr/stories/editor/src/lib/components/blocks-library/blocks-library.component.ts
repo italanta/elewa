@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 
 import { Logger } from '@iote/bricks-angular';
@@ -12,7 +12,6 @@ import { LocationMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@a
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
-import { cloneDeep } from 'lodash';
 
 /**
  * Component which holds a library (list) of all blocks that can be created 
@@ -77,6 +76,7 @@ export class BlocksLibraryComponent implements OnInit
     this.filterInput$$.next(event.target.value);
   }
 
+  
   ngOnDestroy() {
     this._sbS.unsubscribe();
   }

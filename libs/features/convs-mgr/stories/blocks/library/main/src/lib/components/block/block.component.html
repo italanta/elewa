@@ -7,7 +7,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item (click)="copyBlock($event)">
         <mat-icon>assignment</mat-icon>
         <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
       </button>
