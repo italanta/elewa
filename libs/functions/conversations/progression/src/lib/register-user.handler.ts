@@ -22,7 +22,8 @@ export class RegisterEndUserHandler extends FunctionHandler<{phoneNumber: string
   private async _registerEndUser(req: {phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, tools: HandlerTools): Promise<ChatInfo>{
     const chatBotStore  = new ChatBotStore(tools)
     const chatInfo: ChatInfo = {
-      id: req.phoneNumber,
+      id: req.platform,
+      phoneNumber: req.phoneNumber,
       orgId: req.orgId,
       storyId: req.storyId,
     }

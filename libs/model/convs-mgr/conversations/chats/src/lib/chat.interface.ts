@@ -59,6 +59,7 @@ export interface ChatUserInfo {
 
 export interface ChatInfo {
   id: string;
+  phoneNumber: string;
   orgId: string;
   storyId: string;
 }
