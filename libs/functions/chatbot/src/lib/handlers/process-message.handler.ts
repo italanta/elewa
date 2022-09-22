@@ -8,10 +8,10 @@ import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block.factory';
 import { ChatBotStore } from '../services/chatbot.store';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 
-export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestResult200>
+export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
 {
   /**
    * Incoming message hook from the chat platforms e.g. Whatsapp, Telegram...
@@ -29,14 +29,15 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, RestR
 
     const chatInfo  = await chatBotRepo$.getChatInfo(req.phoneNumber, platform);
 
-    const chat = await chatBotRepo$.getChatStatus(chatInfo, platform);
-
-    if (chat.status == ChatStatus.Running){
-      await this._processMessage(chatInfo, req, tools, platform)
-    } else if (chat.status == ChatStatus.Paused){
-      tools.Logger.log(() => `[ProcessMessageHandler].execute: Chat has been paused.`);
-    }
-    return { success: true } as RestResult200;
+    // const chat = await chatBotRepo$.getChatStatus(chatInfo, platform);
+    const block = await this._processMessage(chatInfo, req, tools, platform)
+    // if (chat.status == ChatStatus.Running){
+  
+    // } else if (chat.status == ChatStatus.Paused){
+    //   tools.Logger.log(() => `[ProcessMessageHandler].execute: Chat has been paused.`);
+    // }
+    // return { success: true } as RestResult200;
+    return block
   }
 
   private async _processMessage(chatInfo: ChatInfo, msg: RawMessageData, tools: HandlerTools, platform: Platforms)
