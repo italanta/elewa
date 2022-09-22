@@ -1,1 +1,1 @@
-export * from './lib/functions-conversations-progression';
+export * from './lib/register-user.handler';
