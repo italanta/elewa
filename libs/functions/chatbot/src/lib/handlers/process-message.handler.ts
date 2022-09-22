@@ -51,7 +51,7 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
     if(!chatInfo)
       tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    const userActivity =  await chatBotRepo$.getActivity(chatInfo);
+    const userActivity =  await chatBotRepo$.getActivity(chatInfo, msg.platform);
 
     if(!userActivity){
       return await this._initSession(chatInfo, msg, tools, platform)
@@ -83,14 +83,14 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
    * @returns 
    */
   private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools, platform: Platforms){
-    const latestBlock = await chatBotRepo$.getLatestActivity(chatInfo)
-    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
+    const latestBlock = await chatBotRepo$.getLatestActivity(chatInfo, platform)
+    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.block.type, tools)
 
-    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
+    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock.block)
 
-    const block = await chatBotRepo$.updateCursor(chatInfo, nextBlock, platform)
+    const cursor = await chatBotRepo$.moveCursor(chatInfo, nextBlock, platform)
 
-    return block;
+    return cursor.block;
   }
 
 }

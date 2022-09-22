@@ -8,6 +8,7 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * Contains all the required database flow methods for the chatbot
+ * TODO: Group methods to different classes
  */
 export class ChatBotStore {
     tools: HandlerTools;
@@ -17,32 +18,47 @@ export class ChatBotStore {
 
     /** Cursor */
 
-    async getLatestActivity(chatInfo: ChatInfo): Promise<Block> {
-        const cursorRepo$ = this.tools.getRepository<Block>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
+    async getLatestActivity(chatInfo: ChatInfo, platform: Platforms): Promise<Activity> {
+        const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`);
     
         const latestBlock = await cursorRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));
     
         return latestBlock[0];
       }
+
+      async moveCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
+        const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`);
     
-      async updateCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
-        const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
-    
+        const timeStamp = Date.now()
         const newActivity: Activity = {
-          chatId: platform + '_' + chatInfo.storyId,
+          chatId: timeStamp.toString(),
           block: newBlock
         }
         //Update milestone
-        const block = await cursorRepo$.update(newActivity);
+        const block = await cursorRepo$.create(newActivity, newActivity.chatId);
     
         // Return next block
         return block;
       }
     
-      async getActivity(chatInfo: ChatInfo) {
+      // async updateCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
+      //   const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`);
+    
+      //   const newActivity: Activity = {
+      //     chatId: platform + '_' + chatInfo.storyId,
+      //     block: newBlock
+      //   }
+      //   //Update milestone
+      //   const block = await cursorRepo$.update(newActivity);
+    
+      //   // Return next block
+      //   return block;
+      // }
+    
+      async getActivity(chatInfo: ChatInfo, platform: Platforms) {
         // Get subject
         // TODO: Create a type for user-activity
-        const activityRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.id}/stories/${chatInfo.storyId}/cursor`);
+        const activityRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`);
         const activity = await activityRepo$.getDocumentById(chatInfo.id);
     
         return activity;
@@ -54,27 +70,26 @@ export class ChatBotStore {
       async getChatInfo(phoneNumber: string, platform: Platforms): Promise<ChatInfo> {
         // Get users
         const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${phoneNumber}/platforms`);
-        const chatInfo = await userRepo$.getDocumentById(platform.toString());
+        const chatInfo = await userRepo$.getDocumentById(platform);
+
         if (!chatInfo) {
-          throw new Error('User does not exist!');
+          throw new Error('This chat information has not been registered');
         }
         return chatInfo;
       }
 
       async registerChatInfo(info: ChatInfo, platform: Platforms): Promise<ChatInfo> {
         // Get users
-        const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${info.id}/platforms`);
+        const userRepo$ = this.tools.getRepository<ChatInfo>(`end-users/${info.phoneNumber}/platforms`);
 
         const chatInfo: ChatInfo = {
-          id: info.id,
+          id: platform,
+          phoneNumber: info.phoneNumber,
           orgId: info.orgId,
           storyId: info.storyId,
         }
-        if (!chatInfo) {
-          throw new Error('User does not exist!');
-        }
 
-        await userRepo$.write(chatInfo, platform.toString())
+        await userRepo$.create(chatInfo, platform.toString())
         return chatInfo;
       }
 
@@ -115,6 +130,18 @@ export class ChatBotStore {
     
         return conn[0]
       }
+
+      async getFirstConn(storyId: string, chatInfo: ChatInfo): Promise<Connection>{
+        const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
+    
+        const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `${storyId}`))
+
+        if(!conn[0]){
+          throw new Error('First Connection does not exist')
+        }
+    
+        return conn[0]
+      }
     
       async getBlockById(id: string, chatInfo: ChatInfo): Promise<Block>{
         const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
@@ -128,11 +155,11 @@ export class ChatBotStore {
         return block
       }
 
-      /** Chat */
+      /** Chat Status */
 
       async initChatStatus(chatInfo: ChatInfo, platform: Platforms){
-        const chatId = platform + '_' + chatInfo.storyId
-        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.id}/chats/${chatId}`);
+        const chatId = chatInfo.storyId
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.phoneNumber}/platforms/${platform}/chats`);
 
         const newStatus: Chat = {
           chatId,
@@ -145,8 +172,8 @@ export class ChatBotStore {
       }
 
       async getChatStatus(chatInfo: ChatInfo, platform: Platforms){
-        const chatId = platform + '_' + chatInfo.storyId
-        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.id}/chats`);
+        const chatId = chatInfo.storyId
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.phoneNumber}/platforms/${platform}/chats`);
 
         const chatStatus = await chatRepo$.getDocumentById(chatId)
 
@@ -154,9 +181,9 @@ export class ChatBotStore {
       }
 
       async updateChatStatus(chatInfo: ChatInfo, status: ChatStatus, platform: Platforms){
-        const chatId = platform + '_' + chatInfo.storyId
+        const chatId = chatInfo.storyId
 
-        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.id}/chats/${chatId}`);
+        const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.phoneNumber}/platforms/${platform}/chats`);
 
         const newStatus: Chat = {
           chatId,

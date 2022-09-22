@@ -21,16 +21,20 @@ export class ChatBotService {
     const chatBotRepo$ =  new ChatBotStore(tools)
 
     // Get the first block using the anchor block - which uses the story id
-    const connection = await chatBotRepo$.getConnBySourceId(chatInfo.storyId, chatInfo)
-    let nextBlock: Block = await chatBotRepo$.getBlockById(connection.targetId, chatInfo)
+
+    // Get the first connection
+    const connection = await chatBotRepo$.getFirstConn(chatInfo.storyId, chatInfo)
+
+    // Use the connection.targetId, to get the data of the first block
+    let firstBlock: Block = await chatBotRepo$.getBlockById(connection.targetId, chatInfo)
 
     const chatData = await chatBotRepo$.initChatStatus(chatInfo, this._platform); 
-
+    this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
     this.chatId = chatData.chatId;
     // Save User Activity
-    await chatBotRepo$.updateCursor(chatInfo, nextBlock, this._platform);
-
-    return nextBlock;
+    await chatBotRepo$.moveCursor(chatInfo, firstBlock, this._platform);
+    this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
+    return firstBlock;
   }
 
   async pause(chatInfo: ChatInfo, tools: HandlerTools){
@@ -60,7 +64,7 @@ export class ChatBotService {
     const chatBotRepo$ =  new ChatBotStore(tools)
     const newBlock = await chatBotRepo$.getBlockById(blockId, chatInfo)
     
-    await chatBotRepo$.updateCursor(chatInfo, newBlock, this._platform);
+    await chatBotRepo$.moveCursor(chatInfo, newBlock, this._platform);
 
     return newBlock
   }
