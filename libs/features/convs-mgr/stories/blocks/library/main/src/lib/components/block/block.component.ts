@@ -41,10 +41,29 @@ export class BlockComponent implements OnInit {
   
   copyBlock(event: any) {
     this.blockCopy = cloneDeep(this.block);
-    this.blocksGroup.push(this.blockFormGroup);
-    console.log(this.blockCopy);
-    console.log(this.block);
+    
+    
+    switch (this.blockCopy.type) {
+      case StoryBlockTypes.TextMessage:
+        this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.blockCopy);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
 
+      case StoryBlockTypes.QuestionBlock:
+        this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.blockCopy);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+
+      case StoryBlockTypes.Location:
+        this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.blockCopy);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+
+      default:
+        break;
+    }
+
+    console.log(this.blocksGroup);
   }
 
   ngOnInit(): void {
