@@ -59,7 +59,7 @@ export class ChatBotStore {
         // Get subject
         // TODO: Create a type for user-activity
         const activityRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`);
-        const activity = await activityRepo$.getDocumentById(chatInfo.id);
+        const activity = await activityRepo$.getDocuments(new Query());
     
         return activity;
       }
@@ -110,7 +110,7 @@ export class ChatBotStore {
       async getConnByOption(id: string, chatInfo: ChatInfo): Promise<Connection>{
         const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
     
-        const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id))[0]
+        const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id))
     
         if(!conn[0]){
           throw new Error('Connection does not exist')
@@ -122,7 +122,7 @@ export class ChatBotStore {
       async getConnBySourceId(blockId: string, chatInfo: ChatInfo): Promise<Connection>{
         const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
     
-        const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `defo-${blockId}`))[0]
+        const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `defo-${blockId}`))
     
         if(!conn[0]){
           throw new Error('Connection does not exist')
