@@ -14,22 +14,34 @@
         <div [routerLink]="['/']" mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
 
             <!-- <i matListIcon class="fas fa-columns"></i> -->
-            <img class="list-icon icon-top" src="assets/images/ele-small-ico.png">
-            <div fxLayout="column">
-                <div class="proj-name">{{ projectName }}</div>
-                <div class="proj-info">
-                    {{ projectInfo }}
+            <img class="list-icon " src="assets/images/elewa-logo.png">
+            <div  >
+
+              <mat-toolbar color="primary">
+                <div>
+                  <button mat-icon-button (click)="onTogglesidenav()">
+                    <mat-icon> menu </mat-icon>
+                  </button>
                 </div>
+              </mat-toolbar>
+
+
+
+
+                <!-- <div class="proj-name">{{ projectName }}</div> -->
+                <!-- <div class="proj-info">
+                    {{ projectInfo }}
+                </div> -->
             </div>
         </div>
 
-        <hr id="menu-header-seperator" />
+        <hr id="menu-header-seperator"/>
 
         <!-- Section Home -->
         <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
-            <div fxLayout="row">
-                <i matListIcon class="fas fa-home list-icon"></i> Home
+            <div fxLayout="row" fxLayoutAlign="start">
+                <i matListIcon class="fas fa-home"></i> Main
                 <div class="chevron-down" [class.right]="rlaHome.isActive">
                     <i class="fas fa-sort-down"></i>
                 </div>
@@ -37,9 +49,11 @@
             </div>
 
             <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
-                <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
-                    {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
-                </div>
+                <div [routerLink]="['/org']" mat-list-item class="child-header child-1" fxLayout="row" fxLayoutGap="15px">
+                    <!-- {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }} -->
+                    <fa-icon [icon]="dashboardIcon"></fa-icon>
+                <span>Dashboard</span>
+                  </div>
             </div>
             <button mat-raised-button (click)="logout()">
         {{'PAGE-CONTENT.SIDE-MENU.LOG-OUT' | transloco }}

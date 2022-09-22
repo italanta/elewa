@@ -21,6 +21,8 @@ mat-nav-list {
 .list-icon {
   margin-right: 10px;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
+  width: 60%;
+  
 }
 
 .icon-top {
@@ -44,10 +46,11 @@ mat-nav-list {
 }
 
 .header {
-  padding: 12px 25px;
+  padding: 12px 35px;
   border-bottom: 0.8px solid rgba(255,255,255,.1);
   font-size: 14px;
   outline: none;
+  margin-left: 10px;
 }
 
 .header-main-item:before {
@@ -77,21 +80,14 @@ mat-nav-list {
 
 .child-header {
   outline: none;
-  padding: 7px;
-  padding-left: 0;
+  // padding: 7px;
+  // padding-left: 0;
   text-transform: capitalize;
-  margin-right: -20px;
+  // margin-right: -20px;
   border-radius: 5px;
-  // margin-bottom: 5px;
 }
 
-.child-header::before
-{
-  content: "";
-  border-left: 2px solid hsla(0,0%,100%,0);
-  margin: 5px;
-  padding: 4px;
-}
+
 
 .child-1 {
   margin-top: 8px;
@@ -108,7 +104,12 @@ mat-nav-list {
   // padding: 10px 5px;
 }
 
-.hov:hover, .child-header:hover {
+.hov:hover {
   cursor: pointer;
   background-color: mat-color($accent, A200);
+}
+
+.category-children{
+  background-color: #7619ff26;
+  color: #7619ff;
 }
