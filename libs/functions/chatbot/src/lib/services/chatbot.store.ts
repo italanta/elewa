@@ -2,7 +2,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from "@iote/cqrs";
 
 import { Activity, Platforms } from "@app/model/convs-mgr/conversations/admin/system";
-import { Chat, ChatStatus } from "@app/model/convs-mgr/conversations/messages";
+import { Chat, ChatStatus, Message, RawMessageData } from "@app/model/convs-mgr/conversations/messages";
 import { Block, ChatInfo, Connection, DefaultBlock } from "@app/model/convs-mgr/conversations/chats";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
@@ -41,19 +41,6 @@ export class ChatBotStore {
         return block;
       }
     
-      // async updateCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
-      //   const cursorRepo$ = this.tools.getRepository<Activity>(`user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`);
-    
-      //   const newActivity: Activity = {
-      //     chatId: platform + '_' + chatInfo.storyId,
-      //     block: newBlock
-      //   }
-      //   //Update milestone
-      //   const block = await cursorRepo$.update(newActivity);
-    
-      //   // Return next block
-      //   return block;
-      // }
     
       async getActivity(chatInfo: ChatInfo, platform: Platforms) {
         // Get subject
@@ -191,5 +178,18 @@ export class ChatBotStore {
           platform
         }
         chatRepo$.write(newStatus, chatId)
+      }
+
+      /** Messages */
+
+      async saveMessage(msg: RawMessageData){
+
+        const timeStamp = Date.now();
+
+        const messageRepo$ = this.tools.getRepository<Message>(`messages`);
+
+       const savedMessage =  await messageRepo$.create(msg, timeStamp.toString())
+
+       return savedMessage
       }
 }

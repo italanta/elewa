@@ -10,3 +10,4 @@ admin.initializeApp(conf);
 export * from './app/a-basic-function';
 export * from './app/functions/bot/processMessage.function';
 export * from './app/functions/bot/registerUser.function';
+export * from './app/functions/bot/addMessage.function';
