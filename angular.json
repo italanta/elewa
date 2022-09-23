@@ -22,9 +22,7 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/features/convs-mgr/stories/blocks/library/anchor-block"
-          ],
+          "outputs": ["coverage/libs/features/convs-mgr/stories/blocks/library/anchor-block"],
           "options": {
             "jestConfig": "libs/features/convs-mgr/stories/blocks/library/anchor-block/jest.config.ts",
             "passWithNoTests": true
@@ -55,6 +53,29 @@
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "functions-chatbot": "libs/functions/chatbot",
+    "functions-conversations-messages-add-message": {
+      "root": "libs/functions/conversations/messages/add-message",
+      "sourceRoot": "libs/functions/conversations/messages/add-message/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/conversations/messages/add-message/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/conversations/messages/add-message"],
+          "options": {
+            "jestConfig": "libs/functions/conversations/messages/add-message/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-conversations-onboarding": "libs/functions/conversations/onboarding",
     "functions-conversations-progression": "libs/functions/conversations/progression",
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
