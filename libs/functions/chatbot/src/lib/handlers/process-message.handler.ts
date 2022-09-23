@@ -53,7 +53,7 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
 
     const userActivity =  await chatBotRepo$.getActivity(chatInfo, msg.platform);
 
-    if(!userActivity){
+    if(userActivity.length < 1){
       return await this._initSession(chatInfo, msg, tools, platform)
     } else {
       return await this._contSession(chatInfo, chatBotRepo$, msg, tools, platform)
@@ -68,7 +68,7 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
     const chatService =  new ChatBotService(tools.Logger, platform)
     const firstBlock = await chatService.init(endUser, tools)
 
-    tools.Logger.log(() => `[ProcessMessageHandler]._initSession: Session initialized ${JSON.stringify(msg)}.`);
+    tools.Logger.log(() => `[ProcessMessageHandler]._initSession: Session initialized`);
 
     return firstBlock
   }
