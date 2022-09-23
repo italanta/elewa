@@ -3,7 +3,8 @@ import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messag
 import { HandlerTools, Logger } from "@iote/cqrs";
 import { ChatBotStore } from "../chatbot.store";
 
-import { MatchInputService } from "../match-input.service";
+import { MatchInputService } from "../match-input/match-input.service";
+import { ExactMatch } from "../match-input/strategies/exact-match.strategy";
 import { NextBlockInterface } from "../next-block.interface";
 
 /**Handles the next block incase the last block was a question to the user  */
@@ -18,10 +19,14 @@ export class QuestionMessageService implements NextBlockInterface {
     }
 
     async getNextBlock(chatInfo: ChatInfo, message: string, lastBlock?: QuestionMessageBlock): Promise<Block>{
-        const matchInput = new MatchInputService();
         const chatBotRepo$ =  new ChatBotStore(this.tools)
+        const matchInput = new MatchInputService();
 
-        const selectedOptionIndex = matchInput.exactMatch(message, lastBlock.options)
+        // Set the match strategy to exactMatch
+        // TODO: Add a dynamic way of selecting matching strategies
+        matchInput.setMatchStrategy(new ExactMatch())
+
+        const selectedOptionIndex = matchInput.match(message, lastBlock.options)
 
         if (selectedOptionIndex == -1){
             this._logger.error(()=> `The message did not match any option found`)
