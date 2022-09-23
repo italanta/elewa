@@ -83,10 +83,12 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
    * @returns 
    */
   private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools, platform: Platforms){
-    const latestBlock = await chatBotRepo$.getLatestActivity(chatInfo, platform)
-    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.block.type, tools)
+    const latestActivity = await chatBotRepo$.getLatestActivity(chatInfo, platform)
+    
+    const latestBlock = await chatBotRepo$.getBlockById(latestActivity.block.id, chatInfo)
+    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
 
-    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock.block)
+    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
 
     const cursor = await chatBotRepo$.moveCursor(chatInfo, nextBlock, platform)
 
