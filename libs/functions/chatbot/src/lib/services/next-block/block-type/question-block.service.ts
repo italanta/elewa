@@ -1,10 +1,10 @@
 import { ChatInfo, Block } from "@app/model/convs-mgr/conversations/chats";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HandlerTools, Logger } from "@iote/cqrs";
-import { ChatBotStore } from "../chatbot.store";
+import { ChatBotStore } from "../../chatbot.store";
 
-import { MatchInputService } from "../match-input/match-input.service";
-import { ExactMatch } from "../match-input/strategies/exact-match.strategy";
+import { MatchInputService } from "../../match-input/match-input.service";
+import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 import { NextBlockInterface } from "../next-block.interface";
 
 /**Handles the next block incase the last block was a question to the user  */

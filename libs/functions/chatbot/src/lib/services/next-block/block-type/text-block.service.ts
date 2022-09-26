@@ -1,7 +1,7 @@
 import { Block, ChatInfo } from "@app/model/convs-mgr/conversations/chats";
 import { TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HandlerTools, Logger } from "@iote/cqrs";
-import { ChatBotStore } from "../chatbot.store";
+import { ChatBotStore } from "../../chatbot.store";
 // import { ChatBotStore, Block } from "../chatbot.store";
 import { NextBlockInterface } from "../next-block.interface";
 
