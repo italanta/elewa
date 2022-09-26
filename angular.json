@@ -39,6 +39,7 @@
     "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
     "model-organisation": "libs/model/organisation/main",
     "model-user": "libs/model/user/base",
+    "state-conversations-chats": "libs/state/conversations/chats",
     "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
     "state-convs-mgr-stories-block-connections": "libs/state/convs-mgr/stories/block-connections",
     "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
