@@ -1,69 +1,36 @@
-import { FunctionContext, FunctionHandler, RestResult200, RestResult } from '@ngfi/functions';
+import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 
-import { Chat, CHAT_ID, ChatStatus} from '@app/model/convs-mgr/conversations/chats';
-import { RegisterUserRequest } from './register-user.dto';
+import { ChatBotStore } from '@app/functions/chatbot';
 
-export class RegisterUserHandler extends FunctionHandler<RegisterUserRequest, RestResult200>
+import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+
+
+
+export class RegisterEndUserHandler extends FunctionHandler<{phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, ChatInfo>
 {
   /**
    * Register User Handler. Records all onboarding information of a user
    *
    * @param req - Onboarding info */
-  public async execute(req: RegisterUserRequest, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: {phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[RegisterUserHandler].execute: Chat with id ${req.id} provided user details and is onboarded. Name: ${req.name} | Phone: ${req.phone}.`);
-    tools.Logger.log(() => JSON.stringify(req));
+    return await this._registerEndUser(req, tools)
+  }
 
-    const userRepo = tools.getRepository<Chat>('sessions');
-
-    const uid = CHAT_ID(req.id);
-    const user = await userRepo.getDocumentById(uid);
-
-    if(user)
-    {
-      user.name = req.name;
-      user.phone = this._sanetizePhone(req.phone);
-      user.info = {
-        age: req.age,
-        county: req.county,
-        scoutBefore: req.scoutBefore,
-      };
-      user.status = ChatStatus.Onboarded;
-
-      tools.Logger.log(() => 'Updating user to: ' + JSON.stringify(user));
-      await userRepo.write(user, uid);
-      return { success: true } as RestResult200;
+  private async _registerEndUser(req: {phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, tools: HandlerTools): Promise<ChatInfo>{
+    const chatBotStore  = new ChatBotStore(tools)
+    const chatInfo: ChatInfo = {
+      id: req.platform,
+      phoneNumber: req.phoneNumber,
+      orgId: req.orgId,
+      storyId: req.storyId,
     }
-    else {
-      tools.Logger.log(() => '[RegisterUserHandler] WARNING: Onboarding unregistered chat!');
-      const user = {
-        name: req.name,
-        phone: req.phone,
-        info: {
-          age: req.age,
-          county: req.county,
-          scoutBefore: req.scoutBefore
-        },
-        status: ChatStatus.UnknownChannel,
-      } as Chat;
-      await userRepo.write(user, uid);
-      return { success: true } as RestResult200;
-    }
+    const newChat = await chatBotStore.chatInfo().registerChatInfo(chatInfo, req.platform)
+
+    return newChat
 
   }
 
-  private _sanetizePhone(phone: string)
-  {
-    if(phone.startsWith('254'))
-      phone = phone.substring(3);
-    else if(phone.startsWith('+254'))
-      phone = phone.substring(4);
-    else if(phone.startsWith('7'))
-      phone = phone;
-    else if(phone.startsWith('07'))
-      phone = phone.substring(1);
-
-    return phone;
-  }
 }
