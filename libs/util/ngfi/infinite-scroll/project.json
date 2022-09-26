@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/util/ngfi/infinite-scroll/src",
-  "prefix": "app",
+  "prefix": "ngfi",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
