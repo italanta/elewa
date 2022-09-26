@@ -59,6 +59,7 @@
     "util-ngfi-angular": "libs/util/ngfi/angular",
     "util-ngfi-firestore-qbuilder": "libs/util/ngfi/firestore-qbuilder",
     "util-ngfi-functions": "libs/util/ngfi/functions",
+    "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
     "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
     "util-ngfi-state": "libs/util/ngfi/state"
   }
