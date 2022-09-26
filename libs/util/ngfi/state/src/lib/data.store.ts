@@ -3,7 +3,7 @@ import { Observable, combineLatest, throwError } from 'rxjs';
 import { catchError, map, filter, debounceTime } from 'rxjs/operators';
 
 import { Repository } from '@ngfi/angular';
-import { EntityStore } from '@iote/state';
+import { EntityStore, StoreEventTypes } from '@iote/state';
 
 import { IObject } from '@iote/bricks';
 import { Logger } from '@iote/bricks-angular';
@@ -39,6 +39,11 @@ export abstract class DataStore<T extends IObject> extends EntityStore<T>
                             filter(state => !state.loading),
                             map(state => entityFilter ? state.entities.filter(entityFilter)
                                                       : state.entities));
+  }
+
+  override set(newValues: Partial<T[]> | any, event: StoreEventTypes = "Not Specified")
+  {
+    super.set(newValues, event);
   }
 
   public getOne  = (id: string) => this.get().pipe(map(all => all.find(one => one.id === id)));

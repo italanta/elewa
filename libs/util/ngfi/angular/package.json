@@ -11,10 +11,15 @@
   },
 
   "peerDependencies": {
+    "rxjs": "^7.5.6",
     "@angular/common": "^14.0.0",
     "@angular/core": "^14.0.0",
     "@angular/fire": "^7.4.1",
-    "firebase": "^9.9.0"
+    "firebase": "^9.9.0",
+    "@iote/bricks": "^2.0.0",
+    "@iote/bricks-angular": "^2.0.0",
+    "@iote/cqrs": "^2.0.0",
+    "@ngfi/firestore-qbuilder": "^2.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
