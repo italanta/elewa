@@ -93,6 +93,9 @@
       "@app/model/convs-mgr/conversations/admin/system": [
         "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
       ],
+      "@app/model/convs-mgr/conversations/analytics/units": [
+        "libs/model/convs-mgr/conversations/analytics/units/src/index.ts"
+      ],
       "@app/model/convs-mgr/conversations/chats": [
         "libs/model/convs-mgr/conversations/chats/src/index.ts"
       ],

@@ -30,6 +30,7 @@
     "functions-conversations-onboarding": "libs/functions/conversations/onboarding",
     "functions-conversations-progression": "libs/functions/conversations/progression",
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
+    "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
     "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
     "model-convs-mgr-conversations-messages": "libs/model/convs-mgr/conversations/messages",
     "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
