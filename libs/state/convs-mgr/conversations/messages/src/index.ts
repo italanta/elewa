@@ -1,1 +1,3 @@
-export * from './lib/state-convs-mgr-conversations-messages.module';
+export * from './lib/queries/messages.query';
+export * from './lib/message-state.module';
+
