@@ -1,5 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/cqrs';
+import { __DateFromStorage } from '@iote/time';
 
 import { ChatBotStore } from './chatbot.store';
 
@@ -17,7 +18,7 @@ export class ChatBotService {
 
   constructor(private _logger: Logger, private _platform: Platforms) {}
 
-  async init(msg: Message, chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> {
+  async init(msg: Message, chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> | null {
     this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
     const chatBotRepo$ =  new ChatBotStore(tools)
 
@@ -29,15 +30,26 @@ export class ChatBotService {
     // Use the connection.targetId, to get the data of the first block
     let firstBlock: Block = await chatBotRepo$.getBlockById(connection.targetId, chatInfo)
 
-    await this.handleDuplicates(msg, tools)
+    const duplicateMessage = await this.handleDuplicates(msg, tools)
 
-    const chatData = await chatBotRepo$.initChatStatus(chatInfo, this._platform); 
-    this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
-    this.chatId = chatData.chatId;
-    // Save User Activity
-    await chatBotRepo$.moveCursor(chatInfo, firstBlock, this._platform);
-    this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
-    return firstBlock;
+    if (!duplicateMessage){
+
+      const chatData = await chatBotRepo$.initChatStatus(chatInfo, this._platform); 
+
+      this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
+
+      this.chatId = chatData.chatId;
+
+      // Save User Activity
+      await chatBotRepo$.moveCursor(chatInfo, firstBlock, this._platform);
+
+      this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
+
+      return firstBlock;
+    } else {
+
+      return null
+    }
   }
 
   async pause(chatInfo: ChatInfo, tools: HandlerTools){
@@ -74,16 +86,21 @@ export class ChatBotService {
 
   /**
    * Handles possible race condition, checks if a new message was added while processing the current message
-   * If a new message was added, then its possible another instance of the function is running, so this will stop the current function with an error
+   * If a new message was added, then its possible another instance of the function is running, so the function will not update the cursor
    * @param msg 
    * @param tools 
    */
-  async handleDuplicates(msg: Message, tools: HandlerTools){
+  async handleDuplicates(msg: Message, tools: HandlerTools): Promise<boolean>{
     const chatBotRepo$ =  new ChatBotStore(tools)
     const latestMessage = await chatBotRepo$.getLatestMessage(msg)
 
-    if(msg != latestMessage){
-      throw new Error(`[ProcessMessageHandler]._handleDuplicates: Another message has been added during this transaction`);
-    }
+    const currentMsgStamp = __DateFromStorage(msg.createdOn).unix()
+    const latestMsgStamp = __DateFromStorage(latestMessage.createdOn).unix()
+
+    if(currentMsgStamp !=  latestMsgStamp){
+      tools.Logger.log(()=> `[ProcessMessageHandler]._handleDuplicates: Another message has been added during this transaction`)
+      return true
+    } 
+    return false
   }
 }

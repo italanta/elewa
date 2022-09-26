@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { ChatStatus, Message, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block.factory';
@@ -40,7 +40,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     return { success: true} as RestResult200
   }
 
-  private async _processMessage(chatInfo: ChatInfo, msg: RawMessageData, tools: HandlerTools, platform: Platforms)
+  private async _processMessage(chatInfo: ChatInfo, msg: Message, tools: HandlerTools, platform: Platforms)
   {
     tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
@@ -63,7 +63,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
   /** If a chat session has not yet been recorded on this container, we create a new one and return the first block
    *  
   */
-  private async _initSession(endUser: any, msg: RawMessageData, tools: HandlerTools, platform: Platforms)
+  private async _initSession(endUser: any, msg: Message, tools: HandlerTools, platform: Platforms)
   {    
     const chatService =  new ChatBotService(tools.Logger, platform)
     const firstBlock = await chatService.init(msg, endUser, tools)
@@ -82,7 +82,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
    * @param tools 
    * @returns 
    */
-  private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools, platform: Platforms){
+  private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: Message, tools: HandlerTools, platform: Platforms){
     const chatService =  new ChatBotService(tools.Logger, platform)
 
     const latestActivity = await chatBotRepo$.getLatestActivity(chatInfo, platform)
@@ -93,11 +93,15 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
 
     // Handles possible race condition
-    await chatService.handleDuplicates(msg, tools)
+    const duplicateMessage = await chatService.handleDuplicates(msg, tools)
 
-    const cursor = await chatBotRepo$.moveCursor(chatInfo, nextBlock, platform)
+    if (!duplicateMessage){
+      const cursor = await chatBotRepo$.moveCursor(chatInfo, nextBlock, platform)
 
-    return cursor.block;
+      return cursor.block;
+    } else {
+      return null
+    }
   }
 
 }
