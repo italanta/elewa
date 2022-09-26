@@ -12,5 +12,4 @@ import { ScrollableDirective } from './directives/scrollbar.directive';
   declarations: [ScrollableDirective],
   exports: [ScrollableDirective]
 })
-export class InfiniteScrollModule 
-{ }
+export class InfiniteScrollModule { }
