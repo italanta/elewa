@@ -66,7 +66,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
   private async _initSession(endUser: any, msg: RawMessageData, tools: HandlerTools, platform: Platforms)
   {    
     const chatService =  new ChatBotService(tools.Logger, platform)
-    const firstBlock = await chatService.init(endUser, tools)
+    const firstBlock = await chatService.init(msg, endUser, tools)
 
     tools.Logger.log(() => `[ProcessMessageHandler]._initSession: Session initialized`);
 
@@ -83,12 +83,17 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
    * @returns 
    */
   private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: RawMessageData, tools: HandlerTools, platform: Platforms){
+    const chatService =  new ChatBotService(tools.Logger, platform)
+
     const latestActivity = await chatBotRepo$.getLatestActivity(chatInfo, platform)
     
     const latestBlock = await chatBotRepo$.getBlockById(latestActivity.block.id, chatInfo)
     const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
 
     const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
+
+    // Handles possible race condition
+    await chatService.handleDuplicates(msg, tools)
 
     const cursor = await chatBotRepo$.moveCursor(chatInfo, nextBlock, platform)
 
