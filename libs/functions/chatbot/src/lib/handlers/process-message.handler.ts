@@ -5,10 +5,12 @@ import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions
 import { ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ChatBotService } from '../services/main-chatbot.service';
-import { NextBlockFactory } from '../services/next-block.factory';
-import { ChatBotStore } from '../services/chatbot.store';
+import { NextBlockFactory } from '../services/next-block/next-block.factory';
+import { ChatBotStore } from '../stores/chatbot.store';
+
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+
 
 
 export class ProcessMessageHandler extends FunctionHandler<Message, RestResult200>
@@ -27,7 +29,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     //[WIP] - Get the current platform
     const platform = req.platform
 
-    const chatInfo  = await chatBotRepo$.getChatInfo(req.phoneNumber, platform);
+    const chatInfo  = await chatBotRepo$.chatInfo().getChatInfo(req.phoneNumber, platform);
 
     // const chat = await chatBotRepo$.getChatStatus(chatInfo, platform);
     const block = await this._processMessage(chatInfo, req, tools, platform)
@@ -51,7 +53,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     if(!chatInfo)
       tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    const userActivity =  await chatBotRepo$.getActivity(chatInfo, msg.platform);
+    const userActivity =  await chatBotRepo$.cursor().getActivity(chatInfo, msg.platform);
 
     if(userActivity.length < 1){
       return await this._initSession(chatInfo, msg, tools, platform)
@@ -85,9 +87,9 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
   private async _contSession(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: Message, tools: HandlerTools, platform: Platforms){
     const chatService =  new ChatBotService(tools.Logger, platform)
 
-    const latestActivity = await chatBotRepo$.getLatestActivity(chatInfo, platform)
+    const latestActivity = await chatBotRepo$.cursor().getLatestActivity(chatInfo, platform)
     
-    const latestBlock = await chatBotRepo$.getBlockById(latestActivity.block.id, chatInfo)
+    const latestBlock = await chatBotRepo$.blockConnections().getBlockById(latestActivity.block.id, chatInfo)
     const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
 
     const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
@@ -96,7 +98,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     const duplicateMessage = await chatService.handleDuplicates(msg, tools)
 
     if (!duplicateMessage){
-      const cursor = await chatBotRepo$.moveCursor(chatInfo, nextBlock, platform)
+      const cursor = await chatBotRepo$.cursor().moveCursor(chatInfo, nextBlock, platform)
 
       return cursor.block;
     } else {
