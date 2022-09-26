@@ -86,6 +86,7 @@
   },
   "firebase-functions-dependencies": [
     "firebase-functions",
-    "firebase-admin"
+    "firebase-admin",
+    "moment"
   ]
 }
