@@ -9,7 +9,7 @@ const handler = new ProcessMessageHandler();
 // The function itself
 export const processMessage = new GCPFunction(
         "processMessage",
-        new FirestoreCreateRegistrar('messages/{messageId}'),
+        new FirestoreCreateRegistrar('messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'),
         [],
         handler)
     .build();
