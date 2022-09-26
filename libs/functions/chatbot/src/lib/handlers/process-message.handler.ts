@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { ChatStatus, Message, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 
 import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block.factory';
@@ -11,14 +11,14 @@ import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 
-export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
+export class ProcessMessageHandler extends FunctionHandler<Message, RestResult200>
 {
   /**
    * Incoming message hook from the chat platforms e.g. Whatsapp, Telegram...
    *
    * Registers incoming messages and processes them as readable information in our system.
    */
-  public async execute(req: RawMessageData, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: Message, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
@@ -37,7 +37,7 @@ export class ProcessMessageHandler extends FunctionHandler<RawMessageData, any>
     //   tools.Logger.log(() => `[ProcessMessageHandler].execute: Chat has been paused.`);
     // }
     // return { success: true } as RestResult200;
-    return block
+    return { success: true} as RestResult200
   }
 
   private async _processMessage(chatInfo: ChatInfo, msg: RawMessageData, tools: HandlerTools, platform: Platforms)
