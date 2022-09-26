@@ -116,8 +116,11 @@
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
-      "@app/state/conversations/chats": [
-        "libs/state/conversations/chats/src/index.ts"
+      "@app/state/convs-mgr/conversations/chats": [
+        "libs/state/convs-mgr/conversations/chats/src/index.ts"
+      ],
+      "@app/state/convs-mgr/conversations/messages": [
+        "libs/state/convs-mgr/conversations/messages/src/index.ts"
       ],
       "@app/state/convs-mgr/stories": [
         "libs/state/convs-mgr/stories/main/src/index.ts"
