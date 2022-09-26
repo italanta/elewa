@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { __DateFromStorage } from '@iote/time';
 import { Logger } from '@iote/bricks-angular';
 import { DataService, Repository } from '@ngfi/angular';
+import { PaginatedScroll } from '@ngfi/infinite-scroll';
 
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { ChatMessage } from '@app/model/convs-mgr/conversations/messages';
