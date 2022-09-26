@@ -1,1 +1,1 @@
-export * from './lib/model-convs-mgr-conversations-analytics-units';
+export * from './lib/messages-of-day.interface';
