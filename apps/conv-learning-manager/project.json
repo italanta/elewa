@@ -25,9 +25,7 @@
           "libs/elements/theming/common.theme.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/elements/theming"
-          ]
+          "includePaths": ["libs/elements/theming"]
         },
         "scripts": [],
         "serviceWorker": true,

@@ -12,8 +12,6 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { iTalPageModule } from '@app/elements/layout/page';
 
 import { LoginComponent }            from './components/login/login.component';
-import { SocialLoginComponent }      from './components/login-social/login-social.component';
-import { TraditionalLoginComponent } from './components/login-traditional/login-traditional.component';
 import { RegisterComponent }         from './components/register/register.component';
 import { ForgotPasswordModalComponent }       from './modals/forgot-password-modal/forgot-password-modal.component';
 
@@ -33,7 +31,7 @@ import { AuthRouterModule }  from './auth-router.module';
 
             AuthRouterModule],
 
-  declarations: [LoginComponent, SocialLoginComponent, TraditionalLoginComponent,
+  declarations: [LoginComponent,
                  RegisterComponent, ForgotPasswordModalComponent,
 
                   AuthPageComponent],

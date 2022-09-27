@@ -24,6 +24,7 @@ export interface StoryBlock extends IObject
   /** Position of the block on the editor */
   position: Position;
 
+  message?: string;
   /** Whether the block has been deleted and should no longer be used in new flows */
   deleted: boolean;
 
