@@ -7,7 +7,9 @@ import { __VerifyWhatsAppTokenWebHook } from "../utils/initial-whatsapp-verifier
 export class MessageHookHandler extends FunctionHandler<{val:BotProvider}, void>
 {
   public async execute(data:any, context:HttpsContext, tools:HandlerTools)
-  {  
+  { 
+    tools.Logger.log(() =>`${JSON.stringify(data)}`);
+
     if(!data){
       tools.Logger.log(()=>`⚠⚠⚠[MessageHookHandler] webhook is being validated first.`)
       const token = "qasw23edfrtghy657ujkiklop09" //To move to environment variable, Token is user defined

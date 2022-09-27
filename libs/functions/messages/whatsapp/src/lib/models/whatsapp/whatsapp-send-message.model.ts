@@ -50,7 +50,6 @@ export class SendWhatsAppMessageModel {
           // Something happened in setting up the request that triggered an Error
           this._tools.Logger.log(() => `Axios post request: Different Error is ${error.message}`);
         }
-
       })
     return await res
 
