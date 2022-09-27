@@ -1,8 +1,14 @@
-import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { HandlerTools, Logger } from "@iote/cqrs";
+
 import { QuestionMessageService } from "./block-type/question-block.service";
 import { TextMessageService } from "./block-type/text-block.service";
 
+import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+
+
+/**
+ * Factory to resolve block type and return the appropriate service that gets the next block
+ */
 export class NextBlockFactory {
     constructor(){}
 

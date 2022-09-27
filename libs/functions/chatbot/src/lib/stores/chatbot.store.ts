@@ -17,22 +17,27 @@ export class ChatBotStore {
     this.tools = tools
   }
 
+  /** Gets the methods for working with ChatInfo collection */
   chatInfo(){
     return new ChatInfoStore(this.tools)
   }
 
+  /** Gets the methods for working with ChatStatus collection */
   chatStatus(){
     return new ChatStatusStore(this.tools)
   }
 
+  /** Gets the methods for working with Cursor collection */
   cursor(){
     return new CursorStore(this.tools)
   }
 
+  /** Gets the methods for working with Messages collection */
   messages(){
     return new MessagesStore(this.tools)
   }
 
+  /** Gets the methods for working with Block and Connections collection */
   blockConnections(){
     return new BlockConnectionsStore(this.tools)
   }

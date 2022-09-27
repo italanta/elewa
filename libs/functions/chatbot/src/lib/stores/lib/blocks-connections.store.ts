@@ -15,6 +15,7 @@ export class BlockConnectionsStore {
     this.tools = tools;
   }
 
+  /** Gets the full block using the id */
   async getBlockById(id: string, chatInfo: ChatInfo): Promise<Block> {
     const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
 
@@ -51,6 +52,7 @@ export class BlockConnectionsStore {
     return conn[0];
   }
 
+  /** Gets the connection whose source matches the block id provided */
   async getConnBySourceId(blockId: string, chatInfo: ChatInfo): Promise<Connection> {
     const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
 
@@ -63,6 +65,7 @@ export class BlockConnectionsStore {
     return conn[0];
   }
 
+  /** Gets the connection that links the anchor block and the first block */
   async getFirstConn(storyId: string, chatInfo: ChatInfo): Promise<Connection> {
     const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
 

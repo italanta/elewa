@@ -15,7 +15,8 @@ export class CursorStore {
     this.tools = tools;
   }
   
-  async getLatestActivity(chatInfo: ChatInfo, platform: Platforms): Promise<Activity> {
+  /** Returns the latest activity / latest position of the cursor */
+  async getLatestActivity(chatInfo: ChatInfo, platform: Platforms): Promise<Activity>{
     const cursorRepo$ = this.tools.getRepository<Activity>(
       `user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`
     );
@@ -25,6 +26,7 @@ export class CursorStore {
     return latestBlock[0];
   }
 
+  /** Updates the cursor with the block */
   async moveCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
     const cursorRepo$ = this.tools.getRepository<Activity>(
       `user-activity/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`
