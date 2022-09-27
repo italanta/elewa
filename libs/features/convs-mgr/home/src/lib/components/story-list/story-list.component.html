@@ -7,7 +7,7 @@
 </mat-form-field>
 
 
-<div class="bot-selector" fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="26px grid">
+<div class="bot-selector" fxLayout="row wrap" fxLayoutGap="26px grid" fxFlexFill>
     <ng-template ngFor [ngForOf]="stories$ | async" let-story>
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </ng-template>

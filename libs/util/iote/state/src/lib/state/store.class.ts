@@ -1,5 +1,3 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
 
@@ -7,8 +5,7 @@ import { Stateful } from './stateful.interface';
 
 export type StoreEventTypes = 'Not Specified' | 'Create' | 'Update' | 'Delete' | string;
 
-@Injectable()
-export abstract class Store<T> implements Stateful<T>, OnDestroy
+export abstract class Store<T> implements Stateful<T>
 {
   protected _sbS = new SubSink();
 
@@ -20,7 +17,7 @@ export abstract class Store<T> implements Stateful<T>, OnDestroy
 
   protected abstract store: string;
 
-  constructor(@Inject('NOOP_INHERIT') initialValue: Partial<T>)
+  constructor(initialValue: Partial<T>)
   {
     this.bs = new BehaviorSubject<T>(initialValue as T);
     this.state$ = this.bs.asObservable();
@@ -48,7 +45,7 @@ export abstract class Store<T> implements Stateful<T>, OnDestroy
     this.bs.next(newState);
   }
 
-  protected set(newValue: Partial<T>, event: StoreEventTypes = "Not Specified")
+  set(newValue: Partial<T>, event: StoreEventTypes = "Not Specified")
   {
     this.previous.unshift(this.state);
     const newState = Object.assign({}, newValue) as T;
@@ -59,11 +56,7 @@ export abstract class Store<T> implements Stateful<T>, OnDestroy
     console.log("To",   newState);
     console.groupEnd();
 
-
     this.bs.next(newState);
   }
 
-  ngOnDestroy() {
-    this._sbS.unsubscribe();
-  }
 }
