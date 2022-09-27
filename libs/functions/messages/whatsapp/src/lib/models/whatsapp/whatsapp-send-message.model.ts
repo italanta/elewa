@@ -1,7 +1,7 @@
 import axios from "axios";
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { HandlerTools } from "@iote/cqrs";
 import { GetWhatsAppMessageTypeService } from "../../services/get-whatsapp-message-type.service";
+import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
 export class SendWhatsAppMessageModel {
 
   private _tools: HandlerTools;
@@ -10,7 +10,7 @@ export class SendWhatsAppMessageModel {
     this._tools = tools;
   }
 
-  async sendMessage(message: StoryBlock, env:any) {
+  async sendMessage(message: WhatsAppBaseMessage, env:any) {
 
     //Service to get data to send to to whatsapp api
     const getMessageTypeService = new GetWhatsAppMessageTypeService(this._tools);
