@@ -18,36 +18,41 @@ export class ChatBotService {
 
   constructor(private _logger: Logger, private _platform: Platforms) {}
 
+  /**
+   * Initializes chat status and returns the first block
+   * @param msg 
+   * @param chatInfo 
+   * @param tools 
+   * @returns First Block
+   */
   async init(msg: Message, chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> | null {
     this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
+
     const chatBotRepo$ =  new ChatBotStore(tools)
 
-    // Get the first connection
-    const connection = await chatBotRepo$.blockConnections().getFirstConn(chatInfo.storyId, chatInfo)
+    const blockConnections = chatBotRepo$.blockConnections()
+    const chatStatus = chatBotRepo$.chatStatus()
 
-    // Use the connection.targetId, to get the data of the first block
-    let firstBlock: Block = await chatBotRepo$.blockConnections().getBlockById(connection.targetId, chatInfo)
+    /** Initialize Chat Status */
+    const chatData = await chatStatus.initChatStatus(chatInfo, this._platform); 
+    this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
 
-    const duplicateMessage = await this.handleDuplicates(msg, tools)
+    // Set the Chat Id
+    this.chatId = chatData.chatId;
 
-    if (!duplicateMessage){
+    /** Get the first Block */
+    const connection = await blockConnections.getFirstConn(chatInfo.storyId, chatInfo)
 
-      const chatData = await chatBotRepo$.chatStatus().initChatStatus(chatInfo, this._platform); 
+    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, chatInfo)
 
-      this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
 
-      this.chatId = chatData.chatId;
+    /** Update the cursor with the first block */
+    await chatBotRepo$.cursor().moveCursor(chatInfo, firstBlock, this._platform);
 
-      // Save User Activity
-      await chatBotRepo$.cursor().moveCursor(chatInfo, firstBlock, this._platform);
+    this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
 
-      this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
+    return firstBlock;
 
-      return firstBlock;
-    } else {
-
-      return null
-    }
   }
 
   async pause(chatInfo: ChatInfo, tools: HandlerTools){
