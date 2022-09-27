@@ -1,16 +1,17 @@
-import { BotProvider } from "@app/model/convs-mgr/functions";
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext } from "@ngfi/functions";
 import { SendWhatsAppMessageModel } from "../models/whatsapp/whatsapp-send-message.model";
 
-export class SendMessageHandler extends FunctionHandler<{val:StoryBlock, type: BotProvider}, void>{
+/**
+ * @Description Used to send message to the desired provider
+ */
+export class SendWhatsAppMessageHandler extends FunctionHandler<{val:WhatsAppBaseMessage}, void>{
   
-  public async execute(data:{val:StoryBlock, type: BotProvider}, context:HttpsContext, tools:HandlerTools)
+  public async execute(data:{val:WhatsAppBaseMessage}, context:HttpsContext, tools:HandlerTools)
   {
-    tools.Logger.log(() =>`[SendMessageHandler] Started execution with : ${data.type} ${data.val} ${data.type}`)
+    tools.Logger.log(() =>`[SendWhatsAppMessageHandler] Started execution`)
     const messageBlock = data.val;
-    const provider = data.type;
     const env = context.environment;
 
     return new SendWhatsAppMessageModel(tools).sendMessage(messageBlock, env)
