@@ -31,6 +31,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,6 +41,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
     AngularFireAnalyticsModule,
+    HttpClientModule,
 
     MaterialBricksModule.forRoot(),
 
@@ -50,7 +52,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
     FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
-    MultiLangModule.forRoot(false),
+    MultiLangModule.forRoot(true),
     // UserNavModule,
 
     MatProgressBarModule,

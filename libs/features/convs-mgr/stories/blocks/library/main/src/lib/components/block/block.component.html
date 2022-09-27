@@ -1,17 +1,52 @@
-<div [id]="id" [ngSwitch]="type">
-  <div *ngSwitchCase="messagetype">
-    <app-message-block
-    [id]="id"
-    [block]="block"
-    [jsPlumb]="jsPlumb"
-    class="block" [textMessageForm]="blockFormGroup"></app-message-block>
-  </div>
-  <div *ngSwitchCase="questiontype">
-    <app-questions-block
-      [id]="id"
-      [block]="block"
-      [questionMessageBlock]="blockFormGroup"
-      [jsPlumb]="jsPlumb"
-      class="block"></app-questions-block>
-  </div>
-</div>
+<mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
+    <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
+        <img src="{{block.blockIcon}}" class="avatar-img" alt="storyicon" />
+        <h4 class="block-title">{{block.blockTitle}}</h4>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+        <mat-icon>assignment</mat-icon>
+        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
+      </button>
+            <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
+      </button>
+        </mat-menu>
+    </div>
+
+    <div *ngSwitchCase="messagetype">
+        <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
+        </app-message-block>
+    </div>
+
+    <div *ngSwitchCase="imagetype">
+        <app-image-block [id]="id" [block]="block" [imageMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-image-block>
+    </div>
+
+    <div *ngSwitchCase="nametype">
+        <app-name-block [id]="id" [block]="block" [nameMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+        </app-name-block>
+    </div>
+
+    <div *ngSwitchCase="emailtype">
+        <app-email-block [id]="id" [block]="block" [emailMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-email-block>
+    </div>
+
+    <div *ngSwitchCase="phonetype">
+        <app-phone-block [id]="id" [block]="block" [phoneMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-phone-block>
+    </div>
+
+    <div *ngSwitchCase="questiontype">
+        <app-questions-block [id]="id" [block]="block" [questionMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-questions-block>
+    </div>
+
+    <div *ngSwitchCase="locationtype">
+        <app-location-block [id]="id" [block]="block" [locationMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-location-block>
+    </div>
+
+
+</mat-card>
