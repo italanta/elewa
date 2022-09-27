@@ -5,7 +5,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.model";
 //see : https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#send-messages
 
 export interface WhatsAppBaseMessage extends IObject{
-  messagIngProduct: MetaMessagingProducts,
+  messaging_product: MetaMessagingProducts,
   recepient_type: RecepientType,
   to: string,
   type: WhatsAppMessageType

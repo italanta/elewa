@@ -1,6 +1,5 @@
 import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
-import { GetWhatsAppMessageTypeService } from "../../services/get-whatsapp-message-type.service";
 import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
 export class SendWhatsAppMessageModel {
 
@@ -12,10 +11,9 @@ export class SendWhatsAppMessageModel {
 
   async sendMessage(message: WhatsAppBaseMessage, env:any) {
 
-    //Service to get data to send to to whatsapp api
-    const getMessageTypeService = new GetWhatsAppMessageTypeService(this._tools);
+     const dataToSend = JSON.stringify(message);
 
-    const dataToSend = getMessageTypeService.getDataToSend(message);
+     this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
     //Auth token gotten from facebook api
     const authorizationHeader = env.AUTHORIZATION_HEADER;
@@ -25,17 +23,7 @@ export class SendWhatsAppMessageModel {
      */
     const PHONE_NUMBER_ID = 103844892462329 //Refers to business number to be used
     const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
-    const data = {
-      "messaging_product": "whatsapp",
-      "recipient_type": "individual",
-      "to": "254706165412", 
-      "type": "text",
-      "text": {
-        "preview_url": false,
-        "body": `${dataToSend}`
-      }
-    }
-
+    const data = JSON.stringify(dataToSend);
     const res = await axios.post(
       url,
       data,

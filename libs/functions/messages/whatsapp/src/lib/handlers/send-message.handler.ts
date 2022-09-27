@@ -11,12 +11,9 @@ export class SendWhatsAppMessageHandler extends FunctionHandler<{val:WhatsAppBas
   public async execute(data:{val:WhatsAppBaseMessage}, context:HttpsContext, tools:HandlerTools)
   {
     tools.Logger.log(() =>`[SendWhatsAppMessageHandler] Started execution`)
-    const messageBlock = data.val;
+    const whatsAppMsgToSend = data.val;
     const env = context.environment;
-
-    return new SendWhatsAppMessageModel(tools).sendMessage(messageBlock, env)
-
-
+    return new SendWhatsAppMessageModel(tools).sendMessage(whatsAppMsgToSend, env);
   }
 
 
