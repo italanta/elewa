@@ -52,15 +52,19 @@ export class HomePageComponent implements OnDestroy
     this.stories$ = this._stories$$.get();
   }
 
-  add () {
-    this._addStory$.add().subscribe((story: Story)=>{
-      let d = story
-    setTimeout(() => {
-      this._anchor$$.create(d.id as string).subscribe()
-    }, 800);
-    })
+  add = () => this._addStory$.add().subscribe();
 
-  };
+  /* [WIP] Adds an anchor block automatically when a story is created */
+
+  // add () {
+  //   this._addStory$.add().subscribe((story: Story)=>{
+  //     let d = story
+  //   setTimeout(() => {
+  //     this._anchor$$.create(d.id as string).subscribe()
+  //   }, 800);
+  //   })
+
+  // };
 
   ngOnDestroy()
   {
