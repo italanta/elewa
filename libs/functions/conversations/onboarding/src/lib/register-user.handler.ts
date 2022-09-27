@@ -7,13 +7,12 @@ import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 
 
-
+/**
+ * Register User Handler. Records all onboarding information of a user
+ *
+ * @param req - Onboarding info */
 export class RegisterEndUserHandler extends FunctionHandler<{phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, ChatInfo>
 {
-  /**
-   * Register User Handler. Records all onboarding information of a user
-   *
-   * @param req - Onboarding info */
   public async execute(req: {phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, context: FunctionContext, tools: HandlerTools)
   {
     return await this._registerEndUser(req, tools)

@@ -12,10 +12,10 @@ import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 
 
-  /**
-   * Triggered by document.create in 'messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'
-   * Processes the message and returns the next block.
-   */
+/**
+ * Triggered by document.create in 'messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'
+ * Processes the message and returns the next block.
+ */
 export class ProcessMessageHandler extends FunctionHandler<Message, RestResult200>
 {
   public async execute(req: Message, context: FunctionContext, tools: HandlerTools)
@@ -29,7 +29,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     //[WIP] - Get the current platform
     const platform = req.platform
 
-    // Get the associated ChatInfo
+    // Get the registered ChatInfo of the end-user
     const chatInfo  = await chatBotRepo$.chatInfo().getChatInfo(req.phoneNumber, platform);
 
     // Process the message
