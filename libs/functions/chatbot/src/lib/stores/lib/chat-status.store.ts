@@ -17,7 +17,7 @@ export class ChatStatusStore {
 
   async initChatStatus(chatInfo: ChatInfo, platform: Platforms) {
     const chatId = chatInfo.storyId;
-    const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.phoneNumber}/platforms/${platform}/chats`);
+    const chatRepo$ = this.tools.getRepository<Chat>(`end-users/${chatInfo.phoneNumber}/platforms/${platform}/chat-status`);
 
     const newStatus: Chat = {
       chatId,
@@ -31,7 +31,7 @@ export class ChatStatusStore {
 
   async getChatStatus(chatInfo: ChatInfo, platform: Platforms) {
     const chatId = chatInfo.storyId;
-    const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.phoneNumber}/platforms/${platform}/chats`);
+    const chatRepo$ = this.tools.getRepository<Chat>(`end-users/${chatInfo.phoneNumber}/platforms/${platform}/chat-status`);
 
     const chatStatus = await chatRepo$.getDocumentById(chatId);
 
@@ -41,7 +41,7 @@ export class ChatStatusStore {
   async updateChatStatus(chatInfo: ChatInfo, status: ChatStatus, platform: Platforms) {
     const chatId = chatInfo.storyId;
 
-    const chatRepo$ = this.tools.getRepository<Chat>(`chat-status/${chatInfo.phoneNumber}/platforms/${platform}/chats`);
+    const chatRepo$ = this.tools.getRepository<Chat>(`end-users/${chatInfo.phoneNumber}/platforms/${platform}/chat-status`);
 
     const newStatus: Chat = {
       chatId,

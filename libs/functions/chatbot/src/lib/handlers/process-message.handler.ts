@@ -7,7 +7,7 @@ import { NextBlockFactory } from '../services/next-block/next-block.factory';
 import { ChatBotStore } from '../stores/chatbot.store';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 
@@ -56,9 +56,9 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     if(!chatInfo)
       tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    const userActivity =  await chatBotRepo$.cursor().getActivity(chatInfo, msg.platform);
+    const userActivity =  await chatBotRepo$.cursor().getLatestActivity(chatInfo, msg.platform);
 
-    if(userActivity.length < 1){
+    if(!userActivity){
       return await this._initSession(chatInfo, msg, tools, platform)
     } else {
       return await this._resolveNextBlock(chatInfo, chatBotRepo$, msg, tools, platform)
@@ -90,7 +90,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
-    const latestActivity = await chatBotRepo$.cursor().getLatestActivity(chatInfo, platform)
+    const latestActivity = (await chatBotRepo$.cursor().getLatestActivity(chatInfo, platform)) as Activity
 
     // Get the lastest block found in activity
     const latestBlock = await chatBotRepo$.blockConnections().getBlockById(latestActivity.block.id, chatInfo)

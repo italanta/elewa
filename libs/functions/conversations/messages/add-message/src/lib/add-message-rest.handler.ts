@@ -34,7 +34,7 @@ export class AddMessageHandler extends FunctionHandler<RawMessageData, Message>
       platform
     }
 
-    const savedMessage = await chatBotRepo$.saveMessage(newMessage)
+    const savedMessage = await chatBotRepo$.messages().saveMessage(newMessage)
    
     return savedMessage
   }

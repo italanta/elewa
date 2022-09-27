@@ -1,7 +1,8 @@
 import { ChatInfo, Block } from "@app/model/convs-mgr/conversations/chats";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HandlerTools, Logger } from "@iote/cqrs";
-import { ChatBotStore } from "../../chatbot.store";
+
+import { ChatBotStore } from "@app/functions/chatbot";
 
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
@@ -20,6 +21,8 @@ export class QuestionMessageService implements NextBlockInterface {
 
     async getNextBlock(chatInfo: ChatInfo, message: string, lastBlock?: QuestionMessageBlock): Promise<Block>{
         const chatBotRepo$ =  new ChatBotStore(this.tools)
+        const blockConnections = chatBotRepo$.blockConnections()
+
         const matchInput = new MatchInputService();
 
         // Set the match strategy to exactMatch
@@ -34,9 +37,9 @@ export class QuestionMessageService implements NextBlockInterface {
       
         const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`
 
-        const connection = await chatBotRepo$.getConnByOption(sourceId, chatInfo)
+        const connection = await blockConnections.getConnByOption(sourceId, chatInfo)
 
-        const nextBlock = await chatBotRepo$.getBlockById(connection.targetId, chatInfo)
+        const nextBlock = await blockConnections.getBlockById(connection.targetId, chatInfo)
 
         return nextBlock
     }
