@@ -21,11 +21,8 @@ export const __NewDateForStorage = (input: AppDateInput) => __DateToStorage(__Ne
  *                   20/07 - Since store changes a date is now either of Date type (local updates) or of Timestamp (DB updates)
  *                           @see https://stackoverflow.com/questions/643782/how-to-check-whether-an-object-is-a-date
  */
-export function __DateFromStorage(unixDate?: Timestamp | Date, offsetCorrection = false) : AppDate
-{
-  if(!unixDate)
-    return null;
-    
+export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection = false) : AppDate
+{   
   const dateTime = unixDate as any;
 
   const seconds = (dateTime.seconds || dateTime._seconds)
