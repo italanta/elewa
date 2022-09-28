@@ -1,1 +1,1 @@
-export * from './lib/model-bot-channel';
+export * from './lib/base-channel.model';
