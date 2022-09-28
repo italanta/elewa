@@ -15,6 +15,32 @@
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
+    "features-convs-mgr-stories-blocks-library-anchor-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/anchor-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/anchor-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/stories/blocks/library/anchor-block"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/anchor-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/anchor-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/anchor-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
     "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
     "features-convs-mgr-stories-blocks-library-image-message-block": "libs/features/convs-mgr/stories/blocks/library/image-message-block",
@@ -38,6 +64,29 @@
     "model-bot-main-provider": "libs/model/bot/main/provider",
     "model-convs-mgr-functions": "libs/model/convs-mgr/functions",
     "functions-chatbot": "libs/functions/chatbot",
+    "functions-conversations-messages-add-message": {
+      "root": "libs/functions/conversations/messages/add-message",
+      "sourceRoot": "libs/functions/conversations/messages/add-message/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/conversations/messages/add-message/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/conversations/messages/add-message"],
+          "options": {
+            "jestConfig": "libs/functions/conversations/messages/add-message/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-conversations-onboarding": "libs/functions/conversations/onboarding",
     "functions-conversations-progression": "libs/functions/conversations/progression",
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",

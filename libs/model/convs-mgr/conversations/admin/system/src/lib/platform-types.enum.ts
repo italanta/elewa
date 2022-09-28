@@ -1,4 +1,4 @@
 export enum Platforms {
-  WhatsApp      =     1,
-  Telegram      =     2,
+  WhatsApp  =  'whatsapp',
+  Telegram  =  'telegram',
 }

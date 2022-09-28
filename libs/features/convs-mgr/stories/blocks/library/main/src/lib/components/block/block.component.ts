@@ -14,6 +14,7 @@ import { _CreateTextMessageBlockForm } from '../../model/message-block-form.mode
 import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
+import { _CreateAnchorBlockForm } from '../../model/anchor-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -37,6 +38,7 @@ export class BlockComponent implements OnInit {
   phonetype = StoryBlockTypes.PhoneNumber;
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
+  anchortype = StoryBlockTypes.AnchorBlock;
 
   blockFormGroup: FormGroup;
 
@@ -81,7 +83,10 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-
+      case StoryBlockTypes.AnchorBlock:
+        this.blockFormGroup = _CreateAnchorBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
       default:
         break;
     }

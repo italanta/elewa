@@ -92,6 +92,7 @@
     "firebase-functions",
     "firebase-admin",
     "lodash",
-    "axios"
+    "axios",
+    "moment"
   ]
 }
