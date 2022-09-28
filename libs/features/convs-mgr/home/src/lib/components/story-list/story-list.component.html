@@ -1,14 +1,24 @@
-<mat-form-field appearance="outline">
-  <input matInput type="text" placeholder="Search for a bot" class="mat-form" (input)="filterBots($event)"/>
+<!-- <mat-form-field appearance="outline">
+  <input matInput type="text"  placeholder="Search for a bot" class="mat-form" (input)="filterBots($event)"/>
 
   <span matPrefix class="prefix">
     <mat-icon matPrefix class="search-icon">search</mat-icon>
   </span>
-</mat-form-field>
+</mat-form-field> -->
 
 
-<div class="bot-selector" fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="26px grid">
+  <div class="bot-selector" fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="26px grid">
     <ng-template ngFor [ngForOf]="stories$ | async" let-story>
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </ng-template>
+  </div>  
+
+  <div class="search">
+    <span matPrefix class="prefix">
+      <mat-icon matPrefix class="search-icon">search</mat-icon>
+    </span>
+  
+    <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)" >
+  
   </div>
+  
