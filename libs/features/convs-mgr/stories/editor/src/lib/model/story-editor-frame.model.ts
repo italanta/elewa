@@ -115,6 +115,12 @@ export class StoryEditorFrame
     let domSourceInputs = Array.from(document.querySelectorAll('input'));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
 
+    // Get the anchor block
+    let anchorBlock = document.querySelector(".anchor-block") as HTMLInputElement
+
+    // Push it to the source inputs
+    domSourceInputs.push(anchorBlock);
+
     for(const connection of this._connections) {      
       // fetching the source (input) that matches the connection source id
       let sourceElement =  domSourceInputs.filter((el) => {return el.id == connection.sourceId})[0];

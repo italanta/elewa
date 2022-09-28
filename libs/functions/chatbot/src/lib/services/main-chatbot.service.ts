@@ -1,139 +1,109 @@
-import * as fetch from 'node-fetch';
+import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/cqrs';
+import { __DateFromStorage } from '@iote/time';
 
-import { config } from '../environment/environment';
+import { ChatBotStore } from '../stores/chatbot.store';
+
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChatInfo, Block } from '@app/model/convs-mgr/conversations/chats';
+import { ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
+
 
 /**
- * Integrates with the Landbot API to exchange information back and forth.
+ * Handles the main processes of the ChatBot
  */
-export class ChatBotService
-{
-  constructor(private _logger: Logger) { }
+export class ChatBotService {
 
-   /**
-   * Pause bot and assign a user to an agent.
-   *
-   * @param chatId  - Chat to assign to operator
-   * 
-   * */
-  pauseBot(chatId: string)
-  {
-    // @see https://api.landbot.io/#api-Customers-PutHttpsApiLandbotIoV1CustomersCustomer_idAssign
-    const settings = {} as any;
+  chatId: string;
 
-    return this._callLandbot(`customers/${chatId}/assign/`, settings, 'put');
-  }
+  constructor(private _logger: Logger, private _platform: Platforms) {}
 
-   /**
-   * Send a message to a user over a channel.
-   *
-   * @param chatId  - Chat to send message through
-   * @param message - Message to send
-   * */
-  sendMessage(chatId: string, message: string)
-  {
-    // @see https://api.landbot.io/#api-Customers-PostHttpsApiLandbotIoV1CustomersCustomer_idSend_text
-    const settings = { "message": message };
-
-    return this._callLandbot(`customers/${chatId}/send_text/`, settings);
-  }
-
-  setOnline()
-  {
-    // @see https://api.landbot.io/#api-Agents-PutHttpsApiLandbotIoV1Agents
-    const settings = { "status": "online" };
-
-    return this._callLandbot(`agents/`, settings, 'put');
-  }
-
-  assignToAgent(customer_id: string)
-  {
-    // @see https://api.landbot.io/#api-Agents-PutHttpsApiLandbotIoV1Agents
-    const settings = {};
-
-    return this._callLandbot(`customers/${customer_id}/assign/`, settings, 'put');
-  }
-
-  ifOnline()
-  {
-    const AGENT_ID = 129133;
-    // @see https://api.landbot.io/#api-Agents-PutHttpsApiLandbotIoV1Agents
-    const settings = { "status": "online" };
-
-    return this._callLandbot(`agents/${AGENT_ID}/`, settings);
-  }
-
-
-   /**
-   * Resume chat
-   *
-   * @param chatId   - Chat to send message through
-   * @param botId  - Bot to redirect the user to
-   * @param blockRef - Block Reference within chat
+  /**
+   * Initializes chat status and returns the first block
+   * @param msg 
+   * @param chatInfo 
+   * @param tools 
+   * @returns First Block
    */
-  resumeChat(chatId: string, botId: number, blockRef?: string)
-  {
-    // @see https://api.landbot.io/#api-Customers-PutHttpsApiLandbotIoV1CustomersCustomer_idAssign_botBot_id
-    const settings = { launch: true } as any;
-    if(blockRef)
-      settings.node = blockRef;
+  async init(msg: Message, chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> | null {
+    this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
 
-    return this._callLandbot(`customers/${chatId}/assign_bot/${botId}/`, settings, 'put');
+    const chatBotRepo$ =  new ChatBotStore(tools)
+
+    const blockConnections = chatBotRepo$.blockConnections()
+    const chatStatus = chatBotRepo$.chatStatus()
+
+    /** Initialize Chat Status */
+    const chatData = await chatStatus.initChatStatus(chatInfo, this._platform); 
+    this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
+
+    // Set the Chat Id
+    this.chatId = chatData.chatId;
+
+    /** Get the first Block */
+    const connection = await blockConnections.getFirstConn(chatInfo.storyId, chatInfo)
+
+    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, chatInfo)
+
+
+    /** Update the cursor with the first block */
+    await chatBotRepo$.cursor().moveCursor(chatInfo, firstBlock, this._platform);
+
+    this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
+
+    return firstBlock;
+
+  }
+
+  async pause(chatInfo: ChatInfo, tools: HandlerTools){
+    this._logger.log(()=> `[ChatBotService].pause - Pausing Chat`)
+
+    const chatBotRepo$ =  new ChatBotStore(tools)
+    await chatBotRepo$.chatStatus().updateChatStatus(chatInfo, ChatStatus.Paused, this._platform)
+  }
+
+  async resume(chatInfo: ChatInfo, tools: HandlerTools){
+    this._logger.log(()=> `[ChatBotService].resume - Resuming Chat`)
+
+    const chatBotRepo$ =  new ChatBotStore(tools)
+    await chatBotRepo$.chatStatus().updateChatStatus(chatInfo, ChatStatus.Running, this._platform)
+  }
+
+  async end(chatInfo: ChatInfo, tools: HandlerTools){
+    this._logger.log(()=> `[ChatBotService].end - Ending Session`)
+
+    const chatBotRepo$ =  new ChatBotStore(tools)
+    await chatBotRepo$.chatStatus().updateChatStatus(chatInfo, ChatStatus.Ended, this._platform)
+  }
+
+  async jumpToBlock(blockId: string, chatInfo: ChatInfo, tools: HandlerTools){
+    this._logger.log(()=> `[ChatBotService].Jump - Jumping to block ${blockId}`)
+
+    const chatBotRepo$ =  new ChatBotStore(tools)
+    const newBlock = await chatBotRepo$.blockConnections().getBlockById(blockId, chatInfo)
+    
+    await chatBotRepo$.cursor().moveCursor(chatInfo, newBlock, this._platform);
+
+    return newBlock
   }
 
   /**
-   * Admin feature
-   *  - Registers a MessageHook for a certain Landbot Channel. @see https://help.landbot.io/article/n9zxrqx1ig-message-hooks-landbot-webhooks
-   *  - MessageHooks set a callback URI on the side of Landbot, instructing landbot to call a callback URI we determine whenever a chat comes in on that channel.
-   *  - Limit: 10 calls / second - Determined by LandBot's throughput capacity.
-   *
-   * @param channelId - ChannelID to listen to
-   * @param ref       - The reference code to link an incoming chat to a determined channel
-   * @param name      - Name of the Channel
-   * @param cbUrl     - Callback URL LandBot should call whenever a message comes in on the channelId. Uses Pipedream by default.
-   * */
-  registerMessagehook(channelId: string, ref: string, name: string, cbUrl?: string)
-  {
-    // @see https://api.landbot.io/#api-MessageHooks-PostHttpsApiLandbotIoV1ChannelsChannel_idMessage_hooks
-    const settings = { "url": cbUrl != null? cbUrl : CALLBACK_MANAGER_URL,
-                       "token": ref,
-                       "name": name };
-
-    return this._callLandbot(`channels/${channelId}/message_hooks/`, settings);
-  }
-
-  // Perform a call to Landbot
-  private async _callLandbot(res: string, body: any, method: string = 'post') : Promise<any>
-  {
-    this._logger.log(() => `Creating call to Landbot for resource ${res} with params ${JSON.stringify(body)}`);
-
-    const data = {
-      method: method,
-      uri: LANDBOT_BASE_URL + res,
-      headers: this._getHeaders(),
-
-      body: JSON.stringify(body)
-    };
-
-    const response = await fetch.default(data.uri, data);
-
-    const responseJson= await response.json();
-
-    this._logger.log(() => `Response from Landbot: ${JSON.stringify(responseJson)}`);
-
-    return responseJson;
-  }
-
-  /**
-   * Generates Headers and adds Authorisation parameters
-   * @see: https://api.landbot.io/#api-General
+   * Handles possible race condition, checks if a new message was added while processing the current message
+   * If a new message was added, then its possible another instance of the function is running
+   * @param msg 
+   * @param tools 
    */
-  private _getHeaders()
-  {
-    return new fetch.Headers({
-      "Authorization": `Token ${LANDBOT_API_KEY}`,
-      "Content-Type": "application/json"
-    });
-  }
+  async handleDuplicates(msg: Message, tools: HandlerTools): Promise<boolean>{
+    const chatBotRepo$ =  new ChatBotStore(tools)
+    const latestMessage = await chatBotRepo$.messages().getLatestMessage(msg)
 
+    const currentMsgStamp = __DateFromStorage(msg.createdOn).unix()
+    const latestMsgStamp = __DateFromStorage(latestMessage.createdOn).unix()
+
+    if(currentMsgStamp !=  latestMsgStamp){
+      tools.Logger.log(()=> `[ProcessMessageHandler]._handleDuplicates: Another message has been added during this transaction`)
+      return true
+    } 
+    return false
+  }
 }

@@ -1,1 +1,1 @@
-export * from './lib/functions-conversations-onboarding';
+export * from './lib/register-user.handler';

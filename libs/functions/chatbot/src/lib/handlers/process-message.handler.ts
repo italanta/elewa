@@ -2,111 +2,111 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { Chat, ChatFlowStatus, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
-import { RawMessageWrapper, RawMessage, ChatMessage } from '@app/model/convs-mgr/conversations/messages';
-import { createMessage } from '../model/create-message.model';
+import { ChatBotService } from '../services/main-chatbot.service';
+import { NextBlockFactory } from '../services/next-block/next-block.factory';
+import { ChatBotStore } from '../stores/chatbot.store';
 
-/** Cache across function invocations. */
-const __KnownChats: string[] = [];
+import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
-export class ProcessMessageHandler extends FunctionHandler<RawMessageWrapper, RestResult200>
+
+
+/**
+ * Triggered by document.create in 'messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'
+ * Processes the message and returns the next block.
+ */
+export class ProcessMessageHandler extends FunctionHandler<Message, RestResult200>
 {
-  /**
-   * Incoming message hook from Landbot.
-   *
-   * Registers incoming messages and processes them as readable information in our system.
-   */
-  public async execute(req: RawMessageWrapper, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: Message, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[RecordMessageHandler].execute: New incoming chat from channels.`);
+    tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
 
-    await Promise.all(req.messages.map(msg => this._processMessage(msg, tools)));
+    // Initialize ChatBotStore
+    const chatBotRepo$ =  new ChatBotStore(tools)
 
-    return { success: true } as RestResult200;
+    //[WIP] - Get the current platform
+    const platform = req.platform
+
+    // Get the registered ChatInfo of the end-user
+    const chatInfo  = await chatBotRepo$.chatInfo().getChatInfo(req.phoneNumber, platform);
+
+    // Process the message
+    await this._processMessage(chatInfo, req, tools, platform)
+
+    return { success: true} as RestResult200
   }
 
-  private async _processMessage(msg: RawMessage, tools: HandlerTools)
+  /**
+   * Checks whether the chat is new and either initializes a new chat or resolves the next block
+   * @param chatInfo - The registered chat information of the end-user
+   * @param msg - The message sent by the end-user
+   * @param platform - The platform we have received the message from
+   * @returns First Block
+   */
+  private async _processMessage(chatInfo: ChatInfo, msg: Message, tools: HandlerTools, platform: Platforms)
   {
-    tools.Logger.log(() => `[RecordMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
+    tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
-    /** Always link the chatId to the customer, as multiple senders are involved in a chat. */
-    const chatId = `${msg.customer.id}`;
+    const chatBotRepo$ =  new ChatBotStore(tools)
 
-    if(!__KnownChats.find(c => c === chatId))
-      await this._initSession(chatId, msg, tools);
+    // const chatInfo = await chatBotRepo$.getChatInfo(msg.phoneNumber, platform)
 
-    const messageRepo = tools.getRepository<ChatMessage>(`sessions/${chatId}/messages`);
-    const message = createMessage(msg);
+    if(!chatInfo)
+      tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    await this._updateChat(chatId, message, tools);
+    const userActivity =  await chatBotRepo$.cursor().getLatestActivity(chatInfo, msg.platform);
 
-    return messageRepo.create(message);
+    if(!userActivity){
+      return await this._initSession(chatInfo, msg, tools, platform)
+    } else {
+      return await this._resolveNextBlock(chatInfo, chatBotRepo$, msg, tools, platform)
+    }
   }
 
-  /** If a chat session has not yet been recorded on this container, we need to verify if the chat exists.
-   *    Therefore,
+  /** 
+   * If a chat session has not yet been recorded, we create a new one and return the first block
   */
-  private async _initSession(chatId: string, msg: RawMessage, tools: HandlerTools)
-  {
-    const chatRepo = tools.getRepository<Chat>(`sessions`);
-    const chat = await chatRepo.getDocumentById(chatId);
+  private async _initSession(endUser: any, msg: Message, tools: HandlerTools, platform: Platforms)
+  {    
+    const chatService =  new ChatBotService(tools.Logger, platform)
+    const firstBlock = await chatService.init(msg, endUser, tools)
 
-    if(chat)
-      __KnownChats.push(chat.id);
-    else {
-      const nChat: Chat = {
-        id: chatId,
-        name: msg.customer.name,
-        phone: msg.customer.phone,
-        flow: ChatFlowStatus.Flowing,
-        onboardedOn: new Date(),
+    tools.Logger.log(() => `[ProcessMessageHandler]._initSession: Session initialized`);
 
-        status: ChatStatus.New,
-        channel: msg.channel.type,
-        channelId: `${msg.channel.id}`,
-        channelName: msg.channel.name,
-        updatedOn: new Date()
-      };
-
-      await chatRepo.create(nChat, chatId);
-      __KnownChats.push(chat.id);
-    }
+    return firstBlock
   }
 
-  private async _updateChat(chatId: string, message: ChatMessage, tools: HandlerTools)
-  {
-    let chatIsChanged = false;
 
-    const chatRepo = tools.getRepository<Chat>('sessions');
-    const chat = await chatRepo.getDocumentById(chatId);
+  /**
+   * Gets the next block and updates the cursor
+   * @param chatInfo - The registered chat information of the end-user
+   * @param chatBotRepo$ - Contains ready to use methods for working with the chatbot firebase collections
+   * @param msg - The message sent by the end-user
+   * @returns Next Block
+   */
+  private async _resolveNextBlock(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: Message, tools: HandlerTools, platform: Platforms){
+    // const chatService =  new ChatBotService(tools.Logger, platform)
 
-    if(message.origin === 'agent' && chat.awaitingResponse)
-    {
-      chat.awaitingResponse = false;
-      chatIsChanged = true;
-    }
-    else if(message.origin === 'customer')
-    {
-      if(chat.flow === ChatFlowStatus.Paused || chat.flow === ChatFlowStatus.PausedByAgent
-          || chat.flow === ChatFlowStatus.Completed)
-      {
-        chat.awaitingResponse = true;
-        chatIsChanged = true;
-      }
-      else if(chat.status === ChatStatus.Stashed || chat.flow === ChatFlowStatus.Stashed)
-      {
-        chat.status = ChatStatus.New;
-        chat.flow = ChatFlowStatus.PausedByAgent;
-        chat.stashed = {reason: '', stashedBy: ''};
-        chatIsChanged = true;
-      }
-    }
+    // Get the latest activity / latest position of the cursor
+    const latestActivity = (await chatBotRepo$.cursor().getLatestActivity(chatInfo, platform)) as Activity
 
-    if(chatIsChanged)
-    {
-      await chatRepo.update(chat);
-    }
+    // Get the lastest block found in activity
+    const latestBlock = await chatBotRepo$.blockConnections().getBlockById(latestActivity.block.id, chatInfo)
+
+    // Use NextBlockFactory to resolve the block type and get the next block based on the type
+    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
+    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
+
+    // Handles possible race condition
+    // const duplicateMessage = await chatService.handleDuplicates(msg, tools)
+
+    // Update the cursor
+    const cursor = await chatBotRepo$.cursor().moveCursor(chatInfo, nextBlock, platform)
+
+    return cursor.block;
+
   }
 
 }

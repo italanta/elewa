@@ -9,3 +9,6 @@ export * from './functions/fns-webhooks';
 export * from './functions/fns-messages';
 
 export * from './app/functions/botProcess.function';
+export * from './app/functions/bot/processMessage.function';
+export * from './app/functions/bot/registerUser.function';
+export * from './app/functions/bot/addMessage.function';
