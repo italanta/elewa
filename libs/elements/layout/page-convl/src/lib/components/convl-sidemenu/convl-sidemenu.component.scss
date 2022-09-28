@@ -46,7 +46,7 @@ mat-nav-list {
 }
 
 .header {
-  padding: 12px 35px;
+  // padding: 12px 35px;
   border-bottom: 0.8px solid rgba(255,255,255,.1);
   font-size: 14px;
   outline: none;
@@ -112,4 +112,14 @@ mat-nav-list {
 .category-children{
   background-color: #7619ff26;
   color: #7619ff;
+  // align-items: center;
+  padding-left: 20px;
+  padding-bottom: 5px;
+
 }
+
+.main{
+  padding-left: 20px;
+  padding-bottom: 15px;
+}
+
