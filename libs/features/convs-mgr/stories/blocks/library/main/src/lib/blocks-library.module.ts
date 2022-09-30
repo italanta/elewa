@@ -18,6 +18,8 @@ import { ConvsMgrEmailMessageBlockModule } from '@app/features/convs-mgr/stories
 import { ConvsMgrPhoneMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/phone-message-block';
 import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 
+import { UploadFileService } from '@app/state/file';
+
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
@@ -48,6 +50,6 @@ import { BlockComponent } from './components/block/block.component';
   ],
 
   // Injector which creates all block types within the editor context.
-  providers: [BlockInjectorService],
+  providers: [BlockInjectorService, UploadFileService],
 })
 export class  BlocksLibraryModule {}
