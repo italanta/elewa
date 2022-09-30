@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'convl-italanta-apps-story-list',
@@ -11,6 +12,8 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  filmIcon = faSearch;
 
   constructor(private _stories$$: StoriesStore) {
     this.stories$ = this._stories$$.get();
