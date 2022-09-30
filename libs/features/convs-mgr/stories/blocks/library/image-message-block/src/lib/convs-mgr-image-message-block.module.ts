@@ -14,7 +14,6 @@ import {MultiLangModule}from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { ImageUploadService } from './providers/image-upload.service';
 import { ImageBlockComponent } from './components/image-block/image-block.component';
 
 @NgModule({
@@ -36,7 +35,6 @@ import { ImageBlockComponent } from './components/image-block/image-block.compon
   declarations: [ImageBlockComponent],
 
   providers: [
-      ImageUploadService
   ],
 
   exports: [ImageBlockComponent],
