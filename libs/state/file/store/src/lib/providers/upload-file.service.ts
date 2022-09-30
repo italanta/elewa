@@ -46,7 +46,6 @@ export class UploadFileService extends DataStore<FileUpload>{
     console.log(promise$);
 
     of(promise$).pipe(switchMap(() => {
-      debugger
       return this._org$$.get()
     })).subscribe(org => {
       this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${org.id}/files/`)
