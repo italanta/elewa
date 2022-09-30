@@ -6,19 +6,26 @@ import { ChatBotStore } from "@app/functions/chatbot";
 
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
-import { NextBlockInterface } from "../next-block.interface";
 
-/**Handles the next block incase the last block was a question to the user  */
-export class QuestionMessageService implements NextBlockInterface {
+import { NextBlockService } from "../next-block.class";
+
+/** 
+ * Handles the next block incase the last block was a question to the user
+ */
+export class QuestionMessageService extends NextBlockService {
     userInput: string;
     _logger: Logger;
     tools: HandlerTools;
 
     constructor(tools: HandlerTools){
-        this.tools = tools
+        super(tools)
         this._logger = tools.Logger
     }
 
+    /**
+     * Override method to match options and return the next block based on the option selected
+     * @returns Block
+     */
     async getNextBlock(chatInfo: ChatInfo, message: string, lastBlock?: QuestionMessageBlock): Promise<Block>{
         const chatBotRepo$ =  new ChatBotStore(this.tools)
         const blockConnections = chatBotRepo$.blockConnections()
