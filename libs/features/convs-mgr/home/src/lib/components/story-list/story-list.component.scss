@@ -4,61 +4,26 @@
 @import 'libs/elements/theming/common.theme.scss';
 
 
-.search-icon {
+.fa {
   color: mat-color($mat-ele, A900);
   margin-left: 6px;
   margin-top: 10px;
   margin-right: 6px;
   margin-bottom: 10px;
-  font-size: 31px;
+  font-size: 25px;
   transform: rotate(90deg);
   font-weight: 500;
 }
 
 
 
-// .mat-form-field {
-//   border: none;
-//   background-color: white;
-//   width: 100%;
-//   // border-radius: 3px;
-//   outline: none;
-//   // filter: opacity(1) drop-shadow(0 0 0 transparent);
-// }
-
-
-// ::placeholder {
-//   position: absolute;
-//   left: 2pc !important;
-//   font-size: 15px;
-//   letter-spacing: 0px;
-//   color: #aaaaaa;
-//   opacity: 1;
-// }
-
-// .prefix {
-//   position: absolute;
-//   top: -2pc;
-//   left: 0pc;
-//   width: 50px;
-// }
-
-// .mat-focused {
-//   mat-icon {
-//     display: none !important;
-//   }
-//   ::placeholder {
-//     display: none !important;
-//   }
-//   border: none !important;
-//   outline: none;
-// }
 
 .search{
 
 	min-width: 40%;
 	height: 5px;
 	background-color: white;
+	// background-color: var(----convs-mgr-color-primary-background);
 	border-radius: 8px;
 	display: flex;
 	align-items: center;
