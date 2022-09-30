@@ -1,27 +1,27 @@
 {
-    "projectType": "library",
-    "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/document-message-block/src",
-    "prefix": "app",
-    "targets": {
-        "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": [
-                "coverage/libs/features/convs-mgr/stories/blocks/library/document-message-block"
-            ],
-            "options": {
-                "jestConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/jest.config.ts",
-                "passWithNoTests": true
-            }
-        },
-        "lint": {
-            "executor": "@nrwl/linter:eslint",
-            "options": {
-                "lintFilePatterns": [
-                    "libs/features/convs-mgr/stories/blocks/library/document-message-block/**/*.ts",
-                    "libs/features/convs-mgr/stories/blocks/library/documentx-message-block/**/*.html"
-                ]
-            }
-        }
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/document-message-block/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/features/convs-mgr/stories/blocks/library/document-message-block"
+      ],
+      "options": {
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/document-message-block/jest.config.ts",
+        "passWithNoTests": true
+      }
     },
-    "tags": []
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/convs-mgr/stories/blocks/library/document-message-block/**/*.ts",
+          "libs/features/convs-mgr/stories/blocks/library/documentx-message-block/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
 }

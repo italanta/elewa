@@ -53,14 +53,17 @@
       "@app/features/convs-mgr/stories/blocks/library/document-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/document-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/location-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/location-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/name-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/name-message-block/src/index.ts"
@@ -73,9 +76,6 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/text-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/text-message-block/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/main": [
         "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
@@ -117,6 +117,7 @@
       ],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
+      "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
