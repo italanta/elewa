@@ -12,12 +12,14 @@
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </ng-template>
   </div>  
-
+<!-- edited the search -->
   <div class="search">
-    <span matPrefix class="prefix">
+    <!-- <span matPrefix class="prefix">
       <mat-icon matPrefix class="search-icon">search</mat-icon>
-    </span>
+    </span> -->
   
+    <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+    <fa-icon [icon]="filmIcon" class="fa"></fa-icon>
     <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)" >
   
   </div>
