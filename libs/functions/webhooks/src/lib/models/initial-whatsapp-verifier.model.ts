@@ -1,4 +1,5 @@
 import { HandlerTools } from "@iote/cqrs";
+import { RestResult200 } from "@ngfi/functions";
 
 /**
  * @Description When creating webhook, meta needs to validate webhook using a 'GET' request
@@ -13,11 +14,10 @@ export function __VerifyWhatsAppTokenWebHook(context: any, tools:HandlerTools, t
   const queryKey = "hub.verify_token"
   const verifiableToken = context?.eventContext?.request?.query[queryKey]; 
   if(token  == verifiableToken){
-    tools.Logger.log(() =>`✅✅✅[MessageHookHandler] Token match successful ✅✅✅`);
-    const challengeKey = "hub.challenge"
-    return context?.eventContext?.request?.query[challengeKey];
+    tools.Logger.log(() =>`[__VerifyWhatsAppTokenWebHook] Token match successful ✅`);
+    const challengeKey = "hub.challenge";
+    return (context.eventContext.request.query[challengeKey]) as RestResult200;
   } else {
-    tools.Logger.log(() =>`⛔⛔⛔[MessageHookHandler] Token match failed ⛔⛔⛔`);
-    throw new Error(`⛔⛔⛔[MessageHookHandler] Token match failed ⛔⛔⛔`);
+    throw new Error(`[__VerifyWhatsAppTokenWebHook] Token match failed ⛔`);
   }
 }
