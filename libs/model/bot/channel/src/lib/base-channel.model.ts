@@ -10,6 +10,9 @@ export interface BaseChannel extends IObject {
   //organisation/business that is using the channel for communication using the bot
   orgId: string;
 
+  //Story which channel is pointing to
+  storyId: string;
+
   //unique key used for particular channel
   authorizationKey?: string;
 
