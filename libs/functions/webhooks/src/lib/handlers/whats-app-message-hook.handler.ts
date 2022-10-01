@@ -4,7 +4,7 @@ import { FunctionHandler, HttpsContext } from "@ngfi/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
 import { __VerifyWhatsAppTokenWebHook } from "../utils/initial-whatsapp-verifier.util";
 
-export class MessageHookHandler extends FunctionHandler<{val:BotProvider}, void>
+export class WhatsAppMessageHookHandler extends FunctionHandler<{val:BotProvider}, void>
 {
   public async execute(data:any, context:HttpsContext, tools:HandlerTools)
   { 
