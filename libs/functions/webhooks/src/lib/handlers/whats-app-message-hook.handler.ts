@@ -1,27 +1,39 @@
 import { BotProvider } from "@app/model/convs-mgr/functions";
 import { HandlerTools } from "@iote/cqrs";
-import { FunctionHandler, HttpsContext } from "@ngfi/functions";
+import { FunctionHandler, HttpsContext, RestResult, RestResult200 } from "@ngfi/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
-import { __VerifyWhatsAppTokenWebHook } from "../utils/initial-whatsapp-verifier.util";
 
-export class WhatsAppMessageHookHandler extends FunctionHandler<{val:BotProvider}, void>
+export class WhatsAppMessageHookHandler extends FunctionHandler<{ val: BotProvider }, RestResult>
 {
-  public async execute(data:any, context:HttpsContext, tools:HandlerTools)
-  { 
-    tools.Logger.log(() =>`${JSON.stringify(data)}`);
+  public async execute(data: {}, context: HttpsContext, tools: HandlerTools)
+  {
+    if (this._dataResIsEmpty(data)) {
+      tools.Logger.log(() => `[WhatsAppMessageHookHandler] webhook is being validated first.⚠`);
+      return this._verifyWhatsAppTokenWebHook(context, tools);
+    } else {
+      tools.Logger.log(() => `[WhatsAppMessageHookHandler]: Processing data from webhook.⌚`);
+      tools.Logger.log(() => `[WhatsAppMessageHookHandler]:Data is ${JSON.stringify(data)}. ℹ`);
 
-    if(!data){
-      tools.Logger.log(()=>`⚠⚠⚠[MessageHookHandler] webhook is being validated first.`)
-      const token = "qasw23edfrtghy657ujkiklop09" //To move to environment variable, Token is user defined
-      return __VerifyWhatsAppTokenWebHook(context, tools, token);
+      const convertedData = __ConvertWhatsAppApiPayload(data);
+      tools.Logger.log(() => `${convertedData.entry}`);
+      tools.Logger.log(() => `${convertedData.object}`);
+
+      //TODO: Call processor for message
     }
-     tools.Logger.log(() =>`Processing data from webhook...⌚⌚`);
-     tools.Logger.log(() =>`${JSON.stringify(data)}`);
-     
-     const dataT = __ConvertWhatsAppApiPayload(data);
-     tools.Logger.log(() =>`${dataT.entry}`);
-     tools.Logger.log(() =>`${dataT.object}`);
-
   }
-  
+
+  //Checks if data object is empty since it means webhook is not verified yet
+  private _dataResIsEmpty(data) {
+    return Object.keys(data).length === 0;
+  }
+
+  //Verifies webhook for meta
+  //@See https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
+  private _verifyWhatsAppTokenWebHook(context: any, tools: HandlerTools)
+  {
+    tools.Logger.log(() => `[WhatsAppMessageHookHandler] Token match successful ✅`);
+    const challengeKey = "hub.challenge";
+    return (context.eventContext.request.query[challengeKey]) as RestResult200;
+  }
+
 }
