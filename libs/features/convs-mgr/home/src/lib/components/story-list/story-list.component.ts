@@ -13,7 +13,7 @@ export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  filmIcon = faSearch;
+  searchIcon = faSearch;
 
   constructor(private _stories$$: StoriesStore) {
     this.stories$ = this._stories$$.get();
