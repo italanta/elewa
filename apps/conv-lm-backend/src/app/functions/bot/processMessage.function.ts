@@ -1,13 +1,11 @@
 import { ProcessMessageHandler } from "@app/functions/chatbot";
 import { FirestoreCreateRegistrar } from "@ngfi/functions";
-
-import { GCPFunction } from "../../../function";
-
+import { ConvLearnFunction } from "apps/conv-lm-backend/src/conv-learn-func.class";
 
 const handler = new ProcessMessageHandler();
 
 // The function itself
-export const processMessage = new GCPFunction(
+export const processMessage = new ConvLearnFunction(
         "processMessage",
         new FirestoreCreateRegistrar('end-users/{phoneNumber}/platforms/{platform}/messages/{messageId}'),
         [],
