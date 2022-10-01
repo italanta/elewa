@@ -1,10 +1,4 @@
-<!-- <mat-form-field appearance="outline">
-  <input matInput type="text"  placeholder="Search for a bot" class="mat-form" (input)="filterBots($event)"/>
 
-  <span matPrefix class="prefix">
-    <mat-icon matPrefix class="search-icon">search</mat-icon>
-  </span>
-</mat-form-field> -->
 
 
   <div class="bot-selector" fxLayout="row wrap" fxLayoutAlign="" fxLayoutGap="26px grid">
@@ -14,12 +8,8 @@
   </div>  
 <!-- edited the search -->
   <div class="search">
-    <!-- <span matPrefix class="prefix">
-      <mat-icon matPrefix class="search-icon">search</mat-icon>
-    </span> -->
-  
-    <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
-    <fa-icon [icon]="filmIcon" class="fa"></fa-icon>
+   
+    <fa-icon [icon]="searchIcon" class="fa" ></fa-icon>
     <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)" >
   
   </div>
