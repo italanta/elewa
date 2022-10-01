@@ -1,3 +1,4 @@
+import { BaseChannel } from "@app/model/bot/channel";
 import { HandlerTools } from "@iote/cqrs";
 
 /**
@@ -14,7 +15,10 @@ export class ChannelRegistrationModel {
     this._tools = tools;    
   }
 
-  register(){
-
+  register(channel:BaseChannel)
+  {
+    const channelsRepo = this._tools.getRepository<BaseChannel>(`channels/${channel.channelName}/`);
+    this._tools.Logger.log(()=>`[ChannelRegistrationModel]. Registering ${channel.channelName}🖌`);
+    return channelsRepo.create(channel);
   }
 }
