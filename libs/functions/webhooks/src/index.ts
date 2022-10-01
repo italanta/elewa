@@ -1,1 +1,1 @@
-export * from './lib/handlers/message-hook.handler';
+export * from './lib/handlers/whats-app-message-hook.handler';
