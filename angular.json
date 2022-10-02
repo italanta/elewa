@@ -163,6 +163,40 @@
     "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
     "model-organisation": "libs/model/organisation/main",
     "model-user": "libs/model/user/base",
+    "model-user-bot-users": {
+      "root": "libs/model/user/bot-users",
+      "sourceRoot": "libs/model/user/bot-users/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/model/user/bot-users",
+            "tsConfig": "libs/model/user/bot-users/tsconfig.lib.json",
+            "packageJson": "libs/model/user/bot-users/package.json",
+            "main": "libs/model/user/bot-users/src/index.ts",
+            "assets": ["libs/model/user/bot-users/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/user/bot-users/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/user/bot-users"],
+          "options": {
+            "jestConfig": "libs/model/user/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
     "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
     "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
