@@ -1,4 +1,4 @@
-import { MetaMessagingProducts } from "./whatsapp-base-message.model";
+import { MetaMessagingProducts } from "./whatsapp-base-message.interface";
 
 // Interface for response from whatsapp api
 //reference: https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
