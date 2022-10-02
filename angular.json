@@ -57,6 +57,40 @@
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "functions-base": "libs/functions/base",
     "functions-bot-process-handler": "libs/functions/bot-process-handler",
+    "functions-bot-users": {
+      "root": "libs/functions/bot-users",
+      "sourceRoot": "libs/functions/bot-users/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/functions/bot-users",
+            "tsConfig": "libs/functions/bot-users/tsconfig.lib.json",
+            "packageJson": "libs/functions/bot-users/package.json",
+            "main": "libs/functions/bot-users/src/index.ts",
+            "assets": ["libs/functions/bot-users/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/bot-users/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/bot-users"],
+          "options": {
+            "jestConfig": "libs/functions/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-chatbot": "libs/functions/chatbot",
     "functions-conversations-messages-add-message": {
       "root": "libs/functions/conversations/messages/add-message",
