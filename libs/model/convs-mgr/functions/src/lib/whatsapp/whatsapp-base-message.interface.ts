@@ -1,5 +1,5 @@
 import { IObject } from "@iote/bricks";
-import { WhatsAppMessageType } from "./whatsapp-message-types.model";
+import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 //All the fields that are required for all types of whatsapp messages
 //see : https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#send-messages
