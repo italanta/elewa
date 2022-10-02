@@ -12,13 +12,10 @@ export class WhatsAppMessageHookHandler extends FunctionHandler<{ val: BotProvid
       return this._verifyWhatsAppTokenWebHook(context, tools);
     } else {
       tools.Logger.log(() => `[WhatsAppMessageHookHandler]: Processing data from webhook.⌚`);
-      tools.Logger.log(() => `[WhatsAppMessageHookHandler]:Data is ${JSON.stringify(data)}. ℹ`);
-
       const convertedData = __ConvertWhatsAppApiPayload(data);
-      tools.Logger.log(() => `${convertedData.entry}`);
-      tools.Logger.log(() => `${convertedData.object}`);
-
-      //TODO: Call processor for message
+      tools.Logger.log(() => `[WhatsAppMessageHookHandler]: Data is ${JSON.stringify(convertedData)}📅`);
+   
+      //TODO: Call processor for user
     }
   }
 
