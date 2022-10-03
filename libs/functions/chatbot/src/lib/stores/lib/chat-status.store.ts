@@ -3,6 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/messages';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+import { BaseChannel } from 'libs/model/bot/channel/src';
 
 /**
  * Contains all the required database flow methods for the chat-status collection
@@ -15,9 +16,9 @@ export class ChatStatusStore {
     this.tools = tools;
   }
 
-  async initChatStatus(chatInfo: ChatInfo, platform: Platforms) {
-    const chatId = chatInfo.storyId;
-    const chatRepo$ = this.tools.getRepository<Chat>(`end-users/${chatInfo.phoneNumber}/platforms/${platform}/chat-status`);
+  async initChatStatus(channel: BaseChannel, platform: Platforms) {
+    const chatId = channel.storyId;
+    const chatRepo$ = this.tools.getRepository<Chat>(`end-users/${channel.id}/platforms/${platform}/chat-status`);
 
     const newStatus: Chat = {
       chatId,
