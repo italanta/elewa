@@ -1,14 +1,14 @@
 import { RegisterEndUserHandler } from "@app/functions/conversations/onboarding";
 import { RestRegistrar } from "@ngfi/functions";
 
-import { GCPFunction } from "../../../function";
+import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
 
 const handler = new RegisterEndUserHandler();
 
 // The function itself
-export const registerUser = new GCPFunction(
-        "registerUser",
+export const registerEndUser = new ConvLearnFunction(
+        "registerEndUser",
         new RestRegistrar(),
         [],
         handler)
