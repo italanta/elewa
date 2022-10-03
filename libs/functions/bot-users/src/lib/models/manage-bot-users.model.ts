@@ -2,7 +2,7 @@ import { ChannelOptions } from "@app/model/bot/channel";
 import { WhatsAppBotUser } from "@app/model/user/bot-users";
 import { HandlerTools } from "@iote/cqrs";
 
-export class AddNewUserModel 
+export class ManageBotUsersModel 
 {
   _tools: HandlerTools;
 
@@ -30,8 +30,9 @@ export class AddNewUserModel
    * 
    * @description Creates a new user for whatsappchannel
    */
-  private async _addUserToWhatsAppChannel(phoneNumber:string){
-    const _whatsAppUserRepo = this._tools.getRepository<WhatsAppBotUser>(`BotUser/${phoneNumber}/channels/whatsapp`);
+  private async _addUserToWhatsAppChannel(phoneNumber:string)
+  {
+    const _whatsAppUserRepo = this._tools.getRepository<WhatsAppBotUser>(`bot-users/${phoneNumber}/channels/whatsapp`);
     const newBotUser: WhatsAppBotUser = {
       phoneNumber:phoneNumber
     }
