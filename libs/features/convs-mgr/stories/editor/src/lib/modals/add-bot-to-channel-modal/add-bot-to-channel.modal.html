@@ -1,29 +1,42 @@
 <ng-container>
-  <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="15px">
-    <mat-form-field appearance="fill">
-      <mat-label>Bot Phone Number</mat-label>
-      <input formControlName="phoneNumber" type="number" matInput placeholder="Enter bot phone number">
-    </mat-form-field>
+  <div fxLayout="column" fxLayoutAlign="center center"
+  fxLayoutGap="15px" fxFlex="100">
+    <span class="header-text">
+      Add Story To Channel
+    </span>
+    <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center"
+      fxLayoutGap="15px" fxFlex="100">
+      <mat-form-field appearance="standard">
+        <mat-label>Bot Phone Number</mat-label>
+        <input formControlName="phoneNumber" matInput placeholder="Enter bot phone number">
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Bot Phone Id</mat-label>
-      <input formControlName="phoneId" type="number" matInput placeholder="Enter bot phone id">
-    </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Bot Phone Id</mat-label>
+        <input formControlName="bussinessId" type="number" matInput placeholder="Enter bot business id">        
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Favorite food</mat-label>
-      <mat-select formControlName="channel" required>
-        <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
-          {{singleChannel.channelName}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Choose Channel</mat-label>
+        <mat-select formControlName="channel" required>
+          <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
+            {{singleChannel.channelName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <button type="submit" [disabled]="!addToChannelForm.valid || isSaving">
-      Save
-    </button>
+      <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+        <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
+          Save
+        </button>
+
+        <button mat-raised-button class="cancel-btn" (click)="closeDialog()">
+          Cancel
+        </button>
+      </span>
+    </form>
+
+  </div>
 
 
-    
-  </form>
 </ng-container>
