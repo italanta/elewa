@@ -19,12 +19,12 @@ import { StoryEditorInitialiserService } from './providers/story-editor-initiali
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
 
 
 @NgModule({
   imports: [
-    CommonModule,
-    MultiLangModule,
+    CommonModule, MultiLangModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
     MaterialFormBricksModule, ReactiveFormsModule,
 
@@ -37,7 +37,9 @@ import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-
     StoryEditorStateModule],
 
   declarations: [StoryEditorPageComponent, AddBotToChannelModal,
-    StoryEditorFrameComponent, BlocksLibraryComponent],
-  providers: [StoryEditorInitialiserService]
+                 StoryEditorFrameComponent, BlocksLibraryComponent],
+
+
+  providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService]
 })
 export class ConvlStoryEditorModule { }
