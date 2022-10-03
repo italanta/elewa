@@ -18,6 +18,7 @@ import { BlocksLibraryComponent } from './components/blocks-library/blocks-libra
 import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
+import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
 
     StoryEditorStateModule],
 
-  declarations: [StoryEditorPageComponent,
+  declarations: [StoryEditorPageComponent, AddBotToChannelModal,
     StoryEditorFrameComponent, BlocksLibraryComponent],
   providers: [StoryEditorInitialiserService]
 })
