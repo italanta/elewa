@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, combineLatest, filter, map, of, switchMap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { combineLatest, filter, map } from 'rxjs';
 import { SubSink } from 'subsink';
 import { BaseChannel, ChannelOptions, WhatsappChannel } from '@app/model/bot/channel';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -65,8 +65,6 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       businessId: String(bussinessId)
     } as BaseChannel;
 
-    // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
-
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
     this._sBs.sink = _storyExistsInChannel$.pipe(map((exists)=> {
@@ -85,7 +83,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   private _storyExistsInChannel(channel: BaseChannel)
   {
-    return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
+    return this._manageStoryLinkService
+               .getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
   }
 
   closeDialog = () => this._dialog.closeAll();

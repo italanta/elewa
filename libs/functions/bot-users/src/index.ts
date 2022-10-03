@@ -1,1 +1,1 @@
-export * from './lib/models/add-new-user.model';
+export * from './lib/models/manage-bot-users.model';

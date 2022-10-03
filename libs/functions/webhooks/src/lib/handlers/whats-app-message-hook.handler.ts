@@ -1,21 +1,19 @@
-import { BotProvider, WhatsAppResponse } from "@app/model/convs-mgr/functions";
+import { RawWhatsAppApiPayload, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext, RestResult, RestResult200 } from "@ngfi/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
 
-export class WhatsAppMessageHookHandler extends FunctionHandler<{ val: BotProvider }, RestResult>
+export class WhatsAppMessageHookHandler extends FunctionHandler< RawWhatsAppApiPayload , RestResult>
 {
-  public async execute(data: {}, context: HttpsContext, tools: HandlerTools)
+  public async execute(payload:RawWhatsAppApiPayload, context: HttpsContext, tools: HandlerTools)
   {
-    if (this._dataResIsEmpty(data)) {
+    if (this._dataResIsEmpty(payload)) {
       tools.Logger.log(() => `[WhatsAppMessageHookHandler] webhook is being validated first.⚠`);
       return this._verifyWhatsAppTokenWebHook(context, tools);
     } else {
       tools.Logger.log(() => `[WhatsAppMessageHookHandler]: Processing data from webhook.⌚`);
-      const convertedData: WhatsAppResponse = __ConvertWhatsAppApiPayload(data);
+      const convertedData: WhatsAppResponse = __ConvertWhatsAppApiPayload(payload);
       tools.Logger.log(() => `[WhatsAppMessageHookHandler]: Data is ${JSON.stringify(convertedData)}📅`);
-   
-      //TODO: Call processor for user
     }
   }
 
