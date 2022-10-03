@@ -4,6 +4,7 @@ import { IObject } from '@iote/bricks';
 
 export interface RawMessageData extends IObject{
   // id            : string;
+  businessNumber: string;
   phoneNumber   : string;
   platform      : Platforms;
   message       : string;
