@@ -69,10 +69,11 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
-    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists)=>{
-      if(exists){
+    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists)=> {
+      if(!exists){
+        //If it does not exist, link it to the channel
         return this._manageStoryLinkService
-                   .addStoryToChannel(channelToSubmit)
+                   .addStoryToChannel(channelToSubmit).subscribe();            
       } else {
         return;
       }
