@@ -11,6 +11,8 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+import { MatDialog } from '@angular/material/dialog';
+import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -31,7 +33,11 @@ export class StoryEditorPageComponent implements OnDestroy
 
   stateSaved: boolean = true;
 
+  //TODO @CHESA LInk boolean to existence of story in DB
+  storyHasBeenSaved:boolean = false;
+
   constructor(private _editorStateService: StoryEditorStateService,
+              private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               _router: Router)
@@ -84,11 +90,15 @@ export class StoryEditorPageComponent implements OnDestroy
         .subscribe((success) => {
           if (success) {
             this.stateSaved = true;
+            this.storyHasBeenSaved = true;
           }
         });
   }
 
   addToChannel(){
+    this._dialog.open(AddBotToChannelModal, {
+      width: '550px'
+    })
 
   }
 
