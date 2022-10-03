@@ -12,14 +12,8 @@
       </ng-template>
     </button>
 
-    <button [disabled]="!stateSaved" (click)="addToChannel()" mat-flat-button class="subbar-btn">
-      <span *ngIf="stateSaved; else saving"> Add to channel </span>
-      <ng-template #saving>
-        <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-          <span> Add to channel</span>
-          <mat-spinner diameter="20"></mat-spinner>
-        </span>
-      </ng-template>
+    <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="subbar-btn">
+      <span> Add to channel </span>
     </button>
   </div>
 
