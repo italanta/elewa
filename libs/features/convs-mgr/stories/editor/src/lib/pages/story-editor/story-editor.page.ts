@@ -7,7 +7,6 @@ import { BehaviorSubject, filter } from 'rxjs';
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
@@ -33,7 +32,6 @@ export class StoryEditorPageComponent implements OnDestroy
   stateSaved: boolean = true;
 
   constructor(private _editorStateService: StoryEditorStateService,
-              private _blockConnectionsService: BlockConnectionsService,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               _router: Router)
@@ -88,6 +86,10 @@ export class StoryEditorPageComponent implements OnDestroy
             this.stateSaved = true;
           }
         });
+  }
+
+  addToChannel(){
+
   }
 
   ngOnDestroy()
