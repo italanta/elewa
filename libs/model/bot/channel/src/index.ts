@@ -1,2 +1,2 @@
-export * from './lib/base-channel.model';
-export * from './lib/whatsapp-channel.model';
+export * from './lib/base-channel.interface';
+export * from './lib/whatsapp-channel.interface';
