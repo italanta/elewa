@@ -32,7 +32,7 @@ export class ManageBotUsersModel
    */
   private async _addUserToWhatsAppChannel(phoneNumber:string)
   {
-    const _whatsAppUserRepo = this._tools.getRepository<WhatsAppBotUser>(`bot-users/${phoneNumber}/channels/whatsapp`);
+    const _whatsAppUserRepo = this._tools.getRepository<WhatsAppBotUser>(`end-users/${phoneNumber}/channels/whatsapp/${phoneNumber}`);
     const newBotUser: WhatsAppBotUser = {
       phoneNumber:phoneNumber
     }
@@ -41,4 +41,5 @@ export class ManageBotUsersModel
     //id of bot user is to be his/her phone number to maintain uniqueness when linking to one bot/story
     return await _whatsAppUserRepo.write(newBotUser, phoneNumber);
   }
+
 }
