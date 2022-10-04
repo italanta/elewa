@@ -1,1 +1,1 @@
-export * from './lib/elements-base-security-config';
+export * from './lib/utils/api-key-encoder.util';
