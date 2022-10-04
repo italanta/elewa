@@ -8,7 +8,7 @@ import { ChatBotStore } from '../stores/chatbot.store';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 
 
@@ -23,17 +23,8 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
     tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
 
-    // Initialize ChatBotStore
-    const chatBotRepo$ =  new ChatBotStore(tools)
-
-    //[WIP] - Get the current platform
-    const platform = req.platform
-
-    // Get the registered ChatInfo of the end-user
-    const chatInfo  = await chatBotRepo$.chatInfo().getChatInfo(req.phoneNumber, platform);
-
     // Process the message
-    await this._processMessage(chatInfo, req, tools, platform)
+    await this._processMessage(req, tools)
 
     return { success: true} as RestResult200
   }
@@ -45,37 +36,45 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
    * @param platform - The platform we have received the message from
    * @returns First Block
    */
-  private async _processMessage(chatInfo: ChatInfo, msg: Message, tools: HandlerTools, platform: Platforms)
+  private async _processMessage(msg: Message, tools: HandlerTools)
   {
     tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
     const chatBotRepo$ =  new ChatBotStore(tools)
 
-    // const chatInfo = await chatBotRepo$.getChatInfo(msg.phoneNumber, platform)
+    const cursorRepo$ =  chatBotRepo$.cursor()
 
-    if(!chatInfo)
-      tools.Logger.error(()=> `[ProcessMessageHandler]._processMessage - User not registered!`)
 
-    const userActivity =  await chatBotRepo$.cursor().getLatestActivity(chatInfo, msg.platform);
+    const userActivity =  await cursorRepo$.getLatestCursor(msg);
 
     if(!userActivity){
-      return await this._initSession(chatInfo, msg, tools, platform)
+      return await this._getFirstBlock(msg, tools)
     } else {
-      return await this._resolveNextBlock(chatInfo, chatBotRepo$, msg, tools, platform)
+      return await this._resolveNextBlock(msg, chatBotRepo$, tools)
     }
   }
 
   /** 
    * If a chat session has not yet been recorded, we create a new one and return the first block
   */
-  private async _initSession(endUser: any, msg: Message, tools: HandlerTools, platform: Platforms)
+  private async _getFirstBlock(msg: Message, tools: HandlerTools)
   {    
-    const chatService =  new ChatBotService(tools.Logger, platform)
-    const firstBlock = await chatService.init(msg, endUser, tools)
+    const chatBotRepo$ =  new ChatBotStore(tools)
 
-    tools.Logger.log(() => `[ProcessMessageHandler]._initSession: Session initialized`);
+    const blockConnections = chatBotRepo$.blockConnections()
 
-    return firstBlock
+    /** Get the first Block */
+    const connection = await blockConnections.getFirstConn(msg)
+
+    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, msg)
+
+
+    /** Update the cursor with the first block */
+    await chatBotRepo$.cursor().updateCursor(msg, firstBlock);
+
+    tools.Logger.log(()=> `[ChatBotService].init - Updated Cursor`)
+
+    return firstBlock;
   }
 
 
@@ -86,24 +85,24 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  private async _resolveNextBlock(chatInfo: ChatInfo, chatBotRepo$: ChatBotStore, msg: Message, tools: HandlerTools, platform: Platforms){
+  private async _resolveNextBlock(msg: Message, chatBotRepo$: ChatBotStore, tools: HandlerTools){
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
-    const latestActivity = (await chatBotRepo$.cursor().getLatestActivity(chatInfo, platform)) as Activity
+    const latestActivity = (await chatBotRepo$.cursor().getLatestCursor(msg)) as Activity
 
     // Get the lastest block found in activity
-    const latestBlock = await chatBotRepo$.blockConnections().getBlockById(latestActivity.block.id, chatInfo)
+    const latestBlock = await chatBotRepo$.blockConnections().getBlockById(latestActivity.block.id, msg)
 
     // Use NextBlockFactory to resolve the block type and get the next block based on the type
     const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
-    const nextBlock = await nextBlockService.getNextBlock(chatInfo, msg.message, latestBlock)
+    const nextBlock = await nextBlockService.getNextBlock(msg, latestBlock)
 
     // Handles possible race condition
     // const duplicateMessage = await chatService.handleDuplicates(msg, tools)
 
     // Update the cursor
-    const cursor = await chatBotRepo$.cursor().moveCursor(chatInfo, nextBlock, platform)
+    const cursor = await chatBotRepo$.cursor().updateCursor(msg, nextBlock)
 
     return cursor.block;
 

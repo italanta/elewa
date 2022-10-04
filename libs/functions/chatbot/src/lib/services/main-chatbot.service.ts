@@ -5,7 +5,7 @@ import { __DateFromStorage } from '@iote/time';
 import { ChatBotStore } from '../stores/chatbot.store';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { ChatInfo, Block } from '@app/model/convs-mgr/conversations/chats';
+import { Block } from '@app/model/convs-mgr/conversations/chats';
 import { ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
 
 
@@ -25,29 +25,21 @@ export class ChatBotService {
    * @param tools 
    * @returns First Block
    */
-  async init(msg: Message, chatInfo: ChatInfo, tools: HandlerTools): Promise<Block> | null {
+  async init(msg: Message, tools: HandlerTools): Promise<Block> | null {
     this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
 
     const blockConnections = chatBotRepo$.blockConnections()
-    const chatStatus = chatBotRepo$.chatStatus()
-
-    /** Initialize Chat Status */
-    const chatData = await chatStatus.initChatStatus(chatInfo, this._platform); 
-    this._logger.log(()=> `[ChatBotService].init - Initialized Chat Status`)
-
-    // Set the Chat Id
-    this.chatId = chatData.chatId;
 
     /** Get the first Block */
-    const connection = await blockConnections.getFirstConn(chatInfo.storyId, chatInfo)
+    const connection = await blockConnections.getFirstConn(msg)
 
-    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, chatInfo)
+    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, msg)
 
 
     /** Update the cursor with the first block */
-    await chatBotRepo$.cursor().moveCursor(chatInfo, firstBlock, this._platform);
+    await chatBotRepo$.cursor().updateCursor(msg, firstBlock);
 
     this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
 
@@ -55,34 +47,34 @@ export class ChatBotService {
 
   }
 
-  async pause(chatInfo: ChatInfo, tools: HandlerTools){
+  async pause(msg: Message, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].pause - Pausing Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.chatStatus().updateChatStatus(chatInfo, ChatStatus.Paused, this._platform)
+    await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Paused)
   }
 
-  async resume(chatInfo: ChatInfo, tools: HandlerTools){
+  async resume(msg: Message, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].resume - Resuming Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.chatStatus().updateChatStatus(chatInfo, ChatStatus.Running, this._platform)
+    await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Running)
   }
 
-  async end(chatInfo: ChatInfo, tools: HandlerTools){
+  async end(msg: Message, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].end - Ending Session`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.chatStatus().updateChatStatus(chatInfo, ChatStatus.Ended, this._platform)
+    await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Ended)
   }
 
-  async jumpToBlock(blockId: string, chatInfo: ChatInfo, tools: HandlerTools){
+  async jumpToBlock(blockId: string, msg: Message, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].Jump - Jumping to block ${blockId}`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
-    const newBlock = await chatBotRepo$.blockConnections().getBlockById(blockId, chatInfo)
+    const newBlock = await chatBotRepo$.blockConnections().getBlockById(blockId, msg)
     
-    await chatBotRepo$.cursor().moveCursor(chatInfo, newBlock, this._platform);
+    await chatBotRepo$.cursor().updateCursor(msg, newBlock);
 
     return newBlock
   }
