@@ -14,17 +14,17 @@ import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 import { StoryListComponent } from './components/story-list/story-list.component';
 import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
 import { MultiLangModule } from '@ngfi/multi-lang';
+import  { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialDesignModule,
     FlexLayoutModule,
-
     ConvlPageModule,
-
     ConvsMgrHomeRouterModule,
-    MultiLangModule
+    MultiLangModule,
+    FontAwesomeModule
   ],
 
   declarations: [
