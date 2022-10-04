@@ -84,11 +84,7 @@ export class ImageBlockComponent implements OnInit {
        this._imageUploadService.upload(this.block, url, this.block.type, this.file);
       })
     })
-    ).subscribe((acc)=> {console.log(';) ', this.imageLink);
-    this.imageMessageForm.patchValue({src: this.imageLink})
-    this.imageMessageForm.patchValue({src: imgFilePath})
-
-  });
+    ).subscribe();
   
   }
 
