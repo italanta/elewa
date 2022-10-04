@@ -7,6 +7,7 @@ import { BaseChannel, ChannelOptions, WhatsappChannel } from '@app/model/bot/cha
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
+import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -58,13 +59,15 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
     const bussinessId = this.addToChannelForm.get('bussinessId')?.value;
     const channel: BaseChannel = this.addToChannelForm.get('channel')?.value;
+    const rawApiKey = this.addToChannelForm.get('apiKey')?.value;
 
     const channelToSubmit =  {
       channelName: channel.channelName,
       businessPhoneNumber: String(phoneNumber),
       storyId: this._activeStoryId,
       orgId: this._orgId,
-      businessId: String(bussinessId)
+      businessId: String(bussinessId),
+      authorizationKey: __ENCODE(rawApiKey)
     } as BaseChannel;
 
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
