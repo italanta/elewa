@@ -14,6 +14,7 @@ import { ManageChannelStoryLinkService } from '../../providers/manage-channel-st
   styleUrls: ['./add-bot-to-channel.modal.scss']
 })
 
+//Form to register bot/story to particular channel e.g WhatsApp/Telegram
 export class AddBotToChannelModal implements OnInit, OnDestroy {
   
   private _sBs = new SubSink();
@@ -34,7 +35,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     this.addToChannelForm = this._fb.group({
       phoneNumber: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
       bussinessId: [null ,Validators.required],
-      channel: [null, Validators.required]
+      channel: [null, Validators.required],
+      apiKey:[null, Validators.required]
     })
    }
 
