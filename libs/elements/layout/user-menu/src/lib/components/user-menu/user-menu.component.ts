@@ -3,16 +3,19 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@iote/bricks';
 import { UserService } from '@ngfi/angular';
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-menu',
   templateUrl: './user-menu.component.html',
-  styleUrls: ['./user-menu.component.scss']
+  styleUrls: ['./user-menu.component.scss'],
 })
 export class UserMenuComponent {
   user$: Observable<User>;
-  constructor(userService: UserService<User>,
-    private _router: Router,) {
+
+  dropdownIcon = faCaretDown;
+
+  constructor(userService: UserService<User>, private _router: Router) {
     this.user$ = userService.getUser();
   }
   isAdmin = (user: any) => user.roles.admin;
