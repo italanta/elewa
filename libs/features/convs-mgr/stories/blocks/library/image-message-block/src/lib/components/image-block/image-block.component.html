@@ -4,11 +4,11 @@
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <div [id]="imageInputId">
-                <input type="image" accept="img/*" [src]="domSanitizer.bypassSecurityTrustResourceUrl(imageLink)" class="image" formControlName="src" (click)="imageInput.click()">
-                <input (change)="processImage($event)" #imageInput type="file" class="fileSrc" value="src">
+                <input type="image" id="imageFile" accept="img/*" [src]="imageLink" class="image" (click)="imageInput.click()">
+                <input (change)="processImage($event)" accept="image/*" id="imageFile" #imageInput type="file" class="fileSrc" value="imageMessageForm.value.src">
             </div>
 
-            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}" #caption (keyup)="onKey(caption.value)" name="caption " id="caption ">
+            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}" #caption formControlName="message" (keyup)="onKey(caption.value)" name="caption " id="caption ">
             <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco}} " name="image-link " id="image-link ">
         </form>
     </mat-card-content>
