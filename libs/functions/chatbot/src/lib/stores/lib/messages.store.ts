@@ -14,7 +14,7 @@ export class MessagesStore {
     this.tools = tools;
   }
 
-  async saveMessage(msg: RawMessageData) {
+  async saveMessage(msg: Message) {
     const timeStamp = Date.now();
 
     const messageRepo$ = this.tools.getRepository<Message>(`end-users/${msg.phoneNumber}/platforms/${msg.platform}/messages`);
