@@ -30,7 +30,6 @@ export class HomePageComponent implements OnDestroy
   title: string;
 
   breadcrumbs: Breadcrumb[] = [];
-
   stories$: Observable<Story[]>;
   org$: Observable<Organisation>;
 
