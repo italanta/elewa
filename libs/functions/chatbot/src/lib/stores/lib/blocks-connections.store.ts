@@ -3,6 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { Block, ChatInfo, Connection, DefaultBlock } from '@app/model/convs-mgr/conversations/chats';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
@@ -16,8 +17,8 @@ export class BlockConnectionsStore {
   }
 
   /** Gets the full block using the id */
-  async getBlockById(id: string, chatInfo: ChatInfo): Promise<Block> {
-    const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/blocks`);
+  async getBlockById(id: string, msg: Message): Promise<Block> {
+    const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${msg.orgId}/stories/${msg.storyId}/blocks`);
 
     const block: Block = await orgRepo$.getDocumentById(id);
 
@@ -40,8 +41,8 @@ export class BlockConnectionsStore {
     return defaultBlock;
   }
 
-  async getConnByOption(id: string, chatInfo: ChatInfo): Promise<Connection> {
-    const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
+  async getConnByOption(id: string, msg: Message): Promise<Connection> {
+    const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${msg.orgId}/stories/${msg.storyId}/connections`);
 
     const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id));
 
@@ -53,8 +54,8 @@ export class BlockConnectionsStore {
   }
 
   /** Gets the connection whose source matches the block id provided */
-  async getConnBySourceId(blockId: string, chatInfo: ChatInfo): Promise<Connection> {
-    const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
+  async getConnBySourceId(blockId: string, msg: Message): Promise<Connection> {
+    const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${msg.orgId}/stories/${msg.storyId}/connections`);
 
     const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `defo-${blockId}`));
 
@@ -66,10 +67,10 @@ export class BlockConnectionsStore {
   }
 
   /** Gets the connection that links the anchor block and the first block */
-  async getFirstConn(storyId: string, chatInfo: ChatInfo): Promise<Connection> {
-    const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${chatInfo.orgId}/stories/${chatInfo.storyId}/connections`);
+  async getFirstConn(msg: Message): Promise<Connection> {
+    const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${msg.orgId}/stories/${msg.storyId}/connections`);
 
-    const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `${storyId}`));
+    const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `${msg.storyId}`));
 
     if (!conn[0]) {
       throw new Error('First Connection does not exist');

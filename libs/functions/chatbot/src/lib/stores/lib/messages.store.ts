@@ -24,7 +24,7 @@ export class MessagesStore {
     return savedMessage;
   }
 
-  async getLatestMessage(msg: RawMessageData): Promise<Message> {
+  async getLatestMessage(msg: Message): Promise<Message> {
     const messageRepo$ = this.tools.getRepository<Message>(`end-users/${msg.phoneNumber}/platforms/${msg.platform}/messages`);
 
     const latestMessage = await messageRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));

@@ -3,6 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Contains all the required database flow methods for the cursor collection
@@ -16,9 +17,9 @@ export class CursorStore {
   }
   
   /** Returns the latest activity / latest position of the cursor */
-  async getLatestActivity(chatInfo: ChatInfo, platform: Platforms): Promise<Activity | boolean>{
+  async getLatestCursor(msg: Message): Promise<Activity | boolean>{
     const cursorRepo$ = this.tools.getRepository<Activity>(
-      `end-users/${chatInfo.phoneNumber}/activity/${chatInfo.storyId}/platforms/${platform}/cursor`
+      `end-users/${msg.phoneNumber}/activity/${msg.storyId}/platforms/${msg.platform}/cursor`
     );
 
     const latestBlock = await cursorRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));
@@ -32,9 +33,9 @@ export class CursorStore {
   }
 
   /** Updates the cursor with the block */
-  async moveCursor(chatInfo: ChatInfo, newBlock: Block, platform: Platforms): Promise<Activity> {
+  async updateCursor(msg: Message, newBlock: Block): Promise<Activity> {
     const cursorRepo$ = this.tools.getRepository<Activity>(
-      `end-users/${chatInfo.phoneNumber}/activity/${chatInfo.storyId}/platforms/${platform}/cursor`
+      `end-users/${msg.phoneNumber}/activity/${msg.storyId}/platforms/${msg.platform}/cursor`
     );
 
     const timeStamp = Date.now();
