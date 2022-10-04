@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/conv-learning-manager",
         "index": "apps/conv-learning-manager/src/index.html",
@@ -23,7 +25,9 @@
           "libs/elements/theming/common.theme.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/elements/theming"]
+          "includePaths": [
+            "libs/elements/theming"
+          ]
         },
         "scripts": [],
         "serviceWorker": true,
@@ -92,7 +96,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/conv-learning-manager"],
+      "outputs": [
+        "coverage/apps/conv-learning-manager"
+      ],
       "options": {
         "jestConfig": "apps/conv-learning-manager/jest.config.ts",
         "passWithNoTests": true

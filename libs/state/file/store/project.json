@@ -1,27 +1,27 @@
 {
-    "projectType": "library",
-    "sourceRoot": "libs/state/file/store/src",
-    "prefix": "app",
-    "targets": {
-        "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": [
-                "coverage/libs/state/file/store"
-            ],
-            "options": {
-                "jestConfig": "libs/state/file/store/jest.config.ts",
-                "passWithNoTests": true
-            }
-        },
-        "lint": {
-            "executor": "@nrwl/linter:eslint",
-            "options": {
-                "lintFilePatterns": [
-                    "libs/state/file/store/**/*.ts",
-                    "libs/state/file/store/**/*.html"
-                ]
-            }
-        }
+  "projectType": "library",
+  "sourceRoot": "libs/state/file/store/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/state/file/store"
+      ],
+      "options": {
+        "jestConfig": "libs/state/file/store/jest.config.ts",
+        "passWithNoTests": true
+      }
     },
-    "tags": []
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/state/file/store/**/*.ts",
+          "libs/state/file/store/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
 }
