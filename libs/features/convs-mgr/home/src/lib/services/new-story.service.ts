@@ -1,5 +1,6 @@
 import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 import { take, map, switchMap, tap } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
 
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
@@ -9,16 +10,18 @@ import { Story } from "@app/model/convs-mgr/stories/main";
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
 
+
 /** Service which can create new stories. */
 @Injectable()
 export class NewStoryService
 {
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
-              private _router: Router)
+              private _router: Router,
+              private dialog: MatDialog)
   {}
 
-  add(name?: string) {
+  add(name?: string, description?: string) {
     // Generate default name if name not passed.
     if(!name)
       name = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
@@ -26,9 +29,12 @@ export class NewStoryService
     return this._getOrgId$()
                .pipe(
                 switchMap((orgId) =>
-                  this._stories$$.add({ name: name as string, orgId } as Story)),
-                tap((s: Story) =>
-                  this._router.navigate(['/stories', s.id])))
+                  this._stories$$.add({ name: name as string, orgId, description } as Story)),
+                tap((s: Story) => {
+                  this.dialog.closeAll()
+                  this._router.navigate(['/stories', s.id])
+                }
+                ))
 
 
   }

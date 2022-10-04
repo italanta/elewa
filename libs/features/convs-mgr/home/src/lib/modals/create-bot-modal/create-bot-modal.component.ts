@@ -18,5 +18,5 @@ export class CreateBotModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  add = () => this._addStory$.add().subscribe();
+  add = () => this._addStory$.add(this.botForm.value.botName as string, this.botForm.value.botDesc as string || '').subscribe();
 }
