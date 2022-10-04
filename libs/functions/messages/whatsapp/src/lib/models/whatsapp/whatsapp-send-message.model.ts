@@ -16,6 +16,7 @@ export class SendWhatsAppMessageModel {
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
     //Auth token gotten from facebook api
+    //TODO: @Chesa Get link between messsage and storyId to get authtoken. Use @__DECODE function to get authtoken
     const authorizationHeader = env.AUTHORIZATION_HEADER;
    
     /**
