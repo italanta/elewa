@@ -9,6 +9,40 @@
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
     "elements-base-firebase": "libs/elements/base/firebase",
+    "elements-base-security-config": {
+      "root": "libs/elements/base/security-config",
+      "sourceRoot": "libs/elements/base/security-config/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/elements/base/security-config",
+            "tsConfig": "libs/elements/base/security-config/tsconfig.lib.json",
+            "packageJson": "libs/elements/base/security-config/package.json",
+            "main": "libs/elements/base/security-config/src/index.ts",
+            "assets": ["libs/elements/base/security-config/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/elements/base/security-config/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/elements/base/security-config"],
+          "options": {
+            "jestConfig": "libs/elements/base/security-config/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-layout-page": "libs/elements/layout/page",
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
