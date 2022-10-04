@@ -7,6 +7,8 @@ import { ChatBotStore } from "@app/functions/chatbot";
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 
+import { Message } from "@app/model/convs-mgr/conversations/messages";
+
 import { NextBlockService } from "../next-block.class";
 
 /** 
@@ -22,11 +24,7 @@ export class QuestionMessageService extends NextBlockService {
         this._logger = tools.Logger
     }
 
-    /**
-     * Override method to match options and return the next block based on the option selected
-     * @returns Block
-     */
-    async getNextBlock(chatInfo: ChatInfo, message: string, lastBlock?: QuestionMessageBlock): Promise<Block>{
+    async getNextBlock(msg: Message, lastBlock?: QuestionMessageBlock): Promise<Block>{
         const chatBotRepo$ =  new ChatBotStore(this.tools)
         const blockConnections = chatBotRepo$.blockConnections()
 
@@ -36,7 +34,7 @@ export class QuestionMessageService extends NextBlockService {
         // TODO: Add a dynamic way of selecting matching strategies
         matchInput.setMatchStrategy(new ExactMatch())
 
-        const selectedOptionIndex = matchInput.match(message, lastBlock.options)
+        const selectedOptionIndex = matchInput.match(msg.message, lastBlock.options)
 
         if (selectedOptionIndex == -1){
             this._logger.error(()=> `The message did not match any option found`)
@@ -44,9 +42,9 @@ export class QuestionMessageService extends NextBlockService {
       
         const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`
 
-        const connection = await blockConnections.getConnByOption(sourceId, chatInfo)
+        const connection = await blockConnections.getConnByOption(sourceId, msg)
 
-        const nextBlock = await blockConnections.getBlockById(connection.targetId, chatInfo)
+        const nextBlock = await blockConnections.getBlockById(connection.targetId, msg)
 
         return nextBlock
     }
