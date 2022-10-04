@@ -39,7 +39,7 @@
       "TITLE": "Karibu Elewa Conversational Learning!",
       "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
       "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "https://elewa.education" 
+      "LEARN-MORE-LINK": "https://elewa.education"
     }
   },
   "PAGE-CONTENT": {
@@ -48,6 +48,19 @@
         "IMAGE": "Image",
         "LOCATION": "Location"
       }
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Create a bot",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Bot name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Bot description"
+      },
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create bot"
     }
   }
 }
