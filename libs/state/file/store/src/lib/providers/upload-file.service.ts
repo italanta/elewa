@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { Repository, DataService } from '@ngfi/angular';
-import { DataStore } from '@ngfi/state';
 
 import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -18,40 +19,57 @@ import { FileUpload } from '../model/file-upload.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadFileService extends DataStore<FileUpload>{
+export class UploadFileService
+{
   protected store = 'file-store';
 
   protected _activeRepo: Repository<FileUpload>;
   private _activeOrg: Organisation;
 
+  org: Organisation;
 
   constructor(private _org$$: ActiveOrgStore,
     private _repoFac: DataService,
-    _logger: Logger) { super("always", _logger) }
+    _logger: Logger,
+    private _ngfiStorage: AngularFireStorage) { }
 
 
-  upload(block: FileUpload, url: string, blockType: StoryBlockTypes): any {
-
-
-    const promise$ = new Promise<FileUpload>((resolve) => {
+  upload(block: FileUpload, url: string, blockType: StoryBlockTypes, file: File) {
       const fileBlock = {
         fileId: block.id,
         filePath: url,
         fileType: blockType,
         size: '3MB'
       };
-      resolve(fileBlock);
+      
+
+     
+    this._org$$.get().pipe(
+      map((org) => {
+        this.org = org
+        return (!!org ?? false)
+      }),
+      switchMap(org => {
+        if(!!org){
+          this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
+          return this._activeRepo.create(fileBlock)
+        } else {
+          return of([true]);
+        }
+      }),
+      switchMap((rs) => {
+        console.log(rs);
+        this.uploadFile(file)
+        return of([rs])
+      })
+    ).subscribe(value =>{
+      return value;
     });
 
-    console.log(promise$);
+  }
 
-    of(promise$).pipe(switchMap(() => {
-      return this._org$$.get()
-    })).subscribe(org => {
-      this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${org.id}/files/`)
-      org ? this._activeRepo.getDocuments() : of([] as FileUpload[])
-      this.set(org, 'UPDATE - FROM DB')
-    })
+  public uploadFile(file: any){
+    this._ngfiStorage.upload('/files', file);
   }
 }
 

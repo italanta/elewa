@@ -11,5 +11,4 @@ export interface FileUpload extends IObject
   fileType?: StoryBlockTypes;
   filePath?: string;
   size?: string;
-  
 }
