@@ -9,7 +9,10 @@ export interface FileMessageBlock extends StoryBlock
   message?: string;
 
   /** File source of the message block */
-  src?: string;
+  fileSrc?: string;
+
+  /**Id of the file that has been uploaded */
+  fileId?:string;
 }
 
 /**
