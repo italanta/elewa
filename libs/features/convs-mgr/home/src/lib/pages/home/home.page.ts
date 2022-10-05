@@ -52,10 +52,6 @@ export class HomePageComponent implements OnDestroy
   }
 
   openDialog(){
-    this.dialog.open(CreateBotModalComponent,{
-      height: '480px',
-      width: '600px',
-
-    });
+    this.dialog.open(CreateBotModalComponent);
   }
 }
