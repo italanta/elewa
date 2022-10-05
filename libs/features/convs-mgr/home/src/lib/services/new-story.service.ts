@@ -1,9 +1,9 @@
 import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 import { take, map, switchMap, tap } from "rxjs/operators";
-import { MatDialog } from "@angular/material/dialog";
 
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
 
 import { Story } from "@app/model/convs-mgr/stories/main";
 
