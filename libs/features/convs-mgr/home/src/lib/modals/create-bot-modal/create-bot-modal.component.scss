@@ -61,3 +61,8 @@ input[type='text'] {
     margin: 1px;
 }
 
+::ng-deep #mat-dialog-0 {
+  height: 480px;
+  width: 600px;
+}
+
