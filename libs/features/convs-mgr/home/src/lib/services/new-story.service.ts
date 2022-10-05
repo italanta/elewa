@@ -24,7 +24,7 @@ export class NewStoryService
   add(name?: string, description?: string) {
     // Generate default name if name not passed.
     if(!name)
-      name = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
+      name = this.generateName();
 
     return this._getOrgId$()
                .pipe(
