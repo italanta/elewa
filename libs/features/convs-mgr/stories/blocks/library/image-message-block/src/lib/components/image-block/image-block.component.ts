@@ -1,10 +1,8 @@
-import { finalize, map } from 'rxjs/operators';
-
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';;
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -21,7 +19,8 @@ import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   styleUrls: ['./image-block.component.scss'],
 })
 
-export class ImageBlockComponent implements OnInit {
+export class ImageBlockComponent implements OnInit 
+{
 
   @Input() id: string;
   @Input() block: ImageMessageBlock;
@@ -29,13 +28,11 @@ export class ImageBlockComponent implements OnInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
 
-
-
   isLoadingImage: boolean = false;
   imageInputId: string;
   defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg"
   file: File;
-  imageLink: string = this.defaultImage;
+  imageLink = this.defaultImage;
   imageName: string = '';
 
 
@@ -43,11 +40,15 @@ export class ImageBlockComponent implements OnInit {
     private _logger: Logger,
     private _imageUploadService: UploadFileService,
     public domSanitizer: DomSanitizer,
-    private _ngfiStorage: AngularFireStorage,
+    private document: AngularFirestore,
     private _db: AngularFireDatabase) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.imageInputId = `img-${this.id}`;
+    const imgId=this.document.createId();
+    this.block.fileId = imgId;
+    this.imageMessageForm.patchValue({fileId: this.block.fileId})
 
   }
 
@@ -63,22 +64,21 @@ export class ImageBlockComponent implements OnInit {
 
   processImage(event: any)
   {
+
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imageLink = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
-    
     }else 
     {
       this.imageLink = this.defaultImage;
     }
       this.isLoadingImage = true;
-      this._imageUploadService.uploadFile(this.file , this.block, this.block.type, this.imageMessageForm);
-        
+      this._imageUploadService.uploadFile(this.file , this.block, this.block.type, this.imageMessageForm,this.block.fileId!);
+       
   }
-  
 
   private _decorateInput() {
     let input = document.getElementById(this.imageInputId) as Element;
