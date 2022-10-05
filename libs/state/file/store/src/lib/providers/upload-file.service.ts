@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Repository, DataService } from '@ngfi/angular';
 
 import { of } from 'rxjs';
-import { finalize, switchMap, map, tap } from 'rxjs/operators';
+import { finalize, switchMap, map, tap, take } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
+// ./../../../../../convs-mgr/stories/blocks/src/lib/stores/story-blocks.store
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 import { Organisation } from '@app/model/organisation'
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { FileMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { FileUpload } from '../model/file-upload.interface';
-import { stringify } from 'querystring';
-import { url } from 'inspector';
-import { getDownloadURL } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +31,22 @@ export class UploadFileService {
   imageLink: string;
 
 
-  constructor(private _org$$: ActiveOrgStore,
+
+  constructor(
+    private _storyBlockService$: StoryBlocksStore,
+    private _org$$: ActiveOrgStore,
     private _repoFac: DataService,
     _logger: Logger,
-    private _ngfiStorage: AngularFireStorage) { }
+    private _ngfiStorage: AngularFireStorage,
+    private document: AngularFirestore) { }
 
 
-  upload(block: FileUpload, url: string, blockType: StoryBlockTypes, form: FormGroup) {
 
-    const fileBlock = {
-      fileId: block.id,
+  upload(block: FileUpload, url: string, blockType: StoryBlockTypes, form: FormGroup, id: string) {
+
+
+    const fileBlock:FileUpload = {
+      fileId: id,
       filePath: url,
       fileType: blockType,
       size: '3MB'
@@ -53,7 +60,7 @@ export class UploadFileService {
       switchMap(org => {
         if (!!org) {
           this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
-          return this._activeRepo.create(fileBlock)
+          return this._activeRepo.create(fileBlock);
         } else {
           return of([true]);
         }
@@ -65,20 +72,36 @@ export class UploadFileService {
     ).subscribe(value => {
       return value;
     });
-    console.log(url);
-    form.controls['src'].setValue(url);
+
 
   }
 
-  public uploadFile(file: File, block: FileUpload, blockType: StoryBlockTypes, form:FormGroup): any {
+  private _updateSrc(blockId: string, url: string){
+    const fileBlock = this._storyBlockService$.getOne(blockId);
+    return fileBlock.pipe(tap((block)=>{
+      let newBlock: FileMessageBlock = {
+        ...block as FileMessageBlock,
+        fileSrc: url
+      }
+      this._storyBlockService$.update(newBlock).pipe(take(1)).subscribe();
+    }))
+  }
+
+  public uploadFile(file: File, block: FileUpload, blockType: StoryBlockTypes, form: FormGroup, id: string): any {
+
+    
     var imgFilePath = `images/${file.name}_${new Date().getTime()}`;
     const imgFileRef = this._ngfiStorage.ref(imgFilePath);
     const uploadTask = this._ngfiStorage.upload(imgFilePath, file);
-  
+    
+
+
     uploadTask.snapshotChanges().pipe(finalize(() => {
-      imgFileRef.getDownloadURL().subscribe((url: string) => {
+      imgFileRef.getDownloadURL().subscribe((url: string) => {  
         this.imageLink = url
-        this.upload(block, url, blockType, form);  
+        console.log(form.value.fileSrc);
+        this._updateSrc(block.id as string, this.imageLink).pipe(take(1)).subscribe()
+        this.upload(block, url, blockType, form, id);
       })
     })
     ).subscribe();

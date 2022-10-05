@@ -4,7 +4,7 @@
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <div [id]="imageInputId">
-                <input type="image" id="imageFile" accept="img/*" [src]="imageLink" class="image" (click)="imageInput.click()">
+                <input type="image" id="imageFile" accept="img/*" [src]="this.block.fileSrc ? this.block.fileSrc : imageLink" class="image" (click)="imageInput.click()">
                 <input (change)="processImage($event)" accept="image/*" id="imageFile" #imageInput type="file" class="fileSrc" value="imageMessageForm.value.src">
             </div>
 
