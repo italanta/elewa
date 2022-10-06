@@ -1,4 +1,5 @@
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { IObject } from "@iote/bricks";
 import { WhatsAppMessageType } from "./whatsapp-message-types.model";
 
@@ -9,7 +10,7 @@ export interface WhatsAppBaseMessage extends BaseMessage{
   messaging_product: MetaMessagingProducts,
   recepient_type: RecepientType,
   to: string,
-  type: WhatsAppMessageType
+  type: StoryBlockTypes
 }
 
 

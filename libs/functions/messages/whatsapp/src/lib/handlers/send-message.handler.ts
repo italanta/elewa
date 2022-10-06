@@ -20,6 +20,6 @@ export class SendMessageHandler extends FunctionHandler< {msg: BaseMessage, bloc
     const env = context.environment;
     const client = new SendMessageFactory(data.msg.platform, tools).resolvePlatform()
 
-    return client.sendMessage(data.msg, env)
+    return client.sendMessage(data.msg, data.block.type,  env)
   }
 }
