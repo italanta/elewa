@@ -1,3 +1,4 @@
+import { StoryBlock } from './../../../../../../model/convs-mgr/stories/blocks/main/src/lib/story-block.interface';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -9,7 +10,7 @@ import { of } from 'rxjs';
 import { finalize, switchMap, map, tap, take } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
-// ./../../../../../convs-mgr/stories/blocks/src/lib/stores/story-blocks.store
+
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 import { Organisation } from '@app/model/organisation'
@@ -78,12 +79,13 @@ export class UploadFileService {
 
   private _updateSrc(blockId: string, url: string){
     const fileBlock = this._storyBlockService$.getOne(blockId);
-    return fileBlock.pipe(tap((block)=>{
+    return fileBlock.pipe(switchMap((block)=>{
       let newBlock: FileMessageBlock = {
         ...block as FileMessageBlock,
         fileSrc: url
       }
-      this._storyBlockService$.update(newBlock).pipe(take(1)).subscribe();
+      this._storyBlockService$.update(newBlock).subscribe();
+      return fileBlock;
     }))
   }
 
