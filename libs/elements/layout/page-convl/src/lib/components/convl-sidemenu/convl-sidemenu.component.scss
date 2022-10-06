@@ -2,6 +2,7 @@
 @import '@angular/material/theming';
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
+@import '_variables.scss';
 
 #side-menu {
   min-width: 200px;
@@ -12,7 +13,6 @@ mat-nav-list {
   overflow: auto;
 }
 
-
 .logo {
   max-height: 50px;
   margin: 10px 0 0 20px;
@@ -22,7 +22,6 @@ mat-nav-list {
   margin-right: 10px;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
   width: 60%;
-  
 }
 
 .icon-top {
@@ -40,22 +39,22 @@ mat-nav-list {
 }
 
 #menu-header-seperator {
-  border: 0.5px solid rgba(255,255,255,.1);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
   margin-top: 0;
   margin-bottom: 0;
 }
 
 .header {
   // padding: 12px 35px;
-  border-bottom: 0.8px solid rgba(255,255,255,.1);
+  border-bottom: 0.8px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
   outline: none;
   margin-left: 10px;
 }
 
 .header-main-item:before {
-  content: "";
-  border-left: 3px solid mat-color($accent, A200);;
+  content: '';
+  border-left: 3px solid mat-color($accent, A200);
   padding: 10px 5px;
 }
 
@@ -74,32 +73,27 @@ mat-nav-list {
   font-size: 0.8em;
 }
 
-.right{
+.right {
   transform: rotate(270deg);
 }
 
 .child-header {
   outline: none;
-  // padding: 7px;
-  // padding-left: 0;
   text-transform: capitalize;
-  // margin-right: -20px;
   border-radius: 5px;
 }
-
-
 
 .child-1 {
   margin-top: 8px;
 }
 
 .highlight-active {
-  background-color: mat-color($accent, A200);;
+  background-color: mat-color($accent, A200);
   outline: none;
 }
 
 .highlight-active:before {
-  content: "";
+  content: '';
   // border-left: 3px solid mat-color($accent, A200);;
   // padding: 10px 5px;
 }
@@ -109,17 +103,30 @@ mat-nav-list {
   background-color: mat-color($accent, A200);
 }
 
-.category-children{
-  background-color: #7619ff26;
-  color: #7619ff;
-  // align-items: center;
+.category-children {
+  position: relative;
+  background-color: var(--convs-mgr-color-primary-soft);
+  color: var(--convs-mgr-color-primary-purple);
   padding-left: 20px;
   padding-bottom: 5px;
-
 }
 
-.main{
+.category-children::after {
+  content: '';
+  position: absolute;
+  background-color:var(--convs-mgr-color-primary-purple);
+  height: 100%;
+  width: 5px;
+  right: 0;
+  bottom: 0;
+}
+
+.main {
   padding-left: 20px;
   padding-bottom: 15px;
 }
 
+.menu-icon {
+  margin-left: 24px;
+  font-size: x-large;
+}

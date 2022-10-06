@@ -5,6 +5,8 @@ import { SubSink } from 'subsink';
 import { AuthService } from '@ngfi/angular';
 
 import { faTachometer } from '@fortawesome/free-solid-svg-icons';
+
+import {faBars} from '@fortawesome/free-solid-svg-icons';
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -23,6 +25,7 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   projectName: string;
   projectInfo: string;
   dashboardIcon = faTachometer
+  menuIcon = faBars;
   
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,

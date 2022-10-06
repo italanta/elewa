@@ -15,25 +15,15 @@
 
             <!-- <i matListIcon class="fas fa-columns"></i> -->
             <img class="list-icon " src="assets/images/elewa-logo.png">
-            <div  >
 
-              <mat-toolbar color="primary">
-                <div>
-                  <button mat-icon-button>
-                    <mat-icon> menu </mat-icon>
-                  </button>
-                </div>
-              </mat-toolbar>
-
-
-
-
+              <div class="menu-icon">
+                <fa-icon [icon]="menuIcon" ></fa-icon>
+              </div>
                 <!-- <div class="proj-name">{{ projectName }}</div> -->
                 <!-- <div class="proj-info">
                     {{ projectInfo }}
                 </div> -->
             </div>
-        </div>
 
         <hr id="menu-header-seperator"/>
 
@@ -52,8 +42,8 @@
                 <div [routerLink]="['/org']" mat-list-item class="child-header child-1" fxLayout="row" fxLayoutGap="15px">
                     <!-- {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }} -->
                     <fa-icon [icon]="dashboardIcon"></fa-icon>
-                <span>Dashboard</span>
-                  </div>
+                    <span>Dashboard</span>
+                </div>
             </div>
             <button mat-raised-button (click)="logout()">
         {{'PAGE-CONTENT.SIDE-MENU.LOG-OUT' | transloco }}
