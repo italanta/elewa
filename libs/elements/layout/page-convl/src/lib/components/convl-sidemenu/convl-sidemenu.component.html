@@ -31,7 +31,7 @@
         <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
             <div fxLayout="row" fxLayoutAlign="start" class="main">
-                <i matListIcon class="fas fa-home"></i> Main
+               <span class="main-dash">Main</span>
                 <div class="chevron-down" [class.right]="rlaHome.isActive">
                     <i class="fas fa-sort-down"></i>
                 </div>
@@ -40,9 +40,8 @@
 
             <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
                 <div [routerLink]="['/org']" mat-list-item class="child-header child-1" fxLayout="row" fxLayoutGap="15px">
-                    <!-- {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }} -->
                     <fa-icon [icon]="dashboardIcon"></fa-icon>
-                    <span>Dashboard</span>
+                    <span>{{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}</span>
                 </div>
             </div>
             <button mat-raised-button (click)="logout()">
