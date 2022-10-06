@@ -30,6 +30,7 @@ export class BlockComponent implements OnInit {
   @Input() blockCopy: StoryBlock;
 
   type: StoryBlockTypes;
+  typeOther: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
@@ -39,13 +40,34 @@ export class BlockComponent implements OnInit {
   constructor(private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger,
-    private copyBlockService: StoryEditorStateService) { }
+    public copyBlockService: StoryEditorStateService) { }
   
   copyBlock(event: any) {
     this.blockCopy = cloneDeep(this.block);
-    console.log(this.block);
-    console.log(this.blockCopy);
     this.blocksGroup.push(this.blockFormGroup);
+    this.typeOther = this.blockCopy.type;
+    this.copyBlockService._createBlock(this.blockCopy);
+
+    switch (this.typeOther) {
+      case StoryBlockTypes.TextMessage:
+        this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.blockCopy);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case StoryBlockTypes.QuestionBlock:
+        this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.blockCopy);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+
+      case StoryBlockTypes.Location:
+        this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.blockCopy);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+
+      default:
+        break;
+    }
+
   }
 
   ngOnInit(): void {
