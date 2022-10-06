@@ -1,17 +1,26 @@
 import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
-import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
-export class SendWhatsAppMessageModel {
+import { MetaMessagingProducts, RecepientType, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+import { SendMessageModel } from "../send-message-main.model";
+import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+export class SendWhatsAppMessageModel extends SendMessageModel {
 
-  private _tools: HandlerTools;
-
-  constructor(tools: HandlerTools, ) {
-    this._tools = tools;
+  constructor(private _tools: HandlerTools) {
+    super()
   }
 
-  async sendMessage(message: WhatsAppBaseMessage, env:any) {
+  async sendMessage(message: BaseMessage, env:any) {
 
-     const dataToSend = JSON.stringify(message);
+    const generatedMessage: WhatsAppBaseMessage = {
+      ...message,
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: message.phoneNumber,
+      type: WhatsAppMessageType.TEXT
+
+    }
+
+     const dataToSend = JSON.stringify(generatedMessage);
 
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
