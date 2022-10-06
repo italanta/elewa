@@ -3,20 +3,23 @@ import { HandlerTools } from "@iote/cqrs";
 import { MetaMessagingProducts, RecepientType, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 import { SendMessageModel } from "../send-message-main.model";
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 export class SendWhatsAppMessageModel extends SendMessageModel {
 
   constructor(private _tools: HandlerTools) {
     super()
   }
 
-  async sendMessage(message: BaseMessage, env:any) {
+  async sendMessage(message: BaseMessage, blockType: StoryBlockTypes, env:any) {
 
     const generatedMessage: WhatsAppBaseMessage = {
       ...message,
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
-      type: WhatsAppMessageType.TEXT
+
+      // TODO: Resolve type based on block
+      type: blockType
 
     }
 
