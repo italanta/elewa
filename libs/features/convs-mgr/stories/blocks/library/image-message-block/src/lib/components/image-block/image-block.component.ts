@@ -19,8 +19,7 @@ import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   styleUrls: ['./image-block.component.scss'],
 })
 
-export class ImageBlockComponent implements OnInit 
-{
+export class ImageBlockComponent implements OnInit {
 
   @Input() id: string;
   @Input() block: ImageMessageBlock;
@@ -43,12 +42,11 @@ export class ImageBlockComponent implements OnInit
     private document: AngularFirestore,
     private _db: AngularFireDatabase) { }
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
-    const imgId=this.document.createId();
+    const imgId = this.document.createId();
     this.block.fileId = imgId;
-    this.imageMessageForm.patchValue({fileId: this.block.fileId})
+    this.imageMessageForm.patchValue({ fileId: this.block.fileId })
 
   }
 
@@ -62,8 +60,7 @@ export class ImageBlockComponent implements OnInit
     this.imageName += value;
   }
 
-  processImage(event: any)
-  {
+  processImage(event: any) {
 
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -71,13 +68,12 @@ export class ImageBlockComponent implements OnInit
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
-    }else 
-    {
+    } else {
       this.imageLink = this.defaultImage;
     }
-      this.isLoadingImage = true;
-      this._imageUploadService.uploadFile(this.file , this.block, this.block.type, this.imageMessageForm,this.block.fileId!);
-       
+    this.isLoadingImage = true;
+    this._imageUploadService.uploadFile(this.file, this.block, this.block.type, this.imageMessageForm, this.block.fileId!);
+
   }
 
   private _decorateInput() {
