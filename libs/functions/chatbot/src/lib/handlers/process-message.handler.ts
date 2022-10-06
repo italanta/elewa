@@ -6,7 +6,7 @@ import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block/next-block.factory';
 import { ChatBotStore } from '../stores/chatbot.store';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
@@ -16,9 +16,9 @@ import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
  * Triggered by document.create in 'messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'
  * Processes the message and returns the next block.
  */
-export class ProcessMessageHandler extends FunctionHandler<Message, RestResult200>
+export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResult200>
 {
-  public async execute(req: Message, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: BaseMessage, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
@@ -36,7 +36,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
    * @param platform - The platform we have received the message from
    * @returns First Block
    */
-  private async _processMessage(msg: Message, tools: HandlerTools)
+  private async _processMessage(msg: BaseMessage, tools: HandlerTools)
   {
     tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
@@ -57,7 +57,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
   /** 
    * If a chat session has not yet been recorded, we create a new one and return the first block
   */
-  private async _getFirstBlock(msg: Message, tools: HandlerTools)
+  private async _getFirstBlock(msg: BaseMessage, tools: HandlerTools)
   {    
     const chatBotRepo$ =  new ChatBotStore(tools)
 
@@ -85,7 +85,7 @@ export class ProcessMessageHandler extends FunctionHandler<Message, RestResult20
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  private async _resolveNextBlock(msg: Message, chatBotRepo$: ChatBotStore, tools: HandlerTools){
+  private async _resolveNextBlock(msg: BaseMessage, chatBotRepo$: ChatBotStore, tools: HandlerTools){
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
