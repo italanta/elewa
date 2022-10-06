@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang'
-
 import { UserMenuModule } from '@app/elements/layout/user-menu';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ConvlPageComponent } from './components/convl-page/convl-page.component';
 import { ConvlSideMenuComponent } from './components/convl-sidemenu/convl-sidemenu.component';
@@ -13,7 +12,6 @@ import { SideMenuFooterComponent } from './components/convl-sidemenu-footer/side
 import { ConlvSideNavContainerComponent } from './components/convl-sidenav-container/nav-wrapper.component';
 import { SubNavBarComponent } from './components/sub-bar/sub-navbar.component';
 import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 /**
  *  Conversational Learning Page Module. Holds the page holder.
