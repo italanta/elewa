@@ -13,7 +13,7 @@ export interface Event
 }
 
 
-export interface Activity extends IObject{
+export interface Cursor extends IObject{
   chatId: string;
   block: Block;
 }
