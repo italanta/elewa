@@ -7,8 +7,12 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
  */
 export interface FileUpload extends IObject 
 {
-  fileId?:string;
+  /**Stores the type of file being uploaded. Types such as: images, audio, video etc */
   fileType?: StoryBlockTypes;
+
+  /**Stores the path with https in firebase storage  */
   filePath?: string;
+  
+  /**Store the size of the file */
   size?: string;
 }
