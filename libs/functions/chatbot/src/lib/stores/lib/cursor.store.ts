@@ -1,9 +1,9 @@
 import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
 
-import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Contains all the required database flow methods for the cursor collection
@@ -17,8 +17,8 @@ export class CursorStore {
   }
   
   /** Returns the latest activity / latest position of the cursor */
-  async getLatestCursor(msg: Message): Promise<Activity | boolean>{
-    const cursorRepo$ = this.tools.getRepository<Activity>(
+  async getLatestCursor(msg: BaseMessage): Promise<Cursor | boolean>{
+    const cursorRepo$ = this.tools.getRepository<Cursor>(
       `end-users/${msg.phoneNumber}/activity/${msg.storyId}/platforms/${msg.platform}/cursor`
     );
 
@@ -33,13 +33,13 @@ export class CursorStore {
   }
 
   /** Updates the cursor with the block */
-  async updateCursor(msg: Message, newBlock: Block): Promise<Activity> {
-    const cursorRepo$ = this.tools.getRepository<Activity>(
+  async updateCursor(msg: BaseMessage, newBlock: Block): Promise<Cursor> {
+    const cursorRepo$ = this.tools.getRepository<Cursor>(
       `end-users/${msg.phoneNumber}/activity/${msg.storyId}/platforms/${msg.platform}/cursor`
     );
 
     const timeStamp = Date.now();
-    const newActivity: Activity = {
+    const newActivity: Cursor = {
       chatId: timeStamp.toString(),
       block: newBlock,
     };
@@ -53,7 +53,7 @@ export class CursorStore {
   async getActivity(chatInfo: ChatInfo, platform: Platforms) {
     // Get subject
     // TODO: Create a type for user-activity
-    const activityRepo$ = this.tools.getRepository<Activity>(
+    const activityRepo$ = this.tools.getRepository<Cursor>(
       `end-users/${chatInfo.phoneNumber}/stories/${chatInfo.storyId}/platforms/${platform}/cursor`
     );
     const activity = await activityRepo$.getDocuments(new Query());
