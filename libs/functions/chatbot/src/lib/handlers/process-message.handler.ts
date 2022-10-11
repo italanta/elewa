@@ -1,17 +1,12 @@
 import { HandlerTools } from '@iote/cqrs';
-
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { NextBlockFactory } from '../services/next-block/next-block.factory';
-import { ChatBotStore } from '../stores/chatbot.store';
-
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
-import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { Block } from '@app/model/convs-mgr/conversations/chats';
 import { ProcessMessageService } from '../services/process-message/process-message.service';
 import { CursorDataService } from '../services/data-services/cursor.service';
 import { ConnectionsDataService } from '../services/data-services/connections.service';
 import { BlockDataService } from '../services/data-services/blocks.service';
+
+import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 
 
 
