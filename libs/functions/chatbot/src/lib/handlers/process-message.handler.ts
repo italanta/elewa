@@ -2,13 +2,16 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { ChatBotService } from '../services/main-chatbot.service';
 import { NextBlockFactory } from '../services/next-block/next-block.factory';
 import { ChatBotStore } from '../stores/chatbot.store';
 
 import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
-import { Activity, Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { Block, ChatInfo } from '@app/model/convs-mgr/conversations/chats';
+import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { Block } from '@app/model/convs-mgr/conversations/chats';
+import { ProcessMessageService } from '../services/process-message/process-message.service';
+import { CursorDataService } from '../services/data-services/cursor.service';
+import { ConnectionsDataService } from '../services/data-services/connections.service';
+import { BlockDataService } from '../services/data-services/blocks.service';
 
 
 
@@ -23,8 +26,10 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
     tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
 
-    // Process the message
-    await this._processMessage(req, tools)
+    // Create an instance of the process message service
+    const nextBlock = await this._processMessage(req, tools)
+    
+    //TODO: Call the send message handler
 
     return { success: true} as RestResult200
   }
@@ -38,74 +43,25 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
    */
   private async _processMessage(msg: BaseMessage, tools: HandlerTools)
   {
+
+    // TODO: Create a DI container to manage instances and dynamically inject dependencies
+    const connDataService  = new ConnectionsDataService(msg, tools)
+    const cursorDataService = new CursorDataService(msg, tools)
+    const blockDataService = new BlockDataService(msg, connDataService, tools)
+
+    // Pass dependencies to the Process Message Service
+    const processMessage = new ProcessMessageService(cursorDataService,connDataService, blockDataService)
+
     tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
-    const chatBotRepo$ =  new ChatBotStore(tools)
-
-    const cursorRepo$ =  chatBotRepo$.cursor()
-
-
-    const userActivity =  await cursorRepo$.getLatestCursor(msg);
+    const userActivity =  await cursorDataService.getLatestCursor();
 
     if(!userActivity){
-      return await this._getFirstBlock(msg, tools)
+      return await processMessage.getFirstBlock(tools)
     } else {
-      return await this._resolveNextBlock(msg, chatBotRepo$, tools)
+      return await processMessage.resolveNextBlock(msg, tools)
     }
   }
 
-  /** 
-   * If a chat session has not yet been recorded, we create a new one and return the first block
-  */
-  private async _getFirstBlock(msg: BaseMessage, tools: HandlerTools)
-  {    
-    const chatBotRepo$ =  new ChatBotStore(tools)
-
-    const blockConnections = chatBotRepo$.blockConnections()
-
-    /** Get the first Block */
-    const connection = await blockConnections.getFirstConn(msg)
-
-    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, msg)
-
-
-    /** Update the cursor with the first block */
-    await chatBotRepo$.cursor().updateCursor(msg, firstBlock);
-
-    tools.Logger.log(()=> `[ChatBotService].init - Updated Cursor`)
-
-    return firstBlock;
-  }
-
-
-  /**
-   * Gets the next block and updates the cursor
-   * @param chatInfo - The registered chat information of the end-user
-   * @param chatBotRepo$ - Contains ready to use methods for working with the chatbot firebase collections
-   * @param msg - The message sent by the end-user
-   * @returns Next Block
-   */
-  private async _resolveNextBlock(msg: BaseMessage, chatBotRepo$: ChatBotStore, tools: HandlerTools){
-    // const chatService =  new ChatBotService(tools.Logger, platform)
-
-    // Get the latest activity / latest position of the cursor
-    const latestActivity = (await chatBotRepo$.cursor().getLatestCursor(msg)) as Activity
-
-    // Get the lastest block found in activity
-    const latestBlock = await chatBotRepo$.blockConnections().getBlockById(latestActivity.block.id, msg)
-
-    // Use NextBlockFactory to resolve the block type and get the next block based on the type
-    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools)
-    const nextBlock = await nextBlockService.getNextBlock(msg, latestBlock)
-
-    // Handles possible race condition
-    // const duplicateMessage = await chatService.handleDuplicates(msg, tools)
-
-    // Update the cursor
-    const cursor = await chatBotRepo$.cursor().updateCursor(msg, nextBlock)
-
-    return cursor.block;
-
-  }
 
 }

@@ -18,32 +18,7 @@ export class ChatBotService {
 
   constructor(private _logger: Logger, private _platform: Platforms) {}
 
-  /**
-   * Initializes chat status and returns the first block
-   * @param msg 
-   * @param chatInfo 
-   * @param tools 
-   * @returns First Block
-   */
-  async init(msg: BaseMessage, tools: HandlerTools): Promise<Block> | null {
-    this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
-
-    const chatBotRepo$ =  new ChatBotStore(tools)
-
-    const blockConnections = chatBotRepo$.blockConnections()
-
-    /** Get the first Block */
-    const connection = await blockConnections.getFirstConn(msg)
-
-    let firstBlock: Block = await blockConnections.getBlockById(connection.targetId, msg)
-
-
-    /** Update the cursor with the first block */
-    await chatBotRepo$.cursor().updateCursor(msg, firstBlock);
-
-    this._logger.log(()=> `[ChatBotService].init - Initialized Cursor`)
-
-    return firstBlock;
+  async processMessage(msg: BaseMessage){
 
   }
 
