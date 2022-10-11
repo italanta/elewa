@@ -7,7 +7,7 @@ import { ChatBotStore } from "@app/functions/chatbot";
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { NextBlockService } from "../next-block.class";
 
@@ -24,7 +24,7 @@ export class QuestionMessageService extends NextBlockService {
         this._logger = tools.Logger
     }
 
-    async getNextBlock(msg: Message, lastBlock?: QuestionMessageBlock): Promise<Block>{
+    async getNextBlock(msg: BaseMessage, lastBlock?: QuestionMessageBlock): Promise<Block>{
         const chatBotRepo$ =  new ChatBotStore(this.tools)
         const blockConnections = chatBotRepo$.blockConnections()
 

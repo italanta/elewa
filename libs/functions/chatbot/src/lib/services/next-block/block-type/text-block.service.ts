@@ -2,10 +2,10 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { NextBlockService } from "../next-block.class";
 
-import { Block, ChatInfo } from "@app/model/convs-mgr/conversations/chats";
+import { Block } from "@app/model/convs-mgr/conversations/chats";
 import { TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { ChatBotStore } from "@app/functions/chatbot";
 
 export class TextMessageService extends NextBlockService {
@@ -21,7 +21,7 @@ export class TextMessageService extends NextBlockService {
      * Returns the block connected to the default option of the text block
      * @returns Next Block
      */
-    async getNextBlock(msg: Message, lastBlock: TextMessageBlock): Promise<Block>{
+    async getNextBlock(msg: BaseMessage, lastBlock: TextMessageBlock): Promise<Block>{
         const blockConnRepo$ =  new ChatBotStore(this.tools).blockConnections()
         
         const connection = await blockConnRepo$.getConnBySourceId(lastBlock.id, msg)

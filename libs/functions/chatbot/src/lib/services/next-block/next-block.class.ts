@@ -1,10 +1,10 @@
-import { HandlerTools, Logger } from "@iote/cqrs";
+import { HandlerTools } from "@iote/cqrs";
 
 import { ChatBotStore } from "@app/functions/chatbot";
 
-import { Block, ChatInfo } from "@app/model/convs-mgr/conversations/chats";
-import { TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Block } from "@app/model/convs-mgr/conversations/chats";
+
+import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 
 export abstract class NextBlockService {
 
@@ -18,7 +18,7 @@ export abstract class NextBlockService {
      * Applies for blocks which only have one target block e.g. Text Message Block
      * @returns Block
      */
-    async getNextBlock(msg: Message, lastBlock: Block): Promise<Block>{
+    async getNextBlock(msg: BaseMessage, lastBlock: Block): Promise<Block>{
         const blockConnRepo$ =  new ChatBotStore(this.tools).blockConnections()
         
         const connection = await blockConnRepo$.getConnBySourceId(lastBlock.id, msg)
