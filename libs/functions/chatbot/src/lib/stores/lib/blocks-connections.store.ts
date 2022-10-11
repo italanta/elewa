@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { Block, ChatInfo, Connection, DefaultBlock } from '@app/model/convs-mgr/conversations/chats';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
@@ -17,7 +17,7 @@ export class BlockConnectionsStore {
   }
 
   /** Gets the full block using the id */
-  async getBlockById(id: string, msg: Message): Promise<Block> {
+  async getBlockById(id: string, msg: BaseMessage): Promise<Block> {
     const orgRepo$ = this.tools.getRepository<StoryBlock>(`orgs/${msg.orgId}/stories/${msg.storyId}/blocks`);
 
     const block: Block = await orgRepo$.getDocumentById(id);
@@ -41,7 +41,7 @@ export class BlockConnectionsStore {
     return defaultBlock;
   }
 
-  async getConnByOption(id: string, msg: Message): Promise<Connection> {
+  async getConnByOption(id: string, msg: BaseMessage): Promise<Connection> {
     const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${msg.orgId}/stories/${msg.storyId}/connections`);
 
     const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', id));
@@ -54,7 +54,7 @@ export class BlockConnectionsStore {
   }
 
   /** Gets the connection whose source matches the block id provided */
-  async getConnBySourceId(blockId: string, msg: Message): Promise<Connection> {
+  async getConnBySourceId(blockId: string, msg: BaseMessage): Promise<Connection> {
     const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${msg.orgId}/stories/${msg.storyId}/connections`);
 
     const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `defo-${blockId}`));
@@ -67,7 +67,7 @@ export class BlockConnectionsStore {
   }
 
   /** Gets the connection that links the anchor block and the first block */
-  async getFirstConn(msg: Message): Promise<Connection> {
+  async getFirstConn(msg: BaseMessage): Promise<Connection> {
     const orgRepo$ = this.tools.getRepository<Connection>(`orgs/${msg.orgId}/stories/${msg.storyId}/connections`);
 
     const conn = await orgRepo$.getDocuments(new Query().where('sourceId', '==', `${msg.storyId}`));

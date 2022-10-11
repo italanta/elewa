@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { Chat, ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
+import { Chat, ChatStatus, BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 
 /**
@@ -38,7 +38,7 @@ export class ChatStatusStore {
     return chatStatus;
   }
 
-  async updateChatStatus(msg: Message, status: ChatStatus) {
+  async updateChatStatus(msg: BaseMessage, status: ChatStatus) {
     const chatId = msg.storyId;
 
     const chatRepo$ = this.tools.getRepository<Chat>(`end-users/${msg.phoneNumber}/platforms/${msg.platform}/chat-status`);
