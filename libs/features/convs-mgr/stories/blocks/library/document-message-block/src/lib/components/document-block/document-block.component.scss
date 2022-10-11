@@ -20,6 +20,10 @@ input {
     display: none;
 }
 
+.file-info {
+    border-radius: 1px solid var(--convs-mgr-color-primary-grey);
+}
+
 .image {
     width: 13em;
     height: 12em;

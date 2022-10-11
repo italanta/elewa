@@ -2,14 +2,12 @@
     <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.IMAGE' | transloco }} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
-
             <div [id]="imageInputId">
                 <input type="image" id="imageFile" accept="img/*" [src]="this.block.fileSrc ? this.block.fileSrc : imageLink" class="image" (click)="imageInput.click()">
                 <input (change)="processImage($event)" accept="image/*" id="imageFile" #imageInput type="file" class="fileSrc" value="imageMessageForm.value.src">
             </div>
-
-            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}" #caption formControlName="message" (keyup)="onKey(caption.value)" name="caption " id="caption ">
-            <input type="text " placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco}} " name="image-link " id="image-link ">
+            <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}" formControlName="message" name="caption" id="caption" />
+            <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco}}" name="image-link" id="image-link" />
         </form>
     </mat-card-content>
 </mat-card>
