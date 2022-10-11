@@ -1,5 +1,5 @@
-import { WhatsAppBaseMessage } from "./whatsapp-base-message.model";
-import { WhatsAppMessageType } from "./whatsapp-message-types.model";
+import { WhatsAppBaseMessage } from "./whatsapp-base-message.interface";
+import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 /**
  * Contains only fields for type intercative
@@ -8,8 +8,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.model";
  */
 export interface WhatsAppInteractiveMessage extends WhatsAppBaseMessage {
   type: WhatsAppMessageType.INTERACTIVE,
- interactive: InteractiveInfo
-
+  interactive: InteractiveInfo
 }
 
 interface InteractiveInfo {
