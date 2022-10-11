@@ -6,7 +6,7 @@ import { ChatBotStore } from '../stores/chatbot.store';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block } from '@app/model/convs-mgr/conversations/chats';
-import { ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
+import { ChatStatus, BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 
 
 /**
@@ -25,7 +25,7 @@ export class ChatBotService {
    * @param tools 
    * @returns First Block
    */
-  async init(msg: Message, tools: HandlerTools): Promise<Block> | null {
+  async init(msg: BaseMessage, tools: HandlerTools): Promise<Block> | null {
     this._logger.log(()=> `[ChatBotService].init - Initializing Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
@@ -47,28 +47,28 @@ export class ChatBotService {
 
   }
 
-  async pause(msg: Message, tools: HandlerTools){
+  async pause(msg: BaseMessage, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].pause - Pausing Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
     await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Paused)
   }
 
-  async resume(msg: Message, tools: HandlerTools){
+  async resume(msg: BaseMessage, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].resume - Resuming Chat`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
     await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Running)
   }
 
-  async end(msg: Message, tools: HandlerTools){
+  async end(msg: BaseMessage, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].end - Ending Session`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
     await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Ended)
   }
 
-  async jumpToBlock(blockId: string, msg: Message, tools: HandlerTools){
+  async jumpToBlock(blockId: string, msg: BaseMessage, tools: HandlerTools){
     this._logger.log(()=> `[ChatBotService].Jump - Jumping to block ${blockId}`)
 
     const chatBotRepo$ =  new ChatBotStore(tools)
@@ -85,7 +85,7 @@ export class ChatBotService {
    * @param msg 
    * @param tools 
    */
-  async handleDuplicates(msg: Message, tools: HandlerTools): Promise<boolean>{
+  async handleDuplicates(msg: BaseMessage, tools: HandlerTools): Promise<boolean>{
     const chatBotRepo$ =  new ChatBotStore(tools)
     const latestMessage = await chatBotRepo$.messages().getLatestMessage(msg)
 
