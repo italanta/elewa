@@ -18,18 +18,38 @@
     "paths": {
       "@app/admin/config/environment-config": [
         "libs/admin/config/environment-config/src/index.ts"
-      ], 
-      "@app/elements/base/authorisation": ["libs/elements/base/authorisation/src/index.ts"],
-      "@app/elements/base/configuration": ["libs/elements/base/configuration/src/index.ts"],
-      "@app/elements/base/date-time": ["libs/elements/base/date-time/src/index.ts"],
-      "@app/elements/base/firebase": ["libs/elements/base/firebase/src/index.ts"],
-      "@app/elements/convs-mgr/controls/input-fields": ["libs/elements/convs-mgr/controls/input-fields/src/index.ts"],
+      ],
+      "@app/elements/base/authorisation": [
+        "libs/elements/base/authorisation/src/index.ts"
+      ],
+      "@app/elements/base/configuration": [
+        "libs/elements/base/configuration/src/index.ts"
+      ],
+      "@app/elements/base/date-time": [
+        "libs/elements/base/date-time/src/index.ts"
+      ],
+      "@app/elements/base/firebase": [
+        "libs/elements/base/firebase/src/index.ts"
+      ],
+      "@app/elements/convs-mgr/controls/input-fields": [
+        "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
+      ],
       "@app/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
-      "@app/elements/layout/page-convl": ["libs/elements/layout/page-convl/src/index.ts"],
-      "@app/elements/layout/user-menu": ["libs/elements/layout/user-menu/src/index.ts"],
-      "@app/elements/nav/convl/breadcrumbs": ["libs/elements/nav/convl/breadcrumbs/src/index.ts"],
-      "@app/features/app/auth/login": ["libs/features/app/auth/login/src/index.ts"],
-      "@app/features/convs-mgr/home": ["libs/features/convs-mgr/home/src/index.ts"],
+      "@app/elements/layout/page-convl": [
+        "libs/elements/layout/page-convl/src/index.ts"
+      ],
+      "@app/elements/layout/user-menu": [
+        "libs/elements/layout/user-menu/src/index.ts"
+      ],
+      "@app/elements/nav/convl/breadcrumbs": [
+        "libs/elements/nav/convl/breadcrumbs/src/index.ts"
+      ],
+      "@app/features/app/auth/login": [
+        "libs/features/app/auth/login/src/index.ts"
+      ],
+      "@app/features/convs-mgr/home": [
+        "libs/features/convs-mgr/home/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
         "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
       ],
@@ -60,10 +80,29 @@
       "@app/features/convs-mgr/stories/blocks/library/text-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/text-message-block/src/index.ts"
       ],
-    
+      "@app/features/convs-mgr/stories/blocks/main": [
+        "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/editor": [
+        "libs/features/convs-mgr/stories/editor/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/home": [
+        "libs/features/convs-mgr/stories/home/src/index.ts"
+      ],
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
+      ],
+      "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
+      "@app/functions/conversations/messages/add-message": [
+        "libs/functions/conversations/messages/add-message/src/index.ts"
+      ],
+      "@app/functions/conversations/onboarding": [
+        "libs/functions/conversations/onboarding/src/index.ts"
+      ],
+      "@app/functions/conversations/progression": [
+        "libs/functions/conversations/progression/src/index.ts"
       ],
       "@app/functions/messages/whatsapp": [
         "libs/functions/messages/whatsapp/src/index.ts"
@@ -78,31 +117,46 @@
       "@app/model/bot/blocks/story-block": [
         "libs/model/bot/blocks/story-block/src/index.ts"
       ],
+      "@app/model/bot/channel": ["libs/model/bot/channel/src/index.ts"],
       "@app/model/bot/main/message-data": [
         "libs/model/bot/main/message-data/src/index.ts"
       ],
       "@app/model/bot/main/provider": [
         "libs/model/bot/main/provider/src/index.ts"
       ],
-      "@app/model/convs-mgr/functions": [
-        "libs/model/convs-mgr/functions/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/blocks/main": ["libs/features/convs-mgr/stories/blocks/main/src/index.ts"],
-      "@app/features/convs-mgr/stories/editor": ["libs/features/convs-mgr/stories/editor/src/index.ts"],
-      "@app/features/convs-mgr/stories/home": ["libs/features/convs-mgr/stories/home/src/index.ts"],
-      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
-      "@app/functions/conversations/messages/add-message": [
-        "libs/functions/conversations/messages/add-message/src/index.ts"
-      ],
-      "@app/functions/conversations/onboarding": ["libs/functions/conversations/onboarding/src/index.ts"],
-      "@app/functions/conversations/progression": ["libs/functions/conversations/progression/src/index.ts"],
       "@app/model/convs-mgr/conversations/admin/system": [
         "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
       ],
       "@app/model/convs-mgr/conversations/analytics/units": [
         "libs/model/convs-mgr/conversations/analytics/units/src/index.ts"
       ],
-  
+      "@app/model/convs-mgr/conversations/chats": [
+        "libs/model/convs-mgr/conversations/chats/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/messages": [
+        "libs/model/convs-mgr/conversations/messages/src/index.ts"
+      ],
+      "@app/model/convs-mgr/functions": [
+        "libs/model/convs-mgr/functions/src/index.ts"
+      ],
+      "@app/model/convs-mgr/stories/blocks/main": [
+        "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
+      ],
+      "@app/model/convs-mgr/stories/blocks/messaging": [
+        "libs/model/convs-mgr/stories/blocks/messaging/src/index.ts"
+      ],
+      "@app/model/convs-mgr/stories/blocks/scenario": [
+        "libs/model/convs-mgr/stories/blocks/scenario/src/index.ts"
+      ],
+      "@app/model/convs-mgr/stories/blocks/structural": [
+        "libs/model/convs-mgr/stories/blocks/structural/src/index.ts"
+      ],
+      "@app/model/convs-mgr/stories/main": [
+        "libs/model/convs-mgr/stories/main/src/index.ts"
+      ],
+      "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
+      "@app/model/user": ["libs/model/user/base/src/index.ts"],
+      "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
       ],
@@ -112,33 +166,35 @@
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
       ],
-    
-      "@app/model/convs-mgr/conversations/chats": ["libs/model/convs-mgr/conversations/chats/src/index.ts"],
-      "@app/model/convs-mgr/conversations/messages": ["libs/model/convs-mgr/conversations/messages/src/index.ts"],
-      "@app/model/convs-mgr/stories/blocks/main": ["libs/model/convs-mgr/stories/blocks/main/src/index.ts"],
-      "@app/model/convs-mgr/stories/blocks/messaging": ["libs/model/convs-mgr/stories/blocks/messaging/src/index.ts"],
-      "@app/model/convs-mgr/stories/blocks/scenario": ["libs/model/convs-mgr/stories/blocks/scenario/src/index.ts"],
-      "@app/model/convs-mgr/stories/blocks/structural": ["libs/model/convs-mgr/stories/blocks/structural/src/index.ts"],
-      "@app/model/convs-mgr/stories/main": ["libs/model/convs-mgr/stories/main/src/index.ts"],
-      "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
-      "@app/model/user": ["libs/model/user/base/src/index.ts"],
-      "@app/state/convs-mgr/stories": ["libs/state/convs-mgr/stories/main/src/index.ts"],
-      "@app/state/convs-mgr/stories/block-connections": ["libs/state/convs-mgr/stories/block-connections/src/index.ts"],
-      "@app/state/convs-mgr/stories/blocks": ["libs/state/convs-mgr/stories/blocks/src/index.ts"],
-      "@app/state/convs-mgr/story-editor": ["libs/state/convs-mgr/story-editor/src/index.ts"],
+      "@app/state/convs-mgr/stories": [
+        "libs/state/convs-mgr/stories/main/src/index.ts"
+      ],
+      "@app/state/convs-mgr/stories/block-connections": [
+        "libs/state/convs-mgr/stories/block-connections/src/index.ts"
+      ],
+      "@app/state/convs-mgr/stories/blocks": [
+        "libs/state/convs-mgr/stories/blocks/src/index.ts"
+      ],
+      "@app/state/convs-mgr/story-editor": [
+        "libs/state/convs-mgr/story-editor/src/index.ts"
+      ],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
       "@iote/exceptions": ["libs/util/iote/exceptions/src/index.ts"],
-      "@iote/local-persistance": ["libs/util/iote/local-persistance/src/index.ts"],
+      "@iote/local-persistance": [
+        "libs/util/iote/local-persistance/src/index.ts"
+      ],
       "@iote/state": ["libs/util/iote/state/src/index.ts"],
       "@iote/time": ["libs/util/iote/time/src/index.ts"],
       "@iote/ui-workflows": ["libs/util/iote/ui-workflows/src/index.ts"],
       "@ngfi/admin-data": ["libs/util/ngfi/admin-data/src/index.ts"],
       "@ngfi/angular": ["libs/util/ngfi/angular/src/index.ts"],
-      "@ngfi/firestore-qbuilder": ["libs/util/ngfi/firestore-qbuilder/src/index.ts"],
+      "@ngfi/firestore-qbuilder": [
+        "libs/util/ngfi/firestore-qbuilder/src/index.ts"
+      ],
       "@ngfi/functions": ["libs/util/ngfi/functions/src/index.ts"],
       "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],

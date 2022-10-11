@@ -1,5 +1,5 @@
-import { WhatsAppBaseMessage } from "./whatsapp-base-message.model";
-import { WhatsAppMessageType } from "./whatsapp-message-types.model";
+import { WhatsAppBaseMessage } from "./whatsapp-base-message.interface";
+import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 /**
  * Contains only fields for type text

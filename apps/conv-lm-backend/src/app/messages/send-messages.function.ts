@@ -4,4 +4,7 @@ import { ConvLearnFunction } from "../../conv-learn-func.class";
 
 const handler = new SendMessageHandler();
 
-export const sendMessage = new ConvLearnFunction('sendMessage', new RestRegistrar(), [], handler).build();
+export const sendMessage = new ConvLearnFunction('sendWhatsappMessage',
+                                                  new RestRegistrar(),
+                                                  [],
+                                                  handler).build();

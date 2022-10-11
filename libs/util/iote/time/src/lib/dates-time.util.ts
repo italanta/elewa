@@ -24,7 +24,7 @@ export const __NewDateForStorage = (input: AppDateInput) => __DateToStorage(__Ne
 export function __DateFromStorage(unixDate?: Timestamp | Date, offsetCorrection = false) : AppDate
 {
   if(!unixDate)
-    return null;
+     return null as any;
     
   const dateTime = unixDate as any;
 
