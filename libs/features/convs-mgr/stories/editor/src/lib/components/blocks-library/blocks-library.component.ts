@@ -11,12 +11,10 @@ import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMess
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
-
 /**
  * Component which holds a library (list) of all blocks that can be created 
  *    in the story editor.
  */
-
 @Component({
   selector: 'convl-blocks-library',
   templateUrl: './blocks-library.component.html',
@@ -75,8 +73,8 @@ export class BlocksLibraryComponent implements OnInit
         this.frame.newBlock(StoryBlockTypes.Location);
         break;
       case StoryBlockTypes.Document:
-          this.frame.newBlock(StoryBlockTypes.Document);
-          break;
+        this.frame.newBlock(StoryBlockTypes.Document);
+        break;
     }
   }
 
