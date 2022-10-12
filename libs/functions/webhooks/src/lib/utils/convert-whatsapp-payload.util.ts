@@ -1,4 +1,5 @@
-import { RawWhatsAppApiPayload, WhatsAppResponse } from "@app/model/convs-mgr/functions";
+import { Platforms } from "@app/model/bot/main/provider";
+import { RawWhatsAppApiPayload, WhatsAppMessageType, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 
 
 //Function to get the webhook response as an object
@@ -7,10 +8,12 @@ export function __ConvertWhatsAppApiPayload(payload: any): WhatsAppResponse {
 
   const _whatsAppResponse = {
     botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.displayPhoneNumber,
-    botAccountphonNumberId: formattedPayLoad.entry[0].changes[0].value.metadata.phoneNumberId,
+    botAccountphoneNumberId: formattedPayLoad.entry[0].changes[0].value.metadata.phoneNumberId,
     botUserName: formattedPayLoad.entry[0].changes[0].value.contacts[0].profile.name,
     botUserPhoneNumber: formattedPayLoad.entry[0].changes[0].value.contacts[0].wa_id,
-    message: formattedPayLoad.entry[0].changes[0].value.messages[0]
+    message: formattedPayLoad.entry[0].changes[0].value.messages[0],
+    platform: Platforms.WhatsApp,
+    messageType: formattedPayLoad.entry[0].changes[0].value.messages[0].type,
   } as WhatsAppResponse;
 
   return _whatsAppResponse;
