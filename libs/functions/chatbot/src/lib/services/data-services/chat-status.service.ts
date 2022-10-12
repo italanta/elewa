@@ -1,10 +1,11 @@
 import { HandlerTools } from '@iote/cqrs';
 
+import { BotDataService } from './data-service-abstract.class';
+
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { Chat, ChatStatus, BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { BaseChannel } from '@app/model/bot/channel';
-import { BotDataService } from './data-service-abstract.class';
 
 /**
  * Contains all the required database flow methods for the chat-status collection
