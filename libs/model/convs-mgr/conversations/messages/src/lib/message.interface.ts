@@ -18,5 +18,5 @@ export interface BaseMessage extends IObject {
   platform?      : Platforms;
 
   /* The message text sent by the end user */
-  message       : string;
+  message       : any;
 }

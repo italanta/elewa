@@ -3,6 +3,7 @@
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/components
  */
 
+import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 export interface RawWhatsAppApiPayload {
@@ -47,7 +48,7 @@ export interface WhatsAppEntryFormDataChanges {
 
 
 }
-export interface WhatsAppMessagePayLoad {
+export interface WhatsAppMessagePayLoad extends BaseMessage{
   from: string,
   id: string,
   timeStamp: string,
