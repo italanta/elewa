@@ -68,7 +68,7 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
       const payload = { data: {...data} };
   
       try {
-        const resp = await axios.post('https://europe-west1-ele-convl-manager-7cd0a.cloudfunctions.net/addMessage', payload, {
+        const resp = await axios.post('https://europe-west1-ele-convl-manager-7cd0a.cloudfunctions.net/sendMessage', payload, {
           headers: {
             'Content-Type': 'application/json',
           },
