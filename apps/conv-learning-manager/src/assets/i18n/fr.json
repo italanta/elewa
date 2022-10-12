@@ -48,6 +48,15 @@
         "IMAGE": "Image",
         "LOCATION": "Location"
       }
+    },
+    "BLOCK": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Emplacemant",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE": "Téléphoner"
+      }
     }
   }
 }
