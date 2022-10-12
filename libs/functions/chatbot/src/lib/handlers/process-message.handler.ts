@@ -43,7 +43,7 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
   private async _processMessage(msg: BaseMessage, tools: HandlerTools)
   {
 
-    // To later use a DI container to manage instances and dynamically inject dependencies
+    // To later use a DI container to manage instances and dynamically inject approtiate dependencies
     const connDataService  = new ConnectionsDataService(msg, tools)
     const cursorDataService = new CursorDataService(msg, tools)
     const blockDataService = new BlockDataService(msg, connDataService, tools)
