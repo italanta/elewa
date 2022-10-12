@@ -13,22 +13,35 @@ mat-nav-list {
 }
 
 
-.logo {
-  max-height: 50px;
-  margin: 10px 0 0 20px;
-}
-
+// reusable classes
 .list-icon {
   margin-right: 10px;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
 }
 
-.icon-top {
-  font-size: 1.5em;
-  margin-right: 15px;
-  color: mat-color($accent, A200);
-  max-width: 25px;
-  border-radius: 5px;
+.container {
+  padding: 12px 25px;
+  border-bottom: 0.8px solid rgba(255,255,255,.1);
+  font-size: 14px;
+  outline: none;
+}
+
+// logo section
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+
+  .logo-section__image {
+    max-width: 60%;
+    margin-right: 15px;
+  }
+
+  .logo-section__icon-wrapper {
+    display: flex;
+    justify-content: flex-start;
+  }
 }
 
 .proj-info {
@@ -43,12 +56,7 @@ mat-nav-list {
   margin-bottom: 0;
 }
 
-.header {
-  padding: 12px 25px;
-  border-bottom: 0.8px solid rgba(255,255,255,.1);
-  font-size: 14px;
-  outline: none;
-}
+
 
 .header-main-item:before {
   content: "";
@@ -56,7 +64,7 @@ mat-nav-list {
   padding: 10px 5px;
 }
 
-.top-header {
+.top-container {
   cursor: pointer;
   padding: 10px;
   font-size: 16px;

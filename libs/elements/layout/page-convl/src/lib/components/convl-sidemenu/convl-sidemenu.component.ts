@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { SubSink } from 'subsink';
 
 import { AuthService } from '@ngfi/angular';
@@ -21,6 +21,7 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
 
   projectName: string;
   projectInfo: string;
+  menuIcon = faBars
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
