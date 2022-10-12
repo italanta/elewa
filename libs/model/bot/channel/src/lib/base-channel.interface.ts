@@ -7,7 +7,13 @@ export interface BaseChannel extends IObject {
   channelName: Platforms;
 
   //Number to be used in channel when communicating 
-  businessPhoneNumber: string;
+  businessAccountId: string;
+
+  // The telephone number of the send user
+  phoneNumber: string;
+
+  // The id assigned to the user phone number
+  phoneNumberId: string;
 
   //organisation/business that is using the channel for communication using the bot
   orgId: string;
