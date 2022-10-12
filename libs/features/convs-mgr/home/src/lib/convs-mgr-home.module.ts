@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
@@ -13,9 +16,11 @@ import { HomePageComponent } from './pages/home/home.page';
 import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MaterialDesignModule,
     FlexLayoutModule,
     ConvlPageModule,
