@@ -1,11 +1,9 @@
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
-import { MetaMessagingProducts, RecepientType, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext } from "@ngfi/functions";
-import { SendMessageFactory } from "../factory/send-message.factory";
-import { SendWhatsAppMessageModel } from "../models/whatsapp/whatsapp-send-message.model";
 
+import { SendMessageFactory } from "../factories/resolve-platform.factory";
+
+import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { Block } from '@app/model/convs-mgr/conversations/chats';
 
 /**
