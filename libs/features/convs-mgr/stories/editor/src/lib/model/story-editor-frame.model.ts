@@ -123,16 +123,9 @@ export class StoryEditorFrame
 
     for(const connection of this._connections) {      
       // fetching the source (input) that matches the connection source id
-     
-      let sourceElement =  domSourceInputs.filter((el) =>  { return el.id == connection.sourceId})[0];
-      debugger
-      console.log(sourceElement);
+      let sourceElement =  domSourceInputs.filter((el) => {return el.id == connection.sourceId})[0];
       // fetching the target (block) that matches the connection target id
-  
-      console.log(connection.targetId)
       let targetElement =  domBlockCards.filter((el) => {return el.id == connection.targetId})[0];
-      debugger
-  
 
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
