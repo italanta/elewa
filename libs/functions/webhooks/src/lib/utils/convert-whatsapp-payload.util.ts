@@ -1,4 +1,4 @@
-import { Platforms } from "@app/model/bot/main/provider";
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { RawWhatsAppApiPayload, WhatsAppMessageType, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 
 
