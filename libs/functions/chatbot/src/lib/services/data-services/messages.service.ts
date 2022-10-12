@@ -10,10 +10,12 @@ export class MessagesDataService extends BotDataService<BaseMessage> {
   private _docPath: string;
   private _msg: BaseMessage;
 
-  constructor(msg: BaseMessage,tools: HandlerTools) 
+  constructor(tools: HandlerTools, msg?: BaseMessage) 
   {
     super(tools)
-    this._init(msg)
+    if (msg){
+      this._init(msg)
+    }
   }
 
   protected _init(msg: BaseMessage){
@@ -21,15 +23,17 @@ export class MessagesDataService extends BotDataService<BaseMessage> {
     this._msg = msg
   }
 
-  async saveMessage(): Promise<BaseMessage> {
+  async saveMessage(msg: BaseMessage): Promise<BaseMessage> {
+    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/messages`
     const timeStamp = Date.now();
 
-    const savedMessage = await this.createDocument(this._msg, this._docPath, timeStamp.toString())
+    const savedMessage = await this.createDocument(msg, this._docPath, timeStamp.toString())
 
     return savedMessage;
   }
 
-  async getLatestMessage(): Promise<BaseMessage> {
+  async getLatestMessage(msg: BaseMessage): Promise<BaseMessage> {
+    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/messages`
 
     const latestMessage = await this.getLatestDocument(this._docPath);
 
