@@ -58,7 +58,7 @@ export interface WhatsAppMessagePayLoad extends BaseMessage{
 export interface TextMessagePayload extends WhatsAppMessagePayLoad {
   text: {
     body: string,
-    previewUrl?: boolean
+    preview_url?: boolean
   }
 }
 
