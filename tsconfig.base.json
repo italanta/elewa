@@ -86,6 +86,25 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
+      "@app/functions/conversations/onboarding": [
+        "libs/functions/conversations/onboarding/src/index.ts"
+      ],
+      "@app/functions/conversations/progression": [
+        "libs/functions/conversations/progression/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/admin/system": [
+        "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/analytics/units": [
+        "libs/model/convs-mgr/conversations/analytics/units/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/chats": [
+        "libs/model/convs-mgr/conversations/chats/src/index.ts"
+      ],
+      "@app/model/convs-mgr/conversations/messages": [
+        "libs/model/convs-mgr/conversations/messages/src/index.ts"
+      ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
       ],
@@ -103,6 +122,15 @@
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
+      "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
+        "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
+      ],
+      "@app/state/convs-mgr/conversations/chats": [
+        "libs/state/convs-mgr/conversations/chats/src/index.ts"
+      ],
+      "@app/state/convs-mgr/conversations/messages": [
+        "libs/state/convs-mgr/conversations/messages/src/index.ts"
+      ],
       "@app/state/convs-mgr/stories": [
         "libs/state/convs-mgr/stories/main/src/index.ts"
       ],
@@ -134,6 +162,7 @@
         "libs/util/ngfi/firestore-qbuilder/src/index.ts"
       ],
       "@ngfi/functions": ["libs/util/ngfi/functions/src/index.ts"],
+      "@ngfi/infinite-scroll": ["libs/util/ngfi/infinite-scroll/src/index.ts"],
       "@ngfi/multi-lang": ["libs/util/ngfi/multi-lang/src/index.ts"],
       "@ngfi/state": ["libs/util/ngfi/state/src/index.ts"]
     }
