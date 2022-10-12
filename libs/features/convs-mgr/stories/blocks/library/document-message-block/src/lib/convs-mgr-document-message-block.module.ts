@@ -14,7 +14,7 @@ import {MultiLangModule}from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { ImageBlockComponent } from './components/image-block/image-block.component';
+import { DocumentBlockComponent } from './components/document-block/document-block.component';
 
 @NgModule({
   imports: [
@@ -32,11 +32,9 @@ import { ImageBlockComponent } from './components/image-block/image-block.compon
     ConvsMgrBlockOptionsModule
   ],
 
-  declarations: [ImageBlockComponent],
+  declarations: [DocumentBlockComponent],
 
-  providers: [
-  ],
 
-  exports: [ImageBlockComponent],
+  exports: [DocumentBlockComponent],
 })
-export class ConvsMgrImageMessageBlockModule {}
+export class ConvsMgrDocumentMessageBlockModule {}
