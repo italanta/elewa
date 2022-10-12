@@ -14,16 +14,16 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     super()
   }
 
-  async sendMessage(message: BaseMessage, blockType: StoryBlockTypes, env:any) {
+  async sendMessage(message: BaseMessage, blockType: StoryBlockTypes) {
     switch (blockType) {
       case StoryBlockTypes.TextMessage:
-        return await this._sendTextMessage(message, env)    
+        return await this._sendTextMessage(message)    
       default:
         break;
     }
   }
 
-  protected async _sendTextMessage(message: BaseMessage, env:any){
+  protected async _sendTextMessage(message: BaseMessage){
 
     // Create the text payload
     const textPayload = { 
