@@ -7,6 +7,7 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 import { SendMessageModel } from "../send-message-main.model";
 
+/** Whatsapp specific send message model */
 export class SendWhatsAppMessageModel extends SendMessageModel {
 
   constructor(private _tools: HandlerTools) {
