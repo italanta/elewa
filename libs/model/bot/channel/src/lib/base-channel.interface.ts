@@ -1,8 +1,10 @@
+
+import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 import { IObject } from "@iote/bricks";
 
 export interface BaseChannel extends IObject {
   //Channel which bot will be used
-  channelName: ChannelOptions;
+  channelName: Platforms;
 
   //Number to be used in channel when communicating 
   businessPhoneNumber: string;
