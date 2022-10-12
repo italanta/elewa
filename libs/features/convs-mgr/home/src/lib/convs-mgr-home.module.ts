@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
@@ -26,7 +26,7 @@ import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-mo
     ConvlPageModule,
     ConvsMgrHomeRouterModule,
     MultiLangModule,
-    FontAwesomeModule,
+   
 
   ],
 

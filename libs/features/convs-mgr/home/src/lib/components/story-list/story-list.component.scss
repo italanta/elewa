@@ -3,6 +3,9 @@
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
 
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+
+
 
 .fa {
   color: mat-color($mat-ele, A900);

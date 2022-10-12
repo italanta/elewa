@@ -1,5 +1,4 @@
 <div>
-
   <mat-card class="bot-card"  (click)="goTo()">
     <img
       mat-card-image
@@ -10,22 +9,24 @@
     <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
       <div class="bot-text">
         <h2 class="bot">
-          {{ story.name }} <span class="bot-number"></span>
+          {{story.name }} <span class="bot-number">(6 bots)</span>
         </h2>
       </div>
 
       <div class="dots">
-          <fa-icon [icon]="dotedIcon"></fa-icon>
+        <div class="btn-dotted"></div>
+        <div class="btn-dotted"></div>
+        <div class="btn-dotted"></div>
       </div>
     </div>
 
     <mat-card-content>
       <p>
-        {{ story.description }}
+  {{story.description}}
       </p>
     </mat-card-content>
     <div class="action-holder">
-      <button mat-raised-button>Open bot</button>
+      <button mat-raised-button>{{ 'BOTS.HOME.OPEN.BOT' | transloco }}</button>
     </div>
   </mat-card>
 </div>
