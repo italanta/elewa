@@ -11,20 +11,19 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     super();
   }
 
-  addMessage(msg: RawMessageData, channel: WhatsappChannel) {
+  async addMessage(msg: RawMessageData, channel: WhatsappChannel) {
     const whatsappMessage = msg as WhatsAppResponse
 
       switch (whatsappMessage.messageType) {
         case WhatsAppMessageType.TEXT:
-          this._addTextMessage(whatsappMessage, channel)
-          break;
+          return await this._addTextMessage(whatsappMessage, channel)
+        
         case WhatsAppMessageType.IMAGE:
-          this._addImageMessage(whatsappMessage, channel)
-          break;  
+          return await this._addImageMessage(whatsappMessage, channel)
+           
         default:
-        case WhatsAppMessageType.TEXT:
-          this._addTextMessage(whatsappMessage, channel)
-          break;
+          return await this._addTextMessage(whatsappMessage, channel)
+        
       }      
   }
 
