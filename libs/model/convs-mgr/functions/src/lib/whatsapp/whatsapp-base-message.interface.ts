@@ -10,7 +10,7 @@ export interface WhatsAppBaseMessage extends BaseMessage{
   messaging_product: MetaMessagingProducts,
   recepient_type: RecepientType,
   to: string,
-  type: StoryBlockTypes
+  type: WhatsAppMessageType
 }
 
 
