@@ -33,12 +33,16 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     const textMessage = msg.message as TextMessagePayload
     // Create the base message object
     const newMessage: BaseMessage = {
-      channelId: channel.businessPhoneNumber,
+      
+      businessAccountId: channel.businessAccountId,
+      phoneNumberId: channel.phoneNumberId,
+      phoneNumber: channel.phoneNumber,
+      channelName: channel.channelName,
       storyId: channel.storyId,
       orgId: channel.orgId,
-      phoneNumber: msg.botUserPhoneNumber,
       message: textMessage.text.body,
       platform: channel.channelName,
+      authorizationKey: channel.authorizationKey
     };
     const savedMessage = await this._msgDataService$.saveMessage(newMessage);
 
@@ -49,12 +53,15 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     const imageMessage = msg.message as ImagePayload
     // Create the base message object
     const newMessage: BaseMessage = {
-      channelId: channel.businessPhoneNumber,
+      channelName: channel.channelName,
+      businessAccountId: channel.businessAccountId,
+      phoneNumber: channel.phoneNumber,
+      phoneNumberId: channel.phoneNumberId,
       storyId: channel.storyId,
       orgId: channel.orgId,
-      phoneNumber: msg.botUserPhoneNumber,
       message: imageMessage,
       platform: channel.channelName,
+      authorizationKey: channel.authorizationKey
     };
 
     const savedMessage = await this._msgDataService$.saveMessage(newMessage);
