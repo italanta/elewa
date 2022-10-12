@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
@@ -7,6 +9,7 @@ import { ConnectionsDataService } from '../services/data-services/connections.se
 import { BlockDataService } from '../services/data-services/blocks.service';
 
 import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Block } from '@app/model/convs-mgr/conversations/chats';
 
 
 
@@ -24,7 +27,8 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
     // Create an instance of the process message service
     const nextBlock = await this._processMessage(req, tools)
     
-    //TODO: Call the send message handler
+    // Call the send message function with the block and pass the base message
+    await this._sendMessage({msg: req, block: nextBlock}, tools)
 
     return { success: true} as RestResult200
   }
@@ -57,6 +61,24 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
       return await processMessage.resolveNextBlock(msg, tools)
     }
   }
+
+    /** Calls the send message function to intepret the message and send it to the desired platform*/
+    private async _sendMessage(data: {msg: BaseMessage, block: Block}, tools: HandlerTools) {
+
+      const payload = { data: {...data} };
+  
+      try {
+        const resp = await axios.post('https://europe-west1-ele-convl-manager-7cd0a.cloudfunctions.net/addMessage', payload, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        tools.Logger.log(() => `[ProcessMessageHandler]._sendMessage: Message sent successfully - ${resp}`);
+        return resp;
+      } catch (error) {
+        tools.Logger.log(() => `[ProcessMessageHandler]._sendMessage: Error while sending message - ${error}`);
+      }
+    }
 
 
 }
