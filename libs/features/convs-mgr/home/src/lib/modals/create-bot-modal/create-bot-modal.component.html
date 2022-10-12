@@ -1,14 +1,16 @@
 <h2 class="create-bot-header">{{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}</h2>
-<form>
+<form [formGroup]="botForm">
   <h4 class="create-bot-name">
     {{ 'BOTS.CREATE-MODAL.FIELDS.NAME' | transloco }}
   </h4>
   <input
     type="text"
-    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco"
+    formControlName = "botName"
+    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco"
   />
   <h4>{{ 'BOTS.CREATE-MODAL.FIELDS.DESC' | transloco }}</h4>
   <textarea
+    formControlName = "botDesc"
     [placeholder]="'BOTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco"
   >
   </textarea>
@@ -21,7 +23,7 @@
     </div>
 
     <div>
-      <button mat-raised-button class="add-btn">
+      <button mat-raised-button class="add-btn" (click)="add()">
         {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
       </button>
     </div>
