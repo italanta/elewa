@@ -1,6 +1,6 @@
 {
   "name": "@iote/bricks-angular",
-  "version": "2.0.0",
+  "version": "2.0.5",
   "description": "Base components used across italanta apps which extend @angular/material.",
   "author": {
     "name": "jrosseel",
@@ -8,8 +8,17 @@
     "url": "https://italanta.net"
   },
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0"
+    "@angular/common": "^14.2.0",
+    "@angular/core": "^14.2.0",
+    "@angular/material": "^14.2.0",
+    "@angular/flex-layout": "^14.0.0-beta.40",
+    "@angular/forms": "^14.2.0",
+    "@angular/router": "^14.2.0",
+    "@iote/time": "^2.0.0",
+    "rxjs": "^7.4.0",
+    "subsink": "^1.0.2",
+    "@angular/cdk": "^14.2.0",
+    "lodash": "^4.17.21"
   },
   "dependencies": {
     "tslib": "^2.3.0"
