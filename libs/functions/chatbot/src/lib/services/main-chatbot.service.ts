@@ -40,6 +40,7 @@ export class ChatBotMainService {
     this.platform = platform;
   }
 
+  /** Contains the journey of a message once we receive it*/
   async run(req: RawMessageData) {
     // Initialize chat and convert message to base message
     const baseMessage = await this.init(req);
@@ -51,6 +52,7 @@ export class ChatBotMainService {
     this.sendMessage({ msg: baseMessage, block: nextBlock });
   }
 
+  /** Checks if the message is from a new user and then initializes chat */
   async init(req: RawMessageData) {
     // Check if the enduser is registered to a channel
     this.messageChannel = await this.getChannelInfo(req, this._channelService$);
