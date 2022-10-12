@@ -30,7 +30,7 @@ export class AddMessageHandler extends FunctionHandler<RawMessageData, RestResul
     this.platform = req.platform
 
     // Check if the enduser is registered to a channel
-    const messageChannel = await channelDataService.getChannelInfo<WhatsappChannel>(req.botUserPhoneNumber)
+    const messageChannel = await this.getChannelInfo(req, channelDataService)
 
     if (messageChannel) {
       // Add message to collection
@@ -44,5 +44,15 @@ export class AddMessageHandler extends FunctionHandler<RawMessageData, RestResul
     }
 
     return { success: true } as RestResult200;
+  }
+
+  async getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService){
+    switch (msg.platform) {
+      case Platforms.WhatsApp:
+        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber)
+        
+      default:
+        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber)
+    }
   }
 }
