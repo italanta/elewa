@@ -47,7 +47,6 @@ export class BlockComponent implements OnInit {
     this.blocksGroup.push(this.blockFormGroup);
     this.typeOther = this.blockCopy.type;
     this.copyBlockService._createBlock(this.blockCopy);
-
   }
 
   ngOnInit(): void {
