@@ -1,9 +1,12 @@
 import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
-import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
-import { SendMessageModel } from "../send-message-main.model";
+
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+
+import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+import { SendMessageModel } from "../send-message-main.model";
+
 export class SendWhatsAppMessageModel extends SendMessageModel {
 
   constructor(private _tools: HandlerTools) {
@@ -44,12 +47,13 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
     //Auth token gotten from facebook api
-    const authorizationHeader = env.AUTHORIZATION_HEADER;
+    const authorizationHeader = generatedMessage.authorizationKey;
    
     /**
      * https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const PHONE_NUMBER_ID = 103844892462329 //Refers to business number to be used
+    const PHONE_NUMBER_ID = generatedMessage.phoneNumberId //Refers to business number to be used
+
     const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
     const data = JSON.stringify(dataToSend);
     const res = await axios.post(
