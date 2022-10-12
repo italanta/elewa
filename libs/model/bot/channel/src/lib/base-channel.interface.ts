@@ -20,8 +20,3 @@ export interface BaseChannel extends IObject {
 
 }
 
-export enum ChannelOptions {
-  WHATSAPP = "whatsapp",
-  TELEGRAM = "telegram",
-  SMS = "sms"
-}
