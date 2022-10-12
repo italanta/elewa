@@ -1,76 +1,116 @@
-import { HandlerTools } from '@iote/cqrs';
-import { Logger } from '@iote/cqrs';
+import axios from 'axios';
+
 import { __DateFromStorage } from '@iote/time';
 
-import { ChatBotStore } from '../stores/chatbot.store';
+import { AddMessageFactory } from '@app/functions/conversations/messages/add-message';
+
+import { MessagesDataService } from './data-services/messages.service';
+import { ChatStatusDataService } from './data-services/chat-status.service';
+import { ChannelDataService } from './data-services/channel-info.service';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { WhatsappChannel } from '@app/model/bot/channel';
+import { ProcessMessageService } from './process-message/process-message.service';
+import { HandlerTools } from '@iote/cqrs';
 import { Block } from '@app/model/convs-mgr/conversations/chats';
-import { ChatStatus, BaseMessage } from '@app/model/convs-mgr/conversations/messages';
-
+import { CursorDataService } from './data-services/cursor.service';
+import { BlockDataService } from './data-services/blocks.service';
+import { ConnectionsDataService } from './data-services/connections.service';
+import { SendMessageFactory } from '@app/functions/messages/whatsapp';
 
 /**
  * Handles the main processes of the ChatBot
  */
-export class ChatBotService {
-
+export class ChatBotMainService {
+  platform: Platforms;
+  messageChannel: WhatsappChannel;
   chatId: string;
 
-  constructor(private _logger: Logger, private _platform: Platforms) {}
-
-  async processMessage(msg: BaseMessage){
-
+  constructor(
+    private _msgDataService$: MessagesDataService,
+    private _chatStatusService$: ChatStatusDataService,
+    private _channelService$: ChannelDataService,
+    private _blocksService$: BlockDataService,
+    private _connService$: ConnectionsDataService,
+    private _cursorDataService$: CursorDataService,
+    private _tools: HandlerTools,
+    platform: Platforms
+  ) {
+    this.platform = platform;
   }
 
-  async pause(msg: BaseMessage, tools: HandlerTools){
-    this._logger.log(()=> `[ChatBotService].pause - Pausing Chat`)
+  async run(req: RawMessageData) {
+    // Initialize chat and convert message to base message
+    const baseMessage = await this.init(req);
 
-    const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Paused)
+    // Process message and return next block
+    const nextBlock = await this.processMessage(baseMessage);
+
+    // Send the message back to the user
+    this.sendMessage({ msg: baseMessage, block: nextBlock });
   }
 
-  async resume(msg: BaseMessage, tools: HandlerTools){
-    this._logger.log(()=> `[ChatBotService].resume - Resuming Chat`)
+  async init(req: RawMessageData) {
+    // Check if the enduser is registered to a channel
+    this.messageChannel = await this.getChannelInfo(req, this._channelService$);
 
-    const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Running)
+    let baseMessage: BaseMessage;
+
+    if (this.messageChannel) {
+      // Add message to collection
+      baseMessage = await this.addMessage(req);
+      return baseMessage;
+    } else {
+      // Initialize chat status
+      await this._chatStatusService$.initChatStatus(this.messageChannel, this.platform);
+
+      // Add message to collection
+      baseMessage = await this.addMessage(req);
+
+      return baseMessage;
+    }
   }
 
-  async end(msg: BaseMessage, tools: HandlerTools){
-    this._logger.log(()=> `[ChatBotService].end - Ending Session`)
+  async addMessage(req: RawMessageData) {
+    // Use factory to resolve the platform
+    const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(req.platform);
 
-    const chatBotRepo$ =  new ChatBotStore(tools)
-    await chatBotRepo$.chatStatus().updateChatStatus(msg, ChatStatus.Ended)
+    const baseMessage = await AddMessageService.addMessage(req, this.messageChannel);
+
+    return baseMessage;
   }
 
-  async jumpToBlock(blockId: string, msg: BaseMessage, tools: HandlerTools){
-    this._logger.log(()=> `[ChatBotService].Jump - Jumping to block ${blockId}`)
+  async processMessage(msg: BaseMessage) {
+    // Pass dependencies to the Process Message Service
+    const processMessage = new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$);
 
-    const chatBotRepo$ =  new ChatBotStore(tools)
-    const newBlock = await chatBotRepo$.blockConnections().getBlockById(blockId, msg)
-    
-    await chatBotRepo$.cursor().updateCursor(msg, newBlock);
+    this._tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
-    return newBlock
+    const userActivity = await this._cursorDataService$.getLatestCursor();
+
+    if (!userActivity) {
+      return await processMessage.getFirstBlock(this._tools);
+    } else {
+      return await processMessage.resolveNextBlock(msg, this._tools);
+    }
   }
 
-  /**
-   * Handles possible race condition, checks if a new message was added while processing the current message
-   * If a new message was added, then its possible another instance of the function is running
-   * @param msg 
-   * @param tools 
-   */
-  async handleDuplicates(msg: BaseMessage, tools: HandlerTools): Promise<boolean>{
-    const chatBotRepo$ =  new ChatBotStore(tools)
-    const latestMessage = await chatBotRepo$.messages().getLatestMessage(msg)
+  async sendMessage(data: { msg: BaseMessage; block: Block }) {
+    // Call factory to resolve the platform
+    const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
-    const currentMsgStamp = __DateFromStorage(msg.createdOn).unix()
-    const latestMsgStamp = __DateFromStorage(latestMessage.createdOn).unix()
+    // Send the message
+    await client.sendMessage(data.msg, data.block.type)
+  }
 
-    if(currentMsgStamp !=  latestMsgStamp){
-      tools.Logger.log(()=> `[ProcessMessageHandler]._handleDuplicates: Another message has been added during this transaction`)
-      return true
-    } 
-    return false
+  async getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
+    switch (msg.platform) {
+      case Platforms.WhatsApp:
+        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber);
+
+      default:
+        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber);
+    }
   }
 }
