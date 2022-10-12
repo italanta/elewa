@@ -21,6 +21,9 @@ import { StoryEditorState } from '../model/story-editor-state.model';
 @Injectable()
 export class StoryEditorStateService
 {
+  delete() {
+    throw new Error('Method not implemented.');
+  }
   /** The first load of each time the story editor service was called.
    *  We need this param to diff. between discarded and newly loaded blocks. */
   private _lastLoadedState : StoryEditorState | null;
@@ -53,6 +56,7 @@ export class StoryEditorStateService
     // Return state.
     return state$;
   }
+  
 
   /** Persists a story editor state. */
   persist(state: StoryEditorState)
@@ -153,4 +157,8 @@ export class StoryEditorStateService
   flush() {
     this._lastLoadedState = null;
   }
-}
+
+  
+
+  }
+

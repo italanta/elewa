@@ -1,4 +1,4 @@
-import { Component, ElementRef,  HostListener, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, ElementRef,  HostListener, Input, OnInit} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -14,6 +14,9 @@ import { _CreateTextMessageBlockForm } from '../../model/message-block-form.mode
 import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
+import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { throttleTime } from 'rxjs';
+import * as _ from 'lodash';
 
 /**
  * Block which sends a message from bot to user.
@@ -28,15 +31,9 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+  state: StoryEditorState;
   
-  @Output() deleteBlock: EventEmitter<string> = new EventEmitter<string>();
-  
-  delete()  {
-    let confirmDelete = confirm('Are you sure you want to delete this block')
-    if(confirmDelete){
-      this.deleteBlock.emit()
-    }
-  }
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -49,7 +46,9 @@ export class BlockComponent implements OnInit {
 
   blockFormGroup: FormGroup;
 
-  constructor(private _el: ElementRef,
+  constructor(
+    private _editorStateService: StoryEditorStateService,
+    private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger) { }
 
@@ -60,6 +59,8 @@ export class BlockComponent implements OnInit {
       case StoryBlockTypes.TextMessage:
         this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
+        console.log(this.blocksGroup);
+        //console.log(this.blocksGroup);
         break;
 
       case StoryBlockTypes.Image:
@@ -132,4 +133,17 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-}
+ 
+//implement state interaction
+   deleteBlock()  {
+    //this.blocksGroup.removeAt(i)
+    this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: number; }) => block.id === 1))
+    
+    
+      }
+    
+   
+ 
+
+ }
+
