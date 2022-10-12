@@ -19,3 +19,9 @@ export interface BaseChannel extends IObject {
   authorizationKey?: string;
 
 }
+
+export enum ChannelOptions {
+  WHATSAPP = "whatsapp",
+  TELEGRAM = "telegram",
+  SMS = "sms"
+}

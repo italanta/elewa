@@ -1,9 +1,8 @@
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { catchError, combineLatest, filter, map, of, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
-import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
+import { BaseChannel, ChannelOptions, WhatsappChannel } from '@app/model/bot/channel';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
@@ -23,7 +22,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
   
   addToChannelForm:FormGroup;
 
-  channels:BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel];
+  channels:BaseChannel[] = [{ channelName: ChannelOptions.WHATSAPP } as WhatsappChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,

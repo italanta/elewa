@@ -1,7 +1,7 @@
-import { Platforms} from "@app/model/convs-mgr/conversations/admin/system";
+import { ChannelOptions } from "@app/model/bot/channel";
 import { IObject } from "@iote/bricks";
 
 export interface BotUser extends IObject {
   phoneNumber: string;
-  channelsRegistered?: Platforms[];  
+  channelsRegistered?: ChannelOptions[];  
 }
