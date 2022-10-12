@@ -1,6 +1,6 @@
 import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
-import { MetaMessagingProducts, RecepientType, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 import { SendMessageModel } from "../send-message-main.model";
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
@@ -11,18 +11,34 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
   }
 
   async sendMessage(message: BaseMessage, blockType: StoryBlockTypes, env:any) {
+    switch (blockType) {
+      case StoryBlockTypes.TextMessage:
+        return await this._sendTextMessage(message, env)    
+      default:
+        break;
+    }
+  }
 
+  protected async _sendTextMessage(message: BaseMessage, env:any){
+
+    // Create the text payload
+    const textPayload = { 
+      text: {
+        preview_url: false,
+        body: message.message
+      }
+    } as TextMessagePayload
+
+    // Add the required fields for the whatsapp api
     const generatedMessage: WhatsAppBaseMessage = {
-      ...message,
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
-
-      // TODO: Resolve type based on block
-      type: blockType
-
+      type: WhatsAppMessageType.TEXT,
+      ...textPayload
     }
 
+    // Convert the message to json
      const dataToSend = JSON.stringify(generatedMessage);
 
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
