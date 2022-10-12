@@ -18,12 +18,11 @@ import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-mo
     CommonModule,
     MaterialDesignModule,
     FlexLayoutModule,
-
     ConvlPageModule,
-
     ConvsMgrHomeRouterModule,
     MultiLangModule,
     FontAwesomeModule,
+
   ],
 
   declarations: [

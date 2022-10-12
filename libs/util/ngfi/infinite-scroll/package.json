@@ -1,0 +1,22 @@
+{
+  "name": "@ngfi/infinite-scroll",
+  "version": "2.0.0",
+  "description": "Library which adds infinite scroll capabilities through the ngfiScrollable directive",
+  "author": {
+    "name": "jrosseel",
+    "email": "rosseeljente@gmail.com",
+    "url": "https://italanta.net"
+  },
+  "peerDependencies": {
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@angular/fire": "^7.4.1",
+    "@firebase/firestore-types": "^2.5.0",
+    "lodash": "^4.17.21",
+    "rxjs": "^7.4.0",
+    "@iote/bricks": "^2.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

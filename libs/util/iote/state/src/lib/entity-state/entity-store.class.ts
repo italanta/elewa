@@ -55,7 +55,7 @@ export abstract class EntityStore<T> implements Stateful<T[]>
     this.bs.next(newState);
   }
 
-  protected set(newValues: Partial<T[]> | any, event: StoreEventTypes = "Not Specified")
+  set(newValues: Partial<T[]> | any, event: StoreEventTypes = "Not Specified")
   {
     const newValue = new EntityState(newValues);
 
