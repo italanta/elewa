@@ -15,9 +15,13 @@ export class SendMessageHandler extends FunctionHandler< {msg: BaseMessage, bloc
   {
     tools.Logger.log(() =>`[SendWhatsAppMessageHandler] Started execution`)
 
+    // Get the env configs
     const env = context.environment;
+
+    // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, tools).resolvePlatform()
 
+    // Send the message
     return client.sendMessage(data.msg, data.block.type,  env)
   }
 }

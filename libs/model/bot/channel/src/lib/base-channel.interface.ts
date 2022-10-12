@@ -2,6 +2,7 @@
 import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 import { IObject } from "@iote/bricks";
 
+/** Basic Channel Information that will be the same across varoius channel */
 export interface BaseChannel extends IObject {
   //Channel which bot will be used
   channelName: Platforms;
@@ -9,7 +10,7 @@ export interface BaseChannel extends IObject {
   //Number to be used in channel when communicating 
   businessAccountId: string;
 
-  // The telephone number of the send user
+  // The telephone number of the end user
   phoneNumber: string;
 
   // The id assigned to the user phone number
