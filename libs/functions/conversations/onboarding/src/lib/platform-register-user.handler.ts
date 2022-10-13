@@ -2,7 +2,6 @@ import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 
 import { ChatBotStore } from '@app/functions/chatbot';
-
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 
@@ -11,7 +10,7 @@ import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
  * Register User Handler. Records all onboarding information of a user
  *
  * @param req - Onboarding info */
-export class RegisterEndUserHandler extends FunctionHandler<{phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, ChatInfo>
+export class PlatformRegisterEndUserHandler extends FunctionHandler<{phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, ChatInfo>
 {
   public async execute(req: {phoneNumber: string; orgId: string; storyId: string, platform: Platforms }, context: FunctionContext, tools: HandlerTools)
   {
