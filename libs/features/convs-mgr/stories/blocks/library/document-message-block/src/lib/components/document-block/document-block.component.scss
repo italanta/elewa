@@ -1,0 +1,31 @@
+mat-card {
+    min-width: fit-content;
+    padding: 10px;
+}
+
+mat-card-title {
+    font-size: 1.2rem!important;
+    color: var(--convs-mgr-color-primary-purple);
+}
+
+input {
+    margin: 5px 0;
+    width: 180px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.fileSrc {
+    display: none;
+}
+
+.file-info {
+    border-radius: 1px solid var(--convs-mgr-color-primary-grey);
+}
+
+.image {
+    width: 13em;
+    height: 12em;
+    border-radius: 10px;
+}

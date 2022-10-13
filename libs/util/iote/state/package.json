@@ -1,6 +1,6 @@
 {
   "name": "@iote/state",
-  "version": "2.0.0",
+  "version": "2.0.3",
 
   "description": "State library for Angular inspired by @netbasal 's Akita pattern.",  
 
@@ -15,6 +15,22 @@
     "@angular/core": "^14.0.0",
     "rxjs": "^7.5.5",
     "lodash": "^4.17.21",
-    "subsink": "^1.0.2"
+    "subsink": "^1.0.2",
+    "@iote/bricks": "^2.0.0",
+    "@iote/state": "^2.0.0",
+    "@iote/bricks-angular": "^2.0.0",
+    "@ngfi/angular": "^2.0.0",
+    "tslib": "^2.0.0",
+    "@angular/flex-layout": "^14.0.0-beta.40",
+    "@angular/material": "^14.0.4",
+    "moment": "^2.29.4",
+    "@iote/time": "^2.0.0",
+    "@firebase/firestore-types": "^2.5.0",
+    "@angular/router": "^14.0.0",
+    "@angular/cdk": "^14.0.4",
+    "@angular/forms": "^14.0.0",
+    "@angular/fire": "^7.4.1",
+    "@iote/cqrs": "^2.0.0",
+    "@ngfi/firestore-qbuilder": "^2.0.0"
   }
 }

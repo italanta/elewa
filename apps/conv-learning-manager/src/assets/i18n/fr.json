@@ -39,7 +39,7 @@
       "TITLE": "Karibu Elewa Conversational Learning!",
       "DESCRIPTION": "Elewa LMS est le premier gestionnaire d'apprentissage conversationnel au monde.",
       "LEARN-MORE": "Apprend plus en",
-      "LEARN-MORE-LINK": "https://elewa.education" 
+      "LEARN-MORE-LINK": "https://elewa.education"
     }
   },
   "PAGE-CONTENT": {
@@ -48,6 +48,19 @@
         "IMAGE": "Image",
         "LOCATION": "Location"
       }
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "FIELDS": {
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom du robot",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description du robot"
+      },
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot"
     }
   }
 }
