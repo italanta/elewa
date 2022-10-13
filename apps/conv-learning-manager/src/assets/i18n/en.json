@@ -64,8 +64,16 @@
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone"
       }
+    },
+    "COMPONENTS": {
+      "TITLE": "Story Blocks"
+    },
+    "SIDE-MENU": {
+      "DASHBOARD": "Dashboard",
+      "LOG-OUT": "Logout"
     }
   },
+
   "BOTS": {
     "CREATE-MODAL": {
       "FIELDS": {
