@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'functions-bot-users',
-  preset: '../../../jest.preset.js',
+  displayName: 'elements-base-security-config',
+  preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/functions/bot-users',
+  coverageDirectory: '../../../../coverage/libs/elements/base/security-config',
 };
