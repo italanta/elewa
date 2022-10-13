@@ -10,4 +10,4 @@ export * from './functions/fns-messages';
 
 export * from './app/functions/bot/processMessage.function';
 export * from './app/functions/bot/registerEndUser.function';
-export * from './app/functions/bot/addMessage.function';
+export * from './app/functions/bot/engineAddMessage.function';
