@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 import {
   FlexLayoutModule,
   MaterialBricksModule,
@@ -21,7 +19,6 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
-    FontAwesomeModule,
 
     FormsModule,
     ReactiveFormsModule,
