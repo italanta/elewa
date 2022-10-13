@@ -1,1 +1,1 @@
-export * from '../app/webhooks/whatsapp-message-webhook.function'
+export * from '../app/webhooks/whatsapp-receive-incoming-message.function'
