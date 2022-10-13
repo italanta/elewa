@@ -14,13 +14,16 @@
         <div [routerLink]="['/']" mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
 
             <!-- <i matListIcon class="fas fa-columns"></i> -->
-            <img class="list-icon icon-top" src="assets/images/ele-small-ico.png">
-            <div fxLayout="column">
+            <img class="list-icon" src="assets/images/elewa-logo.png">
+            <div class="menu">
+              <i class="fas fa-bars"></i>
+            </div>
+            <!-- <div fxLayout="column">
                 <div class="proj-name">{{ projectName }}</div>
                 <div class="proj-info">
                     {{ projectInfo }}
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <hr id="menu-header-seperator" />
@@ -28,17 +31,19 @@
         <!-- Section Home -->
         <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
 
-            <div fxLayout="row">
-                <i matListIcon class="fas fa-home list-icon"></i> Home
+            <div fxLayout="row"  fxLayoutAlign="start" class="sub-header">
+                <!-- <i matListIcon class="fas fa-home list-icon"></i> Home -->
+                <span class="main-text">Main</span>
                 <div class="chevron-down" [class.right]="rlaHome.isActive">
-                    <i class="fas fa-sort-down"></i>
+                    <!-- <i class="fas fa-sort-down"></i> -->
                 </div>
                 <ng-template #icon2><i class="fas fa-sort-down chevron-down"></i></ng-template>
             </div>
 
             <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
                 <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
-                    {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+                  <i class='fas fa-tachometer-alt'></i>
+                   <span>{{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}</span>
                 </div>
             </div>
             <button mat-raised-button (click)="logout()">
