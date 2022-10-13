@@ -29,10 +29,11 @@ import * as _ from 'lodash';
 export class BlockComponent implements OnInit {
   @Input() id: string;
   @Input() block: StoryBlock;
-  @Input() blocksGroup: FormArray;
+  @Input() blocksGroup: FormArray; //diff types of blocks eg text,img,location
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   state: StoryEditorState;
+  
   
 
   type: StoryBlockTypes;
@@ -136,8 +137,26 @@ export class BlockComponent implements OnInit {
  
 //implement state interaction
    deleteBlock()  {
-    //this.blocksGroup.removeAt(i)
-    this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: number; }) => block.id === 1))
+    //const control = <FormArray>this.blocksGroup.controls['block'] 
+    //control.removeAt(i)
+    
+   // const value = this.blocksGroup.value;
+
+    //this.blocksGroup.setValue(
+      //value.slice(0, index).concat(
+        //value.slice(index + 1),
+        //).concat(value[index]),
+
+   // );
+    //this.blocksGroup.removeAt(value.length - 1);
+      
+    
+    //this.blocksGroup.removeAt(this.type = this.block.type);
+    
+    this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: string; })  => block.id === "78"))
+    console.log(this.blocksGroup)
+    console.log(this._editorStateService.get().subscribe((state)=> {console.log(state)})
+    )
     
     
       }
