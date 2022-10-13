@@ -2,6 +2,7 @@
 @import '@angular/material/theming';
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
+@import '_variables';
 
 #side-menu {
   min-width: 200px;
@@ -38,11 +39,11 @@ mat-nav-list {
 .child-header::before {
   position: absolute;
   content: "";
-  background-color: red;
   height: 100%;
   width: 4px;
   right: 0;
   border-radius: 5px;
+  background-color: var(--convs-mgr-color-primary-purple);
 }
 
 // logo section
@@ -73,9 +74,11 @@ mat-nav-list {
 }
 
 // section main + dashboard
-.main-wrapper{
-  .main{
-    font-size: 14px;
+.main-wrapper {
+  .main {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--convs-mgr-color-tertiary);
   }
 }
 
@@ -84,18 +87,17 @@ mat-nav-list {
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
+  background-color: var(--conv-mgr-color-sidemenu-background);
 
-  .dash-section__tooltip{
-    color: red;
+  .dash-section__tooltip {
+    color: var(--convs-mgr-color-primary-purple);
+  }
+  
+  .dash-section__dashboard {
+    font-weight: 500;
+    color: var(--convs-mgr-color-primary-purple);
   }
 }
-
-// .proj-info {
-//   font-size: 0.7em;
-//   font-weight: 200;
-//   color: #ccc;
-// }
-
 
 
 .header-main-item:before {
