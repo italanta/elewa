@@ -16,7 +16,10 @@ import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
   styleUrls: ['./add-bot-to-channel.modal.scss']
 })
 
-//Form to register bot/story to particular channel e.g WhatsApp/Telegram
+/**
+ * @Description Form to register bot/story to particular channel e.g WhatsApp/Telegram
+ */
+
 export class AddBotToChannelModal implements OnInit, OnDestroy {
   
   private _sBs = new SubSink();
@@ -67,7 +70,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       businessPhoneNumber: String(phoneNumber),
       storyId: this._activeStoryId,
       orgId: this._orgId,
-      businessId: String(bussinessId),
+      businessAccountId: String(bussinessId),
       authorizationKey: __ENCODE(rawApiKey)
     } as BaseChannel;
 
