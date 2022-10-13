@@ -48,6 +48,11 @@
         "IMAGE": "Image",
         "LOCATION": "Location"
       }
+    },
+    "SIDE-MENU": {
+      "DASHBOARD": "Dashboard",
+      "LOG-OUT": "Logout",
+      "MAIN-TITLE": "Main"
     }
   },
   "BOTS": {
