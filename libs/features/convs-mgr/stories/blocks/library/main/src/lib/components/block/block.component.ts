@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { cloneDeep as ___cloneDeep } from 'lodash';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
@@ -11,7 +13,7 @@ import { _CreateQuestionBlockMessageForm } from '../../model/question-block-form
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
 import { _CreateTextMessageBlockForm } from '../../model/text-message-block-form.model';
 
-import { cloneDeep } from 'lodash';
+
 import { StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
 /**
@@ -27,10 +29,9 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-  @Input() blockCopy: StoryBlock;
+  blockCopy: any;
 
   type: StoryBlockTypes;
-  typeOther: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
@@ -43,9 +44,7 @@ export class BlockComponent implements OnInit {
     public copyBlockService: StoryEditorStateService) { }
   
   copyBlock(event: any) {
-    this.blockCopy = cloneDeep(this.block);
-    this.blocksGroup.push(this.blockFormGroup);
-    this.typeOther = this.blockCopy.type;
+    this.blockCopy = ___cloneDeep(this.block);
     this.copyBlockService._createBlock(this.blockCopy);
   }
 
