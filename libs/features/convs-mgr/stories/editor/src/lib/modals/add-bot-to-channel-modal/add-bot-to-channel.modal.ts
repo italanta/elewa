@@ -1,13 +1,14 @@
 import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, combineLatest, filter, map, of, switchMap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { combineLatest, filter, map } from 'rxjs';
 import { SubSink } from 'subsink';
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-import { MatDialog } from '@angular/material/dialog';
+import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -15,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./add-bot-to-channel.modal.scss']
 })
 
+//Form to register bot/story to particular channel e.g WhatsApp/Telegram
 export class AddBotToChannelModal implements OnInit, OnDestroy {
   
   private _sBs = new SubSink();
@@ -35,7 +37,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     this.addToChannelForm = this._fb.group({
       phoneNumber: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
       bussinessId: [null ,Validators.required],
-      channel: [null, Validators.required]
+      channel: [null, Validators.required],
+      apiKey:[null, Validators.required]
     })
    }
 
@@ -57,16 +60,16 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
     const bussinessId = this.addToChannelForm.get('bussinessId')?.value;
     const channel: BaseChannel = this.addToChannelForm.get('channel')?.value;
+    const rawApiKey = this.addToChannelForm.get('apiKey')?.value;
 
     const channelToSubmit =  {
       channelName: channel.channelName,
       businessPhoneNumber: String(phoneNumber),
       storyId: this._activeStoryId,
       orgId: this._orgId,
-      businessId: String(bussinessId)
+      businessId: String(bussinessId),
+      authorizationKey: __ENCODE(rawApiKey)
     } as BaseChannel;
-
-    // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
 
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
@@ -86,7 +89,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   private _storyExistsInChannel(channel: BaseChannel)
   {
-    return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
+    return this._manageStoryLinkService
+               .getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
   }
 
   closeDialog = () => this._dialog.closeAll();

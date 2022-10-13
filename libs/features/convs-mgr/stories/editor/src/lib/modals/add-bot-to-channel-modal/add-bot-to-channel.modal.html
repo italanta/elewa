@@ -16,6 +16,12 @@
         <input formControlName="bussinessId" type="number" matInput placeholder="Enter bot business id">        
       </mat-form-field>
 
+      
+      <mat-form-field appearance="standard">
+        <mat-label>Your API Key</mat-label>
+        <input formControlName="apiKey" matInput placeholder="Enter your provided API key" required>        
+      </mat-form-field>
+
       <mat-form-field appearance="standard">
         <mat-label>Choose Channel</mat-label>
         <mat-select formControlName="channel" required>
@@ -25,8 +31,8 @@
         </mat-select>
       </mat-form-field>
 
-      <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
-        <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
+      <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center" fxLayoutGap="15px">
+        <button mat-raised-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
           Save
         </button>
 
