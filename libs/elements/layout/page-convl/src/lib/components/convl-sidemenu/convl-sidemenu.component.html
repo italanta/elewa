@@ -13,7 +13,7 @@
       <hr id="menu-header-seperator" />
 
       <!-- Section Home -->
-      <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" >
+      <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
           <div fxLayout="row" class="main-wrapper">
               <span class="main">
                 {{'PAGE-CONTENT.SIDE-MENU.MAIN-TITLE' | transloco }}
