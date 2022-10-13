@@ -5,7 +5,7 @@
       {{ 'BOT.ADD-BOT-FORM.TITLE' | transloco }}
     </span>
 
-    <form (ngSubmit)="onSubmit()"
+    <form (ngSubmit)="onSubmit($event)"
           [formGroup]="addToChannelForm"
           fxLayout="column"
           fxLayoutAlign="center center"
