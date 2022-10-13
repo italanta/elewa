@@ -1,1 +1,1 @@
-export * from './lib/register-user.handler';
+export * from './lib/platform-register-user.handler';
