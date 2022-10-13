@@ -1,29 +1,38 @@
 <ng-container>
-  <div fxLayout="column" fxLayoutAlign="center center"
-  fxLayoutGap="15px" fxFlex="100">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+
     <span class="header-text">
-      Add Story To Channel
+      {{ 'BOT.ADD-BOT-FORM.TITLE' | transloco }}
     </span>
-    <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center"
-      fxLayoutGap="15px" fxFlex="100">
+
+    <form (ngSubmit)="onSubmit()"
+          [formGroup]="addToChannelForm"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+          fxLayoutGap="15px"
+          fxFlex="100">
+
+      <!-- Bot Phone Number -->
       <mat-form-field appearance="standard">
-        <mat-label>Bot Phone Number</mat-label>
+        <mat-label>  {{ 'BOT.ADD-BOT-FORM-FIELD.PHONE-NUMBER' | transloco }}</mat-label>
         <input formControlName="phoneNumber" matInput placeholder="Enter bot phone number">
       </mat-form-field>
 
+      <!-- Bot Phone Id -->
       <mat-form-field appearance="standard">
-        <mat-label>Bot Phone Id</mat-label>
+        <mat-label>{{ 'BOT.ADD-BOT-FORM-FIELD.PHONE-ID' | transloco }}</mat-label>
         <input formControlName="bussinessId" type="number" matInput placeholder="Enter bot business id">        
       </mat-form-field>
 
-      
+      <!-- API key for platform of user -->
       <mat-form-field appearance="standard">
-        <mat-label>Your API Key</mat-label>
+        <mat-label>{{ 'BOT.ADD-BOT-FORM-FIELD.API-KEY' | transloco }}</mat-label>
         <input formControlName="apiKey" matInput placeholder="Enter your provided API key" required>        
       </mat-form-field>
 
+    <!-- Name of channel e.g whatsapp -->
       <mat-form-field appearance="standard">
-        <mat-label>Choose Channel</mat-label>
+        <mat-label>{{ 'BOT.ADD-BOT-FORM-FIELD.CHOOSE-CHANNEL' | transloco }}</mat-label>
         <mat-select formControlName="channel" required>
           <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
             {{singleChannel.channelName}}
@@ -33,11 +42,11 @@
 
       <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center" fxLayoutGap="15px">
         <button mat-raised-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
-          Save
+          {{ 'BOT.ADD-BOT-FORM-ACTION.SAVE' | transloco }}
         </button>
 
-        <button mat-raised-button class="cancel-btn" (click)="closeDialog()">
-          Cancel
+        <button mat-raised-button class="cancel-btn" (click)="closeDialog()" [disabled]="isSaving">
+          {{ 'BOT.ADD-BOT-FORM-ACTION.CANCEL' | transloco }}
         </button>
       </span>
     </form>
