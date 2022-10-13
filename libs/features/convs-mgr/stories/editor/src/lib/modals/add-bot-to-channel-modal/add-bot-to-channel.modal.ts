@@ -2,11 +2,14 @@ import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { combineLatest, filter, map } from 'rxjs';
+
+import { combineLatest, filter, map, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
+
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
+
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
 import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
 
@@ -18,6 +21,7 @@ import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
 
 /**
  * @Description Form to register bot/story to particular channel e.g WhatsApp/Telegram
+ * Component is meant to allow users to register bot to multiple channels/platforms
  */
 
 export class AddBotToChannelModal implements OnInit, OnDestroy {
@@ -27,9 +31,9 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
   private _orgId: string;
   
   addToChannelForm:FormGroup;
+  isSaving: boolean;
 
   channels:BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel];
-  isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
@@ -57,7 +61,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
                 });
   }
 
-  onSubmit()
+  onSubmit(formVals:any)
   {
     this.isSaving = true;
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
@@ -67,27 +71,20 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
     const channelToSubmit =  {
       channelName: channel.channelName,
-      businessPhoneNumber: String(phoneNumber),
+      businessPhoneNumber: phoneNumber.toString(),
       storyId: this._activeStoryId,
       orgId: this._orgId,
-      businessAccountId: String(bussinessId),
+      businessAccountId: bussinessId.toString(),
       authorizationKey: __ENCODE(rawApiKey)
     } as BaseChannel;
 
-    const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
-
-    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists)=> {
-      if(!exists){
-        //If it does not exist, link it to the channel
-        return this._manageStoryLinkService
-                   .addStoryToChannel(channelToSubmit).subscribe();            
-      } else {
-        return;
-      }
-    })).subscribe(()=> {
-      this.isSaving = false;
-      this.closeDialog();
-    });            
+    this._sBs.sink = 
+        this._manageStoryLinkService
+                   .addStoryToChannel(channelToSubmit)
+                   .subscribe(()=> {
+                                    this.isSaving = false;
+                                    this.closeDialog();
+                                  });            
   }
 
   private _storyExistsInChannel(channel: BaseChannel)
