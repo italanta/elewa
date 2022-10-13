@@ -56,6 +56,13 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE": "Phone"
+      },
+      "PLACEHOLDER": {
+        "CAPTION": "Caption",
+        "IMAGE-LINK": "Image Link",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PHONE-NUMBER": "Phone"
       }
     }
   }

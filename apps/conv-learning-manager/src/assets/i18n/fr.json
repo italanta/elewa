@@ -56,6 +56,13 @@
         "NAME": "Nom",
         "EMAIL": "Email",
         "PHONE": "Téléphoner"
+      },
+      "PLACEHOLDER": {
+        "CAPTION": "Légende",
+        "IMAGE-LINK": "Lien d'image",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE-NUMBER": "Téléphoner"
       }
     }
   }
