@@ -26,6 +26,25 @@ mat-nav-list {
   outline: none;
 }
 
+.child-header {
+  position: relative;
+  font-size: 0.8rem;
+  padding: 7px 0px 7px 24px;
+  text-transform: capitalize;
+  margin:0 -24px;
+  margin-bottom: 5px;
+}
+
+.child-header::before {
+  position: absolute;
+  content: "";
+  background-color: red;
+  height: 100%;
+  width: 4px;
+  right: 0;
+  border-radius: 5px;
+}
+
 // logo section
 .logo-section {
   display: flex;
@@ -35,19 +54,16 @@ mat-nav-list {
 
   .logo-section__image {
     max-width: 60%;
-    margin-right: 15px;
   }
 
   .logo-section__icon-wrapper {
     display: flex;
     justify-content: flex-start;
-  }
-}
 
-.proj-info {
-  font-size: 0.7em;
-  font-weight: 200;
-  color: #ccc;
+    .logo-section__tooltip {
+      font-size: 1rem;
+    }
+  }
 }
 
 #menu-header-seperator {
@@ -55,6 +71,30 @@ mat-nav-list {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+// section main + dashboard
+.main-wrapper{
+  .main{
+    font-size: 14px;
+  }
+}
+
+.dash-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+
+  .dash-section__tooltip{
+    color: red;
+  }
+}
+
+// .proj-info {
+//   font-size: 0.7em;
+//   font-weight: 200;
+//   color: #ccc;
+// }
 
 
 
@@ -81,24 +121,6 @@ mat-nav-list {
 
 .right{
   transform: rotate(270deg);
-}
-
-.child-header {
-  outline: none;
-  padding: 7px;
-  padding-left: 0;
-  text-transform: capitalize;
-  margin-right: -20px;
-  border-radius: 5px;
-  // margin-bottom: 5px;
-}
-
-.child-header::before
-{
-  content: "";
-  border-left: 2px solid hsla(0,0%,100%,0);
-  margin: 5px;
-  padding: 4px;
 }
 
 .child-1 {
