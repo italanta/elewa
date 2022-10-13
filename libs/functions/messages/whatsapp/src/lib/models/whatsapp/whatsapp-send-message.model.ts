@@ -3,18 +3,27 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-
 import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+
 import { SendMessageModel } from "../send-message-main.model";
 
-/** Whatsapp specific send message model */
+/**
+ * @Description Model used to send  messages to whatsApp api
+ * @extends {SendMessageModel}
+ */
 export class SendWhatsAppMessageModel extends SendMessageModel {
 
   constructor(private _tools: HandlerTools) {
     super()
   }
 
-  async sendMessage(message: BaseMessage, blockType: StoryBlockTypes) {
+  /**
+   * @Description calls functions to send messages based on type of message
+   * @param message
+   * @param blockType
+   * @param environment
+   */
+  async sendMessage(message: BaseMessage, blockType: StoryBlockTypes, env:any) {
     switch (blockType) {
       case StoryBlockTypes.TextMessage:
         return await this._sendTextMessage(message)    
@@ -23,9 +32,14 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     }
   }
 
+  /**
+   * @Description Used to send message of type text to whatsapp api
+   * @param message 
+   * @returns promise
+   */
   protected async _sendTextMessage(message: BaseMessage){
 
-    // Create the text payload
+    // Create the text payload which will be sent to api
     const textPayload = { 
       text: {
         preview_url: false,
@@ -33,7 +47,10 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
       }
     } as TextMessagePayload
 
-    // Add the required fields for the whatsapp api
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
     const generatedMessage: WhatsAppBaseMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
@@ -51,7 +68,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     const authorizationHeader = generatedMessage.authorizationKey;
    
     /**
-     * https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
     const PHONE_NUMBER_ID = generatedMessage.phoneNumberId //Refers to business number to be used
 
@@ -88,8 +105,5 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
 
 
   }
-
-
-
 
 }
