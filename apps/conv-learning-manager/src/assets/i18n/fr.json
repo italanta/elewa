@@ -65,5 +65,13 @@
         "PHONE-NUMBER": "Téléphoner"
       }
     }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "FIELDS": {
+        "COPY": "Copie",
+        "DELETE": "Effacer"
+      }
+    }
   }
 }

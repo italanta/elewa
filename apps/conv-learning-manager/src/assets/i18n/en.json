@@ -65,5 +65,13 @@
         "PHONE-NUMBER": "Phone"
       }
     }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "FIELDS": {
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      }
+    }
   }
 }
