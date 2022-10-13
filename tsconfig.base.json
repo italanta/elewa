@@ -50,6 +50,9 @@
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/document-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/document-message-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
       ],
@@ -142,6 +145,7 @@
       ],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
+      "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
