@@ -20,7 +20,7 @@ export class ManageChannelStoryLinkService {
    */
   private _getChannelRepo(channel:BaseChannel):Repository<BaseChannel>
   {
-    const _channelRepo = this._repoFac.getRepo<BaseChannel>(`channels/${channel.channelName}/${channel.storyId}`);
+    const _channelRepo = this._repoFac.getRepo<BaseChannel>(`channels/${channel.channelName}/${channel.businessPhoneNumber}`);
     return _channelRepo;
   }
 
