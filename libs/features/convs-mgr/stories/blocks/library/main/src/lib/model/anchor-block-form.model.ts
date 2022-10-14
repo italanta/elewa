@@ -15,6 +15,6 @@ export function _CreateAnchorBlockForm(_fb: FormBuilder, blockData: AnchorBlock)
     id: [blockData?.id! ?? ''],
     defaultTarget: [blockData.defaultTarget ?? ''],
     type: [blockData.type ?? StoryBlockTypes.AnchorBlock],
-    position: [blockData.position ?? { x: 200, y: 50 }]
+    position: [blockData.position ?? { x: 20, y: 20 }]
   })
 }

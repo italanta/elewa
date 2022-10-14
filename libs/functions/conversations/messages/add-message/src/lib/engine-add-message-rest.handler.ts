@@ -10,7 +10,7 @@ import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { WhatsappChannel } from 'libs/model/bot/channel/src';
 import { AddMessageFactory } from './factories/platform-resolver.factory';
 
-export class AddMessageHandler extends FunctionHandler<RawMessageData, RestResult200> {
+export class EngineAddMessageHandler extends FunctionHandler<RawMessageData, RestResult200> {
   platform: Platforms;
   /**
    * Registers incoming messages in the messages collection which triggers the processMessage handler

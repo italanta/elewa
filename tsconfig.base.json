@@ -31,6 +31,9 @@
       "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
       ],
+      "@app/elements/base/security-config": [
+        "libs/elements/base/security-config/src/index.ts"
+      ],
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
@@ -91,6 +94,10 @@
       ],
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/functions/bot-process-handler": [
+        "libs/functions/bot-process-handler/src/index.ts"
+      ],
+ 
       "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
       "@app/functions/conversations/messages/add-message": [
         "libs/functions/conversations/messages/add-message/src/index.ts"

@@ -11,7 +11,7 @@ export interface BaseChannel extends IObject {
   businessAccountId: string;
 
   // The telephone number of the end user
-  phoneNumber: string;
+  businessPhoneNumber: string;
 
   // The id assigned to the user phone number
   phoneNumberId: string;
