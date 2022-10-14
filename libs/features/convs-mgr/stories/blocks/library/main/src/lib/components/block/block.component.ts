@@ -66,7 +66,7 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         console.log(this.blocksGroup);
-        //console.log(this.blocksGroup);
+        
         break;
 
       case StoryBlockTypes.Image:
