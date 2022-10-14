@@ -3,25 +3,23 @@ import axios from 'axios';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
+import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Block } from '@app/model/convs-mgr/conversations/chats';
+
 import { ProcessMessageService } from '../services/process-message/process-message.service';
 import { CursorDataService } from '../services/data-services/cursor.service';
 import { ConnectionsDataService } from '../services/data-services/connections.service';
 import { BlockDataService } from '../services/data-services/blocks.service';
 
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
-import { Block } from '@app/model/convs-mgr/conversations/chats';
-
-
-
 /**
  * Triggered by document.create in 'messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'
  * Processes the message and returns the next block.
  */
-export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResult200>
+export class EngineProcessMessageHandler extends FunctionHandler<BaseMessage, RestResult200>
 {
   public async execute(req: BaseMessage, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[ProcessMessageHandler].execute: New incoming chat from channels.`);
+    tools.Logger.log(() => `[EngineProcessMessageHandler].execute: New incoming chat from channels.`);
     tools.Logger.log(() => JSON.stringify(req));
 
     // Create an instance of the process message service
@@ -51,7 +49,7 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
     // Pass dependencies to the Process Message Service
     const processMessage = new ProcessMessageService(cursorDataService,connDataService, blockDataService)
 
-    tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
+    tools.Logger.log(() => `[EngineProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
     const userActivity =  await cursorDataService.getLatestCursor();
 
@@ -73,10 +71,10 @@ export class ProcessMessageHandler extends FunctionHandler<BaseMessage, RestResu
             'Content-Type': 'application/json',
           },
         });
-        tools.Logger.log(() => `[ProcessMessageHandler]._sendMessage: Message sent successfully - ${resp}`);
+        tools.Logger.log(() => `[EngineProcessMessageHandler]._sendMessage: Message sent successfully - ${resp}`);
         return resp;
       } catch (error) {
-        tools.Logger.log(() => `[ProcessMessageHandler]._sendMessage: Error while sending message - ${error}`);
+        tools.Logger.log(() => `[EngineProcessMessageHandler]._sendMessage: Error while sending message - ${error}`);
       }
     }
 

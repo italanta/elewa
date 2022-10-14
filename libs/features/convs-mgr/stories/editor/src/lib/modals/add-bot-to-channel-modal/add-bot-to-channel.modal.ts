@@ -1,19 +1,28 @@
 import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, combineLatest, filter, map, of, switchMap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+
+import { combineLatest, filter, map, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
+
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
+
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-import { MatDialog } from '@angular/material/dialog';
+import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
 
 @Component({
   selector: 'conv-add-bot-to-channel',
   templateUrl: 'add-bot-to-channel.modal.html',
   styleUrls: ['./add-bot-to-channel.modal.scss']
 })
+
+/**
+ * @Description Form to register bot/story to particular channel e.g WhatsApp/Telegram
+ * Component is meant to allow users to register bot to multiple channels/platforms
+ */
 
 export class AddBotToChannelModal implements OnInit, OnDestroy {
   
@@ -22,9 +31,9 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
   private _orgId: string;
   
   addToChannelForm:FormGroup;
+  isSaving: boolean;
 
   channels:BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel];
-  isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
@@ -35,7 +44,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     this.addToChannelForm = this._fb.group({
       phoneNumber: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
       bussinessId: [null ,Validators.required],
-      channel: [null, Validators.required]
+      channel: [null, Validators.required],
+      apiKey:[null, Validators.required]
     })
    }
 
@@ -51,42 +61,36 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
                 });
   }
 
-  onSubmit()
+  onSubmit(formVals:any)
   {
     this.isSaving = true;
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
     const bussinessId = this.addToChannelForm.get('bussinessId')?.value;
     const channel: BaseChannel = this.addToChannelForm.get('channel')?.value;
+    const rawApiKey = this.addToChannelForm.get('apiKey')?.value;
 
     const channelToSubmit =  {
       channelName: channel.channelName,
-      businessPhoneNumber: String(phoneNumber),
+      businessPhoneNumber: phoneNumber.toString(),
       storyId: this._activeStoryId,
       orgId: this._orgId,
-      businessId: String(bussinessId)
+      businessAccountId: bussinessId.toString(),
+      authorizationKey: __ENCODE(rawApiKey)
     } as BaseChannel;
 
-    // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
-
-    const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
-
-    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists)=> {
-      if(!exists){
-        //If it does not exist, link it to the channel
-        return this._manageStoryLinkService
-                   .addStoryToChannel(channelToSubmit).subscribe();            
-      } else {
-        return;
-      }
-    })).subscribe(()=> {
-      this.isSaving = false;
-      this.closeDialog();
-    });            
+    this._sBs.sink = 
+        this._manageStoryLinkService
+                   .addStoryToChannel(channelToSubmit)
+                   .subscribe(()=> {
+                                    this.isSaving = false;
+                                    this.closeDialog();
+                                  });            
   }
 
   private _storyExistsInChannel(channel: BaseChannel)
   {
-    return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
+    return this._manageStoryLinkService
+               .getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
   }
 
   closeDialog = () => this._dialog.closeAll();
