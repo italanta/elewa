@@ -19,7 +19,7 @@ export class MessagesDataService extends BotDataService<BaseMessage> {
   }
 
   protected _init(msg: BaseMessage){
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/messages`
+    this._docPath = `end-users/${msg.platform}/${msg.phoneNumber}/stories/${msg.storyId}/messages`
     this._msg = msg
   }
 

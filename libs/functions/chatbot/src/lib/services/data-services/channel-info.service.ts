@@ -20,7 +20,7 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
   }
 
   protected _init(msg: RawMessageData){
-    this._docPath = `channels/${msg.platform}/${msg.botUserPhoneNumber}`
+    this._docPath = `channels/${msg.platform}/${msg.botAccountphoneNumberId}`
     this._msg = msg
   }
 
