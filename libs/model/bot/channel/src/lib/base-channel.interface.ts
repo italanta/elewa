@@ -13,9 +13,6 @@ export interface BaseChannel extends IObject {
   // The telephone number of the end user
   businessPhoneNumber: string;
 
-  // The id assigned to the user phone number
-  phoneNumberId: string;
-
   //organisation/business that is using the channel for communication using the bot
   orgId: string;
 
