@@ -32,7 +32,7 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 export class BlockComponent implements OnInit {
   @Input() id: string;
   @Input() block: StoryBlock;
-  @Input() blocksGroup: FormArray; //diff types of blocks eg text,img,location
+  @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   state: StoryEditorState;
@@ -144,27 +144,11 @@ export class BlockComponent implements OnInit {
     return false;
   }
  
-//implement state interaction
+
    deleteBlock(event: any)  {
-    //const control = <FormArray>this.blocksGroup.controls['block'] 
-    //control.removeAt(i)
-    
-   // const value = this.blocksGroup.value;
-
-    //this.blocksGroup.setValue(
-      //value.slice(0, index).concat(
-        //value.slice(index + 1),
-        //).concat(value[index]),
-
-   // );
-    //this.blocksGroup.removeAt(value.length - 1);
-      
-    
-    //this.blocksGroup.removeAt(this.type = this.block.type);
     this._editorStateService._deleteBlock(event)
     this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: string; })  => block.id === block.id))
-    console.log(this.blocksGroup)
-    console.log(this._editorStateService.get().subscribe((state)=> {console.log(state)})
+    this._editorStateService.get().subscribe((state=> (state))
     )
     
     
