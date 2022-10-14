@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { __DateFromStorage } from '@iote/time';
 
 import { AddMessageFactory } from '@app/functions/conversations/messages/add-message';
@@ -40,7 +38,7 @@ export class ChatBotMainService {
     this.platform = platform;
   }
 
-  /** Contains the journey of a message once we receive it*/
+  /** Outlines the journey of a message once we receive it */
   async run(req: RawMessageData) {
     // Initialize chat and convert message to base message
     const baseMessage = await this.init(req);
@@ -49,7 +47,7 @@ export class ChatBotMainService {
     const nextBlock = await this.processMessage(baseMessage);
 
     // Send the message back to the user
-    this.sendMessage({ msg: baseMessage, block: nextBlock });
+    await this.sendMessage({ msg: baseMessage, block: nextBlock });
   }
 
   /** Checks if the message is from a new user and then initializes chat */
