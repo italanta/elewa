@@ -45,14 +45,12 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrEmailMessageBlockModule,
     ConvsMgrPhoneMessageBlockModule,
     ConvsMgrBlockOptionsModule,
-<<<<<<< HEAD
+
     MultiLangModule,
     
-=======
 
     FileStateModule
   
->>>>>>> main
   ],
 
   declarations: [

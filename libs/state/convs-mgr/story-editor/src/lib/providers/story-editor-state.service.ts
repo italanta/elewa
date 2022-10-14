@@ -128,7 +128,7 @@ export class StoryEditorStateService
 
   /** We cannot just delete blocks as active chat users might have their cursor on that block. 
    *  We still need to service them with the older flow. */
-  private _deleteBlock(oldBlock: StoryBlock) {
+  public _deleteBlock(oldBlock: StoryBlock) {
     oldBlock.deleted = true;
     return this._updateBlock(oldBlock);
   }

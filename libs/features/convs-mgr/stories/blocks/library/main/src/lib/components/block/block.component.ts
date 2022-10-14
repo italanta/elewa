@@ -59,6 +59,7 @@ export class BlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.type = this.block.type;
+   
 
     switch (this.type) {
       case StoryBlockTypes.TextMessage:
@@ -144,7 +145,7 @@ export class BlockComponent implements OnInit {
   }
  
 //implement state interaction
-   deleteBlock()  {
+   deleteBlock(event: any)  {
     //const control = <FormArray>this.blocksGroup.controls['block'] 
     //control.removeAt(i)
     
@@ -160,11 +161,12 @@ export class BlockComponent implements OnInit {
       
     
     //this.blocksGroup.removeAt(this.type = this.block.type);
-    
-    this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: string; })  => block.id === "78"))
+    this._editorStateService._deleteBlock(event)
+    this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: string; })  => block.id === block.id))
     console.log(this.blocksGroup)
     console.log(this._editorStateService.get().subscribe((state)=> {console.log(state)})
     )
+    
     
     
       }
