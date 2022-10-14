@@ -20,8 +20,9 @@
   color: mat-color($mat-ele, A900);
   background-color: mat-color($mat-ele, A800);
 
-
-
+}
+.bot-card:hover{
+  cursor:pointer;
 }
 .bot{
   margin-left: 0%;
