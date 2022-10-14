@@ -14,6 +14,6 @@ export interface Event
 
 
 export interface Cursor extends IObject{
-  chatId: string;
+  cursorId: string;
   block: Block;
 }

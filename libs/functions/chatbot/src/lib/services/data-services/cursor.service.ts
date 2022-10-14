@@ -1,4 +1,3 @@
-import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
 
 import { Cursor, } from '@app/model/convs-mgr/conversations/admin/system';
@@ -39,11 +38,11 @@ export class CursorDataService extends BotDataService<Cursor> {
 
     const timeStamp = Date.now();
     const newActivity: Cursor = {
-      chatId: timeStamp.toString(),
+      cursorId: timeStamp.toString(),
       block: newBlock,
     };
     //Update milestone
-    const block = await this.createDocument(newActivity, this._docPath, newActivity.chatId)
+    const block = await this.createDocument(newActivity, this._docPath, newActivity.cursorId)
 
     // Return next block
     return block;

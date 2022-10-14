@@ -9,10 +9,10 @@ export interface RawMessageData extends IObject{
   // id of phone number of business/manager of the bot
   botAccountphoneNumberId:string,
 
-  // Name of the person sending the message to the bot
+  // Name of the end user communicating the bot
   botUserName: string,
 
-  // Phone number of the person sending the message to the bot
+  // Phone number of the end user communicating with the bot
   botUserPhoneNumber:string,
 
   // The Platform we are getting the message from e.g. telegram, whatsapp

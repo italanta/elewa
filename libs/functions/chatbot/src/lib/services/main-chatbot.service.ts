@@ -47,7 +47,7 @@ export class ChatBotMainService {
     const nextBlock = await this.processMessage(baseMessage);
 
     // Send the message back to the user
-    await this.sendMessage({ msg: baseMessage, block: nextBlock });
+    await this.sendMessage({ msg: baseMessage, block: nextBlock }, req.botUserPhoneNumber);
   }
 
   /** Checks if the message is from a new user and then initializes chat */
@@ -96,12 +96,12 @@ export class ChatBotMainService {
     }
   }
 
-  async sendMessage(data: { msg: BaseMessage; block: Block }) {
+  async sendMessage(data: { msg: BaseMessage; block: Block }, endUserPhoneNumber: string) {
     // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
     // Send the message
-    await client.sendMessage(data.msg, data.block.type)
+    await client.sendMessage(data.msg, endUserPhoneNumber, data.block.type)
   }
 
   async getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
