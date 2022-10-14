@@ -6,6 +6,7 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 
 import { SendMessageModel } from "../send-message-main.model";
+import { __DECODE } from "@app/elements/base/security-config";
 
 /**
  * @Description Model used to send  messages to whatsApp api
@@ -23,10 +24,10 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
    * @param blockType
    * @param environment
    */
-  async sendMessage(message: BaseMessage, blockType: StoryBlockTypes, env:any) {
+  async sendMessage(message: BaseMessage, endUserPhoneNumber: string, blockType: StoryBlockTypes) {
     switch (blockType) {
       case StoryBlockTypes.TextMessage:
-        return await this._sendTextMessage(message)    
+        return await this._sendTextMessage(message, endUserPhoneNumber)    
       default:
         break;
     }
@@ -37,7 +38,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
    * @param message 
    * @returns promise
    */
-  protected async _sendTextMessage(message: BaseMessage){
+  protected async _sendTextMessage(message: BaseMessage, endUserPhoneNumber: string){
 
     // Create the text payload which will be sent to api
     const textPayload = { 
@@ -54,7 +55,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     const generatedMessage: WhatsAppBaseMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
-      to: message.phoneNumber,
+      to: endUserPhoneNumber,
       type: WhatsAppMessageType.TEXT,
       ...textPayload
     }
@@ -65,12 +66,12 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
     //Auth token gotten from facebook api
-    const authorizationHeader = generatedMessage.authorizationKey;
+    const authorizationHeader = __DECODE(generatedMessage.authorizationKey);
    
     /**
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const PHONE_NUMBER_ID = generatedMessage.phoneNumberId //Refers to business number to be used
+    const PHONE_NUMBER_ID = generatedMessage.businessAccountId //Refers to business number to be used
 
     const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
     const data = JSON.stringify(dataToSend);
