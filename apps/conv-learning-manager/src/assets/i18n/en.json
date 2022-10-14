@@ -49,10 +49,37 @@
         "LOCATION": "Location"
       }
     },
+    "BLOCK": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Location",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PHONE": "Phone"
+      },
+      "PLACEHOLDER": {
+        "CAPTION": "Caption",
+        "IMAGE-LINK": "Image Link",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PHONE-NUMBER": "Phone"
+      }
+    },
+    "COMPONENTS": {
+      "TITLE": "Story Blocks"
+    },
     "SIDE-MENU": {
       "DASHBOARD": "Dashboard",
       "LOG-OUT": "Logout",
       "MAIN-TITLE": "Main"
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "FIELDS": {
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      }
     }
   },
   "BOTS": {
