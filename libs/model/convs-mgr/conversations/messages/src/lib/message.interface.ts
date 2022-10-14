@@ -12,4 +12,7 @@ export interface BaseMessage extends BaseChannel {
    */
   message       : any;
 
+  /** The end user phone number we have received the message from */
+  phoneNumber   : string;
+
 }

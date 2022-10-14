@@ -21,7 +21,7 @@ export class ChatStatusDataService extends BotDataService<Chat>{
   }
 
   protected _init(msg: BaseMessage): void {
-    this._docPath = `end-users/${msg.channelId}/platforms/${msg.platform}/chat-status`
+    this._docPath = `end-users/${msg.platform}/${msg.phoneNumber}/stories/${msg.storyId}`
   }
 
   async initChatStatus(channel: BaseChannel, platform: Platforms) {
