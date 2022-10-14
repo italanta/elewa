@@ -8,7 +8,8 @@ export interface BaseMessage extends BaseChannel {
   platform?      : Platforms;
 
   /* The message details sent by the end user 
-   * Set to any because message types can be different across platforms e.g. a whatsapp text message may have a different structure with a telegram text message
+   * Type 'any' because message stucture can be different across platforms e.g. a whatsapp text message may have a different structure with a telegram text message
+   * To later create a base message that normalizes the different types of messages.
    */
   message       : any;
 

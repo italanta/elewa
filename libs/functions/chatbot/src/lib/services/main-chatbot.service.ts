@@ -72,6 +72,10 @@ export class ChatBotMainService {
     }
   }
 
+  /**
+   * Inteprates the raw message received from the hook and saves it to firestore
+   * @param req - Raw Message data received from the webhook
+   */
   async addMessage(req: RawMessageData) {
     // Use factory to resolve the platform
     const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(req.platform);
@@ -81,14 +85,19 @@ export class ChatBotMainService {
     return baseMessage;
   }
 
+  /**
+   * Takes the inteprated message and determines the next block
+   */
   async processMessage(msg: BaseMessage) {
     // Pass dependencies to the Process Message Service
     const processMessage = new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$);
 
     this._tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
+    // Get the last block sent to user
     const userActivity = await this._cursorDataService$.getLatestCursor();
 
+    // If no block was sent then the conversation is new and we return the first block, else get the next block
     if (!userActivity) {
       return await processMessage.getFirstBlock(this._tools);
     } else {
@@ -96,6 +105,11 @@ export class ChatBotMainService {
     }
   }
 
+  /**
+   * Interprets the next block to to the appropriate message type and send to user
+   * @param data the base message and the block to be sent
+   * @param endUserPhoneNumber - the user who is communicating with the bot
+   */
   async sendMessage(data: { msg: BaseMessage; block: Block }, endUserPhoneNumber: string) {
     // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
