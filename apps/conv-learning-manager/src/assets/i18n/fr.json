@@ -49,10 +49,37 @@
         "LOCATION": "Location"
       }
     },
+    "BLOCK": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Emplacemant",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE": "Téléphoner"
+      },
+      "PLACEHOLDER": {
+        "CAPTION": "Légende",
+        "IMAGE-LINK": "Lien d'image",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE-NUMBER": "Téléphoner"
+      }
+    },
+    "COMPONENTS": {
+      "TITLE": "Blocs d'histoire"
+    },
     "SIDE-MENU": {
       "DASHBOARD": "Tableau de bord",
-      "LOG-OUT": "Se deconnecter",
+      "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal"
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "FIELDS": {
+        "COPY": "Copie",
+        "DELETE": "Effacer"
+      }
     }
   },
   "BOTS": {
