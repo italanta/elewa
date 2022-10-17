@@ -1,3 +1,6 @@
+@import 'libs/elements/theming/common.theme.scss';
+@import 'libs\elements\theming\_variables.scss';
+
 .logo {
   max-height: 48px;
 }
@@ -15,8 +18,8 @@
 
 .cs-navbar {
   background-color: #fff;
-  border: 1px solid #d1d1d1;
-  color: #3c3c3c;
+  border: 1px solid #D1D1D1;
+  color: #3C3C3C;
 }
 
 .container {
