@@ -5,4 +5,5 @@ export * from './lib/location-message-block.interface';
 export * from './lib/name-message-block.interface';
 export * from './lib/email-message-block.interface';
 export * from './lib/phone-message-block.interface';
-export * from './lib/anchor-block.interface';
+
+ 
