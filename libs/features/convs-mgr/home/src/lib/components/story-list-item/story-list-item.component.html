@@ -1,10 +1,6 @@
 <div>
   <mat-card class="bot-card" (click)="goTo()">
-    <img
-      mat-card-image
-      src="{{story.imageField}}"
-      alt="story img"
-    />
+    <img mat-card-image src="{{story.imageField}}" alt="story img" />
 
     <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
       <div class="bot-text">
@@ -22,7 +18,7 @@
 
     <mat-card-content>
       <p>
-  {{story.description}}
+        {{story.description}}
       </p>
     </mat-card-content>
     <div class="action-holder">
