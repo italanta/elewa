@@ -10,8 +10,8 @@ import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
   }
   
   export enum ChatStatus {
-    Running           = 0,
-    Paused            = 5,
-    ChatWithOperator  = 10,
-    Ended             = 15
+    Running               = 'running',
+    Paused                = 'paused',
+    TakingToOperator      = 'takingtooperator',
+    Ended                 = 'ended'
   }
