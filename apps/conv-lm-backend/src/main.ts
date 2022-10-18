@@ -11,3 +11,4 @@ export * from './functions/fns-messages';
 export * from './app/functions/bot/engineProcessMessage.function';
 export * from './app/functions/bot/registerEndUser.function';
 export * from './app/functions/bot/engineAddMessage.function';
+export * from './app/functions/bot/engineChatManager.function';
