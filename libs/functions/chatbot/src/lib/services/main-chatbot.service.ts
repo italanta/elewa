@@ -1,34 +1,25 @@
-import { __DateFromStorage } from '@iote/time';
-
-import { AddMessageFactory } from '@app/functions/conversations/messages/add-message';
-
-import { MessagesDataService } from './data-services/messages.service';
-import { ChatStatusDataService } from './data-services/chat-status.service';
-import { ChannelDataService } from './data-services/channel-info.service';
-
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
-import { WhatsappChannel } from '@app/model/bot/channel';
-import { ProcessMessageService } from './process-message/process-message.service';
 import { HandlerTools } from '@iote/cqrs';
-import { Block } from '@app/model/convs-mgr/conversations/chats';
+
+import { SendMessageFactory } from '@app/functions/messages/whatsapp';
+
 import { CursorDataService } from './data-services/cursor.service';
 import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
-import { SendMessageFactory } from '@app/functions/messages/whatsapp';
+
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { BaseChannel } from '@app/model/bot/channel';
+import { ProcessMessageService } from './process-message/process-message.service';
+
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 /**
  * Handles the main processes of the ChatBot
  */
 export class ChatBotMainService {
   platform: Platforms;
-  messageChannel: WhatsappChannel;
-  chatId: string;
 
   constructor(
-    private _msgDataService$: MessagesDataService,
-    private _chatStatusService$: ChatStatusDataService,
-    private _channelService$: ChannelDataService,
     private _blocksService$: BlockDataService,
     private _connService$: ConnectionsDataService,
     private _cursorDataService$: CursorDataService,
@@ -39,56 +30,34 @@ export class ChatBotMainService {
   }
 
   /** Outlines the journey of a message once we receive it */
-  async run(req: RawMessageData) {
-    // Initialize chat and convert message to base message
-    const baseMessage = await this.init(req);
+  async run(baseMessage: BaseMessage) {
+    // // Initialize chat and convert message to base message
+    // const baseMessage = await this.init(req);
 
     // Process message and return next block
-    const nextBlock = await this.processMessage(baseMessage);
+    const nextBlock = await this._processMessage(baseMessage);
 
     // Send the message back to the user
-    await this.sendMessage({ msg: baseMessage, block: nextBlock }, req.botUserPhoneNumber);
+    await this._sendMessage({ msg: baseMessage, blockType: nextBlock.type }, baseMessage.phoneNumber);
   }
 
-  /** Checks if the message is from a new user and then initializes chat */
-  async init(req: RawMessageData) {
-    // Check if the enduser is registered to a channel
-    this.messageChannel = await this.getChannelInfo(req, this._channelService$);
+  async sendTextMessage(msg: BaseMessage, text: string){
+    const channel = msg as BaseChannel
 
-    let baseMessage: BaseMessage;
-
-    if (this.messageChannel) {
-      // Add message to collection
-      baseMessage = await this.addMessage(req);
-      return baseMessage;
-    } else {
-      // Initialize chat status
-      await this._chatStatusService$.initChatStatus(this.messageChannel, this.platform);
-
-      // Add message to collection
-      baseMessage = await this.addMessage(req);
-
-      return baseMessage;
+    const pauseMessage: BaseMessage = {
+      message: text,
+      phoneNumber: msg.phoneNumber,
+      channelName: this.platform,
+      ...channel,
     }
-  }
 
-  /**
-   * Inteprates the raw message received from the hook and saves it to firestore
-   * @param req - Raw Message data received from the webhook
-   */
-  async addMessage(req: RawMessageData) {
-    // Use factory to resolve the platform
-    const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(req.platform);
-
-    const baseMessage = await AddMessageService.addMessage(req, this.messageChannel);
-
-    return baseMessage;
+    await this._sendMessage({ msg: pauseMessage, blockType: StoryBlockTypes.TextMessage }, msg.phoneNumber);
   }
 
   /**
    * Takes the inteprated message and determines the next block
    */
-  async processMessage(msg: BaseMessage) {
+  private async _processMessage(msg: BaseMessage) {
     // Pass dependencies to the Process Message Service
     const processMessage = new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$);
 
@@ -110,21 +79,13 @@ export class ChatBotMainService {
    * @param data the base message and the block to be sent
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
-  async sendMessage(data: { msg: BaseMessage; block: Block }, endUserPhoneNumber: string) {
+  private async _sendMessage(data: { msg: BaseMessage; blockType: StoryBlockTypes }, endUserPhoneNumber: string) {
     // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
     // Send the message
-    await client.sendMessage(data.msg, endUserPhoneNumber, data.block.type)
+    await client.sendMessage(data.msg, endUserPhoneNumber, data.blockType)
   }
 
-  async getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
-    switch (msg.platform) {
-      case Platforms.WhatsApp:
-        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber);
 
-      default:
-        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber);
-    }
-  }
 }
