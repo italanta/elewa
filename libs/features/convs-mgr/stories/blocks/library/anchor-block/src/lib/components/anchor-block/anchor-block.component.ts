@@ -27,7 +27,6 @@ export class AnchorBlockComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void { 
     this.getId().subscribe();
-    console.log(this.anchorInput)
   }
 
   ngAfterViewInit(): void {
@@ -35,6 +34,7 @@ export class AnchorBlockComponent implements OnInit, AfterViewInit {
   }
 
   getId(){
+    //set the id for the anchor to be the same as the story id
     return this._story$$.get()
                         .pipe(
                           map((story:Story) => this.anchorInput = story.id!));
