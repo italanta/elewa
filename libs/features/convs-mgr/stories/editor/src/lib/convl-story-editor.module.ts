@@ -17,6 +17,8 @@ import { BlocksLibraryComponent } from './components/blocks-library/blocks-libra
 
 import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
+import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block'
+
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
@@ -32,6 +34,7 @@ import { ManageChannelStoryLinkService } from './providers/manage-channel-story-
 
     ConvlStoryEditorRouterModule,
 
+    ConvsMgrAnchorBlockModule,
     BlocksLibraryModule,
 
     StoryEditorStateModule],
