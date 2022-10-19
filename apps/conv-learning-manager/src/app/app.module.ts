@@ -50,7 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
 
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
-    FirebaseConfigurationModule.forRoot(!environment.production, environment.useEnumarators),
+    FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
     MultiLangModule.forRoot(true),
     // UserNavModule,
 
