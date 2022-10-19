@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
-import { ChatBotService } from '../services/main-chatbot.service';
+import { ChatBotService } from '../services/chatbot-process-message.service';
 import { Chat, ChatFlowStatus, CHAT_ID } from '@app/model/convs-mgr/conversations/chats';
 
 

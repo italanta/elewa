@@ -16,7 +16,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 /**
  * Handles the main processes of the ChatBot
  */
-export class ChatBotMainService {
+export class ChatBotProcessMessageService {
   platform: Platforms;
 
   constructor(

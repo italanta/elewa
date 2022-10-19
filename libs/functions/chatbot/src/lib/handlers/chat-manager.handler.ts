@@ -3,7 +3,7 @@ import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions
 
 import { RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 
-import { ChatManagerService } from '../services/chat-manager.service';
+import { ChatBotMainService } from '../services/chatbot-main.service';
 import { MessagesDataService } from '../services/data-services/messages.service';
 import { ChatStatusDataService } from '../services/data-services/chat-status.service';
 import { ChannelDataService } from '../services/data-services/channel-info.service';
@@ -26,7 +26,7 @@ export class EngineChatManagerHandler extends FunctionHandler<RawMessageData, Re
     const channelDataService = new ChannelDataService(req, tools)
 
 
-    const chatManager = new ChatManagerService(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
+    const chatManager = new ChatBotMainService(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
 
     await chatManager.main(req)
 

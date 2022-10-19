@@ -1,4 +1,4 @@
-export * from './lib/services/main-chatbot.service';
+export * from './lib/services/chatbot-process-message.service';
 
 // export * from './lib/handlers/engine-process-message.handler';
 export * from './lib/services/data-services/messages.service';

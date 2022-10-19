@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions';
 
 import { Chat, ChatFlowStatus, CHAT_ID } from '@app/model/convs-mgr/conversations/chats';
-import { ChatBotService } from '../services/main-chatbot.service';
+import { ChatBotService } from '../services/chatbot-process-message.service';
 import { User } from '@iote/bricks';
 
 const WHATSAPP_BOT_ID = 644268;
