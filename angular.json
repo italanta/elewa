@@ -15,14 +15,15 @@
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
+    "features-convs-mgr-stories-blocks-library-document-message-block": "libs/features/convs-mgr/stories/blocks/library/document-message-block",
     "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
     "features-convs-mgr-stories-blocks-library-image-message-block": "libs/features/convs-mgr/stories/blocks/library/image-message-block",
     "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
+    "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
     "features-convs-mgr-stories-blocks-library-name-message-block": "libs/features/convs-mgr/stories/blocks/library/name-message-block",
     "features-convs-mgr-stories-blocks-library-phone-message-block": "libs/features/convs-mgr/stories/blocks/library/phone-message-block",
     "features-convs-mgr-stories-blocks-library-question-message-block": "libs/features/convs-mgr/stories/blocks/library/question-message-block",
     "features-convs-mgr-stories-blocks-library-text-message-block": "libs/features/convs-mgr/stories/blocks/library/text-message-block",
-    "features-convs-mgr-stories-blocks-library/main": "libs/features/convs-mgr/stories/blocks/library/main",
     "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
@@ -49,6 +50,7 @@
     "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
     "state-organisation": "libs/state/organisation/main",
     "state-user": "libs/state/user/base",
+    "state-file": "libs/state/file/store",
     "util-iote-bricks": "libs/util/iote/bricks",
     "util-iote-bricks-angular": "libs/util/iote/bricks-angular",
     "util-iote-cqrs": "libs/util/iote/cqrs",
@@ -63,6 +65,37 @@
     "util-ngfi-functions": "libs/util/ngfi/functions",
     "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
     "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
-    "util-ngfi-state": "libs/util/ngfi/state"
+    "util-ngfi-state": "libs/util/ngfi/state",
+    "app": {
+      "projectType": "library",
+      "root": "app",
+      "sourceRoot": "app/src",
+      "prefix": "lib",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "app/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "app/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "app/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "app/src/test.ts",
+            "tsConfig": "app/tsconfig.spec.json",
+            "karmaConfig": "app/karma.conf.js"
+          }
+        }
+      }
+    }
   }
 }
