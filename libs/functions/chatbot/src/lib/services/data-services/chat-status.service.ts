@@ -21,11 +21,13 @@ export class ChatStatusDataService extends BotDataService<Chat>{
   }
 
   protected _init(msg: BaseMessage): void {
-    this._docPath = `end-users/${msg.platform}/${msg.phoneNumber}/stories`
+    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories`
   }
 
-  async initChatStatus(channel: BaseChannel, platform: Platforms) {
-    const chatId = channel.storyId;
+  async initChatStatus(channel: BaseChannel, endUserPhoneNumber: string, platform: Platforms) {
+    this._docPath = `end-users/${endUserPhoneNumber}/platforms/${platform}/stories`
+
+    const chatId = channel.storyId
 
     const newStatus: Chat = {
       chatId,
@@ -33,12 +35,16 @@ export class ChatStatusDataService extends BotDataService<Chat>{
       platform: platform,
     };
 
+    console.log(newStatus, this._docPath, platform)
+
     const newChat = await this.createDocument(newStatus, this._docPath, chatId)
 
     return newChat;
   }
 
-  async getChatStatus(storyId: string) {
+  async getChatStatus(storyId: string,endUserPhoneNumber: string, platform: Platforms) {
+    this._docPath = `end-users/${endUserPhoneNumber}/platforms/${platform}/stories`
+    // const chatId =`${platform}_${storyId}`;
 
     const chatStatus = await this.getDocumentById(storyId, this._docPath)   
 

@@ -50,7 +50,7 @@ export class ProcessMessageService {
     const latestBlock = await this._blockService$.getBlockById(latestActivity.block.id);
 
     // Use NextBlockFactory to resolve the block type and get the next block based on the type
-    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools);
+    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools, this._blockService$, this._connService$);
     const nextBlock = await nextBlockService.getNextBlock(msg, latestBlock);
 
     // Handles possible race condition

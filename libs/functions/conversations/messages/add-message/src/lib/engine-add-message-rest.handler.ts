@@ -37,7 +37,7 @@ export class EngineAddMessageHandler extends FunctionHandler<RawMessageData, Res
       await AddMessageService.addMessage(req, messageChannel);
     } else {
       // Initialize chat status
-      await chatStatusDataService.initChatStatus(messageChannel, this.platform)
+      await chatStatusDataService.initChatStatus(messageChannel,req.botUserPhoneNumber, this.platform)
 
       // Add message to collection
       await AddMessageService.addMessage(req, messageChannel);
@@ -49,10 +49,10 @@ export class EngineAddMessageHandler extends FunctionHandler<RawMessageData, Res
   async getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService){
     switch (msg.platform) {
       case Platforms.WhatsApp:
-        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber)
+        return await channelDataService.getChannelInfo(msg.botUserPhoneNumber)
         
       default:
-        return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber)
+        return await channelDataService.getChannelInfo(msg.botUserPhoneNumber)
     }
   }
 }

@@ -15,7 +15,8 @@ export abstract class BotDataService<T> {
     async getDocumentById(id: string, path: string){
        this.repo$ =  this._tools.getRepository<T>(path)
 
-       return await this.repo$.getDocumentById(id)
+       const doc = await this.repo$.getDocumentById(id)
+       return doc
     }
 
     async getDocuments(path: string){

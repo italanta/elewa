@@ -61,7 +61,7 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     // Create the base message object
     const newMessage: BaseMessage = {
       phoneNumber : msg.botUserPhoneNumber,
-      businessPhoneNumber: channel.businessPhoneNumber,
+      // businessPhoneNumber: channel.businessPhoneNumber,
       businessAccountId: channel.businessAccountId,
       channelName: channel.channelName,
       storyId: channel.storyId,
@@ -80,7 +80,7 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     // Create the base message object
     const newMessage: BaseMessage = {
       phoneNumber : msg.botUserPhoneNumber,
-      businessPhoneNumber: channel.businessPhoneNumber,
+      // businessPhoneNumber: channel.businessPhoneNumber,
       businessAccountId: channel.businessAccountId,
       channelName: channel.channelName,
       storyId: channel.storyId,

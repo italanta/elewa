@@ -4,6 +4,8 @@ import { QuestionMessageService } from "./block-type/question-block.service";
 import { TextMessageService } from "./block-type/text-block.service";
 
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { BlockDataService } from "../data-services/blocks.service";
+import { ConnectionsDataService } from "../data-services/connections.service";
 
 
 /**
@@ -12,12 +14,12 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 export class NextBlockFactory {
     constructor(){}
 
-    resoveBlockType(blockType: StoryBlockTypes, tools: HandlerTools){
+    resoveBlockType(blockType: StoryBlockTypes, tools: HandlerTools, blockDataService: BlockDataService, connDataService: ConnectionsDataService){
         switch (blockType) {
             case StoryBlockTypes.TextMessage:
-                return new TextMessageService(tools)  
+                return new TextMessageService(blockDataService,connDataService, tools)  
             case StoryBlockTypes.QuestionBlock:
-                return new QuestionMessageService(tools);      
+                return new QuestionMessageService(blockDataService,connDataService, tools);      
             default:
                 break;
         }
