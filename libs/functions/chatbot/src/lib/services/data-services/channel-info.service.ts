@@ -4,7 +4,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
 import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
-import { BaseChannel } from 'libs/model/bot/channel/src';
+import { BaseChannel, WhatsappChannel } from 'libs/model/bot/channel/src';
 
 /**
  * Contains all the required database flow methods for the ChatInfo collection
@@ -12,26 +12,34 @@ import { BaseChannel } from 'libs/model/bot/channel/src';
 export class ChannelDataService extends BotDataService<BaseChannel> {
   private _docPath: string;
   private _msg: RawMessageData;
+  private tools: HandlerTools;
   
   constructor(msg: RawMessageData,tools: HandlerTools) 
   {
     super(tools)
+    this.tools = tools
     this._init(msg)
   }
 
   protected _init(msg: RawMessageData){
-    this._docPath = `channels/${msg.platform}/${msg.botAccountphoneNumberId}`
+
+    this.tools.Logger.log(() => `[ChannelDataService]._init - Raw message ${JSON.stringify(msg)}`);
+
+    this._docPath = `channels/${msg.platform}/accounts`
     this._msg = msg
   }
 
 
-  async getChannelInfo<T>(phoneNumber: string): Promise<T> {
+  async getChannelInfo(businessAccountId: string) {
     // Get users
-    const channelInfo =  (await this.getDocumentById(phoneNumber, this._docPath)) as T
+    const channelInfo = await this.getDocumentById(businessAccountId, this._docPath)
 
     if (!channelInfo) {
       throw new Error('The user has not been registered to a channel');
     }
+
+    this.tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${channelInfo}`);
+
     return channelInfo;
   }
 

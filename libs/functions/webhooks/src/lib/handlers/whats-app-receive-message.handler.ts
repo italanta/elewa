@@ -1,8 +1,12 @@
 import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext, RestResult, RestResult200 } from "@ngfi/functions";
+
+import { EngineChatManagerHandler } from "@app/functions/chatbot";
+
 import { RawWhatsAppApiPayload, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
+import { RawMessageData } from "@app/model/convs-mgr/conversations/messages";
 
 export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler< RawWhatsAppApiPayload , RestResult>
 {
@@ -20,7 +24,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler< RawWhats
       const convertedData: WhatsAppResponse = __ConvertWhatsAppApiPayload(payload);
       tools.Logger.log(() => `[WhatsAppReceiveIncomingMsgHandler]: Data is ${JSON.stringify(convertedData)}📅`);
 
-      await this._addMessage(convertedData, tools)
+
+      await this._processMessage(convertedData, context, tools)
     }
   }
 
@@ -38,19 +43,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler< RawWhats
   }
 
   /** Calls the add message function to intepret the message and save it to firestore*/
-  private async _addMessage(whatsappResponse: WhatsAppResponse, tools: HandlerTools) {
-    const payload = { data: { ...whatsappResponse } };
-
-    try {
-      const resp = await axios.post('https://europe-west1-ele-convl-manager-7cd0a.cloudfunctions.net/addMessage', payload, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      tools.Logger.log(() => `[WhatsAppReceiveIncomingMsgHandler] Message added successfully - ${resp}`);
-      return resp;
-    } catch (error) {
-      tools.Logger.log(() => `[WhatsAppReceiveIncomingMsgHandler] Error while adding message - ${error}`);
-    }
+  private async _processMessage(req: WhatsAppResponse, context: any, tools: HandlerTools){
+    const data = req as RawMessageData
+    return await new EngineChatManagerHandler().execute(data, context, tools)
   }
 }

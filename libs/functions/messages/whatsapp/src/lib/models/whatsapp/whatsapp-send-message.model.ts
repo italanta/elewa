@@ -67,12 +67,14 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
     //Auth token gotten from facebook api
-    const authorizationHeader = __DECODE(generatedMessage.authorizationKey);
+    const authorizationHeader = generatedMessage.authorizationKey
    
+    this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendTextMessage - Generated message ${JSON.stringify(generatedMessage)}`);
+    
     /**
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const PHONE_NUMBER_ID = generatedMessage.businessAccountId //Refers to business number to be used
+    const PHONE_NUMBER_ID = 100465209511767//Refers to business number to be used
 
     const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
     const data = JSON.stringify(dataToSend);

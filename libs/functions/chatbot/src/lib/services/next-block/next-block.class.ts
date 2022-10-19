@@ -1,10 +1,10 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { ChatBotStore } from "@app/functions/chatbot";
-
 import { Block } from "@app/model/convs-mgr/conversations/chats";
 
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { BlockDataService } from "../data-services/blocks.service";
+import { ConnectionsDataService } from "../data-services/connections.service";
 
 export abstract class NextBlockService {
 
@@ -18,14 +18,7 @@ export abstract class NextBlockService {
      * Applies for blocks which only have one target block e.g. Text Message Block
      * @returns Block
      */
-    async getNextBlock(msg: BaseMessage, lastBlock: Block): Promise<Block>{
-        const blockConnRepo$ =  new ChatBotStore(this.tools).blockConnections()
-        
-        const connection = await blockConnRepo$.getConnBySourceId(lastBlock.id, msg)
-        let nextBlock: Block = await blockConnRepo$.getBlockById(connection.targetId, msg)
-
-        return nextBlock
-    }
+    abstract getNextBlock(msg: BaseMessage, lastBlock: Block): Promise<Block>
 
 
 }

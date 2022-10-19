@@ -11,16 +11,17 @@ import { ConnectionsDataService } from './data-services/connections.service';
 import { ChatBotMainService } from './main-chatbot.service';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { BaseMessage, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
-import { WhatsappChannel } from '@app/model/bot/channel';
+import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 
 /**
  * Handles the main processes of the ChatBot
  */
 export class ChatManagerService {
   platform: Platforms;
-  messageChannel: WhatsappChannel;
+  messageChannel: BaseChannel;
   chatId: string;
+  chatInfo: Chat;
 
   constructor(
     private _msgDataService$: MessagesDataService,
@@ -41,12 +42,11 @@ export class ChatManagerService {
     const cursorDataService = new CursorDataService(baseMessage, this._tools)
     const blockDataService = new BlockDataService(baseMessage, connDataService, this._tools)
 
-
-    const currentChatInfo  = await this._chatStatusService$.getChatStatus(baseMessage.storyId)
+    this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${this.chatInfo.status}`);
 
     const chat = new ChatBotMainService(blockDataService, connDataService, cursorDataService, this._tools, this.platform)
 
-    switch (currentChatInfo.status) {
+    switch (this.chatInfo.status) {
       case ChatStatus.Running:
         await chat.run(baseMessage)
         break;
@@ -62,20 +62,28 @@ export class ChatManagerService {
     private async _init(req: RawMessageData) {
       // Check if the enduser is registered to a channel
       this.messageChannel = await this._getChannelInfo(req, this._channelService$);
+
+      this.chatInfo =  await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, req.botUserPhoneNumber, this.platform)
   
       let baseMessage: BaseMessage;
   
-      if (this.messageChannel) {
+      if (!this.chatInfo) {
+        // Initialize chat status
+        this.chatInfo = await this._chatStatusService$.initChatStatus(this.messageChannel, req.botUserPhoneNumber, this.platform);
+
         // Add message to collection
         baseMessage = await this._addMessage(req);
+
+        this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
+
         return baseMessage;
       } else {
-        // Initialize chat status
-        await this._chatStatusService$.initChatStatus(this.messageChannel, this.platform);
   
         // Add message to collection
         baseMessage = await this._addMessage(req);
-  
+
+        this._tools.Logger.log(() => `[ChatManager].init - Message added}`);
+
         return baseMessage;
       }
     }
@@ -83,10 +91,9 @@ export class ChatManagerService {
     private async _getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
       switch (msg.platform) {
         case Platforms.WhatsApp:
-          return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber);
-  
+          return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
         default:
-          return await channelDataService.getChannelInfo<WhatsappChannel>(msg.botUserPhoneNumber);
+          return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
       }
     }
 
@@ -98,7 +105,7 @@ export class ChatManagerService {
     // Use factory to resolve the platform
     const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(req.platform);
 
-    const baseMessage = await AddMessageService.addMessage(req, this.messageChannel);
+    const baseMessage = await AddMessageService.addMessage(req, this.messageChannel as WhatsappChannel);
 
     return baseMessage;
   }

@@ -19,7 +19,7 @@ export class CursorDataService extends BotDataService<Cursor> {
   }
 
   protected _init(msg: BaseMessage){
-    this._docPath = `end-users/${msg.platform}/${msg.phoneNumber}/stories/${msg.storyId}/cursor`
+    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${msg.storyId}/cursor`
   }
   
   /** Returns the latest activity / latest position of the cursor */
