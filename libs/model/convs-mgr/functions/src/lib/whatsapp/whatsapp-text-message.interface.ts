@@ -8,7 +8,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#text-messages
  */
 export interface WhatsAppTextMessage extends WhatsAppBaseMessage {
-  type: StoryBlockTypes.TextMessage,
+  type: WhatsAppMessageType.TEXT,
   text :{
     //Incase message has a preview
     preview_url: boolean,

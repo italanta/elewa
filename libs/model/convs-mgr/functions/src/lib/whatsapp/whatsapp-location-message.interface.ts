@@ -8,7 +8,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#location-messages
  */
 export interface WhatsAppLocationMessage extends WhatsAppBaseMessage {
-  type: StoryBlockTypes.Location,
+  type: WhatsAppMessageType.LOCATION,
   location: LocationInfo
 }
 
