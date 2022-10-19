@@ -11,20 +11,20 @@ export class ManageChannelStoryLinkService {
 
   private _getChannelRepo(channel:BaseChannel):Repository<BaseChannel>
   {
-    const _channelRepo = this._repoFac.getRepo<BaseChannel>(`channels/${channel.channelName}/${channel.storyId}`);
+    const _channelRepo = this._repoFac.getRepo<BaseChannel>(`channels/${channel.channelName}/accounts`);
     return _channelRepo;
   }
 
   public addStoryToChannel(channel: BaseChannel)
   {
     const _channelRepo = this._getChannelRepo(channel);
-    return _channelRepo.write(channel, channel.businessPhoneNumber);
+    return _channelRepo.write(channel, channel.businessAccountId);
   }
 
   public getSingleStoryInChannel(channel: BaseChannel)
   {
     const channelRepo = this._getChannelRepo(channel);
-    return channelRepo.getDocuments(new Query().where("businessPhoneNumber", "==", channel.businessPhoneNumber))
+    return channelRepo.getDocuments(new Query().where("businessAccountId", "==", channel.businessAccountId))
   }
 
   

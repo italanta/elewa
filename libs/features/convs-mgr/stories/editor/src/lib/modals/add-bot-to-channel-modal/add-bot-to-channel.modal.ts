@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { catchError, combineLatest, filter, map, of, switchMap } from 'rxjs';
+import { combineLatest, filter, map } from 'rxjs';
 import { SubSink } from 'subsink';
-import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
+import { BaseChannel, WhatsappChannel, TelegramChannel } from '@app/model/bot/channel';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
@@ -16,82 +16,83 @@ import { MatDialog } from '@angular/material/dialog';
 })
 
 export class AddBotToChannelModal implements OnInit, OnDestroy {
-  
+
   private _sBs = new SubSink();
   private _activeStoryId: string;
   private _orgId: string;
-  
-  addToChannelForm:FormGroup;
 
-  channels:BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel];
+  addToChannelForm: FormGroup;
+
+  channels: BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel,
+                             { channelName: Platforms.Telegram } as TelegramChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
-              private _dialog: MatDialog,
-              private _manageStoryLinkService: ManageChannelStoryLinkService,
-              private _activeStoryStore$$:ActiveStoryStore,
-              private _activeOrgStore$$: ActiveOrgStore) 
-  {
+    private _dialog: MatDialog,
+    private _manageStoryLinkService: ManageChannelStoryLinkService,
+    private _activeStoryStore$$: ActiveStoryStore,
+    private _activeOrgStore$$: ActiveOrgStore) {
     this.addToChannelForm = this._fb.group({
       phoneNumber: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
-      bussinessId: [null ,Validators.required],
-      channel: [null, Validators.required]
+      businessAccountId: [null, Validators.required],
+      channel: [null, Validators.required],
+      authenticationKey: [null, Validators.required]
     })
-   }
-
-  ngOnInit()
-  {
-    this._sBs.sink = 
-        combineLatest([this._activeStoryStore$$.get(), this._activeOrgStore$$.get()])
-            .pipe(filter(([story, org]) =>!!story && !!org))
-            .subscribe(([activeStory, activeOrg]) =>
-                {
-                  this._activeStoryId = activeStory.id as string;
-                  this._orgId = activeOrg.id as string;
-                });
   }
 
-  onSubmit()
-  {
+  ngOnInit() {
+    this._sBs.sink =
+      combineLatest([this._activeStoryStore$$.get(), this._activeOrgStore$$.get()])
+        .pipe(filter(([story, org]) => !!story && !!org))
+        .subscribe(([activeStory, activeOrg]) => {
+          this._activeStoryId = activeStory.id as string;
+          this._orgId = activeOrg.id as string;
+        });
+
+  }
+
+  onSubmit() {
     this.isSaving = true;
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
-    const bussinessId = this.addToChannelForm.get('bussinessId')?.value;
+    const authKey = this.addToChannelForm.get('authenticationKey')?.value;
+    const businessAccountId = this.addToChannelForm.get('businessAccountId')?.value;
     const channel: BaseChannel = this.addToChannelForm.get('channel')?.value;
 
-    const channelToSubmit =  {
+
+    const channelToSubmit = {
       channelName: channel.channelName,
       businessPhoneNumber: String(phoneNumber),
       storyId: this._activeStoryId,
       orgId: this._orgId,
-      businessId: String(bussinessId)
+      authenticationKey: authKey,
+      businessAccountId: String(businessAccountId)
     } as BaseChannel;
 
     // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
 
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
-    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists)=> {
-      if(!exists){
+    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists) => {
+      if (!exists) {
         //If it does not exist, link it to the channel
         return this._manageStoryLinkService
-                   .addStoryToChannel(channelToSubmit).subscribe();            
+          .addStoryToChannel(channelToSubmit).subscribe();
       } else {
         return;
       }
-    })).subscribe(()=> {
+    })).subscribe(() => {
       this.isSaving = false;
       this.closeDialog();
-    });            
+    });
   }
 
-  private _storyExistsInChannel(channel: BaseChannel)
-  {
-    return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels=> !!channels.length));
+  private _storyExistsInChannel(channel: BaseChannel) {
+    return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels => !!channels.length));
   }
 
   closeDialog = () => this._dialog.closeAll();
 
   ngOnDestroy(): void {
-      this._sBs.unsubscribe();
+    this._sBs.unsubscribe();
   }
 }

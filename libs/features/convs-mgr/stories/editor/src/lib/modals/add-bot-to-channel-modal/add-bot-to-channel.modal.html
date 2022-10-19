@@ -1,31 +1,34 @@
 <ng-container>
-  <div fxLayout="column" fxLayoutAlign="center center"
-  fxLayoutGap="15px" fxFlex="100">
-    <span class="header-text">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+        <span class="header-text">
       Add Story To Channel
     </span>
-    <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center"
-      fxLayoutGap="15px" fxFlex="100">
-      <mat-form-field appearance="standard">
-        <mat-label>Bot Phone Number</mat-label>
-        <input formControlName="phoneNumber" matInput placeholder="Enter bot phone number">
-      </mat-form-field>
+        <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+            <mat-form-field appearance="standard">
+                <mat-label>Business Phone Number</mat-label>
+                <input formControlName="phoneNumber" matInput placeholder="Enter bot phone number">
+            </mat-form-field>
 
-      <mat-form-field appearance="standard">
-        <mat-label>Bot Phone Id</mat-label>
-        <input formControlName="bussinessId" type="number" matInput placeholder="Enter bot business id">        
-      </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Business Account Id</mat-label>
+                <input formControlName="businessAccountId" type="number" matInput placeholder="Enter bot business id">
+            </mat-form-field>
 
-      <mat-form-field appearance="standard">
-        <mat-label>Choose Channel</mat-label>
-        <mat-select formControlName="channel" required>
-          <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
-            {{singleChannel.channelName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Meta Authentication Key</mat-label>
+                <input formControlName="authenticationKey" type="string" matInput placeholder="Enter your Meta Authentication Key">
+            </mat-form-field>
 
-      <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+            <mat-form-field appearance="standard">
+                <mat-label>Choose Channel</mat-label>
+                <mat-select formControlName="channel" required>
+                    <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
+                        {{singleChannel.channelName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
         <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
           Save
         </button>
@@ -34,9 +37,9 @@
           Cancel
         </button>
       </span>
-    </form>
+        </form>
 
-  </div>
+    </div>
 
 
 </ng-container>
