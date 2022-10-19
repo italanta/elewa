@@ -2,34 +2,32 @@
 @import '@angular/material/theming';
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
-
+@import '_variables.scss';
 #side-menu {
   min-width: 200px;
   font-family: mat-font-family($custom-typography, subheading-2);
 }
 
-mat-nav-list {
-  overflow: auto;
+.menu {
+  margin-left: 26px;
+  font-size: x-large;
+}
+.sub-header{
+  padding-left: 18px;
+  padding-bottom: 10px;
 }
 
-
-.logo {
-  max-height: 50px;
-  margin: 10px 0 0 20px;
+.main-text{
+  color: var(--convs-mgr-color-tertiary-shade);
 }
 
 .list-icon {
   margin-right: 10px;
+  width: 60%;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
 }
 
-.icon-top {
-  font-size: 1.5em;
-  margin-right: 15px;
-  color: mat-color($accent, A200);
-  max-width: 25px;
-  border-radius: 5px;
-}
+
 
 .proj-info {
   font-size: 0.7em;
@@ -44,7 +42,7 @@ mat-nav-list {
 }
 
 .header {
-  padding: 12px 25px;
+  // padding: 12px 25px;
   border-bottom: 0.8px solid rgba(255,255,255,.1);
   font-size: 14px;
   outline: none;
@@ -75,26 +73,38 @@ mat-nav-list {
   transform: rotate(270deg);
 }
 
+
+.category-children {
+  position: relative;
+  color: var(--convs-mgr-color-primary-purple);
+  padding-left: 10px;
+  padding-bottom: 5px;
+ 
+}
+
+
+
 .child-header {
   outline: none;
-  padding: 7px;
-  padding-left: 0;
+  // padding: 7px;
+  // padding-left: 0;
   text-transform: capitalize;
-  margin-right: -20px;
-  border-radius: 5px;
-  // margin-bottom: 5px;
+ 
+  margin-left: 18px;
+ 
+  margin-bottom: 1px;
+  .fa-icon{
+    margin-left: 30px;
+    
+  }
+  span{
+    margin-left: 10px;
+  }
 }
 
-.child-header::before
-{
-  content: "";
-  border-left: 2px solid hsla(0,0%,100%,0);
-  margin: 5px;
-  padding: 4px;
-}
 
 .child-1 {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .highlight-active {
@@ -108,7 +118,9 @@ mat-nav-list {
   // padding: 10px 5px;
 }
 
-.hov:hover, .child-header:hover {
+
+.category-children:hover{
   cursor: pointer;
-  background-color: mat-color($accent, A200);
+  background-color:var(--side-hover);
+  border-right: 6px solid var(--convs-mgr-color-primary-purple);
 }
