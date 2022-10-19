@@ -1,15 +1,15 @@
-import { PlatformRegisterEndUserHandler } from "@app/functions/conversations/onboarding";
-import { RestRegistrar } from "@ngfi/functions";
+// import { PlatformRegisterEndUserHandler } from "@app/functions/conversations/onboarding";
+// import { RestRegistrar } from "@ngfi/functions";
 
-import { ConvLearnFunction } from "../../../conv-learn-func.class";
+// import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
 
-const handler = new PlatformRegisterEndUserHandler();
+// const handler = new PlatformRegisterEndUserHandler();
 
-// The function itself
-export const platformRegisterEndUser = new ConvLearnFunction(
-        "platformRegisterEndUser",
-        new RestRegistrar(),
-        [],
-        handler)
-    .build();
+// // The function itself
+// export const platformRegisterEndUser = new ConvLearnFunction(
+//         "platformRegisterEndUser",
+//         new RestRegistrar(),
+//         [],
+//         handler)
+//     .build();
