@@ -5,9 +5,11 @@ import { __DECODE } from "@app/elements/base/security-config";
 
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppInteractiveMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 
 import { SendMessageModel } from "../send-message-main.model";
+import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario";
 
 /**
  * @Description Model used to send  messages to whatsApp api
@@ -28,7 +30,9 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
   async sendMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock) {
     switch (block.type) {
       case StoryBlockTypes.TextMessage:
-        return await this._sendTextMessage(message, endUserPhoneNumber, block)    
+        return await this._sendTextMessage(message, endUserPhoneNumber, block)  
+      case StoryBlockTypes.QuestionBlock:
+        return await this._sendQuestionMessage(message, endUserPhoneNumber, block)  
       default:
         break;
     }
@@ -67,52 +71,101 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
       ...textPayload
     }
 
-    // Convert the message to json
-     const dataToSend = JSON.stringify(generatedMessage);
+    await this._sendRequest(message, generatedMessage)
 
-     this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
+  }
 
-    //Auth token gotten from facebook api
-    const authorizationHeader = message.authorizationKey
-   
-    this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendTextMessage - Generated message ${JSON.stringify(generatedMessage)}`);
-    
     /**
-     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-     */
-    const PHONE_NUMBER_ID = 100465209511767//Refers to business number to be used
+   * @Description Used to send message of type text to whatsapp api
+   * @param message 
+   * @returns promise
+   */
+     protected async _sendQuestionMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
+      const qBlock = block as QuestionMessageBlock
 
-    const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
-    const data = JSON.stringify(dataToSend);
-    const res = await axios.post(
-      url,
-      dataToSend,
-      {
-          headers: {
-            'Authorization': `Bearer ${authorizationHeader}`,
-            'Content-Type': 'application/json'
+      const buttons = qBlock.options.map((option)=>{
+        return {
+          type: "reply",
+          reply: {
+            id: option.id,
+            title: option.message
           }
-      }
-  ).then(response => {
-        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Successful in sending message ${JSON.stringify(response)}`);
-      }).catch(error => {
-        if (error.response) {
-          // Request made and server responded
-          this._tools.Logger.debug(()=>`[SendWhatsAppMessageModel].sendMessage: url is: ${url}`);
-          this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(error.response.data)}`);
-          this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(error.response.headers)}`);
-          this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(error.response.status)}`);
-
-        } else if (error.request) {
-          // The request was made but no response was received
-          this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${error.request}`);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          this._tools.Logger.log(() => `Axios post request: Different Error is ${error.message}`);
-        }
+        } as ActionButtonsInfo
       })
-    return await res
 
+      const interactiveMessage = {
+        type: 'button',
+        body: {
+          text: qBlock.message
+        },
+        action: {
+          buttons
+        }
+      } as InteractiveButtonMessage
+  
+      /**
+       * Add the required fields for the whatsapp api
+       * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+       */
+      const generatedMessage: WhatsAppInteractiveMessage = {
+        messaging_product: MetaMessagingProducts.WHATSAPP,
+        recepient_type: RecepientType.INDIVIDUAL,
+        to: endUserPhoneNumber,
+        type: WhatsAppMessageType.INTERACTIVE,
+        interactive: {
+          ...interactiveMessage
+        }
+      } 
+  
+      await this._sendRequest(message, generatedMessage)
+  
+    }
+
+  private async _sendRequest(message: BaseMessage, payload: WhatsAppBaseMessage){
+
+    // Convert the message to json
+    const dataToSend = JSON.stringify(payload);
+
+   //Auth token gotten from facebook api
+   const authorizationHeader = message.authorizationKey
+  
+   this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(payload)}`);
+   
+   /**
+    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+    */
+   const PHONE_NUMBER_ID = 100465209511767//Refers to business number to be used
+
+   const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
+
+   const res = await axios.post(
+     url,
+     dataToSend,
+     {
+         headers: {
+           'Authorization': `Bearer ${authorizationHeader}`,
+           'Content-Type': 'application/json'
+         }
+     }
+ ).then(response => {
+       this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Successful in sending message ${JSON.stringify(response)}`);
+     }).catch(error => {
+       if (error.response) {
+         // Request made and server responded
+         this._tools.Logger.debug(()=>`[SendWhatsAppMessageModel].sendMessage: url is: ${url}`);
+         this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(error.response.data)}`);
+         this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(error.response.headers)}`);
+         this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(error.response.status)}`);
+
+       } else if (error.request) {
+         // The request was made but no response was received
+         this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${error.request}`);
+       } else {
+         // Something happened in setting up the request that triggered an Error
+         this._tools.Logger.log(() => `Axios post request: Different Error is ${error.message}`);
+       }
+     })
+   return await res
 
   }
 
