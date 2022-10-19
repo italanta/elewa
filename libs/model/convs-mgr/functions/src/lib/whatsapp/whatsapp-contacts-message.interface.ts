@@ -8,7 +8,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#contact-messages
  */
 export interface WhatsAppContactMessage extends WhatsAppBaseMessage {
-  type: StoryBlockTypes.PhoneNumber,
+  type: WhatsAppMessageType.CONTACTS,
   contacts: ContactInfo[]
 }
 
