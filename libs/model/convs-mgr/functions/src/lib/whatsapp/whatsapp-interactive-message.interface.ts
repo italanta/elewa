@@ -13,14 +13,33 @@ export interface WhatsAppInteractiveMessage extends WhatsAppBaseMessage {
 }
 
 interface InteractiveInfo {
+  body:{ text: string },
+}
+
+export interface InteractiveListMessage extends InteractiveInfo {
   type: 'list',
   header: { type: WhatsAppMessageType.TEXT, text: string },
-  body:{ text: string },
   footer:{ text: string },
   action: ActionInfo
 }
 
-interface ActionInfo {
+export interface InteractiveButtonMessage extends InteractiveInfo {
+  type: 'button',
+  action: {
+    buttons: ActionButtonsInfo[]
+  }
+}
+
+export interface ActionButtonsInfo {
+  //Contains text of on Button
+  type: 'reply',
+  reply: {
+    id: string,
+    title: string
+  }
+}
+
+export interface ActionInfo {
   //Contains text of on Button
   button: string,
   sections: ActionSectionInfo[]
