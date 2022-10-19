@@ -11,7 +11,7 @@ import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel } from '@app/model/bot/channel';
 import { ProcessMessageService } from './process-message/process-message.service';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 /**
  * Handles the main processes of the ChatBot
@@ -38,7 +38,7 @@ export class ChatBotMainService {
     const nextBlock = await this._processMessage(baseMessage);
 
     // Send the message back to the user
-    await this._sendMessage({ msg: baseMessage, blockType: nextBlock.type }, baseMessage.phoneNumber);
+    await this._sendMessage({ msg: baseMessage, block: nextBlock }, baseMessage.phoneNumber);
   }
 
   async sendTextMessage(msg: BaseMessage, text: string){
@@ -51,7 +51,7 @@ export class ChatBotMainService {
       ...channel,
     }
 
-    await this._sendMessage({ msg: pauseMessage, blockType: StoryBlockTypes.TextMessage }, msg.phoneNumber);
+    await this._sendMessage({ msg: pauseMessage}, msg.phoneNumber);
   }
 
   /**
@@ -79,12 +79,12 @@ export class ChatBotMainService {
    * @param data the base message and the block to be sent
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
-  private async _sendMessage(data: { msg: BaseMessage; blockType: StoryBlockTypes }, endUserPhoneNumber: string) {
+  private async _sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, endUserPhoneNumber: string) {
     // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
     // Send the message
-    await client.sendMessage(data.msg, endUserPhoneNumber, data.blockType)
+    await client.sendMessage(data.msg, endUserPhoneNumber, data.block)
   }
 
 

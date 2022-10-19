@@ -1,5 +1,5 @@
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
-import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 /** 
  *  @Descripion: Abstract Class for sending messages 
@@ -8,8 +8,8 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 export abstract class SendMessageModel {
     
     /** Checks the type of message and calls the appropriate method */
-    abstract sendMessage(message: BaseMessage, endUserPhoneNumber: string, blockType: StoryBlockTypes, env:any): Promise<any>
+    abstract sendMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock,): Promise<any>
 
     /** Converts the message to text based on platform api docs and sends it */
-    protected abstract _sendTextMessage(message: BaseMessage, endUserPhoneNumber: string, blockType: StoryBlockTypes, env:any): Promise<any>
+    protected abstract _sendTextMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock,): Promise<any>
 }

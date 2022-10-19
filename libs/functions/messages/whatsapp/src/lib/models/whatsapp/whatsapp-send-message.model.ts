@@ -4,7 +4,7 @@ import { HandlerTools } from "@iote/cqrs";
 import { __DECODE } from "@app/elements/base/security-config";
 
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
-import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 
 import { SendMessageModel } from "../send-message-main.model";
@@ -25,10 +25,10 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
    * @param blockType
    * @param environment
    */
-  async sendMessage(message: BaseMessage, endUserPhoneNumber: string, blockType: StoryBlockTypes) {
-    switch (blockType) {
+  async sendMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock) {
+    switch (block.type) {
       case StoryBlockTypes.TextMessage:
-        return await this._sendTextMessage(message, endUserPhoneNumber)    
+        return await this._sendTextMessage(message, endUserPhoneNumber, block)    
       default:
         break;
     }
@@ -39,13 +39,19 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
    * @param message 
    * @returns promise
    */
-  protected async _sendTextMessage(message: BaseMessage, endUserPhoneNumber: string){
+  protected async _sendTextMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
+    let body: string;
 
+    if(block){
+      body = block.message
+    } else {
+      body = message.message
+    }
     // Create the text payload which will be sent to api
     const textPayload = { 
       text: {
         preview_url: false,
-        body: message.message
+        body
       }
     } as TextMessagePayload
 
@@ -67,7 +73,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
      this._tools.Logger.log(()=> `dataToSend: ${dataToSend}`)
 
     //Auth token gotten from facebook api
-    const authorizationHeader = generatedMessage.authorizationKey
+    const authorizationHeader = message.authorizationKey
    
     this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendTextMessage - Generated message ${JSON.stringify(generatedMessage)}`);
     
@@ -80,7 +86,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     const data = JSON.stringify(dataToSend);
     const res = await axios.post(
       url,
-      data,
+      dataToSend,
       {
           headers: {
             'Authorization': `Bearer ${authorizationHeader}`,
