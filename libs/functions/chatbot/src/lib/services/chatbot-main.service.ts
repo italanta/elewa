@@ -8,7 +8,7 @@ import { ChannelDataService } from './data-services/channel-info.service';
 import { CursorDataService } from './data-services/cursor.service';
 import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
-import { ChatBotMainService } from './main-chatbot.service';
+import { ChatBotProcessMessageService } from './chatbot-process-message.service';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
@@ -17,7 +17,7 @@ import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 /**
  * Handles the main processes of the ChatBot
  */
-export class ChatManagerService {
+export class ChatBotMainService {
   platform: Platforms;
   messageChannel: BaseChannel;
   chatId: string;
@@ -44,7 +44,7 @@ export class ChatManagerService {
 
     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${this.chatInfo.status}`);
 
-    const chat = new ChatBotMainService(blockDataService, connDataService, cursorDataService, this._tools, this.platform)
+    const chat = new ChatBotProcessMessageService(blockDataService, connDataService, cursorDataService, this._tools, this.platform)
 
     switch (this.chatInfo.status) {
       case ChatStatus.Running:
