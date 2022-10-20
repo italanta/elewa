@@ -10,7 +10,7 @@
             <div class="dots">
                 <fa-icon mat-button [matMenuTriggerFor]="botMenu" [icon]="dotedIcon"></fa-icon>
                 <mat-menu #botMenu="matMenu">
-                    <button mat-menu-item>Edit</button>
+                    <button (click)="editBot()" mat-menu-item>Edit</button>
                     <button mat-menu-item>Delete</button>
                 </mat-menu>
             </div>
