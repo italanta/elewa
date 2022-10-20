@@ -1,0 +1,97 @@
+{
+  "ELS": {
+    "TOGGLES": {
+      "SWITCH-LANG": "Changer de langue"
+    }
+  },
+  "LOGIN": {
+    "LOGIN": "Login",
+    "OR": "ou",
+    "CREATE-ACCOUNT": "Créer un compte",
+    "LOGIN-FORM": {
+      "FLD-EMAIL": "Email",
+      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+      "FLD-PASSWD": "Mot de passe",
+      "FLD-REMEMBER-ME": "Rappelle moi",
+      "SUBMIT": "Login"
+    },
+    "FORGOT-PASSWD": "Oublie mot de passe?",
+    "CREATE-ACC-FORM": {
+      "FLD-FNAME": "Prénom",
+      "FLD-LNAME": "Nom de famille",
+      "FLD-NAME-REQ": "Nom est obligatoire",
+      "FLD-EMAIL": "Email",
+      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+      "FLD-PASSWD": "Mot de passe",
+      "FLD-CONF-PASSWD": "Confirmer le mot de passe",
+      "FLD-CONF-PASSWD-ERR": "Mot de passe doit etre le meme",
+      "SUBMIT": "Crée un compte"
+    },
+    "TOS": {
+      "P1": "En m'inscrivant, j'accepte",
+      "P2-LINK": "les conditions d'utilisation du service",
+      "P3": "et",
+      "P4-LINK": "la politique de confidentialité."
+    },
+    "BTN-WITH-GOOGLE": "Google",
+    "BTN-WITH-MICROSOFT": "Microsoft",
+    "HERO": {
+      "TITLE": "Karibu Elewa Conversational Learning!",
+      "DESCRIPTION": "Elewa LMS est le premier gestionnaire d'apprentissage conversationnel au monde.",
+      "LEARN-MORE": "Apprend plus en",
+      "LEARN-MORE-LINK": "https://elewa.education"
+    }
+  },
+  "PAGE-CONTENT": {
+    "BLOCKS": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Location"
+      }
+    },
+    "BLOCK": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Emplacemant",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE": "Téléphoner"
+      },
+      "PLACEHOLDER": {
+        "CAPTION": "Légende",
+        "IMAGE-LINK": "Lien d'image",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE-NUMBER": "Téléphoner"
+      }
+    },
+    "COMPONENTS": {
+      "TITLE": "Blocs d'histoire"
+    },
+    "SIDE-MENU": {
+      "DASHBOARD": "Tableau de bord",
+      "LOG-OUT": "Se déconnecter"
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "FIELDS": {
+        "COPY": "Copie",
+        "DELETE": "Effacer"
+      }
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "FIELDS": {
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom du robot",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description du robot"
+      },
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot"
+    }
+  }
+}

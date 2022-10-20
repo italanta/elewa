@@ -16,26 +16,56 @@ export enum StoryBlockTypes {
    * Usage         : operator awaits feedback, ... */
   Input = 2,
 
-  
-
-  Location = 4,
-
-
-
-  Image = 5,
-
-
-
-  QuestionBlock = 99,
-
-  /** 
+    /** 
    * Block sends message then expects input.
    * Block examples: buttons question, ...
    * Usage         : bot scenario-designs */
-  IO = 3,
+  IO = 3, 
+
+
+     /**
+    * Block that sends a location to the userxs
+    */
+  Location = 4,
+
+
+  /**
+   * Block that sends an image and expects no input from the user 
+   */
+  Image = 5,
+
+  
+  /**
+   * Block that sends a question as output and expects input from thee user to move to the next block
+   */
+
+  QuestionBlock = 6,
+
+
+  /**
+   * Block that sends a document to the user as output
+   */
+  Document=7,
+  
 
   /**
    * Block redirects to StorySection with other scenario.
-   * Usage         : structuring and reusing scenario-designs  */
-  Structural = 9
+   * Usage         : structuring and reusing scenario-designs */
+  Structural = 9,
+
+  /**
+   * Block that waits for the user to return their name as input
+   */
+  Name=10,
+
+  /**
+   * Block that waits for the user to enter their email address as input
+   */
+  Email=11,
+
+  /**
+   * Block that waits for the user to enter their phone-number as input
+   */
+  PhoneNumber=12
+
 }
