@@ -25,21 +25,24 @@ import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 
-
-import { environment } from '../environments/environment';
+import { environment } from './../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HttpClientModule } from '@angular/common/http';
-
 @NgModule({
   declarations: [AppComponent],
+
   imports: [
-    BrowserModule, BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
 
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireFunctionsModule,
+    NgFireModule,
     AngularFireAnalyticsModule,
     HttpClientModule,
 
@@ -50,7 +53,10 @@ import { HttpClientModule } from '@angular/common/http';
 
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
-    FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
+    FirebaseConfigurationModule.forRoot(
+      !environment.production,
+      environment.useEmulators
+    ),
     MultiLangModule.forRoot(true),
     // UserNavModule,
 
@@ -73,8 +79,8 @@ import { HttpClientModule } from '@angular/common/http';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

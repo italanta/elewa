@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -8,6 +9,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   selector: 'convl-italanta-apps-story-list',
   templateUrl: './story-list.component.html',
   styleUrls: ['./story-list.component.scss'],
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;

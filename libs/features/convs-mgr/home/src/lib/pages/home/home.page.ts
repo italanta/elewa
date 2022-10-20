@@ -16,14 +16,16 @@ import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'convl-home',
   templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss']
+  // standalone: true,
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrls: ['./home.page.scss'],
 })
-export class HomePageComponent implements OnDestroy
-{
+export class HomePageComponent implements OnDestroy {
   private _sb = new SubSink();
 
   title: string;
@@ -35,23 +37,22 @@ export class HomePageComponent implements OnDestroy
 
   loading = true;
 
-  constructor(private _org$$: ActiveOrgStore,
-              private _stories$$: StoriesStore,
-              _router: Router,
-              private dialog : MatDialog
-              )
-  {
+  constructor(
+    private _org$$: ActiveOrgStore,
+    private _stories$$: StoriesStore,
+    _router: Router,
+    private dialog: MatDialog
+  ) {
     this.breadcrumbs = [HOME_CRUMB(_router, true)];
     this.org$ = _org$$.get();
     this.stories$ = this._stories$$.get();
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this._sb.unsubscribe();
   }
 
-  openDialog(){
+  openDialog() {
     this.dialog.open(CreateBotModalComponent);
   }
 }
