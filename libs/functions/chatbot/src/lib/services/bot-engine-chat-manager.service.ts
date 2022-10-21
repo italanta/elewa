@@ -81,7 +81,12 @@ export class BotEngineChatManager {
     }
   }
 
-  /** Checks if the message is from a new user and then initializes chat */
+  /** 
+   * Checks if the message is from a new user and then initializes chat
+   * Gets the current chat information 
+   * Calls the interpreter
+   * Saves the interpreted message to firestore
+   * */
   private async _init(req: RawMessageData) {
     // Check if the enduser is registered to a channel
     this.messageChannel = await this._getChannelInfo(req, this._channelService$);
