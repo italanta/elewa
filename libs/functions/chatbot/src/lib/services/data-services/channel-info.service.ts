@@ -7,7 +7,7 @@ import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/
 import { BaseChannel, WhatsappChannel } from 'libs/model/bot/channel/src';
 
 /**
- * Contains all the required database flow methods for the ChatInfo collection
+ * Contains all the required database flow methods for the ChannelInfo collection
  */
 export class ChannelDataService extends BotDataService<BaseChannel> {
   private _docPath: string;
