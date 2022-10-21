@@ -25,9 +25,6 @@ export class ProcessMessageService {
 
     let firstBlock: Block = await this._blockService$.getBlockById(connection.targetId);
 
-    /** Update the cursor with the first block */
-    await this._cursorService$.updateCursor(firstBlock);
-
     tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
 
     return firstBlock;
@@ -44,10 +41,10 @@ export class ProcessMessageService {
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
-    const latestActivity = (await this._cursorService$.getLatestCursor()) as Cursor;
+    const latestCursor = (await this._cursorService$.getLatestCursor()) as Cursor;
 
     // Get the lastest block found in activity
-    const latestBlock = await this._blockService$.getBlockById(latestActivity.block.id);
+    const latestBlock = latestCursor.block
 
     // Use NextBlockFactory to resolve the block type and get the next block based on the type
     const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools, this._blockService$, this._connService$);
