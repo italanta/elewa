@@ -20,6 +20,7 @@ import { throttleTime } from 'rxjs';
 import * as _ from 'lodash';
 
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 /**
  * Block which sends a message from bot to user.
@@ -53,6 +54,7 @@ export class BlockComponent implements OnInit {
 
   constructor(
     private _editorStateService: StoryEditorStateService,
+    private _blocks$$: StoryBlocksStore,//added this interfae
     private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger) { }
@@ -65,7 +67,7 @@ export class BlockComponent implements OnInit {
       case StoryBlockTypes.TextMessage:
         this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
-        console.log(this.blocksGroup);
+        
         
         break;
 
@@ -145,14 +147,11 @@ export class BlockComponent implements OnInit {
   }
  
 
-   deleteBlock(event: any)  {
-    this._editorStateService._deleteBlock(event)
-    this.blocksGroup.removeAt(this.blocksGroup.value.findIndex((block: { id: string; })  => block.id === block.id))
-    this._editorStateService.get().subscribe((state=> (state))
-    )
+   deleteBlock()  {
+
+
     
-    
-    
+    this._blocks$$.remove(this.block).subscribe()
       }
     
    
