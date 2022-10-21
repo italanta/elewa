@@ -11,10 +11,4 @@ export abstract class AddMessageService<T> {
   /** Main method that will call the appropriate add method depending on the Message type received.*/
   abstract addMessage(msg: RawMessageData, channel: T): void;
 
-  /** Inteprets the message as text and saves it to db */
-  protected abstract _addTextMessage(msg: RawMessageData, channel: T): Promise<BaseMessage>;
-
-  /** Inteprets the message as image and saves it to db */
-  protected abstract _addImageMessage(msg: RawMessageData, channel: T): Promise<BaseMessage>;
-
 }
