@@ -16,12 +16,11 @@ mat-nav-list {
 
 // reusable classes
 .list-icon {
-  margin-right: 10px;
   -webkit-text-stroke: 0.5px mat-color($primary, 900);
 }
 
 .container {
-  padding: 12px 25px;
+  padding: 2px 25px;
   border-bottom: 0.8px solid rgba(255,255,255,.1);
   font-size: 14px;
   outline: none;

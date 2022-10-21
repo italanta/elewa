@@ -23,7 +23,7 @@
       </div>
 
       <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
-        <div [routerLink]="['/org']" mat-list-item class="child-header child-1 menu-item">
+        <div [routerLink]="['/org']" mat-list-item class="child-header child-1 menu-item" [class.active]="rlaHome.isActive">
           <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
           <span class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
@@ -38,20 +38,20 @@
     <!-- end Home -->
 
     <!-- active bots wrapper -->
-    <div class="container">
+    <!-- <div class="container">
       <div [routerLink]="['/']" mat-list-item class="child-header menu-item">
         <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
         <span class="menu-item__word">
           Active Bots
         </span>
       </div>
-    </div>
+    </div> -->
 
     <!-- Section Chats -->
     <div [routerLink]="['/home','bots','org', orgId, 'flows', flowId, 'chats']" routerLinkActive
-      #rlaChats="routerLinkActive" mat-list-item class="container" [class.active]="rlaChats.isActive" fxLayout="column">
+      #rlaChats="routerLinkActive" mat-list-item class="container" fxLayout="column">
 
-      <div class="menu-item child-header">
+      <div class="menu-item child-header" [class.active]="rlaChats.isActive">
         <i matListIcon class="fas fa-comment-dots list-icon menu-item__tooltip"></i>
         <span class="menu-item__word">Chats</span>
       </div>
@@ -77,14 +77,11 @@
 
     <!-- Section Sales -->
     <div [routerLink]="['/home/bots/sales']" routerLinkActive #rlaSales="routerLinkActive" mat-list-item
-      class="container" [class.active]="rlaSales.isActive" [class.hov]="!rlaSales.isActive" fxLayout="column">
+      class="container" fxLayout="column">
 
-      <div fxLayout="row">
-        <i matListIcon class="fas fa-headset list-icon"></i>
-        Sales
-        <div class="chevron-down" [class.right]="rlaSales.isActive">
-          <i class="fas fa-sort-down"></i>
-        </div>
+      <div class="menu-item child-header" [class.active]="rlaSales.isActive">
+        <i matListIcon class="fas fa-headset list-icon menu-item__tooltip"></i>
+        <span class="menu-item__word">Sales</span>
       </div>
 
       <div class="category-children" *ngIf="rlaSales.isActive" fxLayout="column" fxLayoutGap="5px">
@@ -97,14 +94,11 @@
 
     <!-- Section Statistics -->
     <div [routerLink]="['/home/bots/statistics']" routerLinkActive #rlaStats="routerLinkActive" mat-list-item
-      class="container" [class.active]="rlaStats.isActive" [class.hov]="!rlaStats.isActive" fxLayout="column">
+      class="container"  [class.hov]="!rlaStats.isActive" fxLayout="column">
 
-      <div fxLayout="row">
-        <i matListIcon class="fas fa-chart-line list-icon"></i>
-        Statistics
-        <div class="chevron-down" [class.right]="rlaStats.isActive">
-          <i class="fas fa-sort-down"></i>
-        </div>
+      <div class="menu-item child-header" [class.active]="rlaStats.isActive">
+        <i matListIcon class="fas fa-chart-line list-icon menu-item__tooltip"></i>
+        <span class="menu-item__word">Statistics</span>
       </div>
 
       <div class="category-children" *ngIf="rlaStats.isActive" fxLayout="column" fxLayoutGap="5px">
