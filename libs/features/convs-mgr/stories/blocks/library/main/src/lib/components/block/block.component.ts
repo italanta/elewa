@@ -54,7 +54,7 @@ export class BlockComponent implements OnInit {
 
   constructor(
     private _editorStateService: StoryEditorStateService,
-    private _blocks$$: StoryBlocksStore,//added this interfae
+    private _blocks$$: StoryBlocksStore,
     private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger) { }
