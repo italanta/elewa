@@ -8,7 +8,7 @@ import { ChannelDataService } from './data-services/channel-info.service';
 import { CursorDataService } from './data-services/cursor.service';
 import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
-import { ChatBotProcessMessageService } from './chatbot-process-message.service';
+import { BotEngineMainService } from './bot-engine-main.service';
 
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
@@ -16,17 +16,21 @@ import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { ReceiveInterpreterFactory } from './interpreter/receive-interpreter.factory';
 
 /**
- * Handles the main processes of the ChatBot
+ * Manages the main operations of the bot
  */
-export class ChatBotMainService {
+export class BotEngineManager {
   /** The messaging platform the user is texting from  */
   platform: Platforms;
 
-  /** The Channel information */
+  /** The registered channel information that links the api to the story */
   messageChannel: BaseChannel;
-  chatId: string;
+
+  /** Information about the chat e.g. chat-status */
   chatInfo: Chat;
+
   baseMessage: BaseMessage;
+
+  /** Holds all promises that don't need to be resolved immediately */
   promises: Promise<any>[] = [];
 
   constructor(
@@ -50,7 +54,7 @@ export class ChatBotMainService {
 
     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${this.chatInfo.status}`);
 
-    const chat = new ChatBotProcessMessageService(blockDataService, connDataService, cursorDataService, this._tools, this.platform)
+    const chat = new BotEngineMainService(blockDataService, connDataService, cursorDataService, this._tools, this.platform)
 
     /** Manage the ongoing chat using the chat status */
     switch (this.chatInfo.status) {

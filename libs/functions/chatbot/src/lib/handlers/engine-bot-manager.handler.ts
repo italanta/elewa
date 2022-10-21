@@ -3,7 +3,7 @@ import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions
 
 import { RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 
-import { ChatBotMainService } from '../services/chatbot-main.service';
+import { BotEngineManager } from '../services/bot-engine-manager.service';
 import { MessagesDataService } from '../services/data-services/messages.service';
 import { ChatStatusDataService } from '../services/data-services/chat-status.service';
 import { ChannelDataService } from '../services/data-services/channel-info.service';
@@ -12,7 +12,7 @@ import { ChannelDataService } from '../services/data-services/channel-info.servi
  * Triggered by document.create in 'messages/{phoneNumber}/platforms/{platform}/msgs/{messageId}'
  * Processes the message and returns the next block.
  */
-export class EngineChatManagerHandler extends FunctionHandler<RawMessageData, RestResult200>
+export class EngineBotManagerHandler extends FunctionHandler<RawMessageData, RestResult200>
 {
   public async execute(req: RawMessageData, context: FunctionContext, tools: HandlerTools)
   {
@@ -26,7 +26,7 @@ export class EngineChatManagerHandler extends FunctionHandler<RawMessageData, Re
     const channelDataService = new ChannelDataService(req, tools)
 
 
-    const chatManager = new ChatBotMainService(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
+    const chatManager = new BotEngineManager(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
 
     await chatManager.main(req)
 

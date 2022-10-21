@@ -2,7 +2,7 @@ import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext, RestResult, RestResult200 } from "@ngfi/functions";
 
-import { EngineChatManagerHandler } from "@app/functions/chatbot";
+import { EngineBotManagerHandler } from "@app/functions/chatbot";
 
 import { RawWhatsAppApiPayload, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 import { __ConvertWhatsAppApiPayload } from "../utils/convert-whatsapp-payload.util";
@@ -49,6 +49,6 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler< RawWhats
   /** Calls the add message function to intepret the message and save it to firestore*/
   private async _processMessage(req: WhatsAppResponse, context: any, tools: HandlerTools){
     const data = req as RawMessageData
-    return await new EngineChatManagerHandler().execute(data, context, tools)
+    return await new EngineBotManagerHandler().execute(data, context, tools)
   }
 }
