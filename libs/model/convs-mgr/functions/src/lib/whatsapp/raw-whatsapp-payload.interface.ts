@@ -67,3 +67,14 @@ export interface ImagePayload extends WhatsAppMessagePayLoad {
   sha256:string;
 }
 
+export interface InteractiveRawButtonReplyMessage extends WhatsAppMessagePayLoad {
+  interactive: {
+    type: 'button_reply',
+    button_reply: {
+      id: string,
+      title: string,
+    }
+
+  }
+}
+
