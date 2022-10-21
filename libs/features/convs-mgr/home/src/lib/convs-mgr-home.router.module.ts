@@ -7,6 +7,16 @@ import { HomePageComponent } from './pages/home/home.page';
 
 const ORG_ROUTES: Route[] = [
   { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+  { path: 'bots', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+
+  { path: 'bots', children: [
+    { path: 'org/:id/flows/:id/chats', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    { path: 'org/:id/flows/:id/chats', children : [
+      { path: 'participants', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    ]},
+    { path: 'sales', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    { path: 'statistics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+  ]},
 
   // {
   //   path: ':id/finance',
