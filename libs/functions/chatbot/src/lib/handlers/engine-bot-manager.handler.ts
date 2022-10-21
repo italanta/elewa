@@ -3,7 +3,7 @@ import { FunctionContext, FunctionHandler, RestResult200 } from '@ngfi/functions
 
 import { RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 
-import { BotEngineManager } from '../services/bot-engine-manager.service';
+import { BotEngineChatManager } from '../services/bot-engine-chat-manager.service';
 import { MessagesDataService } from '../services/data-services/messages.service';
 import { ChatStatusDataService } from '../services/data-services/chat-status.service';
 import { ChannelDataService } from '../services/data-services/channel-info.service';
@@ -26,7 +26,7 @@ export class EngineBotManagerHandler extends FunctionHandler<RawMessageData, Res
     const channelDataService = new ChannelDataService(req, tools)
 
 
-    const chatManager = new BotEngineManager(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
+    const chatManager = new BotEngineChatManager(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
 
     await chatManager.main(req)
 

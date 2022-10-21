@@ -35,8 +35,7 @@ export class BotEngineMainService {
     // Process message and return next block
     const nextBlock = await this._getNextBlock(baseMessage);
 
-    // Send the message back to the user
-    await this._sendMessage({ msg: baseMessage, block: nextBlock }, baseMessage.phoneNumber);
+    return nextBlock
   }
 
   async sendTextMessage(msg: BaseMessage, text: string){
@@ -49,7 +48,7 @@ export class BotEngineMainService {
       ...channel,
     }
 
-    await this._sendMessage({ msg: pauseMessage}, msg.phoneNumber);
+    await this.sendMessage({ msg: pauseMessage}, msg.phoneNumber);
   }
 
   /**
@@ -77,13 +76,18 @@ export class BotEngineMainService {
    * @param data the base message and the block to be sent
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
-  private async _sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, endUserPhoneNumber: string) {
+  async sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, endUserPhoneNumber: string) {
     this._tools.Logger.log(() => `[SendMessage]._sendMessage: preparing to send message ${JSON.stringify(data)}.`);
     // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
     // Send the message
     await client.sendMessage(data.msg, endUserPhoneNumber, data.block)
+  }
+
+  async updateCursor(nextBlock: StoryBlock){
+    // Update the cursor
+    return await this._cursorDataService$.updateCursor(nextBlock);
   }
 
 
