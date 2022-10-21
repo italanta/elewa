@@ -13,6 +13,7 @@ import { ChatBotProcessMessageService } from './chatbot-process-message.service'
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
+import { ReceiveInterpreterFactory } from './interpreter/interpreter.factory';
 
 /**
  * Handles the main processes of the ChatBot
@@ -22,6 +23,7 @@ export class ChatBotMainService {
   messageChannel: BaseChannel;
   chatId: string;
   chatInfo: Chat;
+  baseMessage: BaseMessage;
 
   constructor(
     private _msgDataService$: MessagesDataService,
@@ -65,26 +67,29 @@ export class ChatBotMainService {
 
       this.chatInfo =  await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, req.botUserPhoneNumber, this.platform)
   
-      let baseMessage: BaseMessage;
+      // Interpret the message to BaseMessage
+      const interpretToBaseMessage = new ReceiveInterpreterFactory().resolvePlatform(req.platform).resolveMessageType(req.messageType)
+
+      this.baseMessage = interpretToBaseMessage(req, this.messageChannel)
   
       if (!this.chatInfo) {
         // Initialize chat status
         this.chatInfo = await this._chatStatusService$.initChatStatus(this.messageChannel, req.botUserPhoneNumber, this.platform);
 
         // Add message to collection
-        baseMessage = await this._addMessage(req);
+        await this._addMessage(this.baseMessage);
 
         this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
 
-        return baseMessage;
+        return this.baseMessage;
       } else {
   
         // Add message to collection
-        baseMessage = await this._addMessage(req);
+        await this._addMessage(this.baseMessage);
 
         this._tools.Logger.log(() => `[ChatManager].init - Message added}`);
 
-        return baseMessage;
+        return this.baseMessage;
       }
     }
 
@@ -101,7 +106,7 @@ export class ChatBotMainService {
    * Inteprates the raw message received from the hook and saves it to firestore
    * @param req - Raw Message data received from the webhook
    */
-  private async _addMessage(req: RawMessageData) {
+  private async _addMessage(req: BaseMessage) {
     // Use factory to resolve the platform
     const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(req.platform);
 

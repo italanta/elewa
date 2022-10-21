@@ -36,62 +36,10 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     super();
   }
 
-  async addMessage(msg: RawMessageData, channel: WhatsappChannel) {
-    const whatsappMessage = msg as WhatsAppResponse
+  async addMessage(msg: BaseMessage, channel: WhatsappChannel) {
 
-      switch (whatsappMessage.messageType) {
-        case WhatsAppMessageType.TEXT:
-          return await this._addTextMessage(whatsappMessage, channel)
-        
-        case WhatsAppMessageType.IMAGE:
-          return await this._addImageMessage(whatsappMessage, channel)
-           
-        default:
-          return await this._addTextMessage(whatsappMessage, channel)
-        
-      }      
-  }
+    const savedMessage = await this._msgDataService$.saveMessage(msg);
 
-
-  protected async _addTextMessage(msg: WhatsAppResponse, channel: WhatsappChannel): Promise<BaseMessage> {
-
-    // Convert type to text
-    const textMessage = msg.message as TextMessagePayload
-    
-    // Create the base message object
-    const newMessage: BaseMessage = {
-      phoneNumber : msg.botUserPhoneNumber,
-      // businessPhoneNumber: channel.businessPhoneNumber,
-      businessAccountId: channel.businessAccountId,
-      channelName: channel.channelName,
-      storyId: channel.storyId,
-      orgId: channel.orgId,
-      message: textMessage.text.body,
-      platform: channel.channelName,
-      authorizationKey: channel.authorizationKey
-    };
-    const savedMessage = await this._msgDataService$.saveMessage(newMessage);
-
-    return savedMessage;
-  }
-
-  protected async _addImageMessage(msg: WhatsAppResponse, channel: WhatsappChannel): Promise<BaseMessage> {
-    const imageMessage = msg.message as ImagePayload
-    // Create the base message object
-    const newMessage: BaseMessage = {
-      phoneNumber : msg.botUserPhoneNumber,
-      // businessPhoneNumber: channel.businessPhoneNumber,
-      businessAccountId: channel.businessAccountId,
-      channelName: channel.channelName,
-      storyId: channel.storyId,
-      orgId: channel.orgId,
-      message: imageMessage,
-      platform: channel.channelName,
-      authorizationKey: channel.authorizationKey
-    };
-
-    const savedMessage = await this._msgDataService$.saveMessage(newMessage);
-
-    return savedMessage;
+    return savedMessage
   }
 }
