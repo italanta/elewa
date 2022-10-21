@@ -13,22 +13,23 @@ mat-nav-list {
   overflow: auto;
 }
 
-// reusable classes
-
+// reusable and global classes
 #menu-header-seperator {
-  border: 0.5px solid rgba(255,255,255,.1);
+  border: 0.5px solid rgba(255, 255, 255, 0.1);
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.hov:hover, .menu-item:hover, .child-header:hover {
+.hov:hover,
+.menu-item:hover,
+.child-header:hover {
   cursor: pointer;
   background-color: mat-color($accent, A200);
 }
 
 .container {
   padding: 2px 25px;
-  border-bottom: 0.8px solid rgba(255,255,255,.1);
+  border-bottom: 0.8px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
   outline: none;
 
@@ -48,28 +49,28 @@ mat-nav-list {
       color: var(--convs-mgr-color-tertiary);
     }
   }
-  
+
   // logo section
   .logo-section {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-  
-    .logo-section__image {
+
+    &__image {
       max-width: 60%;
     }
-  
-    .logo-section__icon-wrapper {
+
+    &__icon-wrapper {
       display: flex;
       justify-content: flex-start;
-  
+
       .logo-section__tooltip {
         font-size: 1rem;
       }
     }
   }
-  
+
   // side-menu items
   .menu-item {
     position: relative;
@@ -80,18 +81,18 @@ mat-nav-list {
     padding: 7px 0px 7px 24px;
     text-transform: capitalize;
     gap: 20px;
-    margin:0 -24px;
+    margin: 0 -24px;
 
     &--one {
       margin-top: 8px;
     }
-  
+
     &.active {
       background-color: var(--conv-mgr-color-sidemenu-background);
-  
+
       &::before {
         position: absolute;
-        content: "";
+        content: '';
         height: 100%;
         width: 4px;
         right: 0;
@@ -100,44 +101,44 @@ mat-nav-list {
         background-color: var(--convs-mgr-color-primary-purple);
       }
     }
-  
+
     &__tooltip {
       color: var(--convs-mgr-color-primary-purple);
       -webkit-text-stroke: 0.5px mat-color($primary, 900);
     }
-    
+
     &__word {
       font-weight: 500;
       font-size: 0.8rem;
       color: var(--convs-mgr-color-primary-purple);
     }
   }
-  
-  // sidemenu child-items 
+
+  // sidemenu child-items
   .category-children {
     display: flex;
     flex-direction: column;
     gap: 5px;
   }
-  
+
   .child-header {
     min-height: 1.5rem;
     font-size: 0.8rem;
     padding: 7px 0px 7px 24px;
     text-transform: capitalize;
-  
+
     &--one {
       margin-top: 8px;
     }
-  
+
     &.highlight-active {
       position: relative;
       background-color: grey;
       margin-right: -24px !important;
-      
+
       &::before {
         position: absolute;
-        content: "";
+        content: '';
         height: 100%;
         width: 4px;
         top: 0;
@@ -147,4 +148,4 @@ mat-nav-list {
       }
     }
   }
-}  
+}
