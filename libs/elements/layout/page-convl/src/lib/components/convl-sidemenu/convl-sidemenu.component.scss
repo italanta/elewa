@@ -28,22 +28,11 @@ mat-nav-list {
 }
 
 .child-header {
-  position: relative;
+  min-height: 1.5rem;
   font-size: 0.8rem;
   padding: 7px 0px 7px 24px;
   text-transform: capitalize;
-  margin:0 -24px;
   margin-bottom: 5px;
-}
-
-.child-header::before {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 4px;
-  right: 0;
-  border-radius: 5px;
-  background-color: var(--convs-mgr-color-primary-purple);
 }
 
 // logo section
@@ -73,7 +62,7 @@ mat-nav-list {
   margin-bottom: 0;
 }
 
-// section main + dashboard
+// section main
 .main-wrapper {
   .main {
     font-size: 13px;
@@ -82,18 +71,34 @@ mat-nav-list {
   }
 }
 
-.dash-section {
+// side-menu items e.g chats
+.menu-item {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 20px;
-  background-color: var(--conv-mgr-color-sidemenu-background);
+  margin:0 -24px;
 
-  .dash-section__tooltip {
+  &.active {
+    background-color: var(--conv-mgr-color-sidemenu-background);
+
+    &::before {
+      position: absolute;
+      content: "";
+      height: 100%;
+      width: 4px;
+      right: 0;
+      border-radius: 5px;
+      background-color: var(--convs-mgr-color-primary-purple);
+    }
+  }
+
+  &__tooltip {
     color: var(--convs-mgr-color-primary-purple);
   }
   
-  .dash-section__dashboard {
+  &__word {
     font-weight: 500;
     color: var(--convs-mgr-color-primary-purple);
   }
@@ -136,8 +141,8 @@ mat-nav-list {
 
 .highlight-active:before {
   content: "";
-  // border-left: 3px solid mat-color($accent, A200);;
-  // padding: 10px 5px;
+  border-left: 3px solid mat-color($accent, A200);;
+  padding: 10px 5px;
 }
 
 .hov:hover, .child-header:hover {
