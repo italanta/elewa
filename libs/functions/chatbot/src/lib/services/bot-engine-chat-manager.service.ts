@@ -44,6 +44,7 @@ export class BotEngineChatManager {
   }
 
   async main(rawMessage: RawMessageData) {
+    // Initializes chat
     const baseMessage = await this._init(rawMessage);
 
     // To later use a DI container to manage instances and dynamically inject approtiate dependencies
@@ -53,6 +54,7 @@ export class BotEngineChatManager {
 
     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${this.chatInfo.status}`);
 
+    // Instantiate the Bot Engine Main Service
     const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, this._tools, this.platform);
 
     /** Manage the ongoing chat using the chat status */
@@ -84,6 +86,7 @@ export class BotEngineChatManager {
     // Check if the enduser is registered to a channel
     this.messageChannel = await this._getChannelInfo(req, this._channelService$);
 
+    // Get the current chat information
     this.chatInfo = await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, req.botUserPhoneNumber, this.platform);
 
     // Resolve the platform and the message type to get the right message interpretation method
