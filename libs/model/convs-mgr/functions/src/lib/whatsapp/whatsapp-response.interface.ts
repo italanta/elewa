@@ -27,8 +27,4 @@ export interface WhatsAppResponse extends RawMessageData {
 
   //Actual message being sent by the user to the bot
   message: WhatsAppMessagePayLoad
-
-  // Type of message e.g. text, location, contact etc
-  messageType: WhatsAppMessageType
-
 }
