@@ -5,15 +5,16 @@ import { RawWhatsAppApiPayload, WhatsAppMessageType, WhatsAppResponse } from "@a
 //Function to get the webhook response as an object
 export function __ConvertWhatsAppApiPayload(payload: any): WhatsAppResponse {
   const formattedPayLoad = _FormatWhatsAppPayLoad(payload) as any
-  console.log("formattedPayload: ", formattedPayLoad)
+  const _entry =  formattedPayLoad.entry[0];
+
   const _whatsAppResponse = {
-    botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.displayPhoneNumber,
-    botAccountphoneNumberId: formattedPayLoad.entry[0].id,
-    botUserName: formattedPayLoad.entry[0].changes[0].value.contacts[0].profile.name,
-    botUserPhoneNumber: formattedPayLoad.entry[0].changes[0].value.contacts[0].wa_id,
-    message: formattedPayLoad.entry[0].changes[0].value.messages[0],
+    botAccountDisplayPhoneNumber: _entry.changes[0].value.metadata.displayPhoneNumber,
+    botAccountphoneNumberId: _entry.id,
+    botUserName: _entry.changes[0].value.contacts[0].profile.name,
+    botUserPhoneNumber: _entry.changes[0].value.contacts[0].wa_id,
+    message: _entry.changes[0].value.messages[0],
     platform: Platforms.WhatsApp,
-    messageType: formattedPayLoad.entry[0].changes[0].value.messages[0].type,
+    messageType: _entry.changes[0].value.messages[0].type,
   } as WhatsAppResponse;
 
   return _whatsAppResponse;
