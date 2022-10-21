@@ -13,17 +13,21 @@ import { ChatBotProcessMessageService } from './chatbot-process-message.service'
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
-import { ReceiveInterpreterFactory } from './interpreter/interpreter.factory';
+import { ReceiveInterpreterFactory } from './interpreter/receive-interpreter.factory';
 
 /**
  * Handles the main processes of the ChatBot
  */
 export class ChatBotMainService {
+  /** The messaging platform the user is texting from  */
   platform: Platforms;
+
+  /** The Channel information */
   messageChannel: BaseChannel;
   chatId: string;
   chatInfo: Chat;
   baseMessage: BaseMessage;
+  promises: Promise<any>[] = [];
 
   constructor(
     private _msgDataService$: MessagesDataService,
@@ -48,9 +52,14 @@ export class ChatBotMainService {
 
     const chat = new ChatBotProcessMessageService(blockDataService, connDataService, cursorDataService, this._tools, this.platform)
 
+    /** Manage the ongoing chat using the chat status */
     switch (this.chatInfo.status) {
       case ChatStatus.Running:
-        await chat.run(baseMessage)
+        // Process the message and send the next block back to the user
+        await chat.processMessage(baseMessage)
+
+        // Finally Resolve pending promises that do not affect the processing of the message
+        await Promise.all([...this.promises])
         break;
       case ChatStatus.Paused:
         await chat.sendTextMessage(baseMessage, "Chat has been paused.")
@@ -67,9 +76,10 @@ export class ChatBotMainService {
 
       this.chatInfo =  await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, req.botUserPhoneNumber, this.platform)
   
-      // Interpret the message to BaseMessage
+      // Resolve the platform and the message type to get the right message interpretation method
       const interpretToBaseMessage = new ReceiveInterpreterFactory().resolvePlatform(req.platform).resolveMessageType(req.messageType)
 
+      // Convert the Raw Message Data to Base Message
       this.baseMessage = interpretToBaseMessage(req, this.messageChannel)
   
       if (!this.chatInfo) {
@@ -77,7 +87,7 @@ export class ChatBotMainService {
         this.chatInfo = await this._chatStatusService$.initChatStatus(this.messageChannel, req.botUserPhoneNumber, this.platform);
 
         // Add message to collection
-        await this._addMessage(this.baseMessage);
+        this.promises.push(this._addMessage(this.baseMessage));
 
         this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
 
@@ -85,7 +95,7 @@ export class ChatBotMainService {
       } else {
   
         // Add message to collection
-        await this._addMessage(this.baseMessage);
+        this.promises.push(this._addMessage(this.baseMessage));
 
         this._tools.Logger.log(() => `[ChatManager].init - Message added}`);
 
@@ -93,6 +103,10 @@ export class ChatBotMainService {
       }
     }
 
+    /**
+     * The user/story owner registers a story to a channel from the dashboard 
+     * Gets the channel information that the story was registered to using the businessAccountId
+     * */
     private async _getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
       switch (msg.platform) {
         case Platforms.WhatsApp:
@@ -103,14 +117,14 @@ export class ChatBotMainService {
     }
 
   /**
-   * Inteprates the raw message received from the hook and saves it to firestore
-   * @param req - Raw Message data received from the webhook
+   * Adds the interpreted message to firestore, messages collection
+   * @param msg - Already intepreted Base Message
    */
-  private async _addMessage(req: BaseMessage) {
+  private async _addMessage(msg: BaseMessage) {
     // Use factory to resolve the platform
-    const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(req.platform);
+    const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(msg.platform);
 
-    const baseMessage = await AddMessageService.addMessage(req, this.messageChannel as WhatsappChannel);
+    const baseMessage = await AddMessageService.addMessage(msg, this.messageChannel as WhatsappChannel);
 
     return baseMessage;
   }

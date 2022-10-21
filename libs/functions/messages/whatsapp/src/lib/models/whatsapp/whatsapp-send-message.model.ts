@@ -9,11 +9,16 @@ import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, Rec
 
 import { SendMessageModel } from "../send-message-main.model";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario";
 
 /**
  * @Description Model used to send  messages to whatsApp api
+ * Converts the blocks to whatsapp api readable form
+ * 
+ * Sample payloads:
+ * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+ * 
  * @extends {SendMessageModel}
+ * TODO: Move the conversion of messages to a seperate class that handles all messages
  */
 export class SendWhatsAppMessageModel extends SendMessageModel {
 
@@ -59,10 +64,6 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
       }
     } as TextMessagePayload
 
-    /**
-     * Add the required fields for the whatsapp api
-     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-     */
     const generatedMessage: WhatsAppBaseMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
@@ -75,10 +76,9 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
 
   }
 
-    /**
-   * @Description Used to send message of type text to whatsapp api
-   * @param message 
-   * @returns promise
+  /**
+   * We transform the Question block to a button interactive message for whatsapp api
+   * @Description Used to send Question Block to whatsapp api
    */
      protected async _sendQuestionMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
       const qBlock = block as QuestionMessageBlock

@@ -29,13 +29,11 @@ export class ChatBotProcessMessageService {
     this.platform = platform;
   }
 
-  /** Outlines the journey of a message once we receive it */
-  async run(baseMessage: BaseMessage) {
-    // // Initialize chat and convert message to base message
-    // const baseMessage = await this.init(req);
+  /** Uses the base message to return the next block and send it */
+  async processMessage(baseMessage: BaseMessage) {
 
     // Process message and return next block
-    const nextBlock = await this._processMessage(baseMessage);
+    const nextBlock = await this._getNextBlock(baseMessage);
 
     // Send the message back to the user
     await this._sendMessage({ msg: baseMessage, block: nextBlock }, baseMessage.phoneNumber);
@@ -57,7 +55,7 @@ export class ChatBotProcessMessageService {
   /**
    * Takes the inteprated message and determines the next block
    */
-  private async _processMessage(msg: BaseMessage) {
+  private async _getNextBlock(msg: BaseMessage) {
     // Pass dependencies to the Process Message Service
     const processMessage = new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$);
 
@@ -80,6 +78,7 @@ export class ChatBotProcessMessageService {
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
   private async _sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, endUserPhoneNumber: string) {
+    this._tools.Logger.log(() => `[SendMessage]._sendMessage: preparing to send message ${JSON.stringify(data)}.`);
     // Call factory to resolve the platform
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
