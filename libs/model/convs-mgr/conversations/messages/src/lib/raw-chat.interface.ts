@@ -1,5 +1,6 @@
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { IObject } from '@iote/bricks';
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 /** The data contained in the raw message returned by the hook */
 export interface RawMessageData extends IObject{
@@ -14,6 +15,9 @@ export interface RawMessageData extends IObject{
 
   // Phone number of the end user communicating with the bot
   botUserPhoneNumber:string,
+
+  // Type of message received from the end user e.g. text, image, etc
+  messageType: MessageTypes;
 
   // The Platform we are getting the message from e.g. telegram, whatsapp
   platform      : Platforms;
