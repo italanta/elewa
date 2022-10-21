@@ -18,7 +18,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler< RawWhats
       tools.Logger.log(() => `[WhatsAppReceiveIncomingMsgHandler] webhook is being validated first.⚠`);
       return this._verifyWhatsAppTokenWebHook(context, tools);
     } else {
-    
+      tools.Logger.log(() =>`[WhatsAppReceiveIncomingMsgHandler] - Raw payload ${JSON.stringify(payload.entry[0].changes)}`)
       // Initialize chat
       tools.Logger.log(() => `[WhatsAppReceiveIncomingMsgHandler]: Processing data from webhook.⌚`);
       const convertedData: WhatsAppResponse = __ConvertWhatsAppApiPayload(payload);
