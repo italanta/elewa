@@ -56,9 +56,6 @@ export class ProcessMessageService {
     // Handles possible race condition
     // const duplicateMessage = await chatService.handleDuplicates(msg, tools)
 
-    // Update the cursor
-    const cursor = await this._cursorService$.updateCursor(nextBlock);
-
-    return cursor.block;
+    return nextBlock;
   }
 }
