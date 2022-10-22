@@ -122,9 +122,17 @@ mat-nav-list {
   }
 
   .child-header {
-    min-height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: flex-end;
+    min-height: 1.2rem;
     font-size: 0.8rem;
-    padding: 7px 0px 7px 24px;
+    font-weight: 500;
+    color:#828282;
+    padding: 7px 0px 7px 0;
+    margin-right: -24px;
+    margin-left: 30px;
     text-transform: capitalize;
 
     &--one {
@@ -133,8 +141,8 @@ mat-nav-list {
 
     &.highlight-active {
       position: relative;
-      background-color: grey;
-      margin-right: -24px !important;
+      background-color: #fff2c7;
+      color: #908055;
 
       &::before {
         position: absolute;

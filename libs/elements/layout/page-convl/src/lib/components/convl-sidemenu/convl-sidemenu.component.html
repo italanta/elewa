@@ -23,8 +23,7 @@
       </div>
 
       <div *ngIf="rlaHome.isActive">
-        <div [routerLink]="['/org']" mat-list-item class="menu-item menu-item--one"
-          [class.active]="rlaHome.isActive">
+        <div [routerLink]="['/org']" routerLinkActive="active" mat-list-item class="menu-item menu-item--one">
           <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
           <span class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
@@ -44,18 +43,19 @@
       </div>
 
       <div class="category-children" *ngIf="rlaChats.isActive">
-        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive="highlight-active" mat-list-item
-          class="child-header child-header--one">
+        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
           Conversations
         </div>
 
         <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats', 'participants']"
-          routerLinkActive="highlight-active" mat-list-item class="child-header">
+          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          class="child-header">
           Participants
         </div>
 
-        <div [routerLink]="['/home/assessments']" routerLinkActive="highlight-active" mat-list-item
-          class="child-header">
+        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats','assessments']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header">
           Assessments
         </div>
       </div>
@@ -73,7 +73,8 @@
       </div>
 
       <div class="category-children" *ngIf="rlaSales.isActive">
-        <div [routerLink]="['/home/sales']" routerLinkActive="highlight-active" mat-list-item class="child-header child-header--one">
+        <div [routerLink]="['/home/sales']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
           <span>Purchases</span>
         </div>
       </div>
@@ -90,13 +91,14 @@
       </div>
 
       <div class="category-children" *ngIf="rlaStats.isActive">
-        <div [routerLink]="['/home/statistics']" routerLinkActive="highlight-active" mat-list-item
-          class="child-header child-header--one">
+        <div [routerLink]="['/home/statistics']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
           <i class="fa-light fa-hyphen"></i>
           <span>Trainee Data</span>
         </div>
 
-        <div [routerLink]="['/home/progress-analysis']" routerLinkActive="highlight-active" mat-list-item class="child-header">
+        <div [routerLink]="['/home/statistics/progress-analysis']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header">
           <i class="fa-light fa-dash"></i>
           <span>Progress Analysis</span>
         </div>
