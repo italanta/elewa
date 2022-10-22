@@ -45,18 +45,19 @@
       <div class="category-children" *ngIf="rlaChats.isActive">
         <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
-          Conversations
+          <span class="child-header__word">Conversations</span>
         </div>
 
         <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats', 'participants']"
           routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
           class="child-header">
-          Participants
+          <span class="child-header__word">Participants</span>
         </div>
 
-        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats','assessments']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header">
-          Assessments
+        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats','assessments']"
+          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          class="child-header">
+          <span class="child-header__word">Assessments</span>
         </div>
       </div>
     </div>
@@ -75,7 +76,7 @@
       <div class="category-children" *ngIf="rlaSales.isActive">
         <div [routerLink]="['/home/sales']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
-          <span>Purchases</span>
+          <span class="child-header__word">Purchases</span>
         </div>
       </div>
     </div>
@@ -94,13 +95,13 @@
         <div [routerLink]="['/home/statistics']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
           <i class="fa-light fa-hyphen"></i>
-          <span>Trainee Data</span>
+          <span class="child-header__word">Trainee Data</span>
         </div>
 
         <div [routerLink]="['/home/statistics/progress-analysis']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header">
           <i class="fa-light fa-dash"></i>
-          <span>Progress Analysis</span>
+          <span class="child-header__word">Progress Analysis</span>
         </div>
       </div>
     </div>
