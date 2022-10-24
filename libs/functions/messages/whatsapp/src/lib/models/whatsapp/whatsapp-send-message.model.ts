@@ -5,7 +5,7 @@ import { __DECODE } from "@app/elements/base/security-config";
 
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppInteractiveMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppInteractiveMessage, WhatsAppMediaMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
 
 import { SendMessageModel } from "../send-message-main.model";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
@@ -35,13 +35,41 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
   async sendMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock) {
     switch (block.type) {
       case StoryBlockTypes.TextMessage:
-        return await this._sendTextMessage(message, endUserPhoneNumber, block)  
+        return await this._sendTextMessage(message, endUserPhoneNumber, block);
+        break  
       case StoryBlockTypes.QuestionBlock:
-        return await this._sendQuestionMessage(message, endUserPhoneNumber, block)  
+        return await this._sendQuestionMessage(message, endUserPhoneNumber, block);
+        break;
+      case StoryBlockTypes.Image:
+          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
+          break;
+      case StoryBlockTypes.Audio:
+          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
+          break; 
+      case StoryBlockTypes.Video:
+          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
+          break;
+      case StoryBlockTypes.Document:
+          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
+          break;   
+      case StoryBlockTypes.Name:
+          return await this._sendTextMessage(message, endUserPhoneNumber, block);
+          break;
+      case StoryBlockTypes.Email:
+          return await this._sendTextMessage(message, endUserPhoneNumber, block);
+          break; 
+      case StoryBlockTypes.PhoneNumber:
+          return await this._sendTextMessage(message, endUserPhoneNumber, block);
+          break;
+      case StoryBlockTypes.Sticker:
+          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
+          break;
       default:
         return await this._sendTextMessage(message, endUserPhoneNumber, block) 
     }
+    
   }
+  
 
   /**
    * @Description Used to send message of type text to whatsapp api
@@ -119,6 +147,36 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
   
       await this._sendRequest(message, generatedMessage)
   
+    }
+
+    protected async _sendMediaMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
+      let link: string;
+  
+      if(block){
+        link = block.message
+      } else {
+        link = message.message
+      }
+      // Create the text payload which will be sent to api
+      const mediaMessage = { 
+        type: WhatsAppMessageType.MEDIA,
+        image: {
+          link
+        }
+      } as WhatsAppMediaMessage
+  
+      /**
+       * Add the required fields for the whatsapp api
+       * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+       */
+      const generatedMessage: WhatsAppBaseMessage = {
+        messaging_product: MetaMessagingProducts.WHATSAPP,
+        recepient_type: RecepientType.INDIVIDUAL,
+        to: endUserPhoneNumber,
+        type: WhatsAppMessageType.MEDIA,
+        ...mediaMessage
+      }
+      await this._sendRequest(message, generatedMessage)
     }
 
   private async _sendRequest(message: BaseMessage, payload: WhatsAppBaseMessage){
