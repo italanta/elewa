@@ -70,7 +70,7 @@ export class BotEngineChatManager {
         await bot.sendMessage({ msg: baseMessage, block: nextBlock }, baseMessage.phoneNumber);
 
         // Finally Resolve pending promises that do not affect the processing of the message
-        await Promise.all([...this.promises]);
+        await Promise.all(this.promises);
 
         break;
       case ChatStatus.Paused:
