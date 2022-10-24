@@ -11,3 +11,25 @@
     border-radius: 5px;
 
 }
+
+/* Card code*/
+
+.mat-card-cvr{
+	width: 100%;
+	text-align:center;
+	margin-top: 80px;
+
+
+	.card {
+		width: 300px;
+		height: 30vh;
+		display: inline-block;
+		cursor: pointer;
+	  }
+	  .fa-plus{
+		align-items: center;
+		margin-top: 33px;
+		color: mat-color($mat-ele, 100);
+	  }
+	
+ }

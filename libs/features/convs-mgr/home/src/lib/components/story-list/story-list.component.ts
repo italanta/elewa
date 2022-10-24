@@ -10,18 +10,23 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./story-list.component.scss'],
 })
 export class StoryListComponent implements OnInit {
+
   stories$: Observable<Story[]>;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   searchIcon = faSearch;
 
-  constructor(private _stories$$: StoriesStore) {
+  constructor(
+    private _stories$$: StoriesStore,
+
+  ) {
     this.stories$ = this._stories$$.get();
   }
+
   ngOnInit(): void {
     this.filterBotTemplates();
   }
-  //A function that subscribes to when the search control changes and filters the bots list
+
   filterBotTemplates() {
     this.stories$ = combineLatest([this.filterInput$$, this.stories$]).pipe(
       map(([filter, botsArray]) =>
@@ -34,4 +39,5 @@ export class StoryListComponent implements OnInit {
   filterBots(event: any) {
     this.filterInput$$.next(event.target.value);
   }
+
 }
