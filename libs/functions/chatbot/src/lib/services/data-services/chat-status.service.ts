@@ -22,7 +22,7 @@ export class ChatStatusDataService extends BotDataService<Chat>{
   }
 
   async initChatStatus(storyId: string, message: BaseMessage) {
-    this._docPath = `end-users/${message.phoneNumber}/platforms/${message.phoneNumber}/stories`
+    this._docPath = `end-users/${message.phoneNumber}/platforms/${message.platform}/stories`
 
     const chatId = storyId
 

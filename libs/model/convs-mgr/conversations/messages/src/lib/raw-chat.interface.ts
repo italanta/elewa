@@ -8,6 +8,9 @@ export interface RawMessageData extends IObject{
   messageId?: string;
 
   // id of phone number of business/manager of the bot
+  botAccountId:string,
+
+  // id of phone number of business/manager of the bot
   botAccountphoneNumberId:string,
 
   // Name of the end user communicating the bot

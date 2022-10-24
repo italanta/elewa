@@ -8,8 +8,9 @@ export function __ConvertWhatsAppApiPayload(payload: any): WhatsAppResponse {
   const formattedPayLoad = _FormatWhatsAppPayLoad(payload);
 
   const _whatsAppResponse = {
-    botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.displayPhoneNumber,
-    botAccountphoneNumberId: formattedPayLoad.entry[0].changes[0].value.metadata.phoneNumberId,
+    botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.display_phone_number,
+    botAccountId: formattedPayLoad.entry[0].id,
+    botAccountphoneNumberId: formattedPayLoad.entry[0].changes[0].value.metadata.phone_number_id,
     botUserName: formattedPayLoad.entry[0].changes[0].value.contacts[0].profile.name,
     botUserPhoneNumber: formattedPayLoad.entry[0].changes[0].value.contacts[0].wa_id,
     message: formattedPayLoad.entry[0].changes[0].value.messages[0],
