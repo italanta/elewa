@@ -6,4 +6,4 @@ export * from './lib/services/data-services/chat-status.service';
 export * from './lib/services/data-services/channel-info.service';
 export * from './lib/handlers/engine-bot-manager.handler';
 // export * from './lib/handlers/cancel-operator-request.handler';
-export * from './lib/services/interpreter/whatsapp-api-message-to-base-message.class';
+export * from './lib/services/interpreter/received-message-interpreter/whatsapp/whatsapp-api-message-to-base-message.class';

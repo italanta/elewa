@@ -13,7 +13,7 @@ import { BotEngineMainService } from './bot-engine-main.service';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
-import { ReceiveInterpreterFactory } from './interpreter/receive-interpreter.factory';
+import { ReceiveInterpreterFactory } from './interpreter/received-message-interpreter/receive-interpreter.factory';
 
 /**
  * Manages the main operations of the bot

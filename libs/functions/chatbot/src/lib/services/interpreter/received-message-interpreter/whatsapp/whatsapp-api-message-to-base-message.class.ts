@@ -1,7 +1,7 @@
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
-import { InteractiveRawButtonReplyMessage, TextMessagePayload, WhatsAppMessageType, WhatsAppResponse } from '@app/model/convs-mgr/functions';
-import { ReceiveMessageInterpreter } from './receive-message-interpreter-abstract.class';
+import { InteractiveRawButtonReplyMessage, TextMessagePayload, WhatsAppResponse } from '@app/model/convs-mgr/functions';
+import { ReceiveMessageInterpreter } from '../receive-message-interpreter-abstract.class';
 
 
 /**
