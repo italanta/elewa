@@ -1,10 +1,10 @@
 <div id="side-menu" fxLayout="column">
   <mat-nav-list>
     <!-- logo section -->
-    <div [routerLink]="['/']" mat-list-item class="container top-container">
+    <div mat-list-item class="container top-container">
       <div class="logo-section">
-        <img class="logo-section__image list-icon" src="assets/images/elewa-logo.png" />
-        <span class="logo-section__icon-wrapper">
+        <img [routerLink]="['/']" class="logo-section__image" src="assets/images/elewa-logo.png" />
+        <span class="logo-section__icon-wrapper" (click)="toggleMenu.emit()">
           <i class="fa fa-bars logo-section__tooltip" aria-hidden="true"></i>
         </span>
       </div>
