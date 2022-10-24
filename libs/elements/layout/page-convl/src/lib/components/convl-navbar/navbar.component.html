@@ -2,7 +2,7 @@
   <mat-toolbar id="nav-toolbar" color="primary" class="mat-elevation-z1">
       <!-- <div id="goback-button" *ngIf="backButton" (click)="goBack()"><i class="fas fa-arrow-left"></i></div> -->
 
-      <button fxHide.gt-sm (click)="toggleMenu.emit()" mat-icon-button color="accent" class="icon-top">
+      <button [ngClass]="{'hide-menu-btn': isMenuOpen}" (click)="toggleMenu.emit()" mat-icon-button color="accent" class="icon-top">
         <i class="fas fa-bars"></i>
       </button>
 
