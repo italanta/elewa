@@ -4,7 +4,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { Router }    from '@angular/router';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import {faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+
 @Component({
   selector: 'convl-story-list-item',
   templateUrl: './story-list-item.component.html',
@@ -17,7 +17,6 @@ export class StoryListItemComponent implements OnDestroy
   @Input() story: Story;
 
   loading = true;
-  dotedIcon = faEllipsisV;
   constructor(private _router: Router) { }
 
   goTo = () => this._router.navigate(['/stories', this.story.id]);
