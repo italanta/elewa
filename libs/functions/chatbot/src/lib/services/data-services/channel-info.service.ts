@@ -38,7 +38,7 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
       throw new Error('The user has not been registered to a channel');
     }
 
-    this.tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${channelInfo}`);
+    this.tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${JSON.stringify(channelInfo)}`);
 
     return channelInfo;
   }
