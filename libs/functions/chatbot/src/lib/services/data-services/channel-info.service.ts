@@ -33,7 +33,7 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
   async getChannelInfo(businessAccountId: string) {
     // Get users
     const channelInfo = await this.getDocumentById(businessAccountId, this._docPath)
-    console.log(channelInfo)
+    
     if (!channelInfo) {
       throw new Error('The user has not been registered to a channel');
     }
