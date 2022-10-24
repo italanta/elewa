@@ -97,6 +97,8 @@ export class BotEngineChatManager {
     // Convert the Raw Message Data to Base Message
     this.baseMessage = interpretToBaseMessage(req, this.messageChannel);
 
+    this._tools.Logger.log(() => `[ChatManager]._init - Interpreted message: ${JSON.stringify(this.baseMessage)}}`);
+
     // Get the current chat information
     this.chatInfo = await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, this.baseMessage);
 
@@ -127,9 +129,9 @@ export class BotEngineChatManager {
   private async _getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
     switch (msg.platform) {
       case Platforms.WhatsApp:
-        return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
+        return await channelDataService.getChannelInfo(msg.botAccountId);
       default:
-        return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
+        return await channelDataService.getChannelInfo(msg.botAccountId);
     }
   }
 

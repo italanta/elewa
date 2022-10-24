@@ -13,7 +13,7 @@ export interface RawWhatsAppApiPayload {
 
 export interface WhatsAppEntryFormData {
   //Id of business that owns the bot account
-  whatsAppBusinessId: string;
+  id: string;
 
   //Information about messsage sent by the bot user, the bot account
   changes: WhatsAppEntryFormDataChanges[];
@@ -26,7 +26,7 @@ export interface WhatsAppEntryFormDataChanges {
     messagingProduct: string;
 
     //Information about the botAccount
-    metadata: { displayPhoneNumber: string; phoneNumberId: string };
+    metadata: { display_phone_number: string; phone_number_id: string };
 
     contacts: {
       //Name of bot user
