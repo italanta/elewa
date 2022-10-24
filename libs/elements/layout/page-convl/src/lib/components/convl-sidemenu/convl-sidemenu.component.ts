@@ -1,8 +1,11 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
+import { faTachometer } from '@fortawesome/free-solid-svg-icons';
+import {faBars} from '@fortawesome/free-solid-svg-icons';
 
 import { AuthService } from '@ngfi/angular';
+
 
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
@@ -18,6 +21,9 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   @Input() user: any;
+
+  dashboard = faTachometer
+  menu = faBars;
 
   projectName: string;
   projectInfo: string;
