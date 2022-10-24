@@ -11,7 +11,8 @@ import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel } from '@app/model/bot/channel';
 import { ProcessMessageService } from './process-message/process-message.service';
 
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { SendMessageInterpreterFactory } from './interpreter/send-message-interpreter/send-interpreter.factory';
 
 /**
  * Contains the main processes of the ChatBot
@@ -38,8 +39,7 @@ export class BotEngineMainService {
     return nextBlock
   }
 
-  async sendTextMessage(msg: BaseMessage, text: string){
-    const channel = msg as BaseChannel
+  async sendTextMessage(msg: BaseMessage, text: string, channel: BaseChannel){
 
     const pauseMessage: BaseMessage = {
       message: text,
@@ -48,7 +48,7 @@ export class BotEngineMainService {
       ...channel,
     }
 
-    await this.sendMessage({ msg: pauseMessage}, msg.phoneNumber);
+    await this.sendMessage({ msg: pauseMessage}, channel);
   }
 
   /**
@@ -76,13 +76,22 @@ export class BotEngineMainService {
    * @param data the base message and the block to be sent
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
-  async sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, endUserPhoneNumber: string) {
-    this._tools.Logger.log(() => `[SendMessage]._sendMessage: preparing to send message ${JSON.stringify(data)}.`);
-    // Call factory to resolve the platform
+  async sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, channel: BaseChannel) {
+    this._tools.Logger.log(() => `[SendMessage]._sendMessage: preparing to send block ${JSON.stringify(data)}.`);
+
+    const blockType = data.block.type || StoryBlockTypes.TextMessage
+
+    // Resolve the message interpreter
+    const interpretBlock = new SendMessageInterpreterFactory().resolvePlatform(data.msg.platform).interpretBlock(blockType)
+
+    // Get the interpreted payload
+    const payload = interpretBlock(data.msg, data.block, channel)
+
+    // Call factory to resolve the platform for sending the message
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
     // Send the message
-    await client.sendMessage(data.msg, endUserPhoneNumber, data.block)
+    await client.sendMessage(payload, channel)
   }
 
   async updateCursor(nextBlock: StoryBlock){

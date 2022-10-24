@@ -9,6 +9,7 @@ import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, Rec
 
 import { SendMessageModel } from "../send-message-main.model";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { WhatsappChannel } from "@app/model/bot/channel";
 
 /**
  * @Description Model used to send  messages to whatsApp api
@@ -26,168 +27,17 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     super()
   }
 
-  /**
-   * @Description calls functions to send messages based on type of message
-   * @param message
-   * @param blockType
-   * @param environment
-   */
-  async sendMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock) {
-    switch (block.type) {
-      case StoryBlockTypes.TextMessage:
-        return await this._sendTextMessage(message, endUserPhoneNumber, block);
-        break  
-      case StoryBlockTypes.QuestionBlock:
-        return await this._sendQuestionMessage(message, endUserPhoneNumber, block);
-        break;
-      case StoryBlockTypes.Image:
-          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
-          break;
-      case StoryBlockTypes.Audio:
-          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
-          break; 
-      case StoryBlockTypes.Video:
-          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
-          break;
-      case StoryBlockTypes.Document:
-          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
-          break;   
-      case StoryBlockTypes.Name:
-          return await this._sendTextMessage(message, endUserPhoneNumber, block);
-          break;
-      case StoryBlockTypes.Email:
-          return await this._sendTextMessage(message, endUserPhoneNumber, block);
-          break; 
-      case StoryBlockTypes.PhoneNumber:
-          return await this._sendTextMessage(message, endUserPhoneNumber, block);
-          break;
-      case StoryBlockTypes.Sticker:
-          return await this._sendMediaMessage(message, endUserPhoneNumber, block);
-          break;
-      default:
-        return await this._sendTextMessage(message, endUserPhoneNumber, block) 
-    }
-    
-  }
-  
+  async sendMessage(message: BaseMessage, channel: WhatsappChannel){
 
-  /**
-   * @Description Used to send message of type text to whatsapp api
-   * @param message 
-   * @returns promise
-   */
-  protected async _sendTextMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
-    let body: string;
-
-    if(block){
-      body = block.message
-    } else {
-      body = message.message
-    }
-    // Create the text payload which will be sent to api
-    const textPayload = { 
-      text: {
-        preview_url: false,
-        body
-      }
-    } as TextMessagePayload
-
-    const generatedMessage: WhatsAppBaseMessage = {
-      messaging_product: MetaMessagingProducts.WHATSAPP,
-      recepient_type: RecepientType.INDIVIDUAL,
-      to: endUserPhoneNumber,
-      type: WhatsAppMessageType.TEXT,
-      ...textPayload
-    }
-
-    await this._sendRequest(message, generatedMessage)
-
-  }
-
-  /**
-   * We transform the Question block to a button interactive message for whatsapp api
-   * @Description Used to send Question Block to whatsapp api
-   */
-     protected async _sendQuestionMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
-      const qBlock = block as QuestionMessageBlock
-
-      const buttons = qBlock.options.map((option)=>{
-        return {
-          type: "reply",
-          reply: {
-            id: option.id,
-            title: option.message
-          }
-        } as ActionButtonsInfo
-      })
-
-      const interactiveMessage = {
-        type: 'button',
-        body: {
-          text: qBlock.message
-        },
-        action: {
-          buttons
-        }
-      } as InteractiveButtonMessage
-  
-      /**
-       * Add the required fields for the whatsapp api
-       * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-       */
-      const generatedMessage: WhatsAppInteractiveMessage = {
-        messaging_product: MetaMessagingProducts.WHATSAPP,
-        recepient_type: RecepientType.INDIVIDUAL,
-        to: endUserPhoneNumber,
-        type: WhatsAppMessageType.INTERACTIVE,
-        interactive: {
-          ...interactiveMessage
-        }
-      } 
-  
-      await this._sendRequest(message, generatedMessage)
-  
-    }
-
-    protected async _sendMediaMessage(message: BaseMessage, endUserPhoneNumber: string, block?: StoryBlock){
-      let link: string;
-  
-      if(block){
-        link = block.message
-      } else {
-        link = message.message
-      }
-      // Create the text payload which will be sent to api
-      const mediaMessage = { 
-        type: WhatsAppMessageType.MEDIA,
-        image: {
-          link
-        }
-      } as WhatsAppMediaMessage
-  
-      /**
-       * Add the required fields for the whatsapp api
-       * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-       */
-      const generatedMessage: WhatsAppBaseMessage = {
-        messaging_product: MetaMessagingProducts.WHATSAPP,
-        recepient_type: RecepientType.INDIVIDUAL,
-        to: endUserPhoneNumber,
-        type: WhatsAppMessageType.MEDIA,
-        ...mediaMessage
-      }
-      await this._sendRequest(message, generatedMessage)
-    }
-
-  private async _sendRequest(message: BaseMessage, payload: WhatsAppBaseMessage){
+    const whatsappMessage = message as WhatsAppBaseMessage
 
     // Convert the message to json
-    const dataToSend = JSON.stringify(payload);
+    const dataToSend = JSON.stringify(whatsappMessage);
 
    //Auth token gotten from facebook api
-   const authorizationHeader = message.authorizationKey
+   const authorizationHeader = channel.authorizationKey
   
-   this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(payload)}`);
+   this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(whatsappMessage)}`);
    
    /**
     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
