@@ -5,6 +5,7 @@ import { Block } from '@app/model/convs-mgr/conversations/chats';
 
 import { BotDataService } from './data-service-abstract.class';
 import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { BaseChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the cursor collection
@@ -12,14 +13,14 @@ import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 export class CursorDataService extends BotDataService<Cursor> {
   private _docPath: string;
 
-  constructor(msg: BaseMessage, tools: HandlerTools) 
+  constructor(msg: BaseMessage, channel: BaseChannel, tools: HandlerTools) 
   {
     super(tools)
-    this._init(msg)
+    this._init(msg, channel)
   }
 
-  protected _init(msg: BaseMessage){
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${msg.storyId}/cursor`
+  protected _init(msg: BaseMessage, channel: BaseChannel){
+    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/cursor`
   }
   
   /** Returns the latest activity / latest position of the cursor */

@@ -1,7 +1,5 @@
 import { RawMessageData } from "@app/model/convs-mgr/conversations/messages";
-import { IObject } from "@iote/bricks";
 import { WhatsAppMessagePayLoad } from "./raw-whatsapp-payload.interface";
-import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 // export interface WhatsAppResponse extends IObject {
 //   //Phone number of business/manager of the bot displayed on chat of bot user

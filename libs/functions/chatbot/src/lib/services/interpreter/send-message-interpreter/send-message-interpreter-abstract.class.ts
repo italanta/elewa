@@ -9,11 +9,11 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
  */
 export abstract class SendMessageInterpreter {
 
-    abstract interpretTextBlock(message: BaseMessage,block: StoryBlock, channel: BaseChannel): BaseMessage
+    abstract interpretTextBlock(message: BaseMessage,block: StoryBlock): BaseMessage
 
-    abstract interpretQuestionBlock(message: BaseMessage,block: StoryBlock, channel: BaseChannel): BaseMessage
+    abstract interpretQuestionBlock(message: BaseMessage,block: StoryBlock): BaseMessage
 
-    abstract interpretMediaBlock(message: BaseMessage,block: StoryBlock, channel: BaseChannel): BaseMessage
+    abstract interpretMediaBlock(message: BaseMessage,block: StoryBlock): BaseMessage
 
     interpretBlock(blockType: StoryBlockTypes){
         switch (blockType) {

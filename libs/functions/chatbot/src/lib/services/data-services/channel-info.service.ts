@@ -14,14 +14,14 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
   private _msg: RawMessageData;
   private tools: HandlerTools;
   
-  constructor(msg: RawMessageData,tools: HandlerTools) 
+  constructor(msg: RawMessageData, tools: HandlerTools) 
   {
     super(tools)
     this.tools = tools
     this._init(msg)
   }
 
-  protected _init(msg: RawMessageData){
+  protected _init(msg?: RawMessageData){
 
     this.tools.Logger.log(() => `[ChannelDataService]._init - Raw message ${JSON.stringify(msg)}`);
 

@@ -48,9 +48,9 @@ export class BotEngineChatManager {
     const baseMessage = await this._init(rawMessage);
 
     // To later use a DI container to manage instances and dynamically inject approtiate dependencies
-    const connDataService = new ConnectionsDataService(baseMessage, this._tools);
-    const cursorDataService = new CursorDataService(baseMessage, this._tools);
-    const blockDataService = new BlockDataService(baseMessage, connDataService, this._tools);
+    const connDataService = new ConnectionsDataService(this.messageChannel, this._tools);
+    const cursorDataService = new CursorDataService(baseMessage, this.messageChannel, this._tools);
+    const blockDataService = new BlockDataService(this.messageChannel, connDataService, this._tools);
 
     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${this.chatInfo.status}`);
 
@@ -67,14 +67,14 @@ export class BotEngineChatManager {
         this.promises.push(bot.updateCursor(nextBlock))
 
         // Send the message back to the user
-        await bot.sendMessage({ msg: baseMessage, block: nextBlock }, baseMessage.phoneNumber);
+        await bot.sendMessage({ msg: baseMessage, block: nextBlock }, this.messageChannel);
 
         // Finally Resolve pending promises that do not affect the processing of the message
         await Promise.all(this.promises);
 
         break;
       case ChatStatus.Paused:
-        await bot.sendTextMessage(baseMessage, 'Chat has been paused.');
+        await bot.sendTextMessage(baseMessage, 'Chat has been paused.', this.messageChannel);
         break;
       default:
         break;
@@ -91,18 +91,18 @@ export class BotEngineChatManager {
     // Check if the enduser is registered to a channel
     this.messageChannel = await this._getChannelInfo(req, this._channelService$);
 
-    // Get the current chat information
-    this.chatInfo = await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, req.botUserPhoneNumber, this.platform);
-
     // Resolve the platform and the message type to get the right message interpretation method
     const interpretToBaseMessage = new ReceiveInterpreterFactory().resolvePlatform(req.platform).resolveMessageType(req.messageType);
 
     // Convert the Raw Message Data to Base Message
     this.baseMessage = interpretToBaseMessage(req, this.messageChannel);
 
+    // Get the current chat information
+    this.chatInfo = await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, this.baseMessage);
+
     if (!this.chatInfo) {
       // Initialize chat status
-      this.chatInfo = await this._chatStatusService$.initChatStatus(this.messageChannel, req.botUserPhoneNumber, this.platform);
+      this.chatInfo = await this._chatStatusService$.initChatStatus(this.messageChannel.storyId, this.baseMessage);
 
       // Add message to collection
       this.promises.push(this._addMessage(this.baseMessage));
