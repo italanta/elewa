@@ -18,7 +18,7 @@ export class ManageChannelStoryLinkService {
   public addStoryToChannel(channel: BaseChannel)
   {
     const _channelRepo = this._getChannelRepo(channel);
-    return _channelRepo.write(channel, channel.businessAccountId);
+    return _channelRepo.write(channel, channel.businessAccountId as string);
   }
 
   public getSingleStoryInChannel(channel: BaseChannel)

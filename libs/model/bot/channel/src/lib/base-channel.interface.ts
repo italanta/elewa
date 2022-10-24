@@ -14,7 +14,7 @@ export interface BaseChannel extends IObject {
   // businessPhoneNumber: string;
 
   //For each number used in the channel, it must be have a whatsapp business identifier
-  businessAccountId: string;
+  // businessAccountId: string;
   
   //organisation/business that is using the channel for communication using the bot
   orgId?: string;
