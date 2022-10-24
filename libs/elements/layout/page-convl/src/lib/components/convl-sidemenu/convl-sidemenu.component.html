@@ -44,20 +44,20 @@
 
       <div class="category-children" *ngIf="rlaChats.isActive">
         <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item class="child-header child-header--one">
           <i class="fas fa-minus child-header__tooltip"></i>
           <span class="child-header__word">Conversations</span>
         </div>
 
         <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats', 'participants']"
-          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header">
           <i class="fas fa-minus child-header__tooltip"></i>
           <span class="child-header__word">Participants</span>
         </div>
 
         <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats','assessments']"
-          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header">
           <i class="fas fa-minus child-header__tooltip"></i>
           <span class="child-header__word">Assessments</span>
@@ -78,7 +78,7 @@
 
       <div class="category-children" *ngIf="rlaSales.isActive">
         <div [routerLink]="['/home/sales']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item class="child-header child-header--one">
           <i class="fas fa-minus child-header__tooltip"></i>
           <span class="child-header__word">Purchases</span>
         </div>
@@ -97,13 +97,13 @@
 
       <div class="category-children" *ngIf="rlaStats.isActive">
         <div [routerLink]="['/home/statistics']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header child-header--one">
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item class="child-header child-header--one">
           <i class="fas fa-minus child-header__tooltip"></i>
           <span class="child-header__word">Trainee Data</span>
         </div>
 
         <div [routerLink]="['/home/statistics/progress-analysis']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" mat-list-item class="child-header">
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item class="child-header">
           <i class="fas fa-minus child-header__tooltip"></i>
           <span class="child-header__word">Progress Analysis</span>
         </div>
