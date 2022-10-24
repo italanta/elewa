@@ -3,24 +3,24 @@ import { HandlerTools } from '@iote/cqrs';
 import { BotDataService } from './data-service-abstract.class';
 
 import { Connection } from '@app/model/convs-mgr/conversations/chats';
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { BaseChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
  */
 export class ConnectionsDataService extends BotDataService<Connection> {
   private _docPath: string;
-  private _msg: BaseMessage;
+  private _channel: BaseChannel;
 
-  constructor(msg: BaseMessage, tools: HandlerTools) 
+  constructor(channel: BaseChannel, tools: HandlerTools) 
   {
     super(tools)
-    this._init(msg)
+    this._init(channel)
   }
 
-  protected _init(msg: BaseMessage){
-    this._docPath = `orgs/${msg.orgId}/stories/${msg.storyId}/connections`
-    this._msg = msg
+  protected _init(channel: BaseChannel){
+    this._docPath = `orgs/${channel.orgId}/stories/${channel.storyId}/connections`
+    this._channel = channel
   }
 
 
@@ -50,7 +50,7 @@ export class ConnectionsDataService extends BotDataService<Connection> {
   /** Gets the connection that links the anchor block and the first block */
   async getFirstConn(): Promise<Connection> {
 
-    const conn = await this.getDocumentByField('sourceId', `${this._msg.storyId}`, this._docPath)
+    const conn = await this.getDocumentByField('sourceId', `${this._channel.storyId}`, this._docPath)
 
     if (!conn[0]) {
       throw new Error('First Connection does not exist');

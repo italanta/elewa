@@ -1,6 +1,7 @@
 import { HandlerTools, Repository } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { BaseChannel } from "@app/model/bot/channel";
 
 export abstract class BotDataService<T> {
     private repo$: Repository<T>
@@ -10,7 +11,7 @@ export abstract class BotDataService<T> {
     /** Initialization function for all Child classes
      *  Sets the firestore document path and the message property
      */
-    protected abstract _init(msg: BaseMessage | RawMessageData): void;
+    protected abstract _init(...args: (BaseChannel | BaseMessage | RawMessageData)[]): void;
 
     async getDocumentById(id: string, path: string){
        this.repo$ =  this._tools.getRepository<T>(path)

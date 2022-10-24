@@ -84,10 +84,10 @@ export class BotEngineMainService {
     // Resolve the message interpreter
     const interpretBlock = new SendMessageInterpreterFactory().resolvePlatform(data.msg.platform).interpretBlock(blockType)
 
-    // Get the interpreted payload
-    const payload = interpretBlock(data.msg, data.block, channel)
+    // Generate the payload required by the API
+    const payload = interpretBlock(data.msg, data.block)
 
-    // Call factory to resolve the platform for sending the message
+    // Resolve the client for sending the message
     const client = new SendMessageFactory(data.msg.platform, this._tools).resolvePlatform()
 
     // Send the message

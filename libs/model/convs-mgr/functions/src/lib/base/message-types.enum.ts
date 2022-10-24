@@ -8,4 +8,8 @@ export enum MessageTypes {
     LOCATION = "location",
     CONTACTS = "contacts",
     INTERACTIVE = "interactive",
+    AUDIO = 'audio',
+    DOCUMENT = 'document',
+    STICKER = 'sticker',
+    VIDEO = 'video'
 }

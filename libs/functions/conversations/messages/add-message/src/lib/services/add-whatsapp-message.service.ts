@@ -38,7 +38,7 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
 
   async addMessage(msg: BaseMessage, channel: WhatsappChannel) {
 
-    const savedMessage = await this._msgDataService$.saveMessage(msg);
+    const savedMessage = await this._msgDataService$.saveMessage(msg, channel.storyId);
 
     return savedMessage
   }

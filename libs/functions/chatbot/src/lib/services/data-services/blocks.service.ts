@@ -13,17 +13,17 @@ import { BaseChannel } from '@app/model/bot/channel';
  */
 export class BlockDataService extends BotDataService<StoryBlock> {
   private _docPath: string;
-  private _msg: BaseMessage;
+  private _channel: BaseChannel;
 
-  constructor(msg: BaseMessage, private _connDataService$: ConnectionsDataService, tools: HandlerTools) 
+  constructor(channel: BaseChannel, private _connDataService$: ConnectionsDataService, tools: HandlerTools) 
   {
     super(tools);
-    this._init(msg);
+    this._init(channel);
   }
 
-  protected _init(msg: BaseMessage) {
-    this._docPath = `orgs/${msg.orgId}/stories/${msg.storyId}/blocks`;
-    this._msg = msg;
+  protected _init(channel: BaseChannel) {
+    this._docPath = `orgs/${channel.orgId}/stories/${channel.storyId}/blocks`;
+    this._channel = channel;
   }
 
   /** Gets the full block using the id */

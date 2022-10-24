@@ -18,7 +18,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
    * @param message 
    * @returns promise
    */
-  interpretTextBlock(message: BaseMessage, block: StoryBlock, channel: BaseChannel): WhatsAppBaseMessage {
+  interpretTextBlock(message: BaseMessage, block: StoryBlock): WhatsAppBaseMessage {
     let body: string;
 
     if(block){
@@ -50,7 +50,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
    * We transform the Question block to a button interactive message for whatsapp api
    * @Description Used to send Question Block to whatsapp api
    */
-   interpretQuestionBlock(message: BaseMessage, block: StoryBlock, channel: BaseChannel){
+   interpretQuestionBlock(message: BaseMessage, block: StoryBlock){
     const qBlock = block as QuestionMessageBlock
 
     const buttons = qBlock.options.map((option)=>{
@@ -91,7 +91,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
 
   }
 
-  interpretMediaBlock (message: BaseMessage, block: StoryBlock, channel: BaseChannel){
+  interpretMediaBlock (message: BaseMessage, block: StoryBlock){
     let link: string;
 
     if(block){
@@ -101,7 +101,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     }
     // Create the text payload which will be sent to api
     const mediaMessage = { 
-      type: WhatsAppMessageType.MEDIA,
+      type: WhatsAppMessageType.IMAGE,
       image: {
         link
       }
@@ -115,7 +115,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
-      type: WhatsAppMessageType.MEDIA,
+      type: WhatsAppMessageType.IMAGE,
       ...mediaMessage
     }
     return generatedMessage

@@ -24,14 +24,8 @@ export class WhatsappReceiveMessageInterpreter extends ReceiveMessageInterpreter
     // Create the base message object
     const newMessage: BaseMessage = {
       phoneNumber: msg.botUserPhoneNumber,
-      // businessPhoneNumber: channel.businessPhoneNumber,
-      businessAccountId: channel.businessAccountId,
-      channelName: channel.channelName,
-      storyId: channel.storyId,
-      orgId: channel.orgId,
       message: textMessage.text.body,
-      platform: channel.channelName,
-      authorizationKey: channel.authorizationKey,
+      platform: msg.platform,
     };
 
     return newMessage;
@@ -50,16 +44,11 @@ export class WhatsappReceiveMessageInterpreter extends ReceiveMessageInterpreter
 
     const baseMessage: BaseMessage = {
         phoneNumber: msg.botUserPhoneNumber,
-        businessAccountId: channel.businessAccountId,
-        channelName: channel.channelName,
-        storyId: channel.storyId,
-        orgId: channel.orgId,
 
         // Interactive message also contains the id of the button clicked
         // To add match strategy for that matches the id of the button instead of the text
         message: interactiveMessage.interactive.button_reply.title,
-        platform: channel.channelName,
-        authorizationKey: channel.authorizationKey,
+        platform: msg.platform,
     }
 
     return baseMessage
