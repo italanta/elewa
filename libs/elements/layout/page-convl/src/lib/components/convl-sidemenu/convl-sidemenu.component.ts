@@ -22,6 +22,8 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
 
   projectName: string;
   projectInfo: string;
+
+  // Placeholder, Not dynamic - Will be changed
   orgId = 1;
   flowId = 1;
 
