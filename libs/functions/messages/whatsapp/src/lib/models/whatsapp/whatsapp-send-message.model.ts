@@ -39,7 +39,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
       case StoryBlockTypes.QuestionBlock:
         return await this._sendQuestionMessage(message, endUserPhoneNumber, block)  
       default:
-        break;
+        return await this._sendTextMessage(message, endUserPhoneNumber, block) 
     }
   }
 
