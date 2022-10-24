@@ -71,7 +71,30 @@
     "SIDE-MENU": {
       "DASHBOARD": "Tableau de bord",
       "LOG-OUT": "Se déconnecter",
-      "MAIN-TITLE": "Principal"
+      "MAIN-TITLE": "Principal",
+      "MENU-ITEMS" : {
+        "CHATS": {
+          "ITEM-NAME": "Chats",
+          "CHILD-ITEMS": {
+            "CONVERSATIONS": "Conversation",
+            "PARTICIPANTS": "Participant",
+            "ASSESSMENTS": "Évaluations"
+          }
+        },
+        "SALES": {
+          "ITEM-NAME": "Ventes",
+          "CHILD-ITEMS": {
+            "PURCHASES": "Achats"
+          }
+        },
+        "STATISTICS": {
+          "ITEM-NAME": "Statistiques",
+          "CHILD-ITEMS": {
+            "TRAINEE-DATA": "Données du stagiaire",
+            "PROGRESS ANALYSIS": "Analyse des progrès"
+          }
+        }
+      }
     }
   },
   "BOTS": {

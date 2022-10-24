@@ -71,7 +71,30 @@
     "SIDE-MENU": {
       "DASHBOARD": "Dashboard",
       "LOG-OUT": "Logout",
-      "MAIN-TITLE": "Main"
+      "MAIN-TITLE": "Main",
+      "MENU-ITEMS" : {
+        "CHATS": {
+          "ITEM-NAME": "Chats",
+          "CHILD-ITEMS": {
+            "CONVERSATIONS": "Conversations",
+            "PARTICIPANTS": "Participants",
+            "ASSESSMENTS": "Assessments"
+          }
+        },
+        "SALES": {
+          "ITEM-NAME": "Sales",
+          "CHILD-ITEMS": {
+            "PURCHASES": "Purchases"
+          }
+        },
+        "STATISTICS": {
+          "ITEM-NAME": "Statistics",
+          "CHILD-ITEMS": {
+            "TRAINEE-DATA": "Trainee Data",
+            "PROGRESS-ANALYSIS": "Progress Analysis"
+          }
+        }
+      }
     }
   },
   "BOTS": {
