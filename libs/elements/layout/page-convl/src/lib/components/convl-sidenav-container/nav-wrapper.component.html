@@ -4,7 +4,7 @@
 
     <mat-sidenav #sidenav [mode]="mode" [(opened)]="opened" class="mat-elevation-z4">
 
-      <convl-sidemenu [user]="user" fxFlex="column" fxFill></convl-sidemenu>
+      <convl-sidemenu (toggleMenu)="toggleSidemenu()" [user]="user" fxFlex="column" fxFill></convl-sidemenu>
 
     </mat-sidenav>
 
