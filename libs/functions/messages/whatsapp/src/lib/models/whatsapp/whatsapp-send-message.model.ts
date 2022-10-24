@@ -42,7 +42,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
    /**
     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
     */
-   const PHONE_NUMBER_ID = 100465209511767//Refers to business number to be used
+   const PHONE_NUMBER_ID = channel.businessPhoneNumberId//Refers to business number to be used
 
    const url = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`
 
@@ -56,7 +56,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
          }
      }
  ).then(response => {
-       this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Successful in sending message ${JSON.stringify(response)}`);
+       this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
      }).catch(error => {
        if (error.response) {
          // Request made and server responded

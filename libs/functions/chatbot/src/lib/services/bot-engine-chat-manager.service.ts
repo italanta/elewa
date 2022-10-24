@@ -116,7 +116,7 @@ export class BotEngineChatManager {
       // Add message to collection
       this.promises.push(this._addMessage(this.baseMessage));
 
-      this._tools.Logger.log(() => `[ChatManager].init - Message added}`);
+      this._tools.Logger.log(() => `[ChatManager].init - Message added`);
 
       return this.baseMessage;
     }
