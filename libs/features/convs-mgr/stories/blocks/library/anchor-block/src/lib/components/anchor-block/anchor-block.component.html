@@ -1,12 +1,3 @@
-<mat-card [id]="id" class="anchor-block">
-    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.ANCHOR' | transloco }}</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="anchorBlockForm">
-            <h3>{{'PAGE-CONTENT.BLOCK.LABEL.ANCHOR' | transloco }}</h3>
-        </form>
-        <!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="textMessageForm"></app-default-option-field> -->
-        <!-- <input type="text" formControlName="defaultTarget" placeholder="Default"> -->
-
-    </mat-card-content>
-  </mat-card>
-  
+<div class="anchor-wrapper">
+    <input class="anchor" disabled type="text" placeholder="Starting point" [id]="anchorInput">
+</div>

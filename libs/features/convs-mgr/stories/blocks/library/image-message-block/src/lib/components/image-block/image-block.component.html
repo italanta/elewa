@@ -6,7 +6,7 @@
             <div [id]="imageInputId">
                 <label>
                     <img [src]="imageLink ? imageLink : defaultImage" class="image">
-                    <input (change)="processImage($event)" #imageInput type="file" placeholder="assets/images/lib/block-builder/image-block-placeholder.jpg" class="fileSrc" formControlName="src">
+                    <input (change)="processImage($event)" #imageInput type="file" placeholder="assets/images/lib/block-builder/image-block-placeholder.jpg" class="src" formControlName="src">
                 </label>
             </div>
 

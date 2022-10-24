@@ -35,9 +35,6 @@
     <div *ngSwitchCase="emailtype">
         <app-email-block [id]="id" [block]="block" [emailMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-email-block>
     </div>
-    <div *ngSwitchCase="anchortype">
-        <app-anchor-block [id]="id" [block]="block" [anchorBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-anchor-block>
-    </div>
 
     <div *ngSwitchCase="phonetype">
         <app-phone-block [id]="id" [block]="block" [phoneMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"> </app-phone-block>
