@@ -1,7 +1,6 @@
 import { ComponentRef } from '@angular/core';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/main";
 
@@ -14,7 +13,7 @@ import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/m
  * 
  * @see {_JsPlumbComponentDecorator} - Should be the only one calling the component
  */
-export function _ImageBlockDecoratePlumb(comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
+export function _AnchorBlockDecoratePlumb(comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
 {
 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
