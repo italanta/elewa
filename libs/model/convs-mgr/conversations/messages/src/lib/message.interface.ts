@@ -4,7 +4,7 @@ import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 /** Basic message structure that will be the same when interpreted from any platform 
  * TODO: Refactor - remove extension of base channel, and update all functions
 */
-export interface BaseMessage extends BaseChannel {
+export interface BaseMessage {
 
   /* The platform the message is received from e.g. whatsapp, telegram*/
   platform?      : Platforms;
