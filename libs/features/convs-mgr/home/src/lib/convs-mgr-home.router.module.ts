@@ -4,18 +4,28 @@ import { Route, RouterModule } from '@angular/router';
 import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
 import { HomePageComponent } from './pages/home/home.page';
+// import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 const ORG_ROUTES: Route[] = [
   { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-  { path: 'bots', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
 
-  { path: 'bots', children: [
-    { path: 'org/:id/flows/:id/chats', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-    { path: 'org/:id/flows/:id/chats', children : [
+  // to be changed - mock  routes
+  { path: '', children: [
+    // chats
+    { path: 'org/:id/flows/:id/chats', component: HomePageComponent, children : [
+      { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
       { path: 'participants', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-    ]},
+      { path: 'assessments', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    ], canActivate: [IsLoggedInGuard] },
+
+    // sales
     { path: 'sales', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-    { path: 'statistics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+
+    // statistics
+    { path: 'statistics', component: HomePageComponent, children: [
+      { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+      { path: 'progress-analysis', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    ], canActivate: [IsLoggedInGuard] },
   ]},
 
   // {
