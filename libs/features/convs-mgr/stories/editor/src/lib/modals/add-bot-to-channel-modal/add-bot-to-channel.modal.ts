@@ -2,13 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { combineLatest, filter, map } from 'rxjs';
 import { SubSink } from 'subsink';
-import { BaseChannel, WhatsappChannel, TelegramChannel } from '@app/model/bot/channel';
+import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
 import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -29,8 +30,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   addToChannelForm: FormGroup;
 
-  channels: BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel,
-                             { channelName: Platforms.Telegram } as TelegramChannel];
+  channels: BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
