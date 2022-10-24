@@ -4,7 +4,7 @@
 export enum WhatsAppMessageType{
   TEXT = "text",
   REACTION = "reaction",
-  IMAGE = "image",
+  MEDIA = "media",
   LOCATION = "location",
   CONTACTS = "contacts",
   INTERACTIVE = "interactive",

@@ -30,6 +30,17 @@ export enum StoryBlockTypes {
 
   QuestionBlock = 6,
 
+  /**
+   * Block that sends an audio as output to the user 
+   */
+  Audio = 8,
+
+  /**
+   * Block that sends a message to the user in form of a video
+   */
+  Video = 13,
+
+
   /** 
    * Block sends message then expects input.
    * Block examples: buttons question, ...
@@ -59,5 +70,15 @@ export enum StoryBlockTypes {
   /**
    * Block that waits for the user to enter their phone-number as input
    */
-  PhoneNumber=12
+  PhoneNumber=12,
+
+  /**
+  * Block that sends a document to the user as output
+  */
+  Document=7,
+
+    /**
+   * Block that sends a sticker to the user as a message
+   */
+     Sticker = 15
 }
