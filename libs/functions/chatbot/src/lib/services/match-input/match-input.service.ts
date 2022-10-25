@@ -17,4 +17,9 @@ export class MatchInputService {
         return this.matchStrategy.match(message, options)
     }
 
+    matchId(id: string, options: any[]){
+        return this.matchStrategy.matchId(id, options)
+    }
+
+
 }
