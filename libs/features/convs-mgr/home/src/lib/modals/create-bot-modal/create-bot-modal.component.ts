@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { NewStoryService } from '../../services/new-story.service';
 
@@ -10,13 +11,27 @@ import { NewStoryService } from '../../services/new-story.service';
 })
 export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
-  constructor(private _addStory$: NewStoryService, private _formBuilder: FormBuilder) {}
+  modalMode: string;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: {mode: string},
+    private _addStory$: NewStoryService,
+    private _formBuilder: FormBuilder) {
+      this.modalMode = data.mode;
+    }
 
   createFormGroup(){
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
       botDesc: ['']
     });
+  }
+
+  getModalMode(){
+    return {
+      create: "Create Mode",
+      edit: "Edit Mode"
+    }
   }
 
   ngOnInit(): void {

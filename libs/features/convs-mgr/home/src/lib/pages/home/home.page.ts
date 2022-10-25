@@ -51,7 +51,15 @@ export class HomePageComponent implements OnDestroy
     this._sb.unsubscribe();
   }
 
-  openDialog(){
-    this.dialog.open(CreateBotModalComponent);
+  openCreateDialog(){
+    this.dialog.open(CreateBotModalComponent, {
+      data: {mode: "Create Mode"}
+    });
+  }
+
+  openEditDialog(){
+    this.dialog.open(CreateBotModalComponent, {
+      data: {mode: "Edit Mode"}
+    })
   }
 }
