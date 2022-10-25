@@ -21,18 +21,18 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
     this._init(msg)
   }
 
-  protected _init(msg?: RawMessageData){
+  protected _init(msg: RawMessageData){
 
     this.tools.Logger.log(() => `[ChannelDataService]._init - Raw message ${JSON.stringify(msg)}`);
 
-    this._docPath = `channels/${msg.platform}/accounts`
+    this._docPath = `channels/${msg.platform}/accounts/${msg.botAccountId}/bots`
     this._msg = msg
   }
-
-
-  async getChannelInfo(businessAccountId: string) {
+  
+  async getChannelInfo(businessPhoneNumberId: string) {
     // Get users
-    const channelInfo = await this.getDocumentById(businessAccountId, this._docPath)
+    // Takes longer than get by Id
+    const channelInfo = await this.getDocumentById(businessPhoneNumberId ,this._docPath)
     
     if (!channelInfo) {
       throw new Error('The user has not been registered to a channel');
@@ -42,7 +42,6 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
 
     return channelInfo;
   }
-
   
   async getChannels(): Promise<BaseChannel> {
     const channels =  await this.getDocuments(this._docPath)
