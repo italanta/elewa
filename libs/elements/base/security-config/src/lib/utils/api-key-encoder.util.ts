@@ -6,7 +6,7 @@ const CryptoJS = require("crypto-js");
  * @param passphrase whose default value is 'conv'
  * @returns encrypted string
  */
-export function __ENCODE(stringToEncode:string, passphrase:string = 'conv'){
+export function __ENCODE_AES(stringToEncode:string, passphrase:string = 'conv'){
   const encrypted =  CryptoJS.AES.encrypt(stringToEncode, passphrase);
   return encrypted.toString();
 }

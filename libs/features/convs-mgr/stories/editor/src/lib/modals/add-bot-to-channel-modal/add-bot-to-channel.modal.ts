@@ -8,7 +8,7 @@ import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-import { __DECODE, __ENCODE } from '@app/elements/base/security-config';
+import { __DECODE, __ENCODE_AES } from '@app/elements/base/security-config';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -60,15 +60,16 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
   onSubmit() {
     this.isSaving = true;
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
-    const authKey = this.addToChannelForm.get('authenticationKey')?.value;
+    var authKey = this.addToChannelForm.get('authenticationKey')?.value;
     const businessAccountId = this.addToChannelForm.get('businessAccountId')?.value;
     const channel: BaseChannel = this.addToChannelForm.get('channel')?.value;
     const rawApiKey = this.addToChannelForm.get('apiKey')?.value;
 
+    authKey = __ENCODE_AES(authKey);
 
     const channelToSubmit = {
       channelName: channel.channelName,
-      businessPhoneNumber: phoneNumber.toString(),
+      businessPhoneNumberId: phoneNumber.toString(),
       storyId: this._activeStoryId,
       orgId: this._orgId,
       authenticationKey: authKey,
