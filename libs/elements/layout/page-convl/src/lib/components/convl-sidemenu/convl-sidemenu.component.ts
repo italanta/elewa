@@ -4,6 +4,7 @@ import { SubSink } from 'subsink';
 
 import { AuthService } from '@ngfi/angular';
 
+
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.

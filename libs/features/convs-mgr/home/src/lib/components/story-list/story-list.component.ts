@@ -3,7 +3,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'convl-italanta-apps-story-list',
@@ -14,8 +13,6 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export class StoryListComponent implements OnInit {
   stories$: Observable<Story[]>;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  searchIcon = faSearch;
 
   constructor(private _stories$$: StoriesStore) {
     this.stories$ = this._stories$$.get();
