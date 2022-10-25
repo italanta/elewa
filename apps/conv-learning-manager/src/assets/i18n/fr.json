@@ -75,15 +75,20 @@
   },
   "BOTS": {
     "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
       "FIELDS": {
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom du robot",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description du robot",
         "COPY": "Copie",
         "DELETE": "Effacer"
-      }
-    }
-  },
-  "BOTS": {
-    "CREATE-MODAL": {
-      "TITLE": "Créer un robot",
+      },
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Modifier un robot",
       "FIELDS": {
         "NAME": "Nom",
         "NAME-PLACEHOLDER": "Nom du robot",
@@ -91,7 +96,7 @@
         "DESC-PLACEHOLDER": "Description du robot"
       },
       "CANCEL": "Annuler",
-      "SUBMIT": "Créer un robot"
+      "SUBMIT": "Mettre à jour un robot"
     }
   }
 }
