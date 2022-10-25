@@ -10,6 +10,7 @@ import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
 import { NextBlockService } from "../next-block.class";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { InteractiveButtonMessage, InteractiveRawButtonReplyMessage } from "@app/model/convs-mgr/functions";
 
 /** 
  * Handles the next block incase the last block was a question to the user
@@ -26,13 +27,15 @@ export class QuestionMessageService extends NextBlockService {
 
     async getNextBlock(msg: BaseMessage, lastBlock?: QuestionMessageBlock): Promise<Block>{
 
+        const response = msg.message as InteractiveRawButtonReplyMessage
+
         const matchInput = new MatchInputService();
 
         // Set the match strategy to exactMatch
         // TODO: Add a dynamic way of selecting matching strategies
         matchInput.setMatchStrategy(new ExactMatch())
 
-        const selectedOptionIndex = matchInput.match(msg.message, lastBlock.options)
+        const selectedOptionIndex = matchInput.matchId(response.interactive.button_reply.id, lastBlock.options)
 
         if (selectedOptionIndex == -1){
             this._logger.error(()=> `The message did not match any option found`)
