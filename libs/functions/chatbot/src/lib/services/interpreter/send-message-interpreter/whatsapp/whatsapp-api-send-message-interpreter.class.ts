@@ -12,11 +12,12 @@ import {
   WhatsAppDocumentMessage,
   WhatsAppImageMessage,
   WhatsAppInteractiveMessage,
+  WhatsAppLocationMessage,
   WhatsAppMessageType,
   WhatsAppStickerMessage,
   WhatsAppVideoMessage,
 } from '@app/model/convs-mgr/functions';
-import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { LocationMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { SendMessageInterpreter } from '../send-message-interpreter-abstract.class';
 
 /**
@@ -252,6 +253,28 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
   }
 
   interpretLocationBlock(message: BaseMessage, block: StoryBlock): BaseMessage {
-    throw new Error('Method not implemented.');
+    const locationBlock = block as LocationMessageBlock
+    // Create the text payload which will be sent to api
+    const locationMessage = {
+      location: {
+        longitude: parseInt(locationBlock.locationInput.longitude),
+        latitude: parseInt(locationBlock.locationInput.latitude),
+        name: locationBlock.locationInput.name,
+        address: locationBlock.locationInput.address
+      }
+    } as WhatsAppLocationMessage
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppBaseMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: message.phoneNumber,
+      type: WhatsAppMessageType.LOCATION,
+      ...locationMessage,
+    };
+    return generatedMessage;
   }
 }

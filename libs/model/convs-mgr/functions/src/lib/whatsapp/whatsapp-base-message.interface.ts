@@ -7,6 +7,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 export interface WhatsAppBaseMessage extends BaseMessage {
   messaging_product: MetaMessagingProducts,
+  context?: { message_id: string },
   recepient_type: RecepientType,
   to: string,
   type: WhatsAppMessageType
