@@ -1,10 +1,23 @@
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
-import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppInteractiveMessage, WhatsAppMediaMessage, WhatsAppMessageType } from '@app/model/convs-mgr/functions';
+import {
+  ActionButtonsInfo,
+  InteractiveButtonMessage,
+  MetaMessagingProducts,
+  RecepientType,
+  TextMessagePayload,
+  WhatsAppAudioMessage,
+  WhatsAppBaseMessage,
+  WhatsAppDocumentMessage,
+  WhatsAppImageMessage,
+  WhatsAppInteractiveMessage,
+  WhatsAppMessageType,
+  WhatsAppStickerMessage,
+  WhatsAppVideoMessage,
+} from '@app/model/convs-mgr/functions';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { SendMessageInterpreter } from '../send-message-interpreter-abstract.class';
-
 
 /**
  * Interprets messages received from whatsapp and converts them to a BaseMessage
@@ -14,63 +27,62 @@ import { SendMessageInterpreter } from '../send-message-interpreter-abstract.cla
 export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
   /**
    * @Description Used to send message of type text to whatsapp api
-   * @param message 
+   * @param message
    * @returns promise
    */
   interpretTextBlock(message: BaseMessage, block: StoryBlock): WhatsAppBaseMessage {
     let body: string;
 
-    if(block){
-      body = block.message
+    if (block) {
+      body = block.message;
     } else {
-      body = message.message
+      body = message.message;
     }
     // Create the text payload which will be sent to api
-    const textPayload = { 
+    const textPayload = {
       text: {
         preview_url: false,
-        body
-      }
-    } as TextMessagePayload
+        body,
+      },
+    } as TextMessagePayload;
 
     const generatedMessage: WhatsAppBaseMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
       type: WhatsAppMessageType.TEXT,
-      ...textPayload
-    }
+      ...textPayload,
+    };
 
-    return generatedMessage
+    return generatedMessage;
   }
 
-  
   /**
    * We transform the Question block to a button interactive message for whatsapp api
    * @Description Used to send Question Block to whatsapp api
    */
-   interpretQuestionBlock(message: BaseMessage, block: StoryBlock){
-    const qBlock = block as QuestionMessageBlock
+  interpretQuestionBlock(message: BaseMessage, block: StoryBlock) {
+    const qBlock = block as QuestionMessageBlock;
 
-    const buttons = qBlock.options.map((option)=>{
+    const buttons = qBlock.options.map((option) => {
       return {
-        type: "reply",
+        type: 'reply',
         reply: {
           id: option.id,
-          title: option.message
-        }
-      } as ActionButtonsInfo
-    })
+          title: option.message,
+        },
+      } as ActionButtonsInfo;
+    });
 
     const interactiveMessage = {
       type: 'button',
       body: {
-        text: qBlock.message
+        text: qBlock.message,
       },
       action: {
-        buttons
-      }
-    } as InteractiveButtonMessage
+        buttons,
+      },
+    } as InteractiveButtonMessage;
 
     /**
      * Add the required fields for the whatsapp api
@@ -82,29 +94,28 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       to: message.phoneNumber,
       type: WhatsAppMessageType.INTERACTIVE,
       interactive: {
-        ...interactiveMessage
-      }
-    } 
+        ...interactiveMessage,
+      },
+    };
 
-   return generatedMessage
-
+    return generatedMessage;
   }
 
-  interpretImageBlock (message: BaseMessage, block: StoryBlock){
+  interpretImageBlock(message: BaseMessage, block: StoryBlock) {
     let link: string;
 
-    if(block){
-      link = block.message
+    if (block) {
+      link = block.message;
     } else {
-      link = message.message
+      link = message.message;
     }
     // Create the text payload which will be sent to api
-    const mediaMessage = { 
+    const mediaMessage = {
       type: WhatsAppMessageType.IMAGE,
       image: {
-        link
-      }
-    } as WhatsAppMediaMessage
+        link,
+      },
+    } as WhatsAppImageMessage;
 
     /**
      * Add the required fields for the whatsapp api
@@ -115,26 +126,26 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
       type: WhatsAppMessageType.IMAGE,
-      ...mediaMessage
-    }
-    return generatedMessage
+      ...mediaMessage,
+    };
+    return generatedMessage;
   }
 
-  interpretAudioBlock (message: BaseMessage, block: StoryBlock){
+  interpretAudioBlock(message: BaseMessage, block: StoryBlock) {
     let link: string;
 
-    if(block){
-      link = block.message
+    if (block) {
+      link = block.message;
     } else {
-      link = message.message
+      link = message.message;
     }
     // Create the text payload which will be sent to api
-    const mediaMessage = { 
+    const mediaMessage = {
       type: WhatsAppMessageType.AUDIO,
-      image: {
-        link
-      }
-    } as WhatsAppMediaMessage
+      audio: {
+        link,
+      },
+    } as WhatsAppAudioMessage;
 
     /**
      * Add the required fields for the whatsapp api
@@ -145,26 +156,26 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
       type: WhatsAppMessageType.AUDIO,
-      ...mediaMessage
-    }
-    return generatedMessage
+      ...mediaMessage,
+    };
+    return generatedMessage;
   }
 
-  interpretDocumentBlock (message: BaseMessage, block: StoryBlock){
+  interpretDocumentBlock(message: BaseMessage, block: StoryBlock) {
     let link: string;
 
-    if(block){
-      link = block.message
+    if (block) {
+      link = block.message;
     } else {
-      link = message.message
+      link = message.message;
     }
     // Create the text payload which will be sent to api
-    const mediaMessage = { 
+    const mediaMessage = {
       type: WhatsAppMessageType.DOCUMENT,
-      image: {
-        link
-      }
-    } as WhatsAppMediaMessage
+      document: {
+        link,
+      },
+    } as WhatsAppDocumentMessage;
 
     /**
      * Add the required fields for the whatsapp api
@@ -175,26 +186,26 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
       type: WhatsAppMessageType.DOCUMENT,
-      ...mediaMessage
-    }
-    return generatedMessage
+      ...mediaMessage,
+    };
+    return generatedMessage;
   }
 
-  interpretVideoBlock (message: BaseMessage, block: StoryBlock){
+  interpretVideoBlock(message: BaseMessage, block: StoryBlock) {
     let link: string;
 
-    if(block){
-      link = block.message
+    if (block) {
+      link = block.message;
     } else {
-      link = message.message
+      link = message.message;
     }
     // Create the text payload which will be sent to api
-    const mediaMessage = { 
+    const mediaMessage = {
       type: WhatsAppMessageType.VIDEO,
-      image: {
-        link
-      }
-    } as WhatsAppMediaMessage
+      video: {
+        link,
+      },
+    } as WhatsAppVideoMessage;
 
     /**
      * Add the required fields for the whatsapp api
@@ -205,26 +216,26 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
       type: WhatsAppMessageType.VIDEO,
-      ...mediaMessage
-    }
-    return generatedMessage
+      ...mediaMessage,
+    };
+    return generatedMessage;
   }
 
-  interpretStickerBlock (message: BaseMessage, block: StoryBlock){
+  interpretStickerBlock(message: BaseMessage, block: StoryBlock) {
     let link: string;
 
-    if(block){
-      link = block.message
+    if (block) {
+      link = block.message;
     } else {
-      link = message.message
+      link = message.message;
     }
     // Create the text payload which will be sent to api
-    const mediaMessage = { 
+    const mediaMessage = {
       type: WhatsAppMessageType.STICKER,
-      image: {
-        link
-      }
-    } as WhatsAppMediaMessage
+      sticker: {
+        link,
+      },
+    } as WhatsAppStickerMessage;
 
     /**
      * Add the required fields for the whatsapp api
@@ -235,12 +246,12 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
       type: WhatsAppMessageType.STICKER,
-      ...mediaMessage
-    }
-    return generatedMessage
+      ...mediaMessage,
+    };
+    return generatedMessage;
   }
 
   interpretLocationBlock(message: BaseMessage, block: StoryBlock): BaseMessage {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 }
