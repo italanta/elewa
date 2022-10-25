@@ -12,9 +12,9 @@ export interface WhatsAppLocationMessage extends WhatsAppBaseMessage {
   location: LocationInfo
 }
 
-interface LocationInfo{
+export interface LocationInfo{
   longitude:number;
   latitude:number;
-  name:string;
-  address:string;
+  name?:string;
+  address?:string;
 }
