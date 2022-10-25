@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { NewStoryService } from '../../services/new-story.service';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -12,18 +13,28 @@ import { NewStoryService } from '../../services/new-story.service';
 export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
   modalMode: string;
+  story: Story;
+  editBotForm: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {mode: string},
+    @Inject(MAT_DIALOG_DATA) public data: {mode: string, story?: Story},
     private _addStory$: NewStoryService,
     private _formBuilder: FormBuilder) {
       this.modalMode = data.mode;
+      this.story = data.story as Story;
     }
 
   createFormGroup(){
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
       botDesc: ['']
+    });
+  }
+
+  createEditFormGroup(){
+    this.editBotForm = this._formBuilder.group({
+      botName: [this.story.name],
+      botDesc: [this.story.description]
     });
   }
 
@@ -35,7 +46,11 @@ export class CreateBotModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createFormGroup();
+    if(this.modalMode === this.getModalMode().create){
+      this.createFormGroup();
+    } else {
+      this.createEditFormGroup();
+    }
   }
 
   add = () => this._addStory$.add(this.botForm.value.botName as string, this.botForm.value.botDesc as string || '').subscribe();
