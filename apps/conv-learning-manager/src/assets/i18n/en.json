@@ -73,15 +73,6 @@
       "LOG-OUT": "Logout"
     }
   },
-
-  "BOTS": {
-    "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copy",
-        "DELETE": "Delete"
-      }
-    }
-  },
   "BOTS": {
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
@@ -89,10 +80,23 @@
         "NAME": "Name",
         "NAME-PLACEHOLDER": "Bot name",
         "DESC": "Description",
-        "DESC-PLACEHOLDER": "Bot description"
+        "DESC-PLACEHOLDER": "Bot description",
+        "COPY": "Copy",
+        "DELETE": "Delete"
       },
       "CANCEL": "Cancel",
       "SUBMIT": "Create bot"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit bot",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Bot name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Bot description"
+      },
+      "CANCEL": "Cancel",
+      "SUBMIT": "Update bot"
     }
   }
 }
