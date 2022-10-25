@@ -129,9 +129,9 @@ export class BotEngineChatManager {
   private async _getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
     switch (msg.platform) {
       case Platforms.WhatsApp:
-        return await channelDataService.getChannelInfo(msg.botAccountId);
+        return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
       default:
-        return await channelDataService.getChannelInfo(msg.botAccountId);
+        return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
     }
   }
 
