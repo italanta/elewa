@@ -13,7 +13,7 @@ import { SideMenuFooterComponent } from './components/convl-sidemenu-footer/side
 import { ConlvSideNavContainerComponent } from './components/convl-sidenav-container/nav-wrapper.component';
 import { SubNavBarComponent } from './components/sub-bar/sub-navbar.component';
 import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component';
-
+import { ElementsLayoutUserControlModule } from '@app/elements/layout/user-control';
 
 /**
  *  Conversational Learning Page Module. Holds the page holder.
@@ -30,12 +30,13 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
     MultiLangModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
     UserMenuModule,
+    ElementsLayoutUserControlModule
   ],
 
   declarations: [
     ConvlPageComponent, ConvlNavbarComponent, ConvlSideMenuComponent,
     SideMenuFooterComponent,
-    ConlvSideNavContainerComponent, SubNavBarComponent
+    ConlvSideNavContainerComponent, SubNavBarComponent,
   ],
 
   providers: [],

@@ -35,6 +35,9 @@
       "@app/elements/layout/page-convl": [
         "libs/elements/layout/page-convl/src/index.ts"
       ],
+      "@app/elements/layout/user-control": [
+        "libs/elements/layout/user-control/src/index.ts"
+      ],
       "@app/elements/layout/user-menu": [
         "libs/elements/layout/user-menu/src/index.ts"
       ],
@@ -143,9 +146,9 @@
       "@app/state/convs-mgr/story-editor": [
         "libs/state/convs-mgr/story-editor/src/index.ts"
       ],
+      "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
-      "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],

@@ -2,6 +2,37 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "app": {
+      "projectType": "library",
+      "root": "app",
+      "sourceRoot": "app/src",
+      "prefix": "lib",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "app/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "app/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "app/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "app/src/test.ts",
+            "tsConfig": "app/tsconfig.spec.json",
+            "karmaConfig": "app/karma.conf.js"
+          }
+        }
+      }
+    },
     "conv-learning-manager": "apps/conv-learning-manager",
     "conv-lm-backend": "apps/conv-lm-backend",
     "elements-base-authorisation": "libs/elements/base/authorisation",
@@ -10,6 +41,32 @@
     "elements-base-firebase": "libs/elements/base/firebase",
     "elements-layout-page": "libs/elements/layout/page",
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
+    "elements-layout-user-control": {
+      "projectType": "library",
+      "root": "libs/elements/layout/user-control",
+      "sourceRoot": "libs/elements/layout/user-control/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/elements/layout/user-control"],
+          "options": {
+            "jestConfig": "libs/elements/layout/user-control/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/elements/layout/user-control/**/*.ts",
+              "libs/elements/layout/user-control/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
@@ -48,9 +105,9 @@
     "state-convs-mgr-stories-block-connections": "libs/state/convs-mgr/stories/block-connections",
     "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
     "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
+    "state-file": "libs/state/file/store",
     "state-organisation": "libs/state/organisation/main",
     "state-user": "libs/state/user/base",
-    "state-file": "libs/state/file/store",
     "util-iote-bricks": "libs/util/iote/bricks",
     "util-iote-bricks-angular": "libs/util/iote/bricks-angular",
     "util-iote-cqrs": "libs/util/iote/cqrs",
@@ -65,37 +122,6 @@
     "util-ngfi-functions": "libs/util/ngfi/functions",
     "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
     "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
-    "util-ngfi-state": "libs/util/ngfi/state",
-    "app": {
-      "projectType": "library",
-      "root": "app",
-      "sourceRoot": "app/src",
-      "prefix": "lib",
-      "targets": {
-        "build": {
-          "executor": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "app/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "app/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "app/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "executor": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "app/src/test.ts",
-            "tsConfig": "app/tsconfig.spec.json",
-            "karmaConfig": "app/karma.conf.js"
-          }
-        }
-      }
-    }
+    "util-ngfi-state": "libs/util/ngfi/state"
   }
 }

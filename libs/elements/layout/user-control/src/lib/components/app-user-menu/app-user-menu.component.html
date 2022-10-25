@@ -1,0 +1,16 @@
+<div class="profile" *ngIf="user$ | async as user">
+  
+  <mat-button class="user-btn" [matMenuTriggerFor]="userMenu">
+    <div class="container">
+      <img  class="profile-image" src="/assets/images/profile.jpeg"/> 
+      <span class="username">{{ user.displayName }}</span> &nbsp;
+      <i class="fas fa-caret-down"></i>
+    </div>
+  </mat-button>
+
+  <mat-menu #userMenu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="logout()">Log out</button>
+  </mat-menu>
+
+</div>
+

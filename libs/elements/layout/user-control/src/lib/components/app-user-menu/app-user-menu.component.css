@@ -1,0 +1,22 @@
+.fa-caret-down{
+   color: orange;
+}
+.container{
+    display: flex;
+    align-items: center;
+    font-size: small;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.container:hover{
+    background-color: #fafafa;
+}
+.username{
+    padding-left: 10px;
+}
+.profile-image{
+    border-radius:5px;
+    width: 30px;
+    height: 30px;
+}
