@@ -44,10 +44,7 @@ export class WhatsappReceiveMessageInterpreter extends ReceiveMessageInterpreter
 
     const baseMessage: BaseMessage = {
         phoneNumber: msg.botUserPhoneNumber,
-
-        // Interactive message also contains the id of the button clicked
-        // To add match strategy for that matches the id of the button instead of the text
-        message: interactiveMessage.interactive.button_reply.title,
+        message: interactiveMessage,
         platform: msg.platform,
     }
 
