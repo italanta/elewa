@@ -10,16 +10,18 @@ import { NewStoryService } from '../../services/new-story.service';
   styleUrls: ['./delete-bot-modal.component.scss'],
 })
 export class DeleteBotModalComponent implements OnInit {
+  story!: Story;
+
   constructor(
     private _addStory$: NewStoryService,
-    @Inject(MAT_DIALOG_DATA) public data: { payload?: Story},
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: { payload : Story },
+  ) { this.story = this.data.payload }
 
   ngOnInit(): void {
     ''
   }
 
-  // delete() {
-  //   this._addStory$.remove(this.data.payload);
-  // }
+  delete() {
+    this._addStory$.remove(this.story);
+  }
 }
