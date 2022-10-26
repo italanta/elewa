@@ -43,7 +43,7 @@ export class BotEngineChatManager {
     this.platform = platform;
   }
 
-  async main(rawMessage: RawMessageData) {
+  async execute(rawMessage: RawMessageData) {
     // Initializes chat
     const baseMessage = await this._init(rawMessage);
 
