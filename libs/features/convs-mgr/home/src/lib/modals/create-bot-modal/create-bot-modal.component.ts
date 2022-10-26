@@ -2,8 +2,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { NewStoryService } from '../../services/new-story.service';
 import { Story } from '@app/model/convs-mgr/stories/main';
+
+import { NewStoryService } from '../../services/new-story.service';
+
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
