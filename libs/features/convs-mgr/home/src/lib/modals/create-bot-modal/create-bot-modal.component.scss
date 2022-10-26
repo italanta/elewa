@@ -51,6 +51,15 @@ input[type='text'] {
   outline: none;
 }
 
+input[formcontrolname="botName"]{
+  color: var(--form-input-text-color-2);
+  font-weight: 500;
+}
+
+textarea[formcontrolname="botDesc"]{
+  color: var(--form-input-text-color-1);
+}
+
 
 .create-bot-header{
     margin-top: 0px;
