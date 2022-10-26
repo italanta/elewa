@@ -88,7 +88,7 @@
       "SUBMIT": "Create bot"
     },
     "EDIT-MODAL": {
-      "TITLE": "Edit bot",
+      "TITLE": "Edit Bot",
       "FIELDS": {
         "NAME": "Name",
         "NAME-PLACEHOLDER": "Bot name",
@@ -96,7 +96,7 @@
         "DESC-PLACEHOLDER": "Bot description"
       },
       "CANCEL": "Cancel",
-      "SUBMIT": "Update bot"
+      "SUBMIT": "Update Bot"
     }
   }
 }
