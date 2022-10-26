@@ -74,24 +74,33 @@
     }
   },
   "BOTS": {
-    "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copie",
-        "DELETE": "Effacer"
-      }
-    }
-  },
-  "BOTS": {
+    "ACTIONS": {
+      "OPEN-BOT": "Ouvert un robot",
+      "LBL-NEW-BOT": "Créer un nouveau robot",
+      "EDIT-BOT":"Edit",
+      "DELETE-BOT": "Effacer"
+    },
+    "FIELDS":{
+      "NAME": "Nom",
+      "NAME-PLACEHOLDER": "Nom du robot",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Description du robot"
+    },
     "CREATE-MODAL": {
       "TITLE": "Créer un robot",
-      "FIELDS": {
-        "NAME": "Nom",
-        "NAME-PLACEHOLDER": "Nom du robot",
-        "DESC": "Description",
-        "DESC-PLACEHOLDER": "Description du robot"
-      },
       "CANCEL": "Annuler",
       "SUBMIT": "Créer un robot"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Éditer un robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "mettre à jour un robot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le robot",
+      "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
     }
-  }
+  }  
 }
