@@ -5,6 +5,9 @@ import { Router }    from '@angular/router';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
+
 @Component({
   selector: 'convl-story-list-item',
   templateUrl: './story-list-item.component.html',
@@ -17,9 +20,19 @@ export class StoryListItemComponent implements OnDestroy
   @Input() story: Story;
 
   loading = true;
-  constructor(private _router: Router) { }
+
+  constructor(
+    private _router: Router,
+    private _dialog: MatDialog,
+  ){}
 
   goTo = () => this._router.navigate(['/stories', this.story.id]);
+
+  openDialog() {
+    this._dialog.open(DeleteBotModalComponent, {
+      data: { payload: this.story },
+    });
+  }
 
   ngOnDestroy()
   {
