@@ -28,7 +28,11 @@ export class StoryListItemComponent implements OnDestroy
 
   goTo = () => this._router.navigate(['/stories', this.story.id]);
 
-  openDialog() {
+  openEditDialog() {
+    // open edit modal
+  }
+
+  openDeleteDialog() {
     this._dialog.open(DeleteBotModalComponent, {
       data: { payload: this.story },
       panelClass: 'delete-dialog-container'
