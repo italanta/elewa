@@ -4,12 +4,12 @@ import { HandlerTools } from "@iote/cqrs";
 import { __DECODE } from "@app/elements/base/security-config";
 
 import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
-import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-import { ActionButtonsInfo, InteractiveButtonMessage, MetaMessagingProducts, RecepientType, TextMessagePayload, WhatsAppBaseMessage, WhatsAppInteractiveMessage, WhatsAppMediaMessage, WhatsAppMessageType } from "@app/model/convs-mgr/functions";
+import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
+import { WhatsappChannel } from "@app/model/bot/channel";
 
 import { SendMessageModel } from "../send-message-main.model";
-import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { WhatsappChannel } from "@app/model/bot/channel";
+
+
 
 /**
  * @Description Model used to send  messages to whatsApp api
