@@ -31,6 +31,7 @@ export class StoryListItemComponent implements OnDestroy
   openDialog() {
     this._dialog.open(DeleteBotModalComponent, {
       data: { payload: this.story },
+      panelClass: 'delete-dialog-container'
     });
   }
 
