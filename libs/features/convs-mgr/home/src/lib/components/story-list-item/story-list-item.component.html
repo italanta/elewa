@@ -8,9 +8,22 @@
           {{ story.name }} <span class="bot-number"></span>
         </h2>
       </div>
-
-      <div class="dots" (click)="openDialog()">
-          <i class="fas dotedIcon"></i>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openEditDialog()">
+            <span>
+              {{ 'BOTS.FIELDS.EDIT' | transloco }}
+            </span>
+          </button>
+          <button mat-menu-item (click)="openDeleteDialog()">
+            <span>
+              {{ 'BOTS.FIELDS.DELETE' | transloco }}
+            </span>
+          </button>
+        </mat-menu>
       </div>
     </div>
 
@@ -20,7 +33,9 @@
       </p>
     </mat-card-content>
     <div class="action-holder">
-      <button mat-raised-button (click)="goTo()">Open bot</button>
+      <button mat-raised-button (click)="goTo()">
+        {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
+      </button>
     </div>
   </mat-card>
 </div>
