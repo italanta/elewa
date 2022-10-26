@@ -28,7 +28,7 @@ export class StoryListItemComponent implements OnDestroy
     this._sb.unsubscribe();
   }
 
-  openDialog(){
+  openEditDialog(){
     this._dialog.open(CreateBotModalComponent, {
       data: {
         mode: "Edit Mode",
