@@ -33,7 +33,8 @@ export class StoryListItemComponent implements OnDestroy
       data: {
         mode: "Edit Mode",
         story: this.story
-      }
+      },
+      panelClass: 'edit-bot-dialog'
     });
   }
 }
