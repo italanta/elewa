@@ -29,25 +29,25 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
   
   switch (block.type) {
     case StoryBlockTypes.TextMessage:
-      return _MessageBlockDecoratePlumb(comp, jsPlumb);
+      return _MessageBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Image:
-      return _ImageBlockDecoratePlumb(comp, jsPlumb);
+      return _ImageBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Name:
-        return _NameBlockDecoratePlumb(comp, jsPlumb);
+        return _NameBlockDecoratePlumb(block, comp, jsPlumb);
         break;
      case StoryBlockTypes.Email:
-        return _EmailBlockDecoratePlumb(comp, jsPlumb);
+        return _EmailBlockDecoratePlumb(block, comp, jsPlumb);
         break;
       case StoryBlockTypes.PhoneNumber:
-          return _NameBlockDecoratePlumb(comp, jsPlumb);
+          return _NameBlockDecoratePlumb(block, comp, jsPlumb);
           break;
     case StoryBlockTypes.QuestionBlock:
-      return _QuestionsBlockDecoratePlumb(comp, jsPlumb);
+      return _QuestionsBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Location:
-      return _LocationBlockDecoratePlumb(comp, jsPlumb);
+      return _LocationBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.AnchorBlock:
         return _AnchorBlockDecoratePlumb(comp, jsPlumb);
