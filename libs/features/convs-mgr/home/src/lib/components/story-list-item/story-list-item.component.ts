@@ -6,7 +6,6 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
-import { NewStoryService } from '../../services/new-story.service';
 
 
 @Component({
