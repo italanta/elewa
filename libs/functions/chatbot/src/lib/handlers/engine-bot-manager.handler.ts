@@ -28,7 +28,7 @@ export class EngineBotManagerHandler extends FunctionHandler<RawMessageData, Res
 
     const chatManager = new BotEngineChatManager(messageDataService, chatStatusDataService, channelDataService, tools, req.platform)
 
-    await chatManager.main(req)
+    await chatManager.execute(req)
 
     return { success: true} as RestResult200
 
