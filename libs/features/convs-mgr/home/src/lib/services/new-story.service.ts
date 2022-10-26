@@ -39,6 +39,10 @@ export class NewStoryService
 
   }
 
+  remove(story: Story) {
+    this._stories$$.remove(story)
+  }
+
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
 
   generateName(){

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -9,7 +9,7 @@ import { NewStoryService } from '../../services/new-story.service';
   templateUrl: './delete-bot-modal.component.html',
   styleUrls: ['./delete-bot-modal.component.scss'],
 })
-export class DeleteBotModalComponent implements OnInit {
+export class DeleteBotModalComponent {
   story!: Story;
 
   constructor(
@@ -17,9 +17,6 @@ export class DeleteBotModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { payload : Story },
   ) { this.story = this.data.payload }
 
-  ngOnInit(): void {
-    ''
-  }
 
   delete() {
     this._addStory$.remove(this.story);
