@@ -97,9 +97,9 @@
       "SUBMIT": "Update Bot"
     },
     "DELETE-MODAL": {
-      "TITLE": "Edit a bot",
+      "TITLE": "Delete Bot",
       "CANCEL": "Cancel",
-      "SUBMIT": "Update Bot",
+      "SUBMIT": "Delete Bot",
       "MESSAGE":" Are you sure you want to delete this bot?"
     }
   }
