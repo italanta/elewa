@@ -4,9 +4,15 @@
 @import 'libs/elements/theming/common.theme.scss';
 @import '_variables.scss';
 
+//this dialog specific styles
 ::ng-deep .delete-dialog-container {
   height: auto;
-  width: 500px;
+  width: 450px;
+}
+
+// overrides specific styles
+::ng-deep .delete-dialog-container .mat-dialog-container {
+  padding: 20px;
 }
 
 .delete-bot {
@@ -15,7 +21,7 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 1rem 0;
+    padding-bottom: 0.8rem;
   }
 
   &__header {
@@ -30,22 +36,29 @@
   &__btns {
     display: flex;
     gap: 3rem;
+  }
+
+  &__btn {
+    font-weight: 500;
+    border-radius: 5px;
     
     &--cancel {
-      font-weight: 500;
-      padding: 0 2rem;
-      border-radius: 5px;
       color :var(--convs-mgr-color-primary-yellow);
       background-color: var(--convs-mgr-color-primary-white);
       border: 1.2px solid var(--convs-mgr-color-primary-yellow);
+      width: 8rem;
     }
     
     &--delete {
-      font-weight: 500;
-      padding: 0 2rem;
-      border-radius: 5px;
       background-color: mat-color($warn, A200);
       color: var(--convs-mgr-color-primary-white);
+      width: 8rem;
     }
+  }
+}
+
+@media (max-width:400px) {
+  .delete-bot__btns {
+    gap: 1rem;
   }
 }

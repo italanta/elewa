@@ -6,11 +6,10 @@
     {{ 'BOTS.DELETE-MODAL.MESSAGE' | transloco }}
   </p>
   <div class="delete-bot__btns">
-    <button mat-button mat-dialog-close class="delete-bot__btns--cancel">
+    <button mat-button mat-dialog-close class="delete-bot__btn--cancel">
       {{ 'BOTS.DELETE-MODAL.CANCEL' | transloco }}
     </button>
-
-    <button mat-raised-button class="delete-bot__btns--delete" (click)="delete()">
+    <button mat-raised-button class="delete-bot__btn--delete" (click)="delete()">
       {{ 'BOTS.DELETE-MODAL.SUBMIT' | transloco }}
     </button>
   </div>
