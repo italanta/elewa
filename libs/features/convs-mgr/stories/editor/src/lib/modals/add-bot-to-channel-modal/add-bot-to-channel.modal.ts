@@ -1,15 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { combineLatest, filter, map } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog'
+
 import { SubSink } from 'subsink';
-import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+
+import { combineLatest, filter, map } from 'rxjs';
+
+import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
+
+import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
+
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-import { __DECODE, __ENCODE_AES } from '@app/elements/base/security-config';
-import { MatDialog } from '@angular/material/dialog';
+import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
+import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -37,7 +43,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _manageStoryLinkService: ManageChannelStoryLinkService,
     private _activeStoryStore$$: ActiveStoryStore,
-    private _activeOrgStore$$: ActiveOrgStore) {
+    private _activeOrgStore$$: ActiveOrgStore)
+    {
     this.addToChannelForm = this._fb.group({
       phoneNumber: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
       businessAccountId: [null, Validators.required],
