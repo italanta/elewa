@@ -54,7 +54,8 @@ export class HomePageComponent implements OnDestroy
 
   openDialog(){
     this.dialog.open(CreateBotModalComponent, {
-      data: {mode: "Create Mode"}
+      data: {mode: "Create Mode"},
+      panelClass: 'create-bot-dialog'
     });
   }
 }
