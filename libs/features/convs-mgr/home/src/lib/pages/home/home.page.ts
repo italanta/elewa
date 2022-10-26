@@ -41,7 +41,6 @@ export class HomePageComponent implements OnDestroy
 
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
-              private _anchor$$: AnchorBlockService,
               _router: Router,
               private _addStory$: NewStoryService,
               private dialog : MatDialog

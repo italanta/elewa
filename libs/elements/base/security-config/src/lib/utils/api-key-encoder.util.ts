@@ -17,7 +17,7 @@ export function __ENCODE_AES(stringToEncode:string, passphrase:string = 'conv'){
  * @param passphrase whose default value is 'conv'
  * @returns decrypted string
  */
-export function __DECODE(stringToDecode:string,  passphrase:string = 'conv'){​
+export function __DECODE_AES(stringToDecode:string,  passphrase:string = 'conv'){​
   const decrypted =  CryptoJS.AES.decrypt(stringToDecode,  passphrase);
   return decrypted.toString(CryptoJS.enc.Utf8);
 }

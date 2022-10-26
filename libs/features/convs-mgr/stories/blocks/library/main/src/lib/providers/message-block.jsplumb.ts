@@ -14,7 +14,7 @@ import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/m
  * 
  * @see {_JsPlumbComponentDecorator} - Should be the only one calling the component
  */
-export function _MessageBlockDecoratePlumb(comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
+export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
 {
 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
