@@ -39,6 +39,11 @@ export class NewStoryService
 
   }
 
+  update(story: Story) {
+    this._stories$$.update(story);
+    this.dialog.closeAll();
+  }
+
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
 
   generateName(){
