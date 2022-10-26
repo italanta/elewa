@@ -10,16 +10,12 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./story-list.component.scss'],
 })
 export class StoryListComponent implements OnInit {
-
   stories$: Observable<Story[]>;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   searchIcon = faSearch;
 
-  constructor(
-    private _stories$$: StoriesStore,
-
-  ) {
+  constructor(private _stories$$: StoriesStore) {
     this.stories$ = this._stories$$.get();
   }
 
@@ -39,5 +35,4 @@ export class StoryListComponent implements OnInit {
   filterBots(event: any) {
     this.filterInput$$.next(event.target.value);
   }
-
 }
