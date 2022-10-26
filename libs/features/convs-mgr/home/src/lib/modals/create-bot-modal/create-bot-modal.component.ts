@@ -54,4 +54,10 @@ export class CreateBotModalComponent implements OnInit {
   }
 
   add = () => this._addStory$.add(this.botForm.value.botName as string, this.botForm.value.botDesc as string || '').subscribe();
+
+  update() {
+    this.story.name = this.editBotForm.value.botName;
+    this.story.description = this.editBotForm.value.botDesc;
+    this._addStory$.update(this.story);
+  }
 }
