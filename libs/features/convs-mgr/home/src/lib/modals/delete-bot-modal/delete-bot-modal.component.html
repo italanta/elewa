@@ -1,1 +1,16 @@
-<p>delete-bot-modal works!</p>
+<div class="wrapper">
+  <h2 class="create-bot-header">delete bot</h2>
+  <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
+    <div>
+      <button mat-button mat-dialog-close class="cancel-btn">
+        {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
+      </button>
+    </div>
+
+    <div>
+      <button mat-raised-button class="delete-btn" (click)="delete()">
+        {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
+      </button>
+    </div>
+  </div>
+</div>
