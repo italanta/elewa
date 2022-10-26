@@ -1,16 +1,13 @@
-<div class="wrapper">
-  <h2 class="create-bot-header">delete bot</h2>
-  <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
-    <div>
-      <button mat-button mat-dialog-close class="cancel-btn">
-        {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
-      </button>
-    </div>
+<div class="delete-bot__wrapper">
+  <h2 class="delete-bot__header">Delete bot</h2>
+  <p class="delete-bot__message">Are you sure you want to delete this bot?</p>
+  <div class="delete-bot__btns">
+    <button mat-button mat-dialog-close class="delete-bot__btns--cancel">
+      Cancel
+    </button>
 
-    <div>
-      <button mat-raised-button class="delete-btn" (click)="delete()">
-        {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
-      </button>
-    </div>
+    <button mat-raised-button class="delete-bot__btns--delete" (click)="delete()">
+      Delete Bot
+    </button>
   </div>
 </div>
