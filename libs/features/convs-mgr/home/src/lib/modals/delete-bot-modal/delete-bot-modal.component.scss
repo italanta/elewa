@@ -1,4 +1,51 @@
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+@import '_variables.scss';
+
 ::ng-deep .delete-dialog-container {
-  height: 480px;
-  width: 600px;
+  height: auto;
+  width: 500px;
+}
+
+.delete-bot {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 0;
+  }
+
+  &__header {
+    margin: 0;
+  }
+
+  &__message {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 3rem;
+    
+    &--cancel {
+      font-weight: 500;
+      padding: 0 2rem;
+      border-radius: 5px;
+      color :var(--convs-mgr-color-primary-yellow);
+      background-color: var(--convs-mgr-color-primary-white);
+      border: 1.2px solid var(--convs-mgr-color-primary-yellow);
+    }
+    
+    &--delete {
+      font-weight: 500;
+      padding: 0 2rem;
+      border-radius: 5px;
+      background-color: mat-color($warn, A200);
+      color: var(--convs-mgr-color-primary-white);
+    }
+  }
 }
