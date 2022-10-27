@@ -2,7 +2,7 @@
 import { MessagesDataService } from '@app/functions/chatbot';
 import { AddMessageService } from './add-message.service';
 
-import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { BaseMessage, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 import { ImagePayload, TextMessagePayload, WhatsAppMessageType, WhatsAppResponse } from '@app/model/convs-mgr/functions';
 import { WhatsappChannel } from '@app/model/bot/channel';
 
