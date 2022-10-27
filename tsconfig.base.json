@@ -93,20 +93,18 @@
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
-      "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/functions/bot-engine": [
+        "libs/functions/bot-engine/main/src/index.ts"
+      ],
+      "@app/functions/bot-engine/whatsapp": [
+        "libs/functions/bot-engine/whatsapp/src/index.ts"
+      ],
       "@app/functions/bot-process-handler": [
         "libs/functions/bot-process-handler/src/index.ts"
       ],
- 
-      "@app/functions/bot-engine": ["libs/functions/bot-engine/main/src/index.ts"],
+      "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
       "@app/functions/conversations/messages/add-message": [
         "libs/functions/conversations/messages/add-message/src/index.ts"
-      ],
-      "@app/functions/conversations/onboarding": [
-        "libs/functions/conversations/onboarding/src/index.ts"
-      ],
-      "@app/functions/conversations/progression": [
-        "libs/functions/conversations/progression/src/index.ts"
       ],
       "@app/functions/messages/whatsapp": [
         "libs/functions/messages/whatsapp/src/index.ts"
