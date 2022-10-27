@@ -8,7 +8,7 @@ import { SendMessageFactory } from '@app/functions/messages/whatsapp';
 import { StoryBlock } from '@app/model/bot/blocks/story-block';
 import { BaseChannel } from '@app/model/bot/channel';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { BaseMessage, ChatStatus } from '@app/model/convs-mgr/conversations/messages';
+import { Message, ChatStatus } from '@app/model/convs-mgr/conversations/messages';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 
@@ -27,11 +27,11 @@ export abstract class OperatorService {
     await this._cursorDataService$.updateCursor(block);
   }
 
-  async pauseChat(msg: BaseMessage) {
+  async pauseChat(msg: Message) {
     this._chatStatusService$.updateChatStatus(msg, ChatStatus.Paused);
   }
 
-  async resumeChat(msg: BaseMessage) {
+  async resumeChat(msg: Message) {
     this._chatStatusService$.updateChatStatus(msg, ChatStatus.Running);
   }
 
@@ -40,7 +40,7 @@ export abstract class OperatorService {
     const link = this.generateLink(operatorPhoneNumber);
 
     // Generate message
-    const msg: BaseMessage = {
+    const msg: Message = {
       message: link,
       phoneNumber: endUserPhoneNumber,
       channelName: this.platform,

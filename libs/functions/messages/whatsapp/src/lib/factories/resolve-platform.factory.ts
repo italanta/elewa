@@ -5,7 +5,7 @@ import { SendWhatsAppMessageModel } from "../models/whatsapp/whatsapp-send-messa
 
 
 /** Factory to resolve the platform to send the message to 
- *  Uses the platform saved on the BaseMessage 
+ *  Uses the platform saved on the Message 
 */
 export class SendMessageFactory {
     constructor(private _platform: PlatformType, private _tools: HandlerTools){}

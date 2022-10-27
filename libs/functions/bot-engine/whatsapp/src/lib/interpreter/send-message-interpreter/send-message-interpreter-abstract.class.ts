@@ -1,5 +1,5 @@
 import { StoryBlock } from "@app/model/bot/blocks/story-block";
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -8,21 +8,21 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
  */
 export abstract class SendMessageInterpreter {
 
-    abstract interpretTextBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretTextBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretQuestionBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretQuestionBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretImageBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretImageBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretAudioBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretAudioBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretVideoBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretVideoBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretStickerBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretStickerBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretDocumentBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretDocumentBlock(message: Message, block: StoryBlock): Message
 
-    abstract interpretLocationBlock(message: BaseMessage, block: StoryBlock): BaseMessage
+    abstract interpretLocationBlock(message: Message, block: StoryBlock): Message
 
     interpretBlock(blockType: StoryBlockTypes){
         switch (blockType) {

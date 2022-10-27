@@ -1,17 +1,17 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BotDataService } from './data-service-abstract.class';
 import { BaseChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the messages collection
  */
-export class MessagesDataService extends BotDataService<BaseMessage> {
+export class MessagesDataService extends BotDataService<Message> {
   private _docPath: string;
-  private _msg: BaseMessage;
+  private _msg: Message;
 
-  constructor(tools: HandlerTools, msg?: BaseMessage, channel?: BaseChannel) 
+  constructor(tools: HandlerTools, msg?: Message, channel?: BaseChannel) 
   {
     super(tools)
     if (msg){
@@ -19,12 +19,12 @@ export class MessagesDataService extends BotDataService<BaseMessage> {
     }
   }
 
-  protected _init(msg: BaseMessage, channel: BaseChannel){
+  protected _init(msg: Message, channel: BaseChannel){
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/messages`
     this._msg = msg
   }
 
-  async saveMessage(msg: BaseMessage, storyId: string): Promise<BaseMessage> {
+  async saveMessage(msg: Message, storyId: string): Promise<Message> {
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${storyId}/messages`
     const timeStamp = Date.now();
 
@@ -33,7 +33,7 @@ export class MessagesDataService extends BotDataService<BaseMessage> {
     return savedMessage;
   }
 
-  async getLatestMessage(msg: BaseMessage, storyId: string): Promise<BaseMessage> {
+  async getLatestMessage(msg: Message, storyId: string): Promise<Message> {
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${storyId}/messages`
 
     const latestMessage = await this.getLatestDocument(this._docPath);

@@ -2,7 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Block } from "@app/model/convs-mgr/conversations/chats";
 
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { BlockDataService } from "../data-services/blocks.service";
 import { ConnectionsDataService } from "../data-services/connections.service";
 
@@ -18,7 +18,7 @@ export abstract class NextBlockService {
      * Applies for blocks which only have one target block e.g. Text Message Block
      * @returns Block
      */
-    abstract getNextBlock(msg: BaseMessage, lastBlock: Block): Promise<Block>
+    abstract getNextBlock(msg: Message, lastBlock: Block): Promise<Block>
 
 
 }

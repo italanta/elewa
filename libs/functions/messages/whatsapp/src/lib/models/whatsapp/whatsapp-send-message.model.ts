@@ -3,8 +3,8 @@ import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
 import { __DECODE } from "@app/elements/base/security-config";
 
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
-import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { WhatsAppMessage } from "@app/model/convs-mgr/functions";
 import { WhatsappChannel } from "@app/model/bot/channel";
 
 import { SendMessageModel } from "../send-message-main.model";
@@ -27,9 +27,9 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
     super()
   }
 
-  async sendMessage(message: BaseMessage, channel: WhatsappChannel){
+  async sendMessage(message: Message, channel: WhatsappChannel){
 
-    const whatsappMessage = message as WhatsAppBaseMessage
+    const whatsappMessage = message as WhatsAppMessage
 
     // Convert the message to json
     const dataToSend = JSON.stringify(whatsappMessage);

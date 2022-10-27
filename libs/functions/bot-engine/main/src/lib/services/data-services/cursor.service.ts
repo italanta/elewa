@@ -4,7 +4,7 @@ import { Cursor, } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block } from '@app/model/convs-mgr/conversations/chats';
 
 import { BotDataService } from './data-service-abstract.class';
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel } from '@app/model/bot/channel';
 
 /**
@@ -13,13 +13,13 @@ import { BaseChannel } from '@app/model/bot/channel';
 export class CursorDataService extends BotDataService<Cursor> {
   private _docPath: string;
 
-  constructor(msg: BaseMessage, channel: BaseChannel, tools: HandlerTools) 
+  constructor(msg: Message, channel: BaseChannel, tools: HandlerTools) 
   {
     super(tools)
     this._init(msg, channel)
   }
 
-  protected _init(msg: BaseMessage, channel: BaseChannel){
+  protected _init(msg: Message, channel: BaseChannel){
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/cursor`
   }
   

@@ -4,7 +4,7 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { Block } from '@app/model/convs-mgr/conversations/chats';
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
@@ -37,7 +37,7 @@ export class ProcessMessageService {
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: BaseMessage, tools: HandlerTools) {
+  async resolveNextBlock(msg: Message, tools: HandlerTools) {
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
