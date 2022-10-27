@@ -79,6 +79,7 @@ input[type='text'] {
   }
 
   textarea[formcontrolname="botDesc"]{
+    outline: var(--textarea-outline-color);
     color: var(--form-input-text-color-1);
   }
 }
