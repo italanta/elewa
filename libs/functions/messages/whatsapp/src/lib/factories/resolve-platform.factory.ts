@@ -1,6 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { SendWhatsAppMessageModel } from "../models/whatsapp/whatsapp-send-message.model";
 
 
@@ -8,13 +8,13 @@ import { SendWhatsAppMessageModel } from "../models/whatsapp/whatsapp-send-messa
  *  Uses the platform saved on the BaseMessage 
 */
 export class SendMessageFactory {
-    constructor(private _platform: Platforms, private _tools: HandlerTools){}
+    constructor(private _platform: PlatformType, private _tools: HandlerTools){}
 
     resolvePlatform(){
         switch (this._platform) {
-            case Platforms.WhatsApp:
+            case PlatformType.WhatsApp:
                 return new SendWhatsAppMessageModel(this._tools)
-            // case Platforms.Telegram:
+            // case PlatformType.Telegram:
                 // Return send telegram message model
                 // break;            
             default:

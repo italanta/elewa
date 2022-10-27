@@ -7,13 +7,13 @@ import { SendMessageFactory } from '@app/functions/messages/whatsapp';
 
 import { StoryBlock } from '@app/model/bot/blocks/story-block';
 import { BaseChannel } from '@app/model/bot/channel';
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage, ChatStatus } from '@app/model/convs-mgr/conversations/messages';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 
 export abstract class OperatorService {
-  abstract platform: Platforms;
+  abstract platform: PlatformType;
 
   constructor(
     private _cursorDataService$: CursorDataService,

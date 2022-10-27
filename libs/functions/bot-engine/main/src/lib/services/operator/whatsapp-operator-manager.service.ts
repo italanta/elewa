@@ -1,9 +1,9 @@
 import { OperatorService } from "./operator-abstract.service";
 
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 
 export class WhatsAppOperatorManager extends OperatorService {
-    platform = Platforms.WhatsApp
+    platform = PlatformType.WhatsApp
 
     generateLink(phoneNumber: string): string {
 

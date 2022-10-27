@@ -10,8 +10,8 @@ import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
 import { BotEngineMainService } from './bot-engine-main.service';
 
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
-import { BaseMessage, Chat, ChatStatus, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { BaseMessage, Chat, ChatStatus, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { ReceiveInterpreterFactory } from './interpreter/received-message-interpreter/receive-interpreter.factory';
 
@@ -20,7 +20,7 @@ import { ReceiveInterpreterFactory } from './interpreter/received-message-interp
  */
 export class BotEngineChatManager {
   /** The messaging platform the user is texting from  */
-  platform: Platforms;
+  platform: PlatformType;
 
   /** The registered channel information that links the api to the story */
   messageChannel: BaseChannel;
@@ -38,12 +38,12 @@ export class BotEngineChatManager {
     private _chatStatusService$: ChatStatusDataService,
     private _channelService$: ChannelDataService,
     private _tools: HandlerTools,
-    platform: Platforms
+    platform: PlatformType
   ) {
     this.platform = platform;
   }
 
-  async execute(rawMessage: RawMessageData) {
+  async execute(rawMessage: IncomingMessage) {
     // Initializes chat
     const baseMessage = await this._init(rawMessage);
 
@@ -87,7 +87,7 @@ export class BotEngineChatManager {
    * Calls the interpreter
    * Saves the interpreted message to firestore
    * */
-  private async _init(req: RawMessageData) {
+  private async _init(req: IncomingMessage) {
     // Check if the enduser is registered to a channel
     this.messageChannel = await this._getChannelInfo(req, this._channelService$);
 
@@ -126,9 +126,9 @@ export class BotEngineChatManager {
    * The user/story owner registers a story to a channel from the dashboard
    * Gets the channel information that the story was registered to using the businessAccountId
    * */
-  private async _getChannelInfo(msg: RawMessageData, channelDataService: ChannelDataService) {
+  private async _getChannelInfo(msg: IncomingMessage, channelDataService: ChannelDataService) {
     switch (msg.platform) {
-      case Platforms.WhatsApp:
+      case PlatformType.WhatsApp:
         return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
       default:
         return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);

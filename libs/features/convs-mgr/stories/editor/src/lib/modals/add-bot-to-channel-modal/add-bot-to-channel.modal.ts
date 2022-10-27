@@ -14,7 +14,7 @@ import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 
 @Component({
@@ -25,7 +25,7 @@ import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
 
 /**
  * @Description Form to register bot/story to particular channel e.g WhatsApp/Telegram
- * Component is meant to allow users to register bot to multiple channels/platforms
+ * Component is meant to allow users to register bot to multiple channels/PlatformType
  */
 
 export class AddBotToChannelModal implements OnInit, OnDestroy {
@@ -36,7 +36,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   addToChannelForm: FormGroup;
 
-  channels: BaseChannel[] = [{ channelName: Platforms.WhatsApp } as WhatsappChannel];
+  channels: BaseChannel[] = [{ channelName: PlatformType.WhatsApp } as WhatsappChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,

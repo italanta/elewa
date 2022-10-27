@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 // import { BaseChannel } from '@app/model/bot/channel';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
-import { BaseMessage, RawMessageData } from '@app/model/convs-mgr/conversations/messages';
+import { BaseMessage, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel, WhatsappChannel } from 'libs/model/bot/channel/src';
 
 /**
@@ -11,17 +11,17 @@ import { BaseChannel, WhatsappChannel } from 'libs/model/bot/channel/src';
  */
 export class ChannelDataService extends BotDataService<BaseChannel> {
   private _docPath: string;
-  private _msg: RawMessageData;
+  private _msg: IncomingMessage;
   private tools: HandlerTools;
   
-  constructor(msg: RawMessageData, tools: HandlerTools) 
+  constructor(msg: IncomingMessage, tools: HandlerTools) 
   {
     super(tools)
     this.tools = tools
     this._init(msg)
   }
 
-  protected _init(msg: RawMessageData){
+  protected _init(msg: IncomingMessage){
 
     this.tools.Logger.log(() => `[ChannelDataService]._init - Raw message ${JSON.stringify(msg)}`);
 

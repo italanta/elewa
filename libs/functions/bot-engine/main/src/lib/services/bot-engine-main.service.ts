@@ -6,7 +6,7 @@ import { CursorDataService } from './data-services/cursor.service';
 import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
 
-import { Platforms } from '@app/model/convs-mgr/conversations/admin/system';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel } from '@app/model/bot/channel';
 import { ProcessMessageService } from './process-message/process-message.service';
@@ -18,14 +18,14 @@ import { SendMessageInterpreterFactory } from './interpreter/send-message-interp
  * Contains the main processes of the ChatBot
  */
 export class BotEngineMainService {
-  platform: Platforms;
+  platform: PlatformType;
 
   constructor(
     private _blocksService$: BlockDataService,
     private _connService$: ConnectionsDataService,
     private _cursorDataService$: CursorDataService,
     private _tools: HandlerTools,
-    platform: Platforms
+    platform: PlatformType
   ) {
     this.platform = platform;
   }
