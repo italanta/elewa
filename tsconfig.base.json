@@ -98,7 +98,7 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
  
-      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
+      "@app/functions/bot-engine": ["libs/functions/bot-engine/main/src/index.ts"],
       "@app/functions/conversations/messages/add-message": [
         "libs/functions/conversations/messages/add-message/src/index.ts"
       ],
