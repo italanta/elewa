@@ -10,6 +10,8 @@
       formControlName = "botName"
       [placeholder]="'BOTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco"
     />
+    <input type="file" formControlName="botImage"
+    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.IMAGE-PLACEHOLDER' | transloco" />
     <h4>{{ 'BOTS.CREATE-MODAL.FIELDS.DESC' | transloco }}</h4>
     <textarea
       formControlName = "botDesc"
