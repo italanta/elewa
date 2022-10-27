@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { NewStoryService } from '../../services/new-story.service';
+import { UploadFileService } from '@app/state/file';
 
 
 @Component({
@@ -21,17 +22,21 @@ export class CreateBotModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {mode: string, story?: Story},
     private _addStory$: NewStoryService,
-    private _formBuilder: FormBuilder) {
+    private _formBuilder: FormBuilder,
+    private _addImage$:UploadFileService) {
       this.modalMode = data.mode;
       this.story = data.story as Story;
     }
 
+
   createFormGroup(){
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
+      // botImage: [this._addImage$.uploadFile(File)],
       botDesc: ['']
     });
   }
+
 
   createEditFormGroup(){
     this.editBotForm = this._formBuilder.group({

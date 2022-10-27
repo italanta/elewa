@@ -1,3 +1,6 @@
+@import 'libs/elements/theming/common.theme.scss';
+@import 'libs/elements/theming/_variables.scss';
+
 .logo {
   max-height: 48px;
 }
@@ -8,10 +11,10 @@
   line-height: 36px;
 }
 
-  #goback-button:hover {
-    background-color: rgba($color: #000000, $alpha: 0.3);
-    cursor: pointer;
-  }
+#goback-button:hover {
+  background-color: rgba($color: #000000, $alpha: 0.3);
+  cursor: pointer;
+}
 
 .cs-navbar {
   background-color: #fff;
@@ -27,11 +30,11 @@
   height: 54px;
 }
 
-#navbar-title{
+#navbar-title {
   font-size: 18px;
 }
 
-.icon-top{
+.icon-top {
   margin-right: 10px;
   background-color: black;
 }

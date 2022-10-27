@@ -1,5 +1,5 @@
 <div>
-  <mat-card class="bot-card">
+  <mat-card class="bot-card" (click)="goTo()">
     <img mat-card-image src="https://place-hold.it/420x240" alt="story img" />
 
     <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
@@ -16,7 +16,7 @@
 
     <mat-card-content>
       <p>
-        {{ story.description }}
+  {{story.description}}
       </p>
     </mat-card-content>
     <div class="action-holder">
