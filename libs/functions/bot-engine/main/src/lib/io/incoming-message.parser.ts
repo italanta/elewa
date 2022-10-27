@@ -1,5 +1,5 @@
 import { BaseChannel } from "@app/model/bot/channel";
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 /**
@@ -8,20 +8,20 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
 export abstract class IncomingMessageParser
 { 
   /** Interprets a text message to BaseMessage */
-  protected abstract interpretTextMessage(msg: any, channel: BaseChannel): BaseMessage
+  protected abstract parseInTextMessage(msg: any, channel: BaseChannel): Message
 
   /** Interprets an interactive message to BaseMessage */
-  protected abstract interpretInteractiveButtonMessage(msg: any, channel: BaseChannel): BaseMessage
+  protected abstract parseInInteractiveButtonMessage(msg: any, channel: BaseChannel): Message
 
   /** Returns the appropriate interprating method based on message type */
-  resolveMessageType(messageType: MessageTypes, msg: any, channel: BaseChannel): BaseMessage
+  parse(messageType: MessageTypes, msg: any, channel: BaseChannel): Message
   {
-    let parser!: ((msg: any, channel: BaseChannel) => BaseMessage);
+    let parser!: ((msg: any, channel: BaseChannel) => Message);
 
     switch (messageType) 
     {
-      case MessageTypes.TEXT:         parser = this.interpretTextMessage; break;
-      case MessageTypes.INTERACTIVE:  parser = this.interpretInteractiveButtonMessage; break;
+      case MessageTypes.TEXT:         parser = this.parseInTextMessage; break;
+      case MessageTypes.INTERACTIVE:  parser = this.parseInInteractiveButtonMessage; break;
       // default:
       //     break;
     }
