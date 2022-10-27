@@ -90,7 +90,7 @@
             },
             "tags": []
         },
-        "functions-chatbot": "libs/functions/chatbot",
+        "functions-bot-engine-main": "libs/functions/bot-engine/main",
         "functions-conversations-messages-add-message": {
             "root": "libs/functions/conversations/messages/add-message",
             "sourceRoot": "libs/functions/conversations/messages/add-message/src",
