@@ -1,4 +1,4 @@
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { WhatsAppBotUser } from "@app/model/user/bot-users";
 import { HandlerTools } from "@iote/cqrs";
 
@@ -16,10 +16,10 @@ export class ManageBotUsersModel
    * @param channel channel used e.g telegram, whatsapp
    * @returns Promise of Bot user created
    */
-  addUser(phoneNumber:string, channel:Platforms )
+  addUser(phoneNumber:string, channel:PlatformType )
   {
     switch (channel) {
-      case Platforms.WhatsApp:
+      case PlatformType.WhatsApp:
         return this._addUserToWhatsAppChannel(phoneNumber);
       default:
         break;

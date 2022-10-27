@@ -1,11 +1,11 @@
 
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { IObject } from "@iote/bricks";
 
 /** Basic Channel Information that will be the same across varoius channel */
 export interface BaseChannel extends IObject {
   //Channel which bot will be used
-  channelName?: Platforms;
+  channelName?: PlatformType;
 
   //Number to be used in channel when communicating 
   businessAccountId?: string;

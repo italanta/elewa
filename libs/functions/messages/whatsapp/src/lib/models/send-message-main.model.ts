@@ -4,7 +4,7 @@ import { WhatsAppBaseMessage } from "@app/model/convs-mgr/functions";
 
 /** 
  *  @Descripion: Abstract Class for sending messages 
- *  Outlines all methods that can be used to send messages across different platforms 
+ *  Outlines all methods that can be used to send messages across different PlatformType 
  * */
 export abstract class SendMessageModel {
     
