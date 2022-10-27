@@ -1,5 +1,5 @@
 import { BaseChannel } from "@app/model/bot/channel";
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 /**
@@ -7,14 +7,14 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
  */
 export abstract class ReceiveMessageInterpreter {
 
-    /** Interprets a text message to BaseMessage */
-    protected abstract interpretTextMessage(msg: any, channel: BaseChannel): BaseMessage
+    /** Interprets a text message to Message */
+    protected abstract interpretTextMessage(msg: any, channel: BaseChannel): Message
 
-    /** Interprets an interactive message to BaseMessage */
-    protected abstract interpretInteractiveButtonMessage(msg: any, channel: BaseChannel): BaseMessage
+    /** Interprets an interactive message to Message */
+    protected abstract interpretInteractiveButtonMessage(msg: any, channel: BaseChannel): Message
 
     /** Returns the appropriate interprating method based on message type */
-    resolveMessageType(messageType: MessageTypes): (msg: any, channel: BaseChannel) => BaseMessage {
+    resolveMessageType(messageType: MessageTypes): (msg: any, channel: BaseChannel) => Message {
         switch (messageType) {
             case MessageTypes.TEXT:
                 return this.interpretTextMessage

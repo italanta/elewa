@@ -1,4 +1,4 @@
-import { BaseMessage, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Base class that defines the methods for adding messages from various PlatformType e.g. whatsapp, telegram

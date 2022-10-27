@@ -2,7 +2,7 @@
 import { MessagesDataService } from '@app/functions/chatbot';
 import { AddMessageService } from './add-message.service';
 
-import { BaseMessage, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 import { ImagePayload, TextMessagePayload, WhatsAppMessageType, WhatsAppResponse } from '@app/model/convs-mgr/functions';
 import { WhatsappChannel } from '@app/model/bot/channel';
 
@@ -36,7 +36,7 @@ export class AddWhatsappMessage extends AddMessageService<WhatsappChannel> {
     super();
   }
 
-  async addMessage(msg: BaseMessage, channel: WhatsappChannel) {
+  async addMessage(msg: Message, channel: WhatsappChannel) {
 
     const savedMessage = await this._msgDataService$.saveMessage(msg, channel.storyId);
 

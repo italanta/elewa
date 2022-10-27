@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 // import { BaseChannel } from '@app/model/bot/channel';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
-import { BaseMessage, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel, WhatsappChannel } from 'libs/model/bot/channel/src';
 
 /**

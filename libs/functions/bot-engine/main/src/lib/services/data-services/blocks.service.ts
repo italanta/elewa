@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { Block } from '@app/model/convs-mgr/conversations/chats';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BotDataService } from './data-service-abstract.class';
 import { ConnectionsDataService } from './connections.service';
 import { BaseChannel } from '@app/model/bot/channel';

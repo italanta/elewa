@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from './data-service-abstract.class';
 
-import { Chat, ChatStatus, BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Chat, ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Contains all the required database flow methods for the chat-status collection
@@ -17,11 +17,11 @@ export class ChatStatusDataService extends BotDataService<Chat>{
     this.tools = tools;
   }
 
-  protected _init(msg: BaseMessage): void {
+  protected _init(msg: Message): void {
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories`
   }
 
-  async initChatStatus(storyId: string, message: BaseMessage) {
+  async initChatStatus(storyId: string, message: Message) {
     this._docPath = `end-users/${message.phoneNumber}/platforms/${message.platform}/stories`
 
     const chatId = storyId
@@ -37,7 +37,7 @@ export class ChatStatusDataService extends BotDataService<Chat>{
     return newChat;
   }
 
-  async getChatStatus(storyId: string, message: BaseMessage) {
+  async getChatStatus(storyId: string, message: Message) {
     this._docPath = `end-users/${message.phoneNumber}/platforms/${message.platform}/stories`
 
     const chatStatus = await this.getDocumentById(storyId, this._docPath)   
@@ -45,7 +45,7 @@ export class ChatStatusDataService extends BotDataService<Chat>{
     return chatStatus;
   }
 
-  async updateChatStatus(storyId: string, msg: BaseMessage, status: ChatStatus) {
+  async updateChatStatus(storyId: string, msg: Message, status: ChatStatus) {
     const chatId = storyId;
 
     const newStatus: Chat = {

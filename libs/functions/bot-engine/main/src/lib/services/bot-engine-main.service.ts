@@ -7,7 +7,7 @@ import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
 
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BaseChannel } from '@app/model/bot/channel';
 import { ProcessMessageService } from './process-message/process-message.service';
 
@@ -31,7 +31,7 @@ export class BotEngineMainService {
   }
 
   /** Uses the base message to return the next block and send it */
-  async processMessage(baseMessage: BaseMessage) {
+  async processMessage(baseMessage: Message) {
 
     // Process message and return next block
     const nextBlock = await this._getNextBlock(baseMessage);
@@ -39,9 +39,9 @@ export class BotEngineMainService {
     return nextBlock
   }
 
-  async sendTextMessage(msg: BaseMessage, text: string, channel: BaseChannel){
+  async sendTextMessage(msg: Message, text: string, channel: BaseChannel){
 
-    const pauseMessage: BaseMessage = {
+    const pauseMessage: Message = {
       message: text,
       phoneNumber: msg.phoneNumber,
       channelName: this.platform,
@@ -54,7 +54,7 @@ export class BotEngineMainService {
   /**
    * Takes the inteprated message and determines the next block
    */
-  private async _getNextBlock(msg: BaseMessage) {
+  private async _getNextBlock(msg: Message) {
     // Pass dependencies to the Process Message Service
     const processMessage = new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$);
 
@@ -76,7 +76,7 @@ export class BotEngineMainService {
    * @param data the base message and the block to be sent
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
-  async sendMessage(data: { msg: BaseMessage; block?: StoryBlock }, channel: BaseChannel) {
+  async sendMessage(data: { msg: Message; block?: StoryBlock }, channel: BaseChannel) {
     this._tools.Logger.log(() => `[SendMessage]._sendMessage: preparing to send block ${JSON.stringify(data)}.`);
 
     const blockType = data.block.type || StoryBlockTypes.TextMessage

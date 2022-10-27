@@ -1,11 +1,11 @@
 import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { InteractiveRawButtonReplyMessage, TextMessagePayload, WhatsAppResponse } from '@app/model/convs-mgr/functions';
 import { ReceiveMessageInterpreter } from '../receive-message-interpreter-abstract.class';
 
 
 /**
- * Interprets messages received from whatsapp and converts them to a BaseMessage
+ * Interprets messages received from whatsapp and converts them to a Message
  * @see WhatsAppMessageType - for the types of messages received from whatsapp
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples
  */
@@ -17,12 +17,12 @@ export class WhatsappReceiveMessageInterpreter extends ReceiveMessageInterpreter
  * Payload example:
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
  */
-  protected interpretTextMessage(msg: WhatsAppResponse, channel: WhatsappChannel): BaseMessage {
+  protected interpretTextMessage(msg: WhatsAppResponse, channel: WhatsappChannel): Message {
 
     const textMessage = msg.message as TextMessagePayload
 
     // Create the base message object
-    const newMessage: BaseMessage = {
+    const newMessage: Message = {
       phoneNumber: msg.botUserPhoneNumber,
       message: textMessage.text.body,
       platform: msg.platform,
@@ -38,11 +38,11 @@ export class WhatsappReceiveMessageInterpreter extends ReceiveMessageInterpreter
  * Payload example:
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#reply-button
  */
-  protected interpretInteractiveButtonMessage(msg: WhatsAppResponse, channel: BaseChannel): BaseMessage {
+  protected interpretInteractiveButtonMessage(msg: WhatsAppResponse, channel: BaseChannel): Message {
 
     const interactiveMessage = msg.message as InteractiveRawButtonReplyMessage
 
-    const baseMessage: BaseMessage = {
+    const baseMessage: Message = {
         phoneNumber: msg.botUserPhoneNumber,
         message: interactiveMessage,
         platform: msg.platform,

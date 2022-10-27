@@ -1,6 +1,6 @@
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { BaseMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 import {
   ActionButtonsInfo,
   InteractiveButtonMessage,
@@ -8,7 +8,7 @@ import {
   RecepientType,
   TextMessagePayload,
   WhatsAppAudioMessage,
-  WhatsAppBaseMessage,
+  WhatsAppMessage,
   WhatsAppDocumentMessage,
   WhatsAppImageMessage,
   WhatsAppInteractiveMessage,
@@ -21,7 +21,7 @@ import { LocationMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr
 import { SendMessageInterpreter } from '../send-message-interpreter-abstract.class';
 
 /**
- * Interprets messages received from whatsapp and converts them to a BaseMessage
+ * Interprets messages received from whatsapp and converts them to a Message
  * @see WhatsAppMessageType - for the types of messages received from whatsapp
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples
  */
@@ -31,7 +31,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
    * @param message
    * @returns promise
    */
-  interpretTextBlock(message: BaseMessage, block: StoryBlock): WhatsAppBaseMessage {
+  interpretTextBlock(message: Message, block: StoryBlock): WhatsAppMessage {
     let body: string;
 
     if (block) {
@@ -47,7 +47,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
       },
     } as TextMessagePayload;
 
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
@@ -62,7 +62,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
    * We transform the Question block to a button interactive message for whatsapp api
    * @Description Used to send Question Block to whatsapp api
    */
-  interpretQuestionBlock(message: BaseMessage, block: StoryBlock) {
+  interpretQuestionBlock(message: Message, block: StoryBlock) {
     const qBlock = block as QuestionMessageBlock;
 
     const buttons = qBlock.options.map((option) => {
@@ -102,7 +102,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     return generatedMessage;
   }
 
-  interpretImageBlock(message: BaseMessage, block: StoryBlock) {
+  interpretImageBlock(message: Message, block: StoryBlock) {
     let link: string;
 
     if (block) {
@@ -122,7 +122,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
@@ -132,7 +132,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     return generatedMessage;
   }
 
-  interpretAudioBlock(message: BaseMessage, block: StoryBlock) {
+  interpretAudioBlock(message: Message, block: StoryBlock) {
     let link: string;
 
     if (block) {
@@ -152,7 +152,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
@@ -162,7 +162,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     return generatedMessage;
   }
 
-  interpretDocumentBlock(message: BaseMessage, block: StoryBlock) {
+  interpretDocumentBlock(message: Message, block: StoryBlock) {
     let link: string;
 
     if (block) {
@@ -182,7 +182,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
@@ -192,7 +192,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     return generatedMessage;
   }
 
-  interpretVideoBlock(message: BaseMessage, block: StoryBlock) {
+  interpretVideoBlock(message: Message, block: StoryBlock) {
     let link: string;
 
     if (block) {
@@ -212,7 +212,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
@@ -222,7 +222,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     return generatedMessage;
   }
 
-  interpretStickerBlock(message: BaseMessage, block: StoryBlock) {
+  interpretStickerBlock(message: Message, block: StoryBlock) {
     let link: string;
 
     if (block) {
@@ -242,7 +242,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,
@@ -252,7 +252,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
     return generatedMessage;
   }
 
-  interpretLocationBlock(message: BaseMessage, block: StoryBlock): BaseMessage {
+  interpretLocationBlock(message: Message, block: StoryBlock): Message {
     const locationBlock = block as LocationMessageBlock
     // Create the text payload which will be sent to api
     const locationMessage = {
@@ -268,7 +268,7 @@ export class WhatsappSendMessageInterpreter extends SendMessageInterpreter {
      * Add the required fields for the whatsapp api
      * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
      */
-    const generatedMessage: WhatsAppBaseMessage = {
+    const generatedMessage: WhatsAppMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: message.phoneNumber,

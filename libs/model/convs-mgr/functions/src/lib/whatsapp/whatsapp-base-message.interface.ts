@@ -1,11 +1,11 @@
-import { BaseMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 
 import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 //All the fields that are required for all types of whatsapp messages
 //see : https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#send-messages
 
-export interface WhatsAppBaseMessage extends BaseMessage {
+export interface WhatsAppMessage extends Message {
   messaging_product: MetaMessagingProducts,
   context?: { message_id: string },
   recepient_type: RecepientType,
