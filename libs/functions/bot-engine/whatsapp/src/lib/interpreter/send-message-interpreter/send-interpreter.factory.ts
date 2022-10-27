@@ -1,12 +1,12 @@
-import { Platforms } from "@app/model/convs-mgr/conversations/admin/system";
+import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { WhatsappSendMessageInterpreter } from "./whatsapp/whatsapp-api-send-message-interpreter.class";
 
 /** Resolves the receive message interpreter based on the Platform */
 export class SendMessageInterpreterFactory {
 
-    resolvePlatform(platform: Platforms){
+    resolvePlatform(platform: PlatformType){
         switch (platform) {
-            case Platforms.WhatsApp:
+            case PlatformType.WhatsApp:
                 return new WhatsappSendMessageInterpreter()
             default:
                 break;
