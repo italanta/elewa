@@ -7,7 +7,10 @@ import { ChatStatus } from './chat-status.enum';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-export interface Chat extends IObject
+/**
+ * An end user which 
+ */
+export interface ChatUser extends IObject
 {
   /** Chat ID used by LandBot and acting as general identifier. */
   id: string;
@@ -19,7 +22,7 @@ export interface Chat extends IObject
 
   info?: ChatUserInfo;
 
-  // channel: CommunicationChannelTypes;
+  // channel: CommunicationChannel;
   channelId: string;
   channelName: string;
 

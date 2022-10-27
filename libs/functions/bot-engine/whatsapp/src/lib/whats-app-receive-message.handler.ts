@@ -2,13 +2,15 @@ import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, HttpsContext, RestResult, RestResult200 } from "@ngfi/functions";
 
-import { EngineBotManagerHandler } from "@app/functions/bot-engine";
+import { EngineBotManager } from "@app/functions/bot-engine";
 
 import { IncomingWhatsAppMessage, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 import { IncomingMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { __ConvertWhatsAppApiPayload } from "./utils/convert-whatsapp-payload.util";
 import { __SendWhatsAppWebhookVerificationToken } from "./utils/validate-webhook.function";
+import { ActiveChannel } from "libs/functions/bot-engine/main/src/lib/model/active-channel.service";
+import { WhatsappReceiveMessageInterpreter } from "./interpreter/received-message-interpreter/whatsapp/whatsapp-api-message-to-base-message.class";
 
 /**
  * This endpoint needs to be registered onto the whatsapp business API.
@@ -47,8 +49,11 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
 
     // STEP 3: Create the bot engine and process the message.
 
-    const handler = new EngineBotManagerHandler();
-    return handler.execute(sanitizedMessage, context, tools) 
+    const interpreter = new WhatsappReceiveMessageInterpreter();
+
+    const engine = new EngineBotManager(context, tools, tools.Logger, {} as ActiveChannel, interpreter);
+    
+    return engine.run(sanitizedMessage); 
   }
 
   /** 
