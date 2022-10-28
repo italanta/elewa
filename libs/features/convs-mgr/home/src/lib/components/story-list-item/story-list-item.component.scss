@@ -2,6 +2,7 @@
 @import '@angular/material/theming';
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
+@import 'libs/elements/theming/_variables.scss';
 
 .bot-card {
   max-width: 270px;
@@ -20,8 +21,9 @@
   color: mat-color($mat-ele, A900);
   background-color: mat-color($mat-ele, A800);
 
-
-
+}
+.bot-card:hover{
+  cursor:pointer;
 }
 .bot{
   margin-left: 0%;
