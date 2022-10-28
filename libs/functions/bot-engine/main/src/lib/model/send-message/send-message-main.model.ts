@@ -1,13 +1,17 @@
 
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { Message } from "@app/model/convs-mgr/conversations/messages";
 
 /** 
- *  @Descripion: Abstract Class for sending messages 
- *  Outlines all methods that can be used to send messages across different PlatformType 
+ *  After the bot engine processes the incoming message and returns the next block,
+ *      the block is parsed through the @see {OutgoingMessageParser}, which returns a
+ *          a prepared  message that can be sent over the line to its specific channel API. 
+ * 
+ * This abstract class defines the method that sends the outgoing message over the channel API endpoint
+ * 
+ * @param {message} - The prepared  message which can be sent over the line to its specific channel API
+ * @param {channel} - Contains the information that determines the channel the end user is using to communicate
+ *                      with the chatbot
  * */
 export abstract class SendMessageModel {
-    
-    /** Checks the type of message and calls the appropriate method */
-    abstract sendMessage(message: Message, channel: CommunicationChannel): void
+    abstract sendMessage(message: any, channel: CommunicationChannel): void
 }
