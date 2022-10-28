@@ -9,5 +9,5 @@ export interface ActiveChannel
    * @param {OutgoingMessage} msg - Message to put on the channel 
    * TODO: Define OutgoingMessage
    */
-  send(msg: any);
+  send(msg: any, channel: CommunicationChannel);
 }
