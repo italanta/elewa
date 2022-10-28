@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BotDataService } from './data-service-abstract.class';
-import { BaseChannel } from '@app/model/bot/channel';
+import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the messages collection
@@ -11,7 +11,7 @@ export class MessagesDataService extends BotDataService<Message> {
   private _docPath: string;
   private _msg: Message;
 
-  constructor(tools: HandlerTools, msg?: Message, channel?: BaseChannel) 
+  constructor(tools: HandlerTools, msg?: Message, channel?: CommunicationChannel) 
   {
     super(tools)
     if (msg){
@@ -19,7 +19,7 @@ export class MessagesDataService extends BotDataService<Message> {
     }
   }
 
-  protected _init(msg: Message, channel: BaseChannel){
+  protected _init(msg: Message, channel: CommunicationChannel){
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/messages`
     this._msg = msg
   }

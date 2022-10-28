@@ -8,7 +8,7 @@ import { ConnectionsDataService } from './data-services/connections.service';
 
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { BaseChannel } from '@app/model/bot/channel';
+import { CommunicationChannel } from '@app/model/bot/channel';
 import { ProcessMessageService } from './process-message/process-message.service';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -39,7 +39,7 @@ export class BotEngineMainService {
     return nextBlock
   }
 
-  async sendTextMessage(msg: Message, text: string, channel: BaseChannel){
+  async sendTextMessage(msg: Message, text: string, channel: CommunicationChannel){
 
     const pauseMessage: Message = {
       message: text,
@@ -76,7 +76,7 @@ export class BotEngineMainService {
    * @param data the base message and the block to be sent
    * @param endUserPhoneNumber - the user who is communicating with the bot
    */
-  async sendMessage(data: { msg: Message; block?: StoryBlock }, channel: BaseChannel) {
+  async sendMessage(data: { msg: Message; block?: StoryBlock }, channel: CommunicationChannel) {
     this._tools.Logger.log(() => `[SendMessage]._sendMessage: preparing to send block ${JSON.stringify(data)}.`);
 
     const blockType = data.block.type || StoryBlockTypes.TextMessage

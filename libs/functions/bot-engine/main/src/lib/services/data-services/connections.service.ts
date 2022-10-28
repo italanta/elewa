@@ -3,22 +3,22 @@ import { HandlerTools } from '@iote/cqrs';
 import { BotDataService } from './data-service-abstract.class';
 
 import { Connection } from '@app/model/convs-mgr/conversations/chats';
-import { BaseChannel } from '@app/model/bot/channel';
+import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
  */
 export class ConnectionsDataService extends BotDataService<Connection> {
   private _docPath: string;
-  private _channel: BaseChannel;
+  private _channel: CommunicationChannel;
 
-  constructor(channel: BaseChannel, tools: HandlerTools) 
+  constructor(channel: CommunicationChannel, tools: HandlerTools) 
   {
     super(tools)
     this._init(channel)
   }
 
-  protected _init(channel: BaseChannel){
+  protected _init(channel: CommunicationChannel){
     this._docPath = `orgs/${channel.orgId}/stories/${channel.storyId}/connections`
     this._channel = channel
   }
