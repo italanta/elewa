@@ -66,7 +66,7 @@ export class UploadFileService
           this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
           return this._activeRepo.create(fileBlock);
         } else {
-          return of([]);
+          return of([org]);
         }
       }),
       //Step 4 - update The field fileSrc for the block holding the file
@@ -107,13 +107,13 @@ export class UploadFileService
   public async uploadFile(file: File, block: StoryBlock) 
   { 
     //Step 1 - Create the file path that will be in firebase storage
-    var imgFilePath = `images/${file.name}_${new Date().getTime()}`;
+    const imgFilePath = `images/${file.name}_${new Date().getTime()}`;
 
     //Step 2 - Upload the file 
-    var uploadTask = (await this._ngfiStorage.upload(imgFilePath, file)).ref;
+    const uploadTask = (await this._ngfiStorage.upload(imgFilePath, file)).ref;
 
     //Step 3 - Get the url in firebase storage
-    var reference = await uploadTask.getDownloadURL();
+    const reference = await uploadTask.getDownloadURL();
 
     //Step 4 - Call the upload function 
     return this.upload(reference, block).pipe(take(1));
