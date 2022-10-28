@@ -1,7 +1,8 @@
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { IObject } from '@iote/bricks';
 
-import { MessageTypes } from './message-types.enum';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { MessageTypes } from '@app/model/convs-mgr/functions';
+
 import { IncomingMessagePayload } from './payload-in.interface';
 
 /** 
