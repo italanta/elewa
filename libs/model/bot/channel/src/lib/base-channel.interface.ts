@@ -3,7 +3,7 @@ import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { IObject } from "@iote/bricks";
 
 /** Basic Channel Information that will be the same across varoius channel */
-export interface BaseChannel extends IObject {
+export interface CommunicationChannel extends IObject {
   //Channel which bot will be used
   channelName?: PlatformType;
 

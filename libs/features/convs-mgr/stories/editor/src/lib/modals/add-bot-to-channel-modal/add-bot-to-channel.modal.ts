@@ -13,7 +13,7 @@ import { ManageChannelStoryLinkService } from '../../providers/manage-channel-st
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { BaseChannel, WhatsappChannel } from '@app/model/bot/channel';
+import { CommunicationChannel, WhatsappChannel } from '@app/model/bot/channel';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 
@@ -36,7 +36,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   addToChannelForm: FormGroup;
 
-  channels: BaseChannel[] = [{ channelName: PlatformType.WhatsApp } as WhatsappChannel];
+  channels: CommunicationChannel[] = [{ channelName: PlatformType.WhatsApp } as WhatsappChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
@@ -69,7 +69,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
     var authKey = this.addToChannelForm.get('authenticationKey')?.value;
     const businessAccountId = this.addToChannelForm.get('businessAccountId')?.value;
-    const channel: BaseChannel = this.addToChannelForm.get('channel')?.value;
+    const channel: CommunicationChannel = this.addToChannelForm.get('channel')?.value;
     const rawApiKey = this.addToChannelForm.get('apiKey')?.value;
 
     authKey = __ENCODE_AES(authKey);
@@ -81,7 +81,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       orgId: this._orgId,
       authenticationKey: authKey,
       businessAccountId: String(businessAccountId)
-    } as BaseChannel;
+    } as CommunicationChannel;
 
     // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
 
@@ -101,7 +101,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     });
   }
 
-  private _storyExistsInChannel(channel: BaseChannel) {
+  private _storyExistsInChannel(channel: CommunicationChannel) {
     return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels => !!channels.length));
   }
 

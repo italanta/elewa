@@ -1,15 +1,16 @@
 import { HandlerTools } from '@iote/cqrs';
 
-// import { BaseChannel } from '@app/model/bot/channel';
+// import { CommunicationChannel } from '@app/model/bot/channel';
 import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
 import { Message, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
-import { BaseChannel, WhatsappChannel } from 'libs/model/bot/channel/src';
+import {  WhatsappChannel } from 'libs/model/bot/channel/src';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 /**
  * Contains all the required database flow methods for the ChannelInfo collection
  */
-export class ChannelDataService extends BotDataService<BaseChannel> {
+export class ChannelDataService extends BotDataService<CommunicationChannel> {
   private _docPath: string;
   private _msg: IncomingMessage;
   private tools: HandlerTools;
@@ -25,7 +26,7 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
 
     this.tools.Logger.log(() => `[ChannelDataService]._init - Raw message ${JSON.stringify(msg)}`);
 
-    this._docPath = `channels/${msg.platform}/accounts/${msg.botAccountId}/bots`
+    this._docPath = `channels`
     this._msg = msg
   }
   
@@ -43,7 +44,7 @@ export class ChannelDataService extends BotDataService<BaseChannel> {
     return channelInfo;
   }
   
-  async getChannels(): Promise<BaseChannel> {
+  async getChannels(): Promise<CommunicationChannel> {
     const channels =  await this.getDocuments(this._docPath)
 
     if (!channels[0]) {

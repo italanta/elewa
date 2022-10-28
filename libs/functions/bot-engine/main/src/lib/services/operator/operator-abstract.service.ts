@@ -6,7 +6,7 @@ import { ChatStatusDataService } from '../data-services/chat-status.service';
 import { SendMessageFactory } from '@app/functions/messages/whatsapp';
 
 import { StoryBlock } from '@app/model/bot/blocks/story-block';
-import { BaseChannel } from '@app/model/bot/channel';
+import { CommunicationChannel } from '@app/model/bot/channel';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, ChatStatus } from '@app/model/convs-mgr/conversations/messages';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -35,7 +35,7 @@ export abstract class OperatorService {
     this._chatStatusService$.updateChatStatus(msg, ChatStatus.Running);
   }
 
-  async sendOperatorChatLink(channel: BaseChannel, operatorPhoneNumber: string, endUserPhoneNumber: string) {
+  async sendOperatorChatLink(channel: CommunicationChannel, operatorPhoneNumber: string, endUserPhoneNumber: string) {
     // Get the link
     const link = this.generateLink(operatorPhoneNumber);
 

@@ -1,4 +1,4 @@
-import { BaseChannel } from "@app/model/bot/channel";
+import { CommunicationChannel } from "@app/model/bot/channel";
 import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { WhatsAppMessage } from "@app/model/convs-mgr/functions";
 
@@ -9,5 +9,5 @@ import { WhatsAppMessage } from "@app/model/convs-mgr/functions";
 export abstract class SendMessageModel {
     
     /** Checks the type of message and calls the appropriate method */
-    abstract sendMessage(message: Message, channel: BaseChannel): void
+    abstract sendMessage(message: Message, channel: CommunicationChannel): void
 }

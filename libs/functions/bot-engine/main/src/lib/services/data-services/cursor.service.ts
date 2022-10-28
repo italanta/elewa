@@ -5,7 +5,7 @@ import { Block } from '@app/model/convs-mgr/conversations/chats';
 
 import { BotDataService } from './data-service-abstract.class';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { BaseChannel } from '@app/model/bot/channel';
+import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the cursor collection
@@ -13,13 +13,13 @@ import { BaseChannel } from '@app/model/bot/channel';
 export class CursorDataService extends BotDataService<Cursor> {
   private _docPath: string;
 
-  constructor(msg: Message, channel: BaseChannel, tools: HandlerTools) 
+  constructor(msg: Message, channel: CommunicationChannel, tools: HandlerTools) 
   {
     super(tools)
     this._init(msg, channel)
   }
 
-  protected _init(msg: Message, channel: BaseChannel){
+  protected _init(msg: Message, channel: CommunicationChannel){
     this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/cursor`
   }
   
