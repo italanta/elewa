@@ -145,7 +145,6 @@
     "functions-webhooks": "libs/functions/webhooks",
     "model-bot-blocks-connection": "libs/model/bot/blocks/connection",
     "model-bot-blocks-default-block": "libs/model/bot/blocks/default-block",
-    "model-bot-blocks-story-block": "libs/model/bot/blocks/story-block",
     "model-bot-channel": {
       "root": "libs/model/bot/channel",
       "sourceRoot": "libs/model/bot/channel/src",
