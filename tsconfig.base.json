@@ -106,9 +106,6 @@
       "@app/functions/conversations/messages/add-message": [
         "libs/functions/conversations/messages/add-message/src/index.ts"
       ],
-      "@app/functions/messages/whatsapp": [
-        "libs/functions/messages/whatsapp/src/index.ts"
-      ],
       "@app/functions/webhooks": ["libs/functions/webhooks/src/index.ts"],
       "@app/model/bot/blocks/connection": [
         "libs/model/bot/blocks/connection/src/index.ts"

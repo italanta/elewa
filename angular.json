@@ -141,7 +141,6 @@
       },
       "tags": []
     },
-    "functions-messages-whatsapp": "libs/functions/messages/whatsapp",
     "functions-webhooks": "libs/functions/webhooks",
     "model-bot-blocks-connection": "libs/model/bot/blocks/connection",
     "model-bot-blocks-default-block": "libs/model/bot/blocks/default-block",
