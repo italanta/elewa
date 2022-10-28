@@ -9,9 +9,17 @@
         </h2>
       </div>
 
-      <div class="dots">
-          <i class="fas dotedIcon"></i>
-      </div>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="editDialog()">{{ 'BOTS.ACTIONS.EDIT-BOT' | transloco }}
+
+        </button>
+        <button mat-menu-item  (click)="deleteDialog()">{{ 'BOTS.ACTIONS.DELETE-BOT' | transloco }}
+
+        </button>
+      </mat-menu>
     </div>
 
     <mat-card-content>

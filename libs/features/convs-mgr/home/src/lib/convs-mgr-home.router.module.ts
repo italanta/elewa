@@ -5,6 +5,7 @@ import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
 import { HomePageComponent } from './pages/home/home.page';
 
+
 const ORG_ROUTES: Route[] = [
   { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
 

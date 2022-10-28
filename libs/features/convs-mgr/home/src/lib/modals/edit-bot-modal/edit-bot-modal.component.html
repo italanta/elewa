@@ -1,0 +1,31 @@
+<h2 class="create-bot-header">{{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}</h2>
+<form [formGroup]="botForm">
+  <h4 class="create-bot-name">
+    {{ 'BOTS.EDIT-MODAL.FIELDS.NAME' | transloco }}
+  </h4>
+  <input
+    type="text"
+    formControlName = "botName"
+    [placeholder]="'BOTS.EDIT-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco"
+  />
+  <h4>{{ 'BOTS.EDIT-MODAL.FIELDS.DESC' | transloco }}</h4>
+  <textarea
+    formControlName = "botDesc"
+    [placeholder]="'BOTS.EDIT-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco"
+  >
+  </textarea>
+
+  <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
+    <div>
+      <button mat-button mat-dialog-close class="cancel-btn">
+        {{ 'BOTS.EDIT-MODAL.CANCEL' | transloco }}
+      </button>
+    </div>
+
+    <div>
+      <button mat-raised-button class="add-btn">
+        {{ 'BOTS.EDIT-MODAL.SUBMIT' | transloco }}
+      </button>
+    </div>
+  </div>
+</form>

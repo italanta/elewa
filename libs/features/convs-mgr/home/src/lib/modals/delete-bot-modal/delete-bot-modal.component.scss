@@ -1,0 +1,91 @@
+      // Import theming functions
+      @import '@angular/material/theming';
+      // Import your custom theme
+      @import 'libs/elements/theming/common.theme.scss';
+#container{
+  margin: auto;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 40%;
+  z-index: 13;
+  height: 200px;
+  box-shadow: 5px 5px 6px var(--convs-mgr-color-primary-black);
+  border-radius: 10px;
+  background-color: var(--convs-mgr-color-primary-white);
+  display: flex;
+  flex-direction: column;
+
+  #header{
+      border-bottom: 1px solid var(--convs-mgr-color-primary-white);
+      height: 40px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding-left: 30px;
+      padding-right: 30px;
+      font-size: 30px;
+      color: var(--convs-mgr-color-primary-black);
+      font-weight: bold;
+
+
+  }
+  #content{
+      flex-grow: 1;
+      padding: 3px;
+      font-size: 20px;
+      padding-left: 30px;
+      margin-bottom: 8px;
+  }
+  #actions{
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-grow: 1;
+      height: 80px;
+      // gap: 20px;
+      padding-left: 30px;
+
+      // button{
+      //     padding: 10px 10px;
+      //     background-color: blue;
+      //     color: white;
+      //     font-size: large;
+      //     border: none;
+      //     cursor: pointer;
+
+      //     &.cancel{
+      //         background-color: red;
+
+      //     }
+      // }
+
+
+
+      .delete-btn {
+        background-color:var(--convs-mgr-color-primary-red);
+        color: var(--convs-mgr-color-primary-white);
+        font-weight: 600;
+        min-width: 100px;
+        border-radius: 6px;
+        width: 120px;
+        padding: 5px;
+        height: 40px;
+        margin-left: 10px;
+
+      }
+
+      .cancel-btn {
+        color: var(--convs-mgr-color-primary-yellow);
+        min-width: 100px;
+        background-color: var(--convs-mgr-color-primary-white);
+        border-radius: 6px;
+        border: 1px solid var(--convs-mgr-color-primary-yellow);
+        width: 120px;
+        padding: 3px;
+        height: 40px;
+        font-weight: 700;
+      }
+  }
+}

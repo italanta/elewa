@@ -15,6 +15,7 @@ import { StoriesStore } from "@app/state/convs-mgr/stories";
 @Injectable()
 export class NewStoryService
 {
+  showDialog = false;
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
               private _router: Router,
@@ -39,6 +40,16 @@ export class NewStoryService
 
   }
 
+  update(story: Story) {
+    this._stories$$.update(story);
+    this.dialog.closeAll();
+  }
+
+
+  remove(story: Story) {
+    this._stories$$.remove(story)
+    this.dialog.closeAll()
+  }
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
 
   generateName(){
