@@ -9,3 +9,5 @@
 // export * from './lib/services/interpreter/send-message-interpreter/send-interpreter.factory';
 
 export * from './lib/engine-bot-manager.handler';
+export * from './lib/io/incoming-message.parser';
+export * from './lib/io/outgoing-message.parser';
