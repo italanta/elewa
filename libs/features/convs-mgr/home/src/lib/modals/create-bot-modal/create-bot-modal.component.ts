@@ -49,7 +49,7 @@ export class CreateBotModalComponent implements OnInit {
     return {
       create: "Create Mode",
       edit: "Edit Mode"
-    }
+    } as const;
   }
 
   ngOnInit(): void {
