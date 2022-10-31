@@ -9,6 +9,8 @@ import { WhatsAppMessage } from "@app/model/convs-mgr/functions";
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { WhatsAppCommunicationChannel } from "./whatsapp-comm-channel.interface";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -19,24 +21,34 @@ import { WhatsAppCommunicationChannel } from "./whatsapp-comm-channel.interface"
  * 
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
  * 
- * @extends {SendMessageModel}
+ * @extends {ActiveChannel}
  * 
  * STEP 1: Assign the access token and the business phone number id
  * STEP 2: Prepare the outgoing whatsapp message
  * STEP 3: Send the message
  */
-export class SendWhatsAppMessageModel implements ActiveChannel
+export class WhatsappActiveChannel implements ActiveChannel
 {
-  channel: CommunicationChannel;
+  channel: WhatsAppCommunicationChannel;
 
-  constructor(private _tools: HandlerTools) {}
+  constructor(private _tools: HandlerTools, channel: WhatsAppCommunicationChannel)
+  {
+    this.channel = channel
+  }
 
-  async send(whatsappMessage: WhatsAppMessage, channel: WhatsAppCommunicationChannel){
-    
+  parseOutMessage(storyBlock: StoryBlock, phone: string)
+  {
+    const outgoingMessagePayload =  new WhatsappOutgoingMessageParser().parse(storyBlock, phone)
+
+    return outgoingMessagePayload
+  }
+
+  async send(whatsappMessage: WhatsAppMessage)
+  {
     // STEP 1: Assign the access token and the business phone number id
     //            required by the whatsapp api to send messages
-    const ACCESS_TOKEN = channel.accessToken
-    const PHONE_NUMBER_ID = channel.businessPhoneNumberId
+    const ACCESS_TOKEN = this.channel.accessToken
+    const PHONE_NUMBER_ID = this.channel.businessPhoneNumberId
 
 
     // STEP 2: Prepare the outgoing whatsapp message
