@@ -31,10 +31,8 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser {
    * @param message
    * @returns promise
    */
-   getTextBlockParserOut(storyBlock: StoryBlock, phone: string): WhatsAppMessage {
-    const textBlock = storyBlock as TextMessageBlock
+   getTextBlockParserOut(textBlock: TextMessageBlock, phone: string): any {
     
-
     // Create the text payload which will be sent to api
     const textPayload = {
       text: {
