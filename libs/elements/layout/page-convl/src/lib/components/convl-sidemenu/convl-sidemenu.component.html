@@ -1,6 +1,6 @@
 <div id="side-menu" fxLayout="column">
   <mat-nav-list>
-        <!-- logo section -->>
+        <!-- logo section -->
 
         <!-- <div  mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
             <img [routerLink]="['/']" class="list-icon" src="assets/images/elewa-logo.png">
@@ -10,11 +10,11 @@
         </div> -->
 
         <div [routerLink]="['/']" mat-list-item class="container top-container">
-      <div class="logo-section">
+      <div class="logo-section"  (click)="toggleMenu.emit()">
         <img class="logo-section__image list-icon" src="assets/images/elewa-logo.png" />
-        <span class="logo-section__icon-wrapper">
+        <span class="logo-section__icon-wrapper"> 
           <i class="fa fa-bars logo-section__tooltip" aria-hidden="true"></i>
-        </span>
+        </span>            
       </div>
     </div>
     <!-- end logo-section -->
@@ -30,8 +30,7 @@
         </span>
        </div>
     <div *ngIf="rlaHome.isActive">
-      <div [routerLink]="['/org']" mat-list-item class="menu-item menu-item--one"
-          [class.active]="rlaHome.isActive">
+      <div [routerLink]="['/org']" mat-list-item class="menu-item menu-item--one">
           <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
           <span class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
