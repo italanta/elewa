@@ -19,16 +19,12 @@
   color: #3C3C3C;
 }
 
-.hide-menu-btn {
-  display: none;
-}
-
 .container {
   padding: 0 100px;
 }
 
 #nav-toolbar {
-  height: 66px;
+  height: 71px;
   padding: 0 12px;
 }
 
@@ -39,4 +35,8 @@
 .icon-top{
   margin-right: 10px;
   background-color: black;
+}
+
+.hide-menu-btn {
+  display: flex;
 }
