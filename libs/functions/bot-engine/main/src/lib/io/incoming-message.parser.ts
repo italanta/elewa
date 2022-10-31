@@ -36,7 +36,7 @@ export abstract class IncomingMessageParser
     switch (messageType) 
     {
       case MessageTypes.TEXT:         parser = this.parseInTextMessage; break;
-      case MessageTypes.INTERACTIVE:  parser = this.parseInInteractiveButtonMessage; break;
+      case MessageTypes.QUESTION:     parser = this.parseInInteractiveButtonMessage; break;
       // default:
       //     break;
     }
