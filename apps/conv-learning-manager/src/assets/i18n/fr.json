@@ -70,18 +70,65 @@
     },
     "SIDE-MENU": {
       "DASHBOARD": "Tableau de bord",
-      "LOG-OUT": "Se déconnecter"
-    }
-  },
-  "BOTS": {
-    "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copie",
-        "DELETE": "Effacer"
+      "LOG-OUT": "Se déconnecter",
+
+      "MAIN-TITLE": "Principal",
+      "MENU-ITEMS": {
+        "CHATS": {
+          "ITEM-NAME": "Chats",
+          "CHILD-ITEMS": {
+            "CONVERSATIONS": "Conversation",
+            "PARTICIPANTS": "Participant",
+            "ASSESSMENTS": "Évaluations"
+          }
+        },
+        "SALES": {
+          "ITEM-NAME": "Ventes",
+          "CHILD-ITEMS": {
+            "PURCHASES": "Achats"
+          }
+        },
+        "STATISTICS": {
+          "ITEM-NAME": "Statistiques",
+          "CHILD-ITEMS": {
+            "TRAINEE-DATA": "Données du stagiaire",
+            "PROGRESS ANALYSIS": "Analyse des progrès"
+          }
+        }
       }
     }
   },
+  "ACTIONS": {
+    "OPEN-BOT": "Ouvert un robot",
+    "LBL-NEW-BOT": "Créer un nouveau robot",
+    "EDIT-BOT": "Edit",
+    "DELETE-BOT": "Effacer"
+  },
+  "FIELDS": {
+    "NAME": "Nom",
+    "NAME-PLACEHOLDER": "Nom du robot",
+    "DESC": "Description",
+    "DESC-PLACEHOLDER": "Description du robot"
+  },
+
   "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Éditer un robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "mettre à jour un robot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le robot",
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
+    },
+    "BOTS": {
     "CREATE-MODAL": {
       "TITLE": "Créer un robot",
       "FIELDS": {
@@ -93,5 +140,6 @@
       "CANCEL": "Annuler",
       "SUBMIT": "Créer un robot"
     }
-  }
+  } 
+ }
 }

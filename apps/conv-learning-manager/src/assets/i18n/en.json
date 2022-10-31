@@ -69,8 +69,33 @@
       "TITLE": "Story Blocks"
     },
     "SIDE-MENU": {
-      "DASHBOARD": "Dashboard",
-      "LOG-OUT": "Logout"
+      "DASHBOARD": "Dashbord",
+      "LOG-OUT": "Logout",
+      
+      "MAIN-TITLE": "Main",
+      "MENU-ITEMS" : {
+        "CHATS": {
+          "ITEM-NAME": "Chats",
+          "CHILD-ITEMS": {
+            "CONVERSATIONS": "Conversations",
+            "PARTICIPANTS": "Participants",
+            "ASSESSMENTS": "Assessments"
+          }
+        },
+        "SALES": {
+          "ITEM-NAME": "Sales",
+          "CHILD-ITEMS": {
+            "PURCHASES": "Purchases"
+          }
+        },
+        "STATISTICS": {
+          "ITEM-NAME": "Statistics",
+          "CHILD-ITEMS": {
+            "TRAINEE-DATA": "Trainee Data",
+            "PROGRESS-ANALYSIS": "Progress Analysis"
+          }
+        }
+      }
     }
   },
 
@@ -83,6 +108,19 @@
     }
   },
   "BOTS": {
+    "ACTIONS": {
+      "OPEN-BOT": "Open Bot",
+      "LBL-NEW-BOT": "Create New Bot",
+      "EDIT-BOT": "Edit",
+      "DELETE-BOT": "Delete"
+    },
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
       "FIELDS": {
@@ -93,6 +131,18 @@
       },
       "CANCEL": "Cancel",
       "SUBMIT": "Create bot"
+    },
+    
+    "EDIT-MODAL": {
+      "TITLE": "Edit a bot",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Update Bot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Delete Bot",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Delete Bot",
+      "MESSAGE":" Are you sure you want to delete this bot?"
     }
   }
 }

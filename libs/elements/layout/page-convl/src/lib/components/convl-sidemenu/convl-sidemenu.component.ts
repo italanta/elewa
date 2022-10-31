@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { SubSink } from 'subsink';
 
@@ -19,9 +19,12 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   @Input() user: any;
+  @Output() toggleMenu:EventEmitter<any> = new EventEmitter
 
   projectName: string;
   projectInfo: string;
+  orgId = 1;
+  flowId = 1;
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,

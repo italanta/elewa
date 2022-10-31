@@ -7,12 +7,57 @@ import { HomePageComponent } from './pages/home/home.page';
 
 const ORG_ROUTES: Route[] = [
   { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-
-  // {
-  //   path: ':id/finance',
-  //   loadChildren: () => import('libs/features/portal/finance/home/src/lib/finance-home.module').then(m => m.FinanceHomeModule),
-  //   canActivate: [IsLoggedInGuard]
-  // }
+  {
+    path: 'sales',
+    component: HomePageComponent,
+    children: [
+      {
+        path: 'purchases',
+        component: HomePageComponent,
+        canActivate: [IsLoggedInGuard],
+      },
+    ],
+    canActivate: [IsLoggedInGuard],
+  },
+  {
+    path: 'statistics',
+    component: HomePageComponent,
+    children: [
+      {
+        path: 'trainee data',
+        component: HomePageComponent,
+        canActivate: [IsLoggedInGuard],
+      },
+      {
+        path: 'progress-analysis',
+        component: HomePageComponent,
+        canActivate: [IsLoggedInGuard],
+      },
+    ],
+    canActivate: [IsLoggedInGuard],
+  },
+  {
+    path: 'chats',
+    component: HomePageComponent,
+    children: [
+      {
+        path: 'conversations',
+        component: HomePageComponent,
+        canActivate: [IsLoggedInGuard],
+      },
+      {
+        path: 'assessment',
+        component: HomePageComponent,
+        canActivate: [IsLoggedInGuard],
+      },
+      {
+        path: 'participants',
+        component: HomePageComponent,
+        canActivate: [IsLoggedInGuard],
+      },
+    ],
+    canActivate: [IsLoggedInGuard],
+  },
 ];
 
 @NgModule({
