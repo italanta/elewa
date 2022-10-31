@@ -1,21 +1,51 @@
-import { BaseChannel } from '@app/model/bot/channel';
-import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
-/** Basic message structure that will be the same when interpreted from any platform 
- * TODO: Refactor - remove extension of base channel, and update all functions
+/** 
+ * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
+ * 
+ * We therefore need to convert this Incoming Message @see {IncomingMessage} to a standardized format so that our chatbot can read and process the message 
+ *  regardless of the platform @see {PlatformType}
+ * 
+ *@type {Message} is our standardized format returned by @see {IncomingMessageParser} and passed to the bot engine.
 */
-export interface BaseMessage {
+export interface Message
+{
+  id             : string;
+  type           : MessageTypes;
+}
 
-  /* The platform the message is received from e.g. whatsapp, telegram*/
-  platform?      : PlatformType;
+/**
+ * Standardized format of the text messsage sent by the end user
+ */
+export interface TextMessage extends Message 
+{
+  text: string;
+}
 
-  /* The message details sent by the end user 
-   * Type 'any' because message stucture can be different across PlatformType e.g. a whatsapp text message may have a different structure with a telegram text message
-   * To later create a base message that normalizes the different types of messages.
+/**
+ * Standardized format of the image messsage sent by the end user
+ */
+export interface ImageMessage extends Message 
+{
+  link: string;
+}
+
+/**
+ * Standardized format of a reply to the question block @see {QuestionMessageBlock}
+ */
+export interface QuestionMessage extends Message 
+{
+  /** The unique id of the option selected by the end user 
+   * 
+   *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
+   *  
+   *  So we can also use this id to determine the next block
    */
-  message?       : any;
+  optionId: string;
 
-  /** The end user phone number we have received the message from */
-  phoneNumber?   : string;
+  /** Message displayed as the answer */
+  optionText: string;
 
+  /** Value the answer holds */
+  optionValue?: string;
 }
