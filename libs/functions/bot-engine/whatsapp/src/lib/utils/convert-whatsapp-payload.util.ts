@@ -9,7 +9,7 @@ export function __ConvertWhatsAppApiPayload(message: IncomingWhatsAppMessage): W
   return {
     //botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.display_phone_number,
     platformId:     message.entry[0].id,
-    businessPhoneNumberId: message.entry[0].changes[0].value.metadata.phone_number_id,
+    // businessPhoneNumberId: message.entry[0].changes[0].value.metadata.phone_number_id,
     endUserName:   message.entry[0].changes[0].value.contacts[0].profile.name,
     endUserNumber: message.entry[0].changes[0].value.contacts[0].wa_id,
     message:       message.entry[0].changes[0].value.messages[0],
