@@ -1,1 +1,1 @@
-export * from './lib/functions-bot-engine-whatsapp';
+export * from './lib/whats-app-receive-message.handler';
