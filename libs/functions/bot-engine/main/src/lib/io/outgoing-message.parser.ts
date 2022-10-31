@@ -1,4 +1,4 @@
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Message, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -15,11 +15,11 @@ import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks
 export abstract class OutgoingMessageParser
 {
 
-  abstract getTextBlockParserOut     (storyBlock: StoryBlock, phone: string): Message
+  abstract getTextBlockParserOut     (storyBlock: StoryBlock, phone: string): any
 
-  abstract getQuestionBlockParserOut (storyBlock: StoryBlock, phone: string): Message
+  abstract getQuestionBlockParserOut (storyBlock: StoryBlock, phone: string): any
 
-  abstract getImageBlockParserOut    (storyBlock: StoryBlock, phone: string): Message
+  abstract getImageBlockParserOut    (storyBlock: StoryBlock, phone: string): any
 
   // abstract getAudioBlockParserOut    (storyBlock: StoryBlock, phone: string): Message
 
@@ -42,9 +42,9 @@ export abstract class OutgoingMessageParser
    * @returns {Message}
    * A prepared  message which can be sent over the line to its specific channel API.
    */
-  parse(storyBlock: StoryBlock, phone: string) : Message
+  parse(storyBlock: StoryBlock, phone: string) : OutgoingMessagePayload
   {
-    let parser!: (storyBlock: StoryBlock, phone: string) => Message;
+    let parser!: (storyBlock: StoryBlock, phone: string) => OutgoingMessagePayload;
     
     switch (storyBlock.type) {
       case StoryBlockTypes.TextMessage:   parser = this.getTextBlockParserOut;     break;
