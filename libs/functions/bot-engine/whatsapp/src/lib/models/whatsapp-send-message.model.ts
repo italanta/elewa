@@ -3,9 +3,10 @@ import axios from "axios";
 import { HandlerTools } from "@iote/cqrs";
 import { __DECODE_AES } from "@app/elements/base/security-config";
 
-import { SendMessageModel } from "@app/functions/bot-engine";
+import { ActiveChannel } from "@app/functions/bot-engine";
 
 import { WhatsAppMessage } from "@app/model/convs-mgr/functions";
+import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { WhatsAppCommunicationChannel } from "./whatsapp-comm-channel.interface";
 
@@ -24,13 +25,13 @@ import { WhatsAppCommunicationChannel } from "./whatsapp-comm-channel.interface"
  * STEP 2: Prepare the outgoing whatsapp message
  * STEP 3: Send the message
  */
-export class SendWhatsAppMessageModel extends SendMessageModel {
+export class SendWhatsAppMessageModel implements ActiveChannel
+{
+  channel: CommunicationChannel;
 
-  constructor(private _tools: HandlerTools) {
-    super()
-  }
+  constructor(private _tools: HandlerTools) {}
 
-  async sendMessage(whatsappMessage: WhatsAppMessage, channel: WhatsAppCommunicationChannel){
+  async send(whatsappMessage: WhatsAppMessage, channel: WhatsAppCommunicationChannel){
     
     // STEP 1: Assign the access token and the business phone number id
     //            required by the whatsapp api to send messages
@@ -68,7 +69,7 @@ export class SendWhatsAppMessageModel extends SendMessageModel {
      }).catch(error => {
        if (error.response) {
          // Request made and server responded
-         this._tools.Logger.debug(()=>`[SendWhatsAppMessageModel].sendMessage: url is: ${url}`);
+         this._tools.Logger.debug(()=>`[SendWhatsAppMessageModel].sendMessage: url is: ${URL}`);
          this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(error.response.data)}`);
          this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(error.response.headers)}`);
          this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(error.response.status)}`);
