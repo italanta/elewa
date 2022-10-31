@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang'
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { UserMenuModule } from '@app/elements/layout/user-menu';
 
 import { ConvlPageComponent } from './components/convl-page/convl-page.component';
@@ -29,8 +29,7 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
     CommonModule, RouterModule,
     MultiLangModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-    UserMenuModule,
-    FontAwesomeModule
+    UserMenuModule, 
   ],
 
   declarations: [

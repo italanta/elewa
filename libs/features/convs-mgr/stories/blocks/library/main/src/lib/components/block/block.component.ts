@@ -6,6 +6,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Logger } from '@iote/bricks-angular';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -14,13 +15,10 @@ import { _CreateTextMessageBlockForm } from '../../model/message-block-form.mode
 import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
-
-import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
-import { throttleTime } from 'rxjs';
-import * as _ from 'lodash';
-
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
-import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+
+
+
 
 /**
  * Block which sends a message from bot to user.
@@ -36,9 +34,6 @@ export class BlockComponent implements OnInit {
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  state: StoryEditorState;
-  
-  
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -53,7 +48,6 @@ export class BlockComponent implements OnInit {
   blockFormGroup: FormGroup;
 
   constructor(
-    private _editorStateService: StoryEditorStateService,
     private _blocks$$: StoryBlocksStore,
     private _el: ElementRef,
     private _fb: FormBuilder,
@@ -148,14 +142,7 @@ export class BlockComponent implements OnInit {
  
 
    deleteBlock()  {
-
-
-    
     this._blocks$$.remove(this.block).subscribe()
       }
-    
-   
- 
-
  }
 

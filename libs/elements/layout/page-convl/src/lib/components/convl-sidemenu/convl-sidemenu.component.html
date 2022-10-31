@@ -16,7 +16,7 @@
             <!-- <i matListIcon class="fas fa-columns"></i> -->
             <img class="list-icon" src="assets/images/elewa-logo.png">
             <div class="menu">
-              <fa-icon [icon]="menu" ></fa-icon>
+              <i class="fas fa-bars"></i>
             </div>
             <!-- <div fxLayout="column">
                 <div class="proj-name">{{ projectName }}</div>
@@ -42,7 +42,7 @@
 
             <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
                 <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
-                  <fa-icon [icon]="dashboard"></fa-icon>
+                  <i class="fas fa-tachometer-alt"></i>
                    <span>{{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}</span>
                 </div>
             </div>
