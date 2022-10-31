@@ -1,4 +1,4 @@
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { IncomingMessagePayload, Message } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 /**
@@ -15,9 +15,9 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
  */
 export abstract class IncomingMessageParser
 { 
-  protected abstract parseInTextMessage(incomingMessage: any): Message
+  protected abstract parseInTextMessage(incomingMessage: IncomingMessagePayload): Message
 
-  protected abstract parseInInteractiveButtonMessage(incomingMessage: any): Message
+  protected abstract parseInInteractiveButtonMessage(incomingMessage: IncomingMessagePayload): Message
 
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -29,9 +29,9 @@ export abstract class IncomingMessageParser
  * 
  * @returns {Message} - This is standardized format that our chatbot can read and process
  */
-  parse(messageType: MessageTypes, incomingMessage: any): Message
+  parse(messageType: MessageTypes, incomingMessage: IncomingMessagePayload): Message
   {
-    let parser!: ((incomingMessage: any) => Message);
+    let parser!: ((incomingMessage: IncomingMessagePayload) => Message);
 
     switch (messageType) 
     {
