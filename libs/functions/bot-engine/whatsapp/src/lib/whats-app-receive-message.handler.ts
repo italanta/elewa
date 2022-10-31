@@ -9,7 +9,7 @@ import { SendWhatsAppMessageModel } from './models/whatsapp-send-message.model';
 import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.util';
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 
-import { WhatsappIncomingMessageParser } from './io/incoming-message-parser/whatsapp-api-message-to-base-message.class';
+import { WhatsappIncomingMessageParser } from './io/incoming-message-parser/whatsapp-api-incoming-message-parser.class';
 
 /**
  * Receives a message, through a channel registered on the WhatsApp Business API,
