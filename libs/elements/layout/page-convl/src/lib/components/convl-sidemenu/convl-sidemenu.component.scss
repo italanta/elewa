@@ -3,6 +3,7 @@
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
 @import '_variables.scss';
+
 #side-menu {
   min-width: 200px;
   font-family: mat-font-family($custom-typography, subheading-2);
@@ -11,7 +12,7 @@
 mat-nav-list {
   overflow: auto;
 }
-
+// reusable and global classes
 #menu-header-seperator {
   border: 0.5px solid rgba(255, 255, 255, 0.1);
   margin-top: 0;
@@ -36,10 +37,11 @@ mat-nav-list {
   border-bottom: 0.8px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
   outline: none;
+  overflow: hidden;
 }
 
 .top-container {
-    cursor: pointer;
+    // cursor: pointer;
     padding: 10px;
     font-size: 16px;
     border-bottom: 1px solid #fafafa;
@@ -57,7 +59,7 @@ mat-nav-list {
     }
   }
 
-  main section
+ // main section
    .main-wrapper {
     .main {
       font-size: 13px;
@@ -72,6 +74,11 @@ mat-nav-list {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
+
+     &__image {
+      cursor: pointer;
+      max-width: 60%;
+    }
 
   .logo-section__image {
       max-width: 60%;
@@ -111,7 +118,7 @@ mat-nav-list {
         content: '';
         height: 100%;
         width: 4px;
-        right: 10;
+        right: 0;
         top: 0;
         border-radius: 5px;
         background-color: var(--convs-mgr-color-primary-purple);
@@ -143,16 +150,30 @@ mat-nav-list {
     padding: 7px 0px 7px 24px;
     text-transform: capitalize;
     margin-bottom: 5px;
+    display: grid;
 
+    &__word {
+      font-weight: 600;
+      font-size: 0.8rem;
+      min-height: 1.2rem;
+      padding: 7px 0px 7px 18px;
+      text-transform: capitalize;
+      color: var(--convs-mgr-color-nav-inactive-bolder);
+    }
+
+     &__tooltip {
+      font-size: 0.7rem;
+    }
 
     &--one {
       margin-top: 8px;
     }
 
-    &.highlight-active {
-      position: relative;
-      background-color: grey;
-      margin-right: -24px !important;
+      &.highlight-active {
+      .child-header__word {
+        position: relative;
+        color: var(--convs-mgr-color-nav-active);
+        background-color: var(--convs-mgr-color-nav-active-background);
       
     &::before {
       position: absolute;
@@ -163,6 +184,7 @@ mat-nav-list {
       left: 0;
       border-radius: 5px;
       background-color: var(--convs-mgr-color-primary-yellow);
+   }
   }
  }
 }
