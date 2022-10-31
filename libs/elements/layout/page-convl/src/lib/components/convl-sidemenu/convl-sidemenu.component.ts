@@ -19,7 +19,7 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   @Input() user: any;
-  @Output() toggleMenu:EventEmitter<any> = new EventEmitter
+  @Output() toggleMenu:EventEmitter<any> = new EventEmitter()
 
   projectName: string;
   projectInfo: string;
