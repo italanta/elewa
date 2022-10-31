@@ -1,4 +1,6 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
+import { OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 export interface ActiveChannel 
 {
@@ -9,5 +11,7 @@ export interface ActiveChannel
    * @param {OutgoingMessage} msg - Message to put on the channel 
    * TODO: Define OutgoingMessage
    */
-  send(msg: any, channel: CommunicationChannel);
+  send(msg: OutgoingMessagePayload);
+
+  parseOutMessage(storyBlock: StoryBlock, phone: string);
 }
