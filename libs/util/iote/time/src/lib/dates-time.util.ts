@@ -22,7 +22,7 @@ export const __NewDateForStorage = (input: AppDateInput) => __DateToStorage(__Ne
  *                           @see https://stackoverflow.com/questions/643782/how-to-check-whether-an-object-is-a-date
  */
 export function __DateFromStorage(unixDate: Timestamp | Date, offsetCorrection = false) : AppDate
-{
+{   
   const dateTime = unixDate as any;
 
   const seconds = (dateTime.seconds || dateTime._seconds)
