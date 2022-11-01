@@ -2,10 +2,9 @@ import { ChatFlowStatus } from './chat-flow-status.enum';
 import { Timestamp } from '@firebase/firestore-types';
 import { IObject } from '@iote/bricks';
 
-import { ChatStatus } from './chat-status.enum';
-// import { CommunicationChannelTypes } from '@elewa/model/admin/system';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ChatStatus } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * An end user which 
