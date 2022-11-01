@@ -11,11 +11,12 @@ import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-
+import { WhatsAppCommunicationChannel, TelegramCommunicationChannel } from '@app/model/bot/channel';
 
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -38,7 +39,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   addToChannelForm: FormGroup;
   technicalRef: number = 1;
 
-  channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel];
+  channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel,
+                                      {type: PlatformType.Telegram} as TelegramCommunicationChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
