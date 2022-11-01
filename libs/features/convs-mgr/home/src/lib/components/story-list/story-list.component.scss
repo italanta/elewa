@@ -3,8 +3,7 @@
 // Import your custom theme
 @import 'libs/elements/theming/common.theme.scss';
 
-
-.fa{
+.fa {
   color: mat-color($mat-ele, A900);
   margin-left: 6px;
   margin-top: 10px;
@@ -14,35 +13,33 @@
   transform: rotate(90deg);
   font-weight: 500;
 }
-.search{
-
-	min-width: 40%;
-	height: 5px;
-	background-color: white;
-	// background-color: var(----convs-mgr-color-primary-background);
-	border-radius: 8px;
-	display: flex;
-	align-items: center;
-	padding: 20px;
+.search {
+  min-width: 40%;
+  height: 5px;
+  background-color: white;
+  // background-color: var(----convs-mgr-color-primary-background);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  input{
-	flex: 1;
-	height: 40px;
-	border: none;
-	outline: none;
-	font-size: 15px;
-	padding-left: 6px;
+  input {
+    flex: 1;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding-left: 6px;
   }
-
 }
 
-.searchIcon{
-	color: mat-color($mat-ele, A900);
-	transform: rotate(90deg);
-	margin-left: 6px;
-	margin-top: 10px;
-	margin-right: 6px;
-	margin-bottom: 10px;
-	font-size: 20px;
-	font-weight: 500;
+.fa-search {
+  color: mat-color($mat-ele, A900);
+  transform: rotate(90deg);
+  margin-left: 6px;
+  margin-top: 10px;
+  margin-right: 6px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 500;
 }
