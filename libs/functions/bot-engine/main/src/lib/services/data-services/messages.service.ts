@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BotDataService } from './data-service-abstract.class';
-import { CommunicationChannel } from '@app/model/bot/channel';
+// import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the messages collection
@@ -11,21 +11,21 @@ export class MessagesDataService extends BotDataService<Message> {
   private _docPath: string;
   private _msg: Message;
 
-  constructor(tools: HandlerTools, msg?: Message, channel?: CommunicationChannel) 
+  constructor(tools: HandlerTools) 
   {
     super(tools)
-    if (msg){
-      this._init(msg, channel)
-    }
+    // if (msg){
+    //   this._init(msg)
+    // }
   }
 
-  protected _init(msg: Message, channel: CommunicationChannel){
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/messages`
-    this._msg = msg
-  }
+  // protected _init(msg: Message){
+  //   this._docPath = `end-users/${msg.phoneNumber}/messages`
+  //   this._msg = msg
+  // }
 
-  async saveMessage(msg: Message, storyId: string): Promise<Message> {
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${storyId}/messages`
+  async saveMessage(msg: Message, endUserId: string): Promise<Message> {
+    this._docPath = `end-users/${endUserId}/messages`
     const timeStamp = Date.now();
 
     const savedMessage = await this.createDocument(msg, this._docPath, timeStamp.toString())
@@ -33,8 +33,8 @@ export class MessagesDataService extends BotDataService<Message> {
     return savedMessage;
   }
 
-  async getLatestMessage(msg: Message, storyId: string): Promise<Message> {
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${storyId}/messages`
+  async getLatestMessage(endUserId: string): Promise<Message> {
+    this._docPath = `end-users/${endUserId}/messages`
 
     const latestMessage = await this.getLatestDocument(this._docPath);
 

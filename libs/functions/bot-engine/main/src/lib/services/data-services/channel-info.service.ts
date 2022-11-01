@@ -1,10 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
 
-// import { CommunicationChannel } from '@app/model/bot/channel';
-import { ChatInfo } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
 import { Message, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
-import {  WhatsappChannel } from 'libs/model/bot/channel/src';
+
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 /**
@@ -30,10 +28,10 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
     this._msg = msg
   }
   
-  async getChannelInfo(businessPhoneNumberId: string) {
+  async getChannelInfo(id: string) {
     // Get users
     // Takes longer than get by Id
-    const channelInfo = await this.getDocumentById(businessPhoneNumberId ,this._docPath)
+    const channelInfo = await this.getDocumentById(id ,this._docPath)
     
     if (!channelInfo) {
       throw new Error('The user has not been registered to a channel');

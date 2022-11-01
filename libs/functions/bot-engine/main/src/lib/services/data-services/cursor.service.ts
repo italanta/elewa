@@ -5,7 +5,6 @@ import { Block } from '@app/model/convs-mgr/conversations/chats';
 
 import { BotDataService } from './data-service-abstract.class';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the cursor collection
@@ -13,18 +12,20 @@ import { CommunicationChannel } from '@app/model/bot/channel';
 export class CursorDataService extends BotDataService<Cursor> {
   private _docPath: string;
 
-  constructor(msg: Message, channel: CommunicationChannel, tools: HandlerTools) 
+  constructor(tools: HandlerTools) 
   {
     super(tools)
-    this._init(msg, channel)
+    // this._init(msg, channel)
   }
 
-  protected _init(msg: Message, channel: CommunicationChannel){
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/cursor`
-  }
+  // protected _init(msg: Message, channel: CommunicationChannel){
+  //   this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories/${channel.storyId}/cursor`
+  // }
   
   /** Returns the latest activity / latest position of the cursor */
-  async getLatestCursor(): Promise<Cursor | boolean>{
+  async getLatestCursor(endUserId: string): Promise<Cursor | boolean>{
+    this._docPath = `end-users/${endUserId}/cursor`
+
     const latestBlock = await this.getLatestDocument(this._docPath)
     
     if (latestBlock){
@@ -35,7 +36,9 @@ export class CursorDataService extends BotDataService<Cursor> {
   }
 
   /** Updates the cursor with the block */
-  async updateCursor(newBlock: Block): Promise<Cursor> {
+  async updateCursor(newBlock: Block, endUserId: string): Promise<Cursor> {
+
+    this._docPath = `end-users/${endUserId}/cursor`
 
     const timeStamp = Date.now();
     const newActivity: Cursor = {
