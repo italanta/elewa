@@ -11,7 +11,7 @@ import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { WhatsAppCommunicationChannel } from '@app/model/bot/channel';
+
 
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
@@ -82,9 +82,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
       name: businessName,
       orgId:this._orgId,
       defaultStory: this._activeStoryId,
-      n: this.technicalRef,
-      accessToken: authKey
-    } as WhatsAppCommunicationChannel;
+      n: this.technicalRef, 
+    } as CommunicationChannel;
 
     // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
 
