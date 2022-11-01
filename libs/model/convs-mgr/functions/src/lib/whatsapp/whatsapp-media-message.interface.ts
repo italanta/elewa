@@ -1,4 +1,4 @@
-import { WhatsAppMessage } from "./whatsapp-base-message.interface";
+import { WhatsAppOutgoingMessage } from "./whatsapp-base-message.interface";
 import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 /**
@@ -6,7 +6,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
  * @extends {WhatsAppMessage}
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#media-messages
  */
-export interface WhatsAppImageMessage extends WhatsAppMessage {
+export interface WhatsAppImageMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   image: {
     link: string;
@@ -14,21 +14,21 @@ export interface WhatsAppImageMessage extends WhatsAppMessage {
 
 }
 
-export interface WhatsAppAudioMessage extends WhatsAppMessage {
+export interface WhatsAppAudioMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   audio: {
     link: string;
   }
 
 }
-export interface WhatsAppVideoMessage extends WhatsAppMessage {
+export interface WhatsAppVideoMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   video: {
     link: string;
   }
 
 }
-export interface WhatsAppStickerMessage extends WhatsAppMessage {
+export interface WhatsAppStickerMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   sticker: {
     link: string;
@@ -36,7 +36,7 @@ export interface WhatsAppStickerMessage extends WhatsAppMessage {
 
 }
 
-export interface WhatsAppDocumentMessage extends WhatsAppMessage {
+export interface WhatsAppDocumentMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   document: {
     link: string;

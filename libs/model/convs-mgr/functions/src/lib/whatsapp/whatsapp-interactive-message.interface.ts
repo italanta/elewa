@@ -1,5 +1,4 @@
-import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-import { WhatsAppMessage } from "./whatsapp-base-message.interface";
+import { WhatsAppOutgoingMessage } from "./whatsapp-base-message.interface";
 import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 /**
@@ -7,7 +6,7 @@ import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
  * @extends {WhatsAppMessage}
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages#interactive-messages
  */
-export interface WhatsAppInteractiveMessage extends WhatsAppMessage {
+export interface WhatsAppInteractiveMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType.INTERACTIVE,
   interactive: InteractiveInfo
 }
