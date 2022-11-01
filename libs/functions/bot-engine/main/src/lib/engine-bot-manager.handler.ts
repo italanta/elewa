@@ -1,158 +1,116 @@
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/bricks-angular';
-import { FunctionContext, RestResult200 } from '@ngfi/functions';
+import { RestResult200 } from '@ngfi/functions';
 
-import { IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
+import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { Chat, ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
 
-import { BotEngineChatManager } from './services/bot-engine-chat-manager.service';
+import { ConnectionsDataService } from './services/data-services/connections.service';
+import { CursorDataService } from './services/data-services/cursor.service';
+import { BlockDataService } from './services/data-services/blocks.service';
+import { BotEngineMainService } from './services/bot-engine-main.service';
 import { MessagesDataService } from './services/data-services/messages.service';
 import { ChatStatusDataService } from './services/data-services/chat-status.service';
 
 import { ActiveChannel } from './model/active-channel.service';
 
-import { ChannelDataService } from './services/data-services/channel-info.service';
-import { ConnectionsDataService } from './services/data-services/connections.service';
-import { CursorDataService } from './services/data-services/cursor.service';
-import { BlockDataService } from './services/data-services/blocks.service';
-
-import { ReceiveMessageInterpreter } from './interpreter.interface';
+// import { ReceiveMessageInterpreter } from './interpreter.interface';
 
 /**
- * This model is responsible for the flow of chat messages between our bot and 
+ * This model is responsible for the flow of chat messages between our bot and
  *    an end user (which is an identifiable user that is sending messages over a specific channel)
- * 
+ *
  * The model receives the message, processes it and formulates a response (if applicable).
  */
-export class EngineBotManager
+export class EngineBotManager 
 {
-  constructor(private _context: FunctionContext, 
-              private _tools: HandlerTools,
-              private _logger: Logger,
-              private _channel: ActiveChannel,
-              private _interpreter: ReceiveMessageInterpreter)
-  { }
+  constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) {}
 
   /**
-   * Receives a message, through a channel, from a third-party registered platform, 
+   * Receives a message, through a channel, from a third-party registered platform,
    *    handles it, and potentially responds to it.
-   * 
-   * STEP 1: 
-   * STEP 2: 
+   *
+   * STEP 1: Initialize the services which are necessary for execution of the bot engine
+   * STEP 2: Get the current chat information.
    * STEP 3: 
-   * STEP 4: 
-   * 
+   * STEP 4:
+   *
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
    * @returns A REST 200/500 response so the third-party provider knows the message arrived well/failed.
    */
-  public async run(message: IncomingMessage)
+  public async run(message: Message) 
   {
-    this._logger.log(() => `Processing incoming message from channel ${message.channel.id} - ${message.channel.type}.`);
-    
-    try 
-    {
-      // STEP 1: Initialize the services which are necessary for execution of the 
-      // TODO: use a DI container to manage instances and dynamically inject approtiate dependencies
-      const endUser = __
+    /**  */
+    let chatInfo: Chat;
 
+    /**
+     * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
+     * 
+     * So, to ensure faster response to end users, we store all these operations to an array and resolve them after we have responded to the user
+     * 
+     */
+    let promises: Promise<any>[];
 
-    // To later use a DI container to manage instances and dynamically inject approtiate dependencies
-    const connDataService = new ConnectionsDataService(this.messageChannel, this._tools);
-    const cursorDataService = new CursorDataService(baseMessage, this.messageChannel, this._tools);
-    const blockDataService = new BlockDataService(this.messageChannel, connDataService, this._tools);
+    this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
-    this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${this.chatInfo.status}`);
+    try {
+      // STEP 1: Initialize the services which are necessary for execution of the bot engine
+      // TODO: use a DI container to manage instances and dynamically inject appropriate dependencies
 
-     // Check if the enduser is registered to a channel
-     this.messageChannel = await this._getChannelInfo(req, this._channelService$);
+      const connDataService = new ConnectionsDataService(this._activeChannel.channel, this._tools);
+      const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
+      const cursorDataService = new CursorDataService(this._tools);
+      const _msgDataService$ = new MessagesDataService(this._tools);
 
-     // Resolve the platform and the message type to get the right message interpretation method
-     const interpretToBaseMessage = new ReceiveInterpreterFactory().resolvePlatform(req.platform).resolveMessageType(req.messageType);
- 
-     // Convert the Raw Message Data to Base Message
-     this.baseMessage = interpretToBaseMessage(req, this.messageChannel);
- 
-     this._tools.Logger.log(() => `[ChatManager]._init - Interpreted message: ${JSON.stringify(this.baseMessage)}}`);
- 
-     // Get the current chat information
-     this.chatInfo = await this._chatStatusService$.getChatStatus(this.messageChannel.storyId, this.baseMessage);
- 
-     if (!this.chatInfo) {
-       // Initialize chat status
-       this.chatInfo = await this._chatStatusService$.initChatStatus(this.messageChannel.storyId, this.baseMessage);
- 
-       // Add message to collection
-       this.promises.push(this._addMessage(this.baseMessage));
- 
-       this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
- 
-       return this.baseMessage;
-     } else {
-       // Add message to collection
-       this.promises.push(this._addMessage(this.baseMessage));
- 
-       this._tools.Logger.log(() => `[ChatManager].init - Message added`);
- 
-       return this.baseMessage;
-     }
+      const _chatStatusService$ = new ChatStatusDataService(this._tools);
 
-    /** Manage the ongoing chat using the chat status */
-    switch (this.chatInfo.status) {
-      case ChatStatus.Running:
-        // Process the message and send the next block back to the user
-        const nextBlock = await bot.processMessage(baseMessage);
+      //TODO: Find a better way because we are passing the active channel twice
+      const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
 
-        // Update the cursor
-        this.promises.push(bot.updateCursor(nextBlock))
-
-        // Send the message back to the user
-        await bot.sendMessage({ msg: baseMessage, block: nextBlock }, this.messageChannel);
-
-        // Finally Resolve pending promises that do not affect the processing of the message
-        await Promise.all(this.promises);
-
-        break;
-      case ChatStatus.Paused:
-        await bot.sendTextMessage(baseMessage, 'Chat has been paused.', this.messageChannel);
-        break;
-      default:
-        break;
-    }
-
-      await chatManager.execute(req)
-
-      return { success: true} as RestResult200
-
-    } catch (error) {
-
-      tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
+      const END_USER_ID = bot.generateEndUserId(message);
       
+      // STEP 2: Get the current chat information
+      chatInfo = await _chatStatusService$.getChatStatus(END_USER_ID);
+
+      this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${chatInfo.status}`);
+
+      if (!chatInfo)
+          // Initialize chat status
+          chatInfo = await _chatStatusService$.initChatStatus(this._activeChannel.channel.defaultStory);
+
+      // Add message to collection
+      promises.push(bot.saveMessage(message, END_USER_ID));
+
+      this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
+
+      // Manage the ongoing chat using the chat status 
+      switch (chatInfo.status) {
+        case ChatStatus.Running:
+          // Process the message and get the next block in the story that is to be sent back to the user
+          const nextBlock = await bot.processMessage(message, END_USER_ID);
+
+          // Send the block back to the user
+          await bot.reply(nextBlock, message.endUserPhoneNumber);
+
+          // Update the cursor, by pushing it to the promises array
+          promises.push(bot.updateCursor(nextBlock, END_USER_ID));
+
+          // Finally Resolve pending operations that do not affect the processing of the message
+          await Promise.all(promises);
+
+          break;
+        case ChatStatus.Paused:
+          await bot.sendTextMessage("Chat has been paused", message.endUserPhoneNumber)
+          break;
+        default:
+          break;
+      }
+      return { success: true } as RestResult200;
+    } catch (error) {
+      this._tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
     }
   }
 
-  /**
-   * The user/story owner registers a story to a channel from the dashboard
-   * Gets the channel information that the story was registered to using the businessAccountId
-   * */
-   private async _getChannelInfo(msg: IncomingMessage, channelDataService: ChannelDataService) {
-    switch (msg.platform) {
-      case PlatformType.WhatsApp:
-        return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
-      default:
-        return await channelDataService.getChannelInfo(msg.botAccountphoneNumberId);
-    }
-  }
 
-  /**
-   * Adds the interpreted message to firestore, messages collection
-   * @param msg - Already intepreted Base Message
-   */
-   private async _addMessage(msg: BaseMessage) {
-    // Use factory to resolve the platform
-    const AddMessageService = new AddMessageFactory(this._msgDataService$).resolveAddMessagePlatform(msg.platform);
-
-    const baseMessage = await AddMessageService.addMessage(msg, this.messageChannel as WhatsappChannel);
-
-    return baseMessage;
-  }
 
 }
