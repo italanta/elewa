@@ -5,3 +5,5 @@ export * from './lib/chat-flow-status.enum';
 
 export * from './lib/chat-jump-point.interface';
 
+export * from './lib/end-user.interface';
+
