@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from './data-service-abstract.class';
-import { Message, IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
+import { IncomingMessage } from '@app/model/convs-mgr/conversations/messages';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
@@ -33,9 +33,9 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
     // Takes longer than get by Id
     const channelInfo = await this.getDocumentById(id ,this._docPath)
     
-    if (!channelInfo) {
-      throw new Error('The user has not been registered to a channel');
-    }
+    if (!channelInfo)
+      this.tools.Logger.error(() => `[ChannelInfo].getChannelInfo - The user has not been registered to a channel: ${JSON.stringify(id)}`);
+
 
     this.tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${JSON.stringify(channelInfo)}`);
 
