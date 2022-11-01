@@ -8,15 +8,14 @@ import { combineLatest, filter, map } from 'rxjs';
 
 import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 
-import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { CommunicationChannel, WhatsappChannel } from '@app/model/bot/channel';
-import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { WhatsAppCommunicationChannel } from '@app/functions/bot-engine/whatsapp';
 
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
+import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
 @Component({
   selector: 'conv-add-bot-to-channel',
   templateUrl: 'add-bot-to-channel.modal.html',
@@ -28,15 +27,17 @@ import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
  * Component is meant to allow users to register bot to multiple channels/PlatformType
  */
 
-export class AddBotToChannelModal implements OnInit, OnDestroy {
+export class AddBotToChannelModal implements OnInit, OnDestroy 
+{
 
   private _sBs = new SubSink();
   private _activeStoryId: string;
   private _orgId: string;
 
   addToChannelForm: FormGroup;
+  technicalRef: number = 1;
 
-  channels: CommunicationChannel[] = [{ channelName: PlatformType.WhatsApp } as WhatsappChannel];
+  channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel];
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
@@ -46,10 +47,10 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     private _activeOrgStore$$: ActiveOrgStore)
     {
     this.addToChannelForm = this._fb.group({
-      phoneNumber: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
-      businessAccountId: [null, Validators.required],
-      channel: [null, Validators.required],
-      authenticationKey: [null, Validators.required]
+      businessPhoneNumberId: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
+      businessName: [null, Validators.required],
+      authenticationKey: [null, Validators.required],
+      
     })
   }
 
@@ -66,22 +67,23 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   onSubmit() {
     this.isSaving = true;
-    const phoneNumber = this.addToChannelForm.get('phoneNumber')?.value;
+    const phoneNumberId = this.addToChannelForm.get('phoneNumber')?.value;
     var authKey = this.addToChannelForm.get('authenticationKey')?.value;
-    const businessAccountId = this.addToChannelForm.get('businessAccountId')?.value;
-    const channel: CommunicationChannel = this.addToChannelForm.get('channel')?.value;
-    const rawApiKey = this.addToChannelForm.get('apiKey')?.value;
+    const businessName = this.addToChannelForm.get('businesName')?.value;
+    this.technicalRef += 1;
+
+
 
     authKey = __ENCODE_AES(authKey);
 
     const channelToSubmit = {
-      channelName: channel.channelName,
-      businessPhoneNumberId: phoneNumber.toString(),
-      storyId: this._activeStoryId,
-      orgId: this._orgId,
-      authenticationKey: authKey,
-      businessAccountId: String(businessAccountId)
-    } as CommunicationChannel;
+      id: phoneNumberId,
+      name: businessName,
+      orgId:this._orgId,
+      defaultStory: this._activeStoryId,
+      n: this.technicalRef,
+      accessToken: authKey
+    } as WhatsAppCommunicationChannel;
 
     // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
 
