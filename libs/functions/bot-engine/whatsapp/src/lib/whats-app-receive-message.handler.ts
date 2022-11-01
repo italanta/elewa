@@ -43,14 +43,13 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     // @See https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
     if (this._dataResIsEmpty(payload)) return __SendWhatsAppWebhookVerificationToken(context, tools);
     // Only proceed when we have the messages object.
-    if (payload.entry[0].changes[0].value.messages) return { success: true } as RestResult200;
-
+    if (payload.entry[0].changes[0].value.messages)
     tools.Logger.log(() => `Received Whatsapp msg ${JSON.stringify(payload.entry[0].changes)}`);
 
     // STEP 2: We have validated.
     //         We now unpack the message and search for the correct channel
     //         The message is converted to a generic object our engine can understand.
-    const sanitizedMessage = __ConvertWhatsAppApiPayload(payload);
+    const sanitizedResponse = __ConvertWhatsAppApiPayload(payload);
 
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
@@ -58,9 +57,9 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //         This channel information is used to link the incoming message to the active story using the business phone number id
 
     // So we get registered channel information by passing the business phone number id Channel Data Service
-    const _channelService$ = new ChannelDataService(sanitizedMessage, tools);
+    const _channelService$ = new ChannelDataService(sanitizedResponse, tools);
 
-    const communicationChannel = await _channelService$.getChannelInfo(sanitizedMessage.platformId) as WhatsAppCommunicationChannel
+    const communicationChannel = await _channelService$.getChannelInfo(sanitizedResponse.platformId) as WhatsAppCommunicationChannel
 
     // STEP 4: Create Active Channel
     //         We need to create the active channel so that the engine can use it to process and send the message
@@ -73,7 +72,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //          we need to parse the incoming message and return a standardized format so that our bot engine can read and process the message
     const engine = new EngineBotManager(tools, tools.Logger, whatsappActiveChannel);
     
-    const message = new WhatsappIncomingMessageParser().parse(sanitizedMessage.type, sanitizedMessage);
+    const message = new WhatsappIncomingMessageParser().parse(sanitizedResponse.type, sanitizedResponse.message);
 
     // STEP 6: Pass the standardized message and run the bot engine
     return engine.run(message);
