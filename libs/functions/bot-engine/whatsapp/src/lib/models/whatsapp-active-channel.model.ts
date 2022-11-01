@@ -47,7 +47,7 @@ export class WhatsappActiveChannel implements ActiveChannel
     // STEP 1: Assign the access token and the business phone number id
     //            required by the whatsapp api to send messages
     const ACCESS_TOKEN = this.channel.accessToken
-    const PHONE_NUMBER_ID = this.channel.businessPhoneNumberId
+    const PHONE_NUMBER_ID = this.channel.id
 
 
     // STEP 2: Prepare the outgoing whatsapp message
