@@ -2,11 +2,12 @@ import { IObject } from '@iote/bricks';
 
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
-  export interface Chat extends IObject{
-    chatId: string;
+/**
+ * 
+ */
+  export interface Chat extends IObject
+  {
     status: ChatStatus;
-    platform: PlatformType;
-  
   }
   
   export enum ChatStatus {
