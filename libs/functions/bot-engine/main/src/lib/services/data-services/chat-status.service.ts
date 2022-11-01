@@ -17,43 +17,34 @@ export class ChatStatusDataService extends BotDataService<Chat>{
     this.tools = tools;
   }
 
-  protected _init(msg: Message): void {
-    this._docPath = `end-users/${msg.phoneNumber}/platforms/${msg.platform}/stories`
+  protected _init(msg: Message): void 
+  {
+    this._docPath = `end-users`
   }
 
-  async initChatStatus(storyId: string, message: Message) {
-    this._docPath = `end-users/${message.phoneNumber}/platforms/${message.platform}/stories`
-
-    const chatId = storyId
+  async initChatStatus(endUserId: string, chatStatus?: ChatStatus) {
 
     const newStatus: Chat = {
-      chatId,
-      status: ChatStatus.Running,
-      platform: message.platform,
+      status: chatStatus || ChatStatus.Running
     };
 
-    const newChat = await this.createDocument(newStatus, this._docPath, chatId)
+    const newChat = await this.createDocument(newStatus, this._docPath, endUserId)
 
     return newChat;
   }
 
-  async getChatStatus(storyId: string, message: Message) {
-    this._docPath = `end-users/${message.phoneNumber}/platforms/${message.platform}/stories`
+  async getChatStatus(endUserId: string) {
 
-    const chatStatus = await this.getDocumentById(storyId, this._docPath)   
+    const chatStatus = await this.getDocumentById(endUserId, this._docPath)   
 
     return chatStatus;
   }
 
-  async updateChatStatus(storyId: string, msg: Message, status: ChatStatus) {
-    const chatId = storyId;
-
+  async updateChatStatus(endUserId: string, status: ChatStatus) {
     const newStatus: Chat = {
-      chatId,
-      status,
-      platform: msg.platform,
+      status
     };
 
-   await this.createDocument(newStatus, this._docPath, chatId)
+   await this.createDocument(newStatus, this._docPath, endUserId)
   }
 }
