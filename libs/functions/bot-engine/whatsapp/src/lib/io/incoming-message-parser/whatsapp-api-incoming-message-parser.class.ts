@@ -1,5 +1,5 @@
 import { IncomingMessageParser } from '@app/functions/bot-engine';
-import { Message, QuestionMessage, TextMessage } from '@app/model/convs-mgr/conversations/messages';
+import { QuestionMessage, TextMessage } from '@app/model/convs-mgr/conversations/messages';
 import { InteractiveRawButtonReplyMessage, MessageTypes, TextMessagePayload, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
 
 /**
