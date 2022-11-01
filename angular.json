@@ -114,33 +114,6 @@
       },
       "tags": []
     },
-    "functions-conversations-messages-add-message": {
-      "root": "libs/functions/conversations/messages/add-message",
-      "sourceRoot": "libs/functions/conversations/messages/add-message/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/functions/conversations/messages/add-message/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/functions/conversations/messages/add-message"
-          ],
-          "options": {
-            "jestConfig": "libs/functions/conversations/messages/add-message/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "functions-webhooks": "libs/functions/webhooks",
     "model-bot-blocks-connection": "libs/model/bot/blocks/connection",
     "model-bot-blocks-default-block": "libs/model/bot/blocks/default-block",
