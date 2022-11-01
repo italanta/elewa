@@ -89,13 +89,6 @@
     },
     "EDIT-MODAL": {
       "TITLE": "Edit Bot",
-      "FIELDS": {
-        "NAME": "Name",
-        "NAME-PLACEHOLDER": "Bot name",
-        "DESC": "Description",
-        "DESC-PLACEHOLDER": "Bot description"
-      },
-      "CANCEL": "Cancel",
       "SUBMIT": "Update Bot"
     }
   }

@@ -17,7 +17,6 @@ export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
   modalMode: string;
   story: Story;
-  editBotForm: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
