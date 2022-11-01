@@ -3,9 +3,9 @@ import { SubSink } from 'subsink';
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Router }    from '@angular/router';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
-
 import { MatDialog } from '@angular/material/dialog';
+
+import { Story } from '@app/model/convs-mgr/stories/main';
 import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
 
 @Component({
