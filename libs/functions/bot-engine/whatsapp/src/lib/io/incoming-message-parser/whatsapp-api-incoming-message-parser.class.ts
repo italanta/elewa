@@ -22,16 +22,14 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
    * Payload example:
    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
    */
-  protected parseInTextMessage(message: WhatsAppMessagePayLoad): TextMessage 
+  protected parseInTextMessage(message: TextMessagePayload): TextMessage 
   {
-    const textMessage = message as TextMessagePayload
-
     // Create the base message object
     const newMessage: TextMessage = {  
-      id: textMessage.id,
+      id: message.id,
       type: MessageTypes.TEXT,
       endUserPhoneNumber: message.from,
-      text: textMessage.text.body,
+      text: message.text.body,
       payload: message,
     };
 
