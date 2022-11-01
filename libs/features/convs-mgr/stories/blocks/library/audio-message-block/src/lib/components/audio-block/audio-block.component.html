@@ -6,10 +6,17 @@
             <div [id]="audioInputId">
                 <label>
                 <div class="image-div">
-                  <img [src]="audioLink ? audioLink : defaultImage" class="image">
+                <div *ngIf="this.block.fileSrc">
+                    <audio controls>
+                        <source [src]="this.block.fileSrc " class="audio" (click)="audioInput.click()">
+                    </audio>
+                    </div>
+                    <div *ngIf="!this.block.fileSrc">
+                  <img [src]="defaultImage" class="image" (click)="audioInput.click()"> 
+                  </div>
                   </div>
                   <div>
-                  <input #audioInput type="file" class="fileSrc" formControlName="src">
+                  <input #audioInput (change)="processAudio($event)" type="file"  accept=".mp3,.mp4 "class="fileSrc" >
                   </div>
               </label>
             </div>
@@ -17,3 +24,9 @@
         </form>
     </mat-card-content>
 </mat-card>
+
+
+<!-- <div [id]="imageInputId">
+    <input type="image" id="imageFile" accept="img/*" [src]="this.block.fileSrc ? this.block.fileSrc : imageLink" class="image" (click)="imageInput.click()">
+    <input (change)="processImage($event)" accept="image/*" id="imageFile" #imageInput type="file" class="fileSrc" value="imageMessageForm.value.src">
+</div> -->
