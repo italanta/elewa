@@ -69,7 +69,7 @@ export class DocumentBlockComponent implements OnInit {
     }
     this.isDocLoading= true;
 
-    const docFilePath = `images/${this.file.name}_${new Date().getTime()}`;
+    const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
     (await this._docUploadService.uploadFile(this.file, this.block, docFilePath)).subscribe();
     console.log(this.isDocLoading);
 
