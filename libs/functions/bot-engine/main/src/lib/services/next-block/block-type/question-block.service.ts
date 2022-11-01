@@ -5,7 +5,7 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { NextBlockService } from "../next-block.class";
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -27,7 +27,7 @@ export class QuestionMessageService extends NextBlockService {
 
     async getNextBlock(msg: Message, lastBlock?: QuestionMessageBlock): Promise<Block>{
 
-        const response = msg.message as InteractiveRawButtonReplyMessage
+        const response = msg as QuestionMessage
 
         const matchInput = new MatchInputService();
 
@@ -35,7 +35,7 @@ export class QuestionMessageService extends NextBlockService {
         // TODO: Add a dynamic way of selecting matching strategies
         matchInput.setMatchStrategy(new ExactMatch())
 
-        const selectedOptionIndex = matchInput.matchId(response.interactive.button_reply.id, lastBlock.options)
+        const selectedOptionIndex = matchInput.matchId(response.optionId, lastBlock.options)
 
         if (selectedOptionIndex == -1){
             this._logger.error(()=> `The message did not match any option found`)
