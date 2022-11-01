@@ -8,13 +8,13 @@ export function __ConvertWhatsAppApiPayload(message: IncomingWhatsAppMessage): W
 
   return {
     //botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.display_phone_number,
-    platformId:     message.entry[0].changes[0].value.metadata.phone_number_id,
+    platformId: message.entry[0].changes[0].value.metadata.phone_number_id,
     // businessPhoneNumberId: message.entry[0].changes[0].value.metadata.phone_number_id,
-    endUserName:   message.entry[0].changes[0].value.contacts[0].profile.name,
+    endUserName: message.entry[0].changes[0].value.contacts[0].profile.name,
     endUserNumber: message.entry[0].changes[0].value.contacts[0].wa_id,
-    message:       message.entry[0].changes[0].value.messages[0],
-    
-    type:     __ConvertWhatsAppTypeToEngineMessageType(message.entry[0].changes[0].value.messages[0].type),
+    message: message.entry[0].changes[0].value.messages[0],
+
+    type: __ConvertWhatsAppTypeToEngineMessageType(message.entry[0].changes[0].value.messages[0].type),
 
     channel: null,
 
@@ -26,21 +26,21 @@ function __ConvertWhatsAppTypeToEngineMessageType(type: WhatsAppMessageType): Me
 {
   switch (type) {
     case WhatsAppMessageType.TEXT:
-      return MessageTypes.TEXT
+      return MessageTypes.TEXT;
     case WhatsAppMessageType.INTERACTIVE:
-      return MessageTypes.QUESTION
+      return MessageTypes.QUESTION;
     case WhatsAppMessageType.AUDIO:
-      return MessageTypes.AUDIO
+      return MessageTypes.AUDIO;
     case WhatsAppMessageType.CONTACTS:
-      return MessageTypes.CONTACTS
+      return MessageTypes.CONTACTS;
     case WhatsAppMessageType.DOCUMENT:
-      return MessageTypes.DOCUMENT
+      return MessageTypes.DOCUMENT;
     case WhatsAppMessageType.IMAGE:
-      return MessageTypes.IMAGE
+      return MessageTypes.IMAGE;
     case WhatsAppMessageType.STICKER:
-      return MessageTypes.STICKER
+      return MessageTypes.STICKER;
     case WhatsAppMessageType.VIDEO:
-      return MessageTypes.VIDEO
+      return MessageTypes.VIDEO;
     default:
       break;
   }
@@ -49,7 +49,7 @@ function __ConvertWhatsAppTypeToEngineMessageType(type: WhatsAppMessageType): Me
 /** Function which converts incoming webhook request to a readable POJO. */
 function _FormatWhatsAppPayLoad(message: IncomingWhatsAppMessage): IncomingWhatsAppMessage  
 {
-  const formattedPayLoad: IncomingWhatsAppMessage = 
+  const formattedPayLoad: IncomingWhatsAppMessage =
   {
     object: message["object"],
     entry: message["entry"],

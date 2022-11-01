@@ -1,16 +1,17 @@
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import {
-  ActionButtonsInfo,
-  InteractiveButtonMessage,
-  MetaMessagingProducts,
-  RecepientType,
-  TextMessagePayload,
-  WhatsAppImageMessage,
-  WhatsAppInteractiveMessage,
-  WhatsAppMessageType,
-  WhatsAppTextMessage,
-} from '@app/model/convs-mgr/functions';
+import
+  {
+    ActionButtonsInfo,
+    InteractiveButtonMessage,
+    MetaMessagingProducts,
+    RecepientType,
+    TextMessagePayload,
+    WhatsAppImageMessage,
+    WhatsAppInteractiveMessage,
+    WhatsAppMessageType,
+    WhatsAppTextMessage,
+  } from '@app/model/convs-mgr/functions';
 
 import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -21,14 +22,16 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
  * @see WhatsAppMessageType - for the types of messages received from whatsapp
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples
  */
-export class WhatsappOutgoingMessageParser extends OutgoingMessageParser {
+export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
+{
   /**
    * @Description Used to send message of type text to whatsapp api
    * @param message
    * @returns promise
    */
-   getTextBlockParserOut(textBlock: TextMessageBlock, phone: string): any {
-    
+  getTextBlockParserOut(textBlock: TextMessageBlock, phone: string): any
+  {
+
     // Create the text payload which will be sent to api
     const textPayload = {
       type: WhatsAppMessageType.TEXT,
@@ -52,10 +55,12 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser {
    * We transform the Question block to a button interactive message for whatsapp api
    * @Description Used to send Question Block to whatsapp api
    */
-   getQuestionBlockParserOut(storyBlock: StoryBlock, phone: string){
+  getQuestionBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
     const questionBlock = storyBlock as QuestionMessageBlock;
 
-    const buttons = questionBlock.options.map((option) => {
+    const buttons = questionBlock.options.map((option) =>
+    {
       return {
         type: 'reply',
         reply: {
@@ -92,7 +97,8 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser {
     return generatedMessage;
   }
 
-  getImageBlockParserOut(storyBlock: StoryBlock, phone: string) {
+  getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
     const imageBlock = storyBlock as ImageMessageBlock
 
     // Create the image payload which will be sent to api
