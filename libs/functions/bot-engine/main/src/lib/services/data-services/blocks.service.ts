@@ -6,7 +6,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BotDataService } from './data-service-abstract.class';
 import { ConnectionsDataService } from './connections.service';
-import { CommunicationChannel } from '@app/model/bot/channel';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
@@ -22,7 +22,7 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   }
 
   protected _init(channel: CommunicationChannel) {
-    this._docPath = `orgs/${channel.orgId}/stories/${channel.storyId}/blocks`;
+    this._docPath = `orgs/${channel.orgId}/stories/${channel.defaultStory}/blocks`;
     this._channel = channel;
   }
 
@@ -39,7 +39,7 @@ export class BlockDataService extends BotDataService<StoryBlock> {
 
   /** TODO: Remove after implementing a static block on front end */
   async getAnchorBlock(channelInfo: CommunicationChannel): Promise<StoryBlock> {
-    const anchorBlock = await this.getBlockById(channelInfo.storyId);
+    const anchorBlock = await this.getBlockById(channelInfo.defaultStory);
 
     if (!anchorBlock) {
       throw new Error('Failed to get first block');
@@ -51,7 +51,7 @@ export class BlockDataService extends BotDataService<StoryBlock> {
    *  First gets the connection where sourceId == story id, then uses the target id of the connection to return the first block
    */
   async getFirstBlock(channelInfo: CommunicationChannel): Promise<StoryBlock> {
-    const firstConnection = await this._connDataService$.getConnBySourceId(channelInfo.storyId);
+    const firstConnection = await this._connDataService$.getConnBySourceId(channelInfo.defaultStory);
 
     const firstBlock = await this.getBlockById(firstConnection.targetId);
 
