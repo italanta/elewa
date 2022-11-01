@@ -43,7 +43,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     // @See https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
     if (this._dataResIsEmpty(payload)) return __SendWhatsAppWebhookVerificationToken(context, tools);
     // Only proceed when we have the messages object.
-    if (payload.entry[0].changes[0].value.messages)
+    if (!payload.entry[0].changes[0].value.messages) return { status: 400, message: "No messages in incoming payload to process" } as RestResult;
+  
     tools.Logger.log(() => `Received Whatsapp msg ${JSON.stringify(payload.entry[0].changes)}`);
 
     // STEP 2: We have validated.
@@ -71,7 +72,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //        Since we receive different types of messages e.g. text message, location,
     //          we need to parse the incoming message and return a standardized format so that our bot engine can read and process the message
     const engine = new EngineBotManager(tools, tools.Logger, whatsappActiveChannel);
-    
+
     const message = new WhatsappIncomingMessageParser().parse(sanitizedResponse.type, sanitizedResponse.message);
 
     // STEP 6: Pass the standardized message and run the bot engine
