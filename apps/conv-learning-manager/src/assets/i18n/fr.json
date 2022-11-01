@@ -89,13 +89,6 @@
     },
     "EDIT-MODAL": {
       "TITLE": "Modifier un robot",
-      "FIELDS": {
-        "NAME": "Nom",
-        "NAME-PLACEHOLDER": "Nom du robot",
-        "DESC": "Description",
-        "DESC-PLACEHOLDER": "Description du robot"
-      },
-      "CANCEL": "Annuler",
       "SUBMIT": "Mettre à jour un robot"
     }
   }
