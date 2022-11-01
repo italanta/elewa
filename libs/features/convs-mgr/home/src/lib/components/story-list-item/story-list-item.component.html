@@ -8,11 +8,18 @@
           {{ story.name }} <span class="bot-number"></span>
         </h2>
       </div>
-
-      <button mat-icon-button>
-        <mat-icon>more_vert</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <i class="fas fa-ellipsis-v"></i>
       </button>
-
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="bot-menu-item">
+          <span>Edit</span>
+        </button>
+        <hr class="bot-menu-item-separator"/>
+        <button mat-menu-item class="bot-menu-item">
+          <span>Delete</span>
+        </button>
+      </mat-menu>
     </div>
 
     <mat-card-content>
