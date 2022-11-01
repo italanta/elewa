@@ -27,10 +27,12 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const textMessage = message as TextMessagePayload
 
     // Create the base message object
-    const newMessage: TextMessage = {
+    const newMessage: TextMessage = {  
       id: textMessage.id,
       type: MessageTypes.TEXT,
+      endUserPhoneNumber: message.from,
       text: textMessage.text.body,
+      payload: message,
     };
 
     return newMessage;
@@ -53,8 +55,10 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const baseMessage: QuestionMessage = {
       id: interactiveMessage.id,
       type: MessageTypes.QUESTION,
+      endUserPhoneNumber: message.from,
       optionId: interactiveMessage.interactive.button_reply.id,
       optionText: interactiveMessage.interactive.button_reply.title,
+      payload: message,
     }
 
     return baseMessage
