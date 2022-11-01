@@ -32,7 +32,6 @@ export class CreateBotModalComponent implements OnInit {
   createFormGroup(){
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
-      // botImage: [this._addImage$.uploadFile(File)],
       botDesc: ['']
     });
   }
