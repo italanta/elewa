@@ -57,7 +57,7 @@ async processAudio(event: any)
   }
   this.isLoadingAudio = true;
   //Step 1 - Create the file path that will be in firebase storage
-  const audioFilePath = `images/${this.file.name}_${new Date().getTime()}`;
+  const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
   (await this._audioUploadService.uploadFile(this.file, this.block, audioFilePath)).subscribe();
 
 }
