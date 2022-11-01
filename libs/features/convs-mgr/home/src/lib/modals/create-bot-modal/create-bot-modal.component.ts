@@ -20,16 +20,19 @@ export class CreateBotModalComponent implements OnInit {
   editBotForm: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {mode: string, story?: Story},
+    @Inject(MAT_DIALOG_DATA) public data: {
+      mode: string,
+      story ? : Story
+    },
     private _addStory$: NewStoryService,
     private _formBuilder: FormBuilder,
-    private _addImage$:UploadFileService) {
-      this.modalMode = data.mode;
-      this.story = data.story as Story;
-    }
+    private _addImage$: UploadFileService) {
+    this.modalMode = data.mode;
+    this.story = data.story as Story;
+  }
 
 
-  createFormGroup(){
+  createFormGroup() {
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
       botDesc: ['']
@@ -37,34 +40,33 @@ export class CreateBotModalComponent implements OnInit {
   }
 
 
-  createEditFormGroup(){
-    this.editBotForm = this._formBuilder.group({
-      botName: [this.story.name],
-      botDesc: [this.story.description]
-    });
+  updateFormGroup() {
+    if (this.modalMode === this.getModalMode().edit) {
+      this.botForm.patchValue({
+        botName: this.story.name,
+        botDesc: this.story.description
+      });
+    }
   }
 
-  getModalMode(){
+  getModalMode() {
     return {
       create: "Create Mode",
       edit: "Edit Mode"
-    } as const;
+    }as const;
   }
 
   ngOnInit(): void {
-    if(this.modalMode === this.getModalMode().create){
-      this.createFormGroup();
-    } else {
-      this.createEditFormGroup();
-    }
+    this.createFormGroup();
+    this.updateFormGroup();
   }
 
   add = () => this._addStory$.add(this.botForm.value.botName as string, this.botForm.value.botDesc as string || '').subscribe();
 
   update() {
     // Capture changes to bot name and bot description
-    this.story.name = this.editBotForm.value.botName;
-    this.story.description = this.editBotForm.value.botDesc;
+    this.story.name = this.botForm.value.botName;
+    this.story.description = this.botForm.value.botDesc;
 
     // Update bot details
     this._addStory$.update(this.story);
