@@ -15,15 +15,15 @@ export class ChatStatusDataService extends BotDataService<Chat>{
   {
     super(tools)
     this.tools = tools;
+    this._init();
   }
 
-  protected _init(msg: Message): void 
+  protected _init(): void 
   {
     this._docPath = `end-users`
   }
 
   async initChatStatus(endUserId: string, chatStatus?: ChatStatus) {
-
     const newStatus: Chat = {
       status: chatStatus || ChatStatus.Running
     };
