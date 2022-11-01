@@ -68,9 +68,9 @@ export class BotEngineMainService
 
     // If no block was sent then the conversation is new and we return the first block, else get the next block
     if (!userActivity) {
-      return await processMessage.getFirstBlock(this._tools);
+      return processMessage.getFirstBlock(this._tools);
     } else {
-      return await processMessage.resolveNextBlock(msg, this._tools);
+      return processMessage.resolveNextBlock(msg, endUserId, this._tools);
     }
   }
 
