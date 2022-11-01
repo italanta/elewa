@@ -11,11 +11,12 @@ import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { WhatsAppCommunicationChannel } from '@app/functions/bot-engine/whatsapp';
+import { WhatsAppCommunicationChannel } from '@app/model/bot/channel';
 
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
+
 @Component({
   selector: 'conv-add-bot-to-channel',
   templateUrl: 'add-bot-to-channel.modal.html',
