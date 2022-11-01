@@ -49,7 +49,7 @@ export class EngineBotManager
      * So, to ensure faster response to end users, we store all these operations to an array and resolve them after we have responded to the user
      * 
      */
-    let promises: Promise<any>[];
+    let promises: Promise<any>[] = [];
 
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
@@ -72,16 +72,15 @@ export class EngineBotManager
       // STEP 2: Get the current chat information
       chatInfo = await _chatStatusService$.getChatStatus(END_USER_ID);
 
-      this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${chatInfo.status}`);
-
       if (!chatInfo)
           // Initialize chat status
-          chatInfo = await _chatStatusService$.initChatStatus(this._activeChannel.channel.defaultStory);
+          chatInfo = await _chatStatusService$.initChatStatus(END_USER_ID);
+          this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
+
+     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${chatInfo.status}`);
 
       // Add message to collection
       promises.push(bot.saveMessage(message, END_USER_ID));
-
-      this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
 
       // Manage the ongoing chat using the chat status 
       switch (chatInfo.status) {
