@@ -1,4 +1,4 @@
-import { IncomingWhatsAppMessage, WhatsAppResponse } from "@app/model/convs-mgr/functions";
+import { IncomingWhatsAppMessage, MessageTypes, WhatsAppMessageType, WhatsAppResponse } from "@app/model/convs-mgr/functions";
 
 
 /** Function which converts the raw whatsapp incoming message to something more readable by our system. **/
@@ -14,12 +14,36 @@ export function __ConvertWhatsAppApiPayload(message: IncomingWhatsAppMessage): W
     endUserNumber: message.entry[0].changes[0].value.contacts[0].wa_id,
     message:       message.entry[0].changes[0].value.messages[0],
     
-    type:     message.entry[0].changes[0].value.messages[0].type as any,
+    type:     __ConvertWhatsAppTypeToEngineMessageType(message.entry[0].changes[0].value.messages[0].type),
 
     channel: null,
 
     payload: message
   };
+}
+
+function __ConvertWhatsAppTypeToEngineMessageType(type: WhatsAppMessageType): MessageTypes 
+{
+  switch (type) {
+    case WhatsAppMessageType.TEXT:
+      return MessageTypes.TEXT
+    case WhatsAppMessageType.INTERACTIVE:
+      return MessageTypes.QUESTION
+    case WhatsAppMessageType.AUDIO:
+      return MessageTypes.AUDIO
+    case WhatsAppMessageType.CONTACTS:
+      return MessageTypes.CONTACTS
+    case WhatsAppMessageType.DOCUMENT:
+      return MessageTypes.DOCUMENT
+    case WhatsAppMessageType.IMAGE:
+      return MessageTypes.IMAGE
+    case WhatsAppMessageType.STICKER:
+      return MessageTypes.STICKER
+    case WhatsAppMessageType.VIDEO:
+      return MessageTypes.VIDEO
+    default:
+      break;
+  }
 }
 
 /** Function which converts incoming webhook request to a readable POJO. */
