@@ -33,19 +33,13 @@
   font-size: x-small;
 }
 
-.btn-dotted{
-  height: 5px;
-  width: 5px;
-  background-color: mat-color($mat-ele, 500);
-  border-radius: 50%;
-  margin: 2px 0;
+.bot-menu-item-separator{
+  margin: 0;
+  background-color: var(--convs-mgr-color-light);
 }
 
-.dots{
-margin-top: 7px;
-
-}
-
-.dots:hover{
-  cursor: pointer;
+.bot-menu-item{
+  text-align: center;
+  font-weight: 700;
+  color: var(--convs-mgr-color-text-black);
 }
