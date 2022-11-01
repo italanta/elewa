@@ -1,8 +1,5 @@
-// Import theming functions
-@import '@angular/material/theming';
 // Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
-@import '_variables.scss';
+@import 'common.theme';
 
 //this dialog specific styles
 ::ng-deep .delete-dialog-container {
