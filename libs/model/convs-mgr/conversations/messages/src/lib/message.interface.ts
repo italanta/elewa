@@ -1,4 +1,5 @@
 import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { IncomingMessagePayload } from "./payload-in.interface";
 
 /** 
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -10,8 +11,12 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
 */
 export interface Message
 {
-  id             : string;
-  type           : MessageTypes;
+  id                  : string;
+  type                : MessageTypes;
+  payload             : IncomingMessagePayload;
+
+  /**TODO: Get End user */
+  endUserPhoneNumber  : string;
 }
 
 /**
