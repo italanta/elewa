@@ -5,8 +5,7 @@ import { __DECODE_AES } from "@app/elements/base/security-config";
 
 import { ActiveChannel } from "@app/functions/bot-engine";
 
-import { WhatsAppMessage } from "@app/model/convs-mgr/functions";
-import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
+import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
 
 import { WhatsAppCommunicationChannel } from "./whatsapp-comm-channel.interface";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
@@ -43,7 +42,7 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload
   }
 
-  async send(whatsappMessage: WhatsAppMessage)
+  async send(whatsappMessage: WhatsAppOutgoingMessage)
   {
     // STEP 1: Assign the access token and the business phone number id
     //            required by the whatsapp api to send messages
