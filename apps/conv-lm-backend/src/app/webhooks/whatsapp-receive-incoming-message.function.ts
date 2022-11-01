@@ -1,5 +1,7 @@
-import { WhatsAppReceiveIncomingMsgHandler } from "@app/functions/webhooks";
 import { EndpointRegistrar } from "@ngfi/functions";
+
+import { WhatsAppReceiveIncomingMsgHandler } from "@app/functions/bot-engine/whatsapp";
+
 import { ConvLearnFunction } from "../../conv-learn-func.class";
 
 
