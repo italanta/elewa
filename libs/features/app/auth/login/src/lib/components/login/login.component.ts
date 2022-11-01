@@ -66,9 +66,4 @@ export class LoginComponent implements OnInit
     return this._authService.loadFacebookLogin();
   }
 
-  /** Microsoft Login */
-  loginMicrosoft() {
-    return this._authService.loadMicrosoftLogin();
-  }
-
 }
