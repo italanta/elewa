@@ -16,7 +16,7 @@ import { WhatsAppCommunicationChannel } from './models/whatsapp-comm-channel.int
  * Receives a message, through a channel registered on the WhatsApp Business API,
  *    handles it, and potentially responds to it.
  */
-export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingWhatsAppMessage, RestResult> 
+export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingWhatsAppMessage, RestResult>
 {
   /**
    * Receives a message, through a channel registered on the WhatsApp Business API,
@@ -44,7 +44,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     if (this._dataResIsEmpty(payload)) return __SendWhatsAppWebhookVerificationToken(context, tools);
     // Only proceed when we have the messages object.
     if (!payload.entry[0].changes[0].value.messages) return { status: 400, message: "No messages in incoming payload to process" } as RestResult;
-  
+
     tools.Logger.log(() => `Received Whatsapp msg ${JSON.stringify(payload.entry[0].changes)}`);
 
     // STEP 2: We have validated.
