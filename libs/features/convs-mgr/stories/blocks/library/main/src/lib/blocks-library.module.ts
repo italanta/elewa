@@ -17,6 +17,9 @@ import { ConvsMgrNameMessageBlockModule } from '@app/features/convs-mgr/stories/
 import { ConvsMgrEmailMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/email-message-block';
 import { ConvsMgrPhoneMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/phone-message-block';
 import { ConvsMgrAudioMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/audio-message-block';
+import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
+
+import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
@@ -24,6 +27,7 @@ import { BlockComponent } from './components/block/block.component';
 @NgModule({
   imports: [
     CommonModule,
+    MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
@@ -31,6 +35,7 @@ import { BlockComponent } from './components/block/block.component';
     ReactiveFormsModule,
 
     ConvlPageModule,
+    ConvsMgrDocumentMessageBlockModule,
     ConvsMgrTextMessageBlockModule,
     ConvsMgrQuestionBlockModule,
     ConvsMgrLocationMessageBlockModule,
@@ -40,7 +45,9 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrPhoneMessageBlockModule,
     ConvsMgrAudioMessageBlockModule,
     ConvsMgrBlockOptionsModule,
-    MultiLangModule
+
+    FileStateModule
+  
   ],
 
   declarations: [
@@ -48,6 +55,6 @@ import { BlockComponent } from './components/block/block.component';
   ],
 
   // Injector which creates all block types within the editor context.
-  providers: [BlockInjectorService],
+  providers: [BlockInjectorService, UploadFileService],
 })
 export class  BlocksLibraryModule {}

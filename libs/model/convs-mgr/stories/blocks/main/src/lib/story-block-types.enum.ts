@@ -1,7 +1,8 @@
 /**
  * Different types and roles a block can play
  */
-export enum StoryBlockTypes {
+export enum StoryBlockTypes
+ {
   /** 
    * Block only produces message output and will not wait for input. 
    * 
@@ -16,19 +17,37 @@ export enum StoryBlockTypes {
    * Usage         : operator awaits feedback, ... */
   Input = 2,
 
-  
-/**
+  /** 
+ * Block sends message then expects input.
+ * Block examples: buttons question, ...
+ * Usage         : bot scenario-designs */
+  IO = 3,
+
+
+  /**
  * Block that sends a location to the userxs
  */
   Location = 4,
 
+
+  /**
+   * Block that sends an image and expects no input from the user 
+   */
+  Image = 5,
+
+
+  /**
+   * Block that sends a question as output and expects input from thee user to move to the next block
+   */
+
   QuestionBlock = 6,
 
-  /** 
-   * Block sends message then expects input.
-   * Block examples: buttons question, ...
-   * Usage         : bot scenario-designs */
-  IO = 3,
+
+  /**
+   * Block that sends a document to the user as output
+   */
+  Document = 7,
+
 
   /**
    * Block that sends an audio as output to the user 
@@ -41,23 +60,18 @@ export enum StoryBlockTypes {
   Structural = 9,
 
   /**
-   * Block that sends an image and expects no input from the user 
-   */
-  Image = 5,
-
-  
-  /**
    * Block that waits for the user to return their name as input
    */
-  Name=10,
+  Name = 10,
 
   /**
    * Block that waits for the user to enter their email address as input
    */
-  Email=11,
+  Email = 11,
 
   /**
    * Block that waits for the user to enter their phone-number as input
    */
-  PhoneNumber=12
+  PhoneNumber = 12
+
 }
