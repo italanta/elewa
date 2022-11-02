@@ -41,5 +41,5 @@ export interface Cursor extends IObject{
    * With these blocks, we already know the response to send back to the end user, before they respond to the chatbot.
    *    So we can save these 'already known' blocks here to reduce database calls and increase response time.
    */
-  nextBlock?: StoryBlock;
+  futureBlock?: StoryBlock;
 }
