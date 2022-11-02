@@ -81,10 +81,12 @@ export class EngineBotManager
 
       // If the end user does not exist then we create a new end user
       if (!endUser)
-          endUser = await _endUserService$.createEndUser(END_USER_ID, message.endUserPhoneNumber);
-          this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
-
-     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${endUser.status}`);
+      {
+        endUser = await _endUserService$.createEndUser(END_USER_ID, message.endUserPhoneNumber);
+        this._tools.Logger.log(() => `[EngineBotManager].run - Chat initialized`);
+      }
+      
+     this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
       // Save the message to the database for later use
       promises.push(bot.saveMessage(message, END_USER_ID));
