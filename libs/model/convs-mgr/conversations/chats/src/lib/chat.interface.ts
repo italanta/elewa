@@ -60,22 +60,3 @@ export interface ChatUserInfo {
   scoutBefore: boolean;
 }
 
-export interface ChatInfo {
-  id: string;
-  phoneNumber: string;
-  orgId: string;
-  storyId: string;
-}
-
-export interface Connection extends IObject {
-  slot: number;
-  sourceId: string;
-  targetId: string;
-}
-
-
-export interface DefaultBlock extends StoryBlock {
-  nextBlock: string;
-}
-
-export type Block = TextMessageBlock | QuestionMessageBlock;
