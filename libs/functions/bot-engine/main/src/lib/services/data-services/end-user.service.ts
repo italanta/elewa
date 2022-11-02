@@ -12,16 +12,16 @@ export class EndUserDataService extends BotDataService<EndUser>{
   private _docPath: string;
   tools: HandlerTools;
 
-  constructor(tools: HandlerTools) 
+  constructor(tools: HandlerTools, orgId?: string) 
   {
     super(tools)
     this.tools = tools;
-    this._init();
+    this._init(orgId);
   }
 
-  protected _init(): void 
+  protected _init(orgId: string): void 
   {
-    this._docPath = `end-users`
+    this._docPath = `orgs/${orgId}/end-users`
   }
 
   async createEndUser(endUserId: string, phoneNumber: string, chatStatus?: ChatStatus) {

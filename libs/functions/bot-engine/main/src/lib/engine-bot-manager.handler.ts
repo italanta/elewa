@@ -70,7 +70,7 @@ export class EngineBotManager
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
 
-      const _endUserService$ = new EndUserDataService(this._tools);
+      const _endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
 
       //TODO: Find a better way because we are passing the active channel twice
       const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
