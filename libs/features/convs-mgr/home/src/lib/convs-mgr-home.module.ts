@@ -13,6 +13,7 @@ import { StoryListItemComponent } from './components/story-list-item/story-list-
 import { StoryListComponent } from './components/story-list/story-list.component';
 import { HomePageComponent } from './pages/home/home.page';
 import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
+import { CreateFirstBotComponent } from './components/create-first-bot/create-first-bot.component';
 
 
 
@@ -33,6 +34,7 @@ import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-mo
     StoryListItemComponent,
     StoryListComponent,
     CreateBotModalComponent,
+    CreateFirstBotComponent,
   ],
 
   providers: [NewStoryService],
