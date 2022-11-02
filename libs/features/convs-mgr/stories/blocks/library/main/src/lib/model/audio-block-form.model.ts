@@ -13,7 +13,7 @@ export function _CreateAudioBlockForm(_fb: FormBuilder, blockData: VoiceMessageB
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    src:[blockData?.fileSrc! ?? ''],
+    fileSrc:[blockData?.fileSrc! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Audio],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
