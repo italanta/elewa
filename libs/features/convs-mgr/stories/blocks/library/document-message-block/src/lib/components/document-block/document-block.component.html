@@ -1,19 +1,22 @@
 <mat-card [id]="id" *ngIf="documentMessageForm">
-    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT'| transloco}} {{id}}</mat-card-title>
+    <mat-card-title>{{'PAGE-CONTENT.BLOCKS.TITLES.DOCUMENT'| transloco}} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
             <div [id]="docInputId">
-                <div *ngIf="!isDocLoading">
-                    <img id="docFile" accept=".doc,.docx,.xml, .xsl,.xslb," [src]="docLink" class="document" (click)="docInput.click()">
+                <label>
+                <div *ngIf="this.block.fileSrc" class="doc-icon" (click)="docInput.click()">
+                    <i class="far fa-file-check"></i>
                 </div>
-                <div *ngIf="isDocLoading">
-                    <p class="file-info">
-                        File Name: {{docName}}
-                        <br> Size:
-                    </p>
+                <div *ngIf="!this.block.fileSrc" class="doc-icon" (click)="docInput.click()">
+                    <i class="far fa-file"></i>
                 </div>
-                <input (change)="processDocs($event)" id="docFile" accept="doc/*" #docInput type="file" class="fileSrc" value="documentMessageForm.value.src" />
+                  <div>
+                    <input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />
+                  </div>
+              </label>
             </div>
+            <i class="fal fa-file-check"></i>
+            <i class="fal fa-file-check"></i>
             <input type="text" [(ngModel)]="docName" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" formControlName="message" name="fileName" id="fileName" />
             <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " name="document-link" id="document-link" />
         </form>
