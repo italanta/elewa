@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { CursorDataService } from '../data-services/cursor.service';
-import { ChatStatusDataService } from '../data-services/chat-status.service';
+import { ChatStatusDataService } from '../data-services/end-user.service';
 
 import { SendMessageFactory } from '@app/functions/messages/whatsapp';
 
