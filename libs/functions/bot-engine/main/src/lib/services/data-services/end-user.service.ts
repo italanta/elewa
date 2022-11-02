@@ -12,41 +12,44 @@ export class EndUserDataService extends BotDataService<EndUser>{
   private _docPath: string;
   tools: HandlerTools;
 
-  constructor(tools: HandlerTools, orgId?: string) 
+  constructor(tools: HandlerTools, orgId: string) 
   {
-    super(tools)
+    super(tools);
     this.tools = tools;
     this._init(orgId);
   }
 
   protected _init(orgId: string): void 
   {
-    this._docPath = `orgs/${orgId}/end-users`
+    this._docPath = `orgs/${orgId}/end-users`;
   }
 
-  async createEndUser(endUserId: string, phoneNumber: string, chatStatus?: ChatStatus) {
+  async createEndUser(endUserId: string, phoneNumber: string, chatStatus?: ChatStatus)
+  {
     const newEndUser: EndUser = {
       phoneNumber,
       status: chatStatus || ChatStatus.Running
     };
 
-    const endUser = await this.createDocument(newEndUser, this._docPath, endUserId)
+    const endUser = await this.createDocument(newEndUser, this._docPath, endUserId);
 
     return endUser;
   }
 
-  async getEndUser(endUserId: string) {
+  async getEndUser(endUserId: string)
+  {
 
-    const endUser = await this.getDocumentById(endUserId, this._docPath)   
+    const endUser = await this.getDocumentById(endUserId, this._docPath);
 
     return endUser;
   }
 
-  async updateEndUserChatStatus(endUser: EndUser, status: ChatStatus) {
+  async updateEndUserChatStatus(endUser: EndUser, status: ChatStatus)
+  {
     const newStatus: EndUser = {
       ...endUser,
       status,
     };
-   await this.createDocument(newStatus, this._docPath, endUser.id)
+    await this.createDocument(newStatus, this._docPath, endUser.id);
   }
 }

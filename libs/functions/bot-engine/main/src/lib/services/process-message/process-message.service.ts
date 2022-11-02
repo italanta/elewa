@@ -42,12 +42,12 @@ export class ProcessMessageService
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: Message, endUserId: string, tools: HandlerTools)
+  async resolveNextBlock(msg: Message, endUserId: string, orgId: string, tools: HandlerTools)
   {
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
-    const latestCursor = (await this._cursorService$.getLatestCursor(endUserId)) as Cursor;
+    const latestCursor = (await this._cursorService$.getLatestCursor(endUserId, orgId)) as Cursor;
 
     // Get the last block found in cursor
     const latestBlock = latestCursor.currentBlock
