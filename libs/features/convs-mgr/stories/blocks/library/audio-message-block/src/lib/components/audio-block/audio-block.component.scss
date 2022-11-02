@@ -20,7 +20,25 @@ input {
     display: none;
 }
 
-.image {
-    width: 100%;
-    border-radius: 10px;
+.svg-inline--fa.fa-w-12 {
+    width: 30px;
+    border-color: var( --convs-mgr-color-primary-white) !important;
+    border-radius: 15px;
+    background-color: var(--convs-mgr-color-primary-white) !important;
+}
+
+.audio-icon {
+    text-align: center;
+    color: #c2c2c2 !important;
+    width: 180px;
+    height: 90px;
+    background-color: #c2c2c2 !important;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+.svg-inline--fa {
+    height: 40px;
+    margin-top: 13%;
+    overflow: hidden;
 }
