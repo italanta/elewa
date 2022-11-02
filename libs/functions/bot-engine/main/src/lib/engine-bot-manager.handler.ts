@@ -36,7 +36,6 @@ export class EngineBotManager
    * STEP 1: Initialize the services which are necessary for execution of the bot engine
    * STEP 2: Get the current end user information.
    * STEP 3: Process the message
-   * STEP 4:
    *
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
    * @returns A REST 200/500 response so the third-party provider knows the message arrived well/failed.
