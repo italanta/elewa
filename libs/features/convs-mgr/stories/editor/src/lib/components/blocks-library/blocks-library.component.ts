@@ -1,23 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-
 import { Logger } from '@iote/bricks-angular';
 
 import { SubSink } from 'subsink';
-import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock,DocumentMessageBlock, VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
-
 
 /**
  * Component which holds a library (list) of all blocks that can be created 
  *    in the story editor.
  */
-
 @Component({
   selector: 'convl-blocks-library',
   templateUrl: './blocks-library.component.html',
@@ -38,7 +35,8 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
     { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
-    { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video Block' } as VideoMessageBlock
+    { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video Block' } as VideoMessageBlock,
+    { id: 'input-docs-block', type:StoryBlockTypes.Document, message: 'Document Block' } as DocumentMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
@@ -76,6 +74,8 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Video:
         this.frame.newBlock(StoryBlockTypes.Video);
+      case StoryBlockTypes.Document:
+        this.frame.newBlock(StoryBlockTypes.Document);
         break;
     }
   }

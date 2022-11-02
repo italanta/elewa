@@ -1,4 +1,4 @@
-import { OnDestroy, Injectable, Inject } from '@angular/core';
+import { OnDestroy, Inject } from '@angular/core';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { SubSink } from 'subsink';
@@ -7,8 +7,7 @@ import { Stateful } from './stateful.interface';
 import { StoreEventTypes } from './store.class';
 
 /** Store for class Objects. Does not serialize past states so Objects can be mutable if local copy is saved! */
-@Injectable()
-export abstract class ObjectStore<T> implements Stateful<T>, OnDestroy
+export abstract class ObjectStore<T> implements Stateful<T>
 {
   protected _sbS = new SubSink();
 
@@ -48,7 +47,7 @@ export abstract class ObjectStore<T> implements Stateful<T>, OnDestroy
     this.bs.next(newState);
   }
 
-  protected set(newValue: T, event: StoreEventTypes = "Not Specified")
+  set(newValue: T, event: StoreEventTypes = "Not Specified")
   {
     this.previous.unshift(this.state);
 
@@ -59,9 +58,5 @@ export abstract class ObjectStore<T> implements Stateful<T>, OnDestroy
     console.groupEnd();
 
     this.bs.next(newValue);
-  }
-
-  ngOnDestroy() {
-    this._sbS.unsubscribe();
   }
 }
