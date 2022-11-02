@@ -1,4 +1,4 @@
-import { UploadFileService } from '@app/state/file';
+import {  UploadFileService } from '@app/state/file';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
