@@ -1,7 +1,7 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { QuestionMessageService } from "./block-type/question-block.service";
-import { TextMessageService } from "./block-type/text-block.service";
+import { DefaultOptionMessageService } from "./block-type/text-block.service";
 
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { BlockDataService } from "../data-services/blocks.service";
@@ -19,11 +19,11 @@ export class NextBlockFactory {
     resoveBlockType(blockType: StoryBlockTypes, tools: HandlerTools, blockDataService: BlockDataService, connDataService: ConnectionsDataService){
         switch (blockType) {
             case StoryBlockTypes.TextMessage:
-                return new TextMessageService(blockDataService,connDataService, tools)  
+                return new DefaultOptionMessageService(blockDataService,connDataService, tools)  
             case StoryBlockTypes.QuestionBlock:
                 return new QuestionMessageService(blockDataService,connDataService, tools);            
             default:
-                return new TextMessageService(blockDataService,connDataService, tools)      
+                return new DefaultOptionMessageService(blockDataService,connDataService, tools)      
         }
     }
 }
