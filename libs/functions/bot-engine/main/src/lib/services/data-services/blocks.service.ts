@@ -1,11 +1,11 @@
-import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+
 import { BotDataService } from './data-service-abstract.class';
 import { ConnectionsDataService } from './connections.service';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
@@ -27,23 +27,9 @@ export class BlockDataService extends BotDataService<StoryBlock> {
 
   /** Gets the full block using the id */
   async getBlockById(id: string): Promise<StoryBlock> {
-    const block: StoryBlock = await this.getDocumentById(id, this._docPath);
 
-    if (!block) {
-      throw new Error('StoryBlock does not exist');
-    }
+    return this.getDocumentById(id, this._docPath);
 
-    return block;
-  }
-
-  /** TODO: Remove after implementing a static block on front end */
-  async getAnchorBlock(channelInfo: CommunicationChannel): Promise<StoryBlock> {
-    const anchorBlock = await this.getBlockById(channelInfo.defaultStory);
-
-    if (!anchorBlock) {
-      throw new Error('Failed to get first block');
-    }
-    return anchorBlock;
   }
 
   /** Gets the first block using the story ID.
@@ -54,9 +40,6 @@ export class BlockDataService extends BotDataService<StoryBlock> {
 
     const firstBlock = await this.getBlockById(firstConnection.targetId);
 
-    if (!firstBlock) {
-      throw new Error('Failed to get first block');
-    }
     return firstBlock;
   }
 }
