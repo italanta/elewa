@@ -4,7 +4,8 @@ import { IObject } from '@iote/bricks';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { ChatStatus } from '@app/model/convs-mgr/conversations/messages';
+
+import { ChatStatus } from './end-user.interface';
 
 /**
  * An end user which 
