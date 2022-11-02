@@ -32,7 +32,7 @@ export class BotEngineMainService
   ) {}
 
   /** Uses the base message to return the next block and send it */
-  async processMessage(baseMessage: Message, endUserId: string) {
+  async getNextBlock(baseMessage: Message, endUserId: string) {
 
     // Process message and return next block
     const nextBlock = await this._getNextBlock(baseMessage, endUserId);
