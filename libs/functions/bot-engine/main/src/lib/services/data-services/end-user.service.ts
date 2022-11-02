@@ -24,9 +24,9 @@ export class EndUserDataService extends BotDataService<EndUser>{
     this._docPath = `end-users`
   }
 
-  async initEnduser(endUserId: string, chatStatus?: ChatStatus) {
+  async createEndUser(endUserId: string, phoneNumber: string, chatStatus?: ChatStatus) {
     const newEndUser: EndUser = {
-      phoneNumber: "",
+      phoneNumber,
       status: chatStatus || ChatStatus.Running
     };
 
