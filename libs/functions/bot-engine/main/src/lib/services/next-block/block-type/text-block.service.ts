@@ -14,10 +14,11 @@ export class TextMessageService extends NextBlockService
     userInput: string;
     _logger: Logger;
     tools: HandlerTools;
+    
     constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, tools: HandlerTools)
     {
-        super(tools)
-        this.tools = tools
+        super(tools);
+        this.tools = tools;
     }
 
     /**
@@ -26,11 +27,13 @@ export class TextMessageService extends NextBlockService
      */
     async getNextBlock(msg: Message, lastBlock: TextMessageBlock): Promise<StoryBlock>
     {
-        let nextBlock: StoryBlock
+        let nextBlock: StoryBlock;
 
-        const connection = await this._connDataService.getConnBySourceId(lastBlock.id)
-        nextBlock = await this._blockDataService.getBlockById(connection.targetId)
+        const connection = await this._connDataService.getConnBySourceId(lastBlock.id);
 
-        return nextBlock
+        if (connection)
+            nextBlock = await this._blockDataService.getBlockById(connection.targetId);
+
+        return nextBlock;
     }
 }
