@@ -1,16 +1,16 @@
-import { Block } from "@app/model/convs-mgr/conversations/chats";
-import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { NextBlockService } from "../next-block.class";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
-import { InteractiveButtonMessage, InteractiveRawButtonReplyMessage } from "@app/model/convs-mgr/functions";
+
 
 /** 
  * Handles the next block incase the last block was a question to the user
@@ -25,7 +25,7 @@ export class QuestionMessageService extends NextBlockService {
         this._logger = tools.Logger
     }
 
-    async getNextBlock(msg: Message, lastBlock?: QuestionMessageBlock): Promise<Block>{
+    async getNextBlock(msg: Message, lastBlock?: QuestionMessageBlock): Promise<StoryBlock>{
 
         const response = msg as QuestionMessage
 

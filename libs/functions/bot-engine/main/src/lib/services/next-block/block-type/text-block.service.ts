@@ -1,13 +1,13 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-import { NextBlockService } from "../next-block.class";
 
-import { Block } from "@app/model/convs-mgr/conversations/chats";
 import { TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-
 import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { NextBlockService } from "../next-block.class";
 
 export class TextMessageService extends NextBlockService {
     userInput: string;
@@ -20,12 +20,12 @@ export class TextMessageService extends NextBlockService {
 
     /**
      * Returns the block connected to the default option of the text block
-     * @returns Next Block
+     * @returns Next StoryBlock
      */
-    async getNextBlock(msg: Message, lastBlock: TextMessageBlock): Promise<Block>{
+    async getNextBlock(msg: Message, lastBlock: TextMessageBlock): Promise<StoryBlock>{
 
         const connection = await this._connDataService.getConnBySourceId(lastBlock.id)
-        let nextBlock: Block = await this._blockDataService.getBlockById(connection.targetId)
+        let nextBlock: StoryBlock = await this._blockDataService.getBlockById(connection.targetId)
 
         return nextBlock
     }
