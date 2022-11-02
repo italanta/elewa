@@ -33,8 +33,8 @@ export class EngineBotManager
    *    handles it, and potentially responds to it.
    *
    * STEP 1: Initialize the services which are necessary for execution of the bot engine
-   * STEP 2: Get the current chat information.
-   * STEP 3: 
+   * STEP 2: Get the current end user information.
+   * STEP 3: Process the message
    * STEP 4:
    *
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
@@ -42,7 +42,7 @@ export class EngineBotManager
    */
   public async run(message: Message) 
   {
-    /**  */
+    /** The information of the end user communicating with our chatbot @see {EndUser} */
     let endUser: EndUser;
 
     /**
@@ -69,31 +69,39 @@ export class EngineBotManager
       //TODO: Find a better way because we are passing the active channel twice
       const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
 
+      // STEP 2: Get the current end user information
+      // This information contains the phone number and the chat status of the ongoing communication.
+      //    The chat status enables us to manage the conversation of the end user and the chatbot.
+      
+      // Generate the id of the end user
       const END_USER_ID = bot.generateEndUserId(message);
       
-      // STEP 2: Get the current chat information
+      // Get the saved information of the end user
       endUser = await _endUserService$.getEndUser(END_USER_ID);
 
+      // If the end user does not exist then we create a new end user
       if (!endUser)
-          // Initialize chat status
-          endUser = await _endUserService$.initEnduser(END_USER_ID);
+          endUser = await _endUserService$.createEndUser(END_USER_ID, message.endUserPhoneNumber);
           this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
 
      this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${endUser.status}`);
 
-      // Add message to collection
+      // Save the message to the database for later use
       promises.push(bot.saveMessage(message, END_USER_ID));
 
-      // Manage the ongoing chat using the chat status 
+      // STEP 3: Process the message
+      
+      // Because the status of the chat can change anytime, we use the current status
+      //  to determine how we are going to process the message and reply to the end user
       switch (endUser.status) {
         case ChatStatus.Running:
-          // Process the message and get the next block in the story that is to be sent back to the user
-          const nextBlock = await bot.processMessage(message, END_USER_ID);
+          // Process the message and find the next block in the story that is to be sent back to the user
+          const nextBlock = await bot.getNextBlock(message, END_USER_ID);
 
           // Send the block back to the user
           await bot.reply(nextBlock, message.endUserPhoneNumber);
 
-          // Update the cursor, by pushing it to the promises array
+          // Update the cursor
           promises.push(bot.updateCursor(nextBlock, END_USER_ID));
 
           // Finally Resolve pending operations that do not affect the processing of the message
