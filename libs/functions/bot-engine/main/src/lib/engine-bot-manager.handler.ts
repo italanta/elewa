@@ -14,6 +14,7 @@ import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ActiveChannel } from './model/active-channel.service';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 
 // import { ReceiveMessageInterpreter } from './interpreter.interface';
@@ -53,6 +54,11 @@ export class EngineBotManager
      */
     let promises: Promise<any>[] = [];
 
+    /**
+     * 
+     */
+    let futureBlock: StoryBlock;
+
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
     try {
@@ -85,7 +91,7 @@ export class EngineBotManager
         endUser = await _endUserService$.createEndUser(END_USER_ID, message.endUserPhoneNumber);
         this._tools.Logger.log(() => `[EngineBotManager].run - Chat initialized`);
       }
-      
+
      this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
       // Save the message to the database for later use
@@ -103,8 +109,13 @@ export class EngineBotManager
           // Send the block back to the user
           await bot.reply(nextBlock, message.endUserPhoneNumber);
 
+          // If the block sent back to the user is not a question block, then we know the next block regardless
+          //    of their reponse. 
+          // So we compute the next block now and save it to the cursor
+          futureBlock = await bot.getFutureBlock(nextBlock, message);
+
           // Update the cursor
-          promises.push(bot.updateCursor(nextBlock, END_USER_ID));
+          promises.push(bot.updateCursor(END_USER_ID, nextBlock, futureBlock));
 
           // Finally Resolve pending operations that do not affect the processing of the message
           await Promise.all(promises);
@@ -120,11 +131,6 @@ export class EngineBotManager
     } catch (error) {
       this._tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
     }
-  }
-
-  private async _init()
-  {
-
   }
 
 }
