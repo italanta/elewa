@@ -60,3 +60,9 @@ export interface ChatUserInfo {
   scoutBefore: boolean;
 }
 
+export interface Connection extends IObject {
+  slot: number;
+  sourceId: string;
+  targetId: string;
+}
+
