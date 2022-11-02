@@ -29,18 +29,10 @@ export class BotEngineMainService
     private _messageDataService$: MessagesDataService,
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
-  ) {}
+  ) { }
 
-  /** Uses the base message to return the next block and send it */
-  async getNextBlock(baseMessage: Message, endUserId: string) {
-
-    // Process message and return next block
-    const nextBlock = await this._getNextBlock(baseMessage, endUserId);
-
-    return nextBlock
-  }
-
-  async sendTextMessage(text: string, phoneNumber: string){
+  async sendTextMessage(text: string, phoneNumber: string)
+  {
 
     const textMessageBlock: TextMessageBlock = {
       type: StoryBlockTypes.TextMessage,
@@ -57,9 +49,10 @@ export class BotEngineMainService
   /**
    * Takes the inteprated message and determines the next block
    */
-  private async _getNextBlock(msg: Message, endUserId: string) {
-    // Pass dependencies to the Process Message Service
-    const processMessage = new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$);
+  async getNextBlock(msg: Message, endUserId: string): Promise<StoryBlock>
+  {
+    // Get an instance of the process message service
+    const processMessage = this._getProcessMessageService();
 
     this._tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
@@ -67,29 +60,42 @@ export class BotEngineMainService
     const userActivity = await this._cursorDataService$.getLatestCursor(endUserId);
 
     // If no block was sent then the conversation is new and we return the first block, else get the next block
-    if (!userActivity) {
+    if (!userActivity)
+    {
       return processMessage.getFirstBlock(this._tools);
-    } else {
+    } else
+    {
       return processMessage.resolveNextBlock(msg, endUserId, this._tools);
     }
   }
 
+  async getFutureBlock(currentBlock: StoryBlock, msg: Message): Promise<StoryBlock>
+  {
+    const processMessageService = this._getProcessMessageService();
+
+    if(currentBlock.type !== StoryBlockTypes.QuestionBlock)
+    {
+      return processMessageService.resolveFutureBlock(currentBlock, msg)
+    }
+  }
   async reply(storyBlock: StoryBlock, phoneNumber: string) 
   {
-   const outgoingMessage = this._activeChannel.parseOutMessage(storyBlock, phoneNumber);
+    const outgoingMessage = this._activeChannel.parseOutMessage(storyBlock, phoneNumber);
 
-   return this._activeChannel.send(outgoingMessage);
+    return this._activeChannel.send(outgoingMessage);
   }
 
-  async saveMessage(message: Message, endUserId: string){
+  async saveMessage(message: Message, endUserId: string)
+  {
 
     return this._messageDataService$.saveMessage(message, endUserId);
   }
 
 
-  async updateCursor(nextBlock: StoryBlock, endUserId: string){
+  async updateCursor(endUserId: string, nextBlock: StoryBlock, futureBlock?: StoryBlock)
+  {
     // Update the cursor
-    return this._cursorDataService$.updateCursor(nextBlock, endUserId);
+    return this._cursorDataService$.updateCursor(endUserId, nextBlock, futureBlock);
   }
 
   /** Generate the end user id in the format `{platform}_{n}_{end-user-ID}`
@@ -101,9 +107,15 @@ export class BotEngineMainService
   */
   generateEndUserId(message: Message): string 
   {
-    
+
     const n = this._activeChannel.channel.n
 
     return __PlatformTypeToPrefix(this._activeChannel.channel.type) + '_' + n + '_' + message.endUserPhoneNumber
   }
+
+  private _getProcessMessageService()
+  {
+    return new ProcessMessageService(this._cursorDataService$, this._connService$, this._blocksService$, this._tools);
+  }
+
 }

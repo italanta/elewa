@@ -1,29 +1,34 @@
-import { HandlerTools } from '@iote/cqrs';
+import { Handler, HandlerTools } from '@iote/cqrs';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { Block } from '@app/model/convs-mgr/conversations/chats';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
+
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
 
-export class ProcessMessageService {
+
+export class ProcessMessageService
+{
   constructor(
     private _cursorService$: CursorDataService,
     private _connService$: ConnectionsDataService,
-    private _blockService$: BlockDataService
-  ) {}
+    private _blockService$: BlockDataService,
+    private _tools: HandlerTools
+  ) { }
 
   /**
    * If a chat session has not yet been recorded, we create a new one and return the first block
    */
-  async getFirstBlock(tools: HandlerTools) {
+  async getFirstBlock(tools: HandlerTools)
+  {
     /** Get the first Block */
     const connection = await this._connService$.getFirstConn();
 
-    let firstBlock: Block = await this._blockService$.getBlockById(connection.targetId);
+    let firstBlock: StoryBlock = await this._blockService$.getBlockById(connection.targetId);
 
     tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
 
@@ -37,22 +42,36 @@ export class ProcessMessageService {
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: Message, endUserId: string, tools: HandlerTools) {
+  async resolveNextBlock(msg: Message, endUserId: string, tools: HandlerTools)
+  {
     // const chatService =  new ChatBotService(tools.Logger, platform)
 
     // Get the latest activity / latest position of the cursor
     const latestCursor = (await this._cursorService$.getLatestCursor(endUserId)) as Cursor;
 
-    // Get the lastest block found in activity
-    const latestBlock = latestCursor.block
+    // Get the last block found in cursor
+    const latestBlock = latestCursor.currentBlock
 
-    // Use NextBlockFactory to resolve the block type and get the next block based on the type
-    const nextBlockService = new NextBlockFactory().resoveBlockType(latestBlock.type, tools, this._blockService$, this._connService$);
-    const nextBlock = await nextBlockService.getNextBlock(msg, latestBlock);
+    if(latestCursor.futureBlock) {
 
-    // Handles possible race condition
-    // const duplicateMessage = await chatService.handleDuplicates(msg, tools)
+      return latestCursor.futureBlock
 
-    return nextBlock;
+    } else {
+      
+      return this.__nextBlockService(latestBlock, msg)
+    }
+  }
+
+  async resolveFutureBlock(currentBlock: StoryBlock ,msg?: Message)
+  {
+    return this.__nextBlockService(currentBlock, msg)
+  }
+
+  private async __nextBlockService(block: StoryBlock, msg?: Message): Promise<StoryBlock>
+  {
+    const nextBlockService =  new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);
+
+    return nextBlockService.getNextBlock(msg, block);
+
   }
 }
