@@ -10,6 +10,8 @@ import { ConnectionsDataService } from "../data-services/connections.service";
 
 /**
  * Factory to resolve block type and return the appropriate service that gets the next block
+ * 
+ * TODO: Add more services to handle more types of blocks
  */
 export class NextBlockFactory {
     constructor(){}
@@ -19,9 +21,9 @@ export class NextBlockFactory {
             case StoryBlockTypes.TextMessage:
                 return new TextMessageService(blockDataService,connDataService, tools)  
             case StoryBlockTypes.QuestionBlock:
-                return new QuestionMessageService(blockDataService,connDataService, tools);      
+                return new QuestionMessageService(blockDataService,connDataService, tools);            
             default:
-                break;
+                return new TextMessageService(blockDataService,connDataService, tools)      
         }
     }
 }
