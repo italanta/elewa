@@ -1,7 +1,6 @@
 import { Query } from '@ngfi/firestore-qbuilder';
 import { HandlerTools } from '@iote/cqrs';
 
-import { Block } from '@app/model/convs-mgr/conversations/chats';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { BotDataService } from './data-service-abstract.class';
@@ -27,11 +26,11 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   }
 
   /** Gets the full block using the id */
-  async getBlockById(id: string): Promise<Block> {
-    const block: Block = await this.getDocumentById(id, this._docPath);
+  async getBlockById(id: string): Promise<StoryBlock> {
+    const block: StoryBlock = await this.getDocumentById(id, this._docPath);
 
     if (!block) {
-      throw new Error('Block does not exist');
+      throw new Error('StoryBlock does not exist');
     }
 
     return block;
