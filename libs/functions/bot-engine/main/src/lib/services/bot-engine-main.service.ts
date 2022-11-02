@@ -57,7 +57,7 @@ export class BotEngineMainService
     this._tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(msg)}.`);
 
     // Get the last block sent to user
-    const userActivity = await this._cursorDataService$.getLatestCursor(endUserId);
+    const userActivity = await this._cursorDataService$.getLatestCursor(endUserId, this._activeChannel.channel.orgId);
 
     // If no block was sent then the conversation is new and we return the first block, else get the next block
     if (!userActivity)
@@ -65,7 +65,7 @@ export class BotEngineMainService
       return processMessage.getFirstBlock(this._tools);
     } else
     {
-      return processMessage.resolveNextBlock(msg, endUserId, this._tools);
+      return processMessage.resolveNextBlock(msg, endUserId, this._activeChannel.channel.orgId, this._tools);
     }
   }
 
@@ -88,14 +88,14 @@ export class BotEngineMainService
   async saveMessage(message: Message, endUserId: string)
   {
 
-    return this._messageDataService$.saveMessage(message, endUserId);
+    return this._messageDataService$.saveMessage(message, this._activeChannel.channel.orgId, endUserId);
   }
 
 
   async updateCursor(endUserId: string, nextBlock: StoryBlock, futureBlock?: StoryBlock)
   {
     // Update the cursor
-    return this._cursorDataService$.updateCursor(endUserId, nextBlock, futureBlock);
+    return this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, nextBlock, futureBlock);
   }
 
   /** Generate the end user id in the format `{platform}_{n}_{end-user-ID}`

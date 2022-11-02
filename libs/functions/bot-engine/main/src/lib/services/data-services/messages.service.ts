@@ -24,8 +24,8 @@ export class MessagesDataService extends BotDataService<Message> {
   //   this._msg = msg
   // }
 
-  async saveMessage(msg: Message, endUserId: string): Promise<Message> {
-    this._docPath = `end-users/${endUserId}/messages`
+  async saveMessage(msg: Message, orgId: string, endUserId: string): Promise<Message> {
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
     const timeStamp = Date.now();
 
     const savedMessage = await this.createDocument(msg, this._docPath, timeStamp.toString())
@@ -33,8 +33,8 @@ export class MessagesDataService extends BotDataService<Message> {
     return savedMessage;
   }
 
-  async getLatestMessage(endUserId: string): Promise<Message> {
-    this._docPath = `end-users/${endUserId}/messages`
+  async getLatestMessage(endUserId: string, orgId: string): Promise<Message> {
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
 
     const latestMessage = await this.getLatestDocument(this._docPath);
 
