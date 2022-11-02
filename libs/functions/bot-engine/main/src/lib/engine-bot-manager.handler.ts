@@ -2,17 +2,19 @@ import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/bricks-angular';
 import { RestResult200 } from '@ngfi/functions';
 
-import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
-import { Chat, ChatStatus, Message } from '@app/model/convs-mgr/conversations/messages';
-
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
 import { BlockDataService } from './services/data-services/blocks.service';
 import { BotEngineMainService } from './services/bot-engine-main.service';
 import { MessagesDataService } from './services/data-services/messages.service';
-import { ChatStatusDataService } from './services/data-services/chat-status.service';
+import { EndUserDataService } from './services/data-services/end-user.service';
+
+import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ActiveChannel } from './model/active-channel.service';
+
 
 // import { ReceiveMessageInterpreter } from './interpreter.interface';
 
@@ -41,7 +43,7 @@ export class EngineBotManager
   public async run(message: Message) 
   {
     /**  */
-    let chatInfo: Chat;
+    let endUser: EndUser;
 
     /**
      * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
@@ -62,7 +64,7 @@ export class EngineBotManager
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
 
-      const _chatStatusService$ = new ChatStatusDataService(this._tools);
+      const _endUserService$ = new EndUserDataService(this._tools);
 
       //TODO: Find a better way because we are passing the active channel twice
       const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
@@ -70,20 +72,20 @@ export class EngineBotManager
       const END_USER_ID = bot.generateEndUserId(message);
       
       // STEP 2: Get the current chat information
-      chatInfo = await _chatStatusService$.getChatStatus(END_USER_ID);
+      endUser = await _endUserService$.getEndUser(END_USER_ID);
 
-      if (!chatInfo)
+      if (!endUser)
           // Initialize chat status
-          chatInfo = await _chatStatusService$.initChatStatus(END_USER_ID);
+          endUser = await _endUserService$.initEnduser(END_USER_ID);
           this._tools.Logger.log(() => `[ChatManager].init - Chat initialized}`);
 
-     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${chatInfo.status}`);
+     this._tools.Logger.log(() => `[ChatManager].main - Current chat status: ${endUser.status}`);
 
       // Add message to collection
       promises.push(bot.saveMessage(message, END_USER_ID));
 
       // Manage the ongoing chat using the chat status 
-      switch (chatInfo.status) {
+      switch (endUser.status) {
         case ChatStatus.Running:
           // Process the message and get the next block in the story that is to be sent back to the user
           const nextBlock = await bot.processMessage(message, END_USER_ID);
@@ -110,6 +112,9 @@ export class EngineBotManager
     }
   }
 
+  private async _init()
+  {
 
+  }
 
 }
