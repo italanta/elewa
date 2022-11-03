@@ -91,5 +91,11 @@
       "TITLE": "Modifier un robot",
       "SUBMIT": "Mettre à jour un robot"
     }
+  },
+  "TOAST": {
+    "EDIT-BOT": {
+      "SUCCESSFUL": "L'opération de modification a réussi",
+      "FAIL": "L'opération d'édition n'a pas réussi"
+    }
   }
 }

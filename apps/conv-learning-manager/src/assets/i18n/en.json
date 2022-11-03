@@ -91,5 +91,11 @@
       "TITLE": "Edit Bot",
       "SUBMIT": "Update Bot"
     }
+  },
+  "TOAST": {
+    "EDIT-BOT": {
+      "SUCCESSFUL": "Edit operation was successful",
+      "FAIL": "Edit operation was not successful"
+    }
   }
 }
