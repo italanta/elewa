@@ -10,6 +10,7 @@ import { Story } from "@app/model/convs-mgr/stories/main";
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
 import { ToastService } from "@iote/bricks-angular";
+import { TranslateService } from "@ngfi/multi-lang";
 
 
 /** Service which can create new stories. */
@@ -20,6 +21,7 @@ export class NewStoryService
               private _stories$$: StoriesStore,
               private _router: Router,
               private _toastService: ToastService,
+              private _translate: TranslateService,
               private dialog: MatDialog)
   {}
 
@@ -42,10 +44,12 @@ export class NewStoryService
   }
 
   update(story: Story) {
-    this._stories$$.update(story).subscribe((success) => {
-      if (success) {
+    this._stories$$.update(story).subscribe(() => {
+      try {
         this.dialog.closeAll();
-        this._toastService.doSimpleToast('Operation was Successful');
+        this._toastService.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
+      } catch (error) {
+        this._toastService.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
       }
     });
   }
