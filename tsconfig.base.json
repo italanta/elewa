@@ -103,9 +103,6 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-      "@app/model/bot/blocks/connection": [
-        "libs/model/bot/blocks/connection/src/index.ts"
-      ],
       "@app/model/bot/blocks/default-block": [
         "libs/model/bot/blocks/default-block/src/index.ts"
       ],
@@ -130,6 +127,9 @@
       ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
+      ],
+      "@app/model/convs-mgr/stories/blocks/connection": [
+        "libs/model/convs-mgr/stories/blocks/connection/src/index.ts"
       ],
       "@app/model/convs-mgr/stories/blocks/messaging": [
         "libs/model/convs-mgr/stories/blocks/messaging/src/index.ts"
