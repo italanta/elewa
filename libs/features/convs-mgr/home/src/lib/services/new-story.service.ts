@@ -51,6 +51,7 @@ export class NewStoryService implements OnDestroy
       },
       complete: () =>  {
         this.dialog.closeAll()
+        this._notifications.doSimpleToast("Bot was successfully deleted")
       },
     });
   }
