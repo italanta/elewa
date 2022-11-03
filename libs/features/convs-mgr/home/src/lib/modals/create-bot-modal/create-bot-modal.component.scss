@@ -74,13 +74,11 @@ input[type='text'] {
   }
 
   input[formcontrolname="botName"]{
-    color: var(--form-input-text-color-2);
     font-weight: 500;
   }
 
   textarea[formcontrolname="botDesc"]{
     outline: var(--textarea-outline-color);
-    color: var(--form-input-text-color-1);
   }
 }
 
