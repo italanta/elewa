@@ -9,6 +9,7 @@ import { Story } from "@app/model/convs-mgr/stories/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
+import { ToastService } from "@iote/bricks-angular";
 
 
 /** Service which can create new stories. */
@@ -18,6 +19,7 @@ export class NewStoryService
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
               private _router: Router,
+              private _toastService: ToastService,
               private dialog: MatDialog)
   {}
 
@@ -40,8 +42,12 @@ export class NewStoryService
   }
 
   update(story: Story) {
-    this._stories$$.update(story);
-    this.dialog.closeAll();
+    this._stories$$.update(story).subscribe((success) => {
+      if (success) {
+        this.dialog.closeAll();
+        this._toastService.doSimpleToast('Operation was Successful');
+      }
+    });
   }
 
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
