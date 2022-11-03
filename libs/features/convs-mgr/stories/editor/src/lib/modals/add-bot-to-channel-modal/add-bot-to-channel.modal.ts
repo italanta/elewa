@@ -12,11 +12,10 @@ import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { WhatsAppCommunicationChannel, TelegramCommunicationChannel } from '@app/model/bot/channel';
-
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
-import { Platform } from '@angular/cdk/platform';
+
 
 @Component({
   selector: 'conv-add-bot-to-channel',
