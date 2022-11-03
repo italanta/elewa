@@ -1,3 +1,4 @@
+import { UploadFileService } from '@app/state/file';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -22,12 +23,14 @@ export class VideoBlockComponent implements OnInit {
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  file: File;
   videoLink: string = "";
   videoInputId: string;
-  defaultImage: string ="assets/images/lib/block-builder/video-block-placeholder.png"
+  defaultImage: string ="assets/images/lib/block-builder/video-block-placeholder.png";
+  isLoadingVideo: boolean;
 
 
-  constructor(private _fb: FormBuilder,
+  constructor(private _videoUploadService: UploadFileService,
     private _logger: Logger) { }
 
   ngOnInit(): void {
@@ -38,6 +41,24 @@ export class VideoBlockComponent implements OnInit {
     if (this.jsPlumb) {
       this._decorateInput();
     }
+  }
+
+  async processVideo(event: any) 
+  {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.videoLink = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.file = event.target.files[0];
+      this.isLoadingVideo = true;
+    } else {
+      this.videoLink = this.defaultImage;
+    }
+    //Step 1 - Create the file path that will be in firebase storage
+    const vidFilePath = `images/${this.file.name}_${new Date().getTime()}`;
+    this.isLoadingVideo = true;
+    (await this._videoUploadService.uploadFile(this.file, this.block,vidFilePath)).subscribe();
+
   }
 
 
