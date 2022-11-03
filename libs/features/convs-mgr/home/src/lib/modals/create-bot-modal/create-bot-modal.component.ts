@@ -14,22 +14,30 @@ import { UploadFileService } from '@app/state/file';
   styleUrls: ['./create-bot-modal.component.scss'],
 })
 export class CreateBotModalComponent implements OnInit {
+
   botForm: FormGroup;
-  modalMode: string;
+  modalMode: boolean;
   story: Story;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {
-      mode: string,
-      story ? : Story
-    },
-    private _addStory$: NewStoryService,
-    private _formBuilder: FormBuilder,
-    private _addImage$: UploadFileService) {
-    this.modalMode = data.mode;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {
+                isEditMode: boolean,
+                story ? : Story
+              },
+              private _addStory$: NewStoryService,
+              private _formBuilder: FormBuilder,
+              private _addImage$: UploadFileService
+  ) {
+    this.modalMode = data.isEditMode;
     this.story = data.story as Story;
   }
 
+  ngOnInit(): void {
+    this.createFormGroup();
+
+    if (this.modalMode) {
+      this.updateFormGroup();
+    }
+  }
 
   createFormGroup() {
     this.botForm = this._formBuilder.group({
@@ -38,29 +46,21 @@ export class CreateBotModalComponent implements OnInit {
     });
   }
 
-
   updateFormGroup() {
-    if (this.modalMode === this.getModalMode().edit) {
-      this.botForm.patchValue({
-        botName: this.story.name,
-        botDesc: this.story.description
-      });
+    this.botForm.patchValue({
+      botName: this.story.name,
+      botDesc: this.story.description
+    });
+  }
+
+  add () {
+    const bot: Story = {
+      name: this.botForm.value.botName,
+      description: this.botForm.value.botDesc,
+      orgId: ''
     }
+    this._addStory$.add(bot.name, bot.description).subscribe();
   }
-
-  getModalMode() {
-    return {
-      create: "Create Mode",
-      edit: "Edit Mode"
-    }as const;
-  }
-
-  ngOnInit(): void {
-    this.createFormGroup();
-    this.updateFormGroup();
-  }
-
-  add = () => this._addStory$.add(this.botForm.value.botName as string, this.botForm.value.botDesc as string || '').subscribe();
 
   update() {
     // Capture changes to bot name and bot description
@@ -69,5 +69,9 @@ export class CreateBotModalComponent implements OnInit {
 
     // Update bot details
     this._addStory$.update(this.story);
+  }
+
+  submitForm() {
+    this.modalMode ? this.update() : this.add();
   }
 }

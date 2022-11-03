@@ -31,7 +31,7 @@ export class StoryListItemComponent implements OnDestroy
   openEditDialog(){
     this._dialog.open(CreateBotModalComponent, {
       data: {
-        mode: "Edit Mode",
+        isEditMode: true,
         story: this.story
       },
       panelClass: 'edit-bot-dialog'
