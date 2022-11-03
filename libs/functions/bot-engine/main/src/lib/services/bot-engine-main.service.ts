@@ -26,7 +26,6 @@ import { ActiveChannel } from '../model/active-channel.service';
  */
 export class BotEngineMainService 
 {
-
   constructor(
     private _blocksService$: BlockDataService,
     private _connService$: ConnectionsDataService,
@@ -46,9 +45,9 @@ export class BotEngineMainService
       blockTitle: '',
       blockIcon: '',
       message: text,
-    }
+    };
 
-    await this.reply(textMessageBlock, phoneNumber)
+    await this.reply(textMessageBlock, phoneNumber);
   }
 
   /**
@@ -65,11 +64,9 @@ export class BotEngineMainService
     const userActivity = await this._cursorDataService$.getLatestCursor(endUserId, this._activeChannel.channel.orgId);
 
     // If no block was sent then the conversation is new and we return the first block, else get the next block
-    if (!userActivity)
-    {
+    if (!userActivity) {
       return processMessage.getFirstBlock(this._tools);
-    } else
-    {
+    } else {
       return processMessage.resolveNextBlock(msg, endUserId, this._activeChannel.channel.orgId, this._tools);
     }
   }
@@ -78,9 +75,8 @@ export class BotEngineMainService
   {
     const processMessageService = this._getProcessMessageService();
 
-    if(currentBlock.type !== StoryBlockTypes.QuestionBlock)
-    {
-      return processMessageService.resolveFutureBlock(currentBlock, msg)
+    if (currentBlock.type !== StoryBlockTypes.QuestionBlock) {
+      return processMessageService.resolveFutureBlock(currentBlock, msg);
     }
   }
   async reply(storyBlock: StoryBlock, phoneNumber: string) 
@@ -113,9 +109,9 @@ export class BotEngineMainService
   generateEndUserId(message: Message): string 
   {
 
-    const n = this._activeChannel.channel.n
+    const n = this._activeChannel.channel.n;
 
-    return __PlatformTypeToPrefix(this._activeChannel.channel.type) + '_' + n + '_' + message.endUserPhoneNumber
+    return __PlatformTypeToPrefix(this._activeChannel.channel.type) + '_' + n + '_' + message.endUserPhoneNumber;
   }
 
   private _getProcessMessageService()
