@@ -14,6 +14,7 @@ import {VideoMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging"
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc! ?? ''],
+    fileName:[blockData?.fileName! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Video],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })

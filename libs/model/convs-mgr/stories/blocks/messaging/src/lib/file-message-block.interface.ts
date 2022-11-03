@@ -24,7 +24,11 @@ export interface VoiceMessageBlock extends FileMessageBlock { }
 /**
  * Block that sends a message in the form of a video
  */
-export interface VideoMessageBlock extends FileMessageBlock{}
+export interface VideoMessageBlock extends FileMessageBlock{
+
+  /**This is store the file name that has been retrieved when uploading the file */
+  fileName?: string;
+}
 
 /*
  * Block that sends a message in the form of a document to the user 
