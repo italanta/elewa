@@ -26,7 +26,7 @@ import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 
 
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
