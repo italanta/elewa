@@ -138,7 +138,6 @@
       },
       "tags": []
     },
-    "model-bot-main-message-data": "libs/model/bot/main/message-data",
     "model-bot-main-provider": "libs/model/bot/main/provider",
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
     "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
