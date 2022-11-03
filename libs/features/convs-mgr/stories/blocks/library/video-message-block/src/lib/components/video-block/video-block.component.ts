@@ -8,6 +8,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { format } from 'path';
 
 
 @Component({
@@ -26,7 +27,6 @@ export class VideoBlockComponent implements OnInit {
   file: File;
   videoLink: string = "";
   videoInputId: string;
-  defaultImage: string ="assets/images/lib/block-builder/video-block-placeholder.png";
   isLoadingVideo: boolean;
 
 
@@ -34,7 +34,7 @@ export class VideoBlockComponent implements OnInit {
     private _logger: Logger) { }
 
   ngOnInit(): void {
-    this.videoInputId = `vid-${this.id}`
+    this.videoInputId = `vid-${this.id}`;
   }
 
   ngAfterViewInit(): void {
@@ -51,15 +51,17 @@ export class VideoBlockComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingVideo = true;
-    } else {
-      this.videoLink = this.defaultImage;
-    }
+    } 
     //Step 1 - Create the file path that will be in firebase storage
-    const vidFilePath = `images/${this.file.name}_${new Date().getTime()}`;
+    const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingVideo = true;
+    this.videoMessageForm.get('fileName')?.setValue(this.file.name);
+
     (await this._videoUploadService.uploadFile(this.file, this.block,vidFilePath)).subscribe();
 
   }
+
+
 
 
   private _decorateInput() {

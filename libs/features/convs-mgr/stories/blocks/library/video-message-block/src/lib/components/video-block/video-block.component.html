@@ -4,13 +4,12 @@
         <form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
             <div [id]="videoInputId">
-                <div *ngIf="!videoLink " (click)="videoInput.click()">
-                    <!-- <img [src]="defaultImage" class="image" (click)="videoInput.click()"> -->
+                <div *ngIf="!this.block.fileSrc" (click)="videoInput.click()" class="video-icon">
                     <i class="fas fa-video"></i>
                 </div>
                 <div>
-                    <div *ngIf="videoLink || this.block.fileSrc" class="video-input">
-                        {{file.name}}
+                    <div *ngIf="this.block.fileSrc" class="video-input">
+                        {{this.block.fileName }}
                     </div>
                 </div>
                 <div>
