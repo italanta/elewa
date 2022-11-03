@@ -16,8 +16,8 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 })
 
 /**
- * When a user send the first message to out chatbot, we cannot really know the first block,
- *  to send them since all we have are just blocks and connections.
+ * When a user send the first message to out chatbot, we cannot really know the first block
+ *  to send them since what is being saved is just blocks and connections.
  * 
  * Therefore we need a block that will act as the first block in the story and help us save the
  *  connection to the first block.
