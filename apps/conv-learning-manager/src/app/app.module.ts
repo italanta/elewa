@@ -32,7 +32,7 @@ import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
