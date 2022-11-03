@@ -12,8 +12,8 @@ input {
     margin: 5px 0;
     width: 180px;
     height: 30px;
-    border: 1px solid black;
-    border-radius: 10px;
+    border: 0.2px solid #202020;
+    border-radius: 5px;
 }
 
 .fileSrc {
@@ -23,5 +23,13 @@ input {
 .image {
     width: 13em;
     height: 12em;
-    border-radius: 10px;
+    border-radius: 5px;
+}
+
+.video-input {
+    border-radius: 5px;
+    width: 180px;
+    height: 32px;
+    border: 0.2px solid #202020;
+    overflow: auto;
 }
