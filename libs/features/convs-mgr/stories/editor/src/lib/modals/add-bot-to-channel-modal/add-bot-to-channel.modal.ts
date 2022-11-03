@@ -11,7 +11,7 @@ import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { WhatsAppCommunicationChannel, TelegramCommunicationChannel } from '@app/model/bot/channel';
+import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
@@ -38,8 +38,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   addToChannelForm: FormGroup;
   technicalRef: number = 1;
 
-  channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel,
-                                      {type: PlatformType.Telegram} as TelegramCommunicationChannel];
+  channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel];
+  
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
