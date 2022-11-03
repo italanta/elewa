@@ -1,53 +1,62 @@
 {
-  "ELS": {
-    "TOGGLES": {
-      "SWITCH-LANG": "Switch language"
-    }
-  },
-  "LOGIN": {
-    "LOGIN": "Login",
-    "OR": "or",
-    "CREATE-ACCOUNT": "Create account",
-    "LOGIN-FORM": {
-      "FLD-EMAIL": "Enter email",
-      "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Enter password",
-      "FLD-REMEMBER-ME": "Remember me",
-      "SUBMIT": "Login"
+    "ELS": {
+        "TOGGLES": {
+            "SWITCH-LANG": "Switch language"
+        }
     },
-    "FORGOT-PASSWD": "Forgot password?",
-    "CREATE-ACC-FORM": {
-      "FLD-FNAME": "First name",
-      "FLD-LNAME": "Last name",
-      "FLD-NAME-REQ": "Name is required",
-      "FLD-EMAIL": "Email",
-      "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Password",
-      "FLD-CONF-PASSWD": "Confirm password",
-      "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
-      "SUBMIT": "Create account"
+    "LOGIN": {
+        "LOGIN": "Login",
+        "OR": "or",
+        "CREATE-ACCOUNT": "Create account",
+        "LOGIN-FORM": {
+            "FLD-EMAIL": "Enter email",
+            "FLD-EMAIL-ERR": "Please provide a valid email address",
+            "FLD-PASSWD": "Enter password",
+            "FLD-REMEMBER-ME": "Remember me",
+            "SUBMIT": "Login"
+        },
+        "FORGOT-PASSWD": "Forgot password?",
+        "CREATE-ACC-FORM": {
+            "FLD-FNAME": "First name",
+            "FLD-LNAME": "Last name",
+            "FLD-NAME-REQ": "Name is required",
+            "FLD-EMAIL": "Email",
+            "FLD-EMAIL-ERR": "Please provide a valid email address",
+            "FLD-PASSWD": "Password",
+            "FLD-CONF-PASSWD": "Confirm password",
+            "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
+            "SUBMIT": "Create account"
+        },
+        "TOS": {
+            "P1": "By registering I agree to",
+            "P2-LINK": "the terms of service",
+            "P3": "and",
+            "P4-LINK": "the privacy policy"
+        },
+        "BTN-WITH-GOOGLE": "With Google",
+        "BTN-WITH-MICROSOFT": "With Microsoft",
+        "HERO": {
+            "TITLE": "Karibu Elewa Conversational Learning!",
+            "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
+            "LEARN-MORE": "Learn more on",
+            "LEARN-MORE-LINK": "https://elewa.education"
+        }
     },
-    "TOS": {
-      "P1": "By registering I agree to",
-      "P2-LINK": "the terms of service",
-      "P3": "and",
-      "P4-LINK": "the privacy policy"
-    },
-    "BTN-WITH-GOOGLE": "With Google",
-    "BTN-WITH-MICROSOFT": "With Microsoft",
-    "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
-      "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "https://elewa.education" 
+    "PAGE-CONTENT": {
+        "BLOCKS": {
+            "TITLES": {
+                "IMAGE": "Image",
+                "LOCATION": "Location"
+            }
+        },
+        "CHANNEL": {
+            "ADD-CHANNEL": {
+                "ADD-CHANEL": "Add To Channel",
+                "CHANNEL": "Channel",
+                "B-ID": "Business Phone Number Id",
+                "B-NAME": "Business Name",
+                "AUTH-KEY": "Authentication Key"
+            }
+        }
     }
-  },
-  "PAGE-CONTENT": {
-    "BLOCKS": {
-      "TITLES": {
-        "IMAGE": "Image",
-        "LOCATION": "Location"
-      }
-    }
-  }
 }
