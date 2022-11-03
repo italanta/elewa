@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Logger } from '@iote/bricks-angular';
 
 import { SubSink } from 'subsink';
-import { Observable, BehaviorSubject, map, combineLatest, } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, of } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -74,6 +74,7 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Video:
         this.frame.newBlock(StoryBlockTypes.Video);
+        break;
       case StoryBlockTypes.Document:
         this.frame.newBlock(StoryBlockTypes.Document);
         break;
