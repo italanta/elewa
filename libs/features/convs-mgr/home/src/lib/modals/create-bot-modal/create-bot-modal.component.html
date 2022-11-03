@@ -1,9 +1,12 @@
-<ng-template [ngIf]="modalMode === getModalMode().create">
-  <h2 class="create-bot-header">{{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}</h2>
-</ng-template>
-<ng-template [ngIf]="modalMode === getModalMode().edit">
-  <h2 class="create-bot-header">{{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}</h2>
-</ng-template>
+<h2 class="create-bot-header">
+  <span *ngIf="!modalMode; else showEditTitle">
+    {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
+  </span>
+  <ng-template #showEditTitle>
+    {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
+  </ng-template>
+</h2>
+
 <form [formGroup]="botForm">
   <h4 class="create-bot-name">
     {{ 'BOTS.CREATE-MODAL.FIELDS.NAME' | transloco }}
@@ -21,16 +24,14 @@
       </button>
     </div>
     <div>
-      <ng-template [ngIf]="modalMode === getModalMode().create">
-        <button mat-raised-button class="add-btn" (click)="add()">
+      <button mat-raised-button class="add-btn" (click)="submitForm()">
+        <span *ngIf="!modalMode; else showEditText">
         {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
-        </button>
-      </ng-template>
-      <ng-template [ngIf]="modalMode === getModalMode().edit">
-        <button mat-raised-button class="add-btn" (click)="update()">
+        </span>
+        <ng-template #showEditText>
           {{ 'BOTS.EDIT-MODAL.SUBMIT' | transloco }}
-        </button>
-      </ng-template>
+        </ng-template>
+      </button>
     </div>
   </div>
 </form>
