@@ -109,6 +109,7 @@
       "@app/model/bot/blocks/default-block": [
         "libs/model/bot/blocks/default-block/src/index.ts"
       ],
+      "@app/model/bot/channel": ["libs/model/bot/channel/src/index.ts"],
       "@app/model/bot/main/message-data": [
         "libs/model/bot/main/message-data/src/index.ts"
       ],
