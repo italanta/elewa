@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -6,7 +7,6 @@ import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { map } from 'rxjs';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 @Component({
