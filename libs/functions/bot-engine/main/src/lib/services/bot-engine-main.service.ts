@@ -1,21 +1,18 @@
 import { HandlerTools } from '@iote/cqrs';
 
+import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
+import { ProcessMessageService } from './process-message/process-message.service';
+
+import { MessagesDataService } from './data-services/messages.service';
 import { CursorDataService } from './data-services/cursor.service';
 import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
-
-import { ProcessMessageService } from './process-message/process-message.service';
-
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-
 import { ActiveChannel } from '../model/active-channel.service';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
-import { MessagesDataService } from './data-services/messages.service';
-
 /**
  * For our chatbot and our code to be maintainable, we need separate the low-level operations of
  *  the chatbot from the main flow of the bot. Hence we have to implement Inversion of Control
