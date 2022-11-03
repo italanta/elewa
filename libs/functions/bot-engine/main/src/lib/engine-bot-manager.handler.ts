@@ -14,10 +14,6 @@ import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ActiveChannel } from './model/active-channel.service';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-
-
-// import { ReceiveMessageInterpreter } from './interpreter.interface';
 
 /**
  * This model is responsible for the flow of chat messages between our bot and
@@ -42,21 +38,12 @@ export class EngineBotManager
    */
   public async run(message: Message) 
   {
-    /** The information of the end user communicating with our chatbot @see {EndUser} */
-    let endUser: EndUser;
-
     /**
      * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
      * 
      * So, to ensure faster response to end users, we store all these operations to an array and resolve them after we have responded to the user
-     * 
      */
     let promises: Promise<any>[] = [];
-
-    /**
-     * 
-     */
-    let futureBlock: StoryBlock;
 
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
@@ -82,14 +69,7 @@ export class EngineBotManager
       const END_USER_ID = bot.generateEndUserId(message);
       
       // Get the saved information of the end user
-      endUser = await _endUserService$.getEndUser(END_USER_ID);
-
-      // If the end user does not exist then we create a new end user
-      if (!endUser)
-      {
-        endUser = await _endUserService$.createEndUser(END_USER_ID, message.endUserPhoneNumber);
-        this._tools.Logger.log(() => `[EngineBotManager].run - Chat initialized`);
-      }
+      const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber, _endUserService$)
 
      this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
@@ -97,9 +77,8 @@ export class EngineBotManager
       promises.push(bot.saveMessage(message, END_USER_ID));
 
       // STEP 3: Process the message
-      
-      // Because the status of the chat can change anytime, we use the current status
-      //  to determine how we are going to process the message and reply to the end user
+      //         Because the status of the chat can change anytime, we use the current status
+      //          to determine how we are going to process the message and reply to the end user
       switch (endUser.status) {
         case ChatStatus.Running:
           // Process the message and find the next block in the story that is to be sent back to the user
@@ -111,7 +90,7 @@ export class EngineBotManager
           // If the block sent back to the user is not a question block, then we know the next block regardless
           //    of their reponse. 
           // So we compute the next block now and save it to the cursor
-          futureBlock = await bot.getFutureBlock(nextBlock, message);
+          const futureBlock = await bot.getFutureBlock(nextBlock, message);
 
           // Update the cursor
           promises.push(bot.updateCursor(END_USER_ID, nextBlock, futureBlock));
@@ -130,6 +109,23 @@ export class EngineBotManager
     } catch (error) {
       this._tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
     }
+  }
+
+  /**
+   * Gets the end user information from the database or creates a new end user if the user does not exist
+   */
+  private async _getEndUser(END_USER_ID: string, phoneNumber: string, _endUserService$: EndUserDataService)
+  {
+    let endUser: EndUser;
+
+    endUser = await _endUserService$.getEndUser(END_USER_ID);
+
+    // If the end user does not exist then we create a new end user
+    if (!endUser) {
+      return _endUserService$.createEndUser(END_USER_ID, phoneNumber);
+    }
+
+    return endUser
   }
 
 }
