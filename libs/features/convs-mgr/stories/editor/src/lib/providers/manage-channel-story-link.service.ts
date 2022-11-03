@@ -26,7 +26,7 @@ export class ManageChannelStoryLinkService {
   public getSingleStoryInChannel(channel: CommunicationChannel)
   {
     const channelRepo = this._getChannelRepo(channel);
-    return channelRepo.getDocuments(new Query().where("businessPhoneNumberId", "==", channel.id))
+    return channelRepo.getDocuments(new Query().where("id", "==", channel.id))
   }
 
   
