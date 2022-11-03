@@ -115,30 +115,6 @@
       "tags": []
     },
     "model-bot-blocks-connection": "libs/model/bot/blocks/connection",
-    "model-bot-blocks-default-block": "libs/model/bot/blocks/default-block",
-    "model-bot-channel": {
-      "root": "libs/model/bot/channel",
-      "sourceRoot": "libs/model/bot/channel/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/model/bot/channel/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/model/bot/channel"],
-          "options": {
-            "jestConfig": "libs/model/bot/channel/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "model-bot-main-message-data": "libs/model/bot/main/message-data",
     "model-bot-main-provider": "libs/model/bot/main/provider",
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
