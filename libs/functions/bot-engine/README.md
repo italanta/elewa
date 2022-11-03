@@ -7,7 +7,7 @@ To allow users to render their stories as (WhatsApp) bots, we needed to develop 
 The below are the main features implemented:
 
 ### 1.1 Core bot engine
-- The underlying infrastructure receives the message, processes it and formulates a response (if applicable).
+- The underlying part of  the engine that receives the message, processes it and formulates a response (if applicable).
 - Thanks to the [decorator pattern](https://refactoring.guru/design-patterns/decorator) the engine does not need to know where the message is coming from.
 
 ### 1.2 Whatsapp Channel integration
