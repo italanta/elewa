@@ -18,7 +18,7 @@ import { MessagesDataService } from './data-services/messages.service';
 
 /**
  * For our chatbot and our code to be maintainable, we need separate the low-level operations of
- *  the chatbot and the main flow of the bot. Hence we have to implement Inversion of Control
+ *  the chatbot from the main flow of the bot. Hence we have to implement Inversion of Control
  * 
  * @see https://en.wikipedia.org/wiki/Inversion_of_control
  * 
