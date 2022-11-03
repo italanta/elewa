@@ -6,8 +6,8 @@ import { __DECODE_AES } from "@app/elements/base/security-config";
 import { ActiveChannel } from "@app/functions/bot-engine";
 
 import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
+import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { WhatsAppCommunicationChannel } from "./whatsapp-comm-channel.interface";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 

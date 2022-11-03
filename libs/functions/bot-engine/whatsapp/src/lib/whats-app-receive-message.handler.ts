@@ -3,6 +3,7 @@ import { FunctionHandler, HttpsContext, RestResult, RestResult200 } from '@ngfi/
 
 import { ChannelDataService, EngineBotManager } from '@app/functions/bot-engine';
 import { IncomingWhatsAppMessage } from '@app/model/convs-mgr/functions';
+import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { WhatsappActiveChannel } from './models/whatsapp-active-channel.model';
 
@@ -10,7 +11,6 @@ import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.ut
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 
 import { WhatsappIncomingMessageParser } from './io/incoming-message-parser/whatsapp-api-incoming-message-parser.class';
-import { WhatsAppCommunicationChannel } from './models/whatsapp-comm-channel.interface';
 
 /**
  * Receives a message, through a channel registered on the WhatsApp Business API,
