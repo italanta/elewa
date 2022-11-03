@@ -5,7 +5,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/main";
 
 /**
- * Decorates AnchorBlock  with JS plumb connectors.
+ * Decorates @see {AnchorBlockComponent} with JS plumb connectors.
  * 
  * @param block   - AnchorMessageBlock data structure.
  * @param comp    - Angular component within the viewport 
