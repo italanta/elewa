@@ -17,7 +17,15 @@ import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin
 import { MessagesDataService } from './data-services/messages.service';
 
 /**
- * Contains the main processes of the ChatBot
+ * For our chatbot and our code to be maintainable, we need separate the low-level operations of
+ *  the chatbot and the main flow of the bot. Hence we have to implement Inversion of Control
+ * 
+ * @see https://en.wikipedia.org/wiki/Inversion_of_control
+ * 
+ * We are delegating some resposibilities to this Class so that our @see {EngineBotManager} can focus on 
+ *  only the main flow of the chatbot.
+ * 
+ * This service defines the low-level operations that are required for our bot to work.
  */
 export class BotEngineMainService 
 {
