@@ -114,7 +114,6 @@
       },
       "tags": []
     },
-    "model-bot-main-provider": "libs/model/bot/main/provider",
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
     "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
     "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
