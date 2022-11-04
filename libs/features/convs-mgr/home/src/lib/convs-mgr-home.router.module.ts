@@ -16,22 +16,6 @@ const ORG_ROUTES: Route[] = [
       { path: 'dashboard', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
       { path: 'analytics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
     ], canActivate: [IsLoggedInGuard] },
-
-    // chats
-    { path: 'org/:id/flows/:id/chats', component: HomePageComponent, children : [
-      { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-      { path: 'participants', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-      { path: 'assessments', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-    ], canActivate: [IsLoggedInGuard] },
-
-    // sales
-    { path: 'sales', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-
-    // statistics
-    { path: 'statistics', component: HomePageComponent, children: [
-      { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-      { path: 'progress-analysis', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
-    ], canActivate: [IsLoggedInGuard] },
   ]},
 
   // {
