@@ -1,4 +1,3 @@
-import { UploadFileService } from '@app/state/file';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -8,7 +7,10 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { format } from 'path';
+
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks'
+import { UploadFileService } from '@app/state/file';
+
 
 
 @Component({
@@ -31,7 +33,8 @@ export class VideoBlockComponent implements OnInit {
 
 
   constructor(private _videoUploadService: UploadFileService,
-    private _logger: Logger) { }
+    private _logger: Logger,
+    private _storyBlockService: StoryBlocksStore) { }
 
   ngOnInit(): void {
     this.videoInputId = `vid-${this.id}`;
@@ -62,6 +65,15 @@ export class VideoBlockComponent implements OnInit {
   }
 
 
+  changeVideo(){
+
+    const newBlock: VideoMessageBlock = {
+      ...this.block as VideoMessageBlock,
+      fileSrc: '',
+      fileName: ''
+    }
+    this._storyBlockService.update(newBlock).subscribe();
+    }
 
 
   private _decorateInput() {

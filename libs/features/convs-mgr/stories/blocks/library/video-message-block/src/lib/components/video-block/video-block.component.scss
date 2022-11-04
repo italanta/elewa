@@ -10,7 +10,7 @@ mat-card-title {
 
 input {
     margin: 5px 0;
-    width: 180px;
+    width: 300px;
     height: 30px;
     border: 0.2px solid #202020;
     border-radius: 5px;
@@ -28,14 +28,17 @@ input {
 
 .video-input {
     border-radius: 5px;
-    width: 180px;
+    width: 300px;
     height: 32px;
+    padding-top: 5px;
     border: 0.2px solid #202020;
     overflow: auto;
 }
 
 .svg-inline--fa.fa-w-18 {
     width: 30px;
+    height: 40px;
+    margin-top: 9%;
     border-color: var( --convs-mgr-color-primary-white) !important;
     color: var(--convs-mgr-color-primary-white);
 }
@@ -43,7 +46,7 @@ input {
 .video-icon {
     text-align: center;
     color: #c2c2c2 !important;
-    width: 180px;
+    width: 300px;
     height: 90px;
     background-color: #c2c2c2 !important;
     border-radius: 5px;
@@ -51,7 +54,9 @@ input {
 }
 
 .svg-inline--fa {
-    height: 40px;
-    margin-top: 13%;
     overflow: hidden;
+}
+
+.svg-inline--fa.fa-w-14 {
+    margin-left: 10rem;
 }
