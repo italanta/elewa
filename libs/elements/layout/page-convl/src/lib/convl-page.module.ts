@@ -29,7 +29,7 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
     CommonModule, RouterModule,
     MultiLangModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
-    UserMenuModule
+    UserMenuModule,
   ],
 
   declarations: [

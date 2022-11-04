@@ -12,6 +12,6 @@
 
   "peerDependencies": {
     "@iote/bricks": "^2.0.0",
-    "ngfi/firestore-qbuilder": "^2.0.0"
+    "@ngfi/firestore-qbuilder": "^2.0.0"
   }
 }
