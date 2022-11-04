@@ -102,5 +102,11 @@
       "SUBMIT": "Supprimer le robot",
       "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
     }
-  }  
+  },
+  "TOAST": {
+    "DELETE-BOT": {
+      "SUCCESSFUL": "l'opération de suppression a réussi",
+      "FAIL": "l'opération de suppression n'a pas réussi"
+    }
+  }
 }

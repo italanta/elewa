@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { SubSink } from 'subsink';
 
 import { ToastService } from '@iote/bricks-angular';
+import { TranslateService } from '@ngfi/multi-lang';
 import { Story } from "@app/model/convs-mgr/stories/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
@@ -22,8 +23,9 @@ export class NewStoryService implements OnDestroy
     private _org$$: ActiveOrgStore,
     private _stories$$: StoriesStore,
     private _router: Router,
+    private _notifications: ToastService,
+    private _translate: TranslateService,
     private dialog: MatDialog,
-    private _notifications: ToastService
   ){}
 
   add(name?: string, description?: string) {
@@ -47,11 +49,15 @@ export class NewStoryService implements OnDestroy
   remove(story: Story) {
     this._sbS.sink = this._stories$$.remove(story).subscribe({
       error: () => {
-        this._notifications.doSimpleToast("An error occured, Try again")
+        this._notifications.doSimpleToast(
+          this._translate.translate("TOAST.DELETE-BOT.SUCCESSFUL")
+        );
       },
       complete: () =>  {
         this.dialog.closeAll()
-        this._notifications.doSimpleToast("Bot was successfully deleted")
+        this._notifications.doSimpleToast(
+          this._translate.translate("TOAST.DELETE-BOT.FAIL")
+        );
       },
     });
   }
