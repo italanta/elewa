@@ -8,6 +8,8 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
 
 import { StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { UploadFileService } from '@app/state/file';
+
 
 @Component({
   selector: 'app-sticker-block',
@@ -22,27 +24,48 @@ export class StickerBlockComponent implements OnInit {
   @Input() stickerMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  file: File;
+  isLoadingSticker: boolean;
+  isStickerLoaded: string;
   stickerLink: string = "";
   stickerInputId: string;
   defaultImage: string = "assets/images/lib/block-builder/sticker-block-placeholder.png"
 
 
   constructor(private _fb: FormBuilder,
-    private _logger: Logger) { }
+    private _logger: Logger,
+    private _stickerUploadService: UploadFileService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.stickerInputId = `stckr-${this.id}`
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void
+  {
     if (this.jsPlumb) {
       this._decorateInput();
     }
   }
 
-  
+  async processSticker(event: any) 
+  {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.stickerLink = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.file = event.target.files[0];
+    } else {
+      this.stickerLink = this.defaultImage;
+    }
+    this.isLoadingSticker = true;
+    const stickerFilePath = `stickers/${this.file.name}_${new Date().getTime()}`;
+    (await this._stickerUploadService.uploadFile(this.file, this.block, stickerFilePath)).subscribe();
 
-  private _decorateInput() {
+  }
+
+  private _decorateInput() 
+  {
     let input = document.getElementById(this.stickerInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
