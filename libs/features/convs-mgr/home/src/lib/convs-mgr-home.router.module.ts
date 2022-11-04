@@ -11,6 +11,12 @@ const ORG_ROUTES: Route[] = [
 
   // to be changed - mock  routes
   { path: '', children: [
+    // bots
+    { path: 'bots', component: HomePageComponent, children : [
+      { path: 'dashboard', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+      { path: 'analytics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    ], canActivate: [IsLoggedInGuard] },
+
     // chats
     { path: 'org/:id/flows/:id/chats', component: HomePageComponent, children : [
       { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },

@@ -70,6 +70,8 @@
     },
     "SIDE-MENU": {
       "DASHBOARD": "Dashboard",
+      "ANALYTICS": "Analytics",
+      "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Logout",
       "MAIN-TITLE": "Main",
       "MENU-ITEMS" : {

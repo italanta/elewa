@@ -70,6 +70,8 @@
     },
     "SIDE-MENU": {
       "DASHBOARD": "Tableau de bord",
+      "ANALYTICS": "Analytique",
+      "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal",
       "MENU-ITEMS" : {

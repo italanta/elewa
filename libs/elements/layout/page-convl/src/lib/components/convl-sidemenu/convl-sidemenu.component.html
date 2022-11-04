@@ -33,6 +33,39 @@
     </div>
     <!-- end Home -->
 
+    <!-- Section Active-bots -->
+    <div [routerLink]="['/home/bots']" routerLinkActive
+     #rlaBots="routerLinkActive" mat-list-item class="container" fxLayout="column">
+
+      <div class="menu-item" [class.active]="rlaBots.isActive">
+        <i matListIcon class="fas fa-headset menu-item__tooltip"></i>
+        <span class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
+        </span>
+      </div>
+
+      <div class="category-children" *ngIf="rlaBots.isActive">
+        <div [routerLink]="['/home/bots/dashboard']" routerLinkActive="highlight-active"
+         [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+         class="child-header child-header--one">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+          </span>
+        </div>
+
+        <div [routerLink]="['/home/bots/analytics']" routerLinkActive="highlight-active"
+         [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+         class="child-header">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
+          </span>
+        </div>
+      </div>
+   </div>
+   <!-- end Active-bots section -->
+
     <!-- Section Chats -->
     <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive #rlaChats="routerLinkActive"
       mat-list-item class="container" fxLayout="column">
@@ -77,8 +110,8 @@
 
 
     <!-- Section Sales -->
-    <div [routerLink]="['/home/sales']" routerLinkActive #rlaSales="routerLinkActive" mat-list-item class="container"
-      fxLayout="column">
+    <div [routerLink]="['/home/sales']" routerLinkActive
+      #rlaSales="routerLinkActive" mat-list-item class="container" fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaSales.isActive">
         <i matListIcon class="fas fa-headset menu-item__tooltip"></i>
@@ -101,8 +134,8 @@
     <!-- end Sales section -->
 
     <!-- Section Statistics -->
-    <div [routerLink]="['/home/statistics']" routerLinkActive #rlaStats="routerLinkActive" mat-list-item
-      class="container" [class.hov]="!rlaStats.isActive" fxLayout="column">
+    <div  [routerLink]="['/home/statistics']" routerLinkActive
+      #rlaStats="routerLinkActive" mat-list-item class="container" [class.hov]="!rlaStats.isActive" fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaStats.isActive" [class.hov]="!rlaStats.isActive">
         <i matListIcon class="fas fa-chart-line menu-item__tooltip"></i>
