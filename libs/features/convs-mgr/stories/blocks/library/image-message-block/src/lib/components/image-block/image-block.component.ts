@@ -63,7 +63,8 @@ export class ImageBlockComponent implements OnInit {
       this.imageLink = this.defaultImage;
     }
     this.isLoadingImage = true;
-    (await this._imageUploadService.uploadFile(this.file, this.block)).subscribe();
+    const imgFilePath = `images/${this.file.name}_${new Date().getTime()}`;
+    (await this._imageUploadService.uploadFile(this.file, this.block,imgFilePath)).subscribe();
 
   }
 
