@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/state/convs-mgr/conversations/chats/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/convs-mgr/conversations/chats"],
+      "options": {
+        "jestConfig": "libs/state/convs-mgr/conversations/chats/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/state/convs-mgr/conversations/chats/**/*.ts",
+          "libs/state/convs-mgr/conversations/chats/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

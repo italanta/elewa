@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
-import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { ImageUploadService } from '../../providers/image-upload.service';
+
+import { UploadFileService } from '@app/state/file';
 
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
 
 @Component({
   selector: 'app-image-block',
@@ -23,39 +23,52 @@ export class ImageBlockComponent implements OnInit {
   @Input() imageMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  imageLink: string = "";
-  fileReader = new FileReader();
-  isLoadingImage: boolean = false;
+
   file: File;
   imageInputId: string;
-  defaultImage: string ="assets/images/lib/block-builder/image-block-placeholder.jpg"
+  imageName: string = '';
+  isLoadingImage: boolean = false;
+  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg"
+  imageLink = this.defaultImage;
 
 
-  constructor(private _fb: FormBuilder,
-    private _logger: Logger,
-    private _imageUploadService: ImageUploadService) { }
 
-  ngOnInit(): void {
-    this.imageInputId = `img-${this.id}`
+  constructor(private _imageUploadService: UploadFileService,
+              public domSanitizer: DomSanitizer) 
+              { }
+
+  ngOnInit(): void
+  {
+    this.imageInputId = `img-${this.id}`;
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void 
+  {
     if (this.jsPlumb) {
       this._decorateInput();
     }
   }
 
-  processImage(event: any) {
-    this.file = event.target.files[0];
-    this.fileReader.readAsDataURL(this.file);
-    this.fileReader.onload = () => {
+
+
+  async processImage(event: any) 
+  {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.imageLink = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.file = event.target.files[0];
       this.isLoadingImage = true;
-      this.imageLink = this.fileReader.result as string;
+    } else {
+      this.imageLink = this.defaultImage;
     }
+    this.isLoadingImage = true;
+    (await this._imageUploadService.uploadFile(this.file, this.block)).subscribe();
 
   }
 
-  private _decorateInput() {
+  private _decorateInput() 
+  {
     let input = document.getElementById(this.imageInputId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
