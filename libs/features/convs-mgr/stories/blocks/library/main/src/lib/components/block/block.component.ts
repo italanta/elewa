@@ -15,6 +15,7 @@ import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
 import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
+import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -39,6 +40,7 @@ export class BlockComponent implements OnInit {
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
   listType= StoryBlockTypes.List;
+  documentType = StoryBlockTypes.Document;
 
   blockFormGroup: FormGroup;
 
@@ -69,7 +71,7 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-        
+
       case StoryBlockTypes.PhoneNumber:
         this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
@@ -89,6 +91,11 @@ export class BlockComponent implements OnInit {
         this.blocksGroup.push(this.blockFormGroup);
         break;
   
+      case StoryBlockTypes.Document:
+        this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
       default:
         break;
     }

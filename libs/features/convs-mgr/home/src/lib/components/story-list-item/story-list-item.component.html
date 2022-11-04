@@ -1,23 +1,25 @@
 <div>
-  <mat-card class="bot-card">
-    <img
-      mat-card-image
-      src="{{story.imageField}}"
-      alt="story img"
-    />
+  <mat-card class="bot-card" (click)="goTo()">
+    <img mat-card-image src="https://place-hold.it/420x240" alt="story img" />
 
     <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
       <div class="bot-text">
         <h2 class="bot">
-          {{story.name }} <span class="bot-number">(6 bots)</span>
+          {{ story.name }} <span class="bot-number"></span>
         </h2>
       </div>
-
-      <div class="dots">
-        <div class="btn-dotted"></div>
-        <div class="btn-dotted"></div>
-        <div class="btn-dotted"></div>
-      </div>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <i class="fas fa-ellipsis-v"></i>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="bot-menu-item">
+          <span>Edit</span>
+        </button>
+        <hr class="bot-menu-item-separator"/>
+        <button mat-menu-item class="bot-menu-item">
+          <span>Delete</span>
+        </button>
+      </mat-menu>
     </div>
 
     <mat-card-content>
