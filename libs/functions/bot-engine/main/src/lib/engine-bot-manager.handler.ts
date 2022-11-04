@@ -43,7 +43,7 @@ export class EngineBotManager
      * 
      * So, to ensure faster response to end users, we store all these operations to an array and resolve them after we have responded to the user
      */
-    let promises: Promise<any>[] = [];
+    let sideOperations: Promise<any>[] = [];
 
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
@@ -74,7 +74,7 @@ export class EngineBotManager
      this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
       // Save the message to the database for later use
-      promises.push(bot.saveMessage(message, END_USER_ID));
+      sideOperations.push(bot.saveMessage(message, END_USER_ID));
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status
@@ -93,10 +93,10 @@ export class EngineBotManager
           const futureBlock = await bot.getFutureBlock(nextBlock, message);
 
           // Update the cursor
-          promises.push(bot.updateCursor(END_USER_ID, nextBlock, futureBlock));
+          sideOperations.push(bot.updateCursor(END_USER_ID, nextBlock, futureBlock));
 
           // Finally Resolve pending operations that do not affect the processing of the message
-          await Promise.all(promises);
+          await Promise.all(sideOperations);
 
           break;
         case ChatStatus.Paused:
