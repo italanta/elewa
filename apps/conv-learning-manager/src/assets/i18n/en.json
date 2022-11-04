@@ -102,5 +102,11 @@
       "SUBMIT": "Delete Bot",
       "MESSAGE":" Are you sure you want to delete this bot?"
     }
+  },
+  "TOAST": {
+    "DELETE-BOT": {
+      "SUCCESSFUL": "Delete operation was successful",
+      "FAIL": "Delete operation was not successful"
+    }
   }
 }
