@@ -15,6 +15,7 @@ import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
 import { _CreateAudioBlockForm } from '../../model/audio-block-form.model';
+import { _CreateVideoMessageBlockForm } from '../../model/video-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 
 /**
@@ -40,6 +41,7 @@ export class BlockComponent implements OnInit {
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
   audioType = StoryBlockTypes.Audio;
+  videoType= StoryBlockTypes.Video;
   documentType = StoryBlockTypes.Document;
 
   blockFormGroup: FormGroup;
@@ -76,6 +78,7 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
+
       case StoryBlockTypes.QuestionBlock:
         this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
@@ -92,6 +95,9 @@ export class BlockComponent implements OnInit {
 
       case StoryBlockTypes.Audio:
         this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
+        break
+      case StoryBlockTypes.Video:
+        this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 

@@ -47,8 +47,7 @@
             "TITLES": {
                 "IMAGE": "Image",
                 "LOCATION": "Location",
-                "AUDIO": "Audio",
-                "DOCUMENT": "Document"
+                "VIDEO": "Video"
             }
         },
         "BLOCK": {
@@ -58,7 +57,7 @@
                 "NAME": "Name",
                 "EMAIL": "Email",
                 "PHONE": "Phone",
-                "DOCUMENT": "Document"
+                "VIDEO": "Video"
             },
             "PLACEHOLDER": {
                 "CAPTION": "Caption",
@@ -66,7 +65,7 @@
                 "NAME": "Name",
                 "EMAIL": "Email",
                 "PHONE-NUMBER": "Phone",
-                "AUDIO-LINK": "Enter a link to your audio"
+                "VIDEO-LINK": "Enter a link to your video(optional)"
             }
         },
         "COMPONENTS": {

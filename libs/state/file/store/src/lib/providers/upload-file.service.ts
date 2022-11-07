@@ -105,7 +105,7 @@ export class UploadFileService
    * Adds the file on firestorage
    */
   public async uploadFile(file: File, block: StoryBlock, filePath: string) 
-  { 
+  {
 
     //Step 1 - Upload the file 
     const uploadTask = (await this._ngfiStorage.upload(filePath, file)).ref;
