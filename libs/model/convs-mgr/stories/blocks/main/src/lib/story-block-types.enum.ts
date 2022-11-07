@@ -72,6 +72,11 @@ export enum StoryBlockTypes
   /**
    * Block that waits for the user to enter their phone-number as input
    */
-  PhoneNumber = 12
+  PhoneNumber = 12,
+
+  /**
+   * Block that sends a message to the user in form of a video
+   */
+  Video = 13
 
 }

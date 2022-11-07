@@ -68,8 +68,8 @@ export class DocumentBlockComponent implements OnInit {
       this.docLink = this.defaultLink;
     }
     this.isDocLoading= true;
-
-    const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
+      //Step 1 - Create the file path that will be in firebase storage
+     const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
     (await this._docUploadService.uploadFile(this.file, this.block, docFilePath)).subscribe();
     console.log(this.isDocLoading);
 

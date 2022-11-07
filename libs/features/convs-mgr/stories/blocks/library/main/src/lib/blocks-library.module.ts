@@ -17,6 +17,8 @@ import { ConvsMgrNameMessageBlockModule } from '@app/features/convs-mgr/stories/
 import { ConvsMgrEmailMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/email-message-block';
 import { ConvsMgrPhoneMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/phone-message-block';
 import { ConvsMgrAudioMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/audio-message-block';
+import { ConvsMgrVideoMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-message-block';
+
 import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
@@ -44,6 +46,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrEmailMessageBlockModule,
     ConvsMgrPhoneMessageBlockModule,
     ConvsMgrAudioMessageBlockModule,
+    ConvsMgrVideoMessageBlockModule,
     ConvsMgrBlockOptionsModule,
 
     FileStateModule
