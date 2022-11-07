@@ -1,28 +1,32 @@
 <convl-page [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
 
-    <!-- Convl page subbar -->
-    <div subbar>
-        <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+  <!-- Convl page subbar -->
+  <div subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+    <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
       <span *ngIf="stateSaved; else saving"> Save </span>
       <ng-template #saving>
         <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
           <span> Saving story</span>
-          <mat-spinner diameter="20" ></mat-spinner>
+          <mat-spinner diameter="20"></mat-spinner>
         </span>
       </ng-template>
     </button>
+
+    <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
+      <span> Add to channel </span>
+    </button>
+  </div>
+
+  <!-- Main body page -->
+  <div fxLayout="row" fxFlexFill>
+
+    <div fxFlex="15">
+      <convl-blocks-library *ngIf="frame" [frame]="frame">
+      </convl-blocks-library>
     </div>
 
-    <!-- Main body page -->
-    <div fxLayout="row" fxFlexFill>
+    <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" fxFlexFill>
+    </convl-story-editor-frame>
 
-        <div fxFlex="15">
-            <convl-blocks-library *ngIf="frame" [frame]="frame">
-            </convl-blocks-library>
-        </div>
-
-        <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" fxFlexFill>
-        </convl-story-editor-frame>
-
-    </div>
+  </div>
 </convl-page>
