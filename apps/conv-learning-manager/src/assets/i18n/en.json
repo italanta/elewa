@@ -47,7 +47,8 @@
             "TITLES": {
                 "IMAGE": "Image",
                 "LOCATION": "Location",
-                "VIDEO": "Video"
+                "VIDEO": "Video",
+                "STICKER": "Sticker"
             }
         },
         "BLOCK": {

@@ -7,7 +7,7 @@ import { Observable, BehaviorSubject, map, combineLatest, of } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock,DocumentMessageBlock, VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock, VoiceMessageBlock, VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -37,6 +37,7 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
     { id: 'input-audio-block', type:StoryBlockTypes.Audio, message:'Audio Block' } as VoiceMessageBlock,
     { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video Block' } as VideoMessageBlock,
+    { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker Block' } as StickerMessageBlock,
     { id: 'input-docs-block', type:StoryBlockTypes.Document, message: 'Document Block' } as DocumentMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -78,6 +79,9 @@ export class BlocksLibraryComponent implements OnInit {
           break;
       case StoryBlockTypes.Video:
         this.frame.newBlock(StoryBlockTypes.Video);
+        break
+      case StoryBlockTypes.Sticker:
+        this.frame.newBlock(StoryBlockTypes.Sticker);
         break;
       case StoryBlockTypes.Document:
         this.frame.newBlock(StoryBlockTypes.Document);

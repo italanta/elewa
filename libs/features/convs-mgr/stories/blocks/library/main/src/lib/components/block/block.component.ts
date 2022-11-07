@@ -16,7 +16,9 @@ import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
 import { _CreateAudioBlockForm } from '../../model/audio-block-form.model';
 import { _CreateVideoMessageBlockForm } from '../../model/video-block-form.model';
+import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
+
 
 /**
  * Block which sends a message from bot to user.
@@ -42,6 +44,7 @@ export class BlockComponent implements OnInit {
   locationtype = StoryBlockTypes.Location;
   audioType = StoryBlockTypes.Audio;
   videoType= StoryBlockTypes.Video;
+  stickerType = StoryBlockTypes.Sticker;
   documentType = StoryBlockTypes.Document;
 
   blockFormGroup: FormGroup;
@@ -95,9 +98,14 @@ export class BlockComponent implements OnInit {
 
       case StoryBlockTypes.Audio:
         this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
         break
       case StoryBlockTypes.Video:
         this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+       case StoryBlockTypes.Sticker:
+        this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 
@@ -143,3 +151,4 @@ export class BlockComponent implements OnInit {
     return false;
   }
 }
+

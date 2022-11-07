@@ -16,6 +16,7 @@ export interface FileMessageBlock extends StoryBlock
  * Block which sends a message in the form of an image.
  */
 export interface ImageMessageBlock extends FileMessageBlock {}
+
 /**
  * Block which sends a message in the form of a voice message.
  */
@@ -29,6 +30,11 @@ export interface VideoMessageBlock extends FileMessageBlock{
   /**This is store the file name that has been retrieved when uploading the file */
   fileName?: string;
 }
+
+/** 
+ * Blocks which sends a message in the form of a sticker message
+ */
+export interface StickerMessageBlock extends FileMessageBlock { }
 
 /*
  * Block that sends a message in the form of a document to the user 
