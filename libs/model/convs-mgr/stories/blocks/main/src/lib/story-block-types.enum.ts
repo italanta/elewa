@@ -58,8 +58,8 @@ export enum StoryBlockTypes
    * Block redirects to StorySection with other scenario.
    * Usage         : structuring and reusing scenario-designs */
   Structural = 9,
-
-  /**
+  
+  /*
    * Block that waits for the user to return their name as input
    */
   Name = 10,
@@ -79,4 +79,9 @@ export enum StoryBlockTypes
    */
   Video = 13
 
+  /**
+   * Block that sends a sticker to the user as a message
+   */
+  Sticker = 15
 }
+

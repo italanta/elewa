@@ -61,6 +61,9 @@
     <div *ngSwitchCase="videoType">
         <app-video-block [id]="id" [block]="block" [videoMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-video-block>
     </div>
+    <div *ngSwitchCase="stickerType">
+        <app-sticker-block [id]="id" [block]="block" [stickerMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-sticker-block>
+    </div>
 
 
 </mat-card>
