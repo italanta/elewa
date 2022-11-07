@@ -12,7 +12,7 @@ const ORG_ROUTES: Route[] = [
   // to be changed - mock  routes
   { path: '', children: [
     // bots
-    { path: 'bots', component: HomePageComponent, children : [
+    { path: 'stories', component: HomePageComponent, children : [
       { path: "", redirectTo:'dashboard', pathMatch:'full'},
       { path: 'dashboard', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
       { path: 'analytics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
