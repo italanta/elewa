@@ -3,21 +3,21 @@
     <mat-card-content>
         <form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
             <div [id]="docInputId">
-                <label>
-                <div *ngIf="this.block.fileSrc" class="doc-icon" (click)="docInput.click()">
-                    <i class="far fa-file-check"></i>
+
+                <div *ngIf="this.block.fileSrc && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
+                    <i class="fas fa-file-upload"></i>
                 </div>
-                <div *ngIf="!this.block.fileSrc" class="doc-icon" (click)="docInput.click()">
+                <div *ngIf="isDocLoading" class="doc-icon">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                </div>
+                <div *ngIf="!this.block.fileSrc && !isDocLoading" class="doc-icon" (click)="docInput.click()">
                     <i class="far fa-file"></i>
                 </div>
-                  <div>
+                <div>
                     <input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />
-                  </div>
-              </label>
+                </div>
             </div>
-            <i class="fal fa-file-check"></i>
-            <i class="fal fa-file-check"></i>
-            <input type="text" [(ngModel)]="docName" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" formControlName="message" name="fileName" id="fileName" />
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" formControlName="message" name="fileName" id="fileName" />
             <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " name="document-link" id="document-link" />
         </form>
     </mat-card-content>
