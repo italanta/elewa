@@ -13,8 +13,7 @@ import { StoryListItemComponent } from './components/story-list-item/story-list-
 import { StoryListComponent } from './components/story-list/story-list.component';
 import { HomePageComponent } from './pages/home/home.page';
 import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
-
-
+import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-modal.component';
 
 @NgModule({
   imports: [
@@ -25,7 +24,6 @@ import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-mo
     ConvlPageModule,
     ConvsMgrHomeRouterModule,
     MultiLangModule,
-
   ],
 
   declarations: [
@@ -33,6 +31,7 @@ import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-mo
     StoryListItemComponent,
     StoryListComponent,
     CreateBotModalComponent,
+    DeleteBotModalComponent,
   ],
 
   providers: [NewStoryService],
