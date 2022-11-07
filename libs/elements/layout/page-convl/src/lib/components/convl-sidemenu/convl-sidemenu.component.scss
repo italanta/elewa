@@ -150,7 +150,7 @@ mat-nav-list {
     padding: 7px 0px 7px 24px;
     text-transform: capitalize;
     margin-bottom: 5px;
-    display: grid;
+    display: flex;
 
     &__word {
       font-weight: 600;
@@ -169,11 +169,11 @@ mat-nav-list {
       margin-top: 8px;
     }
 
-      &.highlight-active {
-      .child-header__word {
-        position: relative;
-        color: var(--convs-mgr-color-nav-active);
-        background-color: var(--convs-mgr-color-nav-active-background);
+    &.highlight-active {
+    .child-header__word {
+      position: relative;
+      color: var(--convs-mgr-color-nav-active);
+      background-color: var(--convs-mgr-color-nav-active-background);
       
     &::before {
       position: absolute;

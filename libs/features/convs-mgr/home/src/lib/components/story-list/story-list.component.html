@@ -1,4 +1,4 @@
-<!-- edited the search -->
+<!-- Edit Search Area -->
 <div class="search">
 <i class="fa fa-search" aria-hidden="true"></i>
   <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)"/>
@@ -6,6 +6,6 @@
 
 <div class="bot-selector" fxLayout="row wrap" fxLayoutGap="26px grid" fxFlexFill>
   <ng-template ngFor [ngForOf]="stories$ | async" let-story>
-    <convl-story-list-item [story]="story"> </convl-story-list-item>
+    <convl-story-list-item [story]="story"></convl-story-list-item>
   </ng-template>
 </div>

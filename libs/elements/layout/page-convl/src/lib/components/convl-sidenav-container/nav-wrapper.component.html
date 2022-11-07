@@ -6,14 +6,16 @@
 
       <convl-sidemenu (toggleMenu)="toggleSidemenu()" [user]="user" fxFlex="column" fxFill></convl-sidemenu>
 
-    </mat-sidenav>
+        </mat-sidenav>
 
-    <mat-sidenav-content fxFlexFill fxFlex="100" fxLayout="column">
-      <ng-content></ng-content>
-    </mat-sidenav-content>
+          <mat-sidenav-content fxFlexFill fxFlex="100" fxLayout="column">
+          
+        <ng-content></ng-content>
+      
+      </mat-sidenav-content>
 
-  </mat-sidenav-container>
+    </mat-sidenav-container>
 
-</div>
+  </div>
 
 <ng-template #loading></ng-template>
