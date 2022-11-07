@@ -77,7 +77,7 @@ export enum StoryBlockTypes
   /**
    * Block that sends a message to the user in form of a video
    */
-  Video = 13
+  Video = 13,
 
   /**
    * Block that sends a sticker to the user as a message
