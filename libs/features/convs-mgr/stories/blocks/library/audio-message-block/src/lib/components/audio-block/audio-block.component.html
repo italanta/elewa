@@ -5,12 +5,15 @@
 
             <div [id]="audioInputId">
 
-                <div *ngIf="this.block.fileSrc">
+                <div *ngIf="this.block.fileSrc && !isLoadingAudio">
                     <audio controls>
                         <source [src]="this.block.fileSrc!" class="audio" (click)="audioInput.click()">
                     </audio>
                 </div>
-                <div *ngIf="!this.block.fileSrc" class="audio-icon" (click)="audioInput.click()">
+                <div *ngIf="isLoadingAudio" class="audio-icon">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                </div>
+                <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
                     <!-- <img [src]="defaultImage" class="image" (click)="audioInput.click()">  -->
                     <i class="far fa-file-audio" (click)="audioInput.click()"></i>
                 </div>
