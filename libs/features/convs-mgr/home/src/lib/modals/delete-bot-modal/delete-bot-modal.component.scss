@@ -1,0 +1,61 @@
+// Import your custom theme
+@import 'common.theme';
+
+//this dialog specific styles
+::ng-deep .delete-dialog-container {
+  height: auto;
+  width: 450px;
+}
+
+// overrides specific styles
+::ng-deep .delete-dialog-container .mat-dialog-container {
+  padding: 20px;
+}
+
+.delete-bot {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 0.8rem;
+  }
+
+  &__header {
+    margin: 0;
+  }
+
+  &__message {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 3rem;
+  }
+
+  &__btn {
+    font-weight: 500;
+    border-radius: 5px;
+    
+    &--cancel {
+      color :var(--convs-mgr-color-primary-yellow);
+      background-color: var(--convs-mgr-color-primary-white);
+      border: 1.2px solid var(--convs-mgr-color-primary-yellow);
+      width: 8rem;
+    }
+    
+    &--delete {
+      background-color: mat-color($warn, A200);
+      color: var(--convs-mgr-color-primary-white);
+      width: 8rem;
+    }
+  }
+}
+
+@media (max-width:400px) {
+  .delete-bot__btns {
+    gap: 1rem;
+  }
+}
