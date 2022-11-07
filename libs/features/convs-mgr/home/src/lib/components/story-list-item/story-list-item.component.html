@@ -15,8 +15,8 @@
         <button mat-menu-item class="bot-menu-item" (click)="openEditDialog()">
           <span>Edit</span>
         </button>
-        <hr class="bot-menu-item-separator"/>
-        <button mat-menu-item class="bot-menu-item">
+        <hr class="bot-menu-item-separator" />
+        <button mat-menu-item class="bot-menu-item" (click)="openDeleteDialog()">
           <span>Delete</span>
         </button>
       </mat-menu>
@@ -28,7 +28,9 @@
       </p>
     </mat-card-content>
     <div class="action-holder">
-      <button mat-raised-button (click)="goTo()">Open bot</button>
+      <button mat-raised-button (click)="goTo()">
+        {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
+      </button>
     </div>
   </mat-card>
 </div>
