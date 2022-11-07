@@ -85,17 +85,33 @@
         "DELETE": "Effacer"
       },
       "CANCEL": "Annuler",
-      "SUBMIT": "Créer un robot"
+      "SUBMIT": "Créer un robot",
+    "ACTIONS": {
+      "OPEN-BOT": "Ouvert un robot",
+      "LBL-NEW-BOT": "Créer un nouveau robot",
+      "EDIT-BOT":"Edit",
+      "DELETE-BOT": "Effacer"
     },
     "EDIT-MODAL": {
       "TITLE": "Modifier un robot",
       "SUBMIT": "Mettre à jour un robot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le robot",
+      "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
     }
-  },
+  }
+},
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "L'opération de modification a réussi",
       "FAIL": "L'opération d'édition n'a pas réussi"
+    },
+    "DELETE-BOT": {
+      "SUCCESSFUL": "l'opération de suppression a réussi",
+      "FAIL": "l'opération de suppression n'a pas réussi"
     }
   }
 }

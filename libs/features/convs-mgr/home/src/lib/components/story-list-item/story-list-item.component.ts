@@ -6,6 +6,7 @@ import { SubSink } from 'subsink';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 
+import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
 
 @Component({
   selector: 'convl-story-list-item',
@@ -23,12 +24,7 @@ export class StoryListItemComponent implements OnDestroy
 
   goTo = () => this._router.navigate(['/stories', this.story.id]);
 
-  ngOnDestroy()
-  {
-    this._sb.unsubscribe();
-  }
-
-  openEditDialog(){
+    openEditDialog(){
     this._dialog.open(CreateBotModalComponent, {
       data: {
         isEditMode: true,
@@ -36,5 +32,17 @@ export class StoryListItemComponent implements OnDestroy
       },
       panelClass: 'edit-bot-dialog'
     });
+  }
+
+  openDeleteDialog() {
+    this._dialog.open(DeleteBotModalComponent, {
+      data: { payload: this.story },
+      panelClass: 'delete-dialog-container'
+    });
+  }
+
+  ngOnDestroy()
+  {
+    this._sb.unsubscribe();
   }
 }
