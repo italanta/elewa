@@ -1,0 +1,26 @@
+.anchor {
+    margin: 13px;
+    height: 100px;
+    width: 100px;
+    font-weight: bold;
+    border: 1px solid var(--convs-mgr-color-primary-purple);
+    background-color: var(--convs-mgr-color-primary-purple);
+    text-align: center;
+    border-radius: 50%;
+    padding-left: 3px;
+    padding-right: 7px;
+}
+
+// .anchor-wrapper {
+//     height: 130px;
+//     width: 130px;
+//     border: 5px solid var(--convs-mgr-color-primary-yellow);
+//     border-radius: 50%;
+//     background-color: none;
+//     padding-left: 3px;
+//     padding-right: 7px;
+//     animation: pulse 1s ease-in-out infinite;
+// }
+input[disabled]::placeholder {
+    color: var(--convs-mgr-color-text-white);
+}

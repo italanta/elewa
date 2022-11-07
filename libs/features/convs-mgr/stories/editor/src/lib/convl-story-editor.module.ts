@@ -17,13 +17,16 @@ import { BlocksLibraryComponent } from './components/blocks-library/blocks-libra
 
 import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 
+import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block'
+
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
+import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
 
 
 @NgModule({
   imports: [
-    CommonModule,
-    MultiLangModule,
+    CommonModule, MultiLangModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
     MaterialFormBricksModule, ReactiveFormsModule,
 
@@ -31,12 +34,15 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
 
     ConvlStoryEditorRouterModule,
 
+    ConvsMgrAnchorBlockModule,
     BlocksLibraryModule,
 
     StoryEditorStateModule],
 
-  declarations: [StoryEditorPageComponent,
-    StoryEditorFrameComponent, BlocksLibraryComponent],
-  providers: [StoryEditorInitialiserService]
+  declarations: [StoryEditorPageComponent, AddBotToChannelModal,
+                 StoryEditorFrameComponent, BlocksLibraryComponent],
+
+
+  providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService]
 })
 export class ConvlStoryEditorModule { }
