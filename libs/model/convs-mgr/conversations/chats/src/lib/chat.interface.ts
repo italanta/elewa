@@ -2,10 +2,15 @@ import { ChatFlowStatus } from './chat-flow-status.enum';
 import { Timestamp } from '@firebase/firestore-types';
 import { IObject } from '@iote/bricks';
 
-import { ChatStatus } from './chat-status.enum';
-import { CommunicationChannelTypes } from '@elewa/model/admin/system';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { TextMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-export interface Chat extends IObject
+import { ChatStatus } from './end-user.interface';
+
+/**
+ * An end user which 
+ */
+export interface ChatUser extends IObject
 {
   /** Chat ID used by LandBot and acting as general identifier. */
   id: string;
@@ -17,7 +22,7 @@ export interface Chat extends IObject
 
   info?: ChatUserInfo;
 
-  channel: CommunicationChannelTypes;
+  // channel: CommunicationChannel;
   channelId: string;
   channelName: string;
 
@@ -54,3 +59,10 @@ export interface ChatUserInfo {
 
   scoutBefore: boolean;
 }
+
+export interface Connection extends IObject {
+  slot: number;
+  sourceId: string;
+  targetId: string;
+}
+
