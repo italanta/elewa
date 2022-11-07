@@ -24,7 +24,7 @@ mat-nav-list {
 .menu-item:hover,
 .child-header__word:hover {
   cursor: pointer;
-  background-color: mat-color($accent, A200);
+  background-color: var(--conv-mgr-color-sidemenu-background);
 }
 
 .container {

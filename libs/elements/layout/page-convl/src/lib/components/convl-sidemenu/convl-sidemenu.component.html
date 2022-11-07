@@ -34,7 +34,7 @@
     <!-- end Home -->
 
     <!-- Section Active-bots -->
-    <div [routerLink]="['/home/bots']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
+    <div [routerLink]="['/home/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
       fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaBots.isActive">
@@ -45,7 +45,7 @@
       </div>
 
       <div class="category-children" *ngIf="rlaBots.isActive">
-        <div [routerLink]="['/home/bots/dashboard']" routerLinkActive="highlight-active"
+        <div [routerLink]="['/home/stories/dashboard']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header child-header--one">
           <i class="fas fa-minus child-header__tooltip"></i>
@@ -54,7 +54,7 @@
           </span>
         </div>
 
-        <div [routerLink]="['/home/bots/analytics']" routerLinkActive="highlight-active"
+        <div [routerLink]="['/home/stories/analytics']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header">
           <i class="fas fa-minus child-header__tooltip"></i>
