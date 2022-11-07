@@ -13,6 +13,7 @@ const ORG_ROUTES: Route[] = [
   { path: '', children: [
     // bots
     { path: 'bots', component: HomePageComponent, children : [
+      { path: "", redirectTo:'dashboard', pathMatch:'full'},
       { path: 'dashboard', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
       { path: 'analytics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
     ], canActivate: [IsLoggedInGuard] },
