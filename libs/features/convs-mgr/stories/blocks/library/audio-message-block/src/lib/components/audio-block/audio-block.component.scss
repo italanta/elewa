@@ -10,24 +10,14 @@ mat-card-title {
 
 input {
     margin: 5px 0;
-    width: 180px;
+    width: 100%;
     height: 30px;
-    border: 1px solid var(--convs-mgr-color-primary-black);
+    border: 1px solid (--convs-mgr-color-primary-black);
     border-radius: 10px;
 }
 
 .fileSrc {
     display: none;
-}
-
-.file-info {
-    border-radius: 1px solid var(--convs-mgr-color-primary-grey);
-}
-
-.image {
-    width: 13em;
-    height: 12em;
-    border-radius: 10px;
 }
 
 .svg-inline--fa.fa-w-12 {
@@ -37,19 +27,9 @@ input {
     background-color: var(--convs-mgr-color-primary-white) !important;
 }
 
-.doc-icon {
+.audio-icon {
     text-align: center;
-    color: var(--convs-mgr-color-tertiary) !important;
-    width: 180px;
-    height: 90px;
-    background-color: var(--convs-mgr-color-tertiary) !important;
-    border-radius: 5px;
-    opacity: 1;
-}
-
-.doc-icon-uploaded {
-    text-align: center;
-    color: var(--convs-mgr-color-primary-white);
+    color: var(--convs-mgr-color-tertiary)!important;
     width: 180px;
     height: 90px;
     background-color: var(--convs-mgr-color-tertiary) !important;
