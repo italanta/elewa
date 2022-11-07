@@ -4,9 +4,20 @@ import { Route, RouterModule } from '@angular/router';
 import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
 import { HomePageComponent } from './pages/home/home.page';
+// import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 const ORG_ROUTES: Route[] = [
   { path: '', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+
+  // to be changed - mock  routes
+  { path: '', children: [
+    // bots
+    { path: 'stories', component: HomePageComponent, children : [
+      { path: "", redirectTo:'dashboard', pathMatch:'full'},
+      { path: 'dashboard', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+      { path: 'analytics', component: HomePageComponent, canActivate: [IsLoggedInGuard] },
+    ], canActivate: [IsLoggedInGuard] },
+  ]},
 
   // {
   //   path: ':id/finance',
