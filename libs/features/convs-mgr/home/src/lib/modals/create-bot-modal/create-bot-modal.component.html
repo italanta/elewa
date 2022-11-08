@@ -1,18 +1,21 @@
-<h2 class="create-bot-header">{{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}</h2>
+<h2 class="create-bot-header">
+  <span *ngIf="!modalMode; else showEditTitle">
+    {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
+  </span>
+  <ng-template #showEditTitle>
+    {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
+  </ng-template>
+</h2>
 <form [formGroup]="botForm">
   <h4 class="create-bot-name">
     {{ 'BOTS.CREATE-MODAL.FIELDS.NAME' | transloco }}
   </h4>
-  <input
-    type="text"
-    formControlName = "botName"
-    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco"
-  />
+  <input type="text" formControlName="botName"
+    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco" />
+  <input type="file" formControlName="botImage"
+    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.IMAGE-PLACEHOLDER' | transloco" />
   <h4>{{ 'BOTS.CREATE-MODAL.FIELDS.DESC' | transloco }}</h4>
-  <textarea
-    formControlName = "botDesc"
-    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco"
-  >
+  <textarea formControlName="botDesc" [placeholder]="'BOTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco">
   </textarea>
 
   <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
@@ -23,8 +26,13 @@
     </div>
 
     <div>
-      <button mat-raised-button class="add-btn" (click)="add()">
+      <button mat-raised-button class="add-btn" (click)="submitForm()">
+        <span *ngIf="!modalMode; else showEditText">
         {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
+      </span>
+      <ng-template #showEditText>
+        {{ 'BOTS.EDIT-MODAL.SUBMIT' | transloco }}
+      </ng-template>
       </button>
     </div>
   </div>

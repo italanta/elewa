@@ -8,13 +8,12 @@ import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { NewStoryService } from './services/new-story.service';
-
 import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
 import { StoryListComponent } from './components/story-list/story-list.component';
 import { HomePageComponent } from './pages/home/home.page';
-import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
-import { EditBotModalComponent } from './modals/edit-bot-modal/edit-bot-modal.component';
+
 import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-modal.component';
+import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
 
 
 @NgModule({
@@ -34,8 +33,7 @@ import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-mo
     StoryListItemComponent,
     StoryListComponent,
     CreateBotModalComponent,
-    EditBotModalComponent,
-    DeleteBotModalComponent,
+    DeleteBotModalComponent
   ],
 
   providers: [NewStoryService],
