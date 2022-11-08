@@ -46,7 +46,7 @@ export class UploadFileService
   /**
    * Function that does the upload of all files
    */
-  upload(url: string, block: StoryBlock) 
+  upload(url: string, block: StoryBlock)
   {
     //Step 1 - create a descriptor and set its values
     const fileBlock:FileUpload = {
@@ -60,7 +60,7 @@ export class UploadFileService
       map((org) => {
         this.org = org;
       }),
-      //Step 3 - create the path in firestore that will lead to files 
+      //Step 3 - create the path in firestore that will lead to files
       switchMap(org => {
         if (!!this.org) {
           this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
@@ -85,10 +85,10 @@ export class UploadFileService
    */
   private _updateSrc(url: string, id: string)
   {
-    //Step 1 - Get the block in the story that has the same id 
+    //Step 1 - Get the block in the story that has the same id
     const fileBlock = this._storyBlockService$.getOne(id)
 
-    //Step 2 - returns the block with the updated fileSrc field 
+    //Step 2 - returns the block with the updated fileSrc field
    return fileBlock.pipe(
      take(1),
      switchMap((block)=>{
@@ -96,7 +96,7 @@ export class UploadFileService
         ...block as FileMessageBlock,
         fileSrc: url,
       }
-      //Step 3 - update the block 
+      //Step 3 - update the block
       return this._storyBlockService$.update(newBlock);
     }));
   }
@@ -104,19 +104,22 @@ export class UploadFileService
   /**
    * Adds the file on firestorage
    */
-  public async uploadFile(file: File, block: StoryBlock) 
-  { 
+  public async uploadFile(file: File, block: StoryBlock)
+  {
     //Step 1 - Create the file path that will be in firebase storage
     const imgFilePath = `images/${file.name}_${new Date().getTime()}`;
 
-    //Step 2 - Upload the file 
+    //Step 2 - Upload the file
     const uploadTask = (await this._ngfiStorage.upload(imgFilePath, file)).ref;
 
     //Step 3 - Get the url in firebase storage
     const reference = await uploadTask.getDownloadURL();
 
-    //Step 4 - Call the upload function 
+    //Step 4 - Call the upload function
+    // this.imageLink=uploadTask();
     return this.upload(reference, block).pipe(take(1));
+
+
   }
 
 

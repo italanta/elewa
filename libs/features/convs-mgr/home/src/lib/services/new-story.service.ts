@@ -18,6 +18,7 @@ import { StoriesStore } from "@app/state/convs-mgr/stories";
 export class NewStoryService implements OnDestroy
 {
   private _sbS = new SubSink();
+  image:false;
 
   constructor(
     private _org$$: ActiveOrgStore,

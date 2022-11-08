@@ -4,7 +4,7 @@
   font-weight: 600;
   min-width: 100px;
   border-radius: 6px;
-  width: 180px;
+  width: 160px;
   padding: 5px;
   font-weight: 700;
 }
@@ -16,9 +16,10 @@
   background-color: white;
   border-radius: 6px;
   border: 2px solid #ffab2d;
-  width: 180px;
+  width: 160px;
   padding: 5px;
-  margin-left: 9pc;
+  margin-left: 6pc;
+  margin-right: 20px;
   font-weight: 700;
 }
 
@@ -62,7 +63,37 @@ input[type='text'] {
 }
 
 ::ng-deep #mat-dialog-0 {
-  height: 480px;
-  width: 600px;
+  height: 530px;
+  width: 500px;
+}
+.file{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+#fas {
+color: var(  --convs-mgr-color-primary-shade);
+margin-top: 40px;
+
+}
+#fas2 {
+  color: var(--convs-mgr-color-primary-red);
+  margin-top: 40px;
+
+  }
+
+input[type=file]::file-selector-button {
+  margin-right: 20px;
+  width: 120px;
+  margin-bottom: 10px;
+  margin-top: 2px;
+  background: var(  --convs-mgr-color-primary-white);
+  padding: 5px;
+  border-radius: 10px;
+  color: var(  --convs-mgr-color-primary-yellow);
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid var(  --convs-mgr-color-primary-yellow);
 }
 

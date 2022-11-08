@@ -82,9 +82,11 @@
     },
     "FIELDS": {
       "NAME": "Name",
+      "IMAGE":"Bot Image",
       "NAME-PLACEHOLDER": "Bot name",
       "DESC": "Description",
-      "DESC-PLACEHOLDER": "Bot description"
+      "DESC-PLACEHOLDER": "Bot description",
+      "IMAGE-PLACEHOLDER": "No Image Uploaded"
     },
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
