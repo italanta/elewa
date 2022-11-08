@@ -1,27 +1,20 @@
-<nav>
-  <mat-toolbar id="nav-toolbar" color="primary" class="mat-elevation-z1">
-      <!-- <div id="goback-button" *ngIf="backButton" (click)="goBack()"><i class="fas fa-arrow-left"></i></div> -->
-
-      <button fxHide.gt-sm (click)="toggleMenu.emit()" mat-icon-button color="accent" class="icon-top">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <div #titleEl id="navbar-title">
-        <ng-content select="[title]"></ng-content>
+<nav fxFlex>
+  <mat-toolbar id="nav-toolbar" color="primary" class="mat-elevation-z1" fxFlex>
+      <!-- <div id="goback-button" *ngIf="backButton" (click)="goBack()"><i class="fas fa-arrow-left"></i></div> --> 
+      <div class="nav-bar-elements" fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <button [ngClass]="{'hide-menu-btn': isMenuOpen}" (click)="toggleMenu.emit()" mat-icon-button color="accent" class="icon-top">
+            <i class="fas fa-bars"></i>
+          </button>
+    
+          <div #titleEl id="navbar-title">
+            <ng-content select="[title]"></ng-content>
+          </div>
+    
+        </div>
+        <div class="user-menu">
+          <app-user-menu></app-user-menu>
+        </div>
       </div>
-
-      <!-- <span *ngIf="titleIsEmpty(titleEl)">
-        <a routerLink="/">
-          <img class="logo" [src]="getLogo()" />
-        </a>
-      </span> -->
-
-      <ng-content select="[left-links]"></ng-content>
-
-      <div class="flex-spacer"></div>
-
-      <!-- Default ng-content -->
-      <ng-content></ng-content>
-
   </mat-toolbar>
 </nav>
