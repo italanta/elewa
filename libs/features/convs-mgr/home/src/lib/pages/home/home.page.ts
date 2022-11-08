@@ -14,7 +14,6 @@ import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
-import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -50,9 +49,5 @@ export class HomePageComponent implements OnDestroy
   ngOnDestroy()
   {
     this._sb.unsubscribe();
-  }
-
-  openDialog(){
-    this.dialog.open(CreateBotModalComponent);
   }
 }
