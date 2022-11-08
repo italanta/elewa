@@ -8,10 +8,10 @@
   line-height: 36px;
 }
 
-  #goback-button:hover {
-    background-color: rgba($color: #000000, $alpha: 0.3);
-    cursor: pointer;
-  }
+#goback-button:hover {
+  background-color: rgba($color: #000000, $alpha: 0.3);
+  cursor: pointer;
+}
 
 .cs-navbar {
   background-color: #fff;
@@ -24,15 +24,23 @@
 }
 
 #nav-toolbar {
-  height: 66px;
-  padding: 0 12px;
+  min-width: 100%;
+  min-height: fit-content;
+  padding: 30px 12px;
 }
 
-#navbar-title{
+#navbar-title {
   font-size: 18px;
 }
 
-.icon-top{
+.nav-bar-elements {
+  min-width: 100%;
+}
+
+.icon-top {
   margin-right: 10px;
-  background-color: black;
+}
+
+.hide-menu-btn {
+  display: none;
 }

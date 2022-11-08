@@ -25,7 +25,7 @@ export const APP_ROUTES: Route[] = [
 
   {
     path: 'stories',
-    loadChildren: () => import('@app/features/convs-mgr/stories/editor').then(m => m.ConvlStoryEditorModule),
+    loadChildren: () => import('@app/features/convs-mgr/stories/home').then(m => m.ConvsMgrStoriesHomeModule),
     canActivate: [IsLoggedInGuard]
   },
 ];

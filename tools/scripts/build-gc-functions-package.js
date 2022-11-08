@@ -4,7 +4,7 @@ const deps = packageJson['firebase-functions-dependencies'];
 
 // Template of package.json for Firebase Functions
 const firebaseFunctionsPackageJson = {
-  engines: { node: '16' },
+  engines: { node: '14' },
   main: 'main.js',
 
   // filter only dependencies we need for Firebase Functions
