@@ -1,8 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { debounceTime, Observable } from 'rxjs';
+
+import { Observable } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
@@ -14,16 +16,15 @@ import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
-import { MatDialog } from '@angular/material/dialog';
-
+import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 
 @Component({
-  selector: 'convl-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss']
+  selector: 'italanta-apps-stories-dashboard',
+  templateUrl: './stories-dashboard.component.html',
+  styleUrls: ['./stories-dashboard.component.scss'],
 })
-export class HomePageComponent implements OnDestroy
-{
+export class StoriesDashboardComponent implements OnInit {
+
   private _sb = new SubSink();
 
   title: string;
@@ -37,13 +38,19 @@ export class HomePageComponent implements OnDestroy
 
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
-              _router: Router,
+              private _router$$: Router,
               private dialog : MatDialog
-              )
+  )
   {
-    this.breadcrumbs = [HOME_CRUMB(_router, true)];
+    this.breadcrumbs = [HOME_CRUMB(_router$$, true)];
     this.org$ = _org$$.get();
     this.stories$ = this._stories$$.get();
+  }
+
+  ngOnInit(): void {}
+
+  openDialog(){
+    this.dialog.open(CreateBotModalComponent);
   }
 
   ngOnDestroy()
