@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "admin-config-environment-config": "libs/admin/config/environment-config",
     "app": {
       "projectType": "library",
       "root": "app",
@@ -33,7 +34,6 @@
         }
       }
     },
-    "admin-config-environment-config": "libs/admin/config/environment-config",
     "conv-learning-manager": "apps/conv-learning-manager",
     "conv-lm-backend": "apps/conv-lm-backend",
     "elements-base-authorisation": "libs/elements/base/authorisation",
