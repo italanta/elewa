@@ -17,16 +17,14 @@ import { StoriesStore } from "@app/state/convs-mgr/stories";
 @Injectable()
 export class NewStoryService implements OnDestroy
 {
+  constructor(private _org$$: ActiveOrgStore,
+              private _stories$$: StoriesStore,
+              private _router: Router,
+              private _toast: ToastService,
+              private _translate: TranslateService,
+              private _dialog: MatDialog)
+  {}
   private _sbS = new SubSink();
-
-  constructor(
-    private _org$$: ActiveOrgStore,
-    private _stories$$: StoriesStore,
-    private _router: Router,
-    private _notifications: ToastService,
-    private _translate: TranslateService,
-    private dialog: MatDialog,
-  ){}
 
   add(name?: string, description?: string) {
     // Generate default name if name not passed.
@@ -38,7 +36,7 @@ export class NewStoryService implements OnDestroy
                 switchMap((orgId) =>
                   this._stories$$.add({ name: name as string, orgId, description } as Story)),
                 tap((s: Story) => {
-                  this.dialog.closeAll()
+                  this._dialog.closeAll()
                   this._router.navigate(['/stories', s.id])
                 }
                 ))
@@ -46,16 +44,27 @@ export class NewStoryService implements OnDestroy
 
   }
 
+  update(story: Story) {
+    this._stories$$.update(story).subscribe(() => {
+      try {
+        this._dialog.closeAll();
+        this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
+      } catch (error) {
+        this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
+      }
+    });
+  }
+
   remove(story: Story) {
     this._sbS.sink = this._stories$$.remove(story).subscribe({
       error: () => {
-        this._notifications.doSimpleToast(
+        this._toast.doSimpleToast(
           this._translate.translate("TOAST.DELETE-BOT.SUCCESSFUL")
         );
       },
       complete: () =>  {
-        this.dialog.closeAll()
-        this._notifications.doSimpleToast(
+        this._dialog.closeAll()
+        this._toast.doSimpleToast(
           this._translate.translate("TOAST.DELETE-BOT.FAIL")
         );
       },

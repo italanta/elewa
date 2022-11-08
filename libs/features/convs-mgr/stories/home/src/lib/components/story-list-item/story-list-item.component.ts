@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Router }    from '@angular/router';
-
 import { MatDialog } from '@angular/material/dialog';
 import { SubSink } from 'subsink';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
+
 import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
 
 @Component({
@@ -19,16 +20,18 @@ export class StoryListItemComponent implements OnDestroy
   @Input() story: Story;
 
   loading = true;
-
-  constructor(
-    private _router: Router,
-    private _dialog: MatDialog,
-  ){}
+  constructor(private _router: Router, private _dialog : MatDialog) { }
 
   goTo = () => this._router.navigate(['/stories', this.story.id]);
 
-  openEditDialog() {
-    // open edit modal
+  openEditDialog(){
+    this._dialog.open(CreateBotModalComponent, {
+      data: {
+        isEditMode: true,
+        story: this.story
+      },
+      panelClass: 'edit-bot-dialog'
+    });
   }
 
   openDeleteDialog() {
