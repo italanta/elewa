@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Output, EventEmitter } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
@@ -18,6 +18,7 @@ export class ConlvSideNavContainerComponent
   opened = false;
 
   mode: any = 'side';
+  @Output() menuStatusEvent: EventEmitter<boolean> = new EventEmitter();
 
   constructor(_userService: UserStore)
   {
@@ -31,6 +32,7 @@ export class ConlvSideNavContainerComponent
   toggleSidemenu()
   {
     this.opened = !this.opened;
+    this.menuStatusEvent.emit(this.opened)
   }
 
   @HostListener('window: resize', ['$event'])
@@ -44,10 +46,12 @@ export class ConlvSideNavContainerComponent
     {
       this.mode = 'over';
       this.opened = false;
+      this.menuStatusEvent.emit(this.opened)
     }
     else{
       this.mode = 'side';
       this.opened = true;
+      this.menuStatusEvent.emit(this.opened)
     }
 
   }

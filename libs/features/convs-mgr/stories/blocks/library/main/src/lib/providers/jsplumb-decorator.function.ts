@@ -14,6 +14,7 @@ import { _NameBlockDecoratePlumb } from './name-block.jsplumb';
 import { _EmailBlockDecoratePlumb } from './email-block.jsplumb';
 import { _PhoneBlockDecoratePlumb } from './phonenumber-block.jsplumb';
 import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
+import { _AnchorBlockDecoratePlumb } from './anchor-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -26,31 +27,33 @@ import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
 export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) {
   /** Lift component into jsPlumb world. */
   jsPlumb.manage(comp.location.nativeElement, block.id);
-
+  
   switch (block.type) {
     case StoryBlockTypes.TextMessage:
-      return _MessageBlockDecoratePlumb(block as TextMessageBlock, comp, jsPlumb);
+      return _MessageBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Image:
-      return _ImageBlockDecoratePlumb(block as ImageMessageBlock, comp, jsPlumb);
+      return _ImageBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Name:
-        return _NameBlockDecoratePlumb(block as NameMessageBlock, comp, jsPlumb);
+        return _NameBlockDecoratePlumb(block, comp, jsPlumb);
         break;
      case StoryBlockTypes.Email:
-        return _EmailBlockDecoratePlumb(block as EmailMessageBlock, comp, jsPlumb);
+        return _EmailBlockDecoratePlumb(block, comp, jsPlumb);
         break;
       case StoryBlockTypes.PhoneNumber:
           return _PhoneBlockDecoratePlumb(block as PhoneMessageBlock, comp, jsPlumb);
           break;
     case StoryBlockTypes.QuestionBlock:
-      return _QuestionsBlockDecoratePlumb(block as QuestionMessageBlock, comp, jsPlumb);
+      return _QuestionsBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Location:
-      return _LocationBlockDecoratePlumb(block as LocationMessageBlock, comp, jsPlumb);
+      return _LocationBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Document:
         return _DocumentBlockDecoratePlumb(block as DocumentMessageBlock, comp, jsPlumb);
+    case StoryBlockTypes.AnchorBlock:
+        return _AnchorBlockDecoratePlumb(comp, jsPlumb);
         break;
   }
 

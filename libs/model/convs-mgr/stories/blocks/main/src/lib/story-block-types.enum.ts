@@ -2,6 +2,12 @@
  * Different types and roles a block can play
  */
 export enum StoryBlockTypes {
+
+  /**
+   * Block that marks the beginning of a story
+   * Automatically loaded on the editor when user creates a story
+   */
+  AnchorBlock = 0,
   /** 
    * Block only produces message output and will not wait for input. 
    * 
@@ -66,6 +72,10 @@ export enum StoryBlockTypes {
   /**
    * Block that waits for the user to enter their phone-number as input
    */
-  PhoneNumber=12
+  PhoneNumber=12,
 
+    /**
+   * Block that sends a sticker to the user as a message
+   */
+     Sticker = 15
 }

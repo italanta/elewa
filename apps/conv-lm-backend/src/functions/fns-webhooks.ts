@@ -1,0 +1,1 @@
+export * from '../app/webhooks/whatsapp-receive-incoming-message.function'

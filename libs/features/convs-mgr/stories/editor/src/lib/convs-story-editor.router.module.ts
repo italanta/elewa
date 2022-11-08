@@ -7,7 +7,7 @@ import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page
 
 const STORY_EDITOR_ROUTES: Route[] = [
   // Main story detail - stories/:id
-  { path: ':id', component: StoryEditorPageComponent, canActivate: [IsLoggedInGuard] },
+  { path: '', component: StoryEditorPageComponent, canActivate: [IsLoggedInGuard] },
 ];
 
 @NgModule({

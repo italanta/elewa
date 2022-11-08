@@ -1,131 +1,169 @@
 <div id="side-menu" fxLayout="column">
-    <mat-nav-list>
+  <mat-nav-list>
+    <!-- logo section -->
+    <div mat-list-item class="container top-container">
+      <div class="logo-section">
+        <img [routerLink]="['/']" class="logo-section__image" src="assets/images/elewa-logo.png" />
+        <span class="logo-section__icon-wrapper" (click)="toggleMenu.emit()">
+          <i class="fa fa-bars logo-section__tooltip" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+    <!-- end logo-section -->
 
-        <!-- <div [routerLink]="['/home']"
-    mat-list-item [class.hov]="!rlaProp.isActive" fxLayout="row">
+    <hr id="menu-header-seperator" />
 
-      <span>
-        <a routerLink="/">
-          <img class="logo" [src]="getLogo()" />
-        </a>
-      </span>
-    </div> -->
-
-        <div [routerLink]="['/']" mat-list-item class="header top-header" fxLayout="row" fxLayoutAlign="start center">
-
-            <!-- <i matListIcon class="fas fa-columns"></i> -->
-            <img class="list-icon" src="assets/images/elewa-logo.png">
-            <div class="menu">
-              <i class="fas fa-bars"></i>
-            </div>
-            <!-- <div fxLayout="column">
-                <div class="proj-name">{{ projectName }}</div>
-                <div class="proj-info">
-                    {{ projectInfo }}
-                </div>
-            </div> -->
-        </div>
-
-        <hr id="menu-header-seperator" />
-
-        <!-- Section Home -->
-        <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="header" [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
-
-            <div fxLayout="row"  fxLayoutAlign="start" class="sub-header">
-                <!-- <i matListIcon class="fas fa-home list-icon"></i> Home -->
-                <span class="main-text"> {{'PAGE-CONTENT.SIDE-MENU.MAIN' | transloco }}</span>
-                <div class="chevron-down" [class.right]="rlaHome.isActive">
-                    <!-- <i class="fas fa-sort-down"></i> -->
-                </div>
-                <ng-template #icon2><i class="fas fa-sort-down chevron-down"></i></ng-template>
-            </div>
-
-            <div class="category-children" *ngIf="rlaHome.isActive" fxLayout="column" fxLayoutGap="5px">
-                <div [routerLink]="['/org']" mat-list-item class="child-header child-1">
-                  <i class="fas fa-tachometer-alt"></i>
-                   <span>{{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}</span>
-                </div>
-            </div>
-            <button mat-raised-button (click)="logout()">
-        {{'PAGE-CONTENT.SIDE-MENU.LOG-OUT' | transloco }}
-      </button>
-        </div>
-
-        <!-- Section Chats -->
-        <!-- <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive #rlaChats="routerLinkActive"
-         mat-list-item class="header" [class.active]="rlaChats.isActive" [class.hov]="!rlaChats.isActive" fxLayout="column">
-
-      <div fxLayout="row">
-        <i matListIcon class="fas fa-comment-dots list-icon"></i>
-        Chats
-        <div class="chevron-down" [class.right]="rlaChats.isActive">
-          <i class="fas fa-sort-down"></i>
-        </div>
+    <!-- Section Home -->
+    <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
+      [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
+      <div fxLayout="row" class="main-wrapper">
+        <span class="main">
+          {{'PAGE-CONTENT.SIDE-MENU.MAIN-TITLE' | transloco }}
+        </span>
       </div>
 
-      <div class="category-children" *ngIf="rlaChats.isActive" fxLayout="column" fxLayoutGap="5px">
-        <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats']"  routerLinkActive="highlight-active"
-              mat-list-item class="child-header child-1">
-            Conversations
-        </div>
-
-        <div [routerLink]="['/org', orgId, 'flows', flowId, 'chats', 'participants']"  routerLinkActive="highlight-active"
-              mat-list-item class="child-header child-1">
-            Participants
-        </div> -->
-        <!-- <div [routerLink]="['/assessments']"  routerLinkActive="highlight-active"
-              mat-list-item class="child-header">
-            Assessments
-        </div> -->
-        <!-- </div>
-    </div> -->
-
-
-        <!-- Section Sales -->
-        <!-- <div *ngIf="user?.roles.admin || user?.roles.finance"
-        [routerLink]="['/sales']"  routerLinkActive #rlaSales="routerLinkActive"
-         mat-list-item class="header" [class.active]="rlaSales.isActive" [class.hov]="!rlaSales.isActive" fxLayout="column">
-
-      <div fxLayout="row">
-        <i matListIcon class="fas fa-headset list-icon"></i>
-        Sales
-        <div class="chevron-down" [class.right]="rlaSales.isActive">
-          <i class="fas fa-sort-down"></i>
+      <div *ngIf="rlaHome.isActive">
+        <div [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item class="menu-item menu-item--one">
+          <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
+          <span class="menu-item__word">
+            {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+          </span>
         </div>
       </div>
+    </div>
+    <!-- end Home -->
 
-      <div class="category-children" *ngIf="rlaSales.isActive" fxLayout="column" fxLayoutGap="5px">
-        <div [routerLink]="['/sales']"  routerLinkActive="highlight-active"
-              mat-list-item class="child-header child-1">
-          Purchases
-        </div>
-      </div>
-    </div> -->
+    <!-- Section Active-bots -->
+    <div [routerLink]="['/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
+      fxLayout="column">
 
-        <!-- Section Statistics -->
-        <!-- <div *ngIf="user?.roles.admin || user?.roles.finance"
-        [routerLink]="['/statistics']"  routerLinkActive #rlaStats="routerLinkActive"
-         mat-list-item class="header" [class.active]="rlaStats.isActive" [class.hov]="!rlaStats.isActive" fxLayout="column">
-
-      <div fxLayout="row">
-        <i matListIcon class="fas fa-chart-line list-icon"></i>
-        Statistics
-        <div class="chevron-down" [class.right]="rlaStats.isActive">
-          <i class="fas fa-sort-down"></i>
-        </div>
+      <div class="menu-item" [class.active]="rlaBots.isActive">
+        <i matListIcon class="fas fa-headset menu-item__tooltip"></i>
+        <span class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
+        </span>
       </div>
 
-      <div class="category-children" *ngIf="rlaStats.isActive" fxLayout="column" fxLayoutGap="5px">
-        <div [routerLink]="['/statistics']"  routerLinkActive="highlight-active"
-              mat-list-item class="child-header child-1">
-          Trainee Data
+      <div class="category-children" *ngIf="rlaBots.isActive">
+        <div [routerLink]="['/stories/dashboard']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header child-header--one">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+          </span>
         </div>
-        <div [routerLink]="['/progress-analysis']"  routerLinkActive="highlight-active"
-              mat-list-item class="child-header">
-          Progress Analysis
+
+        <div [routerLink]="['/stories/analytics']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- end Active-bots section -->
+
+    <!-- Section Chats -->
+    <!-- <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive #rlaChats="routerLinkActive"
+      mat-list-item class="container" fxLayout="column">
+
+      <div class="menu-item" [class.active]="rlaChats.isActive">
+        <i matListIcon class="fas fa-comment-dots menu-item__tooltip"></i>
+        <span class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.CHATS.ITEM-NAME'| transloco }}
+        </span>
+      </div>
+
+      <div class="category-children" *ngIf="rlaChats.isActive">
+        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header child-header--one">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.CHATS.CHILD-ITEMS.CONVERSATIONS'| transloco }}
+          </span>
+        </div>
+
+        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats', 'participants']"
+          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}"
+          (click)="$event.stopPropagation()" mat-list-item class="child-header">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.CHATS.CHILD-ITEMS.PARTICIPANTS'| transloco }}
+          </span>
+        </div>
+
+        <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats','assessments']"
+          routerLinkActive="highlight-active" [routerLinkActiveOptions]="{exact: true}"
+          (click)="$event.stopPropagation()" mat-list-item class="child-header">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.CHATS.CHILD-ITEMS.ASSESSMENTS'| transloco }}
+          </span>
         </div>
       </div>
     </div> -->
+    <!-- end Chats -->
 
-    </mat-nav-list>
+
+    <!-- Section Sales -->
+    <!-- <div *ngIf="user?.roles.admin || user?.roles.finance" [routerLink]="['/home/sales']" routerLinkActive
+      #rlaSales="routerLinkActive" mat-list-item class="container" fxLayout="column">
+
+      <div class="menu-item" [class.active]="rlaSales.isActive">
+        <i matListIcon class="fas fa-headset menu-item__tooltip"></i>
+        <span class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.SALES.ITEM-NAME'| transloco }}
+        </span>
+      </div>
+
+      <div class="category-children" *ngIf="rlaSales.isActive">
+        <div [routerLink]="['/home/sales']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header child-header--one">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.SALES.CHILD-ITEMS.PURCHASES'| transloco }}
+          </span>
+        </div>
+      </div>
+    </div> -->
+    <!-- end Sales section -->
+
+    <!-- Section Statistics -->
+    <!-- <div *ngIf="user?.roles.admin || user?.roles.finance" [routerLink]="['/home/statistics']" routerLinkActive
+      #rlaStats="routerLinkActive" mat-list-item class="container" [class.hov]="!rlaStats.isActive" fxLayout="column">
+
+      <div class="menu-item" [class.active]="rlaStats.isActive" [class.hov]="!rlaStats.isActive">
+        <i matListIcon class="fas fa-chart-line menu-item__tooltip"></i>
+        <span class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.STATISTICS.ITEM-NAME'| transloco }}
+        </span>
+      </div>
+
+      <div class="category-children" *ngIf="rlaStats.isActive">
+        <div [routerLink]="['/home/statistics']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header child-header--one">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.STATISTICS.CHILD-ITEMS.TRAINEE-DATA'| transloco }}
+          </span>
+        </div>
+
+        <div [routerLink]="['/home/statistics/progress-analysis']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header">
+          <i class="fas fa-minus child-header__tooltip"></i>
+          <span class="child-header__word">
+            {{'PAGE-CONTENT.SIDE-MENU.MENU-ITEMS.STATISTICS.CHILD-ITEMS.PROGRESS-ANALYSIS'| transloco }}
+          </span>
+        </div>
+      </div>
+    </div> -->
+    <!-- end statistics -->
+  </mat-nav-list>
 </div>
