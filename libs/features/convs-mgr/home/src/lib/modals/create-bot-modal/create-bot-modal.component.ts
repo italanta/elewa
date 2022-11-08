@@ -1,10 +1,9 @@
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-// import { FileUpload } from './../../../../../../../state/file/store/src/lib/model/file-upload.interface';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NewStoryService } from '../../services/new-story.service';
 import { UploadFileService } from '@app/state/file';
-import { url } from 'inspector';
+
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -14,9 +13,8 @@ import { url } from 'inspector';
 export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
 
+  isImage=false;
   constructor(private _addStory$: NewStoryService, private _formBuilder: FormBuilder, private _addImage$:UploadFileService) {}
-  isImage=this._addImage$.downloadUrl;
-  show=!this._addImage$.downloadUrl;
 
   createFormGroup(){
     this.botForm = this._formBuilder.group({
@@ -25,8 +23,11 @@ export class CreateBotModalComponent implements OnInit {
     });
   }
 
-  getUrl(){
-    this._addImage$.imageLink;
+  getUrl(file:any){
+
+    if(file.target.files[0]){
+      this.isImage=true;
+    }
   }
 
 

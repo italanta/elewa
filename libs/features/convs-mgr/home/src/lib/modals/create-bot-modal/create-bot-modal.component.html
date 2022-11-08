@@ -8,23 +8,19 @@
       <input
       type="file"
       formControlName="botImage"
-      (change)="getUrl()"
+      (change)="getUrl($event)"
       [placeholder]="'BOTS.FIELDS.IMAGE-PLACEHOLDER' | transloco"
-
     />
-
     </div>
-  <!-- <div *ngIf="isImage else show">
-      <i class='fas fa-check-circle' id="fas"></i>
-  </div>
-  <div #show>
-      <i class='fas fa-check-circle' id="fas"></i>
-    </div> -->
-<i class='fas fa-check-circle' id="fas" *ngIf=" isImage"></i>
-<i class='fas fa-times-circle' id="fas2"></i>
+
+  <div>
+      <span *ngIf="isImage; else show"><i class='fas fa-check-circle' id="fas" ></i></span>
+      <ng-template #show>
+       <span> <i class='fas fa-times-circle' id="fas2"></i></span>
+        </ng-template>
   </div>
 
-
+  </div>
   <h4 class="create-bot-name">
     {{ 'BOTS.FIELDS.NAME' | transloco }}
   </h4>
@@ -33,8 +29,6 @@
     formControlName = "botName"
     [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco"
   />
-
-  <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
   <h4>{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
   <textarea
     formControlName = "botDesc"

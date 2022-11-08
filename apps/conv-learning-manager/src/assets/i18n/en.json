@@ -86,7 +86,7 @@
       "NAME-PLACEHOLDER": "Bot name",
       "DESC": "Description",
       "DESC-PLACEHOLDER": "Bot description",
-      "IMAGE-PLACEHOLDER": "No Image Uploaded"
+      "IMAGE-PLACEHOLDER": "No Image Uploaded "
     },
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
