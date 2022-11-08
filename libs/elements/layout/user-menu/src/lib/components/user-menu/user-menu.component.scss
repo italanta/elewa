@@ -1,5 +1,16 @@
 @import 'libs/elements/theming/common.theme.scss';
 
-.user-btn{
-  background-color: mat-color($accent, A200);;
+.user-photo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  clip-path: circle();
+}
+
+.user-btn {
+  padding: 10px;
+}
+
+.user-btn .fa-caret-down {
+  color: mat-color($accent, A200);
 }

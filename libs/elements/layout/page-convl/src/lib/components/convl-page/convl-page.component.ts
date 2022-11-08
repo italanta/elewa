@@ -16,6 +16,7 @@ export class ConvlPageComponent
   @Input() nomarg = false;
   @Input() noside = false;
   @Input() title: string;
+  isMenuOpen = true
 
   @ViewChild('page') page: ElementRef;
 
@@ -24,5 +25,9 @@ export class ConvlPageComponent
   toggleSideNav()
   {
     this.sidnav.toggleSidemenu();
+  }
+  
+  setMenuStatus($event: boolean) {
+    this.isMenuOpen = $event
   }
 }

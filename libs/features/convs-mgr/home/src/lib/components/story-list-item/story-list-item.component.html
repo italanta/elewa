@@ -10,11 +10,10 @@
       </div>
 
 
+
       <div class="dots">
         <i class="fa fa-ellipsis-v"></i>
       </div>
-
-    </div>
 
     <mat-card-content>
       <p>
@@ -22,7 +21,9 @@
       </p>
     </mat-card-content>
     <div class="action-holder">
-      <button mat-raised-button (click)="goTo()">Open bot</button>
+      <button mat-raised-button (click)="goTo()">
+        {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
+      </button>
     </div>
   </mat-card>
 </div>

@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "paths": {
+      "@app/admin/config/environment-config": [
+        "libs/admin/config/environment-config/src/index.ts"
+      ],
       "@app/elements/base/authorisation": [
         "libs/elements/base/authorisation/src/index.ts"
       ],
@@ -27,6 +30,9 @@
       ],
       "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
+      ],
+      "@app/elements/base/security-config": [
+        "libs/elements/base/security-config/src/index.ts"
       ],
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
@@ -46,6 +52,9 @@
       ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
+        "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
@@ -86,12 +95,19 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
-      "@app/functions/chatbot": ["libs/functions/chatbot/src/index.ts"],
-      "@app/functions/conversations/onboarding": [
-        "libs/functions/conversations/onboarding/src/index.ts"
+      "@app/functions/base": ["libs/functions/base/src/index.ts"],
+      "@app/functions/bot-engine": [
+        "libs/functions/bot-engine/main/src/index.ts"
       ],
-      "@app/functions/conversations/progression": [
-        "libs/functions/conversations/progression/src/index.ts"
+      "@app/functions/bot-engine/whatsapp": [
+        "libs/functions/bot-engine/whatsapp/src/index.ts"
+      ],
+      "@app/functions/bot-process-handler": [
+        "libs/functions/bot-process-handler/src/index.ts"
+      ],
+      "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/model/bot/blocks/default-block": [
+        "libs/model/bot/blocks/default-block/src/index.ts"
       ],
       "@app/model/convs-mgr/conversations/admin/system": [
         "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
@@ -104,6 +120,9 @@
       ],
       "@app/model/convs-mgr/conversations/messages": [
         "libs/model/convs-mgr/conversations/messages/src/index.ts"
+      ],
+      "@app/model/convs-mgr/functions": [
+        "libs/model/convs-mgr/functions/src/index.ts"
       ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
@@ -122,6 +141,7 @@
       ],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
+      "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
       ],
@@ -143,9 +163,9 @@
       "@app/state/convs-mgr/story-editor": [
         "libs/state/convs-mgr/story-editor/src/index.ts"
       ],
+      "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
-      "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
       "@iote/bricks-angular": ["libs/util/iote/bricks-angular/src/index.ts"],
       "@iote/cqrs": ["libs/util/iote/cqrs/src/index.ts"],
