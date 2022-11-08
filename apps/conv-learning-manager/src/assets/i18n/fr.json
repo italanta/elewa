@@ -100,27 +100,27 @@
     }
   },
   "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "FIELDS": {
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom du robot",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description du robot",
+        "COPY": "Copie",
+        "DELETE": "Effacer"
+      },
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot",
     "ACTIONS": {
       "OPEN-BOT": "Ouvert un robot",
       "LBL-NEW-BOT": "Créer un nouveau robot",
       "EDIT-BOT":"Edit",
       "DELETE-BOT": "Effacer"
     },
-    "FIELDS":{
-      "NAME": "Nom",
-      "NAME-PLACEHOLDER": "Nom du robot",
-      "DESC": "Description",
-      "DESC-PLACEHOLDER": "Description du robot"
-    },
-    "CREATE-MODAL": {
-      "TITLE": "Créer un robot",
-      "CANCEL": "Annuler",
-      "SUBMIT": "Créer un robot"
-    },
     "EDIT-MODAL": {
-      "TITLE": "Éditer un robot",
-      "CANCEL": "Annuler",
-      "SUBMIT": "mettre à jour un robot"
+      "TITLE": "Modifier un robot",
+      "SUBMIT": "Mettre à jour un robot"
     },
     "DELETE-MODAL": {
       "TITLE": "Supprimer le robot",
@@ -128,8 +128,13 @@
       "SUBMIT": "Supprimer le robot",
       "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
     }
-  },
+  }
+},
   "TOAST": {
+    "EDIT-BOT": {
+      "SUCCESSFUL": "L'opération de modification a réussi",
+      "FAIL": "L'opération d'édition n'a pas réussi"
+    },
     "DELETE-BOT": {
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
