@@ -51,7 +51,6 @@ input[type='text'] {
   outline: none;
 }
 
-
 .create-bot-header{
     margin-top: 0px;
 }
@@ -61,8 +60,25 @@ input[type='text'] {
     margin: 1px;
 }
 
-::ng-deep #mat-dialog-0 {
-  height: 480px;
-  width: 600px;
+::ng-deep .create-bot-dialog{
+  .mat-dialog-container {
+    height: 480px;
+    width: 600px;
+  }
+}
+
+::ng-deep .edit-bot-dialog {
+  .mat-dialog-container {
+    height: 480px;
+    width: 600px;
+  }
+
+  input[formcontrolname="botName"]{
+    font-weight: 500;
+  }
+
+  textarea[formcontrolname="botDesc"]{
+    outline: var(--textarea-outline-color);
+  }
 }
 

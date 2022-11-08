@@ -49,8 +49,13 @@ export class StoriesDashboardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openDialog(){
-    this.dialog.open(CreateBotModalComponent);
+  openCreateDialog(){
+    this.dialog.open(CreateBotModalComponent, {
+      data: {
+        isEditMode: false,
+      },
+      panelClass: 'create-bot-dialog'
+    });
   }
 
   ngOnDestroy()

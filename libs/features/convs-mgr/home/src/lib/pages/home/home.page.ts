@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { debounceTime, Observable } from 'rxjs';
@@ -13,8 +14,6 @@ import { ActiveOrgStore } from '@app/state/organisation';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
-
-import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
