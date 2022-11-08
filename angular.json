@@ -2,70 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "conv-learning-manager": "apps/conv-learning-manager",
-    "conv-lm-backend": "apps/conv-lm-backend",
-    "elements-base-authorisation": "libs/elements/base/authorisation",
-    "elements-base-configuration": "libs/elements/base/configuration",
-    "elements-base-date-time": "libs/elements/base/date-time",
-    "elements-base-firebase": "libs/elements/base/firebase",
-    "elements-layout-page": "libs/elements/layout/page",
-    "elements-layout-page-convl": "libs/elements/layout/page-convl",
-    "elements-layout-user-menu": "libs/elements/layout/user-menu",
-    "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
-    "features-app-auth-login": "libs/features/app/auth/login",
-    "features-convs-mgr-home": "libs/features/convs-mgr/home",
-    "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
-    "features-convs-mgr-stories-blocks-library-document-message-block": "libs/features/convs-mgr/stories/blocks/library/document-message-block",
-    "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
-    "features-convs-mgr-stories-blocks-library-image-message-block": "libs/features/convs-mgr/stories/blocks/library/image-message-block",
-    "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
-    "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
-    "features-convs-mgr-stories-blocks-library-name-message-block": "libs/features/convs-mgr/stories/blocks/library/name-message-block",
-    "features-convs-mgr-stories-blocks-library-phone-message-block": "libs/features/convs-mgr/stories/blocks/library/phone-message-block",
-    "features-convs-mgr-stories-blocks-library-question-message-block": "libs/features/convs-mgr/stories/blocks/library/question-message-block",
-    "features-convs-mgr-stories-blocks-library-text-message-block": "libs/features/convs-mgr/stories/blocks/library/text-message-block",
-    "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
-    "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
-    "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
-    "functions-chatbot": "libs/functions/chatbot",
-    "functions-conversations-onboarding": "libs/functions/conversations/onboarding",
-    "functions-conversations-progression": "libs/functions/conversations/progression",
-    "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
-    "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
-    "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
-    "model-convs-mgr-conversations-messages": "libs/model/convs-mgr/conversations/messages",
-    "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
-    "model-convs-mgr-stories-blocks-messaging": "libs/model/convs-mgr/stories/blocks/messaging",
-    "model-convs-mgr-stories-blocks-scenario": "libs/model/convs-mgr/stories/blocks/scenario",
-    "model-convs-mgr-stories-blocks-structural": "libs/model/convs-mgr/stories/blocks/structural",
-    "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
-    "model-organisation": "libs/model/organisation/main",
-    "model-user": "libs/model/user/base",
-    "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
-    "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
-    "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
-    "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
-    "state-convs-mgr-stories-block-connections": "libs/state/convs-mgr/stories/block-connections",
-    "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
-    "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
-    "state-organisation": "libs/state/organisation/main",
-    "state-user": "libs/state/user/base",
-    "state-file": "libs/state/file/store",
-    "util-iote-bricks": "libs/util/iote/bricks",
-    "util-iote-bricks-angular": "libs/util/iote/bricks-angular",
-    "util-iote-cqrs": "libs/util/iote/cqrs",
-    "util-iote-exceptions": "libs/util/iote/exceptions",
-    "util-iote-local-persistance": "libs/util/iote/local-persistance",
-    "util-iote-state": "libs/util/iote/state",
-    "util-iote-time": "libs/util/iote/time",
-    "util-iote-ui-workflows": "libs/util/iote/ui-workflows",
-    "util-ngfi-admin-data": "libs/util/ngfi/admin-data",
-    "util-ngfi-angular": "libs/util/ngfi/angular",
-    "util-ngfi-firestore-qbuilder": "libs/util/ngfi/firestore-qbuilder",
-    "util-ngfi-functions": "libs/util/ngfi/functions",
-    "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
-    "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
-    "util-ngfi-state": "libs/util/ngfi/state",
+    "admin-config-environment-config": "libs/admin/config/environment-config",
     "app": {
       "projectType": "library",
       "root": "app",
@@ -96,6 +33,189 @@
           }
         }
       }
-    }
+    },
+    "conv-learning-manager": "apps/conv-learning-manager",
+    "conv-lm-backend": "apps/conv-lm-backend",
+    "elements-base-authorisation": "libs/elements/base/authorisation",
+    "elements-base-configuration": "libs/elements/base/configuration",
+    "elements-base-date-time": "libs/elements/base/date-time",
+    "elements-base-firebase": "libs/elements/base/firebase",
+    "elements-layout-page": "libs/elements/layout/page",
+    "elements-layout-page-convl": "libs/elements/layout/page-convl",
+    "elements-layout-user-menu": "libs/elements/layout/user-menu",
+    "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
+    "features-app-auth-login": "libs/features/app/auth/login",
+    "features-convs-mgr-home": "libs/features/convs-mgr/home",
+    "features-convs-mgr-stories-blocks-library-anchor-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/anchor-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/anchor-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/anchor-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/anchor-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/anchor-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/anchor-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
+    "features-convs-mgr-stories-blocks-library-document-message-block": "libs/features/convs-mgr/stories/blocks/library/document-message-block",
+    "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
+    "features-convs-mgr-stories-blocks-library-image-message-block": "libs/features/convs-mgr/stories/blocks/library/image-message-block",
+    "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
+    "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
+    "features-convs-mgr-stories-blocks-library-name-message-block": "libs/features/convs-mgr/stories/blocks/library/name-message-block",
+    "features-convs-mgr-stories-blocks-library-phone-message-block": "libs/features/convs-mgr/stories/blocks/library/phone-message-block",
+    "features-convs-mgr-stories-blocks-library-question-message-block": "libs/features/convs-mgr/stories/blocks/library/question-message-block",
+    "features-convs-mgr-stories-blocks-library-text-message-block": "libs/features/convs-mgr/stories/blocks/library/text-message-block",
+    "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
+    "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
+    "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
+    "functions-base": "libs/functions/base",
+    "functions-bot-engine-main": "libs/functions/bot-engine/main",
+    "functions-bot-engine-whatsapp": {
+      "root": "libs/functions/bot-engine/whatsapp",
+      "sourceRoot": "libs/functions/bot-engine/whatsapp/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/bot-engine/whatsapp/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/bot-engine/whatsapp"],
+          "options": {
+            "jestConfig": "libs/functions/bot-engine/whatsapp/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "functions-bot-users": {
+      "root": "libs/functions/bot-users",
+      "sourceRoot": "libs/functions/bot-users/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/functions/bot-users",
+            "tsConfig": "libs/functions/bot-users/tsconfig.lib.json",
+            "packageJson": "libs/functions/bot-users/package.json",
+            "main": "libs/functions/bot-users/src/index.ts",
+            "assets": ["libs/functions/bot-users/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/bot-users/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/bot-users"],
+          "options": {
+            "jestConfig": "libs/functions/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
+    "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
+    "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
+    "model-convs-mgr-conversations-messages": "libs/model/convs-mgr/conversations/messages",
+    "model-convs-mgr-functions": "libs/model/convs-mgr/functions",
+    "model-convs-mgr-stories-blocks-main": "libs/model/convs-mgr/stories/blocks/main",
+    "model-convs-mgr-stories-blocks-messaging": "libs/model/convs-mgr/stories/blocks/messaging",
+    "model-convs-mgr-stories-blocks-scenario": "libs/model/convs-mgr/stories/blocks/scenario",
+    "model-convs-mgr-stories-blocks-structural": "libs/model/convs-mgr/stories/blocks/structural",
+    "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
+    "model-organisation": "libs/model/organisation/main",
+    "model-user": "libs/model/user/base",
+    "model-user-bot-users": {
+      "root": "libs/model/user/bot-users",
+      "sourceRoot": "libs/model/user/bot-users/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/model/user/bot-users",
+            "tsConfig": "libs/model/user/bot-users/tsconfig.lib.json",
+            "packageJson": "libs/model/user/bot-users/package.json",
+            "main": "libs/model/user/bot-users/src/index.ts",
+            "assets": ["libs/model/user/bot-users/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/user/bot-users/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/user/bot-users"],
+          "options": {
+            "jestConfig": "libs/model/user/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
+    "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
+    "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
+    "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
+    "state-convs-mgr-stories-block-connections": "libs/state/convs-mgr/stories/block-connections",
+    "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
+    "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
+    "state-file": "libs/state/file/store",
+    "state-organisation": "libs/state/organisation/main",
+    "state-user": "libs/state/user/base",
+    "util-iote-bricks": "libs/util/iote/bricks",
+    "util-iote-bricks-angular": "libs/util/iote/bricks-angular",
+    "util-iote-cqrs": "libs/util/iote/cqrs",
+    "util-iote-exceptions": "libs/util/iote/exceptions",
+    "util-iote-local-persistance": "libs/util/iote/local-persistance",
+    "util-iote-state": "libs/util/iote/state",
+    "util-iote-time": "libs/util/iote/time",
+    "util-iote-ui-workflows": "libs/util/iote/ui-workflows",
+    "util-ngfi-admin-data": "libs/util/ngfi/admin-data",
+    "util-ngfi-angular": "libs/util/ngfi/angular",
+    "util-ngfi-firestore-qbuilder": "libs/util/ngfi/firestore-qbuilder",
+    "util-ngfi-functions": "libs/util/ngfi/functions",
+    "util-ngfi-infinite-scroll": "libs/util/ngfi/infinite-scroll",
+    "util-ngfi-multi-lang": "libs/util/ngfi/multi-lang",
+    "util-ngfi-state": "libs/util/ngfi/state"
   }
 }

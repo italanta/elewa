@@ -1,0 +1,12 @@
+<!-- edited the search -->
+<div class="search">
+  <i class="fas fa-search">        
+  </i>
+  <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)"/>
+</div>
+
+<div class="bot-selector" fxLayout="row wrap" fxLayoutGap="26px grid" fxFlexFill>
+  <ng-template ngFor [ngForOf]="stories$ | async" let-story>
+    <convl-story-list-item [story]="story"> </convl-story-list-item>
+  </ng-template>
+</div>
