@@ -14,6 +14,7 @@ export class ConvlNavbarComponent implements OnInit, AfterViewInit
   @Input() logo: string;
 
   @Output() toggleMenu: EventEmitter<any> = new EventEmitter();
+  @Input() isMenuOpen: boolean;
 
   constructor(
     private _logger: Logger,

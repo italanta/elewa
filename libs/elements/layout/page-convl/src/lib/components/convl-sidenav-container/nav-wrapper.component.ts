@@ -18,8 +18,8 @@ export class ConlvSideNavContainerComponent
   opened = false;
 
   mode: any = 'side';
+  @Output() menuStatusEvent: EventEmitter<boolean> = new EventEmitter();
 
-  @Output() menuStatusEvent: EventEmitter<boolean> = new EventEmitter
   constructor(_userService: UserStore)
   {
     this.user$ = _userService.getUser();

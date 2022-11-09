@@ -26,6 +26,7 @@ export class ConvlPageComponent
   {
     this.sidnav.toggleSidemenu();
   }
+  
   setMenuStatus($event: boolean) {
     this.isMenuOpen = $event
   }
