@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/cor
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { cloneDeep as ___cloneDeep } from 'lodash';
+import { uniqueId as ___uniqueId } from 'lodash';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -45,7 +46,10 @@ export class BlockComponent implements OnInit {
   
   copyBlock(event: any) {
     this.blockCopy = ___cloneDeep(this.block);
+    this.blockCopy.id = ___uniqueId('1');
     this.copyBlockService._createBlock(this.blockCopy);
+    console.log(this.block);
+    console.log(this.blockCopy);
   }
 
   ngOnInit(): void {
