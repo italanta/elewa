@@ -8,13 +8,21 @@
 </h2>
 
 <form [formGroup]="botForm">
-  <h4 class="create-bot-name">
-    {{ 'BOTS.FIELDS.NAME' | transloco }}
-  </h4>
-  <input type="text" formControlName="botName"
-    [placeholder]="'BOTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco" />
-  <h4>{{ 'BOTS.CREATE-MODAL.FIELDS.DESC' | transloco }}</h4>
-  <textarea formControlName="botDesc" [placeholder]="'BOTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco">
+  <h4 class="create-bot-name">{{ 'BOTS.FIELDS.NAME' | transloco }}</h4>
+  <input 
+    type="text" 
+    formControlName="botName" 
+    [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" 
+  />
+  <input 
+    type="file" 
+    formControlName="botImage"
+    [placeholder]="'BOTS.FIELDS.IMAGE-PLACEHOLDER' | transloco" 
+  />
+  <h4>{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
+  <textarea 
+    formControlName="botDesc" 
+    [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco">
   </textarea>
 
   <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
@@ -26,7 +34,7 @@
     <div>
       <button mat-raised-button class="add-btn" (click)="submitForm()">
         <span *ngIf="!modalMode; else showEditText">
-        {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
+          {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
         </span>
         <ng-template #showEditText>
           {{ 'BOTS.EDIT-MODAL.SUBMIT' | transloco }}
@@ -35,4 +43,3 @@
     </div>
   </div>
 </form>
-
