@@ -114,12 +114,19 @@
     },
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Bot name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Bot description",
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      },
       "CANCEL": "Cancel",
       "SUBMIT": "Create bot"
     },
     "EDIT-MODAL": {
-      "TITLE": "Edit a bot",
-      "CANCEL": "Cancel",
+      "TITLE": "Edit Bot",
       "SUBMIT": "Update Bot"
     },
     "DELETE-MODAL": {
@@ -130,6 +137,10 @@
     }
   },
   "TOAST": {
+    "EDIT-BOT": {
+      "SUCCESSFUL": "Edit operation was successful",
+      "FAIL": "Edit operation was not successful"
+    },
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
