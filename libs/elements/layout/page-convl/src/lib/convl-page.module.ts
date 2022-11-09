@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
-import { MultiLangModule } from '@ngfi/multi-lang'
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { UserMenuModule } from '@app/elements/layout/user-menu';
 
