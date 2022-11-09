@@ -74,7 +74,7 @@
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal",
-      "MENU-ITEMS" : {
+      "MENU-ITEMS": {
         "CHATS": {
           "ITEM-NAME": "Chats",
           "CHILD-ITEMS": {
@@ -100,36 +100,35 @@
     }
   },
   "BOTS": {
-    "CREATE-MODAL": {
-      "TITLE": "Créer un robot",
-      "FIELDS": {
-        "NAME": "Nom",
-        "NAME-PLACEHOLDER": "Nom du robot",
-        "DESC": "Description",
-        "DESC-PLACEHOLDER": "Description du robot",
-        "COPY": "Copie",
-        "DELETE": "Effacer"
-      },
-      "CANCEL": "Annuler",
-      "SUBMIT": "Créer un robot",
     "ACTIONS": {
       "OPEN-BOT": "Ouvert un robot",
       "LBL-NEW-BOT": "Créer un nouveau robot",
-      "EDIT-BOT":"Edit",
+      "EDIT-BOT": "Edit",
       "DELETE-BOT": "Effacer"
+    },
+    "FIELDS": {
+      "NAME": "Nom",
+      "NAME-PLACEHOLDER": "Nom du robot",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Description du robot"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot"
     },
     "EDIT-MODAL": {
       "TITLE": "Modifier un robot",
+      "CANCEL": "Annuler",
       "SUBMIT": "Mettre à jour un robot"
     },
     "DELETE-MODAL": {
       "TITLE": "Supprimer le robot",
       "CANCEL": "Annuler",
       "SUBMIT": "Supprimer le robot",
-      "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
     }
-  }
-},
+  },
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "L'opération de modification a réussi",
