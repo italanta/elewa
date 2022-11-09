@@ -1,0 +1,143 @@
+{
+  "ELS": {
+    "TOGGLES": {
+      "SWITCH-LANG": "Changer de langue"
+    }
+  },
+  "LOGIN": {
+    "LOGIN": "Login",
+    "OR": "ou",
+    "CREATE-ACCOUNT": "Créer un compte",
+    "LOGIN-FORM": {
+      "FLD-EMAIL": "Email",
+      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+      "FLD-PASSWD": "Mot de passe",
+      "FLD-REMEMBER-ME": "Rappelle moi",
+      "SUBMIT": "Login"
+    },
+    "FORGOT-PASSWD": "Oublie mot de passe?",
+    "CREATE-ACC-FORM": {
+      "FLD-FNAME": "Prénom",
+      "FLD-LNAME": "Nom de famille",
+      "FLD-NAME-REQ": "Nom est obligatoire",
+      "FLD-EMAIL": "Email",
+      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+      "FLD-PASSWD": "Mot de passe",
+      "FLD-CONF-PASSWD": "Confirmer le mot de passe",
+      "FLD-CONF-PASSWD-ERR": "Mot de passe doit etre le meme",
+      "SUBMIT": "Crée un compte"
+    },
+    "TOS": {
+      "P1": "En m'inscrivant, j'accepte",
+      "P2-LINK": "les conditions d'utilisation du service",
+      "P3": "et",
+      "P4-LINK": "la politique de confidentialité."
+    },
+    "BTN-WITH-GOOGLE": "Google",
+    "BTN-WITH-MICROSOFT": "Microsoft",
+    "HERO": {
+      "TITLE": "Karibu Elewa Conversational Learning!",
+      "DESCRIPTION": "Elewa LMS est le premier gestionnaire d'apprentissage conversationnel au monde.",
+      "LEARN-MORE": "Apprend plus en",
+      "LEARN-MORE-LINK": "https://elewa.education"
+    }
+  },
+  "PAGE-CONTENT": {
+    "BLOCKS": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Location"
+      }
+    },
+    "BLOCK": {
+      "TITLES": {
+        "IMAGE": "Image",
+        "LOCATION": "Emplacemant",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE": "Téléphoner"
+      },
+      "PLACEHOLDER": {
+        "CAPTION": "Légende",
+        "IMAGE-LINK": "Lien d'image",
+        "NAME": "Nom",
+        "EMAIL": "Email",
+        "PHONE-NUMBER": "Téléphoner"
+      }
+    },
+    "COMPONENTS": {
+      "TITLE": "Blocs d'histoire"
+    },
+    "SIDE-MENU": {
+      "DASHBOARD": "Tableau de bord",
+      "ANALYTICS": "Analytique",
+      "ACTIVE-BOTS": "Active Bots",
+      "LOG-OUT": "Se déconnecter",
+      "MAIN-TITLE": "Principal",
+      "MENU-ITEMS" : {
+        "CHATS": {
+          "ITEM-NAME": "Chats",
+          "CHILD-ITEMS": {
+            "CONVERSATIONS": "Conversation",
+            "PARTICIPANTS": "Participant",
+            "ASSESSMENTS": "Évaluations"
+          }
+        },
+        "SALES": {
+          "ITEM-NAME": "Ventes",
+          "CHILD-ITEMS": {
+            "PURCHASES": "Achats"
+          }
+        },
+        "STATISTICS": {
+          "ITEM-NAME": "Statistiques",
+          "CHILD-ITEMS": {
+            "TRAINEE-DATA": "Données du stagiaire",
+            "PROGRESS ANALYSIS": "Analyse des progrès"
+          }
+        }
+      }
+    }
+  },
+  "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "FIELDS": {
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom du robot",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description du robot",
+        "COPY": "Copie",
+        "DELETE": "Effacer"
+      },
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot",
+    "ACTIONS": {
+      "OPEN-BOT": "Ouvert un robot",
+      "LBL-NEW-BOT": "Créer un nouveau robot",
+      "EDIT-BOT":"Edit",
+      "DELETE-BOT": "Effacer"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Modifier un robot",
+      "SUBMIT": "Mettre à jour un robot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le robot",
+      "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
+    }
+  }
+},
+  "TOAST": {
+    "EDIT-BOT": {
+      "SUCCESSFUL": "L'opération de modification a réussi",
+      "FAIL": "L'opération d'édition n'a pas réussi"
+    },
+    "DELETE-BOT": {
+      "SUCCESSFUL": "l'opération de suppression a réussi",
+      "FAIL": "l'opération de suppression n'a pas réussi"
+    }
+  }
+}

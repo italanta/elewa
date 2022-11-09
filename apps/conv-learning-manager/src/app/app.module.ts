@@ -5,6 +5,8 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,12 +27,12 @@ import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 
-
-import { environment } from '../environments/environment';
+import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
+
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,16 +42,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
     AngularFireAnalyticsModule,
+    HttpClientModule,
 
     MaterialBricksModule.forRoot(),
 
     UserStateModule.forRoot(),
     AuthorisationModule.forRoot(environment, environment.production),
+    EnvironmentConfigModule.forRoot(environment),
 
     AppConfigurationModule.forRoot(environment, environment.production),
     DateConfigurationModule.forRoot(),
     FirebaseConfigurationModule.forRoot(!environment.production, environment.useEmulators),
-    MultiLangModule.forRoot(false),
+    MultiLangModule.forRoot(true),
     // UserNavModule,
 
     MatProgressBarModule,

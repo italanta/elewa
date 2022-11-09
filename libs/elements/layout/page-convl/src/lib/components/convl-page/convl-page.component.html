@@ -1,14 +1,14 @@
 <div class="page" fxFlexFill>
 
-  <convl-nav-wrapper *ngIf="!noside" fxFlex="column" fxFill>
+  <convl-nav-wrapper (menuStatusEvent)="setMenuStatus($event)" *ngIf="!noside" fxFlex="column" fxFill>
     <div class="content-wrapper-outer" fxLayout="column" fxFlexFill>
 
-      <convl-navbar (toggleMenu)="toggleSideNav()">
+      <convl-navbar [isMenuOpen]="isMenuOpen" (toggleMenu)="toggleSideNav()">
         <div title *ngIf="title">{{title}}</div>
         <!-- <convl-user-menu></convl-user-menu> -->
       </convl-navbar>
 
-      <convl-sub-navbar [breadcrumbs]="breadcrumbs"><ng-content select=[subbar]></ng-content></convl-sub-navbar>
+      <!-- <convl-sub-navbar [breadcrumbs]="breadcrumbs"><ng-content select=[subbar]></ng-content></convl-sub-navbar> -->
 
       <div class="content-wrapper-inner" [class.nomarg]="nomarg" fxLayout="column" #page>
        

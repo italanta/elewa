@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -23,8 +21,6 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   questionOptions: FormGroup;
-
-  faAdd: IconDefinition = faAdd;
 
   constructor(private _fb: FormBuilder) {}
 

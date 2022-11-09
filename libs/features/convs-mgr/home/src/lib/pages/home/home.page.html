@@ -1,13 +1,6 @@
-<convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="space-between">
-  <div>
+<convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
 
-    <div *ngIf="org$ | async as org">
-      <h2>{{ org.name }} bots</h2>
-    </div>  </div>
-      <div id="add-btn-holder">
-        <button mat-raised-button  (click)="openDialog()">{{ 'BOTS.HOME.ACTIONS.LBL-NEW-BOT' | transloco }}</button>
-    </div>
-    </div>
-    <convl-italanta-apps-story-list></convl-italanta-apps-story-list>
-  </convl-page>
+  <div fxLayout="row" fxLayoutAlign="space-between">
+    Main Dashboard goes here
+  </div>
+</convl-page>
