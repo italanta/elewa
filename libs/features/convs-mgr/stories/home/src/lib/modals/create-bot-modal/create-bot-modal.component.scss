@@ -62,8 +62,8 @@ input[type='text'] {
 }
 
 ::ng-deep #mat-dialog-0 {
-  height: 530px;
-  width: 500px;
+  height: 560px;
+  width: 470px;
 }
 .file{
   display: flex;
@@ -98,15 +98,15 @@ input[type=file]::file-selector-button {
 }
 ::ng-deep .create-bot-dialog{
   .mat-dialog-container {
-    height: 480px;
-    width: 600px;
+    height: 560px;
+    width: 470px;
   }
 }
 
 ::ng-deep .edit-bot-dialog {
   .mat-dialog-container {
-    height: 480px;
-    width: 600px;
+    height: 560px;
+    width: 470px;
   }
 
   input[formcontrolname="botName"]{

@@ -8,6 +8,30 @@
 </h2>
 
 <form [formGroup]="botForm">
+
+  <div class="file">
+    <div class="input">
+      <h4 class="create-bot-name">
+        {{ 'BOTS.FIELDS.IMAGE' | transloco }}
+      </h4>
+      <input
+      type="file"
+      formControlName="botImage"
+      (change)="getUrl($event)"
+      [placeholder]="'BOTS.FIELDS.IMAGE-PLACEHOLDER' | transloco"
+    />
+    </div>
+
+  <div>
+      <span *ngIf="isImage; else show"><i class='fas fa-check-circle' id="fas" ></i></span>
+      <ng-template #show>
+       <span> <i class='fas fa-times-circle' id="fas2"></i></span>
+        </ng-template>
+  </div>
+
+  </div>
+
+
   <h4 class="create-bot-name">
     {{ 'BOTS.FIELDS.NAME' | transloco }}
   </h4>

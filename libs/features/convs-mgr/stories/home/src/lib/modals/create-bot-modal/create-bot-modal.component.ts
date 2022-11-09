@@ -18,6 +18,7 @@ export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
   modalMode: boolean;
   story: Story;
+  isImage=false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
                 isEditMode: boolean,
@@ -39,6 +40,15 @@ export class CreateBotModalComponent implements OnInit {
     }
   }
 
+  getUrl(file:any){
+
+    if(file.target.files[0]){
+      this.isImage=true;
+    }
+  }
+
+
+
   createFormGroup() {
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
@@ -49,8 +59,13 @@ export class CreateBotModalComponent implements OnInit {
   updateFormGroup() {
     this.botForm.patchValue({
       botName: this.story.name,
-      botDesc: this.story.description
+      botDesc: this.story.description,
+      botImage: this.story.imageField
     });
+
+    if(this.story.imageField){
+      this.isImage=true;
+    }
   }
 
   add () {
@@ -66,6 +81,7 @@ export class CreateBotModalComponent implements OnInit {
     // Capture changes to bot name and bot description
     this.story.name = this.botForm.value.botName;
     this.story.description = this.botForm.value.botDesc;
+    this.story.imageField = this.botForm.value.botImage;
 
     // Update bot details
     this._addStory$.update(this.story);
