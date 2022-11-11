@@ -1,48 +1,57 @@
-<div fxLayout="column" fxLayoutAlign="center none">
+<div fxLayout="column" fxLayoutAlign="start center" fxFlex>
 
-    <div fxLayout="column" class="form-body" fxLayoutGap="15px" fxLayoutAlign="center none">
+    <div fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none">
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="email-input" class="special-input" appearance="legacy" fxFlex>
-                <input matInput name="email" type="email" [(ngModel)]="email" required ngvemail placeholder="{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}">
+            <mat-form-field id="email-input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+                <mat-label class="form-label">Email</mat-label>
+                <input matInput name="email" type="email" [(ngModel)]="email" required ngvemail placeholder="name@example.com">
                 <mat-error>{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
             </mat-form-field>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="password-input" class="special-input" appearance="legacy" fxFlex>
-                <input matInput placeholder="{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}" name="password" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
+            <mat-form-field id="password-input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+                <mat-label class="form-label">Password</mat-label>
+                <input matInput placeholder="************" name="password" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
             </mat-form-field>
         </div>
 
 
         <div fxLayoutAlign="space-between center">
-            <button class="uppercase-txt" id="login-button" mat-raised-button (click)="loginUser()" [disabled]="!validateLoginCred()">
+            <button mat-raised-button class="uppercase-txt" id="login-button" (click)="loginUser()" [disabled]="!validateLoginCred()">
           {{ 'LOGIN.LOGIN-FORM.FLD-REMEMBER-ME' | transloco }}
         </button>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="end">
-            <div>
-                <mat-checkbox [checked]="true" class="small-txt">{{ "LOGIN.LOGIN-FORM.FLD-REMEMBER-ME" | transloco }}</mat-checkbox>
-                <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
-              {{"LOGIN.FORGOT-PASSWD" |transloco}}
-            </button>
-            </div>
-        </div>
 
-        <div class="hr-with-text" fxFlex="row" fxLayoutAlign="center">
-            {{ 'LOGIN.OR' | transloco }}
-        </div>
+
+
+        <!-- <div fxLayout="row" fxLayoutAlign="start stretch">
+            <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="center center">
+                <i class="fab fa-microsoft"></i>
+            </div>
+
+            <button mat-raised-button id="msBtn" class="uppercase-txt" (click)="loginMicrosoft()" fxFlex>
+            {{ "LOGIN.BTN-WITH-MICROSOFT" | transloco }}
+          </button>
+        </div> -->
 
         <div fxLayout="row" fxLayoutAlign="start stretch">
             <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
-                <i class="fab fa-google"></i>
-            </div>
+                <i class="fa-brands fa-google"></i> </div>
 
             <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
             {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
           </button>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center">
+            <div>
+                <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
+              {{"LOGIN.FORGOT-PASSWD" |transloco}}
+            </button>
+            </div>
         </div>
     </div>
 </div>

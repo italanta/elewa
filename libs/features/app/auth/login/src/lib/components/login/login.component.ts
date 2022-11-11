@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
 
@@ -11,12 +11,12 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit
+export class LoginComponent
 {
 
-  isLoading: boolean;
-  email: string;
-  password: string;
+  isLoading = false;
+  email     = '';
+  password  = '';
 
   // isLoading: boolean;
   isLogin = true;
@@ -25,10 +25,6 @@ export class LoginComponent implements OnInit
               private _dialog: MatDialog,
               private _analytics: EventLogger)
   {  }
-
-  ngOnInit()
-  {
-  }
 
   validateLoginCred = () => this.email && this.password;
 
@@ -64,6 +60,11 @@ export class LoginComponent implements OnInit
   /** Facebook Login */
   loginFacebook() {
     return this._authService.loadFacebookLogin();
+  }
+
+  /** Microsoft Login */
+  loginMicrosoft() {
+    return this._authService.loadMicrosoftLogin();
   }
 
 }
