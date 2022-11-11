@@ -10,51 +10,45 @@
 
 <ng-template #showLogin>
     <div class="auth-page" fxLayout="row">
-        <div class="auth-card" fxFlex="100" fxLayoutAlign="row">
-            <div fxFlex fxLayout="column" fxLayoutAlign="center center" class="actual-form" fxFlex="50">
-                <div class="tiny-logo" fxLayoutAlign="center">
-                    <img style="max-width: 100px;" src="assets/images/elewa-logo.png/" />
-                    <div fxLayout="row" fxLayoutAlign="end center">
-                        <mat-select id="lang-selector" [(ngModel)]="lang" style="margin-left:30px;" data-intercom-tooltip="Language selector" fxFlex="7-" [matTooltip]="'ELS.TOGGLES.SWITCH-LANG' | transloco">
-                            <mat-option value="en" (click)="setLang('en')">EN</mat-option>
-                            <mat-option value="fr" (click)="setLang('fr')">FR</mat-option>
+        <div class="auth-card" fxLayout="row" fxLayoutAlign="start start" fxFlex="100">
+            <div class="login-form" fxLayout="column" fxLayoutAlign="space-evenly center" fxFlex>
+                <div class="row" fxLayoutAlign="space-evenly center">
+                    <div class="tiny-logo" fxLayout="column" fxLayoutAlign="start">
+                        <img class="image" src="assets/images/elewa-logo.png/ " />
+                    </div>
+
+                    <div fxLayout="column" fxLayoutAlign="end">
+                        <mat-select id="lang-selector" [(ngModel)]="lang" style="margin-left:140px;" data-intercom-tooltip="Language selector" [matTooltip]=" 'ELS.TOGGLES.SWITCH-LANG' | transloco ">
+                            <mat-option value="en" (click)="setLang('en') ">EN</mat-option>
+                            <mat-option value="fr" (click)="setLang('fr') ">FR</mat-option>
                         </mat-select>
                     </div>
                 </div>
-
-                <div class="button-area">
-                    <div mat-raised-button fxLayout=" row " fxLayoutAlign="space-evenly none ">
-                        <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''">{{'LOGIN.LOGIN'| transloco}}</button>
-                        <button (click)="toggleMode() " [ngClass]="!isLogin ? 'login-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
+                <div style="min-width: 100%;" fxLayout="row" fxLayoutAlign="center center">
+                    <div fxLayout="column" fxLayoutAlign="start center" fxFlex="45">
+                        <mat-tab-group style="min-width: 100%;" (selectedTabChange)="authChanged($event)">
+                            <mat-tab (click)="toggleModeLogin()" label="Log In">
+                                <span *ngIf="isLogin" fxFlex>
+                                    <app-login fxFlex></app-login>
+                                </span>
+                            </mat-tab>
+                            <mat-tab (click)="toggleMode()" label="Create Account">
+                                <span *ngIf="!isLogin" fxFlex>
+                                    <app-register class="register"></app-register>
+                                </span>
+                            </mat-tab>
+                        </mat-tab-group>
                     </div>
                 </div>
-
-                <div class="form " fxLayout="row " fxLayoutGap="2 " fxLayoutAlign="center center ">
-
-                    <span *ngIf="isLogin "> 
-                       <app-login></app-login>
-                      </span>
-
-                    <span *ngIf="!isLogin "> 
-                        <app-register></app-register>
-                      </span>
-
-                    <!-- <router-outlet fxFlex="100 "></router-outlet> -->
-
-                </div>
-
-
             </div>
-
-            <div fxFlex fxLayout="column" fxLayoutAlign="center" class="elewa-info" fxFlex="50">
-                <p class="title">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
-                <p class="description"> {{'LOGIN.HERO.DESCRIPTION' | transloco}}</p>
-                <p class="hyperlink">{{'LOGIN.HERO.LEARN-MORE' | transloco}}
-                    <a [href]="'LOGIN.HERO.LEARN-MORE-LINK' | transloco">{{'LOGIN.HERO.LEARN-MORE-LINK'| transloco}}</a>
+            <div class="elewa-info" fxLayout="column" fxLayoutAlign="center" fxFlex="40">
+                <p class="title ">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
+                <p class="description "> {{'LOGIN.HERO.DESCRIPTION' | transloco}}</p>
+                <p class="hyperlink ">{{'LOGIN.HERO.LEARN-MORE' | transloco}}
+                    <a [href]=" 'LOGIN.HERO.LEARN-MORE-LINK' | transloco ">{{'LOGIN.HERO.LEARN-MORE-LINK'|
+                        transloco}}</a>
                 </p>
             </div>
-
         </div>
-
     </div>
 </ng-template>

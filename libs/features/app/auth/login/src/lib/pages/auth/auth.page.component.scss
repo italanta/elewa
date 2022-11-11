@@ -1,79 +1,74 @@
-$primary-icon-color: #919698;
-$primary-color: #ffc200;
-$secondary-elements-color: white;
-#ele-logo-sub {
-    max-width: 220px;
-}
-
-.auth-page {
-    min-width: 100%;
-    min-height: 100%;
-    background-color: $secondary-elements-color;
-}
-
-.form {
-    padding: 30px;
-}
-
+.auth-page,
 .auth-card {
-    max-width: 100%;
-    min-height: 100%;
-    border-radius: 8px;
-    background: $secondary-elements-color;
-    // box-shadow: 0px 3px 6px #70739D0B;
-    border: 1px solid $secondary-elements-color;
+    min-width: 100%;
+    min-height: 100vh;
 }
 
 .elewa-info {
+    padding: 50px;
     text-align: center;
-    color: $primary-icon-color;
     padding: 20px;
     font-weight: 400;
-    background: $primary-color;
+    background: var(--convs-mgr-color-primary-yellow);
     background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
+    min-height: 100vh;
 }
 
-.logoImg {
+.logo {
     width: 200px;
-    padding: 20px;
-}
-
-.maison {
-    width: 350px;
     height: auto;
-    margin-left: 150px;
-    margin-bottom: -150px;
+    object-fit: contain;
 }
 
-.button-area {
-    background-color: $secondary-elements-color;
-    text-align: center;
-    align-self: center;
-    width: 40%;
-    cursor: pointer;
+.title {
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
+    font-size: 1.2rem;
+    font-family: var(--kujali-segoe-ui-bold);
+}
+
+.sub-title {
+    color: white;
+    font-family: var(--kujali-segoe-ui);
+}
+
+.description {
+    font-size: 20px;
+    font-weight: 6;
+    line-height: 2;
+    color: var(--convs-mgr-color-primary-white);
+}
+
+.login-form {
+    min-height: 100vh;
+}
+
+.fin-img {
+    clip-path: circle();
+    width: 400px;
+    height: auto;
+    object-fit: contain;
+}
+
+::ng-deep .mat-tab-labels,
+.mat-tab-label-container {
+    display: inline-block!important;
+    width: 30%;
+}
+
+::ng-deep .mat-tab-list {
+    max-width: fit-content !important;
+}
+
+::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-family: var(--kujali-segoe-ui-bold);
+    color: var( --convs-mgr-color-primary-black);
+    font-size: 26px;
+    margin-bottom: 15px;
     @media screen and (max-width: 768px) {
-        border-bottom-right-radius: 8px;
-        max-width: 100%;
+        font-size: 20px;
     }
-    @media screen and (max-width: 320px) {
-        border-bottom-right-radius: 8px;
-    }
-}
-
-.bottom-content {
-    color: $secondary-elements-color;
-    font-size: 18px;
-    text-transform: uppercase;
-}
-
-.actual-form {
-    @media screen and (max-width: 768px) {
-        max-width: 100% !important;
-    }
-    ;
 }
 
 .tiny-logo {
@@ -84,30 +79,18 @@ $secondary-elements-color: white;
     }
 }
 
-button {
-    background-color: $secondary-elements-color;
-    width: 50%;
-    border: none;
-    // border-bottom: 3px solid rgba(255, 194, 0);
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    font-size: 20px;
-    font-weight: 5;
+.image {
+    width: 210px;
+    height: 97px;
 }
 
-.login-button {
-    border-bottom: 3px solid $primary-color;
-    border-width: 50%;
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background: var(--convs-mgr-color-primary-yellow);
 }
 
-.title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.description {
-    font-size: 20px;
-    font-weight: 6;
-    line-height: 2;
+@media screen and (width: 768px) {
+    .elewa-info {
+        display: none;
+    }
 }

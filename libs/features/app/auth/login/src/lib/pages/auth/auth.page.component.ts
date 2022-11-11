@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { Router } from '@angular/router';
+
 import { Observable, Subscription } from 'rxjs';
 
 import { User } from '@iote/bricks';
-import { UserStore } from '@app/state/user';
 import { TranslateService } from '@ngfi/multi-lang';
+
+import { UserStore } from '@app/state/user';
 
 @Component({
   selector: 'app-auth-page',
@@ -48,6 +51,10 @@ export class AuthPageComponent implements OnInit, OnDestroy
       this._userSubscr.unsubscribe();
   }
 
+  authChanged($event: MatTabChangeEvent){
+    $event.index > 0 ? this.toggleMode() : this.toggleModeLogin();    
+  }
+  
   toggleMode()
   {
     this.isLogin=false;
