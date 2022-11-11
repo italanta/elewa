@@ -3,13 +3,13 @@
     <form [formGroup]="registerForm" fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none" (ngSubmit)="doRegister($event)">
         <div fxLayout="row" fxLayoutAlign="space-between none">
             <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
-                <mat-label class="form-label">First Name</mat-label>
-                <input matInput name="firstName" type="text" formControlName="firstName" required placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco }}">
+                <mat-label class="form-label">F{{ 'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco }}</mat-label>
+                <input matInput name="firstName" type="text" formControlName="firstName" required placeholder="Jane">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
             <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
-                <mat-label class="form-label">Last Name</mat-label>
-                <input matInput name="lastName" type="text" formControlName="lastName" required placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco }}">
+                <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco }}</mat-label>
+                <input matInput name="lastName" type="text" formControlName="lastName" required placeholder="Doe">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
 
@@ -17,8 +17,8 @@
 
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="email-input" data-intercom-tooltip="Email Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
-                <mat-label class="form-label">Email</mat-label>
-                <input matInput name="email" type="email" formControlName="email" required ngvemail placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL' | transloco }}">
+                <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL' | transloco }}</mat-label>
+                <input matInput name="email" type="email" formControlName="email" required ngvemail placeholder="name@example.com">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
             </mat-form-field>
         </div>
@@ -26,15 +26,15 @@
 
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="password-input" data-intercom-tooltip="Password Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
-                <mat-label class="form-label">Password</mat-label>
-                <input matInput placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-PASSWD' | transloco }}" name="password" type="password" formControlName="password" required>
+                <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-PASSWD' | transloco }}</mat-label>
+                <input matInput placeholder="************" name="password" type="password" formControlName="password" required>
             </mat-form-field>
         </div>
 
 
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="password2-input" data-intercom-tooltip="Password 2 Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
-                <mat-label class="form-label">Confirm Password </mat-label>
+                <mat-label class="form-label">{{'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD' | transloco }} </mat-label>
                 <input matInput placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD' | transloco }}" name="confirmPassword" type="password" formControlName="confirmPassword" required>
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD-ERR' | transloco }}</mat-error>
             </mat-form-field>
