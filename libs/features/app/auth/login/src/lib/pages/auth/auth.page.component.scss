@@ -10,7 +10,7 @@
     padding: 20px;
     font-weight: 400;
     background: var(--convs-mgr-color-primary-yellow);
-    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9F74D5 100%);
     min-height: 100vh;
 }
 
@@ -51,20 +51,10 @@
     object-fit: contain;
 }
 
-::ng-deep .mat-tab-labels,
-.mat-tab-label-container {
-    display: inline-block!important;
-    width: 30%;
-}
-
-::ng-deep .mat-tab-list {
-    max-width: fit-content !important;
-}
-
 ::ng-deep .mat-tab-label .mat-tab-label-content {
     font-family: var(--kujali-segoe-ui-bold);
     color: var( --convs-mgr-color-primary-black);
-    font-size: 26px;
+    font-size: 25px;
     margin-bottom: 15px;
     @media screen and (max-width: 768px) {
         font-size: 20px;
@@ -84,13 +74,48 @@
     height: 97px;
 }
 
+.tab-groups {
+    max-width: 45%;
+}
+
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
 .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background: var(--convs-mgr-color-primary-yellow);
+    width: 100%
 }
 
-@media screen and (width: 768px) {
+@media screen and (max-width: 768px) {
     .elewa-info {
-        display: none;
+        display: none !important;
     }
+}
+
+@media screen and (min-width: 320px) and (max-width: 425px) {
+    .tab-groups {
+        max-width: 100%!important;
+    }
+    .auth-card {
+        padding: 80px;
+    }
+}
+
+@media screen and (width: 320px) {
+    .auth-card {
+        padding: 60px !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .tab-groups {
+        max-width: 70%!important;
+    }
+}
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    display: flex;
+    justify-content: center;
+}
+
+#lang-selector {
+    width: 30%;
 }

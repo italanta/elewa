@@ -17,7 +17,7 @@
                         <img class="image" src="assets/images/elewa-logo.png/ " />
                     </div>
 
-                    <div fxLayout="column" fxLayoutAlign="end">
+                    <div fxLayout="column" fxLayoutAlign="end center">
                         <mat-select id="lang-selector" [(ngModel)]="lang" style="margin-left:140px;" data-intercom-tooltip="Language selector" [matTooltip]=" 'ELS.TOGGLES.SWITCH-LANG' | transloco ">
                             <mat-option value="en" (click)="setLang('en') ">EN</mat-option>
                             <mat-option value="fr" (click)="setLang('fr') ">FR</mat-option>
@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div style="min-width: 100%;" fxLayout="row" fxLayoutAlign="center center">
-                    <div fxLayout="column" fxLayoutAlign="start center" fxFlex="45">
-                        <mat-tab-group style="min-width: 100%;" (selectedTabChange)="authChanged($event)">
+                    <div fxLayout="column" class="tab-groups" fxLayoutAlign="start center" fxFlex="46">
+                        <mat-tab-group mat-stretch-tabs style="min-width: 100%;" (selectedTabChange)="authChanged($event)">
                             <mat-tab (click)="toggleModeLogin()" label="Log In">
                                 <span *ngIf="isLogin" fxFlex>
                                     <app-login fxFlex></app-login>
