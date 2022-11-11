@@ -1,149 +1,149 @@
 {
-  "ELS": {
-    "TOGGLES": {
-      "SWITCH-LANG": "Switch language"
-    }
-  },
-  "LOGIN": {
-    "LOGIN": "Login",
-    "OR": "or",
-    "CREATE-ACCOUNT": "Create account",
-    "LOGIN-FORM": {
-      "FLD-EMAIL": "Enter email",
-      "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Enter password",
-      "FLD-REMEMBER-ME": "Remember me",
-      "SUBMIT": "Login"
-    },
-    "FORGOT-PASSWD": "Forgot password?",
-    "CREATE-ACC-FORM": {
-      "FLD-FNAME": "First name",
-      "FLD-LNAME": "Last name",
-      "FLD-NAME-REQ": "Name is required",
-      "FLD-EMAIL": "Email",
-      "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Password",
-      "FLD-CONF-PASSWD": "Confirm password",
-      "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
-      "SUBMIT": "Create account"
-    },
-    "TOS": {
-      "P1": "By registering I agree to",
-      "P2-LINK": "the terms of service",
-      "P3": "and",
-      "P4-LINK": "the privacy policy"
-    },
-    "BTN-WITH-GOOGLE": "With Google",
-    "BTN-WITH-MICROSOFT": "With Microsoft",
-    "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
-      "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "https://elewa.education"
-    }
-  },
-  "PAGE-CONTENT": {
-    "BLOCKS": {
-      "TITLES": {
-        "IMAGE": "Image",
-        "LOCATION": "Location"
-      }
-    },
-    "BLOCK": {
-      "TITLES": {
-        "IMAGE": "Image",
-        "LOCATION": "Location",
-        "NAME": "Name",
-        "EMAIL": "Email",
-        "PHONE": "Phone"
-      },
-      "PLACEHOLDER": {
-        "CAPTION": "Caption",
-        "IMAGE-LINK": "Image Link",
-        "NAME": "Name",
-        "EMAIL": "Email",
-        "PHONE-NUMBER": "Phone"
-      }
-    },
-    "COMPONENTS": {
-      "TITLE": "Story Blocks"
-    },
-    "SIDE-MENU": {
-      "DASHBOARD": "Dashboard",
-      "ANALYTICS": "Analytics",
-      "ACTIVE-BOTS": "Active Bots",
-      "LOG-OUT": "Logout",
-      "MAIN-TITLE": "Main",
-      "MENU-ITEMS" : {
-        "CHATS": {
-          "ITEM-NAME": "Chats",
-          "CHILD-ITEMS": {
-            "CONVERSATIONS": "Conversations",
-            "PARTICIPANTS": "Participants",
-            "ASSESSMENTS": "Assessments"
-          }
-        },
-        "SALES": {
-          "ITEM-NAME": "Sales",
-          "CHILD-ITEMS": {
-            "PURCHASES": "Purchases"
-          }
-        },
-        "STATISTICS": {
-          "ITEM-NAME": "Statistics",
-          "CHILD-ITEMS": {
-            "TRAINEE-DATA": "Trainee Data",
-            "PROGRESS-ANALYSIS": "Progress Analysis"
-          }
+    "ELS": {
+        "TOGGLES": {
+            "SWITCH-LANG": "Switch language"
         }
-      }
+    },
+    "LOGIN": {
+        "LOGIN": "Login",
+        "OR": "or",
+        "CREATE-ACCOUNT": "Sign UP",
+        "LOGIN-FORM": {
+            "FLD-EMAIL": "Email",
+            "FLD-EMAIL-ERR": "Please provide a valid email address",
+            "FLD-PASSWD": "Password",
+            "FLD-REMEMBER-ME": "Proceed",
+            "SUBMIT": "Login"
+        },
+        "FORGOT-PASSWD": "Forgot your password?",
+        "CREATE-ACC-FORM": {
+            "FLD-FNAME": "First name",
+            "FLD-LNAME": "Last name",
+            "FLD-NAME-REQ": "Name is required",
+            "FLD-EMAIL": "Email",
+            "FLD-EMAIL-ERR": "Please provide a valid email address",
+            "FLD-PASSWD": "Password",
+            "FLD-CONF-PASSWD": "Confirm password",
+            "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
+            "SUBMIT": "Proceed"
+        },
+        "TOS": {
+            "P1": "By registering I agree to",
+            "P2-LINK": "the terms of service",
+            "P3": "and",
+            "P4-LINK": "the privacy policy"
+        },
+        "BTN-WITH-GOOGLE": "Login With Google",
+        "BTN-WITH-MICROSOFT": "With Microsoft",
+        "HERO": {
+            "TITLE": "Karibu Elewa Conversational Learning!",
+            "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
+            "LEARN-MORE": "Learn more on",
+            "LEARN-MORE-LINK": "https://elewa.education"
+        }
+    },
+    "PAGE-CONTENT": {
+        "BLOCKS": {
+            "TITLES": {
+                "IMAGE": "Image",
+                "LOCATION": "Location"
+            }
+        },
+        "BLOCK": {
+            "TITLES": {
+                "IMAGE": "Image",
+                "LOCATION": "Location",
+                "NAME": "Name",
+                "EMAIL": "Email",
+                "PHONE": "Phone"
+            },
+            "PLACEHOLDER": {
+                "CAPTION": "Caption",
+                "IMAGE-LINK": "Image Link",
+                "NAME": "Name",
+                "EMAIL": "Email",
+                "PHONE-NUMBER": "Phone"
+            }
+        },
+        "COMPONENTS": {
+            "TITLE": "Story Blocks"
+        },
+        "SIDE-MENU": {
+            "DASHBOARD": "Dashboard",
+            "ANALYTICS": "Analytics",
+            "ACTIVE-BOTS": "Active Bots",
+            "LOG-OUT": "Logout",
+            "MAIN-TITLE": "Main",
+            "MENU-ITEMS": {
+                "CHATS": {
+                    "ITEM-NAME": "Chats",
+                    "CHILD-ITEMS": {
+                        "CONVERSATIONS": "Conversations",
+                        "PARTICIPANTS": "Participants",
+                        "ASSESSMENTS": "Assessments"
+                    }
+                },
+                "SALES": {
+                    "ITEM-NAME": "Sales",
+                    "CHILD-ITEMS": {
+                        "PURCHASES": "Purchases"
+                    }
+                },
+                "STATISTICS": {
+                    "ITEM-NAME": "Statistics",
+                    "CHILD-ITEMS": {
+                        "TRAINEE-DATA": "Trainee Data",
+                        "PROGRESS-ANALYSIS": "Progress Analysis"
+                    }
+                }
+            }
+        }
+    },
+    "BOTS": {
+        "ACTIONS": {
+            "OPEN-BOT": "Open Bot",
+            "LBL-NEW-BOT": "Create New Bot",
+            "EDIT-BOT": "Edit",
+            "DELETE-BOT": "Delete"
+        },
+        "FIELDS": {
+            "NAME": "Name",
+            "NAME-PLACEHOLDER": "Bot name",
+            "DESC": "Description",
+            "DESC-PLACEHOLDER": "Bot description"
+        },
+        "CREATE-MODAL": {
+            "TITLE": "Create a bot",
+            "FIELDS": {
+                "NAME": "Name",
+                "NAME-PLACEHOLDER": "Bot name",
+                "DESC": "Description",
+                "DESC-PLACEHOLDER": "Bot description",
+                "COPY": "Copy",
+                "DELETE": "Delete"
+            },
+            "CANCEL": "Cancel",
+            "SUBMIT": "Create bot"
+        },
+        "EDIT-MODAL": {
+            "TITLE": "Edit Bot",
+            "SUBMIT": "Update Bot"
+        },
+        "DELETE-MODAL": {
+            "TITLE": "Delete Bot",
+            "CANCEL": "Cancel",
+            "SUBMIT": "Delete Bot",
+            "MESSAGE": " Are you sure you want to delete this bot?"
+        }
+    },
+    "TOAST": {
+        "EDIT-BOT": {
+            "SUCCESSFUL": "Edit operation was successful",
+            "FAIL": "Edit operation was not successful"
+        },
+        "DELETE-BOT": {
+            "SUCCESSFUL": "Delete operation was successful",
+            "FAIL": "Delete operation was not successful"
+        }
     }
-  },
-  "BOTS": {
-    "ACTIONS": {
-      "OPEN-BOT": "Open Bot",
-      "LBL-NEW-BOT": "Create New Bot",
-      "EDIT-BOT":"Edit",
-      "DELETE-BOT": "Delete"
-    },
-    "FIELDS": {
-      "NAME": "Name",
-      "NAME-PLACEHOLDER": "Bot name",
-      "DESC": "Description",
-      "DESC-PLACEHOLDER": "Bot description"
-    },
-    "CREATE-MODAL": {
-      "TITLE": "Create a bot",
-      "FIELDS": {
-        "NAME": "Name",
-        "NAME-PLACEHOLDER": "Bot name",
-        "DESC": "Description",
-        "DESC-PLACEHOLDER": "Bot description",
-        "COPY": "Copy",
-        "DELETE": "Delete"
-      },
-      "CANCEL": "Cancel",
-      "SUBMIT": "Create bot"
-    },
-    "EDIT-MODAL": {
-      "TITLE": "Edit Bot",
-      "SUBMIT": "Update Bot"
-    },
-    "DELETE-MODAL": {
-      "TITLE": "Delete Bot",
-      "CANCEL": "Cancel",
-      "SUBMIT": "Delete Bot",
-      "MESSAGE":" Are you sure you want to delete this bot?"
-    }
-  },
-  "TOAST": {
-    "EDIT-BOT": {
-      "SUCCESSFUL": "Edit operation was successful",
-      "FAIL": "Edit operation was not successful"
-    },
-    "DELETE-BOT": {
-      "SUCCESSFUL": "Delete operation was successful",
-      "FAIL": "Delete operation was not successful"
-    }
-  }
 }
