@@ -1,6 +1,4 @@
 $primary-icon-color: #919698;
-$primary-color: #ffc200;
-$secondary-elements-color: white;
 .form-body {
     padding-top: 50px;
     align-self: center;
@@ -13,18 +11,12 @@ $secondary-elements-color: white;
     font-size: 2rem;
 }
 
-.uppercase-txt {
-    text-transform: uppercase;
-}
-
 #googleBtn {
-    background-color: #de5246;
-    color: $secondary-elements-color;
+    background-color: var(--convs-mgr-color-primary-red);
+    color: var(--convs-mgr-color-primary-white);
+    font-size: larger;
 }
 
-// .mat-form-field-appearance-outline .mat-form-field-infix {
-//     padding: 0 !important;
-// }
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
     background-color: #00000000 !important;
 }
@@ -34,7 +26,7 @@ $secondary-elements-color: white;
 }
 
 .hr-with-text {
-    color: $primary-icon-color;
+    color: var(--convs-mgr-color-primary-yellow);
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 10px;
@@ -51,12 +43,11 @@ $secondary-elements-color: white;
 }
 
 #forgot-btn {
-    padding-right: 0;
+    padding-right: 7px;
 }
 
 .icon-box {
     padding: 15px;
-    // border: 1px solid #FDFDFD;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     margin-right: -2px;
@@ -68,11 +59,11 @@ $secondary-elements-color: white;
         max-height: 35px;
     }
     &.google-icon {
-        color: $secondary-elements-color;
-        background-color: #de5246;
+        color: var(--convs-mgr-color-primary-white);
+        background-color: var(--convs-mgr-color-primary-red);
     }
     &.fb-icon {
-        color: $secondary-elements-color;
+        color: var(--convs-mgr-color-primary-white);
         background-color: #29487D;
     }
 }
@@ -86,7 +77,8 @@ $secondary-elements-color: white;
 #login-button {
     width: 100%;
     color: white;
-    background-color: var( --convs-mgr-color-primary-yellow)
+    background-color: var( --convs-mgr-color-primary-yellow);
+    font-size: larger;
 }
 
 #login-button:hover {
