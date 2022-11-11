@@ -122,6 +122,10 @@ export class RegisterComponent
     return this._authService.loadFacebookLogin();
   }
 
+  /** Microsoft Login */
+  loginMicrosoft() {
+    return this._authService.loadMicrosoftLogin();
+  }
 
   setLang(lang: 'en' | 'fr')
   {

@@ -1,20 +1,23 @@
 <div fxLayout="column" fxLayoutAlign="center none">
 
-    <form [formGroup]="registerForm" fxLayout="column" class="form-body" fxLayoutGap="15px" fxLayoutAlign="center none" (ngSubmit)="doRegister($event)">
+    <form [formGroup]="registerForm" fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none" (ngSubmit)="doRegister($event)">
         <div fxLayout="row" fxLayoutAlign="space-between none">
-            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45">
+            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
+                <mat-label class="form-label">First Name</mat-label>
                 <input matInput name="firstName" type="text" formControlName="firstName" required placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco }}">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
-            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45">
+            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
+                <mat-label class="form-label">Last Name</mat-label>
                 <input matInput name="lastName" type="text" formControlName="lastName" required placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco }}">
-                <mat-error>{{ 'OGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
+                <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
 
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="email-input" data-intercom-tooltip="Email Input" class="special-input" appearance="legacy" fxFlex>
+            <mat-form-field id="email-input" data-intercom-tooltip="Email Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+                <mat-label class="form-label">Email</mat-label>
                 <input matInput name="email" type="email" formControlName="email" required ngvemail placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL' | transloco }}">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
             </mat-form-field>
@@ -22,20 +25,22 @@
 
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="password-input" data-intercom-tooltip="Password Input" class="special-input" appearance="legacy" fxFlex>
+            <mat-form-field id="password-input" data-intercom-tooltip="Password Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+                <mat-label class="form-label">Password</mat-label>
                 <input matInput placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-PASSWD' | transloco }}" name="password" type="password" formControlName="password" required>
             </mat-form-field>
         </div>
 
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="password2-input" data-intercom-tooltip="Password 2 Input" class="special-input" appearance="legacy" fxFlex>
+            <mat-form-field id="password2-input" data-intercom-tooltip="Password 2 Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+                <mat-label class="form-label">Confirm Password </mat-label>
                 <input matInput placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD' | transloco }}" name="confirmPassword" type="password" formControlName="confirmPassword" required>
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD-ERR' | transloco }}</mat-error>
             </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
             <mat-checkbox id="terms-input" data-intercom-tooltip="Terms Input" formControlName="acceptConditions" class="small-txt">
             </mat-checkbox>
             <div class="small-txt">
@@ -53,10 +58,15 @@
             {{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
           </button>
         </div>
+        <!-- <div fxLayout="row" fxLayoutAlign="center">
+            <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="start center">
+                <i class="fab fa-microsoft"></i>
+            </div>
 
-        <div class="hr-with-text" fxFlex="row" fxLayoutAlign="start center">
-            {{ 'LOGIN.OR' | transloco }}
-        </div>
+            <button mat-raised-button id="msBtn" class="uppercase-txt" (click)="loginMicrosoft()" fxFlex>
+            {{ "LOGIN.BTN-WITH-MICROSOFT" | transloco }}
+          </button>
+        </div> -->
 
         <div fxLayout="row" fxLayoutAlign="center">
             <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="start center">

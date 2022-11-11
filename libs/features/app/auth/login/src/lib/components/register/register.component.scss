@@ -5,6 +5,11 @@ $secondary-elements-color: white;
     text-transform: uppercase;
 }
 
+.form-body {
+    padding-top: 50px;
+    width: 100%;
+}
+
 #googleBtn {
     background-color: #de5246;
     color: $secondary-elements-color;
@@ -72,23 +77,20 @@ $secondary-elements-color: white;
 }
 
 .special-input {
-    min-height: 40px;
-}
-
-input {
-    background-color: $secondary-elements-color;
-    border: none;
-    width: 100%!important;
+    min-height: 55px;
+    margin: 8px;
 }
 
 #register-button {
     width: 100%;
-    background-color: $primary-color;
+    color: white;
+    background-color: var(--convs-mgr-color-primary-yellow);
     font-size: 12px;
-    height: 30px;
+    height: 40px;
 }
 
-.form-body {
-    align-self: center;
-    width: 80%;
+.form-label {
+    font-weight: 600;
+    font-size: large;
+    color: var(--convs-mgr-color-primary-black);
 }
