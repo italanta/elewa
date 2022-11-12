@@ -9,7 +9,7 @@
 </div>
 
 <ng-template #showLogin>
-    <div class="auth-page" fxLayout="row" fxLayoutAlign="center none">
+    <div class="auth-page" fxLayout="row" fxLayoutAlign="center none space-evenly">
         <div fxFlexLayout="column" class="auth-card">
             <div fxFlex fxLayout="column" fxLayoutAlign="center none" class="actual-form">
                 <div class="tiny-logo" fxLayoutAlign="center">
@@ -47,7 +47,7 @@
 
             </div>
 
-            <div fxFlex fxLayout="column" fxLayoutAlign="center" class="elewa-info">
+            <div fxFlex fxLayout="space space-evenly" LayoutAlign="center"  class="elewa-info">
                 <p class="title">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
                 <p class="description"> {{'LOGIN.HERO.DESCRIPTION' | transloco}}</p>
                 <p class="hyperlink">{{'LOGIN.HERO.LEARN-MORE' | transloco}}

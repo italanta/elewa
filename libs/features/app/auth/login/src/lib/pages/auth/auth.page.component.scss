@@ -8,7 +8,6 @@ $secondary-elements-color: white;
 .auth-page {
     min-width: 100%;
     min-height: 100%;
-    background-color: $secondary-elements-color;
 }
 
 .form {
@@ -29,7 +28,7 @@ $secondary-elements-color: white;
     color: $primary-icon-color;
     padding: 20px;
     font-weight: 400;
-    background: $primary-color;
+    // background: $primary-color;
     background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
     @media screen and (max-width: 768px) {
         display: none;

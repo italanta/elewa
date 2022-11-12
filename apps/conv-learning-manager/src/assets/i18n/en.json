@@ -7,12 +7,12 @@
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "or",
-    "CREATE-ACCOUNT": "Create account",
+    "CREATE-ACCOUNT": "Sign Up",
     "LOGIN-FORM": {
       "FLD-EMAIL": "Enter email",
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Enter password",
-      "FLD-REMEMBER-ME": "Remember me",
+      "FLD-REMEMBER-ME": "Proceed",
       "SUBMIT": "Login"
     },
     "FORGOT-PASSWD": "Forgot password?",
