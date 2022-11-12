@@ -1,5 +1,5 @@
 <div>
-  <mat-card class="bot-card" (click)="goTo()">
+  <mat-card class="bot-card">
     <img mat-card-image src="https://place-hold.it/420x240" alt="story img" />
 
     <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
@@ -8,28 +8,25 @@
           {{ story.name }} <span class="bot-number"></span>
         </h2>
       </div>
-      <div>
-        <button mat-icon-button [matMenuTriggerFor]="menu" $event.stopPropagation()>
-          <i class="fas fa-ellipsis-v"></i>
+
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="menu" $event.stopPropagation()>
+    <i class="fas fa-ellipsis-v"></i>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item class="bot-menu-item" (click)="openEditDialog()">
+          <span>Edit</span>
         </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item class="bot-menu-item" (click)="openEditDialog()">
-            <span>
-              {{ 'BOTS.ACTIONS.EDIT-BOT' | transloco }}
-            </span>
-          </button>
-          <button mat-menu-item class="bot-menu-item" (click)="openDeleteDialog()">
-            <span>
-              {{ 'BOTS.ACTIONS.DELETE-BOT' | transloco }}
-            </span>
-          </button>
-        </mat-menu>
-      </div>
+        <hr class="bot-menu-item-separator" />
+        <button mat-menu-item class="bot-menu-item" (click)="openDeleteDialog()">
+          <span>Delete</span>
+        </button>
+      </mat-menu>
     </div>
 
     <mat-card-content>
       <p>
-  {{story.description}}
+        {{story.description}}
       </p>
     </mat-card-content>
     <div class="action-holder">
