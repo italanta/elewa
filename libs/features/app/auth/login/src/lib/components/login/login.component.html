@@ -5,7 +5,7 @@
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="email-input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
                 <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
-                <input matInput name="email" type="email" [(ngModel)]="email" required ngvemail placeholder="name@example.com">
+                <input matInput name="email" [disabled]="isLoading" type="email" [(ngModel)]="email" required ngvemail placeholder="name@example.com">
                 <mat-error>{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
             </mat-form-field>
         </div>
@@ -13,15 +13,23 @@
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="password-input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
                 <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
-                <input matInput placeholder="************" name="password" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
+                <input matInput placeholder="************" name="password" [disabled]="isLoading" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
             </mat-form-field>
         </div>
 
 
         <div fxLayoutAlign="space-between center">
-            <button mat-raised-button class="uppercase-txt" id="login-button" (click)="loginUser()" [disabled]="!validateLoginCred()">
+
+            <button mat-raised-button class="uppercase-txt" id="login-button" (click)="loginUser()" *ngIf="isLoading" [disabled]="!validateLoginCred()"> 
+                 <app-spinner [diameter]="25" class="spinner"></app-spinner>
+                {{ 'LOGIN.LOGIN-FORM.FLD-WAIT' | transloco }}
+              </button>
+
+
+            <button *ngIf="!isLoading" mat-raised-button class="uppercase-txt" id="login-button" (click)="loginUser()" [disabled]="!validateLoginCred()">
           {{ 'LOGIN.LOGIN-FORM.FLD-REMEMBER-ME' | transloco }}
         </button>
+
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start stretch">
