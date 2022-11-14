@@ -51,18 +51,48 @@ input[type='text'] {
   outline: none;
 }
 
-
-.create-bot-header{
-    margin-top: 0px;
+.create-bot-header {
+  margin-top: 0px;
 }
 
-.create-bot-name{
-    padding: 0px;
-    margin: 1px;
+.create-bot-name {
+  padding: 0px;
+  margin: 1px;
 }
 
 ::ng-deep #mat-dialog-0 {
   height: 480px;
   width: 600px;
 }
-
+.file-input {
+  display: none;
+}
+.chooseFile {
+  color: #ffab2d;
+  font-weight: 600;
+  min-width: 100px;
+  background-color: white;
+  border-radius: 6px;
+  border: 2px solid #ffab2d;
+  width: 180px;
+  padding: 5px;
+  margin-left: 1pc;
+  font-weight: 700;
+  margin-right: 0.5pc;
+}
+#times-circle{
+  color: red;
+  
+}
+#check-circle{
+  color: rgb(11, 124, 11);
+  
+}
+.file-upload{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2pc;
+}
+.b-form{
+  overflow: hidden;
+}
