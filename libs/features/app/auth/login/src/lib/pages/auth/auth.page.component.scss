@@ -70,8 +70,9 @@
 }
 
 .image {
-    width: 210px;
+    width: 180px;
     height: 97px;
+    object-fit: contain;
 }
 
 .tab-groups {
