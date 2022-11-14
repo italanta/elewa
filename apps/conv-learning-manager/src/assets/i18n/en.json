@@ -13,7 +13,8 @@
             "FLD-EMAIL-ERR": "Please provide a valid email address",
             "FLD-PASSWD": "Password",
             "FLD-REMEMBER-ME": "Proceed",
-            "SUBMIT": "Login"
+            "SUBMIT": "Login",
+            "FLD-WAIT": "Please Wait..."
         },
         "FORGOT-PASSWD": "Forgot your password?",
         "CREATE-ACC-FORM": {
@@ -26,6 +27,7 @@
             "FLD-CONF-PASSWD": "Confirm password",
             "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
             "SUBMIT": "Proceed"
+
         },
         "TOS": {
             "P1": "By registering I agree to",
