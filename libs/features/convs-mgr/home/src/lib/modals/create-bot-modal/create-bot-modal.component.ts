@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NewStoryService } from '../../services/new-story.service';
 import { UploadFileService } from '@app/state/file';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -10,19 +12,54 @@ import { UploadFileService } from '@app/state/file';
 })
 export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
-  constructor(private _addStory$: NewStoryService, private _formBuilder: FormBuilder, private _addImage$:UploadFileService) {}
+  fileName: any;
+  block: StoryBlock;
+  uploadProgress: '';
+  constructor(
+    private _addStory$: NewStoryService,
+    private _formBuilder: FormBuilder,
+    private _addImage$: UploadFileService,
+    private http: HttpClient
+  ) {}
 
-  createFormGroup(){
+  createFormGroup() {
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
-      botDesc: ['']
+      botDesc: [''],
+      botImage: [this._addImage$.uploadFile],
     });
   }
-  
 
   ngOnInit(): void {
     this.createFormGroup();
   }
+  onChange(event: any) {
+    const file:File = event.target.files[0];
 
-  add = () => this._addStory$.add(this.botForm.value.botName as string,this.botForm.value.botDesc as string || '').subscribe();
+    if (file){
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("thumbnail", file);
+      const upload$ = this.http.post("/api/thumbnail-upload", formData);
+      upload$.subscribe();
+      
+    }
+  }
+
+  fileUpload() {
+    this._addImage$
+      .upload(this.fileName, this.block)
+      .subscribe((event: any) => {
+        this.uploadProgress = event;
+      });
+  }
+
+  add = () =>
+    this._addStory$
+      .add(
+        this.botForm.value.botName as string,
+        (this.botForm.value.botDesc as string) ||
+        'this.botForm.value.botImage as File'
+      )
+      .subscribe();
 }
