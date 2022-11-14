@@ -75,20 +75,14 @@
   },
   "BOTS": {
     "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copie",
-        "DELETE": "Effacer"
-      }
-    }
-  },
-  "BOTS": {
-    "CREATE-MODAL": {
       "TITLE": "Créer un robot",
       "FIELDS": {
         "NAME": "Nom",
         "NAME-PLACEHOLDER": "Nom du robot",
         "DESC": "Description",
-        "DESC-PLACEHOLDER": "Description du robot"
+        "DESC-PLACEHOLDER": "Description du robot",
+        "COPY": "Copie",
+        "DELETE": "Effacer"
       },
       "CANCEL": "Annuler",
       "SUBMIT": "Créer un robot"
