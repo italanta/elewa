@@ -1,13 +1,13 @@
 <div fxLayout="column" fxLayoutAlign="center none">
 
-    <form [formGroup]="registerForm" fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none" (ngSubmit)="doRegister($event)">
+    <form [formGroup]="registerForm" fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none" disabled="isLoading" (ngSubmit)="doRegister($event)">
         <div fxLayout="row" fxLayoutAlign="space-between none">
-            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
-                <mat-label class="form-label">F{{ 'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco }}</mat-label>
+            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" [ngClass]="isLoading ? 'disabled' : 'special-input'" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
+                <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco }}</mat-label>
                 <input matInput name="firstName" type="text" formControlName="firstName" required placeholder="Jane">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
-            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
+            <mat-form-field id="name-input" data-intercom-tooltip="Name Input" [ngClass]="isLoading ? 'disabled' : 'special-input'" class="special-input" appearance="legacy" fxFlex="45" floatLabel="always">
                 <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco }}</mat-label>
                 <input matInput name="lastName" type="text" formControlName="lastName" required placeholder="Doe">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
@@ -16,7 +16,7 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="email-input" data-intercom-tooltip="Email Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+            <mat-form-field id="email-input" data-intercom-tooltip="Email Input" [ngClass]="isLoading ? 'disabled' : 'special-input'" class="special-input" appearance="legacy" fxFlex floatLabel="always">
                 <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL' | transloco }}</mat-label>
                 <input matInput name="email" type="email" formControlName="email" required ngvemail placeholder="name@example.com">
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
@@ -25,7 +25,7 @@
 
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="password-input" data-intercom-tooltip="Password Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+            <mat-form-field id="password-input" data-intercom-tooltip="Password Input" [ngClass]="isLoading ? 'disabled' : 'special-input'" class="special-input" appearance="legacy" fxFlex floatLabel="always">
                 <mat-label class="form-label">{{ 'LOGIN.CREATE-ACC-FORM.FLD-PASSWD' | transloco }}</mat-label>
                 <input matInput placeholder="************" name="password" type="password" formControlName="password" required>
             </mat-form-field>
@@ -33,7 +33,7 @@
 
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="password2-input" data-intercom-tooltip="Password 2 Input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+            <mat-form-field id="password2-input" data-intercom-tooltip="Password 2 Input" [ngClass]="isLoading ? 'disabled' : 'special-input'" class="special-input" appearance="legacy" fxFlex floatLabel="always">
                 <mat-label class="form-label">{{'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD' | transloco }} </mat-label>
                 <input matInput placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD' | transloco }}" name="confirmPassword" type="password" formControlName="confirmPassword" required>
                 <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD-ERR' | transloco }}</mat-error>
@@ -52,9 +52,13 @@
         </div>
 
         <div fxLayoutAlign="center none">
-            <app-spinner *ngIf="isLoading" [diameter]="25"></app-spinner>
 
-            <button class="uppercase-txt" id="register-button" mat-raised-button color="accent" type="submit" [disabled]="formIsInvalid()">
+            <button class="uppercase-txt" id="register-button" *ngIf="isLoading" mat-raised-button color="accent" type="submit" [disabled]="formIsInvalid()">
+                <app-spinner  [diameter]="25" class="spinner"></app-spinner>
+                {{ 'LOGIN.LOGIN-FORM.FLD-WAIT' | transloco }}
+              </button>
+
+            <button class="uppercase-txt" id="register-button" mat-raised-button color="accent" type="submit" *ngIf="!isLoading" [disabled]="formIsInvalid()">
             {{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
           </button>
         </div>

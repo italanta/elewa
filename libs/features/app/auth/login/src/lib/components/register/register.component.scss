@@ -79,6 +79,12 @@ $primary-icon-color: #919698;
     margin: 8px;
 }
 
+.disabled {
+    min-height: 55px;
+    margin: 8px;
+    pointer-events: none;
+}
+
 #register-button {
     width: 100%;
     color: white;
@@ -91,4 +97,10 @@ $primary-icon-color: #919698;
     font-weight: 600;
     font-size: large;
     color: var(--convs-mgr-color-primary-black);
+}
+
+.spinner {
+    float: right;
+    padding-left: 10px;
+    padding-top: 5px;
 }
