@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -62,7 +63,7 @@ export class UploadFileService
       }),
       //Step 3 - create the path in firestore that will lead to files 
       switchMap(org => {
-        if (!!this.org) {
+        if (this.org) {
           this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
           return this._activeRepo.create(fileBlock);
         } else {
@@ -71,6 +72,7 @@ export class UploadFileService
       }),
       //Step 4 - update The field fileSrc for the block holding the file
       switchMap(() => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return this._updateSrc(url, block.id!).pipe(take(1));
       }),
       catchError(err => {
