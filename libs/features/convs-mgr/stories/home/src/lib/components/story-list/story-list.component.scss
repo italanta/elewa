@@ -29,8 +29,9 @@
 .bots-wrapper {
   display: grid;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(280px, auto));
-  row-gap: 20px;
+  row-gap: 50px;
   column-gap: 50px;
   justify-content: space-between;
 }
