@@ -2,7 +2,7 @@ $primary-icon-color: #919698;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
 .uppercase-txt {
-    text-transform: uppercase;
+    font-size: larger;
 }
 
 #googleBtn {
@@ -11,16 +11,6 @@ $secondary-elements-color: white;
     border-radius: 25px;
     width: 300px;
     height: 50px;
-
-}
-
-#msBtn {
-    background-color: #29487D;
-    color: $secondary-elements-color;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 0 !important;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
@@ -32,7 +22,7 @@ $secondary-elements-color: white;
 }
 
 .hr-with-text {
-    color: $primary-icon-color;
+    color: var(--convs-mgr-color-primary-yellow);
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 10px;
@@ -55,7 +45,6 @@ $secondary-elements-color: white;
 
 .icon-box {
     padding: 15px;
-    // border: 1px solid #FDFDFD;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     margin-right: -2px;
@@ -77,11 +66,9 @@ $secondary-elements-color: white;
 }
 
 .special-input {
-    min-height: 40px;
-    // border-bottom: 2px;
-    // transition: border-color 0.2s;
-    // width: 100%!important;
-
+    min-height: 70px;
+    font-size: 18px;
+    margin: 10px;
 }
 
 input {
@@ -94,16 +81,35 @@ input {
     width: 100%;
     background-color: $primary-color;
     font-size: 12px;
-    height: 30px;
-    
+    height: 30px; 
+}
+
+#login-button:hover {
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+}
+
+.login-title {
+    font-family: var(--kujali-segoe-ui-bold);
+    color: var(--convs-mgr-color-primary-black);
+    font-size: 2rem;
 }
 
 .form-body {
     align-self: center;
     width: 100%;
-    padding-left: 0;
+    padding-top: 25px;
 }
 
-.main-body {
-        padding-left: 0;
+.form-label {
+    font-weight: 600;
+    font-size: large;
+    margin-bottom: 10px;
+    color: var(--convs-mgr-color-primary-black);
 }
+
+.spinner {
+    float: right;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+

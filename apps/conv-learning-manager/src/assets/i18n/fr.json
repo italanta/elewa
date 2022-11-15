@@ -9,11 +9,12 @@
     "OR": "ou",
     "CREATE-ACCOUNT": "S'inscrire",
     "LOGIN-FORM": {
-      "FLD-EMAIL": "name@example.com",
+      "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "******",
+      "FLD-PASSWD": "Password",
       "FLD-REMEMBER-ME": "Procéder",
       "PROCEED": "Procéder",
+      "FLD-WAIT": "Please Wait",
       "SUBMIT": "Login"
     },
     "FORGOT-PASSWD": "Oublie mot de passe?",
