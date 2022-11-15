@@ -1,45 +1,31 @@
-// Import theming functions
-@import '@angular/material/theming';
-// Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
+@import 'common.theme';
 
-.fa {
-  color: mat-color($mat-ele, A900);
-  margin-left: 6px;
-  margin-top: 10px;
-  margin-right: 6px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  transform: rotate(90deg);
-  font-weight: 500;
-}
-.search {
-  min-width: 40%;
-  height: 5px;
-  background-color: white;
-  // background-color: var(----convs-mgr-color-primary-background);
-  border-radius: 8px;
+.search-wrapper {
   display: flex;
   align-items: center;
-  padding: 20px;
+  column-gap: 6px;
+  border-radius: 8px;
+  padding: 4px 20px;
+  background-color: var(--convs-mgr-color-primary-white);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  input {
-    flex: 1;
+
+  .search_tooltip {
+    color: mat-color($mat-ele, A900);
+    font-size: 20px;
+    transform: rotate(90deg);
+    font-weight: 500;
+  }
+
+  .search_input {
+    min-width: 80%;
     height: 40px;
     border: none;
     outline: none;
     font-size: 15px;
-    padding-left: 6px;
+    background: none;
   }
 }
 
-.fa-search {
-  color: mat-color($mat-ele, A900);
-  transform: rotate(90deg);
-  margin-left: 6px;
-  margin-top: 10px;
-  margin-right: 6px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 500;
+.bot-selector {
+
 }
