@@ -6,6 +6,11 @@ $secondary-elements-color: white;
 }
 
 .auth-page {
+    text-align: left;
+    top: 67px;
+font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-8)/var(--unnamed-line-spacing-2) var(--unnamed-font-family-cairo);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--black);
     min-width: 100%;
     min-height: 100%;
     background-color: $secondary-elements-color;
@@ -16,6 +21,13 @@ $secondary-elements-color: white;
 }
 
 .auth-card {
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-8)/var(--unnamed-line-spacing-2) var(--unnamed-font-family-cairo);
+letter-spacing: var(--unnamed-character-spacing-0);
+color: var(--black);
+text-align: left;
+font: normal normal bold;
+letter-spacing: 0px;
+color: #202020;
     max-width: 100%;
     min-height: 100%;
     border-radius: 8px;
@@ -26,9 +38,9 @@ $secondary-elements-color: white;
 
 .elewa-info {
     text-align: center;
-    color: $primary-icon-color;
+    color: $secondary-elements-color;
     padding: 20px;
-    font-weight: 400;
+    font-weight: 700;
     background: $primary-color;
     background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
     @media screen and (max-width: 768px) {
@@ -70,6 +82,7 @@ $secondary-elements-color: white;
 }
 
 .actual-form {
+
     @media screen and (max-width: 768px) {
         max-width: 100% !important;
     }
@@ -78,8 +91,9 @@ $secondary-elements-color: white;
 
 .tiny-logo {
     margin-bottom: 30px;
+
     @media screen and (max-width: 768px) {
-        display: flex !important;
+        display: table-column !important;
         margin-bottom: 30px;
     }
 }
@@ -88,7 +102,6 @@ button {
     background-color: $secondary-elements-color;
     width: 50%;
     border: none;
-    // border-bottom: 3px solid rgba(255, 194, 0);
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     font-size: 20px;
@@ -96,6 +109,7 @@ button {
 }
 
 .login-button {
+    
     border-bottom: 3px solid $primary-color;
     border-width: 50%;
 }
@@ -108,6 +122,6 @@ button {
 
 .description {
     font-size: 20px;
-    font-weight: 6;
+    font-weight: 600;
     line-height: 2;
 }

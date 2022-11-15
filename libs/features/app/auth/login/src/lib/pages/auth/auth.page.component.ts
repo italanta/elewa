@@ -69,9 +69,9 @@ export class AuthPageComponent implements OnInit, OnDestroy
     }
   }
 
-  setLang(lang: 'en' | 'fr')
-  {
-    this._translateService.setLang(lang);
-  }
+  // setLang(lang: 'en' | 'fr')
+  // {
+  //   this._translateService.setLang(lang);
+  // }
 
 }

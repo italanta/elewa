@@ -46,7 +46,7 @@ export class ConlvSideNavContainerComponent
     {
       this.mode = 'over';
       this.opened = false;
-      this.menuStatusEvent.emit(this.opened)
+      // this.menuStatusEvent.emit(this.opened)
     }
     else{
       this.mode = 'side';

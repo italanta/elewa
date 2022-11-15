@@ -7,12 +7,13 @@
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "ou",
-    "CREATE-ACCOUNT": "Créer un compte",
+    "CREATE-ACCOUNT": "S'inscrire",
     "LOGIN-FORM": {
-      "FLD-EMAIL": "Email",
+      "FLD-EMAIL": "name@example.com",
       "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "Mot de passe",
-      "FLD-REMEMBER-ME": "Rappelle moi",
+      "FLD-PASSWD": "******",
+      "FLD-REMEMBER-ME": "Procéder",
+      "PROCEED": "Procéder",
       "SUBMIT": "Login"
     },
     "FORGOT-PASSWD": "Oublie mot de passe?",
@@ -36,8 +37,8 @@
     "BTN-WITH-GOOGLE": "Google",
     "BTN-WITH-MICROSOFT": "Microsoft",
     "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS est le premier gestionnaire d'apprentissage conversationnel au monde.",
+      "TITLE": "Le premier LMS au monde conçu pour l’apprentissage conversationnel.",
+      "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "LEARN-MORE": "Apprend plus en",
       "LEARN-MORE-LINK": "https://elewa.education"
     }
