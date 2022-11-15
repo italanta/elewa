@@ -46,3 +46,11 @@
     cursor:pointer;
   }
 }
+
+.bot-description {
+  // despite using the webkit prefix, this works across all major browsers
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
