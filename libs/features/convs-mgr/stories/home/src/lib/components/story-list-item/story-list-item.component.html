@@ -6,14 +6,13 @@
       <img mat-card-image src="https://place-hold.it/420x240" alt="story image placeholder">
     </ng-template>
 
-    <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
-      <div class="bot-text">
-        <h2 class="bot">
-          {{ story.name }} <span class="bot-number"></span>
-        </h2>
+    <div class="bot-container" fxLayout="row" fxFlexAlign="center" fxLayoutAlign="space-between">
+      <div class="bot-title">
+        <h2 class="bot-title_text"> {{ story.name }} </h2>
+        <span class="bot-title_number"></span>
       </div>
       <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
-        <i class="fas fa-ellipsis-v"></i>
+        <i class="fas fa-ellipsis-v bot-menu_tooltip"></i>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item class="bot-menu-item" (click)="openEditDialog()">
@@ -36,7 +35,7 @@
       </p>
     </mat-card-content>
     <div class="action-holder">
-      <button mat-raised-button (click)="goTo()">
+      <button class="bot-open" mat-raised-button (click)="goTo()">
         {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
       </button>
     </div>
