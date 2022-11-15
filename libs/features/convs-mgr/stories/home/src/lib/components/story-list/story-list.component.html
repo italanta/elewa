@@ -3,7 +3,7 @@
   <input class="search_input" type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)"/>
 </div>
 
-<div class="bot-selector">
+<div class="bots-wrapper">
   <ng-template ngFor [ngForOf]="stories$ | async" let-story>
     <convl-story-list-item [story]="story"> </convl-story-list-item>
   </ng-template>

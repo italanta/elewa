@@ -11,7 +11,7 @@
 
   .search_tooltip {
     color: mat-color($mat-ele, A900);
-    font-size: 20px;
+    font-size: 18px;
     transform: rotate(90deg);
     font-weight: 500;
   }
@@ -26,6 +26,11 @@
   }
 }
 
-.bot-selector {
-
+.bots-wrapper {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, auto));
+  row-gap: 20px;
+  column-gap: 50px;
+  justify-content: space-between;
 }
