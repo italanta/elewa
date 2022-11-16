@@ -1,112 +1,154 @@
 $primary-icon-color: #919698;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
+$white-color: #ffffff;
+
+ng-template {
+  font-family: var(--convs-mgr-font-cairo-family);
+}
 #ele-logo-sub {
-    max-width: 220px;
+  max-width: 220px;
 }
 
 .auth-page {
-    min-width: 100%;
-    min-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .form {
-    padding: 30px;
+  padding: 30px;
 }
 
 .auth-card {
-    max-width: 100%;
-    min-height: 100%;
-    border-radius: 8px;
-    background: $secondary-elements-color;
-    // box-shadow: 0px 3px 6px #70739D0B;
-    border: 1px solid $secondary-elements-color;
+  max-width: 100%;
+  min-height: 100vh;
+  border-radius: 8px;
+  background: $secondary-elements-color;
+  border: 1px solid $secondary-elements-color;
 }
-
 .elewa-info {
-    text-align: center;
-    color: $primary-icon-color;
-    padding: 20px;
-    font-weight: 400;
-    // background: $primary-color;
-    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
+  text-align: left;
+  color: $primary-icon-color;
+  padding: 20px;
+  font-weight: 400;
+  background: linear-gradient(
+    180deg,
+    var(--convs-mgr-color-primary-yellow) 0%,
+    var(--convs-mgr-color-secondary-purple) 100%
+  );
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .logoImg {
-    width: 200px;
-    padding: 20px;
+  width: 200px;
+  padding: 20px;
 }
 
 .maison {
-    width: 350px;
-    height: auto;
-    margin-left: 150px;
-    margin-bottom: -150px;
+  width: 350px;
+  height: auto;
+  margin-left: 150px;
+  margin-bottom: -150px;
 }
 
 .button-area {
-    background-color: $secondary-elements-color;
-    text-align: center;
-    align-self: center;
-    width: 40%;
-    cursor: pointer;
-    @media screen and (max-width: 768px) {
-        border-bottom-right-radius: 8px;
-        max-width: 100%;
-    }
-    @media screen and (max-width: 320px) {
-        border-bottom-right-radius: 8px;
-    }
+  background-color: $white-color;
+  text-align: center;
+  align-self: center;
+  color: var(--convs-mgr-color-secondary-contrast);
+  width: 73%;
+  cursor: pointer;
+  @media screen and (max-width: 768px) {
+    border-bottom-right-radius: 8px;
+    width: 91%;
+  }
+  @media screen and (max-width: 320px) {
+    border-bottom-right-radius: 8px;
+  }
 }
 
 .bottom-content {
-    color: $secondary-elements-color;
-    font-size: 18px;
-    text-transform: uppercase;
+  color: $secondary-elements-color;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 .actual-form {
-    @media screen and (max-width: 768px) {
-        max-width: 100% !important;
-    }
-    ;
+  @media screen and (max-width: 768px) {
+    max-width: 100% !important;
+  }
 }
 
 .tiny-logo {
+  left: -10rem;
+  position: relative;
+  margin-bottom: 30px;
+  @media screen and (max-width: 768px) {
+    display: flex !important;
     margin-bottom: 30px;
-    @media screen and (max-width: 768px) {
-        display: flex !important;
-        margin-bottom: 30px;
-    }
+  }
 }
 
 button {
-    background-color: $secondary-elements-color;
-    width: 50%;
-    border: none;
-    // border-bottom: 3px solid rgba(255, 194, 0);
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    font-size: 20px;
-    font-weight: 5;
+  background-color: $secondary-elements-color;
+  border-bottom: 5px solid $primary-color;
+  width: 50%;
+  border: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-size: 30px;
+  font-family: 'Cairo';
+  color: var(--convs-mgr-color-tertiary-shade);
+  font-weight: bold;
 }
-
-.login-button {
-    border-bottom: 3px solid $primary-color;
-    border-width: 50%;
-}
-
-.title {
+.login-button,
+.signup-button {
+  border-bottom: 5px solid $primary-color;
+  font-family: 'Cairo';
+  font-size: 30px;
+  color: var(--convs-mgr-color-primary-black);
+  font-weight: bold;
+  button:active {
+    font-family: 'Cairo';
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 20px;
+    border-bottom: 3px solid $primary-color;
+  }
+  &::before {
+    border-bottom: 5px solid $primary-color;
+  }
+  &::after {
+    border-bottom: 5px solid $primary-color;
+  }
+}
+.login-button:active {
+  color: var(--convs-mgr-color-secondary-contrast);
+  font-size: 38px;
+  font-weight: bold;
+}
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: $white-color;
+  font-family: 'Cairo';
+  font-weight: bold;
 }
 
 .description {
-    font-size: 20px;
-    font-weight: 6;
-    line-height: 2;
+  font-size: 21px;
+  line-height: 2;
+  color: $white-color;
+  font-family: 'Cairo';
+  font-weight: bold;
+  text-align: left;
+}
+.hyperlink {
+  font-size: 24px;
+  line-height: 2;
+  color: $white-color;
+  font-family: 'Cairo';
+  font-weight: bold;
 }

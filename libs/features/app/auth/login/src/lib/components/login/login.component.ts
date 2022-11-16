@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
 
@@ -11,14 +11,14 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit
+export class LoginComponent
 {
 
   isLoading: boolean;
-  email: string;
-  password: string;
+  email: '';
+  password: '';
 
-  // isLoading: boolean;
+
   isLogin = true;
 
   constructor( private _authService: AuthService,
@@ -26,18 +26,13 @@ export class LoginComponent implements OnInit
               private _analytics: EventLogger)
   {  }
 
-  ngOnInit()
-  {
-  }
-
   validateLoginCred = () => this.email && this.password;
-
   // When user clicks enter, try log in.
   detectEnter = (event: any) => (event.key === "Enter") ? this.loginUser() : 'noop';
-
   loginUser()
   {
     this.isLoading = true;
+
 
     if(this.validateLoginCred())
       this._authService.loginWithEmailAndPassword(this.email, this.password)

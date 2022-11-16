@@ -13,6 +13,7 @@
       "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
       "FLD-PASSWD": "Mot de passe",
       "FLD-REMEMBER-ME": "Rappelle moi",
+      "FLD-WAIT-LOGIN": "S'il vous plaît, attendez..",
       "SUBMIT": "Login"
     },
     "FORGOT-PASSWD": "Oublie mot de passe?",

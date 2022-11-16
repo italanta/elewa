@@ -9,10 +9,11 @@
     "OR": "or",
     "CREATE-ACCOUNT": "Sign Up",
     "LOGIN-FORM": {
-      "FLD-EMAIL": "Enter email",
+      "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Enter password",
+      "FLD-PASSWD": "Password",
       "FLD-REMEMBER-ME": "Proceed",
+      "FLD-WAIT-LOGIN": "Please Wait...",
       "SUBMIT": "Login"
     },
     "FORGOT-PASSWD": "Forgot password?",
@@ -33,11 +34,12 @@
       "P3": "and",
       "P4-LINK": "the privacy policy"
     },
-    "BTN-WITH-GOOGLE": "With Google",
+    "BTN-WITH-GOOGLE": "Login in With Google",
     "BTN-WITH-MICROSOFT": "With Microsoft",
+    "BTN-WITH-GOOGLE-TWO": "Sign Up with Google",
     "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
+      "TITLE": "World's first LMS designed for conversational learning.",
+      "DESCRIPTION": "Elewa LMS is the world's first Conversational Learning Manager.",
       "LEARN-MORE": "Learn more on",
       "LEARN-MORE-LINK": "https://elewa.education"
     }

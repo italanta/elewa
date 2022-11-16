@@ -1,94 +1,118 @@
 $primary-icon-color: #919698;
-$primary-color: #ffc200;
-$secondary-elements-color: white;
+$primary-color: #ffab2d;
+$secondary-elements-color: #707070;
+$googleBtn-color: #de5246;
+$white-color: #ffffff;
+
 .uppercase-txt {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 #googleBtn {
-    background-color: #de5246;
-    color: $secondary-elements-color;
-}
-
-#msBtn {
-    background-color: #29487D;
-    color: $secondary-elements-color;
+  background-color: none;
+  color: var(--convs-mgr-color-primary-white);
+  font-size: 15px;
+  border: none;
+  font-weight: bold;
+  font-family: 'Cairo', sans-serif;
+  color: $white-color;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
-    background-color: #000000 !important;
+  background-color: #00000000 !important;
 }
 
 .small-txt {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .hr-with-text {
-    color: $primary-icon-color;
-    opacity: 0.8;
-    font-size: 14px;
-    margin-bottom: 10px;
+  color: $primary-icon-color;
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .hr-with-text::before,
 .hr-with-text::after {
-    content: '';
-    width: 20px;
-    flex: 1;
-    border-bottom: 1px solid $primary-icon-color;
-    margin: 0 3px 8px 3px;
-    opacity: 0.6;
+  content: '';
+  width: 20px;
+  flex: 1;
+  border-bottom: 1px solid $primary-icon-color;
+  margin: 0 3px 8px 3px;
+  opacity: 0.6;
 }
 
 #forgot-btn {
-    padding-right: 0;
+  padding-right: 0;
 }
-
-.icon-box {
-    padding: 15px;
-    // border: 1px solid #FDFDFD;  
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    margin-right: -2px;
-    &.form-field-icon {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        color: $primary-icon-color;
-        background-color: #70739D0D;
-        max-height: 35px;
-    }
-    &.google-icon {
-        color: $secondary-elements-color;
-        background-color: #de5246;
-    }
-    &.fb-icon {
-        color: $secondary-elements-color;
-        background-color: #29487D;
-    }
+#register-button {
+  width: 500px;
+  height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Cairo', sans-serif;
+  color: $white-color;
+  letter-spacing: 0;
+  background: $primary-color 0% 0% no-repeat padding-box;
+  box-shadow: 0px 5px 10px #00000029;
+  opacity: 1;
+  border-radius: 10px;
+}
+#register-button-google {
+  color: var(--convs-mgr-color-primary-white);
+  background-color: $googleBtn-color;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: 'Cairo', sans-serif;
+  color: $white-color;
+  letter-spacing: 0;
+  box-shadow: 0px 5px 10px #00000029;
+  opacity: 1;
+  width: 500px;
+  height: 50px;
+  border-radius: 10px;
+  .fa-google {
+    font-size: 25px;
+    left: -5rem;
+    position: relative;
+  }
 }
 
 .special-input {
-    min-height: 40px;
+  min-height: 40px;
 }
 
 input {
-    background-color: $secondary-elements-color;
-    border: none;
-    width: 100%!important;
+  border: 2px solid $secondary-elements-color;
+  border: none;
+  width: 100%;
 }
 
-#register-button {
-    width: 100%;
-    background-color: $primary-color;
-    font-size: 12px;
-    height: 30px;
+#login-button {
+  width: 500px;
+  height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Cairo', sans-serif;
+  color: $white-color;
+  letter-spacing: 0;
+  background: $primary-color 0% 0% no-repeat padding-box;
+  box-shadow: 0px 5px 10px #00000029;
+  opacity: 1;
+  border-radius: 10px;
 }
 
 .form-body {
-    align-self: center;
-    width: 80%;
+  align-self: center;
+  width: 100%;
+}
+.spinner {
+    float: right;
+    padding-left: 10px;
+    padding-top: 5px;
 }

@@ -11,7 +11,7 @@
 <ng-template #showLogin>
     <div class="auth-page" fxLayout="row" fxLayoutAlign="center none space-evenly">
         <div fxFlexLayout="column" class="auth-card">
-            <div fxFlex fxLayout="column" fxLayoutAlign="center none" class="actual-form">
+            <div fxFlex fxLayout="column" fxLayoutAlign="start" class="actual-form">
                 <div class="tiny-logo" fxLayoutAlign="center">
                     <img style="max-width: 100px;" src="assets/images/elewa-logo.png/" />
                     <div fxLayout="row" fxLayoutAlign="end center">
@@ -24,9 +24,9 @@
                 </div>
 
                 <div class="button-area">
-                    <div mat-raised-button fxLayout=" row " fxLayoutAlign="space-evenly none ">
+                    <div mat-raised-button fxLayout=" row " fxLayoutAlign="space-evenly none" Class="white-hr">
                         <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''">{{'LOGIN.LOGIN'| transloco}}</button>
-                        <button (click)="toggleMode() " [ngClass]="!isLogin ? 'login-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
+                        <button (click)="toggleMode() " [ngClass]="!isLogin ? 'signup-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
                     </div>
                 </div>
 
