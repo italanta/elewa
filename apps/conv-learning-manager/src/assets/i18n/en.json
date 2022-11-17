@@ -70,17 +70,6 @@
     },
     "SIDE-MENU": {
       "DASHBOARD": "Dashboard",
-<<<<<<< HEAD
-      "LOG-OUT": "Logout"
-    }
-  },
-
-  "BOTS": {
-    "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copy",
-        "DELETE": "Delete"
-=======
       "ANALYTICS": "Analytics",
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Logout",
@@ -107,7 +96,6 @@
             "PROGRESS-ANALYSIS": "Progress Analysis"
           }
         }
->>>>>>> main
       }
     }
   },

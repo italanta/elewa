@@ -94,7 +94,9 @@ export class StoryEditorFrame {
     this.blocksArray = this._fb.array([]);
 
     // Init frame
-    for (const block of this._blocks) {
+    const activeBlocks = this._blocks.filter((block) => !block.deleted);
+
+    for (const block of activeBlocks) {
       this._injectBlockToFrame(block);
       this._cnt++;
     }

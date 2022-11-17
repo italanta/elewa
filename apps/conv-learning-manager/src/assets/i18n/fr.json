@@ -70,16 +70,6 @@
     },
     "SIDE-MENU": {
       "DASHBOARD": "Tableau de bord",
-<<<<<<< HEAD
-      "LOG-OUT": "Se déconnecter"
-    }
-  },
-  "BOTS": {
-    "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copie",
-        "DELETE": "Effacer"
-=======
       "ANALYTICS": "Analytique",
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
@@ -106,7 +96,6 @@
             "PROGRESS ANALYSIS": "Analyse des progrès"
           }
         }
->>>>>>> main
       }
     }
   },
