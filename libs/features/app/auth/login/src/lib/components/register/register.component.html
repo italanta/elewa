@@ -57,12 +57,13 @@
 
             <button class="uppercase-txt" id="register-button" mat-raised-button color="accent" type="submit"
                 [disabled]="formIsInvalid()">
-                <span *ngIf="!isLoading">  {{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
+                <span *ngIf="!isLoading">{{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
                 </span>
                 <span *ngIf="isLoading">{{ 'LOGIN.LOGIN-FORM.FLD-WAIT-LOGIN' | transloco }}</span>
-                <ng-template #spinner></ng-template>
-                <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
-                </app-spinner>
+                <span id="spinner">
+                    <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
+                    </app-spinner>
+                </span>
             </button>
         </div>
         <br>

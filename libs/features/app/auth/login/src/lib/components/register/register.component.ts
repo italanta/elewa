@@ -19,7 +19,7 @@ export class RegisterComponent
   confirmPassword: string;
   phoneFormat: string;
   lang : 'fr' | 'en' | 'nl';
-  isLoading = false;
+  isLoading: boolean;
   isValid: boolean;
 
   constructor(private _fb: FormBuilder,

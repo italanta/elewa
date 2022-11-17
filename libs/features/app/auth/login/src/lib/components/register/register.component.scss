@@ -111,8 +111,11 @@ input {
   align-self: center;
   width: 100%;
 }
-.spinner {
-    float: right;
-    padding-left: 10px;
+#spinner{
+  float: right;
+  app-spinner{
+    color: var(--convs-mgr-color-primary-white);
     padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }
