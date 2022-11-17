@@ -120,9 +120,12 @@ input {
   align-self: center;
   width: 100%;
 }
-.spinner{
+#spinner{
   float: right;
-  padding-left: 10px;
-  padding-top: 5px;
-  color: var(--convs-mgr-color-primary-white);
+
+  app-spinner{
+    color: var(--convs-mgr-color-primary-white);
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }

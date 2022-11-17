@@ -25,9 +25,10 @@
                 <span *ngIf="!isLoading">{{ 'LOGIN.LOGIN-FORM.FLD-REMEMBER-ME' | transloco }}
                 </span>
                 <span *ngIf="isLoading">{{ 'LOGIN.LOGIN-FORM.FLD-WAIT-LOGIN' | transloco }}</span>
-                <ng-template #spinner></ng-template>
-                <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
-                </app-spinner>
+                <span id="spinner">
+                    <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
+                    </app-spinner>
+                </span>
             </button>
         </div>
         <br>
