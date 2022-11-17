@@ -1,12 +1,16 @@
 $primary-icon-color: #919698;
-$primary-color: #ffc200;
+$primary-color: #ffa800;
 $secondary-elements-color: white;
 .uppercase-txt {
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 #googleBtn {
-    background-color: #de5246;
+    width: 400px;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f0443d ;
     color: $secondary-elements-color;
 }
 
@@ -63,7 +67,7 @@ $secondary-elements-color: white;
     }
     &.google-icon {
         color: $secondary-elements-color;
-        background-color: #de5246;
+        background-color: #f0443d ;
     }
     &.fb-icon {
         color: $secondary-elements-color;
@@ -82,13 +86,21 @@ input {
 }
 
 #register-button {
-    width: 100%;
+    // Create accountidth: 100%;
     background-color: $primary-color;
-    font-size: 12px;
-    height: 30px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    width: 400px;
+    padding: 8px;
+    border-radius: 15px;
 }
 
 .form-body {
     align-self: center;
     width: 80%;
+}
+label{
+    font-weight: 600;
+    font-size: 18px;
 }

@@ -21,7 +21,7 @@ export class AuthPageComponent implements OnInit, OnDestroy
   private _userSubscr : Subscription;
 
   constructor(userService: UserStore,
-               private _translateService: TranslateService,
+              private _translateService: TranslateService,
               private _router: Router)
   {
     this.user$ = userService.getUser();

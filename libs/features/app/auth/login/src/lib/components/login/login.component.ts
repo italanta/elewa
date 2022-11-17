@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit
               private _analytics: EventLogger)
   {  }
 
-  ngOnInit()
-  {
+  ngOnInit() {
+    
   }
 
   validateLoginCred = () => this.email && this.password;

@@ -22,6 +22,12 @@ export class RegisterComponent
   isLoading = false;
   isValid: boolean;
 
+
+  setSaving(element: any, text:any) {
+    element.textContent = text;
+    element.disabled = true;
+  }
+
   constructor(private _fb: FormBuilder,
               private _translateService: TranslateService,
               private _authService: AuthService,

@@ -7,7 +7,7 @@
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "or",
-    "CREATE-ACCOUNT": "Create account",
+    "CREATE-ACCOUNT": "Sign Up",
     "LOGIN-FORM": {
       "FLD-EMAIL": "Enter email",
       "FLD-EMAIL-ERR": "Please provide a valid email address",
@@ -17,15 +17,15 @@
     },
     "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
-      "FLD-FNAME": "First name",
-      "FLD-LNAME": "Last name",
+      "FLD-FNAME": "First Name",
+      "FLD-LNAME": "Last Name",
       "FLD-NAME-REQ": "Name is required",
       "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Password",
       "FLD-CONF-PASSWD": "Confirm password",
       "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
-      "SUBMIT": "Create account"
+      "SUBMIT": "Create Account"
     },
     "TOS": {
       "P1": "By registering I agree to",
@@ -33,13 +33,13 @@
       "P3": "and",
       "P4-LINK": "the privacy policy"
     },
-    "BTN-WITH-GOOGLE": "With Google",
+    "BTN-WITH-GOOGLE": "Sign Up With Google",
     "BTN-WITH-MICROSOFT": "With Microsoft",
     "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
-      "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "https://elewa.education"
+      "TITLE": "World's first LMS designed for conversational learning.",
+      "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "LEARN-MORE": "Learn about the project on",
+      "LEARN-MORE-LINK": "https://github.com/italanta/elewa"
     }
   },
   "PAGE-CONTENT": {

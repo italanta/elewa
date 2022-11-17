@@ -1,4 +1,4 @@
-$primary-icon-color: #919698;
+$primary-icon-color: #fffefd ;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
 #ele-logo-sub {
@@ -25,12 +25,12 @@ $secondary-elements-color: white;
 }
 
 .elewa-info {
-    text-align: center;
+    // text-align: center;
     color: $primary-icon-color;
     padding: 20px;
     font-weight: 400;
     background: $primary-color;
-    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgba(172, 63, 179, 1) 100%);
+    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgb(190,125,177) 100%);
     @media screen and (max-width: 768px) {
         display: none;
     }
@@ -99,15 +99,32 @@ button {
     border-bottom: 3px solid $primary-color;
     border-width: 50%;
 }
+.register-button {
+    border-bottom: 3px solid $primary-color;
+    border-width: 50%;
+    font-weight: bold;
+}
 
 .title {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
+    
+
 }
 
 .description {
+    text-align: justify;
     font-size: 20px;
-    font-weight: 6;
+    font-weight: bold;
     line-height: 2;
+    margin-bottom: 20px;
+}
+p.hyperlink{
+    color: white;
+    font-weight: bold !important;
+    font-size: 20px !important;
+}
+a{
+    color: #8b27b8;
 }
