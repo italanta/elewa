@@ -6,7 +6,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Logger } from '@iote/bricks-angular';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -48,7 +48,6 @@ export class BlockComponent implements OnInit {
   blockFormGroup: FormGroup;
 
   constructor(
-    private _blocks$$: StoryBlocksStore,
     private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger) { }
@@ -142,8 +141,8 @@ export class BlockComponent implements OnInit {
  
 
   deleteBlock()  {
-    //this.block.deleted = true;
-    //this.blockFormGroup.value.deleted = true;
+    this.block.deleted = true;
+    this.blockFormGroup.value.deleted = true;
   }
  }
 
