@@ -9,29 +9,30 @@
         </h2>
       </div>
 
-<div>
-  <button mat-icon-button [matMenuTriggerFor]="menu" $event.stopPropagation()>
-    <i class="fas fa-ellipsis-v"></i>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item class="bot-menu-item" (click)="openEditDialog()">
-          <span>Edit</span>
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" $event.stopPropagation()>
+          <i class="fas fa-ellipsis-v"></i>
         </button>
-        <hr class="bot-menu-item-separator" />
-        <button mat-menu-item class="bot-menu-item" (click)="openDeleteDialog()">
-          <span>Delete</span>
-        </button>
-      </mat-menu>
-    </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item class="bot-menu-item" (click)="openEditDialog()">
+            <span>Edit</span>
 
-    <mat-card-content>
-      <p>
-        {{story.description}}
-      </p>
-    </mat-card-content>
-    <div class="action-holder">
-      <button mat-raised-button (click)="goTo()">
-        {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
-      </button>
-    </div>
+          </button>
+          <hr class="bot-menu-item-separator" />
+          <button mat-menu-item class="bot-menu-item" (click)="openDeleteDialog()">
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </div>
+
+      <mat-card-content>
+        <p>
+          {{story.description}}
+        </p>
+      </mat-card-content>
+      <div class="action-holder">
+        <button mat-raised-button (click)="goTo()">
+          {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
+        </button>
+      </div>
 </div>
