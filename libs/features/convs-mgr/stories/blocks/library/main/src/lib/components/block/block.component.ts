@@ -141,8 +141,8 @@ export class BlockComponent implements OnInit {
  
 
   deleteBlock()  {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
+    //this.block.deleted = true;
+    //this.blockFormGroup.value.deleted = true;
   }
  }
 
