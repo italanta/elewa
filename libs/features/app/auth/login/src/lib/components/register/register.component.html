@@ -52,29 +52,17 @@
             </mat-form-field>
         </div>
 
-        <!-- <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-            <mat-checkbox id="terms-input" data-intercom-tooltip="Terms Input" formControlName="acceptConditions"
-                class="small-txt">
-            </mat-checkbox>
-            <div class="small-txt">
-                {{ "LOGIN.TOS.P1" | transloco }}
-                <a href="{{ getTermsLink() }}" target="_blank">{{ "LOGIN.TOS.P2-LINK" | transloco}}</a> {{
-                "LOGIN.TOS.P3" | transloco}}
-                <a href="{{ getPolicyLink() }}" target="_blank">{{ "LOGIN.TOS.P4-LINK" | transloco}}</a>.
-            </div>
-
-        </div> -->
         <br>
         <div fxLayoutAlign="center none">
 
             <button class="uppercase-txt" id="register-button" mat-raised-button color="accent" type="submit"
                 [disabled]="formIsInvalid()">
-                {{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
-                <div *ngIf="isLoading">
-                    <app-spinner  [diameter]="25" class="spinner">
-                        {{ 'LOGIN.LOGIN-FORM.FLD-WAIT-LOGIN' | transloco }}
-                    </app-spinner>
-                </div>
+                <span *ngIf="!isLoading">  {{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
+                </span>
+                <span *ngIf="isLoading">{{ 'LOGIN.LOGIN-FORM.FLD-WAIT-LOGIN' | transloco }}</span>
+                <ng-template #spinner></ng-template>
+                <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
+                </app-spinner>
             </button>
         </div>
         <br>

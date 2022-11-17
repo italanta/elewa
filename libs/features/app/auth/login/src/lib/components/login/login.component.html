@@ -20,16 +20,14 @@
 
         <br>
         <div fxLayoutAlign="space-between center">
-            <ng-template></ng-template>
             <button class="uppercase-txt" id="login-button" mat-raised-button (click)="loginUser()"
                 [disabled]="isLoading" [disabled]="!validateLoginCred()">
-                {{ 'LOGIN.LOGIN-FORM.FLD-REMEMBER-ME' | transloco }}
-
-                <!-- <div class="myspinner"> -->
-                     <!-- {{ 'LOGIN.LOGIN-FORM.FLD-WAIT-LOGIN' | transloco }} -->
-                    <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
-                    </app-spinner>
-                <!-- </div> -->
+                <span *ngIf="!isLoading">{{ 'LOGIN.LOGIN-FORM.FLD-REMEMBER-ME' | transloco }}
+                </span>
+                <span *ngIf="isLoading">{{ 'LOGIN.LOGIN-FORM.FLD-WAIT-LOGIN' | transloco }}</span>
+                <ng-template #spinner></ng-template>
+                <app-spinner [diameter]=" 25" class="spinner" *ngIf="isLoading">
+                </app-spinner>
             </button>
         </div>
         <br>
