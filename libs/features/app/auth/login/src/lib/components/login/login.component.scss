@@ -34,23 +34,6 @@ html {
   font-size: 14px;
 }
 
-// .hr-with-text {
-//   color: var(--convs-mgr-color-primary-yellow);
-//   opacity: 0.8;
-//   font-size: 14px;
-//   margin-bottom: 10px;
-// }
-
-// .hr-with-text::before,
-// .hr-with-text::after {
-//   content: '';
-//   width: 20px;
-//   flex: 1;
-//   border-bottom: 1px solid var(--convs-mgr-color-primary-yellow);
-//   margin: 0 3px 8px 3px;
-//   opacity: 0.6;
-// }
-
 #forgot-btn {
   padding-right: 0;
   border: none;
@@ -59,21 +42,6 @@ html {
     font-weight: bold;
   }
 }
-
-// .icon-box {
-//   padding: 15px;
-//   border-radius: 15px;
-//   border-top-left-radius: 8px;
-//   border-bottom-left-radius: 8px;
-//   margin-right: -2px;
-//   &.form-field-icon {
-//     padding-top: 10px;
-//     padding-bottom: 10px;
-//     color: $primary-icon-color;
-//     background-color: #70739d0d;
-//     max-height: 35px;
-//   }
-// }
 #signup-button {
   color: var(--convs-mgr-color-primary-white);
   background-color: $googleBtn-color;
