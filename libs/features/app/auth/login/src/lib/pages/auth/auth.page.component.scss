@@ -6,8 +6,9 @@ $secondary-elements-color: white;
 }
 
 .auth-page {
-    text-align: left;
-    top: 67px;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: $secondary-elements-color;
 font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-8)/var(--unnamed-line-spacing-2) var(--unnamed-font-family-cairo);
 letter-spacing: var(--unnamed-character-spacing-0);
 color: var(--black);
@@ -18,27 +19,20 @@ color: var(--black);
 
 .form {
     padding: 30px;
-    left: -10rem;
-
-
 }
 
 .auth-card {
     font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-8)/var(--unnamed-line-spacing-2) var(--unnamed-font-family-cairo);
-// letter-spacing: var(--unnamed-character-spacing-0);
-// color: var(--black);
-// text-align: left;
-// font: normal normal bold;
-// letter-spacing: 0px;
-// color: #202020;
-//     max-width: 100%;
-//     min-height: 100%;
-//     border-radius: 8px;
-//     background: $secondary-elements-color;
-//     // box-shadow: 0px 3px 6px #70739D0B;
-//     border: 1px solid $secondary-elements-color;
-    min-width: 100%;
-    min-height: 100vh;
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--black);
+    text-align: left;
+    letter-spacing: 0px;
+    color: #202020;
+    max-width: 100%;
+    min-height: 100%;
+    border-radius: 8px;
+    background: $secondary-elements-color;
+    border: 1px solid $secondary-elements-color;
 }
 
 .elewa-info {
@@ -46,43 +40,38 @@ color: var(--black);
     color: $secondary-elements-color;
     padding: 50px;
     font-weight: 400;
-     background: var(--convs-mgr-color-primary-yellow);
+    background: var(--convs-mgr-color-primary-yellow);
     background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9F74D5 100%);
     min-height: 100vh;
 }
 
-.logo {
+.logoImg {
     width: 200px;
-    height: auto;
-    object-fit: contain;
+    padding: 20px;
 }
 
+.maison {
+    width: 350px;
+    height: auto;
+    margin-left: 150px;
+    margin-bottom: -150px;
+}
 
 .button-area {
-    background-color: $secondary-elements-color;
     @media screen and (max-width: 768px) {
         border-bottom-right-radius: 8px;
         max-width: 100%;
     }
-    @media screen and (max-width: 320px) {
+    @media screen and (max-width: 220px) {
         border-bottom-right-radius: 8px;
     }
 }
-
-
-
-// .bottom-content {
-//     color: $secondary-elements-color;
-//     font-size: 18px;
-//     text-transform: uppercase;
-// }
 
 .actual-form {
     align-self: center;
     @media screen and (max-width: 768px) {
         max-width: 100% !important;
     }
-    ;
 }
 
 .tiny-logo {
@@ -102,12 +91,39 @@ button {
     border: none;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
-    font-size: 20px;
-    font-weight: 5;
+    font-size: 25px;
+    font-weight: 200px;
+    object-fit: contain;
+}
+
+.button-area {
+    background-color: $secondary-elements-color;
+    text-align: center;
+    align-self: center;
+    width: 40%;
+    cursor: pointer;
+    @media screen and (max-width: 768px) {
+        border-bottom-right-radius: 8px;
+        max-width: 100%;
+    }
+    @media screen and (max-width: 320px) {
+        border-bottom-right-radius: 8px;
+    }
+}
+
+.bottom-content {
+    color: $secondary-elements-color;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.login-form {
+    min-height: 100vh;
 }
 
 .login-button {
-    
+    align-items: flex-start;
+    margin-left: 0%;
     border-bottom: 3px solid $primary-color;
     border-width: 50%;
 }
@@ -134,6 +150,11 @@ button {
     width: 180px;
     height: 97px;
     object-fit: contain;
+}
+
+.hyperlink {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .tab-groups {
@@ -172,6 +193,3 @@ button {
     justify-content: center;
 }
 
-#lang-selector {
-    width: 30%;
-}

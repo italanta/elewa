@@ -9,24 +9,24 @@
 </div>
 
 <ng-template #showLogin>
-    <div class="auth-page" fxLayout="row">
+    <div class="auth-page" fxLayout="row" >
         <div class="auth-card" fxLayout="row" fxLayoutAlign="start start" fxFlex="100">
-            <div fxFlex fxLayout="column" fxLayoutAlign="center none" class="actual-form">
+            <!-- <div fxFlex fxLayout="column" fxLayoutAlign="center none" class="actual-form"> -->
                <div class="login-form" fxLayout="column" fxLayoutAlign="space-evenly center" fxFlex>
-                <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div  fxLayout="column" fxLayoutAlign="space-between start" >
                 <div class="tiny-logo" fxLayout="column" fxLayoutAlign="start">
                     <img class="image" src="assets/images/elewa-logo.png/" />
                 </div>
-                        </div>
-                        </div>
-
-                <div class="button-are" fxLayoutAlign="center">
-                    <div mat-raised-button fxLayout="row " fxLayoutAlign="space-evenly none ">
+                       
+                <div fxLayout="column" fxLayoutAlign="space-between start" >
+                    <div mat-raised-button >
                         <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''">{{'LOGIN.LOGIN'| transloco}}</button>
                         <button (click)="toggleMode() " [ngClass]="!isLogin ? 'login-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
                     </div>
                 </div>
-                
+                </div>
+                <!-- </div> -->
+                              
                 <div class="form " fxLayout="row " fxLayoutGap="2 " fxLayoutAlign="center center ">
 
                     <span *ngIf="isLogin "> 
@@ -37,7 +37,6 @@
                         <app-register></app-register>
                       </span>
 
-                    <!-- <router-outlet fxFlex="100 "></router-outlet> -->
 
                 </div>
                 
@@ -56,3 +55,4 @@
 
     </div>
 </ng-template>
+

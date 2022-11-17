@@ -55,15 +55,20 @@
             </button>
         </div>
         <div fxLayout="row" fxLayoutAlign="start stretch">
-            <!-- <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
-                <i class="fab fa-google"></i>
-            </div> -->
-
-            <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginUser()" fxFlex>
-        PROCEED
+        <button mat-raised-button id="loginBtn" class="uppercase-txt" (click)="loginUser()" fxFlex>
+        {{ 'LOGIN.LOGIN-FORM.FLD-PROCEED' | transloco }}
           </button>
 
         </div>
+        <div fxLayout="row" fxLayoutAlign="start stretch">
+            <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
+                        <i class="fab fa-google"></i>
+                    </div>
+            <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
+                {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}</button>
+        </div>
+
+
         <div fxLayout="row" fxLayoutAlign="start" class="forgot-btn">
             <div>
                 <!-- <mat-checkbox [checked]="true" class="small-txt">{{ "LOGIN.LOGIN-FORM.FLD-REMEMBER-ME" | transloco }}</mat-checkbox> -->

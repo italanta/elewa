@@ -12,8 +12,7 @@
       "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Password",
-      "FLD-REMEMBER-ME": "Proceed",
-      "PROCEED": "Proceed",
+      "FLD-PROCEED": "Proceed",
       "FLD-WAIT": "Please Wait",
       "SUBMIT": "Login"
     },

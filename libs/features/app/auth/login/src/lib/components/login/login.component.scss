@@ -5,12 +5,24 @@ $secondary-elements-color: white;
     font-size: larger;
 }
 
-#googleBtn {
-    background-color: $primary-color;
+#loginBtn {
+    background-color: rgba(255, 177, 0, 1);
     color: $secondary-elements-color;
-    border-radius: 25px;
     width: 300px;
     height: 50px;
+    font-weight: 500;
+}
+
+#googleBtn {
+    background-color: #de5246;
+    color: $secondary-elements-color;
+    width: 300px;
+    height: 50px;
+    font-weight: 500;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
@@ -41,6 +53,8 @@ $secondary-elements-color: white;
 #forgot-btn {
     padding-left: 0;
     color: purple;
+    font-weight: 600;
+
 }
 
 .icon-box {
@@ -69,12 +83,6 @@ $secondary-elements-color: white;
     min-height: 70px;
     font-size: 18px;
     margin: 10px;
-}
-
-input {
-  border: 2px solid $secondary-elements-color;
-  border: none;
-  width: 100%;
 }
 
 #login-button {
