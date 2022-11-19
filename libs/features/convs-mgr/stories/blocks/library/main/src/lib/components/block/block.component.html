@@ -11,7 +11,7 @@
         <mat-icon>assignment</mat-icon>
         <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
       </button>
-            <button mat-menu-item>
+            <button (click)="deleteBlock()" mat-menu-item>
         <mat-icon>delete</mat-icon>
         <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
       </button>
