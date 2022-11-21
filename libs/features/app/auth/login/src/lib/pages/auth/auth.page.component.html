@@ -18,7 +18,7 @@
                     <img class="image" src="assets/images/elewa-logo.png/" />
                 </div>
                        
-                <div fxLayout="column" fxLayoutAlign="start" >
+                <div class="button-area" fxLayout="column" fxLayoutAlign="start" >
                     <div mat-raised-button >
                         <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''">{{'LOGIN.LOGIN'| transloco}}</button>
                         <button (click)="toggleMode() " [ngClass]="!isLogin ? 'login-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
@@ -37,6 +37,7 @@
                         <app-register></app-register>
                       </span>
 
+                    <!-- <router-outlet fxFlex="100 "></router-outlet> -->
 
                 </div>
                 
