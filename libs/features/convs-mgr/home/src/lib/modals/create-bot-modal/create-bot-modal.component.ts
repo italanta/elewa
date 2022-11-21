@@ -14,7 +14,8 @@ export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
   fileName: any;
   block: StoryBlock;
-  uploadProgress: '';
+  uploadProgress = false;
+
   constructor(
     private _addStory$: NewStoryService,
     private _formBuilder: FormBuilder,
@@ -33,17 +34,18 @@ export class CreateBotModalComponent implements OnInit {
   ngOnInit(): void {
     this.createFormGroup();
   }
+
   onChange(event: any) {
     const file:File = event.target.files[0];
-
     if (file){
+      this.uploadProgress = true;
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("thumbnail", file);
-      const upload$ = this.http.post("/api/thumbnail-upload", formData);
+      const upload$ = this.http.post("api/thumbnail-upload", formData);
       upload$.subscribe();
-      
     }
+
   }
 
   fileUpload() {
