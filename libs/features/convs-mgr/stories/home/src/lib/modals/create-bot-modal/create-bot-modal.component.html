@@ -11,6 +11,9 @@
   <h4 class="create-bot-name">
     {{ 'BOTS.FIELDS.NAME' | transloco }}
   </h4>
+  <div>
+    <input type="file" accept="img/*"  (change)="imageChanged($event)">
+  </div>
   <input type="text" formControlName="botName"
     [placeholder]="'BOTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco" />
   <h4>{{ 'BOTS.CREATE-MODAL.FIELDS.DESC' | transloco }}</h4>
