@@ -2,7 +2,7 @@ $primary-icon-color: #919698;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
 .uppercase-txt {
-    font-size: larger;
+    text-transform: uppercase;
 }
 
 #loginBtn {
@@ -34,7 +34,7 @@ $secondary-elements-color: white;
 }
 
 .hr-with-text {
-    color: var(--convs-mgr-color-primary-yellow);
+    color: $primary-icon-color;
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 10px;
@@ -49,7 +49,6 @@ $secondary-elements-color: white;
     margin: 0 3px 8px 3px;
     opacity: 0.6;
 }
-
 #forgot-btn {
     padding-left: 0;
     color: purple;
@@ -72,11 +71,12 @@ $secondary-elements-color: white;
     &.google-icon {
         color: $secondary-elements-color;
         background-color: #de5246;
+        border: none;
     }
-    &.fb-icon {
-        color: $secondary-elements-color;
-        background-color: #29487D;
-    }
+    // &.fb-icon {
+    //     color: $secondary-elements-color;
+    //     background-color: #29487D;
+    // }
 }
 
 .special-input {
@@ -88,19 +88,19 @@ $secondary-elements-color: white;
 #login-button {
     width: 100%;
     background-color: $primary-color;
-    font-size: 12px;
+    font-size: 22px;
     height: 30px; 
 }
 
-#login-button:hover {
-    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
-}
+// #login-button:hover {
+//     box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+// }
 
-.login-title {
-    font-family: var(--kujali-segoe-ui-bold);
-    color: var(--convs-mgr-color-primary-black);
-    font-size: 2rem;
-}
+// .login-title {
+//     font-family: var(--kujali-segoe-ui-bold);
+//     color: var(--convs-mgr-color-primary-black);
+//     font-size: 2rem;
+// }
 
 .form-body {
     align-self: center;
@@ -108,16 +108,16 @@ $secondary-elements-color: white;
     padding-top: 25px;
 }
 
-.form-label {
-    font-weight: 600;
-    font-size: large;
-    margin-bottom: 10px;
-    color: var(--convs-mgr-color-primary-black);
-}
+// .form-label {
+//     font-weight: 600;
+//     font-size: large;
+//     margin-bottom: 10px;
+//     color: var(--convs-mgr-color-primary-black);
+// }
 
-.spinner {
-    float: right;
-    padding-left: 10px;
-    padding-top: 5px;
-}
+// .spinner {
+//     float: right;
+//     padding-left: 10px;
+//     padding-top: 5px;
+// }
 

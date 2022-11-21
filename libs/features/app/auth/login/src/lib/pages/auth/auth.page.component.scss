@@ -6,15 +6,9 @@ $secondary-elements-color: white;
 }
 
 .auth-page {
+    background-color: $secondary-elements-color;
     min-width: 100%;
     min-height: 100%;
-    background-color: $secondary-elements-color;
-font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-8)/var(--unnamed-line-spacing-2) var(--unnamed-font-family-cairo);
-letter-spacing: var(--unnamed-character-spacing-0);
-color: var(--black);
-    min-width: 100%;
-    min-height: 100%;
-    background-color: $secondary-elements-color;
 }
 
 .form {
@@ -22,17 +16,11 @@ color: var(--black);
 }
 
 .auth-card {
-    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-bold) var(--unnamed-font-size-8)/var(--unnamed-line-spacing-2) var(--unnamed-font-family-cairo);
-    letter-spacing: var(--unnamed-character-spacing-0);
-    color: var(--black);
-    text-align: left;
-    letter-spacing: 0px;
-    color: #202020;
-    max-width: 100%;
-    min-height: 100%;
     border-radius: 8px;
     background: $secondary-elements-color;
     border: 1px solid $secondary-elements-color;
+    max-width: 100%;
+    min-height: 100%;
 }
 
 .elewa-info {
@@ -47,7 +35,12 @@ color: var(--black);
 
 .logoImg {
     width: 200px;
-    padding: 20px;
+}
+
+.actual-form {
+    @media screen and (max-width: 768px) {
+        max-width: 100% !important;
+    }
 }
 
 .maison {
@@ -55,29 +48,11 @@ color: var(--black);
     height: auto;
     margin-left: 150px;
     margin-bottom: -150px;
-}
-
-.button-area {
-    @media screen and (max-width: 768px) {
-        border-bottom-right-radius: 8px;
-        max-width: 100%;
-    }
-    @media screen and (max-width: 220px) {
-        border-bottom-right-radius: 8px;
-    }
-}
-
-.actual-form {
-    align-self: center;
-    @media screen and (max-width: 768px) {
-        max-width: 100% !important;
-    }
-}
+} 
 
 .tiny-logo {
     margin-bottom: 30px;
-    left: -3rem;
-    position: relative;
+    margin-left: -15%;
     
     @media screen and (max-width: 768px) {
         display: flex !important;
@@ -92,16 +67,16 @@ button {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     font-size: 25px;
-    font-weight: 200px;
-    object-fit: contain;
+    font-weight: 5;
+
 }
 
 .button-area {
     background-color: $secondary-elements-color;
+    cursor: pointer;
     text-align: center;
     align-self: center;
     width: 40%;
-    cursor: pointer;
     @media screen and (max-width: 768px) {
         border-bottom-right-radius: 8px;
         max-width: 100%;
@@ -118,26 +93,21 @@ button {
 }
 
 .login-form {
-    min-height: 100vh;
+    min-height: 80vh;
+    padding-top: 10%;
 }
 
 .login-button {
-    align-items: flex-start;
-    margin-left: 0%;
+    margin-left: -40%;
     border-bottom: 3px solid $primary-color;
     border-width: 50%;
+    font-weight: 500;
 }
 
 .title {
     font-size: 30px;
     font-weight: bold;
     margin-bottom: 20px;
-}
-
-.sub-title {
-    color: white;
-    font-family: var(--kujali-segoe-ui);
-    
 }
 
 .description {
@@ -152,10 +122,6 @@ button {
     object-fit: contain;
 }
 
-.hyperlink {
-    font-size: 20px;
-    font-weight: bold;
-}
 
 .tab-groups {
     max-width: 45%;

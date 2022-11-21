@@ -13,18 +13,18 @@
         <div class="auth-card" fxLayout="row" fxLayoutAlign="start start" fxFlex="100">
             <!-- <div fxFlex fxLayout="column" fxLayoutAlign="center none" class="actual-form"> -->
                <div class="login-form" fxLayout="column" fxLayoutAlign="space-evenly center" fxFlex>
-                <div  fxLayout="column" fxLayoutAlign="space-between start" >
+                <!-- <div  fxLayout="column" fxLayoutAlign="space-between start" > -->
                 <div class="tiny-logo" fxLayout="column" fxLayoutAlign="start">
                     <img class="image" src="assets/images/elewa-logo.png/" />
                 </div>
                        
-                <div fxLayout="column" fxLayoutAlign="space-between start" >
+                <div fxLayout="column" fxLayoutAlign="start" >
                     <div mat-raised-button >
                         <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''">{{'LOGIN.LOGIN'| transloco}}</button>
                         <button (click)="toggleMode() " [ngClass]="!isLogin ? 'login-button' : ''">{{'LOGIN.CREATE-ACCOUNT'| transloco}}</button>
                     </div>
                 </div>
-                </div>
+                <!-- </div> -->
                 <!-- </div> -->
                               
                 <div class="form " fxLayout="row " fxLayoutGap="2 " fxLayoutAlign="center center ">
