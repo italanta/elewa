@@ -68,10 +68,4 @@ export class AuthPageComponent implements OnInit, OnDestroy
       this._router.navigate(['/auth/login']);
     }
   }
-
-  // setLang(lang: 'en' | 'fr')
-  // {
-  //   this._translateService.setLang(lang);
-  // }
-
 }
