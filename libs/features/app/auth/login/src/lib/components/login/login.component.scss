@@ -10,7 +10,8 @@ $secondary-elements-color: white;
     color: $secondary-elements-color;
     width: 300px;
     height: 50px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: large;
 }
 
 #googleBtn {
@@ -18,7 +19,8 @@ $secondary-elements-color: white;
     color: $secondary-elements-color;
     width: 300px;
     height: 50px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: large;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
@@ -88,7 +90,7 @@ $secondary-elements-color: white;
 #login-button {
     width: 100%;
     background-color: $primary-color;
-    font-size: 22px;
+    font-size: 30px;
     height: 30px; 
 }
 
