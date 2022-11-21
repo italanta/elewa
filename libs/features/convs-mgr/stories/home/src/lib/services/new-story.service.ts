@@ -12,6 +12,8 @@ import { Story } from "@app/model/convs-mgr/stories/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
+import { FileStorageService } from "libs/state/file/store/src/lib/providers/file-storage.service";
+import { Organisation } from "@app/model/organisation";
 
 /** Service which can create new stories. */
 @Injectable()
@@ -19,6 +21,7 @@ export class NewStoryService implements OnDestroy
 {
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
+              private _fileStorageService$$: FileStorageService,
               private _router: Router,
               private _toast: ToastService,
               private _translate: TranslateService,
@@ -26,22 +29,38 @@ export class NewStoryService implements OnDestroy
   {}
   private _sbS = new SubSink();
 
-  add(name?: string, description?: string) {
-    // Generate default name if name not passed.
-    if(!name)
-      name = this.generateName();
+  async saveStoryWithImage(bot: Story, imageFile: File, imagePath: string) {
+    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+      if (org) {
+        await this.saveBot(bot, org.id!, imageFile, imagePath)
+      }
+    })
+  }
 
-    return this._getOrgId$()
-               .pipe(
-                switchMap((orgId) =>
-                  this._stories$$.add({ name: name as string, orgId, description } as Story)),
-                tap((s: Story) => {
-                  this._dialog.closeAll()
-                  this._router.navigate(['/stories', s.id])
-                }
-                ))
+  async saveImage(imageFile: File, imagePath: string) {
+    let savedImage = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
+    let url = await savedImage.getDownloadURL();
+    return url;
+  }
 
+  // add(bot: Story) {
+  //   return this._getOrgId$().pipe(
+  //               switchMap(async (orgId) => await this.saveBot(bot, orgId!)))
+  // }
 
+  async saveBot(bot: Story, orgId: string, storyImage?: File, storyImagePath?: string) {
+    bot.orgId = orgId!;
+
+    if (storyImagePath) {
+      bot.imageField = await this.saveImage(storyImage!, storyImagePath);
+
+      this._stories$$.add(bot).subscribe((story) => {
+        if (story) {
+          this._dialog.closeAll()
+          this._router.navigate(['/stories', story.id])
+        }
+      });
+    }
   }
 
   update(story: Story) {
