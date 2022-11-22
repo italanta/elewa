@@ -14,7 +14,13 @@ import { _CreateTextMessageBlockForm } from '../../model/message-block-form.mode
 import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
 import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
 import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
+import { _CreateAudioBlockForm } from '../../model/audio-block-form.model';
+import { _CreateVideoMessageBlockForm } from '../../model/video-block-form.model';
+import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
+import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
+import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
+
 
 /**
  * Block which sends a message from bot to user.
@@ -38,7 +44,12 @@ export class BlockComponent implements OnInit {
   phonetype = StoryBlockTypes.PhoneNumber;
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
+  audioType = StoryBlockTypes.Audio;
+  videoType= StoryBlockTypes.Video;
+  stickerType = StoryBlockTypes.Sticker;
+  listType= StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
+  replyType = StoryBlockTypes.Reply;
 
   blockFormGroup: FormGroup;
 
@@ -74,6 +85,7 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
+
       case StoryBlockTypes.QuestionBlock:
         this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
@@ -83,8 +95,32 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
+       
+      case StoryBlockTypes.List:
+        this.blockFormGroup = _CreateListBlockMessageForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+  
       case StoryBlockTypes.Document:
         this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case StoryBlockTypes.Audio:
+        this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+      case StoryBlockTypes.Video:
+        this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break
+       case StoryBlockTypes.Sticker:
+        this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case StoryBlockTypes.Reply:
+        this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 
@@ -134,3 +170,4 @@ export class BlockComponent implements OnInit {
     this.blockFormGroup.value.deleted = true;
   }
 }
+
