@@ -46,7 +46,7 @@ import { environment } from '../environments/environment';
     GooglePlaceModule,
 
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyAPKqFv5J-xmzTaoXkDj2VLKD17QhuvtRg',
+      apiKey:'ADD-YOUR-API-KEY',
       libraries: ["places"]
     }),
     
