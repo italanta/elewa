@@ -115,6 +115,8 @@
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
       "FIELDS": {
+        "IMAGE":"Bot Image",
+        "IMAGE-PLACEHOLDER": "Choose image",
         "NAME": "Name",
         "NAME-PLACEHOLDER": "Bot name",
         "DESC": "Description",
