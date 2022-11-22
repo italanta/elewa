@@ -62,6 +62,9 @@
       "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/list-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/list-message-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/location-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/location-message-block/src/index.ts"
       ],

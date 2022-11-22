@@ -1,0 +1,19 @@
+.option {
+    width: 100%
+}
+
+input {
+    width: 95%!important;
+    height: fit-content!important;
+    min-width: 95%!important;
+    min-height: fit-content!important;
+    text-align: center;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 3px;
+    caret-color: var(--convs-mgr-color-primary-white);
+    color: var(--convs-mgr-color-primary-white);
+    outline: none;
+    border: none;
+    background-color: var(--convs-mgr-color-primary-purple);
+}

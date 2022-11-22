@@ -5,7 +5,7 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { BlockComponent } from '../components/block/block.component';
 
-import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, NameMessageBlock, 
+import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, NameMessageBlock, ListMessageBlock,
   PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
@@ -18,6 +18,7 @@ import { _PhoneBlockDecoratePlumb } from './phonenumber-block.jsplumb';
 import { _AudioBlockDecoratePlumb } from './audio-block.jsplumb';
 import { _VideoBlockDecoratePlumb } from './video-block.jsplumb';
 import { _StickerBlockDecoratePlumb } from './sticker-block.jsplumb';
+import { _ListBlockDecoratePlumb } from './list-block.jsplumb';
 import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
 
 /**
@@ -62,6 +63,8 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
 
     case StoryBlockTypes.Sticker:
       return _StickerBlockDecoratePlumb(block as StickerMessageBlock, comp, jsPlumb);
+    case StoryBlockTypes.List:
+      return _ListBlockDecoratePlumb(block as ListMessageBlock, comp, jsPlumb);
       break;
     case StoryBlockTypes.Document:
         return _DocumentBlockDecoratePlumb(block as DocumentMessageBlock, comp, jsPlumb);
