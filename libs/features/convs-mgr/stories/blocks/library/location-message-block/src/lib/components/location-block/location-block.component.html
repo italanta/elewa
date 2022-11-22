@@ -1,10 +1,17 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=<AIzaSyAPKqFv5J-xmzTaoXkDj2VLKD17QhuvtRg>&libraries=places&language=en">
+</script>
+
 <mat-card [id]="id" *ngIf="locationMessageForm">
     <mat-card-title> {{'PAGE-CONTENT.BLOCK.TITLES.LOCATION'| transloco }} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <input [id]="locationInputId" matInput type="text" name="location" formControlName="location" id="location" placeholder="Enter your location" appearance="outline" />
-
+            <input matInput type="text" placeholder="Name" appearance="outline" id="location" name="locationName">
+            <input matInput type="text" placeholder="Address" appearance="outline" id="location" name="Address">
+            <!-- <input ngx-google-places-autocomplete matInput type="text" placeholder="Search Location" appearance="outline" (onAddressChange)="handleAddressChange($event)"> -->
+            <input type="text" #search/>
+            <!-- <input [id]="locationInputId" matInput type="text" name="location" formControlName="locationInput" id="location" placeholder="Enter your location" appearance="outline" /> -->
+            <app-location-block-map [longitude]="longitude" [latitude]="latitude"></app-location-block-map>
             <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
             </app-default-option-field>
 
