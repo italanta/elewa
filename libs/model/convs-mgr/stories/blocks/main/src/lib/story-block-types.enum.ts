@@ -82,6 +82,10 @@ export enum StoryBlockTypes
   /**
    * Block that sends a sticker to the user as a message
    */
-  Sticker = 15
+  Sticker = 15,
+  /**
+   * Block that sends a message to the user and expects a list of items to be returned
+   */
+  List = 15
 }
 

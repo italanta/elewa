@@ -20,6 +20,7 @@ import { ConvsMgrAudioMessageBlockModule } from '@app/features/convs-mgr/stories
 import { ConvsMgrVideoMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-message-block';
 
 import { ConvsMgrStickerMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/sticker-message-block';
+import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/list-message-block';
 import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
@@ -49,6 +50,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrAudioMessageBlockModule,
     ConvsMgrVideoMessageBlockModule,
     ConvsMgrStickerMessageBlockModule,
+    ConvsMgrListMessageBlockModule,
     ConvsMgrBlockOptionsModule,
 
     FileStateModule
@@ -62,4 +64,4 @@ import { BlockComponent } from './components/block/block.component';
   // Injector which creates all block types within the editor context.
   providers: [BlockInjectorService, UploadFileService],
 })
-export class  BlocksLibraryModule {}
+export class BlocksLibraryModule { }
