@@ -22,6 +22,7 @@ import { _StickerBlockDecoratePlumb } from './sticker-block.jsplumb';
 import { _ListBlockDecoratePlumb } from './list-block.jsplumb';
 import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
 import { _ReplyBlockDecoratePlumb } from './reply-block.jsplumb';
+import { _AnchorBlockDecoratePlumb } from './anchor-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -34,13 +35,13 @@ import { _ReplyBlockDecoratePlumb } from './reply-block.jsplumb';
 export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) {
   /** Lift component into jsPlumb world. */
   jsPlumb.manage(comp.location.nativeElement, block.id);
-
+  
   switch (block.type) {
     case StoryBlockTypes.TextMessage:
-      return _MessageBlockDecoratePlumb(block as TextMessageBlock, comp, jsPlumb);
+      return _MessageBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Image:
-      return _ImageBlockDecoratePlumb(block as ImageMessageBlock, comp, jsPlumb);
+      return _ImageBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Name:
       return _NameBlockDecoratePlumb(block as NameMessageBlock, comp, jsPlumb);
@@ -52,10 +53,10 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _PhoneBlockDecoratePlumb(block as PhoneMessageBlock, comp, jsPlumb);
       break;
     case StoryBlockTypes.QuestionBlock:
-      return _QuestionsBlockDecoratePlumb(block as QuestionMessageBlock, comp, jsPlumb);
+      return _QuestionsBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Location:
-      return _LocationBlockDecoratePlumb(block as LocationMessageBlock, comp, jsPlumb);
+      return _LocationBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Audio:
         return _AudioBlockDecoratePlumb(block as VoiceMessageBlock, comp, jsPlumb);
@@ -70,6 +71,8 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       break;
     case StoryBlockTypes.Document:
         return _DocumentBlockDecoratePlumb(block as DocumentMessageBlock, comp, jsPlumb);
+    case StoryBlockTypes.AnchorBlock:
+        return _AnchorBlockDecoratePlumb(comp, jsPlumb);
         break;
     case StoryBlockTypes.Reply:
       return _ReplyBlockDecoratePlumb(block as ReplyMessageBlock, comp, jsPlumb);

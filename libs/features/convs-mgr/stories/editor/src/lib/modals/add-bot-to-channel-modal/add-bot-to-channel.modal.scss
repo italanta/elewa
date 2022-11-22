@@ -1,0 +1,28 @@
+.header-text{
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--convs-mgr-color-primary-purple);
+}
+
+form{
+  width: 500px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.save-btn{
+  background-color: var(--convs-mgr-color-primary-purple);
+  color: white;
+  font-weight: 600;
+  min-width: 100px;
+}
+
+.cancel-btn{
+  background-color: #ffff;
+  color: red;
+  font-weight: 600;
+  min-width: 100px;
+
+}

@@ -23,7 +23,7 @@
       </div>
 
       <div *ngIf="rlaHome.isActive">
-        <div [routerLink]="['/org']" routerLinkActive="active" mat-list-item class="menu-item menu-item--one">
+        <div [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item class="menu-item menu-item--one">
           <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
           <span class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
@@ -34,7 +34,7 @@
     <!-- end Home -->
 
     <!-- Section Active-bots -->
-    <div [routerLink]="['/home/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
+    <div [routerLink]="['/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
       fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaBots.isActive">
@@ -45,7 +45,7 @@
       </div>
 
       <div class="category-children" *ngIf="rlaBots.isActive">
-        <div [routerLink]="['/home/stories/dashboard']" routerLinkActive="highlight-active"
+        <div [routerLink]="['/stories/dashboard']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header child-header--one">
           <i class="fas fa-minus child-header__tooltip"></i>
@@ -54,7 +54,7 @@
           </span>
         </div>
 
-        <div [routerLink]="['/home/stories/analytics']" routerLinkActive="highlight-active"
+        <div [routerLink]="['/stories/analytics']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header">
           <i class="fas fa-minus child-header__tooltip"></i>
@@ -165,14 +165,5 @@
       </div>
     </div> -->
     <!-- end statistics -->
-
-    <!-- logout -->
-    <div class="container bottom-container" fxLayout="column">
-      <button mat-raised-button class="btn-logout" (click)="logout()">
-        {{'PAGE-CONTENT.SIDE-MENU.LOG-OUT' | transloco }}
-      </button>
-    </div>
-    <!-- end logout -->
-
   </mat-nav-list>
 </div>

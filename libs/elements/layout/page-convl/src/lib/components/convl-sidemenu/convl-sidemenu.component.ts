@@ -2,8 +2,6 @@ import { Component, Inject, Input, OnDestroy, OnInit, Output, EventEmitter } fro
 
 import { SubSink } from 'subsink';
 
-import { AuthService } from '@ngfi/angular';
-
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -26,7 +24,6 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
-              private _authService:AuthService,
               @Inject('ENVIRONMENT') private _env: any)
   {}
 
@@ -43,7 +40,4 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
     this._sbS.unsubscribe();
   }
 
-  logout(){
-    this._authService.signOut('/auth/login');
-  }
 }
