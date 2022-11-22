@@ -11,13 +11,13 @@
   <div class="file">
     <div class="input">
       <h4 class="create-bot-name">
-        {{ 'BOTS.FIELDS.IMAGE' | transloco }}
+        {{ 'BOTS.CREATE-MODAL.FIELDS.IMAGE' | transloco }}
       </h4>
       <input
       type="file"
       formControlName="botImage"
       (change)="getUrl($event)"
-      [placeholder]="'BOTS.FIELDS.IMAGE-PLACEHOLDER' | transloco"
+      [placeholder]="'CREATE-MODAL.FIELDS.IMAGE-PLACEHOLDER' | transloco"
     />
     </div>
 
