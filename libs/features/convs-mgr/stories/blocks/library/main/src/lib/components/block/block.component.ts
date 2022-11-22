@@ -19,6 +19,7 @@ import { _CreateVideoMessageBlockForm } from '../../model/video-block-form.model
 import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
 import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
+import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
 
 /**
@@ -48,6 +49,7 @@ export class BlockComponent implements OnInit {
   stickerType = StoryBlockTypes.Sticker;
   listType= StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
+  replyType = StoryBlockTypes.Reply;
 
   blockFormGroup: FormGroup;
 
@@ -114,6 +116,11 @@ export class BlockComponent implements OnInit {
         break
        case StoryBlockTypes.Sticker:
         this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+      case StoryBlockTypes.Reply:
+        this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 

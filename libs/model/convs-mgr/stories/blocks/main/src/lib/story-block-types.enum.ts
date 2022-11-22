@@ -35,7 +35,6 @@ export enum StoryBlockTypes
    */
   Image = 5,
 
-
   /**
    * Block that sends a question as output and expects input from thee user to move to the next block
    */
@@ -86,6 +85,10 @@ export enum StoryBlockTypes
   /**
    * Block that sends a message to the user and expects a list of items to be returned
    */
-  List = 15
-}
+  List = 15,
 
+  /**
+  * Block that expects input from the user by replying to a message
+  */
+  Reply = 17
+}
