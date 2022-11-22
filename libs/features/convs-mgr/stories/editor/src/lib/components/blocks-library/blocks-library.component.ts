@@ -9,7 +9,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
           TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock, 
-          VoiceMessageBlock, VideoMessageBlock, ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+          VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, ReplyMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -41,7 +41,8 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video Block' } as VideoMessageBlock,
     { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker Block' } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List Block' } as ListMessageBlock,
-    { id: 'input-docs-block', type:StoryBlockTypes.Document, message: 'Document Block' } as DocumentMessageBlock
+    { id: 'input-docs-block', type:StoryBlockTypes.Document, message: 'Document Block' } as DocumentMessageBlock,
+    { id:'input-reply-block', type:StoryBlockTypes.Reply, message:'Reply Block' } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
@@ -91,6 +92,9 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Document:
         this.frame.newBlock(StoryBlockTypes.Document);
+        break
+      case StoryBlockTypes.Reply:
+        this.frame.newBlock(StoryBlockTypes.Reply);
         break;
     }
   }
