@@ -84,7 +84,10 @@
       "TITLE": "Story Blocks"
     },
     "SIDE-MENU": {
+      "MAIN-TITLE": "",
       "DASHBOARD": "Dashboard",
+      "ACTIVE-BOTS": "Active Bots",
+      "ANALYTICS": "Analytics",
       "LOG-OUT": "Logout"
     }
   },
