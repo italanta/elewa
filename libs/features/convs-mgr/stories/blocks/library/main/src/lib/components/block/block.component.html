@@ -55,5 +55,24 @@
         <app-document-block [id]="id" [block]="block" [documentMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-document-block>
     </div>
 
+    <div *ngSwitchCase="audioType">
+        <app-audio-block [id]="id" [block]="block" [audioMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-audio-block>
+    </div>
+    <div *ngSwitchCase="videoType">
+        <app-video-block [id]="id" [block]="block" [videoMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-video-block>
+    </div>
+    <div *ngSwitchCase="stickerType">
+        <app-sticker-block [id]="id" [block]="block" [stickerMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-sticker-block>
+    </div>
+
+    <div *ngSwitchCase="listType">
+        <app-list-block [id]="id" [block]="block" [listMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-list-block>
+    </div>
+    <div *ngSwitchCase="replyType">
+        <app-reply-block [id]="id" [block]="block" [replyMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-reply-block>
+    </div>
+
+
+
 
 </mat-card>

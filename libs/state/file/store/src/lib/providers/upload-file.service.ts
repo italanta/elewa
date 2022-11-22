@@ -104,18 +104,16 @@ export class UploadFileService
   /**
    * Adds the file on firestorage
    */
-  public async uploadFile(file: File, block: StoryBlock) 
+  public async uploadFile(file: File, block: StoryBlock, filePath: string) 
   { 
-    //Step 1 - Create the file path that will be in firebase storage
-    const imgFilePath = `images/${file.name}_${new Date().getTime()}`;
 
-    //Step 2 - Upload the file 
-    const uploadTask = (await this._ngfiStorage.upload(imgFilePath, file)).ref;
+    //Step 1 - Upload the file 
+    const uploadTask = (await this._ngfiStorage.upload(filePath, file)).ref;
 
-    //Step 3 - Get the url in firebase storage
-    const reference = await uploadTask.getDownloadURL();
+    //Step 2 - Get the url in firebase storage
+    const reference =await uploadTask.getDownloadURL();
 
-    //Step 4 - Call the upload function 
+    //Step 3 - Call the upload function 
     return this.upload(reference, block).pipe(take(1));
   }
 
