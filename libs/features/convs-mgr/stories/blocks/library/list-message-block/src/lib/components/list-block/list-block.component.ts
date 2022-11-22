@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -21,10 +19,6 @@ export class ListBlockComponent<T> implements OnInit {
   @Input() listMessageBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-
-
-  faAdd: IconDefinition = faAdd;
-
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -32,8 +26,7 @@ export class ListBlockComponent<T> implements OnInit {
       console.log(listItem)
       this.listItems.push(this.addListOptions(listItem));
     })
-  
-    // console.log(this.listItems)
+
   }
 
 
