@@ -7,12 +7,14 @@
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "ou",
-    "CREATE-ACCOUNT": "Créer un compte",
+    "CREATE-ACCOUNT": "S'inscrire",
     "LOGIN-FORM": {
       "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "Mot de passe",
-      "FLD-REMEMBER-ME": "Rappelle moi",
+      "FLD-PASSWD": "Password",
+      "FLD-PROCEED": "Procéder",
+      "PROCEED": "Procéder",
+      "FLD-WAIT": "Please Wait",
       "SUBMIT": "Login"
     },
     "FORGOT-PASSWD": "Oublie mot de passe?",
@@ -33,11 +35,11 @@
       "P3": "et",
       "P4-LINK": "la politique de confidentialité."
     },
-    "BTN-WITH-GOOGLE": "Google",
+    "BTN-WITH-GOOGLE": "Login With Google",
     "BTN-WITH-MICROSOFT": "Microsoft",
     "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS est le premier gestionnaire d'apprentissage conversationnel au monde.",
+      "TITLE": "Le premier LMS au monde conçu pour l’apprentissage conversationnel.",
+      "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "LEARN-MORE": "Apprend plus en",
       "LEARN-MORE-LINK": "https://elewa.education"
     }
@@ -99,7 +101,37 @@
       }
     }
   },
+  "ACTIONS": {
+    "OPEN-BOT": "Ouvert un robot",
+    "LBL-NEW-BOT": "Créer un nouveau robot",
+    "EDIT-BOT": "Edit",
+    "DELETE-BOT": "Effacer"
+  },
+  "FIELDS": {
+    "NAME": "Nom",
+    "NAME-PLACEHOLDER": "Nom du robot",
+    "DESC": "Description",
+    "DESC-PLACEHOLDER": "Description du robot"
+  },
+
   "BOTS": {
+    "CREATE-MODAL": {
+      "TITLE": "Créer un robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Créer un robot"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Éditer un robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "mettre à jour un robot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le robot",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le robot",
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
+    },
+    "BOTS": {
     "CREATE-MODAL": {
       "TITLE": "Créer un robot",
       "FIELDS": {
@@ -139,5 +171,6 @@
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
     }
-  }
+  } 
+ }
 }

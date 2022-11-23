@@ -73,8 +73,10 @@ export class NewStoryService implements OnDestroy
 
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
 
-  generateName(){
-    const defaultName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
+  generateName() {
+    const defaultName = uniqueNamesGenerator({
+      dictionaries: [adjectives, colors, animals],
+    });
     return defaultName;
   }
 

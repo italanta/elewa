@@ -8,7 +8,7 @@
             </mat-form-field>
             <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input" appearance="legacy" fxFlex="45">
                 <input matInput name="lastName" type="text" formControlName="lastName" required placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco }}">
-                <mat-error>{{ 'OGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
+                <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
 
         </div>
@@ -51,20 +51,6 @@
 
             <button class="uppercase-txt" id="register-button" mat-raised-button color="accent" type="submit" [disabled]="formIsInvalid()">
             {{ 'LOGIN.CREATE-ACC-FORM.SUBMIT' | transloco }}
-          </button>
-        </div>
-
-        <div class="hr-with-text" fxFlex="row" fxLayoutAlign="start center">
-            {{ 'LOGIN.OR' | transloco }}
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="center">
-            <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="start center">
-                <i class="fab fa-microsoft"></i>
-            </div>
-
-            <button mat-raised-button id="msBtn" class="uppercase-txt" (click)="loginMicrosoft()" fxFlex>
-            {{ "LOGIN.BTN-WITH-MICROSOFT" | transloco }}
           </button>
         </div>
 
