@@ -42,11 +42,26 @@
       "LEARN-MORE-LINK": "https://elewa.education"
     }
   },
+  "TOS": {
+    "P1": "By registering I agree to",
+    "P2-LINK": "the terms of service",
+    "P3": "and",
+    "P4-LINK": "the privacy policy"
+  },
+  "BTN-WITH-GOOGLE": "With Google",
+  "BTN-WITH-MICROSOFT": "With Microsoft",
+  "HERO": {
+    "TITLE": "Karibu Elewa Conversational Learning!",
+    "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
+    "LEARN-MORE": "Learn more on",
+    "LEARN-MORE-LINK": "https://elewa.education"
+  },
   "PAGE-CONTENT": {
     "BLOCKS": {
       "TITLES": {
         "IMAGE": "Image",
-        "LOCATION": "Location"
+        "LOCATION": "Location",
+        "LIST": "List"
       }
     },
     "BLOCK": {
@@ -69,34 +84,11 @@
       "TITLE": "Story Blocks"
     },
     "SIDE-MENU": {
+      "MAIN-TITLE": "",
       "DASHBOARD": "Dashboard",
-      "ANALYTICS": "Analytics",
       "ACTIVE-BOTS": "Active Bots",
-      "LOG-OUT": "Logout",
-      "MAIN-TITLE": "Main",
-      "MENU-ITEMS": {
-        "CHATS": {
-          "ITEM-NAME": "Chats",
-          "CHILD-ITEMS": {
-            "CONVERSATIONS": "Conversations",
-            "PARTICIPANTS": "Participants",
-            "ASSESSMENTS": "Assessments"
-          }
-        },
-        "SALES": {
-          "ITEM-NAME": "Sales",
-          "CHILD-ITEMS": {
-            "PURCHASES": "Purchases"
-          }
-        },
-        "STATISTICS": {
-          "ITEM-NAME": "Statistics",
-          "CHILD-ITEMS": {
-            "TRAINEE-DATA": "Trainee Data",
-            "PROGRESS-ANALYSIS": "Progress Analysis"
-          }
-        }
-      }
+      "ANALYTICS": "Analytics",
+      "LOG-OUT": "Logout"
     }
   },
   "BOTS": {
@@ -107,6 +99,7 @@
       "DELETE-BOT": "Delete"
     },
     "FIELDS": {
+      "IMAGE": "Image du robot",
       "NAME": "Name",
       "NAME-PLACEHOLDER": "Bot name",
       "DESC": "Description",

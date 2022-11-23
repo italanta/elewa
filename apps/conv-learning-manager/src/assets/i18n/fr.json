@@ -107,6 +107,7 @@
       "DELETE-BOT": "Effacer"
     },
     "FIELDS": {
+      "IMAGE": "Bot Image",
       "NAME": "Nom",
       "NAME-PLACEHOLDER": "Nom du robot",
       "DESC": "Description",

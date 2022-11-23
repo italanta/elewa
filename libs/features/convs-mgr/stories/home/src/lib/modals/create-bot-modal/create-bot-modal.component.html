@@ -8,17 +8,33 @@
 </h2>
 
 <form [formGroup]="botForm">
-  <h4 class="create-bot-name">{{ 'BOTS.FIELDS.NAME' | transloco }}</h4>
+  <div class="file">
+    <div class="input">
+      <h4 class="create-bot-name">
+        {{ 'BOTS.FIELDS.IMAGE' | transloco }}
+      </h4>
+      <input 
+        type="file" 
+        formControlName="botImage" 
+        (change)="getUrl($event)"
+        [placeholder]="'CREATE-MODAL.FIELDS.IMAGE-PLACEHOLDER' | transloco" />
+    </div>
+
+    <div>
+      <span *ngIf="isImage; else show"><i class='fas fa-check-circle' id="fas"></i></span>
+      <ng-template #show>
+        <span> <i class='fas fa-times-circle' id="fas2"></i></span>
+      </ng-template>
+    </div>
+  </div>
+
+  <h4 class="create-bot-name">
+    {{ 'BOTS.FIELDS.NAME' | transloco }}
+  </h4>
   <input 
     type="text" 
     formControlName="botName" 
-    [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" 
-  />
-  <input 
-    type="file" 
-    formControlName="botImage"
-    [placeholder]="'BOTS.FIELDS.IMAGE-PLACEHOLDER' | transloco" 
-  />
+    [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" />
   <h4>{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
   <textarea 
     formControlName="botDesc" 
@@ -31,10 +47,11 @@
         {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
       </button>
     </div>
+
     <div>
       <button mat-raised-button class="add-btn" (click)="submitForm()">
         <span *ngIf="!modalMode; else showEditText">
-          {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
+        {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
         </span>
         <ng-template #showEditText>
           {{ 'BOTS.EDIT-MODAL.SUBMIT' | transloco }}
