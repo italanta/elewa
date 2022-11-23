@@ -1,0 +1,47 @@
+<ng-container>
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+        <span class="header-text">
+     {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ADD-CHANNEL'}}
+    </span>
+        <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+
+            <mat-form-field appearance="standard">
+                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL' | transloco }}</mat-label>
+                <mat-select formControlName="channel" required>
+                    <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
+                        {{singleChannel.type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard">
+                <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.B-ID'| transloco }}</mat-label>
+                <input formControlName="businessPhoneNumberId" matInput placeholder="Enter bot phone number">
+            </mat-form-field>
+
+            <mat-form-field appearance="standard">
+                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.B-NAME' | transloco }}</mat-label>
+                <input formControlName="businessName" matInput placeholder="Enter bot phone number">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="standard">
+                <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.AUTH-KEY' | transloco }}</mat-label>
+                <input formControlName="authenticationKey" type="string" matInput placeholder="Enter your Meta Authentication Key">
+            </mat-form-field>
+
+            <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+        <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
+          Save
+        </button>
+
+        <button mat-raised-button class="cancel-btn" (click)="closeDialog()" [disabled]="isSaving">
+          {{ 'BOT.ADD-BOT-FORM-ACTION.CANCEL' | transloco }}
+        </button>
+      </span>
+        </form>
+
+    </div>
+
+
+</ng-container>

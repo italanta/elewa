@@ -2,8 +2,19 @@ app-blocks-library {
   width: 200px;
 }
 
+.sub-bar {
+  padding: 10px 20px;
+}
+
 .subbar-btn {
   background-color: #FFAB2D;
+  color: white;
+  font-weight: 600;
+  min-width: 100px;
+}
+
+.add-channel-btn{
+  background-color: #6418C3;
   color: white;
   font-weight: 600;
   min-width: 100px;

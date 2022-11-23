@@ -1,0 +1,24 @@
+<mat-card [id]="id" *ngIf="listMessageBlock">
+    <mat-card-title>{{'PAGE-CONTENT.BLOCKS.TITLES.LIST' | transloco }} {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
+
+            <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+
+
+            <div formArrayName="listItems" fxFlexFill>
+                <div *ngFor="let listItem of listItems.controls; let i = index" class="full-width" fxFlexFill>
+                    <span [formGroupName]="i" fxFlex>
+              <app-list-option [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"></app-list-option>
+            </span>
+                </div>
+            </div>
+
+        </form>
+
+        <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <i class="fas fa-plus"></i>
+        Add New Option
+      </button>
+    </mat-card-content>
+</mat-card>

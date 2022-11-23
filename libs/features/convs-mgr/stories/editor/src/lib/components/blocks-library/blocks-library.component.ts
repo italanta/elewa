@@ -3,11 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Logger } from '@iote/bricks-angular';
 
 import { SubSink } from 'subsink';
-import { Observable, BehaviorSubject, map, combineLatest, of, filter } from 'rxjs';
+import { Observable, BehaviorSubject, map, combineLatest, of } from 'rxjs';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock, TextMessageBlock, EmailMessageBlock, PhoneMessageBlock,DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
+          TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock, 
+          VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, ReplyMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -20,8 +22,7 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
   templateUrl: './blocks-library.component.html',
   styleUrls: ['./blocks-library.component.scss']
 })
-export class BlocksLibraryComponent implements OnInit
- {
+export class BlocksLibraryComponent implements OnInit {
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
@@ -36,11 +37,16 @@ export class BlocksLibraryComponent implements OnInit
     { id: 'io-name-block', type: StoryBlockTypes.Name, message: 'Name Block' } as NameMessageBlock,
     { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email Block' } as EmailMessageBlock,
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone Block' } as PhoneMessageBlock,
-    { id: 'input-docs-block', type:StoryBlockTypes.Document, message: 'Document Block' } as DocumentMessageBlock
+    { id: 'input-audio-block', type:StoryBlockTypes.Audio, message:'Audio Block' } as VoiceMessageBlock,
+    { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video Block' } as VideoMessageBlock,
+    { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker Block' } as StickerMessageBlock,
+    { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List Block' } as ListMessageBlock,
+    { id: 'input-docs-block', type:StoryBlockTypes.Document, message: 'Document Block' } as DocumentMessageBlock,
+    { id:'input-reply-block', type:StoryBlockTypes.Reply, message:'Reply Block' } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 
-  constructor(private _logger: Logger) {}
+  constructor(private _logger: Logger) { }
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
@@ -72,8 +78,23 @@ export class BlocksLibraryComponent implements OnInit
       case StoryBlockTypes.Location:
         this.frame.newBlock(StoryBlockTypes.Location);
         break;
+     case StoryBlockTypes.Audio:
+          this.frame.newBlock(StoryBlockTypes.Audio);
+          break;
+      case StoryBlockTypes.Video:
+        this.frame.newBlock(StoryBlockTypes.Video);
+        break
+      case StoryBlockTypes.Sticker:
+        this.frame.newBlock(StoryBlockTypes.Sticker);
+        break
+      case StoryBlockTypes.List:
+        this.frame.newBlock(StoryBlockTypes.List);
+        break;
       case StoryBlockTypes.Document:
         this.frame.newBlock(StoryBlockTypes.Document);
+        break
+      case StoryBlockTypes.Reply:
+        this.frame.newBlock(StoryBlockTypes.Reply);
         break;
     }
   }
@@ -81,10 +102,10 @@ export class BlocksLibraryComponent implements OnInit
   //A function that subscribes to when the search control changes and filters the blocks components list 
   filterBlockTemplates() {
     this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
-                            .pipe(map(([filter, blocksArray]) => blocksArray
-                            .filter((block: StoryBlock) => {
-                              return block.message!.toString().toLowerCase().includes(filter)
-                            })))
+      .pipe(map(([filter, blocksArray]) => blocksArray
+        .filter((block: StoryBlock) => {
+          return block.message!.toString().toLowerCase().includes(filter)
+        })))
   }
 
   filterBlocks(event: any) {

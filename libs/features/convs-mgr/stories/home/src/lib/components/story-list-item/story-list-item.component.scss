@@ -1,0 +1,48 @@
+// Import theming functions
+@import '@angular/material/theming';
+// Import your custom theme
+@import 'libs/elements/theming/common.theme.scss';
+@import 'libs/elements/theming/_variables.scss';
+
+.bot-card {
+  max-width: 270px;
+  border-radius: 15px;
+  margin: 13px;
+}
+
+.mat-card-image{
+  border-radius: 15px;
+  height: 180px;
+}
+
+.mat-raised-button {
+  width: 100%;
+  border-radius: 10px;
+  color: mat-color($mat-ele, A900);
+  background-color: mat-color($mat-ele, A800);
+
+}
+.bot-card:hover{
+  cursor:pointer;
+}
+.bot{
+  margin-left: 0%;
+  font-size: medium;
+}
+.bot-number{
+  font-size: x-small;
+}
+
+.bot-menu-item-separator{
+  margin: 0;
+  background-color: var(--convs-mgr-color-light);
+}
+
+.bot-menu-item{
+  text-align: center;
+  font-weight: 700;
+  color: var(--convs-mgr-color-text-black);
+  :hover{
+    cursor:pointer;
+  }
+}
