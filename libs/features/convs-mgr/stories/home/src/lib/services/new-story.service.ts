@@ -36,42 +36,61 @@ export class NewStoryService implements OnDestroy
       }
     })
   }
-
   async saveImage(imageFile: File, imagePath: string) {
     let savedImage = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
     let url = await savedImage.getDownloadURL();
     return url;
   }
-
   // add(bot: Story) {
   //   return this._getOrgId$().pipe(
   //               switchMap(async (orgId) => await this.saveBot(bot, orgId!)))
   // }
-
+  saveImagelessStory(bot:Story){
+    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+      if (org) {
+       this.callableAddFunction(bot)
+      }
+    })
+ }
   async saveBot(bot: Story, orgId: string, storyImage?: File, storyImagePath?: string) {
     bot.orgId = orgId!;
 
     if (storyImagePath) {
       bot.imageField = await this.saveImage(storyImage!, storyImagePath);
-
-      this._stories$$.add(bot).subscribe((story) => {
-        if (story) {
-          this._dialog.closeAll()
-          this._router.navigate(['/stories', story.id])
-        }
-      });
+      this.callableAddFunction(bot); 
     }
   }
-
-  update(story: Story) {
-    this._stories$$.update(story).subscribe(() => {
-      try {
-        this._dialog.closeAll();
-        this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
-      } catch (error) {
-        this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
-      }
+  callableAddFunction(bot:Story){
+    this._stories$$.add(bot).subscribe((story) => {
+      this._dialog.closeAll();
+      this._router.navigate(['/stories', story.id])
     });
+  }
+  deleteImage(imagePath: string) {
+    this._fileStorageService$$.deleteSingleFile(imagePath);
+  }
+  async update(bot: Story, storyImage?: File, storyImagePath?: string) {
+
+    if (bot.imageField) {
+      //delete the image if any
+      this.deleteImage(bot.imageField);
+      bot.imageField='';
+      //Check if storyimagepath has a value
+      if(storyImagePath){
+  //update the image
+      bot.imageField = await this.saveImage(storyImage!, storyImagePath);
+      }
+      this._stories$$.update(bot).subscribe(() => {
+        try {
+          this._dialog.closeAll();
+          this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
+        } catch (error) {
+          this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
+        }
+      });
+     
+    }
+    
   }
 
   remove(story: Story) {
