@@ -2,7 +2,12 @@
     <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
         <img src="{{block.blockIcon}}" class="avatar-img" alt="storyicon" />
         <h4 class="block-title">{{block.blockTitle}}</h4>
-
+        <div fxLayout="row" class="icon-block">
+            <span class="icons"><i class="far fa-clone"></i></span>
+            <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
+        </div>
+        
+<!-- 
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -15,7 +20,7 @@
         <mat-icon>delete</mat-icon>
         <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
       </button>
-        </mat-menu>
+        </mat-menu> -->
     </div>
 
     <div *ngSwitchCase="messagetype">
