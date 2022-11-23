@@ -1,13 +1,12 @@
 .nav {
-    width: fit-content;
+    max-width: 100%;
     padding: 10px;
 }
 
-.list-item {
-    width: 150px;
-    position: absolute;
+h4, .search {
+    padding: 0 16px;
 }
 
-.search-input {
-    width: 180px;
+button {
+    width: 100%;
 }

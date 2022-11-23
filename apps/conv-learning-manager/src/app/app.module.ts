@@ -16,10 +16,15 @@ import { MaterialBricksModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { AgmCoreModule } from '@agm/core';
+
 import { AuthorisationModule } from '@app/elements/base/authorisation';
 import { AppConfigurationModule } from '@app/elements/base/configuration';
 import { DateConfigurationModule } from '@app/elements/base/date-time';
 import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
+
+
 
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
@@ -38,7 +43,13 @@ import { environment } from '../environments/environment';
   declarations: [AppComponent],
   imports: [
     BrowserModule, BrowserAnimationsModule,
+    GooglePlaceModule,
 
+    AgmCoreModule.forRoot({
+      apiKey:'ADD-YOUR-API-KEY',
+      libraries: ["places"]
+    }),
+    
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
     AngularFireAnalyticsModule,
