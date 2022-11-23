@@ -1,7 +1,10 @@
 <mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
     <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
-        <img src="{{block.blockIcon}}" class="avatar-img" alt="storyicon" />
-        <h4 class="block-title">{{block.blockTitle}}</h4>
+        <div fxLayout="row" class="block-title-container">
+            <i class="{{'fas fa-list-ul' + ' icon-color'}}"></i>
+            <h4 class="block-title">List Block</h4>
+        </div>
+
         <div fxLayout="row" class="icon-block">
             <span class="icons"><i class="far fa-clone"></i></span>
             <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
