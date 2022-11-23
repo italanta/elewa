@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 
-
 import {
   FlexLayoutModule,
   MaterialBricksModule,
@@ -34,8 +33,7 @@ import { ImageBlockComponent } from './components/image-block/image-block.compon
 
   declarations: [ImageBlockComponent],
 
-  providers: [
-  ],
+  providers: [],
 
   exports: [ImageBlockComponent],
 })
