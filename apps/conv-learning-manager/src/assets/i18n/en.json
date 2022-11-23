@@ -100,6 +100,7 @@
     },
     "FIELDS": {
       "IMAGE": "Image du robot",
+      "IMAGE-PLACEHOLDER": "Choose image",
       "NAME": "Name",
       "NAME-PLACEHOLDER": "Bot name",
       "DESC": "Description",

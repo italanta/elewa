@@ -69,34 +69,11 @@
       "TITLE": "Blocs d'histoire"
     },
     "SIDE-MENU": {
+      "MAIN-TITLE": "",
       "DASHBOARD": "Tableau de bord",
       "ANALYTICS": "Analytique",
       "ACTIVE-BOTS": "Active Bots",
-      "LOG-OUT": "Se déconnecter",
-      "MAIN-TITLE": "Principal",
-      "MENU-ITEMS": {
-        "CHATS": {
-          "ITEM-NAME": "Chats",
-          "CHILD-ITEMS": {
-            "CONVERSATIONS": "Conversation",
-            "PARTICIPANTS": "Participant",
-            "ASSESSMENTS": "Évaluations"
-          }
-        },
-        "SALES": {
-          "ITEM-NAME": "Ventes",
-          "CHILD-ITEMS": {
-            "PURCHASES": "Achats"
-          }
-        },
-        "STATISTICS": {
-          "ITEM-NAME": "Statistiques",
-          "CHILD-ITEMS": {
-            "TRAINEE-DATA": "Données du stagiaire",
-            "PROGRESS ANALYSIS": "Analyse des progrès"
-          }
-        }
-      }
+      "LOG-OUT": "Se déconnecter"
     }
   },
   "BOTS": {
@@ -107,7 +84,8 @@
       "DELETE-BOT": "Effacer"
     },
     "FIELDS": {
-      "IMAGE": "Bot Image",
+      "IMAGE": "Image du robot",
+      "IMAGE-PLACEHOLDER": "Choisissez l'image",
       "NAME": "Nom",
       "NAME-PLACEHOLDER": "Nom du robot",
       "DESC": "Description",
