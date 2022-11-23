@@ -1,0 +1,60 @@
+<h2 class="create-bot-header">
+  <span *ngIf="!modalMode; else showEditTitle">
+    {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
+  </span>
+  <ng-template #showEditTitle>
+    {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
+  </ng-template>
+</h2>
+
+<form [formGroup]="botForm">
+  <div class="file">
+    <div class="input">
+      <h4 class="create-bot-name">
+        {{ 'BOTS.CREATE-MODAL.FIELDS.IMAGE' | transloco }}
+      </h4>
+      <input
+      type="file"
+      formControlName="botImage"
+      (change)="getUrl($event)"
+      [placeholder]="'CREATE-MODAL.FIELDS.IMAGE-PLACEHOLDER' | transloco"
+    />
+    </div>
+
+  <div>
+      <span *ngIf="isImage; else show"><i class='fas fa-check-circle' id="fas" ></i></span>
+      <ng-template #show>
+       <span> <i class='fas fa-times-circle' id="fas2"></i></span>
+        </ng-template>
+  </div>
+
+  </div>
+  <h4 class="create-bot-name">
+    {{ 'BOTS.FIELDS.NAME' | transloco }}
+  </h4>
+  <input
+    type="text"
+    formControlName = "botName"
+    [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco"
+  />
+  <h4>{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
+  <textarea
+    formControlName = "botDesc"
+    [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco"
+  >
+  </textarea>
+
+  <div fxLayout="row" fxLayoutAlign="space-between" class="bot-buttons">
+    <div>
+      <button mat-button mat-dialog-close class="cancel-btn">
+        {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
+      </button>
+    </div>
+
+    <div>
+      <button mat-raised-button class="add-btn" (click)="add()">
+        {{ 'BOTS.CREATE-MODAL.SUBMIT' | transloco }}
+      </button>
+    </div>
+  </div>
+</form>

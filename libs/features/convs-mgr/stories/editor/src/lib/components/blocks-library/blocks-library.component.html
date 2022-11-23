@@ -1,15 +1,18 @@
-<div class="nav">
+<div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
     <h4>{{'PAGE-CONTENT.COMPONENTS.TITLE'| transloco }}</h4>
 
-    <mat-form-field appearance="legacy" class="search-input">
-        <mat-icon matSuffix>search</mat-icon>
-        <input matInput placeholder="search for a block" (input)="filterBlocks($event)">
-    </mat-form-field>
+    <div class="search" fxFlex>
+        <mat-form-field appearance="legacy" class="search-input">
+            <mat-icon matSuffix>search</mat-icon>
+            <input matInput placeholder="search for a block" (input)="filterBlocks($event)">
+        </mat-form-field>
+    </div>
 
-    <mat-list role="list" *ngIf="blockTemplate$ | async as blocks ">
-        <mat-list-item *ngFor="let block of blocks" role="list-item">
-            <button mat-raised-button class="list-item" (click)=" addBlock(block.type)">{{ block.message }} </button>
-        </mat-list-item>
-    </mat-list>
-
+    <div fxFlex>
+        <mat-list role="list" *ngIf="blockTemplate$ | async as blocks ">
+            <mat-list-item *ngFor="let block of blocks" role="list-item">
+                <button mat-raised-button class="list-item" (click)=" addBlock(block.type)">{{ block.message }} </button>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </div>

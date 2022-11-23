@@ -42,11 +42,26 @@
       "LEARN-MORE-LINK": "https://elewa.education"
     }
   },
+  "TOS": {
+    "P1": "By registering I agree to",
+    "P2-LINK": "the terms of service",
+    "P3": "and",
+    "P4-LINK": "the privacy policy"
+  },
+  "BTN-WITH-GOOGLE": "With Google",
+  "BTN-WITH-MICROSOFT": "With Microsoft",
+  "HERO": {
+    "TITLE": "Karibu Elewa Conversational Learning!",
+    "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
+    "LEARN-MORE": "Learn more on",
+    "LEARN-MORE-LINK": "https://elewa.education"
+  },
   "PAGE-CONTENT": {
     "BLOCKS": {
       "TITLES": {
         "IMAGE": "Image",
-        "LOCATION": "Location"
+        "LOCATION": "Location",
+        "LIST": "List"
       }
     },
     "BLOCK": {
@@ -69,30 +84,60 @@
       "TITLE": "Story Blocks"
     },
     "SIDE-MENU": {
+      "MAIN-TITLE": "",
       "DASHBOARD": "Dashboard",
+      "ACTIVE-BOTS": "Active Bots",
+      "ANALYTICS": "Analytics",
       "LOG-OUT": "Logout"
     }
   },
-
   "BOTS": {
-    "CREATE-MODAL": {
-      "FIELDS": {
-        "COPY": "Copy",
-        "DELETE": "Delete"
-      }
-    }
-  },
-  "BOTS": {
+    "ACTIONS": {
+      "OPEN-BOT": "Open Bot",
+      "LBL-NEW-BOT": "Create New Bot",
+      "EDIT-BOT": "Edit",
+      "DELETE-BOT": "Delete"
+    },
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
       "FIELDS": {
+        "IMAGE": "Bot Image",
+        "IMAGE-PLACEHOLDER": "Choose image",
         "NAME": "Name",
         "NAME-PLACEHOLDER": "Bot name",
         "DESC": "Description",
-        "DESC-PLACEHOLDER": "Bot description"
+        "DESC-PLACEHOLDER": "Bot description",
+        "COPY": "Copy",
+        "DELETE": "Delete"
       },
       "CANCEL": "Cancel",
       "SUBMIT": "Create bot"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Bot",
+      "SUBMIT": "Update Bot"
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Delete Bot",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Delete Bot",
+      "MESSAGE": " Are you sure you want to delete this bot?"
+    }
+  },
+  "TOAST": {
+    "EDIT-BOT": {
+      "SUCCESSFUL": "Edit operation was successful",
+      "FAIL": "Edit operation was not successful"
+    },
+    "DELETE-BOT": {
+      "SUCCESSFUL": "Delete operation was successful",
+      "FAIL": "Delete operation was not successful"
     }
   }
 }

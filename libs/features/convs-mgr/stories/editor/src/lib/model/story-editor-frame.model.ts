@@ -9,6 +9,9 @@ import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/co
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 
 /**
@@ -17,8 +20,7 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
  * For each JsPlumb frame, an instance of this class is created which 1-on-1 manages the frame state.
  * Responsible for keeping track of editor data and for re-loading past saved states.
  */
-export class StoryEditorFrame 
-{
+export class StoryEditorFrame {
   private _cnt = 1;
   loaded = false;
 
@@ -32,9 +34,9 @@ export class StoryEditorFrame
   constructor(private _fb: FormBuilder,
               private _jsPlumb: BrowserJsPlumbInstance,
               private _blocksInjector: BlockInjectorService,
-              private _viewport: ViewContainerRef)
+              private _viewport: ViewContainerRef) 
   {
-    this.loaded = true;
+      this.loaded = true;
   }
 
   /**
@@ -44,8 +46,7 @@ export class StoryEditorFrame
    * @param story   - Story visualised by the editor
    * @param blocks  - Blocks to render on the story
    */
-  async init(state: StoryEditorState)
-  {
+  async init(state: StoryEditorState) {
     this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
@@ -55,8 +56,11 @@ export class StoryEditorFrame
     this._viewport.clear();
     this._jsPlumb.reset();
 
+    //create the anchor block when state is initialized
+    (this._viewport.createComponent(AnchorBlockComponent)).instance.jsPlumb = this._jsPlumb;
+
     this.drawBlocks();
-    
+
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
@@ -90,7 +94,9 @@ export class StoryEditorFrame
     this.blocksArray = this._fb.array([]);
 
     // Init frame
-    for(const block of this._blocks) {
+    const activeBlocks = this._blocks.filter((block) => !block.deleted);
+    
+    for (const block of activeBlocks) {
       this._injectBlockToFrame(block);
       this._cnt++;
     }
@@ -114,19 +120,21 @@ export class StoryEditorFrame
     // targets (blocks) are wrapped inside a mat-card 
     let domSourceInputs = Array.from(document.querySelectorAll('input'));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
+  
 
-    for(const connection of this._connections) {      
+    for (const connection of this._connections) {
+      // anchorBlock.id == this._story.id!;
       // fetching the source (input) that matches the connection source id
-      let sourceElement =  domSourceInputs.filter((el) => {return el.id == connection.sourceId})[0];
+      let sourceElement = domSourceInputs.find((el) => el.id == connection.sourceId);
       // fetching the target (block) that matches the connection target id
-      let targetElement =  domBlockCards.filter((el) => {return el.id == connection.targetId})[0];
+      let targetElement = domBlockCards.find((el) => el.id == connection.targetId);
 
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
         source: sourceElement as Element,
         target: targetElement as Element,
-        anchors:["Right", "Left" ],
-        endpoints:["Dot", "Rectangle"],
+        anchors: ["Right", "Left"],
+        endpoints: ["Dot", "Rectangle"],
       });
     }
 
@@ -136,15 +144,15 @@ export class StoryEditorFrame
    * Create a new block for the frame.
    * TODO: Move this to a factory later
    */
-  newBlock(type: StoryBlockTypes)
-  {
+  newBlock(type: StoryBlockTypes) {
     // TODO - Dynamic rendering of default blocks.
-    const block = { id: `${this._cnt}`, 
-                    type: type, 
-                    message: 'New message', 
+    const block = {
+                    id: `${this._cnt}`,
+                    type: type,
+                    message: 'New message',
                     // TODO: Positioning in the middle + offset based on _cnt
-                    position: { x: 200, y: 50 } 
-                    
+                    position: { x: 200, y: 50 }
+
     } as StoryBlock;
 
     this._cnt++;

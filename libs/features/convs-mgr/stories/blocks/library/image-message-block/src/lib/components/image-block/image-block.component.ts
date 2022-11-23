@@ -62,8 +62,10 @@ export class ImageBlockComponent implements OnInit {
     } else {
       this.imageLink = this.defaultImage;
     }
+    //Step 1 - Create the file path that will be in firebase storage
+    const imgFilePath = `images/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingImage = true;
-    (await this._imageUploadService.uploadFile(this.file, this.block)).subscribe();
+    (await this._imageUploadService.uploadFile(this.file, this.block,imgFilePath)).subscribe();
 
   }
 

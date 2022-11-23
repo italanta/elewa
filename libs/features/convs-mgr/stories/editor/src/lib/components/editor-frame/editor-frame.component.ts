@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+import { StoryEditorFrame } from '../../model/story-editor-frame.model';  
 
 import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
 
