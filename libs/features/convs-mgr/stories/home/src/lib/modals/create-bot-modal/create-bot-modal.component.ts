@@ -75,6 +75,9 @@ export class CreateBotModalComponent implements OnInit {
       this._addStory$.saveStoryWithImage(bot, this.storyImageFile, this.imagePath);
     }
     // this._addStory$.add(bot).subscribe();
+    else{
+      this._addStory$.saveImagelessStory(bot);
+    }
   }
 
   update() {
@@ -83,7 +86,7 @@ export class CreateBotModalComponent implements OnInit {
     this.story.description = this.botForm.value.botDesc ?? '';
 
     // Update bot details
-    this._addStory$.update(this.story);
+    this._addStory$.update(this.story, this.storyImageFile, this.imagePath!);
   }
   imageChanged(event: any){
     if (event.target.files[0]){
