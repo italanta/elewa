@@ -9,14 +9,24 @@
     height: 30px;
 }
 
+.block-title-container {
+    align-items: center;
+}
+
+.icon-color {
+    color: var(--convs-mgr-color-primary-purple)
+}
+
 .block-title {
-    margin-top: 2px;
-    margin-left: -6pc;
+    font-weight: 600;
+    font-size: small;
+    margin: 0 0 0 .4em;
+    color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
-    padding: 3% 0% 0% 3%;
-    padding-bottom: 0%;
+    padding: 10px;
+    padding-bottom: 0;
 }
 
 .block-card {
@@ -26,9 +36,16 @@
 
 .icons {
     cursor: pointer;
+}
+
+.fa-clone {
     padding-right: 10px;
 }
 
 .fa-clone, .fa-trash-alt {
-    color: var(--convs-mgr-color-text-black);
+    color: var(--convs-mgr-color-medium-shade);
+}
+
+.fa-clone:hover, .fa-trash-alt:hover {
+    color: var(--convs-mgr-color-primary-purple);
 }
