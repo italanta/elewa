@@ -1,0 +1,25 @@
+<mat-card [id]="id" *ngIf="videoMessageForm">
+    <mat-card-title>{{'PAGE-CONTENT.BLOCKS.TITLES.VIDEO' | transloco }} {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+            <div [id]="videoInputId">
+                <div *ngIf="!this.block.fileSrc && !isLoadingVideo" (click)="videoInput.click()" class="video-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div *ngIf="isLoadingVideo" class="video-icon">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                </div>
+                <div *ngIf="this.block.fileSrc && !isLoadingVideo" class="video-input" (click)="changeVideo()">
+                    {{this.block.fileName }}<i class="fas fa-trash-alt" id="delete-video"></i>
+                </div>
+            </div>
+            <div>
+                <input #videoInput (change)="processVideo($event)" type="file" accept=".mp3,.mp4 " class="fileSrc">
+            </div>
+
+            <input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco " name="caption " id="caption ">
+            <input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco " name="video-link " id="video-link ">
+        </form>
+    </mat-card-content>
+</mat-card>

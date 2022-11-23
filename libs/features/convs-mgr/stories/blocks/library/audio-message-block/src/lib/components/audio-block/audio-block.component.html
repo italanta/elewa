@@ -1,0 +1,28 @@
+<mat-card [id]="id" *ngIf="audioMessageForm">
+    <mat-card-title>{{'PAGE-CONTENT.BLOCKS.TITLES.AUDIO' | transloco }} {{id}}</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+            <div [id]="audioInputId">
+
+                <div *ngIf="this.block.fileSrc && !isLoadingAudio">
+                    <audio controls>
+                        <source [src]="this.block.fileSrc!" class="audio" (click)="audioInput.click()">
+                    </audio>
+                </div>
+                <div *ngIf="isLoadingAudio" class="audio-icon">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                </div>
+                <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
+                    <!-- <img [src]="defaultImage" class="image" (click)="audioInput.click()">  -->
+                    <i class="far fa-file-audio" (click)="audioInput.click()"></i>
+                </div>
+                <div>
+                    <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3,.mp4 " class="fileSrc">
+                </div>
+
+            </div>
+            <input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link " id="audio-link ">
+        </form>
+    </mat-card-content>
+</mat-card>

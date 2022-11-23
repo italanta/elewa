@@ -10,7 +10,8 @@ mat-card-title {
 
 input {
     margin: 5px 0;
-    width: 200px;
-    height: 50px;
-    border: 1px solid black;
+    width: 180px;
+    height: 32px;
+    border: 1px solid var(--convs-mgr-color-primary-black);
+    border-radius: 5px;
 }
