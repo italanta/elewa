@@ -1,0 +1,17 @@
+mat-card {
+    min-width: fit-content;
+    padding: 10px;
+}
+
+mat-card-title {
+    font-size: 1.2rem!important;
+    color: var(--convs-mgr-color-primary-purple);
+}
+
+input {
+    margin: 5px 0;
+    width: 100%;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid var(--convs-mgr-color-primary-black);
+}
