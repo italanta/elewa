@@ -14,7 +14,7 @@
   font-weight: 500;
 }
 .search {
-  min-width: 40%;
+  // min-width: 40%;
   height: 5px;
   background-color: white;
   // background-color: var(----convs-mgr-color-primary-background);
@@ -32,7 +32,6 @@
     padding-left: 6px;
   }
 }
-
 .fa-search {
   color: mat-color($mat-ele, A900);
   transform: rotate(90deg);
@@ -42,4 +41,7 @@
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: 500;
+}
+.bot-selector{
+  box-sizing: border-box;
 }
