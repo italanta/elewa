@@ -146,12 +146,70 @@ export class StoryEditorFrame {
    */
   newBlock(type: StoryBlockTypes) {
     // TODO - Dynamic rendering of default blocks.
+
+    let title = ""
+    let icon = ""
+
+    switch (type) {
+      case StoryBlockTypes.TextMessage:
+          title = "Message"
+          icon = "fas fa-comment-alt"
+        break;
+      case StoryBlockTypes.Image:
+          title = "Image"
+          icon = "fas fa-image"
+        break;
+      case StoryBlockTypes.Name:
+          title = "Name"
+          icon = "fas fa-user-alt"
+        break;
+      case StoryBlockTypes.Email:
+          title = "Email"
+          icon = "fas fa-envelope"
+        break
+      case StoryBlockTypes.PhoneNumber:
+          title = "Phone"
+          icon = "fas fa-phone-alt"
+        break;
+      case StoryBlockTypes.QuestionBlock:
+          title = "Question"
+          icon = "fas fa-question-circle"
+        break;
+      case StoryBlockTypes.Location:
+          title = "Location"
+          icon = "fas fa-map-marker-alt"
+        break;
+     case StoryBlockTypes.Audio:
+          title = "Audio"
+          icon = "fas fa-microphone-alt"
+          break;
+      case StoryBlockTypes.Video:
+          title = "Video"
+          icon = "fas fa-video"
+        break
+      case StoryBlockTypes.Sticker:
+          title = "Sticker"
+          icon = "fas fa-sticky-note"
+        break
+      case StoryBlockTypes.List:
+          title = "List"
+          icon = "fas fa-list-ul"
+        break;
+      case StoryBlockTypes.Document:
+          title = "Document"
+          icon = "fas fa-file-alt";
+        break
+    }
+
+
     const block = {
                     id: `${this._cnt}`,
                     type: type,
                     message: 'New message',
                     // TODO: Positioning in the middle + offset based on _cnt
-                    position: { x: 200, y: 50 }
+                    position: { x: 200, y: 50 },
+                    blockTitle: title,
+                    blockIcon: icon
 
     } as StoryBlock;
 
