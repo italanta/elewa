@@ -8,13 +8,18 @@
   max-width: 100%;
   border-radius: 15px;
   margin: 13px;
+  max-height: 100%;
 }
-
+#images{
+height: 140px;
+}
 img {
   border-radius: 15px;
   height: 140px;
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  
+  
 }
 
 .mat-raised-button {
@@ -27,7 +32,7 @@ img {
   cursor:pointer;
 }
 .bot{
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 .bot-number{
@@ -46,6 +51,7 @@ img {
   :hover{
     cursor:pointer;
   }
+  
 }
 .text {
   overflow: hidden;
@@ -54,7 +60,7 @@ img {
    -webkit-line-clamp: 3; /* number of lines to show */
            line-clamp: 2; 
    -webkit-box-orient: vertical;
-   font-size: 0.6rem;
+   font-size: 1rem;
 }
 
 .mat-icon-button {
