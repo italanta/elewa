@@ -30,7 +30,8 @@ export class StoryListItemComponent implements OnDestroy
         isEditMode: true,
         story: this.story
       },
-      panelClass: 'edit-bot-dialog'
+      minWidth: '600px',
+      minHeight: 'fit-content'
     });
   }
 
