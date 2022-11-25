@@ -5,29 +5,30 @@
 @import 'libs/elements/theming/_variables.scss';
 
 .bot-card {
-  max-width: 270px;
+  max-width: 100%;
   border-radius: 15px;
   margin: 13px;
 }
 
-.mat-card-image{
+img {
   border-radius: 15px;
-  height: 180px;
+  height: 140px;
+  width: 100%;
+  object-fit: contain;
 }
 
 .mat-raised-button {
   width: 100%;
-  border-radius: 10px;
-  color: mat-color($mat-ele, A900);
-  background-color: mat-color($mat-ele, A800);
+  color: mat-color($mat-ele, 50);
+  background-color: mat-color($mat-ele, A900);
 
 }
 .bot-card:hover{
   cursor:pointer;
 }
 .bot{
-  margin-left: 0%;
-  font-size: medium;
+  font-size: 0.7rem;
+  font-weight: bold;
 }
 .bot-number{
   font-size: x-small;
@@ -45,4 +46,17 @@
   :hover{
     cursor:pointer;
   }
+}
+.text {
+  overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 3; /* number of lines to show */
+           line-clamp: 2; 
+   -webkit-box-orient: vertical;
+   font-size: 0.6rem;
+}
+
+.mat-icon-button {
+  width: fit-content!important;
 }
