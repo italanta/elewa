@@ -54,7 +54,8 @@ export class StoriesDashboardComponent implements OnInit {
       data: {
         isEditMode: false,
       },
-      panelClass: 'create-bot-dialog'
+      minHeight: 'fit-content',
+      minWidth: '600px'
     });
   }
 

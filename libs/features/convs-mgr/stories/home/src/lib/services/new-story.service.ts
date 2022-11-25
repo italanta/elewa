@@ -1,7 +1,7 @@
 import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 import { take, map, switchMap, tap } from "rxjs/operators";
 
-import { Injectable, OnDestroy  } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { SubSink } from 'subsink';
@@ -17,17 +17,17 @@ import { Organisation } from "@app/model/organisation";
 
 /** Service which can create new stories. */
 @Injectable()
-export class NewStoryService implements OnDestroy
-{
-  constructor(private _org$$: ActiveOrgStore,
-              private _stories$$: StoriesStore,
-              private _fileStorageService$$: FileStorageService,
-              private _router: Router,
-              private _toast: ToastService,
-              private _translate: TranslateService,
-              private _dialog: MatDialog)
-  {}
+export class NewStoryService implements OnDestroy {
   private _sbS = new SubSink();
+
+  constructor(private _org$$: ActiveOrgStore,
+    private _stories$$: StoriesStore,
+    private _fileStorageService$$: FileStorageService,
+    private _router: Router,
+    private _toast: ToastService,
+    private _translate: TranslateService,
+    private _dialog: MatDialog
+  ) { }
 
   async saveStoryWithImage(bot: Story, imageFile: File, imagePath: string) {
     this._org$$.get().pipe(take(1)).subscribe(async (org) => {
@@ -36,61 +36,61 @@ export class NewStoryService implements OnDestroy
       }
     })
   }
+
   async saveImage(imageFile: File, imagePath: string) {
     let savedImage = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
     let url = await savedImage.getDownloadURL();
     return url;
   }
-  // add(bot: Story) {
-  //   return this._getOrgId$().pipe(
-  //               switchMap(async (orgId) => await this.saveBot(bot, orgId!)))
-  // }
-  saveImagelessStory(bot:Story){
+
+  saveImagelessStory(bot: Story) {
     this._org$$.get().pipe(take(1)).subscribe(async (org) => {
       if (org) {
-       this.callableAddFunction(bot)
+        this.addStoryToDb(bot)
       }
     })
- }
+  }
+
   async saveBot(bot: Story, orgId: string, storyImage?: File, storyImagePath?: string) {
     bot.orgId = orgId!;
 
     if (storyImagePath) {
       bot.imageField = await this.saveImage(storyImage!, storyImagePath);
-      this.callableAddFunction(bot); 
+      this.addStoryToDb(bot);
     }
   }
-  callableAddFunction(bot:Story){
+
+  addStoryToDb(bot: Story) {
     this._stories$$.add(bot).subscribe((story) => {
       this._dialog.closeAll();
       this._router.navigate(['/stories', story.id])
     });
   }
+
   deleteImage(imagePath: string) {
     this._fileStorageService$$.deleteSingleFile(imagePath);
   }
+
   async update(bot: Story, storyImage?: File, storyImagePath?: string) {
 
-    if (bot.imageField) {
+    if (storyImage) {
       //delete the image if any
-      this.deleteImage(bot.imageField);
-      bot.imageField='';
-      //Check if storyimagepath has a value
-      if(storyImagePath){
-  //update the image
-      bot.imageField = await this.saveImage(storyImage!, storyImagePath);
+      if (bot.imageField && bot.imageField != '') {
+        this.deleteImage(bot.imageField!);
+        bot.imageField = '';
       }
-      this._stories$$.update(bot).subscribe(() => {
-        try {
-          this._dialog.closeAll();
-          this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
-        } catch (error) {
-          this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
-        }
-      });
-     
+
+      bot.imageField = await this.saveImage(storyImage!, storyImagePath!);
     }
-    
+
+    this._stories$$.update(bot).subscribe((botSaved) => {
+      if (botSaved) {
+        this._dialog.closeAll();
+        this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
+      } else {
+        this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
+      }
+    });
   }
 
   remove(story: Story) {
@@ -100,7 +100,7 @@ export class NewStoryService implements OnDestroy
           this._translate.translate("TOAST.DELETE-BOT.SUCCESSFUL")
         );
       },
-      complete: () =>  {
+      complete: () => {
         this._dialog.closeAll()
         this._toast.doSimpleToast(
           this._translate.translate("TOAST.DELETE-BOT.FAIL")
@@ -111,7 +111,7 @@ export class NewStoryService implements OnDestroy
 
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
 
-  generateName(){
+  generateName() {
     const defaultName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
     return defaultName;
   }
