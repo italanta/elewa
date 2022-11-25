@@ -152,52 +152,56 @@ export class StoryEditorFrame {
 
     switch (type) {
       case StoryBlockTypes.TextMessage:
-          title = "Message"
+          title = "Message Block"
           icon = "fas fa-comment-alt"
         break;
       case StoryBlockTypes.Image:
-          title = "Image"
+          title = "Image Block"
           icon = "fas fa-image"
         break;
       case StoryBlockTypes.Name:
-          title = "Name"
+          title = "Name Block"
           icon = "fas fa-user-alt"
         break;
       case StoryBlockTypes.Email:
-          title = "Email"
+          title = "Email Block"
           icon = "fas fa-envelope"
         break
       case StoryBlockTypes.PhoneNumber:
-          title = "Phone"
+          title = "Phone Block"
           icon = "fas fa-phone-alt"
         break;
       case StoryBlockTypes.QuestionBlock:
-          title = "Question"
+          title = "Question Block"
           icon = "fas fa-question-circle"
         break;
       case StoryBlockTypes.Location:
-          title = "Location"
+          title = "Location Block"
           icon = "fas fa-map-marker-alt"
         break;
      case StoryBlockTypes.Audio:
-          title = "Audio"
+          title = "Audio Block"
           icon = "fas fa-microphone-alt"
           break;
       case StoryBlockTypes.Video:
-          title = "Video"
+          title = "Video Block"
           icon = "fas fa-video"
         break
       case StoryBlockTypes.Sticker:
-          title = "Sticker"
+          title = "Sticker Block"
           icon = "fas fa-sticky-note"
         break
       case StoryBlockTypes.List:
-          title = "List"
+          title = "List Block"
           icon = "fas fa-list-ul"
         break;
       case StoryBlockTypes.Document:
-          title = "Document"
+          title = "Document Block"
           icon = "fas fa-file-alt";
+        break
+      case StoryBlockTypes.Reply:
+          title = "Reply Block"
+          icon = "fas fa-reply";
         break
     }
 
