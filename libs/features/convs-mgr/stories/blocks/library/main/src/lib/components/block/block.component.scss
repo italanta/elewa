@@ -13,6 +13,10 @@
     align-items: center;
 }
 
+.outer:hover {
+    cursor:move
+}
+
 .icon-color {
     color: var(--convs-mgr-color-primary-purple)
 }
