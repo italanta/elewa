@@ -1,6 +1,6 @@
 <convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
 
-  <div fxLayout="row" fxLayoutAlign="space-between">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
     <div>
       <div *ngIf="org$ | async as org">
         <h2>{{ org.name }} bots</h2>
