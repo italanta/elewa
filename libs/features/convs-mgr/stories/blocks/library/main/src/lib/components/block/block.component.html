@@ -9,21 +9,6 @@
             <span class="icons"><i class="far fa-clone"></i></span>
             <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
         </div>
-        
-<!-- 
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-        <mat-icon>assignment</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
-      </button>
-            <button (click)="deleteBlock()" mat-menu-item>
-        <mat-icon>delete</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
-      </button>
-        </mat-menu> -->
     </div>
 
     <div *ngSwitchCase="messagetype">
