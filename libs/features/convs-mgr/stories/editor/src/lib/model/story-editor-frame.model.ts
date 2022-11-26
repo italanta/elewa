@@ -152,55 +152,55 @@ export class StoryEditorFrame {
 
     switch (type) {
       case StoryBlockTypes.TextMessage:
-          title = "Message Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.MESSAGE"
           icon = "fas fa-comment-alt"
         break;
       case StoryBlockTypes.Image:
-          title = "Image Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.IMAGE"
           icon = "fas fa-image"
         break;
       case StoryBlockTypes.Name:
-          title = "Name Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.NAME"
           icon = "fas fa-user-alt"
         break;
       case StoryBlockTypes.Email:
-          title = "Email Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.EMAIL"
           icon = "fas fa-envelope"
         break
       case StoryBlockTypes.PhoneNumber:
-          title = "Phone Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.PHONE"
           icon = "fas fa-phone-alt"
         break;
       case StoryBlockTypes.QuestionBlock:
-          title = "Question Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.QUESTION"
           icon = "fas fa-question-circle"
         break;
       case StoryBlockTypes.Location:
-          title = "Location Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.LOCATION"
           icon = "fas fa-map-marker-alt"
         break;
      case StoryBlockTypes.Audio:
-          title = "Audio Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.AUDIO"
           icon = "fas fa-microphone-alt"
           break;
       case StoryBlockTypes.Video:
-          title = "Video Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.VIDEO"
           icon = "fas fa-video"
         break
       case StoryBlockTypes.Sticker:
-          title = "Sticker Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.STICKER"
           icon = "fas fa-sticky-note"
         break
       case StoryBlockTypes.List:
-          title = "List Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.LIST"
           icon = "fas fa-list-ul"
         break;
       case StoryBlockTypes.Document:
-          title = "Document Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.DOCUMENT"
           icon = "fas fa-file-alt";
         break
       case StoryBlockTypes.Reply:
-          title = "Reply Block"
+          title = "PAGE-CONTENT.BLOCK.TITLES.REPLY"
           icon = "fas fa-reply";
         break
     }
