@@ -4,10 +4,10 @@
   border-color: lightgrey;
 
   background: papayawhip;
-  background-image: url(^/assets/bg/graphy.png);
-  background-repeat: repeat;
+  background-image: url(^/assets/bg/pattern-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
   position: relative;
-
 }
 
 #editor-frame .block {
