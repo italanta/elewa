@@ -146,12 +146,74 @@ export class StoryEditorFrame {
    */
   newBlock(type: StoryBlockTypes) {
     // TODO - Dynamic rendering of default blocks.
+
+    let title = ""
+    let icon = ""
+
+    switch (type) {
+      case StoryBlockTypes.TextMessage:
+          title = "PAGE-CONTENT.BLOCK.TITLES.MESSAGE"
+          icon = "fas fa-comment-alt"
+        break;
+      case StoryBlockTypes.Image:
+          title = "PAGE-CONTENT.BLOCK.TITLES.IMAGE"
+          icon = "fas fa-image"
+        break;
+      case StoryBlockTypes.Name:
+          title = "PAGE-CONTENT.BLOCK.TITLES.NAME"
+          icon = "fas fa-user-alt"
+        break;
+      case StoryBlockTypes.Email:
+          title = "PAGE-CONTENT.BLOCK.TITLES.EMAIL"
+          icon = "fas fa-envelope"
+        break
+      case StoryBlockTypes.PhoneNumber:
+          title = "PAGE-CONTENT.BLOCK.TITLES.PHONE"
+          icon = "fas fa-phone-alt"
+        break;
+      case StoryBlockTypes.QuestionBlock:
+          title = "PAGE-CONTENT.BLOCK.TITLES.QUESTION"
+          icon = "fas fa-question-circle"
+        break;
+      case StoryBlockTypes.Location:
+          title = "PAGE-CONTENT.BLOCK.TITLES.LOCATION"
+          icon = "fas fa-map-marker-alt"
+        break;
+     case StoryBlockTypes.Audio:
+          title = "PAGE-CONTENT.BLOCK.TITLES.AUDIO"
+          icon = "fas fa-microphone-alt"
+          break;
+      case StoryBlockTypes.Video:
+          title = "PAGE-CONTENT.BLOCK.TITLES.VIDEO"
+          icon = "fas fa-video"
+        break
+      case StoryBlockTypes.Sticker:
+          title = "PAGE-CONTENT.BLOCK.TITLES.STICKER"
+          icon = "fas fa-sticky-note"
+        break
+      case StoryBlockTypes.List:
+          title = "PAGE-CONTENT.BLOCK.TITLES.LIST"
+          icon = "fas fa-list-ul"
+        break;
+      case StoryBlockTypes.Document:
+          title = "PAGE-CONTENT.BLOCK.TITLES.DOCUMENT"
+          icon = "fas fa-file-alt";
+        break
+      case StoryBlockTypes.Reply:
+          title = "PAGE-CONTENT.BLOCK.TITLES.REPLY"
+          icon = "fas fa-reply";
+        break
+    }
+
+
     const block = {
                     id: `${this._cnt}`,
                     type: type,
                     message: 'New message',
                     // TODO: Positioning in the middle + offset based on _cnt
-                    position: { x: 200, y: 50 }
+                    position: { x: 200, y: 50 },
+                    blockTitle: title,
+                    blockIcon: icon
 
     } as StoryBlock;
 

@@ -22,8 +22,8 @@ export function _QuestionsBlockDecoratePlumb(block: QuestionMessageBlock,comp: C
     target: true,
     cssClass:"block_endpoint",
 
-    endpoint: 'Rectangle',
-    anchor: "Top"
+    endpoint: "Dot",
+    anchor: "Left"
 
   });
 
