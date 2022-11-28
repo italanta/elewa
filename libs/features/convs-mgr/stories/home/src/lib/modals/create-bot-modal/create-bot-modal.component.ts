@@ -5,8 +5,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { NewStoryService } from '../../services/new-story.service';
-import { UploadFileService } from '@app/state/file';
-
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -18,28 +16,23 @@ export class CreateBotModalComponent implements OnInit {
   botForm: FormGroup;
   modalMode: boolean;
   story: Story;
-  isImage=false;
+  imagePath: string;
+  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg";
+
+  storyImageFile: File;
+  fileName: string;
+  storyHasImage: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
-                isEditMode: boolean,
-                story ? : Story
-              },
-              private _addStory$: NewStoryService,
-              private _formBuilder: FormBuilder,
-              private _addImage$: UploadFileService
+    isEditMode: boolean,
+    story?: Story
+  },
+    private _addStory$: NewStoryService,
+    private _formBuilder: FormBuilder,
   ) {
     this.modalMode = data.isEditMode;
     this.story = data.story as Story;
   }
-
-
-  getUrl(file:any){
-
-    if(file.target.files[0]){
-      this.isImage=true;
-    }
-  }
-
 
   ngOnInit(): void {
     this.createFormGroup();
@@ -52,7 +45,8 @@ export class CreateBotModalComponent implements OnInit {
   createFormGroup() {
     this.botForm = this._formBuilder.group({
       botName: [this._addStory$.generateName()],
-      botDesc: ['']
+      botDesc: [''],
+      botImage: ['']
     });
   }
 
@@ -63,18 +57,25 @@ export class CreateBotModalComponent implements OnInit {
       botImage: this.story.imageField
     });
 
-    if(this.story.imageField){
-      this.isImage=true;
+    if (this.story.imageField && this.story.imageField != '') {
+      this.storyHasImage = true;
+      this.fileName = this.getFileNameFromFbUrl(this.story.imageField)
     }
   }
 
-  add () {
+  add() {
     const bot: Story = {
       name: this.botForm.value.botName,
       description: this.botForm.value.botDesc,
       orgId: ''
     }
-    this._addStory$.add(bot.name, bot.description).subscribe();
+
+    if (this.storyHasImage) {
+      this._addStory$.saveStoryWithImage(bot, this.storyImageFile, this.imagePath);
+    }
+    else {
+      this._addStory$.saveImagelessStory(bot);
+    }
   }
 
   update() {
@@ -84,7 +85,21 @@ export class CreateBotModalComponent implements OnInit {
     this.story.imageField = this.botForm.value.botImage;
 
     // Update bot details
-    this._addStory$.update(this.story);
+    this._addStory$.update(this.story, this.storyImageFile, this.imagePath!);
+  }
+
+  imageChanged(event: any) {
+    if (event.target.files[0]) {
+      let image: File = event.target.files[0];
+      this.storyImageFile = image;
+      this.imagePath = `images/${this.storyImageFile.name}`;
+      this.fileName = this.storyImageFile.name;
+      this.storyHasImage = true;
+    }
+  }
+
+  getFileNameFromFbUrl(fbUrl: string): string {
+    return fbUrl.split('%2F')[1].split("?")[0];
   }
 
   submitForm() {
