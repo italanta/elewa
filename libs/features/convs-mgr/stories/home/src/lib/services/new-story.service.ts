@@ -1,55 +1,95 @@
-import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
-import { take, map, switchMap, tap } from "rxjs/operators";
-
-import { Injectable, OnDestroy  } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
+
 import { SubSink } from 'subsink';
+
+import { take, map } from "rxjs/operators";
+
+import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 
 import { ToastService } from '@iote/bricks-angular';
 import { TranslateService } from '@ngfi/multi-lang';
+
 import { Story } from "@app/model/convs-mgr/stories/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
+import { FileStorageService } from "@app/state/file";
 
 /** Service which can create new stories. */
 @Injectable()
-export class NewStoryService implements OnDestroy
-{
+export class NewStoryService implements OnDestroy {
+  private _sbS = new SubSink();
+
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
+              private _fileStorageService$$: FileStorageService,
               private _router: Router,
               private _toast: ToastService,
               private _translate: TranslateService,
-              private _dialog: MatDialog)
-  {}
-  private _sbS = new SubSink();
+              private _dialog: MatDialog
+  ) { }
 
-  add(name?: string, description?: string) {
-    // Generate default name if name not passed.
-    if(!name)
-      name = this.generateName();
-
-    return this._getOrgId$()
-               .pipe(
-                switchMap((orgId) =>
-                  this._stories$$.add({ name: name as string, orgId, description } as Story)),
-                tap((s: Story) => {
-                  this._dialog.closeAll()
-                  this._router.navigate(['/stories', s.id])
-                }
-                ))
-
-
+  async saveStoryWithImage(bot: Story, imageFile: File, imagePath: string) {
+    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+      if (org) {
+        await this.saveBot(bot, org.id!, imageFile, imagePath)
+      }
+    })
   }
 
-  update(story: Story) {
-    this._stories$$.update(story).subscribe(() => {
-      try {
+  async saveImage(imageFile: File, imagePath: string) {
+    let savedImage = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
+    let url = await savedImage.getDownloadURL();
+    return url;
+  }
+
+  saveImagelessStory(bot: Story) {
+    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+      if (org) {
+        this.addStoryToDb(bot)
+      }
+    })
+  }
+
+  async saveBot(bot: Story, orgId: string, storyImage?: File, storyImagePath?: string) {
+    bot.orgId = orgId!;
+
+    if (storyImagePath) {
+      bot.imageField = await this.saveImage(storyImage!, storyImagePath);
+      this.addStoryToDb(bot);
+    }
+  }
+
+  addStoryToDb(bot: Story) {
+    this._stories$$.add(bot).subscribe((story) => {
+      this._dialog.closeAll();
+      this._router.navigate(['/stories', story.id])
+    });
+  }
+
+  deleteImage(imagePath: string) {
+    this._fileStorageService$$.deleteSingleFile(imagePath);
+  }
+
+  async update(bot: Story, storyImage?: File, storyImagePath?: string) {
+
+    if (storyImage) {
+      //delete the image if any
+      if (bot.imageField && bot.imageField != '') {
+        this.deleteImage(bot.imageField!);
+        bot.imageField = '';
+      }
+
+      bot.imageField = await this.saveImage(storyImage!, storyImagePath!);
+    }
+
+    this._stories$$.update(bot).subscribe((botSaved) => {
+      if (botSaved) {
         this._dialog.closeAll();
         this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL'));
-      } catch (error) {
+      } else {
         this._toast.doSimpleToast(this._translate.translate('TOAST.EDIT-BOT.FAIL'));
       }
     });
@@ -62,7 +102,7 @@ export class NewStoryService implements OnDestroy
           this._translate.translate("TOAST.DELETE-BOT.SUCCESSFUL")
         );
       },
-      complete: () =>  {
+      complete: () => {
         this._dialog.closeAll()
         this._toast.doSimpleToast(
           this._translate.translate("TOAST.DELETE-BOT.FAIL")
@@ -73,7 +113,7 @@ export class NewStoryService implements OnDestroy
 
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
 
-  generateName(){
+  generateName() {
     const defaultName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
     return defaultName;
   }

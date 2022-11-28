@@ -123,12 +123,13 @@
         "COPY": "Copy",
         "DELETE": "Delete"
       },
+      "CREATE": "Create Bot",
+      "UPDATE": "Update Bot",
       "CANCEL": "Cancel",
       "SUBMIT": "Create bot"
     },
     "EDIT-MODAL": {
-      "TITLE": "Edit Bot",
-      "SUBMIT": "Update Bot"
+      "TITLE": "Edit Bot"
     },
     "DELETE-MODAL": {
       "TITLE": "Delete Bot",
