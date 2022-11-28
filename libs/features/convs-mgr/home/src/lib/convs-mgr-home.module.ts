@@ -6,7 +6,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { HomePageComponent } from './pages/home/home.page';
