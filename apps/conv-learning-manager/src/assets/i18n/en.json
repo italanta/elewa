@@ -66,11 +66,18 @@
     },
     "BLOCK": {
       "TITLES": {
-        "IMAGE": "Image",
-        "LOCATION": "Location",
-        "NAME": "Name",
-        "EMAIL": "Email",
-        "PHONE": "Phone"
+        "IMAGE": "Image Block",
+        "LOCATION": "Location Block",
+        "NAME": "Name Block",
+        "EMAIL": "Email Block",
+        "PHONE": "Phone Block",
+        "MESSAGE": "Message Block",
+        "QUESTION": "Question Block",
+        "AUDIO": "Audio Block",
+        "VIDEO": "Video Block",
+        "STICKER": "Sticker Block",
+        "LIST": "List Block",
+        "DOCUMENT": "Document Block"
       },
       "PLACEHOLDER": {
         "CAPTION": "Caption",
