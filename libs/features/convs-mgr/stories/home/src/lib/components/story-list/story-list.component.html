@@ -8,11 +8,10 @@
 <div *ngIf="stories$ | async as stories"
   class="bot-selector"
   fxLayout="row wrap"
-  fxLayoutGap="26px grid"
   fxFlexFill
 >
-  <div *ngIf="stories.length > 0; else noBots">
-    <div *ngFor="let story of stories">
+  <div *ngIf="stories.length > 0; else noBots" fxLayout="row wrap">
+    <div *ngFor="let story of stories" fxFlex="24">
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </div>
   </div>
