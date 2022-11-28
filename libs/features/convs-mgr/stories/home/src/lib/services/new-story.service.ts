@@ -1,19 +1,21 @@
-import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
-import { take, map, switchMap, tap } from "rxjs/operators";
-
 import { Injectable, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
+
 import { SubSink } from 'subsink';
+
+import { take, map } from "rxjs/operators";
+
+import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 
 import { ToastService } from '@iote/bricks-angular';
 import { TranslateService } from '@ngfi/multi-lang';
+
 import { Story } from "@app/model/convs-mgr/stories/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
-import { FileStorageService } from "libs/state/file/store/src/lib/providers/file-storage.service";
-import { Organisation } from "@app/model/organisation";
+import { FileStorageService } from "@app/state/file";
 
 /** Service which can create new stories. */
 @Injectable()
@@ -21,12 +23,12 @@ export class NewStoryService implements OnDestroy {
   private _sbS = new SubSink();
 
   constructor(private _org$$: ActiveOrgStore,
-    private _stories$$: StoriesStore,
-    private _fileStorageService$$: FileStorageService,
-    private _router: Router,
-    private _toast: ToastService,
-    private _translate: TranslateService,
-    private _dialog: MatDialog
+              private _stories$$: StoriesStore,
+              private _fileStorageService$$: FileStorageService,
+              private _router: Router,
+              private _toast: ToastService,
+              private _translate: TranslateService,
+              private _dialog: MatDialog
   ) { }
 
   async saveStoryWithImage(bot: Story, imageFile: File, imagePath: string) {
