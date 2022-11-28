@@ -40,7 +40,29 @@
   margin-right: 6px;
   margin-bottom: 10px;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 500;.create-bot p{
+    padding-left: 1em;
+  }
+}
+
+// create bot card
+.create-bot{
+  width: 65em;
+	text-align:center;
+	height: 10em;
+  margin-left: 24em;
+  margin-top: 12em;
+  margin-right: 23em;
+}
+.create-bot p{
+  padding-left: 1em;
+}
+.create-bot mat-card-title{
+  padding-top: 1em;
+  padding-left: 1em;
+}
+.fa-plus{
+    color: var(--convs-mgr-color-tertiary)
 }
 .bot-selector{
   box-sizing: border-box;
