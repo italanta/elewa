@@ -22,8 +22,8 @@ export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: Compon
     target: true,
     cssClass:"block_endpoint",
 
-    endpoint: 'Rectangle',
-    anchor: "Top"
+    endpoint: 'Dot',
+    anchor: "Left"
 
   });
 

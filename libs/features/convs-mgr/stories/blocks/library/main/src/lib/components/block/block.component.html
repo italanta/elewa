@@ -1,21 +1,14 @@
 <mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
     <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
-        <img src="{{block.blockIcon}}" class="avatar-img" alt="storyicon" />
-        <h4 class="block-title">{{block.blockTitle}}</h4>
+        <div fxLayout="row" class="block-title-container">
+            <i class="{{block.blockIcon + ' icon-color'}}"></i>
+            <h4 class="block-title">{{block.blockTitle | transloco}}</h4>
+        </div>
 
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-        <mat-icon>assignment</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
-      </button>
-            <button (click)="deleteBlock()" mat-menu-item>
-        <mat-icon>delete</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
-      </button>
-        </mat-menu>
+        <div fxLayout="row" class="icon-block">
+            <span class="icons"><i class="far fa-clone"></i></span>
+            <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
+        </div>
     </div>
 
     <div *ngSwitchCase="messagetype">
