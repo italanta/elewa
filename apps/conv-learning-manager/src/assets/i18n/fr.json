@@ -51,11 +51,18 @@
     },
     "BLOCK": {
       "TITLES": {
-        "IMAGE": "Image",
-        "LOCATION": "Emplacemant",
-        "NAME": "Nom",
-        "EMAIL": "Email",
-        "PHONE": "Téléphoner"
+        "IMAGE": "Image Bloquer",
+        "LOCATION": "Emplacemant Bloquer",
+        "NAME": "Nom Bloquer",
+        "EMAIL": "Email Bloquer",
+        "PHONE": "Téléphoner Bloquer",
+        "MESSAGE": "Message Bloquer",
+        "QUESTION": "Question Bloquer",
+        "AUDIO": "l'audio Bloquer",
+        "VIDEO": "Video Bloquer",
+        "STICKER": "Autocollant Bloquer",
+        "LIST": "Liste Bloquer",
+        "DOCUMENT": "Document Bloquer"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",

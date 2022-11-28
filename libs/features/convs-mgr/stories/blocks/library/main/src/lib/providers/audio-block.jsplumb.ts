@@ -20,8 +20,8 @@ export function _AudioBlockDecoratePlumb(block: VoiceMessageBlock, comp: Compone
   jsPlumb.addEndpoint(comp.location.nativeElement, {
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
-
-    endpoint: 'Rectangle',
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
     anchor: "Left"
   });
 
