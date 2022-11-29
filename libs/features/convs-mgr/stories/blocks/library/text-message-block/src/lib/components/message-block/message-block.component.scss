@@ -1,15 +1,22 @@
 mat-card {
-  min-width: fit-content;
+  min-width: 13em;
   padding: 10px;
-}
-
-.mat-card-title {
-  font-size: 1.2rem!important;
-  color: #6418C3;
 }
 
 textarea {
   margin: 5px 0;
+  border: 2px solid var(--convs-mgr-color-medium-shade);
+  border-radius: 5px;
+  resize: none;
+  padding: 1em;
+
+}
+
+textarea[type=text]:focus-visible {
+  margin: 5px 0;
+  border: 2px solid #6418C3;
+  outline-color: #6418C3;
+
 }
 
 input {
