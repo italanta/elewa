@@ -14,8 +14,8 @@ textarea {
 
 textarea[type=text]:focus-visible {
   margin: 5px 0;
-  border: 2px solid #6418C3;
-  outline-color: #6418C3;
+  border: 2px solid var(--convs-mgr-color-primary-purple);
+  outline-color: var(--convs-mgr-color-primary-purple);
 
 }
 
