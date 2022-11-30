@@ -1,4 +1,5 @@
 import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { IncomingMessagePayload } from "./payload-in.interface";
 
 /** 
@@ -12,7 +13,7 @@ import { IncomingMessagePayload } from "./payload-in.interface";
 export interface Message
 {
   /** The unique id that is assigned to the third party platform */
-  id                  : string;
+  id?                 : string;
 
   /** The different types of messages our chatbot recieves from the end user, 
    *    e.g. a text message, a location, an image
@@ -24,10 +25,24 @@ export interface Message
   /** Unprocessed part of the message sent through a channel by a platform which contains 
    *    the actual message payload  
    */
-  payload             : IncomingMessagePayload;
+  payload?            : IncomingMessagePayload;
 
   /** The phone number used by the end user to send a message to  our chatbot */
   endUserPhoneNumber  : string;
+
+  n?                  : number;
+
+  direction?          : MessageDirection;
+}
+
+export enum MessageDirection
+{
+  TO_END_USER       =  'toEndUser',
+  FROM_END_USER     =  'fromEndUser',
+
+  TO_CHATBOT        =  'toChatBot',
+
+  TO_AGENT          =  'toAgent'
 }
 
 /**
@@ -38,14 +53,37 @@ export interface TextMessage extends Message
   text: string;
 }
 
+export interface LocationMessage extends Message 
+{
+  location: Location
+}
+
 /**
  * Standardized format of the image messsage sent by the end user
  */
 export interface ImageMessage extends Message 
 {
   /** The provided image url, by the third party platform */
-  link: string;
+  imageId         : string;
+  url?            : string;
 }
+
+/**
+ * Standardized format of the image messsage sent by the end user
+ */
+ export interface AudioMessage extends Message 
+ {
+   /** The provided image url, by the third party platform */
+   audioId        : string;
+   url?           : string;
+ }
+
+ export interface VideoMessage extends Message 
+ {
+   /** The provided image url, by the third party platform */
+   videoId        : string;
+   url?           : string;
+ }
 
 /**
  * Standardized format of a reply to the question block @see {QuestionMessageBlock}
@@ -58,11 +96,11 @@ export interface QuestionMessage extends Message
    *  
    *  So we can also use this id to determine the next block
    */
-  optionId: string;
+  optionId            : string;
 
   /** Message displayed as the answer */
-  optionText: string;
+  optionText          : string;
 
   /** Value the answer holds */
-  optionValue?: string;
+  optionValue?        : string;
 }
