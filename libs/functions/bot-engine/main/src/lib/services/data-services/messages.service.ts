@@ -1,8 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
+
 import { BotDataService } from './data-service-abstract.class';
-// import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the messages collection
@@ -26,9 +26,10 @@ export class MessagesDataService extends BotDataService<Message> {
 
   async saveMessage(msg: Message, orgId: string, endUserId: string): Promise<Message> {
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
-    const timeStamp = Date.now();
 
-    const savedMessage = await this.createDocument(msg, this._docPath, timeStamp.toString())
+    msg.id = Date.now().toString()
+
+    const savedMessage = await this.createDocument(msg, this._docPath, msg.id)
 
     return savedMessage;
   }
