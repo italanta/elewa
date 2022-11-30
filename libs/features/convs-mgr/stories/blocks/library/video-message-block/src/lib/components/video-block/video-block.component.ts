@@ -7,7 +7,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks'
 import { UploadFileService } from '@app/state/file';
 
@@ -25,6 +25,11 @@ export class VideoBlockComponent implements OnInit {
   @Input() block: VideoMessageBlock; 
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+  type: StoryBlockTypes;
+  videoType= StoryBlockTypes.Video;
+
+  blockFormGroup: FormGroup;
 
   file: File;
   videoLink: string = "";
@@ -81,5 +86,9 @@ export class VideoBlockComponent implements OnInit {
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
+  }
+  deleteBlock() {
+    this.block.deleted = true;
+    this.blockFormGroup.value.deleted = true;
   }
 }
