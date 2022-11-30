@@ -13,7 +13,7 @@ import { IncomingMessagePayload } from "./payload-in.interface";
 export interface Message
 {
   /** The unique id that is assigned to the third party platform */
-  id?                 : string;
+  id                  : string;
 
   /** The different types of messages our chatbot recieves from the end user, 
    *    e.g. a text message, a location, an image
@@ -25,7 +25,7 @@ export interface Message
   /** Unprocessed part of the message sent through a channel by a platform which contains 
    *    the actual message payload  
    */
-  payload?            : IncomingMessagePayload;
+  payload             : IncomingMessagePayload;
 
   /** The phone number used by the end user to send a message to  our chatbot */
   endUserPhoneNumber? : string;
@@ -64,8 +64,8 @@ export interface LocationMessage extends Message
 export interface ImageMessage extends Message 
 {
   /** The provided image url, by the third party platform */
-  imageId         : string;
-  url?            : string;
+  imageId: string;
+  url?: string;
 }
 
 /**
@@ -74,16 +74,19 @@ export interface ImageMessage extends Message
  export interface AudioMessage extends Message 
  {
    /** The provided image url, by the third party platform */
-   audioId        : string;
-   url?           : string;
+   audioId: string;
+   url?: string;
  }
 
- export interface VideoMessage extends Message 
- {
-   /** The provided image url, by the third party platform */
-   videoId        : string;
-   url?           : string;
- }
+ /**
+ * Standardized format of the image messsage sent by the end user
+ */
+export interface VideoMessage extends Message 
+{
+  /** The provided image url, by the third party platform */
+  videoId: string;
+  url?: string;
+}
 
  export interface QuestionMessage extends Message 
  {

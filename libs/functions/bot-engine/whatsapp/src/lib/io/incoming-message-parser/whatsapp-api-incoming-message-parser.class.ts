@@ -1,8 +1,7 @@
 import { IncomingMessageParser } from '@app/functions/bot-engine';
 
-import { ImageMessage, LocationMessage, QuestionMessage, TextMessage } from '@app/model/convs-mgr/conversations/messages';
-import { ImagePayload, InteractiveRawButtonReplyMessage, LocationPayload, MessageTypes, TextMessagePayload, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
-import axios from 'axios';
+import { AudioMessage, ImageMessage, LocationMessage, QuestionMessage, TextMessage, VideoMessage } from '@app/model/convs-mgr/conversations/messages';
+import { AudioPayload, ImagePayload, InteractiveListReplyMessage, InteractiveMessageType, InteractiveRawButtonReplyMessage, LocationPayload, MessageTypes, TextMessagePayload, VideoPayload, WhatsappInteractiveMessage, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
 
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -28,7 +27,6 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   {
     // Create the base message object
     const newMessage: TextMessage = {
-
       type: MessageTypes.TEXT,
       endUserPhoneNumber: message.from,
       text: message.text.body,
@@ -36,6 +34,20 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     };
 
     return newMessage;
+  }
+
+  protected parseInInteractiveMessage(message: WhatsAppMessagePayLoad): QuestionMessage
+  {
+    const interactiveMessage = message as WhatsappInteractiveMessage;
+
+    switch (interactiveMessage.interactive.type) {
+      case InteractiveMessageType.ButtonReply:
+        return this.__parseInInteractiveButtonMessage(message);
+      case InteractiveMessageType.ListReply:
+        return this.__parseInListMessage(message);
+      default:
+        return null;
+    }
   }
 
   /**
@@ -48,15 +60,39 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
    * Payload example:
    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#reply-button
    */
-  protected parseInInteractiveButtonMessage(message: WhatsAppMessagePayLoad): QuestionMessage
+  private __parseInInteractiveButtonMessage(message: WhatsAppMessagePayLoad): QuestionMessage
   {
     const interactiveMessage = message as InteractiveRawButtonReplyMessage;
 
     const baseMessage: QuestionMessage = {
+      id: interactiveMessage.id,
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
-      optionId: interactiveMessage.interactive.button_reply.id,
-      optionText: interactiveMessage.interactive.button_reply.title,
+      options: [
+        {
+          optionId: interactiveMessage.interactive.button_reply.id,
+          optionText: interactiveMessage.interactive.button_reply.title,
+        },
+      ],
+      payload: message,
+    };
+
+    return baseMessage;
+  }
+
+  private __parseInListMessage(message: WhatsAppMessagePayLoad): QuestionMessage
+  {
+    const interactiveMessage = message as InteractiveListReplyMessage;
+
+    const baseMessage: QuestionMessage = {
+      type: MessageTypes.QUESTION,
+      endUserPhoneNumber: message.from,
+      options: [
+        {
+          optionId: interactiveMessage.interactive.list_reply.id,
+          optionText: interactiveMessage.interactive.list_reply.title,
+        },
+      ],
       payload: message,
     };
 
@@ -71,35 +107,81 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
    * Payload example:
    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#location-messages
    */
-     protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
-     {
-       const standardMessage: LocationMessage = {
-         type: MessageTypes.LOCATION,
-         endUserPhoneNumber: incomingMessage.from,
-         location: incomingMessage.location,
-         payload: incomingMessage,
-       };
-   
-       return standardMessage;
-     }
+  protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
+  {
+    const standardMessage: LocationMessage = {
+      type: MessageTypes.LOCATION,
+      endUserPhoneNumber: incomingMessage.from,
+      location: incomingMessage.location,
+      payload: incomingMessage,
+    };
+
+    return standardMessage;
+  }
 
   /**
-   * Converts an location whatsapp message to a standadized location Message @see {LocationMessageBlock}
+   * Converts an location whatsapp message to a standadized image Message
    *
    * When a user sends their location, whatsapp sends us their location in terms of longitude and latitude
    *
    * Payload example:
-   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#location-messages
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#media-messages
    */
-     protected parseInImageMessage(incomingMessage: ImagePayload): ImageMessage
-     {
-       const standardMessage: ImageMessage = {
-         type: MessageTypes.LOCATION,
-         endUserPhoneNumber: incomingMessage.from,
-         imageId: incomingMessage.id,
-         payload: incomingMessage,
-       };
-   
-       return standardMessage;
-     }
+  protected parseInImageMessage(incomingMessage: ImagePayload): ImageMessage
+  {
+    const standardMessage: ImageMessage = {
+      id: incomingMessage.id,
+      type: MessageTypes.IMAGE,
+      endUserPhoneNumber: incomingMessage.from,
+      imageId: incomingMessage.id,
+      payload: incomingMessage,
+      mime_type: incomingMessage.image.mime_type,
+    };
+
+    return standardMessage;
+  }
+
+  /**
+   * Converts an audio whatsapp message to a standadized audio Message
+   *
+   * When a user sends their location, whatsapp sends us their location in terms of longitude and latitude
+   *
+   * Payload example:
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#media-messages
+   */
+  protected parseInAudioMessage(incomingMessage: AudioPayload): AudioMessage
+  {
+    const standardMessage: AudioMessage = {
+      id: incomingMessage.id,
+      type: MessageTypes.AUDIO,
+      endUserPhoneNumber: incomingMessage.from,
+      audioId: incomingMessage.id,
+      payload: incomingMessage,
+      mime_type: incomingMessage.audio.mime_type,
+    };
+
+    return standardMessage;
+  }
+
+  /**
+   * Converts an audio whatsapp message to a standadized audio Message
+   *
+   * When a user sends their location, whatsapp sends us their location in terms of longitude and latitude
+   *
+   * Payload example:
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#media-messages
+   */
+  protected parseInVideoMessage(incomingMessage: VideoPayload): VideoMessage
+  {
+    const standardMessage: VideoMessage = {
+      id: incomingMessage.id,
+      type: MessageTypes.AUDIO,
+      endUserPhoneNumber: incomingMessage.from,
+      videoId: incomingMessage.id,
+      payload: incomingMessage,
+      mime_type: incomingMessage.video.mime_type,
+    };
+
+    return standardMessage;
+  }
 }
