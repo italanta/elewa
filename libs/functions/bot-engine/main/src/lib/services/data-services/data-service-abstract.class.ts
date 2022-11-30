@@ -26,7 +26,7 @@ export abstract class BotDataService<T> {
         return await this.repo$.getDocuments(new Query())
      }
 
-     async getDocumentByField(field: string, value: string, path: string){
+     async getDocumentByField(field: string, value: any, path: string){
         this.repo$ =  this._tools.getRepository<T>(path)
  
         const doc = await this.repo$.getDocuments(new Query().where(field, '==', value))
