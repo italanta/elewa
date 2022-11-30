@@ -1,5 +1,5 @@
 <mat-card [id]="id" *ngIf="questionMessageBlock">
-  <mat-card-title>Questions Block {{id}}</mat-card-title>
+  <!-- <mat-card-title>Questions Block {{id}}</mat-card-title> -->
   <mat-card-content>
     <form [formGroup]="questionMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
@@ -17,9 +17,8 @@
 
     </form>
 
-    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-      <i class="fa fa-plus"></i>
-      Add New Option
+    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+      Add Option
     </button>
   </mat-card-content>
 </mat-card>
