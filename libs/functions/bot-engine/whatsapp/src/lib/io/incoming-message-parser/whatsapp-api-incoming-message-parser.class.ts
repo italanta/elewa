@@ -1,6 +1,8 @@
 import { IncomingMessageParser } from '@app/functions/bot-engine';
-import { QuestionMessage, TextMessage } from '@app/model/convs-mgr/conversations/messages';
-import { InteractiveRawButtonReplyMessage, MessageTypes, TextMessagePayload, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
+
+import { ImageMessage, LocationMessage, QuestionMessage, TextMessage } from '@app/model/convs-mgr/conversations/messages';
+import { ImagePayload, InteractiveRawButtonReplyMessage, LocationPayload, MessageTypes, TextMessagePayload, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
+import axios from 'axios';
 
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -26,7 +28,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   {
     // Create the base message object
     const newMessage: TextMessage = {
-      id: message.id,
+
       type: MessageTypes.TEXT,
       endUserPhoneNumber: message.from,
       text: message.text.body,
@@ -51,7 +53,6 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const interactiveMessage = message as InteractiveRawButtonReplyMessage;
 
     const baseMessage: QuestionMessage = {
-      id: interactiveMessage.id,
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
       optionId: interactiveMessage.interactive.button_reply.id,
@@ -61,4 +62,44 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
 
     return baseMessage;
   }
+
+  /**
+   * Converts an location whatsapp message to a standadized location Message @see {LocationMessageBlock}
+   *
+   * When a user sends their location, whatsapp sends us their location in terms of longitude and latitude
+   *
+   * Payload example:
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#location-messages
+   */
+     protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
+     {
+       const standardMessage: LocationMessage = {
+         type: MessageTypes.LOCATION,
+         endUserPhoneNumber: incomingMessage.from,
+         location: incomingMessage.location,
+         payload: incomingMessage,
+       };
+   
+       return standardMessage;
+     }
+
+  /**
+   * Converts an location whatsapp message to a standadized location Message @see {LocationMessageBlock}
+   *
+   * When a user sends their location, whatsapp sends us their location in terms of longitude and latitude
+   *
+   * Payload example:
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#location-messages
+   */
+     protected parseInImageMessage(incomingMessage: ImagePayload): ImageMessage
+     {
+       const standardMessage: ImageMessage = {
+         type: MessageTypes.LOCATION,
+         endUserPhoneNumber: incomingMessage.from,
+         imageId: incomingMessage.id,
+         payload: incomingMessage,
+       };
+   
+       return standardMessage;
+     }
 }
