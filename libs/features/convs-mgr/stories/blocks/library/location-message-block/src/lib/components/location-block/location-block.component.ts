@@ -5,7 +5,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { MapsAPILoader } from '@agm/core';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
@@ -24,12 +24,6 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
   @Input() locationMessageForm: FormGroup;
 
   locationInputId: string;
-
-
-  type: StoryBlockTypes;
-  locationtype = StoryBlockTypes.Location;
-
-  blockFormGroup: FormGroup;
 
   latitude: number;
   longitude: number;
@@ -115,10 +109,6 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
-  }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
   }
 
 }

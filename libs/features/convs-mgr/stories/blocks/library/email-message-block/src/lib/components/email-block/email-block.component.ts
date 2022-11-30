@@ -1,8 +1,9 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
 import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
@@ -20,11 +21,6 @@ export class EmailBlockComponent implements OnInit, AfterViewInit
   @Input() blockFormGroup: FormGroup;
 
   emailInputId: string;
-
-  type: StoryBlockTypes;
-  emailtype = StoryBlockTypes.Email;
-
-
 
   constructor(private _fb: FormBuilder) { }
 
@@ -44,10 +40,6 @@ export class EmailBlockComponent implements OnInit, AfterViewInit
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
-  }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
   }
 
 }

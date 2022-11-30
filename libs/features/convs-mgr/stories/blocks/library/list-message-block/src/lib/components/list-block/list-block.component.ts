@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
@@ -18,12 +18,6 @@ export class ListBlockComponent<T> implements OnInit {
   @Input() block: ListMessageBlock;
   @Input() listMessageBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-
-  type: StoryBlockTypes;
-  listType= StoryBlockTypes.List;
-
-  blockFormGroup: FormGroup;
-
 
   constructor(private _fb: FormBuilder) {}
 
@@ -58,9 +52,5 @@ export class ListBlockComponent<T> implements OnInit {
 
   addNewOption() {
     this.listItems.push(this.addListOptions());
-  }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
   }
 }
