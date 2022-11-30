@@ -1,69 +1,80 @@
 mat-card {
-    min-width: fit-content;
-    padding: 10px;
+  min-width: fit-content;
+  padding: 10px;
 }
 
 mat-card-title {
-    font-size: 1.2rem!important;
-    color: var(--convs-mgr-color-primary-purple);
+  font-size: 1.2rem !important;
+  color: var(--convs-mgr-color-primary-purple);
 }
 
 input {
-    margin: 5px 0;
-    width: 300px;
-    height: 30px;
-    border: 0.2px solid #202020;
-    border-radius: 5px;
+  margin: 5px 0;
+  width: 300px;
+  height: 30px;
+  border: 0.2px solid var(--convs-mgr-color-primary-black);
+  border-radius: 5px;
+
+  &::placeholder{
+    margin-left: 2px;
+    color:var(--convs-mgr-color-primary-black) ;
+    background-color: var(  --convs-mgr-color-medium-tint);
+  }
 }
 
 .fileSrc {
-    display: none;
+  display: none;
 }
 
 .image {
-    width: 13em;
-    height: 12em;
-    border-radius: 5px;
+  width: 13em;
+  height: 12em;
+  border-radius: 5px;
 }
 
 .video-input {
-    border-radius: 5px;
-    width: 300px;
-    height: 32px;
-    padding-top: 5px;
-    border: 0.2px solid #202020;
-    overflow: auto;
+  border-radius: 5px;
+  width: 300px;
+  height: 32px;
+  padding-top: 5px;
+  border: 0.2px solid var(--convs-mgr-color-primary-purple);
+  overflow: auto;
 }
 
 .svg-inline--fa.fa-w-18 {
-    width: 30px;
-    height: 40px;
-    margin-top: 9%;
-    border-color: var( --convs-mgr-color-primary-white) !important;
-    color: var(--convs-mgr-color-primary-white);
+  width: 30px;
+  height: 40px;
+  margin-top: 9%;
+  border-color: var(--convs-mgr-color-primary-white) !important;
+  color: var(--convs-mgr-color-primary-white);
+}
+
+.fa-play-circle {
+  color: var(--convs-mgr-color-primary-purple);
+  align-items: center;
 }
 
 .video-icon {
-    text-align: center;
-    color: #c2c2c2 !important;
-    width: 300px;
-    height: 90px;
-    background-color: #c2c2c2 !important;
-    border-radius: 5px;
-    opacity: 1;
+  text-align: center;
+  color: #c2c2c2 !important;
+  width: 300px;
+  height: 90px;
+  background-color: #c2c2c2 !important;
+  border-radius: 5px;
+  opacity: 1;
 }
 
 .svg-inline--fa {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .svg-inline--fa.fa-w-14 {
-    margin-left: 10rem;
+  margin-left: 10rem;
 }
 
 .svg-inline--fa.fa-w-16 {
-    width: 40px;
-    height: 40px;
-    margin-top: 9%;
-    color: var(--convs-mgr-color-primary-white) !important;
+  width: 40px;
+  height: 40px;
+  margin-top: 9%;
+  color: var(--convs-mgr-color-primary-white) !important;
 }

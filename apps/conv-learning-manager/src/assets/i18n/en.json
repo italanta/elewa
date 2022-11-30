@@ -84,7 +84,8 @@
         "IMAGE-LINK": "Image Link",
         "NAME": "Name",
         "EMAIL": "What is your email?",
-        "PHONE-NUMBER": "What is your phone number?"
+        "PHONE-NUMBER": "What is your phone number?",
+        "VIDEO-LINK":"Video link"
       }
     },
     "COMPONENTS": {
