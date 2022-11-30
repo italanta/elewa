@@ -6,7 +6,7 @@ import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
@@ -28,6 +28,10 @@ audioLink: string = "";
 audioInputId: string;
 defaultImage: string ="assets/images/lib/block-builder/audio-block-placeholder.png"
 isLoadingAudio: boolean;
+
+type: StoryBlockTypes;
+audioType = StoryBlockTypes.Audio;
+blockFormGroup: FormGroup;
 
 
 constructor(private _fb: FormBuilder,
@@ -68,6 +72,10 @@ private _decorateInput() {
   if (this.jsPlumb) {
     input = _JsPlumbComponentDecorator(input, this.jsPlumb);
   }
+}
+deleteBlock() {
+  this.block.deleted = true;
+  this.blockFormGroup.value.deleted = true;
 }
 
 }
