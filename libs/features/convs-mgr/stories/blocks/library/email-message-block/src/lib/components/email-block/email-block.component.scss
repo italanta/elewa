@@ -12,6 +12,10 @@ input {
     margin: 5px 0;
     width: 210px;
     height: 32px;
-    border-radius: 10px;
-    border: 1px solid black;
+    border-radius: 4px;
+    border: 1px solid var( --convs-mgr-color-primary-purple);
+    &::placeholder{
+        color: var(--convs-mgr-color-primary-black);
+        margin-left: 2px;
+    }
 }
