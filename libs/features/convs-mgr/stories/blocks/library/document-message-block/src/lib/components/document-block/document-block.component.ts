@@ -5,7 +5,7 @@ import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { UploadFileService } from '@app/state/file';
@@ -29,12 +29,6 @@ export class DocumentBlockComponent implements OnInit {
   defaultLink: string ="assets/images/lib/block-builder/docs-block-placeholder.png";
   isDocLoading: boolean = false;
   docLink: string =  this.defaultLink;
-
-  
-  type: StoryBlockTypes;
-  documentType = StoryBlockTypes.Document;
-
-  blockFormGroup: FormGroup;
 
  
 
@@ -79,9 +73,5 @@ export class DocumentBlockComponent implements OnInit {
     (await this._docUploadService.uploadFile(this.file, this.block, docFilePath)).subscribe();
     console.log(this.isDocLoading);
 
-  }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
   }
 }

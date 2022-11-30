@@ -4,7 +4,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { NameMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
@@ -20,12 +20,6 @@ export class NameBlockComponent implements OnInit, AfterViewInit
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   nameInputId: string;
-
-  
-  type: StoryBlockTypes;
-  nametype = StoryBlockTypes.Name;
-  blockFormGroup: FormGroup;
-
 
   constructor(private _fb: FormBuilder) { }
 
@@ -44,10 +38,6 @@ export class NameBlockComponent implements OnInit, AfterViewInit
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
-  }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
   }
 
 }

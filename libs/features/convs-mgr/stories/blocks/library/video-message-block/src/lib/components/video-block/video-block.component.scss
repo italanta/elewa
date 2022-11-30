@@ -1,67 +1,12 @@
-.block {
-    position: relative;
-    cursor: move;
+mat-card {
+    min-width: fit-content;
+    padding: 10px;
 }
 
-// .avatar-img {
-//     border-radius: 50%;
-//     width: 30px;
-//     height: 30px;
-// }
-
-.block-title-container {
-    align-items: center;
-}
-
-.outer:hover {
-    cursor:move;
-}
-
-.fa-video {
-    color: var(--convs-mgr-color-primary-purple)
-}
-
-.block-title {
-    font-weight: 600;
-    font-size: small;
-    margin: 0 0 0 .4em;
-    color: var(--convs-mgr-color-text-black);
-}
-
-// .outer {
-//     padding: 10px;
-//     padding-bottom: 0;
-// }
-
-.block-card {
-    border-radius: 10px;
-    padding: 0%;
-}
-
-.icons {
-    cursor: pointer;
-}
-
-.fa-clone {
-    padding-right: 10px;
-}
-
-.fa-clone, .fa-trash-alt {
-    color: var(--convs-mgr-color-medium-shade);
-}
-
-.fa-clone:hover, .fa-trash-alt:hover {
+mat-card-title {
+    font-size: 1.2rem!important;
     color: var(--convs-mgr-color-primary-purple);
 }
-// mat-card {
-//     min-width: fit-content;
-//     padding: 10px;
-// }
-
-// mat-card-title {
-//     font-size: 1.2rem!important;
-//     color: var(--convs-mgr-color-primary-purple);
-// }
 
 input {
     margin: 5px 0;
@@ -90,13 +35,13 @@ input {
     overflow: auto;
 }
 
-// .svg-inline--fa.fa-w-18 {
-//     width: 30px;
-//     height: 40px;
-//     margin-top: 9%;
-//     border-color: var( --convs-mgr-color-primary-white) !important;
-//     color: var(--convs-mgr-color-primary-white);
-// }
+.svg-inline--fa.fa-w-18 {
+    width: 30px;
+    height: 40px;
+    margin-top: 9%;
+    border-color: var( --convs-mgr-color-primary-white) !important;
+    color: var(--convs-mgr-color-primary-white);
+}
 
 .video-icon {
     text-align: center;
@@ -108,17 +53,17 @@ input {
     opacity: 1;
 }
 
-// .svg-inline--fa {
-//     overflow: hidden;
-// }
+.svg-inline--fa {
+    overflow: hidden;
+}
 
-// .svg-inline--fa.fa-w-14 {
-//     margin-left: 10rem;
-// }
+.svg-inline--fa.fa-w-14 {
+    margin-left: 10rem;
+}
 
-// .svg-inline--fa.fa-w-16 {
-//     width: 40px;
-//     height: 40px;
-//     margin-top: 9%;
-//     color: var(--convs-mgr-color-primary-white) !important;
-// }
+.svg-inline--fa.fa-w-16 {
+    width: 40px;
+    height: 40px;
+    margin-top: 9%;
+    color: var(--convs-mgr-color-primary-white) !important;
+}
