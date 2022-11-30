@@ -18,7 +18,7 @@ const handler = new WhatsAppSendOutgoingMsgHandler();
  * 
  */
 export const channelWhatsAppMsgSendMsg = new ConvLearnFunction('channelWhatsAppMsgSendMsg', 
-                                                  new FirestoreCreateRegistrar('orgs/{orgId}/end-users/{endUserId}/messages'), 
+                                                  new FirestoreCreateRegistrar('orgs/{orgId}/end-users/{endUserId}/messages/{id}'), 
                                                   [], 
                                                   handler)
                                .build();
