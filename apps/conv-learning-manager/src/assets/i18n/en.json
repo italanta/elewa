@@ -69,7 +69,7 @@
         "IMAGE": "Image Block",
         "LOCATION": "Location Block",
         "NAME": "Name Block",
-        "EMAIL": "Email Block",
+        "EMAIL": "Question: Email",
         "PHONE": "Phone Block",
         "MESSAGE": "Message Block",
         "QUESTION": "Question Block",
@@ -83,7 +83,7 @@
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Link",
         "NAME": "Name",
-        "EMAIL": "Email",
+        "EMAIL": "What is your email?",
         "PHONE-NUMBER": "Phone"
       }
     },
