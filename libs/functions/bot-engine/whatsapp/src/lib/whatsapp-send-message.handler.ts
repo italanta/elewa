@@ -9,7 +9,7 @@ import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations
 import { WhatsappActiveChannel } from './models/whatsapp-active-channel.model';
 
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
-import { FarmbetterWhatsappOutgoingMessageParser } from './io/outgoing-message-parser/standardized-message-to-outgoing-message.parser';
+import { StandardMessageOutgoingMessageParser } from './io/outgoing-message-parser/standardized-message-to-outgoing-message.parser';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 /**
@@ -58,7 +58,7 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<Message, Res
       const whatsappActiveChannel = new WhatsappActiveChannel(tools, communicationChannel);
 
       // STEP 4: Get the outgoing message in whatsapp format
-      const outgoingMessagePayload = new FarmbetterWhatsappOutgoingMessageParser().parse(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(outgoingPayload, outgoingPayload.endUserPhoneNumber);
 
       // STEP 5: Send the message
       await whatsappActiveChannel.send(outgoingMessagePayload as WhatsAppOutgoingMessage);
