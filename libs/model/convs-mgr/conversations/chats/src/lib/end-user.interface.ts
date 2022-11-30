@@ -1,3 +1,4 @@
+import { Location } from "@farmbetter/model/convs-mgr/stories/blocks/messaging";
 import { IObject } from "@iote/bricks";
 
 /**
@@ -16,6 +17,10 @@ export interface EndUser extends IObject
 
     /** The current status of the ongoing chat between the end user and our chatbot */
     status              : ChatStatus
+
+    location?           : Location
+
+    crops?              : string[]
 }
 
 /**
@@ -30,7 +35,7 @@ export enum ChatStatus
 
     Paused                = 'paused',
 
-    TakingToOperator      = 'takingtooperator',
+    TakingToAgent         = 'takingtoagent',
 
     Ended                 = 'ended'
   }
