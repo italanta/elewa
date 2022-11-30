@@ -17,7 +17,15 @@ export abstract class IncomingMessageParser
 { 
   protected abstract parseInTextMessage(incomingMessage: IncomingMessagePayload): Message
 
-  protected abstract parseInInteractiveButtonMessage(incomingMessage: IncomingMessagePayload): Message
+  protected abstract parseInInteractiveMessage(incomingMessage: IncomingMessagePayload): Message
+
+  protected abstract parseInLocationMessage(incomingMessage: IncomingMessagePayload): Message
+
+  protected abstract parseInImageMessage(incomingMessage: IncomingMessagePayload): Message
+
+  protected abstract parseInAudioMessage(incomingMessage: IncomingMessagePayload): Message
+
+  protected abstract parseInVideoMessage(incomingMessage: IncomingMessagePayload): Message
 
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -36,9 +44,12 @@ export abstract class IncomingMessageParser
     switch (messageType) 
     {
       case MessageTypes.TEXT:         parser = this.parseInTextMessage; break;
-      case MessageTypes.QUESTION:     parser = this.parseInInteractiveButtonMessage; break;
-      // default:
-      //     break;
+      case MessageTypes.QUESTION:     parser = this.parseInInteractiveMessage; break;
+      case MessageTypes.LOCATION:     parser = this.parseInLocationMessage; break;
+      case MessageTypes.IMAGE:        parser = this.parseInImageMessage; break;
+      case MessageTypes.AUDIO:        parser = this.parseInAudioMessage; break;
+      case MessageTypes.VIDEO:        parser = this.parseInVideoMessage; break;
+      default:                        return null
     }
 
     return parser(incomingMessage);
