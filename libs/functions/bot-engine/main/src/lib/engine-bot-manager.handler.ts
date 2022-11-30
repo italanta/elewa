@@ -1,10 +1,12 @@
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/bricks-angular';
+
 import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -15,6 +17,7 @@ import { EndUserDataService } from './services/data-services/end-user.service';
 
 import { ActiveChannel } from './model/active-channel.service';
 
+
 /**
  * This model is responsible for the flow of chat messages between our bot and
  *    an end user (which is an identifiable user that is sending messages over a specific channel)
@@ -23,6 +26,8 @@ import { ActiveChannel } from './model/active-channel.service';
  */
 export class EngineBotManager 
 {
+  _endUserService$: EndUserDataService;
+
   constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) {}
 
   /**
@@ -45,6 +50,8 @@ export class EngineBotManager
      */
     let sideOperations: Promise<any>[] = [];
 
+    let nextBlock: StoryBlock;
+
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
     try {
@@ -56,7 +63,7 @@ export class EngineBotManager
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
 
-      const _endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
+      this._endUserService$= new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
 
       //TODO: Find a better way because we are passing the active channel twice
       const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
@@ -69,31 +76,26 @@ export class EngineBotManager
       const END_USER_ID = bot.generateEndUserId(message);
       
       // Get the saved information of the end user
-      const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber, _endUserService$)
+      const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber)
 
      this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
-
-      // Save the message to the database for later use
-      sideOperations.push(bot.saveMessage(message, END_USER_ID));
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status
       //          to determine how we are going to process the message and reply to the end user
       switch (endUser.status) {
         case ChatStatus.Running:
+          message.direction = MessageDirection.TO_CHATBOT
+
+          // Save the message to the database for later use
+          sideOperations.push(bot.saveMessage(message, END_USER_ID));
+
           // Process the message and find the next block in the story that is to be sent back to the user
-          const nextBlock = await bot.getNextBlock(message, END_USER_ID);
+          nextBlock = await bot.getNextBlock(message, endUser);
 
-          // Send the block back to the user
-          await bot.reply(nextBlock, message.endUserPhoneNumber);
-
-          // If the block sent back to the user is not a question block, then we know the next block regardless
-          //    of their reponse. 
-          // So we compute the next block now and save it to the cursor
-          const futureBlock = await bot.getFutureBlock(nextBlock, message);
-
-          // Update the cursor
-          sideOperations.push(bot.updateCursor(END_USER_ID, nextBlock, futureBlock));
+          const newEndUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber)
+          // Reply to the end user
+          await this._reply(bot, newEndUser, sideOperations, nextBlock, message)
 
           // Finally Resolve pending operations that do not affect the processing of the message
           await Promise.all(sideOperations);
@@ -101,6 +103,12 @@ export class EngineBotManager
           break;
         case ChatStatus.Paused:
           await bot.sendTextMessage("Chat has been paused", message.endUserPhoneNumber)
+          break;
+        case ChatStatus.TakingToAgent:
+          message.direction = MessageDirection.TO_AGENT
+
+          // Save the message to the database for later use
+          await bot.saveMessage(message, END_USER_ID);
           break;
         default:
           break;
@@ -112,20 +120,80 @@ export class EngineBotManager
   }
 
   /**
+   * Sends the message back to the user,
+   * 
+   * If the next block does not require a user input e.g. text message block, we chain it with another block, until we 
+   *  reach a block requiring user input e.g. question message block
+   */
+
+  private async _reply(bot: BotEngineMainService, endUser: EndUser, sideOperations: Promise<any>[], nextBlock: StoryBlock, message: Message)
+  {
+    nextBlock.message = this.__injectVariable(nextBlock.message, endUser)
+
+    this._tools.Logger.log(()=>`[EngineBotManager] - Block to be sent ${JSON.stringify(nextBlock)}`)
+    // Send the block back to the user
+    await bot.reply(nextBlock, message.endUserPhoneNumber) 
+
+    // If the block sent back to the user is not a question block, then we know the next block regardless
+    //    of their reponse. 
+    // So we compute the next block now and save it to the cursor
+    // const futureBlock = await bot.getFutureBlock(nextBlock, message);
+
+    // Update the cursor
+    sideOperations.push(bot.updateCursor(endUser.id, nextBlock));
+
+    while(nextBlock.type === StoryBlockTypes.TextMessage) {         
+
+      nextBlock = await bot.getFutureBlock(nextBlock, message, endUser)
+
+      nextBlock.message = this.__injectVariable(nextBlock.message, endUser)
+
+      await bot.reply(nextBlock, message.endUserPhoneNumber);
+
+      sideOperations.push(bot.updateCursor(endUser.id, nextBlock));
+    }
+  }
+
+  /**
    * Gets the end user information from the database or creates a new end user if the user does not exist
    */
-  private async _getEndUser(END_USER_ID: string, phoneNumber: string, _endUserService$: EndUserDataService)
+  private async _getEndUser(END_USER_ID: string, phoneNumber: string)
   {
     let endUser: EndUser;
 
-    endUser = await _endUserService$.getEndUser(END_USER_ID);
+    endUser = await this._endUserService$.getEndUser(END_USER_ID);
 
     // If the end user does not exist then we create a new end user
     if (!endUser) {
-      return _endUserService$.createEndUser(END_USER_ID, phoneNumber);
+      return this._endUserService$.createEndUser(END_USER_ID, phoneNumber);
     }
 
     return endUser
   }
 
+  /**
+   * For a better user experience and validation, we would need to respond back to the end user with
+   *  their input. So, while creating blocks we can defined these variables in the in the format {{variable_name}}
+   *  
+   * With this we can then replace the message to be sent back to the user with the appropriate data
+   * 
+   * The name of the variable has to be the same as the property name of the variable in the object being passed.
+   *    e.g. Considering the endUser object is { name: 'Reagan' }, to insert 'name' to an outgoing text, 
+   *          we add the text to the block as 'Hello {{name}}'
+   * 
+   */
+  protected __injectVariable(outgoingText: string, dataSource: any): string
+  {
+    // Regex to extract the variable between the {{}} curly braces
+    const varRegex = new RegExp('\{{(.*?)\}}')
+
+    // Extract the variable
+    const variable = varRegex.exec(outgoingText)
+
+    // Replace the variable with the appropriate information
+    if(variable) {
+      return outgoingText.replace(`{{${variable[1]}}}`, dataSource[variable[1]])
+    }
+    return outgoingText
+  }
 }
