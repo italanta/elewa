@@ -10,7 +10,7 @@
   fxLayout="row wrap"
   fxFlexFill
 >
-  <div *ngIf="stories.length > 0; else noBots" fxLayout="row wrap">
+  <div *ngIf="stories.length > 0; else noBots" fxLayout="row wrap" fxFlex>
     <div *ngFor="let story of stories" fxFlex="24">
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </div>
