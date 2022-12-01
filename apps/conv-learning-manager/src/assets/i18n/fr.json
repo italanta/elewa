@@ -53,9 +53,9 @@
       "TITLES": {
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
-        "NAME": "Nom Bloquer",
-        "EMAIL": "Email Bloquer",
-        "PHONE": "Téléphoner Bloquer",
+        "NAME": "Question : Nom",
+        "EMAIL": " Question : E-mail",
+        "PHONE": "Question : Téléphone",
         "MESSAGE": "Message Bloquer",
         "QUESTION": "Question Bloquer",
         "AUDIO": "l'audio Bloquer",
@@ -67,9 +67,10 @@
       "PLACEHOLDER": {
         "CAPTION": "Légende",
         "IMAGE-LINK": "Lien d'image",
-        "NAME": "Nom",
-        "EMAIL": "Email",
-        "PHONE-NUMBER": "Téléphoner"
+        "NAME": " Quel est ton nom?",
+        "EMAIL": " Quel est votre e-mail ?",
+        "PHONE-NUMBER": " Quel est votre numéro de téléphone?",
+        "VIDEO-LINK":" Lien vidéo"
       }
     },
     "COMPONENTS": {
