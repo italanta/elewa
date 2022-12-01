@@ -10,15 +10,15 @@ mat-card-title {
 
 input {
   margin: 5px 0;
-  width: 300px;
-  height: 30px;
+  width: 210px;
+  height: 32px;
   border: 0.2px solid var(--convs-mgr-color-primary-black);
   border-radius: 5px;
 
-  &::placeholder{
+  &::placeholder {
     margin-left: 2px;
-    color:var(--convs-mgr-color-primary-black) ;
-    background-color: var(  --convs-mgr-color-medium-tint);
+    color: var(--convs-mgr-color-primary-black);
+    background-color: var(--convs-mgr-color-medium-tint);
   }
 }
 
