@@ -13,7 +13,10 @@ import { StandardMessageOutgoingMessageParser } from './io/outgoing-message-pars
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 /**
- * Listens to messages sent from the farmbetter app to the end user, processes them and 
+ * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
+ *    handles the message and forwards it to whatsapp
+ * 
+ * Listens to messages sent from a third party app to the end user, processes them and 
  *    forwards them to the end user
  */
 export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
