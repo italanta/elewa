@@ -92,5 +92,5 @@
  
    ErrorBlock = 999,
    
-   SwitchStory = 500
+   EndStory = 500
  }
