@@ -91,6 +91,22 @@ export interface QuestionMessageOptions
    /** Message displayed as the answer */
    optionText          : string;
  
-   /** Value the answer holds */
-   optionValue?        : string;
-}
+   options             : QuestionMessageOptions[];
+ }
+ 
+ export interface QuestionMessageOptions 
+ {
+   /** The unique id of the option selected by the end user 
+    * 
+    *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
+    *  
+    *  So we can also use this id to determine the next block
+    */
+    optionId            : string;
+ 
+    /** Message displayed as the answer */
+    optionText          : string;
+  
+    /** Value the answer holds */
+    optionValue?        : string;
+ }
