@@ -93,7 +93,7 @@ export class BotEngineMainService
 
   async saveMessage(message: Message, endUserId: string)
   {
-    if(message.type === MessageTypes.AUDIO || MessageTypes.VIDEO || MessageTypes.IMAGE)
+    if(message.type == MessageTypes.AUDIO || message.type == MessageTypes.VIDEO || message.type == MessageTypes.IMAGE)
     {
       const fileMessage = message as FileMessage
 
