@@ -1,4 +1,3 @@
-import { ChatMilestones } from "@app/model/convs-mgr/conversations/chats";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -9,5 +8,7 @@ export interface SwitchStoryBlock extends StoryBlock
   /** Id of the story to switch to */
   storyId: string;
 
-  milestone?: ChatMilestones;
+  milestone?: string;
+
+  postUrl?: string;
 }
