@@ -1,9 +1,10 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { FileMessage, Message } from '@app/model/convs-mgr/conversations/messages';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { MessageTypes } from '@app/model/convs-mgr/functions';
 
 import { ProcessMessageService } from './process-message/process-message.service';
 
@@ -13,6 +14,8 @@ import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
 
 import { ActiveChannel } from '../model/active-channel.service';
+import { BotMediaProcessService } from './media/process-media-service';
+
 /**
  * For our chatbot and our code to be maintainable, we need separate the low-level operations of
  *  the chatbot from the main flow of the bot. Hence we have to implement Inversion of Control
@@ -31,8 +34,10 @@ export class BotEngineMainService
     private _connService$: ConnectionsDataService,
     private _cursorDataService$: CursorDataService,
     private _messageDataService$: MessagesDataService,
+    private _mediaProcessService: BotMediaProcessService,
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
+
   ) { }
 
   async sendTextMessage(text: string, phoneNumber: string)
@@ -88,6 +93,14 @@ export class BotEngineMainService
 
   async saveMessage(message: Message, endUserId: string)
   {
+    if(message.type === MessageTypes.AUDIO || MessageTypes.VIDEO || MessageTypes.IMAGE)
+    {
+      const fileMessage = message as FileMessage
+
+      fileMessage.url = await this._mediaProcessService.processMediaFile(message, endUserId, this._activeChannel) || null
+
+      message = fileMessage
+    }
 
     return this._messageDataService$.saveMessage(message, this._activeChannel.channel.orgId, endUserId);
   }
