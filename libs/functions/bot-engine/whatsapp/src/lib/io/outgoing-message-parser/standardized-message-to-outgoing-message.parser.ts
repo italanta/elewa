@@ -18,7 +18,7 @@ import { AudioMessage, ImageMessage, LocationMessage, Message, OutgoingMessagePa
  * @see WhatsAppMessageType - for the types of messages received from whatsapp
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples
  */
-export class FarmbetterWhatsappOutgoingMessageParser
+export class StandardMessageOutgoingMessageParser
 {
   /**
    * @Description Used to send message of type text to whatsapp api
