@@ -8,6 +8,8 @@ import { __PrefixToPlatformType } from '@app/model/convs-mgr/conversations/admin
 import { MessageTypes } from '@app/model/convs-mgr/functions';
 import { FileMessage, Message } from '@app/model/convs-mgr/conversations/messages';
 
+import { FileUpload } from '@app/state/file';
+
 import { ActiveChannel } from '../../model/active-channel.service';
 
 /**
@@ -17,7 +19,45 @@ export class BotMediaProcessService
 {
   constructor(private _tools: HandlerTools){}
 
-  private async _upload(endUserId: string, fileType: MessageTypes, filePath: string, fileName: string)
+  /**
+   * 
+   * Takes the media message, uploads the file, saves the information to the database and returns the firebase storage url
+   * 
+   */
+  async processMediaFile(message: Message, endUserId: string, activeChannel: ActiveChannel)
+  {
+    const mediaFileMessage = message as FileMessage;
+
+    const mediaFileURL = await this._getFileURL(message, endUserId, activeChannel)
+
+    const mediaFileInfo: FileUpload = {
+      id: mediaFileMessage.mediaId,
+      filePath: mediaFileURL as string || null,
+      mime_type: mediaFileMessage.mime_type
+    }
+
+    await this._saveFileInformation(endUserId, activeChannel.channel.orgId, mediaFileInfo)
+
+    return mediaFileURL
+  }
+
+  private async _getFileURL(message: Message, endUserId: string, activeChannel: ActiveChannel)
+  {
+    const fileMessage = message as FileMessage;
+    const file = await activeChannel.getMediaFile(fileMessage.mediaId, fileMessage.mime_type);
+
+    if (file) return this._uploadFile(endUserId, fileMessage.type, file.filePath, file.fileName);
+  }
+
+  private async _saveFileInformation(endUserId: string, orgId: string, file: FileUpload)
+  {
+    const fileRepo$ = this._tools.getRepository<FileUpload>(`orgs/${orgId}/end-users/${endUserId}/files`);
+    
+    return fileRepo$.create(file, file.id)
+  }
+
+  /** Uploads the file to firebase storage */
+  private async _uploadFile(endUserId: string, fileType: MessageTypes, filePath: string, fileName: string)
   {
     const storageFileName = `${endUserId}_${fileName}`;
 
@@ -58,11 +98,4 @@ export class BotMediaProcessService
 
   }
 
-  async getFileURL(message: Message, endUserId: string, activeChannel: ActiveChannel)
-  {
-    const fileMessage = message as FileMessage;
-    const file = await activeChannel.getMediaFile(fileMessage.mediaId, fileMessage.mime_type);
-
-    if (file) return this._upload(endUserId, fileMessage.type, file.filePath, file.fileName);
-  }
 }
