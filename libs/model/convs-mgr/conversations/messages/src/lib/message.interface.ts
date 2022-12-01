@@ -13,7 +13,7 @@ import { IncomingMessagePayload } from "./payload-in.interface";
 export interface Message
 {
   /** The unique id that is assigned to the third party platform */
-  id                  : string;
+  id?                 : string;
 
   /** The different types of messages our chatbot recieves from the end user, 
    *    e.g. a text message, a location, an image
@@ -25,7 +25,7 @@ export interface Message
   /** Unprocessed part of the message sent through a channel by a platform which contains 
    *    the actual message payload  
    */
-  payload             : IncomingMessagePayload;
+  payload?            : IncomingMessagePayload;
 
   /** The phone number used by the end user to send a message to  our chatbot */
   endUserPhoneNumber? : string;
@@ -33,6 +33,8 @@ export interface Message
   n?                  : number;
 
   direction?          : MessageDirection;
+
+  url?                : string;
 }
 
 export enum MessageDirection
@@ -58,56 +60,37 @@ export interface LocationMessage extends Message
   location: Location
 }
 
-/**
- * Standardized format of the image messsage sent by the end user
- */
-export interface ImageMessage extends Message 
+export interface FileMessage extends Message
 {
-  /** The provided image url, by the third party platform */
-  imageId: string;
-  url?: string;
+  mediaId         : string;
+  url?            : string;
+  mime_type?      : string
 }
 
 /**
- * Standardized format of the image messsage sent by the end user
+ * Standardized format of a reply to the question block @see {QuestionMessageBlock}
  */
- export interface AudioMessage extends Message 
- {
-   /** The provided image url, by the third party platform */
-   audioId: string;
-   url?: string;
- }
 
- /**
- * Standardized format of the image messsage sent by the end user
- */
-export interface VideoMessage extends Message 
+export interface QuestionMessage extends Message 
 {
-  /** The provided image url, by the third party platform */
-  videoId: string;
-  url?: string;
+  questionText?       : string;
+
+  options             : QuestionMessageOptions[];
 }
 
- export interface QuestionMessage extends Message 
- {
-   questionText?       : string;
+export interface QuestionMessageOptions 
+{
+  /** The unique id of the option selected by the end user 
+   * 
+   *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
+   *  
+   *  So we can also use this id to determine the next block
+   */
+   optionId            : string;
+
+   /** Message displayed as the answer */
+   optionText          : string;
  
-   options             : QuestionMessageOptions[];
- }
- 
- export interface QuestionMessageOptions 
- {
-   /** The unique id of the option selected by the end user 
-    * 
-    *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
-    *  
-    *  So we can also use this id to determine the next block
-    */
-    optionId            : string;
- 
-    /** Message displayed as the answer */
-    optionText          : string;
-  
-    /** Value the answer holds */
-    optionValue?        : string;
- }
+   /** Value the answer holds */
+   optionValue?        : string;
+}
