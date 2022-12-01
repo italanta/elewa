@@ -1,15 +1,13 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 
-import { ListBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { ListMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { NextBlockService } from "../next-block.class";
-import { EndUserDataService } from "../../data-services/end-user.service";
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 
@@ -21,7 +19,7 @@ import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
  *  Therefore for these blocks, we already know the next block to send regardless of the user response
  * 
  */
-export class CropsListBlockService extends NextBlockService
+export class ListBlockService extends NextBlockService
 {
 	userInput: string;
 	_logger: Logger;
@@ -33,33 +31,17 @@ export class CropsListBlockService extends NextBlockService
 		this.tools = tools;
 	}
 
-	async getNextBlock(msg: Message, lastBlock: CropListBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
+	async getNextBlock(msg: Message, lastBlock: ListMessageBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
 	{
-		let crops: string[];
+		let savedValue: string[];
 
 		const replyMessage = msg as QuestionMessage;
 
-		// const list = textMessage.text.split(',');
 
-		const endUserService = new EndUserDataService(this.tools, 'farmbetter');
-
-		const endUser = await endUserService.getEndUser(endUserId);
-
-		crops = endUser.crops;
-
-		if (crops) {
-			crops.push(replyMessage.options[0].optionText);
-		} else {
-			crops = [replyMessage.options[0].optionText];
+		if (lastBlock.context)
+		{
+			await this.saveData(lastBlock.tag, orgId, lastBlock.context, savedValue, endUserId)
 		}
-
-
-		const newEndUser: EndUser = {
-			...endUser,
-			crops
-		};
-
-		await endUserService.updateEndUser(newEndUser);
 
 		const matchInput = new MatchInputService();
 
