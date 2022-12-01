@@ -11,19 +11,28 @@ import
   WhatsAppVideoMessage,
 } from '@app/model/convs-mgr/functions';
 
-import { AudioMessage, ImageMessage, LocationMessage, Message, OutgoingMessagePayload, TextMessage, VideoMessage } from '@app/model/convs-mgr/conversations/messages';
+import { 
+  AudioMessage, 
+  ImageMessage, 
+  LocationMessage, 
+  Message, 
+  OutgoingMessagePayload, 
+  TextMessage, 
+  VideoMessage 
+} from '@app/model/convs-mgr/conversations/messages';
 
 /**
- * Interprets messages received from whatsapp and converts them to a Message
- * @see WhatsAppMessageType - for the types of messages received from whatsapp
- * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples
+ * Interprets our standardized messages to a whatsapp message
+ * 
+ * @param {Message} - The standardized message format to be converted to whatsapp message
+ * @param {phone} - Thep phone number of the end user
+ * 
+ * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
  */
 export class StandardMessageOutgoingMessageParser
 {
   /**
    * @Description Used to send message of type text to whatsapp api
-   * @param message
-   * @returns promise
    */
   private _getTextMessageParserOut(message: TextMessage, phone: string): any
   {
