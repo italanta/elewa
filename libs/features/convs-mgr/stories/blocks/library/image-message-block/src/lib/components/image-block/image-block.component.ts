@@ -6,9 +6,10 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { UploadFileService } from '@app/state/file';
+import { FileStorageService, UploadFileService } from '@app/state/file';
 
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-image-block',
@@ -26,31 +27,43 @@ export class ImageBlockComponent implements OnInit {
 
   file: File;
   imageInputId: string;
-  imageName: string = '';
+  imageName: string;
   isLoadingImage: boolean = false;
-  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg"
-  imageLink = this.defaultImage;
-
-
+  imageLink: string;
+  hasImage: boolean = false;
+  url:Observable<string>;
 
   constructor(private _imageUploadService: UploadFileService,
-              public domSanitizer: DomSanitizer) 
-              { }
+              private _fbstorage: FileStorageService,
+              public domSanitizer: DomSanitizer,
+
+              ) 
+              {
+                this.block = this.block as ImageMessageBlock;
+               }
 
   ngOnInit(): void
   {
     this.imageInputId = `img-${this.id}`;
-  }
 
-  ngAfterViewInit(): void 
-  {
-    if (this.jsPlumb) {
-      this._decorateInput();
+  }
+  updateBlockForm(){
+    this.imageMessageForm.patchValue({
+      imageLink: this.block.fileSrc,
+      caption: this.block.message
+    });
+    if(this.hasImage){
+      this.imageName = this.getFileNameFromFbUrl(this.block.fileSrc!)
     }
+    
   }
-
-
-
+  getFileNameFromFbUrl(fbUrl: string): string {
+    return fbUrl.split('%2F')[1].split("?")[0];
+  }
+  update(){
+    this.block.fileSrc = this.imageMessageForm.value.imageLink;
+    this.block.message = this.imageMessageForm.value.caption;
+  }
   async processImage(event: any) 
   {
     if (event.target.files && event.target.files[0]) {
@@ -59,21 +72,16 @@ export class ImageBlockComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
-    } else {
-      this.imageLink = this.defaultImage;
+      this.hasImage = true;
     }
+
     //Step 1 - Create the file path that will be in firebase storage
     const imgFilePath = `images/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingImage = true;
     (await this._imageUploadService.uploadFile(this.file, this.block,imgFilePath)).subscribe();
+  
 
-  }
 
-  private _decorateInput() 
-  {
-    let input = document.getElementById(this.imageInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
   }
 }
+

@@ -55,6 +55,8 @@ export class UploadFileService
       fileType: block.type,
       size: '3MB'
     };
+    debugger;
+
 
     //Step 2 - get the organisation creating the files
     return this._org$$.get().pipe(take(1),
@@ -63,21 +65,25 @@ export class UploadFileService
       }),
       //Step 3 - create the path in firestore that will lead to files 
       switchMap(org => {
+        debugger;
         if (!!this.org) {
           this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
           return this._activeRepo.create(fileBlock);
+        
         } else {
           return of([org]);
         }
       }),
       //Step 4 - update The field fileSrc for the block holding the file
       switchMap(() => {
+        debugger;
         return this._updateSrc(url, block.id!).pipe(take(1));
       }),
       catchError(err => {
         throw err;
       })
     )
+
 
   }
   uploader(url: string, story: Story) 
@@ -134,12 +140,15 @@ export class UploadFileService
 
     //Step 1 - Upload the file 
     const uploadTask = (await this._ngfiStorage.upload(filePath, file)).ref;
+    debugger;
 
     //Step 2 - Get the url in firebase storage
     const reference =await uploadTask.getDownloadURL();
+    debugger;
 
     //Step 3 - Call the upload function 
     return this.upload(reference, block).pipe(take(1));
+    
   }
   public async FileUploader(file: File, story: Story) 
   { 
