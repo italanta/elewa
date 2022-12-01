@@ -54,7 +54,7 @@
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
         "NAME": "Nom Bloquer",
-        "EMAIL": "Email Bloquer",
+        "EMAIL": "Question : E-mail",
         "PHONE": "Téléphoner Bloquer",
         "MESSAGE": "Message Bloquer",
         "QUESTION": "Question Bloquer",
@@ -68,7 +68,7 @@
         "CAPTION": "Légende",
         "IMAGE-LINK": "Lien d'image",
         "NAME": "Nom",
-        "EMAIL": "Email",
+        "EMAIL": "Quel est votre e-mail ?",
         "PHONE-NUMBER": "Téléphoner"
       }
     },
