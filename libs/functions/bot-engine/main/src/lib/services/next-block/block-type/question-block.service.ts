@@ -1,15 +1,16 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-import { MatchInputService } from "../../match-input/match-input.service";
-import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
-
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
-import { NextBlockService } from "../next-block.class";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+
+import { NextBlockService } from "../next-block.class";
+
+import { MatchInputService } from "../../match-input/match-input.service";
+import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -44,10 +45,15 @@ export class QuestionMessageService extends NextBlockService
 	 * 
 	 * TODO: Add a dynamic way of selecting matching strategies
 	 */
-	async getNextBlock(msg: Message, lastBlock?: QuestionMessageBlock): Promise<StoryBlock>
+	async getNextBlock(msg: Message, lastBlock: QuestionMessageBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
 	{
 
 	const response = msg as QuestionMessage;
+
+	if (lastBlock.milestone)
+	{
+		await this.saveData(lastBlock.tag, orgId, lastBlock.milestone, response.options[0].optionText, endUserId)
+	}
 
 	const matchInput = new MatchInputService();
 
@@ -55,7 +61,7 @@ export class QuestionMessageService extends NextBlockService
 	// TODO: Add a dynamic way of selecting matching strategies
 	matchInput.setMatchStrategy(new ExactMatch());
 
-	const selectedOptionIndex = matchInput.matchId(response.optionId, lastBlock.options);
+	const selectedOptionIndex = matchInput.matchId(response.options[0].optionId, lastBlock.options);
 
 	if (selectedOptionIndex == -1)
 	{
@@ -64,9 +70,9 @@ export class QuestionMessageService extends NextBlockService
 
 	const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`;
 
-	const connection = await this._connDataService.getConnByOption(sourceId);
+	const connection = await this._connDataService.getConnByOption(sourceId, orgId, currentStory);
 
-	const nextBlock = await this._blockDataService.getBlockById(connection.targetId);
+	const nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);
 
 	return nextBlock;
 	}

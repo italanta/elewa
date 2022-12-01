@@ -38,9 +38,9 @@ export class ListBlockService extends NextBlockService
 		const replyMessage = msg as QuestionMessage;
 
 
-		if (lastBlock.context)
+		if (lastBlock.milestone)
 		{
-			await this.saveData(lastBlock.tag, orgId, lastBlock.context, savedValue, endUserId)
+			await this.saveData(lastBlock.tag, orgId, lastBlock.milestone, savedValue, endUserId)
 		}
 
 		const matchInput = new MatchInputService();
