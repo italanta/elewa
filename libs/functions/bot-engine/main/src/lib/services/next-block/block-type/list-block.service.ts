@@ -1,15 +1,12 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-
-import { ListMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
-import { NextBlockService } from "../next-block.class";
-import { MatchInputService } from "../../match-input/match-input.service";
-import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
+
+import { MultipleOptionsMessageService } from "./multiple-options-block.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -19,48 +16,31 @@ import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
  *  Therefore for these blocks, we already know the next block to send regardless of the user response
  * 
  */
-export class ListBlockService extends NextBlockService
+export class ListBlockService extends MultipleOptionsMessageService
 {
 	userInput: string;
 	_logger: Logger;
 	tools: HandlerTools;
 
-	constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, tools: HandlerTools)
+	constructor(blockDataService: BlockDataService,
+		connDataService: ConnectionsDataService,
+		tools: HandlerTools)
 	{
-		super(tools);
-		this.tools = tools;
+		super(blockDataService, connDataService, tools);
+		this._logger = tools.Logger;
 	}
 
-	async getNextBlock(msg: Message, lastBlock: ListMessageBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
+	async processUserInput(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string)
 	{
-		let savedValue: string[];
+		await this.saveUserResponse(msg, lastBlock, orgId, endUserId);
 
-		const replyMessage = msg as QuestionMessage;
+		return this.getNextBlock(msg, lastBlock, orgId, currentStory, endUserId);
+	}
 
+	async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
+	{
+		const response = msg as QuestionMessage;
 
-		if (lastBlock.milestone)
-		{
-			await this.saveData(lastBlock.tag, orgId, lastBlock.milestone, savedValue, endUserId)
-		}
-
-		const matchInput = new MatchInputService();
-
-		// Set the match strategy to exactMatch
-		// TODO: Add a dynamic way of selecting matching strategies
-		matchInput.setMatchStrategy(new ExactMatch());
-
-		const selectedOptionIndex = matchInput.matchId(replyMessage.options[0].optionId, lastBlock.options);
-
-		if (selectedOptionIndex == -1) {
-			this._logger.error(() => `The message did not match any option found`);
-		}
-
-		const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`;
-
-		const connection = await this._connDataService.getConnByOption(sourceId, orgId, currentStory);
-
-		const nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);
-
-		return nextBlock;
+		if (lastBlock.milestone) return this.saveData(lastBlock.tag, orgId, lastBlock.milestone, response.options[0].optionText, endUserId);
 	}
 }
