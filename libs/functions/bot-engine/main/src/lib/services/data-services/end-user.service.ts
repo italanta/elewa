@@ -8,7 +8,7 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 /**
  * Contains all the required database flow methods for the chat-status collection
  */
-export class EndUserDataService extends BotDataService<EndUser>{
+ export class EndUserDataService extends BotDataService<EndUser>{
   private _docPath: string;
   tools: HandlerTools;
 
@@ -24,11 +24,13 @@ export class EndUserDataService extends BotDataService<EndUser>{
     this._docPath = `orgs/${orgId}/end-users`;
   }
 
-  async createEndUser(endUserId: string, phoneNumber: string, chatStatus?: ChatStatus)
+  async createEndUser(endUserId: string, phoneNumber: string, storyId: string)
   {
     const newEndUser: EndUser = {
+      currentStory: storyId,
       phoneNumber,
-      status: chatStatus || ChatStatus.Running
+      status: ChatStatus.Running,
+
     };
 
     const endUser = await this.createDocument(newEndUser, this._docPath, endUserId);
@@ -42,6 +44,11 @@ export class EndUserDataService extends BotDataService<EndUser>{
     const endUser = await this.getDocumentById(endUserId, this._docPath);
 
     return endUser;
+  }
+
+  async updateEndUser(endUser: EndUser)
+  {
+   return this.updateDocument(endUser, this._docPath, endUser.id)
   }
 
   async updateEndUserChatStatus(endUser: EndUser, status: ChatStatus)
