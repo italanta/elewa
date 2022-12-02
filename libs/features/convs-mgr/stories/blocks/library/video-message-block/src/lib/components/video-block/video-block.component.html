@@ -1,15 +1,4 @@
 <mat-card [id]="id" *ngIf="videoMessageForm">
-    <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
-        <div fxLayout="row" class="block-title-container">
-            <i class="fas fa-video"></i>
-            <h4 class="block-title">Video Block </h4>
-        </div>
-
-        <div fxLayout="row" class="icon-block">
-            <span class="icons"><i class="far fa-clone"></i></span>
-            <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
-        </div>
-    </div>
     <mat-card-content>
         <form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
