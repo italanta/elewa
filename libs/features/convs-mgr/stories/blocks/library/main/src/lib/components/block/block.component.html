@@ -1,5 +1,16 @@
 <mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="outer">
+        <div fxLayout="row" fxLayoutAlign="start start" class="block-title-container">
+            <i [class]="iconClass"></i>
+            <h4 class="block-title"> {{ blockTitle }}</h4>
+        </div>
     
+        <div fxLayout="row" class="icon-block">
+            <span class="icons"><i class="far fa-clone"></i></span>
+            <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
+        </div>
+    </div>
+
     <div *ngSwitchCase="messagetype">
         <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
         </app-message-block>
