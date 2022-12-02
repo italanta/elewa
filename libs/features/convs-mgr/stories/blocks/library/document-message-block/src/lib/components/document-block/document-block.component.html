@@ -3,7 +3,7 @@
         <form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
             <div [id]="docInputId" class="audio_class">
                 <div *ngIf="this.block.fileSrc && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="far fa-file-alt"></i>
                 </div>
                 <div *ngIf="isDocLoading" class="doc-icon">
                     <i class="fas fa-circle-notch fa-spin"></i>
@@ -12,11 +12,14 @@
                     <i class="far fa-file"></i>
                 </div>
                 <div>
-                    <input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />
+                    <input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file"
+                        class="fileSrc" />
                 </div>
             </div>
-            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" formControlName="message" name="fileName" id="fileName" />
-            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " name="document-link" id="document-link" />
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco"
+                formControlName="message" name="fileName" id="fileName" />
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco "
+                name="document-link" id="document-link" />
         </form>
     </mat-card-content>
 </mat-card>
