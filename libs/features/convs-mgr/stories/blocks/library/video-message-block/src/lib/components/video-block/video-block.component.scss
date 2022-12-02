@@ -7,17 +7,21 @@ mat-card {
     font-size: 1.2rem !important;
     color: var(--convs-mgr-color-primary-purple);
   }
-  
-  input {
+  input{
+    width: 200px;
+    height: 28px;
+    padding: 5px 5px ;
+    margin: 4px 0;
+    border-radius: 5px;
+    background-color: var(--convs-mgr-color-pop-tint);
+    border: 1px solid var(--convs-mgr-color-primary-black); 
+  }
+  input[type=text] {
     margin: 5px 0;
-    width: 210px;
-    height: 32px;
     border-radius: 4px;
-    border: 1px solid var(--convs-mgr-color-primary-purple);
-    &::placeholder {
-      color: var(--convs-mgr-color-primary-black);
-      margin-left: 2px;
-    }
+    background-color: var(--convs-mgr-color-pop-tint);
+    border: 1px solid var(--convs-mgr-color-primary-black); 
+    opacity: 1;
   }
   
   .fileSrc {
@@ -34,7 +38,7 @@ mat-card {
       width: 300px;
       height: 32px;
       padding-top: 5px;
-      border: 0.2px solid #202020;
+      border: 0.2px solid var(--convs-mgr-color-primary-black);
       overflow: auto;
   }
   .input_video {
