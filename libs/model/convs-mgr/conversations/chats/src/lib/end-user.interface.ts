@@ -16,6 +16,9 @@ export interface EndUser extends IObject
 
     /** The current status of the ongoing chat between the end user and our chatbot */
     status              : ChatStatus;
+
+    /** The story that the end user is currently responding to */
+    currentStory        : string;
 }
 
 /**
