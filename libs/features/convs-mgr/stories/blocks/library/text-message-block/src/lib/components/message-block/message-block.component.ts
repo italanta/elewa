@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Logger } from '@iote/bricks-angular';
-
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
@@ -23,6 +23,12 @@ export class MessageBlockComponent implements OnInit
 
   @Input() textMessageForm: FormGroup
 
+  @Input() blocksGroup: FormArray;
+ 
+  type: StoryBlockTypes;
+  messagetype = StoryBlockTypes.TextMessage;
+  blockFormGroup: FormGroup;
+
   constructor(private _fb: FormBuilder,
               private _logger: Logger) 
   { }
@@ -39,5 +45,4 @@ export class MessageBlockComponent implements OnInit
       _JsPlumbComponentDecorator(element, this.jsPlumb);
     }
   }
-
 }
