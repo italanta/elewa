@@ -25,6 +25,5 @@ export class PhoneBlockComponent implements OnInit {
   ngOnInit(): void {
     this.phoneInputId = `phone-${this.id}`;
   }
-
 }
 

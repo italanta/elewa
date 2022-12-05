@@ -24,6 +24,14 @@ export function _PhoneBlockDecoratePlumb(block: PhoneMessageBlock, comp: Compone
     endpoint: "Dot",
     anchor: "Left"
   });
+  
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    source: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor:"Right" 
+  });
 
   return comp;
 }
