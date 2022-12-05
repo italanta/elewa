@@ -22,8 +22,17 @@ export function _DocumentBlockDecoratePlumb(block: DocumentMessageBlock, comp: C
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left"
+    anchor: "Left",
+  });
+
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    target: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: "Right"
   });
 
   return comp;
+  
 }

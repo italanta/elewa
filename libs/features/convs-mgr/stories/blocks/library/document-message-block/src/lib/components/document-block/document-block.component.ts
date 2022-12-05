@@ -35,26 +35,28 @@ export class DocumentBlockComponent implements OnInit {
   constructor(private _docUploadService: UploadFileService)
               {}
 
-  ngOnInit(): void 
-  {
-    this.docInputId = `docs-${this.id}`;
-  }
+  ngOnInit(): void {}
+   // this.docInputId = `docs-${this.id}`;
+    
+ 
+  
+  
 
-  ngAfterViewInit(): void
-   {
-    if (this.jsPlumb) {
-      this._decorateInput();
-    }
-  }
+  // ngAfterViewInit(): void
+  //  {
+  //   if (this.jsPlumb) {
+  //     this._decorateInput();
+  //   }
+  // }
 
 
-  private _decorateInput()
-   {
-    let input = document.getElementById(this.docInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
-  }
+  // private _decorateInput()
+  //  {
+  //   let input = document.getElementById(this.docInputId) as Element;
+  //   if (this.jsPlumb) {
+  //     input = _JsPlumbComponentDecorator(input, this.jsPlumb);
+  //   }
+  // }
 
   async processDocs(event: any)
   {   
