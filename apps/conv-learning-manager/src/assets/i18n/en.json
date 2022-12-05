@@ -77,14 +77,15 @@
         "VIDEO": "Video Block",
         "STICKER": "Sticker Block",
         "LIST": "List Block",
-        "DOCUMENT": "Document Block"
+        "DOCUMENT": "Document : Sortie"
       },
       "PLACEHOLDER": {
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Link",
         "NAME": "Name",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Phone"
+        "PHONE-NUMBER": "Phone",
+        "DOCUMENT-LINK":"File Link"
       }
     },
     "COMPONENTS": {

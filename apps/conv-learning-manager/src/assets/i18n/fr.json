@@ -69,7 +69,8 @@
         "IMAGE-LINK": "Lien d'image",
         "NAME": "Nom",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Téléphoner"
+        "PHONE-NUMBER": "Téléphoner",
+        "DOCUMENT-LINK":"Lien de fichier"
       }
     },
     "COMPONENTS": {
