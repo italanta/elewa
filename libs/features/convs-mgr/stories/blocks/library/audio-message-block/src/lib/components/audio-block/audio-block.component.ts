@@ -73,9 +73,4 @@ private _decorateInput() {
     input = _JsPlumbComponentDecorator(input, this.jsPlumb);
   }
 }
-deleteBlock() {
-  this.block.deleted = true;
-  this.blockFormGroup.value.deleted = true;
-}
-
 }

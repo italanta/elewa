@@ -80,8 +80,4 @@ export class ImageBlockComponent implements OnInit {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
 }

@@ -45,9 +45,5 @@ export class EmailBlockComponent implements OnInit, AfterViewInit
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
 
 }

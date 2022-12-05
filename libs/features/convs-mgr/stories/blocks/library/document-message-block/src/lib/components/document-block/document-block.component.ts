@@ -80,8 +80,4 @@ export class DocumentBlockComponent implements OnInit {
     console.log(this.isDocLoading);
 
   }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
 }

@@ -51,9 +51,4 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   addNewOption() {
     this.options.push(this.addQuestionOptions());
   }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
-
 }

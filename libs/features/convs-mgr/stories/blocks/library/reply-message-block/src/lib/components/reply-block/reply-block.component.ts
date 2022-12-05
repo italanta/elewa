@@ -44,9 +44,4 @@ export class ReplyBlockComponent implements OnInit, AfterViewInit
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
-
 }

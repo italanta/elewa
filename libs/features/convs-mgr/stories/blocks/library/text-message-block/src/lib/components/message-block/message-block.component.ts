@@ -45,10 +45,4 @@ export class MessageBlockComponent implements OnInit
       _JsPlumbComponentDecorator(element, this.jsPlumb);
     }
   }
-
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
-
 }

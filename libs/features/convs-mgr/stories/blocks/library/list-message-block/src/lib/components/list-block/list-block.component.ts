@@ -59,8 +59,4 @@ export class ListBlockComponent<T> implements OnInit {
   addNewOption() {
     this.listItems.push(this.addListOptions());
   }
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-  }
 }
