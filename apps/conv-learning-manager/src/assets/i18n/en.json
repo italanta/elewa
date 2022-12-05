@@ -70,7 +70,7 @@
         "LOCATION": "Location Block",
         "NAME": "Name Block",
         "EMAIL": "Email Block",
-        "PHONE": "Phone Block",
+        "PHONE": "Question: Phone",
         "MESSAGE": "Message Block",
         "QUESTION": "Question: Buttons",
         "AUDIO": "Audio Block",
@@ -84,7 +84,7 @@
         "IMAGE-LINK": "Image Link",
         "NAME": "Name",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Phone"
+        "PHONE-NUMBER": "What is your phone number?"
       }
     },
     "COMPONENTS": {

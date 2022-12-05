@@ -55,7 +55,7 @@
         "LOCATION": "Emplacemant Bloquer",
         "NAME": "Nom Bloquer",
         "EMAIL": "Email Bloquer",
-        "PHONE": "Téléphoner Bloquer",
+        "PHONE": "Question : Téléphone",
         "MESSAGE": "Message Bloquer",
         "QUESTION": "Question: Boutons",
         "AUDIO": "l'audio Bloquer",
@@ -69,7 +69,7 @@
         "IMAGE-LINK": "Lien d'image",
         "NAME": "Nom",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Téléphoner"
+        "PHONE-NUMBER": "Quel est votre numéro de téléphone?"
       }
     },
     "COMPONENTS": {
