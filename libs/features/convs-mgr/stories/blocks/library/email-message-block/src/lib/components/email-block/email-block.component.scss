@@ -15,3 +15,56 @@ input {
     border-radius: 10px;
     border: 1px solid black;
 }
+.block {
+    position: relative;
+    cursor: move;
+}
+
+.avatar-img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.block-title-container {
+    align-items: center;
+}
+
+.outer:hover {
+    cursor:move;
+}
+
+.fa-envelope {
+    color: var(--convs-mgr-color-primary-purple)
+}
+
+.block-title {
+    font-weight: 600;
+    font-size: small;
+    margin: 0 0 0 .4em;
+    color: var(--convs-mgr-color-text-black);
+}
+
+.block-card {
+    border-radius: 10px;
+    padding: 0%;
+}
+
+.icons {
+    cursor: pointer;
+}
+
+.fa-clone {
+    padding-right: 10px;
+}
+
+.fa-clone, .fa-trash-alt {
+    color: var(--convs-mgr-color-medium-shade);
+}
+
+.fa-clone:hover, .fa-trash-alt:hover {
+    color: var(--convs-mgr-color-primary-purple);
+}
+.fa-envelope {
+    color: var(--convs-mgr-color-primary-purple);
+}
