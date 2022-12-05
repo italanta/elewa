@@ -152,8 +152,8 @@ export class StoryEditorFrame {
 
     switch (type) {
       case StoryBlockTypes.TextMessage:
-          title = "PAGE-CONTENT.BLOCK.TITLES.MESSAGE"
-          icon = "fas fa-comment-alt"
+          title = "Message"
+          icon = "far fa-comment-alt"
         break;
       case StoryBlockTypes.Image:
           title = "PAGE-CONTENT.BLOCK.TITLES.IMAGE"
@@ -209,7 +209,7 @@ export class StoryEditorFrame {
     const block = {
                     id: `${this._cnt}`,
                     type: type,
-                    message: 'New message',
+                    message: 'Before we start,\nPlease provide a few more details about yourself.',
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 },
                     blockTitle: title,
