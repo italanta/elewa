@@ -1,6 +1,7 @@
 mat-card {
-  min-width: fit-content;
+  min-width:200px;
   padding: 10px;
+  
 }
 
 .mat-card-title {
@@ -10,6 +11,10 @@ mat-card {
 
 textarea {
   margin: 5px 0;
+  border-radius: 6px;
+  border: 2px solid #6418C3;
+  padding: 20px;
+  text-align: left;
 }
 
 input {
