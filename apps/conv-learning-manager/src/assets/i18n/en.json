@@ -68,7 +68,7 @@
       "TITLES": {
         "IMAGE": "Image Block",
         "LOCATION": "Location Block",
-        "NAME": "Name Block",
+        "NAME": "Question: Name",
         "EMAIL": "Email Block",
         "PHONE": "Phone Block",
         "MESSAGE": "Message Block",
@@ -82,7 +82,7 @@
       "PLACEHOLDER": {
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Link",
-        "NAME": "Name",
+        "NAME": "What is your name?",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone"
       }
