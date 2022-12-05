@@ -7,11 +7,20 @@ mat-card-title {
     font-size: 1.2rem !important;
     color: var(--convs-mgr-color-primary-purple);
 }
-
-input {
-    margin: 5px 0;
+input{
     width: 210px;
-    height: 32px;
-    border-radius: 10px;
-    border: 1px solid black;
-}
+    height: 28px;
+    border-radius: 5px;
+    border: 1px solid var(--convs-mgr-color-primary-black); 
+    &::placeholder{
+        color: var(--convs-mgr-color-primary-black);
+        padding: 3px 3px ;
+        margin: 3px 0;
+    }
+  }
+  input[type=text] {
+    padding: 3px 3px ;
+    margin: 4px 0;
+    border: 1px solid var(--convs-mgr-color-primary-black); 
+    opacity: 1;
+  }
