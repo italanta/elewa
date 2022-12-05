@@ -3,7 +3,6 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -25,19 +24,6 @@ export class PhoneBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.phoneInputId = `phone-${this.id}`;
-  }
-
-  ngAfterViewInit(): void {
-    if (this.jsPlumb) {
-      this._decorateInput();
-    }
-  }
-
-  private _decorateInput() {
-    let input = document.getElementById(this.phoneInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
   }
 
 }
