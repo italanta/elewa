@@ -30,7 +30,7 @@ import { iconsAndTitles } from '../../model/icons-and-titles';
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit {
+export class BlockComponent implements OnInit{
   @Input() id: string;
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
@@ -45,9 +45,9 @@ export class BlockComponent implements OnInit {
   questiontype = StoryBlockTypes.QuestionBlock;
   locationtype = StoryBlockTypes.Location;
   audioType = StoryBlockTypes.Audio;
-  videoType= StoryBlockTypes.Video;
+  videoType = StoryBlockTypes.Video;
   stickerType = StoryBlockTypes.Sticker;
-  listType= StoryBlockTypes.List;
+  listType = StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
 
@@ -57,8 +57,9 @@ export class BlockComponent implements OnInit {
   blockTitle = ''
 
   constructor(private _el: ElementRef,
-    private _fb: FormBuilder,
-    private _logger: Logger) { }
+              private _fb: FormBuilder,
+              private _logger: Logger
+  ) { }
 
   ngOnInit(): void {
     this.type = this.block.type;
@@ -101,12 +102,12 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-       
+
       case StoryBlockTypes.List:
         this.blockFormGroup = _CreateListBlockMessageForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-  
+
       case StoryBlockTypes.Document:
         this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
@@ -120,7 +121,7 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break
-       case StoryBlockTypes.Sticker:
+      case StoryBlockTypes.Sticker:
         this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
