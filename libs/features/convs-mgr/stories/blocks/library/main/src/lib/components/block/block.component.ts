@@ -21,7 +21,7 @@ import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
-
+import { iconsAndTitles } from '../../model/icons-and-titles';
 /**
  * Block which sends a message from bot to user.
  */
@@ -53,12 +53,18 @@ export class BlockComponent implements OnInit {
 
   blockFormGroup: FormGroup;
 
+  iconClass = ''
+  blockTitle = ''
+
   constructor(private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger) { }
 
   ngOnInit(): void {
     this.type = this.block.type;
+
+    this.iconClass = this.getBlockIconAndTitle(this.type).icon;
+    this.blockTitle = this.getBlockIconAndTitle(this.type).title;
 
     switch (this.type) {
       case StoryBlockTypes.TextMessage:
@@ -128,6 +134,10 @@ export class BlockComponent implements OnInit {
         break;
     }
 
+  }
+
+  getBlockIconAndTitle(type: number) {
+    return iconsAndTitles[type];
   }
 
   /** 

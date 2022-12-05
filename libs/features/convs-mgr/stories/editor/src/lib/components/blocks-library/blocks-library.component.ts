@@ -104,7 +104,7 @@ export class BlocksLibraryComponent implements OnInit {
     this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
       .pipe(map(([filter, blocksArray]) => blocksArray
         .filter((block: StoryBlock) => {
-          return block.message!.toString().toLowerCase().includes(filter)
+          return block.message?.toString().toLowerCase().includes(filter)
         })))
   }
 
