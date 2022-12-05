@@ -196,8 +196,8 @@ export class StoryEditorFrame {
           icon = "fas fa-list-ul"
         break;
       case StoryBlockTypes.Document:
-          title = "PAGE-CONTENT.BLOCK.TITLES.DOCUMENT"
-          icon = "fas fa-file-alt";
+          title = "Document: Output"
+          icon = "far fa-file-alt";
         break
       case StoryBlockTypes.Reply:
           title = "PAGE-CONTENT.BLOCK.TITLES.REPLY"

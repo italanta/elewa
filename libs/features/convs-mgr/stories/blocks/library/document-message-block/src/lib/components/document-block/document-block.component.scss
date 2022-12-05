@@ -13,11 +13,14 @@ input {
     width: 180px;
     height: 30px;
     border: 1px solid var(--convs-mgr-color-primary-black);
-    border-radius: 10px;
+    border-radius: 5px;
+    background-color: var(--convs-mgr-color-pop-tint);
+   
 }
 
 .fileSrc {
     display: none;
+    
 }
 
 .file-info {
@@ -39,12 +42,13 @@ input {
 
 .doc-icon {
     text-align: center;
-    color: var(--convs-mgr-color-tertiary) !important;
+    color: var(--convs-mgr-color-primary-purple) !important;
     width: 180px;
     height: 90px;
-    background-color: var(--convs-mgr-color-tertiary) !important;
+    background-color: var(--convs-mgr-color-primary-white) !important;
     border-radius: 5px;
     opacity: 1;
+    border: 1px solid var(--convs-mgr-color-primary-purple);
 }
 
 .doc-icon-uploaded {
@@ -55,6 +59,7 @@ input {
     background-color: var(--convs-mgr-color-tertiary) !important;
     border-radius: 5px;
     opacity: 1;
+    
 }
 
 .svg-inline--fa {
