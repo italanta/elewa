@@ -5,6 +5,7 @@ import { ReplyMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
@@ -20,6 +21,10 @@ export class ReplyBlockComponent implements OnInit, AfterViewInit
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   replyInputId: string;
+
+  type: StoryBlockTypes;
+  replyType = StoryBlockTypes.Reply;
+  blockFormGroup: FormGroup;
 
   constructor(private _fb: FormBuilder) { }
 
@@ -38,6 +43,10 @@ export class ReplyBlockComponent implements OnInit, AfterViewInit
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
+  }
+  deleteBlock() {
+    this.block.deleted = true;
+    this.blockFormGroup.value.deleted = true;
   }
 
 }
