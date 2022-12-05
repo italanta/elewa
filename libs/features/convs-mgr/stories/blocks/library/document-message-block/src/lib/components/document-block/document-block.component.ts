@@ -36,27 +36,7 @@ export class DocumentBlockComponent implements OnInit {
               {}
 
   ngOnInit(): void {}
-   // this.docInputId = `docs-${this.id}`;
-    
- 
   
-  
-
-  // ngAfterViewInit(): void
-  //  {
-  //   if (this.jsPlumb) {
-  //     this._decorateInput();
-  //   }
-  // }
-
-
-  // private _decorateInput()
-  //  {
-  //   let input = document.getElementById(this.docInputId) as Element;
-  //   if (this.jsPlumb) {
-  //     input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-  //   }
-  // }
 
   async processDocs(event: any)
   {   
