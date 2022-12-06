@@ -90,7 +90,7 @@ export enum StoryBlockTypes {
   /**
    * Block that sends a message to the user and expects a list of items to be returned
    */
-  List = 15,
+  List = 16,
 
   /**
   * Block that expects input from the user by replying to a message
