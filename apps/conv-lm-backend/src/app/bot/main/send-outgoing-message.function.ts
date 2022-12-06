@@ -1,11 +1,11 @@
 import { FirestoreCreateRegistrar } from "@ngfi/functions";
 
-import { WhatsAppSendOutgoingMsgHandler } from "@app/functions/bot-engine/whatsapp";
+import { SendOutgoingMsgHandler } from "@app/functions/bot-engine";
 
 import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
 
-const handler = new WhatsAppSendOutgoingMsgHandler();
+const handler = new SendOutgoingMsgHandler();
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
@@ -16,7 +16,7 @@ const handler = new WhatsAppSendOutgoingMsgHandler();
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
  * 
  */
-export const channelWhatsAppMsgSendMsg = new ConvLearnFunction('channelWhatsAppMsgSendMsg', 
+export const channelWhatsAppMsgSendMsg = new ConvLearnFunction('sendOutgoingMessage', 
                                                   new FirestoreCreateRegistrar('orgs/{orgId}/end-users/{endUserId}/messages/{id}'), 
                                                   [], 
                                                   handler)
