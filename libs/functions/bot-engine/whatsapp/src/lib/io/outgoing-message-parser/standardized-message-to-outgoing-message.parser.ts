@@ -22,7 +22,7 @@ import {
 } from '@app/model/convs-mgr/conversations/messages';
 
 /**
- * Interprets our standardized messages to a whatsapp message
+ * Interprets our standardized messages @see {Message} to a whatsapp message
  * 
  * @param {Message} - The standardized message format to be converted to whatsapp message
  * @param {phone} - Thep phone number of the end user
