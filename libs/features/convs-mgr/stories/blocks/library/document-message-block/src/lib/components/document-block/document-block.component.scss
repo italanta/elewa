@@ -80,7 +80,7 @@ mat-card-title {
   color: var(--convs-mgr-color-primary-white) !important;
 }
 input{
-  width: 201px;
+  min-width: 91%!important;
   height: 28px;
   padding: 5px 5px ;
   margin: 7px 0;
