@@ -14,6 +14,7 @@ import { BlockDataService } from './services/data-services/blocks.service';
 import { BotEngineMainService } from './services/bot-engine-main.service';
 import { MessagesDataService } from './services/data-services/messages.service';
 import { EndUserDataService } from './services/data-services/end-user.service';
+import { VariableInjectorService } from './services/variable-injection/variable-injector.service';
 
 import { ActiveChannel } from './model/active-channel.service';
 import { BlockToStandardMessage } from './io/block-to-message-parser.class';
@@ -30,6 +31,8 @@ import { generateEndUserId } from './utils/generateUserId';
 export class EngineBotManager 
 {
   _endUserService$: EndUserDataService;
+
+  _variableInjectorService: VariableInjectorService;
 
   constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) { }
 
@@ -68,6 +71,7 @@ export class EngineBotManager
 
       this._endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
 
+      this._variableInjectorService = new VariableInjectorService();
       //TODO: Find a better way because we are passing the active channel twice
       const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
 
@@ -110,7 +114,9 @@ export class EngineBotManager
 
           break;
         case ChatStatus.Paused:
+          // TODO: resolve paused flow
           await bot.sendTextMessage("Chat has been paused", message.endUserPhoneNumber);
+
           break;
         case ChatStatus.TakingToAgent:
           message.direction = MessageDirection.TO_AGENT;
@@ -137,7 +143,7 @@ export class EngineBotManager
   private async _reply(bot: BotEngineMainService, endUser: EndUser, sideOperations: Promise<any>[], nextBlock: StoryBlock, message: Message)
   {
     const endUserService = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
-    nextBlock.message = this.__injectVariable(nextBlock.message, endUser);
+    nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
 
     this._tools.Logger.log(() => `[EngineBotManager] - Block to be sent ${JSON.stringify(nextBlock)}`);
     // Send the block back to the user
@@ -157,7 +163,7 @@ export class EngineBotManager
 
       this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(nextBlock)}`);
 
-      if (nextBlock.message) nextBlock.message = this.__injectVariable(nextBlock.message, endUser);
+      if (nextBlock.message) nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
 
       await bot.reply(nextBlock, message.endUserPhoneNumber);
 
@@ -183,31 +189,7 @@ export class EngineBotManager
     return endUser;
   }
 
-  /**
-   * For a better user experience and validation, we would need to respond back to the end user with
-   *  their input. So, while creating blocks we can defined these variables in the in the format {{variable_name}}
-   *  
-   * With this we can then replace the message to be sent back to the user with the appropriate data
-   * 
-   * The name of the variable has to be the same as the property name of the variable in the object being passed.
-   *    e.g. Considering the endUser object is { name: 'Reagan' }, to insert 'name' to an outgoing text, 
-   *          we add the text to the block as 'Hello {{name}}'
-   * 
-   */
-  protected __injectVariable(outgoingText: string, dataSource: any): string
-  {
-    // Regex to extract the variable between the {{}} curly braces
-    const varRegex = new RegExp('\{{(.*?)\}}');
 
-    // Extract the variable
-    const variable = varRegex.exec(outgoingText);
-
-    // Replace the variable with the appropriate information
-    if (variable) {
-      return outgoingText.replace(`{{${variable[1]}}}`, dataSource[variable[1]]);
-    }
-    return outgoingText;
-  }
 
   protected __getBotMessage(nextBlock: StoryBlock)
   {
