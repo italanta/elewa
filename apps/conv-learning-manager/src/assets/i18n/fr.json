@@ -69,7 +69,8 @@
         "IMAGE-LINK": "Lien d'image",
         "NAME": "Quel est ton nom?",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Téléphoner"
+        "PHONE-NUMBER": "Téléphoner",
+        "VIDEO-LINK":"Lien vidéo"
       }
     },
     "COMPONENTS": {
