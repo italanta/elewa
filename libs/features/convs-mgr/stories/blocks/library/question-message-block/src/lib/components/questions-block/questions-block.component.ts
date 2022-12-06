@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
@@ -21,6 +21,10 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   questionOptions: FormGroup;
+
+  type: StoryBlockTypes;
+  questiontype = StoryBlockTypes.QuestionBlock;
+  blockFormGroup: FormGroup;
 
   constructor(private _fb: FormBuilder) {}
 
