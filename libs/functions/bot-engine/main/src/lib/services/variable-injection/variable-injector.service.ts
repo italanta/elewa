@@ -1,3 +1,5 @@
+import { HandlerTools } from "@iote/cqrs";
+
 /**
  * For a better user experience and validation, we would need to respond back to the end user with
  *  their input. So, while creating blocks we can defined these variables in the in the format {{variable_name}}
@@ -12,6 +14,7 @@
  */
 export class VariableInjectorService 
 {
+  constructor(private _tools: HandlerTools) { }
   /**
    * For a better user experience and validation, we would need to respond back to the end user with
    *  their input. So, while creating blocks we can defined these variables in the in the format {{variable_name}}
@@ -29,6 +32,8 @@ export class VariableInjectorService
 
     // Replace the variable with the information contained in the data source
     if (variable) {
+      this._tools.Logger.log(() => `Replacing '${variable}' with '${dataSource[variable]}`);
+      
       return outgoingText.replace(`{{${variable}}}`, dataSource[variable]);
     }
     return outgoingText;

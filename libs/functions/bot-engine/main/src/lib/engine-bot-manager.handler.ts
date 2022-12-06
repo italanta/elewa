@@ -71,7 +71,7 @@ export class EngineBotManager
 
       this._endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
 
-      this._variableInjectorService = new VariableInjectorService();
+      this._variableInjectorService = new VariableInjectorService(this._tools);
       //TODO: Find a better way because we are passing the active channel twice
       const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
 
