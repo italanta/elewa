@@ -4,8 +4,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks'
@@ -39,13 +37,6 @@ export class VideoBlockComponent implements OnInit {
   ngOnInit(): void {
     this.videoInputId = `vid-${this.id}`;
   }
-
-  ngAfterViewInit(): void {
-    if (this.jsPlumb) {
-      this._decorateInput();
-    }
-  }
-
   async processVideo(event: any) 
   {
     if (event.target.files && event.target.files[0]) {
@@ -74,12 +65,4 @@ export class VideoBlockComponent implements OnInit {
     }
     this._storyBlockService.update(newBlock).subscribe();
     }
-
-
-  private _decorateInput() {
-    let input = document.getElementById(this.videoInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
-  }
 }
