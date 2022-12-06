@@ -2,7 +2,6 @@ import { IncomingMessageParser } from '@app/functions/bot-engine';
 
 import { ImageMessage, LocationMessage, QuestionMessage, TextMessage } from '@app/model/convs-mgr/conversations/messages';
 import { ImagePayload, InteractiveRawButtonReplyMessage, LocationPayload, MessageTypes, TextMessagePayload, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
-import axios from 'axios';
 
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
