@@ -32,8 +32,8 @@ export class VariableInjectorService
 
     // Replace the variable with the information contained in the data source
     if (variable) {
-      this._tools.Logger.log(() => `Replacing '${variable}' with '${dataSource[variable]}`);
-      
+      this._tools.Logger.log(() => `[VariableInjectorService] - Replacing '${variable}' with '${dataSource[variable]}`);
+
       return outgoingText.replace(`{{${variable}}}`, dataSource[variable]);
     }
     return outgoingText;
