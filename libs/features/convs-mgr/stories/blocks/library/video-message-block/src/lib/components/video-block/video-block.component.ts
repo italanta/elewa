@@ -5,7 +5,7 @@ import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks'
 import { UploadFileService } from '@app/state/file';
 
@@ -23,6 +23,11 @@ export class VideoBlockComponent implements OnInit {
   @Input() block: VideoMessageBlock; 
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+  type: StoryBlockTypes;
+  videoType= StoryBlockTypes.Video;
+
+  blockFormGroup: FormGroup;
 
   file: File;
   videoLink: string = "";
