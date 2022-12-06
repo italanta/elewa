@@ -1,13 +1,3 @@
-mat-card {
-    min-width: fit-content;
-    padding: 10px;
-}
-
-mat-card-title {
-    font-size: 1.2rem!important;
-    color: var(--convs-mgr-color-primary-purple);
-}
-
 input {
     margin: 5px 0;
     width: 100%;
@@ -20,13 +10,6 @@ input {
     display: none;
 }
 
-.svg-inline--fa.fa-w-12 {
-    width: 30px;
-    border-color: var( --convs-mgr-color-primary-white) !important;
-    border-radius: 15px;
-    background-color: var(--convs-mgr-color-primary-white) !important;
-}
-
 .audio-icon {
     text-align: center;
     color: var(--convs-mgr-color-tertiary)!important;
@@ -36,15 +19,53 @@ input {
     border-radius: 5px;
     opacity: 1;
 }
-
-.svg-inline--fa {
-    height: 40px;
-    margin-top: 13%;
-    overflow: hidden;
+.block {
+    position: relative;
+    cursor: move;
 }
 
-.svg-inline--fa.fa-w-16 {
-    width: 40px;
-    height: 40px;
-    color: var(--convs-mgr-color-primary-white) !important;
+.avatar-img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.block-title-container {
+    align-items: center;
+}
+
+.outer:hover {
+    cursor:move;
+}
+
+.fa-microphone-alt {
+    color: var(--convs-mgr-color-primary-purple)
+}
+
+.block-title {
+    font-weight: 600;
+    font-size: small;
+    margin: 0 0 0 .4em;
+    color: var(--convs-mgr-color-text-black);
+}
+
+.block-card {
+    border-radius: 10px;
+    padding: 0%;
+}
+
+.icons {
+    cursor: pointer;
+}
+
+.fa-clone {
+    padding-right: 10px;
+}
+
+.fa-clone, .fa-trash-alt {
+    color: var(--convs-mgr-color-medium-shade);
+}
+
+.fa-clone:hover, .fa-trash-alt:hover {
+    color: var(--convs-mgr-color-primary-purple);
 }
