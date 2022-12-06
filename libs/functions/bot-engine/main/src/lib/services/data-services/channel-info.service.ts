@@ -13,7 +13,7 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
   private _msg: IncomingMessage;
   private tools: HandlerTools;
   
-  constructor(msg: IncomingMessage, tools: HandlerTools) 
+  constructor(tools: HandlerTools, msg?: IncomingMessage) 
   {
     super(tools)
     this.tools = tools
