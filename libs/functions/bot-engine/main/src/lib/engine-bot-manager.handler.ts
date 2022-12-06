@@ -100,7 +100,7 @@ export class EngineBotManager
           // Process the message and find the next block in the story that is to be sent back to the user
           nextBlock = await bot.getNextBlock(message, endUser.id);
 
-          const botMessage = this.__getBotMessage(nextBlock);
+          const botMessage = this.__convertBlockToStandardMessage(nextBlock);
           botMessage.direction = MessageDirection.TO_END_USER;
 
           sideOperations.push(bot.saveMessage(botMessage, END_USER_ID));
@@ -157,7 +157,7 @@ export class EngineBotManager
 
       nextBlock = await bot.getFutureBlock(nextBlock, message);
 
-      const botMessage = this.__getBotMessage(nextBlock);
+      const botMessage = this.__convertBlockToStandardMessage(nextBlock);
 
       sideOperations.push(bot.saveMessage(botMessage, endUser.id));
 
@@ -191,7 +191,7 @@ export class EngineBotManager
 
 
 
-  protected __getBotMessage(nextBlock: StoryBlock)
+  protected __convertBlockToStandardMessage(nextBlock: StoryBlock)
   {
     const botMessage = new BlockToStandardMessage().convert(nextBlock);
     botMessage.direction = MessageDirection.TO_END_USER;
