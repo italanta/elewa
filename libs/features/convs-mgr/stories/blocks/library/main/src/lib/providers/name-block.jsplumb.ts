@@ -25,13 +25,5 @@ export function _NameBlockDecoratePlumb(block: NameMessageBlock, comp: Component
     anchor: "Left"
   });
 
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
-    source: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor:"Right" 
-  });
-
   return comp;
 }

@@ -53,7 +53,7 @@
       "TITLES": {
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
-        "NAME": "Question : Nom",
+        "NAME": "Nom Bloquer",
         "EMAIL": "Email Bloquer",
         "PHONE": "Téléphoner Bloquer",
         "MESSAGE": "Message Bloquer",
@@ -67,7 +67,7 @@
       "PLACEHOLDER": {
         "CAPTION": "Légende",
         "IMAGE-LINK": "Lien d'image",
-        "NAME": "Quel est ton nom?",
+        "NAME": "Nom",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
         "VIDEO-LINK":"Lien vidéo"
