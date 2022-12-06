@@ -43,13 +43,11 @@ export class BlockToStandardMessage
   protected convertQuestionMessageBlock(block: QuestionMessageBlock): QuestionMessage
   {
     const options: QuestionMessageOptions[] = block.options.map((option) =>
-    {
-      return {
+    ({
         optionId: option.id,
         optionText: option.message,
         optionValue: option.value
-      };
-    });
+    }));
 
     const baseMessage: QuestionMessage = {
       type: MessageTypes.QUESTION,
