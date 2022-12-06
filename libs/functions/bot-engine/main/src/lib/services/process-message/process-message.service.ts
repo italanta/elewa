@@ -52,14 +52,7 @@ export class ProcessMessageService
     // Get the last block found in cursor
     const latestBlock = latestCursor.currentBlock;
 
-    if (latestCursor.futureBlock) {
-
-      return latestCursor.futureBlock;
-
-    } else {
-
-      return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
-    }
+    return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
   }
 
   async resolveFutureBlock(currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string)
