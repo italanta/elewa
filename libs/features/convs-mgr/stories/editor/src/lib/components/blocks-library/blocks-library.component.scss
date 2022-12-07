@@ -1,12 +1,46 @@
 .nav {
-    max-width: 100%;
-    padding: 10px;
+	max-width: 100%;
+	padding: 10px;
 }
 
-h4, .search {
-    padding: 0 16px;
+h4,
+.search {
+	padding: 0 16px;
 }
 
-button {
-    width: 100%;
+.blocks-main {
+	min-width: 100%;
+	height: 80px;
+
+	border-radius: 5px;
+	background-color: white;
+	word-wrap: break-word;
+	box-shadow: slategray 2px 4px 8px;
+}
+
+.blocks-main:hover {
+	background-color: var(--convs-mgr-color-primary-purple) !important;
+
+	#icons {
+		color: white !important;
+	}
+}
+
+#icons {
+	color: gray;
+	font-weight: 900;
+	position: fixed;
+	align-items: center;
+	fill: white;
+	font-size: large;
+
+}
+
+.block-messages {
+	margin-bottom: -90px;
+	font-size: 0.8rem;
+	text-align: center;
+	white-space: nowrap;
+	font-weight: 500;
+	position: fixed;
 }
