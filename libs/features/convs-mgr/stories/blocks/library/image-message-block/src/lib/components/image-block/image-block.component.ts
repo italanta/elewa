@@ -6,8 +6,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { FileStorageService, UploadFileService } from '@app/state/file';
-
+import { UploadFileService } from '@app/state/file';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Observable } from 'rxjs';
 
@@ -23,6 +23,10 @@ export class ImageBlockComponent implements OnInit {
   @Input() block: ImageMessageBlock;
   @Input() imageMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+ type: StoryBlockTypes;
+  imagetype = StoryBlockTypes.Image;
+  blockFormGroup: FormGroup;
 
 
   file: File;

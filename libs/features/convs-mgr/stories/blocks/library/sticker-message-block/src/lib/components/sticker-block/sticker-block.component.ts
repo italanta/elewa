@@ -8,6 +8,7 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
 
 import { StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { UploadFileService } from '@app/state/file';
 
 
@@ -30,6 +31,10 @@ export class StickerBlockComponent implements OnInit {
   stickerLink: string = "";
   stickerInputId: string;
   defaultImage: string = "assets/images/lib/block-builder/sticker-block-placeholder.png"
+
+  type: StoryBlockTypes;
+  stickerType = StoryBlockTypes.Sticker;
+  blockFormGroup: FormGroup;
 
 
   constructor(private _fb: FormBuilder,
