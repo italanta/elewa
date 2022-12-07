@@ -8,11 +8,16 @@
         </mat-form-field>
     </div>
 
-    <div fxFlex>
-        <mat-list role="list" *ngIf="blockTemplate$ | async as blocks ">
-            <mat-list-item *ngFor="let block of blocks" role="list-item">
-                <button mat-raised-button class="list-item" (click)=" addBlock(block.type)">{{ block.message }} </button>
-            </mat-list-item>
-        </mat-list>
+
+        <div fxLayout ="row wrap" fxLayoutGap="10px" *ngIf="blockTemplate$ | async as blocks " fxFlex>
+            <div *ngFor="let block of blocks" (click)=" addBlock(block.type)"  fxFlex="28">
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px" [style.margin]="'12px'" class="blocks-main"  fxFlex>
+                    <i class="{{ block.blockIcon }}" id="icons"></i>
+                    <p class="block-messages">
+                        {{ block.message }}                     
+                    </p>
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
