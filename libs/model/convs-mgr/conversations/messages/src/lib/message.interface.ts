@@ -32,17 +32,31 @@ export interface Message
 
   n?                  : number;
 
+  /** 
+   * Since we have messages from different sources, it's best we define their direction
+   *   so that we can properly identify the message.
+   * 
+   * Also helps third party applications to do the same.
+   */
   direction?          : MessageDirection;
 }
 
+
+/** 
+ * Since we have messages from different sources, it's best we define their direction
+ *   so that we can properly identify the message.
+ * 
+ * Also helps third party applications to do the same.
+ */
 export enum MessageDirection
 {
-  TO_END_USER       =  'toEndUser',
-  FROM_END_USER     =  'fromEndUser',
+  TO_END_USER       =  5,
 
-  TO_CHATBOT        =  'toChatBot',
+  FROM_END_USER     =  10,
 
-  TO_AGENT          =  'toAgent'
+  TO_CHATBOT        =  15,
+
+  TO_AGENT          =  20
 }
 
 /**
