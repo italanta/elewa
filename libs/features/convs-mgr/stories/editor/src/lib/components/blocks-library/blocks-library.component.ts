@@ -14,6 +14,7 @@ import {
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+
 import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
 
 /**
@@ -33,7 +34,7 @@ export class BlocksLibraryComponent implements OnInit {
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   blockTemplates: StoryBlock[] = [
-    { id: 'input-message-block', type: StoryBlockTypes.TextMessage, message: 'Text Message', blockIcon: this.getBlockIcon(StoryBlockTypes.TextMessage) } as TextMessageBlock,
+    { id: 'input-message-block', type: StoryBlockTypes.TextMessage, message: 'Message', blockIcon: this.getBlockIcon(StoryBlockTypes.TextMessage) } as TextMessageBlock,
     { id: 'io-questions-block', type: StoryBlockTypes.Input, message: 'Input', blockIcon: this.getBlockIcon(StoryBlockTypes.Input) } as QuestionMessageBlock,
     { id: 'io-block', type: StoryBlockTypes.IO, message: 'IO', blockIcon: this.getBlockIcon(StoryBlockTypes.IO) } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location', blockIcon: this.getBlockIcon(StoryBlockTypes.Location) } as LocationMessageBlock,
