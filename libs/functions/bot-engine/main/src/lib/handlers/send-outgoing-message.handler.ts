@@ -3,14 +3,11 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
 
 import { ChannelDataService } from '@app/functions/bot-engine';
-import { WhatsAppOutgoingMessage } from '@app/model/convs-mgr/functions';
-import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { WhatsappActiveChannel } from './models/whatsapp-active-channel.model';
-
-import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
-import { StandardMessageOutgoingMessageParser } from './io/outgoing-message-parser/standardized-message-to-outgoing-message.parser';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+
+import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
@@ -19,7 +16,7 @@ import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/me
  * Listens to messages sent from a third party app to the end user, processes them and 
  *    forwards them to the end user
  */
-export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
+export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
 {
   /**
    * Listens to messages sent from the farmbetter app to the end user, processes them and 
@@ -52,19 +49,22 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<Message, Res
       // So we get registered channel information by passing the business phone number id Channel Data Service
       const _channelService$ = new ChannelDataService(tools);
 
-      const communicationChannel = await _channelService$.getChannelByConnection(outgoingPayload.n) as WhatsAppCommunicationChannel;
+      const communicationChannel = await _channelService$.getChannelByConnection(outgoingPayload.n) as CommunicationChannel;
 
       // STEP 3: Create Active Channel
       //         We need to create the active channel so that the engine can use it to process and send the message
       //         The active channel contains the Communication Channel and a send message function
-      //         So here we create an instance of the SendWhatsAppMessageModel which implements the active channel
-      const whatsappActiveChannel = new WhatsappActiveChannel(tools, communicationChannel);
+
+      // We use the active channel factory to get a specific third party platform's channel e.g. Whatsapp Active Channel
+      const activeChannelFactory = new ActiveChannelFactory();
+
+      const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools)
 
       // STEP 4: Get the outgoing message in whatsapp format
-      const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      const outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
 
       // STEP 5: Send the message
-      await whatsappActiveChannel.send(outgoingMessagePayload as WhatsAppOutgoingMessage);
+      await activeChannel.send(outgoingMessagePayload as any);
 
       return { success: true } as RestResult200;
     } catch (error) {
