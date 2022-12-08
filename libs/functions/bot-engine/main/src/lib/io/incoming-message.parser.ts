@@ -43,4 +43,6 @@ export abstract class IncomingMessageParser
 
     return parser(incomingMessage);
   }
+
+  protected getMessageId = () => Date.now().toString();
 }

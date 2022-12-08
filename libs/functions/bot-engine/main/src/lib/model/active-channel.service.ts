@@ -1,5 +1,5 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Message, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -25,6 +25,8 @@ export interface ActiveChannel
    * A prepared  message which can be sent over the line to its specific channel API.
    */
   parseOutMessage(storyBlock: StoryBlock, phone: string): OutgoingMessagePayload;
+
+  parseOutStandardMessage(message: Message, phone: string): OutgoingMessagePayload;
 
   /** 
    *  After the bot engine processes the incoming message and returns the next block,
