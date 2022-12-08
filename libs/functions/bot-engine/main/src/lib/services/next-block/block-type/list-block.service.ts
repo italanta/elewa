@@ -36,11 +36,4 @@ export class ListBlockService extends MultipleOptionsMessageService
 
 		return this.getNextBlock(msg, lastBlock, orgId, currentStory, endUserId);
 	}
-
-	async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
-	{
-		const response = msg as QuestionMessage;
-
-		if (lastBlock.milestone) return this.saveData(lastBlock.tag, orgId, lastBlock.milestone, response.options[0].optionText, endUserId);
-	}
 }

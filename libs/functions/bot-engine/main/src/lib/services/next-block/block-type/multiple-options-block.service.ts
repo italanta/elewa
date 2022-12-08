@@ -67,6 +67,12 @@ export class MultipleOptionsMessageService extends NextBlockService
  	* This method takes the response(value) and saves it to a temporary collection. This data can then
  	*  be retrieved from this collection later e.g. when the story ends the user creating the bot might choose to 
  	*    post the data to a REST endpoint.
+	* 
+	* Each story block will need to have a field called 'milestone', which we will use to group variables together.
+	* 	A milestone is the end goal which the user wants to achieve with the saving variables. E.g. If the milestone is
+	*			'reportproblem', the end user reponse to the input blocks with that milestone will be saved together.
+	*
+	* This will also help in knowing where to retrieve the data, when posting the data to an api endpoint.
  	*/
 	async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
 	{
@@ -75,6 +81,7 @@ export class MultipleOptionsMessageService extends NextBlockService
 		// Get the text value of the option the end user has clicked
 		const value = response.options[0].optionText;
 
+		// Check if the milestone exists on this block
 		if (lastBlock.milestone) return this.saveData(lastBlock.tag, orgId, lastBlock.milestone, value, endUserId);
 	}
 }
