@@ -30,6 +30,12 @@ export class NameInputInputBlockService extends DefaultOptionMessageService
 		this.tools = tools;
 	}
 
+	/**
+	 * When the bot engine receives a message from the end user, we will need to process that message e.g. 
+	 * 	validate it, save the response, and return the next block in the story.
+	 * 
+	 * TODO: Move the validation to a separate procedure.
+	 */
 	async processUserInput(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string)
 	{
 		if (msg.type !== MessageTypes.TEXT) return this.getErrorBlock(lastBlock.id, "Sorry, please send a text message");
