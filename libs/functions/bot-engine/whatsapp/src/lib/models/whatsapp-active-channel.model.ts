@@ -1,5 +1,10 @@
 import axios from "axios";
 
+import { tmpdir } from 'os';
+import { createWriteStream } from "fs";
+import { join } from 'path';
+import { extension } from "mime-types";
+
 import { HandlerTools } from "@iote/cqrs";
 import { __DECODE_AES } from "@app/elements/base/security-config";
 
@@ -105,5 +110,112 @@ export class WhatsappActiveChannel implements ActiveChannel
    return res
 
   }
+
+
+  /**
+   * When a user sends an image from whatsapp, we just receive an ID, so we have to call another endpoint
+   *    to get the URL, and then call this URL to get the image.
+   * 
+   * @param mediaId - The unique identifier assigned to the media file by the whatsapp api
+   * @returns binary data of the media file
+   */
+   async getMediaFile(mediaId: string, mime_type: string)
+   {
+     const URL = await this._getMediaUrl(mediaId);
+ 
+     if (URL) return this._fetchMedia(URL, mime_type);
+   }
+ 
+   /**
+    * Obtains the url for downloading the media.
+    * @param mediaId 
+    * @returns 
+    */
+   private async _getMediaUrl(mediaId: string)
+   {
+     if (mediaId) {
+       const URL = `https://graph.facebook.com/v15.0/${mediaId}`;
+       try {
+         const mediaInformation = await axios.get(URL,
+           {
+             headers: {
+               'Authorization': `Bearer ${this.channel.accessToken}`,
+             }
+           });
+         return mediaInformation.data.url;
+       } catch (error) {
+         this._tools.Logger.log(() => `Unable to get media information: ${error}`);
+       }
+     }
+ 
+   }
+ 
+   /**
+    * Fetches the media file, saves it to /tmp directory on the cloud function then returns the file path
+    * @param URL 
+    * @param mime_type - allows us to get the extension of the file
+    * @returns filePath and fileName
+    */
+   private async _fetchMedia(URL: string, mime_type: string)
+   {
+     // Get a unix timestamp for the name
+     const fileName = Date.now().toString();
+ 
+     // Get the extension from the mime_type of the file
+     const fileExtension = extension(mime_type) as string;
+     const fileNameWithExt = fileName + '.' + fileExtension;
+ 
+     // Get the temp directory path to save the save
+     const tempFilePath = join(tmpdir(), (fileNameWithExt));
+ 
+     // Create a stream to write the file to the temp directory
+     const writer = createWriteStream(tempFilePath);
+ 
+     try {
+       return axios.get(URL,
+         {
+           headers: {
+             'Authorization': `Bearer ${this.channel.accessToken}`,
+           },
+           responseType: 'stream'
+         }).then((response) =>
+         {
+   
+           return new Promise((resolve, reject) =>
+           {
+             response.data.pipe(writer);
+   
+             let error = null;
+             writer.on('error', err =>
+             {
+               error = err;
+               writer.close();
+
+               reject(`Encountered error while fetching file: ${error}`);
+             });
+   
+             writer.on('close', () =>
+             {
+               if (!error) {
+                 resolve({
+                   "filePath": tempFilePath,
+                   "fileName": fileNameWithExt
+                 });
+   
+                 this._tools.Logger.log(()=> `Fetched file from whatsapp successful`)
+               }
+             });
+           });
+   
+         });
+     } catch (error) {
+       this._tools.Logger.log(() => `Encountered error while fetching file: ${error}`);
+     }
+ 
+ 
+ 
+ 
+   }
+ 
 
 }

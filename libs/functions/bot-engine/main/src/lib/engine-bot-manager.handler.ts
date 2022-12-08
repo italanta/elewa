@@ -18,7 +18,7 @@ import { VariableInjectorService } from './services/variable-injection/variable-
 
 import { ActiveChannel } from './model/active-channel.service';
 import { BlockToStandardMessage } from './io/block-to-message-parser.class';
-
+import { BotMediaProcessService } from './services/media/process-media-service';
 import { generateEndUserId } from './utils/generateUserId';
 
 
@@ -68,12 +68,13 @@ export class EngineBotManager
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
+      const botMediaUploadService = new BotMediaProcessService(this._tools);
 
       this._endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
 
       this._variableInjectorService = new VariableInjectorService(this._tools);
       //TODO: Find a better way because we are passing the active channel twice
-      const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
+      const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, botMediaUploadService, this._tools, this._activeChannel);
 
       // STEP 2: Get the current end user information
       // This information contains the phone number and the chat status of the ongoing communication.

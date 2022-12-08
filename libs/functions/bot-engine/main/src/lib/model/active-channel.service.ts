@@ -41,4 +41,6 @@ export interface ActiveChannel
    * 
    */
   send(msg: OutgoingMessagePayload);
+
+  getMediaFile(mediaId: string, mime_type: string);
 }
