@@ -29,6 +29,12 @@ export class ImageInputInputBlockService extends DefaultOptionMessageService
 		this.tools = tools;
 	}
 
+	/**
+	 * When the bot engine receives a message from the end user, we will need to process that message e.g. 
+	 * 	validate it, save the response, and return the next block in the story.
+	 * 
+	 * TODO: Move the validation to a separate procedure.
+	 */
 	async processUserInput(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string)
 	{
 		if (msg.type !== MessageTypes.IMAGE) return this.getErrorBlock(lastBlock.id, "Sorry, please send an image");
@@ -40,9 +46,11 @@ export class ImageInputInputBlockService extends DefaultOptionMessageService
 	}
 
 	/**
-	 * Gets the next block in the story linked to the default option
+	 * The user/organisation creating the bot might choose to save the response of the end user for later use.
 	 * 
-	 * @note We can potentially know if the block is the last one if no connection originates from it (connnection == null)
+	 * This method takes the response(value) and saves it to a temporary collection. This data can then
+   *  be retrieved from this collection later e.g. when the story ends the user creating the bot might choose to 
+   *    post the data to a REST endpoint.
 	 */
 	protected async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
 	{
