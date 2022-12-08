@@ -15,7 +15,6 @@ import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations
 
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
-import { reject } from "lodash";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
