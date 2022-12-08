@@ -34,7 +34,7 @@ export class MultipleOptionsMessageService extends NextBlockService
 	/**
 	 * Gets the next block in the story linked to the option selected by the end user
 	 * 
-	 * @note We can potentially know if the block is the last one if no connection originates from it (connnection == null)
+	 * @note It does this by matching the id of the button and the id of the option saved in the database
 	 */
 	async getNextBlock(msg: Message, lastBlock: QuestionMessageBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
 	{
