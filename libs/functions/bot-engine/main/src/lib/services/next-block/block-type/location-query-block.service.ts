@@ -29,23 +29,20 @@ export class LocationInputBlockService extends DefaultOptionMessageService
 		this.tools = tools;
 	}
 
+	/**
+	 * When the bot engine receives a message from the end user, we will need to process that message e.g. 
+	 * 	validate it, save the response, and return the next block in the story.
+	 * 
+	 * TODO: Move the validation to a separate procedure.
+	 */
 	async processUserInput(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string)
 	{
 		if (msg.type !== MessageTypes.LOCATION) return this.getErrorBlock(lastBlock.id, "Sorry, please enter a valid location.");
 
-		await this.saveUserResponse(msg, lastBlock, orgId, endUserId);
-
-		return this.getNextBlock(msg, lastBlock, orgId, currentStory, endUserId);
-	}
-	/**
-	 * Gets the next block in the story linked to the default option
-	 * 
-	 * @note We can potentially know if the block is the last one if no connection originates from it (connnection == null)
-	 */
-	protected async saveUserResponse(msg: Message, lastBlock: LocationInputBlock, orgId: string, endUserId: string): Promise<any>
-	{
 		const locationMessage = msg as LocationMessage;
 
-		if(lastBlock.milestone) return this.saveData('location', orgId, lastBlock.milestone, locationMessage.location, endUserId);
+		if (lastBlock.milestone) await this.saveData('location', orgId, lastBlock.milestone, locationMessage.location, endUserId);
+
+		return this.getNextBlock(msg, lastBlock, orgId, currentStory, endUserId);
 	}
 }
