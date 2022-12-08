@@ -27,7 +27,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   {
     // Create the base message object
     const newMessage: TextMessage = {
-
+      id: this.getMessageId(),
       type: MessageTypes.TEXT,
       endUserPhoneNumber: message.from,
       text: message.text.body,
@@ -52,6 +52,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const interactiveMessage = message as InteractiveRawButtonReplyMessage;
 
     const baseMessage: QuestionMessage = {
+      id: this.getMessageId(),
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
       optionId: interactiveMessage.interactive.button_reply.id,
@@ -70,17 +71,18 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
    * Payload example:
    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#location-messages
    */
-     protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
-     {
-       const standardMessage: LocationMessage = {
-         type: MessageTypes.LOCATION,
-         endUserPhoneNumber: incomingMessage.from,
-         location: incomingMessage.location,
-         payload: incomingMessage,
-       };
-   
-       return standardMessage;
-     }
+  protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
+  {
+    const standardMessage: LocationMessage = {
+      id: this.getMessageId(),
+      type: MessageTypes.LOCATION,
+      endUserPhoneNumber: incomingMessage.from,
+      location: incomingMessage.location,
+      payload: incomingMessage,
+    };
+
+    return standardMessage;
+  }
 
   /**
    * Converts an location whatsapp message to a standadized location Message @see {LocationMessageBlock}
@@ -90,15 +92,16 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
    * Payload example:
    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#location-messages
    */
-     protected parseInImageMessage(incomingMessage: ImagePayload): ImageMessage
-     {
-       const standardMessage: ImageMessage = {
-         type: MessageTypes.LOCATION,
-         endUserPhoneNumber: incomingMessage.from,
-         imageId: incomingMessage.id,
-         payload: incomingMessage,
-       };
-   
-       return standardMessage;
-     }
+  protected parseInImageMessage(incomingMessage: ImagePayload): ImageMessage
+  {
+    const standardMessage: ImageMessage = {
+      id: this.getMessageId(),
+      type: MessageTypes.LOCATION,
+      endUserPhoneNumber: incomingMessage.from,
+      imageId: incomingMessage.id,
+      payload: incomingMessage,
+    };
+
+    return standardMessage;
+  }
 }
