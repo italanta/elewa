@@ -10,6 +10,8 @@ import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations
 
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
+import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -38,6 +40,13 @@ export class WhatsappActiveChannel implements ActiveChannel
   parseOutMessage(storyBlock: StoryBlock, phone: string)
   {
     const outgoingMessagePayload =  new WhatsappOutgoingMessageParser().parse(storyBlock, phone)
+
+    return outgoingMessagePayload
+  }
+
+  parseOutStandardMessage(message: Message, phone: string)
+  {
+    const outgoingMessagePayload =  new StandardMessageOutgoingMessageParser().parse(message, phone)
 
     return outgoingMessagePayload
   }

@@ -15,7 +15,7 @@ export interface EndUser extends IObject
     phoneNumber         : string;
 
     /** The current status of the ongoing chat between the end user and our chatbot */
-    status              : ChatStatus
+    status              : ChatStatus;
 }
 
 /**
@@ -30,7 +30,7 @@ export enum ChatStatus
 
     Paused                = 'paused',
 
-    TakingToOperator      = 'takingtooperator',
+    TakingToAgent         = 'takingtoagent',
 
     Ended                 = 'ended'
   }
