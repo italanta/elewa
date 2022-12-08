@@ -30,6 +30,10 @@ export class QuestionMessageService extends MultipleOptionsMessageService
 		this._logger = tools.Logger;
 	}
 
+	/**
+	 * When the bot engine receives a message from the end user, we will need to process that message e.g. 
+	 * 	validate it, save the response, and return the next block in the story.
+	 */
 	async processUserInput(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string)
 	{
 		await this.saveUserResponse(msg, lastBlock, orgId, endUserId);
