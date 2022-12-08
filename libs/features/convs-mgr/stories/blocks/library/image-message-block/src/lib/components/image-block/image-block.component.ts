@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -10,6 +10,7 @@ import { UploadFileService } from '@app/state/file';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Observable } from 'rxjs';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-image-block',
@@ -38,7 +39,6 @@ export class ImageBlockComponent implements OnInit {
   url:Observable<string>;
 
   constructor(private _imageUploadService: UploadFileService,
-              private _fbstorage: FileStorageService,
               public domSanitizer: DomSanitizer,
 
               ) 
@@ -51,23 +51,30 @@ export class ImageBlockComponent implements OnInit {
     this.imageInputId = `img-${this.id}`;
 
   }
+  @Input() UpdateForm (imageMessageForm:FormGroup){
+    this.block.fileSrc = this.imageMessageForm.value.imageLink;
+    this.block.message = this.imageMessageForm.value.caption;
+    
+  }
   updateBlockForm(){
     this.imageMessageForm.patchValue({
-      imageLink: this.block.fileSrc,
-      caption: this.block.message
+      imageLink: this.block.fileSrc = this.imageMessageForm.value.imageLink,
+      caption: this.block.message = this.imageMessageForm.value.caption,
+      fileSrc: this.getFileNameFromFbUrl(this.block.fileSrc!)
     });
     if(this.hasImage){
-      this.imageName = this.getFileNameFromFbUrl(this.block.fileSrc!)
+    
+      this.imageLink = this.imageMessageForm.value.imageLink
     }
     
   }
   getFileNameFromFbUrl(fbUrl: string): string {
     return fbUrl.split('%2F')[1].split("?")[0];
   }
-  update(){
-    this.block.fileSrc = this.imageMessageForm.value.imageLink;
-    this.block.message = this.imageMessageForm.value.caption;
-  }
+//  updates() {
+//     this.block.fileSrc = this.imageMessageForm.value.imageLink;
+//     this.block.message = this.imageMessageForm.value.caption;
+//   }
   async processImage(event: any) 
   {
     if (event.target.files && event.target.files[0]) {
