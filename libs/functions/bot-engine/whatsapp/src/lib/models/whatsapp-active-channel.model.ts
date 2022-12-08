@@ -15,6 +15,7 @@ import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations
 
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
+import { reject } from "lodash";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -172,7 +173,7 @@ export class WhatsappActiveChannel implements ActiveChannel
          }).then((response) =>
          {
    
-           return new Promise((resolve) =>
+           return new Promise((resolve, reject) =>
            {
              response.data.pipe(writer);
    
@@ -181,7 +182,8 @@ export class WhatsappActiveChannel implements ActiveChannel
              {
                error = err;
                writer.close();
-               this._tools.Logger.log(() => `Encountered error while fetching file: ${error}`);
+
+               reject(`Encountered error while fetching file: ${error}`);
              });
    
              writer.on('close', () =>
