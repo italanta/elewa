@@ -27,6 +27,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   {
     // Create the base message object
     const newMessage: TextMessage = {
+      id: this.getMessageId(),
       type: MessageTypes.TEXT,
       endUserPhoneNumber: message.from,
       text: message.text.body,
@@ -65,7 +66,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const interactiveMessage = message as InteractiveRawButtonReplyMessage;
 
     const baseMessage: QuestionMessage = {
-      id: interactiveMessage.id,
+      id: this.getMessageId(),
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
       options: [
@@ -85,6 +86,8 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const interactiveMessage = message as InteractiveListReplyMessage;
 
     const baseMessage: QuestionMessage = {
+      id: this.getMessageId(),
+
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
       options: [
@@ -110,6 +113,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
   {
     const standardMessage: LocationMessage = {
+      id: this.getMessageId(),
       type: MessageTypes.LOCATION,
       endUserPhoneNumber: incomingMessage.from,
       location: incomingMessage.location,
@@ -171,17 +175,14 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
    * Payload example:
    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#media-messages
    */
+
   protected parseInVideoMessage(incomingMessage: VideoPayload): VideoMessage
   {
     const standardMessage: VideoMessage = {
-      id: incomingMessage.id,
-      type: MessageTypes.AUDIO,
+      id: this.getMessageId(),
+      type: MessageTypes.VIDEO,
       endUserPhoneNumber: incomingMessage.from,
       videoId: incomingMessage.id,
       payload: incomingMessage,
       mime_type: incomingMessage.video.mime_type,
-    };
-
-    return standardMessage;
-  }
 }

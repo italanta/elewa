@@ -52,14 +52,8 @@ export class ProcessMessageService
     // Get the last block found in cursor
     const latestBlock = latestCursor.currentBlock;
 
-    if (latestCursor.futureBlock) {
-
-      return latestCursor.futureBlock;
-
-    } else {
-
-      return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
-    }
+    // Return the next block
+    return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
   }
 
   async resolveFutureBlock(currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string)
@@ -67,6 +61,15 @@ export class ProcessMessageService
     return this.__nextBlockService(currentBlock, orgId, currentStory, msg, endUserId);
   }
 
+  /**
+   * A cursor is a specific point in the story. We mark the cursor by saving the story block that we
+   *  send back to the end user. So if we know the last block we sent to the user we will know their position 
+   *   in the story.  
+   * 
+   * This method takes the latest cursor and determines the next block in the story.  
+   * 
+   * @returns NextBlock
+   */
   private async __nextBlockService(block: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<StoryBlock>
   {
     const nextBlockService = new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);

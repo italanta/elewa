@@ -4,3 +4,4 @@ export * from './lib/io/outgoing-message.parser';
 export * from './lib/model/active-channel.service';
 export * from './lib/model/send-message/send-message-main.model';
 export * from './lib/services/data-services/channel-info.service';
+export * from './lib/handlers/send-outgoing-message.handler';
