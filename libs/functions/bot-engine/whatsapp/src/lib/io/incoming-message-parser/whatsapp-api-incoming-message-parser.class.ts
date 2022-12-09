@@ -27,7 +27,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   {
     // Create the base message object
     const newMessage: TextMessage = {
-      id: this.getMessageId(),
+      id: Date.now().toString(),
       type: MessageTypes.TEXT,
       endUserPhoneNumber: message.from,
       text: message.text.body,
@@ -43,9 +43,39 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
 
     switch (interactiveMessage.interactive.type) {
       case InteractiveMessageType.ButtonReply:
-        return this.__parseInInteractiveButtonMessage(message);
+        // const buttonMessage = this.__parseInInteractiveButtonMessage(message);
+        const interactiveButtonMessage = message as InteractiveRawButtonReplyMessage;
+
+        const buttonMessage: QuestionMessage = {
+          type: MessageTypes.QUESTION,
+          endUserPhoneNumber: message.from,
+          options: [
+            {
+              optionId: interactiveButtonMessage.interactive.button_reply.id,
+              optionText: interactiveButtonMessage.interactive.button_reply.title,
+            },
+          ],
+          payload: message,
+        };
+    
+        return buttonMessage
       case InteractiveMessageType.ListReply:
-        return this.__parseInListMessage(message);
+
+        const interactiveListMessage = message as InteractiveListReplyMessage;
+
+        const listMessage: QuestionMessage = {
+          type: MessageTypes.QUESTION,
+          endUserPhoneNumber: message.from,
+          options: [
+            {
+              optionId: interactiveListMessage.interactive.list_reply.id,
+              optionText: interactiveListMessage.interactive.list_reply.title,
+            },
+          ],
+          payload: message,
+        };
+    
+        return listMessage
       default:
         return null;
     }
@@ -66,7 +96,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const interactiveMessage = message as InteractiveRawButtonReplyMessage;
 
     const baseMessage: QuestionMessage = {
-      id: this.getMessageId(),
+      id: Date.now().toString(),
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
       options: [
@@ -86,7 +116,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     const interactiveMessage = message as InteractiveListReplyMessage;
 
     const baseMessage: QuestionMessage = {
-      id: this.getMessageId(),
+      id: Date.now().toString(),
 
       type: MessageTypes.QUESTION,
       endUserPhoneNumber: message.from,
@@ -113,7 +143,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   protected parseInLocationMessage(incomingMessage: LocationPayload): LocationMessage
   {
     const standardMessage: LocationMessage = {
-      id: this.getMessageId(),
+      id: Date.now().toString(),
       type: MessageTypes.LOCATION,
       endUserPhoneNumber: incomingMessage.from,
       location: incomingMessage.location,
@@ -179,7 +209,7 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
   protected parseInVideoMessage(incomingMessage: VideoPayload): VideoMessage
   {
     const standardMessage: VideoMessage = {
-      id: this.getMessageId(),
+      id: Date.now().toString(),
       type: MessageTypes.VIDEO,
       endUserPhoneNumber: incomingMessage.from,
       mediaId: incomingMessage.id,
