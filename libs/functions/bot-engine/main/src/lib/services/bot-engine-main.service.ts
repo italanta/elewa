@@ -13,14 +13,13 @@ import { CursorDataService } from './data-services/cursor.service';
 import { BlockDataService } from './data-services/blocks.service';
 import { ConnectionsDataService } from './data-services/connections.service';
 import { EndUserDataService } from './data-services/end-user.service';
+import { MessagesDataService } from './data-services/messages.service';
 
 import { BotMediaProcessService } from './media/process-media-service';
 
 import { __isCommand } from '../utils/isCommand';
 
 import { ActiveChannel } from '../model/active-channel.service';
-import { EndStoryBlockService } from './next-block/block-type/end-story-block.service';
-
 /**
  * For our chatbot and our code to be maintainable, we need separate the low-level operations of
  *  the chatbot from the main flow of the bot. Hence we have to implement Inversion of Control
@@ -37,6 +36,7 @@ export class BotEngineMainService
   constructor(
     private _blocksService$: BlockDataService,
     private _connService$: ConnectionsDataService,
+    private _msgService$: MessagesDataService,
     private _cursorDataService$: CursorDataService,
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
@@ -61,7 +61,7 @@ export class BotEngineMainService
   /**
    * Takes the inteprated message and determines the next block
    */
-  async getNextBlock(msg: Message, endUser: EndUser, endUserDataService: EndUserDataService): Promise<StoryBlock>
+  async getNextBlock(msg: Message, endUser: EndUser, endUserDataService?: EndUserDataService): Promise<StoryBlock>
   {
     // Get an instance of the process message service
     const processMessage = this._getProcessMessageService();
@@ -85,39 +85,7 @@ export class BotEngineMainService
       let nextBlock: StoryBlock;
       nextBlock = await processMessage.resolveNextBlock(msg, endUser.id, this._activeChannel.channel.orgId, endUser.currentStory, this._tools);
 
-      // Switch stories if we hit a Switch Story Block, and return the first block of the new story
-      if (nextBlock.type === StoryBlockTypes.EndStory) return this._endStory(nextBlock, endUser, this._activeChannel.channel.orgId, endUserDataService);
-
       return nextBlock;
-    }
-  }
-  /**
-   * When an end user gets to the end of the story we can either end the conversation or switch to the 
-   *  next story based on the configuration.
-   * 
-   * @see {EndStoryBlockService}
-   */
-  private async _endStory(nextBlock: StoryBlock, endUser: EndUser, orgId: string, endUserService: EndUserDataService)
-  {
-    const endStoryService = new EndStoryBlockService(this._blocksService$, this._connService$, this._tools);
-
-    return endStoryService.endStory(nextBlock, endUser, orgId, endUserService);
-  }
-
-  async getFutureBlock(currentBlock: StoryBlock, msg: Message, endUser: EndUser, endUserService: EndUserDataService): Promise<StoryBlock>
-  {
-    const processMessageService = this._getProcessMessageService();
-
-    if (currentBlock.type !== StoryBlockTypes.QuestionBlock) {
-      let futureBlock: StoryBlock;
-
-      futureBlock = await processMessageService.resolveFutureBlock(currentBlock, this._activeChannel.channel.orgId, endUser.currentStory, msg);
-
-      if (futureBlock.type === StoryBlockTypes.EndStory) {
-        futureBlock = await this._endStory(futureBlock, endUser, this._activeChannel.channel.orgId, endUserService);
-      }
-
-      return futureBlock;
     }
   }
 
@@ -137,6 +105,8 @@ export class BotEngineMainService
 
       message = fileMessage;
     }
+
+    await this._msgService$.saveMessage(message, this._activeChannel.channel.orgId, endUserId)
   }
 
   async updateCursor(endUserId: string, nextBlock: StoryBlock, futureBlock?: StoryBlock)
