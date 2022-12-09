@@ -26,9 +26,7 @@ export class ProcessMessageService
   async getFirstBlock(tools: HandlerTools, orgId: string, currentStory: string)
   {
     /** Get the first Block */
-    const connection = await this._connService$.getFirstConnFirstStory();
-
-    let firstBlock: StoryBlock = await this._blockService$.getBlockById(connection.targetId, orgId, currentStory);
+    const firstBlock = await this._blockService$.getFirstBlock(orgId, currentStory);
 
     tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
 
@@ -56,11 +54,6 @@ export class ProcessMessageService
     return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
   }
 
-  async resolveFutureBlock(currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string)
-  {
-    return this.__nextBlockService(currentBlock, orgId, currentStory, msg, endUserId);
-  }
-
   /**
    * A cursor is a specific point in the story. We mark the cursor by saving the story block that we
    *  send back to the end user. So if we know the last block we sent to the user we will know their position 
@@ -75,6 +68,5 @@ export class ProcessMessageService
     const nextBlockService = new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);
 
     return nextBlockService.getNextBlock(msg, block, orgId, currentStory, endUserId);
-
   }
 }
