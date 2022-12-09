@@ -72,7 +72,7 @@
         "EMAIL": "Email Block",
         "PHONE": "Phone Block",
         "MESSAGE": "Message Block",
-        "QUESTION": "Question Block",
+        "QUESTION": "Question: Buttons",
         "AUDIO": "Audio Block",
         "VIDEO": "Video Block",
         "STICKER": "Sticker Block",
@@ -84,7 +84,8 @@
         "IMAGE-LINK": "Image Link",
         "NAME": "Name",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Phone"
+        "PHONE-NUMBER": "Phone",
+        "AUDIO-LINK":"Audio Link"
       }
     },
     "COMPONENTS": {

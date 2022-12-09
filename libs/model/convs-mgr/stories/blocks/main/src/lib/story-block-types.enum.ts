@@ -88,9 +88,18 @@
   /**
    * Block that sends a sticker to the user as a message
    */
+
    Sticker = 15,
  
    ErrorBlock = 999,
-   
-   EndStory = 500
- }
+ 
+  /**
+   * Block that sends a message to the user and expects a list of items to be returned
+   */
+  List = 16,
+
+  /**
+  * Block that expects input from the user by replying to a message
+  */
+  Reply = 17
+}

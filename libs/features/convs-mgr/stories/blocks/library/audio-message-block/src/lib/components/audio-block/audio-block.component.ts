@@ -5,8 +5,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
@@ -38,12 +36,6 @@ ngOnInit(): void {
   this.audioInputId = `aud-${this.id}`
 }
 
-ngAfterViewInit(): void {
-  if (this.jsPlumb) {
-    this._decorateInput();
-  }
-}
-
 async processAudio(event: any) 
 {
   if (event.target.files && event.target.files[0]) {
@@ -61,13 +53,4 @@ async processAudio(event: any)
   (await this._audioUploadService.uploadFile(this.file, this.block, audioFilePath)).subscribe();
 
 }
-
-
-private _decorateInput() {
-  let input = document.getElementById(this.audioInputId) as Element;
-  if (this.jsPlumb) {
-    input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-  }
-}
-
 }
