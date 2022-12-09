@@ -5,8 +5,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
@@ -29,10 +27,6 @@ audioInputId: string;
 defaultImage: string ="assets/images/lib/block-builder/audio-block-placeholder.png"
 isLoadingAudio: boolean;
 
-type: StoryBlockTypes;
-audioType = StoryBlockTypes.Audio;
-blockFormGroup: FormGroup;
-
 
 constructor(private _fb: FormBuilder,
             private _logger: Logger,
@@ -40,12 +34,6 @@ constructor(private _fb: FormBuilder,
 
 ngOnInit(): void {
   this.audioInputId = `aud-${this.id}`
-}
-
-ngAfterViewInit(): void {
-  if (this.jsPlumb) {
-    this._decorateInput();
-  }
 }
 
 async processAudio(event: any) 
@@ -64,13 +52,5 @@ async processAudio(event: any)
   const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
   (await this._audioUploadService.uploadFile(this.file, this.block, audioFilePath)).subscribe();
 
-}
-
-
-private _decorateInput() {
-  let input = document.getElementById(this.audioInputId) as Element;
-  if (this.jsPlumb) {
-    input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-  }
 }
 }
