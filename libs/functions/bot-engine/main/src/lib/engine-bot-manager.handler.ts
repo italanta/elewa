@@ -74,7 +74,7 @@ export class EngineBotManager
 
       this._variableInjectorService = new VariableInjectorService(this._tools);
       //TODO: Find a better way because we are passing the active channel twice
-      const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, botMediaUploadService, this._tools, this._activeChannel);
+      const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
 
       // STEP 2: Get the current end user information
       // This information contains the phone number and the chat status of the ongoing communication.
@@ -99,7 +99,7 @@ export class EngineBotManager
           sideOperations.push(bot.saveMessage(message, END_USER_ID));
 
           // Process the message and find the next block in the story that is to be sent back to the user
-          nextBlock = await bot.getNextBlock(message, endUser.id);
+          nextBlock = await bot.getNextBlock(message, endUser, this._endUserService$);
 
           const botMessage = this.__convertBlockToStandardMessage(nextBlock);
           botMessage.direction = MessageDirection.TO_END_USER;
@@ -156,7 +156,7 @@ export class EngineBotManager
 
     while (nextBlock.type === StoryBlockTypes.TextMessage || nextBlock.type == StoryBlockTypes.Image) {
 
-      nextBlock = await bot.getFutureBlock(nextBlock, message);
+      nextBlock = await bot.getNextBlock(message, endUser);
 
       const botMessage = this.__convertBlockToStandardMessage(nextBlock);
 
