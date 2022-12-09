@@ -61,7 +61,7 @@ export class BotEngineMainService
   /**
    * Takes the inteprated message and determines the next block
    */
-  async getNextBlock(msg: Message, endUser: EndUser, endUserDataService?: EndUserDataService): Promise<StoryBlock>
+  async getNextBlock(msg: Message, endUser: EndUser, endUserDataService: EndUserDataService): Promise<StoryBlock>
   {
     // Get an instance of the process message service
     const processMessage = this._getProcessMessageService();
