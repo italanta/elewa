@@ -137,9 +137,9 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
       id: incomingMessage.id,
       type: MessageTypes.IMAGE,
       endUserPhoneNumber: incomingMessage.from,
-      imageId: incomingMessage.id,
+      mediaId: incomingMessage.id,
       payload: incomingMessage,
-      mime_type: incomingMessage.image.mime_type,
+      mime_type: incomingMessage.mime_type,
     };
 
     return standardMessage;
@@ -159,9 +159,9 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
       id: incomingMessage.id,
       type: MessageTypes.AUDIO,
       endUserPhoneNumber: incomingMessage.from,
-      audioId: incomingMessage.id,
+      mediaId: incomingMessage.id,
       payload: incomingMessage,
-      mime_type: incomingMessage.audio.mime_type,
+      mime_type: incomingMessage.mime_type,
     };
 
     return standardMessage;
@@ -182,7 +182,11 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
       id: this.getMessageId(),
       type: MessageTypes.VIDEO,
       endUserPhoneNumber: incomingMessage.from,
-      videoId: incomingMessage.id,
+      mediaId: incomingMessage.id,
       payload: incomingMessage,
-      mime_type: incomingMessage.video.mime_type,
+      mime_type: incomingMessage.mime_type,
+    }
+
+    return standardMessage
+  }
 }
