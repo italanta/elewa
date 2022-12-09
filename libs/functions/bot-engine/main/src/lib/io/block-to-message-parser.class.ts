@@ -16,8 +16,8 @@ export class BlockToStandardMessage
       case StoryBlockTypes.PhoneNumber:              converter = this.convertTextMessageBlock;     break;   
       case StoryBlockTypes.QuestionBlock:            converter = this.convertQuestionMessageBlock; break;
       case StoryBlockTypes.Image:                    converter = this.convertImageMessageBlock;    break;
-      case StoryBlockTypes.List:                     converter = this.convertTextMessageBlock;     break;
-      case StoryBlockTypes.Location:                 converter = this.convertTextMessageBlock;     break;
+      case StoryBlockTypes.ListBlock     :           converter = this.convertTextMessageBlock;     break;
+      case StoryBlockTypes.LocationInputBlock:       converter = this.convertTextMessageBlock;     break;
 
       default:
         converter = this.convertTextMessageBlock;

@@ -10,6 +10,8 @@ export interface FileUpload extends IObject
   /**Stores the type of file being uploaded. Types such as: images, audio, video etc */
   fileType?: StoryBlockTypes;
 
+  mime_type?: string;
+
   /**Stores the path with https in firebase storage  */
   filePath?: string;
   

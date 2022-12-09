@@ -31,8 +31,21 @@ export interface StoryBlock extends IObject
   // ! Type to be inherited by all the different blocks.
 
   /** title of the block on the editor */
-   blockTitle : string;
+  blockTitle: string;
 
   /** icon of the block on the editor */
-   blockIcon: string
+  blockIcon: string;
+
+  /** The variable tagged to the input story block. This variable is used to store the user response to that particular block */
+  tag?: string;
+
+  /** 
+   * This is what the user creating the bot wants to achieve with the story and mainly, the saved variables.
+   * 
+   * The @see {SwitchStoryBlock} represents the end of the story and marks a milestone. When this milestone is hit, the user 
+   *   creating the bot can choose to retrieve the saved variables to use them elsewhere.
+   * 
+   * We group related user inputs to form a milestone.
+   */
+  milestone?: string;
 }

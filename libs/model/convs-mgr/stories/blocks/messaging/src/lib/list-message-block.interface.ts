@@ -1,28 +1,25 @@
-import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-
- /**
-   * Block that sends a message to the user and expects a list of items to be returned
-   */
+import { ButtonsBlockButton } from "../../../scenario/src";
 export interface ListMessageBlock extends StoryBlock{
-  /**
-   * The message entered by the user for what they are expected to follow
-   */
-  message?:string;
 
-  /**
-   * An array of list items that the user has passed
-  */
-  listItems?:ButtonsBlockButton<List>[];
+  /** Actual question */
+  message?: string;
 
+  defaultTarget?: string;
+
+  /** Response options */
+  options?: ButtonsBlockButton<Button>[];
+
+  // Implement generic tags
+  tag?: string;
+
+  context?: string;
 }
 
-interface List {
-
-  /**The id for each list item */
+interface Button {
   id: string;
   /** Message to display as answer */
   message: string;
-
-  value?:string;
+  /** Value the answer holds. */
+  value?: string;
 }

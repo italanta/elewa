@@ -1,8 +1,6 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-
-import { TextMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Message, TextMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -34,15 +32,22 @@ export class DefaultOptionMessageService extends NextBlockService
 	 * 
 	 * @note We can potentially know if the block is the last one if no connection originates from it (connnection == null)
 	 */
-	async getNextBlock(msg: Message, lastBlock: TextMessageBlock): Promise<StoryBlock>
+	async getNextBlock(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
 	{
 		let nextBlock: StoryBlock;
 		// Get the connection
-		const connection = await this._connDataService.getConnBySourceId(lastBlock.id);
+		const connection = await this._connDataService.getConnBySourceId(lastBlock.id, orgId, currentStory);
 		// Get the next block using the id. Connection.targetId == id of the next block
 		if (connection)
-			nextBlock = await this._blockDataService.getBlockById(connection.targetId);
+			nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);
 
 		return nextBlock;
+	}
+
+	protected async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
+	{
+		const textMessage = msg as TextMessage;
+
+		if (lastBlock.milestone) return this.saveData(lastBlock.tag, orgId, lastBlock.milestone, textMessage.text, endUserId);
 	}
 }
