@@ -37,10 +37,10 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   /** Gets the first block using the story ID.
    *  First gets the connection where sourceId == story id, then uses the target id of the connection to return the first block
    */
-  async getFirstBlock(channelInfo: CommunicationChannel): Promise<StoryBlock> {
-    const firstConnection = await this._connDataService$.getFirstConnFirstStory();
+  async getFirstBlock(orgId: string, storyId: string): Promise<StoryBlock> {
+    const firstConnection = await this._connDataService$.getFirstConnection(storyId);
 
-    const firstBlock = await this.getBlockById(firstConnection.targetId, channelInfo.orgId, channelInfo.defaultStory);
+    const firstBlock = await this.getBlockById(firstConnection.targetId, orgId,storyId);
 
     return firstBlock;
   }
