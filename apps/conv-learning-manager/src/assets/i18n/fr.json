@@ -57,7 +57,7 @@
         "EMAIL": "Email Bloquer",
         "PHONE": "Téléphoner Bloquer",
         "MESSAGE": "Message Bloquer",
-        "QUESTION": "Question Bloquer",
+        "QUESTION": "Question: Boutons",
         "AUDIO": "l'audio Bloquer",
         "VIDEO": "Video Bloquer",
         "STICKER": "Autocollant Bloquer",
@@ -69,7 +69,8 @@
         "IMAGE-LINK": "Lien d'image",
         "NAME": "Nom",
         "EMAIL": "Email",
-        "PHONE-NUMBER": "Téléphoner"
+        "PHONE-NUMBER": "Téléphoner",
+        "AUDIO-LINK":"Lien audio"
       }
     },
     "COMPONENTS": {

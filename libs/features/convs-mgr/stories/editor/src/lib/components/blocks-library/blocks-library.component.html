@@ -1,18 +1,24 @@
 <div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
-    <h4>{{'PAGE-CONTENT.COMPONENTS.TITLE'| transloco }}</h4>
+	<h4>{{'PAGE-CONTENT.COMPONENTS.TITLE'| transloco }}</h4>
 
-    <div class="search" fxFlex>
-        <mat-form-field appearance="legacy" class="search-input">
-            <mat-icon matSuffix>search</mat-icon>
-            <input matInput placeholder="search for a block" (input)="filterBlocks($event)">
-        </mat-form-field>
-    </div>
+	<div class="search" fxFlex>
+		<mat-form-field appearance="legacy" class="search-input">
+			<mat-icon matSuffix>search</mat-icon>
+			<input matInput placeholder="search for a block" (input)="filterBlocks($event)">
+		</mat-form-field>
+	</div>
 
-    <div fxFlex>
-        <mat-list role="list" *ngIf="blockTemplate$ | async as blocks ">
-            <mat-list-item *ngFor="let block of blocks" role="list-item">
-                <button mat-raised-button class="list-item" (click)=" addBlock(block.type)">{{ block.message }} </button>
-            </mat-list-item>
-        </mat-list>
-    </div>
+
+	<div fxLayout="row wrap" fxLayoutGap="10px" *ngIf="blockTemplate$ | async as blocks " fxFlex>
+		<div *ngFor="let block of blocks" (click)=" addBlock(block.type)" fxLayout="column" fxLayoutAlign="start center"
+			fxFlex="28" style="height: 100px">
+			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main" fxFlex>
+				<i class="{{ block.blockIcon }}" id="icons"></i>
+			</div>
+			<p class="block-messages">
+				{{ block.message }}
+			</p>
+
+		</div>
+	</div>
 </div>
