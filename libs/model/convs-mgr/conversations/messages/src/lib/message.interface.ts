@@ -40,6 +40,8 @@ export interface Message
    * Also helps third party applications to do the same.
    */
   direction?          : MessageDirection;
+
+  url?                : string;
 }
 
 
@@ -73,36 +75,36 @@ export interface LocationMessage extends Message
   location: Location
 }
 
-/**
- * Standardized format of the image messsage sent by the end user
- */
-export interface ImageMessage extends Message 
+export interface FileMessage extends Message
 {
-  /** The provided image url, by the third party platform */
-  imageId         : string;
+  mediaId         : string;
   url?            : string;
+  mime_type?      : string
 }
 
 /**
- * Standardized format of the image messsage sent by the end user
+ * Standardized format of a reply to the question block @see {QuestionMessageBlock}
  */
- export interface AudioMessage extends Message 
- {
-   /** The provided image url, by the third party platform */
-   audioId        : string;
-   url?           : string;
- }
 
- export interface VideoMessage extends Message 
- {
-   /** The provided image url, by the third party platform */
-   videoId        : string;
-   url?           : string;
- }
+export interface QuestionMessage extends Message 
+{
+  questionText?       : string;
 
- export interface QuestionMessage extends Message 
- {
-   questionText?       : string;
+  options             : QuestionMessageOptions[];
+}
+
+export interface QuestionMessageOptions 
+{
+  /** The unique id of the option selected by the end user 
+   * 
+   *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
+   *  
+   *  So we can also use this id to determine the next block
+   */
+   optionId            : string;
+
+   /** Message displayed as the answer */
+   optionText          : string;
  
    options             : QuestionMessageOptions[];
  }
