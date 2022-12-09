@@ -144,7 +144,6 @@ export class EngineBotManager
   private async _reply(bot: BotEngineMainService, endUser: EndUser, sideOperations: Promise<any>[], nextBlock: StoryBlock, message: Message)
   {
     const endUserService = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
-    nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
 
     this._tools.Logger.log(() => `[EngineBotManager] - Block to be sent ${JSON.stringify(nextBlock)}`);
     // Send the block back to the user
@@ -156,7 +155,7 @@ export class EngineBotManager
 
     while (nextBlock.type === StoryBlockTypes.TextMessage || nextBlock.type == StoryBlockTypes.Image) {
 
-      nextBlock = await bot.getNextBlock(message, endUser);
+      nextBlock = await bot.getNextBlock(message, endUser, endUserService);
 
       const botMessage = this.__convertBlockToStandardMessage(nextBlock);
 
@@ -164,7 +163,6 @@ export class EngineBotManager
 
       this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(nextBlock)}`);
 
-      if (nextBlock.message) nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
 
       await bot.reply(nextBlock, message.endUserPhoneNumber);
 
