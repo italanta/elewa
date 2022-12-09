@@ -28,8 +28,6 @@ export class ProcessMessageService
     /** Get the first Block */
     const firstBlock = await this._blockService$.getFirstBlock(orgId, currentStory);
 
-    tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
-
     return firstBlock;
   }
 
