@@ -70,6 +70,7 @@
         "NAME": "Nom",
         "EMAIL": "Quel est votre e-mail?",
         "PHONE-NUMBER": "Téléphoner"
+        "AUDIO-LINK":"Lien audio"
       }
     },
     "COMPONENTS": {

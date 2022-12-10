@@ -5,4 +5,5 @@ import * as admin from 'firebase-admin';
 const conf = config().firebase;
 admin.initializeApp(conf);
 
-export * from './app/webhooks/whatsapp-receive-incoming-message.function';
+export * from './app/bot/whatsapp-channel/whatsapp-receive-incoming-message.function';
+export * from './app/bot/whatsapp-channel/whatsapp-send-message.function';

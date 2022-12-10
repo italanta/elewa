@@ -3,6 +3,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
@@ -20,6 +22,11 @@ export class EmailBlockComponent implements OnInit
   @Input() blockFormGroup: FormGroup;
 
   emailInputId: string;
+
+  type: StoryBlockTypes;
+  emailtype = StoryBlockTypes.Email;
+
+
 
   constructor(private _fb: FormBuilder) { }
 

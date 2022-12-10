@@ -5,35 +5,39 @@ $secondary-elements-color: white;
     text-transform: uppercase;
 }
 
+#loginBtn {
+    background-color: rgba(255, 177, 0, 1);
+    color: $secondary-elements-color;
+    width: 300px;
+    height: 50px;
+    font-weight: 600;
+    font-size: large;
+}
+
 #googleBtn {
     background-color: #de5246;
     color: $secondary-elements-color;
-}
-
-#msBtn {
-    background-color: #29487D;
-    color: $secondary-elements-color;
+    width: 300px;
+    height: 50px;
+    font-weight: 600;
+    font-size: large;
 }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 0 !important;
 }
-
 .mat-form-field-appearance-outline .mat-form-field-wrapper {
     background-color: #00000000 !important;
 }
-
 .small-txt {
     font-size: 14px;
 }
-
 .hr-with-text {
     color: $primary-icon-color;
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 10px;
 }
-
 .hr-with-text::before,
 .hr-with-text::after {
     content: '';
@@ -43,14 +47,15 @@ $secondary-elements-color: white;
     margin: 0 3px 8px 3px;
     opacity: 0.6;
 }
-
 #forgot-btn {
-    padding-right: 0;
+    padding-left: 0;
+    color: purple;
+    font-weight: 600;
+
 }
 
 .icon-box {
     padding: 15px;
-    // border: 1px solid #FDFDFD;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     margin-right: -2px;
@@ -64,32 +69,54 @@ $secondary-elements-color: white;
     &.google-icon {
         color: $secondary-elements-color;
         background-color: #de5246;
-    }
-    &.fb-icon {
-        color: $secondary-elements-color;
-        background-color: #29487D;
+        border: none;
     }
 }
 
 .special-input {
-    min-height: 40px;
-}
-
-input {
-    background-color: $secondary-elements-color;
-    border: none;
-    // border-bottom: 1px solid black;
-    width: 100%;
+    min-height: 70px;
+    font-size: 18px;
+    margin: 10px;
 }
 
 #login-button {
     width: 100%;
     background-color: $primary-color;
-    font-size: 12px;
-    height: 30px;
+    font-size: 30px;
+    height: 30px; 
+}
+
+#login-button:hover {
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+}
+
+.login-title {
+    font-family: var(--kujali-segoe-ui-bold);
+    color: var(--convs-mgr-color-primary-black);
+    font-size: 2rem;
 }
 
 .form-body {
     align-self: center;
-    width: 100%
+    width: 100%;
+    padding-top: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: large;
+    margin-bottom: 10px;
+    color: var(--convs-mgr-color-primary-black);
+}
+
+.spinner {
+    float: right;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+input {
+    background-color: $secondary-elements-color;
+    border: none;
+    width: 100%;
 }

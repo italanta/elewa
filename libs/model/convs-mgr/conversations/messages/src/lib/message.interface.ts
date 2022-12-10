@@ -1,4 +1,6 @@
 import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
+
 import { IncomingMessagePayload } from "./payload-in.interface";
 
 /** 
@@ -12,7 +14,7 @@ import { IncomingMessagePayload } from "./payload-in.interface";
 export interface Message
 {
   /** The unique id that is assigned to the third party platform */
-  id                  : string;
+  id?                 : string;
 
   /** The different types of messages our chatbot recieves from the end user, 
    *    e.g. a text message, a location, an image
@@ -24,10 +26,40 @@ export interface Message
   /** Unprocessed part of the message sent through a channel by a platform which contains 
    *    the actual message payload  
    */
-  payload             : IncomingMessagePayload;
+  payload?            : IncomingMessagePayload;
 
   /** The phone number used by the end user to send a message to  our chatbot */
-  endUserPhoneNumber  : string;
+  endUserPhoneNumber? : string;
+
+  n?                  : number;
+
+  /** 
+   * Since we have messages from different sources, it's best we define their direction
+   *   so that we can properly identify the message.
+   * 
+   * Also helps third party applications to do the same.
+   */
+  direction?          : MessageDirection;
+
+  url?                : string;
+}
+
+
+/** 
+ * Since we have messages from different sources, it's best we define their direction
+ *   so that we can properly identify the message.
+ * 
+ * Also helps third party applications to do the same.
+ */
+export enum MessageDirection
+{
+  TO_END_USER       =  5,
+
+  FROM_END_USER     =  10,
+
+  TO_CHATBOT        =  15,
+
+  TO_AGENT          =  20
 }
 
 /**
@@ -38,19 +70,30 @@ export interface TextMessage extends Message
   text: string;
 }
 
-/**
- * Standardized format of the image messsage sent by the end user
- */
-export interface ImageMessage extends Message 
+export interface LocationMessage extends Message 
 {
-  /** The provided image url, by the third party platform */
-  link: string;
+  location: Location
+}
+
+export interface FileMessage extends Message
+{
+  mediaId         : string;
+  url?            : string;
+  mime_type?      : string
 }
 
 /**
  * Standardized format of a reply to the question block @see {QuestionMessageBlock}
  */
+
 export interface QuestionMessage extends Message 
+{
+  questionText?       : string;
+
+  options             : QuestionMessageOptions[];
+}
+
+export interface QuestionMessageOptions 
 {
   /** The unique id of the option selected by the end user 
    * 
@@ -58,11 +101,27 @@ export interface QuestionMessage extends Message
    *  
    *  So we can also use this id to determine the next block
    */
-  optionId: string;
+   optionId            : string;
 
-  /** Message displayed as the answer */
-  optionText: string;
-
-  /** Value the answer holds */
-  optionValue?: string;
-}
+   /** Message displayed as the answer */
+   optionText          : string;
+ 
+   options             : QuestionMessageOptions[];
+ }
+ 
+ export interface QuestionMessageOptions 
+ {
+   /** The unique id of the option selected by the end user 
+    * 
+    *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
+    *  
+    *  So we can also use this id to determine the next block
+    */
+    optionId            : string;
+ 
+    /** Message displayed as the answer */
+    optionText          : string;
+  
+    /** Value the answer holds */
+    optionValue?        : string;
+ }
