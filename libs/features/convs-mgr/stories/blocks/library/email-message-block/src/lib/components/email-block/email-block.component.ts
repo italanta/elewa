@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import {  StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
