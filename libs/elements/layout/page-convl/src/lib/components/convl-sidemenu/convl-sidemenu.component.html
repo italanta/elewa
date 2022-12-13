@@ -3,8 +3,8 @@
     <!-- logo section -->
     <div mat-list-item class="container top-container">
       <div class="logo-section">
-        <img [routerLink]="['/']" class="logo-section__image" src="assets/images/elewa-logo.png" />
-        <span class="logo-section__icon-wrapper" (click)="toggleMenu.emit()">
+        <img *ngIf="isExpanded" [routerLink]="['/']" class="logo-section__image" src="assets/images/elewa-logo.png" />
+        <span class="logo-section__icon-wrapper" (click)="toggleMenu()">
           <i class="fa fa-bars logo-section__tooltip" aria-hidden="true"></i>
         </span>
       </div>
@@ -17,7 +17,7 @@
     <div [routerLink]="['/']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
       <div fxLayout="row" class="main-wrapper">
-        <span class="main">
+        <span *ngIf="isExpanded" class="main">
           {{'PAGE-CONTENT.SIDE-MENU.MAIN-TITLE' | transloco }}
         </span>
       </div>
@@ -25,7 +25,7 @@
       <div *ngIf="rlaHome.isActive">
         <div [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item class="menu-item menu-item--one">
           <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
-          <span class="menu-item__word">
+          <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
           </span>
         </div>
@@ -39,26 +39,32 @@
 
       <div class="menu-item" [class.active]="rlaBots.isActive">
         <i matListIcon class="fas fa-headset menu-item__tooltip"></i>
-        <span class="menu-item__word">
+        <span *ngIf="isExpanded" class="menu-item__word">
           {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
         </span>
       </div>
 
       <div class="category-children" *ngIf="rlaBots.isActive">
-        <div [routerLink]="['/stories/dashboard']" routerLinkActive="highlight-active"
+        <div *ngIf="isExpanded"  [routerLink]="['/stories/dashboard']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header child-header--one">
-          <i class="fas fa-minus child-header__tooltip"></i>
+          <div>
+            <i class="fas fa-minus child-header__tooltip"></i>
+          </div>
+          
           <span class="child-header__word">
             {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
           </span>
         </div>
 
-        <div [routerLink]="['/stories/analytics']" routerLinkActive="highlight-active"
+        <div *ngIf="isExpanded" [routerLink]="['/stories/analytics']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header">
-          <i class="fas fa-minus child-header__tooltip"></i>
-          <span class="child-header__word">
+          <div>
+            <i class="fas fa-minus child-header__tooltip"></i>
+          </div>
+          
+          <span  class="child-header__word">
             {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
           </span>
         </div>

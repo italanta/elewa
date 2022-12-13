@@ -16,10 +16,13 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   @Input() user: any;
-  @Output() toggleMenu:EventEmitter<any> = new EventEmitter()
-
+  @Output() menuToggled: EventEmitter<any> = new EventEmitter();
+  
+  getLogo = 'assets/images/italanta-logo.png';
   projectName: string;
   projectInfo: string;
+
+  isExpanded = true;
 
 
   constructor(// private _org$$: ActiveOrgStore,
@@ -33,7 +36,12 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
     this.projectInfo = this._env.project.info;
   }
 
-  getLogo = () => 'assets/images/italanta-logo.png'
+  
+
+  toggleMenu () {
+    this.menuToggled.emit();
+    this.isExpanded = !this.isExpanded;
+  }
 
   ngOnDestroy()
   {
