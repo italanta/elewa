@@ -26,11 +26,7 @@ export class ProcessMessageService
   async getFirstBlock(tools: HandlerTools, orgId: string, currentStory: string)
   {
     /** Get the first Block */
-    const connection = await this._connService$.getFirstConnFirstStory();
-
-    let firstBlock: StoryBlock = await this._blockService$.getBlockById(connection.targetId, orgId, currentStory);
-
-    tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
+    const firstBlock = await this._blockService$.getFirstBlock(orgId, currentStory);
 
     return firstBlock;
   }
@@ -42,23 +38,10 @@ export class ProcessMessageService
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: Message, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
+  async resolveNextBlock(msg: Message, latestBlock: StoryBlock, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
-    // const chatService =  new ChatBotService(tools.Logger, platform)
-
-    // Get the latest activity / latest position of the cursor
-    const latestCursor = (await this._cursorService$.getLatestCursor(endUserId, orgId)) as Cursor;
-
-    // Get the last block found in cursor
-    const latestBlock = latestCursor.currentBlock;
-
     // Return the next block
     return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
-  }
-
-  async resolveFutureBlock(currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string)
-  {
-    return this.__nextBlockService(currentBlock, orgId, currentStory, msg, endUserId);
   }
 
   /**
@@ -75,6 +58,5 @@ export class ProcessMessageService
     const nextBlockService = new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);
 
     return nextBlockService.getNextBlock(msg, block, orgId, currentStory, endUserId);
-
   }
 }

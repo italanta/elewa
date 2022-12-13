@@ -57,6 +57,7 @@ export class EngineBotManager
     let sideOperations: Promise<any>[] = [];
 
     let nextBlock: StoryBlock;
+    this._logger.log(() => `Engine started!!!`);
 
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
@@ -74,7 +75,7 @@ export class EngineBotManager
 
       this._variableInjectorService = new VariableInjectorService(this._tools);
       //TODO: Find a better way because we are passing the active channel twice
-      const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, botMediaUploadService, this._tools, this._activeChannel);
+      const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
 
       // STEP 2: Get the current end user information
       // This information contains the phone number and the chat status of the ongoing communication.
@@ -99,7 +100,7 @@ export class EngineBotManager
           sideOperations.push(bot.saveMessage(message, END_USER_ID));
 
           // Process the message and find the next block in the story that is to be sent back to the user
-          nextBlock = await bot.getNextBlock(message, endUser.id);
+          nextBlock = await bot.getNextBlock(message, endUser, this._endUserService$);
 
           const botMessage = this.__convertBlockToStandardMessage(nextBlock);
           botMessage.direction = MessageDirection.TO_END_USER;
@@ -144,6 +145,8 @@ export class EngineBotManager
   private async _reply(bot: BotEngineMainService, endUser: EndUser, sideOperations: Promise<any>[], nextBlock: StoryBlock, message: Message)
   {
     const endUserService = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
+
+    // Inject variable to message
     nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
 
     this._tools.Logger.log(() => `[EngineBotManager] - Block to be sent ${JSON.stringify(nextBlock)}`);
@@ -156,7 +159,7 @@ export class EngineBotManager
 
     while (nextBlock.type === StoryBlockTypes.TextMessage || nextBlock.type == StoryBlockTypes.Image) {
 
-      nextBlock = await bot.getFutureBlock(nextBlock, message);
+      nextBlock = await bot.getNonInputBlock(nextBlock, endUser,message);
 
       const botMessage = this.__convertBlockToStandardMessage(nextBlock);
 
@@ -164,7 +167,8 @@ export class EngineBotManager
 
       this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(nextBlock)}`);
 
-      if (nextBlock.message) nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
+      // Inject variable to message
+      nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
 
       await bot.reply(nextBlock, message.endUserPhoneNumber);
 
