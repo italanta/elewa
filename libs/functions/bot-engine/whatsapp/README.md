@@ -32,7 +32,7 @@ If you had registered for a meta developer account, go to step 2
 ### 4. Configure webhooks
 - Under the whatsapp menu, click 'Quickstart' if you are not there already.
 - Click 'Configure Webhooks'.
-- Under Webhook click 'Edit'. The 'Callback URL' will be the http url of the bot engine cloud function. 
+- Under Webhook click 'Edit'. The 'Callback URL' will be the http url of the bot engine cloud function. To get this see the last section of this [Readme](https://github.com/italanta/elewa/blob/main/libs/functions/bot-engine/README.md)
 - The 'Verify token' can be any string of text. Just keep it short. E.g. Elewa CLM Token.
 - Click 'Verify and Save'.
 - In 'Webhook fields', click 'Manager'. Look for messages, and then click subscribe to its right.
