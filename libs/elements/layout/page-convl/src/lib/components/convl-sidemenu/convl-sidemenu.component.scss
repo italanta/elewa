@@ -5,7 +5,8 @@
 @import '_variables';
 
 #side-menu {
-  min-width: 200px;
+  min-width: 40px;
+  max-width: 240px;
   font-family: mat-font-family($custom-typography, subheading-2);
 }
 
