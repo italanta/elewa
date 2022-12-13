@@ -61,7 +61,7 @@ export class BlockToStandardMessage
   protected convertImageMessageBlock(block: ImageMessageBlock): ImageMessage
   {
     const standardMessage: ImageMessage = {
-      imageId: block.id,
+      mediaId: block.id,
       type: MessageTypes.IMAGE,
       url: block.fileSrc,
       payload: block,

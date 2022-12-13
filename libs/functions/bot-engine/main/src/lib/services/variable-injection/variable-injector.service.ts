@@ -51,7 +51,9 @@ export class VariableInjectorService
 
     // Extract the variable
     const variable = varRegex.exec(outgoingText);
-
+    
+    if(!variable) return null
+    
     return variable[1];
   }
 }

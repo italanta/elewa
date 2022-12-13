@@ -82,6 +82,13 @@ export interface FileMessage extends Message
   mime_type?      : string
 }
 
+export interface AudioMessage extends FileMessage {}
+
+export interface VideoMessage extends FileMessage {}
+
+export interface ImageMessage extends FileMessage {}
+
+
 /**
  * Standardized format of a reply to the question block @see {QuestionMessageBlock}
  */
@@ -92,22 +99,6 @@ export interface QuestionMessage extends Message
 
   options             : QuestionMessageOptions[];
 }
-
-export interface QuestionMessageOptions 
-{
-  /** The unique id of the option selected by the end user 
-   * 
-   *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
-   *  
-   *  So we can also use this id to determine the next block
-   */
-   optionId            : string;
-
-   /** Message displayed as the answer */
-   optionText          : string;
- 
-   options             : QuestionMessageOptions[];
- }
  
  export interface QuestionMessageOptions 
  {
