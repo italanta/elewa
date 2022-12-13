@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FileMessage, Message, TextMessage } from '@app/model/convs-mgr/conversations/messages';
 import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor, __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { MessageTypes } from '@app/model/convs-mgr/functions';
@@ -83,10 +83,19 @@ export class BotEngineMainService
       return processMessage.getFirstBlock(this._tools, this._activeChannel.channel.orgId, this._activeChannel.channel.defaultStory);
     } else {
       let nextBlock: StoryBlock;
-      nextBlock = await processMessage.resolveNextBlock(msg, endUser.id, this._activeChannel.channel.orgId, endUser.currentStory, this._tools);
+      let latestCursor = userActivity as Cursor;
+
+      nextBlock = await processMessage.resolveNextBlock(msg, latestCursor.currentBlock, endUser.id, this._activeChannel.channel.orgId, endUser.currentStory, this._tools);
 
       return nextBlock;
     }
+  }
+
+  async getNonInputBlock(lastBlock: StoryBlock, endUser: EndUser, msg: Message)
+  {
+  const processMessage =  this._getProcessMessageService()
+
+  return processMessage.resolveNextBlock(msg, lastBlock, endUser.id, this._activeChannel.channel.orgId, endUser.currentStory, this._tools)
   }
 
   async reply(storyBlock: StoryBlock, phoneNumber: string) 
