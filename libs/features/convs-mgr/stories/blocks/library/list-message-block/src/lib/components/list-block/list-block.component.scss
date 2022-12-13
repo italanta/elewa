@@ -21,8 +21,8 @@ textarea {
     margin: 5px 0;
     border-radius: 3px;
     caret-color: white;
-    color: var(--convs-mgr-color-primary-white);
+    color: var(--convs-mgr-color-primary-lightgray);
     outline: none;
-    border: none;
-    background-color: var(--convs-mgr-color-primary-purple);
+    border: 1px solid rgb(247, 199, 110);
+    background-color: transparent;
 }
