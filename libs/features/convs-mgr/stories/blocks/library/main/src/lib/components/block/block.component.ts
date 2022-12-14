@@ -24,6 +24,8 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
+import { StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { AnyTxtRecord } from 'dns';
 /**
  * Block which sends a message from bot to user.
  */
@@ -55,12 +57,15 @@ export class BlockComponent implements OnInit {
 
   blockFormGroup: FormGroup;
 
+  blockCopy: any;
+
   iconClass = ''
   blockTitle = ''
 
   constructor(private _el: ElementRef,
     private _fb: FormBuilder,
-    private _logger: Logger
+    private _logger: Logger,
+    private copyBlockService: StoryEditorStateService
   ) { }
 
   ngOnInit(): void {
