@@ -122,6 +122,10 @@ export class StoryEditorStateService
     return this._blocks$$.add(block, block.id);
   }
 
+  public getCreateBlock(block: StoryBlock) {
+    return this._createBlock(block);
+  }
+
   /** We cannot just delete blocks as active chat users might have their cursor on that block. 
    *  We still need to service them with the older flow. */
   private _deleteBlock(oldBlock: StoryBlock) {
