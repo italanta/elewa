@@ -70,6 +70,7 @@ export class BlockComponent implements OnInit {
 
   copyBlock(event: any) {
     this.blockCopy = ___cloneDeep(this.block);
+    this.blockCopy.id = Object.keys(this.blocksGroup).length + 1;
   }
 
   ngOnInit(): void {
