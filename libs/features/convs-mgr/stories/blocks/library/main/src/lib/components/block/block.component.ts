@@ -5,6 +5,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+import { cloneDeep as ___cloneDeep } from 'lodash';
+
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
@@ -53,6 +55,8 @@ export class BlockComponent implements OnInit {
 
   blockFormGroup: FormGroup;
 
+  blockCopy: any;
+
   iconClass = ''
   blockTitle = ''
 
@@ -60,6 +64,11 @@ export class BlockComponent implements OnInit {
     private _fb: FormBuilder,
     private _logger: Logger
   ) { }
+
+  copyBlock(event: any){
+    this.blockCopy = ___cloneDeep(this.block);
+    
+  }
 
   ngOnInit(): void {
     this.type = this.block.type;
