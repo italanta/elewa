@@ -85,7 +85,8 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",
-        "AUDIO-LINK":"Audio Link"
+        "AUDIO-LINK":"Audio Link",
+        "VIDEO-LINK": "Video Link"
       }
     },
     "COMPONENTS": {
