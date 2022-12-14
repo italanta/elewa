@@ -1,5 +1,4 @@
 <mat-card class="card" [id]="id" [ngSwitch]="type" class="block-card">
-<<<<<<< HEAD
     <div fxLayout="row" fxLayoutAlign="space-between start" class="outer">
         <div fxLayout="row" fxLayoutAlign="start start" class="block-title-container">
             <i [class]="iconClass"></i>
@@ -10,28 +9,6 @@
             <span class="icons"><i (click)="copyBlock($event)" class="far fa-clone"></i></span>
             <span class="icons"><i (click)="deleteBlock()" class="far fa-trash-alt"></i></span>
         </div>
-=======
-    <div fxLayout="row" fxLayoutAlign="space-between" class="outer">
-        <img src="{{block.blockIcon}}" class="avatar-img" alt="storyicon" />
-        <h4 class="block-title">{{block.blockTitle}}</h4>
-
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="copyBlock($event)">
-
-        
-        <mat-icon>assignment</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.COPY' | transloco }}</span>
-      </button>
-            <button mat-menu-item>
-        <mat-icon>delete</mat-icon>
-        <span>{{ 'BOTS.CREATE-MODAL.FIELDS.DELETE' | transloco }}</span>
-      </button>
-        </mat-menu>
->>>>>>> 0189f20e9b171b3847564255dc00d54d1fcb812e
     </div>
 
     <div *ngSwitchCase="messagetype">

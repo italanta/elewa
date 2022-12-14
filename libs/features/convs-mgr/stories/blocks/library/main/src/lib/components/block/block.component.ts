@@ -69,6 +69,7 @@ export class BlockComponent implements OnInit {
 
   copyBlock(event: any){
     this.blockCopy = ___cloneDeep(this.block);
+    this._getCreateBlock._createBlock(this.blockCopy);
   }
 
   ngOnInit(): void {
