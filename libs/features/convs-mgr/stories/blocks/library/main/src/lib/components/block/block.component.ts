@@ -68,6 +68,10 @@ export class BlockComponent implements OnInit {
     private copyBlockService: StoryEditorStateService
   ) { }
 
+  copyBlock(event: any) {
+    this.blockCopy = ___cloneDeep(this.block);
+  }
+
   ngOnInit(): void {
     this.type = this.block.type;
 
