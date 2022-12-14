@@ -5,6 +5,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+import { cloneDeep as ___cloneDeep } from 'lodash';
+
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
