@@ -69,12 +69,12 @@ export class BlockComponent implements OnInit {
 
   copyBlock(event: any){
     this.blockCopy = ___cloneDeep(this.block);
+    this.blockCopy.id = (Object.keys(this.blockFormGroup).length) + 1;
     this.copyBlockService.getCreateBlock(this.blockCopy);
   }
 
   ngOnInit(): void {
     this.type = this.block.type;
-
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
 
