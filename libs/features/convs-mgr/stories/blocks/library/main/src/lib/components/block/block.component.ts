@@ -64,12 +64,12 @@ export class BlockComponent implements OnInit {
   constructor(private _el: ElementRef,
     private _fb: FormBuilder,
     private _logger: Logger,
-    private _getCreateBlock: StoryEditorStateService
+    private copyBlockService: StoryEditorStateService
   ) { }
 
   copyBlock(event: any){
     this.blockCopy = ___cloneDeep(this.block);
-    this._getCreateBlock._createBlock(this.blockCopy);
+    this.copyBlockService.getCreateBlock(this.blockCopy);
   }
 
   ngOnInit(): void {
