@@ -1,6 +1,9 @@
 import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { cloneDeep as ___cloneDeep } from 'lodash';
+import { uniqueId as ___uniqueId } from 'lodash';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
@@ -23,7 +26,12 @@ import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
+<<<<<<< HEAD
 import { iconsAndTitles } from '../../model/icons-and-titles';
+=======
+import { StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+
+>>>>>>> 0189f20e9b171b3847564255dc00d54d1fcb812e
 /**
  * Block which sends a message from bot to user.
  */
@@ -37,6 +45,7 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  blockCopy: any;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -62,12 +71,24 @@ export class BlockComponent implements OnInit {
 
   constructor(private _el: ElementRef,
     private _fb: FormBuilder,
+<<<<<<< HEAD
     private _logger: Logger
   ) { }
 
   copyBlock(event: any){
     this.blockCopy = ___cloneDeep(this.block);
     
+=======
+    private _logger: Logger,
+    public copyBlockService: StoryEditorStateService) { }
+  
+  copyBlock(event: any) {
+    this.blockCopy = ___cloneDeep(this.block);
+    this.blockCopy.id = ___uniqueId('1');
+    this.copyBlockService._createBlock(this.blockCopy);
+    console.log(this.block);
+    console.log(this.blockCopy);
+>>>>>>> 0189f20e9b171b3847564255dc00d54d1fcb812e
   }
 
   ngOnInit(): void {

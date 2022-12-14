@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -129,6 +129,7 @@ export class BlocksLibraryComponent implements OnInit {
     this.filterInput$$.next(event.target.value);
   }
 
+  
   ngOnDestroy() {
     this._sbS.unsubscribe();
   }

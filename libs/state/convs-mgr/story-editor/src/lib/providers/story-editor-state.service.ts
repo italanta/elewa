@@ -118,7 +118,7 @@ export class StoryEditorStateService
     return newConnections;
   }
 
-  private _createBlock(block: StoryBlock) {
+  _createBlock(block: StoryBlock) {
     return this._blocks$$.add(block, block.id);
   }
 
