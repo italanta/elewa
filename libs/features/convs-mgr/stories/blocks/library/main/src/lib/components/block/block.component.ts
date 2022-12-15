@@ -25,7 +25,7 @@ import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
-import { AnyTxtRecord } from 'dns';
+
 /**
  * Block which sends a message from bot to user.
  */
