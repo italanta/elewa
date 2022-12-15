@@ -1,5 +1,5 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { ButtonsBlockButton } from "../../../scenario/src";
+import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 export interface ListMessageBlock extends StoryBlock{
 
   /** Actual question */
@@ -22,4 +22,5 @@ interface Button {
   message: string;
   /** Value the answer holds. */
   value?: string;
+  
 }

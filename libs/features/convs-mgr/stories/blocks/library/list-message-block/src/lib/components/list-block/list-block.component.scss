@@ -5,26 +5,39 @@ mat-card {
 
 .mat-card-title {
     font-size: 1.2rem!important;
-    color: var(--convs-mgr-color-primary-purple);
+    color: rgb(163, 158, 158);
+    
 }
 
 textarea {
+    width: inherit!important;
+    height: fit-content!important;
+    min-width: 91%!important;
+    min-height: fit-content!important;
+    padding: 5px 10px;
     margin: 5px 0;
+    border-radius: 3px;
+    border-color: var(--convs-mgr-color-primary-purple);
 }
 
 .add-button {
-    width: 98%!important;
-    height: 30px !important;
-    min-width: 98%!important;
+    width: inherit!important;
+    height: fit-content!important;
+    min-width: 91%!important;
     min-height: fit-content!important;
+    padding: 5px 10px;
+    margin: 5px 0;
+    border-radius: 3px;
     text-align: center;
     margin: 5px 0;
     border-radius: 3px;
     caret-color: white;
     color: var(--convs-mgr-color-primary-white);
     outline: none;
-    border: none;
-    background-color: var(--convs-mgr-color-primary-purple);
+    border-style: solid;
+    border-color: rgb(238, 173, 10);
+    background-color: none;
+    color: rgb(163, 158, 158);
 }
 .block {
     position: relative;
@@ -46,7 +59,7 @@ textarea {
 }
 
 .fa-list-ul {
-    color: var(--convs-mgr-color-primary-purple)
+    color: var(--convs-mgr-color-primary-purple);
 }
 
 .block-title {
@@ -75,3 +88,4 @@ textarea {
 .fa-clone:hover, .fa-trash-alt:hover {
     color: var(--convs-mgr-color-primary-purple);
 }
+

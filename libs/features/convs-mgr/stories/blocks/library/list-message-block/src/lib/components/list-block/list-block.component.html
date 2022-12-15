@@ -2,7 +2,9 @@
     <mat-card-content>
         <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
-            <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+            <textarea id="message" name="message" formControlName="message" type="text"></textarea>
+
+            <app-default-option-field [blockFormGroup]="listMessageBlock" [jsPlumb]="jsPlumb" ></app-default-option-field>
 
 
             <div formArrayName="listItems" fxFlexFill>
@@ -12,12 +14,13 @@
             </span>
                 </div>
             </div>
+            
 
         </form>
 
+
         <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-        <i class="fas fa-plus"></i>
-        Add New Option
+        Add Option
       </button>
     </mat-card-content>
 </mat-card>

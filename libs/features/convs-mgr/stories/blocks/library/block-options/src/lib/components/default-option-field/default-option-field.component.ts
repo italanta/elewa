@@ -18,7 +18,9 @@ export class DefaultOptionFieldComponent implements OnInit, AfterViewInit
 
   inputUniqueId: string;
 
-  constructor() {}
+  constructor() {
+    const x = 0;
+  }
 
   ngOnInit(): void 
   {
