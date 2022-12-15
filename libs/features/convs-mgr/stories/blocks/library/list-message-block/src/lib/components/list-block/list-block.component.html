@@ -1,7 +1,7 @@
 <mat-card [id]="id" *ngIf="listMessageBlock">
   <mat-card-title
     >{{ 'PAGE-CONTENT.BLOCKS.TITLES.LIST' | transloco }}
-    {{ id }}</mat-card-title
+    </mat-card-title
   >
   <mat-card-content>
     <form
@@ -14,7 +14,8 @@
         name="message"
         formControlName="message"
         type="text"
-        fxFlexAlign="center"
+        fxLayout="column"
+        fxLayoutAlign="start center"
       ></textarea>
 
       <app-default-option-field
