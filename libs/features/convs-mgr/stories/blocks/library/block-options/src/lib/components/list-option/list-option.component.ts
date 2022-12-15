@@ -17,6 +17,7 @@ export class ListOptionComponent implements OnInit, AfterViewInit {
   @Input() formGroupNameInput: number | string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() listItems: FormArray;
+  @Input() index: number
 
   listOptionId: string;
 
