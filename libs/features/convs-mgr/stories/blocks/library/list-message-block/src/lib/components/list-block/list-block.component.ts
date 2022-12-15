@@ -1,6 +1,12 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -13,7 +19,6 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   styleUrls: ['./list-block.component.scss'],
 })
 export class ListBlockComponent<T> implements OnInit {
-
   @Input() id: string;
   @Input() block: ListMessageBlock;
   @Input() listMessageBlock: FormGroup;
@@ -23,31 +28,28 @@ export class ListBlockComponent<T> implements OnInit {
 
   ngOnInit(): void {
     this.block.listItems?.forEach((listItem) => {
-      console.log(listItem)
+      console.log(listItem);
       this.listItems.push(this.addListOptions(listItem));
-    })
-
+    });
   }
-
 
   ngAfterViewInit(): void {}
 
-  get listItems () : FormArray {
+  get listItems(): FormArray {
     return this.listMessageBlock.controls['listItems'] as FormArray;
   }
 
-  addListOptions (listItem? : ButtonsBlockButton<T>) {
+  addListOptions(listItem?: ButtonsBlockButton<T>) {
     return this._fb.group({
       id: [listItem?.id ?? `${this.id}-${this.listItems.length + 1}`],
       message: [listItem?.message ?? ''],
-
-    })
+    });
   }
 
-  initListOptions(){
+  initListOptions() {
     this._fb.group({
-      listOption:["", Validators.required]
-    })
+      listOption: ['', Validators.required],
+    });
   }
 
   addNewOption() {
