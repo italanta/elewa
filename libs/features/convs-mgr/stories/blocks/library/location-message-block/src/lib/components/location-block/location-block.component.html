@@ -4,15 +4,10 @@
 <mat-card [id]="id" *ngIf="locationMessageForm">
     <mat-card-content>
         <form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
-
+            <input type="text" placeholder="Search Location" #search/>
+            <app-location-block-map [longitude]="longitude" [latitude]="latitude"></app-location-block-map>
             <input matInput type="text" placeholder="Name" appearance="outline" id="location" name="locationName">
             <input matInput type="text" placeholder="Address" appearance="outline" id="location" name="Address">
-            <!-- <input ngx-google-places-autocomplete matInput type="text" placeholder="Search Location" appearance="outline" (onAddressChange)="handleAddressChange($event)"> -->
-            <input type="text" #search/>
-            <!-- <input [id]="locationInputId" matInput type="text" name="location" formControlName="locationInput" id="location" placeholder="Enter your location" appearance="outline" /> -->
-            <app-location-block-map [longitude]="longitude" [latitude]="latitude"></app-location-block-map>
-            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
-            </app-default-option-field>
 
         </form>
     </mat-card-content>

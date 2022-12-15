@@ -67,7 +67,7 @@
     "BLOCK": {
       "TITLES": {
         "IMAGE": "Image Block",
-        "LOCATION": "Location Block",
+        "LOCATION": "Location: Output",
         "NAME": "Name Block",
         "EMAIL": "Email Block",
         "PHONE": "Phone Block",
@@ -77,7 +77,8 @@
         "VIDEO": "Video Block",
         "STICKER": "Sticker Block",
         "LIST": "List Block",
-        "DOCUMENT": "Document Block"
+        "DOCUMENT": "Document Block",
+        "REPLY": "Reply Block"
       },
       "PLACEHOLDER": {
         "CAPTION": "Caption",
