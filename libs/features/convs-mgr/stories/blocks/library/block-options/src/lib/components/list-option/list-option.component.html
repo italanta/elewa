@@ -2,7 +2,7 @@
     <div [formGroup]="blockFormGroup" fxFlex>
         <div formArrayName="listItems" fxFlex>
             <div [formGroupName]="formGroupNameInput" class="option" fxFlex>
-                <input [id]="listOptionId" formControlName="message" type="text" placeholder="New Option" fxFlexFill>
+                <input [id]="listOptionId" formControlName="message" type="text" placeholder="Option {{index + 1}}" fxFlexFill>
             </div>
         </div>
     </div>
