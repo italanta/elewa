@@ -209,7 +209,7 @@ export class StoryEditorFrame {
     const block = {
                     id: `${this._cnt}`,
                     type: type,
-                    message: 'New message',
+                    message: 'List Options',
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 },
                     blockTitle: title,
