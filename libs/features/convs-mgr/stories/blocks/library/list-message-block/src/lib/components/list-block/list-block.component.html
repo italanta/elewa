@@ -14,20 +14,23 @@
         name="message"
         formControlName="message"
         type="text"
-        rows="3"
+        fxFlexAlign="center"
       ></textarea>
+
+      <app-default-option-field
+        [jsPlumb]="jsPlumb"
+        [blockFormGroup]="listMessageBlock"
+      ></app-default-option-field>
 
       <div formArrayName="listItems" fxFlexFill>
         <div
           *ngFor="let listItem of listItems.controls; let i = index"
           class="full-width"
           fxFlexFill
-          >
+        >
           <span [formGroupName]="i" fxFlex>
-            <app-list-option value="none" selected disabled hidden>Default
-
-            </app-list-option>
             <app-list-option
+              [index]="i"
               [jsPlumb]="jsPlumb"
               [blockFormGroup]="listMessageBlock"
               [formGroupNameInput]="i"
@@ -45,8 +48,7 @@
       fxLayoutAlign="center center"
       fxLayoutGap="10px"
     >
-      <i class="fas fa-plus"></i>
-      Add New Option
+      Add Option
     </button>
   </mat-card-content>
 </mat-card>
