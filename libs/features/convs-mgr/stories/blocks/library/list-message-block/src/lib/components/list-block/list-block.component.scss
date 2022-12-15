@@ -1,6 +1,7 @@
 mat-card {
     min-width: fit-content;
     padding: 10px;
+    
 }
 
 .mat-card-title {
@@ -9,7 +10,17 @@ mat-card {
 }
 
 textarea {
-    margin: 5px 0;
+    width: 95.5% !important;
+    height:5vh !important;
+    text-align: left;
+    border-radius: 3px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid purple;
+    caret-color: black;
+    color: black;
+    font-size: 16px;
+
 }
 
 .add-button {
@@ -20,9 +31,10 @@ textarea {
     text-align: center;
     margin: 5px 0;
     border-radius: 3px;
-    caret-color: white;
-    color: var(--convs-mgr-color-primary-lightgray);
+    caret-color: lightgray;
+    color: gray;
     outline: none;
-    border: 1px solid rgb(247, 199, 110);
+    border: 1px solid #ffd94f;
     background-color: transparent;
+    font-size: 18px;
 }
