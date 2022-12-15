@@ -3,13 +3,16 @@ input {
   height: fit-content!important;
   min-width: 95%!important;
   min-height: fit-content!important;
-  text-align: center;
+  text-align: left;
   padding: 5px;
   margin: 5px 0;
   border-radius: 3px;
-  caret-color: white;
-  color: white;
+  caret-color: gray;
+  color: gray;
   outline: none;
   border: none;
-  background-color: var(--convs-mgr-color-primary-purple);
+  background-color:lightgray;
+  cursor: not-allowed;
+  opacity: .7;
+  font-size: 18px;
 }
