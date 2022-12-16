@@ -32,11 +32,7 @@ export class NewStoryService implements OnDestroy {
   ) { }
 
   async saveStoryWithImage(bot: Story, imageFile: File, imagePath: string) {
-    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
-      if (org) {
-        await this.saveBot(bot, org.id!, imageFile, imagePath)
-      }
-    })
+    await this.saveBotImage(bot, imageFile, imagePath)
   }
 
   async saveImage(imageFile: File, imagePath: string) {
@@ -46,16 +42,10 @@ export class NewStoryService implements OnDestroy {
   }
 
   saveImagelessStory(bot: Story) {
-    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
-      if (org) {
-        this.addStoryToDb(bot)
-      }
-    })
+    this.addStoryToDb(bot)
   }
 
-  async saveBot(bot: Story, orgId: string, storyImage?: File, storyImagePath?: string) {
-    bot.orgId = orgId!;
-
+  async saveBotImage(bot: Story, storyImage?: File, storyImagePath?: string) {
     if (storyImagePath) {
       bot.imageField = await this.saveImage(storyImage!, storyImagePath);
       this.addStoryToDb(bot);
@@ -63,10 +53,15 @@ export class NewStoryService implements OnDestroy {
   }
 
   addStoryToDb(bot: Story) {
-    this._stories$$.add(bot).subscribe((story) => {
-      this._dialog.closeAll();
-      this._router.navigate(['/stories', story.id])
-    });
+    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+      if (org) {
+        bot.orgId = org.id!;
+        this._stories$$.add(bot).subscribe((story) => {
+          this._dialog.closeAll();
+          this._router.navigate(['/stories', story.id])
+        });
+      }
+    })
   }
 
   deleteImage(imagePath: string) {
