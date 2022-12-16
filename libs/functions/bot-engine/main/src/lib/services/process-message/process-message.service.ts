@@ -38,7 +38,7 @@ export class ProcessMessageService
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: Message, latestBlock: StoryBlock, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
+  async resolveNextBlock(latestBlock: StoryBlock, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools, msg?: Message,)
   {
     // Return the next block
     return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
