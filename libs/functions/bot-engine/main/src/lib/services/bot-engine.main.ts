@@ -11,6 +11,14 @@ import { ActiveChannel } from "../model/active-channel.service";
 
 import { __isCommand } from "../utils/isCommand";
 
+/**
+ * The Base Class for the bot engine.
+ * 
+ * This class only contains methods that can be used throughout our engine, 
+ *    regardles of the chat status i.e. Running, Paused, Taking to Agent
+ * 
+ * This way we can have a class for the different status as they will be processed differently.
+ */
 export class BotEngineMain
 {
   protected orgId: string;
@@ -27,6 +35,9 @@ export class BotEngineMain
     this.processMediaService = new BotMediaProcessService(_tools);
   }
 
+  /**
+   * Takes a standardized message, parses it, and sends it to the end user
+   */
   public async sendMessage(message: Message)
   {
     const outgoingMessage =  this._activeChannel.parseOutStandardMessage(message, message.endUserPhoneNumber);
@@ -34,6 +45,11 @@ export class BotEngineMain
     return this._activeChannel.send(outgoingMessage)
   }
 
+  /**
+   * We need to keep the messages interchanged between the end user and the bot engine.
+   * 
+   * This method saves thoses messages and processes any media sent
+   */
   public async save(message: Message, endUserId: string) 
   {
     if (message.type == MessageTypes.AUDIO || message.type == MessageTypes.VIDEO || message.type == MessageTypes.IMAGE) {

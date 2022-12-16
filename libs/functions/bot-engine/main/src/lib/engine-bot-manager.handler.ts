@@ -91,6 +91,7 @@ export class EngineBotManager
       // Get the saved information of the end user
       const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber);
 
+      // Get the last saved end user position in the story
       const endUserPosition = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId)
 
       this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);

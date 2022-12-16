@@ -22,6 +22,13 @@ import { __isCommand } from "../utils/isCommand";
 import { ChatCommandsManager } from "./chat-commands/chat-commands-manager.service";
 import { BotEngineMain } from "./bot-engine.main";
 
+/**
+ * When out chatbot receives a message from the end user, we need to figure out how to
+ *  respond back to them.
+ * 
+ * This model is resposible for 'playing' the end user through the stories. @see {Story}.
+ *  It receives the message and responds with the next block in the story.
+ */
 export class BotEnginePlay extends BotEngineMain implements IBotEngine
 {
 
@@ -45,6 +52,13 @@ export class BotEnginePlay extends BotEngineMain implements IBotEngine
 
   }
 
+  /**
+   * When out chatbot receives a message from the end user, we need to figure out how to
+   *  respond back to them.
+   * 
+   * This method is resposible for 'playing' the end user through the stories. @see {Story}.
+   *  It receives the message and responds with the next block in the story.
+   */
   async play(message: Message, endUser: EndUser, endUserPosition?: Cursor)
   {
     // Get the next block in the story
@@ -60,9 +74,12 @@ export class BotEnginePlay extends BotEngineMain implements IBotEngine
     const sideOperations = await this.__reply(nextBlock, endUser, message);
 
     // Resolve all pending operations.
-    await Promise.all(sideOperations)
+    await Promise.all(sideOperations);
   }
 
+  /**
+   * Responsible for returning the next block in the story.
+   */
   private async __getNextBlock(endUser: EndUser, endUserPosition: EndUserPosition, message?: Message)
   {
     const currentStory = endUser.currentStory;
@@ -87,34 +104,52 @@ export class BotEnginePlay extends BotEngineMain implements IBotEngine
     }
   }
 
+  /**
+   * Handles sending of story blocks to the end user.
+   * 
+   * If the next block does not require a user input e.g. text message block, we chain it with another block, until we 
+   *  reach a block requiring user input e.g. question message block
+   */
   private async __reply(newStoryBlock: StoryBlock, endUser: EndUser, message: Message)
   {
+    /**
+     * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) 
+     *     e.g. saving the messages to firebase 
+     * 
+     * So, to ensure faster response to end users, we store all these operations to an array and resolve 
+     *     them after we have responded to the user
+     */
     let sideOperations: Promise<any>[] = [];
 
+    // Initialize the variable injector service
     const variableInjectorService = new VariableInjectorService(this._tools);
 
+    // Find and replace any variables included in the block message
     newStoryBlock.message = variableInjectorService.injectVariableToText(newStoryBlock.message, endUser);
 
     // Save the message
-    sideOperations.push(this.save(message, endUser.id)) 
+    sideOperations.push(this.save(message, endUser.id));
 
-    // Reply
-    await this._sendBlockMessage(newStoryBlock, endUser.phoneNumber)
+    // Reply To the end user
+    await this._sendBlockMessage(newStoryBlock, endUser.phoneNumber);
 
-    // Update the cursor
+    // Update the End User Position
     const newPosition: EndUserPosition = { currentBlock: newStoryBlock };
-
-    sideOperations.push(this.__move(newPosition, endUser.id))
+    sideOperations.push(this.__move(newPosition, endUser.id));
 
     let count = 1;
 
-    let currentBlock =  newStoryBlock;
+    let currentBlock = newStoryBlock;
 
+    // Here is where the message chaining happens. 
+    //  If it is a text block we find the next block and send it. 
+    //    Our loop ends when we hit a story block type that is not specified here.
     while (currentBlock.type === StoryBlockTypes.TextMessage || currentBlock.type == StoryBlockTypes.Image) {
 
-      currentBlock = await this.__getNextBlock(endUser, {currentBlock});
+      // Get the next block in the story
+      currentBlock = await this.__getNextBlock(endUser, { currentBlock });
 
-      //Side operation
+      // Save the message
       sideOperations.push(this._saveBlockAsMessage(currentBlock, endUser.id));
 
       this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(currentBlock)}`);
@@ -122,35 +157,50 @@ export class BotEnginePlay extends BotEngineMain implements IBotEngine
       // Inject variable to message
       currentBlock.message = variableInjectorService.injectVariableToText(currentBlock.message, endUser);
 
+      // Send the message back to the end user
       await this._sendBlockMessage(currentBlock, endUser.phoneNumber);
 
-      sideOperations.push(this.__move({currentBlock: currentBlock}, endUser.id)); 
+      // Update the End User Position
+      sideOperations.push(this.__move({ currentBlock: currentBlock }, endUser.id));
 
       count++;
     }
 
-    return sideOperations
+    return sideOperations;
   }
 
+  /**
+   * Updates the position of the end user with the block we send back to them
+   */
   private async __move(newPosition: EndUserPosition, endUserId: string): Promise<EndUserPosition> 
   {
     return this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, newPosition.currentBlock);
   };
 
+  /**
+   * Parses @see StoryBlock and sends it as a message to the end user.
+   */
   private async _sendBlockMessage(newStoryBlock: StoryBlock, phoneNumber: string)
   {
     const outgoingMessage = this._activeChannel.parseOutMessage(newStoryBlock, phoneNumber);
 
-    return this._activeChannel.send(outgoingMessage)
+    return this._activeChannel.send(outgoingMessage);
   }
 
+  /**
+   * Converts the block to our standardized message @see {Message} and saves it to the database
+   */
   private async _saveBlockAsMessage(storyBlock: StoryBlock, endUserId: string)
   {
     const botMessage = this.__convertBlockToStandardMessage(storyBlock);
 
-    return this.save(botMessage, endUserId)
+    return this.save(botMessage, endUserId);
   }
 
+  /**
+   * Converts the block to our standardized message @see {Message} so that we can have a common message
+   *  structure that can easily be ready by third party applications
+   */
   private __convertBlockToStandardMessage(nextBlock: StoryBlock)
   {
     const botMessage = new BlockToStandardMessage().convert(nextBlock);
