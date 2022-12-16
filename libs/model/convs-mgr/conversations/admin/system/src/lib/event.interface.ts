@@ -28,7 +28,7 @@ export interface Cursor extends IObject{
    * 
    * @see https://en.wikipedia.org/wiki/Unix_time
    */
-  cursorId: string;
+  cursorId?: string;
 
   /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
   currentBlock: StoryBlock;
@@ -43,3 +43,5 @@ export interface Cursor extends IObject{
    */
   futureBlock?: StoryBlock;
 }
+
+export type EndUserPosition = Cursor
