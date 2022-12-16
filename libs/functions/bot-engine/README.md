@@ -39,3 +39,25 @@ The below are the main features implemented:
 - Add more interpretations of incoming and outgoing messages
 - Provide more details e.g. code references in the documentation
 - Create a Dependency Injection Container to manage and inject all the dependencies across the bot-engine
+
+
+### Deploying cloud functions
+- Install firebase cli globaly. <br />
+`npm install -g firebase-tools`
+
+- In the root of your project, make sure that the firebase project used is the one you created on your Project Onboarding.<br />
+Run `firebase use {yourFirebaseProjectId}`
+- Make sure you have environment files in *apps/conv-lm/backend/src/environments*. If not create the environment files and place this: <br />
+`export const environment = {
+  production: false
+}`
+Also create a prod file named *environment.prod.ts*. Use the above and set `production: true`
+
+- Deploy the function. <br />
+`firebase deploy --only functions` <br />
+
+  Alternatively you can specify the cloud function name provided in *apps/conv-lm/backend/src/app/bot/whatsapp-channel*. The function name is the string passed to `ConvLearnFunction()`. <br />
+
+  Then run: <br /> `firebase deploy --only functions:"nameOfFunction"`
+
+- On successful deploy. Go to the firebase console and click on 'Functions' from the right navigation. You will find your deployed function and a https link under 'Trigger'.
