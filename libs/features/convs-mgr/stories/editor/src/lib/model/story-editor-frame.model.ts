@@ -54,7 +54,6 @@ export class StoryEditorFrame {
 
     this.blocksArray = this._fb.array([]);
 
-    debugger
     // Clear any previously drawn items.
     this._viewport.clear();
     this._jsPlumb.reset();
