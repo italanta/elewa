@@ -9,7 +9,7 @@ import { Message } from "@app/model/convs-mgr/conversations/messages";
  * Here we define a model that is resposible for 'playing' the end user through the stories. @see {Story}.
  *  It receives the message and responds with the next block in the story.
  */
-export interface IBotEngine
+export interface IBotEnginePlay
 {
   play: (message: Message, endUser: EndUser, endUserPosition?: EndUserPosition) => void;
 }
