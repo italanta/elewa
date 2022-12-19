@@ -14,7 +14,7 @@ import { VariableInjectorService } from "./variable-injection/variable-injector.
 import { ProcessMessageService } from "./process-message/process-message.service";
 import { BlockToStandardMessage } from "../io/block-to-message-parser.class";
 
-import { IBotEngine } from "./bot-engine.interface";
+import { IBotEnginePlay } from "./bot-engine.interface";
 import { ActiveChannel } from "../model/active-channel.service";
 
 import { __isCommand } from "../utils/isCommand";
@@ -29,7 +29,7 @@ import { BotEngineMain } from "./bot-engine.main";
  * This model is resposible for 'playing' the end user through the stories. @see {Story}.
  *  It receives the message and responds with the next block in the story.
  */
-export class BotEnginePlay extends BotEngineMain implements IBotEngine
+export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
 {
 
   private defaultStory: string;
