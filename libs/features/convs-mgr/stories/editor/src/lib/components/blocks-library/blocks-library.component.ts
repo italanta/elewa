@@ -50,7 +50,7 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker) } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
     { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
-    { id: 'link-story-block', type: StoryBlockTypes.LinkStoryBlock, message: 'Link Story', blockIcon: this.getBlockIcon(StoryBlockTypes.LinkStoryBlock) } as ReplyMessageBlock
+    { id: 'link-story-block', type: StoryBlockTypes.JumpBlock, message: 'Link Story', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
   constructor(private _logger: Logger) { }
@@ -111,8 +111,8 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.Reply:
         this.frame.newBlock(StoryBlockTypes.Reply);
         break;
-      case StoryBlockTypes.LinkStoryBlock:
-        this.frame.newBlock(StoryBlockTypes.LinkStoryBlock);
+      case StoryBlockTypes.JumpBlock:
+        this.frame.newBlock(StoryBlockTypes.JumpBlock);
         break;
     }
   }
