@@ -106,5 +106,5 @@
  /**
   * Block that allows linking a different story within the same story.
   */
-  JumpBlock = 17
+  JumpBlock = 18
 }
