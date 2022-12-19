@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-jump-story-block.module';
+export * from './lib/convs-mgr-stories-blocks-library-jump-block.module';
