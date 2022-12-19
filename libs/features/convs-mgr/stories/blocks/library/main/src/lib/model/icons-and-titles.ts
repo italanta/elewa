@@ -63,4 +63,8 @@ export const iconsAndTitles: any = {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.REPLY',
 		icon: 'fas fa-reply'
 	},
+	18 : {
+		title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
+		icon: 'fas fa-forward'
+	},
 }
