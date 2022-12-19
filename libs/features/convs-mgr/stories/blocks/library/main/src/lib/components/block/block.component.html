@@ -64,5 +64,8 @@
     <div *ngSwitchCase="replyType">
         <app-reply-block [id]="id" [block]="block" [replyMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-reply-block>
     </div>
+    <div *ngSwitchCase="jumpType">
+        <app-jump-block [id]="id" [block]="block" [jumpBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-jump-block>
+    </div>
 
 </mat-card>
