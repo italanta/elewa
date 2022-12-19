@@ -49,7 +49,8 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video', blockIcon: this.getBlockIcon(StoryBlockTypes.Video) } as VideoMessageBlock,
     { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker) } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
-    { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
+    { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
+    { id: 'link-story-block', type: StoryBlockTypes.LinkStoryBlock, message: 'Link Story', blockIcon: this.getBlockIcon(StoryBlockTypes.LinkStoryBlock) } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
   constructor(private _logger: Logger) { }
@@ -109,7 +110,10 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Reply:
         this.frame.newBlock(StoryBlockTypes.Reply);
-
+        break;
+      case StoryBlockTypes.LinkStoryBlock:
+        this.frame.newBlock(StoryBlockTypes.LinkStoryBlock);
+        break;
     }
   }
   getBlockIcon(type: number) {
