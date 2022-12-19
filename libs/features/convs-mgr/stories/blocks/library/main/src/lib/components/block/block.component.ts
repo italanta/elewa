@@ -22,7 +22,7 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
-import { _CreateLinkStoryBlockForm } from '../../model/link-story-block-form.model';
+import { _CreateJumpBlockForm } from '../../model/link-story-block-form.model';
 /**
  * Block which sends a message from bot to user.
  */
@@ -51,6 +51,7 @@ export class BlockComponent implements OnInit {
   listType = StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
+  jumpType = StoryBlockTypes.JumpBlock;
 
   blockFormGroup: FormGroup;
 
@@ -131,8 +132,8 @@ export class BlockComponent implements OnInit {
         this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
-      case StoryBlockTypes.LinkStoryBlock:
-        this.blockFormGroup = _CreateLinkStoryBlockForm(this._fb, this.block);
+      case StoryBlockTypes.JumpBlock:
+        this.blockFormGroup = _CreateJumpBlockForm(this._fb, this.block);
         this.blocksGroup.push(this.blockFormGroup);
         break;
 
