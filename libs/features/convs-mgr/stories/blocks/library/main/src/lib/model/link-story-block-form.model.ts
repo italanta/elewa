@@ -12,7 +12,8 @@ import { JumpBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 export function _CreateJumpBlockForm(_fb: FormBuilder, blockData: JumpBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
-    storyId: [blockData?.storyId! ?? ''],
+    storyId: [blockData?.storyId],
+    blockId: [blockData?.blockId],
     type: [blockData.type ?? StoryBlockTypes.Reply],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
