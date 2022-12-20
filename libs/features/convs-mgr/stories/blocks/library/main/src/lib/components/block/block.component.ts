@@ -22,7 +22,7 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
-import { _CreateJumpBlockForm } from '../../model/link-story-block-form.model';
+import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 /**
  * Block which sends a message from bot to user.
  */
