@@ -57,8 +57,8 @@ export class BlockComponent implements OnInit {
   blockTitle = ''
 
   constructor(private _el: ElementRef,
-    private _fb: FormBuilder,
-    private _logger: Logger
+              private _fb: FormBuilder,
+              private _logger: Logger
   ) { }
 
   ngOnInit(): void {
