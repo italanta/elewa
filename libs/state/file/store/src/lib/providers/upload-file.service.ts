@@ -24,8 +24,7 @@ import { FileUpload } from '../model/file-upload.interface';
 })
 
 /**This service handles the upload of files on firestorage and firestore*/
-export class UploadFileService
-{
+export class UploadFileService {
 
   //The filepath on firestore for the files
   protected _activeRepo: Repository<FileUpload>;
@@ -36,26 +35,23 @@ export class UploadFileService
 
   downloadUrl: string;
   constructor(private _storyBlockService$: StoryBlocksStore,
-              private _org$$: ActiveOrgStore,
-              private _repoFac: DataService,
-              private _ngfiStorage: AngularFireStorage,
-              _logger: Logger)
-              { }
+    private _org$$: ActiveOrgStore,
+    private _repoFac: DataService,
+    private _ngfiStorage: AngularFireStorage,
+    _logger: Logger) { }
 
 
 
   /**
    * Function that does the upload of all files
    */
-  upload(url: string, block: StoryBlock) 
-  {
+  upload(url: string, block: StoryBlock) {
     //Step 1 - create a descriptor and set its values
-    const fileBlock:FileUpload = {
+    const fileBlock: FileUpload = {
       filePath: url,
       fileType: block.type,
       size: '3MB'
     };
-    debugger;
 
 
     //Step 2 - get the organisation creating the files
@@ -65,18 +61,16 @@ export class UploadFileService
       }),
       //Step 3 - create the path in firestore that will lead to files 
       switchMap(org => {
-        debugger;
         if (!!this.org) {
           this._activeRepo = this._repoFac.getRepo<FileUpload>(`orgs/${this.org.id}/files`);
           return this._activeRepo.create(fileBlock);
-        
+
         } else {
           return of([org]);
         }
       }),
       //Step 4 - update The field fileSrc for the block holding the file
       switchMap(() => {
-        debugger;
         return this._updateSrc(url, block.id!).pipe(take(1));
       }),
       catchError(err => {
@@ -86,10 +80,9 @@ export class UploadFileService
 
 
   }
-  uploader(url: string, story: Story) 
-  {
+  uploader(url: string, story: Story) {
     //Step 1 - create a descriptor and set its values
-    const file:FileUpload = {
+    const file: FileUpload = {
       filePath: url,
       size: '3MB'
     };
@@ -114,44 +107,38 @@ export class UploadFileService
   /**
    * Updates the blocks src field once the url has been set from firestorage
    */
-  private _updateSrc(url: string, id: string)
-  {
+  private _updateSrc(url: string, id: string) {
     //Step 1 - Get the block in the story that has the same id 
     const fileBlock = this._storyBlockService$.getOne(id)
 
     //Step 2 - returns the block with the updated fileSrc field 
-   return fileBlock.pipe(
-     take(1),
-     switchMap((block)=>{
-      const newBlock: FileMessageBlock = {
-        ...block as FileMessageBlock,
-        fileSrc: url,
-      }
-      //Step 3 - update the block 
-      return this._storyBlockService$.update(newBlock);
-    }));
+    return fileBlock.pipe(
+      take(1),
+      switchMap((block) => {
+        const newBlock: FileMessageBlock = {
+          ...block as FileMessageBlock,
+          fileSrc: url,
+        }
+        //Step 3 - update the block 
+        return this._storyBlockService$.update(newBlock);
+      }));
   }
 
   /**
    * Adds the file on firestorage
    */
-  public async uploadFile(file: File, block: StoryBlock, filePath: string) 
-  { 
+  public async uploadFile(file: File, block: StoryBlock, filePath: string) {
 
     //Step 1 - Upload the file 
     const uploadTask = (await this._ngfiStorage.upload(filePath, file)).ref;
-    debugger;
 
     //Step 2 - Get the url in firebase storage
-    const reference =await uploadTask.getDownloadURL();
-    debugger;
-
+    const reference = await uploadTask.getDownloadURL();
     //Step 3 - Call the upload function 
     return this.upload(reference, block).pipe(take(1));
-    
+
   }
-  public async FileUploader(file: File, story: Story) 
-  { 
+  public async FileUploader(file: File, story: Story) {
     //Step 1 - Create the file path that will be in firebase storage
     const imgFilePath = `images/${file.name}_${new Date().getTime()}`;
 
