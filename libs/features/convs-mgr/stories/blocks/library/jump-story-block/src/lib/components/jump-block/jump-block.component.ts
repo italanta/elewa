@@ -47,9 +47,7 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   blockFormGroup: FormGroup;
 
   constructor(private _stories$$: StoriesStore,
-              private _storyEditorStateService$$: StoryEditorStateService,
               private _storyBlockStore$$: StoryBlocksStore,
-              private _fb: FormBuilder,
               private _logger: Logger)
   { }
   
@@ -74,7 +72,7 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   }
 
   getBlocks() {
-    const storyId = this.jumpBlockForm.value.storyId
+    const storyId = this.jumpBlockForm.value.storyId;
 
     this._sBS.sink = this._storyBlockStore$$.getBlocksByStory(storyId).subscribe((blocks: StoryBlock[])=>{
         this.blocks = blocks
