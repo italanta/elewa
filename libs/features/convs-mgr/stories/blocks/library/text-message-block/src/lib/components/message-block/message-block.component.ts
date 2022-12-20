@@ -33,16 +33,5 @@ export class MessageBlockComponent implements OnInit
               private _logger: Logger) 
   { }
   
-  ngOnInit(): void {
-    if(this.jsPlumb) {
-      this._decorateElement();
-    }
-  }
-
-  private _decorateElement(){
-    const element = document.getElementById(this.id) as Element;
-    if(this.jsPlumb) {
-      _JsPlumbComponentDecorator(element, this.jsPlumb);
-    }
-  }
+  ngOnInit(): void {}
 }
