@@ -2,7 +2,7 @@ import { EndpointRegistrar } from "@ngfi/functions";
 
 import { WhatsAppReceiveIncomingMsgHandler } from "@app/functions/bot-engine/whatsapp";
 
-import { ConvLearnFunction } from "../../conv-learn-func.class";
+import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
 
 const handler = new WhatsAppReceiveIncomingMsgHandler();

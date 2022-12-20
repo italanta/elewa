@@ -1,10 +1,10 @@
-import { Handler, HandlerTools } from '@iote/cqrs';
-
-import { NextBlockFactory } from '../next-block/next-block.factory';
+import { HandlerTools } from '@iote/cqrs';
 
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
+
+import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
@@ -23,14 +23,10 @@ export class ProcessMessageService
   /**
    * If a chat session has not yet been recorded, we create a new one and return the first block
    */
-  async getFirstBlock(tools: HandlerTools)
+  async getFirstBlock(tools: HandlerTools, orgId: string, currentStory: string)
   {
     /** Get the first Block */
-    const connection = await this._connService$.getFirstConn();
-
-    let firstBlock: StoryBlock = await this._blockService$.getBlockById(connection.targetId);
-
-    tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
+    const firstBlock = await this._blockService$.getFirstBlock(orgId, currentStory);
 
     return firstBlock;
   }
@@ -42,36 +38,25 @@ export class ProcessMessageService
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: Message, endUserId: string, orgId: string, tools: HandlerTools)
+  async resolveNextBlock(msg: Message, latestBlock: StoryBlock, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
-    // const chatService =  new ChatBotService(tools.Logger, platform)
-
-    // Get the latest activity / latest position of the cursor
-    const latestCursor = (await this._cursorService$.getLatestCursor(endUserId, orgId)) as Cursor;
-
-    // Get the last block found in cursor
-    const latestBlock = latestCursor.currentBlock
-
-    if(latestCursor.futureBlock) {
-
-      return latestCursor.futureBlock
-
-    } else {
-      
-      return this.__nextBlockService(latestBlock, msg)
-    }
+    // Return the next block
+    return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
   }
 
-  async resolveFutureBlock(currentBlock: StoryBlock ,msg?: Message)
+  /**
+   * A cursor is a specific point in the story. We mark the cursor by saving the story block that we
+   *  send back to the end user. So if we know the last block we sent to the user we will know their position 
+   *   in the story.  
+   * 
+   * This method takes the latest cursor and determines the next block in the story.  
+   * 
+   * @returns NextBlock
+   */
+  private async __nextBlockService(block: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<StoryBlock>
   {
-    return this.__nextBlockService(currentBlock, msg)
-  }
+    const nextBlockService = new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);
 
-  private async __nextBlockService(block: StoryBlock, msg?: Message): Promise<StoryBlock>
-  {
-    const nextBlockService =  new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);
-
-    return nextBlockService.getNextBlock(msg, block);
-
+    return nextBlockService.getNextBlock(msg, block, orgId, currentStory, endUserId);
   }
 }

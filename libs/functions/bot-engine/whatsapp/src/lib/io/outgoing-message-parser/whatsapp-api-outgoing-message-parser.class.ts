@@ -6,7 +6,6 @@ import
     InteractiveButtonMessage,
     MetaMessagingProducts,
     RecepientType,
-    TextMessagePayload,
     WhatsAppImageMessage,
     WhatsAppInteractiveMessage,
     WhatsAppMessageType,
@@ -105,7 +104,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     const mediaMessage = {
       type: WhatsAppMessageType.IMAGE,
       image: {
-        link: imageBlock.src,
+        link: imageBlock.fileSrc,
       },
     } as WhatsAppImageMessage;
 

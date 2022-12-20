@@ -17,11 +17,15 @@
 
 //endpoint class when connected
 .block_endpoint.jtk-endpoint-connected {
-  z-index: 2;
+  // z-index: 2;
 }
 
 //connector
-// .jsplumb_instance svg path {
-//   stroke: var(--connector-color);
-//   stroke-width: 5px;
-// }
+.jsplumb_instance svg path {
+  stroke: var(--connector-color);
+  stroke-width: 5px;
+}
+
+.frame-connector {
+  z-index: -1;
+}

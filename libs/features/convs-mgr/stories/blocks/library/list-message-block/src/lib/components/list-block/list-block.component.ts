@@ -28,8 +28,7 @@ export class ListBlockComponent<T> implements OnInit {
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.block.listItems?.forEach((listItem) => {
-      console.log(listItem)
+    this.block.options?.forEach((listItem) => {
       this.listItems.push(this.addListOptions(listItem));
     })
 
