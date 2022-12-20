@@ -1,7 +1,7 @@
 import { ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -54,7 +54,6 @@ export class StoryEditorFrame {
 
     this.blocksArray = this._fb.array([]);
 
-    debugger
     // Clear any previously drawn items.
     this._viewport.clear();
     this._jsPlumb.reset();
@@ -67,6 +66,10 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
+  }
+
+  get jsPlumbInstance(): BrowserJsPlumbInstance {
+    return this._jsPlumb;
   }
 
   /** 
@@ -119,7 +122,7 @@ export class StoryEditorFrame {
     // and target elements for connection drawing later
     // sources are mostly inputs
     // targets (blocks) are wrapped inside a mat-card 
-    let domSourceInputs = Array.from(document.querySelectorAll('input'));
+    let domSourceInputs = Array.from(document.querySelectorAll("input, .input"));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
   
 
@@ -136,6 +139,12 @@ export class StoryEditorFrame {
         target: targetElement as Element,
         anchors: ["Right", "Left"],
         endpoints: ["Dot", "Rectangle"],
+        connector: {
+          type: 'Flowchart',
+          options: {
+            cssClass: 'frame-connector'
+          }
+        }
       });
     }
 
