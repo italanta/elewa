@@ -8,17 +8,16 @@
 		</mat-form-field>
 	</div>
 
-
-	<div fxLayout="row wrap" fxLayoutGap="10px" *ngIf="blockTemplate$ | async as blocks " fxFlex>
+	<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="space-between start" *ngIf="blockTemplate$ | async as blocks " fxFlex>
 		<div *ngFor="let block of blocks" (click)=" addBlock(block.type)" fxLayout="column" fxLayoutAlign="start center"
-			fxFlex="28" style="height: 100px">
+			fxFlex="25" style="height: 100px">
 			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main" fxFlex>
 				<i class="{{ block.blockIcon }}" id="icons"></i>
 			</div>
+			
 			<p class="block-messages">
 				{{ block.message }}
 			</p>
-
 		</div>
 	</div>
 </div>
