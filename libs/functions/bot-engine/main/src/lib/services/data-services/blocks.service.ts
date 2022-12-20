@@ -21,12 +21,14 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   }
 
   protected _init(channel: CommunicationChannel) {
-    this._docPath = `orgs/${channel.orgId}/stories/${channel.defaultStory}/blocks`;
+    // this._docPath = `orgs/${channel.orgId}/stories/${channel.currentStory}/blocks`;
     this._channel = channel;
   }
 
   /** Gets the full block using the id */
-  async getBlockById(id: string): Promise<StoryBlock> {
+  async getBlockById(id: string, orgId: string, currentStory: string): Promise<StoryBlock> {
+
+     this._docPath = `orgs/${orgId}/stories/${currentStory}/blocks`;
 
     return this.getDocumentById(id, this._docPath);
 
@@ -35,10 +37,10 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   /** Gets the first block using the story ID.
    *  First gets the connection where sourceId == story id, then uses the target id of the connection to return the first block
    */
-  async getFirstBlock(channelInfo: CommunicationChannel): Promise<StoryBlock> {
-    const firstConnection = await this._connDataService$.getConnBySourceId(channelInfo.defaultStory);
+  async getFirstBlock(orgId: string, storyId: string): Promise<StoryBlock> {
+    const firstConnection = await this._connDataService$.getFirstConnection(storyId);
 
-    const firstBlock = await this.getBlockById(firstConnection.targetId);
+    const firstBlock = await this.getBlockById(firstConnection.targetId, orgId,storyId);
 
     return firstBlock;
   }

@@ -13,7 +13,7 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
   private _msg: IncomingMessage;
   private tools: HandlerTools;
   
-  constructor(msg: IncomingMessage, tools: HandlerTools) 
+  constructor(tools: HandlerTools, msg?: IncomingMessage) 
   {
     super(tools)
     this.tools = tools
@@ -26,6 +26,27 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
 
     this._docPath = `channels`
     this._msg = msg
+  }
+
+  /**
+ * The IDs of incoming end-users are prepended following the format:
+ *    `{platform}_{n}_{end-user-ID}` with n being the n'th connection that an
+ *        organisation is making to the same platform. 
+ * 
+ * Therefore, with 'n', we can find the communication channel the in which to send/receive the user message
+ */
+   async getChannelByConnection(n: number) {
+    // Get users
+    // Takes longer than get by Id
+    const channelInfo = await this.getDocumentByField('n', n, this._docPath)
+    
+    if (!channelInfo)
+      this.tools.Logger.error(() => `[ChannelInfo].getChannelInfo - The user has not been registered to a channel`);
+
+
+    this.tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${JSON.stringify(channelInfo[0])}`);
+
+    return channelInfo[0];
   }
   
   async getChannelInfo(id: string) {

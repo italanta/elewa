@@ -1,10 +1,12 @@
 import { HandlerTools } from '@iote/cqrs';
 import { Logger } from '@iote/bricks-angular';
+
 import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 import { __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -12,8 +14,13 @@ import { BlockDataService } from './services/data-services/blocks.service';
 import { BotEngineMainService } from './services/bot-engine-main.service';
 import { MessagesDataService } from './services/data-services/messages.service';
 import { EndUserDataService } from './services/data-services/end-user.service';
+import { VariableInjectorService } from './services/variable-injection/variable-injector.service';
 
 import { ActiveChannel } from './model/active-channel.service';
+import { BlockToStandardMessage } from './io/block-to-message-parser.class';
+import { BotMediaProcessService } from './services/media/process-media-service';
+import { generateEndUserId } from './utils/generateUserId';
+
 
 /**
  * This model is responsible for the flow of chat messages between our bot and
@@ -23,7 +30,11 @@ import { ActiveChannel } from './model/active-channel.service';
  */
 export class EngineBotManager 
 {
-  constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) {}
+  _endUserService$: EndUserDataService;
+
+  _variableInjectorService: VariableInjectorService;
+
+  constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) { }
 
   /**
    * Receives a message, through a channel, from a third-party registered platform,
@@ -45,6 +56,9 @@ export class EngineBotManager
      */
     let sideOperations: Promise<any>[] = [];
 
+    let nextBlock: StoryBlock;
+    this._logger.log(() => `Engine started!!!`);
+
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
 
     try {
@@ -55,52 +69,62 @@ export class EngineBotManager
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
+      const botMediaUploadService = new BotMediaProcessService(this._tools);
 
-      const _endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
+      this._endUserService$ = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
 
+      this._variableInjectorService = new VariableInjectorService(this._tools);
       //TODO: Find a better way because we are passing the active channel twice
-      const bot = new BotEngineMainService(blockDataService, connDataService, cursorDataService, _msgDataService$, this._tools, this._activeChannel);
+      const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
 
       // STEP 2: Get the current end user information
       // This information contains the phone number and the chat status of the ongoing communication.
       //    The chat status enables us to manage the conversation of the end user and the chatbot.
-      
+
       // Generate the id of the end user
-      const END_USER_ID = bot.generateEndUserId(message);
-      
+      const END_USER_ID = generateEndUserId(message, this._activeChannel.channel.type, this._activeChannel.channel.n);
+
       // Get the saved information of the end user
-      const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber, _endUserService$)
+      const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber);
 
-     this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
-
-      // Save the message to the database for later use
-      sideOperations.push(bot.saveMessage(message, END_USER_ID));
+      this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status
       //          to determine how we are going to process the message and reply to the end user
       switch (endUser.status) {
         case ChatStatus.Running:
+          message.direction = MessageDirection.TO_CHATBOT;
+
+          // Save the message to the database for later use
+          sideOperations.push(bot.saveMessage(message, END_USER_ID));
+
           // Process the message and find the next block in the story that is to be sent back to the user
-          const nextBlock = await bot.getNextBlock(message, END_USER_ID);
+          nextBlock = await bot.getNextBlock(message, endUser, this._endUserService$);
 
-          // Send the block back to the user
-          await bot.reply(nextBlock, message.endUserPhoneNumber);
+          const botMessage = this.__convertBlockToStandardMessage(nextBlock);
+          botMessage.direction = MessageDirection.TO_END_USER;
 
-          // If the block sent back to the user is not a question block, then we know the next block regardless
-          //    of their reponse. 
-          // So we compute the next block now and save it to the cursor
-          const futureBlock = await bot.getFutureBlock(nextBlock, message);
+          sideOperations.push(bot.saveMessage(botMessage, END_USER_ID));
 
-          // Update the cursor
-          sideOperations.push(bot.updateCursor(END_USER_ID, nextBlock, futureBlock));
+          const newEndUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber);
+          // Reply to the end user
+          await this._reply(bot, newEndUser, sideOperations, nextBlock, message);
 
           // Finally Resolve pending operations that do not affect the processing of the message
           await Promise.all(sideOperations);
 
           break;
         case ChatStatus.Paused:
-          await bot.sendTextMessage("Chat has been paused", message.endUserPhoneNumber)
+          // TODO: resolve paused flow
+          await bot.sendTextMessage("Chat has been paused", message.endUserPhoneNumber);
+
+          break;
+        case ChatStatus.TakingToAgent:
+          message.direction = MessageDirection.TO_AGENT;
+
+          // Save the message to the database for later use
+          await bot.saveMessage(message, END_USER_ID);
           break;
         default:
           break;
@@ -112,20 +136,71 @@ export class EngineBotManager
   }
 
   /**
+   * Sends the message back to the user,
+   * 
+   * If the next block does not require a user input e.g. text message block, we chain it with another block, until we 
+   *  reach a block requiring user input e.g. question message block
+   */
+
+  private async _reply(bot: BotEngineMainService, endUser: EndUser, sideOperations: Promise<any>[], nextBlock: StoryBlock, message: Message)
+  {
+    const endUserService = new EndUserDataService(this._tools, this._activeChannel.channel.orgId);
+
+    // Inject variable to message
+    nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
+
+    this._tools.Logger.log(() => `[EngineBotManager] - Block to be sent ${JSON.stringify(nextBlock)}`);
+    // Send the block back to the user
+    await bot.reply(nextBlock, message.endUserPhoneNumber);
+
+    // Update the cursor
+    let count = 1;
+    sideOperations.push(bot.updateCursor(endUser.id, nextBlock));
+
+    while (nextBlock.type === StoryBlockTypes.TextMessage || nextBlock.type == StoryBlockTypes.Image) {
+
+      nextBlock = await bot.getNonInputBlock(nextBlock, endUser,message);
+
+      const botMessage = this.__convertBlockToStandardMessage(nextBlock);
+
+      sideOperations.push(bot.saveMessage(botMessage, endUser.id));
+
+      this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(nextBlock)}`);
+
+      // Inject variable to message
+      nextBlock.message = this._variableInjectorService.injectVariableToText(nextBlock.message, endUser);
+
+      await bot.reply(nextBlock, message.endUserPhoneNumber);
+
+      sideOperations.push(bot.updateCursor(endUser.id, nextBlock));
+      count++;
+    }
+  }
+
+  /**
    * Gets the end user information from the database or creates a new end user if the user does not exist
    */
-  private async _getEndUser(END_USER_ID: string, phoneNumber: string, _endUserService$: EndUserDataService)
+  private async _getEndUser(END_USER_ID: string, phoneNumber: string)
   {
     let endUser: EndUser;
 
-    endUser = await _endUserService$.getEndUser(END_USER_ID);
+    endUser = await this._endUserService$.getEndUser(END_USER_ID);
 
     // If the end user does not exist then we create a new end user
     if (!endUser) {
-      return _endUserService$.createEndUser(END_USER_ID, phoneNumber);
+      return this._endUserService$.createEndUser(END_USER_ID, phoneNumber, this._activeChannel.channel.defaultStory);
     }
 
-    return endUser
+    return endUser;
   }
 
+
+
+  protected __convertBlockToStandardMessage(nextBlock: StoryBlock)
+  {
+    const botMessage = new BlockToStandardMessage().convert(nextBlock);
+    botMessage.direction = MessageDirection.TO_END_USER;
+
+    return botMessage;
+  }
 }

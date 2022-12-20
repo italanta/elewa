@@ -30,7 +30,7 @@ import { iconsAndTitles } from '../../model/icons-and-titles';
   templateUrl: './block.component.html',
   styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit{
+export class BlockComponent implements OnInit {
   @Input() id: string;
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
@@ -57,8 +57,8 @@ export class BlockComponent implements OnInit{
   blockTitle = ''
 
   constructor(private _el: ElementRef,
-              private _fb: FormBuilder,
-              private _logger: Logger
+    private _fb: FormBuilder,
+    private _logger: Logger
   ) { }
 
   ngOnInit(): void {
@@ -139,8 +139,8 @@ export class BlockComponent implements OnInit{
 
   getBlockIconAndTitle(type: number) {
     return iconsAndTitles[type];
-  }
 
+  }
   /** 
    * Track and update coordinates of block and update them in data model.
    */

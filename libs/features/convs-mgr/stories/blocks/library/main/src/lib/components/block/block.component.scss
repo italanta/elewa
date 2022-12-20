@@ -23,11 +23,9 @@
 
 .block-title {
 	font-weight: 600;
-	font-size: large;
+	font-size: small;
 	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
-	margin-left: 10px;
-	margin-right: 30px;
 }
 
 .outer {
@@ -36,9 +34,9 @@
 }
 
 .block-card {
-    border-radius: 10px;
-    padding: 0%;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+	border-radius: 10px;
+	padding: 0%;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .icons {
@@ -52,20 +50,9 @@
 .fa-clone,
 .fa-trash-alt {
 	color: var(--convs-mgr-color-medium-shade);
-	width: 20px !important;
-	height: 20px !important;
 }
 
 .fa-clone:hover,
 .fa-trash-alt:hover {
 	color: var(--convs-mgr-color-primary-purple);
-}
-
-#blockIconColor {
-	width: 20px !important;
-	height: 20px !important;
-}
-
-mat-card {
-	box-shadow: rgba($color: #0A2A71, $alpha: 0.4) 2px 5px 18px!important;
 }

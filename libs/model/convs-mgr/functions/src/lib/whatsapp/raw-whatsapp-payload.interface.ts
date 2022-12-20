@@ -1,4 +1,5 @@
 import { IncomingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { WhatsAppMessageType } from "./whatsapp-message-types.interface";
 
 /**
@@ -71,16 +72,60 @@ export interface WhatsAppMessagePayLoad extends IncomingMessagePayload
   export interface ImagePayload extends WhatsAppMessagePayLoad {
     mime_type: string;
     sha256:string;
+    id: string
   }
 
-  export interface InteractiveRawButtonReplyMessage extends WhatsAppMessagePayLoad {
-    interactive: {
-      type: 'button_reply',
-      button_reply: {
-        id: string,
-        title: string,
-      }
-
-    }
+  export interface AudioPayload extends WhatsAppMessagePayLoad {
+    mime_type: string;
+    sha256:string;
+    id: string
   }
+
+  export interface VideoPayload extends WhatsAppMessagePayLoad {
+    mime_type: string;
+    sha256:string;
+    id: string
+  }
+
+  export interface LocationPayload extends WhatsAppMessagePayLoad {
+    location: Location
+  }
+
+export interface InteractiveRawButtonReplyMessage extends WhatsAppMessagePayLoad
+{
+  interactive: {
+    type: InteractiveMessageType,
+    button_reply: {
+      id: string,
+      title: string,
+    };
+  };
+
+}
+
+export interface WhatsappInteractiveMessage extends WhatsAppMessagePayLoad
+{
+  interactive: {
+    type: InteractiveMessageType,
+  };
+}
+
+export interface InteractiveListReplyMessage extends WhatsAppMessagePayLoad
+{
+  interactive: {
+    type: InteractiveMessageType,
+    list_reply: {
+      id: string,
+      title: string,
+      description: string;
+    };
+
+  };
+}
+
+export enum InteractiveMessageType 
+{
+  ButtonReply = 'button_reply',
+  ListReply = 'list_reply'
+}
 
