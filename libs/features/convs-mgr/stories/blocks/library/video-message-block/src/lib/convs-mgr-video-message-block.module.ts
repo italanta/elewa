@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import {
   FlexLayoutModule,
@@ -26,7 +27,7 @@ import { VideoBlockComponent } from './components/video-block/video-block.compon
     ReactiveFormsModule,
 
     HttpClientModule,
-
+    ConvsMgrBlockOptionsModule,
   ],
 
   declarations: [VideoBlockComponent],
