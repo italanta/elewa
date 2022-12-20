@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -9,6 +9,8 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
 import { UploadFileService } from '@app/state/file';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { Observable } from 'rxjs';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-image-block',
@@ -30,31 +32,49 @@ export class ImageBlockComponent implements OnInit {
 
   file: File;
   imageInputId: string;
-  imageName: string = '';
+  imageName: string;
   isLoadingImage: boolean = false;
-  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg"
-  imageLink = this.defaultImage;
-
-
+  imageLink: string;
+  hasImage: boolean = false;
+  url:Observable<string>;
 
   constructor(private _imageUploadService: UploadFileService,
-              public domSanitizer: DomSanitizer) 
-              { }
+              public domSanitizer: DomSanitizer,
+
+              ) 
+              {
+                this.block = this.block as ImageMessageBlock;
+               }
 
   ngOnInit(): void
   {
     this.imageInputId = `img-${this.id}`;
-  }
 
-  ngAfterViewInit(): void 
-  {
-    if (this.jsPlumb) {
-      this._decorateInput();
+  }
+  @Input() UpdateForm (imageMessageForm:FormGroup){
+    this.block.fileSrc = this.imageMessageForm.value.imageLink;
+    this.block.message = this.imageMessageForm.value.caption;
+    
+  }
+  updateBlockForm(){
+    this.imageMessageForm.patchValue({
+      imageLink: this.block.fileSrc = this.imageMessageForm.value.imageLink,
+      caption: this.block.message = this.imageMessageForm.value.caption,
+      fileSrc: this.getFileNameFromFbUrl(this.block.fileSrc!)
+    });
+    if(this.hasImage){
+    
+      this.imageLink = this.imageMessageForm.value.imageLink
     }
+    
   }
-
-
-
+  getFileNameFromFbUrl(fbUrl: string): string {
+    return fbUrl.split('%2F')[1].split("?")[0];
+  }
+//  updates() {
+//     this.block.fileSrc = this.imageMessageForm.value.imageLink;
+//     this.block.message = this.imageMessageForm.value.caption;
+//   }
   async processImage(event: any) 
   {
     if (event.target.files && event.target.files[0]) {
@@ -63,21 +83,16 @@ export class ImageBlockComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
-    } else {
-      this.imageLink = this.defaultImage;
+      this.hasImage = true;
     }
+
     //Step 1 - Create the file path that will be in firebase storage
     const imgFilePath = `images/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingImage = true;
     (await this._imageUploadService.uploadFile(this.file, this.block,imgFilePath)).subscribe();
+  
 
-  }
 
-  private _decorateInput() 
-  {
-    let input = document.getElementById(this.imageInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
   }
 }
+
