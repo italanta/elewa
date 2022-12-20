@@ -1,26 +1,16 @@
 .anchor {
-    margin: 13px;
-    height: 100px;
-    width: 100px;
-    font-weight: bold;
-    border: 1px solid var(--convs-mgr-color-primary-purple);
-    background-color: var(--convs-mgr-color-primary-purple);
-    text-align: center;
-    border-radius: 50%;
-    padding-left: 3px;
-    padding-right: 7px;
+	margin: 13px;
+	padding: 10px;
+	border: var(--convs-mgr-color-primary-purple) solid 1px;
+	border-radius: 5px;
+	height: fit-content;
+	width: 100px;
+	background-color: white;
+	color: black;
+	text-align: center;
+	box-shadow: 2px 4px 8px slategrey;
 }
 
-// .anchor-wrapper {
-//     height: 130px;
-//     width: 130px;
-//     border: 5px solid var(--convs-mgr-color-primary-yellow);
-//     border-radius: 50%;
-//     background-color: none;
-//     padding-left: 3px;
-//     padding-right: 7px;
-//     animation: pulse 1s ease-in-out infinite;
-// }
 input[disabled]::placeholder {
-    color: var(--convs-mgr-color-text-white);
+	color: black;
 }
