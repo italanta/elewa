@@ -122,7 +122,7 @@ export class StoryEditorFrame {
     // and target elements for connection drawing later
     // sources are mostly inputs
     // targets (blocks) are wrapped inside a mat-card 
-    let domSourceInputs = Array.from(document.querySelectorAll("input, .input"));
+    let domSourceInputs = Array.from(document.querySelectorAll("input"));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
   
 
@@ -132,7 +132,7 @@ export class StoryEditorFrame {
       let sourceElement = domSourceInputs.find((el) => el.id == connection.sourceId);
       // fetching the target (block) that matches the connection target id
       let targetElement = domBlockCards.find((el) => el.id == connection.targetId);
-
+      
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
         source: sourceElement as Element,
@@ -191,7 +191,7 @@ export class StoryEditorFrame {
     const block = {
                     id: `${this._cnt}`,
                     type: type,
-                    message: 'Before we start,\nPlease provide a few more details about yourself.',
+                    message: '',
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 }
                   } as StoryBlock;
