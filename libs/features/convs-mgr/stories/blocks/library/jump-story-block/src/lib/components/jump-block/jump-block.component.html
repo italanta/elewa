@@ -1,8 +1,15 @@
 <mat-card [id]="id" *ngIf="jumpBlockForm">
     <mat-card-content>
-        <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="start center">
+        <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
+            <select id="story" name="story" formControlName="storyId" (change)='getBlocks()'>
+                <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
+                <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-STORY" | transloco}}</option>
+              </select>
 
-            <input id="message" name="message" formControlName="jump" type="text" />
+              <select id="block" name="block" formControlName="blockId">
+                <option *ngFor="let block of blocks" [value]='block.id'>{{block.id}}</option>
+                <option value="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-BLOCK" | transloco}}</option>
+              </select>
         </form>
-    </mat-card-content>
+   </mat-card-content>
 </mat-card>
