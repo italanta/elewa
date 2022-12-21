@@ -93,14 +93,14 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
         if (place.geometry.viewport) {
           bounds.union(place.geometry.viewport);
         } else {
-          bounds.extend(place.geometry.location);
+          bounds.extend(place.geometry.location!);
         }
 
         this.zoom = 12;
 
-        if (place.geometry.location.lat() && place.geometry.location.lng()) {
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
+        if (place.geometry.location!.lat() && place.geometry.location!.lng()) {
+          this.latitude = place.geometry.location!.lat();
+          this.longitude = place.geometry.location!.lng();
   
           this.map.fitBounds(bounds)
           this.markerPositions = new google.maps.LatLng(this.latitude, this.longitude)
@@ -110,7 +110,7 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
   }
 
   addMarker(event: google.maps.MapMouseEvent) {
-    this.markerPositions = event.latLng;
+    this.markerPositions = event.latLng!;
   }
 
   addressChanged(address: any) {

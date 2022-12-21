@@ -12,6 +12,7 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
+import { EndAnchorComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 
 /**
@@ -59,7 +60,10 @@ export class StoryEditorFrame {
     this._jsPlumb.reset();
 
     //create the anchor block when state is initialized
-    (this._viewport.createComponent(AnchorBlockComponent)).instance.jsPlumb = this._jsPlumb;
+    this.createStartAnchor();
+
+    //create the end anchor block when state is initialized
+    this.createEndAnchor();
 
     this.drawBlocks();
 
@@ -88,6 +92,19 @@ export class StoryEditorFrame {
 
   get getJsPlumbConnections() {
     return this._jsPlumb.getConnections();
+  }
+
+  createStartAnchor() {
+    let startAnchor = this._viewport.createComponent(AnchorBlockComponent);
+    startAnchor.instance.jsPlumb = this._jsPlumb;
+  }
+
+  createEndAnchor() {
+    let endAnchor = this._viewport.createComponent(EndAnchorComponent);
+    endAnchor.instance.jsPlumb = this._jsPlumb;
+    endAnchor.location.nativeElement.style = `position: absolute; left: 50px; top: 150px;`;
+    this._viewport.insert(endAnchor.hostView);
+    this._jsPlumb.manage(endAnchor.location.nativeElement, 'story-end-anchor');
   }
 
   /**
