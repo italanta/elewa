@@ -1,7 +1,7 @@
 import { IncomingMessageParser } from '@app/functions/bot-engine';
 
-import { AudioMessage, ImageMessage, LocationMessage, QuestionMessage, TextMessage, VideoMessage } from '@app/model/convs-mgr/conversations/messages';
-import { AudioPayload, ImagePayload, InteractiveListReplyMessage, InteractiveMessageType, InteractiveRawButtonReplyMessage, LocationPayload, MessageTypes, TextMessagePayload, VideoPayload, WhatsappInteractiveMessage, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
+import { AudioMessage, ImageMessage, LocationMessage, QuestionMessage, TextMessage, VideoMessage, DocumentMessage } from '@app/model/convs-mgr/conversations/messages';
+import { AudioPayload, ImagePayload, InteractiveListReplyMessage, InteractiveMessageType, InteractiveRawButtonReplyMessage, LocationPayload, MessageTypes, TextMessagePayload, VideoPayload, DocumentPayload, WhatsappInteractiveMessage, WhatsAppMessagePayLoad } from '@app/model/convs-mgr/functions';
 
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -218,5 +218,16 @@ export class WhatsappIncomingMessageParser extends IncomingMessageParser
     }
 
     return standardMessage
+  }
+  protected parseInDocumentMessage(incomingMessage: DocumentPayload): DocumentMessage {
+   const standardMessage: DocumentMessage = {
+    id: Date.now().toString(),
+    type: MessageTypes.DOCUMENT,
+    endUserPhoneNumber: incomingMessage.from,
+    mediaId: incomingMessage.id,
+    payload: incomingMessage,
+    mime_type: incomingMessage.mime_type,
+   }
+   return standardMessage   
   }
 }
