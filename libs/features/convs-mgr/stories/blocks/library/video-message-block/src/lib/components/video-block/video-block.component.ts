@@ -1,18 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-
-import { Logger } from '@iote/bricks-angular';
-// import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
-// import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
-import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks'
-import { UploadFileService } from '@app/state/file';
+import { FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
+import { UploadFileService } from '@app/state/file';
+
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-video-block',
@@ -25,7 +22,7 @@ export class VideoBlockComponent implements OnInit {
   @Input() id: string;
   @Input() block: VideoMessageBlock;
   @Input() videoMessageForm: FormGroup;
-  // @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() jsPlumb: BrowserJsPlumbInstance;
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
@@ -39,24 +36,25 @@ export class VideoBlockComponent implements OnInit {
   hasVideo: boolean;
   videoUrl: string;
 
+  videoInputUpload: string = '';
 
   constructor(private _videoUploadService: UploadFileService,
-    private _logger: Logger,
-    private _storyBlockService: StoryBlocksStore,
-    private _ngfiStorage:AngularFireStorage) { }
+              private _ngfiStorage:AngularFireStorage
+  ) 
+  {
+    this.block = this.block as VideoMessageBlock;
+  }
 
   ngOnInit(): void {
     this.videoInputId = `vid-${this.id}`;
+    this.videoInputUpload = `vid-${this.id}-upload`;
+    
+    this.checkIfVideoExists();
   }
-  updateForm (){
-     this.videoMessageForm.patchValue({
-      caption: this.block.message = this.videoMessageForm.value.caption,
-      videoLink: this.block.fileSrc = this.videoUrl
-     });
-     if (this.hasVideo){
-      this.videoLink = this.videoMessageForm.value.videoLink
-     }
-     console.log(this.videoLink)
+
+  checkIfVideoExists(){
+    this.videoUrl = this.videoMessageForm.value.fileSrc;
+    this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
   }
 
   async processVideo(event: any) {
@@ -71,23 +69,8 @@ export class VideoBlockComponent implements OnInit {
     const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingVideo = true;
     this.videoMessageForm.get('fileName')?.setValue(this.file.name);
-    
 
     this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
     (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
   }
-
-
-
-  // changeVideo() {
-
-  //   const newBlock: VideoMessageBlock = {
-  //     ...this.block as VideoMessageBlock,
-  //     fileSrc: '',
-  //     fileName: ''
-  //   }
-  //   this._storyBlockService.update(newBlock).subscribe();
-  // }
-
-
 }
