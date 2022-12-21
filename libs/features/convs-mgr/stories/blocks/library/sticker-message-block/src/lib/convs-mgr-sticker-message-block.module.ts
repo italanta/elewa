@@ -12,6 +12,8 @@ import {
 
 import { MultiLangModule } from '@ngfi/multi-lang';
 
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
 import { StickerBlockComponent } from './components/sticker-block/sticker-block.component';
 
 @NgModule({
@@ -25,8 +27,8 @@ import { StickerBlockComponent } from './components/sticker-block/sticker-block.
     FormsModule,
     ReactiveFormsModule,
 
-    HttpClientModule,
-
+    ConvsMgrBlockOptionsModule,
+    HttpClientModule
   ],
 
   declarations: [StickerBlockComponent],
