@@ -10,9 +10,10 @@ import
     WhatsAppInteractiveMessage,
     WhatsAppMessageType,
     WhatsAppTextMessage,
+    WhatsAppVideoMessage,
   } from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
@@ -172,30 +173,30 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   //   return generatedMessage;
   // }
 
-  // getVideoBlockParserOut(storyBlock: StoryBlock, phone: string) {
-  //   let link: string;
+  getVideoBlockParserOut(storyBlock: StoryBlock, phone: string) {
+    const videoBlock = storyBlock as VideoMessageBlock;
 
-  //   // Create the text payload which will be sent to api
-  //   const mediaMessage = {
-  //     type: WhatsAppMessageType.VIDEO,
-  //     video: {
-  //       link,
-  //     },
-  //   } as WhatsAppVideoMessage;
+    // Create the video payload which will be sent to api
+    const mediaMessage = {
+      type: WhatsAppMessageType.VIDEO,
+      video: {
+        link: videoBlock.fileSrc,
+      },
+    } as WhatsAppVideoMessage;
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.VIDEO,
-  //     ...mediaMessage,
-  //   };
-  //   return generatedMessage;
-  // }
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppVideoMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.VIDEO,
+      ...mediaMessage,
+    };
+    return generatedMessage;
+  }
 
   // getStickerBlockParserOut(storyBlock: StoryBlock, phone: string) {
   //   // TODO: 
