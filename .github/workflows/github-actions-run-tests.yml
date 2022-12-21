@@ -1,7 +1,6 @@
 name: Run Tests
 on: 
   pull_request:
-    types: [opened, reopened]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,13 +15,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v3
-
       - name: Setup NodeJs
         uses: actions/setup-node@v3
         with:
             node-version: ${{ matrix.node }}
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v3
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
@@ -31,14 +30,3 @@ jobs:
       - name: Run tests
         id: tests
         run: npx nx affected --target=test
-
-      - run: echo ${{ steps.tests.outputs.status }}
-        if: always()
-
-      - name: Comment PR
-        if: always()
-        uses: thollander/actions-comment-pull-request@v2
-        with:
-          message: |
-            Tests ran successfully
-          pr_number: ${{ github.event.number }}
