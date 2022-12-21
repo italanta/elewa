@@ -12,6 +12,7 @@ import { PhoneMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging
 export function _CreatePhoneMessageBlockForm(_fb: FormBuilder, blockData: PhoneMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.PhoneNumber],
     position: [blockData.position ?? { x: 200, y: 50 }]
