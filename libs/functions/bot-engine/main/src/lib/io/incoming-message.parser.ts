@@ -27,6 +27,8 @@ export abstract class IncomingMessageParser
 
   protected abstract parseInVideoMessage(incomingMessage: IncomingMessagePayload): Message
 
+  protected abstract parseInDocumentMessage(incomingMessage: IncomingMessagePayload): Message
+
 /**
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
  * 
@@ -49,6 +51,7 @@ export abstract class IncomingMessageParser
       case MessageTypes.IMAGE:        parser = this.parseInImageMessage; break;
       case MessageTypes.AUDIO:        parser = this.parseInAudioMessage; break;
       case MessageTypes.VIDEO:        parser = this.parseInVideoMessage; break;
+      case MessageTypes.DOCUMENT:     parser = this.parseInDocumentMessage; break;
       default:                        return null
     }
 
