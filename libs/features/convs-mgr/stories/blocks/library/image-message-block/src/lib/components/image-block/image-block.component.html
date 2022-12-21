@@ -1,13 +1,26 @@
 <mat-card [id]="id" *ngIf="imageMessageForm">
-    <mat-card-title>{{'PAGE-CONTENT.BLOCK.TITLES.IMAGE' | transloco }} {{id}}</mat-card-title>
     <mat-card-content>
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
             <div [id]="imageInputId">
-                <input type="image" id="imageFile" accept="img/*" [src]="this.block.fileSrc ? this.block.fileSrc : imageLink" class="image" (click)="imageInput.click()">
-                <input (change)="processImage($event)" accept="image/*" id="imageFile" #imageInput type="file" class="fileSrc" value="imageMessageForm.value.src">
+
+                <input (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
+                <label [for]="imageInputUpload">
+                    <div *ngIf="!hasImage; else inputHasImage">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <ng-template #inputHasImage>
+                        <img type="image" class="upload-image" [src]="imageLink" alt="" />
+                    </ng-template>
+                </label>
+
             </div>
-            <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}" formControlName="message" name="caption" id="caption" />
-            <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco}}" name="image-link" id="image-link" />
+
+            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>
+
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco"
+                formControlName="message" id="caption" />
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco"
+                 id="image-link" formControlName="fileSrc" />
         </form>
     </mat-card-content>
 </mat-card>

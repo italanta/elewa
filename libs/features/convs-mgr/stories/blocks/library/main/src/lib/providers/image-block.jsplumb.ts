@@ -18,10 +18,9 @@ export function _ImageBlockDecoratePlumb(block: ImageMessageBlock, comp: Compone
 {
 
   jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Dot",
+    endpoint: "Rectangle",
     anchor: "Left"
   });
 

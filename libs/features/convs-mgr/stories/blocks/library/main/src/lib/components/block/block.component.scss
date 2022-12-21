@@ -1,55 +1,58 @@
 .block {
-    position: relative;
-    cursor: move;
+	position: relative;
+	cursor: move;
 }
 
 .avatar-img {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
 }
 
 .block-title-container {
-    align-items: center;
+	align-items: center;
 }
 
 .outer:hover {
-    cursor:move;
+	cursor: move;
 }
 
 .icon-color {
-    color: var(--convs-mgr-color-primary-purple)
+	color: var(--convs-mgr-color-primary-purple)
 }
 
 .block-title {
-    font-weight: 600;
-    font-size: small;
-    margin: 0 0 0 .4em;
-    color: var(--convs-mgr-color-text-black);
+	font-weight: 600;
+	font-size: small;
+	margin: 0 0 0 .4em;
+	color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
-    padding: 10px;
-    padding-bottom: 0;
+	padding: 10px;
+	padding-bottom: 0;
 }
 
 .block-card {
-    border-radius: 10px;
-    padding: 0%;
+	border-radius: 10px;
+	padding: 0%;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .icons {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .fa-clone {
-    padding-right: 10px;
+	padding-right: 10px;
 }
 
-.fa-clone, .fa-trash-alt {
-    color: var(--convs-mgr-color-medium-shade);
+.fa-clone,
+.fa-trash-alt {
+	color: var(--convs-mgr-color-medium-shade);
 }
 
-.fa-clone:hover, .fa-trash-alt:hover {
-    color: var(--convs-mgr-color-primary-purple);
+.fa-clone:hover,
+.fa-trash-alt:hover {
+	color: var(--convs-mgr-color-primary-purple);
 }

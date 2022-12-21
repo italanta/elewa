@@ -1,20 +1,23 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=<AIzaSyAPKqFv5J-xmzTaoXkDj2VLKD17QhuvtRg>&libraries=places&language=en">
-</script>
-
 <mat-card [id]="id" *ngIf="locationMessageForm">
-    <mat-card-title> {{'PAGE-CONTENT.BLOCK.TITLES.LOCATION'| transloco }} {{id}}</mat-card-title>
-    <mat-card-content>
-        <form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
+	<mat-card-content>
+		<form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <input matInput type="text" placeholder="Name" appearance="outline" id="location" name="locationName">
-            <input matInput type="text" placeholder="Address" appearance="outline" id="location" name="Address">
-            <!-- <input ngx-google-places-autocomplete matInput type="text" placeholder="Search Location" appearance="outline" (onAddressChange)="handleAddressChange($event)"> -->
-            <input type="text" #search/>
-            <!-- <input [id]="locationInputId" matInput type="text" name="location" formControlName="locationInput" id="location" placeholder="Enter your location" appearance="outline" /> -->
-            <app-location-block-map [longitude]="longitude" [latitude]="latitude"></app-location-block-map>
-            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
-            </app-default-option-field>
+			<div fxLayout="column" formGroupName="locationInput" >
+				<input formControlName="name" type="text" placeholder="Name"/>
 
-        </form>
-    </mat-card-content>
+				<input formControlName="latitude" [ngModel]="latitude" type="text" placeholder="Address" hidden/>
+				<input formControlName="longitude" [ngModel]="longitude" type="text" placeholder="Address" hidden/>
+
+				<input (change)="addressChanged($event)" formControlName="address" [ngModel]="currentAddress" #mapsSearchField type="text" />
+			</div>
+
+			<google-map height="200px" width="200px" [zoom]="10" (mapClick)="addMarker($event)">
+				<map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
+			</google-map>
+
+			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
+			</app-default-option-field>
+
+		</form>
+	</mat-card-content>
 </mat-card>

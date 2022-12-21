@@ -1,32 +1,47 @@
 <convl-page [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
 
-  <!-- Convl page subbar -->
-  <div subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-    <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
-      <span *ngIf="stateSaved; else saving"> Save </span>
-      <ng-template #saving>
-        <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-          <span> Saving story</span>
-          <mat-spinner diameter="20"></mat-spinner>
-        </span>
-      </ng-template>
-    </button>
-
-    <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
-      <span> Add to channel </span>
-    </button>
-  </div>
-
   <!-- Main body page -->
   <div fxLayout="row" fxFlexFill>
-
-    <div fxFlex="15">
+    <div fxFlex="20" class="nav">
       <convl-blocks-library *ngIf="frame" [frame]="frame">
       </convl-blocks-library>
     </div>
 
-    <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" fxFlexFill>
-    </convl-story-editor-frame>
+    <div fxLayout="column" fxLayoutAlign="start" fxFlex>
+      <!-- Convl page subbar -->
+      <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseFrameZoom()">
+            <mat-icon>zoom_out</mat-icon>
+          </button>
+
+          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)" type="number">
+
+          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
+            <mat-icon>zoom_in</mat-icon>
+          </button>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+          <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+            <span *ngIf="stateSaved; else saving"> Save </span>
+            <ng-template #saving>
+              <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <span> Saving story</span>
+                <mat-spinner diameter="20"></mat-spinner>
+              </span>
+            </ng-template>
+          </button>
+  
+          <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
+            <span> Add to channel </span>
+          </button>
+        </div>
+      </div>
+
+      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90">
+      </convl-story-editor-frame>
+    </div>
 
   </div>
 </convl-page>

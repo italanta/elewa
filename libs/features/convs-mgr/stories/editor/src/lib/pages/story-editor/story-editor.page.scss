@@ -3,7 +3,10 @@ app-blocks-library {
 }
 
 .sub-bar {
-  padding: 10px 20px;
+  padding: 10px 5px;
+  background-color: white;
+  border-bottom: solid #eee 1px;
+  // box-shadow: 0px 4px 8px slategrey;
 }
 
 .subbar-btn {
@@ -18,4 +21,17 @@ app-blocks-library {
   color: white;
   font-weight: 600;
   min-width: 100px;
+}
+
+.zoom-btn {
+  background-color: white;
+  color: black;
+}
+
+.nav {
+  border-right: solid black 1px;
+}
+
+::ng-deep .mat-mini-fab .mat-button-wrapper {
+  bottom: 0px;
 }

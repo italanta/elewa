@@ -1,7 +1,7 @@
 import { ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -12,6 +12,7 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
+import { EndAnchorComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 
 /**
@@ -52,18 +53,27 @@ export class StoryEditorFrame {
     this._blocks = state.blocks;
     this._connections = state.connections;
 
+    this.blocksArray = this._fb.array([]);
+
     // Clear any previously drawn items.
     this._viewport.clear();
     this._jsPlumb.reset();
 
     //create the anchor block when state is initialized
-    (this._viewport.createComponent(AnchorBlockComponent)).instance.jsPlumb = this._jsPlumb;
+    this.createStartAnchor();
+
+    //create the end anchor block when state is initialized
+    this.createEndAnchor();
 
     this.drawBlocks();
 
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
+  }
+
+  get jsPlumbInstance(): BrowserJsPlumbInstance {
+    return this._jsPlumb;
   }
 
   /** 
@@ -84,14 +94,25 @@ export class StoryEditorFrame {
     return this._jsPlumb.getConnections();
   }
 
+  createStartAnchor() {
+    let startAnchor = this._viewport.createComponent(AnchorBlockComponent);
+    startAnchor.instance.jsPlumb = this._jsPlumb;
+  }
+
+  createEndAnchor() {
+    let endAnchor = this._viewport.createComponent(EndAnchorComponent);
+    endAnchor.instance.jsPlumb = this._jsPlumb;
+    endAnchor.location.nativeElement.style = `position: absolute; left: 50px; top: 150px;`;
+    this._viewport.insert(endAnchor.hostView);
+    this._jsPlumb.manage(endAnchor.location.nativeElement, 'story-end-anchor');
+  }
+
   /**
   * Function which draw the blocks.
   * 
   */
   drawBlocks() {
     this._jsPlumb.setSuspendDrawing(true);   // Start loading drawing
-
-    this.blocksArray = this._fb.array([]);
 
     // Init frame
     const activeBlocks = this._blocks.filter((block) => !block.deleted);
@@ -118,7 +139,7 @@ export class StoryEditorFrame {
     // and target elements for connection drawing later
     // sources are mostly inputs
     // targets (blocks) are wrapped inside a mat-card 
-    let domSourceInputs = Array.from(document.querySelectorAll('input'));
+    let domSourceInputs = Array.from(document.querySelectorAll("input"));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
   
 
@@ -128,13 +149,19 @@ export class StoryEditorFrame {
       let sourceElement = domSourceInputs.find((el) => el.id == connection.sourceId);
       // fetching the target (block) that matches the connection target id
       let targetElement = domBlockCards.find((el) => el.id == connection.targetId);
-
+      
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ["Right", "Left"],
         endpoints: ["Dot", "Rectangle"],
+        connector: {
+          type: 'Flowchart',
+          options: {
+            cssClass: 'frame-connector'
+          }
+        }
       });
     }
 
@@ -145,77 +172,50 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes) {
+
     // TODO - Dynamic rendering of default blocks.
-
-    let title = ""
-    let icon = ""
-
     switch (type) {
       case StoryBlockTypes.TextMessage:
-          title = "PAGE-CONTENT.BLOCK.TITLES.MESSAGE"
-          icon = "fas fa-comment-alt"
         break;
       case StoryBlockTypes.Image:
-          title = "PAGE-CONTENT.BLOCK.TITLES.IMAGE"
-          icon = "fas fa-image"
         break;
       case StoryBlockTypes.Name:
-          title = "PAGE-CONTENT.BLOCK.TITLES.NAME"
-          icon = "fas fa-user-alt"
         break;
       case StoryBlockTypes.Email:
-          title = "PAGE-CONTENT.BLOCK.TITLES.EMAIL"
-          icon = "fas fa-envelope"
         break
       case StoryBlockTypes.PhoneNumber:
-          title = "PAGE-CONTENT.BLOCK.TITLES.PHONE"
-          icon = "fas fa-phone-alt"
         break;
       case StoryBlockTypes.QuestionBlock:
-          title = "PAGE-CONTENT.BLOCK.TITLES.QUESTION"
-          icon = "fas fa-question-circle"
         break;
       case StoryBlockTypes.Location:
-          title = "PAGE-CONTENT.BLOCK.TITLES.LOCATION"
-          icon = "fas fa-map-marker-alt"
         break;
      case StoryBlockTypes.Audio:
-          title = "PAGE-CONTENT.BLOCK.TITLES.AUDIO"
-          icon = "fas fa-microphone-alt"
           break;
       case StoryBlockTypes.Video:
-          title = "PAGE-CONTENT.BLOCK.TITLES.VIDEO"
-          icon = "fas fa-video"
         break
       case StoryBlockTypes.Sticker:
-          title = "PAGE-CONTENT.BLOCK.TITLES.STICKER"
-          icon = "fas fa-sticky-note"
         break
       case StoryBlockTypes.List:
-          title = "PAGE-CONTENT.BLOCK.TITLES.LIST"
-          icon = "fas fa-list-ul"
         break;
       case StoryBlockTypes.Document:
-          title = "PAGE-CONTENT.BLOCK.TITLES.DOCUMENT"
-          icon = "fas fa-file-alt";
         break
       case StoryBlockTypes.Reply:
-          title = "PAGE-CONTENT.BLOCK.TITLES.REPLY"
-          icon = "fas fa-reply";
+        break
+      default:
         break
     }
-
 
     const block = {
                     id: `${this._cnt}`,
                     type: type,
+<<<<<<< HEAD
                     message: 'List Options',
+=======
+                    message: '',
+>>>>>>> origin
                     // TODO: Positioning in the middle + offset based on _cnt
-                    position: { x: 200, y: 50 },
-                    blockTitle: title,
-                    blockIcon: icon
-
-    } as StoryBlock;
+                    position: { x: 200, y: 50 }
+                  } as StoryBlock;
 
     this._cnt++;
 

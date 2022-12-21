@@ -1,0 +1,17 @@
+.anchor {
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	height: fit-content;
+	width: 150px;
+	background-color: var(--convs-mgr-color-primary-purple);
+	color: white;
+	text-align: center;
+	box-shadow: 2px 4px 8px slategrey;
+	cursor: pointer;
+	z-index: 10;
+}
+
+input[disabled]::placeholder {
+	color: white;
+}

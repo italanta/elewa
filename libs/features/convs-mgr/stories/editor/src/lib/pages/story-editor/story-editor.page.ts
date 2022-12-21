@@ -1,8 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
-import { Router }    from '@angular/router';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, filter } from 'rxjs';
+
+import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
@@ -11,8 +14,8 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
-import { MatDialog } from '@angular/material/dialog';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -35,6 +38,11 @@ export class StoryEditorPageComponent implements OnDestroy
 
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved:boolean = false;
+
+  zoomLevel: FormControl = new FormControl(100);
+  frameElement: HTMLElement;
+  frameZoom: number = 1;
+  frameZoomInstance: BrowserJsPlumbInstance;
 
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
@@ -66,10 +74,41 @@ export class StoryEditorPageComponent implements OnDestroy
     this._sb.sink = 
       this.loading.pipe(filter(loading => !loading))
             .subscribe(() => 
-              this.frame.init(this.state)
+            {              
+              this.frame.init(this.state);
+              this.setFrameZoom();
+            }
             );
       
     this._cd.detectChanges();
+  }
+
+  setFrameZoom() {
+    this.frameElement = document.getElementById('editor-frame')!;
+    this.frameZoomInstance = newInstance({
+      container: this.frameElement
+    })
+    this.zoom(this.frameZoom);
+  }
+
+  increaseFrameZoom() {
+    if (this.zoomLevel.value <= 100) this.zoom(this.frameZoom += 0.03);
+  }
+
+  decreaseFrameZoom() {
+    if (this.zoomLevel.value > 25) this.zoom(this.frameZoom -= 0.03);
+  }
+
+  zoom(frameZoom: number) {
+    this.frameElement.style.transform = `scale(${frameZoom})`;
+    this.frame.jsPlumbInstance.setZoom(frameZoom);
+    this.zoomLevel.setValue(Math.round(frameZoom / 1 * 100));
+  }
+
+  zoomChanged(event: any) {
+    let z = event.target.value / 100;
+    this.zoomLevel.setValue(z);
+    this.zoom(z);
   }
 
   /** Save the changes made in the data model. */

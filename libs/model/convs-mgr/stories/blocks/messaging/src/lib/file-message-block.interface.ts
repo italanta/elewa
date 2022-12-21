@@ -10,6 +10,9 @@ export interface FileMessageBlock extends StoryBlock
 
   /** File source of the message block */
   fileSrc?: string;
+
+  defaultTarget?: string;
+  
 }
 
 /**

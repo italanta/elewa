@@ -1,5 +1,5 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Message, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -26,6 +26,8 @@ export interface ActiveChannel
    */
   parseOutMessage(storyBlock: StoryBlock, phone: string): OutgoingMessagePayload;
 
+  parseOutStandardMessage(message: Message, phone: string): OutgoingMessagePayload;
+
   /** 
    *  After the bot engine processes the incoming message and returns the next block,
    *      the block is parsed through the @see {OutgoingMessageParser}, which returns a
@@ -39,4 +41,6 @@ export interface ActiveChannel
    * 
    */
   send(msg: OutgoingMessagePayload);
+
+  getMediaFile(mediaId: string, mime_type: string);
 }

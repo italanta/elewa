@@ -12,6 +12,7 @@ import { ImageMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging
  export function _CreateImageMessageBlockForm(_fb: FormBuilder, blockData: ImageMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc],
     type: [blockData.type ?? StoryBlockTypes.Image],

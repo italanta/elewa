@@ -23,7 +23,7 @@ export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: Component
     cssClass:"block_endpoint",
 
     endpoint: 'Dot',
-    anchor: "Top"
+    anchor: "Left"
 
   });
 

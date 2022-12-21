@@ -1,8 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
+
 import { BotDataService } from './data-service-abstract.class';
-// import { CommunicationChannel } from '@app/model/bot/channel';
 
 /**
  * Contains all the required database flow methods for the messages collection
@@ -14,21 +14,21 @@ export class MessagesDataService extends BotDataService<Message> {
   constructor(tools: HandlerTools) 
   {
     super(tools)
-    // if (msg){
-    //   this._init(msg)
-    // }
   }
 
-  // protected _init(msg: Message){
-  //   this._docPath = `end-users/${msg.phoneNumber}/messages`
-  //   this._msg = msg
-  // }
-
+  /**
+   * Stores the standardized message format to the database.
+   * 
+   * Assigns an id to the message if it is not yet set before this point
+   */
   async saveMessage(msg: Message, orgId: string, endUserId: string): Promise<Message> {
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
-    const timeStamp = Date.now();
 
-    const savedMessage = await this.createDocument(msg, this._docPath, timeStamp.toString())
+    // If the message id is not set, we set it here
+    msg.id! && (msg.id = Date.now().toString())
+
+    // Create the message document with the timestamp as the id
+    const savedMessage = await this.createDocument(msg, this._docPath, msg.id)
 
     return savedMessage;
   }

@@ -1,17 +1,74 @@
 mat-card {
-    min-width: fit-content;
-    padding: 10px;
+  min-width: 200px;
+  padding: 10px;
 }
 
 mat-card-title {
-    font-size: 1.2rem!important;
-    color: var( --convs-mgr-color-primary-purple);
+  font-size: 1.2rem !important;
+  color: var(--convs-mgr-color-primary-purple);
 }
 
 input {
-    margin: 5px 0;
-    width: 180px;
-    height: 32px;
-    border: 1px solid var(--convs-mgr-color-primary-black);
-    border-radius: 5px;
+  max-width: 100%;
+  height: fit-content !important;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  caret-color: var(--convs-mgr-color-text-black);
+  color: var(--convs-mgr-color-text-black);
+  outline: none;
+  border: 1px solid var(--convs-mgr-color-text-black);
+}
+
+.block {
+  position: relative;
+  cursor: move;
+}
+
+.avatar-img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.block-title-container {
+  align-items: center;
+}
+
+.outer:hover {
+  cursor: move;
+}
+
+.fa-map-marker-alt {
+  color: var(--convs-mgr-color-primary-purple)
+}
+
+.block-title {
+  font-weight: 600;
+  font-size: small;
+  margin: 0 0 0 .4em;
+  color: var(--convs-mgr-color-text-black);
+}
+
+.block-card {
+  border-radius: 10px;
+  padding: 0%;
+}
+
+.icons {
+  cursor: pointer;
+}
+
+.fa-clone {
+  padding-right: 10px;
+}
+
+.fa-clone,
+.fa-trash-alt {
+  color: var(--convs-mgr-color-medium-shade);
+}
+
+.fa-clone:hover,
+.fa-trash-alt:hover {
+  color: var(--convs-mgr-color-primary-purple);
 }

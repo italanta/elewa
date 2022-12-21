@@ -1,27 +1,50 @@
-    mat-card {
-        min-width: fit-content;
-        padding: 10px;
-    }
-    
-    mat-card-title {
-        font-size: 1.2rem!important;
-        color: var(--convs-mgr-color-primary-purple);
-    }
-    
-    input {
-        margin: 5px 0;
-        width: 180px;
-        height: 30px;
-        border: 1px solid var(--convs-mgr-color-primary-black);
-        border-radius: 10px;
-    }
-    
-    .fileSrc {
-        display: none;
-    }
-    
-    .image {
-        width: 13em;
-        height: 12em;
-        border-radius: 10px;
-    }
+
+mat-card {
+	min-width: 200px;
+	padding: 10px;
+}
+
+mat-card-title {
+	font-size: 1.2rem !important;
+	color: var(--convs-mgr-color-primary-purple);
+}
+
+label {
+	width: 100%;
+	min-height: 100px;
+	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	color: var(--convs-mgr-color-primary-purple);
+	border-radius: 0.3rem;
+	cursor: pointer;
+	border: solid var(--convs-mgr-color-primary-purple) 1px;
+}
+
+div {
+	margin-bottom: 10px;
+}
+
+.upload-image {
+	max-width: 100%;
+	max-height: 150px;
+	object-fit: cover;
+}
+
+#caption, #image-link {
+  max-width: 100%;
+  height: fit-content!important;
+  padding: 5px 10px;
+	margin-bottom: 5px;
+  border-radius: 3px;
+  caret-color: var(--convs-mgr-color-text-black);
+  color: var(--convs-mgr-color-text-black);
+  outline: none;
+  border: 1px solid var(--convs-mgr-color-text-black);
+}
+
+#imageFile {
+	border-color: var(--convs-mgr-color-primary-purple)
+}

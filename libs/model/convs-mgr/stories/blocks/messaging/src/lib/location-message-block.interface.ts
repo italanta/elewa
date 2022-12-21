@@ -17,11 +17,11 @@ export interface LocationMessageBlock extends StoryBlock
 
 export interface Location {
     /**Stores the longitude */
-    longitude:string;
+    longitude: number;
     /**Stores the latitude */
-    latitude:string;
+    latitude: number;
     /**Name of the location */
-    name?:string;
+    name: string;
     /**Address of the location e.g. street address */
-    address?:string;
+    address: string;
 }

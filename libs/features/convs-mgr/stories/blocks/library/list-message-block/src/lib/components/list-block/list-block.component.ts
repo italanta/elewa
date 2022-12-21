@@ -10,6 +10,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
@@ -18,11 +19,15 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './list-block.component.html',
   styleUrls: ['./list-block.component.scss'],
 })
-export class ListBlockComponent<T> implements OnInit {
+export class ListBlockComponent<T> implements OnInit, AfterViewInit {
+
   @Input() id: string;
   @Input() block: ListMessageBlock;
   @Input() listMessageBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+  type: StoryBlockTypes;
+  listType= StoryBlockTypes.List;
 
   constructor(private _fb: FormBuilder) {}
 

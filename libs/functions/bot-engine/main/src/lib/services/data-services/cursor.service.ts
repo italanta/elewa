@@ -10,10 +10,12 @@ import { BotDataService } from './data-service-abstract.class';
  */
 export class CursorDataService extends BotDataService<Cursor> {
   private _docPath: string;
+  private tools: HandlerTools;
 
-  constructor(tools: HandlerTools) 
+  constructor(_tools: HandlerTools) 
   {
-    super(tools);
+    super(_tools);
+    this.tools = _tools;
     // this._init(msg, channel)
   }
 
@@ -52,6 +54,7 @@ export class CursorDataService extends BotDataService<Cursor> {
     //Update milestone
     const block = await this.createDocument(newActivity, this._docPath, newActivity.cursorId);
 
+    this.tools.Logger.log(() => `[ChatBotService].init - Updated Cursor`);
     // Return next block
     return block;
   }

@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { UploadFileService } from '@app/state/file';
 
-import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-image-block',
@@ -23,33 +24,42 @@ export class ImageBlockComponent implements OnInit {
   @Input() imageMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  type: StoryBlockTypes;
+  imagetype = StoryBlockTypes.Image;
+  blockFormGroup: FormGroup;
+
 
   file: File;
   imageInputId: string;
-  imageName: string = '';
+  imageInputUpload: string = '';
+  imageName: string;
   isLoadingImage: boolean = false;
-  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg"
-  imageLink = this.defaultImage;
-
-
+  imageLink: string;
+  hasImage: boolean = false;
 
   constructor(private _imageUploadService: UploadFileService,
-              public domSanitizer: DomSanitizer) 
-              { }
+              public domSanitizer: DomSanitizer
+  ) 
+  {
+    this.block = this.block as ImageMessageBlock;
+  }
 
   ngOnInit(): void
   {
     this.imageInputId = `img-${this.id}`;
+    this.imageInputUpload = `img-${this.id}-upload`;
+
+    this.checkIfImageExists();
+  }
+  
+  checkIfImageExists(){
+    this.imageLink = this.imageMessageForm.value.fileSrc;
+    this.hasImage = this.imageLink && this.imageLink != '' ? true : false;
   }
 
-  ngAfterViewInit(): void 
-  {
-    if (this.jsPlumb) {
-      this._decorateInput();
-    }
+  getFileNameFromFbUrl(fbUrl: string): string {
+    return fbUrl.split('%2F')[1].split("?")[0];
   }
-
-
 
   async processImage(event: any) 
   {
@@ -59,21 +69,14 @@ export class ImageBlockComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
-    } else {
-      this.imageLink = this.defaultImage;
+      this.hasImage = true;
     }
+
     //Step 1 - Create the file path that will be in firebase storage
     const imgFilePath = `images/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingImage = true;
+
     (await this._imageUploadService.uploadFile(this.file, this.block,imgFilePath)).subscribe();
-
-  }
-
-  private _decorateInput() 
-  {
-    let input = document.getElementById(this.imageInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
   }
 }
+

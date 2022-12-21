@@ -3,8 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
@@ -20,6 +19,9 @@ export class PhoneBlockComponent implements OnInit {
   @Input() phoneMessageForm: FormGroup;
 
   phoneInputId: string;
+  
+  type: StoryBlockTypes;
+  phonetype = StoryBlockTypes.PhoneNumber;
 
   constructor(private _fb: FormBuilder) { }
 
@@ -27,18 +29,7 @@ export class PhoneBlockComponent implements OnInit {
     this.phoneInputId = `phone-${this.id}`;
   }
 
-  ngAfterViewInit(): void {
-    if (this.jsPlumb) {
-      this._decorateInput();
-    }
-  }
-
-  private _decorateInput() {
-    let input = document.getElementById(this.phoneInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
-  }
+  ngAfterViewInit(): void {}
 
 }
 

@@ -1,9 +1,9 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { BotDataService } from './data-service-abstract.class';
-
 import { Connection } from '@app/model/convs-mgr/conversations/chats';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+
+import { BotDataService } from './data-service-abstract.class';
 
 /**
  * Contains all the required database flow methods for writing and reading blocks information
@@ -11,20 +11,12 @@ import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/s
 export class ConnectionsDataService extends BotDataService<Connection> 
 {
   private _docPath: string;
-  private _channel: CommunicationChannel;
 
-  constructor(channel: CommunicationChannel, tools: HandlerTools) 
+  constructor(private _channel: CommunicationChannel, tools: HandlerTools) 
   {
     super(tools);
-    this._init(channel);
+    // this._init(channel, currentStory);
   }
-
-  protected _init(channel: CommunicationChannel)
-  {
-    this._docPath = `orgs/${channel.orgId}/stories/${channel.defaultStory}/connections`;
-    this._channel = channel;
-  }
-
 
   /** 
    * Each connection we store has the sourceId which contains the block the connection comes from
@@ -34,8 +26,9 @@ export class ConnectionsDataService extends BotDataService<Connection>
    * 
    * @note We can know if the user input is invalid if the connection is not found (conn == null)
    */
-  async getConnByOption(optionId: string): Promise<Connection>
+  async getConnByOption(optionId: string, orgId: string, currentStory: string): Promise<Connection>
   {
+    this._docPath = `orgs/${orgId}/stories/${currentStory}/connections`;
 
     const conn = await this.getDocumentByField('sourceId', optionId, this._docPath);
 
@@ -50,25 +43,27 @@ export class ConnectionsDataService extends BotDataService<Connection>
    * 
    * @note We can know if the block is the last one if no connection originates from it (conn == null)
    */
-  async getConnBySourceId(blockId: string): Promise<Connection>
+  async getConnBySourceId(blockId: string, orgId: string, currentStory: string): Promise<Connection>
   {
+    this._docPath = `orgs/${orgId}/stories/${currentStory}/connections`;
 
     const conn = await this.getDocumentByField('sourceId', `defo-${blockId}`, this._docPath);
 
     return conn[0];
   }
 
-  /** Gets the connection that links the anchor block and the first block */
-  async getFirstConn(): Promise<Connection>
-  {
-
-    const conn = await this.getDocumentByField('sourceId', `${this._channel.defaultStory}`, this._docPath);
-
-    if (!conn[0])
+    /** Gets the first connection of a different storys */
+    async getFirstConnection(storyId: string): Promise<Connection>
     {
-      throw new Error('First Connection does not exist');
+      this._docPath = `orgs/${this._channel.orgId}/stories/${storyId}/connections`;
+      
+      const conn = await this.getDocumentByField('sourceId', `${storyId}`, this._docPath);
+  
+      if (!conn[0])
+      {
+        throw new Error('First Connection does not exist');
+      }
+  
+      return conn[0];
     }
-
-    return conn[0];
-  }
 }

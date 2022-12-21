@@ -13,7 +13,7 @@ import { ListMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging"
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    listItems: _fb.array([]),
+    options: _fb.array([]),
     type: [blockData.type ?? StoryBlockTypes.List],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })

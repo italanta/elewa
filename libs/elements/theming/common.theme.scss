@@ -206,6 +206,9 @@ a:focus {outline:0;}
 }
 
 
+.svg-inline--fa {
+  color: var(--convs-mgr-color-primary-purple);
+}
 /*
  *  Scrollbar styling
  */
@@ -219,7 +222,7 @@ a:focus {outline:0;}
 
  ::-webkit-scrollbar
  {
- width: 5px;
+ width: 10px;
  height: 5px;
  background-color: #F5F5F5;
  }
@@ -228,7 +231,7 @@ a:focus {outline:0;}
  ::-webkit-scrollbar-thumb
  {
    background-color: #e2e2e2;
-   border: 5px solid #C1C1C1;
+   border: 10px solid #C1C1C1;
    border-radius: 3px;
 
  }
