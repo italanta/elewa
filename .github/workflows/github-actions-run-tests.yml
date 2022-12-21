@@ -31,7 +31,8 @@ jobs:
         run: npx nx affected --target=test
 
       - run: echo ${{ steps.tests.outputs }}
-
+        if: always
+        
       - name: Comment PR
         if: always()
         uses: thollander/actions-comment-pull-request@v2
