@@ -20,5 +20,6 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      # Run tests on the nx projects affected by the Pull Request
-      - run: npx nx affected --target=test
+      # Runs tests on the nx projects affected by the Pull Request
+      - name: Run tests
+        run: npx nx affected --target=test
