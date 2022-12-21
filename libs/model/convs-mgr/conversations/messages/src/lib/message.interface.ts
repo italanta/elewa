@@ -87,7 +87,7 @@ export interface AudioMessage extends FileMessage {}
 export interface VideoMessage extends FileMessage {}
 
 export interface ImageMessage extends FileMessage {}
-
+export interface DocumentMessage extends FileMessage{} 
 
 /**
  * Standardized format of a reply to the question block @see {QuestionMessageBlock}

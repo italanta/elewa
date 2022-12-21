@@ -86,6 +86,11 @@ export interface WhatsAppMessagePayLoad extends IncomingMessagePayload
     sha256:string;
     id: string
   }
+  export interface DocumentPayload extends WhatsAppMessagePayLoad{
+    mime_type: string;
+    sha256: string;
+    id: string;
+  }
 
   export interface LocationPayload extends WhatsAppMessagePayLoad {
     location: Location
