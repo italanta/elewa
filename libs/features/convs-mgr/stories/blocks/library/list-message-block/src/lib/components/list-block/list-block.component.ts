@@ -31,27 +31,19 @@ export class ListBlockComponent<T> implements OnInit {
     this.block.options?.forEach((listItem) => {
       this.listItems.push(this.addListOptions(listItem));
     })
-
   }
-
 
   ngAfterViewInit(): void {}
 
   get listItems () : FormArray {
-    return this.listMessageBlock.controls['listItems'] as FormArray;
+    return this.listMessageBlock.controls['options'] as FormArray;
   }
 
   addListOptions (listItem? : ButtonsBlockButton<T>) {
     return this._fb.group({
       id: [listItem?.id ?? `${this.id}-${this.listItems.length + 1}`],
       message: [listItem?.message ?? ''],
-
-    })
-  }
-
-  initListOptions(){
-    this._fb.group({
-      listOption:["", Validators.required]
+      value: [listItem?.value ?? '']
     })
   }
 
