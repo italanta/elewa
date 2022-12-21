@@ -19,7 +19,7 @@
                     <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
                 </div>
             </div>
-            <input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link " id="audio-link ">
+            <input type="text" formControlName="fileSrc" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link " id="audio-link ">
 
             <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
 
