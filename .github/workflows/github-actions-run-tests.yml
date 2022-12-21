@@ -1,8 +1,7 @@
-name: Testing code
-run-name: ${{ github.actor }} is running tests
+name: Run Tests
 on: [push]
 jobs:
-  test-whatsapp-parser:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,6 +17,8 @@ jobs:
         with:
             node-version: ${{ matrix.node }}
 
-      - run: npm install --legacy-peer-deps
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
-      - run: npx nx test functions-bot-engine-whatsapp
+      # Run tests on the nx projects affected by the Pull Request
+      - run: npx nx affected --target=test
