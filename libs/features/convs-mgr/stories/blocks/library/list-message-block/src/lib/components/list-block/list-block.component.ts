@@ -32,7 +32,7 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.block.listItems?.forEach((listItem) => {
+    this.block.listItems?.forEach((listItem: ButtonsBlockButton<T> | undefined) => {
       console.log(listItem);
       this.listItems.push(this.addListOptions(listItem));
     });

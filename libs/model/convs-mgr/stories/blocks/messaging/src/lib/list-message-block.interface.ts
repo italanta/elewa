@@ -1,6 +1,7 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { ButtonsBlockButton } from "../../../scenario/src";
+import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 export interface ListMessageBlock extends StoryBlock{
+  listItems: any;
 
   /** Actual question */
   message?: string;
