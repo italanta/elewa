@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
@@ -12,7 +12,7 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './list-block.component.html',
   styleUrls: ['./list-block.component.scss'],
 })
-export class ListBlockComponent<T> implements OnInit {
+export class ListBlockComponent<T> implements OnInit, AfterViewInit {
 
   @Input() id: string;
   @Input() block: ListMessageBlock;
@@ -22,18 +22,15 @@ export class ListBlockComponent<T> implements OnInit {
   type: StoryBlockTypes;
   listType= StoryBlockTypes.List;
 
-  blockFormGroup: FormGroup;
-
-
   constructor(private _fb: FormBuilder) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.block.options?.forEach((listItem) => {
       this.listItems.push(this.addListOptions(listItem));
     })
   }
-
-  ngAfterViewInit(): void {}
 
   get listItems () : FormArray {
     return this.listMessageBlock.controls['options'] as FormArray;
