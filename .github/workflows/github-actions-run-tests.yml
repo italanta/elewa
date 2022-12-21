@@ -30,9 +30,9 @@ jobs:
         id: tests
         run: npx nx affected --target=test
 
-      - run: echo ${{ steps.tests.outputs }}
+      - run: echo ${{ steps.tests.outputs.status }}
         if: always
-        
+
       - name: Comment PR
         if: always()
         uses: thollander/actions-comment-pull-request@v2
