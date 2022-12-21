@@ -75,6 +75,11 @@ export interface WhatsAppMessagePayLoad extends IncomingMessagePayload
     id: string
   }
 
+  export interface StickerPayload extends WhatsAppMessagePayLoad{
+    mime_type: string;
+    sha256: string;
+  }
+
   export interface AudioPayload extends WhatsAppMessagePayLoad {
     mime_type: string;
     sha256:string;
