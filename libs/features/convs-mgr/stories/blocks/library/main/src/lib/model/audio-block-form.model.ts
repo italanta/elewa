@@ -12,6 +12,7 @@ import { VoiceMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging
 export function _CreateAudioBlockForm(_fb: FormBuilder, blockData: VoiceMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Audio],
