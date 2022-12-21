@@ -22,4 +22,13 @@ jobs:
 
       # Runs tests on the nx projects affected by the Pull Request
       - name: Run tests
+        id: tests
         run: npx nx affected --target=test
+
+      - run: echo ${{ steps.tests.outputs }}
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            Hello world ! :wave:
