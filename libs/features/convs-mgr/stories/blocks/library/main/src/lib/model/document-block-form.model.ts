@@ -12,6 +12,7 @@ import { DocumentMessageBlock } from "@app/model/convs-mgr/stories/blocks/messag
  export function _CreateDocumentMessageBlockForm(_fb: FormBuilder, blockData: DocumentMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Document],

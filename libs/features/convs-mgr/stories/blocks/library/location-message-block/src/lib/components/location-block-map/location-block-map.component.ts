@@ -7,10 +7,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./location-block-map.component.scss'],
 })
 export class LocationBlockMapComponent implements OnInit{
-  constructor() {}
 
   @Input() longitude: number;
   @Input() latitude: number;
+
+  markerPositions: google.maps.LatLngLiteral[] = [];
+  markerOptions: google.maps.MarkerOptions = {draggable: false};
+
+  constructor() {}
 
   ngOnInit(): void {
     this.initMap();
@@ -34,6 +38,8 @@ export class LocationBlockMapComponent implements OnInit{
         map: map,
       });
     }
+
+
 
   
   }

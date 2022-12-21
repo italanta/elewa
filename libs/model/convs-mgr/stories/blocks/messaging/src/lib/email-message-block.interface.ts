@@ -5,5 +5,7 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 export interface EmailMessageBlock extends StoryBlock{
   
   /**Email that is expected as input */
-   email?:string;
+   email?: string;
+
+   defaultTarget?: string;
 }

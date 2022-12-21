@@ -12,6 +12,7 @@ import { StickerMessageBlock } from "@app/model/convs-mgr/stories/blocks/messagi
  export function _CreateStickerBlockForm(_fb: FormBuilder, blockData: StickerMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Sticker],

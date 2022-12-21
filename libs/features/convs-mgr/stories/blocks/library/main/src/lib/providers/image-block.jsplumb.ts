@@ -20,15 +20,8 @@ export function _ImageBlockDecoratePlumb(block: ImageMessageBlock, comp: Compone
   jsPlumb.addEndpoint(comp.location.nativeElement, {
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Dot",
+    endpoint: "Rectangle",
     anchor: "Left"
-  });
-
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    source: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: "Right"
   });
 
   return comp;

@@ -7,4 +7,6 @@ export interface NameMessageBlock extends StoryBlock{
 
   /**Stores the entered name entered by the userr */
   name?:string;
+
+  defaultTarget?: string;
 }

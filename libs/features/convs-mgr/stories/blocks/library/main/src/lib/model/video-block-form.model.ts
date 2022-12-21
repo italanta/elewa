@@ -12,6 +12,7 @@ import {VideoMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging"
  export function _CreateVideoMessageBlockForm(_fb: FormBuilder, blockData: VideoMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc! ?? ''],
     fileName:[blockData?.fileName! ?? ''],
