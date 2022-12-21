@@ -38,4 +38,5 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            Hello world ! :wave:
+            Tests ran successfully
+          pr_number: ${{ github.event.number }}
