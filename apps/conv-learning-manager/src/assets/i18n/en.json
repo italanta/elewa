@@ -89,7 +89,8 @@
         "AUDIO-LINK":"Audio Link",
         "VIDEO-LINK": "Video Link",
         "FILE-NAME": "File name",
-        "DOCUMENT-LINK": "Document link"
+        "DOCUMENT-LINK": "Document link",
+        "STICKER-LINK": "Sticker link"
       }
     },
     "COMPONENTS": {

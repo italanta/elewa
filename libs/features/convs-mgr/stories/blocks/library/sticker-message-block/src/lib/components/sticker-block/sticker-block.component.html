@@ -1,24 +1,27 @@
 <mat-card [id]="id" *ngIf="stickerMessageForm">
-    <mat-card-content>
-        <form [formGroup]="stickerMessageForm" fxLayout="column" fxLayoutALign="start center">
+	<mat-card-content>
+		<form [formGroup]="stickerMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <div [id]="stickerInputId">
-                <div (click)="stickerInput.click()" class="sticker-icon" *ngIf="!this.block.fileSrc && !isLoadingSticker">
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div *ngIf="isLoadingSticker" class="sticker-icon">
-                    <i class="fas fa-circle-notch fa-spin"></i>
-                </div>
-                <div *ngIf="this.block.fileSrc && !isLoadingSticker" class="sticker-image" (click)="stickerInput.click()">
-                    <img [src]="this.block.fileSrc" class="image">
-                </div>
-                <div>
-                    <input #stickerInput type="file" class="fileSrc" accept=".WEBP, .png, .PNG, .WEBP" (change)="processSticker($event)">
-                </div>
-            </div>
+			<div [id]="stickerInputId" class="audio_bg">
+				<div (click)="stickerInput.click()" class="sticker-icon" *ngIf="!this.block.fileSrc && !isLoadingSticker">
+					<i class="fas fa-plus"></i>
+				</div>
+				<div *ngIf="isLoadingSticker" class="sticker-icon">
+					<i class="fas fa-circle-notch fa-spin"></i>
+				</div>
+				<div *ngIf="this.block.fileSrc && !isLoadingSticker" class="sticker-image" (click)="stickerInput.click()">
+					<img [src]="this.block.fileSrc" class="image">
+				</div>
+				<div>
+					<input #stickerInput type="file" class="fileSrc" accept=".svg, .gif, .webp"
+						(change)="processSticker($event)">
+				</div>
+			</div>
 
-            <input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco " name="caption " id="caption ">
-            <input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.STICKER-LINK' | transloco  " name="sticker-link " id="sticker-link ">
-        </form>
-    </mat-card-content>
+			<input formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco "/>
+			<input formControlName="fileSrc" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.STICKER-LINK' | transloco"/>
+
+			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="stickerMessageForm"></app-default-option-field>
+		</form>
+	</mat-card-content>
 </mat-card>
