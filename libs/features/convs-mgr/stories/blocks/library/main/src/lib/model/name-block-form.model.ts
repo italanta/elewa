@@ -13,6 +13,7 @@ export function _CreateNameMessageBlockForm(_fb: FormBuilder, blockData: NameMes
 {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Name],
     position: [blockData.position ?? { x: 200, y: 50 }]
