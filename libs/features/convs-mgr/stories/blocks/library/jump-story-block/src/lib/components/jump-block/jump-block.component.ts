@@ -55,6 +55,7 @@ export class JumpBlockComponent implements OnInit, OnDestroy
       this._decorateElement();
     }
     this.getStories();
+    this.getBlocks();
   }
 
   private _decorateElement()
