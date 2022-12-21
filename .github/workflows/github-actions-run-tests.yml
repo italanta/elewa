@@ -31,7 +31,7 @@ jobs:
         run: npx nx affected --target=test
 
       - run: echo ${{ steps.tests.outputs.status }}
-        if: always
+        if: always()
 
       - name: Comment PR
         if: always()
