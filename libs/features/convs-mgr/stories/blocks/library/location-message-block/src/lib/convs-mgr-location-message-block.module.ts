@@ -1,9 +1,8 @@
 import { AgmCoreModule } from '@agm/core';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
 
 import {
   FlexLayoutModule,
@@ -17,6 +16,9 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 import { LocationBlockComponent } from './components/location-block/location-block.component';
 import { LocationBlockMapComponent } from './components/location-block-map/location-block-map.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { GoogleMapsModule } from '@angular/google-maps';
+
+
 
 @NgModule({
   imports: [
@@ -26,11 +28,12 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     FlexLayoutModule,
     MaterialBricksModule,
 
-    AgmCoreModule,
-    GooglePlaceModule,
-
     FormsModule,
     ReactiveFormsModule,
+
+    GoogleMapsModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
 
     ConvsMgrBlockOptionsModule,
   ],

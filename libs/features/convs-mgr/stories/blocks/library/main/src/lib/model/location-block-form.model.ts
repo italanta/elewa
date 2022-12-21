@@ -13,7 +13,12 @@ export function _CreateLocationBlockForm(_fb: FormBuilder, blockData: LocationMe
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    locationInput: [blockData?.locationInput ?? {longitude: '', latitude:''}],
+    locationInput: _fb.group({
+      name: [blockData.locationInput!?.name ?? ''],
+      address: [blockData.locationInput!?.address ?? ''],
+      latitude: [blockData.locationInput!?.latitude ?? ''],
+      longitude: [blockData.locationInput!?.longitude ?? ''],
+    }),
     defaultTarget: [blockData?.defaultTarget ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Input],
     position: [blockData.position ?? { x: 200, y: 50 }]
