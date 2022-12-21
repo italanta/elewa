@@ -8,11 +8,12 @@ import
     RecepientType,
     WhatsAppImageMessage,
     WhatsAppInteractiveMessage,
+    WhatsAppLocationMessage,
     WhatsAppMessageType,
     WhatsAppTextMessage,
   } from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
@@ -122,6 +123,32 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
+  getLocationParserOut(storyBlock: StoryBlock, phone: string): any {
+    const locationBlock = storyBlock as LocationMessageBlock
+    // Create the text payload which will be sent to api
+    const locationMessage = {
+      location: {
+        longitude: parseInt(locationBlock.locationInput.longitude),
+        latitude: parseInt(locationBlock.locationInput.latitude),
+        name: locationBlock.locationInput.name,
+        address: locationBlock.locationInput.address
+      }
+    } as WhatsAppLocationMessage
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppLocationMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      
+      ...locationMessage,
+    };
+    return generatedMessage;
+  }
+
   // getAudioBlockParserOut(storyBlock: StoryBlock, phone: string) {
   //   const audioBlock = storyBlock as AudioMessageBlock
 
@@ -223,29 +250,6 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   //   return generatedMessage;
   // }
 
-  // getLocationBlockParserOut(storyBlock: StoryBlock, phone: string): Message {
-  //   const locationBlock = storyBlock as LocationMessageBlock
-  //   // Create the text payload which will be sent to api
-  //   const locationMessage = {
-  //     location: {
-  //       longitude: parseInt(locationBlock.locationInput.longitude),
-  //       latitude: parseInt(locationBlock.locationInput.latitude),
-  //       name: locationBlock.locationInput.name,
-  //       address: locationBlock.locationInput.address
-  //     }
-  //   } as WhatsAppLocationMessage
+ 
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.LOCATION,
-  //     ...locationMessage,
-  //   };
-  //   return generatedMessage;
-  // }
 }

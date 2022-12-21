@@ -29,7 +29,7 @@ export abstract class OutgoingMessageParser
 
   // abstract getDocumentBlockParserOut (storyBlock: StoryBlock, phone: string): Message
 
-  // abstract getLocationBlockParserOut (storyBlock: StoryBlock, phone: string): Message
+  abstract getLocationBlockParserOut (storyBlock: StoryBlock, phone: string): Message
 
   /**
    * Our chatbot can send different types of messages, be it a text message, a location, an image, ...

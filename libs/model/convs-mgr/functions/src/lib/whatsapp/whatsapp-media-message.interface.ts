@@ -21,6 +21,12 @@ export interface WhatsAppAudioMessage extends WhatsAppOutgoingMessage {
   }
 
 }
+export interface WhatsAppLocationMessage extends WhatsappOutgoingMessage {
+  type: WhatsAppMessageType,
+  location: {
+    link: string;
+  }
+}  
 export interface WhatsAppVideoMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   video: {
