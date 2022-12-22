@@ -3,8 +3,8 @@
         <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
             <div [id]="imageInputId">
 
-                <input (change)="processImage($event)" type="file" id="upload" hidden />
-                <label for="upload">
+                <input (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
+                <label [for]="imageInputUpload">
                     <div *ngIf="!hasImage; else inputHasImage">
                         <i class="fas fa-image"></i>
                     </div>
@@ -14,10 +14,13 @@
                 </label>
 
             </div>
-            <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco}}"
-                formControlName="caption" name="caption" id="caption" />
-            <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco}}"
-                name="image-link" id="image-link" formControlName="imageLink" />
+
+            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>
+
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco"
+                formControlName="message" id="caption" />
+            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco"
+                 id="image-link" formControlName="fileSrc" />
         </form>
     </mat-card-content>
 </mat-card>

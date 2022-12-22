@@ -12,6 +12,7 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
+import { EndAnchorComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 
 /**
@@ -59,7 +60,10 @@ export class StoryEditorFrame {
     this._jsPlumb.reset();
 
     //create the anchor block when state is initialized
-    (this._viewport.createComponent(AnchorBlockComponent)).instance.jsPlumb = this._jsPlumb;
+    this.createStartAnchor();
+
+    //create the end anchor block when state is initialized
+    this.createEndAnchor();
 
     this.drawBlocks();
 
@@ -88,6 +92,19 @@ export class StoryEditorFrame {
 
   get getJsPlumbConnections() {
     return this._jsPlumb.getConnections();
+  }
+
+  createStartAnchor() {
+    let startAnchor = this._viewport.createComponent(AnchorBlockComponent);
+    startAnchor.instance.jsPlumb = this._jsPlumb;
+  }
+
+  createEndAnchor() {
+    let endAnchor = this._viewport.createComponent(EndAnchorComponent);
+    endAnchor.instance.jsPlumb = this._jsPlumb;
+    endAnchor.location.nativeElement.style = `position: absolute; left: 50px; top: 150px;`;
+    this._viewport.insert(endAnchor.hostView);
+    this._jsPlumb.manage(endAnchor.location.nativeElement, 'story-end-anchor');
   }
 
   /**
@@ -122,7 +139,7 @@ export class StoryEditorFrame {
     // and target elements for connection drawing later
     // sources are mostly inputs
     // targets (blocks) are wrapped inside a mat-card 
-    let domSourceInputs = Array.from(document.querySelectorAll("input, .input"));
+    let domSourceInputs = Array.from(document.querySelectorAll("input"));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
   
 
@@ -132,7 +149,7 @@ export class StoryEditorFrame {
       let sourceElement = domSourceInputs.find((el) => el.id == connection.sourceId);
       // fetching the target (block) that matches the connection target id
       let targetElement = domBlockCards.find((el) => el.id == connection.targetId);
-
+      
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
         source: sourceElement as Element,
@@ -191,7 +208,7 @@ export class StoryEditorFrame {
     const block = {
                     id: `${this._cnt}`,
                     type: type,
-                    message: 'Before we start,\nPlease provide a few more details about yourself.',
+                    message: '',
                     // TODO: Positioning in the middle + offset based on _cnt
                     position: { x: 200, y: 50 }
                   } as StoryBlock;

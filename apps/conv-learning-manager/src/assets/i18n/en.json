@@ -66,27 +66,32 @@
     },
     "BLOCK": {
       "TITLES": {
-        "IMAGE": "Image: Output",
-        "LOCATION": "Location Block",
-        "NAME": "Name Block",
-        "EMAIL": "Email Block",
-        "PHONE": "Phone Block",
-        "MESSAGE": "Message Block",
+        "IMAGE": "Image",
+        "LOCATION": "Location",
+        "NAME": "Name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "MESSAGE": "Message",
         "QUESTION": "Question: Buttons",
-        "AUDIO": "Audio Block",
-        "VIDEO": "Video Block",
-        "STICKER": "Sticker Block",
-        "LIST": "List Block",
-        "DOCUMENT": "Document Block"
+        "AUDIO": "Audio",
+        "VIDEO": "Video",
+        "STICKER": "Sticker",
+        "LIST": "List",
+        "DOCUMENT": "Document"
       },
       "PLACEHOLDER": {
+        "ANCHOR": "Start here",
+        "END-ANCHOR": "End-here",
         "CAPTION": "Caption",
-        "IMAGE-LINK": "Image Link",
+        "IMAGE-LINK": "Image Url",
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",
         "AUDIO-LINK":"Audio Link",
-        "VIDEO-LINK": "Video Link"
+        "VIDEO-LINK": "Video Link",
+        "FILE-NAME": "File name",
+        "DOCUMENT-LINK": "Document link",
+        "STICKER-LINK": "Sticker link"
       }
     },
     "COMPONENTS": {

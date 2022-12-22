@@ -12,6 +12,7 @@ import { EmailMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging
 export function _CreateEmailMessageBlockForm(_fb: FormBuilder, blockData: EmailMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
+    defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Email],
     position: [blockData.position ?? { x: 200, y: 50 }]
