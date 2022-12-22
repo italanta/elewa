@@ -3,6 +3,11 @@ import { MessageTypes, WhatsAppMessageType } from "@app/model/convs-mgr/function
 
 import { WhatsappIncomingMessageParser } from "./whatsapp-api-incoming-message-parser.class";
 
+/**
+ * This contains only the unit tests for the whatsapp incoming message parser
+ * 
+ * To add a test for a new method, add it after the 'parseInStickerMessage' describe
+ */
 describe("WhatsappIncomingMessageParser", () =>
 {
   let incomingMessageParser: WhatsappIncomingMessageParser;
@@ -29,9 +34,7 @@ describe("WhatsappIncomingMessageParser", () =>
     };
 
     it("should interpret incoming sticker messages", () =>
-    {
-      expect(incomingMessageParser).toBeInstanceOf(WhatsappIncomingMessageParser);
-       
+    {  
       const stickerMessage = incomingMessageParser.parse(MessageTypes.STICKER, exampleStickerMessage);
 
       // Check if the parser is returning null
