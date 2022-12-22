@@ -43,3 +43,11 @@ export interface WhatsAppDocumentMessage extends WhatsAppOutgoingMessage {
   }
 
 }
+
+export interface WhatsAppLocationMessage extends WhatsAppOutgoingMessage {
+  type: WhatsAppMessageType,
+  location: {
+    link: string;
+  }
+
+}
