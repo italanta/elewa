@@ -37,21 +37,15 @@ export class StickerBlockComponent implements OnInit {
   blockFormGroup: FormGroup;
 
 
-  constructor(private _fb: FormBuilder,
-    private _logger: Logger,
-    private _stickerUploadService: UploadFileService) { }
+  constructor(private _stickerUploadService: UploadFileService) 
+  { }
 
   ngOnInit(): void
   {
     this.stickerInputId = `stckr-${this.id}`
   }
 
-  ngAfterViewInit(): void
-  {
-    if (this.jsPlumb) {
-      this._decorateInput();
-    }
-  }
+  ngAfterViewInit(): void {}
 
   async processSticker(event: any) 
   {
@@ -66,14 +60,5 @@ export class StickerBlockComponent implements OnInit {
     this.isLoadingSticker = true;
     const stickerFilePath = `stickers/${this.file.name}_${new Date().getTime()}`;
     (await this._stickerUploadService.uploadFile(this.file, this.block, stickerFilePath)).subscribe();
-
-  }
-
-  private _decorateInput() 
-  {
-    let input = document.getElementById(this.stickerInputId) as Element;
-    if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
-    }
   }
 }

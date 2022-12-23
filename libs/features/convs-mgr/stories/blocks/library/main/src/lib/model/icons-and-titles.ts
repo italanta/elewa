@@ -12,7 +12,7 @@ export const iconsAndTitles: any = {
 		icon: 'fas fa-envelope'
 	},
   4 : {
-		title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE.LOCATION',
+		title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
 		icon: 'fas fa-map-marker-alt'
 	},
   5 : {
