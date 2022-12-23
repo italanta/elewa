@@ -59,8 +59,8 @@ export class BlockComponent implements OnInit {
   blockTitle = ''
 
   constructor(private _el: ElementRef,
-    private _fb: FormBuilder,
-    private _logger: Logger
+              private _fb: FormBuilder,
+              private _logger: Logger
   ) { }
 
   ngOnInit(): void {
@@ -69,76 +69,74 @@ export class BlockComponent implements OnInit {
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
 
-    switch (this.type) {
-      case StoryBlockTypes.TextMessage:
-        this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Image:
-        this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Name:
-        this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Email:
-        this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.PhoneNumber:
-        this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.QuestionBlock:
-        this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Location:
-        this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.List:
-        this.blockFormGroup = _CreateListBlockMessageForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Document:
-        this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Audio:
-        this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break
-      case StoryBlockTypes.Video:
-        this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break
-      case StoryBlockTypes.Sticker:
-        this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      case StoryBlockTypes.Reply:
-        this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-      case StoryBlockTypes.JumpBlock:
-        this.blockFormGroup = _CreateJumpBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-      default:
-        break;
+    if (this.blocksGroup) {
+      switch (this.type) {
+        case StoryBlockTypes.TextMessage:
+          this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Image:
+          this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Name:
+          this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Email:
+          this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.PhoneNumber:
+          this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.QuestionBlock:
+          this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Location:
+          this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.List:
+          this.blockFormGroup = _CreateListBlockMessageForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Document:
+          this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Audio:
+          this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break
+        case StoryBlockTypes.Video:
+          this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break
+        case StoryBlockTypes.Sticker:
+          this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        case StoryBlockTypes.Reply:
+          this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+        default:
+          break;
+      }
     }
 
   }

@@ -33,8 +33,8 @@ export class AnchorBlockComponent implements OnInit, AfterViewInit
 
   @Input() id: string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  
   anchorInput: string;
-
 
   constructor(private _story$$: ActiveStoryStore) { }
 

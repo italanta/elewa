@@ -3,14 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
+import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
-import {
-  FlexLayoutModule,
-  MaterialBricksModule,
-  MaterialDesignModule,
-} from '@iote/bricks-angular';
-
-
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { EmailBlockComponent } from './components/email-block/email-block.component';
 
@@ -24,6 +19,8 @@ import { EmailBlockComponent } from './components/email-block/email-block.compon
 
     FormsModule,
     ReactiveFormsModule,
+
+    ConvsMgrBlockOptionsModule
 
   ],
 

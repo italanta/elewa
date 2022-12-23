@@ -21,14 +21,8 @@ export function _VideoBlockDecoratePlumb(block: VideoMessageBlock, comp: Compone
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Dot",
+    endpoint: "Rectangle",
     anchor: "Left"
-  });
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    source: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: "Right"
   });
 
   return comp;

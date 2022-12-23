@@ -3,23 +3,23 @@
 		<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
 			<div [id]="videoInputId">
-				<input (change)="processVideo($event)" type="file" accept=".mp3,.mp4,.webm,.ogg " id="upload" hidden class="video" />
-				<label for="upload">
+				<input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
+				<label [for]="videoInputUpload">
 					<div *ngIf="!hasVideo; else inputHasVideo">
 						<i id="icon" class="fas fa-play-circle"></i>
 					</div>
 					<ng-template #inputHasVideo>
 						<video class="upload-video" alt="" controls autoplay>
-							<source [src]="videoUrl" type="video/*">
+							<source [src]="videoUrl" type="video/mp4">
 						</video>
 					</ng-template>
 				</label>
 			</div>
 
-			<input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco " formControlName="caption" name="caption" 
-				id="caption ">
-			<input type="text " [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco " formControlName="videoLink" name="video-link" value = "{{ videoUrl }}"
-				id="video-link ">
+			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
+
+			<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
+			<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco" formControlName="fileSrc">
 		</form>
 	</mat-card-content>
 </mat-card>

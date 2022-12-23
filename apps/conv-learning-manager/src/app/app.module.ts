@@ -17,7 +17,6 @@ import { NgFireModule } from '@ngfi/angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
-import { AgmCoreModule } from '@agm/core';
 
 import { AuthorisationModule } from '@app/elements/base/authorisation';
 import { AppConfigurationModule } from '@app/elements/base/configuration';
@@ -44,11 +43,6 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule, BrowserAnimationsModule,
     GooglePlaceModule,
-
-    AgmCoreModule.forRoot({
-      apiKey:'ADD-YOUR-API-KEY',
-      libraries: ["places"]
-    }),
     
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,

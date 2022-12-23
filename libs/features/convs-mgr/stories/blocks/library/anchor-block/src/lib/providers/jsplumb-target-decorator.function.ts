@@ -9,12 +9,11 @@ import { FlowchartConnector } from "@jsplumb/connector-flowchart";
  * @param jsPlumb - Active jsPlumb instance
  */
 
-export function _JsPlumbComponentDecorator(sourceElement: Element, jsPlumb: BrowserJsPlumbInstance): Element
+export function _JsPlumbTargetComponentDecorator(sourceElement: Element, jsPlumb: BrowserJsPlumbInstance): Element
 {
   jsPlumb.addEndpoint(sourceElement, {
-    source: true,
+    target: true,
     // Type of endpoint to render
-    cssClass:"block_endpoint",
     endpoint: 'Dot',
     // Where to position the anchor
     anchor: "Right",
