@@ -21,7 +21,7 @@ export abstract class OutgoingMessageParser
 
   abstract getImageBlockParserOut    (storyBlock: StoryBlock, phone: string): any
 
-  // abstract getAudioBlockParserOut    (storyBlock: StoryBlock, phone: string): Message
+  abstract getAudioBlockParserOut    (storyBlock: StoryBlock, phone: string): any
 
   // abstract getVideoBlockParserOut    (storyBlock: StoryBlock, phone: string): Message
 
@@ -53,8 +53,8 @@ export abstract class OutgoingMessageParser
       case StoryBlockTypes.PhoneNumber:   parser = this.getTextBlockParserOut;     break;   
       case StoryBlockTypes.QuestionBlock: parser = this.getQuestionBlockParserOut; break;
       case StoryBlockTypes.Image:         parser = this.getImageBlockParserOut;    break;
+      case StoryBlockTypes.Audio:         parser = this.getAudioBlockParserOut;    break;
       // case StoryBlockTypes.Document:      parser = this.getDocumentBlockParserOut; break;
-      // case StoryBlockTypes.Audio:         parser = this.getAudioBlockParserOut;    break;
       // case StoryBlockTypes.Video:         parser = this.getVideoBlockParserOut;    break;
       // case StoryBlockTypes.Sticker:       parser = this.getStickerBlockParserOut;  break;
       default:

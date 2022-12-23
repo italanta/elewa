@@ -10,9 +10,10 @@ import
     WhatsAppInteractiveMessage,
     WhatsAppMessageType,
     WhatsAppTextMessage,
+    WhatsAppAudioMessage,
   } from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
@@ -122,30 +123,31 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  // getAudioBlockParserOut(storyBlock: StoryBlock, phone: string) {
-  //   const audioBlock = storyBlock as AudioMessageBlock
+  getAudioBlockParserOut(storyBlock: StoryBlock, phone: string) {
+    const audioBlock = storyBlock as VoiceMessageBlock
 
-  //   // Create the text payload which will be sent to api
-  //   const mediaMessage = {
-  //     type: WhatsAppMessageType.AUDIO,
-  //     audio: {
-  //       link: audioBlock.src,
-  //     },
-  //   } as WhatsAppAudioMessage;
+    // Create the text payload which will be sent to api
+    const mediaMessage = {
+      type: WhatsAppMessageType.AUDIO,
+      audio: {
+        link: audioBlock.fileSrc,
+      },
+    } as WhatsAppAudioMessage;
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.AUDIO,
-  //     ...mediaMessage,
-  //   };
-  //   return generatedMessage;
-  // }
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppAudioMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.AUDIO,
+      ...mediaMessage,
+    };
+    return generatedMessage;
+  }
 
   // getDocumentBlockParserOut(storyBlock: StoryBlock, phone: string) {
   //   const documentBlock = storyBlock as DocumentMessageBlock
