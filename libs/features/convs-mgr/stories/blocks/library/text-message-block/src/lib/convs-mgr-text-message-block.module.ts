@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -14,7 +13,6 @@ import { MessageBlockComponent } from './components/message-block/message-block.
 
 @NgModule({
   imports: [
-    CommonModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
