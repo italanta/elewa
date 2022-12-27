@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -16,7 +15,6 @@ import { ReplyBlockComponent } from './components/reply-block/reply-block.compon
 
 @NgModule({
   imports: [
-    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

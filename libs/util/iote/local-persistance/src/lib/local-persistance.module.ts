@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
-import { StorageServiceModule } from 'ngx-webstorage-service';
+// import { StorageServiceModule } from 'ngx-webstorage-service';
 
 import { LocalPersistanceService } from './local-persistance.service';
 
@@ -15,7 +14,7 @@ import { LocalPersistanceService } from './local-persistance.service';
  *                           multi: true }], */
 
 @NgModule({
-  imports: [CommonModule, StorageServiceModule],
+  imports: [], //StorageServiceModule],
 
   providers: [LocalPersistanceService],
 })

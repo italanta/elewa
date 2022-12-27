@@ -1,5 +1,4 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { IsLoggedInGuard } from './auth-guards/is-logged-in.guard';
 import { IsAdminGuard } from './auth-guards/is-admin.guard';
@@ -8,7 +7,7 @@ import { IsAdminGuard } from './auth-guards/is-admin.guard';
  * Authorisation module. Contains Auth Guards & Access Control Directives
  */
 @NgModule({
-  imports: [CommonModule],
+  imports: [],
   declarations: [],
   providers: [],
   exports: [],

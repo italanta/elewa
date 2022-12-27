@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
@@ -8,7 +7,6 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-mom
 
 @NgModule({
   imports: [
-    CommonModule,
     MatDatepickerModule
   ],
   exports: [

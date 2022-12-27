@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 
 import {
   FlexLayoutModule,
@@ -18,7 +16,6 @@ import { StickerBlockComponent } from './components/sticker-block/sticker-block.
 
 @NgModule({
   imports: [
-    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

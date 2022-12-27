@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { MaterialDesignModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { UIModalComponent } from './components/modal/modal.component';
@@ -11,7 +10,7 @@ import { PDFModalComponent } from './components/pdf-modal/pdf-modal.component';
  * Library can later be split in more modules as workflows become more specific.
  */
 @NgModule({
-    imports: [CommonModule,
+    imports: [
         MaterialDesignModule, FlexLayoutModule],
     declarations: [UIModalComponent, PDFModalComponent],
     providers: [],
