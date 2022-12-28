@@ -7,5 +7,6 @@
  */
 export interface OutgoingMessagePayload
 {
+  type(type: any): unknown;
 
 }
