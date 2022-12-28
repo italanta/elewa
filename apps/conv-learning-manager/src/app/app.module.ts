@@ -12,7 +12,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MaterialBricksModule } from '@iote/bricks-angular';
+import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
@@ -49,7 +49,7 @@ import { environment } from '../environments/environment';
     AngularFireAnalyticsModule,
     HttpClientModule,
 
-    MaterialBricksModule.forRoot(),
+    MaterialBricksRootModule.forRoot(),
 
     UserStateModule.forRoot(),
     AuthorisationModule.forRoot(environment, environment.production),

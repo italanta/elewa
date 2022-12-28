@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +15,7 @@ import { MultiAutocompleteActionFieldComponent } from './components/multi-autoco
  */
 @NgModule({
   imports: [
-    CommonModule, FlexLayoutModule,
+    FlexLayoutModule,
     MaterialDesignModule,
     FormsModule
   ],

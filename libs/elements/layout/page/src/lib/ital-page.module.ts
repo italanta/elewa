@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import {
@@ -24,7 +23,6 @@ import { SideMenuComponent } from './components/sidemenu/sidemenu.component';
  */
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule,
     MaterialDesignModule,
     MaterialBricksModule,

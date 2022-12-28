@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
@@ -26,7 +25,7 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
  */
 @NgModule({
   imports: [
-    CommonModule, RouterModule,
+    RouterModule,
     MultiLangModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
     UserMenuModule,
