@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -16,7 +15,6 @@ import { ListBlockComponent } from './components/list-block/list-block.component
 
 @NgModule({
   imports: [
-    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

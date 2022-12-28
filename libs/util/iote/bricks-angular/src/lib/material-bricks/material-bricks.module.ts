@@ -1,6 +1,5 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { FlexLayoutModule } from '../flex-layout/flex-layout.module';
@@ -30,7 +29,7 @@ import { DialogService } from "./services/dialog.service";
  * The components and directives in this module are dependent on Angular Material.
  */
 @NgModule({
-  imports: [CommonModule, MaterialDesignModule, FlexLayoutModule, RouterModule],
+  imports: [MaterialDesignModule, FlexLayoutModule, RouterModule],
 
   declarations: [
     NavbarComponent,
@@ -64,9 +63,18 @@ import { DialogService } from "./services/dialog.service";
     CalendarComponent
   ]
 })
-export class MaterialBricksModule {
+export class MaterialBricksModule 
+{ }
 
-  static forRoot(): ModuleWithProviders<MaterialBricksModule>
+/*
+* Base reusable dumb front end components and directives. FOR ROOT
+*
+* The components and directives in this module are dependent on Angular Material.
+*/
+@NgModule()
+export class MaterialBricksRootModule 
+{
+  static forRoot(): ModuleWithProviders<MaterialBricksRootModule>
   {
     return {
       ngModule: MaterialBricksModule,
