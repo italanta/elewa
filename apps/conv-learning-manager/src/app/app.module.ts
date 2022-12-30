@@ -36,8 +36,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
-import { AuthModule } from 'libs/features/app/auth/login/src/lib/auth.module';
-import { AuthPageComponent } from 'libs/features/app/auth/login/src/lib/pages/auth/auth.page.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -72,7 +70,6 @@ import { AuthPageComponent } from 'libs/features/app/auth/login/src/lib/pages/au
     StoriesStateModule.forRoot(),
     StoryBlocksStateModule.forRoot(),
     StoryBlockConnectionsStateModule.forRoot(),
-    AuthModule,
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),
