@@ -1,5 +1,5 @@
-@import '@angular/material/theming';
-@import 'libs/elements/theming/common.theme.scss';
+@use '@angular/material' as mat; 
+@use '/libs/elements/theming/common.theme.scss';
 
 #sidemenu-footer {
   text-align: center;
@@ -21,16 +21,16 @@
     padding: 8px;
     margin: 0 10px;
     color: #eee;
-    background-color: mat-color($primary, 800);
+    background-color: mat.get-color-from-palette($primary, 800);
   }
     .lang:hover {
-      background-color: mat-color($accent, 'A400');
+      background-color: mat.get-color-from-palette($accent, 'A400');
       cursor: pointer;
     }
 
   .lang.active {
-    background-color: mat-color($accent, 'A400');
+    background-color: mat.get-color-from-palette($accent, 'A400');
   }
     .lang.active:hover {
-      background-color: mat-color($accent, 'A400');
+      background-color: mat.get-color-from-palette($accent, 'A400');
     }
