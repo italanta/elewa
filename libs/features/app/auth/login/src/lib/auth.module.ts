@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -23,17 +24,13 @@ import { AuthRouterModule }  from './auth-router.module';
 @NgModule({
   imports: [RouterModule, MultiLangModule,
             MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
-            FormsModule, ReactiveFormsModule,
+            FormsModule, ReactiveFormsModule,CommonModule,
             UserStateModule,
-
             iTalPageModule,
-
             AuthRouterModule],
 
   declarations: [LoginComponent,
-                 RegisterComponent, ForgotPasswordModalComponent,
-
-                  AuthPageComponent],
+                 RegisterComponent, ForgotPasswordModalComponent, AuthPageComponent],
 
   exports: [],
 })
