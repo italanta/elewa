@@ -1,7 +1,8 @@
 // Import your custom theme
-@use '../../../../../../../../elements/theming/common.theme.scss';
+// Todo: Find a better way to import this.
 @use "@angular/material" as mat;
 @use "sass:map";
+@use '../../../../../../../../elements/theming/common.theme.scss';
 @use "sass:meta";
 
 //this dialog specific styles
