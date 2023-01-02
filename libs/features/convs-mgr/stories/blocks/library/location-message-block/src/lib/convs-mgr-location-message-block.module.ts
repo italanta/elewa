@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -18,6 +19,7 @@ import { LocationBlockMapComponent } from './components/location-block-map/locat
 
 @NgModule({
   imports: [
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

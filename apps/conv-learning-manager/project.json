@@ -19,6 +19,8 @@
           "apps/conv-learning-manager/src/manifest.webmanifest"
         ],
         "styles": [
+          "libs/elements/theming/_theme.scss",
+          "libs/elements/theming/_variables.scss",
           "apps/conv-learning-manager/src/styles.scss"
         ],
         "stylePreprocessorOptions": {

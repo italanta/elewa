@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 
@@ -16,6 +17,7 @@ import { VideoBlockComponent } from './components/video-block/video-block.compon
 
 @NgModule({
   imports: [
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
