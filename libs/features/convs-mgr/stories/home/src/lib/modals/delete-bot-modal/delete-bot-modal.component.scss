@@ -1,5 +1,9 @@
 // Import your custom theme
-@import 'common.theme';
+// Todo: Find a better way to import this.
+@use "@angular/material" as mat;
+@use "sass:map";
+@use '../../../../../../../../elements/theming/common.theme.scss';
+@use "sass:meta";
 
 //this dialog specific styles
 ::ng-deep .delete-dialog-container {
@@ -47,7 +51,7 @@
     }
     
     &--delete {
-      background-color: mat-color($warn, A200);
+      // background-color: mat.color($warn, A200);
       color: var(--convs-mgr-color-primary-white);
       width: 8rem;
     }
@@ -59,3 +63,4 @@
     gap: 1rem;
   }
 }
+

@@ -1,8 +1,7 @@
 // Import theming functions
-@import '@angular/material/theming';
-// Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
-@import 'libs/elements/theming/_variables.scss';
+@use '@angular/material' as mat; // Import your custom theme
+@use '/libs/elements/theming/variables';
+@use '/libs/elements/theming/common.theme.scss';
 
 .bot-card {
   max-width: 100%;
@@ -10,9 +9,11 @@
   margin: 13px;
   max-height: 100%;
 }
+
 #images{
 height: 140px;
 }
+
 img {
   border-radius: 15px;
   height: 140px;
@@ -24,8 +25,8 @@ img {
 
 .mat-raised-button {
   width: 100%;
-  color: mat-color($mat-ele, 50);
-  background-color: mat-color($mat-ele, A900);
+  color: mat.get-color-from-palette($mat-ele, 50);
+  background-color: mat.get-color-from-palette($mat-ele, A900);
 
 }
 .bot-card:hover{

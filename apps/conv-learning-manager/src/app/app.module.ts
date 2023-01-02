@@ -24,7 +24,6 @@ import { DateConfigurationModule } from '@app/elements/base/date-time';
 import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 
 
-
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
@@ -48,6 +47,7 @@ import { environment } from '../environments/environment';
     AngularFireAuthModule, AngularFirestoreModule, AngularFireFunctionsModule, NgFireModule,
     AngularFireAnalyticsModule,
     HttpClientModule,
+
 
     MaterialBricksRootModule.forRoot(),
 

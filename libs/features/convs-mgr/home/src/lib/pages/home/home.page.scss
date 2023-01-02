@@ -1,7 +1,7 @@
 // Import theming functions
-@import '@angular/material/theming';
-// Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
+@use '@angular/material' as mat; // Import your custom theme
+@use '/libs/elements/theming/common.theme.scss';
+
 .mat-raised-button{
     margin-top: 30px;
     margin-right: 25px;

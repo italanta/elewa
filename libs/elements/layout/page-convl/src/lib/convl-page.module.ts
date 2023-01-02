@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -29,6 +31,7 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
     MultiLangModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
     UserMenuModule,
+    CommonModule
   ],
 
   declarations: [
