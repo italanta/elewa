@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +11,7 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
  */
 @NgModule({
   imports: [RouterModule,
-            MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
+            MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,CommonModule
             ],
 
   declarations: [UserMenuComponent],
