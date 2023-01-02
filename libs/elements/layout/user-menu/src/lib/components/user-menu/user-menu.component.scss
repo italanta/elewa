@@ -1,4 +1,4 @@
-@use '/libs/elements/theming/common.theme.scss';
+@use '_theme';
 
 .user-photo {
   width: 30px;
@@ -12,5 +12,5 @@
 }
 
 .user-btn .fa-caret-down {
-  color: mat.get-color-from-palette($accent, A200);
+  // color: mat.get-color-from-palette($accent, A200);
 }

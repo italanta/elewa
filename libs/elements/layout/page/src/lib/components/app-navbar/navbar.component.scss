@@ -1,5 +1,5 @@
-@use '/libs/elements/theming/common.theme.scss';
-@use '/libs/elements/theming/variables';
+@use '_theme';
+@use '_variables';
 
 .logo {
   max-height: 48px;
