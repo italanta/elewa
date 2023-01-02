@@ -1,10 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat; 
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
+@import '_theme';
 @import '_variables';
 
 * {
   font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
 }
 
 //Block Connectors

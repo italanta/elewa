@@ -22,10 +22,10 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
 
 @NgModule({
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MaterialDesignModule, FlexLayoutModule,
     ConvlPageModule, MultiLangModule,
-    CommonModule,
     ConvsMgrStoriesRouterModule
   ],
   declarations: [

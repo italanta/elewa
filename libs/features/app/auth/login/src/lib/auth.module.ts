@@ -22,12 +22,14 @@ import { AuthRouterModule }  from './auth-router.module';
  * Auth module. Contains the auth of the app and Base Access Control.
  */
 @NgModule({
-  imports: [RouterModule, MultiLangModule,
-            MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
-            FormsModule, ReactiveFormsModule,CommonModule,
-            UserStateModule,
-            iTalPageModule,
-            AuthRouterModule],
+  imports: [
+    CommonModule,
+    RouterModule, MultiLangModule,
+    MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
+    FormsModule, ReactiveFormsModule,CommonModule,
+    UserStateModule,
+    iTalPageModule,
+    AuthRouterModule],
 
   declarations: [LoginComponent,
                  RegisterComponent, ForgotPasswordModalComponent, AuthPageComponent],

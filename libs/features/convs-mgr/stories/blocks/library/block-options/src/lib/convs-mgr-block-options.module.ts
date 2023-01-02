@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import {
   FlexLayoutModule,
@@ -13,6 +14,7 @@ import { ListOptionComponent } from './components/list-option/list-option.compon
 
 @NgModule({
   imports: [
+    CommonModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
