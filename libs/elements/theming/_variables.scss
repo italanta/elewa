@@ -12,6 +12,7 @@
   --convs-mgr-color-primary-black: #000;
   --convs-mgr-color-primary-pink: #ed576b;
   --convs-mgr-color-primary-dark-blue: #151B4A;
+  --convs-mgr-color-primary-grey: #666;
   --convs-mgr-color-text-black: #263446;
   --convs-mgr-color-text-white: #fff;
   --convs-mgr-color-nav-inactive: #C6CDD8;
@@ -117,4 +118,23 @@
       --convs-mgr-color-base: var(--convs-mgr-color-farm) !important;
     }
   }
+
+  /** Define default theme pallete colors **/
+  --convs-mgr-color-50: #f7fafd; 
+  --convs-mgr-color-100: #c3d8e9; 
+  --convs-mgr-color-200: #a5bdd2; 
+  --convs-mgr-color-300: #85a2bb; 
+  --convs-mgr-color-400: #0071BC; 
+  --convs-mgr-color-500: #000000; 
+  --convs-mgr-color-600: #486b86; 
+  --convs-mgr-color-700: #39576f; 
+  --convs-mgr-color-800: #151B4A; 
+  --convs-mgr-color-900: #672dad; 
+  --convs-mgr-color-A100: #02B3FE; 
+  --convs-mgr-color-A200: var(--convs-mgr-color-secondary-shade); 
+  --convs-mgr-color-A400: var(--convs-mgr-color-primary-pink); 
+  --convs-mgr-color-A700: #000BC4; 
+  --convs-mgr-color-A800: #dbcbf0; 
+  --convs-mgr-color-A900: var( --convs-mgr-color-primary-purple); 
+
 }
