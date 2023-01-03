@@ -1,4 +1,5 @@
 @use '_theme';
+@use '_variables';
 
 .user-photo {
   width: 30px;
@@ -12,5 +13,5 @@
 }
 
 .user-btn .fa-caret-down {
-  // color: mat.get-color-from-palette($accent, A200);
+  color: var(--convs-mgr-color-secondary-shade);
 }

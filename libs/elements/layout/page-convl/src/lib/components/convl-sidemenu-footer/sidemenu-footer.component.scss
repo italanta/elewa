@@ -21,16 +21,16 @@
     padding: 8px;
     margin: 0 10px;
     color: #eee;
-    // background-color: mat.get-color-from-palette($primary, 800);
+    background-color: var(--convs-mgr-color-dark-blue);
   }
     .lang:hover {
-      // background-color: mat.get-color-from-palette($accent, 'A400');
+      background-color: var(--convs-mgr-color-primary-pink);
       cursor: pointer;
     }
 
   .lang.active {
-    // background-color: mat.get-color-from-palette($accent, 'A400');
+    background-color: var(--convs-mgr-color-primary-pink);
   }
     .lang.active:hover {
-      // background-color: mat.get-color-from-palette($accent, 'A400');
+      background-color: var(--convs-mgr-color-primary-pink);
     }
