@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -21,19 +22,17 @@ import { AuthRouterModule }  from './auth-router.module';
  * Auth module. Contains the auth of the app and Base Access Control.
  */
 @NgModule({
-  imports: [RouterModule, MultiLangModule,
-            MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
-            FormsModule, ReactiveFormsModule,
-            UserStateModule,
-
-            iTalPageModule,
-
-            AuthRouterModule],
+  imports: [
+    CommonModule,
+    RouterModule, MultiLangModule,
+    MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, UIWorkflowModule,
+    FormsModule, ReactiveFormsModule,CommonModule,
+    UserStateModule,
+    iTalPageModule,
+    AuthRouterModule],
 
   declarations: [LoginComponent,
-                 RegisterComponent, ForgotPasswordModalComponent,
-
-                  AuthPageComponent],
+                 RegisterComponent, ForgotPasswordModalComponent, AuthPageComponent],
 
   exports: [],
 })

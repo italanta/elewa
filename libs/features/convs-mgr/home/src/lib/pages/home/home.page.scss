@@ -1,11 +1,12 @@
 // Import theming functions
-@import '@angular/material/theming';
-// Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
+@use '@angular/material' as mat; // Import your custom theme
+@use '_theme';
+@use '_variables';
+
 .mat-raised-button{
     margin-top: 30px;
     margin-right: 25px;
-    color: $white-87-opacity;
+    color: var(--convs-mgr-color-text-white);
     background-color: var(--background-checked);
     text-align: center;
     border-radius: 5px;

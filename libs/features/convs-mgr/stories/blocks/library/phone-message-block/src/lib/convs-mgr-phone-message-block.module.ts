@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -9,8 +10,10 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 
 import { PhoneBlockComponent } from './components/phone-block/phone-block.component';
 
+
 @NgModule({
   imports: [
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

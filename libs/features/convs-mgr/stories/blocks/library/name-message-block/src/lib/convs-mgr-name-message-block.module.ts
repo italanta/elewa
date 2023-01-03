@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -11,6 +12,7 @@ import { NameBlockComponent } from './components/name-block/name-block.component
 
 @NgModule({
   imports: [
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

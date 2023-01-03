@@ -1,11 +1,16 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat; 
+@use 'sass:map';
 
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+
+@include mat.core();
+
+$black-87-opacity: rgba(black, 0.87);
+$white-87-opacity: rgba(white, 0.87);
 
 $mat-ele: (
   50: #f7fafd,
@@ -24,7 +29,6 @@ $mat-ele: (
   A700: #000BC4,
   A800: #dbcbf0,
   A900: #672dad,
-
   contrast: (
     50: #666,
     100: #666,
@@ -43,7 +47,8 @@ $mat-ele: (
   )
 );
 
-/*  A100: #b9e4f8,
+
+/* A100: #b9e4f8,
   A200: #8ed2f3,
   A400: #4998d4,
   A700: #4285c0, */
@@ -51,19 +56,47 @@ $mat-ele: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$primary: mat-palette($mat-ele);
-$accent:  mat-palette($mat-ele, A200, A100, A400);
+$primary:  mat.define-palette($mat-ele);
+$accent:   mat.define-palette($mat-ele);
 
 // The warn palette is optional (defaults to red).
-$warn:    mat-palette($mat-red);
+$warn:   mat.define-palette(mat.$red-palette);
+
+// Typography: https://medium.com/razroo/angular-material-typography-a63dbd0c1ed4
+
+$custom-typography:  mat.define-typography-config(
+  $headline-4:  mat.define-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
+  $headline-3:  mat.define-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
+  $headline-2:  mat.define-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
+  $headline-1:  mat.define-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
+
+  $headline-5:       mat.define-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
+  $subtitle-2:   mat.define-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
+  $subtitle-1:   mat.define-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
+
+  $body-2:  mat.define-typography-level(14px, 24px, 500),
+  $body-1:  mat.define-typography-level(14px, 20px, 500),
+  $caption: mat.define-typography-level(12px, 20px, 400),
+  $button:  mat.define-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
+);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$theme: mat-light-theme($primary, $accent, $warn);
+// $theme: mat.define-light-theme($primary, $accent, $warn);
+$theme: mat.define-light-theme(
+  (
+  color: (
+    primary: $primary,
+    accent: $accent, 
+ ),
+ typography: $custom-typography,
+));
+
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($theme);
+@include mat.core-theme($theme);
+@include mat.all-component-themes($theme);
 
 // COMPONENT STYLES
 //
@@ -74,30 +107,10 @@ $theme: mat-light-theme($primary, $accent, $warn);
   font-family: "Varela Round", "Open Sans", "Segoe UI", Tahoma, sans-serif;
 }
 
+
 // GLOBAL STYLES
 //
 
-// Typography: https://medium.com/razroo/angular-material-typography-a63dbd0c1ed4
-$custom-typography: mat-typography-config(
-  $font-family: 'Lato, sans-serif',
-
-  $display-4:  mat-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
-  $display-3:  mat-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
-  $display-2:  mat-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
-  $display-1:  mat-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
-
-  $headline:       mat-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
-  $title:          mat-typography-level(20px, 32px, 500, 'Varela Round, sans-serif'),
-  $subheading-2:   mat-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
-  $subheading-1:   mat-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
-
-  $body-2:  mat-typography-level(14px, 24px, 500),
-  $body-1:  mat-typography-level(14px, 20px, 500),
-  $caption: mat-typography-level(12px, 20px, 400),
-  $button:  mat-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
-  $input:   mat-typography-level(inherit, 1.125, 400)
-);
-@include angular-material-typography($custom-typography);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: "Lato", sans-serif; background-color: #F2F6F9 }

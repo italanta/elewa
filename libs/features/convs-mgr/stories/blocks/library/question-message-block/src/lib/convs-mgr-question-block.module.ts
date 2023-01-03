@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -13,6 +14,7 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
 
 @NgModule({
   imports: [
+    CommonModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,

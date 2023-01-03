@@ -1,8 +1,8 @@
 // Import theming functions
-@import '@angular/material/theming';
+@use '@angular/material' as mat; 
 
 .mat-drawer {
-  // background-color: mat-color($primary, 900);
+  // background-color: mat.get-color-from-palette($primary, 900);
   // color: mat-contrast($primary, 900);
 
   // background-color: #32382D;
