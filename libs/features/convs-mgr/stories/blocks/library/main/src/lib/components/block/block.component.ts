@@ -20,6 +20,7 @@ import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
 import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
+import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 /**
@@ -129,6 +130,11 @@ export class BlockComponent implements OnInit {
   
         case StoryBlockTypes.Reply:
           this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+
+          case StoryBlockTypes.MultipleInputMessage:
+          this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
   
