@@ -1,12 +1,11 @@
 // Import theming functions
 @use '@angular/material' as mat; // Import your custom theme
-@use '_theme';
 @use  '_variables';
 
 #side-menu {
   min-width: 40px;
   max-width: 240px;
-  // font-family: mat-font-family($custom-typography, subheading-2);
+  font-family: var(--convs-mgr-font-poppins-family);
 }
 
 mat-nav-list {
@@ -118,7 +117,7 @@ mat-nav-list {
 
     &__tooltip {
       color: var(--convs-mgr-color-primary-purple);
-      // -webkit-text-stroke: 0.5px mat.get-color-from-palette($primary, 900);
+      -webkit-text-stroke: 0.5px var(--convs-mgr-color-dark);
     }
 
     &__word {
