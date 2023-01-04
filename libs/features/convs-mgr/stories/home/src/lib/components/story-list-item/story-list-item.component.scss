@@ -25,9 +25,8 @@ img {
 
 .mat-raised-button {
   width: 100%;
-  // TODO: Use var(--convs-mgr-color-light)
-  // color: mat.get-color-from-palette($mat-ele, 50);
-  // background-color: mat.get-color-from-palette($mat-ele, A900);
+  color: var(--convs-mgr-color-light);
+  background-color: var(--convs-mgr-color-primary-purple);
 
 }
 .bot-card:hover{
