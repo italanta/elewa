@@ -1,18 +1,23 @@
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import
-  {
-    ActionButtonsInfo,
-    InteractiveButtonMessage,
-    MetaMessagingProducts,
-    RecepientType,
-    WhatsAppImageMessage,
-    WhatsAppInteractiveMessage,
-    WhatsAppMessageType,
-    WhatsAppTextMessage,
-  } from '@app/model/convs-mgr/functions';
+import {
+  ActionButtonsInfo,
+  InteractiveButtonMessage,
+  MetaMessagingProducts,
+  RecepientType,
+  WhatsAppImageMessage,
+  WhatsAppInteractiveMessage,
+  WhatsAppMessageType,
+  WhatsAppTextMessage,
+  WhatsAppLocationMessage,
+} from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import {
+  ImageMessageBlock,
+  QuestionMessageBlock,
+  TextMessageBlock,
+  LocationMessageBlock,
+} from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
@@ -21,16 +26,13 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
  * @see WhatsAppMessageType - for the types of messages received from whatsapp
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples
  */
-export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
-{
+export class WhatsappOutgoingMessageParser extends OutgoingMessageParser {
   /**
    * @Description Used to send message of type text to whatsapp api
    * @param message
    * @returns promise
    */
-  getTextBlockParserOut(textBlock: TextMessageBlock, phone: string): any
-  {
-
+  getTextBlockParserOut(textBlock: TextMessageBlock, phone: string): any {
     // Create the text payload which will be sent to api
     const textPayload = {
       type: WhatsAppMessageType.TEXT,
@@ -38,13 +40,13 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         preview_url: false,
         body: textBlock.message as string,
       },
-    } as WhatsAppTextMessage
+    } as WhatsAppTextMessage;
 
     const generatedMessage: WhatsAppTextMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: phone,
-      ...textPayload
+      ...textPayload,
     };
 
     return generatedMessage;
@@ -54,12 +56,10 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
    * We transform the Question block to a button interactive message for whatsapp api
    * @Description Used to send Question Block to whatsapp api
    */
-  getQuestionBlockParserOut(storyBlock: StoryBlock, phone: string)
-  {
+  getQuestionBlockParserOut(storyBlock: StoryBlock, phone: string) {
     const questionBlock = storyBlock as QuestionMessageBlock;
 
-    const buttons = questionBlock.options.map((option) =>
-    {
+    const buttons = questionBlock.options.map((option) => {
       return {
         type: 'reply',
         reply: {
@@ -96,9 +96,8 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
-  {
-    const imageBlock = storyBlock as ImageMessageBlock
+  getImageBlockParserOut(storyBlock: StoryBlock, phone: string) {
+    const imageBlock = storyBlock as ImageMessageBlock;
 
     // Create the image payload which will be sent to api
     const mediaMessage = {
@@ -198,7 +197,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   // }
 
   // getStickerBlockParserOut(storyBlock: StoryBlock, phone: string) {
-  //   // TODO: 
+  //   // TODO:
   //   let link: string;
 
   //   // Create the text payload which will be sent to api
@@ -223,29 +222,29 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   //   return generatedMessage;
   // }
 
-  // getLocationBlockParserOut(storyBlock: StoryBlock, phone: string): Message {
-  //   const locationBlock = storyBlock as LocationMessageBlock
-  //   // Create the text payload which will be sent to api
-  //   const locationMessage = {
-  //     location: {
-  //       longitude: parseInt(locationBlock.locationInput.longitude),
-  //       latitude: parseInt(locationBlock.locationInput.latitude),
-  //       name: locationBlock.locationInput.name,
-  //       address: locationBlock.locationInput.address
-  //     }
-  //   } as WhatsAppLocationMessage
+  getLocationBlockParserOut(storyBlock: StoryBlock, phone: string): Message {
+    const locationBlock = storyBlock as LocationMessageBlock;
+    // Create the text payload which will be sent to api
+    const locationMessage = {
+      location: {
+        longitude: parseInt(locationBlock.locationInput.longitude),
+        latitude: parseInt(locationBlock.locationInput.latitude),
+        name: locationBlock.locationInput.name,
+        address: locationBlock.locationInput.address,
+      },
+    } as WhatsAppLocationMessage;
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.LOCATION,
-  //     ...locationMessage,
-  //   };
-  //   return generatedMessage;
-  // }
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppLocationMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.LOCATION,
+      ...locationMessage,
+    };
+    return generatedMessage;
+  }
 }
