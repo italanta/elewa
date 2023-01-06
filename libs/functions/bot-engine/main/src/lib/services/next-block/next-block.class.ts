@@ -32,6 +32,7 @@ export abstract class NextBlockService
       blockTitle: '',
       blockIcon: '',
       message: errorMessage,
+      storyDepth: 0
     };
 
     return block;
