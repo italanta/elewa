@@ -53,6 +53,7 @@ export class BotEngineMainService
       blockTitle: '',
       blockIcon: '',
       message: text,
+      storyDepth: 0
     };
 
     await this.reply(textMessageBlock, phoneNumber);
