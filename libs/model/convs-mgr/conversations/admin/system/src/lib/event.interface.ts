@@ -23,7 +23,8 @@ export interface Event
  * 
  * We therefore use @type {Cursor} to save the block sent to the user and mark the current position 
  */
-export interface Cursor extends IObject{
+export interface Cursor extends IObject
+{
   /** The unique id of the cursor, currently we set it to the current unix timestamp
    * 
    * @see https://en.wikipedia.org/wiki/Unix_time
@@ -33,13 +34,15 @@ export interface Cursor extends IObject{
   /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
   currentBlock: StoryBlock;
 
-  /**
-   * Calculating the next block requires us to do some database calls which can take time and delay the response back to the user
-   *    In a story there are blocks with only one default option (this means that regardless of the user input, the next block is the same) 
-   *      e.g. TextMessageBlock, AudioMessageBlock, DocumentMessageBlock
+  // TODO: Create a hashmap containing a stack of cursors
+  //       Each key in the hashmap will represent the depth level of the subroutine
+  // Add more documentation
+  /** A stack that contains cursors */
+  subRoutine?: Cursor[];
+
+  /** Tells us if this cursor has an active subroutine
    * 
-   * With these blocks, we already know the response to send back to the end user, before they respond to the chatbot.
-   *    So we can save these 'already known' blocks here to reduce database calls and increase response time.
+   * If there is no subroutine we typically update the position of the cursor by adding a new document
    */
-  futureBlock?: StoryBlock;
+  activeSubroutine: boolean;
 }
