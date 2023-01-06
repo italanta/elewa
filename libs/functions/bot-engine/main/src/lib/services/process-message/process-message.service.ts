@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
@@ -41,7 +41,21 @@ export class ProcessMessageService
   async resolveNextBlock(msg: Message, latestBlock: StoryBlock, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
     // Return the next block
-    return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
+    let nextBlock = await this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
+
+    // Make sure that the depth of the next block is synchronized by the depth of the story  
+    if(nextBlock.storyDepth < latestBlock.storyDepth)
+    {
+      nextBlock.storyDepth = latestBlock.storyDepth
+    }
+
+    // 'Jump' the story if the next block is a JumpBlock
+    if(nextBlock.type === StoryBlockTypes.JumpBlock) 
+    {
+      nextBlock = await this.__nextBlockService(nextBlock, orgId, currentStory, msg, endUserId);
+    }
+
+    return nextBlock
   }
 
   /**
