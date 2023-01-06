@@ -48,4 +48,7 @@ export interface StoryBlock extends IObject
    * We group related user inputs to form a milestone.
    */
   milestone?: string;
+
+  /** For subroutine */
+  storyDepth: number;
 }
