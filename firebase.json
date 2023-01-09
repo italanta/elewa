@@ -9,6 +9,7 @@
   "hosting": {
     "target": "convl-manager",
     "public": "dist/apps/conv-learning-manager",
+    "predeploy":["nx build conv-learning-manager --skip-nx-cache --prod"],
     "ignore": [
       "firebase.json",
       "**/.*",
