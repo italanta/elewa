@@ -78,7 +78,7 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
     case StoryBlockTypes.Reply:
       return _ReplyBlockDecoratePlumb(block as ReplyMessageBlock, comp, jsPlumb);
       break;
-    case StoryBlockTypes.MultipleInputMessage:
+    case StoryBlockTypes.MultipleInput:
       return _MultipleBlockDecoratePlumb(block, comp, jsPlumb);
       break;
   }
