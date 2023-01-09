@@ -8,25 +8,30 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
-import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
 import { MultipleInputBlockComponent } from './components/multiple-input-block/multiple-input-block.component';
+import { AddMoreBlockComponent } from './components/add-more-block/add-more-block.component';
+
+
 
 @NgModule({
   imports: [
     CommonModule,
+    MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
-
     FormsModule,
     ReactiveFormsModule,
-
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrTextMessageBlockModule,
   ],
 
-  declarations: [MultipleInputBlockComponent],
+  declarations: [MultipleInputBlockComponent, AddMoreBlockComponent],
 
-  exports: [MultipleInputBlockComponent],
+  exports: [MultipleInputBlockComponent, AddMoreBlockComponent],
 })
 export class ConvsMgrMultipleInputMessageBlockModule {}

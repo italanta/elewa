@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-multiple-input-message-block.module';
+export * from './lib/convs-mgr-multiple-input-message-block.module';

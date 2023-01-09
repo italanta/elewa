@@ -28,7 +28,7 @@ import { iconsAndTitles } from '../../model/icons-and-titles';
  */
 @Component({
   selector: 'app-block',
-  templateUrl: './block.component.html',
+  templateUrl: 'block.component.html',
   styleUrls: ['./block.component.scss']
 })
 export class BlockComponent implements OnInit {
@@ -51,6 +51,7 @@ export class BlockComponent implements OnInit {
   listType = StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
+  multipleInputType = StoryBlockTypes.MultipleInput;
 
   blockFormGroup: FormGroup;
 
@@ -133,7 +134,7 @@ export class BlockComponent implements OnInit {
           this.blocksGroup.push(this.blockFormGroup);
           break;
 
-          case StoryBlockTypes.MultipleInputMessage:
+          case StoryBlockTypes.MultipleInput:
           this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;

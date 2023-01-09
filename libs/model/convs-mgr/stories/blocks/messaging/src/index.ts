@@ -10,3 +10,4 @@ export * from './lib/reply-message-block.interface';
 export * from './lib/image-input-block.interface';
 export * from './lib/error-message-block.interface';
 export * from './lib/location-query-block.interface';
+export * from './lib/multiple-input-message-block.interface'

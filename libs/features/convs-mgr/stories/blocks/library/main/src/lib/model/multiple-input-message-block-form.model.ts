@@ -14,8 +14,9 @@ export function _CreateMultipleInputMessageBlockForm(_fb: FormBuilder, blockData
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
+    options: _fb.array([]),
     defaultTarget: [blockData.defaultTarget ?? ''],
-    type: [blockData.type ?? StoryBlockTypes.MultipleInputMessage],
+    type: [blockData.type ?? StoryBlockTypes.MultipleInput],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
 }
