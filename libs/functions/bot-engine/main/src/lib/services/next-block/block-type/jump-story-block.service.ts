@@ -12,11 +12,15 @@ import { EndUserDataService } from "../../data-services/end-user.service";
 import { NextBlockService } from "../next-block.class";
 
 /**
- * When an end user gets to the end of the story we can either end the conversation or switch to the 
- *  next story based on the configuration.
+ * A subroutine is a conversational flow within another story. 
  * 
- * @param nextBlock - The next block in the story to be sent back to the user
- * @param endUser - The information about the end user chatting with the bot
+ * A JumpBlock enables a user to 'jump' to a specific story and block from another ongoing story.
+ * 
+ * Therefore this service updates the story and responds to the end user with the next block in the new story.
+ * 
+ * TODO: 
+ *  - Add function to get the first block in the new story if the block is not provided
+ *  - Add function to jump to the same story, if the story is not provided
  */
 export class JumpStoryBlockService extends NextBlockService
 {
@@ -30,19 +34,21 @@ export class JumpStoryBlockService extends NextBlockService
   }
 
   /**
-   * We get the next block in the storyline by using the values saved in the @type {JumpBlock}
+   * We get the next block in the storyline by using the targetStoryId and targetBlockId saved in the @type {JumpBlock}
    * 
    * @returns {StoryBlock}
+   * 
+   * TODO: 
+   *  - Add function to get the first block in the new story if the block is not provided
+   *  - Add function to jump to the same story, if the story is not provided
    */
   async getNextBlock(msg: Message, lastBlock: JumpBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
   {
-    // Get the next block using the id. Connection.targetId == id of the next block
+    // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
     const nextBlock = await this._blockDataService.getBlockById(lastBlock.targetBlockId, orgId, lastBlock.targetStoryId);
 
-    await this._updateStory(lastBlock.targetStoryId, orgId, endUserId);
-
-    // Increment the depth by 1 to indicate that we are a level deeper into the story
-    nextBlock.storyDepth++;
+    // Update the story if we have jumped to another one
+    if (currentStory !== lastBlock.targetBlockId) await this._updateStory(lastBlock.targetStoryId, orgId, endUserId);
 
     return nextBlock;
   }
