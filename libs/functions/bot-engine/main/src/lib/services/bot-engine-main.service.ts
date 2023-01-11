@@ -52,8 +52,7 @@ export class BotEngineMainService
       deleted: false,
       blockTitle: '',
       blockIcon: '',
-      message: text,
-      storyDepth: 0
+      message: text
     };
 
     await this.reply(textMessageBlock, phoneNumber);
@@ -119,10 +118,10 @@ export class BotEngineMainService
     await this._msgService$.saveMessage(message, this._activeChannel.channel.orgId, endUserId)
   }
 
-  async updateCursor(endUserId: string, nextBlock: StoryBlock, futureBlock?: StoryBlock)
+  async updateCursor(endUserId: string, nextBlock: StoryBlock)
   {
     // Update the cursor
-    return this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, nextBlock, futureBlock);
+    return this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, nextBlock);
   }
 
   private _getProcessMessageService()
