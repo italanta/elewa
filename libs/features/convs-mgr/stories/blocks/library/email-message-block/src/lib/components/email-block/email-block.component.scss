@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+	min-width:fit-content;
 	padding: 10px;
 }
 
@@ -7,6 +7,10 @@ input {
 	max-width: 100%;
 	margin: 5px 0;
 	border: 1px solid var(--convs-mgr-color-primary-purple);
+	&::placeholder{
+        color: var(--convs-mgr-color-primary-black);
+        margin-left: 2px;
+    }
 	border-radius: 5px;
 	resize: none;
 	padding: 10px;
