@@ -25,12 +25,13 @@ $secondary-elements-color: white;
 }
 
 .elewa-info {
-    // text-align: center;
-    color: $primary-icon-color;
-    padding: 20px;
+    min-height: 100vh;
+    text-align: center;
+    color: $secondary-elements-color;
+    padding: 50px;
     font-weight: 400;
-    background: $primary-color;
-    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, rgb(190,125,177) 100%);
+    background: var(--convs-mgr-color-primary-yellow);
+    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9F74D5 100%);
     @media screen and (max-width: 768px) {
         display: none;
     }
@@ -38,7 +39,6 @@ $secondary-elements-color: white;
 
 .logoImg {
     width: 200px;
-    padding: 20px;
 }
 
 .maison {
@@ -52,7 +52,7 @@ $secondary-elements-color: white;
     background-color: $secondary-elements-color;
     text-align: center;
     align-self: center;
-    width: 40%;
+    width: 95%;
     cursor: pointer;
     @media screen and (max-width: 768px) {
         border-bottom-right-radius: 8px;
@@ -78,6 +78,8 @@ $secondary-elements-color: white;
 
 .tiny-logo {
     margin-bottom: 30px;
+    margin-left: -30%;
+
     @media screen and (max-width: 768px) {
         display: flex !important;
         margin-bottom: 30px;
@@ -94,21 +96,39 @@ button {
     font-size: 20px;
     font-weight: 5;
 }
-
+.login{
+    color: #7c7e7e ;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.login-button1 {
+    border-bottom: 3px solid #7c7e7e  ;
+    border-width: 50%;
+    width: 27%;
+    padding: 1%;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: var(--kujali-segoe-ui-bold);
+    color: #7c7e7e ;
+}
 .login-button {
     border-bottom: 3px solid $primary-color;
     border-width: 50%;
-}
-.register-button {
+    width: 27%;
+    padding: 1%;
     border-bottom: 3px solid $primary-color;
-    border-width: 50%;
+    border-width: 20%;
     font-weight: bold;
+    font-size: 2rem;
+    font-family: var(--kujali-segoe-ui-bold);
+    color: var(--convs-mgr-color-primary-black);
 }
 
+
 .title {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: bold;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     
 
 }
@@ -117,12 +137,22 @@ button {
     font-size: 20px;
     font-weight: 600;
     line-height: 2;
+    margin-right: auto;
+    text-align: justify;
 }
 p.hyperlink{
     color: white;
     font-weight: bold !important;
     font-size: 20px !important;
+    margin-right: auto;
 }
 a{
     color: #8b27b8;
+}
+.image {
+    width: 180px;
+    height: 97px;
+    object-fit: contain;
+    padding-bottom: 2em;
+    text-align: left;
 }
