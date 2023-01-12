@@ -7,11 +7,14 @@ $secondary-elements-color: white;
 
 #googleBtn {
     width: 400px;
-    padding: 8px;
-    font-size: 18px;
+    
+    font-size: 22px;
     font-weight: bold;
     background-color: #f0443d ;
     color: $secondary-elements-color;
+    height: 75px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 #msBtn {
@@ -53,7 +56,7 @@ $secondary-elements-color: white;
 }
 
 .icon-box {
-    padding: 15px;
+    padding: 20px;
     // border: 1px solid #FDFDFD;  
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -68,6 +71,8 @@ $secondary-elements-color: white;
     &.google-icon {
         color: $secondary-elements-color;
         background-color: #f0443d ;
+        font-size: 2rem;
+        border-top-left-radius: 15px;
     }
     &.fb-icon {
         color: $secondary-elements-color;
@@ -79,28 +84,37 @@ $secondary-elements-color: white;
     min-height: 40px;
 }
 
-input {
-    background-color: $secondary-elements-color;
-    border: none;
-    width: 100%!important;
+
+input::placeholder {
+    color: $primary-icon-color;
+    font-size: small;
 }
 
 #register-button {
     // Create accountidth: 100%;
     background-color: $primary-color;
-    font-size: 18px;
+    font-size: 22px;
     color: #fff;
     font-weight: bold;
-    width: 400px;
-    padding: 6px;
+    width: 100%;
+    height: 65px; 
     border-radius: 15px;
+    font-family: var(--kujali-segoe-ui-bold);
 }
+
 
 .form-body {
     align-self: center;
-    width: 80%;
+    width: 100%;
+    padding-top: 25px;
 }
-label{
-    font-weight: 600;
-    font-size: 18px;
+
+.form-label{
+    color: #000000;
+    font-weight: bold;
+    font-size: 22px;
+    font-family: var(--kujali-segoe-ui-bold);
+}
+input{
+    margin-top: 8%;
 }
