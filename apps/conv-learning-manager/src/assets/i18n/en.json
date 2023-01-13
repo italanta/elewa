@@ -104,6 +104,10 @@
       "ANALYTICS": "Analytics",
       "LOG-OUT": "Logout"
     },
+    "TOP-BAR": {
+      "SAVE-STORY": "Save",
+      "PUBLISH-STORY": "Publish Story"
+    },
     "CHANNEL": {
       "ADD-CHANNEL": {
         "CHANNEL-TYPE" : "Choose platform",
