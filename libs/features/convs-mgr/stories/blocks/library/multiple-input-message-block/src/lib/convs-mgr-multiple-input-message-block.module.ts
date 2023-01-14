@@ -11,27 +11,32 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
 import { MultipleInputBlockComponent } from './components/multiple-input-block/multiple-input-block.component';
 import { AddMoreBlockComponent } from './components/add-more-block/add-more-block.component';
-
-
+import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
+import { GenericButtonComponent } from './components/generic-button/generic-button.component';
+import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/list-message-block'
 
 @NgModule({
   imports: [
     CommonModule,
     MultiLangModule,
+    ConvsMgrTextMessageBlockModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
     FormsModule,
     ReactiveFormsModule,
     ConvsMgrBlockOptionsModule,
-    ConvsMgrTextMessageBlockModule,
+    ConvsMgrListMessageBlockModule
   ],
 
-  declarations: [MultipleInputBlockComponent, AddMoreBlockComponent],
+  declarations: [
+    MultipleInputBlockComponent,
+    AddMoreBlockComponent,
+    GenericButtonComponent,
+  ],
 
-  exports: [MultipleInputBlockComponent, AddMoreBlockComponent],
+  exports: [MultipleInputBlockComponent, AddMoreBlockComponent, GenericButtonComponent, ConvsMgrListMessageBlockModule],
 })
 export class ConvsMgrMultipleInputMessageBlockModule {}
