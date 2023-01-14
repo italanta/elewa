@@ -1,6 +1,7 @@
 mat-card {
-	min-width: 200px;
+	min-width: 300px;
 	padding: 10px;
+  min-height: 400px;
 }
 
 textarea {
@@ -20,4 +21,14 @@ textarea:focus-visible {
 	width: 100%;
 	background-color: var(--convs-mgr-color-primary-purple);
 	color: white;
+}
+hr { 
+  display: block;
+  border: 1px inset;
+  overflow: hidden;
+}
+.new-list {
+  width: 85%;
+  background-color: var(--convs-mgr-color-primary-yellow);
+  color: white;
 }

@@ -7,6 +7,7 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { ButtonAction } from '../../button-action.model';
 
 @Component({
   selector: 'app-multiple-input-block',
@@ -14,14 +15,16 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
   styleUrls: ['./multiple-input-block.component.scss'],
 })
 export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
- 
   @Input() id: string;
   @Input() block: MultipleInputMessageBlock;
   @Input() multipleInputMessageBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   type: StoryBlockTypes;
   inputType= StoryBlockTypes.MultipleInput;
-  foods = ['Pizza'];
+  collapsed:boolean;
+  optionCount = [1];
+  addNewOptionAction= ButtonAction.addOption;
+  index:number[]
 
   constructor (private _fb: FormBuilder){}
 
@@ -46,16 +49,23 @@ export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   addNewOption() {
+    if(ButtonAction.addOption==='ADD_OPTION'){
+      
     if (this.listItems.length<9){
       this.listItems.push(this.addListOptions());
     }
+    }
+
   }
 
-  addfood(newfood: string) {
-    if (newfood) {
-      this.foods.push(newfood);
+
+   addList(){
+    if(ButtonAction.newList==='NEW_LIST'){
+      this.optionCount.push(1);
     }
-  }
+    
+   }   
+
   }
 
 
