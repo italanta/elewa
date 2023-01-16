@@ -63,4 +63,9 @@ export const iconsAndTitles: any = {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.REPLY',
 		icon: 'fas fa-reply'
 	},
+	20: {
+		title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
+		icon: 'fas fa-database'
+		
+	},
 }

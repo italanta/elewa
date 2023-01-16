@@ -49,6 +49,7 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video', blockIcon: this.getBlockIcon(StoryBlockTypes.Video) } as VideoMessageBlock,
     { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker) } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
+    { id: 'io-webhook-block', type: StoryBlockTypes.Webhook, message: 'Webhook', blockIcon: this.getBlockIcon(StoryBlockTypes.Webhook) } as ListMessageBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -109,6 +110,9 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Reply:
         this.frame.newBlock(StoryBlockTypes.Reply);
+        break;
+        case StoryBlockTypes.Webhook:
+          this.frame.newBlock(StoryBlockTypes.Webhook);
 
     }
   }
