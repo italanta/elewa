@@ -22,7 +22,8 @@ export function _EmailBlockDecoratePlumb(block: EmailMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left"
+    anchor: "Left",
+    maxConnections: 5
   });
 
   return comp;
