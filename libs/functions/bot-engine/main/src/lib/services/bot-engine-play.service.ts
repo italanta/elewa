@@ -126,7 +126,7 @@ export class BotEnginePlay implements IBotEnginePlay
 
     // Find and replace any variables included in the block message
     newStoryBlock.message = mailMergeVariables.merge(newStoryBlock.message, endUser);
-    const saveMessage = this.__save(message, endUser.id)
+    const saveMessage = this.__save(message, endUser.id);
 
     // Save the message
     sideOperations.push(saveMessage);
@@ -136,7 +136,7 @@ export class BotEnginePlay implements IBotEnginePlay
 
     // Update the End User Position
     const newPosition: EndUserPosition = { currentBlock: newStoryBlock };
-    const moveToNext  = this.__move(newPosition, endUser.id);
+    const moveToNext = this.__move(newPosition, endUser.id);
 
     sideOperations.push(moveToNext);
 
@@ -152,7 +152,7 @@ export class BotEnginePlay implements IBotEnginePlay
       // Get the next block in the story
       currentBlock = await this.__getNextBlock(endUser, { currentBlock });
 
-      const saveBlockAsMessage = this._saveBlockAsMessage(currentBlock, endUser.id)
+      const saveBlockAsMessage = this._saveBlockAsMessage(currentBlock, endUser.id);
 
       // Save the message
       sideOperations.push(saveBlockAsMessage);
@@ -167,7 +167,7 @@ export class BotEnginePlay implements IBotEnginePlay
 
       // Update the End User Position
       const moveToNext = this.__move({ currentBlock: currentBlock }, endUser.id);
-      
+
       sideOperations.push(moveToNext);
 
       count++;
@@ -207,7 +207,7 @@ export class BotEnginePlay implements IBotEnginePlay
   private async __save(message: Message, endUserId: string) 
   {
     const processMediaService = new BotMediaProcessService(this._tools);
-    
+
     if (message.type == MessageTypes.AUDIO || message.type == MessageTypes.VIDEO || message.type == MessageTypes.IMAGE) {
       const fileMessage = message as FileMessage;
 
