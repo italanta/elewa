@@ -21,7 +21,8 @@ export function _ImageBlockDecoratePlumb(block: ImageMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Rectangle",
-    anchor: "Left"
+    anchor: "Left",
+    maxConnections: 5
   });
 
   return comp;
