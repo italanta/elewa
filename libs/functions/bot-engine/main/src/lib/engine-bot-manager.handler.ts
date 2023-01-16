@@ -64,7 +64,7 @@ export class EngineBotManager
 
     try {
       // Set the Organisation Id
-      this.orgId = this._activeChannel.channel.orgId
+      this.orgId = this._activeChannel.channel.orgId;
 
       // STEP 1: Initialize the services which are necessary for execution of the bot engine
       // TODO: use a DI container to manage instances and dynamically inject appropriate dependencies
@@ -73,14 +73,14 @@ export class EngineBotManager
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
-      const processMessageService =  new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools)
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools);
 
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
 
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
-      const bot = new BotEnginePlay(processMessageService, cursorDataService, _msgDataService$, this._endUserService$, this._activeChannel, this._tools)
+      const bot = new BotEnginePlay(processMessageService, cursorDataService, _msgDataService$, this._endUserService$, this._activeChannel, this._tools);
       // STEP 2: Get the current end user information
       // This information contains the phone number and the chat status of the ongoing communication.
       //    The chat status enables us to manage the conversation of the end user and the chatbot.
@@ -92,7 +92,7 @@ export class EngineBotManager
       const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber);
 
       // Get the last saved end user position in the story
-      const endUserPosition = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId)
+      const endUserPosition = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId);
 
       this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
@@ -103,7 +103,7 @@ export class EngineBotManager
         case ChatStatus.Running:
           message.direction = MessageDirection.TO_CHATBOT;
 
-          await bot.play(message, endUser, endUserPosition as EndUserPosition)
+          await bot.play(message, endUser, endUserPosition as EndUserPosition);
 
           break;
         case ChatStatus.Paused:
