@@ -57,7 +57,7 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     const message = new WhatsappIncomingMessageParser().parse(sanitizedResponse.type, sanitizedResponse.message);
 
     // Don't process the message if we cannot parse it
-    if (!message) return {status: 500, message: `Failed to parse incoming message: ${sanitizedResponse.message}`} as RestResult
+    if (!message) return { status: 500, message: `Failed to parse incoming message: ${sanitizedResponse.message}` } as RestResult;
 
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
@@ -67,7 +67,15 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     // So we get registered channel information by passing the business phone number id Channel Data Service
     const _channelService$ = new ChannelDataService(tools, sanitizedResponse);
 
-    const communicationChannel = await _channelService$.getChannelInfo(sanitizedResponse.platformId) as WhatsAppCommunicationChannel
+    const communicationChannel = await _channelService$.getChannelInfo(sanitizedResponse.platformId) as WhatsAppCommunicationChannel;
+
+    if(!communicationChannel) {
+      tools.Logger.error(() => `[ChannelInfo].getChannelInfo - This phone number has not been registered to a channel: ID: ${sanitizedResponse.platformId}`);
+
+      return {status: 500} as RestResult
+    }
+
+    tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${JSON.stringify(communicationChannel)}`);
 
     // STEP 4: Create Active Channel
     //         We need to create the active channel so that the engine can use it to process and send the message
