@@ -12,7 +12,7 @@ import { HandlerTools } from "@iote/cqrs";
  * 
  * TODO: Implement a way to fetch data from different data sources
  */
-export class VariableInjectorService 
+export class MailMergeVariables
 {
   constructor(private _tools: HandlerTools) { }
   /**
@@ -26,7 +26,7 @@ export class VariableInjectorService
    *          we add the text to the block as 'Hello {{name}}'
    * 
    */
-  injectVariableToText(outgoingText: string, dataSource: any): string
+  merge(outgoingText: string, dataSource: any): string
   {
     const variable = this.__getVariableFromText(outgoingText);
 
