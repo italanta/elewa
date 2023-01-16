@@ -10,7 +10,7 @@ import { CursorDataService } from "./data-services/cursor.service";
 import { EndUserDataService } from "./data-services/end-user.service";
 import { MessagesDataService } from "./data-services/messages.service";
 
-import { VariableInjectorService } from "./variable-injection/variable-injector.service";
+import { MailMergeVariables } from "./variable-injection/mail-merge-variables.service";
 import { ProcessMessageService } from "./process-message/process-message.service";
 import { BlockToStandardMessage } from "../io/block-to-message-parser.class";
 
@@ -122,10 +122,10 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
     let sideOperations: Promise<any>[] = [];
 
     // Initialize the variable injector service
-    const variableInjectorService = new VariableInjectorService(this._tools);
+    const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    newStoryBlock.message = variableInjectorService.injectVariableToText(newStoryBlock.message, endUser);
+    newStoryBlock.message = mailMergeVariables.merge(newStoryBlock.message, endUser);
 
     // Save the message
     sideOperations.push(this.save(message, endUser.id));
@@ -159,7 +159,7 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
       this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(currentBlock)}`);
 
       // Inject variable to message
-      currentBlock.message = variableInjectorService.injectVariableToText(currentBlock.message, endUser);
+      currentBlock.message = mailMergeVariables.merge(currentBlock.message, endUser);
 
       // Send the message back to the end user
       await this._sendBlockMessage(currentBlock, endUser.phoneNumber);
