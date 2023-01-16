@@ -1,6 +1,6 @@
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
-import { Stack } from "../../utils/stack.util";
+import { Stack } from '@app/model/convs-mgr/functions';
 
 /**
  * @see Cursor.subRoutines - A subroutine is a conversational flow within another story. 
