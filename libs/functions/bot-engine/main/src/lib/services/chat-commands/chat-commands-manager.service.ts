@@ -14,14 +14,14 @@ export class ChatCommandsManager
   defaultStory: string;
 
   constructor(
-    private _endUserDataService$: EndUserDataService, 
-    private _activeChannel: ActiveChannel, 
+    private _endUserDataService$: EndUserDataService,
+    private _activeChannel: ActiveChannel,
     private _processMessageService$: ProcessMessageService,
     private _tools: HandlerTools) 
   {
-    this.orgId =  _activeChannel.channel.orgId
+    this.orgId = _activeChannel.channel.orgId;
 
-    this.defaultStory = _activeChannel.channel.defaultStory
+    this.defaultStory = _activeChannel.channel.defaultStory;
   }
 
   parseCommand(msg: TextMessage, endUser: EndUser)
@@ -40,6 +40,6 @@ export class ChatCommandsManager
 
     await this._endUserDataService$.updateEndUser(firstUserStory);
 
-    return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory)
+    return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
   }
 }
