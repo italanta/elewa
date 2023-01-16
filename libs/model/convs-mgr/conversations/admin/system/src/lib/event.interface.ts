@@ -1,7 +1,7 @@
 import { IObject } from '@iote/bricks';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { Stack } from '@app/functions/bot-engine';
+import { Stack } from '@app/model/convs-mgr/functions';
 
 import { EventCategoryTypes } from './event-category-types.enum';
 
