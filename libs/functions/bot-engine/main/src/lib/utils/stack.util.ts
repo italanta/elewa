@@ -2,17 +2,17 @@
  * A stack is an elementary data structure, that is often described as LIFO (last in first out). 
  *  An item that was added the last is the first to be retrieved.
  */
-export class Stack
+export class Stack<T>
 {
-  items: any[];
+  items: T[];
 
-  constructor(...params: any[])
+  constructor(...params: T[])
   {
     this.items = [...params];
   }
 
   /** Appends new items onto the top of our stack */
-  push(item: any) {
+  push(item: T) {
     this.items.unshift(item);
   }
 

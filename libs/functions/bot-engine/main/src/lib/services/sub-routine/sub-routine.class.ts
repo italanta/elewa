@@ -16,9 +16,9 @@ import { Stack } from "../../utils/stack.util";
  */
 export class SubRoutineManager 
 {
-  private subRoutineArray: Stack[];
+  private subRoutineArray: Stack<Cursor>[];
 
-  constructor(subRoutineArray: Stack[])
+  constructor(subRoutineArray: Stack<Cursor>[])
   {
     if(!subRoutineArray) {
       this.subRoutineArray = [];
@@ -76,10 +76,10 @@ export class SubRoutineManager
   private newSubRoutineArray(cursor: Cursor)
   {
     // Create a stack with the new cursor
-    const newSubRoutine = new Stack(cursor);
+    const newSubRoutine = new Stack<Cursor>(cursor);
 
     // Add the new subroutine to the start of the subroutine array
-    this.subRoutineArray.unshift(new Stack(newSubRoutine));
+    this.subRoutineArray.unshift(newSubRoutine);
 
     return this.subRoutineArray;
   }
