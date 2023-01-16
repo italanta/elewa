@@ -1,7 +1,7 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
-import { Message, MessageDirection, TextMessage } from "@app/model/convs-mgr/conversations/messages";
+import { FileMessage, Message, MessageDirection, TextMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
@@ -13,14 +13,13 @@ import { MessagesDataService } from "./data-services/messages.service";
 import { MailMergeVariables } from "./variable-injection/mail-merge-variables.service";
 import { ProcessMessageService } from "./process-message/process-message.service";
 import { BlockToStandardMessage } from "../io/block-to-message-parser.class";
+import { ChatCommandsManager } from "./chat-commands/chat-commands-manager.service";
+import { BotMediaProcessService } from "./media/process-media-service";
 
 import { IBotEnginePlay } from "./bot-engine.interface";
 import { ActiveChannel } from "../model/active-channel.service";
 
 import { __isCommand } from "../utils/isCommand";
-
-import { ChatCommandsManager } from "./chat-commands/chat-commands-manager.service";
-import { BotEngineMain } from "./bot-engine.main";
 
 /**
  * When out chatbot receives a message from the end user, we need to figure out how to
@@ -29,8 +28,9 @@ import { BotEngineMain } from "./bot-engine.main";
  * This model is resposible for 'playing' the end user through the stories. @see {Story}.
  *  It receives the message and responds with the next block in the story.
  */
-export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
+export class BotEnginePlay implements IBotEnginePlay
 {
+  private orgId: string;
 
   private defaultStory: string;
 
@@ -44,9 +44,9 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
     protected _activeChannel: ActiveChannel,
     protected _tools: HandlerTools) 
   {
-    super(_msgService$, _activeChannel, _tools);
-
     this.defaultStory = _activeChannel.channel.defaultStory;
+
+    this.orgId = _activeChannel.channel.orgId;
 
     this.chatCommandsManager = new ChatCommandsManager(_endUserDataService$, _activeChannel, _processMessageService$, _tools);
 
@@ -126,9 +126,10 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
 
     // Find and replace any variables included in the block message
     newStoryBlock.message = mailMergeVariables.merge(newStoryBlock.message, endUser);
+    const saveMessage = this.__save(message, endUser.id)
 
     // Save the message
-    sideOperations.push(this.save(message, endUser.id));
+    sideOperations.push(saveMessage);
 
     // Reply To the end user
     await this._sendBlockMessage(newStoryBlock, endUser.phoneNumber);
@@ -200,8 +201,22 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
   {
     const botMessage = this.__convertBlockToStandardMessage(storyBlock);
 
-    return this.save(botMessage, endUserId);
+    return this.__save(botMessage, endUserId);
   }
+
+  private async __save(message: Message, endUserId: string) 
+  {
+    const processMediaService = new BotMediaProcessService(this._tools);
+    
+    if (message.type == MessageTypes.AUDIO || message.type == MessageTypes.VIDEO || message.type == MessageTypes.IMAGE) {
+      const fileMessage = message as FileMessage;
+
+      fileMessage.url = await processMediaService.processMediaFile(message, endUserId, this._activeChannel) || null;
+
+      message = fileMessage;
+    }
+    return this._msgService$.saveMessage(message, this.orgId, endUserId);
+  };
 
   /**
    * Converts the block to our standardized message @see {Message} so that we can have a common message
