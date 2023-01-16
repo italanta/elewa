@@ -135,7 +135,9 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
 
     // Update the End User Position
     const newPosition: EndUserPosition = { currentBlock: newStoryBlock };
-    sideOperations.push(this.__move(newPosition, endUser.id));
+    const moveToNext  = this.__move(newPosition, endUser.id);
+
+    sideOperations.push(moveToNext);
 
     let count = 1;
 
@@ -149,8 +151,10 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
       // Get the next block in the story
       currentBlock = await this.__getNextBlock(endUser, { currentBlock });
 
+      const saveBlockAsMessage = this._saveBlockAsMessage(currentBlock, endUser.id)
+
       // Save the message
-      sideOperations.push(this._saveBlockAsMessage(currentBlock, endUser.id));
+      sideOperations.push(saveBlockAsMessage);
 
       this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(currentBlock)}`);
 
@@ -161,7 +165,9 @@ export class BotEnginePlay extends BotEngineMain implements IBotEnginePlay
       await this._sendBlockMessage(currentBlock, endUser.phoneNumber);
 
       // Update the End User Position
-      sideOperations.push(this.__move({ currentBlock: currentBlock }, endUser.id));
+      const moveToNext = this.__move({ currentBlock: currentBlock }, endUser.id);
+      
+      sideOperations.push(moveToNext);
 
       count++;
     }
