@@ -14,7 +14,6 @@ import { BlockDataService } from './services/data-services/blocks.service';
 import { BotEnginePlay } from './services/bot-engine-play.service';
 import { MessagesDataService } from './services/data-services/messages.service';
 import { EndUserDataService } from './services/data-services/end-user.service';
-import { VariableInjectorService } from './services/variable-injection/variable-injector.service';
 
 import { ActiveChannel } from './model/active-channel.service';
 
@@ -34,8 +33,6 @@ export class EngineBotManager
   orgId: string;
 
   _endUserService$: EndUserDataService;
-
-  _variableInjectorService: VariableInjectorService;
 
   constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) { }
 
