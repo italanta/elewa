@@ -52,7 +52,7 @@ export class ProcessMessageService
 
     }
 
-    return nextBlock
+    return nextBlock;
   }
 
   /**
