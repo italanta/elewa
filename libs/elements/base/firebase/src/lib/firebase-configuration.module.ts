@@ -1,12 +1,11 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { REGION } from '@angular/fire/compat/functions';
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import { UserTrackingService, ScreenTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [],
   exports: []
 })
 export class FirebaseConfigurationModule

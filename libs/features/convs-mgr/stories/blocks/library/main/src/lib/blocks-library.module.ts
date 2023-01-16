@@ -33,7 +33,7 @@ import { BlockComponent } from './components/block/block.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+    CommonModule, 
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,

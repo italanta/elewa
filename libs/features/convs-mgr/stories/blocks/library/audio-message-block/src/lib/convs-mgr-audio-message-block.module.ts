@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -9,7 +10,6 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { AudioBlockComponent } from './components/audio-block/audio-block.component';
-
 
 @NgModule({
   imports: [

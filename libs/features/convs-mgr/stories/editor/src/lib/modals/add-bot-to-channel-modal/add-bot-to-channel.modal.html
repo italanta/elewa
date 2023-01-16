@@ -5,8 +5,8 @@
     </span>
         <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
 
-            <mat-form-field appearance="standard">
-                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL' | transloco }}</mat-label>
+            <mat-form-field>
+                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-TYPE' | transloco }}</mat-label>
                 <mat-select formControlName="channel" required>
                     <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
                         {{singleChannel.type}}
@@ -14,29 +14,29 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="standard">
-                <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.B-ID'| transloco }}</mat-label>
-                <input formControlName="businessPhoneNumberId" matInput placeholder="Enter bot phone number">
+            <mat-form-field>
+                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-NAME' | transloco }}</mat-label>
+                <input formControlName="channelName" matInput placeholder="Enter name of channel">
             </mat-form-field>
 
-            <mat-form-field appearance="standard">
-                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.B-NAME' | transloco }}</mat-label>
-                <input formControlName="businessName" matInput placeholder="Enter bot phone number">
+            <mat-form-field>
+                <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.PHONENUMBER-ID'| transloco }}</mat-label>
+                <input formControlName="businessPhoneNumberId" matInput placeholder="Enter bot phone number Id">
             </mat-form-field>
 
 
-            <mat-form-field appearance="standard">
+            <mat-form-field>
                 <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.AUTH-KEY' | transloco }}</mat-label>
                 <input formControlName="authenticationKey" type="string" matInput placeholder="Enter your Meta Authentication Key">
             </mat-form-field>
 
             <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
         <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
-          Save
+            {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ACTION-BUTTONS.SAVE' | transloco }}
         </button>
 
         <button mat-raised-button class="cancel-btn" (click)="closeDialog()" [disabled]="isSaving">
-          {{ 'BOT.ADD-BOT-FORM-ACTION.CANCEL' | transloco }}
+            {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ACTION-BUTTONS.CANCEL' | transloco }}
         </button>
       </span>
         </form>

@@ -15,7 +15,6 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
 @NgModule({
   imports: [
     CommonModule,
-
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,

@@ -1,12 +1,11 @@
 // Import theming functions
-@import '@angular/material/theming';
-// Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
+@use '@angular/material' as mat; // Import your custom theme
+@use '_variables';
 
 #side-menu {
   min-width: 40px;
   max-width: 240px;
-  font-family: mat-font-family($custom-typography, subheading-2);
+  font-family: var(--convs-mgr-font-poppins-family);
 }
 
 mat-nav-list {
@@ -21,13 +20,13 @@ mat-nav-list {
 
 .list-icon {
   margin-right: 10px;
-  -webkit-text-stroke: 0.5px mat-color($primary, 900);
+  -webkit-text-stroke: var(--convs-mgr-color-dark);
 }
 
 .icon-top {
   font-size: 1.5em;
   margin-right: 15px;
-  color: mat-color($accent, A200);
+  color: var(--convs-mgr-color-secondary-shade);
   max-width: 25px;
   border-radius: 5px;
 }
@@ -53,7 +52,7 @@ mat-nav-list {
 
 .header-main-item:before {
   content: "";
-  border-left: 3px solid mat-color($accent, A200);;
+  border-left: 3px solid  var(--convs-mgr-color-secondary-shade);
   padding: 10px 5px;
 }
 
@@ -99,17 +98,17 @@ mat-nav-list {
 }
 
 .highlight-active {
-  background-color: mat-color($accent, A200);;
+  background-color:  var(--convs-mgr-color-secondary-shade);
   outline: none;
 }
 
 .highlight-active:before {
   content: "";
-  // border-left: 3px solid mat-color($accent, A200);;
-  // padding: 10px 5px;
+  border-left: 3px solid  var(--convs-mgr-color-secondary-shade);
+  padding: 10px 5px;
 }
 
 .hov:hover, .child-header:hover {
   cursor: pointer;
-  background-color: mat-color($accent, A200);
+  background-color:  var(--convs-mgr-color-secondary-shade);
 }

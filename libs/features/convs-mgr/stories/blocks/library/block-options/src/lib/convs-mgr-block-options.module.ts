@@ -15,7 +15,6 @@ import { ListOptionComponent } from './components/list-option/list-option.compon
 @NgModule({
   imports: [
     CommonModule,
-
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,

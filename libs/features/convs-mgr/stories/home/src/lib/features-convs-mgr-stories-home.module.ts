@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -21,10 +22,10 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule,
+    CommonModule,
+    ReactiveFormsModule,
     MaterialDesignModule, FlexLayoutModule,
     ConvlPageModule, MultiLangModule,
-
     ConvsMgrStoriesRouterModule
   ],
   declarations: [

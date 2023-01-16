@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialBricksModule } from '@iote/bricks-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -15,7 +14,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-modal/con
  * Library can later be split in more modules as workflows become more specific.
  */
 @NgModule({
-    imports: [CommonModule, MaterialDesignModule, MultiLangModule, MaterialBricksModule, FlexLayoutModule],
+    imports: [MaterialDesignModule, MultiLangModule, MaterialBricksModule, FlexLayoutModule],
     // Belongs more in a Layout Module, but temp stored here.
     declarations: [DeleteConfirmationDialogComponent, InfoPanelComponent, ConfirmationDialogComponent],
     providers: [],
