@@ -1,6 +1,8 @@
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { IObject } from '@iote/bricks';
-import { Stack } from 'libs/functions/bot-engine/main/src/lib/utils/stack.util';
+
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { Stack } from '@app/functions/bot-engine';
+
 import { EventCategoryTypes } from './event-category-types.enum';
 
 export interface Event
@@ -55,7 +57,7 @@ export interface Cursor extends IObject
    *  [Subroutine4, Subroutine3, Subroutine2, Subroutine1]
    *   
    */
-  subRoutines?: Stack[];
+  subRoutines?: Stack<Cursor>[];
 
   /**
    * Story depth depicts how many levels deep we are in the subroutines. E.g. With the root story, the storyDepth is 0.
