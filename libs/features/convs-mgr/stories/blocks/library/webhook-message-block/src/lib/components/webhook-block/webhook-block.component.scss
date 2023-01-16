@@ -1,0 +1,88 @@
+mat-card {
+	min-width: 200px;
+	padding: 10px;
+}
+.section1{
+margin-bottom: 50px;
+font-weight: 500;
+}
+input {
+	border: 1px solid var(--convs-mgr-color-primary-purple);
+	outline-color: var(--convs-mgr-color-primary-purple);
+}
+.heading{
+	width: fit-content;
+  margin-right: 10px;
+}
+.pinkButton{
+	// background-color: palevioletred;
+  background-color: mediumvioletred;
+	border-color: transparent;
+	height: fit-content;
+  color: white;
+}
+.dropdown {
+  display: block;
+}
+
+select {
+  position: inherit;
+  background-color: transparent;
+  // width: auto;
+  float: left;
+  width: fit-content;
+  border: transparent;
+  select {
+    font-family: "helvetica neue", helvetica;
+    font-size: 1rem;
+    font-weight: 200;
+    // width: fit-content;
+    // border: transparent;
+    background-color: transparent;
+
+    &:active,
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+  &:after {
+    content: " ";
+    position: absolute;
+
+  }
+}
+.variables{
+  display: flex;
+  margin-left: 1px;
+  margin-top: 10px;
+  justify-content: flex-end;
+  
+  
+}
+.variables > button{
+  padding: 1px;
+  font-weight: 400;
+  margin: 1px;
+  
+}
+.mat-form-field{
+  padding: 1px;
+  font-weight: 400;
+  margin: 1px;
+  max-width: 30px !important;
+}
+.mat-mdc-select-arrow svg {
+  fill: var(--convs-mgr-color-primary-purple) !important;
+}
+p{
+  font-size: small;
+  font-weight: 600;
+}
+.button-select{
+  position:relative;
+  float: left;
+  background-color: var(--convs-mgr-color-primary-purple);
+  border: none;
+  color:white;
+}

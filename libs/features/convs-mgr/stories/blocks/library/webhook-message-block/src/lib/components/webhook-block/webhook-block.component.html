@@ -1,0 +1,57 @@
+<mat-card [id]="id" *ngIf=" webhookMessageForm">
+	<mat-card-content>
+		<form [formGroup]="webhookMessageForm" fxLayout="column" fxLayoutALign="start center">
+
+			<div [id]="webhookInputId">
+
+				<div class="section1" fxLayout="row" fxLayoutALign="start end">
+					<div class="heading">
+						URL & Method
+					</div>
+					<button class="pinkButton">Set Domain Variables</button>
+				</div>
+
+				<p>Select the method and type the url <i class="blueButton" class="fas fa-info-circle"></i></p>
+
+				<div fxLayout="row" fxLayoutALign="end start">
+					<div class="dropdown">
+						<input formControlName="method" type="text"
+							[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
+							<button class="button-select">
+								<select [formControl]="httpDropdown">
+									<option [value]="httpMethod.name" *ngFor="let  httpMethod of httpMethods">{{httpMethod.name}}</option>
+								</select>
+							</button>
+					</div>
+				</div>
+
+				<div class="variables" fxLayout="row" fxLayoutALign="end">
+					<button>DOMAIN VARIABLES</button>
+
+
+					<!-- variables checkbox -->
+					
+					<mat-form-field>
+						<mat-select placeholder="Variables" [formControl]="variables" [(value)]="selectedVariables" multiple>
+							<input (input)="filterVariables($event)" placeholder="Search"> 
+							<mat-option>None</mat-option>
+							<mat-option *ngFor="let variable of inputVariables" [value]="variable.message">{{variable.message}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<!-- <p>
+						{{selectedVariables | json}}
+					</p> -->
+
+					<!-- variables checkbox end				 -->
+					<div>
+						<i class="blueButton" class="fas fa-info-circle"></i>
+					</div>
+				</div>
+
+			</div>
+
+			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookMessageForm"></app-default-option-field>
+		</form>
+	</mat-card-content>
+</mat-card>
