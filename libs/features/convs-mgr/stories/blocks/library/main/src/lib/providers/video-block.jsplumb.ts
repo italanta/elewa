@@ -22,7 +22,8 @@ export function _VideoBlockDecoratePlumb(block: VideoMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Rectangle",
-    anchor: "Left"
+    anchor: "Left",
+    maxConnections: 5
   });
 
   return comp;
