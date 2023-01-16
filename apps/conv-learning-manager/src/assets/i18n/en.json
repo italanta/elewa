@@ -104,6 +104,22 @@
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
       "LOG-OUT": "Logout"
+    },
+    "TOP-BAR": {
+      "SAVE-STORY": "Save",
+      "PUBLISH-STORY": "Publish Story"
+    },
+    "CHANNEL": {
+      "ADD-CHANNEL": {
+        "CHANNEL-TYPE" : "Choose platform",
+        "CHANNEL-NAME": "Enter the name of your bot",
+        "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",
+        "AUTH-KEY":"Enter the authentication key",
+        "ACTION-BUTTONS": {
+          "SAVE": "Save",
+          "CANCEL": "Cancel"
+        }
+      }
     }
   },
   "BOTS": {
