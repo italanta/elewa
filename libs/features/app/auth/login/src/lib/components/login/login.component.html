@@ -2,7 +2,7 @@
     <div fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none">
 
         <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="email-input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+            <mat-form-field id="email-input" class="special-input"  fxFlex floatLabel="always">
             <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
             <input matInput name="email" [disabled]="isLoading" type="email" [(ngModel)]="email" required ngvemail placeholder="name@example.com">
             <mat-error>{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
@@ -10,7 +10,7 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center">                 
-            <mat-form-field id="password-input" class="special-input" appearance="legacy" fxFlex floatLabel="always">
+            <mat-form-field id="password-input" class="special-input"  fxFlex floatLabel="always">
             <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
             <input matInput placeholder="************" name="password" [disabled]="isLoading" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
             </mat-form-field>

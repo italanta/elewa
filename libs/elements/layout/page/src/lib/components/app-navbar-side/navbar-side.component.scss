@@ -1,5 +1,5 @@
 // Import your custom theme
-@import 'libs/elements/theming/common.theme.scss';
+@use  '_theme';
 
 mat-toolbar {
   height: 54px;

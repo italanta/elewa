@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule, MaterialFormBricksModule } from '@iote/bricks-angular';
@@ -23,6 +22,7 @@ import { ManageChannelStoryLinkService } from './providers/manage-channel-story-
 import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [

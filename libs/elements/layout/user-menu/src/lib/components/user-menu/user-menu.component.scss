@@ -1,4 +1,4 @@
-@import 'libs/elements/theming/common.theme.scss';
+@use '_variables';
 
 .user-photo {
   width: 30px;
@@ -12,5 +12,5 @@
 }
 
 .user-btn .fa-caret-down {
-  color: mat-color($accent, A200);
+  color: var(--convs-mgr-color-secondary-shade);
 }

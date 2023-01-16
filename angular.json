@@ -3,37 +3,6 @@
   "version": 2,
   "projects": {
     "admin-config-environment-config": "libs/admin/config/environment-config",
-    "app": {
-      "projectType": "library",
-      "root": "app",
-      "sourceRoot": "app/src",
-      "prefix": "lib",
-      "targets": {
-        "build": {
-          "executor": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "app/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "app/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "app/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "executor": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "app/src/test.ts",
-            "tsConfig": "app/tsconfig.spec.json",
-            "karmaConfig": "app/karma.conf.js"
-          }
-        }
-      }
-    },
     "conv-learning-manager": "apps/conv-learning-manager",
     "conv-lm-backend": "apps/conv-lm-backend",
     "elements-base-authorisation": "libs/elements/base/authorisation",

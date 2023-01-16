@@ -19,12 +19,13 @@
           "apps/conv-learning-manager/src/manifest.webmanifest"
         ],
         "styles": [
-          "apps/conv-learning-manager/src/styles.scss",
-          "libs/elements/theming/common.theme.scss"
+          "libs/elements/theming/_theme.scss",
+          "libs/elements/theming/_variables.scss",
+          "apps/conv-learning-manager/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
           "includePaths": [
-            "libs/elements/theming"
+            "./libs/elements/theming"
           ]
         },
         "scripts": [],
