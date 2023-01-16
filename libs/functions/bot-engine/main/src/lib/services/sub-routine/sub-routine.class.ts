@@ -20,6 +20,9 @@ export class SubRoutineManager
 
   constructor(subRoutineArray: Stack[])
   {
+    if(!subRoutineArray) {
+      this.subRoutineArray = [];
+    }
     this.subRoutineArray = subRoutineArray;
   }
 
@@ -72,9 +75,6 @@ export class SubRoutineManager
    */
   private newSubRoutineArray(cursor: Cursor)
   {
-    // Set an empty array if since are no current subRoutines
-    this.subRoutineArray = [];
-
     // Create a stack with the new cursor
     const newSubRoutine = new Stack(cursor);
 
