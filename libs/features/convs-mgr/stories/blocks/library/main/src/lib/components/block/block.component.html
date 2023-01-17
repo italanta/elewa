@@ -65,5 +65,10 @@
         <div *ngSwitchCase="replyType">
             <app-reply-block [id]="id" [block]="block" [replyMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-reply-block>
         </div>
+        <div *ngSwitchCase="multipleInputType">
+            <app-multiple-input-block [id]="id" [block]="block" [multipleInputMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-multiple-input-block>
+        </div>
+        
     </div>
 </mat-card>
