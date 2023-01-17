@@ -7,6 +7,9 @@ input {
 	max-width: 100%;
 	margin: 5px 0;
 	border: 1px solid var(--convs-mgr-color-primary-purple);
+	&::placeholder{
+		color: var(--convs-mgr-color-primary-black);
+	}
 	border-radius: 5px;
 	resize: none;
 	padding: 10px;
