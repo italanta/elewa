@@ -1,13 +1,9 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 
-
-import { MultipleInputMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ButtonAction } from '../../button-action.model';
+import { MultipleInputMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-multiple-input-block',
@@ -15,58 +11,65 @@ import { ButtonAction } from '../../button-action.model';
   styleUrls: ['./multiple-input-block.component.scss'],
 })
 export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
+
   @Input() id: string;
   @Input() block: MultipleInputMessageBlock;
   @Input() multipleInputMessageBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-  type: StoryBlockTypes;
-  inputType= StoryBlockTypes.MultipleInput;
-  collapsed:boolean;
-  optionCount = [1];
-  addNewOptionAction= ButtonAction.addOption;
-  index:number[]
 
-  constructor (private _fb: FormBuilder){}
+  constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.block.options?.forEach((listItem) => {
-      this.listItems.push(this.addListOptions(listItem));
+    if (this.block.options) {
+      this.autoFillOptionsData();
+    }
+  }
+
+  autoFillOptionsData() {
+    this.block.options?.forEach((options, index: number) => {
+      this.options.push(this._fb.group({ values: this._fb.array([]) }));
+      let arrGrp = this.options.at(index) as FormGroup;
+      let grpArray = arrGrp.get('values') as FormArray;
+
+      options.values.forEach((value: string) => {
+        grpArray.push(new FormControl(value))
+      })
     })
   }
 
-  get listItems () : FormArray {
+  get options(): FormArray {
     return this.multipleInputMessageBlock.controls['options'] as FormArray;
   }
 
-  addListOptions (listItem? : ButtonsBlockButton<T>) {
+  getGroupControls(index: number) {
+    let grp = this.options.at(index) as FormGroup;
+    let grpArray = grp.get('values') as FormArray;
+
+    return grpArray;
+  }
+
+  addQuestionOptions() {
+    return new FormControl();
+  }
+
+  addNewOption(index: number) {
+    let grp = this.options.at(index) as FormGroup;
+    let grpArray = grp.get('values') as FormArray;
+    grpArray.push(this.addQuestionOptions())
+  }
+
+  addNewOptionGroup() {
+    this.options.push(this.addNewOptionFormGroup());
+  }
+
+  addNewOptionFormGroup(): FormGroup {
     return this._fb.group({
-      id: [listItem?.id ?? `${this.id}-${this.listItems.length + 1}`],
-      message: [listItem?.message ?? ''],
-      value: [listItem?.value ?? '']
+      values: this._fb.array([new FormControl('')])
     })
   }
-
-  addNewOption() {
-    if(ButtonAction.addOption==='ADD_OPTION'){
-      
-    if (this.listItems.length<9){
-      this.listItems.push(this.addListOptions());
-    }
-    }
-
-  }
-
-
-   addList(){
-    if(ButtonAction.newList==='NEW_LIST'){
-      this.optionCount.push(1);
-    }
-    
-   }   
-
-  }
+}
 
 
 

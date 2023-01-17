@@ -8,7 +8,7 @@ export interface MultipleInputMessageBlock extends StoryBlock
   defaultTarget?: string;
   
   /** Response options */
-  options?: ButtonsBlockButton<Button>[];
+  options?: MultipleOptions[];
 
   // Implement generic tags
   tag?: string;
@@ -17,10 +17,6 @@ export interface MultipleInputMessageBlock extends StoryBlock
 
 }
 
-interface Button {
-  id: string;
-  /** Message to display as answer */
-  message: string;
-  /** Value the answer holds. */
-  value?: string;
+interface MultipleOptions {
+  values: string[]
 }

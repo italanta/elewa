@@ -1,45 +1,32 @@
 <mat-card [id]="id" *ngIf="multipleInputMessageBlock">
   <mat-card-content>
-    <div>
-      <form [formGroup]="multipleInputMessageBlock" fxLayout="column" fxLayoutALign="start center">
-        <textarea id="message" name="message" formControlName="message" type="text" rows="3"
-          placeholder="What is your favourite food?"></textarea>
-        <div>
-            <textarea id="message" name="message" formControlName="message" type="text" rows="2"
-              placeholder="Would  you like to add more?"></textarea>
-        </div>
-        <div *ngFor="let t of optionCount">
-          <app-default-option-field [jsPlumb]="jsPlumb"
-          [blockFormGroup]="multipleInputMessageBlock"></app-default-option-field>
-        <div formArrayName="options" fxFlexFill>
-          <div *ngFor="let listItem of listItems.controls; let i = index" class="full-width" fxFlexFill>
-            <span [formGroupName]="i" fxFlex>
-              <app-option-input-field *ngIf="!collapsed" [jsPlumb]="jsPlumb"
-                [blockFormGroup]="multipleInputMessageBlock" [formGroupNameInput]="i"></app-option-input-field>
+    <form [formGroup]="multipleInputMessageBlock" fxLayout="column" fxLayoutALign="start center">
+
+      <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+      
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="multipleInputMessageBlock"></app-default-option-field>
+
+      <div formArrayName="options" fxFlexFill>
+        <div *ngFor="let option of options.controls; let groupIndex = index" class="full-width" fxFlexFill>
+          <div fxLayout="column" fxLayoutALign="start">
+            <span [formGroupName]="groupIndex" fxFlex>
+              <div formArrayName="values" >
+                <div *ngFor="let grpControls of getGroupControls(groupIndex).controls; let fIndex = index">
+                  <input [formControlName]="fIndex">
+                </div>
+              </div>
             </span>
+  
+            <button (click)="addNewOption(groupIndex)" mat-flat-button class="add-button">
+              Add Option
+            </button>
           </div>
         </div>
-     <div>
-      <button  (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
-      fxLayoutGap="10px">Add Option</button> 
-    </div>
-      <hr>
-        </div>
-      </form>
-       
-    </div>
+      </div>
+    </form>
 
-
-    <!-- <ng-container *ngFor="let t of optionCount"></ng-container> -->
-
-      <button class="new-list" (click)="addList()">New List</button>
-    
-
-
-    <mat-card-actions class="collapse">
-      <button mat-raised-button (click)="collapsed=true">Collapse</button>
-      <button mat-raised-button (click)="collapsed=false">Uncollapse</button>
-    </mat-card-actions>
-
+    <button (click)="addNewOptionGroup()" mat-flat-button class="add-button">
+      New List
+    </button>
   </mat-card-content>
 </mat-card>

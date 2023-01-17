@@ -11,11 +11,10 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { MultipleInputBlockComponent } from './components/multiple-input-block/multiple-input-block.component';
-import { AddMoreBlockComponent } from './components/add-more-block/add-more-block.component';
 import { ConvsMgrTextMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/text-message-block';
-import { GenericButtonComponent } from './components/generic-button/generic-button.component';
 import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/list-message-block'
+
+import { MultipleInputBlockComponent } from './components/multiple-input-block/multiple-input-block.component';
 
 @NgModule({
   imports: [
@@ -32,11 +31,12 @@ import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/
   ],
 
   declarations: [
-    MultipleInputBlockComponent,
-    AddMoreBlockComponent,
-    GenericButtonComponent,
+    MultipleInputBlockComponent
   ],
 
-  exports: [MultipleInputBlockComponent, AddMoreBlockComponent, GenericButtonComponent, ConvsMgrListMessageBlockModule],
+  exports: [
+    MultipleInputBlockComponent, 
+    ConvsMgrListMessageBlockModule
+  ],
 })
 export class ConvsMgrMultipleInputMessageBlockModule {}
