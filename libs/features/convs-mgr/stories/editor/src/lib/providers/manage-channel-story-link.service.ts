@@ -52,7 +52,7 @@ export class ManageChannelStoryLinkService
    * We save 'n' per organization. So we use a separate collection to save and increment the value of 'n'.
    * 
    * To avoid race conditions, we use firebase transactions to read the current value, increment it and 
-   *  update the document.
+   *  update the document. In the case of a concurrent edit, Cloud Firestore runs the entire transaction again
    * 
    * The final value is returned and is set to the CommunicationChannel object before writing to firebase in
    *  addStoryToChannel();
