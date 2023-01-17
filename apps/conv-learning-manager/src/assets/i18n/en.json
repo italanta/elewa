@@ -77,7 +77,8 @@
         "VIDEO": "Video",
         "STICKER": "Sticker",
         "LIST": "List",
-        "DOCUMENT": "Document"
+        "DOCUMENT": "Document",
+        "MULTIPLEINPUT":"Multiple-Input"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",

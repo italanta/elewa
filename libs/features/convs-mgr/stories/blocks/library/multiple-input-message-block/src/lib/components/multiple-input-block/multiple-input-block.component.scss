@@ -1,0 +1,34 @@
+mat-card {
+	min-width: 300px;
+	padding: 10px;
+  min-height: 400px;
+}
+
+textarea {
+  margin: 5px 0;
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+}
+
+textarea:focus-visible {
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  outline-color: var(--convs-mgr-color-primary-purple);
+}
+
+.add-button {
+	width: 100%;
+	background-color: var(--convs-mgr-color-primary-purple);
+	color: white;
+}
+hr { 
+  display: block;
+  border: 1px inset;
+  overflow: hidden;
+}
+.new-list {
+  width: 85%;
+  background-color: var(--convs-mgr-color-primary-yellow);
+  color: white;
+}
