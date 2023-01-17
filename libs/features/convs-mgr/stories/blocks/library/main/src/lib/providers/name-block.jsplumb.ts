@@ -22,7 +22,8 @@ export function _NameBlockDecoratePlumb(block: NameMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left"
+    anchor: "Left",
+    maxConnections: 5
   });
 
   return comp;
