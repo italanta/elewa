@@ -12,7 +12,10 @@
             <span [formGroupName]="groupIndex" fxFlex>
               <div formArrayName="values" >
                 <div *ngFor="let grpControls of getGroupControls(groupIndex).controls; let fIndex = index">
-                  <input [formControlName]="fIndex">
+                  <div class="inputlist">
+                    <input [formControlName]="fIndex">
+                    <button  (click)="removeList(fIndex, groupIndex)" class="listgone"><i class="far fa-trash-alt"></i></button>
+                  </div>
                 </div>
               </div>
             </span>

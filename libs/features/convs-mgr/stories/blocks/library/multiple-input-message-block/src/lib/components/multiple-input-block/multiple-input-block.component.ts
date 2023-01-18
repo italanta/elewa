@@ -10,7 +10,7 @@ import { MultipleInputMessageBlock } from '@app/model/convs-mgr/stories/blocks/m
   templateUrl: './multiple-input-block.component.html',
   styleUrls: ['./multiple-input-block.component.scss'],
 })
-export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
+export class MultipleInputBlockComponent implements OnInit, AfterViewInit {
 
   @Input() id: string;
   @Input() block: MultipleInputMessageBlock;
@@ -30,8 +30,8 @@ export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
   autoFillOptionsData() {
     this.block.options?.forEach((options, index: number) => {
       this.options.push(this._fb.group({ values: this._fb.array([]) }));
-      let arrGrp = this.options.at(index) as FormGroup;
-      let grpArray = arrGrp.get('values') as FormArray;
+      const arrGrp = this.options.at(index) as FormGroup;
+      const grpArray = arrGrp.get('values') as FormArray;
 
       options.values.forEach((value: string) => {
         grpArray.push(new FormControl(value))
@@ -44,8 +44,8 @@ export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   getGroupControls(index: number) {
-    let grp = this.options.at(index) as FormGroup;
-    let grpArray = grp.get('values') as FormArray;
+    const grp = this.options.at(index) as FormGroup;
+    const grpArray = grp.get('values') as FormArray;
 
     return grpArray;
   }
@@ -55,10 +55,10 @@ export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   addNewOption(index: number) {
-    let grp = this.options.at(index) as FormGroup;
-    let grpArray = grp.get('values') as FormArray;
+    const grp = this.options.at(index) as FormGroup;
+    const grpArray = grp.get('values') as FormArray;
     grpArray.push(this.addQuestionOptions())
-  }
+}
 
   addNewOptionGroup() {
     this.options.push(this.addNewOptionFormGroup());
@@ -68,6 +68,11 @@ export class MultipleInputBlockComponent<T> implements OnInit, AfterViewInit {
     return this._fb.group({
       values: this._fb.array([new FormControl('')])
     })
+  }
+  removeList(index: number, groupIndex : number) {
+    const grp = this.options.at(groupIndex);
+    const grpArray = grp.get('values') as FormArray;
+      grpArray.removeAt(index)
   }
 }
 
