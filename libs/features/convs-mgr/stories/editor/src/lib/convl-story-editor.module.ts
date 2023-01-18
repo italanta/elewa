@@ -23,13 +23,14 @@ import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { CommonModule } from '@angular/common';
+import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
 
 @NgModule({
   imports: [
     CommonModule, MultiLangModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
-    ConvlPageModule, ConvsMgrAnchorBlockModule,
+    ConvlPageModule, ConvsMgrAnchorBlockModule, VariablesConfigStateModule,
     BlocksLibraryModule, StoryEditorStateModule,
 
     ConvlStoryEditorRouterModule

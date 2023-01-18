@@ -30,7 +30,7 @@ export class VariablesConfigStore extends DataStore<VariablesConfig>
       .pipe(
         tap((story: Story) => this._activeRepo = _repoFac.getRepo<VariablesConfig>(`orgs/${story.orgId}/stories/${story.id}/config`)),
         switchMap((story: Story) =>
-          story ? this._activeRepo.getDocuments() : of([] as any[])),
+          story ? this._activeRepo.getDocumentById('variables') : of([] as any[])),
           throttleTime(400, undefined, { leading: true, trailing: true }));
 
 

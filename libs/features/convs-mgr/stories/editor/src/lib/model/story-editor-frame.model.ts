@@ -4,7 +4,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes, VariablesConfig, HttpMethodTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
@@ -29,8 +29,10 @@ export class StoryEditorFrame {
   private _story: Story;
   private _blocks: StoryBlock[] = [];
   private _connections: StoryBlockConnection[];
+  private _variables: VariablesConfig[]
 
   blocksArray: FormArray;
+  variablesArray: FormArray;
 
   constructor(private _fb: FormBuilder,
               private _jsPlumb: BrowserJsPlumbInstance,
@@ -52,8 +54,10 @@ export class StoryEditorFrame {
     this._story = state.story;
     this._blocks = state.blocks;
     this._connections = state.connections;
+    // this._variables = state.variables;
 
     this.blocksArray = this._fb.array([]);
+    this.variablesArray = this._fb.array([]);
 
     // Clear any previously drawn items.
     this._viewport.clear();
@@ -88,6 +92,9 @@ export class StoryEditorFrame {
    */
   get updatedBlocks(): FormArray {
     return this.blocksArray;
+  }
+  get updatedVariables(): FormArray {
+    return this.variablesArray;
   }
 
   get getJsPlumbConnections() {
@@ -201,6 +208,8 @@ export class StoryEditorFrame {
         break
       case StoryBlockTypes.Reply:
         break
+      case StoryBlockTypes.Webhook:
+        break
       default:
         break
     }
@@ -218,6 +227,7 @@ export class StoryEditorFrame {
     this._blocks.push(block);
     return this._injectBlockToFrame(block);
   }
+  
 
   /** 
    * Private method which draws the block on the frame.
