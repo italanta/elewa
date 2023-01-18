@@ -1,5 +1,4 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { ButtonsBlockButton } from "../../../scenario/src";
 
 export interface MultipleInputMessageBlock extends StoryBlock
 {
