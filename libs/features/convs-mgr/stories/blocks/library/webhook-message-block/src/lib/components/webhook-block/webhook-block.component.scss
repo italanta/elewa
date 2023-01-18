@@ -2,56 +2,84 @@ mat-card {
 	min-width: 200px;
 	padding: 10px;
 }
+
+
 .section1{
 margin-bottom: 50px;
 font-weight: 500;
 }
+
+
 input {
 	border: 1px solid var(--convs-mgr-color-primary-purple);
 	outline-color: var(--convs-mgr-color-primary-purple);
+  padding: 3px;
 }
+
+
 .heading{
 	width: fit-content;
   margin-right: 10px;
 }
+
+
 .pinkButton{
-	// background-color: palevioletred;
   background-color: mediumvioletred;
 	border-color: transparent;
 	height: fit-content;
   color: white;
 }
+
+
 .dropdown {
   display: block;
+  border: none;
 }
+
+
+.button-select{
+  position:relative;
+  float: left;
+  background-color: var(--convs-mgr-color-primary-purple);
+  border: none;
+  color:white !important;
+  width: fit-content;
+  overflow: none;
+  padding-top: 1px;
+  margin: 0%;
+}
+
 
 select {
-  position: inherit;
   background-color: transparent;
-  // width: auto;
+  font-family: "helvetica neue", helvetica;
   float: left;
-  width: fit-content;
-  border: transparent;
-  select {
-    font-family: "helvetica neue", helvetica;
-    font-size: 1rem;
-    font-weight: 200;
-    // width: fit-content;
-    // border: transparent;
-    background-color: transparent;
-
-    &:active,
-    &:focus {
-      outline: none;
-      border: none;
-    }
-  }
-  &:after {
-    content: " ";
-    position: absolute;
-
-  }
+  width: 100%;
+  border: none;
+  color: white;
+  margin: 0%;
+  border-color: transparent;
+  padding: 4.3px;
 }
+
+
+select:focus{
+  outline:none;
+}
+
+
+.multiSelect{
+  padding: 1px !important;
+  font-weight: 400;
+  margin: 1px;
+}
+
+
+option{
+  color: black;
+}
+
+
 .variables{
   display: flex;
   margin-left: 1px;
@@ -60,29 +88,17 @@ select {
   
   
 }
-.variables > button{
-  padding: 1px;
-  font-weight: 400;
-  margin: 1px;
+
+
+:host .mat-form-field{
+  font-size: 10px;
   
 }
-.mat-form-field{
-  padding: 1px;
-  font-weight: 400;
-  margin: 1px;
-  max-width: 30px !important;
+
+:host ::ng-deep .mat-form-field-infix {
+  padding-top: 1px !important;
+  }
+:host .mat-form-field-no-padding .mat-form-field-wrapper {
+  margin-bottom: -1.25em;
 }
-.mat-mdc-select-arrow svg {
-  fill: var(--convs-mgr-color-primary-purple) !important;
-}
-p{
-  font-size: small;
-  font-weight: 600;
-}
-.button-select{
-  position:relative;
-  float: left;
-  background-color: var(--convs-mgr-color-primary-purple);
-  border: none;
-  color:white;
-}
+

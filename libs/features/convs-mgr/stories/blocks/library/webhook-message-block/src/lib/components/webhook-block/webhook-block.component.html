@@ -15,35 +15,28 @@
 
 				<div fxLayout="row" fxLayoutALign="end start">
 					<div class="dropdown">
-						<input formControlName="method" type="text"
-							[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
-							<button class="button-select">
-								<select [formControl]="httpDropdown">
-									<option [value]="httpMethod.name" *ngFor="let  httpMethod of httpMethods">{{httpMethod.name}}</option>
-								</select>
-							</button>
+						<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
+						<button class="button-select" >
+							<select [formControl]="httpDropdown">
+								<option [value]="httpMethod.name" *ngFor="let  httpMethod of httpMethods">{{httpMethod.name}}</option>
+							</select>
+						</button>
 					</div>
 				</div>
 
 				<div class="variables" fxLayout="row" fxLayoutALign="end">
-					<button>DOMAIN VARIABLES</button>
-
-
-					<!-- variables checkbox -->
+					<div>
+						<button>DOMAIN VARIABLES</button>
+					</div>
 					
-					<mat-form-field>
-						<mat-select placeholder="Variables" [formControl]="variables" [(value)]="selectedVariables" multiple>
-							<input (input)="filterVariables($event)" placeholder="Search"> 
-							<mat-option>None</mat-option>
-							<mat-option *ngFor="let variable of inputVariables" [value]="variable.message">{{variable.message}}
-							</mat-option>
-						</mat-select>
-					</mat-form-field>
-					<!-- <p>
-						{{selectedVariables | json}}
-					</p> -->
-
-					<!-- variables checkbox end				 -->
+					<div>
+						<mat-form-field *ngIf="variables$ | async as variables" class="multiSelect" appearance="outline">
+							<mat-select placeholder="Variables" multiple>
+								<mat-option *ngFor="let variable of getVariables(variables)" [value]="variable">{{variable}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
 					<div>
 						<i class="blueButton" class="fas fa-info-circle"></i>
 					</div>
