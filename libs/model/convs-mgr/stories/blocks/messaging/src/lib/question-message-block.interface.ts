@@ -17,7 +17,7 @@ export interface QuestionMessageBlock extends StoryBlock{
   options?: ButtonsBlockButton<Button>[];
 }
 
-interface Button {
+export interface Button {
   id: string;
   /** Message to display as answer */
   message: string;
