@@ -43,7 +43,6 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   private _orgId: string;
 
   addToChannelForm: FormGroup;
-  technicalRef: number = 1;
 
   channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel];
 
@@ -73,7 +72,6 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
           this._activeStoryId = activeStory.id as string;
           this._orgId = activeOrg.id as string;
         });
-
   }
 
   onSubmit() {
@@ -82,9 +80,6 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
     const phoneNumberId = this.addToChannelForm.get('businessPhoneNumberId')?.value;
     var authKey = this.addToChannelForm.get('authenticationKey')?.value;
     const businessName = this.addToChannelForm.get('channelName')?.value;
-    this.technicalRef += 1;
-
-
 
     authKey = __ENCODE_AES(authKey);
 
@@ -93,7 +88,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
       name: businessName,
       orgId:this._orgId,
       defaultStory: this._activeStoryId,
-      n: this.technicalRef, 
+      n: 1, 
       accessToken: authKey
     } as WhatsAppCommunicationChannel;
 
