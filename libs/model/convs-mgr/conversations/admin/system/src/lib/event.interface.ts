@@ -4,6 +4,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Stack } from '@app/model/convs-mgr/functions';
 
 import { EventCategoryTypes } from './event-category-types.enum';
+import { RoutedCursor } from './routed-cursor.interface';
 
 export interface Event
 {
@@ -32,10 +33,7 @@ export interface Cursor extends IObject
    * 
    * @see https://en.wikipedia.org/wiki/Unix_time
    */
-  cursorId: string;
-
-  /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
-  currentBlock: StoryBlock;
+  position: EndUserPosition;
 
   /**
    * A subroutine is a conversational flow within another story. 
@@ -57,22 +55,12 @@ export interface Cursor extends IObject
    *  [Subroutine4, Subroutine3, Subroutine2, Subroutine1]
    *   
    */
-  subRoutines?: Stack<Cursor>[];
+  parentStack?: Stack<RoutedCursor>;
+}
 
-  /**
-   * Story depth depicts how many levels deep we are in the subroutines. E.g. With the root story, the storyDepth is 0.
-   *  If we are in the first subroutine, the storyDepth is 1, and so on.
-   * 
-   * We use this to get the index of a subroutine, therefore comes in handy when we want to automatically go further into 
-   *  another subroutine or go backwards to the previous subroutine.
-   * 
-   * If we are going into another subroutine, we increment by 1, and to a previous routine we decrement by 1. However instead of just using
-   *  increment/decrement operators (++, --), we add 1 or -1 to the current storyDepth depending on the block/event. We call this DepthDeviation.
-   *   This approach saves us from writing more code to handle both scenarios
-   * 
-   * @note Only certain certain events have the ability to change the storyDepth:
-   *    - When a JumpBlock is hit and we dive into another story or block. We pass 1 as Depth Deviation.
-   *    - When we get to the end of a story, and this can mark the end of a subroutine. We pass -1 as Depth Deviation.
-   */
-  storyDepth: number;
+export interface EndUserPosition {
+  storyId: string;
+
+  /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
+  blockId: string;
 }
