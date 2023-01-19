@@ -29,9 +29,8 @@ export interface Event
  */
 export interface Cursor extends IObject
 {
-  /** The unique id of the cursor, currently we set it to the current unix timestamp
-   * 
-   * @see https://en.wikipedia.org/wiki/Unix_time
+  /** 
+   * The current position of the End user in a story
    */
   position: EndUserPosition;
 
@@ -58,6 +57,12 @@ export interface Cursor extends IObject
   parentStack?: Stack<RoutedCursor>;
 }
 
+/** 
+ * The current position of the End user in a story.
+ *   We store the id of the story block that we send to the end user,
+ *    so that we can use it to get the next connection and block
+ *     when they reply.
+ */
 export interface EndUserPosition {
   storyId: string;
 
