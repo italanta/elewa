@@ -39,9 +39,14 @@ export class JumpStoryBlockService extends NextBlockService
   }
 
   /**
-   * We get the next block in the storyline by using the targetStoryId and targetBlockId saved in the @type {JumpBlock}
+   * When a user hits a jump block we:
+   *  1. Get the current cursor
+   *  2. Create a RoutedCursor from the block configuration (based on next steps (success connection, fail connection, error config) 
+   *      within the current story
+   *  3. Push the RoutedCursor onto the parent stack 
+   *  4. Update the current cursor to point to the new story and it's first block (the one connected to the starting block)
    * 
-   * @returns {StoryBlock}
+   * We get the next block in the storyline by using the targetStoryId and targetBlockId saved in the @type {JumpBlock}
    * 
    * TODO: 
    *  - Add function to get the first block in the new story if the block is not provided
@@ -51,7 +56,7 @@ export class JumpStoryBlockService extends NextBlockService
   {
     const cursorService = new CursorDataService(this.tools);
 
-    // Get the connections pointing to block success or block fail blocks in the story
+    // 1. Get the connections pointing to block success or block fail blocks in the story
     // Then we use the connections to get the blocks id and construct our RoutedCursor
 
     // The jump block only has two options, one to use in case the child story is successful
@@ -66,7 +71,7 @@ export class JumpStoryBlockService extends NextBlockService
     // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
     const nextBlock = await this._blockDataService.getBlockById(currentBlock.targetBlockId, orgId, currentBlock.targetStoryId);
 
-    // Create routed cursor
+    // 2. Create routed cursor
     const routedCursor: RoutedCursor = {
       storyId: currentBlock.targetStoryId,
       blockSuccess: blockSuccessConn.targetId,
@@ -79,7 +84,7 @@ export class JumpStoryBlockService extends NextBlockService
       blockId: nextBlock.id
     };
 
-    // Create new stack if it does not exist or 
+    // 3. Create new stack if it does not exist or 
     //  push the new routed cursor to the top existing stack
     if (currentCursor.parentStack) {
       currentCursor.parentStack = new Stack<RoutedCursor>(routedCursor);
@@ -87,7 +92,7 @@ export class JumpStoryBlockService extends NextBlockService
       currentCursor.parentStack.push(routedCursor);
     }
 
-    // Update the current cursor
+    // 4. Update the current cursor
     const newCursor: Cursor = {
       ...currentCursor,
       position: newUserPosition
