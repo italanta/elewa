@@ -4,6 +4,7 @@ import { Query } from "@ngfi/firestore-qbuilder";
 import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { ErrorMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 
 export abstract class NextBlockService
@@ -20,7 +21,7 @@ export abstract class NextBlockService
    * Applies for blocks which only have one target block e.g. Text Message Block
    * @returns StoryBlock
    */
-  abstract getNextBlock(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>;
+  abstract getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>;
 
   protected getErrorBlock(blockId: string, errorMessage: string): StoryBlock
   {
@@ -32,7 +33,6 @@ export abstract class NextBlockService
       blockTitle: '',
       blockIcon: '',
       message: errorMessage,
-      storyDepth: 0
     };
 
     return block;

@@ -6,6 +6,7 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { NextBlockService } from "../next-block.class";
+import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -32,11 +33,13 @@ export class DefaultOptionMessageService extends NextBlockService
 	 * 
 	 * @note We can potentially know if the block is the last one if no connection originates from it (connnection == null)
 	 */
-	async getNextBlock(msg: Message, lastBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
+	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
 	{
+		const lastBlockId = currentCursor.position.blockId;
+
 		let nextBlock: StoryBlock;
 		// Get the connection
-		const connection = await this._connDataService.getConnBySourceId(lastBlock.id, orgId, currentStory);
+		const connection = await this._connDataService.getConnBySourceId(lastBlockId, orgId, currentStory);
 		// Get the next block using the id. Connection.targetId == id of the next block
 		if (connection)
 			nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);

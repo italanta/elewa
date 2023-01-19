@@ -9,6 +9,7 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { NextBlockService } from "../next-block.class";
 import { MatchInputService } from "../../match-input/match-input.service";
 import { ExactMatch } from "../../match-input/strategies/exact-match.strategy";
+import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -36,11 +37,13 @@ export class MultipleOptionsMessageService extends NextBlockService
 	 * 
 	 * @note It does this by matching the id of the button and the id of the option saved in the database
 	 */
-	async getNextBlock(msg: Message, lastBlock: QuestionMessageBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
+	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
 	{
 		const response = msg as QuestionMessage;
 
 		const matchInput = new MatchInputService();
+
+		const lastBlock = currentBlock as QuestionMessageBlock
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies
