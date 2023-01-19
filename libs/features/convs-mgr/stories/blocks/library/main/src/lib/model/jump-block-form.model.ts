@@ -14,7 +14,8 @@ export function _CreateJumpBlockForm(_fb: FormBuilder, blockData: JumpBlock): Fo
     id: [blockData?.id! ?? ''],
     targetStoryId: [blockData?.targetStoryId],
     targetBlockId: [blockData?.targetBlockId],
-    type: [blockData.type ?? StoryBlockTypes.Reply],
+    options: _fb.array([]),
+    type: [blockData.type ?? StoryBlockTypes.JumpBlock],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
 }
