@@ -1,24 +1,22 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { EndStoryBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
+import { NextBlockService } from "../next-block.class";
 
-import { EndUserDataService } from "../../data-services/end-user.service";
-import { saveMilestoneData } from "../../milestones/save-data.service";
+import { CursorDataService } from "../../data-services/cursor.service";
 
 /**
- * When an end user gets to the end of the story we can either end the conversation or switch to the 
- *  next story based on the configuration.
- * 
- * @param nextBlock - The next block in the story to be sent back to the user
- * @param endUser - The information about the end user chatting with the bot
+ * When an end user gets to the end of the story we can either end the conversation(return null) or 
+ *  in case of a child story, return the success block (success state).
  */
-export class EndStoryBlockService
+export class EndStoryBlockService extends NextBlockService
 {
   userInput: string;
   _logger: Logger;
@@ -26,47 +24,48 @@ export class EndStoryBlockService
 
   constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, tools: HandlerTools)
   {
+    super(tools);
     this.tools = tools;
   }
 
   /**
-   * When a user gets to the end of the story we can either end the story or switch to the 
-   *  next story based on the configuration.
-   * 
-   * @param nextBlock - The next block in the story to be sent back to the user
-   * @param endUser - The information about the end user chatting with the bot
+   * When a user hits the end story block in a child story, we: 
+   *  1. Pop the RoutedCursor at the top of the stack
+   *  2. Use the RoutedCursor to construct a new cursor from @see RoutedCursor.blockSuccess
+   *  3. Update the cursor
+   *  4. Resolve and return the success block
    */
-  async endStory(nextBlock: StoryBlock, endUser: EndUser, orgId: string, endUserService: EndUserDataService)
+  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: EndStoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
   {
-    const endStoryBlock = nextBlock as EndStoryBlock;
+    const cursorService = new CursorDataService(this.tools);
 
-    // If a milestone is hit, we call an endpoint with the data collected from input blocks variables 
-    if (endStoryBlock.milestone) await saveMilestoneData(endStoryBlock.postUrl, endUser.id, orgId, endStoryBlock.milestone, this.tools);
-   
-    // If a story id is set on the EndStoryBlock, then we need to switch the user to the next story.
-    if (endStoryBlock.storyId) return this._switchStory(endStoryBlock, endUser, orgId, endUserService);
-  }
+    const cursor = currentCursor;
 
-  /**
-   * If a story id is set on the EndStoryBlock, then we need to switch the user to the next story.
-   * 
-   * This method updates the end user with the new story and returns the first block of the new story
-   * 
-   * @returns FirstBlock
-   */
-  private async _switchStory(endStoryBlock: EndStoryBlock, endUser: EndUser, orgId: string, endUserService: EndUserDataService)
-  {
-    // Update the end user object with the new story
-    const newUserStory: EndUser = {
-      ...endUser,
-      currentStory: endStoryBlock.storyId
-    };
+    /** If the parent stack is not empty, then we are in a child story */
+    if (!currentCursor.parentStack.isEmpty()) {
+      // Pop the RoutedCursor at the top of the stack
+      const topRoutineCursor = cursor.parentStack.pop();
 
-    await endUserService.updateEndUser(newUserStory);
+      const topRoutineStoryId = topRoutineCursor.storyId;
+      const topRoutineBlockSuccess = topRoutineCursor.blockSuccess;
 
-    // Return the first block of the new story
-    const conn = await this._connDataService.getFirstConnDiffStory(endStoryBlock.storyId);
+      // Use the RoutedCursor to construct a new cursor
+      const newCursor: Cursor = {
+        position: { storyId: topRoutineStoryId, blockId: topRoutineBlockSuccess },
+        parentStack: currentCursor.parentStack
 
-    return this._blockDataService.getBlockById(conn.targetId, orgId, endStoryBlock.storyId);
+      };
+      // Update the cursor
+      await cursorService.updateCursor(endUserId, orgId, newCursor);
+
+      // Resolve and return the success block
+      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockSuccess, orgId, currentStory);
+
+      return nextBlock;
+    } else {
+      // We return null when we hit the end of the parent story.
+      // TODO: To implement handling null in the bot engine once refactor on PR#210 is approved.
+      return null;
+    }
   }
 }
