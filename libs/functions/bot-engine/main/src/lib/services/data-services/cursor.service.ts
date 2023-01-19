@@ -1,12 +1,9 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { Cursor, EndUserPosition, RoutedCursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { BotDataService } from './data-service-abstract.class';
 
-import { SubRoutineManager } from '../sub-routine/sub-routine.class';
-import { Stack } from '@app/model/convs-mgr/functions';
 
 /**
  * When the end user is interacting with our chatbot, we need to know their current position
@@ -20,8 +17,6 @@ export class CursorDataService extends BotDataService<Cursor> {
   private _docPath: string;
   private tools: HandlerTools;
   private _currentCursor: Cursor;
-
-  private _subRoutineManager: SubRoutineManager;
 
   constructor(_tools: HandlerTools) 
   {
@@ -69,19 +64,6 @@ export class CursorDataService extends BotDataService<Cursor> {
 
     // Set the document path of the cursor collection
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
-
-    // if(routedCursor) {
-    //   if(this._currentCursor.parents.isEmpty()) {
-    //     this._currentCursor.parents = new Stack<RoutedCursor>(routedCursor);
-    //   } else {
-    //     this._currentCursor.parents.push(routedCursor);
-    //   }
-
-    //   newCursor = {
-    //     ...this._currentCursor,
-    //     position: newUserPosition
-    //   }
-    // }
 
     await this.createDocument(newCursor, this._docPath, cursorId);
 
