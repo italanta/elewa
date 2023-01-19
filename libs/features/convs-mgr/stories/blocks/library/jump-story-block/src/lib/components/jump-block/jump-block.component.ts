@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
@@ -15,6 +15,7 @@ import { JumpBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 /**
  * Block which sends a message from bot to user.
@@ -41,21 +42,52 @@ export class JumpBlockComponent implements OnInit, OnDestroy
 
   transloco: string;
   type: StoryBlockTypes;
-  messagetype = StoryBlockTypes.JumpBlock;
+  jumpType = StoryBlockTypes.JumpBlock;
   blockFormGroup: FormGroup;
 
   constructor(private _stories$$: StoriesStore,
+    private _fb: FormBuilder,
     private _storyBlockStore$$: StoryBlocksStore,
     private _logger: Logger)
   { }
 
   ngOnInit(): void
   {
+    const jumpBlockOptions = [{
+      message: "Success",
+      value: "success"
+    },
+    {
+      message: "Failed",
+      value: "failed"
+    }
+  
+  ]
+
+  jumpBlockOptions.forEach((option) =>
+    {
+      this.options.push(this.addJumpOptions(option));
+    });
+
     if (this.jsPlumb) {
       this._decorateElement();
     }
     this.getStories();
     this.getBlocks();
+  }
+
+  get options(): FormArray
+  {
+    return this.jumpBlockForm.controls['options'] as FormArray;
+  }
+
+  addJumpOptions(option?: any)
+  {
+    return this._fb.group({
+      id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
+      message: [option?.message ?? ''],
+      value: [option?.value ?? '']
+    });
   }
 
   private _decorateElement()
@@ -69,9 +101,10 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   getStories()
   {
     this._sBS.sink = this._stories$$.get()
-      .subscribe((stories: Story[]) => {
+      .subscribe((stories: Story[]) =>
+      {
         this.stories = stories;
-    });
+      });
   }
 
   getBlocks()
@@ -79,9 +112,10 @@ export class JumpBlockComponent implements OnInit, OnDestroy
     const storyId = this.jumpBlockForm.value.targetStoryId;
 
     this._sBS.sink = this._storyBlockStore$$.getBlocksByStory(storyId)
-      .subscribe((blocks: StoryBlock[]) => {
+      .subscribe((blocks: StoryBlock[]) =>
+      {
         this.blocks = blocks;
-    });
+      });
   }
 
   ngOnDestroy()
