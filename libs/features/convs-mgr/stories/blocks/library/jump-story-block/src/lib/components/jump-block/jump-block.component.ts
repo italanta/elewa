@@ -15,7 +15,6 @@ import { JumpBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 /**
  * Block which sends a message from bot to user.
@@ -40,6 +39,9 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   stories: Story[];
   blocks: StoryBlock[];
 
+  optionClass: string;
+  jumpBlockOptions: any[];
+
   transloco: string;
   type: StoryBlockTypes;
   jumpType = StoryBlockTypes.JumpBlock;
@@ -53,21 +55,7 @@ export class JumpBlockComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
-    const jumpBlockOptions = [{
-      message: "Success",
-      value: "success"
-    },
-    {
-      message: "Failed",
-      value: "failed"
-    }
-  
-  ]
-
-  jumpBlockOptions.forEach((option) =>
-    {
-      this.options.push(this.addJumpOptions(option));
-    });
+    this.setJumpBlockOptions();
 
     if (this.jsPlumb) {
       this._decorateElement();
@@ -87,6 +75,25 @@ export class JumpBlockComponent implements OnInit, OnDestroy
       id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [option?.message ?? ''],
       value: [option?.value ?? '']
+    });
+  }
+
+  setJumpBlockOptions()
+  {
+    this.jumpBlockOptions = [{
+      message: `${"PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.SUCCESS" || this.transloco}`,
+      value: "success"
+    },
+    {
+      message: `${"PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.FAILED" || this.transloco}`,
+      value: "failed"
+    }
+
+    ];
+
+    this.jumpBlockOptions.forEach((option) =>
+    {
+      this.options.push(this.addJumpOptions(option));
     });
   }
 
