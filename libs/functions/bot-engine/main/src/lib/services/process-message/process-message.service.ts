@@ -41,8 +41,11 @@ export class ProcessMessageService
   async resolveNextBlock(msg: Message, currentCursor: Cursor, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
     let cursor = currentCursor;
-    // Return the next block
-    let nextBlock = await this.__nextBlockService(currentCursor, orgId, currentStory, msg, endUserId);
+    // Return the cursor updated with the next block in the story
+    cursor = await this.__nextBlockService(currentCursor, orgId, currentStory, msg, endUserId);
+
+    // Get the full block object here so that we can return it to the bot engine
+    const nextBlock = await this._blockService$.getBlockById(cursor.position.blockId, orgId, currentStory);
 
     // We check if the next block is a Structural Block so that we can handle it and find the next block
     //  to send back to the end user. Because we cannot send these types of blocks to the user, we
@@ -53,15 +56,19 @@ export class ProcessMessageService
     if(isStructuralBlock(nextBlock.type)) {
       let newUserPosition: EndUserPosition = {
         storyId: currentStory,
-        blockId: nextBlock.id
+        blockId: cursor.position.blockId
       }
       cursor.position = newUserPosition;
 
-      nextBlock = await this.__nextBlockService(cursor, orgId, currentStory, msg, endUserId);
+      cursor = await this.__nextBlockService(cursor, orgId, currentStory, msg, endUserId);
 
     }
 
-    return nextBlock;
+    // Return the resolved next block and the new cursor.
+    return {
+      storyBlock: nextBlock,
+      newCursor: cursor
+    };
   }
 
   /**
@@ -73,7 +80,7 @@ export class ProcessMessageService
    * 
    * @returns NextBlock
    */
-  private async __nextBlockService(currentCursor: Cursor, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<StoryBlock>
+  private async __nextBlockService(currentCursor: Cursor, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
   {
     const currentBlockId = currentCursor.position.blockId;
 
