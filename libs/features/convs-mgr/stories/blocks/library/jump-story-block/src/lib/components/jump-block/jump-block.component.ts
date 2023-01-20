@@ -57,9 +57,6 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   {
     this.setJumpBlockOptions();
 
-    if (this.jsPlumb) {
-      this._decorateElement();
-    }
     this.getStories();
     this.getBlocks();
   }
@@ -95,14 +92,6 @@ export class JumpBlockComponent implements OnInit, OnDestroy
     {
       this.options.push(this.addJumpOptions(option));
     });
-  }
-
-  private _decorateElement()
-  {
-    const element = document.getElementById(this.id) as Element;
-    if (this.jsPlumb) {
-      _JsPlumbComponentDecorator(element, this.jsPlumb);
-    }
   }
 
   getStories()
