@@ -103,3 +103,20 @@
   */
   Reply = 17
 }
+
+export function isInputBlock(blockType: StoryBlockTypes): boolean {
+  switch (blockType) {
+    case StoryBlockTypes.TextMessage:
+      return true;
+    case StoryBlockTypes.Image:
+      return true;
+    case StoryBlockTypes.Audio:
+      return true;
+    case StoryBlockTypes.Video:
+      return true;
+    case StoryBlockTypes.Sticker:
+      return true;
+    default:
+      return false;
+  }
+}
