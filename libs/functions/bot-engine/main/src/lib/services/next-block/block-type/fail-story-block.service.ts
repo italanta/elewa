@@ -42,9 +42,9 @@ export class EndStoryBlockService extends NextBlockService
     const cursor = currentCursor;
 
     /** If the parent stack is not empty, then we are in a child story */
-    if (!currentCursor.parentStack.isEmpty()) {
+    if (currentCursor.parentStack.length > 0) {
       // Pop the RoutedCursor at the top of the stack
-      const topRoutineCursor = cursor.parentStack.pop();
+      const topRoutineCursor = cursor.parentStack.shift();
 
       const topRoutineStoryId = topRoutineCursor.storyId;
       const topRoutineBlockFail = topRoutineCursor.blockFail;

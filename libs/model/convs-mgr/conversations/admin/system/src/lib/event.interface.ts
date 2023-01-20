@@ -1,8 +1,5 @@
 import { IObject } from '@iote/bricks';
 
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { Stack } from '@app/model/convs-mgr/functions';
-
 import { EventCategoryTypes } from './event-category-types.enum';
 import { RoutedCursor } from './routed-cursor.interface';
 
@@ -54,7 +51,7 @@ export interface Cursor extends IObject
    *  [Subroutine4, Subroutine3, Subroutine2, Subroutine1]
    *   
    */
-  parentStack?: Stack<RoutedCursor>;
+  parentStack?: RoutedCursor[];
 }
 
 /** 
