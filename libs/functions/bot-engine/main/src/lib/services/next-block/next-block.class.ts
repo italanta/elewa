@@ -21,7 +21,7 @@ export abstract class NextBlockService
    * Applies for blocks which only have one target block e.g. Text Message Block
    * @returns StoryBlock
    */
-  abstract getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>;
+  abstract getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<Cursor>;
 
   protected getErrorBlock(blockId: string, errorMessage: string): StoryBlock
   {

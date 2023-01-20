@@ -35,7 +35,7 @@ export class EndStoryBlockService extends NextBlockService
    *  3. Update the cursor
    *  4. Resolve and return the success block
    */
-  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: EndStoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
+  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: EndStoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<Cursor>
   {
     const cursorService = new CursorDataService(this.tools);
 
@@ -55,13 +55,12 @@ export class EndStoryBlockService extends NextBlockService
         parentStack: currentCursor.parentStack
 
       };
-      // Update the cursor
-      await cursorService.updateCursor(endUserId, orgId, newCursor);
+
 
       // Resolve and return the success block
       const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockSuccess, orgId, currentStory);
 
-      return nextBlock;
+      return newCursor;
     } else {
       // We return null when we hit the end of the parent story.
       // TODO: To implement handling null in the bot engine once refactor on PR#210 is approved.

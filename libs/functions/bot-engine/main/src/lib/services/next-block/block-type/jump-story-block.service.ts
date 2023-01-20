@@ -61,8 +61,8 @@ export class JumpStoryBlockService extends NextBlockService
 
     // The jump block only has two options, one to use in case the child story is successful
     //  and another incase the story fails
-    const blockSuccessSourceId = `i-${0}-${currentBlock.id}`;
-    const blockFailSourceId = `i-${1}-${currentBlock.id}`;
+    const blockSuccessSourceId = `i-0-${currentBlock.id}`;
+    const blockFailSourceId = `i-1-${currentBlock.id}`;
 
     const blockSuccessConn = await this._connDataService.getConnBySourceId(blockSuccessSourceId, orgId, currentStory);
 
