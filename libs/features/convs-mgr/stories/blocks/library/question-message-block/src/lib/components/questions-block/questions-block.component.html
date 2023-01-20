@@ -3,20 +3,25 @@
     <form [formGroup]="questionMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
       <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
-      
+
       <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"></app-default-option-field>
 
       <div formArrayName="options" fxFlexFill>
         <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
           <span [formGroupName]="i" fxFlex>
-            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock" [formGroupNameInput]="i"></app-option-input-field>
+            <div class="inputList">
+            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"
+              [formGroupNameInput]="i" class="input" ></app-option-input-field>
+              <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+            </div>
           </span>
         </div>
       </div>
 
     </form>
 
-    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
+      fxLayoutGap="10px">
       Add Option
     </button>
   </mat-card-content>
