@@ -36,6 +36,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
+import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
 
 @NgModule({
   declarations: [AppComponent],
@@ -70,6 +71,7 @@ import { environment } from '../environments/environment';
     StoriesStateModule.forRoot(),
     StoryBlocksStateModule.forRoot(),
     StoryBlockConnectionsStateModule.forRoot(),
+    VariablesConfigStateModule.forRoot(),
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),

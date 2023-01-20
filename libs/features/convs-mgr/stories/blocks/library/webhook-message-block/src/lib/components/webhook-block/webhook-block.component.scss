@@ -81,24 +81,33 @@ option{
 
 
 .variables{
-  display: flex;
   margin-left: 1px;
   margin-top: 10px;
-  justify-content: flex-end;
+  overflow: unset;
   
   
 }
 
 
-:host .mat-form-field{
-  font-size: 10px;
-  
+// :host :where(.variables) mat-form-field {
+//   padding: 0;
+//   height: 28px;
+//   overflow: unset;
+//   padding-top: 0px;
+//   padding-bottom: 0px;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   align-content: center;
+//   box-shadow: 0px;
+//   max-width: fit-content;
+//   font-size: 5px;
+// }
+// ::ng-deep mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper {
+//   margin: 0;
+// }
+// ::ng-deep .mat-form-field-appearance-outline  { margin-top:-15px; height: 15px !important; padding: 0 !important}
+::ng-deep .mat-select-panel.variableCategory .mat-option{
+  background-color: red !important;
+  width: 500px;
 }
-
-:host ::ng-deep .mat-form-field-infix {
-  padding-top: 1px !important;
-  }
-:host .mat-form-field-no-padding .mat-form-field-wrapper {
-  margin-bottom: -1.25em;
-}
-
