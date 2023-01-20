@@ -4,7 +4,7 @@ import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { JumpBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message } from "@app/model/convs-mgr/conversations/messages";
-import { Stack } from "@app/model/convs-mgr/functions";
+
 import { Cursor, EndUserPosition, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -87,7 +87,10 @@ export class JumpStoryBlockService extends NextBlockService
     // 3. Create new stack if it does not exist or 
     //  push the new routed cursor to the top existing stack
     if (currentCursor.parentStack) {
-      currentCursor.parentStack = new Stack<RoutedCursor>(routedCursor);
+      const parentStack = [];
+      parentStack.unshift(routedCursor);
+
+      currentCursor.parentStack = parentStack;
     } else {
       currentCursor.parentStack.push(routedCursor);
     }
