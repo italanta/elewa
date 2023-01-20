@@ -2,7 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 import { FileMessage, Message, MessageDirection, TextMessage } from "@app/model/convs-mgr/conversations/messages";
-import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { isInputBlock, StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
@@ -147,7 +147,7 @@ export class BotEnginePlay implements IBotEnginePlay
     // Here is where the message chaining happens. 
     //  If it is a text block we find the next block and send it. 
     //    Our loop ends when we hit a story block type that is not specified here.
-    while (currentBlock.type === StoryBlockTypes.TextMessage || currentBlock.type == StoryBlockTypes.Image) {
+    while (isInputBlock(currentBlock.type)) {
 
       // Get the next block in the story
       currentBlock = await this.__getNextBlock(endUser, { currentBlock });
