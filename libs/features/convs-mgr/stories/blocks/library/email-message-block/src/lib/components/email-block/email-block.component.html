@@ -2,6 +2,7 @@
 	<mat-card-content>
 		<form [formGroup]="emailMessageForm" fxLayout="column" fxLayoutALign="start center">
 			<input [id]="emailInputId" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.EMAIL' | transloco" />
+			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="emailMessageForm"></app-default-option-field>
 
 		</form>
 	</mat-card-content>
