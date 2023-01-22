@@ -3,8 +3,20 @@
   <!-- Main body page -->
   <div fxLayout="row" fxFlexFill>
     <div fxFlex="20" class="nav">
+      <mat-sidenav #sidenav [mode]="mode.value || 'push'">
+        <p>
+          <button mat-button (click)="sidenav.toggle()">
+            <i class="fas fa-times"></i>
+          </button>
+        </p>
+
+        <button mat-button (click)="save()">Apply</button>
+        
+      </mat-sidenav>  
+
       <convl-blocks-library *ngIf="frame" [frame]="frame">
       </convl-blocks-library>
+ 
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start" fxFlex>
@@ -39,7 +51,14 @@
         </div>
       </div>
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90">
+
+      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" mat-button (click)="sidenav.toggle()">
+        <p><button mat-button (click)="sidenav.toggle()">
+          <i class="fas fa-times"></i>
+            </button>
+          </p>
+  
+
       </convl-story-editor-frame>
     </div>
 

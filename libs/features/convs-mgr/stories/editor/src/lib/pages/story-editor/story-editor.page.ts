@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDrawerMode } from '@angular/material/sidenav';
+import { FormControl, FormGroup } from '@angular/forms';
+
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, filter } from 'rxjs';
@@ -11,11 +14,14 @@ import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
+
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-import { FormControl } from '@angular/forms';
+
+
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -31,10 +37,17 @@ export class StoryEditorPageComponent implements OnDestroy
   state: StoryEditorState;
   breadcrumbs: Breadcrumb[] = [];
 
+
+
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
   stateSaved: boolean = true;
+
+  isClicked = true;
+
+  // matdrawer and sidenav
+  mode = new FormControl('push' as MatDrawerMode);
 
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved:boolean = false;
@@ -43,6 +56,61 @@ export class StoryEditorPageComponent implements OnDestroy
   frameElement: HTMLElement;
   frameZoom: number = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
+
+
+  type: StoryBlockTypes;
+  messagetype = StoryBlockTypes.TextMessage;
+  imagetype = StoryBlockTypes.Image;
+  nametype = StoryBlockTypes.Name;
+  emailtype = StoryBlockTypes.Email;
+  phonetype = StoryBlockTypes.PhoneNumber;
+  questiontype = StoryBlockTypes.QuestionBlock;
+  locationtype = StoryBlockTypes.Location;
+  audioType = StoryBlockTypes.Audio;
+  videoType = StoryBlockTypes.Video;
+  stickerType = StoryBlockTypes.Sticker;
+  listType = StoryBlockTypes.List;
+  documentType = StoryBlockTypes.Document;
+  replyType = StoryBlockTypes.Reply;
+
+  blockFormGroup: FormGroup;
+
+  newBlock(type: StoryBlockTypes) {
+
+    // TODO - Dynamic rendering of default blocks.
+    switch (type) {
+      case StoryBlockTypes.TextMessage:
+        break;
+      case StoryBlockTypes.Image:
+        break;
+      case StoryBlockTypes.Name:
+        break;
+      case StoryBlockTypes.Email:
+        break
+      case StoryBlockTypes.PhoneNumber:
+        break;
+      case StoryBlockTypes.QuestionBlock:
+        break;
+      case StoryBlockTypes.Location:
+        break;
+     case StoryBlockTypes.Audio:
+          break;
+      case StoryBlockTypes.Video:
+        break
+      case StoryBlockTypes.Sticker:
+        break
+      case StoryBlockTypes.List:
+        break;
+      case StoryBlockTypes.Document:
+        break
+      case StoryBlockTypes.Reply:
+        break
+      default:
+        break
+    }
+
+
+  }
 
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
