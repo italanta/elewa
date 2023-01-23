@@ -17,7 +17,7 @@ export function _JsPlumbComponentDecorator(sourceElement: Element, jsPlumb: Brow
     cssClass:"block_endpoint",
     endpoint: 'Dot',
     // Where to position the anchor
-    anchor: "Left",
+    anchor: "Right",
     connector : FlowchartConnector.type
   });  
   return sourceElement;
