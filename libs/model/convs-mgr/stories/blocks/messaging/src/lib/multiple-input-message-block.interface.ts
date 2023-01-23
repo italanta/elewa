@@ -15,10 +15,10 @@ export interface MultipleInputMessageBlock extends StoryBlock
   options?: MultipleOptions[];
 
   // Implement generic tags
-  tag?: string;
+  // tag?: string;
 
   // Stores the data from the multiple input
-  context?: string;
+  // context?: string;
 
 }
 
