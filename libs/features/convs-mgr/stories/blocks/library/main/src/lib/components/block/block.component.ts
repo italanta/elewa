@@ -5,7 +5,11 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+// import { Subscription } from 'rxjs'
+
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
+// import { WebhooksService } from '../../providers/webhook.service'
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -20,6 +24,8 @@ import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
 import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
+// import { _CreateWebhookMessageBlockForm } from '../../model/webhook-block-form.model';
+import { _CreateFailBlockMessageForm } from '../../model/fail-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 /**
@@ -50,15 +56,20 @@ export class BlockComponent implements OnInit {
   listType = StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
+  // webhookType = StoryBlockTypes.Webhook;
+  failType = StoryBlockTypes.Fail;
 
   blockFormGroup: FormGroup;
 
   iconClass = ''
   blockTitle = ''
 
+  // subscriptions: Subscription[] = []
+
   constructor(private _el: ElementRef,
-              private _fb: FormBuilder,
-              private _logger: Logger
+    private _fb: FormBuilder,
+    private _logger: Logger,
+    // private _service: WebhooksService
   ) { }
 
   ngOnInit(): void {
@@ -73,47 +84,47 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Image:
           this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Name:
           this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Email:
           this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.PhoneNumber:
           this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.QuestionBlock:
           this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Location:
           this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.List:
           this.blockFormGroup = _CreateListBlockMessageForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Document:
           this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Audio:
           this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -126,18 +137,33 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
         case StoryBlockTypes.Reply:
           this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-  
+
+        // case StoryBlockTypes.Webhook:
+        //   this.blockFormGroup = _CreateWebhookMessageBlockForm(this._fb, this.block);
+        //   this.blocksGroup.push(this.blockFormGroup);
+        //   break;
+        case StoryBlockTypes.Fail:
+          this.blockFormGroup = _CreateFailBlockMessageForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+
         default:
           break;
       }
     }
 
   }
+
+  // ngOnDestroy() {
+  //   for (let subscription of this.subscriptions) {
+  //     subscription.unsubscribe()
+  //   }
+  // }
 
   getBlockIconAndTitle(type: number) {
     return iconsAndTitles[type];
@@ -182,5 +208,19 @@ export class BlockComponent implements OnInit {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;
   }
+
+  // fireEvent(events: any[]): void {
+  //   debugger;
+  //   for (let event of events) {
+  //     this.subscriptions.push(this._service.beginWebhookService((event as any).event).subscribe(
+  //       (response: any) => {
+  //         console.log(response)
+  //       },
+  //       (error: any) => {
+  //         console.error(error);
+  //       })
+  //     )
+  //   }
+  // }
 }
 

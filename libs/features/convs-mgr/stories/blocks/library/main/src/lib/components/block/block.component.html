@@ -5,7 +5,7 @@
                 <i [class]="iconClass"></i>
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
-        
+
             <div fxLayout="row" class="icon-block">
                 <span class="icons"><i class="far fa-clone"></i></span>
                 <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
@@ -18,52 +18,68 @@
         </div>
 
         <div *ngSwitchCase="imagetype">
-            <app-image-block [id]="id" [block]="block" [imageMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            <app-image-block [id]="id" [block]="block" [imageMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block">
             </app-image-block>
         </div>
 
         <div *ngSwitchCase="nametype">
-            <app-name-block [id]="id" [block]="block" [nameMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            <app-name-block [id]="id" [block]="block" [nameMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block">
             </app-name-block>
         </div>
 
         <div *ngSwitchCase="emailtype">
-            <app-email-block [id]="id" [block]="block" [emailMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            <app-email-block [id]="id" [block]="block" [emailMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block">
             </app-email-block>
         </div>
 
         <div *ngSwitchCase="phonetype">
-            <app-phone-block [id]="id" [block]="block" [phoneMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            <app-phone-block [id]="id" [block]="block" [phoneMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block">
             </app-phone-block>
         </div>
 
         <div *ngSwitchCase="questiontype">
-            <app-questions-block [id]="id" [block]="block" [questionMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            <app-questions-block [id]="id" [block]="block" [questionMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block">
             </app-questions-block>
         </div>
 
         <div *ngSwitchCase="locationtype">
-            <app-location-block [id]="id" [block]="block" [locationMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-location-block>
+            <app-location-block [id]="id" [block]="block" [locationMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-location-block>
         </div>
         <div *ngSwitchCase="documentType">
-            <app-document-block [id]="id" [block]="block" [documentMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-document-block>
+            <app-document-block [id]="id" [block]="block" [documentMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-document-block>
         </div>
 
         <div *ngSwitchCase="audioType">
-            <app-audio-block [id]="id" [block]="block" [audioMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-audio-block>
+            <app-audio-block [id]="id" [block]="block" [audioMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-audio-block>
         </div>
         <div *ngSwitchCase="videoType">
-            <app-video-block [id]="id" [block]="block" [videoMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-video-block>
+            <app-video-block [id]="id" [block]="block" [videoMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-video-block>
         </div>
         <div *ngSwitchCase="stickerType">
-            <app-sticker-block [id]="id" [block]="block" [stickerMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-sticker-block>
+            <app-sticker-block [id]="id" [block]="block" [stickerMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-sticker-block>
         </div>
 
         <div *ngSwitchCase="listType">
-            <app-list-block [id]="id" [block]="block" [listMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-list-block>
+            <app-list-block [id]="id" [block]="block" [listMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-list-block>
         </div>
         <div *ngSwitchCase="replyType">
-            <app-reply-block [id]="id" [block]="block" [replyMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-reply-block>
+            <app-reply-block [id]="id" [block]="block" [replyMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-reply-block>
+        </div>
+        <div *ngSwitchCase="failType">
+            <app-fail-block [id]="id" [block]="block" [failMessageForm]="blockFormGroup" [jsPlumb]="jsPlumb"
+                class="block"></app-fail-block>
         </div>
     </div>
 </mat-card>
