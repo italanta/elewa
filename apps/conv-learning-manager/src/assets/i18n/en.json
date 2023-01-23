@@ -61,7 +61,8 @@
       "TITLES": {
         "IMAGE": "Image",
         "LOCATION": "Location",
-        "LIST": "List"
+        "LIST": "List",
+        "FAIL": "Fail"
       }
     },
     "BLOCK": {
@@ -77,7 +78,8 @@
         "VIDEO": "Video",
         "STICKER": "Sticker",
         "LIST": "List",
-        "DOCUMENT": "Document"
+        "DOCUMENT": "Document",
+        "FAIL": "Fail"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -87,7 +89,7 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",
-        "AUDIO-LINK":"Audio Link",
+        "AUDIO-LINK": "Audio Link",
         "VIDEO-LINK": "Video Link",
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
@@ -110,10 +112,10 @@
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
-        "CHANNEL-TYPE" : "Choose platform",
+        "CHANNEL-TYPE": "Choose platform",
         "CHANNEL-NAME": "Enter the name of your bot",
         "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",
-        "AUTH-KEY":"Enter the authentication key",
+        "AUTH-KEY": "Enter the authentication key",
         "ACTION-BUTTONS": {
           "SAVE": "Save",
           "CANCEL": "Cancel"
