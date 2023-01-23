@@ -127,7 +127,9 @@
       "OPEN-BOT": "Open Bot",
       "LBL-NEW-BOT": "Create New Bot",
       "EDIT-BOT": "Edit",
-      "DELETE-BOT": "Delete"
+      "DELETE-BOT": "Delete",
+      "ADD-OPTION": "Add Option",
+      "NEW-LIST": "New List"
     },
     "FIELDS": {
       "NAME": "Name",
