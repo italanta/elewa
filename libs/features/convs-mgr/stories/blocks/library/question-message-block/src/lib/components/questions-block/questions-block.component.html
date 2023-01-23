@@ -10,9 +10,9 @@
         <div *ngFor="let option of options.controls; let i = index" class="full-width" fxFlexFill>
           <span [formGroupName]="i" fxFlex>
             <div class="inputList">
-            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"
-              [formGroupNameInput]="i" class="input" ></app-option-input-field>
               <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"
+              [formGroupNameInput]="i" class="input"></app-option-input-field>
             </div>
           </span>
         </div>
