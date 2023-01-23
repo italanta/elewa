@@ -16,6 +16,7 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit
   @Input() blockFormGroup: FormGroup;
   @Input() formGroupNameInput: number | string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() optionClass: string;
 
   inputUniqueId: string;
 

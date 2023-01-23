@@ -101,5 +101,10 @@
   /**
   * Block that expects input from the user by replying to a message
   */
-  Reply = 17
+  Reply = 17,
+
+ /**
+  * Block that allows linking a different story within the same story.
+  */
+  JumpBlock = 18
 }

@@ -26,8 +26,8 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
   //     i.e. Even if no organisations need to be loaded for a specific piece of functionaly e.g. invites, do we still load all organisations?
   //
   // Answer: No, as Angular's DI engine is lazy, meaning it will only initialise services the first time they are called.
-  constructor(_story$$: ActiveStoryStore,
-              _repoFac: DataService,
+  constructor(private _story$$: ActiveStoryStore,
+              private _repoFac: DataService,
               _logger: Logger)
   {
     super("always", _logger);
@@ -43,5 +43,11 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
     this._sbS.sink = data$.subscribe(properties => {
       this.set(properties, 'UPDATE - FROM DB');
     });
+  }
+
+  getBlocksByStory(storyId: string)
+  {
+    const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${this._activeStory.orgId}/stories/${storyId}/blocks`);
+    return repo.getDocuments();
   }
 }
