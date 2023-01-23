@@ -1,6 +1,7 @@
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { IObject } from '@iote/bricks';
+
 import { EventCategoryTypes } from './event-category-types.enum';
+import { RoutedCursor } from './routed-cursor.interface';
 
 export interface Event
 {
@@ -23,25 +24,45 @@ export interface Event
  * 
  * We therefore use @type {Cursor} to save the block sent to the user and mark the current position 
  */
-export interface Cursor extends IObject{
-  /** The unique id of the cursor, currently we set it to the current unix timestamp
-   * 
-   * @see https://en.wikipedia.org/wiki/Unix_time
+export interface Cursor extends IObject
+{
+  /** 
+   * The current position of the End user in a story
    */
-  cursorId?: string;
-
-  /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
-  currentBlock: StoryBlock;
+  position: EndUserPosition;
 
   /**
-   * Calculating the next block requires us to do some database calls which can take time and delay the response back to the user
-   *    In a story there are blocks with only one default option (this means that regardless of the user input, the next block is the same) 
-   *      e.g. TextMessageBlock, AudioMessageBlock, DocumentMessageBlock
+   * A subroutine is a conversational flow within another story. 
    * 
-   * With these blocks, we already know the response to send back to the end user, before they respond to the chatbot.
-   *    So we can save these 'already known' blocks here to reduce database calls and increase response time.
+   * While we can have a one dimensional story that just contains StoryBlocks until the end, it is possible 
+   *  that a user might need to integrate another story in the same story.
+   * 
+   * Therefore we need a way to implement this wihout affecting the flow of the main story. So we call these 
+   *  substories/subprocedures in a story Subroutines.
+   * 
+   * We will need to stack the cursors in order such that the latest user position is on top. Therefore we use
+   *  @see Stack data structure. Each subroutine is a stack on cursors.
+   * 
+   * Because we can have a subroutine inside a subroutine, we use an array to save the muliple subroutines. Whereby
+   *  the first index is the current subroutine being run. The array follows the stack concept we use an array so that 
+   *    we can be able to go back to the previous subroutine without deleting any items.
+   * 
+   * @example
+   *  [Subroutine4, Subroutine3, Subroutine2, Subroutine1]
+   *   
    */
-  futureBlock?: StoryBlock;
+  parentStack?: RoutedCursor[];
 }
 
-export type EndUserPosition = Cursor
+/** 
+ * The current position of the End user in a story.
+ *   We store the id of the story block that we send to the end user,
+ *    so that we can use it to get the next connection and block
+ *     when they reply.
+ */
+export interface EndUserPosition {
+  storyId: string;
+
+  /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
+  blockId: string;
+}

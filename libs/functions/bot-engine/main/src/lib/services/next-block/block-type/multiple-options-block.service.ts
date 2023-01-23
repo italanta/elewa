@@ -3,6 +3,7 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
@@ -36,11 +37,15 @@ export class MultipleOptionsMessageService extends NextBlockService
 	 * 
 	 * @note It does this by matching the id of the button and the id of the option saved in the database
 	 */
-	async getNextBlock(msg: Message, lastBlock: QuestionMessageBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
+	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<Cursor>
 	{
+		const cursor = currentCursor;
+		
 		const response = msg as QuestionMessage;
 
 		const matchInput = new MatchInputService();
+
+		const lastBlock = currentBlock as QuestionMessageBlock
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies
@@ -56,9 +61,13 @@ export class MultipleOptionsMessageService extends NextBlockService
 
 		const connection = await this._connDataService.getConnByOption(sourceId, orgId, currentStory);
 
-		const nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);
+		const newUserPosition: EndUserPosition = {
+			storyId: currentStory,
+			blockId: connection.targetId
+		}
+		cursor.position = newUserPosition;
 
-		return nextBlock;
+		return cursor;
 	}
 
  /**
