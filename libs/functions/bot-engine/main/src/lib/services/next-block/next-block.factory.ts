@@ -10,6 +10,7 @@ import { ImageInputInputBlockService } from "./block-type/image-input-block.serv
 import { ListBlockService } from "./block-type/list-block.service";
 import { NameInputInputBlockService } from "./block-type/name-input-block.service";
 import { LocationInputBlockService } from "./block-type/location-query-block.service";
+import { JumpStoryBlockService } from "./block-type/jump-story-block.service";
 
 
 /**
@@ -36,6 +37,8 @@ export class NextBlockFactory
                 return new NameInputInputBlockService(blockDataService, connDataService, tools);
             case StoryBlockTypes.LocationInputBlock:
                 return new LocationInputBlockService(blockDataService, connDataService, tools);
+            case StoryBlockTypes.JumpBlock:
+                return new JumpStoryBlockService(blockDataService, connDataService, tools);
             default:
                 return new DefaultOptionMessageService(blockDataService, connDataService, tools);
         }

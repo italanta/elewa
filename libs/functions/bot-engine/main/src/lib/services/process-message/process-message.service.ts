@@ -1,8 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { isStructuralBlock, StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Cursor, EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
 
@@ -38,10 +38,37 @@ export class ProcessMessageService
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(latestBlock: StoryBlock, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools, msg?: Message,)
+  async resolveNextBlock(msg: Message, currentCursor: Cursor, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
-    // Return the next block
-    return this.__nextBlockService(latestBlock, orgId, currentStory, msg, endUserId);
+    let cursor = currentCursor;
+    // Return the cursor updated with the next block in the story
+    cursor = await this.__nextBlockService(currentCursor, orgId, currentStory, msg, endUserId);
+
+    // Get the full block object here so that we can return it to the bot engine
+    const nextBlock = await this._blockService$.getBlockById(cursor.position.blockId, orgId, currentStory);
+
+    // We check if the next block is a Structural Block so that we can handle it and find the next block
+    //  to send back to the end user. Because we cannot send these types of blocks to the user, we
+    //   need to send the blocks they are pointing to
+
+    // TODO: Group major story block types into different enums/namespaces 
+    //    e.g. IO blocks, structual blocks, output blocks
+    if(isStructuralBlock(nextBlock.type)) {
+      let newUserPosition: EndUserPosition = {
+        storyId: currentStory,
+        blockId: cursor.position.blockId
+      }
+      cursor.position = newUserPosition;
+
+      cursor = await this.__nextBlockService(cursor, orgId, currentStory, msg, endUserId);
+
+    }
+
+    // Return the resolved next block and the new cursor.
+    return {
+      storyBlock: nextBlock,
+      newCursor: cursor
+    };
   }
 
   /**
@@ -53,10 +80,14 @@ export class ProcessMessageService
    * 
    * @returns NextBlock
    */
-  private async __nextBlockService(block: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<StoryBlock>
+  private async __nextBlockService(currentCursor: Cursor, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
   {
-    const nextBlockService = new NextBlockFactory().resoveBlockType(block.type, this._tools, this._blockService$, this._connService$);
+    const currentBlockId = currentCursor.position.blockId;
 
-    return nextBlockService.getNextBlock(msg, block, orgId, currentStory, endUserId);
+    const currentBlock = await this._blockService$.getBlockById(currentBlockId, orgId, currentStory)
+
+    const nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
+
+    return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
   }
 }
