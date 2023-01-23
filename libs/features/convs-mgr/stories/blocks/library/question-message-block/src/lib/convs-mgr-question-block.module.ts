@@ -9,7 +9,7 @@ import {
 } from '@iote/bricks-angular';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
+import { MultiLangModule } from '@ngfi/multi-lang';
 import { QuestionsBlockComponent } from './components/questions-block/questions-block.component';
 
 @NgModule({
@@ -18,6 +18,7 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
+    MultiLangModule,
 
     FormsModule,
     ReactiveFormsModule,
