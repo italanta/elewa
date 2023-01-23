@@ -21,7 +21,7 @@
             </span>
   
             <button (click)="addNewOption(groupIndex)" mat-flat-button class="add-button">
-              Add Option
+              {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
             </button>
           </div>
         </div>
@@ -29,7 +29,7 @@
     </form>
 
     <button (click)="addNewOptionGroup()" mat-flat-button class="add-button">
-      New List
+      {{ 'BOTS.ACTIONS.NEW-LIST' | transloco }}
     </button>
   </mat-card-content>
 </mat-card>

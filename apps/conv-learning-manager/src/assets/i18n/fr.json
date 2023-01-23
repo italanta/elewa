@@ -124,7 +124,9 @@
       "OPEN-BOT": "Ouvert un robot",
       "LBL-NEW-BOT": "Créer un nouveau robot",
       "EDIT-BOT":"Edit",
-      "DELETE-BOT": "Effacer"
+      "DELETE-BOT": "Effacer",
+      "ADD-OPTION": "Ajouter une option",
+      "NEW-LIST": "Nouvelle liste"
     },
     "EDIT-MODAL": {
       "TITLE": "Modifier un robot",
