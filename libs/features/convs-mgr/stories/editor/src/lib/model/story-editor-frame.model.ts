@@ -33,11 +33,10 @@ export class StoryEditorFrame {
   blocksArray: FormArray;
 
   constructor(private _fb: FormBuilder,
-              private _jsPlumb: BrowserJsPlumbInstance,
-              private _blocksInjector: BlockInjectorService,
-              private _viewport: ViewContainerRef) 
-  {
-      this.loaded = true;
+    private _jsPlumb: BrowserJsPlumbInstance,
+    private _blocksInjector: BlockInjectorService,
+    private _viewport: ViewContainerRef) {
+    this.loaded = true;
   }
 
   /**
@@ -116,7 +115,7 @@ export class StoryEditorFrame {
 
     // Init frame
     const activeBlocks = this._blocks.filter((block) => !block.deleted);
-    
+
     for (const block of activeBlocks) {
       this._injectBlockToFrame(block);
       this._cnt++;
@@ -141,7 +140,7 @@ export class StoryEditorFrame {
     // targets (blocks) are wrapped inside a mat-card 
     let domSourceInputs = Array.from(document.querySelectorAll("input"));
     let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
-  
+
 
     for (const connection of this._connections) {
       // anchorBlock.id == this._story.id!;
@@ -149,7 +148,7 @@ export class StoryEditorFrame {
       let sourceElement = domSourceInputs.find((el) => el.id == connection.sourceId);
       // fetching the target (block) that matches the connection target id
       let targetElement = domBlockCards.find((el) => el.id == connection.targetId);
-      
+
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       this._jsPlumb.connect({
         source: sourceElement as Element,
@@ -189,8 +188,8 @@ export class StoryEditorFrame {
         break;
       case StoryBlockTypes.Location:
         break;
-     case StoryBlockTypes.Audio:
-          break;
+      case StoryBlockTypes.Audio:
+        break;
       case StoryBlockTypes.Video:
         break
       case StoryBlockTypes.Sticker:
@@ -201,17 +200,19 @@ export class StoryEditorFrame {
         break
       case StoryBlockTypes.Reply:
         break
+      case StoryBlockTypes.Fail:
+        break
       default:
         break
     }
 
     const block = {
-                    id: `${this._cnt}`,
-                    type: type,
-                    message: '',
-                    // TODO: Positioning in the middle + offset based on _cnt
-                    position: { x: 200, y: 50 }
-                  } as StoryBlock;
+      id: `${this._cnt}`,
+      type: type,
+      message: '',
+      // TODO: Positioning in the middle + offset based on _cnt
+      position: { x: 200, y: 50 }
+    } as StoryBlock;
 
     this._cnt++;
 
