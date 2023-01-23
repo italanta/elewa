@@ -178,9 +178,10 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-  deleteBlock() {
+  deleteBlock(id: string) {
+    this.blockFormGroup.removeControl(id);
     this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
+    // this.blockFormGroup.value.deleted = true;
   }
 }
 
