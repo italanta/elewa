@@ -23,6 +23,7 @@ import { ConvsMgrStickerMessageBlockModule } from '@app/features/convs-mgr/stori
 import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/list-message-block';
 import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 import { ConvsMgrReplyMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/reply-message-block';
+import { ConvsMgrFailMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/fail-message-block'
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
@@ -31,7 +32,7 @@ import { BlockComponent } from './components/block/block.component';
 
 @NgModule({
   imports: [
-    CommonModule, 
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
@@ -54,9 +55,10 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrStickerMessageBlockModule,
     ConvsMgrListMessageBlockModule,
     ConvsMgrBlockOptionsModule,
+    ConvsMgrFailMessageBlockModule,
 
     FileStateModule
-  
+
   ],
 
   declarations: [
