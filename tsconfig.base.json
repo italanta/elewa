@@ -53,11 +53,11 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/audio-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/audio-message-block/src/index.ts"
-      ],
       "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
         "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/audio-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/audio-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
@@ -70,6 +70,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/jump-story-block": [
+        "libs/features/convs-mgr/stories/blocks/library/jump-story-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/list-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/list-message-block/src/index.ts"
@@ -89,11 +92,11 @@
       "@app/features/convs-mgr/stories/blocks/library/question-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/question-message-block/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/sticker-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/src/index.ts"
-      ],
       "@app/features/convs-mgr/stories/blocks/library/reply-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/reply-message-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/sticker-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/text-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/text-message-block/src/index.ts"
@@ -157,6 +160,7 @@
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
+      "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
       ],
@@ -166,7 +170,6 @@
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
       ],
-      "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/stories": [
         "libs/state/convs-mgr/stories/main/src/index.ts"
       ],

@@ -15,3 +15,13 @@ input {
   outline: none;
   border: 1px solid var(--convs-mgr-color-text-black);
 }
+
+.success {
+  background-color: green;
+  color: white;
+}
+
+.failed {
+  background-color: firebrick;
+  color: white;
+}
