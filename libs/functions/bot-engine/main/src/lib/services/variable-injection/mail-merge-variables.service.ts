@@ -15,7 +15,7 @@ import { HandlerTools } from "@iote/cqrs";
 export class MailMergeVariables
 {
   /** Regex to extract the variable between the {{}} curly braces */
-  private _exp: RegExp = new RegExp('\{{(.*?)\}}')
+  private _exp: RegExp = new RegExp('\{{(.*?)\}}');
 
   constructor(private _tools: HandlerTools) { }
   /**
@@ -33,23 +33,23 @@ export class MailMergeVariables
   {
     const savedVariableValues = await this.__getVariableValues();
 
-    const outgoingTextArray =  outgoingText.split(" ");
+    const outgoingTextArray = outgoingText.split(" ");
 
     let newOutgoingText = outgoingText;
 
-    for(let word of outgoingTextArray) {
+    for (let word of outgoingTextArray) {
       const variable = this.__getVariableFromText(word);
-      
-      if(variable) {
-        this._tools.Logger.log(() =>`[VariableInjectorService] - Replacing '${variable}' with '${savedVariableValues[variable as string]}`);
 
-        word = savedVariableValues[variable]
+      if (variable) {
+        this._tools.Logger.log(() => `[VariableInjectorService] - Replacing '${variable}' with '${savedVariableValues[variable as string]}`);
+
+        word = savedVariableValues[variable];
       }
 
-      newOutgoingText = newOutgoingText.replace(this._exp, savedVariableValues[variable])
+      newOutgoingText = newOutgoingText.replace(this._exp, savedVariableValues[variable]);
     }
 
-		return newOutgoingText;
+    return newOutgoingText;
   }
 
   /**
@@ -61,18 +61,18 @@ export class MailMergeVariables
   {
     // Extract the variable
     const variable = this._exp.exec(outgoingText);
-    
-    if(!variable) return null
-    
+
+    if (!variable) return null;
+
     return variable[1];
   }
 
   private async __getVariableValues() 
-  { 
+  {
     const variableRepo = this._tools.getRepository(`orgs/{orgId}/end-users/{endUserId}/variables`);
 
-   const variableValues =  await variableRepo.getDocumentById(`values`);
+    const variableValues = await variableRepo.getDocumentById(`values`);
 
-   return variableValues;
+    return variableValues;
   }
 }
