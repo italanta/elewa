@@ -1,8 +1,8 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
+import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { FileMessage, Message, MessageDirection, TextMessage } from "@app/model/convs-mgr/conversations/messages";
-import { isInputBlock, StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { isOutputBlock, StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
@@ -36,6 +36,8 @@ export class BotEnginePlay implements IBotEnginePlay
 
   private chatCommandsManager: ChatCommandsManager;
 
+  private sideOperations: Promise<any>[] = [];
+
   constructor(
     private _processMessageService$: ProcessMessageService,
     private _cursorDataService$: CursorDataService,
@@ -59,10 +61,13 @@ export class BotEnginePlay implements IBotEnginePlay
    * This method is resposible for 'playing' the end user through the stories. @see {Story}.
    *  It receives the message and responds with the next block in the story.
    */
-  async play(message: Message, endUser: EndUser, endUserPosition?: Cursor)
+  async play(message: Message, endUser: EndUser, currentCursor: Cursor)
   {
+    // Save the message
+    // this.__save(message, endUser.id);
+
     // Get the next block in the story
-    const nextBlock = await this.__getNextBlock(endUser, endUserPosition, message);
+    const { nextBlock, newCursor } = await this.__getNextBlock(endUser, currentCursor, message);
 
     // Send the block back to the user
     //
@@ -71,20 +76,26 @@ export class BotEnginePlay implements IBotEnginePlay
     // 
     // So, to ensure faster response to end users, we store all these operations to an array and resolve 
     //      them after we have responded to the user
-    const sideOperations = await this.__reply(nextBlock, endUser, message);
+    await this.__reply(nextBlock, endUser, message);
+
+    this.__move(newCursor, endUser.id);
+
+    // Here is where the message chaining happens. 
+    //  If it is not an input block we replay until we get hit an input block. 
+    if (isOutputBlock(nextBlock.type)) {
+      return await this.play(message, endUser, newCursor);
+    }
 
     // Resolve all pending operations.
-    await Promise.all(sideOperations);
+    await Promise.all(this.sideOperations);
   }
 
   /**
    * Responsible for returning the next block in the story.
    */
-  private async __getNextBlock(endUser: EndUser, endUserPosition: EndUserPosition, message?: Message)
+  private async __getNextBlock(endUser: EndUser, currentPosition: Cursor, message?: Message)
   {
     const currentStory = endUser.currentStory;
-
-    const lastBlock = endUserPosition.currentBlock;
 
     this._tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(message)}.`);
 
@@ -95,93 +106,48 @@ export class BotEnginePlay implements IBotEnginePlay
 
     }
 
-    if (!endUserPosition) {
+    if (!currentPosition) {
       // If the end user position does not exist then the conversation is new and we return the first block
       return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
     } else {
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(lastBlock, endUser.id, this.orgId, currentStory, this._tools, message);
+      return this._processMessageService$.resolveNextBlock(message, currentPosition, endUser.id, this.orgId, currentStory, this._tools);
     }
   }
 
-  /**
-   * Handles sending of story blocks to the end user.
-   * 
-   * If the next block does not require a user input e.g. text message block, we chain it with another block, until we 
-   *  reach a block requiring user input e.g. question message block
-   */
-  private async __reply(newStoryBlock: StoryBlock, endUser: EndUser, message: Message)
+  private async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
-    /**
-     * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) 
-     *     e.g. saving the messages to firebase 
-     * 
-     * So, to ensure faster response to end users, we store all these operations to an array and resolve 
-     *     them after we have responded to the user
-     */
-    let sideOperations: Promise<any>[] = [];
 
+    // Inject Variables to the block
+    const mailMergedBlock = await this.__mailMergeVariables(nextBlock);
+
+    // Save block to messages collection
+    this._saveBlockAsMessage(mailMergedBlock, endUser.id);
+
+    // Reply To the end user
+    await this._sendBlockMessage(mailMergedBlock, endUser.phoneNumber);
+  }
+
+  private async __mailMergeVariables(storyBlock: StoryBlock) 
+  {
+    const newBlock = storyBlock;
     // Initialize the variable injector service
     const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    newStoryBlock.message = mailMergeVariables.merge(newStoryBlock.message, endUser);
-    const saveMessage = this.__save(message, endUser.id);
+    newBlock.message = mailMergeVariables.merge(storyBlock.message);
 
-    // Save the message
-    sideOperations.push(saveMessage);
-
-    // Reply To the end user
-    await this._sendBlockMessage(newStoryBlock, endUser.phoneNumber);
-
-    // Update the End User Position
-    const newPosition: EndUserPosition = { currentBlock: newStoryBlock };
-    const moveToNext = this.__move(newPosition, endUser.id);
-
-    sideOperations.push(moveToNext);
-
-    let count = 1;
-
-    let currentBlock = newStoryBlock;
-
-    // Here is where the message chaining happens. 
-    //  If it is a text block we find the next block and send it. 
-    //    Our loop ends when we hit a story block type that is not specified here.
-    while (isInputBlock(currentBlock.type)) {
-
-      // Get the next block in the story
-      currentBlock = await this.__getNextBlock(endUser, { currentBlock });
-
-      const saveBlockAsMessage = this._saveBlockAsMessage(currentBlock, endUser.id);
-
-      // Save the message
-      sideOperations.push(saveBlockAsMessage);
-
-      this._tools.Logger.log(() => `[EngineBotManager] - Next Block #${count} : ${JSON.stringify(currentBlock)}`);
-
-      // Inject variable to message
-      currentBlock.message = mailMergeVariables.merge(currentBlock.message, endUser);
-
-      // Send the message back to the end user
-      await this._sendBlockMessage(currentBlock, endUser.phoneNumber);
-
-      // Update the End User Position
-      const moveToNext = this.__move({ currentBlock: currentBlock }, endUser.id);
-
-      sideOperations.push(moveToNext);
-
-      count++;
-    }
-
-    return sideOperations;
+    return newBlock;
   }
 
   /**
    * Updates the position of the end user with the block we send back to them
    */
-  private async __move(newPosition: EndUserPosition, endUserId: string): Promise<EndUserPosition> 
+  private __move(newPosition: Cursor, endUserId: string)
   {
-    return this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, newPosition.currentBlock);
+    const moveCursor = this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, newPosition);
+
+    this.sideOperations.push(moveCursor);
   };
 
   /**
@@ -201,7 +167,9 @@ export class BotEnginePlay implements IBotEnginePlay
   {
     const botMessage = this.__convertBlockToStandardMessage(storyBlock);
 
-    return this.__save(botMessage, endUserId);
+    const saveMessage = this.__save(botMessage, endUserId);
+
+    this.sideOperations.push(saveMessage);
   }
 
   private async __save(message: Message, endUserId: string) 
@@ -215,7 +183,9 @@ export class BotEnginePlay implements IBotEnginePlay
 
       message = fileMessage;
     }
-    return this._msgService$.saveMessage(message, this.orgId, endUserId);
+    const saveMessage = this._msgService$.saveMessage(message, this.orgId, endUserId);
+
+    this.sideOperations.push(saveMessage);
   };
 
   /**
