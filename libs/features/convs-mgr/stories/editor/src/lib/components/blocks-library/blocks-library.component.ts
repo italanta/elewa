@@ -10,6 +10,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import {
   ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
+  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, ReplyMessageBlock, JumpBlock
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, ReplyMessageBlock, MultipleInputMessageBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -49,6 +50,8 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video', blockIcon: this.getBlockIcon(StoryBlockTypes.Video) } as VideoMessageBlock,
     { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker) } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
+    // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
+    { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock,
     { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
   ];
@@ -110,6 +113,10 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.Reply:
         this.frame.newBlock(StoryBlockTypes.Reply);
+        break;
+      case StoryBlockTypes.JumpBlock:
+        this.frame.newBlock(StoryBlockTypes.JumpBlock);
+        break;
         break;
       case StoryBlockTypes.MultipleInput:
         this.frame.newBlock(StoryBlockTypes.MultipleInput);
