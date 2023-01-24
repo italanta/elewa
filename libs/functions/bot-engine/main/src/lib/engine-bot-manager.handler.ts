@@ -5,7 +5,7 @@ import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
-import { EndUserPosition, __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor, EndUserPosition, __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
@@ -89,7 +89,7 @@ export class EngineBotManager
       const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber);
 
       // Get the last saved end user position in the story
-      const endUserPosition = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId);
+      const currentCursor = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId);
 
       this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
@@ -100,21 +100,21 @@ export class EngineBotManager
         case ChatStatus.Running:
           message.direction = MessageDirection.TO_CHATBOT;
 
-          await bot.play(message, endUser, endUserPosition as EndUserPosition);
+          await bot.play(message, endUser, currentCursor as Cursor);
 
           break;
         case ChatStatus.Paused:
           // TODO: resolve paused flow
           const pauseTextMessage = createTextMessage("Chat has been paused");
 
-          await bot.sendMessage(pauseTextMessage);
+          // await bot.sendMessage(pauseTextMessage);
 
           break;
         case ChatStatus.TakingToAgent:
           message.direction = MessageDirection.TO_AGENT;
 
           // Save the message to the database for later use
-          await bot.save(message, END_USER_ID);
+          await _msgDataService$.saveMessage(message, this.orgId, END_USER_ID);
           break;
         default:
           break;
