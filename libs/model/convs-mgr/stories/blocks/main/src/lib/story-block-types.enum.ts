@@ -101,16 +101,14 @@ export enum StoryBlockTypes {
   */
   Reply = 17,
 
- /**
-  * Block that allows linking a different story within the same story.
-  */
-  JumpBlock = 18
-  Reply = 17,
-
   /**
    * Block that sends a list of items for user to choose and asks a question if they want to choose again
    */
   MultipleInput = 19,
   
   
+ /**
+  * Block that allows linking a different story within the same story.
+  */
+  JumpBlock = 18,
 }

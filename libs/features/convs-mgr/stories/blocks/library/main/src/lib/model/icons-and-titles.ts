@@ -67,7 +67,7 @@ export const iconsAndTitles: any = {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
 		icon: 'fas fa-forward'
 	},
-  18  : {
+  19  : {
 	    title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLEINPUT',
 		icon: 'fas fa-tasks'
   }
