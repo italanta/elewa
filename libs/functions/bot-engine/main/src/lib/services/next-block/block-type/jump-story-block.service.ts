@@ -52,7 +52,7 @@ export class JumpStoryBlockService extends NextBlockService
    *  - Add function to get the first block in the new story if the block is not provided
    *  - Add function to jump to the same story, if the story is not provided
    */
-  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: JumpBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
+  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: JumpBlock, orgId: string, currentStory: string, endUserId: string): Promise<Cursor>
   {
     const cursorService = new CursorDataService(this.tools);
 
@@ -101,14 +101,13 @@ export class JumpStoryBlockService extends NextBlockService
       position: newUserPosition
     };
 
-    await cursorService.updateCursor(endUserId, orgId, newCursor);
+    // await cursorService.updateCursor(endUserId, orgId, newCursor);
 
     // Update the story if we have jumped to another one
     // TODO: Remove story from end user document and to fetch from cursor
     if (currentStory !== currentBlock.targetBlockId) await this._updateStory(currentBlock.targetStoryId, orgId, endUserId);
 
-
-    return nextBlock;
+    return newCursor;
   }
 
   /**
