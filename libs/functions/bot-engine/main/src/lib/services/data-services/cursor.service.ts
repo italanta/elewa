@@ -65,8 +65,16 @@ export class CursorDataService extends BotDataService<Cursor> {
     // Set the document path of the cursor collection
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
 
-    await this.createDocument(newCursor, this._docPath, cursorId);
+    try {
+      await this.createDocument(newCursor, this._docPath, cursorId);
 
-    this.tools.Logger.log(() => `[ChatBotService].init - Updated Cursor: ${JSON.stringify(newCursor)}`);
+      this.tools.Logger.log(() => `[ChatBotService].updateCursor - Updated Cursor: ${JSON.stringify(newCursor)}`);
+
+      return true;
+    } catch (error) {
+      this.tools.Logger.log(() => `[ChatBotService].updateCursor - Failed to update Cursor: ${JSON.stringify(newCursor)}`);
+
+      return false;
+    }
   }
 }
