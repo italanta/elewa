@@ -1,4 +1,4 @@
-import { EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
+import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { Message } from "@app/model/convs-mgr/conversations/messages";
 
@@ -11,5 +11,5 @@ import { Message } from "@app/model/convs-mgr/conversations/messages";
  */
 export interface IBotEnginePlay
 {
-  play: (message: Message, endUser: EndUser, endUserPosition?: EndUserPosition) => void;
+  play: (message: Message, endUser: EndUser, currentCursor?: Cursor) => void;
 }
