@@ -104,7 +104,7 @@ export enum StoryBlockTypes {
   /**
    * Block that sends a list of items for user to choose and asks a question if they want to choose again
    */
-  MultipleInput = 18,
+  MultipleInput = 19,
   
   
 }
