@@ -16,7 +16,7 @@ import { CursorDataService } from "../../data-services/cursor.service";
  * When an end user hit a fail block we can either end the conversation(return null) or 
  *  in case of a child story, return the fail block linked to the jump block (fail state).
  */
-export class EndStoryBlockService extends NextBlockService
+export class FailBlockService extends NextBlockService
 {
   userInput: string;
   _logger: Logger;
@@ -35,7 +35,7 @@ export class EndStoryBlockService extends NextBlockService
    *  3. Update the cursor
    *  4. Resolve and return the fail block
    */
-  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: FailBlock, orgId: string, currentStory: string, endUserId?: string): Promise<StoryBlock>
+  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: FailBlock, orgId: string, currentStory: string, endUserId?: string): Promise<Cursor>
   {
     const cursorService = new CursorDataService(this.tools);
 
@@ -61,7 +61,7 @@ export class EndStoryBlockService extends NextBlockService
       // Resolve and return the success block
       const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockFail, orgId, currentStory);
 
-      return nextBlock;
+      return newCursor;
     } else {
       // We return null when we hit the end of the parent story.
       // TODO: To implement handling null in the bot engine once refactor on PR#210 is approved.
