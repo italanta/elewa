@@ -28,7 +28,14 @@ export class ProcessMessageService
     /** Get the first Block */
     const firstBlock = await this._blockService$.getFirstBlock(orgId, currentStory);
 
-    return firstBlock;
+    const newCursor: Cursor = {
+      position: {storyId: currentStory, blockId: firstBlock.id}
+    }
+
+    return {
+      nextBlock: firstBlock,
+      newCursor: newCursor
+    };
   }
 
   /**
@@ -66,7 +73,7 @@ export class ProcessMessageService
 
     // Return the resolved next block and the new cursor.
     return {
-      storyBlock: nextBlock,
+      nextBlock: nextBlock,
       newCursor: cursor
     };
   }
@@ -84,7 +91,7 @@ export class ProcessMessageService
   {
     const currentBlockId = currentCursor.position.blockId;
 
-    const currentBlock = await this._blockService$.getBlockById(currentBlockId, orgId, currentStory)
+    const currentBlock = await this._blockService$.getBlockById(currentBlockId, orgId, currentStory);
 
     const nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
 
