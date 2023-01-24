@@ -14,6 +14,9 @@ import { HandlerTools } from "@iote/cqrs";
  */
 export class MailMergeVariables
 {
+  /** Regex to extract the variable between the {{}} curly braces */
+  private _exp: RegExp = new RegExp('\{{(.*?)\}}')
+
   constructor(private _tools: HandlerTools) { }
   /**
    * For a better user experience and validation, we would need to respond back to the end user with
@@ -26,17 +29,27 @@ export class MailMergeVariables
    *          we add the text to the block as 'Hello {{name}}'
    * 
    */
-  merge(outgoingText: string, dataSource: any): string
+  async merge(outgoingText: string): Promise<string>
   {
-    const variable = this.__getVariableFromText(outgoingText);
+    const savedVariableValues = await this.__getVariableValues();
 
-    // Replace the variable with the information contained in the data source
-    if (variable) {
-      this._tools.Logger.log(() => `[VariableInjectorService] - Replacing '${variable}' with '${dataSource[variable]}`);
+    const outgoingTextArray =  outgoingText.split(" ");
 
-      return outgoingText.replace(`{{${variable}}}`, dataSource[variable]);
+    let newOutgoingText = outgoingText;
+
+    for(let word of outgoingTextArray) {
+      const variable = this.__getVariableFromText(word);
+      
+      if(variable) {
+        this._tools.Logger.log(() =>`[VariableInjectorService] - Replacing '${variable}' with '${savedVariableValues[variable as string]}`);
+
+        word = savedVariableValues[variable]
+      }
+
+      newOutgoingText = newOutgoingText.replace(this._exp, savedVariableValues[variable])
     }
-    return outgoingText;
+
+		return newOutgoingText;
   }
 
   /**
@@ -46,14 +59,20 @@ export class MailMergeVariables
    */
   private __getVariableFromText(outgoingText: string): string
   {
-    // Regex to extract the variable between the {{}} curly braces
-    const varRegex = new RegExp('\{{(.*?)\}}');
-
     // Extract the variable
-    const variable = varRegex.exec(outgoingText);
+    const variable = this._exp.exec(outgoingText);
     
     if(!variable) return null
     
     return variable[1];
+  }
+
+  private async __getVariableValues() 
+  { 
+    const variableRepo = this._tools.getRepository(`orgs/{orgId}/end-users/{endUserId}/variables`);
+
+   const variableValues =  await variableRepo.getDocumentById(`values`);
+
+   return variableValues;
   }
 }
