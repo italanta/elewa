@@ -109,7 +109,7 @@ export enum StoryBlockTypes
   JumpBlock = 18
 }
 
-export function isInputBlock(blockType: StoryBlockTypes): boolean {
+export function isOutputBlock(blockType: StoryBlockTypes): boolean {
   switch (blockType) {
     case StoryBlockTypes.TextMessage:
       return true;
@@ -120,6 +120,11 @@ export function isInputBlock(blockType: StoryBlockTypes): boolean {
     case StoryBlockTypes.Video:
       return true;
     case StoryBlockTypes.Sticker:
+      return true;
+    default:
+      return false
+  }
+}
 /**
  * Checks whether a storyblock is a structural block
  * 
