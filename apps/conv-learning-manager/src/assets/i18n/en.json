@@ -93,6 +93,12 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link"
+      },
+      "BUTTONS": {
+        "JUMP-BLOCK" : {
+          "SUCCESS": "Success",
+          "FAILED": "Failed"
+        }
       }
     },
     "COMPONENTS": {

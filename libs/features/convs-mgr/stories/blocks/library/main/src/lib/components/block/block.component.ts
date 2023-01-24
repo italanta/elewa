@@ -23,6 +23,7 @@ import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
+import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 /**
  * Block which sends a message from bot to user.
  */
@@ -51,6 +52,7 @@ export class BlockComponent implements OnInit {
   listType = StoryBlockTypes.List;
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
+  jumpType = StoryBlockTypes.JumpBlock;
   multipleInputType = StoryBlockTypes.MultipleInput;
 
   blockFormGroup: FormGroup;
@@ -133,6 +135,12 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
+        case StoryBlockTypes.JumpBlock:
+          this.blockFormGroup = _CreateJumpBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
 
           case StoryBlockTypes.MultipleInput:
           this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);

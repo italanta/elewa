@@ -53,14 +53,11 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/add-more-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/add-more-message-block/src/index.ts"
+      "@app/features/convs-mgr/stories/blocks/library/audio-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/audio-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
         "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/blocks/library/audio-message-block": [
-        "libs/features/convs-mgr/stories/blocks/library/audio-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
@@ -73,6 +70,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/image-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/image-message-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/jump-story-block": [
+        "libs/features/convs-mgr/stories/blocks/library/jump-story-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/list-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/list-message-block/src/index.ts"

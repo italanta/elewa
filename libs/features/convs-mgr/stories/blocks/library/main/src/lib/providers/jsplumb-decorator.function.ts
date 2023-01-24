@@ -7,6 +7,7 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
           VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, MultipleInputMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
@@ -23,6 +24,7 @@ import { _ListBlockDecoratePlumb } from './list-block.jsplumb';
 import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
 import { _ReplyBlockDecoratePlumb } from './reply-block.jsplumb';
 import { _AnchorBlockDecoratePlumb } from './anchor-block.jsplumb';
+import { _JumpBlockDecoratePlumb } from './jump-block.jsplumb';
 import { _MultipleBlockDecoratePlumb } from './multiple-block.jsplumb';
 
 /**
@@ -77,6 +79,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
         break;
     case StoryBlockTypes.Reply:
       return _ReplyBlockDecoratePlumb(block as ReplyMessageBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.JumpBlock:
+      return _JumpBlockDecoratePlumb(block as JumpBlock, comp, jsPlumb);
       break;
     case StoryBlockTypes.MultipleInput:
       return _MultipleBlockDecoratePlumb(block, comp, jsPlumb);
