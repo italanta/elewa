@@ -83,3 +83,18 @@ textarea:focus-visible {
   border: 1px solid var(--convs-mgr-color-primary-yellow);
   line-height: 30px;
 }
+.listgone {
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+}
+.input {
+  margin: 0;
+}
+.inputList {
+  display: flex;
+  align-items: center;
+}
+.fa-trash-alt {
+  color: var(--convs-mgr-color-primary-purple);
+}
