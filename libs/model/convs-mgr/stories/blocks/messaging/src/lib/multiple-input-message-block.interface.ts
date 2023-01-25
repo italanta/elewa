@@ -8,6 +8,7 @@ export interface MultipleInputMessageBlock extends StoryBlock
 {
   /**Multiple Input that is expected as input */
   message?: string;
+  addMore?: string;
 
   defaultTarget?: string;
   
