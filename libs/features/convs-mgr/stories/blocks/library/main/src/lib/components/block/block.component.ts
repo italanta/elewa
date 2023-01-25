@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
@@ -23,6 +24,7 @@ import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
+import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
 /**
  * Block which sends a message from bot to user.
  */
@@ -58,8 +60,11 @@ export class BlockComponent implements OnInit {
   iconClass = ''
   blockTitle = ''
 
+  @ViewChild(CdkPortal) portal: CdkPortal;
+
   constructor(private _el: ElementRef,
               private _fb: FormBuilder,
+              private _blockPortalBridge: BlockPortalService,
               private _logger: Logger
   ) { }
 
@@ -185,6 +190,11 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
+
+  editBlock() {
+    this._blockPortalBridge.setPortal(this.portal)
+  }
+
   deleteBlock() {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;

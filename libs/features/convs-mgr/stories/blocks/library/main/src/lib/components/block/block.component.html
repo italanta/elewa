@@ -7,10 +7,15 @@
             </div>
         
             <div fxLayout="row" class="icon-block">
+                <span class="icons" (click)="editBlock()">edit</span>
                 <span class="icons"><i class="far fa-clone"></i></span>
                 <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
             </div>
         </div>
+
+        <ng-template cdkPortal>
+            <button>Click me</button>
+        </ng-template>
 
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
