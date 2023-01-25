@@ -2,12 +2,13 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
+import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
-import { makeHttpGetRequest, makeHttpPostRequest } from "../../../utils/httpRequest";
 import { IProcessNextBlock } from "../models/process-next-block.interface";
-import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
+
+import { HttpService } from "../../../utils/http-service/http.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -20,12 +21,16 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 {
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
+	
+	private httpService: HttpService;
 
 	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
 	{
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
 		this.blockDataService = blockDataService;
+
+		this.httpService =  new HttpService();
 	}
 
 	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string) {
@@ -51,12 +56,11 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 		switch (storyBlock.httpMethod) {
 			case HttpMethodTypes.GET:
-				return makeHttpGetRequest(URL, this.tools);
-
+				return this.httpService.get(URL, this.tools);
 			case HttpMethodTypes.POST:
-				return makeHttpPostRequest(URL, payload, this.tools);
+				return this.httpService.post(URL, payload, this.tools);
 			default:
-				return makeHttpPostRequest(URL, payload, this.tools);
+				return this.httpService.post(URL, payload, this.tools);
 		}
 	}
 
