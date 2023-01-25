@@ -1,24 +1,19 @@
 {
+  "name": "util-ngfi-state",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/ngfi/state/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/util/ngfi/state/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/util/ngfi/state/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/util/ngfi/state"
-      ],
+      "outputs": ["coverage/libs/util/ngfi/state"],
       "options": {
         "jestConfig": "libs/util/ngfi/state/jest.config.ts",
         "passWithNoTests": true
@@ -26,17 +21,13 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/ngfi/state",
         "tsConfig": "libs/util/ngfi/state/tsconfig.lib.json",
         "packageJson": "libs/util/ngfi/state/package.json",
         "main": "libs/util/ngfi/state/src/index.ts",
-        "assets": [
-          "libs/util/ngfi/state/*.md"
-        ]
+        "assets": ["libs/util/ngfi/state/*.md"]
       }
     }
   },

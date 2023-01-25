@@ -110,6 +110,12 @@
       "@app/features/convs-mgr/stories/editor": [
         "libs/features/convs-mgr/stories/editor/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/editor/editblock": [
+        "libs/features/convs-mgr/stories/editor/editblock/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/editor/src/lib/editblock": [
+        "libs/features/convs-mgr/stories/editor/src/lib/editblock/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],

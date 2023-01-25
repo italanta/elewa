@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -22,7 +22,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnDestroy
+export class StoryEditorPageComponent implements OnDestroy, OnInit
 {
   private _sb = new SubSink();
 
@@ -38,6 +38,8 @@ export class StoryEditorPageComponent implements OnDestroy
 
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved:boolean = false;
+  toDisplay = false;
+  receivedvalue:any;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -65,6 +67,16 @@ export class StoryEditorPageComponent implements OnDestroy
         }
     );     
   }
+  ngOnInit(): void {
+    this._editorStateService.get().subscribe() =>
+    {
+      this.breadcrumbs
+    }
+
+
+      // this.receivedvalue=data;
+  }
+
 
   onFrameViewLoaded(frame: StoryEditorFrame)
   {
@@ -81,6 +93,10 @@ export class StoryEditorPageComponent implements OnDestroy
             );
       
     this._cd.detectChanges();
+  }
+
+  onFrameView() {
+    this._editorStateService.get()
   }
 
   setFrameZoom() {
@@ -146,4 +162,9 @@ export class StoryEditorPageComponent implements OnDestroy
     this._editorStateService.flush();
     this._sb.unsubscribe();
   }
+
+  toggleData(){
+    this.toDisplay = !this.toDisplay;
+  }
+  
 }

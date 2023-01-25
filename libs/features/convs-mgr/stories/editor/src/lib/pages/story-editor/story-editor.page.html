@@ -6,6 +6,16 @@
       <convl-blocks-library *ngIf="frame" [frame]="frame">
       </convl-blocks-library>
     </div>
+    <span (click)="toggleData()" class="data"><i class="fa fa-chevron-right" fxFlex="90"></i></span>
+    <div *ngIf="toDisplay">
+      <p>To see the blocks <br>you are working on</p>
+      <div>
+        <label>
+          {{receivedvalue}}
+      </label>
+      </div>
+    </div>
+    
 
     <div fxLayout="column" fxLayoutAlign="start" fxFlex>
       <!-- Convl page subbar -->
