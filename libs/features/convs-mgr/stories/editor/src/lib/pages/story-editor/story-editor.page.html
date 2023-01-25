@@ -4,20 +4,15 @@
   <div fxLayout="row" fxFlexFill>
     <div fxFlex="20" class="nav">
 
-      <!-- blocks edit sidenav -->
-      <mat-sidenav-container>
-        <mat-sidenav opened>
-          start
+      <mat-sidenav-container> 
+        <mat-sidenav mode="push" [(opened)]="opened">
         </mat-sidenav>
 
-        <!-- portal outlet -->
         <mat-sidenav-content>
-          aa
           <ng-template [cdkPortalOutlet]='portal$ | async'></ng-template>
         </mat-sidenav-content>
 
       </mat-sidenav-container>
-      <!-- end blocks edit -->
 
       <convl-blocks-library *ngIf="frame" [frame]="frame">
       </convl-blocks-library>

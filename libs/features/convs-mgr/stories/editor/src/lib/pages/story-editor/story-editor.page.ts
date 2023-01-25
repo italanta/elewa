@@ -29,7 +29,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 {
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
-  opened = true;
+  opened: boolean;
 
   pageName: string;
 
@@ -73,7 +73,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   ngOnInit() {
-    this.portal$ = this._blockPortalService.portal$
+    this.portal$ = this._blockPortalService.portal$;
+    this.opened = this._blockPortalService.opened;
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame)
