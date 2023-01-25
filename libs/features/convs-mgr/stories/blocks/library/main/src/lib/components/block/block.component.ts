@@ -193,6 +193,7 @@ export class BlockComponent implements OnInit {
 
   editBlock() {
     this._blockPortalBridge.setPortal(this.portal)
+    this._blockPortalBridge.opened = true
   }
 
   deleteBlock() {
