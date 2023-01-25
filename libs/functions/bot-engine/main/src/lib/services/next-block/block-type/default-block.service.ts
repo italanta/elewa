@@ -53,11 +53,4 @@ export class DefaultOptionMessageService extends NextBlockService
 
 		return cursor;
 	}
-
-	protected async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
-	{
-		const textMessage = msg as TextMessage;
-
-		if (lastBlock.milestone) return this.saveData(lastBlock.tag, orgId, lastBlock.milestone, textMessage.text, endUserId);
-	}
 }
