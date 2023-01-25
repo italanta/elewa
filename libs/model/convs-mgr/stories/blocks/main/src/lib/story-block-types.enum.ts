@@ -132,7 +132,7 @@ export function isOutputBlock(blockType: StoryBlockTypes): boolean {
  *  e.g. IO blocks, structual blocks, output blocks
  * @param blockType 
  */
-export function isStructuralBlock(blockType: StoryBlockTypes)
+export function isOperationBlock(blockType: StoryBlockTypes)
 {
   switch (blockType) {
     case StoryBlockTypes.JumpBlock:
@@ -140,6 +140,8 @@ export function isStructuralBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.EndStoryBlock:
       return true;
     case StoryBlockTypes.FailBlock:
+      return true;
+    case StoryBlockTypes.WebhookBlock:
       return true;
     default:
       return false;
