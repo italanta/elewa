@@ -69,7 +69,7 @@ export class MailMergeVariables
 
   private async __getVariableValues() 
   {
-    const variableRepo = this._tools.getRepository(`orgs/{orgId}/end-users/{endUserId}/variables`);
+    const variableRepo = this._tools.getRepository<any>(`orgs/{orgId}/end-users/{endUserId}/variables`);
 
     const variableValues = await variableRepo.getDocumentById(`values`);
 
