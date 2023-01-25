@@ -2,12 +2,15 @@
 
   <!-- Main body page -->
   <div fxLayout="row" fxFlexFill>
+    
     <div fxFlex="20" class="nav">
-      <mat-sidenav #sidenav [mode]="mode.value || 'push'">
+
+      <mat-sidenav #sidenav [mode]="mode.value || 'push'" class="example-container">
         <p>
           <button mat-button (click)="sidenav.toggle()">
             <i class="fas fa-times"></i>
           </button>
+          <ng-template [cdkPortal]="domPortal"></ng-template>
         </p>
 
         <button mat-button (click)="save()">Apply</button>
@@ -52,14 +55,17 @@
       </div>
 
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" mat-button (click)="sidenav.toggle()">
-        <p><button mat-button (click)="sidenav.toggle()">
-          <i class="fas fa-times"></i>
-            </button>
-          </p>
-  
 
-      </convl-story-editor-frame>
+        <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" click)="domPortal" mat-button (click)="sidenav.toggle()">
+          <p>
+            <button mat-button (click)="sidenav.toggle()">
+            <i class="fas fa-times"></i>
+              </button>
+            </p>
+
+
+        </convl-story-editor-frame>
+  
     </div>
 
   </div>

@@ -35,3 +35,11 @@ app-blocks-library {
 ::ng-deep .mat-mini-fab .mat-button-wrapper {
   bottom: 0px;
 }
+button{
+  border: none;
+  color:none;
+  background-color: inherit;
+}
+.example-container {
+  position: absolute;
+}

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef,OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerMode } from '@angular/material/sidenav';
@@ -22,6 +22,7 @@ import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-
 
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { DomPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -30,6 +31,11 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 })
 export class StoryEditorPageComponent implements OnDestroy
 {
+
+  @ViewChild('domPortalContent') domPortalContent: ElementRef<HTMLElement>
+
+  domPortal!:DomPortal<unknown>
+
   private _sb = new SubSink();
 
   pageName: string;
