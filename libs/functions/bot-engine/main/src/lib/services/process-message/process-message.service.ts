@@ -1,18 +1,21 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { isStructuralBlock, StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { isOperationBlock, isOutputBlock, StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { Cursor, EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
-
+import { ProcessInputFactory } from '../process-input/process-input.factory';
+import { ProcessNextBlockFactory } from '../process-next-block/process-next-block.factory';
 
 export class ProcessMessageService
 {
+  isInputValid: boolean = true;
+
   constructor(
     private _cursorService$: CursorDataService,
     private _connService$: ConnectionsDataService,
@@ -29,8 +32,8 @@ export class ProcessMessageService
     const firstBlock = await this._blockService$.getFirstBlock(orgId, currentStory);
 
     const newCursor: Cursor = {
-      position: {storyId: currentStory, blockId: firstBlock.id}
-    }
+      position: { storyId: currentStory, blockId: firstBlock.id }
+    };
 
     return {
       nextBlock: firstBlock,
@@ -47,34 +50,38 @@ export class ProcessMessageService
    */
   async resolveNextBlock(msg: Message, currentCursor: Cursor, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
-    let cursor = currentCursor;
+    let newCursor = currentCursor;
+
+    const lastBlock = await this._blockService$.getBlockById(currentCursor.position.blockId, orgId, currentStory);
+
+    // Handle input: validates and saves the input to variable
+    await this.processInput(msg, lastBlock, orgId, endUserId);
+
     // Return the cursor updated with the next block in the story
-    cursor = await this.__nextBlockService(currentCursor, orgId, currentStory, msg, endUserId);
+    newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
 
     // Get the full block object here so that we can return it to the bot engine
-    const nextBlock = await this._blockService$.getBlockById(cursor.position.blockId, orgId, currentStory);
+    let nextBlock = await this._blockService$.getBlockById(newCursor.position.blockId, orgId, currentStory);
 
     // We check if the next block is a Structural Block so that we can handle it and find the next block
     //  to send back to the end user. Because we cannot send these types of blocks to the user, we
     //   need to send the blocks they are pointing to
 
-    // TODO: Group major story block types into different enums/namespaces 
-    //    e.g. IO blocks, structual blocks, output blocks
-    if(isStructuralBlock(nextBlock.type)) {
-      let newUserPosition: EndUserPosition = {
-        storyId: currentStory,
-        blockId: cursor.position.blockId
-      }
-      cursor.position = newUserPosition;
+    // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
+    await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
 
-      cursor = await this.__nextBlockService(cursor, orgId, currentStory, msg, endUserId);
+    if (isOperationBlock(nextBlock.type)) {
 
+      const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
+
+      nextBlock = updatedPosition.storyBlock;
+      newCursor = updatedPosition.newCursor;
     }
 
     // Return the resolved next block and the new cursor.
     return {
       nextBlock: nextBlock,
-      newCursor: cursor
+      newCursor
     };
   }
 
@@ -87,14 +94,31 @@ export class ProcessMessageService
    * 
    * @returns NextBlock
    */
-  private async __nextBlockService(currentCursor: Cursor, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
+  private async __nextBlockService(currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
   {
-    const currentBlockId = currentCursor.position.blockId;
-
-    const currentBlock = await this._blockService$.getBlockById(currentBlockId, orgId, currentStory);
-
     const nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
 
     return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
+  }
+
+  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string)
+  {
+
+    if (!isOutputBlock(lastBlock.type)) {
+
+      const processInputFactory = new ProcessInputFactory(this._tools);
+
+      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUserId);
+
+    }
+  }
+
+  private async processNextBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUserId: string)
+  {
+    const processNextBlock = new ProcessNextBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
+
+    const updatedPosition = await processNextBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
+
+    return updatedPosition;
   }
 }
