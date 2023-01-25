@@ -1,32 +1,22 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { EndStoryBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
-import { Message } from "@app/model/convs-mgr/conversations/messages";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
-import { NextBlockService } from "../next-block.class";
-
 import { CursorDataService } from "../../data-services/cursor.service";
+import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 /**
  * When an end user gets to the end of the story we can either end the conversation(return null) or 
  *  in case of a child story, return the success block (success state).
  */
-export class EndStoryBlockService extends NextBlockService
+export class EndStoryBlockService implements IProcessNextBlock
 {
-  userInput: string;
-  _logger: Logger;
-  tools: HandlerTools;
-
-  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, tools: HandlerTools)
-  {
-    super(tools);
-    this.tools = tools;
-  }
+  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools)
+  { }
 
   /**
    * When a user hits the end story block in a child story, we: 
@@ -35,7 +25,7 @@ export class EndStoryBlockService extends NextBlockService
    *  3. Update the cursor
    *  4. Resolve and return the success block
    */
-  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: EndStoryBlock, orgId: string, currentStory: string, endUserId?: string): Promise<Cursor>
+  async handleBlock(storyBlock: EndStoryBlock, currentCursor: Cursor, orgId: string, currentStory: string, endUserId?: string)
   {
     const cursorService = new CursorDataService(this.tools);
 
@@ -60,7 +50,10 @@ export class EndStoryBlockService extends NextBlockService
       // Resolve and return the success block
       const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockSuccess, orgId, currentStory);
 
-      return newCursor;
+      return {
+        storyBlock: nextBlock,
+        newCursor
+      }
     } else {
       // We return null when we hit the end of the parent story.
       // TODO: To implement handling null in the bot engine once refactor on PR#210 is approved.

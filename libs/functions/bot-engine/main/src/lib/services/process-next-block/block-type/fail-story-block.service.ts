@@ -8,25 +8,18 @@ import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
-import { NextBlockService } from "../next-block.class";
-
 import { CursorDataService } from "../../data-services/cursor.service";
+import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 /**
  * When an end user hit a fail block we can either end the conversation(return null) or 
  *  in case of a child story, return the fail block linked to the jump block (fail state).
  */
-export class FailBlockService extends NextBlockService
+export class FailBlockService implements IProcessNextBlock
 {
-  userInput: string;
-  _logger: Logger;
-  tools: HandlerTools;
 
-  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, tools: HandlerTools)
-  {
-    super(tools);
-    this.tools = tools;
-  }
+  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools)
+  { }
 
   /**
    * When a user hits the fail block in a child story, we: 
@@ -35,7 +28,7 @@ export class FailBlockService extends NextBlockService
    *  3. Update the cursor
    *  4. Resolve and return the fail block
    */
-  async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: FailBlock, orgId: string, currentStory: string, endUserId?: string): Promise<Cursor>
+  async handleBlock(storyBlock: FailBlock, currentCursor: Cursor, orgId: string, endUserId?: string)
   {
     const cursorService = new CursorDataService(this.tools);
 
@@ -58,10 +51,13 @@ export class FailBlockService extends NextBlockService
       // Update the cursor
       await cursorService.updateCursor(endUserId, orgId, newCursor);
 
-      // Resolve and return the success block
-      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockFail, orgId, currentStory);
+      // Resolve and return the fail block
+      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockFail, orgId, currentCursor.position.storyId);
 
-      return newCursor;
+      return {
+        storyBlock: nextBlock,
+        newCursor
+      };
     } else {
       // We return null when we hit the end of the parent story.
       // TODO: To implement handling null in the bot engine once refactor on PR#210 is approved.
