@@ -7,5 +7,7 @@
  */
 export interface OutgoingMessagePayload
 {
+  interpretMessageBlock(locationBlock: any): unknown;
+  type(type: any): unknown;
 
 }

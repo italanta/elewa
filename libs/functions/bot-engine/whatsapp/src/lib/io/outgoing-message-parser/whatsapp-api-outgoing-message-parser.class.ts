@@ -1,3 +1,4 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import {
@@ -10,6 +11,7 @@ import {
   WhatsAppMessageType,
   WhatsAppTextMessage,
   WhatsAppLocationMessage,
+  MessageTypes,
 } from '@app/model/convs-mgr/functions';
 
 import {
@@ -20,6 +22,7 @@ import {
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message

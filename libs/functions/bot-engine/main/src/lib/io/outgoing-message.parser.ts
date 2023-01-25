@@ -29,7 +29,7 @@ export abstract class OutgoingMessageParser
 
   // abstract getDocumentBlockParserOut (storyBlock: StoryBlock, phone: string): Message
 
-  // abstract getLocationBlockParserOut (storyBlock: StoryBlock, phone: string): Message
+  abstract getLocationBlockParserOut (storyBlock: StoryBlock, phone: string): Message
 
   /**
    * Our chatbot can send different types of messages, be it a text message, a location, an image, ...
@@ -53,6 +53,7 @@ export abstract class OutgoingMessageParser
       case StoryBlockTypes.PhoneNumber:   parser = this.getTextBlockParserOut;     break;   
       case StoryBlockTypes.QuestionBlock: parser = this.getQuestionBlockParserOut; break;
       case StoryBlockTypes.Image:         parser = this.getImageBlockParserOut;    break;
+      case StoryBlockTypes.Location:      parser = this.getLocationBlockParserOut; break;
       // case StoryBlockTypes.Document:      parser = this.getDocumentBlockParserOut; break;
       // case StoryBlockTypes.Audio:         parser = this.getAudioBlockParserOut;    break;
       // case StoryBlockTypes.Video:         parser = this.getVideoBlockParserOut;    break;
