@@ -20,6 +20,7 @@ import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
 import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
+import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
@@ -28,7 +29,7 @@ import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
  */
 @Component({
   selector: 'app-block',
-  templateUrl: './block.component.html',
+  templateUrl: 'block.component.html',
   styleUrls: ['./block.component.scss']
 })
 export class BlockComponent implements OnInit {
@@ -52,6 +53,7 @@ export class BlockComponent implements OnInit {
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
   jumpType = StoryBlockTypes.JumpBlock;
+  multipleInputType = StoryBlockTypes.MultipleInput;
 
   blockFormGroup: FormGroup;
 
@@ -136,6 +138,12 @@ export class BlockComponent implements OnInit {
 
         case StoryBlockTypes.JumpBlock:
           this.blockFormGroup = _CreateJumpBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
+
+          case StoryBlockTypes.MultipleInput:
+          this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
   

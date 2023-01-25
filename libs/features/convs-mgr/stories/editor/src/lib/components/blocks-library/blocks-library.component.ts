@@ -10,7 +10,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import {
   ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
-  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, ReplyMessageBlock, JumpBlock
+  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -50,7 +50,9 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker) } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
-    { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock
+    { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock,
+    { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
+    // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
   constructor(private _logger: Logger) { }
@@ -114,6 +116,10 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.JumpBlock:
         this.frame.newBlock(StoryBlockTypes.JumpBlock);
         break;
+        break;
+      case StoryBlockTypes.MultipleInput:
+        this.frame.newBlock(StoryBlockTypes.MultipleInput);
+
     }
   }
   getBlockIcon(type: number) {

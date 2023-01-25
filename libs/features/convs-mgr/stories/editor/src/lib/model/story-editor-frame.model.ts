@@ -200,6 +200,8 @@ export class StoryEditorFrame {
       case StoryBlockTypes.Document:
         break
       case StoryBlockTypes.Reply:
+        break;
+      case StoryBlockTypes.MultipleInput:
         break
       default:
         break
