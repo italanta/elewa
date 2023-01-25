@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 export class BlockPortalService {
   private activePortal = new Subject<TemplatePortal>();
   readonly portal$ = this.activePortal.asObservable();
+  public opened = false;
 
   // constructor() { }
   public setPortal(portal: TemplatePortal) {
