@@ -14,7 +14,7 @@
         </div>
 
         <ng-template cdkPortal>
-            <button>Click me</button>
+            <app-block-edit-modal [blockTitle]="blockTitle" [EditForm]="blockFormGroup"></app-block-edit-modal>
         </ng-template>
 
         <div *ngSwitchCase="messagetype">
