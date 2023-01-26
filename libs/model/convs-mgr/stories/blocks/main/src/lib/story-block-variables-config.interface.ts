@@ -1,5 +1,6 @@
 import { IObject } from "@iote/bricks";
-import { HttpMethodTypes } from "./http-method-types.enum";
+import { HttpMethods } from "./http-methods.interface";
+
 import { Position } from "./position.interface";
 import { StoryBlock } from "./story-block.interface";
 
@@ -13,8 +14,8 @@ export interface VariablesConfig extends IObject {
 
   name?: string;
 
-  /** The http method. Should be a drop down */
-  htttpMethod?: HttpMethodTypes;
+  /** The http method. Should be selected from a dropdown */
+  htttpMethod?: HttpMethods;
 
   /** The http url of the endpoint */
   httpUrl?: string;
