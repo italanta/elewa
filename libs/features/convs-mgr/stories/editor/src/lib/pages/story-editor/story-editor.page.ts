@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, filter } from 'rxjs';
+import { cloneDeep as ___cloneDeep } from 'lodash';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -22,9 +23,10 @@ import { FormControl } from '@angular/forms';
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnDestroy, OnInit
+export class StoryEditorPageComponent implements OnDestroy
 {
   private _sb = new SubSink();
+  private _lastLoadedState : StoryEditorState | null;
 
   pageName: string;
 
@@ -38,8 +40,7 @@ export class StoryEditorPageComponent implements OnDestroy, OnInit
 
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved:boolean = false;
-  toDisplay = false;
-  receivedvalue:any;
+  toDisplay=false;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -67,12 +68,6 @@ export class StoryEditorPageComponent implements OnDestroy, OnInit
         }
     );     
   }
-  ngOnInit(): void {
-    // this._editorStateService.get().subscribe(data=>{
-    //   this.receivedvalue=data;
-    // });
-  }
-
 
   onFrameViewLoaded(frame: StoryEditorFrame)
   {
@@ -89,10 +84,6 @@ export class StoryEditorPageComponent implements OnDestroy, OnInit
             );
       
     this._cd.detectChanges();
-  }
-
-  onFrameView() {
-    this._editorStateService.get()
   }
 
   setFrameZoom() {
@@ -158,13 +149,10 @@ export class StoryEditorPageComponent implements OnDestroy, OnInit
     this._editorStateService.flush();
     this._sb.unsubscribe();
   }
-
   toggleData(){
     this.toDisplay = !this.toDisplay;
   }
   getBlockState(){
-    this._editorStateService.get().subscribe(result=>{
-      console.log
-    })
+    this._editorStateService.get().subscribe(state => this._lastLoadedState = ___cloneDeep(state))
   }
 }
