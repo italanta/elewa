@@ -53,11 +53,11 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
-        "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
-      ],
       "@app/features/convs-mgr/stories/blocks/library/audio-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/audio-message-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
+        "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
@@ -82,6 +82,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
+        "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/name-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/name-message-block/src/index.ts"
