@@ -30,4 +30,3 @@ import { FailMessageBlockComponent } from './components/fail-block/fail-block.co
   exports: [FailMessageBlockComponent],
 })
 export class ConvsMgrFailMessageBlockModule { }
-// FeaturesConvsMgrStoriesBlocksLibraryFailMessageBlockModule
