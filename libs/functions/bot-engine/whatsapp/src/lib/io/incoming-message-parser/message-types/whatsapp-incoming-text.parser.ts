@@ -1,7 +1,7 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { ActiveChannel, IncomingTextMessageParser, MessagesDataService } from "@app/functions/bot-engine";
-import { TextMessage } from "@app/model/convs-mgr/conversations/messages";
+import { IncomingMessagePayload, Message, TextMessage } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes, TextMessagePayload } from "@app/model/convs-mgr/functions";
 
 export class WhatsappIncomingTextParser extends IncomingTextMessageParser {
@@ -11,16 +11,22 @@ export class WhatsappIncomingTextParser extends IncomingTextMessageParser {
     super(activeChannel, msgService$);
   }
 
-  parseInTextMessage(message: TextMessagePayload, endUserId: string): TextMessage {
+  parse(incomingMessage: IncomingMessagePayload): TextMessage {
+
+    const textMessagePayload = incomingMessage as TextMessagePayload
     // Create the base message object
     const newMessage: TextMessage = {
       id: Date.now().toString(),
       type: MessageTypes.TEXT,
-      endUserPhoneNumber: message.from,
-      text: message.text.body,
-      payload: message,
+      endUserPhoneNumber: textMessagePayload.from,
+      text: textMessagePayload.text.body,
+      payload: incomingMessage,
     };
 
     return newMessage;
+  }
+
+  save(message: TextMessage, endUserId: string) {
+      return this.saveMessage(message, endUserId);
   }
 }

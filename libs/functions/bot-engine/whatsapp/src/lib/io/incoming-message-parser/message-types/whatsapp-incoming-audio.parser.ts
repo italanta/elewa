@@ -1,31 +1,36 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { ActiveChannel, IncomingAudioMessageParser, MessagesDataService } from "@app/functions/bot-engine";
-import { AudioMessage } from "@app/model/convs-mgr/conversations/messages";
+import { AudioMessage, IncomingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { AudioPayload, MessageTypes } from "@app/model/convs-mgr/functions";
 
-export class WhatsappIncomingTextParser extends IncomingAudioMessageParser {
+export class WhatsappIncomingAudioParser extends IncomingAudioMessageParser {
 
   constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
   {
     super(activeChannel, msgService$, tools);
   }
 
-  async parseInAudioMessage(incomingMessage: AudioPayload, endUserId: string): Promise<AudioMessage> {
+  parse(incomingMessage: IncomingMessagePayload): AudioMessage {
 
+    const incomingAudioMessage = incomingMessage as AudioPayload
 
     // Create the base message object
     const standardMessage: AudioMessage = {
-      id: incomingMessage.id,
+      id: incomingAudioMessage.id,
       type: MessageTypes.AUDIO,
-      endUserPhoneNumber: incomingMessage.from,
-      mediaId: incomingMessage.id,
+      endUserPhoneNumber: incomingAudioMessage.from,
+      mediaId: incomingAudioMessage.id,
       payload: incomingMessage,
-      mime_type: incomingMessage.mime_type,
+      mime_type: incomingAudioMessage.mime_type,
     };
 
-    standardMessage.url =  await this.getFileURL(standardMessage, endUserId);
+    // standardMessage.url = this.getFileURL(standardMessage, endUserId);
 
     return standardMessage;
+  }
+
+  save(message: AudioMessage, endUserId: string) {
+    return this.saveFileMessage(message, endUserId);
   }
 }
