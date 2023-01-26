@@ -6,7 +6,7 @@ import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { FailBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-fail-block',
@@ -15,7 +15,7 @@ import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
 })
 export class FailBlockComponent implements OnInit{
   @Input() id: string;
-  @Input() block: TextMessageBlock;
+  @Input() block: FailBlock;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   @Input() failBlockForm: FormGroup

@@ -117,9 +117,11 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.JumpBlock:
         this.frame.newBlock(StoryBlockTypes.JumpBlock);
         break;
-        break;
       case StoryBlockTypes.MultipleInput:
         this.frame.newBlock(StoryBlockTypes.MultipleInput);
+        break;
+      case StoryBlockTypes.FailBlock:
+        this.frame.newBlock(StoryBlockTypes.FailBlock);
 
     }
   }
