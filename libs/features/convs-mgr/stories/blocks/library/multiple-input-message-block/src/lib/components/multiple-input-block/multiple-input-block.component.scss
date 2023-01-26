@@ -1,0 +1,58 @@
+mat-card {
+  min-width: 13em;
+  padding: 10px;
+}
+
+.block {
+  position: relative;
+  cursor: move;
+}
+
+.mat-card-title {
+  font-size: 1.2rem!important;
+  color: #6418C3;
+}
+
+textarea {
+  margin: 5px 0;
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+}
+
+textarea:focus-visible {
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  outline-color: var(--convs-mgr-color-primary-purple);
+}
+
+input {
+  // width: inherit!important;
+  // height: fit-content!important;
+  // min-width: 91%!important;
+  // min-height: fit-content!important;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: 3px;
+  caret-color: var(--convs-mgr-color-text-black);
+  color: var(--convs-mgr-color-text-black);
+  outline: none;
+  border: 1px solid var(--convs-mgr-color-text-black);
+  margin: 0.3rem;
+}
+
+.add-button {
+  width: 100%;
+  background-color: var(--convs-mgr-color-primary-purple);
+  color: white;
+  margin-bottom: 10px;
+}
+.listgone {
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+}
+.inputlist {
+  display: flex;
+  align-items: center;
+}

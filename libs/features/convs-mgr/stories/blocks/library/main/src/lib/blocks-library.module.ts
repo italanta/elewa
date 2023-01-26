@@ -24,6 +24,9 @@ import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/
 import { ConvsMgrDocumentMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/document-message-block';
 import { ConvsMgrReplyMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/reply-message-block';
 
+import { ConvsMgrJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/jump-story-block';
+import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block';
+
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
@@ -41,7 +44,6 @@ import { BlockComponent } from './components/block/block.component';
 
     ConvlPageModule,
     ConvsMgrDocumentMessageBlockModule,
-    ConvsMgrTextMessageBlockModule,
     ConvsMgrQuestionBlockModule,
     ConvsMgrReplyMessageBlockModule,
     ConvsMgrLocationMessageBlockModule,
@@ -54,6 +56,10 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrStickerMessageBlockModule,
     ConvsMgrListMessageBlockModule,
     ConvsMgrBlockOptionsModule,
+    ConvsMgrJumpBlockModule,
+    ConvsMgrTextMessageBlockModule,
+    ConvsMgrMultipleInputMessageBlockModule,
+  
 
     FileStateModule
   

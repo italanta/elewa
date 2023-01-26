@@ -77,7 +77,8 @@
         "VIDEO": "Video",
         "STICKER": "Sticker",
         "LIST": "List",
-        "DOCUMENT": "Document"
+        "DOCUMENT": "Document",
+        "MULTIPLEINPUT":"Multiple-Input"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -92,6 +93,12 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link"
+      },
+      "BUTTONS": {
+        "JUMP-BLOCK" : {
+          "SUCCESS": "Success",
+          "FAILED": "Failed"
+        }
       }
     },
     "COMPONENTS": {
@@ -126,7 +133,9 @@
       "OPEN-BOT": "Open Bot",
       "LBL-NEW-BOT": "Create New Bot",
       "EDIT-BOT": "Edit",
-      "DELETE-BOT": "Delete"
+      "DELETE-BOT": "Delete",
+      "ADD-OPTION": "Add Option",
+      "NEW-LIST": "New List"
     },
     "FIELDS": {
       "NAME": "Name",
