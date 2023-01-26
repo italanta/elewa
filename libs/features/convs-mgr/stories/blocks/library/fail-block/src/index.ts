@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-fail-block.module';
+export * from './lib/convs-mgr-fail-block.module';
