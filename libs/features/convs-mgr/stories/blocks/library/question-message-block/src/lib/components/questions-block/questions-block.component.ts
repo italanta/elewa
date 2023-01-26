@@ -51,4 +51,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   addNewOption() {
     this.options.push(this.addQuestionOptions());
   }
+  deleteInput(i: number) {
+    this.options.removeAt(i);
+  }
 }

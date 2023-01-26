@@ -11,9 +11,9 @@ export interface ListMessageBlock extends StoryBlock{
   options?: ButtonsBlockButton<Button>[];
 
   // Implement generic tags
-  // tag?: string;
+  tag?: string;
 
-  // context?: string;
+  context?: string;
 }
 
 interface Button {

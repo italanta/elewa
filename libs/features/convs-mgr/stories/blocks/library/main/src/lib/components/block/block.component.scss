@@ -59,3 +59,7 @@
 .hide-block {
 	display: none;
 }
+
+::ng-deep .mat-mdc-card-content {
+	padding: 0;
+}
