@@ -135,7 +135,7 @@ export class BotEnginePlay implements IBotEnginePlay
     const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    newBlock.message = mailMergeVariables.merge(storyBlock.message);
+    newBlock.message = await mailMergeVariables.merge(storyBlock.message);
 
     return newBlock;
   }
