@@ -56,13 +56,7 @@
 
 
 
-        <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" click)="domPortal" mat-button (click)="sidenav.toggle()">
-          <p>
-            <button mat-button (click)="sidenav.toggle()">
-            <i class="fas fa-times"></i>
-              </button>
-            </p>
-
+        <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" (click)="domPortal" mat-button (click)="sidenav.toggle()">
 
         </convl-story-editor-frame>
   
