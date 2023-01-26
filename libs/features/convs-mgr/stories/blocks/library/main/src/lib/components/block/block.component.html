@@ -72,6 +72,8 @@
             <app-multiple-input-block [id]="id" [block]="block" [multipleInputMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-multiple-input-block>
         </div>
-        
+        <div *ngSwitchCase="failType">
+            <app-jump-block [id]="id" [block]="block" [jumpBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-jump-block>
+        </div>
     </div>
 </mat-card>
