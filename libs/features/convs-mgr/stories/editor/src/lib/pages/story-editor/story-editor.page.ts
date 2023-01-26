@@ -68,13 +68,9 @@ export class StoryEditorPageComponent implements OnDestroy, OnInit
     );     
   }
   ngOnInit(): void {
-    this._editorStateService.get().subscribe() =>
-    {
-      this.breadcrumbs
-    }
-
-
-      // this.receivedvalue=data;
+    // this._editorStateService.get().subscribe(data=>{
+    //   this.receivedvalue=data;
+    // });
   }
 
 
@@ -166,5 +162,9 @@ export class StoryEditorPageComponent implements OnDestroy, OnInit
   toggleData(){
     this.toDisplay = !this.toDisplay;
   }
-  
+  getBlockState(){
+    this._editorStateService.get().subscribe(result=>{
+      console.log
+    })
+  }
 }
