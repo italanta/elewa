@@ -14,5 +14,5 @@ export abstract class IncomingAudioMessageParser extends IncomingFileMessagePars
     super(activeChannel, msgService$, tools);
   }
 
-  protected abstract parseInAudioMessage(incomingMessage: IncomingMessagePayload): Message;
+  protected abstract parseInAudioMessage(incomingMessage: IncomingMessagePayload,  endUserId: string): Promise<Message>;
 }

@@ -5,14 +5,15 @@ import { IncomingMessagePayload, Message } from "@app/model/convs-mgr/conversati
 import { ActiveChannel } from "../../model/active-channel.service";
 import { MessagesDataService } from "../../services/data-services/messages.service";
 import { IncomingFileMessageParser } from "./file-message-parser.class";
+import { IncomingMessageParser } from "./incoming-message.parser";
 
 
-export abstract class IncomingLocationMessageParser extends IncomingFileMessageParser
+export abstract class IncomingLocationMessageParser extends IncomingMessageParser
 {
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools)
+  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService)
   {
-    super(activeChannel, msgService$, tools);
+    super(activeChannel, msgService$);
   }
 
-  protected abstract parseInLocationMessage(incomingMessage: IncomingMessagePayload): Message;
+  protected abstract parseInLocationMessage(incomingMessage: IncomingMessagePayload,  endUserId: string): Message;
 }
