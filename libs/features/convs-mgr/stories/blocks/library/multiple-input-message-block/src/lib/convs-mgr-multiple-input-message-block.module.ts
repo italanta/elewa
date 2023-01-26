@@ -8,30 +8,30 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
-import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { MultiLangModule } from '@ngfi/multi-lang';
-import { QuestionsBlockComponent } from './components/questions-block/questions-block.component';
+
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { MultipleInputBlockComponent } from './components/multiple-input-block/multiple-input-block.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
-    MultiLangModule,
-
     FormsModule,
     ReactiveFormsModule,
-
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
   ],
 
   declarations: [
-    QuestionsBlockComponent
+    MultipleInputBlockComponent
   ],
 
   exports: [
-    QuestionsBlockComponent
-  ]
+    MultipleInputBlockComponent, 
+  ],
+
 })
-export class ConvsMgrQuestionBlockModule {}
+export class ConvsMgrMultipleInputMessageBlockModule {}

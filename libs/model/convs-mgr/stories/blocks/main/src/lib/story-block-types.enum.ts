@@ -88,7 +88,6 @@ export enum StoryBlockTypes
   /**
    * Block that sends a sticker to the user as a message
    */
-
   Sticker = 15,
 
   ErrorBlock = 999,
@@ -104,9 +103,14 @@ export enum StoryBlockTypes
   Reply = 17,
 
   /**
-   * Block that allows linking a different story within the same story.
+  * Block that allows linking a different story within the same story.
+  */
+  JumpBlock = 18,
+
+  /**
+   * Block that sends a list of items for user to choose and asks a question if they want to choose again
    */
-  JumpBlock = 18
+  MultipleInput = 19,
 }
 
 export function isOutputBlock(blockType: StoryBlockTypes): boolean {
