@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { VariablesConfig } from '@app/model/convs-mgr/stories/blocks/main';
+import { Variable } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { VariablesConfigStore } from '../stores/variables-config.store';
 
@@ -13,7 +13,7 @@ export class VariablesConfigService {
 
   constructor(private variables$: VariablesConfigStore) { }
 
-  getAllVariables(): Observable<VariablesConfig[]> {
+  getAllVariables(): Observable<Variable[]> {
     return this.variables$.get();
   }
 

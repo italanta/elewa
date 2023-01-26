@@ -1,16 +1,15 @@
-import { HttpMethodTypes } from "./http-method-types.enum";
-export interface Variables {
-  variable?: string;
+/**
+ * The variable request and response by the user accepts the followind data types
+ */
+import { IObject } from "@iote/bricks";
 
-  /** The http method. Should be a drop down */
-  htttpMethod?: HttpMethodTypes;
-
-  /** The http url of the endpoint */
-  httpUrl?: string;
-
-  /** An array of variables defined in the previous input blocks e.g. variable for a name input block can be `name`*/
-  // variablesToPost?: string[];
-
-  /** Optional token if required by the api we are posting to. Should be encoded with `__ENCODE_AES`*/
-  authorizationToken?: string;
+export interface Variable extends IObject {
+  /**
+   * A placeholder for the name of the variable
+   */
+  name: string;
+  /**
+   * A placeholder for the value of the variable
+   */
+  value: any;
 }

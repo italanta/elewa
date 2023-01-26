@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
     "@angular/service-worker": "^15.0.0",
+    "@babel/runtime": "^7.20.7",
     "@firebase/firestore-types": "^2.5.0",
     "@jsplumb/browser-ui": "^5.9.4",
     "@jsplumb/connector-bezier": "^5.9.4",
@@ -64,7 +65,7 @@
     "@nrwl/jest": "^14.4.2",
     "@nrwl/js": "^14.4.2",
     "@nrwl/linter": "^14.4.2",
-    "@nrwl/node": "^14.8.6",
+    "@nrwl/node": "^15.4.2",
     "@nrwl/workspace": "^14.4.2",
     "@types/crypto-js": "^4.1.1",
     "@types/jest": "27.4.1",
@@ -80,7 +81,7 @@
     "jest-environment-jsdom": "28.1.1",
     "jest-preset-angular": "^11.1.2",
     "ng-packagr": "^15.0.0",
-    "nx": "^14.7.5",
+    "nx": "^15.4.4",
     "postcss": "^8.4.5",
     "postcss-import": "^14.1.0",
     "postcss-preset-env": "^7.5.0",
@@ -89,7 +90,7 @@
     "ts-jest": "27.1.4",
     "ts-node": "^10.8.0",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.0"
+    "typescript": "~4.8.3"
   },
   "firebase-functions-dependencies": [
     "firebase-functions",

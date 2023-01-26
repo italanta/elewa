@@ -1,8 +1,8 @@
 <mat-card [id]="id" *ngIf=" webhookMessageForm">
 	<mat-card-content>
-		<form [formGroup]="webhookMessageForm" fxLayout="column" fxLayoutALign="start center">
+		<form [formGroup]="webhookMessageForm" fxLayout="column" fxLayoutALign="start" fxFlex>
 
-			<div [id]="webhookInputId">
+			<div [id]="webhookInputId" fxLayout="column" fxLayoutALign="start" fxLayoutGap="10px" fxFlex>
 
 				<div class="section1" fxLayout="row" fxLayoutALign="start end">
 					<div class="heading">
@@ -11,35 +11,40 @@
 					<button class="pinkButton">Set Domain Variables</button>
 				</div>
 
-				<p>Select the method and type the url <i class="blueButton" class="fas fa-info-circle"></i></p>
+				<div fxFlex>
+					<div class="child-1" fxLayout="row" fxLayoutALign="space-between center" fxLayoutGap="5px" fxFlex>
+						<div class="dropdown">
+							<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
+							<button class="button-select">
+								<select [formControl]="httpDropdown">
+									<option *ngFor="let  httpMethod of httpMethods ; let
+										i=index" [value]="httpMethod.method" [selected]="i == 0">{{httpMethod.name}}
+									</option>
+								</select>
+							</button>
+						</div>
 
-				<div fxLayout="row" fxLayoutALign="end start">
-					<div class="dropdown">
-						<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
-						<button class="button-select" >
-							<select [formControl]="httpDropdown">
-								<option [value]="httpMethod.name" *ngFor="let  httpMethod of httpMethods">{{httpMethod.name}}</option>
-							</select>
-						</button>
+						<span fxFlex="5">
+							<p class="info">Select the method and type the url</p>
+							<i class="info-icon" class="fas fa-info-circle"></i>
+						</span>
 					</div>
 				</div>
 
-				<div class="variables" fxLayout="row" fxLayoutALign="end">
-					<div>
-						<button>DOMAIN VARIABLES</button>
-					</div>
-					
-					<div>
-						<mat-form-field *ngIf="variables$ | async as variables" class="multiSelect" appearance="outline">
-							<mat-select placeholder="Variables" multiple>
-								<mat-option *ngFor="let variable of getVariables(variables)" [value]="variable">{{variable}}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-					<div>
-						<i class="blueButton" class="fas fa-info-circle"></i>
-					</div>
+				<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" fxFlex>
+					<mat-form-field fxFlex *ngIf="variables$ | async as variables" appearance="outline" class="variables">
+						<mat-select placeholder="Variables" multiple>
+							<mat-option *ngFor="let variable of variables" [value]="variable.name">
+								{{variable.name}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<span fxFlex="5">
+						<p class="info"> Info text here</p>
+						<i class="info-icon" class="fas fa-info-circle"></i>
+					</span>
+
 				</div>
 
 			</div>
