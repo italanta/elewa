@@ -13,3 +13,5 @@ export * from './lib/io/incoming-message-parsers/video-message-parser.class';
 export * from './lib/io/incoming-message-parsers/image-message-parser.class';
 export * from './lib/io/incoming-message-parsers/location-message-parser.class';
 export * from './lib/io/incoming-message-parsers/interactive-message-parser.class';
+export * from 'libs/functions/bot-engine/main/src/lib/services/data-services/end-user.service';
+export * from 'libs/functions/bot-engine/main/src/lib/utils/generateUserId';
