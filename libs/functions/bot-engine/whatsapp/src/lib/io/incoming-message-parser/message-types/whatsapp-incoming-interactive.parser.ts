@@ -18,7 +18,7 @@ export class WhatsappIncomingInteractiveParser extends IncomingInteractiveMessag
     super(activeChannel, msgService$);
   }
 
-  protected parseInInteractiveMessage(message: WhatsAppMessagePayLoad, endUserId: string): QuestionMessage
+  parse(message: WhatsAppMessagePayLoad): QuestionMessage
   {
     const interactiveMessage = message as WhatsappInteractiveMessage;
 
@@ -61,4 +61,8 @@ export class WhatsappIncomingInteractiveParser extends IncomingInteractiveMessag
         return null;
     }
   }
+
+  save(message: QuestionMessage, endUserId: string) {
+    return this.saveMessage(message, endUserId);
+}
 }

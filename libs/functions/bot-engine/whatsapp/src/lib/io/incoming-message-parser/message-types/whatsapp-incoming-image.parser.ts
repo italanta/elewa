@@ -1,7 +1,7 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { ActiveChannel, IncomingImageMessageParser, MessagesDataService } from "@app/functions/bot-engine";
-import { ImageMessage } from "@app/model/convs-mgr/conversations/messages";
+import { ImageMessage, IncomingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { ImagePayload, MessageTypes } from "@app/model/convs-mgr/functions";
 
 export class WhatsappIncomingImageParser extends IncomingImageMessageParser {
@@ -11,21 +11,24 @@ export class WhatsappIncomingImageParser extends IncomingImageMessageParser {
     super(activeChannel, msgService$, tools);
   }
 
-  async parseInImageMessage(incomingMessage: ImagePayload, endUserId: string): Promise<ImageMessage> {
-
+  parse(incomingMessage: IncomingMessagePayload): ImageMessage {
+    const incomingImageMessage =  incomingMessage as ImagePayload;
 
     // Create the base message object
     const standardMessage: ImageMessage = {
-      id: incomingMessage.id,
+      id: incomingImageMessage.id,
       type: MessageTypes.IMAGE,
-      endUserPhoneNumber: incomingMessage.from,
-      mediaId: incomingMessage.id,
-      payload: incomingMessage,
-      mime_type: incomingMessage.mime_type,
+      endUserPhoneNumber: incomingImageMessage.from,
+      mediaId: incomingImageMessage.id,
+      payload: incomingImageMessage,
+      mime_type: incomingImageMessage.mime_type,
     };
 
-    standardMessage.url =  await this.getFileURL(standardMessage, endUserId);
 
     return standardMessage;
+  }
+
+  save(message: ImageMessage, endUserId: string) {
+    return this.saveFileMessage(message, endUserId);
   }
 }
