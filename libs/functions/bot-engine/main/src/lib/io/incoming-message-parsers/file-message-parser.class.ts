@@ -27,4 +27,12 @@ export class IncomingFileMessageParser extends IncomingMessageParser
     
     return fileMessage.url;
   }
+
+  async saveFileMessage(message: Message, endUserId: string) {
+    const fileMessage =  message as FileMessage;
+
+    fileMessage.url = await this.getFileURL(message, endUserId);
+
+    return this.saveMessage(fileMessage, endUserId);
+  }
 }

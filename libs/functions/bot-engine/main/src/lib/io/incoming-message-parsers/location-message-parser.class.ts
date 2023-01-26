@@ -6,14 +6,17 @@ import { ActiveChannel } from "../../model/active-channel.service";
 import { MessagesDataService } from "../../services/data-services/messages.service";
 import { IncomingFileMessageParser } from "./file-message-parser.class";
 import { IncomingMessageParser } from "./incoming-message.parser";
+import { IParseInMessage } from "./models/incoming-message-parser.interface";
 
 
-export abstract class IncomingLocationMessageParser extends IncomingMessageParser
+export abstract class IncomingLocationMessageParser extends IncomingMessageParser implements IParseInMessage
 {
   constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService)
   {
     super(activeChannel, msgService$);
   }
 
-  protected abstract parseInLocationMessage(incomingMessage: IncomingMessagePayload,  endUserId: string): Message;
+  abstract parse(incomingMessage: IncomingMessagePayload): Message;
+
+  abstract save(message: Message, endUserId: string);
 }
