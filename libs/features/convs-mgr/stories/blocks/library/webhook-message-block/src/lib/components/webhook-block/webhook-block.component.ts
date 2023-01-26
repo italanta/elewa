@@ -7,7 +7,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 
 import { WebhookMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { StoryBlock, StoryBlockTypes, HttpMethodTypes, VariablesConfig, Variable } from '@app/model/convs-mgr/stories/blocks/main';
+import { HttpMethods, StoryBlockTypes, HttpMethodTypes, VariablesConfig, Variable } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
@@ -30,17 +30,19 @@ export class WebhookBlockComponent implements OnInit, AfterViewInit {
 
   webhookInputId: string;
   httpUrl: VariablesConfig;
-  methods = new FormControl();
-  httpDropdown = new FormControl();
-  httpMethods: any[] = [
+
+
+  httpCategories: HttpMethods[] = [
     { method: HttpMethodTypes.POST, name: 'POST' },
     { method: HttpMethodTypes.GET, name: 'GET' },
     { method: HttpMethodTypes.DELETE, name: 'DELETE' }
   ];
+  preSelectedMethod: number = HttpMethodTypes.POST;
   subscription: Subscription;
 
   type: StoryBlockTypes;
   webhookType = StoryBlockTypes.Webhook;
+  httpMethod = new FormControl(this.preSelectedMethod);
   variables = new FormControl();
   variables$: Observable<Variable[]>
 
@@ -51,11 +53,10 @@ export class WebhookBlockComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     this.variables$ = this._variablesStore$$.get();
-
     this.webhookInputId = `webhook-${this.id}`;
     this.httpUrl;
-    this.httpMethods
-    this.subscription = this.httpDropdown.valueChanges
+    this.httpCategories;
+    this.subscription = this.httpMethod.valueChanges
       .subscribe(value => console.log(value));
 
   }

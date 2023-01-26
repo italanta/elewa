@@ -16,9 +16,9 @@
 						<div class="dropdown">
 							<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
 							<button class="button-select">
-								<select [formControl]="httpDropdown">
-									<option *ngFor="let  httpMethod of httpMethods ; let
-										i=index" [value]="httpMethod.method" [selected]="i == 0">{{httpMethod.name}}
+								<select [formControl]="httpMethod">
+									<option *ngFor="let  http of httpCategories ; let
+										i=index" [value]="http.method" [selected]="i == 0">{{http.name}}
 									</option>
 								</select>
 							</button>
