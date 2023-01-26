@@ -78,7 +78,8 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "WEBHOOK": "Webhook: HttpRequests"
+        "WEBHOOK": "Webhook: HttpRequests",
+        "MULTIPLEINPUT": "Multiple-Input"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -94,6 +95,12 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "WEBHOOK": "https:// "
+      },
+      "BUTTONS": {
+        "JUMP-BLOCK": {
+          "SUCCESS": "Success",
+          "FAILED": "Failed"
+        }
       }
     },
     "COMPONENTS": {
@@ -105,6 +112,22 @@
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
       "LOG-OUT": "Logout"
+    },
+    "TOP-BAR": {
+      "SAVE-STORY": "Save",
+      "PUBLISH-STORY": "Publish Story"
+    },
+    "CHANNEL": {
+      "ADD-CHANNEL": {
+        "CHANNEL-TYPE": "Choose platform",
+        "CHANNEL-NAME": "Enter the name of your bot",
+        "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",
+        "AUTH-KEY": "Enter the authentication key",
+        "ACTION-BUTTONS": {
+          "SAVE": "Save",
+          "CANCEL": "Cancel"
+        }
+      }
     }
   },
   "BOTS": {
@@ -112,7 +135,9 @@
       "OPEN-BOT": "Open Bot",
       "LBL-NEW-BOT": "Create New Bot",
       "EDIT-BOT": "Edit",
-      "DELETE-BOT": "Delete"
+      "DELETE-BOT": "Delete",
+      "ADD-OPTION": "Add Option",
+      "NEW-LIST": "New List"
     },
     "FIELDS": {
       "NAME": "Name",

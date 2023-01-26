@@ -47,4 +47,7 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   addNewOption() {
     this.listItems.push(this.addListOptions());
   }
+  deleteInput(i:number) {
+    this.listItems.removeAt(i);
+  }
 }

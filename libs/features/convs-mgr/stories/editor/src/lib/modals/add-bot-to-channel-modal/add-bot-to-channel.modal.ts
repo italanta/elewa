@@ -26,6 +26,13 @@ import { ManageChannelStoryLinkService } from '../../providers/manage-channel-st
 /**
  * @Description Form to register bot/story to particular channel e.g WhatsApp/Telegram
  * Component is meant to allow users to register bot to multiple channels/PlatformType
+ * 
+ * TODO:
+ *  - Support multiple channel interfaces. Such that the form fields adjust according to the 
+ *  - Properly increment 'n'
+ *  - Redesign form to be a multistep form, which three steps. 
+ *      e.g. 1. Choose platform, 2. Enter information (platform specific fields) i.e. business account id 3. Choose language and publish
+ *  - On platform specific fields, it will be nice to have a question mark(?) icon next to it that links to the official documentation
  */
 
 export class AddBotToChannelModal implements OnInit, OnDestroy 
@@ -36,9 +43,10 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   private _orgId: string;
 
   addToChannelForm: FormGroup;
-  technicalRef: number = 1;
 
   channels: CommunicationChannel[] = [{type: PlatformType.WhatsApp} as WhatsAppCommunicationChannel];
+
+  languages: string[];
   
   isSaving: boolean;
 
@@ -49,10 +57,10 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
     private _activeOrgStore$$: ActiveOrgStore)
     {
     this.addToChannelForm = this._fb.group({
+      channel: this.channels,
       businessPhoneNumberId: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
-      businessName: [null, Validators.required],
-      authenticationKey: [null, Validators.required],
-      
+      channelName: [null, Validators.required],
+      authenticationKey: [null, Validators.required]
     })
   }
 
@@ -64,17 +72,14 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
           this._activeStoryId = activeStory.id as string;
           this._orgId = activeOrg.id as string;
         });
-
   }
 
   onSubmit() {
+
     this.isSaving = true;
-    const phoneNumberId = this.addToChannelForm.get('phoneNumber')?.value;
+    const phoneNumberId = this.addToChannelForm.get('businessPhoneNumberId')?.value;
     var authKey = this.addToChannelForm.get('authenticationKey')?.value;
-    const businessName = this.addToChannelForm.get('businesName')?.value;
-    this.technicalRef += 1;
-
-
+    const businessName = this.addToChannelForm.get('channelName')?.value;
 
     authKey = __ENCODE_AES(authKey);
 
@@ -83,8 +88,9 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
       name: businessName,
       orgId:this._orgId,
       defaultStory: this._activeStoryId,
-      n: this.technicalRef, 
-    } as CommunicationChannel;
+      n: 1, 
+      accessToken: authKey
+    } as WhatsAppCommunicationChannel;
 
     // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
 

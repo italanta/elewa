@@ -1,23 +1,28 @@
 <mat-card [id]="id" *ngIf="listMessageBlock">
-    <mat-card-content>
-      <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
-  
-        <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
-        
-        <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"></app-default-option-field>
-  
-        <div formArrayName="options" fxFlexFill>
-          <div *ngFor="let listItem of listItems.controls; let i = index" class="full-width" fxFlexFill>
-            <span [formGroupName]="i" fxFlex>
-              <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"></app-option-input-field>
-            </span>
-          </div>
+  <mat-card-content>
+    <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
+
+      <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"></app-default-option-field>
+
+      <div formArrayName="options" fxFlexFill>
+        <div *ngFor="let listItem of listItems.controls; let i = index" class="full-width" fxFlexFill>
+          <span [formGroupName]="i" fxFlex>
+            <div class="inputList">
+              <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"
+              [formGroupNameInput]="i" class="input" ></app-option-input-field>
+            </div>
+          </span>
         </div>
-  
-      </form>
-  
-      <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
-        Add Option
-      </button>
-    </mat-card-content>
-  </mat-card>
+      </div>
+
+    </form>
+
+    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
+      fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+    </button>
+  </mat-card-content>
+</mat-card>

@@ -5,9 +5,11 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 
 import { BlockComponent } from '../components/block/block.component';
 
-import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
-          NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, WebhookMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import {
+  DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock,
+  NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock,
+  VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, WebhookMessageBlock, JumpBlock, MultipleInputMessageBlock
+} from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
@@ -24,6 +26,8 @@ import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
 import { _ReplyBlockDecoratePlumb } from './reply-block.jsplumb';
 import { _AnchorBlockDecoratePlumb } from './anchor-block.jsplumb';
 import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
+import { _JumpBlockDecoratePlumb } from './jump-block.jsplumb';
+import { _MultipleBlockDecoratePlumb } from './multiple-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -36,7 +40,7 @@ import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
 export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) {
   /** Lift component into jsPlumb world. */
   jsPlumb.manage(comp.location.nativeElement, block.id);
-  
+
   switch (block.type) {
     case StoryBlockTypes.TextMessage:
       return _MessageBlockDecoratePlumb(block, comp, jsPlumb);
@@ -60,7 +64,7 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _LocationBlockDecoratePlumb(block, comp, jsPlumb);
       break;
     case StoryBlockTypes.Audio:
-        return _AudioBlockDecoratePlumb(block as VoiceMessageBlock, comp, jsPlumb);
+      return _AudioBlockDecoratePlumb(block as VoiceMessageBlock, comp, jsPlumb);
     case StoryBlockTypes.Video:
       return _VideoBlockDecoratePlumb(block as VideoMessageBlock, comp, jsPlumb);
       break;
@@ -71,16 +75,22 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _ListBlockDecoratePlumb(block as ListMessageBlock, comp, jsPlumb);
       break;
     case StoryBlockTypes.Document:
-        return _DocumentBlockDecoratePlumb(block as DocumentMessageBlock, comp, jsPlumb);
+      return _DocumentBlockDecoratePlumb(block as DocumentMessageBlock, comp, jsPlumb);
     case StoryBlockTypes.AnchorBlock:
-        return _AnchorBlockDecoratePlumb(comp, jsPlumb);
-        break;
+      return _AnchorBlockDecoratePlumb(comp, jsPlumb);
+      break;
     case StoryBlockTypes.Reply:
       return _ReplyBlockDecoratePlumb(block as ReplyMessageBlock, comp, jsPlumb);
       break;
-      case StoryBlockTypes.Webhook:
-        return _WebhookBlockDecoratePlumb(block as WebhookMessageBlock, comp, jsPlumb);
-        break;
+    case StoryBlockTypes.Webhook:
+      return _WebhookBlockDecoratePlumb(block as WebhookMessageBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.JumpBlock:
+      return _JumpBlockDecoratePlumb(block as JumpBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.MultipleInput:
+      return _MultipleBlockDecoratePlumb(block as MultipleInputMessageBlock, comp, jsPlumb);
+      break;
   }
 
   return comp;
