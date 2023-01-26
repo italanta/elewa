@@ -10,10 +10,10 @@ import { IncomingMessageParser } from "./incoming-message.parser";
 
 export abstract class IncomingInteractiveMessageParser extends IncomingMessageParser
 {
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools)
+  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService)
   {
     super(activeChannel, msgService$);
   }
 
-  protected abstract parseInInteractiveMessage(incomingMessage: IncomingMessagePayload): Message;
+  protected abstract parseInInteractiveMessage(incomingMessage: IncomingMessagePayload,  endUserId: string): Message;
 }

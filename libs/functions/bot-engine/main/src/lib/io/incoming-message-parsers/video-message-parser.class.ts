@@ -14,5 +14,5 @@ export abstract class IncomingVideoMessageParser extends IncomingFileMessagePars
     super(activeChannel, msgService$, tools);
   }
 
-  protected abstract parseInVideoMessage(incomingMessage: IncomingMessagePayload): Message;
+  protected abstract parseInVideoMessage(incomingMessage: IncomingMessagePayload,  endUserId: string): Promise<Message>;
 }

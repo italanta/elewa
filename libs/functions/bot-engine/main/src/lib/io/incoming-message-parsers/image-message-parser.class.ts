@@ -14,5 +14,5 @@ export abstract class IncomingImageMessageParser extends IncomingFileMessagePars
     super(activeChannel, msgService$, tools);
   }
 
-  protected abstract parseInImageMessage(incomingMessage: IncomingMessagePayload): Message;
+  protected abstract parseInImageMessage(incomingMessage: IncomingMessagePayload,  endUserId: string): Promise<Message>;
 }
