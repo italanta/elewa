@@ -2,9 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Logger } from '@iote/bricks-angular';
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { FailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 /**
