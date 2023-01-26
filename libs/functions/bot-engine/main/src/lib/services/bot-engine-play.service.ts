@@ -36,7 +36,7 @@ export class BotEnginePlay implements IBotEnginePlay
 
   private chatCommandsManager: ChatCommandsManager;
 
-  private sideOperations: Promise<any>[] = [];
+  sideOperations: Promise<any>[] = [];
 
   constructor(
     private _processMessageService$: ProcessMessageService,
@@ -198,5 +198,10 @@ export class BotEnginePlay implements IBotEnginePlay
     botMessage.direction = MessageDirection.TO_END_USER;
 
     return botMessage;
+  }
+
+  async addSideOperations(operations: Promise<any>[])
+  {
+    this.sideOperations.push(...operations);
   }
 }

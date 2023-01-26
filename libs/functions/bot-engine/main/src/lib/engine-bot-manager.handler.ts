@@ -5,7 +5,7 @@ import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
-import { Cursor, EndUserPosition, __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor, __PlatformTypeToPrefix } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
@@ -34,6 +34,8 @@ export class EngineBotManager
 
   _endUserService$: EndUserDataService;
 
+  sideOperations: Promise<any>[] = [];
+
   constructor(private _tools: HandlerTools, private _logger: Logger, private _activeChannel: ActiveChannel) { }
 
   /**
@@ -47,14 +49,13 @@ export class EngineBotManager
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
    * @returns A REST 200/500 response so the third-party provider knows the message arrived well/failed.
    */
-  public async run(message: Message) 
+  public async run(message: Message, endUser: EndUser) 
   {
     /**
      * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
      * 
      * So, to ensure faster response to end users, we store all these operations to an array and resolve them after we have responded to the user
      */
-    let nextBlock: StoryBlock;
     this._logger.log(() => `Engine started!!!`);
 
     this._logger.log(() => `Processing message ${JSON.stringify(message)}.`);
@@ -74,7 +75,6 @@ export class EngineBotManager
 
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
 
-
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
       const bot = new BotEnginePlay(processMessageService, cursorDataService, _msgDataService$, this._endUserService$, this._activeChannel, this._tools);
@@ -82,14 +82,10 @@ export class EngineBotManager
       // This information contains the phone number and the chat status of the ongoing communication.
       //    The chat status enables us to manage the conversation of the end user and the chatbot.
 
-      // Generate the id of the end user
-      const END_USER_ID = generateEndUserId(message, this._activeChannel.channel.type, this._activeChannel.channel.n);
-
-      // Get the saved information of the end user
-      const endUser = await this._getEndUser(END_USER_ID, message.endUserPhoneNumber);
+      bot.addSideOperations(this.sideOperations);
 
       // Get the last saved end user position in the story
-      const currentCursor = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId);
+      const currentCursor = await cursorDataService.getLatestCursor(endUser.id, this.orgId);
 
       this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${endUser.status}`);
 
@@ -114,7 +110,7 @@ export class EngineBotManager
           message.direction = MessageDirection.TO_AGENT;
 
           // Save the message to the database for later use
-          await _msgDataService$.saveMessage(message, this.orgId, END_USER_ID);
+          await _msgDataService$.saveMessage(message, this.orgId, endUser.id);
           break;
         default:
           break;
@@ -125,20 +121,8 @@ export class EngineBotManager
     }
   }
 
-  /**
-   * Gets the end user information from the database or creates a new end user if the user does not exist
-   */
-  private async _getEndUser(END_USER_ID: string, phoneNumber: string)
+  async addSideOperation(operation: Promise<any>)
   {
-    let endUser: EndUser;
-
-    endUser = await this._endUserService$.getEndUser(END_USER_ID);
-
-    // If the end user does not exist then we create a new end user
-    if (!endUser) {
-      return this._endUserService$.createEndUser(END_USER_ID, phoneNumber, this._activeChannel.channel.defaultStory);
-    }
-
-    return endUser;
+    this.sideOperations.push(operation);
   }
 }
