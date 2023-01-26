@@ -56,3 +56,7 @@
 .fa-trash-alt:hover {
 	color: var(--convs-mgr-color-primary-purple);
 }
+
+::ng-deep .mat-mdc-card-content {
+	padding: 0;
+}
