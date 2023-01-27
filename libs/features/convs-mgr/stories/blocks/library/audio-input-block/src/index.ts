@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-audio-input-block.module';
+export * from './lib/convs-mgr-stories-blocks-library-audio-input-block.module';
