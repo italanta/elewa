@@ -56,6 +56,9 @@
       "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
         "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/audio-input-block": [
+        "libs/features/convs-mgr/stories/blocks/library/audio-input-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/audio-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/audio-message-block/src/index.ts"
       ],
