@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { AudioInputMessageBlockComponent } from './audio-input-message-block/audio-input-message-block.component';
 
 @NgModule({
@@ -7,4 +8,4 @@ import { AudioInputMessageBlockComponent } from './audio-input-message-block/aud
   declarations: [AudioInputMessageBlockComponent],
   exports: [AudioInputMessageBlockComponent],
 })
-export class ConvsMgrStoriesBlocksLibraryAudioInputBlockModule {}
+export class ConvsMgrAudioInputBlockModule {}
