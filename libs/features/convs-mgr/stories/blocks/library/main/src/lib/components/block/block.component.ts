@@ -21,6 +21,7 @@ import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
+import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
@@ -54,6 +55,7 @@ export class BlockComponent implements OnInit {
   replyType = StoryBlockTypes.Reply;
   jumpType = StoryBlockTypes.JumpBlock;
   multipleInputType = StoryBlockTypes.MultipleInput;
+  imageinputType =  StoryBlockTypes.ImageInput
 
   blockFormGroup: FormGroup;
 
@@ -141,11 +143,15 @@ export class BlockComponent implements OnInit {
           this.blocksGroup.push(this.blockFormGroup);
           break;
   
-
-          case StoryBlockTypes.MultipleInput:
+        case StoryBlockTypes.MultipleInput:
           this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
+        case StoryBlockTypes.ImageInput:
+          this.blockFormGroup = _CreateImageInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
   
         default:
           break;
