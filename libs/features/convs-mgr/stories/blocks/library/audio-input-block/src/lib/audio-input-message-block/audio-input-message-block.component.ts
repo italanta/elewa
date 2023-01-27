@@ -7,7 +7,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AudioInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
-  selector: 'app-audio-input-message-block',
+  selector: 'app-audio-input-block',
   templateUrl: './audio-input-message-block.component.html',
   styleUrls: ['./audio-input-message-block.component.scss'],
 })
