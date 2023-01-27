@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-location-input-block.module';
+export * from './lib/convs-mgr-location-input-block.module';
