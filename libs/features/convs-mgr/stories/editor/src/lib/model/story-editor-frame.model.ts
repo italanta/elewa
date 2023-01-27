@@ -205,6 +205,8 @@ export class StoryEditorFrame {
         break;
       case StoryBlockTypes.FailBlock:
         break;
+       case StoryBlockTypes.ImageInput:
+        break; 
       default:
         break
     }

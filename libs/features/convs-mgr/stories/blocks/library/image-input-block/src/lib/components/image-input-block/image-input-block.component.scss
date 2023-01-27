@@ -1,0 +1,18 @@
+mat-card {
+	min-width: 200px;
+	padding: 10px;
+}
+
+input {
+	max-width: 100%;
+	margin: 5px 0;
+	border: 1px solid var(--convs-mgr-color-primary-purple);
+	border-radius: 5px;
+	resize: none;
+	padding: 10px;
+}
+
+input:focus-visible {
+	border: 1px solid var(--convs-mgr-color-primary-purple);
+	outline-color: var(--convs-mgr-color-primary-purple);
+}
