@@ -74,6 +74,34 @@
     "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
     "features-convs-mgr-stories-blocks-library-document-message-block": "libs/features/convs-mgr/stories/blocks/library/document-message-block",
     "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
+    "features-convs-mgr-stories-blocks-library-fail-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/fail-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/fail-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/fail-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/fail-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/fail-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/fail-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-image-message-block": "libs/features/convs-mgr/stories/blocks/library/image-message-block",
     "features-convs-mgr-stories-blocks-library-jump-story-block": {
       "projectType": "library",

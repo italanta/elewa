@@ -111,6 +111,9 @@ export enum StoryBlockTypes
    * Block that sends a list of items for user to choose and asks a question if they want to choose again
    */
   MultipleInput = 19,
+
+  /** */
+  FailBlock = 20
 }
 
 export function isOutputBlock(blockType: StoryBlockTypes): boolean {

@@ -31,6 +31,7 @@ import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+import { ConvsMgrFailBlockModule } from '../../../fail-block/src';
 
 @NgModule({
   imports: [
@@ -59,7 +60,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrJumpBlockModule,
     ConvsMgrTextMessageBlockModule,
     ConvsMgrMultipleInputMessageBlockModule,
-  
+    ConvsMgrFailBlockModule,
 
     FileStateModule
   
