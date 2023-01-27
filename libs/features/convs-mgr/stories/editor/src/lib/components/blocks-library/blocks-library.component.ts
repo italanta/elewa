@@ -10,7 +10,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import {
   ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
-  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock
+  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -52,6 +52,7 @@ export class BlocksLibraryComponent implements OnInit {
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
     { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock,
     { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
+    { id: 'fail-block', type: StoryBlockTypes.FailBlock, message: 'Fail', blockIcon:this.getBlockIcon(StoryBlockTypes.FailBlock) } as FailBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -116,9 +117,11 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.JumpBlock:
         this.frame.newBlock(StoryBlockTypes.JumpBlock);
         break;
-        break;
       case StoryBlockTypes.MultipleInput:
         this.frame.newBlock(StoryBlockTypes.MultipleInput);
+        break;
+      case StoryBlockTypes.FailBlock:
+        this.frame.newBlock(StoryBlockTypes.FailBlock);
 
     }
   }
