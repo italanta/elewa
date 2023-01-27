@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-image-input-block',
@@ -21,12 +22,12 @@ export class ImageInputBlockComponent implements OnInit {
   imageInputId: string;
 
   type: StoryBlockTypes;
-  imagetype = StoryBlockTypes.Image;
+  imagetype = StoryBlockTypes.ImageInput;
   blockFormGroup: FormGroup;
 
   constructor(private _fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.imageInputId = `name-${this.id}`
+    this.imageInputId = `image-${this.id}`
   }
 }
