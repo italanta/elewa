@@ -71,6 +71,11 @@ export const iconsAndTitles: any = {
 	    title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLEINPUT',
 		icon: 'fas fa-tasks'
   },
+	20: {
+		title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
+		icon: "fas fa-exclamation-circle"
+	}
+  },
   50  : {
 	    title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
 		icon: 'fas fa-image'

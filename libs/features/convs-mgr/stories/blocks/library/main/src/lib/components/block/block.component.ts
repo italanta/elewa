@@ -25,6 +25,7 @@ import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.m
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
+import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
 /**
  * Block which sends a message from bot to user.
  */
@@ -55,6 +56,7 @@ export class BlockComponent implements OnInit {
   replyType = StoryBlockTypes.Reply;
   jumpType = StoryBlockTypes.JumpBlock;
   multipleInputType = StoryBlockTypes.MultipleInput;
+  failType = StoryBlockTypes.FailBlock;
   imageinputType =  StoryBlockTypes.ImageInput
 
   blockFormGroup: FormGroup;
@@ -144,9 +146,14 @@ export class BlockComponent implements OnInit {
           break;
   
         case StoryBlockTypes.MultipleInput:
-          this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
+        this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
+
+        case StoryBlockTypes.FailBlock:
+          this.blockFormGroup = _CreateFailBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;
+          break; 
 
         case StoryBlockTypes.ImageInput:
           this.blockFormGroup = _CreateImageInputBlockForm(this._fb, this.block);
