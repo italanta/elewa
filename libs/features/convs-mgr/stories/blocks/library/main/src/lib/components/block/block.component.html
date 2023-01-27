@@ -75,5 +75,9 @@
         <div *ngSwitchCase="failType">
             <app-fail-block [id]="id" [block]="block" [failBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-fail-block>
         </div>
+        <div *ngSwitchCase="imageinputType">
+            <app-image-input-block [id]="id" [block]="block" [imageInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-image-input-block>
+        </div>
     </div>
 </mat-card>
