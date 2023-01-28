@@ -1,7 +1,7 @@
 <mat-card [id]="id" *ngIf="locationInputForm">
 	<mat-card-content>
 		<form [formGroup]="locationInputForm" fxLayout="column" fxLayoutALign="start center">
-			<input [id]="locationInputId" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-INPUT' | transloco" />
+			<input [id]="locationInputId" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.LOCATION-INPUT' | transloco" />
 
 			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationInputForm"></app-default-option-field>
 
