@@ -28,8 +28,6 @@ export enum StoryBlockTypes {
    */
   Location = 4,
 
-  LocationInputBlock = 40,
-
   QuestionBlock = 6,
 
   ListBlock = 16,
@@ -112,5 +110,7 @@ export enum StoryBlockTypes {
   MultipleInput = 19,
 
   /** */
-  FailBlock = 20
+  FailBlock = 20,
+
+  LocationInputBlock = 22,
 }
