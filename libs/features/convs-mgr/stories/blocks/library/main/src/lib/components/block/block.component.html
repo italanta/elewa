@@ -79,5 +79,9 @@
             <app-image-input-block [id]="id" [block]="block" [imageInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-image-input-block>
         </div>
+        <div *ngSwitchCase="locationInputType">
+            <app-location-input-block [id]="id" [block]="block" [locationInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-location-input-block>
+        </div>
     </div>
 </mat-card>
