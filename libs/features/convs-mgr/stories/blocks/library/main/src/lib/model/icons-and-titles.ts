@@ -78,5 +78,9 @@ export const iconsAndTitles: any = {
   50  : {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
 	icon: 'fas fa-image'
-}
+	},
+	22  : {
+	title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
+	icon: 'fas fa-map-marker-alt'
+	}
   }
