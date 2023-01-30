@@ -22,7 +22,7 @@ export function _ImageBlockDecoratePlumb(block: ImageMessageBlock, comp: Compone
     cssClass:"block_endpoint",
     endpoint: "Rectangle",
     anchor: "Left",
-    maxConnections: 5
+    maxConnections: -1
   });
 
   return comp;
