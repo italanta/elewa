@@ -1,1 +1,2 @@
-export * from './lib/state-convs-mgr-stories-variables-config.module';
+export * from './lib/convs-mgr-variables-config.module';
+export * from './lib/stores/variables-config.store';

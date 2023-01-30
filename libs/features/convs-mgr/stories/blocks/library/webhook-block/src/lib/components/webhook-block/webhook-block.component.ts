@@ -5,6 +5,8 @@ import { Subscription, Observable } from 'rxjs';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
+
 import { HttpMethods, HttpMethodTypes, StoryBlockTypes, Variable, VariablesConfig } from '@app/model/convs-mgr/stories/blocks/main';
 import { WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -45,8 +47,6 @@ export class WebhookBlockComponent {
 
     this.variables$ = this._variablesStore$$.get();
     this.webhookInputId = `webhook-${this.id}`;
-    this.httpUrl;
-    this.httpCategories;
     this.subscription = this.httpMethod.valueChanges
       .subscribe(value => console.log(value));
 
