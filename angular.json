@@ -394,6 +394,32 @@
     "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
     "state-convs-mgr-stories-block-connections": "libs/state/convs-mgr/stories/block-connections",
     "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
+    "state-convs-mgr-stories-variables-config": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/stories/variables-config",
+      "sourceRoot": "libs/state/convs-mgr/stories/variables-config/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/stories/variables-config"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/stories/variables-config/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/stories/variables-config/**/*.ts",
+              "libs/state/convs-mgr/stories/variables-config/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
     "state-file": "libs/state/file/store",
     "state-organisation": "libs/state/organisation/main",
