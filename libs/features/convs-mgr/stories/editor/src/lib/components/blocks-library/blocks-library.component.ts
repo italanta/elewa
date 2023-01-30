@@ -10,7 +10,8 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import {
   ImageMessageBlock, LocationMessageBlock, NameMessageBlock, QuestionMessageBlock,
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
-  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock
+  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock, ImageInputBlock, LocationInputBlock
+  VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock, ImageInputBlock, AudioInputBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -53,7 +54,10 @@ export class BlocksLibraryComponent implements OnInit {
     { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock,
     { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
     { id: 'fail-block', type: StoryBlockTypes.FailBlock, message: 'Fail', blockIcon:this.getBlockIcon(StoryBlockTypes.FailBlock) } as FailBlock,
+    { id: 'io-image-input-block' , type: StoryBlockTypes.ImageInput, message: 'ImageInput', blockIcon:this.getBlockIcon(StoryBlockTypes.ImageInput) } as ImageInputBlock,
+    { id: 'io-audio-input-block' , type: StoryBlockTypes.AudioInput, message: 'Audio Input', blockIcon:this.getBlockIcon(StoryBlockTypes.AudioInput) } as AudioInputBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
+    { id: 'io-location-input-block' , type: StoryBlockTypes.LocationInputBlock, message: 'LocationInput', blockIcon:this.getBlockIcon(StoryBlockTypes.LocationInputBlock) } as LocationInputBlock,
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
   constructor(private _logger: Logger) { }
@@ -122,7 +126,16 @@ export class BlocksLibraryComponent implements OnInit {
         break;
       case StoryBlockTypes.FailBlock:
         this.frame.newBlock(StoryBlockTypes.FailBlock);
-
+        break;
+      case StoryBlockTypes.ImageInput:
+        this.frame.newBlock(StoryBlockTypes.ImageInput);
+        break;
+      case StoryBlockTypes.LocationInputBlock:
+        this.frame.newBlock(StoryBlockTypes.LocationInputBlock);
+        break;
+      case StoryBlockTypes.AudioInput:
+        this.frame.newBlock(StoryBlockTypes.AudioInput);
+        break;
     }
   }
   getBlockIcon(type: number) {
