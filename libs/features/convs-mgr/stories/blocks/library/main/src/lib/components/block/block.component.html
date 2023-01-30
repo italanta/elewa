@@ -82,10 +82,10 @@
         <div *ngSwitchCase="locationInputType">
             <app-location-input-block [id]="id" [block]="block" [locationInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-location-input-block>
+        </div>
         <div *ngSwitchCase="audioInputType">
             <app-audio-input-block [id]="id" [block]="block" [audioInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-audio-input-block>
-
         </div>
     </div>
 </mat-card>

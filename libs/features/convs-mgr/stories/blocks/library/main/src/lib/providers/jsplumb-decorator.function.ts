@@ -7,8 +7,8 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, AudioInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
