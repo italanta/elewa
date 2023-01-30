@@ -1,9 +1,9 @@
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
- * Block which sends a message in the form of text.
+ * Block which is used to mark that a conversational flow has failed
  */
-export interface LocationInputBlock extends StoryBlock
+export interface FailBlock extends StoryBlock
 {
   /** Message to accompany image. */
   message?: string;

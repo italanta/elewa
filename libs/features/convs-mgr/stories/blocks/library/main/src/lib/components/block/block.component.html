@@ -72,6 +72,20 @@
             <app-multiple-input-block [id]="id" [block]="block" [multipleInputMessageBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-multiple-input-block>
         </div>
-        
+        <div *ngSwitchCase="failType">
+            <app-fail-block [id]="id" [block]="block" [failBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block"></app-fail-block>
+        </div>
+        <div *ngSwitchCase="imageInputType">
+            <app-image-input-block [id]="id" [block]="block" [imageInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-image-input-block>
+        </div>
+        <div *ngSwitchCase="locationInputType">
+            <app-location-input-block [id]="id" [block]="block" [locationInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-location-input-block>
+        </div>
+        <div *ngSwitchCase="audioInputType">
+            <app-audio-input-block [id]="id" [block]="block" [audioInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-audio-input-block>
+        </div>
     </div>
 </mat-card>
