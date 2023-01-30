@@ -112,6 +112,6 @@ export enum StoryBlockTypes {
   MultipleInput = 19,
 
   /** */
-  FailBlock = 20
+  FailBlock = 20,
   Webhook = 21,
 }
