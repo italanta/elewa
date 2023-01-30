@@ -24,7 +24,7 @@ export function _QuestionsBlockDecoratePlumb(block: QuestionMessageBlock,comp: C
 
     endpoint: "Dot",
     anchor: "Left",
-    maxConnections: 5
+    maxConnections: -1
 
   });
 
