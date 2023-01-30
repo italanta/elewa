@@ -202,7 +202,11 @@ export class StoryEditorFrame {
       case StoryBlockTypes.Reply:
         break;
       case StoryBlockTypes.MultipleInput:
-        break
+        break;
+      case StoryBlockTypes.FailBlock:
+        break;
+       case StoryBlockTypes.ImageInput:
+        break; 
       default:
         break
     }

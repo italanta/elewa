@@ -12,4 +12,6 @@ export * from './lib/error-message-block.interface';
 export * from './lib/location-query-block.interface';
 export * from './lib/jump-block.interface';
 export * from './lib/multiple-input-message-block.interface'
+export * from './lib/fail-block.interface';
+export * from './lib/image-input-block.interface'
 export * from './lib/webhook-block.interface'
