@@ -119,6 +119,9 @@
       "@app/features/convs-mgr/stories/blocks/library/video-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/video-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/webhook-block": [
+        "libs/features/convs-mgr/stories/blocks/library/webhook-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/main": [
         "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
       ],
