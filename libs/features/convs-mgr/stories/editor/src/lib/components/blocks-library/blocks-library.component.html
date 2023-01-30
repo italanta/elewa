@@ -2,6 +2,14 @@
 	<mat-sidenav #sidenav mode="over" [(opened)]="opened" style="width: 270px;">
 	<button mat-button (click)="sidenav.toggle()"><i class="fa fa-chevron-left"></i></button>
 	Sidenav content
+	<div>
+		<mat-form-field id="block" name="block" formControlName="targetBlockId">
+			<input *ngFor="let block of blocks" [value]='block.id'>{{block.value}}>
+			<p>
+				{{block.value}}
+			</p>
+		</mat-form-field>
+	</div>
 	</mat-sidenav>
   
 	<mat-sidenav-content>
@@ -31,42 +39,3 @@
 		</div>
 	</div>
 </ng-template>
-
-
-
-
-
-
-<!-- <div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
-	 <mat-sidenav-container class="editblock">
-      <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="content" >
-        <span (click)="sidenav.toggle()" class="data"><i class="fas fa-bars" fxFlex="90" style="height: 250px;"></i></span>
-        Sidenav content
-      </mat-sidenav>
-      
-      <mat-sidenav-content>
-        <span (click)="sidenav.toggle()" class="data"><i class="fas fa-bars" fxFlex="90"></i></span>
-      </mat-sidenav-content>
-      </mat-sidenav-container>
-	<h4>{{'PAGE-CONTENT.COMPONENTS.TITLE'| transloco }}</h4>
-
-	<div class="search" fxFlex>
-		<mat-form-field class="search-input">
-			<mat-icon matSuffix>search</mat-icon>
-			<input matInput placeholder="search for a block" (input)="filterBlocks($event)">
-		</mat-form-field>
-	</div>
-
-	<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="space-between start" *ngIf="blockTemplate$ | async as blocks " fxFlex>
-		<div *ngFor="let block of blocks" (click)=" addBlock(block.type)" fxLayout="column" fxLayoutAlign="start center"
-			fxFlex="25" style="height: 100px">
-			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main" fxFlex>
-				<i class="{{ block.blockIcon }}" id="icons"></i>
-			</div>
-			
-			<p class="block-messages">
-				{{ block.message }}
-			</p>
-		</div>
-	</div>
-</div> -->

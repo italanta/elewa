@@ -144,6 +144,16 @@ export class BlocksLibraryComponent implements OnInit {
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
   }
+  getBlocks()
+  {
+
+    this._sbS.sink = this._storyBlockStore$$.getBlocksByStory(storyId)
+      .subscribe((blocks: StoryBlock[]) =>
+      {
+        this.blocks = blocks;
+      });
+  }
+
 
   ngOnDestroy() {
     this._sbS.unsubscribe();
