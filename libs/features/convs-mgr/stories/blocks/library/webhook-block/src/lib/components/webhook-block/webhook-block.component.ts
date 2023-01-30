@@ -18,7 +18,7 @@ import { WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 export class WebhookBlockComponent {
   @Input() id: string;
   @Input() block: WebhookBlock;
-  @Input() webhookMessageForm: FormGroup;
+  @Input() webhookForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   webhookInputId: string;
