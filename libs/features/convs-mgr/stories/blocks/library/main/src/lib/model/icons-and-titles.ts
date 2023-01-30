@@ -86,6 +86,10 @@ export const iconsAndTitles: any = {
 	22  : {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
 	icon: 'fas fa-map-marker-alt'
+	},
+	9999  : {
+	title: '',
+	icon: ''
 	}
 
   }

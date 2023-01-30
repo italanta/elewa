@@ -95,12 +95,14 @@ export class StoryEditorStateService
     // Blocks which are newly created and newly configured
     const newBlocks = blocks.filter(nBl => !oldBlocks.find(oBl => nBl.id === oBl.id));
     // Blocks which were deleted
-    const delBlocks = oldBlocks.filter (oBl => !blocks.find(nBl => nBl.id === oBl.id));
+
+    debugger
+    const delBlocks = oldBlocks.filter (oBl => (oBl.id !== 'story-end-anchor' && !blocks.find(nBl => nBl.id === oBl.id)));
     // Blocks which were updated.
     const updBlocks = blocks.filter(nBl => !newBlocks.concat(delBlocks)
                                                        .find(aBl => nBl.id === aBl.id));
     const newBlocks$ = newBlocks.map(bl => this._createBlock(bl));
-    const delBlocks$ = delBlocks.map(bl => this._deleteBlock(bl));
+    const delBlocks$ = delBlocks.map(bl => {debugger; return this._deleteBlock(bl)});
     const updBlocks$ = updBlocks.map(bl => this._updateBlock(bl));
 
     return ___flatten([

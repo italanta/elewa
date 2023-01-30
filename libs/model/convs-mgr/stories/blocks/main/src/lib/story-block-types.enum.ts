@@ -111,5 +111,7 @@ export enum StoryBlockTypes {
   /** */
   FailBlock = 20,
   LocationInputBlock = 22,
-  AudioInput = 21
+  AudioInput = 21,
+
+  EndStoryAnchorBlock = 9999
 }
