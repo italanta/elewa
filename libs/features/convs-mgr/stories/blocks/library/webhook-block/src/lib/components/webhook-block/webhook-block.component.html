@@ -13,7 +13,7 @@
 				<div fxFlex>
 					<div class="child-1" fxLayout="row" fxLayoutALign="space-between center" fxLayoutGap="5px" fxFlex>
 						<div class="dropdown">
-							<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
+							<input type="text" class="url" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
 							<button class="button-select">
 								<select [formControl]="httpMethod">
 									<option *ngFor="let  http of httpCategories ; let
@@ -22,11 +22,6 @@
 								</select>
 							</button>
 						</div>
-
-						<span fxFlex="5">
-							<p class="info">Select the method and type the url</p>
-							<i class="info-icon" class="fas fa-info-circle"></i>
-						</span>
 					</div>
 				</div>
 
@@ -38,11 +33,6 @@
 							</mat-option>
 						</mat-select>
 					</mat-form-field>
-
-					<span fxFlex="5">
-						<p class="info"> Info text here</p>
-						<i class="info-icon" class="fas fa-info-circle"></i>
-					</span>
 
 				</div>
 
