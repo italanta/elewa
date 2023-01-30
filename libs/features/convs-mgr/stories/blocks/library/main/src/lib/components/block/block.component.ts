@@ -21,9 +21,14 @@ import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
 import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
+import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
+import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
+import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
+import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
+
 /**
  * Block which sends a message from bot to user.
  */
@@ -54,6 +59,12 @@ export class BlockComponent implements OnInit {
   replyType = StoryBlockTypes.Reply;
   jumpType = StoryBlockTypes.JumpBlock;
   multipleInputType = StoryBlockTypes.MultipleInput;
+  failType = StoryBlockTypes.FailBlock;
+  imageinputType =  StoryBlockTypes.ImageInput
+  locationInputType =  StoryBlockTypes.LocationInputBlock;
+  imageInputType =  StoryBlockTypes.ImageInput;
+  audioInputType =  StoryBlockTypes.AudioInput;
+
 
   blockFormGroup: FormGroup;
 
@@ -144,12 +155,28 @@ export class BlockComponent implements OnInit {
           this.blocksGroup.push(this.blockFormGroup);
           break;
   
+        case StoryBlockTypes.MultipleInput:
+        this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
+        this.blocksGroup.push(this.blockFormGroup);
+        break;
 
-          case StoryBlockTypes.MultipleInput:
-          this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
+        case StoryBlockTypes.FailBlock:
+          this.blockFormGroup = _CreateFailBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;
-  
+          break; 
+
+        case StoryBlockTypes.ImageInput:
+          this.blockFormGroup = _CreateImageInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
+        case StoryBlockTypes.LocationInputBlock:
+          this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
+        case StoryBlockTypes.AudioInput:
+          this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
         default:
           break;
       }
