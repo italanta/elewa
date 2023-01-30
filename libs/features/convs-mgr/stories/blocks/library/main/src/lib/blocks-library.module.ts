@@ -29,11 +29,13 @@ import { ConvsMgrReplyMessageBlockModule } from '@app/features/convs-mgr/stories
 import { ConvsMgrJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/jump-story-block';
 import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block';
 import { ConvsMgrImageInputBlockModule} from '@app/features/convs-mgr/stories/blocks/library/image-input-block'
+import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+
 
 @NgModule({
   imports: [
@@ -63,6 +65,9 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrTextMessageBlockModule,
     ConvsMgrMultipleInputMessageBlockModule,
     ConvsMgrFailBlockModule,
+
+    ConvsMgrLocationInputBlockModule,
+
     ConvsMgrImageInputBlockModule,
     ConvsMgrAudioInputBlockModule,
 

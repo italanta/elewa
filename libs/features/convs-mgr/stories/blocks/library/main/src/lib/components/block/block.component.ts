@@ -26,7 +26,9 @@ import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.m
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
+import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
+
 /**
  * Block which sends a message from bot to user.
  */
@@ -58,8 +60,11 @@ export class BlockComponent implements OnInit {
   jumpType = StoryBlockTypes.JumpBlock;
   multipleInputType = StoryBlockTypes.MultipleInput;
   failType = StoryBlockTypes.FailBlock;
+  imageinputType =  StoryBlockTypes.ImageInput
+  locationInputType =  StoryBlockTypes.LocationInputBlock;
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
+
 
   blockFormGroup: FormGroup;
 
@@ -161,7 +166,10 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateImageInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
-
+        case StoryBlockTypes.LocationInputBlock:
+          this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
         case StoryBlockTypes.AudioInput:
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
