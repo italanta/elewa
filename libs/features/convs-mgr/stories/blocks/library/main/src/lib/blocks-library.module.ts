@@ -18,6 +18,8 @@ import { ConvsMgrEmailMessageBlockModule } from '@app/features/convs-mgr/stories
 import { ConvsMgrPhoneMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/phone-message-block';
 import { ConvsMgrAudioMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/audio-message-block';
 import { ConvsMgrVideoMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-message-block';
+import { ConvsMgrFailBlockModule } from '@app/features/convs-mgr/stories/blocks/library/fail-block';
+import { ConvsMgrAudioInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/audio-input-block';
 
 import { ConvsMgrStickerMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/sticker-message-block';
 import { ConvsMgrListMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/list-message-block';
@@ -33,7 +35,6 @@ import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
-import { ConvsMgrFailBlockModule } from '../../../fail-block/src';
 
 
 @NgModule({
@@ -64,9 +65,11 @@ import { ConvsMgrFailBlockModule } from '../../../fail-block/src';
     ConvsMgrTextMessageBlockModule,
     ConvsMgrMultipleInputMessageBlockModule,
     ConvsMgrFailBlockModule,
+
     ConvsMgrLocationInputBlockModule,
+
     ConvsMgrImageInputBlockModule,
-  
+    ConvsMgrAudioInputBlockModule,
 
     FileStateModule
   

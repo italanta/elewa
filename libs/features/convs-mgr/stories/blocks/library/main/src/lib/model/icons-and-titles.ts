@@ -75,6 +75,10 @@ export const iconsAndTitles: any = {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
 		icon: "fas fa-exclamation-circle"
   },
+	21: {
+		title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIOINPUT',
+		icon: "fas fa-microphone-alt"
+	},
   50  : {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
 	icon: 'fas fa-image'
@@ -83,4 +87,5 @@ export const iconsAndTitles: any = {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
 	icon: 'fas fa-map-marker-alt'
 	}
+
   }

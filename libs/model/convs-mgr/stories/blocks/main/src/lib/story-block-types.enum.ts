@@ -36,7 +36,6 @@ export enum StoryBlockTypes {
    * Block that sends an audio as output to the user
    */
   Audio = 8,
-  AudioInputBlock = 80,
 
   /**
    * Block that sends a message to the user in form of a video
@@ -111,6 +110,6 @@ export enum StoryBlockTypes {
 
   /** */
   FailBlock = 20,
-
   LocationInputBlock = 22,
+  AudioInput = 21
 }

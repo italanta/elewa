@@ -8,6 +8,7 @@ import { BlockComponent } from '../components/block/block.component';
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
           VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, AudioInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
@@ -28,6 +29,7 @@ import { _MultipleBlockDecoratePlumb } from './multiple-block.jsplumb';
 import { _FailBlockDecoratePlumb } from './fail-block.jsplumb';
 import { _ImageInputBlockDecoratePlumb } from './image-input-block.jsplumb';
 import { _LocationInputBlockDecoratePlumb } from './location-input-block.jsplumb';
+import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -96,6 +98,8 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       break;
     case StoryBlockTypes.LocationInputBlock:
       return _LocationInputBlockDecoratePlumb(block as LocationInputBlock, comp, jsPlumb);
+    case StoryBlockTypes.AudioInput:
+      return _AudioInputBlockDecoratePlumb(block as AudioInputBlock, comp, jsPlumb);
       break;
   }
 
