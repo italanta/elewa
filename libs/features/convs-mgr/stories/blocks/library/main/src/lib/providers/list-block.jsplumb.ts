@@ -24,7 +24,7 @@ export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: Component
 
     endpoint: 'Dot',
     anchor: "Left",
-    maxConnections: 5
+    maxConnections: -1
 
   });
 
