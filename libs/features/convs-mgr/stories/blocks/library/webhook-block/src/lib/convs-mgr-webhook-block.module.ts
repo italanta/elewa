@@ -8,6 +8,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { WebhookBlockComponent } from './components/webhook-block/webhook-block.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,7 +20,8 @@ import { WebhookBlockComponent } from './components/webhook-block/webhook-block.
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule],
+    ConvsMgrBlockOptionsModule
+    ],
   declarations: [WebhookBlockComponent],
   exports: [WebhookBlockComponent]
 })
