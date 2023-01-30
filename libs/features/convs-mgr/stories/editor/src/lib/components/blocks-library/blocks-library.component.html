@@ -2,14 +2,6 @@
 	<mat-sidenav #sidenav mode="over" [(opened)]="opened" style="width: 270px;">
 	<button mat-button (click)="sidenav.toggle()"><i class="fa fa-chevron-left"></i></button>
 	Sidenav content
-	<div *ngIf="blockTemplate$ | async as block">
-		<div  *ngFor="let active of actives" (click)=" getBlock(block)">
-			<p class="block-messages">
-				{{ block }}
-			</p>
-		</div>
-
-	</div>
 	</mat-sidenav>
   
 	<mat-sidenav-content>

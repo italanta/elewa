@@ -68,7 +68,6 @@ export class BlocksLibraryComponent implements OnInit {
     if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
-    this.getStories();
   }
   addBlock(type: number) {
     switch (type) {
@@ -144,13 +143,6 @@ export class BlocksLibraryComponent implements OnInit {
 
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
-  }
-  getBlock(){
-    this._sbS.sink = this._storyBlockStore$$.getBlocksByStory()
-      .subscribe((blocks: StoryBlock[]) =>
-      {
-        this.blocks = blocks;
-      });
   }
 
   ngOnDestroy() {
