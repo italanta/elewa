@@ -3,7 +3,7 @@ import { HttpMethodTypes } from '@app/model/convs-mgr/stories/blocks/main';
 /**
  * Block that makes and receives responses from the HTTP
  */
-export interface WebhookMessageBlock extends StoryBlock {
+export interface WebhookBlock extends StoryBlock {
   defaultTarget?: string;
   /** The http url of the endpoint */
   httpUrl?: string;
