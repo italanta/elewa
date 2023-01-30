@@ -96,7 +96,6 @@ export class StoryEditorStateService
     const newBlocks = blocks.filter(nBl => !oldBlocks.find(oBl => nBl.id === oBl.id));
     // Blocks which were deleted
 
-    debugger
     const delBlocks = oldBlocks.filter (oBl => (oBl.id !== 'story-end-anchor' && !blocks.find(nBl => nBl.id === oBl.id)));
     // Blocks which were updated.
     const updBlocks = blocks.filter(nBl => !newBlocks.concat(delBlocks)
