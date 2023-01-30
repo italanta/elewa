@@ -102,7 +102,7 @@ export class StoryEditorStateService
     const updBlocks = blocks.filter(nBl => !newBlocks.concat(delBlocks)
                                                        .find(aBl => nBl.id === aBl.id));
     const newBlocks$ = newBlocks.map(bl => this._createBlock(bl));
-    const delBlocks$ = delBlocks.map(bl => {debugger; return this._deleteBlock(bl)});
+    const delBlocks$ = delBlocks.map(bl => this._deleteBlock(bl));
     const updBlocks$ = updBlocks.map(bl => this._updateBlock(bl));
 
     return ___flatten([
