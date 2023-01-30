@@ -2,10 +2,12 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { Message, TextMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { NextBlockService } from "../next-block.class";
+import { WebhookMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { makeHttpRequest } from "../../../utils/httpRequest";
+import { Query } from "@ngfi/firestore-qbuilder";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -24,6 +26,14 @@ export class WebhookBlockService extends NextBlockService
 	{
 		super(tools);
 		this.tools = tools;
+	}
+
+	async processUserInput(msg: Message, lastBlock:WebhookMessageBlock, orgId: string, currentStory:string, endUserId:string):Promise<StoryBlock>
+	{
+		const dataCollection = this.tools.getRepository('orgs/${orgId}/end-user/response-data');
+		const data = await dataCollection.getDocuments(new Query());
+		await makeHttpRequest(lastBlock.httpUrl,data[0], this.tools);
+		return this.getNextBlock(msg, lastBlock,orgId,currentStory,endUserId);
 	}
 
 	/**
