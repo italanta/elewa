@@ -71,6 +71,34 @@
       },
       "tags": []
     },
+    "features-convs-mgr-stories-blocks-library-audio-input-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/audio-input-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/audio-input-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/audio-input-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/audio-input-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/audio-input-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/audio-input-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
     "features-convs-mgr-stories-blocks-library-document-message-block": "libs/features/convs-mgr/stories/blocks/library/document-message-block",
     "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
@@ -96,6 +124,34 @@
             "lintFilePatterns": [
               "libs/features/convs-mgr/stories/blocks/library/fail-block/**/*.ts",
               "libs/features/convs-mgr/stories/blocks/library/fail-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-stories-blocks-library-image-input-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/image-input-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/image-input-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/image-input-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/image-input-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/image-input-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/image-input-block/**/*.html"
             ]
           }
         }
@@ -132,6 +188,34 @@
       "tags": []
     },
     "features-convs-mgr-stories-blocks-library-list-message-block": "libs/features/convs-mgr/stories/blocks/library/list-message-block",
+    "features-convs-mgr-stories-blocks-library-location-input-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/location-input-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/location-input-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/location-input-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/location-input-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/location-input-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/location-input-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
     "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
     "features-convs-mgr-stories-blocks-library-multiple-input-message-block": {
