@@ -14,8 +14,10 @@ import {
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
 import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 /**
  * Component which holds a library (list) of all blocks that can be created 
@@ -28,6 +30,9 @@ import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/m
 })
 export class BlocksLibraryComponent implements OnInit {
   private _sbS = new SubSink();
+  opened:  boolean;
+  blocks: StoryBlock[];
+  actives: StoryBlock[];
 
   @Input() frame: StoryEditorFrame;
 
@@ -55,13 +60,15 @@ export class BlocksLibraryComponent implements OnInit {
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
-  constructor(private _logger: Logger) { }
+  constructor(private _logger: Logger,
+    private _storyBlockStore$$: StoryBlocksStore,) { }
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
     if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
+    this.getStories();
   }
   addBlock(type: number) {
     switch (type) {
@@ -137,6 +144,13 @@ export class BlocksLibraryComponent implements OnInit {
 
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
+  }
+  getBlock(){
+    this._sbS.sink = this._storyBlockStore$$.getBlocksByStory()
+      .subscribe((blocks: StoryBlock[]) =>
+      {
+        this.blocks = blocks;
+      });
   }
 
   ngOnDestroy() {

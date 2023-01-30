@@ -34,7 +34,9 @@ app-blocks-library {
 .trying {
   border-right: solid black 1px;
 }
-
+.content {
+  width: 240px;
+}
 ::ng-deep .mat-mini-fab .mat-button-wrapper {
   bottom: 0px;
 }
