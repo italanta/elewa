@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ChangeDetectorRef, ComponentRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -59,8 +59,11 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  viewPort: ViewContainerRef;
+  ref: ComponentRef<BlockComponent>;
 
   constructor(private _el: ElementRef,
+              private _cd:ChangeDetectorRef,
               private _fb: FormBuilder,
               private _logger: Logger
   ) { }
@@ -196,7 +199,9 @@ export class BlockComponent implements OnInit {
   deleteBlock(id: string) {
     this.blockFormGroup.removeControl(id);
     this.block.deleted = true;
-    // this.blockFormGroup.value.deleted = true;
+   const index = this.viewPort.indexOf(this.ref.hostView);
+   this.viewPort.remove(index);
+   this._cd.detectChanges();
   }
 }
 
