@@ -2,14 +2,7 @@
 	<mat-sidenav #sidenav mode="over" [(opened)]="opened" style="width: 270px;">
 	<button mat-button (click)="sidenav.toggle()"><i class="fa fa-chevron-left"></i></button>
 	Sidenav content
-	<div>
-		<mat-form-field id="block" name="block" formControlName="targetBlockId">
-			<input *ngFor="let block of blocks" [value]='block.id'>{{block.value}}>
-			<p>
-				{{block.value}}
-			</p>
-		</mat-form-field>
-	</div>
+	
 	</mat-sidenav>
   
 	<mat-sidenav-content>
