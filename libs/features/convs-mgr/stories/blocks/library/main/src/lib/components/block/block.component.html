@@ -1,6 +1,6 @@
 <mat-card class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
-        <div fxLayout="row" fxLayoutAlign="space-between start" class="outer">
+        <div *ngIf="type !== endStoryAnchor" fxLayout="row" fxLayoutAlign="space-between start" class="outer">
             <div fxLayout="row" fxLayoutAlign="start start" class="block-title-container">
                 <i [class]="iconClass"></i>
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
@@ -86,6 +86,14 @@
         <div *ngSwitchCase="audioInputType">
             <app-audio-input-block [id]="id" [block]="block" [audioInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-audio-input-block>
+        </div>
+        <div *ngSwitchCase="webhookType">
+            <app-webhook-block [id]="id" [block]="block" [webhookForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-webhook-block>
+        </div>
+        <div *ngSwitchCase="endStoryAnchor">
+            <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-end-anchor>
         </div>
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">

@@ -28,6 +28,8 @@ import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
 import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
+import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
+import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model'
 
 /**
@@ -66,6 +68,8 @@ export class BlockComponent implements OnInit {
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
   videoInputType = StoryBlockTypes.VideoInput;
+  webhookType =  StoryBlockTypes.WebhookBlock;
+  endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
 
 
   blockFormGroup: FormGroup;
@@ -176,6 +180,14 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
+        case StoryBlockTypes.WebhookBlock:
+          this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.EndStoryAnchorBlock:
+          this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -189,8 +201,8 @@ export class BlockComponent implements OnInit {
 
   getBlockIconAndTitle(type: number) {
     return iconsAndTitles[type];
-
   }
+
   /** 
    * Track and update coordinates of block and update them in data model.
    */
@@ -206,7 +218,7 @@ export class BlockComponent implements OnInit {
       x: left ? left : this.block.position.x,
       y: top ? top : this.block.position.y
     };
-
+    
     this.blockFormGroup.value.position = this.block.position;
   }
 
@@ -226,6 +238,7 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
+
   deleteBlock() {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;

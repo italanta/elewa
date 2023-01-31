@@ -62,9 +62,6 @@ export class StoryEditorFrame {
     //create the anchor block when state is initialized
     this.createStartAnchor();
 
-    //create the end anchor block when state is initialized
-    this.createEndAnchor();
-
     this.drawBlocks();
 
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
@@ -97,14 +94,6 @@ export class StoryEditorFrame {
   createStartAnchor() {
     let startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
-  }
-
-  createEndAnchor() {
-    let endAnchor = this._viewport.createComponent(EndAnchorComponent);
-    endAnchor.instance.jsPlumb = this._jsPlumb;
-    endAnchor.location.nativeElement.style = `position: absolute; left: 50px; top: 150px;`;
-    this._viewport.insert(endAnchor.hostView);
-    this._jsPlumb.manage(endAnchor.location.nativeElement, 'story-end-anchor');
   }
 
   /**
