@@ -1,24 +1,19 @@
 {
+  "name": "util-iote-exceptions",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/iote/exceptions/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/exceptions/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/util/iote/exceptions/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/util/iote/exceptions"
-      ],
+      "outputs": ["coverage/libs/util/iote/exceptions"],
       "options": {
         "jestConfig": "libs/util/iote/exceptions/jest.config.ts",
         "passWithNoTests": true
@@ -26,17 +21,13 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/exceptions",
         "tsConfig": "libs/util/iote/exceptions/tsconfig.lib.json",
         "packageJson": "libs/util/iote/exceptions/package.json",
         "main": "libs/util/iote/exceptions/src/index.ts",
-        "assets": [
-          "libs/util/iote/exceptions/*.md"
-        ]
+        "assets": ["libs/util/iote/exceptions/*.md"]
       }
     }
   },

@@ -101,6 +101,9 @@
       "@app/features/convs-mgr/stories/blocks/library/name-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/name-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/openended-question-block": [
+        "libs/features/convs-mgr/stories/blocks/library/openended-question-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/phone-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/phone-message-block/src/index.ts"
       ],

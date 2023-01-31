@@ -1,24 +1,19 @@
 {
+  "name": "util-iote-state",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/iote/state/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/state/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/util/iote/state/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/util/iote/state"
-      ],
+      "outputs": ["coverage/libs/util/iote/state"],
       "options": {
         "jestConfig": "libs/util/iote/state/jest.config.ts",
         "passWithNoTests": true
@@ -26,17 +21,13 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/state",
         "tsConfig": "libs/util/iote/state/tsconfig.lib.json",
         "packageJson": "libs/util/iote/state/package.json",
         "main": "libs/util/iote/state/src/index.ts",
-        "assets": [
-          "libs/util/iote/state/*.md"
-        ]
+        "assets": ["libs/util/iote/state/*.md"]
       }
     }
   },

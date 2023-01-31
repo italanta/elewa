@@ -87,5 +87,9 @@
             <app-audio-input-block [id]="id" [block]="block" [audioInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-audio-input-block>
         </div>
+        <div *ngSwitchCase="openendedType">
+            <app-openended-question-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [openendedQuestionForm]="blockFormGroup" class="block">
+            </app-openended-question-block>
+        </div>
     </div>
 </mat-card>
