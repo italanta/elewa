@@ -9,6 +9,8 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
+import { WebhookBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -49,7 +51,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	private async makeRequest(storyBlock: WebhookBlock)
 	{
-		const URL = storyBlock.url;
+		const URL = storyBlock.httpUrl;
 		const HTTP_METHOD = storyBlock.httpMethod;
 
 		const payload = this.getPayload();

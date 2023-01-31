@@ -1,6 +1,6 @@
-import { HandlerTools, Logger } from "@iote/cqrs";
+import { HandlerTools } from "@iote/cqrs";
 
-import { EndStoryBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -25,7 +25,7 @@ export class EndStoryBlockService implements IProcessNextBlock
    *  3. Update the cursor
    *  4. Resolve and return the success block
    */
-  async handleBlock(storyBlock: EndStoryBlock, currentCursor: Cursor, orgId: string, currentStory: string, endUserId?: string)
+  async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, currentStory: string, endUserId?: string)
   {
     const cursorService = new CursorDataService(this.tools);
 
