@@ -87,11 +87,10 @@ export const iconsAndTitles: any = {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
 	icon: 'fas fa-map-marker-alt'
 	},
-<<<<<<< HEAD
 	23  : {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
 	icon: 'fas fa-video'
-=======
+	},
 	25: {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
 		icon: 'fas fa-link'
@@ -99,7 +98,6 @@ export const iconsAndTitles: any = {
 	9999  : {
 	title: '',
 	icon: ''
->>>>>>> upstream/main
 	}
-
-  }
+}
+  
