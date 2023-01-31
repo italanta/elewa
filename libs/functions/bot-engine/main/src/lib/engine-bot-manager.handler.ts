@@ -96,7 +96,7 @@ export class EngineBotManager
         case ChatStatus.Running:
           message.direction = MessageDirection.TO_CHATBOT;
 
-          await bot.play(message, endUser, currentCursor as Cursor);
+          await bot.play(message, endUser, currentCursor);
 
           break;
         case ChatStatus.Paused:
