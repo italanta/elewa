@@ -79,7 +79,8 @@
         "LIST": "List",
         "DOCUMENT": "Document",
         "MULTIPLEINPUT":"Multiple-Input",
-        "IMAGE-INPUT":"Image Input"
+        "IMAGE-INPUT":"Image Input",
+        "VIDEO-INPUT":"Video Input"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -94,7 +95,8 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
-        "IMAGE-INPUT": "Image Input"
+        "IMAGE-INPUT": "Image Input",
+        "VIDEO-INPUT": "Video Input"
       },
       "BUTTONS": {
         "JUMP-BLOCK" : {
