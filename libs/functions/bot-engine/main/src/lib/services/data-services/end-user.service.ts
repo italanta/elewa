@@ -38,7 +38,7 @@ import { throws } from 'assert';
     return endUser;
   }
 
-  async getEndUser(endUserId: string, phoneNumber: string)
+  async getEndUser(endUserId: string, phoneNumber?: string)
   {
 
     let endUser = await this.getDocumentById(endUserId, this._docPath);
