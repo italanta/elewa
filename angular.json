@@ -252,6 +252,34 @@
     "features-convs-mgr-stories-blocks-library-reply-message-block": "libs/features/convs-mgr/stories/blocks/library/reply-message-block",
     "features-convs-mgr-stories-blocks-library-sticker-message-block": "libs/features/convs-mgr/stories/blocks/library/sticker-message-block",
     "features-convs-mgr-stories-blocks-library-text-message-block": "libs/features/convs-mgr/stories/blocks/library/text-message-block",
+    "features-convs-mgr-stories-blocks-library-webhook-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/webhook-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/webhook-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/webhook-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/webhook-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/webhook-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/webhook-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
@@ -366,6 +394,32 @@
     "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
     "state-convs-mgr-stories-block-connections": "libs/state/convs-mgr/stories/block-connections",
     "state-convs-mgr-stories-blocks": "libs/state/convs-mgr/stories/blocks",
+    "state-convs-mgr-stories-variables-config": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/stories/variables-config",
+      "sourceRoot": "libs/state/convs-mgr/stories/variables-config/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/stories/variables-config"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/stories/variables-config/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/stories/variables-config/**/*.ts",
+              "libs/state/convs-mgr/stories/variables-config/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
     "state-file": "libs/state/file/store",
     "state-organisation": "libs/state/organisation/main",
