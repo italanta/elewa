@@ -116,6 +116,9 @@
       "@app/features/convs-mgr/stories/blocks/library/text-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/text-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/video-input-block": [
+        "libs/features/convs-mgr/stories/blocks/library/video-input-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/video-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/video-message-block/src/index.ts"
       ],
