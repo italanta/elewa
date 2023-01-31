@@ -23,12 +23,11 @@ export class CreateBotModalComponent implements OnInit {
   fileName: string;
   storyHasImage: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {
-    isEditMode: boolean,
-    story?: Story
-  },
-    private _addStory$: NewStoryService,
-    private _formBuilder: FormBuilder,
+  constructor(private _addStory$: NewStoryService,
+              private _formBuilder: FormBuilder,
+              @Inject(MAT_DIALOG_DATA) public data: {
+                        isEditMode: boolean,
+                        story?: Story}
   ) {
     this.modalMode = data.isEditMode;
     this.story = data.story as Story;

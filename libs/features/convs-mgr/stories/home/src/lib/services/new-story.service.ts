@@ -12,10 +12,14 @@ import { ToastService } from '@iote/bricks-angular';
 import { TranslateService } from '@ngfi/multi-lang';
 
 import { Story } from "@app/model/convs-mgr/stories/main";
+import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
 import { FileStorageService } from "@app/state/file";
+import { StoryBlocksStore } from "@app/state/convs-mgr/stories/blocks";
+
 
 /** Service which can create new stories. */
 @Injectable()
@@ -24,6 +28,7 @@ export class NewStoryService implements OnDestroy {
 
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
+              private _blocksStore$$: StoryBlocksStore,
               private _fileStorageService$$: FileStorageService,
               private _router: Router,
               private _toast: ToastService,
@@ -57,8 +62,11 @@ export class NewStoryService implements OnDestroy {
       if (org) {
         bot.orgId = org.id!;
         this._stories$$.add(bot).subscribe((story) => {
-          this._dialog.closeAll();
-          this._router.navigate(['/stories', story.id])
+          if (story) {
+            this._dialog.closeAll();
+            this._router.navigate(['/stories', story.id]),
+            this.createStoryEndBlock(story.orgId, story.id!);
+          }
         });
       }
     })
@@ -104,6 +112,19 @@ export class NewStoryService implements OnDestroy {
         );
       },
     });
+  }
+
+
+  createStoryEndBlock(orgId: string, storyId: string) {
+    let endBlock: EndStoryAnchorBlock = {
+      id: 'story-end-anchor',
+      type: StoryBlockTypes.EndStoryAnchorBlock,
+      position: {x: 200, y: 100},
+      deleted: false,
+      blockTitle: 'End here',
+      blockIcon: ''
+    }
+    this._blocksStore$$.createEndBlock(orgId, storyId, endBlock);
   }
 
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map(o => o.id));
