@@ -79,7 +79,6 @@ export class BotEnginePlay implements IBotEnginePlay
     await this.__reply(nextBlock, endUser, message);
 
     this.__move(newCursor, endUser.id);
-
     // Here is where the message chaining happens. 
     //  If it is not an input block we replay until we get hit an input block. 
     if (isOutputBlock(nextBlock.type)) {
@@ -95,9 +94,8 @@ export class BotEnginePlay implements IBotEnginePlay
    */
   private async __getNextBlock(endUser: EndUser, currentPosition: Cursor | boolean, message?: Message)
   {
-    const currentStory = endUser.currentStory;
 
-    this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: Getting the next block...`);
+    this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: Getting the next block... ${JSON.stringify(currentPosition)}`);
 
     if (message && message.type === MessageTypes.TEXT) {
       const textMessage = message as TextMessage;
@@ -112,8 +110,11 @@ export class BotEnginePlay implements IBotEnginePlay
       // If the end user position does not exist then the conversation is new and we return the first block
       return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
     } else {
+      const endUserPosition = currentPosition as Cursor;
+      const currentStory  = endUserPosition.position.storyId;
+
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(message, currentPosition as Cursor, endUser.id, this.orgId, currentStory, this._tools);
+      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser.id, this.orgId, currentStory, this._tools);
     }
   }
 
