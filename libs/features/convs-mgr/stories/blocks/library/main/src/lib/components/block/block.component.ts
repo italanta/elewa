@@ -29,6 +29,7 @@ import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
 import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
+import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -66,6 +67,7 @@ export class BlockComponent implements OnInit {
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
   webhookType =  StoryBlockTypes.WebhookBlock;
+  endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
 
 
   blockFormGroup: FormGroup;
@@ -179,6 +181,10 @@ export class BlockComponent implements OnInit {
         case StoryBlockTypes.WebhookBlock:
           this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.EndStoryAnchorBlock:
+          this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
           break;  
         default:
           break;
@@ -189,8 +195,8 @@ export class BlockComponent implements OnInit {
 
   getBlockIconAndTitle(type: number) {
     return iconsAndTitles[type];
-
   }
+
   /** 
    * Track and update coordinates of block and update them in data model.
    */
@@ -206,7 +212,7 @@ export class BlockComponent implements OnInit {
       x: left ? left : this.block.position.x,
       y: top ? top : this.block.position.y
     };
-
+    
     this.blockFormGroup.value.position = this.block.position;
   }
 
@@ -226,6 +232,7 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
+
   deleteBlock() {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;

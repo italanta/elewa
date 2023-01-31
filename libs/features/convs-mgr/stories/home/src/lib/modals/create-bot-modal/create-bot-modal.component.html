@@ -1,59 +1,61 @@
-<h2 class="create-bot-header">
-  <span *ngIf="!modalMode; else showEditTitle">
-    {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
-  </span>
-  <ng-template #showEditTitle>
-    {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
-  </ng-template>
-</h2>
+<div class="modal">
+  <h2 class="create-bot-header">
+    <span *ngIf="!modalMode; else showEditTitle">
+      {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
+    </span>
+    <ng-template #showEditTitle>
+      {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
+    </ng-template>
+  </h2>
 
-<form [formGroup]="botForm">
-  <div class="file">
-    <div class="input">
-      <h4 class="create-bot-name">
-        {{ 'BOTS.CREATE-MODAL.FIELDS.IMAGE' | transloco }}
-      </h4>
-      <input type="file" id="file-upload" style="display: none ;" (change)="imageChanged($event)" />
-      <label for="file-upload">
-        <span *ngIf="storyHasImage; else showUploadFile">Change File</span>
-        <ng-template #showUploadFile>
-          <span> Choose File</span>
+  <form [formGroup]="botForm">
+    <div class="file">
+      <div class="input">
+        <h4 class="create-bot-name">
+          {{ 'BOTS.CREATE-MODAL.FIELDS.IMAGE' | transloco }}
+        </h4>
+        <input type="file" id="file-upload" style="display: none ;" (change)="imageChanged($event)" />
+        <label for="file-upload">
+          <span *ngIf="storyHasImage; else showUploadFile">Change File</span>
+          <ng-template #showUploadFile>
+            <span> Choose File</span>
+          </ng-template>
+        </label>
+        <span *ngIf="fileName; else showFileName">{{fileName}}</span>
+        <ng-template #showFileName> -No image uploaded </ng-template>
+      </div>
+
+      <div>
+        <span *ngIf="storyHasImage; else show"><i class='fas fa-check-circle' id="fas"></i></span>
+        <ng-template #show>
+          <span> <i class='fas fa-times-circle' id="fas2"></i></span>
         </ng-template>
-      </label>
-      <span *ngIf="fileName; else showFileName">{{fileName}}</span>
-      <ng-template #showFileName> -No image uploaded </ng-template>
-    </div>
+      </div>
 
-    <div>
-      <span *ngIf="storyHasImage; else show"><i class='fas fa-check-circle' id="fas"></i></span>
-      <ng-template #show>
-        <span> <i class='fas fa-times-circle' id="fas2"></i></span>
-      </ng-template>
     </div>
+    <h4 class="create-bot-name">
+      {{ 'BOTS.FIELDS.NAME' | transloco }}
+    </h4>
+    <input type="text" formControlName="botName" [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" />
+    <h4>{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
+    <textarea formControlName="botDesc" [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco">
+    </textarea>
 
-  </div>
-  <h4 class="create-bot-name">
-    {{ 'BOTS.FIELDS.NAME' | transloco }}
-  </h4>
-  <input type="text" formControlName="botName" [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" />
-  <h4>{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
-  <textarea formControlName="botDesc" [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco">
-  </textarea>
+    <div fxLayout="row" fxLayoutAlign="end" class="bot-buttons">
+      <div>
+        <button mat-stroked-button mat-dialog-close class="cancel-btn">
+          {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
+        </button>
+      </div>
 
-  <div fxLayout="row" fxLayoutAlign="end" class="bot-buttons">
-    <div>
-      <button mat-stroked-button mat-dialog-close class="cancel-btn">
-        {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
-      </button>
+      <div>
+        <button mat-raised-button class="add-btn" (click)="submitForm()">
+          <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
+          <ng-template #isEdit>
+            <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+          </ng-template>
+        </button>
+      </div>
     </div>
-
-    <div>
-      <button mat-raised-button class="add-btn" (click)="submitForm()">
-        <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
-        <ng-template #isEdit>
-          <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
-        </ng-template>
-      </button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>
