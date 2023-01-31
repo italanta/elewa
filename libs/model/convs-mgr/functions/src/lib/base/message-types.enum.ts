@@ -4,16 +4,16 @@
  * 
  * These are the defined message types handled within our bot engine.
  */
-export enum MessageTypes 
-{
-  TEXT              = "text",
-  REACTION          = "reaction",
-  IMAGE             = "image",
-  LOCATION          = "location",
-  CONTACTS          = "contacts",
-  QUESTION          = "question",
-  AUDIO             = 'audio',
-  DOCUMENT          = 'document',
-  STICKER           = 'sticker',
-  VIDEO             = 'video'
+export enum MessageTypes {
+  TEXT = "text",
+  REACTION = "reaction",
+  IMAGE = "image",
+  LOCATION = "location",
+  CONTACTS = "contacts",
+  QUESTION = "question",
+  AUDIO = 'audio',
+  DOCUMENT = 'document',
+  STICKER = 'sticker',
+  VIDEO = 'video',
+  WEBHOOK = 'webhook'
 }
