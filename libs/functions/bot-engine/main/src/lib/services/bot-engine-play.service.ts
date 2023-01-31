@@ -85,6 +85,10 @@ export class BotEnginePlay implements IBotEnginePlay
       return await this.play(message, endUser, newCursor);
     }
 
+    const processMessageOps = this._processMessageService$.getSideOperations();
+
+    this.addSideOperations(processMessageOps);
+    
     // Resolve all pending operations.
     await Promise.all(this.sideOperations);
   }
