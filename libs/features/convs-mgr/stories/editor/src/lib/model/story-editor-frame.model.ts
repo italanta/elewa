@@ -91,6 +91,12 @@ export class StoryEditorFrame {
     return this._jsPlumb.getConnections();
   }
 
+  cloneBlock(block: StoryBlock) {
+    this._cnt++
+    block.id = this._cnt.toString();
+    return this._injectBlockToFrame(block);
+  }
+
   createStartAnchor() {
     let startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
