@@ -32,10 +32,13 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
     switch (lastBlockType) {
       case StoryBlockTypes.Name:
         this.variableName = "name"; // To later pick this value from the specific block id and variable assigned
+        break;
       case StoryBlockTypes.Email:
         this.variableName = "email";
+        break;
       default:
         // Otherwise generate random name for variable, with the StoryBlockType
+        this.variableName = "untitled";
         break;
     }
   }
