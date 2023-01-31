@@ -24,8 +24,6 @@ export class ProcessInputFactory
         return new ProcessOptionsInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
       case MessageTypes.IMAGE:
         return new ProcessMediaInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
-        case MessageTypes.IMAGE:
-        return new ProcessMediaInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
       case MessageTypes.VIDEO:
         return new ProcessMediaInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
       case MessageTypes.AUDIO:
