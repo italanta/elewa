@@ -68,8 +68,6 @@ export class ProcessMessageService
     //   need to send the blocks they are pointing to
 
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
-    await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
-
     if (isOperationBlock(nextBlock.type)) {
 
       const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
