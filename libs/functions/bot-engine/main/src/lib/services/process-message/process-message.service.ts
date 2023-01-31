@@ -14,7 +14,8 @@ import { ProcessNextBlockFactory } from '../process-next-block/process-next-bloc
 
 export class ProcessMessageService
 {
-  isInputValid: boolean = true;
+  isInputValid = true;
+  sideOperations: Promise<unknown>[] = [];
 
   constructor(
     private _cursorService$: CursorDataService,
@@ -55,7 +56,9 @@ export class ProcessMessageService
     const lastBlock = await this._blockService$.getBlockById(currentCursor.position.blockId, orgId, currentStory);
 
     // Handle input: validates and saves the input to variable
-    await this.processInput(msg, lastBlock, orgId, endUserId);
+    const inputPromise = this.processInput(msg, lastBlock, orgId, endUserId);
+
+    this.sideOperations.push(inputPromise)
 
     // Return the cursor updated with the next block in the story
     newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
@@ -118,5 +121,9 @@ export class ProcessMessageService
     const updatedPosition = await processNextBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
 
     return updatedPosition;
+  }
+
+  public getSideOperations() {
+    return this.sideOperations;
   }
 }
