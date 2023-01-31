@@ -1,5 +1,4 @@
 {
-  "name": "state-convs-mgr-conversations-analytics-traffic-by-day",
   "projectType": "library",
   "sourceRoot": "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src",
   "prefix": "app",

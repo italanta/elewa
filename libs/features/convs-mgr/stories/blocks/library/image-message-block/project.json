@@ -1,5 +1,4 @@
 {
-  "name": "features-convs-mgr-stories-blocks-library-image-message-block",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/image-message-block/src",
   "prefix": "app",

@@ -1,12 +1,13 @@
 {
-  "name": "util-ngfi-multi-lang",
   "projectType": "library",
   "sourceRoot": "libs/util/ngfi/multi-lang/src",
   "prefix": "italanta-apps",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/util/ngfi/multi-lang"],
+      "outputs": [
+        "dist/libs/util/ngfi/multi-lang"
+      ],
       "options": {
         "project": "libs/util/ngfi/multi-lang/ng-package.json"
       },
@@ -22,7 +23,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/multi-lang"],
+      "outputs": [
+        "coverage/libs/util/ngfi/multi-lang"
+      ],
       "options": {
         "jestConfig": "libs/util/ngfi/multi-lang/jest.config.ts",
         "passWithNoTests": true

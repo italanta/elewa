@@ -1,12 +1,13 @@
 {
-  "name": "features-convs-mgr-stories-blocks-library-main",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/convs-mgr/stories/blocks/library"],
+      "outputs": [
+        "coverage/libs/features/convs-mgr/stories/blocks/library"
+      ],
       "options": {
         "jestConfig": "libs/features/convs-mgr/stories/blocks/library/jest.config.ts",
         "passWithNoTests": true

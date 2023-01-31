@@ -1,19 +1,24 @@
 {
-  "name": "model-organisation",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/model/organisation/main/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/model/organisation/main/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/model/organisation/main/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/organisation/main"],
+      "outputs": [
+        "coverage/libs/model/organisation/main"
+      ],
       "options": {
         "jestConfig": "libs/model/organisation/main/jest.config.ts",
         "passWithNoTests": true

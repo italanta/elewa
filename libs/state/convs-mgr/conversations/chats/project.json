@@ -1,5 +1,4 @@
 {
-  "name": "state-convs-mgr-conversations-chats",
   "projectType": "library",
   "sourceRoot": "libs/state/convs-mgr/conversations/chats/src",
   "prefix": "app",

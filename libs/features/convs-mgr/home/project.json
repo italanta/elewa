@@ -1,12 +1,13 @@
 {
-  "name": "features-convs-mgr-home",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/home/src",
   "prefix": "italanta-apps",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/features/convs-mgr/home"],
+      "outputs": [
+        "coverage/libs/features/convs-mgr/home"
+      ],
       "options": {
         "jestConfig": "libs/features/convs-mgr/home/jest.config.ts",
         "passWithNoTests": true

@@ -1,5 +1,4 @@
 {
-  "name": "model-convs-mgr-conversations-messages",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/model/convs-mgr/conversations/messages/src",
   "projectType": "library",

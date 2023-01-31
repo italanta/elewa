@@ -1,5 +1,4 @@
 {
-  "name": "features-convs-mgr-stories-blocks-library-block-options",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/block-options/src",
   "prefix": "app",

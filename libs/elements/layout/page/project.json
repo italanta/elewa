@@ -1,12 +1,13 @@
 {
-  "name": "elements-layout-page",
   "projectType": "library",
   "sourceRoot": "libs/elements/layout/page/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/elements/layout/page"],
+      "outputs": [
+        "coverage/libs/elements/layout/page"
+      ],
       "options": {
         "jestConfig": "libs/elements/layout/page/jest.config.ts",
         "passWithNoTests": true

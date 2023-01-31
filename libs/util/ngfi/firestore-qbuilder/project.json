@@ -1,19 +1,24 @@
 {
-  "name": "util-ngfi-firestore-qbuilder",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/ngfi/firestore-qbuilder/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/util/ngfi/firestore-qbuilder/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/util/ngfi/firestore-qbuilder/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/firestore-qbuilder"],
+      "outputs": [
+        "coverage/libs/util/ngfi/firestore-qbuilder"
+      ],
       "options": {
         "jestConfig": "libs/util/ngfi/firestore-qbuilder/jest.config.ts",
         "passWithNoTests": true
@@ -21,13 +26,17 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/util/ngfi/firestore-qbuilder",
         "tsConfig": "libs/util/ngfi/firestore-qbuilder/tsconfig.lib.json",
         "packageJson": "libs/util/ngfi/firestore-qbuilder/package.json",
         "main": "libs/util/ngfi/firestore-qbuilder/src/index.ts",
-        "assets": ["libs/util/ngfi/firestore-qbuilder/*.md"]
+        "assets": [
+          "libs/util/ngfi/firestore-qbuilder/*.md"
+        ]
       }
     }
   },

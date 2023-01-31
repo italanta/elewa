@@ -1,5 +1,4 @@
 {
-  "name": "functions-bot-engine-main",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/functions/bot-engine/main/src",
   "projectType": "library",

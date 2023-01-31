@@ -1,19 +1,24 @@
 {
-  "name": "model-user",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/model/user/base/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/model/user/base/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/model/user/base/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/model/user/base"],
+      "outputs": [
+        "coverage/libs/model/user/base"
+      ],
       "options": {
         "jestConfig": "libs/model/user/base/jest.config.ts",
         "passWithNoTests": true

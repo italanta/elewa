@@ -22,7 +22,6 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
 import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.model';
-import { _CreateOpenEndedQuestionBlockForm } from '../../model/openended-question-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
@@ -65,7 +64,6 @@ export class BlockComponent implements OnInit {
   locationInputType =  StoryBlockTypes.LocationInputBlock;
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
-  openendedType = StoryBlockTypes.OpenEnded
 
 
   blockFormGroup: FormGroup;
@@ -176,10 +174,6 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
-        case StoryBlockTypes.OpenEnded:
-          this. blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
         default:
           break;
       }

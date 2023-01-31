@@ -1,19 +1,24 @@
 {
-  "name": "util-ngfi-admin-data",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/ngfi/admin-data/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/util/ngfi/admin-data/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/util/ngfi/admin-data/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/util/ngfi/admin-data"],
+      "outputs": [
+        "coverage/libs/util/ngfi/admin-data"
+      ],
       "options": {
         "jestConfig": "libs/util/ngfi/admin-data/jest.config.ts",
         "passWithNoTests": true
@@ -21,13 +26,17 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/util/ngfi/admin-data",
         "tsConfig": "libs/util/ngfi/admin-data/tsconfig.lib.json",
         "packageJson": "libs/util/ngfi/admin-data/package.json",
         "main": "libs/util/ngfi/admin-data/src/index.ts",
-        "assets": ["libs/util/ngfi/admin-data/*.md"]
+        "assets": [
+          "libs/util/ngfi/admin-data/*.md"
+        ]
       }
     }
   },

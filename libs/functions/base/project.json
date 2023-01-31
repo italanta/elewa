@@ -1,5 +1,4 @@
 {
-  "name": "functions-base",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/functions/base/src",
   "projectType": "library",

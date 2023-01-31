@@ -1,5 +1,4 @@
 {
-  "name": "util-ngfi-infinite-scroll",
   "projectType": "library",
   "sourceRoot": "libs/util/ngfi/infinite-scroll/src",
   "prefix": "ngfi",

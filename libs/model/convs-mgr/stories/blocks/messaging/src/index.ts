@@ -15,5 +15,3 @@ export * from './lib/fail-block.interface';
 export * from './lib/image-input-block.interface'
 export * from './lib/image-input-block.interface';
 export * from './lib/audio-input-block.interface';
-export * from './lib/openended-question-block.interface';
-

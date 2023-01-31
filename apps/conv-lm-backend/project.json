@@ -1,17 +1,20 @@
 {
-  "name": "conv-lm-backend",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/conv-lm-backend/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/conv-lm-backend",
         "main": "apps/conv-lm-backend/src/main.ts",
         "tsConfig": "apps/conv-lm-backend/tsconfig.app.json",
-        "assets": ["apps/conv-lm-backend/src/assets"]
+        "assets": [
+          "apps/conv-lm-backend/src/assets"
+        ]
       },
       "configurations": {
         "production": {
@@ -40,14 +43,20 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/conv-lm-backend/**/*.ts"]
+        "lintFilePatterns": [
+          "apps/conv-lm-backend/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/conv-lm-backend"],
+      "outputs": [
+        "coverage/apps/conv-lm-backend"
+      ],
       "options": {
         "jestConfig": "apps/conv-lm-backend/jest.config.ts",
         "passWithNoTests": true
