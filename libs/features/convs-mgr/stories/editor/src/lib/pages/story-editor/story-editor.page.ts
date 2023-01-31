@@ -123,7 +123,7 @@ export class StoryEditorPageComponent implements OnDestroy
     // find a jsPlumb types library to replace any with strict type
     let connections = this.frame.getJsPlumbConnections as any[];
     
-    this.state.connections = connections;
+    this.state.connections = connections;    
   
     this._editorStateService.persist(this.state)
         .subscribe((success) => {
