@@ -70,6 +70,8 @@ export class BlocksLibraryComponent implements OnInit {
     this.filterBlockTemplates();
   }
   addBlock(type: number) {
+    this.toggle();
+    
     switch (type) {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
@@ -122,9 +124,9 @@ export class BlocksLibraryComponent implements OnInit {
       case StoryBlockTypes.JumpBlock:
         this.frame.newBlock(StoryBlockTypes.JumpBlock);
         break;
-        break;
       case StoryBlockTypes.MultipleInput:
         this.frame.newBlock(StoryBlockTypes.MultipleInput);
+        break;
 
     }
   }
@@ -144,7 +146,9 @@ export class BlocksLibraryComponent implements OnInit {
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
   }
-
+  toggle(){
+    this.opened = !this.opened
+  }
 
   ngOnDestroy() {
     this._sbS.unsubscribe();
