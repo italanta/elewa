@@ -1,4 +1,8 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
+
+import { MatSidenav } from '@angular/material/sidenav';
+import { CdkPortal } from '@angular/cdk/portal';
+
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -13,18 +17,44 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 import { FormControl } from '@angular/forms';
+
+
 
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnDestroy
-{
+export class StoryEditorPageComponent implements OnDestroy {
+  @ViewChild('sidenav') sidenav: MatSidenav;
+  @ViewChild('sidenavContent') sidenavContent: CdkPortal;
   private _sb = new SubSink();
+
+  mode = 'over';
+  opened = false;
+  selectedType = 0;
+
+  type: StoryBlockTypes;
+  messagetype = StoryBlockTypes.TextMessage;
+  imagetype = StoryBlockTypes.Image;
+  nametype = StoryBlockTypes.Name;
+  emailtype = StoryBlockTypes.Email;
+  phonetype = StoryBlockTypes.PhoneNumber;
+  questiontype = StoryBlockTypes.QuestionBlock;
+  locationtype = StoryBlockTypes.Location;
+  audioType = StoryBlockTypes.Audio;
+  videoType = StoryBlockTypes.Video;
+  stickerType = StoryBlockTypes.Sticker;
+  listType = StoryBlockTypes.List;
+  documentType = StoryBlockTypes.Document;
+  replyType = StoryBlockTypes.Reply;
+  jumpType = StoryBlockTypes.JumpBlock;
+  multipleInputType = StoryBlockTypes.MultipleInput;
 
   pageName: string;
 
@@ -37,7 +67,7 @@ export class StoryEditorPageComponent implements OnDestroy
   stateSaved: boolean = true;
 
   //TODO @CHESA LInk boolean to existence of story in DB
-  storyHasBeenSaved:boolean = false;
+  storyHasBeenSaved: boolean = false;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -45,41 +75,49 @@ export class StoryEditorPageComponent implements OnDestroy
   frameZoomInstance: BrowserJsPlumbInstance;
 
   constructor(private _editorStateService: StoryEditorStateService,
-              private _dialog: MatDialog,
-              private _cd: ChangeDetectorRef,
-              private _logger: Logger,
-              _router: Router)
-  {
+    private _dialog: MatDialog,
+    private _cd: ChangeDetectorRef,
+    private _logger: Logger,
+    _router: Router) {
     this._editorStateService.get()
-        .subscribe((state: StoryEditorState) => 
-        {
-          this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
-          this._logger.log(() => state);
+      .subscribe((state: StoryEditorState) => {
+        this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
+        this._logger.log(() => state);
 
-          this.state = state;
-          this.pageName = `Story overview :: ${ state.story.name }`;
+        this.state = state;
+        this.pageName = `Story overview :: ${state.story.name}`;
 
-          const story = state.story;
-          this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
-          this.loading.next(false);
-        }
-    );     
+        const story = state.story;
+        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
+        this.loading.next(false);
+      }
+      );
   }
 
-  onFrameViewLoaded(frame: StoryEditorFrame)
-  {
+
+  openSidenav(): void {
+    this.sidenav.open();
+  }
+
+  closeSidenav(): void {
+    this.sidenav.close();
+  }
+  // type(selected: StoryBlockTypes) {
+  //   this.selectedType = selected;
+  // }
+
+  onFrameViewLoaded(frame: StoryEditorFrame) {
     this.frame = frame;
 
     // After both frame AND data are loaded (hence the subscribe), draw frame blocks on the frame.
-    this._sb.sink = 
+    this._sb.sink =
       this.loading.pipe(filter(loading => !loading))
-            .subscribe(() => 
-            {              
-              this.frame.init(this.state);
-              this.setFrameZoom();
-            }
-            );
-      
+        .subscribe(() => {
+          this.frame.init(this.state);
+          this.setFrameZoom();
+        }
+        );
+
     this._cd.detectChanges();
   }
 
@@ -122,27 +160,25 @@ export class StoryEditorPageComponent implements OnDestroy
     // from getConnections()
     // find a jsPlumb types library to replace any with strict type
     let connections = this.frame.getJsPlumbConnections as any[];
-    
+
     this.state.connections = connections;
-  
+
     this._editorStateService.persist(this.state)
-        .subscribe((success) => {
-          if (success) {
-            this.stateSaved = true;
-            this.storyHasBeenSaved = true;
-          }
-        });
+      .subscribe((success) => {
+        if (success) {
+          this.stateSaved = true;
+          this.storyHasBeenSaved = true;
+        }
+      });
   }
 
-  addToChannel(){
+  addToChannel() {
     this._dialog.open(AddBotToChannelModal, {
       width: '550px'
     })
 
   }
-
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this._editorStateService.flush();
     this._sb.unsubscribe();
   }

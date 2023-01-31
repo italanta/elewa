@@ -4,6 +4,26 @@
   <div fxLayout="row" fxFlexFill>
     <div fxFlex="20" class="nav">
       <convl-blocks-library *ngIf="frame" [frame]="frame">
+        <mat-sidenav-container class="sidenav-container">
+          <mat-sidenav #sidenav mode="push" [opened]="opened">
+            <!-- Content of the sidenav -->
+            <div [ngSwitch]="type">
+            </div>
+            <ng-template cdk-portal [portalOutlet]="sidenavContent"></ng-template>
+          </mat-sidenav>
+          <!-- Main content -->
+          <mat-sidenav-content>
+            <!-- Button to open the sidenav -->
+            <button mat-button (click)="openSidenav()">Open sidenav</button>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+
+        <!-- Component with the content of the sidenav -->
+        <ng-template #sidenavContent>
+          <h3>Sidenav content</h3>
+          <!-- Button to close the sidenav -->
+          <button mat-button (click)="closeSidenav()">Close sidenav</button>
+        </ng-template>
       </convl-blocks-library>
     </div>
 
@@ -15,7 +35,8 @@
             <mat-icon>zoom_out</mat-icon>
           </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)" type="number">
+          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)"
+            type="number">
 
           <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
             <mat-icon>zoom_in</mat-icon>
@@ -32,7 +53,7 @@
               </span>
             </ng-template>
           </button>
-  
+
           <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
             <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
           </button>
