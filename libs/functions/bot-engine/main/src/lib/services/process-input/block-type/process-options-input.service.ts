@@ -1,11 +1,11 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { Message, QuestionMessage, TextMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { ProcessInput } from "../process-input.class";
 
-import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { IProcessInput } from "../models/process-input.interface";
 
