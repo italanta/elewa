@@ -29,19 +29,19 @@ export class MailMergeVariables
    *          we add the text to the block as 'Hello {{name}}'
    * 
    */
-  async merge(outgoingText: string): Promise<string>
+  async merge(outgoingText: string, orgId: string, endUserId: string): Promise<string>
   {
-    this._tools.Logger.log(() => `[VariableInjectorService] - Checking if there are variables to be merged: ${outgoingText}`);
+    this._tools.Logger.log(() => `[VariableInjectorService] - Checking message :: ${outgoingText}`);
 
     if(!this._exp.test(outgoingText)) return outgoingText;
 
-    const savedVariableValues = await this.__getVariableValues();
+    const savedVariableValues = await this.__getVariableValues(orgId, endUserId);
 
     const outgoingTextArray = outgoingText.split(" ");
 
     let newOutgoingText = outgoingText;
 
-    for (let word of outgoingTextArray) {
+    for (const word of outgoingTextArray) {
       const variable = this.__getVariableFromText(word);
 
       if (variable) {
@@ -69,9 +69,9 @@ export class MailMergeVariables
     return variable[1];
   }
 
-  private async __getVariableValues() 
+  private async __getVariableValues(orgId: string, endUserId: string) 
   {
-    const variableRepo = this._tools.getRepository<any>(`orgs/{orgId}/end-users/{endUserId}/variables`);
+    const variableRepo = this._tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
 
     const variableValues = await variableRepo.getDocumentById(`values`);
 

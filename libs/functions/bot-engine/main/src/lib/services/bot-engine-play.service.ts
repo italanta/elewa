@@ -122,7 +122,7 @@ export class BotEnginePlay implements IBotEnginePlay
   {
 
     // Inject Variables to the block
-    const mailMergedBlock = await this.__mailMergeVariables(nextBlock);
+    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, endUser.id);
 
     this._tools.Logger.log(() => `Block to be sent: ${JSON.stringify(mailMergedBlock)}`)
 
@@ -133,14 +133,14 @@ export class BotEnginePlay implements IBotEnginePlay
     await this._sendBlockMessage(mailMergedBlock, endUser.phoneNumber);
   }
 
-  private async __mailMergeVariables(storyBlock: StoryBlock) 
+  private async __mailMergeVariables(storyBlock: StoryBlock, endUserId: string) 
   {
     const newBlock = storyBlock;
     // Initialize the variable injector service
     const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message);
+    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message, this.orgId, endUserId);
 
     return newBlock;
   }
