@@ -12,6 +12,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Injectable()
 export class StoryBlocksStore extends DataStore<StoryBlock>
@@ -49,5 +50,10 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
   {
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${this._activeStory.orgId}/stories/${storyId}/blocks`);
     return repo.getDocuments();
+  }
+
+  createEndBlock(orgId: string, storyId: string, block: EndStoryAnchorBlock) {
+    let blocksRepo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
+    blocksRepo.create(block, block.id).subscribe();
   }
 }
