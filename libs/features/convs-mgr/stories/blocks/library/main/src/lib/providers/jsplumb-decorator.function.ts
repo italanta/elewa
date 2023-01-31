@@ -7,12 +7,7 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
-<<<<<<< HEAD
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-=======
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
->>>>>>> upstream/main
-
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
@@ -34,11 +29,8 @@ import { _FailBlockDecoratePlumb } from './fail-block.jsplumb';
 import { _ImageInputBlockDecoratePlumb } from './image-input-block.jsplumb';
 import { _LocationInputBlockDecoratePlumb } from './location-input-block.jsplumb';
 import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
-<<<<<<< HEAD
 import { _VideoInputBlockDecoratePlumb } from './video-input-block.jsplumb';
-=======
 import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
->>>>>>> upstream/main
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
