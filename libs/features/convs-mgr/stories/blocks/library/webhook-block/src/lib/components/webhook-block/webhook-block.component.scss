@@ -33,7 +33,7 @@ input {
 }
 
 .url {
-  width: 67%;
+  width: 64%;
 }
 
 .button-select {
@@ -101,4 +101,8 @@ mat-form-field {
 ::ng-deep .mat-mdc-text-field-wrapper {
   height: 1.8rem !important;
   width: 97%;
+}
+
+::ng-deep .mat-mdc-select-arrow svg {
+  width: 1.3rem;
 }
