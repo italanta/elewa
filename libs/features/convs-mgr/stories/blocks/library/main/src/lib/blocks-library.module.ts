@@ -32,6 +32,9 @@ import { ConvsMgrImageInputBlockModule} from '@app/features/convs-mgr/stories/bl
 import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
 import { ConvsMgrStoriesWebhookBlockModule } from '@app/features/convs-mgr/stories/blocks/library/webhook-block';
 
+import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
+
+
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
@@ -72,6 +75,8 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrImageInputBlockModule,
     ConvsMgrAudioInputBlockModule,
     ConvsMgrStoriesWebhookBlockModule,
+
+    ConvsMgrAnchorBlockModule,
 
     FileStateModule
   

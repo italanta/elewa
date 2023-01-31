@@ -90,6 +90,10 @@ export const iconsAndTitles: any = {
 	25: {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
 		icon: 'fas fa-link'
+},
+	9999  : {
+	title: '',
+	icon: ''
 	}
 
   }
