@@ -31,10 +31,13 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
     switch (lastBlockType) {
       case StoryBlockTypes.Image:
         this.variableName = "image"; // To later pick this value from the specific block id and variable assigned
+        break;
       case StoryBlockTypes.Video:
         this.variableName = "video";
+        break;
       case StoryBlockTypes.Audio:
         this.variableName = "audio";
+        break;
       default:
         this.variableName = "media";
         break;
