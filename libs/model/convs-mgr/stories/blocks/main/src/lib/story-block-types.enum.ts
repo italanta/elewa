@@ -149,7 +149,7 @@ export function isOperationBlock(blockType: StoryBlockTypes)
   switch (blockType) {
     case StoryBlockTypes.JumpBlock:
       return true;
-    case StoryBlockTypes.EndStoryBlock:
+    case StoryBlockTypes.EndStoryAnchorBlock:
       return true;
     case StoryBlockTypes.FailBlock:
       return true;
