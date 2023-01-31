@@ -1,4 +1,5 @@
 {
+  "name": "features-convs-mgr-stories-blocks-library-document-message-block",
   "projectType": "library",
   "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/document-message-block/src",
   "prefix": "app",

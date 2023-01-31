@@ -1,13 +1,12 @@
 {
+  "name": "state-file",
   "projectType": "library",
   "sourceRoot": "libs/state/file/store/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/state/file/store"
-      ],
+      "outputs": ["coverage/libs/state/file/store"],
       "options": {
         "jestConfig": "libs/state/file/store/jest.config.ts",
         "passWithNoTests": true

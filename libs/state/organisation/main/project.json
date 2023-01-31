@@ -1,13 +1,12 @@
 {
+  "name": "state-organisation",
   "projectType": "library",
   "sourceRoot": "libs/state/organisation/main/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/state/organisation/main"
-      ],
+      "outputs": ["coverage/libs/state/organisation/main"],
       "options": {
         "jestConfig": "libs/state/organisation/main/jest.config.ts",
         "passWithNoTests": true

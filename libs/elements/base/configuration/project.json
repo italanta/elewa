@@ -1,13 +1,12 @@
 {
+  "name": "elements-base-configuration",
   "projectType": "library",
   "sourceRoot": "libs/elements/base/configuration/src",
   "prefix": "app",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/elements/base/configuration"
-      ],
+      "outputs": ["coverage/libs/elements/base/configuration"],
       "options": {
         "jestConfig": "libs/elements/base/configuration/jest.config.ts",
         "passWithNoTests": true

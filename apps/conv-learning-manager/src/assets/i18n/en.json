@@ -79,7 +79,8 @@
         "LIST": "List",
         "DOCUMENT": "Document",
         "MULTIPLEINPUT":"Multiple-Input",
-        "IMAGE-INPUT":"Image Input"
+        "IMAGE-INPUT":"Image Input",
+        "OPEN-ENDED-QUESTION":"Open Ended Question"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",

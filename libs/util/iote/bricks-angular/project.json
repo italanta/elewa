@@ -1,13 +1,12 @@
 {
+  "name": "util-iote-bricks-angular",
   "projectType": "library",
   "sourceRoot": "libs/util/iote/bricks-angular/src",
   "prefix": "iote",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": [
-        "dist/libs/util/iote/bricks-angular"
-      ],
+      "outputs": ["dist/libs/util/iote/bricks-angular"],
       "options": {
         "project": "libs/util/iote/bricks-angular/ng-package.json"
       },
@@ -23,9 +22,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/util/iote/bricks-angular"
-      ],
+      "outputs": ["coverage/libs/util/iote/bricks-angular"],
       "options": {
         "jestConfig": "libs/util/iote/bricks-angular/jest.config.ts",
         "passWithNoTests": true

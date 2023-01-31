@@ -1,4 +1,5 @@
 {
+  "name": "conv-learning-manager",
   "projectType": "application",
   "sourceRoot": "apps/conv-learning-manager/src",
   "prefix": "italanta-apps",
@@ -24,9 +25,7 @@
           "apps/conv-learning-manager/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "./libs/elements/theming"
-          ]
+          "includePaths": ["./libs/elements/theming"]
         },
         "scripts": [],
         "serviceWorker": true,

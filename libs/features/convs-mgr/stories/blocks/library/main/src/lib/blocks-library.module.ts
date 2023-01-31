@@ -30,6 +30,7 @@ import { ConvsMgrJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/
 import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block';
 import { ConvsMgrImageInputBlockModule} from '@app/features/convs-mgr/stories/blocks/library/image-input-block'
 import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
+import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/openended-question-block'
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
@@ -70,6 +71,7 @@ import { BlockComponent } from './components/block/block.component';
 
     ConvsMgrImageInputBlockModule,
     ConvsMgrAudioInputBlockModule,
+    ConvsMgrOpenEndedQuestionBlockModule,
 
     FileStateModule
   
