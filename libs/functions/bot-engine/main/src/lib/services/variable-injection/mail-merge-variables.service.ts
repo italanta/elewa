@@ -31,6 +31,8 @@ export class MailMergeVariables
    */
   async merge(outgoingText: string): Promise<string>
   {
+    this._tools.Logger.log(() => `[VariableInjectorService] - Checking if there are variables to be merged`);
+
     const savedVariableValues = await this.__getVariableValues();
 
     const outgoingTextArray = outgoingText.split(" ");
@@ -43,10 +45,8 @@ export class MailMergeVariables
       if (variable) {
         this._tools.Logger.log(() => `[VariableInjectorService] - Replacing '${variable}' with '${savedVariableValues[variable as string]}`);
 
-        word = savedVariableValues[variable];
+        newOutgoingText = newOutgoingText.replace(this._exp, savedVariableValues[variable]);
       }
-
-      newOutgoingText = newOutgoingText.replace(this._exp, savedVariableValues[variable]);
     }
 
     return newOutgoingText;

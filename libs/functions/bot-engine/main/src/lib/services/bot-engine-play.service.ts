@@ -61,7 +61,7 @@ export class BotEnginePlay implements IBotEnginePlay
    * This method is resposible for 'playing' the end user through the stories. @see {Story}.
    *  It receives the message and responds with the next block in the story.
    */
-  async play(message: Message, endUser: EndUser, currentCursor: Cursor)
+  async play(message: Message, endUser: EndUser, currentCursor: Cursor | boolean)
   {
     // Save the message
     // this.__save(message, endUser.id);
@@ -93,11 +93,11 @@ export class BotEnginePlay implements IBotEnginePlay
   /**
    * Responsible for returning the next block in the story.
    */
-  private async __getNextBlock(endUser: EndUser, currentPosition: Cursor, message?: Message)
+  private async __getNextBlock(endUser: EndUser, currentPosition: Cursor | boolean, message?: Message)
   {
     const currentStory = endUser.currentStory;
 
-    this._tools.Logger.log(() => `[ProcessMessageHandler]._processMessage: Processing message ${JSON.stringify(message)}.`);
+    this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: Getting the next block...`);
 
     if (message && message.type === MessageTypes.TEXT) {
       const textMessage = message as TextMessage;
@@ -107,11 +107,13 @@ export class BotEnginePlay implements IBotEnginePlay
     }
 
     if (!currentPosition) {
+
+      this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: New conversation, getting the first block instead.`);
       // If the end user position does not exist then the conversation is new and we return the first block
       return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
     } else {
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(message, currentPosition, endUser.id, this.orgId, currentStory, this._tools);
+      return this._processMessageService$.resolveNextBlock(message, currentPosition as Cursor, endUser.id, this.orgId, currentStory, this._tools);
     }
   }
 
@@ -120,6 +122,8 @@ export class BotEnginePlay implements IBotEnginePlay
 
     // Inject Variables to the block
     const mailMergedBlock = await this.__mailMergeVariables(nextBlock);
+
+    this._tools.Logger.log(() => `Block to be sent: ${JSON.stringify(mailMergedBlock)}`)
 
     // Save block to messages collection
     this._saveBlockAsMessage(mailMergedBlock, endUser.id);
@@ -135,7 +139,7 @@ export class BotEnginePlay implements IBotEnginePlay
     const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    newBlock.message = await mailMergeVariables.merge(storyBlock.message);
+    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message);
 
     return newBlock;
   }
