@@ -11,27 +11,26 @@ import { IncomingMessagePayload } from "./payload-in.interface";
  * 
  *@type {Message} is our standardized format returned by @see {IncomingMessageParser} and passed to the bot engine.
 */
-export interface Message
-{
+export interface Message {
   /** The unique id that is assigned to the third party platform */
-  id?                 : string;
+  id?: string;
 
   /** The different types of messages our chatbot recieves from the end user, 
    *    e.g. a text message, a location, an image
    * 
    * @see {MessageTypes}
    */
-  type                : MessageTypes;
+  type: MessageTypes;
 
   /** Unprocessed part of the message sent through a channel by a platform which contains 
    *    the actual message payload  
    */
-  payload?            : IncomingMessagePayload;
+  payload?: IncomingMessagePayload;
 
   /** The phone number used by the end user to send a message to  our chatbot */
-  endUserPhoneNumber? : string;
+  endUserPhoneNumber?: string;
 
-  n?                  : number;
+  n?: number;
 
   /** 
    * Since we have messages from different sources, it's best we define their direction
@@ -39,9 +38,9 @@ export interface Message
    * 
    * Also helps third party applications to do the same.
    */
-  direction?          : MessageDirection;
+  direction?: MessageDirection;
 
-  url?                : string;
+  url?: string;
 }
 
 
@@ -51,68 +50,66 @@ export interface Message
  * 
  * Also helps third party applications to do the same.
  */
-export enum MessageDirection
-{
-  TO_END_USER       =  5,
+export enum MessageDirection {
+  TO_END_USER = 5,
 
-  FROM_END_USER     =  10,
+  FROM_END_USER = 10,
 
-  TO_CHATBOT        =  15,
+  TO_CHATBOT = 15,
 
-  TO_AGENT          =  20
+  TO_AGENT = 20
 }
 
 /**
  * Standardized format of the text messsage sent by the end user
  */
-export interface TextMessage extends Message 
-{
+export interface TextMessage extends Message {
   text: string;
 }
 
-export interface LocationMessage extends Message 
-{
+export interface LocationMessage extends Message {
   location: Location
 }
 
-export interface FileMessage extends Message
-{
-  mediaId         : string;
-  url?            : string;
-  mime_type?      : string
+export interface FileMessage extends Message {
+  mediaId: string;
+  url?: string;
+  mime_type?: string
 }
 
-export interface AudioMessage extends FileMessage {}
+export interface AudioMessage extends FileMessage { }
 
-export interface VideoMessage extends FileMessage {}
+export interface VideoMessage extends FileMessage { }
 
-export interface ImageMessage extends FileMessage {}
+export interface ImageMessage extends FileMessage { }
 
 
 /**
  * Standardized format of a reply to the question block @see {QuestionMessageBlock}
  */
 
-export interface QuestionMessage extends Message 
-{
-  questionText?       : string;
+export interface QuestionMessage extends Message {
+  questionText?: string;
 
-  options             : QuestionMessageOptions[];
+  options: QuestionMessageOptions[];
 }
- 
- export interface QuestionMessageOptions 
- {
-   /** The unique id of the option selected by the end user 
-    * 
-    *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
-    *  
-    *  So we can also use this id to determine the next block
-    */
-    optionId            : string;
- 
-    /** Message displayed as the answer */
-    optionText          : string;
-  
-    /** Value the answer holds */
-    optionValue?        : string;
- }
+
+export interface QuestionMessageOptions {
+  /** The unique id of the option selected by the end user 
+   * 
+   *  When sending a Question Message Block to the end user, the id of the button @see {ButtonsBlockButton} is used to set the option id.
+   *  
+   *  So we can also use this id to determine the next block
+   */
+  optionId: string;
+
+  /** Message displayed as the answer */
+  optionText: string;
+
+  /** Value the answer holds */
+  optionValue?: string;
+}
+export interface VariableMessage extends Message {
+  name: string;
+  value: any;
+}
