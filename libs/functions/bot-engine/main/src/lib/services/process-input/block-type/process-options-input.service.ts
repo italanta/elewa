@@ -20,9 +20,9 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
       const questionMessage = message as QuestionMessage;
 
       // Replace white space with underscore
-      const formattedTitle = lastBlock.blockTitle.replace(/ /g,"_").toLowerCase();
+      // const formattedTitle = lastBlock.blockTitle.replace(/ /g,"_").toLowerCase();
 
-      this.variableName = `${lastBlock.id}_${formattedTitle}`;
+      this.variableName = `${lastBlock.id}_${lastBlock.type}`;
 
       const inputValue = questionMessage.options[0].optionText;
       
