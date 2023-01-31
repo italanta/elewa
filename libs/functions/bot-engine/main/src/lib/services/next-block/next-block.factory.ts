@@ -10,6 +10,7 @@ import { ImageInputInputBlockService } from "./block-type/image-input-block.serv
 import { ListBlockService } from "./block-type/list-block.service";
 import { NameInputInputBlockService } from "./block-type/name-input-block.service";
 import { LocationInputBlockService } from "./block-type/location-query-block.service";
+import { VariableInputBlockService } from "./block-type/variable-input-block.service";
 
 
 /**
@@ -17,12 +18,10 @@ import { LocationInputBlockService } from "./block-type/location-query-block.ser
  * 
  * TODO: Add more services to handle more types of blocks
  */
-export class NextBlockFactory
-{
+export class NextBlockFactory {
     constructor() { }
 
-    resoveBlockType(blockType: StoryBlockTypes, tools: HandlerTools, blockDataService: BlockDataService, connDataService: ConnectionsDataService)
-    {
+    resoveBlockType(blockType: StoryBlockTypes, tools: HandlerTools, blockDataService: BlockDataService, connDataService: ConnectionsDataService) {
         switch (blockType) {
             case StoryBlockTypes.TextMessage:
                 return new DefaultOptionMessageService(blockDataService, connDataService, tools);
@@ -36,6 +35,8 @@ export class NextBlockFactory
                 return new NameInputInputBlockService(blockDataService, connDataService, tools);
             case StoryBlockTypes.LocationInputBlock:
                 return new LocationInputBlockService(blockDataService, connDataService, tools);
+            case StoryBlockTypes.Webhook:
+                return new VariableInputBlockService(blockDataService, connDataService, tools);
             default:
                 return new DefaultOptionMessageService(blockDataService, connDataService, tools);
         }
