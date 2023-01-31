@@ -5,9 +5,11 @@ import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../data-services/blocks.service";
 import { ConnectionsDataService } from "../data-services/connections.service";
-import { WebhookBlockService } from "../next-block/block-type/webhook-block.service";
+import { WebhookBlockService } from "./block-type/webhook-block.service";
+
 import { JumpStoryBlockService } from "./block-type/jump-story-block.service";
 import { IProcessNextBlock } from "./models/process-next-block.interface";
+
 
 export class ProcessNextBlockFactory
 {
