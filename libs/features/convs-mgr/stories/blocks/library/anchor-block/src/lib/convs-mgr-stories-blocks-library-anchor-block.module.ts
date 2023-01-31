@@ -33,6 +33,8 @@ import { EndAnchorComponent } from './components/end-anchor/end-anchor.component
     AnchorBlockComponent,
     EndAnchorComponent,
   ],
-  exports: [],
+  exports: [
+    EndAnchorComponent
+  ],
 })
 export class ConvsMgrAnchorBlockModule {}
