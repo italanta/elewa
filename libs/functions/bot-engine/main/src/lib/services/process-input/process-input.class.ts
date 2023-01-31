@@ -9,40 +9,42 @@ export class ProcessInput<T>
   protected async saveInput(orgId: string, endUserId: string, inputValue: T): Promise<boolean>
   {
     try {
-    // Create the path to save the document
-    const docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
+      // Create the path to save the document
+      const docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
 
-    const valuesRepo$ = this._tools.getRepository<any>(docPath);
+      const valuesRepo$ = this._tools.getRepository<any>(docPath);
 
-    // Get the already saved data, if any
-    const savedVariableValues = await valuesRepo$.getDocumentById(`values`);
+      // Get the already saved data, if any
+      const savedVariableValues = await valuesRepo$.getDocumentById(`values`);
 
-    // If no data has been saved, we go ahead and create the document
-    if (!savedVariableValues) {
-      const values = {
-        [this.variableName]: inputValue
-      };
+      // If no data has been saved, we go ahead and create the document
+      if (!savedVariableValues) {
+        const values = {
+          [this.variableName]: inputValue
+        };
 
-      return valuesRepo$.create(values);
-    }
+        return valuesRepo$.create(values, 'values');
+      } else {
+        // If the variable tagged already has a value, we create an array and push the new value
+        if (savedVariableValues[this.variableName]) {
+          const existingValues = savedVariableValues[this.variableName];
 
-    // If the variable tagged already has a value, we create an array and push the new value
-    if (savedVariableValues[this.variableName]) {
-      const existingValues = savedVariableValues[this.variableName];
+          const valueArray = [...existingValues];
 
-      let valueArray = [...existingValues];
+          valueArray.push(inputValue);
 
-      valueArray.push(inputValue);
+          savedVariableValues[this.variableName] = valueArray;
 
-      savedVariableValues[this.variableName] = valueArray;
-    }
+        } else {
+          savedVariableValues[this.variableName] = inputValue;
+        }
 
-    await valuesRepo$.update(savedVariableValues);
-
-    return true;
+        await valuesRepo$.update(savedVariableValues);
+      }
+      return true;
 
     } catch (error) {
-      return false
+      return false;
     }
   }
 }
