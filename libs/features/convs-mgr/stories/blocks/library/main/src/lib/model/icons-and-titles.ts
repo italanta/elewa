@@ -87,7 +87,15 @@ export const iconsAndTitles: any = {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
 	icon: 'fas fa-map-marker-alt'
 	},
-	25  : {
+	25: {
+		title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
+		icon: 'fas fa-link'
+},
+	9999  : {
+	title: '',
+	icon: ''
+	},
+	26  : {
 	title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
 	icon: 'fas fa-question-circle'
 	}
