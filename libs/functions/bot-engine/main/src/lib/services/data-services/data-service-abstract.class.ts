@@ -39,7 +39,7 @@ export abstract class BotDataService<T> {
       try {
          this.repo$ = this._tools.getRepository<T>(path);
 
-         return await this.repo$.create(doc, id);
+         return this.repo$.create(doc, id);
       } catch (error) {
          this._tools.Logger.error(() => `[DataService].create - Error creating document: ${error}`);
          this._tools.Logger.error(() => `[DataService].create - Document: ${JSON.stringify(doc)}`);
@@ -51,7 +51,7 @@ export abstract class BotDataService<T> {
       try {
          this.repo$ = this._tools.getRepository<T>(path);
 
-         return await this.repo$.update(doc);
+         return this.repo$.update(doc);
       } catch (error) {
          this._tools.Logger.error(() => `[DataService].update - Error updating document: ${error}`);
          this._tools.Logger.error(() => `[DataService].update - Document: ${JSON.stringify(doc)}`);
