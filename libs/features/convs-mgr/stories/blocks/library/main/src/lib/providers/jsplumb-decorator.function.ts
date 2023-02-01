@@ -7,7 +7,7 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, WebhookBlock, MultiContentInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
@@ -31,6 +31,7 @@ import { _ImageInputBlockDecoratePlumb } from './image-input-block.jsplumb';
 import { _LocationInputBlockDecoratePlumb } from './location-input-block.jsplumb';
 import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
 import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
+import { _MultiContentInputBlockDecoratePlumb } from './multi-content-input-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -105,6 +106,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
     case StoryBlockTypes.WebhookBlock:
       return _WebhookBlockDecoratePlumb(block as WebhookBlock, comp, jsPlumb);
       break;
+    case StoryBlockTypes.MultiContentInput:
+      return _MultiContentInputBlockDecoratePlumb(block as MultiContentInputBlock, comp, jsPlumb);
+      break;  
   }
 
   return comp;
