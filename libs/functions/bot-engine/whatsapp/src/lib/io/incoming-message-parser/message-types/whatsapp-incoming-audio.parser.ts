@@ -20,9 +20,9 @@ export class WhatsappIncomingAudioParser extends IncomingAudioMessageParser {
       id: incomingAudioMessage.id,
       type: MessageTypes.AUDIO,
       endUserPhoneNumber: incomingAudioMessage.from,
-      mediaId: incomingAudioMessage.id,
+      mediaId: incomingAudioMessage.audio.id,
       payload: incomingMessage,
-      mime_type: incomingAudioMessage.mime_type,
+      mime_type: incomingAudioMessage.audio.mime_type,
     };
 
     // standardMessage.url = this.getFileURL(standardMessage, endUserId);
