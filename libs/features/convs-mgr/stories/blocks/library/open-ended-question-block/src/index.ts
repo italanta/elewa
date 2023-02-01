@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-open-ended-question-block.module';
+export * from './lib/convs-mgr-open-ended-question-block.module'
