@@ -95,5 +95,9 @@
             <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-end-anchor>
         </div>
+        <div *ngSwitchCase="multiContentInputType">
+            <app-multi-content-input-block [id]="id" [block]="block" [multiContentInputBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-multi-content-input-block>
+        </div>
     </div>
 </mat-card>

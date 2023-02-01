@@ -115,6 +115,7 @@ export enum StoryBlockTypes {
 
   /** Block that calls a specified URL endpoint when hit */
   WebhookBlock = 25,
+  MultiContentInput = 28,
 
   EndStoryAnchorBlock = 9999
 

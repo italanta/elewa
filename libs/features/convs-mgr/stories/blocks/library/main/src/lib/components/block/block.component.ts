@@ -30,6 +30,7 @@ import { _CreateLocationInputBlockForm } from '../../model/location-input-block-
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
+import { _CreateMultiContentInputForm } from '../../model/multi-content-input-block-form.model';
 
 /**
  * Block which sends a message from bot to user.
@@ -68,6 +69,7 @@ export class BlockComponent implements OnInit {
   audioInputType =  StoryBlockTypes.AudioInput;
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
+  multiContentInputType = StoryBlockTypes.MultiContentInput;
 
 
   blockFormGroup: FormGroup;
@@ -184,6 +186,10 @@ export class BlockComponent implements OnInit {
           break;
         case StoryBlockTypes.EndStoryAnchorBlock:
           this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
+        case StoryBlockTypes.MultiContentInput:
+          this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
         default:

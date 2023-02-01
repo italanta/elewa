@@ -79,7 +79,8 @@
         "LIST": "List",
         "DOCUMENT": "Document",
         "MULTIPLEINPUT":"Multiple-Input",
-        "IMAGE-INPUT":"Image Input"
+        "IMAGE-INPUT":"Image Input",
+        "MULTI-CONTENT-INPUT":"Multi Content Input"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -137,7 +138,12 @@
       "EDIT-BOT": "Edit",
       "DELETE-BOT": "Delete",
       "ADD-OPTION": "Add Option",
-      "NEW-LIST": "New List"
+      "NEW-LIST": "New List",
+      "IMAGE":"Image",
+      "AUDIO":"Audio",
+      "VIDEO":"Video",
+      "TEXT":"Text",
+      "DOCUMENT":"Document"
     },
     "FIELDS": {
       "NAME": "Name",

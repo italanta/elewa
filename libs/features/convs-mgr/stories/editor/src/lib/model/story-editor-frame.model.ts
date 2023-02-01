@@ -196,6 +196,8 @@ export class StoryEditorFrame {
         break;
        case StoryBlockTypes.ImageInput:
         break; 
+      case StoryBlockTypes.MultiContentInput:
+        break;  
       default:
         break
     }

@@ -1,0 +1,38 @@
+mat-card {
+	min-width: 200px;
+	padding: 10px;
+}
+
+textarea {
+  margin: 5px 0;
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+}
+
+textarea:focus-visible {
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  outline-color: var(--convs-mgr-color-primary-purple);
+}
+
+.multi-content-btns {
+	width: 100%;
+	background-color: var(--convs-mgr-color-primary-purple);
+	color: white;
+  margin: 0.3rem;
+  padding-top: 6px;
+}
+.listgone {
+  margin-left: auto;
+  border: none;
+  background-color: transparent;
+}
+.input {
+  margin: 0;
+  padding-right: 5px;
+}
+.inputList {
+  display: flex;
+  align-items: center;
+}
