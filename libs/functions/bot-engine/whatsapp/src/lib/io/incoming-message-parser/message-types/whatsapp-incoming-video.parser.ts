@@ -21,7 +21,7 @@ export class WhatsappIncomingVideoParser extends IncomingVideoMessageParser {
       endUserPhoneNumber: incomingVideoMessage.from,
       mediaId: incomingVideoMessage.id,
       payload: incomingVideoMessage,
-      mime_type: incomingVideoMessage.mime_type,
+      mime_type: incomingVideoMessage.video.mime_type,
     }
 
     return standardMessage;
