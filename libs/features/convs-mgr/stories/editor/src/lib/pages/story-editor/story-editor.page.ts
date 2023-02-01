@@ -40,7 +40,6 @@ export class StoryEditorPageComponent implements OnDestroy
 
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved:boolean = false;
-  toDisplay=false;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -148,11 +147,5 @@ export class StoryEditorPageComponent implements OnDestroy
   {
     this._editorStateService.flush();
     this._sb.unsubscribe();
-  }
-  toggleData(){
-    this.toDisplay = !this.toDisplay;
-  }
-  getBlockState(){
-    this._editorStateService.get().subscribe(state => this._lastLoadedState = ___cloneDeep(state))
   }
 }

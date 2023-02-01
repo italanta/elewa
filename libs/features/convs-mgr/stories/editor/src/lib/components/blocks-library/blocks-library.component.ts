@@ -71,7 +71,7 @@ export class BlocksLibraryComponent implements OnInit {
   }
   addBlock(type: number) {
     this.toggle();
-    
+
     switch (type) {
       case StoryBlockTypes.TextMessage:
         this.frame.newBlock(StoryBlockTypes.TextMessage);
@@ -147,7 +147,7 @@ export class BlocksLibraryComponent implements OnInit {
     this.filterInput$$.next(event.target.value);
   }
   toggle(){
-    this.opened = !this.opened
+    this.opened = !this.opened;
   }
 
   ngOnDestroy() {

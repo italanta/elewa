@@ -1,7 +1,7 @@
 <mat-sidenav-container class="example-container">
 	<mat-sidenav #sidenav mode="over" [(opened)]="opened" class="sidenav" style="width: 300px;">
-	<button mat-button (click)="toggle()"><i class="fa fa-chevron-left"></i></button>
-	Sidenav content
+	<button mat-button (click)="sidenav.toggle()"><i class="fa fa-chevron-left"></i></button>
+	Current block
 	<button class="apply">Apply</button>
 	
 	</mat-sidenav>
