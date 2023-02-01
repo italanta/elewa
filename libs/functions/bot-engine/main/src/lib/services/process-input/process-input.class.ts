@@ -26,19 +26,8 @@ export class ProcessInput<T>
         return valuesRepo$.create(values, 'values');
       } else {
         // If the variable tagged already has a value, we create an array and push the new value
-        if (savedVariableValues[this.variableName]) {
-          const existingValues = savedVariableValues[this.variableName];
-
-          const valueArray = [...existingValues];
-
-          valueArray.push(inputValue);
-
-          savedVariableValues[this.variableName] = valueArray;
-
-        } else {
-          savedVariableValues[this.variableName] = inputValue;
-        }
-
+        savedVariableValues[this.variableName] = inputValue;
+        
         await valuesRepo$.update(savedVariableValues);
       }
       return true;
