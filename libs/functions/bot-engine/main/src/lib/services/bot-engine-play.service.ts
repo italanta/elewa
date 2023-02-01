@@ -183,15 +183,6 @@ export class BotEnginePlay implements IBotEnginePlay
 
   private async __save(message: Message, endUserId: string) 
   {
-    const processMediaService = new BotMediaProcessService(this._tools);
-
-    if (message.type == MessageTypes.AUDIO || message.type == MessageTypes.VIDEO || message.type == MessageTypes.IMAGE) {
-      const fileMessage = message as FileMessage;
-
-      fileMessage.url = await processMediaService.processMediaFile(message, endUserId, this._activeChannel) || null;
-
-      message = fileMessage;
-    }
     const saveMessage = this._msgService$.saveMessage(message, this.orgId, endUserId);
 
     this.sideOperations.push(saveMessage);
