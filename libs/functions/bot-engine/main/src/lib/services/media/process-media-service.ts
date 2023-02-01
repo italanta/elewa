@@ -28,7 +28,7 @@ export class BotMediaProcessService
   {
     const mediaFileMessage = message as FileMessage;
 
-    const mediaFileURL = await this._getFileURL(message, endUserId, activeChannel);
+    const mediaFileURL = await this._getFileURL(mediaFileMessage, endUserId, activeChannel);
 
     const mediaFileInfo: FileUpload = {
       id: mediaFileMessage.mediaId,
@@ -41,12 +41,11 @@ export class BotMediaProcessService
     return mediaFileURL;
   }
 
-  private async _getFileURL(message: Message, endUserId: string, activeChannel: ActiveChannel)
+  private async _getFileURL(message: FileMessage, endUserId: string, activeChannel: ActiveChannel)
   {
-    const fileMessage = message as FileMessage;
-    const file = await activeChannel.getMediaFile(fileMessage.mediaId, fileMessage.mime_type);
+    const file = await activeChannel.getMediaFile(message.mediaId, message.mime_type);
 
-    if (file) return this._uploadFile(endUserId, fileMessage.type, file.filePath, file.fileName);
+    if (file) return this._uploadFile(endUserId, message.type, file.filePath, file.fileName);
   }
 
   private async _saveFileInformation(endUserId: string, orgId: string, file: FileUpload)
