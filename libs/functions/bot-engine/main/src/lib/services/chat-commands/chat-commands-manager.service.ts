@@ -14,7 +14,6 @@ export class ChatCommandsManager
   defaultStory: string;
 
   constructor(
-    private _endUserDataService$: EndUserDataService,
     private _activeChannel: ActiveChannel,
     private _processMessageService$: ProcessMessageService,
     private _tools: HandlerTools) 
@@ -27,19 +26,12 @@ export class ChatCommandsManager
   parseCommand(msg: TextMessage, endUser: EndUser)
   {
     if (msg.text === '#init') {
-      return this.__restartChat(endUser);
+      return this.__restartChat();
     }
   }
 
-  private async __restartChat(endUser: EndUser)
+  private async __restartChat()
   {
-    const firstUserStory: EndUser = {
-      ...endUser,
-      currentStory: this.defaultStory
-    };
-
-    await this._endUserDataService$.updateEndUser(firstUserStory);
-
     return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
   }
 }
