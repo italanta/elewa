@@ -1,7 +1,6 @@
 import axios, { Axios } from "axios";
 
 import { HandlerTools } from "@iote/cqrs";
-import { HttpStatusCode } from "@angular/common/http";
 
 export class HttpService
 {
