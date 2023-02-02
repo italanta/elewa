@@ -1,30 +1,31 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 import { HandlerTools } from "@iote/cqrs";
 
 export class HttpService
 {
-  public async post(URL: string, data: any, tools: HandlerTools)
+  public async post(URL: string, dataPayload: any, tools: HandlerTools)
   {
-    const payload = { data: data };
+    const payload = { data: dataPayload || {} };
+
+    tools.Logger.log(() => `[makeHttpRequest] - URL: ${URL}`);
 
     tools.Logger.log(() => `[makeHttpRequest] - Data to post: ${JSON.stringify(payload)}`);
 
-    try {
-      let response = await axios.post(URL, payload, {
+      const resp = await axios.post(URL, payload, {
         headers: {
           'ContentType': 'application/json'
         }
       });
-      response = response as AxiosResponse;
 
-      if (response.status === 200 || 201 || 202) tools.Logger.log(() => `[makeHttpRequest] - Post data Success: ${JSON.stringify(response)}`);
+      if (resp.status === 200 || 201 || 202) {
+        tools.Logger.log(() => `[makeHttpRequest] - Post data Success: ${JSON.stringify(resp.status)}`);
 
-      return response.status;
-
-    } catch (error) {
-      tools.Logger.error(() => `[BotEngine].httpPostRequest - Error while posting data: ${error}`);
-    }
+        return resp.data
+      } else {
+        tools.Logger.error(() => 
+          `[BotEngine].httpPostRequest - Error while posting data. CODE :: ${JSON.stringify(resp.status)} - ${JSON.stringify(resp.data)}`);
+      }
   }
 
   public async get(URL: string, tools: HandlerTools)
@@ -32,20 +33,20 @@ export class HttpService
 
     tools.Logger.log(() => `[BotEngine].httpGetRequest - Attempting to fetch Data`);
 
-    try {
-      let response = await axios.get(URL, {
+      const resp = await axios.get(URL, {
         headers: {
           'ContentType': 'application/json'
         }
       });
-      response = response as AxiosResponse;
 
-      if (response.status === 200 || 201 || 202) tools.Logger.log(() => `[BotEngine].httpGetRequest - Fetch data Success: ${JSON.stringify(response)}`);
+       if (resp.status === 200 || 201 || 202) {
+        tools.Logger.log(() => `[makeHttpRequest] - Fetch data Success: ${JSON.stringify(resp.status)}`);
 
-      return response.data;
+        return resp.data
+      } else {
+        tools.Logger.error(() => 
+          `[BotEngine].httpPostRequest - Error while fetching data. CODE :: ${JSON.stringify(resp.status)} - ${JSON.stringify(resp.data)}`);
+      }
 
-    } catch (error) {
-      tools.Logger.error(() => `[BotEngine].httpGetRequest - Error while fetching data: ${error}`);
-    }
   }
 }

@@ -2,6 +2,9 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
+import { WebhookBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
+
 import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
@@ -9,8 +12,6 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
-import { WebhookBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -37,7 +38,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string) {
 
-		await this.makeRequest(storyBlock);
+		const response  = await this.makeRequest(storyBlock, orgId, endUserId);
 
 		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
 
@@ -49,12 +50,11 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		}
 	}
 
-	private async makeRequest(storyBlock: WebhookBlock)
+	private async makeRequest(storyBlock: WebhookBlock, orgId: string, endUserId: string)
 	{
 		const URL = storyBlock.httpUrl;
-		const HTTP_METHOD = storyBlock.httpMethod;
 
-		const payload = this.getPayload();
+		const payload = await this.getPayload(orgId, endUserId);
 
 		switch (storyBlock.httpMethod) {
 			case HttpMethodTypes.GET:
@@ -66,9 +66,9 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		}
 	}
 
-	private async getPayload() 
+	private async getPayload(orgId: string, endUserId: string) 
 	{
-		const variableRepo = this.tools.getRepository<any>(`orgs/{orgId}/end-users/{endUserId}/variables`);
+		const variableRepo = this.tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
 
 		const variableValues = await variableRepo.getDocumentById(`values`);
 
