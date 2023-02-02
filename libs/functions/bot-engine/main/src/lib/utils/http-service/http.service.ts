@@ -1,6 +1,7 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 import { HandlerTools } from "@iote/cqrs";
+import { HttpStatusCode } from "@angular/common/http";
 
 export class HttpService
 {
@@ -16,7 +17,7 @@ export class HttpService
       }
     });
 
-    if (resp.status === 200 || 201 || 202) {
+    if (resp.status < 300) {
       tools.Logger.log(() => `[HttpService].post - Response: ${JSON.stringify(resp.status)}`);
       tools.Logger.log(() => `[HttpService].post - Post data Success: ${JSON.stringify(resp.data)}`);
       return resp.data;
@@ -38,7 +39,7 @@ export class HttpService
       }
     });
 
-    if (resp.status === 200 || 201 || 202) {
+    if (resp.status < 300) {
 
       tools.Logger.log(() => `[HttpService].get - Response: ${JSON.stringify(resp.status)}`);
       tools.Logger.log(() => `[HttpService].get - Fetch data Success: ${JSON.stringify(resp.status)}`);
