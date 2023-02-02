@@ -37,7 +37,7 @@ export interface StoryBlock extends IObject
   blockIcon: string;
 
   /** The variable tagged to the input story block. This variable is used to store the user response to that particular block */
-  tag?: string;
+  variable?: string;
 
   /** 
    * This is what the user creating the bot wants to achieve with the story and mainly, the saved variables.
