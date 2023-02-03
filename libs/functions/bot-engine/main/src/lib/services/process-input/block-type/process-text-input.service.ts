@@ -5,14 +5,14 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { ProcessInput } from "../process-input.class";
 
-import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { IProcessInput } from "../models/process-input.interface";
 
 export class ProcessTextInput extends ProcessInput<string> implements IProcessInput {
 
   constructor(tools: HandlerTools){
-    super(tools)
+    super(tools);
   }
 
   public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<boolean> 
@@ -20,13 +20,15 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
       const textMessage = message as TextMessage;
 
       // If the storyblock is already assigned a variable we use that variable first
-      lastBlock.variable ? this.variableName = lastBlock.variable : this.setVariableName(lastBlock.type, lastBlock.id);
+      lastBlock.variable ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
 
-      const inputValue = textMessage.text
-      
+      const inputValue = textMessage.text;
+
+      const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String
+
       if (message.type !== MessageTypes.TEXT) return false;
 
-      return this.saveInput(orgId, endUserId, inputValue); 
+      return this.saveInput(orgId, endUserId, inputValue, variableType); 
   }
 
   private setVariableName (lastBlockType: StoryBlockTypes, blockId: string) {
