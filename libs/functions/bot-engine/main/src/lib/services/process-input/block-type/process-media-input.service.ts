@@ -4,7 +4,7 @@ import { FileMessage, Message } from "@app/model/convs-mgr/conversations/message
 
 import { ProcessInput } from "../process-input.class";
 
-import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { IProcessInput } from "../models/process-input.interface";
 
@@ -18,11 +18,14 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
   {
       const fileMessage = message as FileMessage;
 
-      this.setVariableName(lastBlock.type, lastBlock.id); // Depends on the input block sent to the user
+      // If the storyblock is already assigned a variable we use that variable first
+      lastBlock.variable ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
+
+      const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String;
 
       const inputValue = fileMessage.url;
 
-      return this.saveInput(orgId, endUserId, inputValue); 
+      return this.saveInput(orgId, endUserId, inputValue, variableType); 
   }
 
   private setVariableName (lastBlockType: StoryBlockTypes, blockId: string) {
