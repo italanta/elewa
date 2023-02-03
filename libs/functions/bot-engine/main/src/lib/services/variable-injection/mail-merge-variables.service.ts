@@ -29,13 +29,13 @@ export class MailMergeVariables
    *          we add the text to the block as 'Hello {{name}}'
    * 
    */
-  async merge(outgoingText: string, orgId: string, endUserId: string): Promise<string>
+  async merge(outgoingText: string, orgId: string, endUserId: string, savedVariables?: any): Promise<string>
   {
     this._tools.Logger.log(() => `[VariableInjectorService] - Checking message :: ${outgoingText}`);
 
     if(!this._exp.test(outgoingText)) return outgoingText;
 
-    const savedVariableValues = await this.__getVariableValues(orgId, endUserId);
+    const savedVariableValues = savedVariables ? await this.__getVariableValues(orgId, endUserId) : savedVariables;
 
     const outgoingTextArray = outgoingText.split(" ");
 
