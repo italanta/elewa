@@ -19,7 +19,8 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
   {
       const textMessage = message as TextMessage;
 
-      this.setVariableName(lastBlock.type); // Depends on the input block sent to the user
+      // If the storyblock is already assigned a variable we use that variable first
+      lastBlock.variable ? this.variableName = lastBlock.variable : this.setVariableName(lastBlock.type, lastBlock.id);
 
       const inputValue = textMessage.text
       
@@ -28,7 +29,7 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
       return this.saveInput(orgId, endUserId, inputValue); 
   }
 
-  private setVariableName (lastBlockType: StoryBlockTypes) {
+  private setVariableName (lastBlockType: StoryBlockTypes, blockId: string) {
     switch (lastBlockType) {
       case StoryBlockTypes.Name:
         this.variableName = "name"; // To later pick this value from the specific block id and variable assigned
@@ -38,7 +39,7 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
         break;
       default:
         // Otherwise generate random name for variable, with the StoryBlockType
-        this.variableName = "untitled";
+        this.variableName = `unnamed_${blockId}`;
         break;
     }
   }
