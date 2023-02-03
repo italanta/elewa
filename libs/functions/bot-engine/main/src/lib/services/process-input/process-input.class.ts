@@ -19,7 +19,7 @@ export class ProcessInput<T>
     this.savedInputs = await valuesRepo$.getDocumentById(`values`);
   }
 
-  protected async saveInput(orgId: string, endUserId: string, inputValue: T, type?: VariableTypes): Promise<boolean>
+  async saveInput(orgId: string, endUserId: string, inputValue: T, type?: VariableTypes): Promise<boolean>
   {
     const variableType = type ? type : VariableTypes.String;
 
