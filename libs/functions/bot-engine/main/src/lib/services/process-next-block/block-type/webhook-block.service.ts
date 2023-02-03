@@ -12,6 +12,8 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
+import { ProcessInputFactory } from "../../process-input/process-input.factory";
+import { ProcessInput } from "../../process-input/process-input.class";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -22,9 +24,10 @@ import { HttpService } from "../../../utils/http-service/http.service";
  */
 export class WebhookBlockService extends DefaultOptionMessageService implements IProcessNextBlock
 {
+	sideOperations: Promise<any>[] = [];
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
-	
+
 	private httpService: HttpService;
 
 	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
@@ -33,12 +36,21 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		this.tools = tools;
 		this.blockDataService = blockDataService;
 
-		this.httpService =  new HttpService();
+		this.httpService = new HttpService();
 	}
 
-	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string) {
+	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string)
+	{
 
-		const response  = await this.makeRequest(storyBlock, orgId, endUserId);
+		const response = await this.makeRequest(storyBlock, orgId, endUserId);
+
+		const unpackedResponse = this.unpackResponse(response, storyBlock.httpUrl);
+
+		// Save variable here
+		// Traverse through the unpacked response keys and save each key and its value to variables collection
+		const saveResponseToVariables = this.saveWebhookResponse(unpackedResponse, orgId, endUserId);
+
+		this.sideOperations.push(saveResponseToVariables);
 
 		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
 
@@ -47,7 +59,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return {
 			storyBlock: nextBlock,
 			newCursor
-		}
+		};
 	}
 
 	private async makeRequest(storyBlock: WebhookBlock, orgId: string, endUserId: string)
@@ -75,4 +87,32 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return variableValues;
 	}
 
+	private async saveWebhookResponse(unpackedResponse: any, orgId: string, endUserId: string)
+	{
+		const processInput = new ProcessInput<string>(this.tools);
+
+		for (const key in unpackedResponse) {
+			if (unpackedResponse.hasOwnProperty(key)) {
+				await processInput.saveInput(orgId, endUserId, unpackedResponse[key]);
+			}
+		}
+	}
+
+	/*******************************/
+	/** ---- Farmbetter only ----- */
+	/*******************************/
+
+	private async unpackResponse(response: any, url: string)
+	{
+		let unpackedResponse: any;
+		if (url.includes("community")) {
+			unpackedResponse.communityName = response.result.groupName;
+			unpackedResponse.communityUrl = response.result.groupLink;
+			unpackedResponse.communityId = response.result.id;
+		} else if (url.includes("BestPractices")) {
+			unpackedResponse.searchUrl = response.result.link;
+		}
+
+		return unpackedResponse;
+	}
 }

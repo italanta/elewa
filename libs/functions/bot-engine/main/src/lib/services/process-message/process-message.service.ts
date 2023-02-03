@@ -120,6 +120,8 @@ export class ProcessMessageService
 
     const updatedPosition = await processNextBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
 
+    this.sideOperations.push(...processNextBlock.sideOperations);
+
     return updatedPosition;
   }
 
