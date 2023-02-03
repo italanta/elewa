@@ -13,7 +13,7 @@
 				<div fxFlex>
 					<div class="child-1" fxLayout="row" fxLayoutALign="space-between center" fxLayoutGap="5px" fxFlex>
 						<div class="dropdown">
-							<input type="text" class="url" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
+							<input type="text" class="url" formControlName="httpUrl" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
 							<button class="button-select">
 								<select [formControl]="httpMethod">
 									<option *ngFor="let  http of httpCategories ; let
@@ -26,7 +26,7 @@
 				</div>
 
 				<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" fxFlex>
-					<mat-form-field fxFlex *ngIf="variables$ | async as variables" appearance="outline" class="variables">
+					<mat-form-field fxFlex *ngIf="variables$ | async as variables" appearance="outline" class="variables" formControlName="httpMethod" >
 						<mat-select placeholder="Variables" multiple>
 							<mat-option *ngFor="let variable of variables" [value]="variable.name">
 								{{variable.name}}
