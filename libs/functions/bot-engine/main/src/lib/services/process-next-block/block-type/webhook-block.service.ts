@@ -61,12 +61,19 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 			newCursor
 		};
 	}
-
+	
+	/**
+	 * This function is the one that makes the request to the webhook
+	 */
 	private async makeRequest(storyBlock: WebhookBlock, orgId: string, endUserId: string)
 	{
 		const URL = storyBlock.httpUrl;
+		const variablesToPost = storyBlock.variablesToPost;
 
-		const payload = await this.getPayload(orgId, endUserId);
+		const savedVariables = await this.getPayload(orgId, endUserId);
+
+		// Write a function that creates an object from the variablesToPost and the saved variables
+		const payload = this.createPayload(variablesToPost, savedVariables);
 
 		switch (storyBlock.httpMethod) {
 			case HttpMethodTypes.GET:
@@ -115,4 +122,13 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 		return unpackedResponse;
 	}
+	private createPayload(variablesToPost: string[], savedVariables: any) {
+		let result = {};
+
+		variablesToPost.forEach((key, i) => {
+				result[key] = savedVariables[key];
+		});
+		return result;
+	}
+
 }
