@@ -23,11 +23,13 @@ import { IProcessNextBlock } from "../models/process-next-block.interface";
  */
 export class JumpStoryBlockService implements IProcessNextBlock
 {
+  sideOperations: Promise<any>[];
   userInput: string;
   _logger: Logger;
 
   constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools)
   { }
+
 
   public async handleBlock(storyBlock: JumpBlock, updatedCursor: Cursor, orgId: string, endUserId: string) {
       
