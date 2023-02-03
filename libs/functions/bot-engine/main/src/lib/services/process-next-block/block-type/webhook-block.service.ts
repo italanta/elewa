@@ -14,6 +14,7 @@ import { IProcessNextBlock } from "../models/process-next-block.interface";
 import { HttpService } from "../../../utils/http-service/http.service";
 import { ProcessInputFactory } from "../../process-input/process-input.factory";
 import { ProcessInput } from "../../process-input/process-input.class";
+import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -67,10 +68,11 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	 */
 	private async makeRequest(storyBlock: WebhookBlock, orgId: string, endUserId: string)
 	{
-		const URL = storyBlock.httpUrl;
 		const variablesToPost = storyBlock.variablesToPost;
 
 		const savedVariables = await this.getPayload(orgId, endUserId);
+
+		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, endUserId, savedVariables);
 
 		// Write a function that creates an object from the variablesToPost and the saved variables
 		const payload = this.createPayload(variablesToPost, savedVariables);
@@ -129,6 +131,13 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 				result[key] = savedVariables[key];
 		});
 		return result;
+	}
+
+	private async mergeVariables(url: string, orgId: string, endUserId: string, savedVariables: any){
+		const mailMergeVariables = new MailMergeVariables(this.tools);
+
+		return mailMergeVariables.merge(url, orgId, endUserId, savedVariables);
+
 	}
 
 }
