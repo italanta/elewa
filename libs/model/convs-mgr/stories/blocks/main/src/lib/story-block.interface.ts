@@ -2,6 +2,7 @@ import { IObject } from "@iote/bricks";
 
 import { Position } from "./position.interface";
 import { StoryBlockTypes } from "./story-block-types.enum";
+import { StoryBlockVariable } from "./storyblock-variable.interface";
 
 /**
  * A block is a main element of conversation. 
@@ -37,7 +38,7 @@ export interface StoryBlock extends IObject
   blockIcon: string;
 
   /** The variable tagged to the input story block. This variable is used to store the user response to that particular block */
-  variable?: string;
+  variable?: StoryBlockVariable;
 
   /** 
    * This is what the user creating the bot wants to achieve with the story and mainly, the saved variables.
