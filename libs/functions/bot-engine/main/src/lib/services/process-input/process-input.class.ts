@@ -34,6 +34,7 @@ export class ProcessInput<T>
       // If no data has been saved, we go ahead and create the document
       if (!this.savedInputs) {
         const updatedInputs = this.__updateInputs(this.savedInputs, inputValue, variableType);
+        updatedInputs.userId = endUserId;
 
         return valuesRepo$.create(updatedInputs, 'values');
       } else {
