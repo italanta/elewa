@@ -4,6 +4,8 @@
 
       <textarea id="message" name="message" formControlName="message" type="text" rows="1" placeholder="Message"></textarea>
       <textarea id="addMore" name="addMore" formControlName="addMore" type="text" rows="1" placeholder="Add more message"></textarea>
+
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="multipleInputMessageBlock"></app-default-option-field>
       
       <div formArrayName="options" fxFlexFill>
         <div *ngFor="let option of options.controls; let groupIndex = index" class="full-width" fxFlexFill>
