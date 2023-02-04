@@ -49,9 +49,9 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 		// Save variable here
 		// Traverse through the unpacked response keys and save each key and its value to variables collection
-		const saveResponseToVariables = this.saveWebhookResponse(unpackedResponse, orgId, endUserId);
+		await this.saveToDB(orgId, endUserId, unpackedResponse);
 
-		this.sideOperations.push(saveResponseToVariables);
+		// this.sideOperations.push(saveResponseToVariables);
 
 		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
 
@@ -72,7 +72,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 		const savedVariables = await this.getPayload(orgId, endUserId);
 
-		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, endUserId, savedVariables);
+		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, endUserId);
 
 		// Write a function that creates an object from the variablesToPost and the saved variables
 		const payload = this.createPayload(variablesToPost, savedVariables);
@@ -96,30 +96,19 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return variableValues;
 	}
 
-	private async saveWebhookResponse(unpackedResponse: any, orgId: string, endUserId: string)
-	{
-		const processInput = new ProcessInput<string>(this.tools);
-
-		for (const key in unpackedResponse) {
-			if (unpackedResponse.hasOwnProperty(key)) {
-				await processInput.saveInput(orgId, endUserId, unpackedResponse[key]);
-			}
-		}
-	}
-
 	/*******************************/
 	/** ---- Farmbetter only ----- */
 	/*******************************/
 
-	private async unpackResponse(response: any, url: string)
+	private unpackResponse(response: any, url: string)
 	{
-		let unpackedResponse: any;
-		if (url.includes("community")) {
-			unpackedResponse.communityName = response.result.groupName;
-			unpackedResponse.communityUrl = response.result.groupLink;
-			unpackedResponse.communityId = response.result.id;
+		let unpackedResponse = {};
+		if (url.includes("getCommunityLink")) {
+			unpackedResponse['communityName'] = response.result.groupName;
+			unpackedResponse['communityUrl'] = response.result.groupLink;
+			unpackedResponse['communityId'] = response.result.id;
 		} else if (url.includes("BestPractices")) {
-			unpackedResponse.searchUrl = response.result.link;
+			unpackedResponse['searchUrl'] = response.result.link;
 		}
 
 		return unpackedResponse;
@@ -133,11 +122,31 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return result;
 	}
 
-	private async mergeVariables(url: string, orgId: string, endUserId: string, savedVariables: any){
+	private async mergeVariables(url: string, orgId: string, endUserId: string){
 		const mailMergeVariables = new MailMergeVariables(this.tools);
 
-		return mailMergeVariables.merge(url, orgId, endUserId, savedVariables);
+		return mailMergeVariables.merge(url, orgId, endUserId);
 
+	}
+
+	private async saveToDB(orgId: string, endUserId: string, responseData: any) {
+		const docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
+
+    const valuesRepo$ = this.tools.getRepository<any>(docPath);
+
+		const savedInputs = await valuesRepo$.getDocumentById('values');
+
+		if (!savedInputs) {
+
+			return valuesRepo$.create(responseData, 'values');
+		} else {
+			// If the variable tagged already has a value, we create an array and push the new value
+			const newSavedInputs = {
+				...savedInputs,
+				...responseData
+			}
+			return valuesRepo$.update(newSavedInputs);
+		}
 	}
 
 }
