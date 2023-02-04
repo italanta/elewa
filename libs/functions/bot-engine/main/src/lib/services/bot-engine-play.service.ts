@@ -104,7 +104,7 @@ export class BotEnginePlay implements IBotEnginePlay
     if (message && message.type === MessageTypes.TEXT) {
       const textMessage = message as TextMessage;
 
-      // if (__isCommand(textMessage.text)) return this.chatCommandsManager.parseCommand(textMessage, endUser);
+      if (__isCommand(textMessage.text)) return this.chatCommandsManager.parseCommand(textMessage, endUser);
 
     }
 
