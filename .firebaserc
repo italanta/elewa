@@ -9,6 +9,13 @@
           "elewa-conv-learning-prod"
         ]
       }
+    },
+    "farmbetter-review": {
+      "hosting": {
+        "convl-manager": [
+          "farmbetter-review"
+        ]
+      }
     }
   },
   "etags": {}
