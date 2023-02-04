@@ -9,6 +9,7 @@ import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { EndUserDataService } from "../../data-services/end-user.service";
 import { IProcessNextBlock } from "../models/process-next-block.interface";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * A subroutine is a conversational flow within another story. 
@@ -47,8 +48,22 @@ export class JumpStoryBlockService implements IProcessNextBlock
 
     const blockFailConn = await this._connDataService.getConnBySourceId(blockFailSourceId, orgId, currentStory);
 
+    let nextBlock: StoryBlock;
     // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
-    const nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, storyBlock.targetStoryId);
+
+    if(!storyBlock.targetBlockId) {
+      nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.targetStoryId);
+    } else if(!storyBlock.targetStoryId){
+
+      if(storyBlock.targetBlockId) {
+        nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, currentStory);
+      } else {
+        nextBlock = await this._blockDataService.getFirstBlock(orgId, currentStory);
+      }
+
+    } else {
+      nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, storyBlock.targetStoryId);
+    }
 
     // 2. Create routed cursor
     const routedCursor: RoutedCursor = {
