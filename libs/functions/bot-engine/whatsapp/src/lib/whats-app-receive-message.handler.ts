@@ -94,6 +94,8 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
 
     const endUser = await endUserService.getEndUser(END_USER_ID, message.endUserPhoneNumber);
 
+    if(!endUser) return { status: 500, message: `Failed to get end user: ${END_USER_ID}` } as RestResult;
+
     const saveMessagePromise = whatsappIncomingMessageParser.save(message, END_USER_ID);
 
 
