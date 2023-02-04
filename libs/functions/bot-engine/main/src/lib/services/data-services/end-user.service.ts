@@ -30,6 +30,7 @@ import { throws } from 'assert';
     const newEndUser: EndUser = {
       phoneNumber,
       status: ChatStatus.Running,
+      id: endUserId,
 
     };
 
