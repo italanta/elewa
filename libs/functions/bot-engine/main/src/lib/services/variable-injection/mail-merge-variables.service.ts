@@ -35,7 +35,7 @@ export class MailMergeVariables
 
     if(!this._exp.test(outgoingText)) return outgoingText;
 
-    const savedVariableValues = savedVariables ? await this.__getVariableValues(orgId, endUserId) : savedVariables;
+    const savedVariableValues = await this.__getVariableValues(orgId, endUserId);
 
     const outgoingTextArray = outgoingText.split(" ");
 
