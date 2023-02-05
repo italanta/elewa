@@ -102,67 +102,53 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  /**
- * We transform the Question block to a button interactive message for whatsapp api
- * @Description Used to send Question Block to whatsapp api
- */
-  getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+/**
+  * We transform the Question block to a button interactive message for whatsapp api
+  * @Description Used to send Question Block to whatsapp api
+  */
+getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+{
+  const listBlock = storyBlock as QuestionMessageBlock;
+
+  const rows = listBlock.options.map((option) => 
   {
-    const listBlock = storyBlock as ListMessageBlock;
+    return {
+      id: option.id,
+      title: option.message,
+      description: option.value
+    } as ActionSectionInfoRow;
+  });
 
-    const rows = listBlock.options.map((option) => 
-    {
-      return {
-        id: option.id,
-        title: option.message,
-        description: option.value
-      } as ActionSectionInfoRow;
-    });
-
-    const sections = listBlock.options.map((option) =>
-    {
-      return {
-        title: option.message,
+  const interactiveMessage = {
+    type: 'list',
+    body: {
+      text: listBlock.message
+    },
+    action: {
+      button: "Options",
+      sections: [{
+        title: "Please select",
         rows
-      } as ActionSectionInfo;
-    });
+      }]
+    } as ActionInfo,
+  } as InteractiveListMessage;
 
+  /**
+   * Add the required fields for the whatsapp api
+   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+   */
+  const generatedMessage: WhatsAppInteractiveMessage = {
+    messaging_product: MetaMessagingProducts.WHATSAPP,
+    recepient_type: RecepientType.INDIVIDUAL,
+    to: phone,
+    type: WhatsAppMessageType.INTERACTIVE,
+    interactive: {
+      ...interactiveMessage,
+    },
+  };
 
-
-    const interactiveMessage = {
-      type: 'list',
-      header: {
-        type: 'text',
-        text: listBlock.message,
-      },
-      body: {
-        text: listBlock.message
-      },
-      footer: {
-        text: listBlock.message
-      },
-      action: {
-        button: listBlock.message,
-        sections
-      } as ActionInfo,
-    } as InteractiveListMessage;
-
-    /**
-     * Add the required fields for the whatsapp api
-     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-     */
-    const generatedMessage: WhatsAppInteractiveMessage = {
-      messaging_product: MetaMessagingProducts.WHATSAPP,
-      recepient_type: RecepientType.INDIVIDUAL,
-      to: phone,
-      type: WhatsAppMessageType.INTERACTIVE,
-      interactive: {
-        ...interactiveMessage,
-      },
-    };
-
-    return generatedMessage;
-  }
+  return generatedMessage;
+}
 
   getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
   {
