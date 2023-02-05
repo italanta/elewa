@@ -71,13 +71,13 @@ export class ProcessMessageService
     //   need to send the blocks they are pointing to
 
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
-    if (isOperationBlock(nextBlock.type)) {
 
-      const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
-
-      nextBlock = updatedPosition.storyBlock;
-      newCursor = updatedPosition.newCursor;
-    }
+      while (isOperationBlock(nextBlock.type)) {
+        const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
+  
+        nextBlock = updatedPosition.storyBlock;
+        newCursor = updatedPosition.newCursor;
+      }
 
     // Return the resolved next block and the new cursor.
     return {
@@ -120,7 +120,7 @@ export class ProcessMessageService
 
     const updatedPosition = await processNextBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
 
-    this.sideOperations.push(...processNextBlock.sideOperations);
+     if(processNextBlock.sideOperations.length > 0) this.sideOperations.push(...processNextBlock.sideOperations);
 
     return updatedPosition;
   }
