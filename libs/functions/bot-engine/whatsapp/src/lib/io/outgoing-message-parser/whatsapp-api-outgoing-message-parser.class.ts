@@ -1,20 +1,24 @@
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import
-  {
-    ActionButtonsInfo,
-    InteractiveButtonMessage,
-    MetaMessagingProducts,
-    RecepientType,
-    WhatsAppAudioMessage,
-    WhatsAppImageMessage,
-    WhatsAppInteractiveMessage,
-    WhatsAppMessageType,
-    WhatsAppTextMessage,
-    WhatsAppVideoMessage,
-  } from '@app/model/convs-mgr/functions';
+{
+  ActionButtonsInfo,
+  ActionInfo,
+  ActionSectionInfo,
+  ActionSectionInfoRow,
+  InteractiveButtonMessage,
+  InteractiveListMessage,
+  MetaMessagingProducts,
+  RecepientType,
+  WhatsAppAudioMessage,
+  WhatsAppImageMessage,
+  WhatsAppInteractiveMessage,
+  WhatsAppMessageType,
+  WhatsAppTextMessage,
+  WhatsAppVideoMessage,
+} from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
@@ -40,7 +44,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         preview_url: false,
         body: textBlock.message as string,
       },
-    } as WhatsAppTextMessage
+    } as WhatsAppTextMessage;
 
     const generatedMessage: WhatsAppTextMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
@@ -98,9 +102,71 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
+  /**
+ * We transform the Question block to a button interactive message for whatsapp api
+ * @Description Used to send Question Block to whatsapp api
+ */
+  getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const listBlock = storyBlock as ListMessageBlock;
+
+    const rows = listBlock.options.map((option) => 
+    {
+      return {
+        id: option.id,
+        title: option.message,
+        description: option.value
+      } as ActionSectionInfoRow;
+    });
+
+    const sections = listBlock.options.map((option) =>
+    {
+      return {
+        title: option.message,
+        rows
+      } as ActionSectionInfo;
+    });
+
+
+
+    const interactiveMessage = {
+      type: 'list',
+      header: {
+        type: 'text',
+        text: listBlock.message,
+      },
+      body: {
+        text: listBlock.message
+      },
+      footer: {
+        text: listBlock.message
+      },
+      action: {
+        button: listBlock.message,
+        sections
+      } as ActionInfo,
+    } as InteractiveListMessage;
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppInteractiveMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.INTERACTIVE,
+      interactive: {
+        ...interactiveMessage,
+      },
+    };
+
+    return generatedMessage;
+  }
+
   getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
   {
-    const imageBlock = storyBlock as ImageMessageBlock
+    const imageBlock = storyBlock as ImageMessageBlock;
 
     // Create the image payload which will be sent to api
     const mediaMessage = {
@@ -124,8 +190,9 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  getAudioBlockParserOut(storyBlock: StoryBlock, phone: string) {
-    const audioBlock = storyBlock as VoiceMessageBlock
+  getAudioBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const audioBlock = storyBlock as VoiceMessageBlock;
 
     // Create the text payload which will be sent to api
     const mediaMessage = {
@@ -149,8 +216,9 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  getVideoBlockParserOut(storyBlock: StoryBlock, phone: string) {
-    const videoBlock = storyBlock as VideoMessageBlock
+  getVideoBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const videoBlock = storyBlock as VideoMessageBlock;
 
     // Create the text payload which will be sent to api
     const mediaMessage = {
