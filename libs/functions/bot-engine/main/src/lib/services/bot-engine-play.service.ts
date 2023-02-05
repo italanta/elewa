@@ -82,7 +82,7 @@ export class BotEnginePlay implements IBotEnginePlay
     // Here is where the message chaining happens. 
     //  If it is not an input block we replay until we get hit an input block. 
     if (isOutputBlock(nextBlock.type)) {
-      return await this.play(message, endUser, newCursor);
+      return await this.play(null, endUser, newCursor);
     }
 
     const processMessageOps = this._processMessageService$.getSideOperations();
