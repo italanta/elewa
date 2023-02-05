@@ -25,7 +25,7 @@ import { IProcessNextBlock } from "../models/process-next-block.interface";
  */
 export class JumpStoryBlockService implements IProcessNextBlock
 {
-  sideOperations: Promise<any>[];
+  sideOperations: Promise<any>[] = [];
   userInput: string;
   _logger: Logger;
 
@@ -45,32 +45,38 @@ export class JumpStoryBlockService implements IProcessNextBlock
     const blockSuccessSourceId = `i-0-${storyBlock.id}`;
     const blockFailSourceId = `i-1-${storyBlock.id}`;
 
-    const blockSuccessConn = await this._connDataService.getConnBySourceId(blockSuccessSourceId, orgId, currentStory);
+    const blockSuccessConn = await this._connDataService.getConnByOption(blockSuccessSourceId, orgId, currentStory);
 
-    const blockFailConn = await this._connDataService.getConnBySourceId(blockFailSourceId, orgId, currentStory);
+    const blockFailConn = await this._connDataService.getConnByOption(blockFailSourceId, orgId, currentStory);
 
     let nextBlock: StoryBlock;
     // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
 
-    if(!storyBlock.targetBlockId) {
-      nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.targetStoryId);
-    } else if(!storyBlock.targetStoryId){
+    nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.targetStoryId);
 
-      if(storyBlock.targetBlockId) {
-        nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, currentStory);
-      } else {
-        nextBlock = await this._blockDataService.getFirstBlock(orgId, currentStory);
-      }
+    // if(!storyBlock.targetBlockId) {
+    //   console.log('No target block id');
+     
 
-    } else {
-      nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, storyBlock.targetStoryId);
-    }
+    // } else if(!storyBlock.targetStoryId){
+    //   console.log('No target story id')
+    //   if(storyBlock.targetBlockId) {
+    //     console.log('Target block id');
+    //     nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, currentStory);
+    //   } else {
+    //     console.log('No target block id')
+    //     nextBlock = await this._blockDataService.getFirstBlock(orgId, currentStory);
+    //   }
+
+    // } else {
+    //   nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, storyBlock.targetStoryId);
+    // }
 
     // 2. Create routed cursor
     const routedCursor: RoutedCursor = {
       storyId: storyBlock.targetStoryId,
       blockSuccess: blockSuccessConn.targetId,
-      blockFail: blockFailConn.targetId,
+      // blockFail: blockFailConn.targetId,
     };
 
     // Update the EndUser 
@@ -79,26 +85,24 @@ export class JumpStoryBlockService implements IProcessNextBlock
       blockId: nextBlock.id
     };
 
+    let newCursor = updatedCursor;
+
     // 3. Create new stack if it does not exist or 
     //  push the new routed cursor to the top existing stack
-    if (updatedCursor.parentStack) {
+    if (!newCursor.parentStack) {
       const parentStack = [];
       parentStack.unshift(routedCursor);
 
-      updatedCursor.parentStack = parentStack;
+      newCursor.parentStack = parentStack;
     } else {
-      updatedCursor.parentStack.push(routedCursor);
+      newCursor.parentStack.push(routedCursor);
     }
 
-    // 4. Update the current cursor
-    const newCursor: Cursor = {
-      ...updatedCursor,
-      position: newUserPosition
-    };
+    newCursor.position = newUserPosition;
 
     // Update the story if we have jumped to another one
     // TODO: Remove story from end user document and to fetch from cursor
-    if (currentStory !== storyBlock.targetBlockId) await this._updateStory(storyBlock.targetStoryId, orgId, endUserId);
+    // if (currentStory !== storyBlock.targetBlockId) await this._updateStory(storyBlock.targetStoryId, orgId, endUserId);
 
     return {
       storyBlock: nextBlock,

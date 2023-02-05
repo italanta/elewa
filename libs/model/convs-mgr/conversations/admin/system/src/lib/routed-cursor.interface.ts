@@ -20,7 +20,7 @@ export interface RoutedCursor
   /** The id of the block to navigate to if the child story fails 
    *  e.g. hit a fail block
    */
-  blockFail: string;
+  blockFail?: string;
 
   /** The id of the block to navigate to if the child story crashes or 
    *   ends without resolving
