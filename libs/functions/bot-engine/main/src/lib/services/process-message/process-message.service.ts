@@ -11,6 +11,7 @@ import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
 import { ProcessNextBlockFactory } from '../process-next-block/process-next-block.factory';
+import { ActiveChannel } from '@app/functions/bot-engine';
 
 export class ProcessMessageService
 {
@@ -21,7 +22,8 @@ export class ProcessMessageService
     private _cursorService$: CursorDataService,
     private _connService$: ConnectionsDataService,
     private _blockService$: BlockDataService,
-    private _tools: HandlerTools
+    private _tools: HandlerTools,
+    private _activeChannel: ActiveChannel
   ) { }
 
   /**
@@ -107,7 +109,7 @@ export class ProcessMessageService
 
     if (!isOutputBlock(lastBlock.type)) {
 
-      const processInputFactory = new ProcessInputFactory(this._tools);
+      const processInputFactory = new ProcessInputFactory(this._tools, this._activeChannel);
 
       this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUserId);
 
