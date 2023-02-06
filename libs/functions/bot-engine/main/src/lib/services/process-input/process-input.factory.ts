@@ -8,11 +8,12 @@ import { ProcessLocationInput } from "./block-type/process-location-input.servic
 import { ProcessMediaInput } from "./block-type/process-media-input.service";
 import { ProcessTextInput } from "./block-type/process-text-input.service";
 import { ProcessOptionsInput } from "./block-type/process-options-input.service";
+import { ActiveChannel } from "../../model/active-channel.service";
 
 
 export class ProcessInputFactory 
 {
-  constructor(private tools: HandlerTools){}
+  constructor(private tools: HandlerTools, private _activeChannel: ActiveChannel){}
 
   processInput(message: Message, lastBlock: StoryBlock, orgId: string, endUserId: string) {
     switch (message.type) {
@@ -23,11 +24,11 @@ export class ProcessInputFactory
       case MessageTypes.QUESTION:
         return new ProcessOptionsInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
       case MessageTypes.IMAGE:
-        return new ProcessMediaInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
+        return new ProcessMediaInput(this.tools, this._activeChannel).handleInput(message, lastBlock, orgId, endUserId);
       case MessageTypes.VIDEO:
-        return new ProcessMediaInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
+        return new ProcessMediaInput(this.tools, this._activeChannel).handleInput(message, lastBlock, orgId, endUserId);
       case MessageTypes.AUDIO:
-        return new ProcessMediaInput(this.tools).handleInput(message, lastBlock, orgId, endUserId);
+        return new ProcessMediaInput(this.tools, this._activeChannel).handleInput(message, lastBlock, orgId, endUserId);
       default:
         break;
     }
