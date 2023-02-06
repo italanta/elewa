@@ -66,6 +66,11 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
 
     const buttons = questionBlock.options.map((option) =>
     {
+      // Truncate option.message to 24 characters
+      if (option.message.length > 20) {
+        option.message = option.message.substring(0, 20);
+      }
+
       return {
         type: 'reply',
         reply: {
@@ -102,53 +107,59 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-/**
-  * We transform the Question block to a button interactive message for whatsapp api
-  * @Description Used to send Question Block to whatsapp api
-  */
-getListBlockParserOut(storyBlock: StoryBlock, phone: string)
-{
-  const listBlock = storyBlock as QuestionMessageBlock;
-
-  const rows = listBlock.options.map((option) => 
-  {
-    return {
-      id: option.id,
-      title: option.message,
-      description: option.value
-    } as ActionSectionInfoRow;
-  });
-
-  const interactiveMessage = {
-    type: 'list',
-    body: {
-      text: listBlock.message
-    },
-    action: {
-      button: "Options",
-      sections: [{
-        title: "Please select",
-        rows
-      }]
-    } as ActionInfo,
-  } as InteractiveListMessage;
-
   /**
-   * Add the required fields for the whatsapp api
-   * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-   */
-  const generatedMessage: WhatsAppInteractiveMessage = {
-    messaging_product: MetaMessagingProducts.WHATSAPP,
-    recepient_type: RecepientType.INDIVIDUAL,
-    to: phone,
-    type: WhatsAppMessageType.INTERACTIVE,
-    interactive: {
-      ...interactiveMessage,
-    },
-  };
+    * We transform the Question block to a button interactive message for whatsapp api
+    * @Description Used to send Question Block to whatsapp api
+    */
+  getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const listBlock = storyBlock as QuestionMessageBlock;
 
-  return generatedMessage;
-}
+    const rows = listBlock.options.map((option) => 
+    {
+      // Truncate option.message to 24 characters
+      if (option.message.length > 24) {
+        option.message = option.message.substring(0, 24);
+      }
+
+
+      return {
+        id: option.id,
+        title: option.message,
+        description: option.value
+      } as ActionSectionInfoRow;
+    });
+
+    const interactiveMessage = {
+      type: 'list',
+      body: {
+        text: listBlock.message
+      },
+      action: {
+        button: "Options",
+        sections: [{
+          title: "Please select",
+          rows
+        }]
+      } as ActionInfo,
+    } as InteractiveListMessage;
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppInteractiveMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.INTERACTIVE,
+      interactive: {
+        ...interactiveMessage,
+      },
+    };
+
+    return generatedMessage;
+  }
 
   getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
   {
