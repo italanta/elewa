@@ -1,12 +1,13 @@
 import { Variable, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { HandlerTools } from "@iote/cqrs";
+import { ActiveChannel } from "../../model/active-channel.service";
 
 export class ProcessInput<T>
 {
   protected variableName: string;
   protected savedInputs: any;
 
-  constructor(private _tools: HandlerTools) {}
+  constructor(private _tools: HandlerTools, private _activeChannel?: ActiveChannel) {}
 
   private async getSavedInputs(orgId: string, endUserId: string) 
   {
@@ -34,6 +35,8 @@ export class ProcessInput<T>
       // If no data has been saved, we go ahead and create the document
       if (!this.savedInputs) {
         const updatedInputs = this.__updateInputs(this.savedInputs, inputValue, variableType);
+        const endUserIdArray =  endUserId.split('_');
+        updatedInputs.phoneNumber = endUserIdArray[endUserIdArray.length - 1];
         updatedInputs.userId = endUserId;
 
         return valuesRepo$.create(updatedInputs, 'values');
