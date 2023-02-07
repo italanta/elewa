@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -30,6 +30,9 @@ import { _CreateLocationInputBlockForm } from '../../model/location-input-block-
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
+import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
+
+import { BlockInjectorService } from '../../providers/block-injector.service';
 
 /**
  * Block which sends a message from bot to user.
@@ -44,6 +47,7 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() viewPort: ViewContainerRef;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -68,15 +72,17 @@ export class BlockComponent implements OnInit {
   audioInputType =  StoryBlockTypes.AudioInput;
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
+  openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
 
 
   blockFormGroup: FormGroup;
 
   iconClass = ''
   blockTitle = ''
-
+  
   constructor(private _el: ElementRef,
               private _fb: FormBuilder,
+              private _blockInjectorService: BlockInjectorService,
               private _logger: Logger
   ) { }
 
@@ -186,6 +192,10 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
+        case StoryBlockTypes.OpenEndedQuestion:
+          this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
         default:
           break;
       }
@@ -231,6 +241,16 @@ export class BlockComponent implements OnInit {
       return !isNaN(val) ? val : false;
     }
     return false;
+  }
+
+  copyblock(block: StoryBlock) {
+    block.id = (this.blocksGroup.value.length + 1).toString();
+    block.position.x = block.position.x + 300;
+    delete block.createdBy;
+    delete block.createdOn;
+    delete block.updatedOn;
+    
+    this._blockInjectorService.newBlock(block, this.jsPlumb, this.viewPort, this.blocksGroup);
   }
 
   deleteBlock() {
