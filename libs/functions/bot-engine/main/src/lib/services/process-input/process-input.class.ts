@@ -1,5 +1,7 @@
-import { Variable, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { HandlerTools } from "@iote/cqrs";
+
+import { VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
+
 import { ActiveChannel } from "../../model/active-channel.service";
 
 export class ProcessInput<T>
