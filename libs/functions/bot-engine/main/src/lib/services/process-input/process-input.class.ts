@@ -37,7 +37,7 @@ export class ProcessInput<T>
         const updatedInputs = this.__updateInputs(this.savedInputs, inputValue, variableType);
         const endUserIdArray =  endUserId.split('_');
         updatedInputs.phoneNumber = endUserIdArray[endUserIdArray.length - 1];
-        updatedInputs.userId = endUserId;
+        updatedInputs.id = endUserId;
 
         return valuesRepo$.create(updatedInputs, 'values');
       } else {
