@@ -58,7 +58,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
     {
     this.addToChannelForm = this._fb.group({
       channel: this.channels,
-      businessPhoneNumberId: [null, [Validators.required, Validators.maxLength(13), Validators.minLength(10)]],
+      businessPhoneNumberId: [null, [Validators.required]],
       channelName: [null, Validators.required],
       authenticationKey: [null, Validators.required]
     })
