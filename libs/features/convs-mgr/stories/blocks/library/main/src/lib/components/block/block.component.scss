@@ -56,6 +56,9 @@
 .fa-trash-alt:hover {
 	color: var(--convs-mgr-color-primary-purple);
 }
+.hide-block {
+	display: none;
+}
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
