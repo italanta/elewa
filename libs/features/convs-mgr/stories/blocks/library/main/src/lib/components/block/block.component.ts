@@ -30,6 +30,7 @@ import { _CreateLocationInputBlockForm } from '../../model/location-input-block-
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
+import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model'
 
 /**
@@ -70,6 +71,7 @@ export class BlockComponent implements OnInit {
   videoInputType = StoryBlockTypes.VideoInput;
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
+  openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
 
 
   blockFormGroup: FormGroup;
@@ -186,6 +188,10 @@ export class BlockComponent implements OnInit {
           break;
         case StoryBlockTypes.EndStoryAnchorBlock:
           this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
+        case StoryBlockTypes.OpenEndedQuestion:
+          this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
         case StoryBlockTypes.VideoInput:
