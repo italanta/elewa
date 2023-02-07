@@ -12,8 +12,6 @@ import { ConnectionsDataService } from "../../data-services/connections.service"
 import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
-import { ProcessInputFactory } from "../../process-input/process-input.factory";
-import { ProcessInput } from "../../process-input/process-input.class";
 import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
 
 /**
@@ -45,13 +43,14 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 		const response = await this.makeRequest(storyBlock, orgId, endUserId);
 
-		const unpackedResponse = this.unpackResponse(response, storyBlock.httpUrl);
+		if(storyBlock.variablesToSave) {
 
-		// Save variable here
-		// Traverse through the unpacked response keys and save each key and its value to variables collection
-		await this.saveToDB(orgId, endUserId, unpackedResponse);
+			const unpackedResponse = this.unpackResponse(response, storyBlock.httpUrl);
 
-		// this.sideOperations.push(saveResponseToVariables);
+			// Save variable here
+			// Traverse through the unpacked response keys and save each key and its value to variables collection
+			await this.saveToDB(orgId, endUserId, unpackedResponse);
+		}
 
 		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
 
@@ -70,7 +69,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	{
 		const variablesToPost = storyBlock.variablesToPost;
 
-		const savedVariables = await this.getPayload(orgId, endUserId);
+		const savedVariables = await this.savedVariables(orgId, endUserId);
 
 		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, endUserId);
 
@@ -87,7 +86,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		}
 	}
 
-	private async getPayload(orgId: string, endUserId: string) 
+	private async savedVariables(orgId: string, endUserId: string) 
 	{
 		const variableRepo = this.tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
 
@@ -96,23 +95,19 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return variableValues;
 	}
 
-	/*******************************/
-	/** ---- Farmbetter only ----- */
-	/*******************************/
-
-	private unpackResponse(response: any, url: string)
+	private unpackResponse(webhookBlock: WebhookBlock, response: any)
 	{
 		let unpackedResponse = {};
-		if (url.includes("getCommunityLink")) {
-			unpackedResponse['communityName'] = response.result.groupName;
-			unpackedResponse['communityUrl'] = response.result.groupLink;
-			unpackedResponse['communityId'] = response.result.id;
-		} else if (url.includes("BestPractices")) {
-			unpackedResponse['searchUrl'] = response.result.link;
+		// Loop through webhookBlock.variablesToSave and and create an object with t
+		for(let i of webhookBlock.variablesToSave) {
+			let value =   i.value.split('.').reduce((obj, key) => obj[key], response);
+
+			unpackedResponse[i.name] = value;
 		}
 
 		return unpackedResponse;
 	}
+
 	private createPayload(variablesToPost: string[], savedVariables: any) {
 		let result = {};
 
