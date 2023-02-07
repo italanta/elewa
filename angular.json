@@ -247,6 +247,34 @@
       "tags": []
     },
     "features-convs-mgr-stories-blocks-library-name-message-block": "libs/features/convs-mgr/stories/blocks/library/name-message-block",
+    "features-convs-mgr-stories-blocks-library-open-ended-question-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/open-ended-question-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/open-ended-question-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-phone-message-block": "libs/features/convs-mgr/stories/blocks/library/phone-message-block",
     "features-convs-mgr-stories-blocks-library-question-message-block": "libs/features/convs-mgr/stories/blocks/library/question-message-block",
     "features-convs-mgr-stories-blocks-library-reply-message-block": "libs/features/convs-mgr/stories/blocks/library/reply-message-block",

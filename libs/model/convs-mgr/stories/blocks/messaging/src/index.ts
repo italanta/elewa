@@ -17,4 +17,5 @@ export * from './lib/image-input-block.interface';
 export * from './lib/audio-input-block.interface';
 export * from './lib/video-input-block.interface';
 export * from './lib/webhook-block.interface';
+export * from './lib/open-ended-question-block.interface';
 export * from './lib/end-story-anchor.interface';
