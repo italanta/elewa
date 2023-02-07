@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ChangeDetectorRef, ComponentRef, ViewContainerRef } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -28,6 +28,11 @@ import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
 import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
+import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
+import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
+import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
+
+import { BlockInjectorService } from '../../providers/block-injector.service';
 
 /**
  * Block which sends a message from bot to user.
@@ -42,6 +47,7 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() viewPort: ViewContainerRef;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -64,6 +70,9 @@ export class BlockComponent implements OnInit {
   locationInputType =  StoryBlockTypes.LocationInputBlock;
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
+  webhookType =  StoryBlockTypes.WebhookBlock;
+  endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
+  openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
 
 
   blockFormGroup: FormGroup;
@@ -72,10 +81,11 @@ export class BlockComponent implements OnInit {
   blockTitle = ''
   viewPort: ViewContainerRef;
   ref: ComponentRef<BlockComponent>;
-
+  
   constructor(private _el: ElementRef,
               private _cd:ChangeDetectorRef,
               private _fb: FormBuilder,
+              private _blockInjectorService: BlockInjectorService,
               private _logger: Logger
   ) { }
 
@@ -177,6 +187,18 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
+        case StoryBlockTypes.WebhookBlock:
+          this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.EndStoryAnchorBlock:
+          this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
+        case StoryBlockTypes.OpenEndedQuestion:
+          this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
         default:
           break;
       }
@@ -186,8 +208,8 @@ export class BlockComponent implements OnInit {
 
   getBlockIconAndTitle(type: number) {
     return iconsAndTitles[type];
-
   }
+
   /** 
    * Track and update coordinates of block and update them in data model.
    */
@@ -203,7 +225,7 @@ export class BlockComponent implements OnInit {
       x: left ? left : this.block.position.x,
       y: top ? top : this.block.position.y
     };
-
+    
     this.blockFormGroup.value.position = this.block.position;
   }
 
@@ -223,8 +245,18 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-  deleteBlock(id: string) {
-    this.blockFormGroup.removeControl(id);
+
+  copyblock(block: StoryBlock) {
+    block.id = (this.blocksGroup.value.length + 1).toString();
+    block.position.x = block.position.x + 300;
+    delete block.createdBy;
+    delete block.createdOn;
+    delete block.updatedOn;
+    
+    this._blockInjectorService.newBlock(block, this.jsPlumb, this.viewPort, this.blocksGroup);
+  }
+
+  deleteBlock() {
     this.block.deleted = true;
    const index = this.viewPort.indexOf(this.ref.hostView);
    this.viewPort.remove(index);

@@ -111,5 +111,12 @@ export enum StoryBlockTypes {
   /** */
   FailBlock = 20,
   LocationInputBlock = 22,
-  AudioInput = 21
+  AudioInput = 21,
+
+  /** Block that calls a specified URL endpoint when hit */
+  WebhookBlock = 25,
+  OpenEndedQuestion = 27,
+
+  EndStoryAnchorBlock = 9999
+
 }

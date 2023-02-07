@@ -23,7 +23,7 @@ export function _StickerBlockDecoratePlumb(block: StickerMessageBlock, comp: Com
     cssClass:"block_endpoint",
     endpoint: "Rectangle",
     anchor: "Left",
-    maxConnections: 5
+    maxConnections: -1
   });
 
   return comp;
