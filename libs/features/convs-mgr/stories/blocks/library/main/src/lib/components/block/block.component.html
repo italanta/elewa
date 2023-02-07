@@ -87,6 +87,14 @@
             <app-audio-input-block [id]="id" [block]="block" [audioInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-audio-input-block>
         </div>
+        <div *ngSwitchCase="webhookType">
+            <app-webhook-block [id]="id" [block]="block" [webhookForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-webhook-block>
+        </div>
+        <div *ngSwitchCase="openQuestiontype">
+            <app-open-ended-question-block [id]="id" [block]="block" [openEndedQuestionForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-open-ended-question-block>
+        </div>
         <div *ngSwitchCase="endStoryAnchor">
             <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-end-anchor>

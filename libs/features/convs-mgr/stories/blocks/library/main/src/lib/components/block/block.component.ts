@@ -28,7 +28,10 @@ import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
 import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
 import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
+import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
+import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
+
 import { BlockInjectorService } from '../../providers/block-injector.service';
 
 /**
@@ -67,7 +70,9 @@ export class BlockComponent implements OnInit {
   locationInputType =  StoryBlockTypes.LocationInputBlock;
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
+  webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
+  openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
 
 
   blockFormGroup: FormGroup;
@@ -179,9 +184,16 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
-
-          case StoryBlockTypes.EndStoryAnchorBlock:
+        case StoryBlockTypes.WebhookBlock:
+          this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.EndStoryAnchorBlock:
           this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
+        case StoryBlockTypes.OpenEndedQuestion:
+          this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
         default:
