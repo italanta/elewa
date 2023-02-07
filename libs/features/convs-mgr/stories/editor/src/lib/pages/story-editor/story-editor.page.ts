@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -13,13 +15,12 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
+import { BlockPortalService } from '../../providers/block-portal.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-import { FormControl } from '@angular/forms';
 
-import { Observable } from 'rxjs';
-import { TemplatePortal } from '@angular/cdk/portal';
-import { BlockPortalService } from '../../providers/block-portal.service';
+import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
@@ -29,6 +30,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 {
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
+  activeComponent: ComponentPortal<any>
+  activeBlockForm: FormGroup
+  
   opened: boolean;
 
   pageName: string;
@@ -73,8 +77,24 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   ngOnInit() {
-    this.portal$ = this._blockPortalService.portal$;
-    this.opened = this._blockPortalService.opened;
+    this._sb.sink = this._blockPortalService.portal$.subscribe((blockForm: FormGroup) => {
+      if (blockForm) {
+        const comp = getActiveBlock(blockForm.value.type);
+        this.activeBlockForm = blockForm
+        this.activeComponent?.detach()
+        this.activeComponent = new ComponentPortal(comp);
+        this.opened = true;
+      }
+    });
+  }
+
+  /**
+  * Called when portal component is rendered. Passes formGroup as an input to newly rendered Block Component
+  * @param ref represents a component created by a Componentfactory.
+  */
+  onBlockComponentRendering(ref: any) {
+    ref = ref as ComponentRef<any>
+    ref.instance['form'] = this.activeBlockForm
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame)
