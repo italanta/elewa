@@ -257,9 +257,10 @@ export class BlockComponent implements OnInit {
 
   deleteBlock() {
     this.block.deleted = true;
-   const index = this.viewPort.indexOf(this.ref.hostView);
-   this.viewPort.remove(index);
-   this._cd.detectChanges();
+    this.blockFormGroup.value.deleted = true;
+    const index = this.viewPort.indexOf(this.ref.hostView);
+    this.viewPort.remove(index);
+    this._cd.detectChanges();
   }
 }
 
