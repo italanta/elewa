@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PortalModule } from '@angular/cdk/portal';
 import {
   FlexLayoutModule,
   MaterialBricksModule,
@@ -40,6 +41,7 @@ import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+import { BlockEditModalComponent } from './components/block-edit-modal/block-edit-modal.component';
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import { BlockComponent } from './components/block/block.component';
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
+    PortalModule,
 
     ReactiveFormsModule,
 
@@ -85,7 +88,8 @@ import { BlockComponent } from './components/block/block.component';
   ],
 
   declarations: [
-    BlockComponent
+    BlockComponent,
+    BlockEditModalComponent
   ],
 
   // Injector which creates all block types within the editor context.

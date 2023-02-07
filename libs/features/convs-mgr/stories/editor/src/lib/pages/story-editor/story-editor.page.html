@@ -3,6 +3,17 @@
   <!-- Main body page -->
   <div fxLayout="row" fxFlexFill>
     <div fxFlex="20" class="nav">
+
+      <mat-sidenav-container> 
+        <mat-sidenav mode="push" [(opened)]="opened">
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+          <ng-template [cdkPortalOutlet]='portal$ | async'></ng-template>
+        </mat-sidenav-content>
+
+      </mat-sidenav-container>
+
       <convl-blocks-library *ngIf="frame" [frame]="frame">
       </convl-blocks-library>
     </div>
