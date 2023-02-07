@@ -22,7 +22,7 @@ export function _VideoInputBlockDecoratePlumb(block: VideoInputBlock, comp: Comp
     cssClass:"block_endpoint",
     endpoint: "Dot",
     anchor: "Left",
-    maxConnections: 5
+    maxConnections: -1
   });
 
   return comp;
