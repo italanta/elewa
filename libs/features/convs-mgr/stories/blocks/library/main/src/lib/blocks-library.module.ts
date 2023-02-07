@@ -33,6 +33,7 @@ import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/storie
 import { ConvsMgrStoriesWebhookBlockModule } from '@app/features/convs-mgr/stories/blocks/library/webhook-block';
 
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
+import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/open-ended-question-block';
 import { ConvsMgrMultiContentInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multi-content-input-block';
 
 
@@ -79,6 +80,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrMultiContentInputBlockModule,
 
     ConvsMgrAnchorBlockModule,
+    ConvsMgrOpenEndedQuestionBlockModule,
 
     FileStateModule
   

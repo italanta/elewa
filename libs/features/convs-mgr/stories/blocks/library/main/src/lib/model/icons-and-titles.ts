@@ -90,7 +90,11 @@ export const iconsAndTitles: any = {
 	25: {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
 		icon: 'fas fa-link'
-    },
+            },
+	27: {
+		title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
+		icon: 'fas fa-question-circle',
+	    },	
 	28: {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.MULTI-CONTENT-INPUT',
 		icon: 'fas fa-palette'
