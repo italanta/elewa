@@ -5,8 +5,7 @@
  * 
  * @note A StoryBlockConnection acts as a JSPlumb edge on the editor (@see https://docs.jsplumbtoolkit.com/toolkit/5.x/lib/graph)
  */
-export interface StoryBlockConnection
-{
+export interface StoryBlockConnection {
   id: string;
   /** The StoryBlock ID from which the connection originates. */
   sourceId: string;

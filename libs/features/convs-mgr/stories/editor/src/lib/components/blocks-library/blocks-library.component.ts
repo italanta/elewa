@@ -30,7 +30,6 @@ export class BlocksLibraryComponent implements OnInit {
   private _sbS = new SubSink();
 
   @Input() frame: StoryEditorFrame;
-
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   blockTemplates: StoryBlock[] = [
