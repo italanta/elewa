@@ -60,7 +60,7 @@ export class ProcessMessageService
     // Handle input: validates and saves the input to variable
     const inputPromise = this.processInput(msg, lastBlock, orgId, endUserId);
 
-    this.sideOperations.push(inputPromise)
+    this.sideOperations.push(inputPromise);
 
     // Return the cursor updated with the next block in the story
     newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
@@ -74,12 +74,12 @@ export class ProcessMessageService
 
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
 
-      while (isOperationBlock(nextBlock.type)) {
-        const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
-  
-        nextBlock = updatedPosition.storyBlock;
-        newCursor = updatedPosition.newCursor;
-      }
+    while (isOperationBlock(nextBlock.type)) {
+      const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
+
+      nextBlock = updatedPosition.storyBlock;
+      newCursor = updatedPosition.newCursor;
+    }
 
     // Return the resolved next block and the new cursor.
     return {
@@ -122,12 +122,13 @@ export class ProcessMessageService
 
     const updatedPosition = await processNextBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
 
-     if(processNextBlock.sideOperations.length > 0) this.sideOperations.push(...processNextBlock.sideOperations);
+    if (processNextBlock.sideOperations.length > 0) this.sideOperations.push(...processNextBlock.sideOperations);
 
     return updatedPosition;
   }
 
-  public getSideOperations() {
+  public getSideOperations()
+  {
     return this.sideOperations;
   }
 }
