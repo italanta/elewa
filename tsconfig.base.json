@@ -53,6 +53,9 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/edit/blocks-edit": [
+        "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
         "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
       ],
