@@ -200,8 +200,10 @@ export class StoryEditorFrame {
         break;
       case StoryBlockTypes.FailBlock:
         break;
-       case StoryBlockTypes.ImageInput:
+      case StoryBlockTypes.ImageInput:
         break; 
+      case StoryBlockTypes.OpenEndedQuestion:
+        break;
       default:
         break
     }
