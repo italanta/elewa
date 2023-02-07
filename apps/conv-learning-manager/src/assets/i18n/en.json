@@ -80,7 +80,7 @@
         "DOCUMENT": "Document",
         "MULTIPLEINPUT":"Multiple-Input",
         "IMAGE-INPUT":"Image Input",
-        "OPEN-ENDED-QUESTION": "Open Emded Question",
+        "OPEN-ENDED-QUESTION": "Open Ended Question",
         "MULTI-CONTENT-INPUT":"Multi Content Input"
       },
       "PLACEHOLDER": {
