@@ -1,4 +1,4 @@
-<mat-card class="card" [id]="id" class="block-card">
+<mat-card  class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" fxLayout="row" fxLayoutAlign="space-between start" class="outer">
             <div fxLayout="row" fxLayoutAlign="start start" class="block-title-container">
@@ -8,7 +8,7 @@
         
             <div fxLayout="row" class="icon-block">
                 <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
-                <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
+                <span (click)="deleteBlock(id)" class="icons"><i class="far fa-trash-alt"></i></span>
             </div>
         </div>
 
