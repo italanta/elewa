@@ -139,18 +139,9 @@ export class StoryEditorStateService {
           id: c.id,
           sourceId: c.sourceId,
           slot: 0,
-          targetId: c.targetId,
-          deleted: c.deleted ? true : false
+          targetId: c.targetId
         }
       });
-  }
-  public _deleteConnection(oldConnection: StoryBlockConnection) {
-    oldConnection.deleted = true;
-    return this._updateConnection(oldConnection);
-  }
-
-  private _updateConnection(newConnection: StoryBlockConnection) {
-    return this._connections$$.update(newConnection);
   }
 
   /** 
