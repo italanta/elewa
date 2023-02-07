@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -17,14 +17,19 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 import { FormControl } from '@angular/forms';
 
+import { Observable } from 'rxjs';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { BlockPortalService } from '../../providers/block-portal.service';
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnDestroy
+export class StoryEditorPageComponent implements OnInit, OnDestroy
 {
   private _sb = new SubSink();
+  portal$: Observable<TemplatePortal>;
+  opened: boolean;
 
   pageName: string;
 
@@ -48,6 +53,7 @@ export class StoryEditorPageComponent implements OnDestroy
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
+              private _blockPortalService: BlockPortalService,
               _router: Router)
   {
     this._editorStateService.get()
@@ -64,6 +70,11 @@ export class StoryEditorPageComponent implements OnDestroy
           this.loading.next(false);
         }
     );     
+  }
+
+  ngOnInit() {
+    this.portal$ = this._blockPortalService.portal$;
+    this.opened = this._blockPortalService.opened;
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame)

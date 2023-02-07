@@ -1,10 +1,11 @@
-import { Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
@@ -32,6 +33,7 @@ import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
 
+import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
 /**
  * Block which sends a message from bot to user.
  */
@@ -77,8 +79,11 @@ export class BlockComponent implements OnInit {
   iconClass = ''
   blockTitle = ''
 
+  @ViewChild(CdkPortal) portal: CdkPortal;
+
   constructor(private _el: ElementRef,
               private _fb: FormBuilder,
+              private _blockPortalBridge: BlockPortalService,
               private _logger: Logger
   ) { }
 
@@ -237,6 +242,12 @@ export class BlockComponent implements OnInit {
       return !isNaN(val) ? val : false;
     }
     return false;
+  }
+
+
+  editBlock() {
+    this._blockPortalBridge.setPortal(this.portal)
+    this._blockPortalBridge.opened = true
   }
 
   deleteBlock() {
