@@ -1,18 +1,19 @@
-import { TemplatePortal } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BlockPortalService {
-  private activePortal = new Subject<TemplatePortal>();
-  readonly portal$ = this.activePortal.asObservable();
+  activePortal = new Subject<FormGroup>();
+  portal$ = this.activePortal.asObservable();
   public opened = false;
 
-  // constructor() { }
-  public setPortal(portal: TemplatePortal) {
-    console.log(portal)
-    this.activePortal.next(portal);
+  constructor() {
+    //
+  }
+
+  public sendFormGroup(form: FormGroup) {
+    this.activePortal.next(form);
   }
 }
