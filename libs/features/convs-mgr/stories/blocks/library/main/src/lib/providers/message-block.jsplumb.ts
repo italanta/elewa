@@ -23,7 +23,7 @@ export function _MessageBlockDecoratePlumb(block: TextMessageBlock, comp: Compon
     cssClass: 'block_endpoint',
     endpoint: 'Rectangle',
     anchor: "Left",
-    maxConnections: 5
+    maxConnections: -1
   });
   
   return comp;

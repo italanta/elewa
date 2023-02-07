@@ -25,6 +25,7 @@ export class BlockInjectorService
     blockComp.instance.id = block.id as string;
     blockComp.instance.block = block;
     blockComp.instance.jsPlumb = jsPlumb;
+    blockComp.instance.viewPort = viewport;
 
     blockComp.instance.blocksGroup = blocksGroup;
 

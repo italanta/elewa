@@ -7,7 +7,7 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, WebhookBlock, OpenEndedQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
@@ -30,6 +30,8 @@ import { _FailBlockDecoratePlumb } from './fail-block.jsplumb';
 import { _ImageInputBlockDecoratePlumb } from './image-input-block.jsplumb';
 import { _LocationInputBlockDecoratePlumb } from './location-input-block.jsplumb';
 import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
+import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
+import { _OpenEndedQuestionBlockDecoratePlumb } from './open-ended-question-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -91,7 +93,6 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _MultipleBlockDecoratePlumb(block as MultipleInputMessageBlock, comp, jsPlumb);
     case StoryBlockTypes.ImageInput:
       return _ImageInputBlockDecoratePlumb(block as ImageInputBlock, comp, jsPlumb);
-      
       break;
     case StoryBlockTypes.FailBlock:
       return _FailBlockDecoratePlumb(block as FailBlock, comp, jsPlumb);
@@ -100,6 +101,12 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _LocationInputBlockDecoratePlumb(block as LocationInputBlock, comp, jsPlumb);
     case StoryBlockTypes.AudioInput:
       return _AudioInputBlockDecoratePlumb(block as AudioInputBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.WebhookBlock:
+      return _WebhookBlockDecoratePlumb(block as WebhookBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.OpenEndedQuestion:
+      return _OpenEndedQuestionBlockDecoratePlumb(block as OpenEndedQuestionBlock, comp, jsPlumb);
       break;
   }
 
