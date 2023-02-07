@@ -7,7 +7,7 @@
             </div>
         
             <div fxLayout="row" class="icon-block">
-                <span class="icons"><i class="far fa-clone"></i></span>
+                <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
                 <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
             </div>
         </div>
@@ -90,6 +90,10 @@
         <div *ngSwitchCase="webhookType">
             <app-webhook-block [id]="id" [block]="block" [webhookForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-webhook-block>
+        </div>
+        <div *ngSwitchCase="openQuestiontype">
+            <app-open-ended-question-block [id]="id" [block]="block" [openEndedQuestionForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-open-ended-question-block>
         </div>
         <div *ngSwitchCase="endStoryAnchor">
             <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
