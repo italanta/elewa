@@ -1,6 +1,5 @@
-
-import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 
 export function CreateDeleteButton() {
