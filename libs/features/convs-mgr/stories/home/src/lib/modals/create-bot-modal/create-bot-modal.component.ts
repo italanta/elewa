@@ -81,7 +81,7 @@ export class CreateBotModalComponent implements OnInit {
     // Capture changes to bot name and bot description
     this.story.name = this.botForm.value.botName;
     this.story.description = this.botForm.value.botDesc;
-    this.story.imageField = this.botForm.value.botImage;
+    this.story.imageField = this.botForm.value.botImage ?? '';
 
     // Update bot details
     this._addStory$.update(this.story, this.storyImageFile, this.imagePath!);
