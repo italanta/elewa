@@ -81,7 +81,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       if (blockForm) {
         const comp = getActiveBlock(blockForm.value.type);
         this.activeBlockForm = blockForm
-        this.activeComponent?.detach()
         this.activeComponent = new ComponentPortal(comp);
         this.opened = true;
       }
@@ -89,12 +88,18 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   /**
-  * Called when portal component is rendered. Passes formGroup as an input to newly rendered Block Component
-  * @param ref represents a component created by a Componentfactory.
+  * Called when the portal component is rendered. Passes formGroup as an input to newly rendered Block Component
+  * @param ref represents a component created by a Component factory.
   */
   onBlockComponentRendering(ref: any) {
     ref = ref as ComponentRef<any>
     ref.instance['form'] = this.activeBlockForm
+  }
+
+  /**  Detach and close Block Edit form */
+  onClose() {
+    this.activeComponent?.detach()
+    this.opened = false;
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame)
@@ -160,6 +165,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         .subscribe((success) => {
           if (success) {
             this.stateSaved = true;
+            this.opened = false;
             this.storyHasBeenSaved = true;
           }
         });
