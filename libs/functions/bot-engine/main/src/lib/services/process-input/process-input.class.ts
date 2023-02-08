@@ -56,15 +56,19 @@ export class ProcessInput<T>
     }
   }
 
+
   private __updateInputs(savedInputs: any, value: T, inputValueType: MessageTypes, variableType: VariableTypes ) {
     const updatedInputs = savedInputs || {};
+
+    // If the input is a question, we change the type to text
+    if(inputValueType === MessageTypes.QUESTION) inputValueType = MessageTypes.TEXT;
 
     switch (variableType) {
       case VariableTypes.Array:
         let variableObject = {};
 
         variableObject = { 
-          value: [value],
+          value: value,
           type: inputValueType
         }
 
