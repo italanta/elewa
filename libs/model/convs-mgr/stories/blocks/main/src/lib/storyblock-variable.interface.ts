@@ -6,5 +6,6 @@ export interface StoryBlockVariable {
 export enum VariableTypes {
   String  = 1,
   Number  = 2,
-  Array   = 3 
+  ArrayOfStrings   = 3,
+  ArrayOfObjects = 4
 }
