@@ -4,10 +4,9 @@ import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { FileMessage, Message, MessageDirection, TextMessage } from "@app/model/convs-mgr/conversations/messages";
 import { isOutputBlock, StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
-import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { isFileMessage, MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { CursorDataService } from "./data-services/cursor.service";
-import { EndUserDataService } from "./data-services/end-user.service";
 import { MessagesDataService } from "./data-services/messages.service";
 
 import { MailMergeVariables } from "./variable-injection/mail-merge-variables.service";
@@ -42,7 +41,7 @@ export class BotEnginePlay implements IBotEnginePlay
     private _processMessageService$: ProcessMessageService,
     private _cursorDataService$: CursorDataService,
     protected _msgService$: MessagesDataService,
-    private _endUserDataService$: EndUserDataService,
+    private _processMediaService$: BotMediaProcessService,
     protected _activeChannel: ActiveChannel,
     protected _tools: HandlerTools) 
   {
@@ -63,8 +62,8 @@ export class BotEnginePlay implements IBotEnginePlay
    */
   async play(message: Message, endUser: EndUser, currentCursor: Cursor | boolean)
   {
-    // Save the message
-    // this.__save(message, endUser.id);
+    // Save the message (batches the message to be saved to firebase later)
+    this._saveEndUserMessage(message, endUser.id);
 
     // Get the next block in the story
     const { nextBlock, newCursor } = await this.__getNextBlock(endUser, currentCursor, message);
@@ -79,6 +78,7 @@ export class BotEnginePlay implements IBotEnginePlay
     await this.__reply(nextBlock, endUser, message);
 
     this.__move(newCursor, endUser.id);
+
     // Here is where the message chaining happens. 
     //  If it is not an input block we replay until we get hit an input block. 
     if (isOutputBlock(nextBlock.type)) {
@@ -183,10 +183,26 @@ export class BotEnginePlay implements IBotEnginePlay
 
   private async __save(message: Message, endUserId: string) 
   {
-    const saveMessage = this._msgService$.saveMessage(message, this.orgId, endUserId);
-
-    this.sideOperations.push(saveMessage);
+      return this._msgService$.saveMessage(message, this.orgId, endUserId);
   };
+
+  private async _saveEndUserMessage (message: Message, endUserId: string) {
+    if(!message) return;
+
+    if(isFileMessage(message.type) && !message.url) {
+      message = await this.__setFileMessageUrl(message as FileMessage, endUserId);
+    }
+    const saveEndUserMessage = this.__save(message, endUserId);
+
+    this.sideOperations.push(saveEndUserMessage);
+  }
+
+  private async __setFileMessageUrl(msg: FileMessage, endUserId: string) { 
+
+    msg.url = await this._processMediaService$.getFileURL(msg, endUserId, this._activeChannel) || null;
+
+    return msg;
+  }
 
   /**
    * Converts the block to our standardized message @see {Message} so that we can have a common message
