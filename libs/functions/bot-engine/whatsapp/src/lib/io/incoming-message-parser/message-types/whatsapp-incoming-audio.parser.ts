@@ -6,9 +6,9 @@ import { AudioPayload, MessageTypes } from "@app/model/convs-mgr/functions";
 
 export class WhatsappIncomingAudioParser extends IncomingAudioMessageParser {
 
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
+  constructor() 
   {
-    super(activeChannel, msgService$, tools);
+    super();
   }
 
   parse(incomingMessage: IncomingMessagePayload): AudioMessage {
@@ -28,9 +28,5 @@ export class WhatsappIncomingAudioParser extends IncomingAudioMessageParser {
     // standardMessage.url = this.getFileURL(standardMessage, endUserId);
 
     return standardMessage;
-  }
-
-  save(message: AudioMessage, endUserId: string) {
-    return this.saveFileMessage(message, endUserId);
   }
 }

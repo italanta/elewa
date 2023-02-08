@@ -1,14 +1,12 @@
-import { HandlerTools } from "@iote/cqrs";
-
-import { ActiveChannel, IncomingImageMessageParser, MessagesDataService } from "@app/functions/bot-engine";
-import { ImageMessage, IncomingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { IncomingImageMessageParser } from "@app/functions/bot-engine";
+import { ImageMessage } from "@app/model/convs-mgr/conversations/messages";
 import { ImagePayload, MessageTypes, WhatsAppMessagePayLoad } from "@app/model/convs-mgr/functions";
 
 export class WhatsappIncomingImageParser extends IncomingImageMessageParser {
 
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
+  constructor() 
   {
-    super(activeChannel, msgService$, tools);
+    super();
   }
 
   parse(incomingMessage: WhatsAppMessagePayLoad): ImageMessage {
@@ -26,9 +24,5 @@ export class WhatsappIncomingImageParser extends IncomingImageMessageParser {
 
 
     return standardMessage;
-  }
-
-  save(message: ImageMessage, endUserId: string) {
-    return this.saveFileMessage(message, endUserId);
   }
 }

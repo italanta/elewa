@@ -9,13 +9,6 @@ import { IParseInMessage } from "./models/incoming-message-parser.interface";
 
 export abstract class IncomingTextMessageParser extends IncomingMessageParser implements IParseInMessage
 {
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService)
-  {
-    super(activeChannel, msgService$);
-  }
-
   abstract parse(incomingMessage: IncomingMessagePayload): Message;
-
-  abstract save(message: Message, endUserId: string);
 
 }
