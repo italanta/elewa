@@ -1,21 +1,20 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { FileMessage, Message } from "@app/model/convs-mgr/conversations/messages";
-
-import { ProcessInput } from "../process-input.class";
+import { ActiveChannel } from "@app/functions/bot-engine";
 
 import { StoryBlock, StoryBlockTypes, VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
+import { ProcessInput } from "../process-input.class";
 import { IProcessInput } from "../models/process-input.interface";
 import { BotMediaProcessService } from "../../media/process-media-service";
-import { ActiveChannel } from "@app/functions/bot-engine";
 
 export class ProcessMediaInput extends ProcessInput<string> implements IProcessInput {
 
   private tools: HandlerTools;
   private activeChannel: ActiveChannel;
   
-  constructor(tools: HandlerTools, _activeChannel: ActiveChannel){
+  constructor(tools: HandlerTools, _activeChannel: ActiveChannel, private _processMediaService: BotMediaProcessService){
     super(tools, _activeChannel);
     this.tools = tools;
     this.activeChannel = _activeChannel;
@@ -29,12 +28,8 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
       lastBlock.variable ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
 
       const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String;
-
-      const processMediaService = new BotMediaProcessService(this.tools);
   
-      fileMessage.url = await processMediaService.processMediaFile(message, endUserId, this.activeChannel) || null;
-
-      const inputValue = fileMessage.url;
+      const inputValue = await this._processMediaService.getFileURL(fileMessage, endUserId, this.activeChannel) || null;
 
       return this.saveInput(orgId, endUserId, inputValue, variableType); 
   }
