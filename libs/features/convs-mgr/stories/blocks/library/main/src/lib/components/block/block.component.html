@@ -13,10 +13,6 @@
             </div>
         </div>
 
-        <ng-template cdkPortal>
-            <app-block-edit-modal [blockTitle]="blockTitle" [EditForm]="blockFormGroup"></app-block-edit-modal>
-        </ng-template>
-
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
             </app-message-block>
