@@ -8,7 +8,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 /** 
  * Unused placeholder for later functionality.
  */
-@NgModule({../../../library/main/src/lib/components/block-edit-modal/block-edit-modal.component
+@NgModule({
   imports: [
     CommonModule,
     MaterialDesignModule, FlexLayoutModule, MaterialBricksModule,
