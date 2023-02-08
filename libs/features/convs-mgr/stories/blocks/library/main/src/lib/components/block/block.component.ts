@@ -251,7 +251,6 @@ export class BlockComponent implements OnInit {
   }
 
   editBlock() {
-    this._blockPortalBridge.opened = true
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup);
   }
 

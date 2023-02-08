@@ -7,7 +7,6 @@ import { Subject } from 'rxjs';
 export class BlockPortalService {
   activePortal = new Subject<FormGroup>();
   portal$ = this.activePortal.asObservable();
-  public opened = false;
 
   constructor() {
     //
