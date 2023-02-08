@@ -22,7 +22,8 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
       // Replace white space with underscore
       // const formattedTitle = lastBlock.blockTitle.replace(/ /g,"_").toLowerCase();
 
-      lastBlock.variable ? this.variableName = lastBlock.variable.name : this.variableName = `${lastBlock.id}_${lastBlock.type}`;
+      // If the storyblock is already assigned a variable we use that variable first
+      this.variableName = lastBlock.variable ? lastBlock.variable.name : `${lastBlock.id}_${lastBlock.type}`;
 
       const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String
 
@@ -30,6 +31,6 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
       
       if (message.type !== MessageTypes.QUESTION) return false;
 
-      return this.saveInput(orgId, endUserId, inputValue, variableType); 
+      return this.saveInput(orgId, endUserId, inputValue, message.type, variableType); 
   }
 }

@@ -31,7 +31,7 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
   
       const inputValue = await this._processMediaService.getFileURL(fileMessage, endUserId, this.activeChannel) || null;
 
-      return this.saveInput(orgId, endUserId, inputValue, variableType); 
+      return this.saveInput(orgId, endUserId, inputValue, message.type, variableType); 
   }
 
   private setVariableName (lastBlockType: StoryBlockTypes, blockId: string) {
