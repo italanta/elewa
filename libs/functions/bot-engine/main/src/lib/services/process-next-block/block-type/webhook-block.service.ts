@@ -45,7 +45,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 		if(storyBlock.variablesToSave) {
 
-			const unpackedResponse = this.unpackResponse(response, storyBlock.httpUrl);
+			const unpackedResponse = this.unpackResponse(storyBlock ,response);
 
 			// Save variable here
 			// Traverse through the unpacked response keys and save each key and its value to variables collection
