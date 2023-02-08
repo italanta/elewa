@@ -81,31 +81,17 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //        Since we receive different types of messages e.g. text message, location,
     const engine = new EngineBotManager(tools, tools.Logger, whatsappActiveChannel);
 
-    const endUserService = new EndUserDataService(tools, whatsappActiveChannel.channel.orgId);
     const _msgDataService$ = new MessagesDataService(tools);
 
-
-    const whatsappIncomingMessageParser = new WhatsappIncomingMessageParser(whatsappActiveChannel, _msgDataService$, tools)
-      .resolve(sanitizedResponse.type);
+    const whatsappIncomingMessageParser = new WhatsappIncomingMessageParser().resolve(sanitizedResponse.type);
 
     const message = whatsappIncomingMessageParser.parse(sanitizedResponse.message);
 
-    const END_USER_ID = generateEndUserId(message, PlatformType.WhatsApp, communicationChannel.n);
-
-    const endUser = await endUserService.getEndUser(END_USER_ID, message.endUserPhoneNumber);
-
-    if(!endUser) return { status: 500, message: `Failed to get end user: ${END_USER_ID}` } as RestResult;
-
-    const saveMessagePromise = whatsappIncomingMessageParser.save(message, END_USER_ID);
-
-
     // Don't process the message if we cannot parse it
     if (!message) return { status: 500, message: `Failed to parse incoming message: ${sanitizedResponse.message}` } as RestResult;
-
-    engine.addSideOperation(saveMessagePromise);
     
     // STEP 6: Pass the standardized message and run the bot engine
-    return engine.run(message, endUser);
+    return engine.run(message);
   }
 
   /**
