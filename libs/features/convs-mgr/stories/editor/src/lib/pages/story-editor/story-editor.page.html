@@ -5,8 +5,12 @@
     <div fxFlex="20" class="nav">
 
       <div *ngIf="opened; else library">
-        <button>Close</button>
-        <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
+        <div class="wrapper-edit">
+          <div class="btn-wrapper" (click)="onClose()">
+            <i class="fas fa-times close-btn"></i>
+          </div>
+          <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
+        </div>
       </div>
 
       <ng-template #library>
