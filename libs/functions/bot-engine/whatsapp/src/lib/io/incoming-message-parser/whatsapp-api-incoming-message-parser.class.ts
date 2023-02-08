@@ -26,23 +26,23 @@ import { WhatsappIncomingInteractiveParser } from './message-types/whatsapp-inco
  */
 export class WhatsappIncomingMessageParser
 {
-  constructor(private activeChannel: ActiveChannel, private msgService$: MessagesDataService, private tools: HandlerTools){}
+  constructor(){}
 
   resolve(messageType: MessageTypes): IParseInMessage
   {
     switch (messageType) {
       case MessageTypes.TEXT:
-        return new WhatsappIncomingTextParser(this.activeChannel, this.msgService$, this.tools);
+        return new WhatsappIncomingTextParser();
       case MessageTypes.AUDIO:
-        return new WhatsappIncomingAudioParser(this.activeChannel, this.msgService$, this.tools);
+        return new WhatsappIncomingAudioParser();
       case MessageTypes.IMAGE:
-        return new WhatsappIncomingImageParser(this.activeChannel, this.msgService$, this.tools);
+        return new WhatsappIncomingImageParser();
       case MessageTypes.VIDEO:
-        return new WhatsappIncomingVideoParser(this.activeChannel, this.msgService$, this.tools);
+        return new WhatsappIncomingVideoParser();
       case MessageTypes.LOCATION:
-        return new WhatsappIncomingLocationParser(this.activeChannel, this.msgService$, this.tools);
+        return new WhatsappIncomingLocationParser();
       case MessageTypes.QUESTION:
-        return new WhatsappIncomingInteractiveParser(this.activeChannel, this.msgService$, this.tools);
+        return new WhatsappIncomingInteractiveParser();
       default:
         return null;
     }
