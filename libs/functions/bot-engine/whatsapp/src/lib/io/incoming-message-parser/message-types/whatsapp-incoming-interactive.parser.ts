@@ -13,9 +13,9 @@ import { InteractiveListReplyMessage,
 export class WhatsappIncomingInteractiveParser extends IncomingInteractiveMessageParser
 {
 
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
+  constructor() 
   {
-    super(activeChannel, msgService$);
+    super();
   }
 
   parse(message: WhatsAppMessagePayLoad): QuestionMessage
@@ -24,7 +24,6 @@ export class WhatsappIncomingInteractiveParser extends IncomingInteractiveMessag
 
     switch (interactiveMessage.interactive.type) {
       case InteractiveMessageType.ButtonReply:
-        // const buttonMessage = this.__parseInInteractiveButtonMessage(message);
         const interactiveButtonMessage = message as InteractiveRawButtonReplyMessage;
 
         const buttonMessage: QuestionMessage = {
@@ -62,7 +61,4 @@ export class WhatsappIncomingInteractiveParser extends IncomingInteractiveMessag
     }
   }
 
-  save(message: QuestionMessage, endUserId: string) {
-    return this.saveMessage(message, endUserId);
-}
 }

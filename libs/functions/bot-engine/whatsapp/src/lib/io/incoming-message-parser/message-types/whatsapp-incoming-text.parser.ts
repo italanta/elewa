@@ -6,9 +6,9 @@ import { MessageTypes, TextMessagePayload } from "@app/model/convs-mgr/functions
 
 export class WhatsappIncomingTextParser extends IncomingTextMessageParser {
 
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
+  constructor() 
   {
-    super(activeChannel, msgService$);
+    super();
   }
 
   parse(incomingMessage: IncomingMessagePayload): TextMessage {
@@ -24,9 +24,5 @@ export class WhatsappIncomingTextParser extends IncomingTextMessageParser {
     };
 
     return newMessage;
-  }
-
-  save(message: TextMessage, endUserId: string) {
-      return this.saveMessage(message, endUserId);
   }
 }

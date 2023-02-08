@@ -3,6 +3,4 @@ import { IncomingMessagePayload, Message } from "@app/model/convs-mgr/conversati
 export interface IParseInMessage {
 
   parse(incomingMessage: IncomingMessagePayload): Message;
-
-  save(message: Message, endUserId: string);
 }

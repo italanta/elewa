@@ -1,14 +1,12 @@
-import { HandlerTools } from "@iote/cqrs";
-
-import { ActiveChannel, IncomingVideoMessageParser, MessagesDataService } from "@app/functions/bot-engine";
+import { IncomingVideoMessageParser } from "@app/functions/bot-engine";
 import { IncomingMessagePayload, VideoMessage } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes , VideoPayload } from "@app/model/convs-mgr/functions";
 
 export class WhatsappIncomingVideoParser extends IncomingVideoMessageParser {
 
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
+  constructor() 
   {
-    super(activeChannel, msgService$, tools);
+    super();
   }
 
    parse(incomingMessage: IncomingMessagePayload): VideoMessage {
@@ -25,9 +23,5 @@ export class WhatsappIncomingVideoParser extends IncomingVideoMessageParser {
     }
 
     return standardMessage;
-  }
-
-  save(message: VideoMessage, endUserId: string) {
-    return this.saveFileMessage(message, endUserId);
   }
 }

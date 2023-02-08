@@ -11,13 +11,11 @@ import { IParseInMessage } from "./models/incoming-message-parser.interface";
 
 export abstract class IncomingInteractiveMessageParser extends IncomingMessageParser implements IParseInMessage
 {
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService)
+  constructor()
   {
-    super(activeChannel, msgService$);
+    super();
   }
 
   abstract parse(incomingMessage: IncomingMessagePayload): Message;
-
-  abstract save(message: Message, endUserId: string);
 
 }

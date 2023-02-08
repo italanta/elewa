@@ -17,17 +17,7 @@ import { MessagesDataService } from "../../services/data-services/messages.servi
  */ 
 export class IncomingMessageParser
 { 
-  orgId: string;
-
-  constructor(activeChannel: ActiveChannel, private _msgService$: MessagesDataService)
-  {
-    this.orgId = activeChannel.channel.orgId;
-  }
+  constructor() {}
 
   protected getMessageId = () => Date.now().toString();
-
-  protected saveMessage(message: Message, endUserId: string) {
-
-    return this._msgService$.saveMessage(message, this.orgId, endUserId);
-  }
 }

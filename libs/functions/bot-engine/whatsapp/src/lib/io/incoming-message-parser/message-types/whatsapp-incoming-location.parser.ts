@@ -6,9 +6,9 @@ import { LocationPayload, MessageTypes } from "@app/model/convs-mgr/functions";
 
 export class WhatsappIncomingLocationParser extends IncomingLocationMessageParser {
 
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools) 
+  constructor() 
   {
-    super(activeChannel, msgService$);
+    super();
   }
 
   parse(incomingMessage: IncomingMessagePayload): LocationMessage {
@@ -26,7 +26,4 @@ export class WhatsappIncomingLocationParser extends IncomingLocationMessageParse
     return standardMessage;
   }
 
-  save(message: LocationMessage, endUserId: string) {
-    return this.saveMessage(message, endUserId);
-}
 }

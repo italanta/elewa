@@ -10,12 +10,10 @@ import { IParseInMessage } from "./models/incoming-message-parser.interface";
 
 export abstract class IncomingAudioMessageParser extends IncomingFileMessageParser implements IParseInMessage
 {
-  constructor(activeChannel: ActiveChannel, msgService$: MessagesDataService, tools: HandlerTools)
+  constructor()
   {
-    super(activeChannel, msgService$, tools);
+    super();
   }
 
   abstract parse(incomingMessage: IncomingMessagePayload): Message;
-
-  abstract save(message: Message, endUserId: string);
 }
