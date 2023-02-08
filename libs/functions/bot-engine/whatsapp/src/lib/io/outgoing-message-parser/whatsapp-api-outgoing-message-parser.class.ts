@@ -75,7 +75,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         type: 'reply',
         reply: {
           id: option.id,
-          title: option.message,
+          title: option.message || "",
         },
       } as ActionButtonsInfo;
     });
@@ -83,7 +83,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     const interactiveMessage = {
       type: 'button',
       body: {
-        text: questionBlock.message,
+        text: questionBlock.message || "",
       },
       action: {
         buttons,
@@ -125,7 +125,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
 
       return {
         id: option.id,
-        title: option.message,
+        title: option.message || "",
         description: option.value
       } as ActionSectionInfoRow;
     });
@@ -133,7 +133,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     const interactiveMessage = {
       type: 'list',
       body: {
-        text: listBlock.message
+        text: listBlock.message || ""
       },
       action: {
         button: "Options",
