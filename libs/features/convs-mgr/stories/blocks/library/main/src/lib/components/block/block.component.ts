@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostListener, ViewChild, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -33,7 +34,8 @@ import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
 
-import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
+import { BlockInjectorService } from '../../providers/block-injector.service';
+
 /**
  * Block which sends a message from bot to user.
  */
@@ -47,6 +49,7 @@ export class BlockComponent implements OnInit {
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() viewPort: ViewContainerRef;
 
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -80,10 +83,13 @@ export class BlockComponent implements OnInit {
   blockTitle = ''
 
   @ViewChild(CdkPortal) portal: CdkPortal;
-
+  ref: ComponentRef<BlockComponent>;
+  
   constructor(private _el: ElementRef,
+              private _cd:ChangeDetectorRef,
               private _fb: FormBuilder,
               private _blockPortalBridge: BlockPortalService,
+              private _blockInjectorService: BlockInjectorService,
               private _logger: Logger
   ) { }
 
@@ -249,9 +255,22 @@ export class BlockComponent implements OnInit {
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup);
   }
 
+  copyblock(block: StoryBlock) {
+    block.id = (this.blocksGroup.value.length + 1).toString();
+    block.position.x = block.position.x + 300;
+    delete block.createdBy;
+    delete block.createdOn;
+    delete block.updatedOn;
+    
+    this._blockInjectorService.newBlock(block, this.jsPlumb, this.viewPort, this.blocksGroup);
+  }
+
   deleteBlock() {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;
+    const index = this.viewPort.indexOf(this.ref.hostView);
+    this.viewPort.remove(index);
+    this._cd.detectChanges();
   }
 }
 

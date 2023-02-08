@@ -26,8 +26,7 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnInit, OnDestroy
-{
+export class StoryEditorPageComponent implements OnInit, OnDestroy {
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
   activeComponent: ComponentPortal<any>
@@ -46,7 +45,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   stateSaved: boolean = true;
 
   //TODO @CHESA LInk boolean to existence of story in DB
-  storyHasBeenSaved:boolean = false;
+  storyHasBeenSaved: boolean = false;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -58,22 +57,21 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
-              _router: Router)
-  {
+              _router: Router
+  ) {
     this._editorStateService.get()
-        .subscribe((state: StoryEditorState) => 
-        {
-          this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
-          this._logger.log(() => state);
+      .subscribe((state: StoryEditorState) => {
+        this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
+        this._logger.log(() => state);
 
-          this.state = state;
-          this.pageName = `Story overview :: ${ state.story.name }`;
+        this.state = state;
+        this.pageName = `Story overview :: ${state.story.name}`;
 
-          const story = state.story;
-          this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
-          this.loading.next(false);
-        }
-    );     
+        const story = state.story;
+        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
+        this.loading.next(false);
+      }
+      );
   }
 
   ngOnInit() {
@@ -102,20 +100,18 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this.opened = false;
   }
 
-  onFrameViewLoaded(frame: StoryEditorFrame)
-  {
+  onFrameViewLoaded(frame: StoryEditorFrame) {
     this.frame = frame;
 
     // After both frame AND data are loaded (hence the subscribe), draw frame blocks on the frame.
-    this._sb.sink = 
+    this._sb.sink =
       this.loading.pipe(filter(loading => !loading))
-            .subscribe(() => 
-            {              
-              this.frame.init(this.state);
-              this.setFrameZoom();
-            }
-            );
-      
+        .subscribe(() => {
+          this.frame.init(this.state);
+          this.setFrameZoom();
+        }
+        );
+
     this._cd.detectChanges();
   }
 
@@ -158,9 +154,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     // from getConnections()
     // find a jsPlumb types library to replace any with strict type
     let connections = this.frame.getJsPlumbConnections as any[];
-    
-    this.state.connections = connections;
-  
+
+    // remove duplicate jsplumb connections
+    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
+
     this._editorStateService.persist(this.state)
         .subscribe((success) => {
           if (success) {
@@ -171,15 +168,14 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         });
   }
 
-  addToChannel(){
+  addToChannel() {
     this._dialog.open(AddBotToChannelModal, {
       width: '550px'
     })
 
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this._editorStateService.flush();
     this._sb.unsubscribe();
   }

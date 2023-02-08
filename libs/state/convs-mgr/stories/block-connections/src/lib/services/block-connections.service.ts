@@ -20,4 +20,8 @@ export class BlockConnectionsService {
   addNewConnections(connections: StoryBlockConnection[]): Observable<StoryBlockConnection[]> {
     return this._connections$$.addMultiple(connections as StoryBlockConnection[], true);
   }
+
+  deleteConnection(connection: StoryBlockConnection) {
+    return this._connections$$.remove(connection).subscribe();
+  }
 }
