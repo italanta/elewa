@@ -28,7 +28,7 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
 
       if (message.type !== MessageTypes.TEXT) return false;
 
-      return this.saveInput(orgId, endUserId, inputValue, variableType); 
+      return this.saveInput(orgId, endUserId, inputValue, message.type,variableType); 
   }
 
   private setVariableName (lastBlockType: StoryBlockTypes, blockId: string) {

@@ -27,6 +27,6 @@ export class ProcessLocationInput extends ProcessInput<Location> implements IPro
 
     if (message.type !== MessageTypes.LOCATION) return false;
 
-    return this.saveInput(orgId, endUserId, inputValue);
+    return this.saveInput(orgId, endUserId, inputValue, message.type);
   }
 }
