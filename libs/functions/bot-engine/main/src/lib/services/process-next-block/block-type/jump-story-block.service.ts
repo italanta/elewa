@@ -109,26 +109,4 @@ export class JumpStoryBlockService implements IProcessNextBlock
       newCursor
     };
   }
-
-  /**
-   * If a story id is set on the JumpBlock, then we need to switch the user to the next story.
-   * 
-   * This method updates the end user with the new story and returns the updated end user object
-   * 
-   * @returns {EndUser}
-   */
-  private async _updateStory(newStoryId: string, orgId: string, endUserId: string)
-  {
-    const endUserService = new EndUserDataService(this.tools, orgId);
-
-    const endUser = await endUserService.getEndUser(endUserId);
-
-    // Update the end user object with the new story
-    const newUserStory: EndUser = {
-      ...endUser,
-      currentStory: newStoryId
-    };
-
-    return endUserService.updateEndUser(newUserStory);
-  }
 }
