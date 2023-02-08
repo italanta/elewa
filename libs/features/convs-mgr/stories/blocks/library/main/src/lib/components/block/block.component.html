@@ -1,15 +1,15 @@
 <mat-card class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
-        <div *ngIf="type !== endStoryAnchor" fxLayout="row" fxLayoutAlign="space-between start" class="outer">
-            <div fxLayout="row" fxLayoutAlign="start start" class="block-title-container">
+        <div *ngIf="type !== endStoryAnchor" class="outer">
+            <div class="block-title-container">
                 <i [class]="iconClass"></i>
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
         
             <div fxLayout="row" class="icon-block">
-                <span class="icons" (click)="editBlock()">edit</span>
+                <span class="icons" (click)="editBlock()"><i class="far fa-edit"></i></span>
                 <span class="icons"><i class="far fa-clone"></i></span>
-                <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
+                <span class="icons" (click)="deleteBlock()"><i class="far fa-trash-alt"></i></span>
             </div>
         </div>
 
