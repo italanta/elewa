@@ -1,12 +1,13 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
-        <div *ngIf="type !== endStoryAnchor" fxLayout="row" fxLayoutAlign="space-between start" class="outer">
-            <div fxLayout="row" fxLayoutAlign="start start" class="block-title-container">
+        <div *ngIf="type !== endStoryAnchor" class="outer">
+            <div class="block-title-container">
                 <i [class]="iconClass"></i>
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
         
             <div fxLayout="row" class="icon-block">
+                <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
                 <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
                 <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
             </div>
@@ -98,6 +99,10 @@
         <div *ngSwitchCase="endStoryAnchor">
             <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-end-anchor>
+        </div>
+        <div *ngSwitchCase="videoInputType">
+            <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-video-input-block>
         </div>
     </div>
 </mat-card>

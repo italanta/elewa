@@ -247,6 +247,8 @@ export class StoryEditorFrame {
         break; 
       case StoryBlockTypes.OpenEndedQuestion:
         break;
+      case StoryBlockTypes.VideoInput:
+        break;  
       default:
         break
     }
