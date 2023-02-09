@@ -65,7 +65,7 @@ export class ProcessInput<T>
     if(inputValueType === MessageTypes.QUESTION) inputValueType = MessageTypes.TEXT;
 
     switch (variableType) {
-      case VariableTypes.ArrayOfObjects:
+      case VariableTypes.ArrayWithTypeAndValue:
         let variableObject = {};
 
         variableObject = { 
@@ -82,7 +82,7 @@ export class ProcessInput<T>
 
         break;
 
-      case VariableTypes.ArrayOfStrings:
+      case VariableTypes.Array:
         if(!updatedInputs[this.variableName]) { 
 
           updatedInputs[this.variableName] = [value];
