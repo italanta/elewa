@@ -1,9 +1,10 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { VariableTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { ActiveChannel } from "../../model/active-channel.service";
-import { MessageTypes } from "@app/model/convs-mgr/functions";
+
 
 export class ProcessInput<T>
 {
