@@ -111,8 +111,9 @@ export enum StoryBlockTypes
 
   /** */
   FailBlock = 20,
-  LocationInputBlock = 22,
   AudioInput = 21,
+  LocationInputBlock = 22,
+  VideoInput = 23,
 
   /** Block that calls a specified URL endpoint when hit */
   WebhookBlock = 25,

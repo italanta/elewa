@@ -1,10 +1,12 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
@@ -31,6 +33,7 @@ import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.m
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
+import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model'
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
 
@@ -70,6 +73,7 @@ export class BlockComponent implements OnInit {
   locationInputType =  StoryBlockTypes.LocationInputBlock;
   imageInputType =  StoryBlockTypes.ImageInput;
   audioInputType =  StoryBlockTypes.AudioInput;
+  videoInputType = StoryBlockTypes.VideoInput;
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
@@ -79,11 +83,14 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+
+  @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
   
   constructor(private _el: ElementRef,
               private _cd:ChangeDetectorRef,
               private _fb: FormBuilder,
+              private _blockPortalBridge: BlockPortalService,
               private _blockInjectorService: BlockInjectorService,
               private _logger: Logger
   ) { }
@@ -198,6 +205,10 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;  
+        case StoryBlockTypes.VideoInput:
+          this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;  
         default:
           break;
       }
@@ -243,6 +254,10 @@ export class BlockComponent implements OnInit {
       return !isNaN(val) ? val : false;
     }
     return false;
+  }
+
+  editBlock() {
+    this._blockPortalBridge.sendFormGroup(this.blockFormGroup);
   }
 
   copyblock(block: StoryBlock) {
