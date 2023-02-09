@@ -14,7 +14,7 @@ export class WhatsappIncomingImageParser extends IncomingImageMessageParser {
 
     // Create the base message object
     const standardMessage: ImageMessage = {
-      id: incomingImageMessage.id,
+      id: Date.now().toString(),
       type: MessageTypes.IMAGE,
       endUserPhoneNumber: incomingImageMessage.from,
       mediaId: incomingImageMessage.image.id,

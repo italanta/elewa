@@ -17,7 +17,7 @@ export class WhatsappIncomingAudioParser extends IncomingAudioMessageParser {
 
     // Create the base message object
     const standardMessage: AudioMessage = {
-      id: incomingAudioMessage.id,
+      id: Date.now().toString(),
       type: MessageTypes.AUDIO,
       endUserPhoneNumber: incomingAudioMessage.from,
       mediaId: incomingAudioMessage.audio.id,
