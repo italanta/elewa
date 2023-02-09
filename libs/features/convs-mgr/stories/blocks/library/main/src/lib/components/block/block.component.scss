@@ -10,11 +10,8 @@
 }
 
 .block-title-container {
+	display: flex;
 	align-items: center;
-}
-
-.outer:hover {
-	cursor: move;
 }
 
 .icon-color {
@@ -29,8 +26,15 @@
 }
 
 .outer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	padding: 10px;
-	padding-bottom: 0;
+	padding-bottom: 1px;
+
+	&:hover {
+		cursor: move;
+	}
 }
 
 .block-card {
@@ -39,22 +43,22 @@
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icons {
-	cursor: pointer;
-}
+.icon-block {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 
-.fa-clone {
-	padding-right: 10px;
-}
-
-.fa-clone,
-.fa-trash-alt {
-	color: var(--convs-mgr-color-medium-shade);
-}
-
-.fa-clone:hover,
-.fa-trash-alt:hover {
-	color: var(--convs-mgr-color-primary-purple);
+	.icons {
+		cursor: pointer;
+	
+		* {
+			color: var(--convs-mgr-color-medium-shade);
+			
+			&:hover {
+				color: var(--convs-mgr-color-primary-purple);
+			}
+		}
+	}
 }
 .hide-block {
 	display: none;

@@ -1,10 +1,12 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
 
+import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
@@ -79,11 +81,14 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+
+  @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
   
   constructor(private _el: ElementRef,
               private _cd:ChangeDetectorRef,
               private _fb: FormBuilder,
+              private _blockPortalBridge: BlockPortalService,
               private _blockInjectorService: BlockInjectorService,
               private _logger: Logger
   ) { }
@@ -243,6 +248,10 @@ export class BlockComponent implements OnInit {
       return !isNaN(val) ? val : false;
     }
     return false;
+  }
+
+  editBlock() {
+    this._blockPortalBridge.sendFormGroup(this.blockFormGroup);
   }
 
   copyblock(block: StoryBlock) {
