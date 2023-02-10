@@ -161,7 +161,6 @@ export class StoryEditorFrame {
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ["Right", "Left"],
-        cssClass: "hoverMethod",
         endpoints: ["Dot", "Rectangle"],
         overlays: [
           {
