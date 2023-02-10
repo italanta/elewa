@@ -1,6 +1,10 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
+import { LocationInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { AudioInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { VideoInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { ImageInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { MessageBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { EmailBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -43,11 +47,13 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.FailBlock:
       return DefaultComponent;
     case StoryBlockTypes.ImageInput:
-      return DefaultComponent;
+      return ImageInputBlockEditComponent;
     case StoryBlockTypes.LocationInputBlock:
-      return DefaultComponent;
+      return LocationInputBlockEditComponent;
     case StoryBlockTypes.AudioInput:
-      return DefaultComponent;
+      return AudioInputBlockEditComponent;
+    case StoryBlockTypes.VideoInput:
+      return VideoInputBlockEditComponent;
     case StoryBlockTypes.WebhookBlock:
       return WebhookEditComponent;
     case StoryBlockTypes.EndStoryAnchorBlock:
