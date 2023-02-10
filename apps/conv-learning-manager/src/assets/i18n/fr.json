@@ -63,7 +63,10 @@
         "STICKER": "Autocollant Bloquer",
         "LIST": "Liste Bloquer",
         "DOCUMENT": "Document Bloquer",
-        "WEBHOOK": "webhook Bloquer"
+        "WEBHOOK": "webhook Bloquer",
+        "VIDEO-INPUT":"entrée vidéo",
+        "AUDIO-INPUT":"entrée audio",
+        "LOCATION-INPUT":"saisie de position"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
