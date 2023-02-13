@@ -1,0 +1,48 @@
+#chat-detail-header{
+  border-bottom: 2px solid #fafafa;
+}
+
+.icon-button {
+  color: black;
+  background-color: #ffffff;
+  margin-right: 10px;
+}
+
+.chat-title {
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.chat-title-txt{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.inactive {
+  color: #32382D;
+}
+
+.complete {
+  color: #dcf8c6;
+}
+
+.status {
+  color: #32382D;
+  text-transform: capitalize;
+  font-size: 13px;
+}
+
+#statusIndicator {
+  margin-right: 5px;
+}
+
+.active {
+  color: green;
+}
+
+.paused {
+  color: red;
+}

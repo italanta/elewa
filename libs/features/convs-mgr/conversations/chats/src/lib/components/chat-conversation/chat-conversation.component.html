@@ -1,0 +1,20 @@
+<div fxFill class="conversations left-margin" fxLayout="column" *ngIf="chat else noChat">
+
+  <div class="section-header" fxFlex="10">
+    <elewa-chat-detail-header [chat]="chat"></elewa-chat-detail-header>
+  </div>
+
+  <div class="section-body" id="chat-container" fxFlex="80" fxLayout="column">
+    <div class="container-inner">
+      <elewa-messages-container fxLayout="column" [chat]="chat"  fxFlex></elewa-messages-container>
+    </div>
+  </div>
+
+  <elewa-new-message [chat]="chat" [status]="chat.flow" fxFlex="10"></elewa-new-message>
+</div>
+
+<ng-template #noChat>
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="background-color: #ffffff;">
+    No Chat selected for display
+  </div>
+</ng-template>

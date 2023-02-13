@@ -1,0 +1,32 @@
+<div class="section-container">
+  <div class="section-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Stash Chat
+    </div>    
+    <div>
+      <button (click)="exitModal()" class="icon-button" mat-icon-button>
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <div class="section-body" fxLayout="column">
+
+    <div class="field-row"><b>Reason for stashing {{chat.name}}'s chat: </b></div>
+    
+    <mat-select class="field-row"  name="selectReason" [(value)]="reason" >
+      <mat-option *ngFor="let thisReason of reasons" 
+                  [value]="thisReason">{{ thisReason}}
+      </mat-option>
+    </mat-select>
+
+    <div class="field-row" [formGroup]="stashReasonForm"  *ngIf="reasonNeedsDetails()" fxLayoutAlign="start center">
+      <div>The user made an enquiry about*:</div>
+      <input  fxFlex="100"  class="detail" matInput type="text" name="reason" formControlName="reason" required />
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button class="cancel-btn" mat-raised-button (click)="exitModal()">Cancel</button>
+      &nbsp;&nbsp;&nbsp;
+      <button mat-raised-button color="primary" (click)="stash()" [disabled]="!reason || reasonIsMissing()">Apply</button>
+    </div>
+  </div>
+</div>
