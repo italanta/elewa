@@ -83,7 +83,7 @@ textarea:focus-visible {
   line-height: 30px;
 }
 .listgone {
-  margin-left: auto;
+  cursor: pointer;
   border: none;
   background-color: transparent;
 }
@@ -91,6 +91,7 @@ textarea:focus-visible {
   margin: 0;
 }
 .inputList {
+  width: auto;
   display: flex;
   align-items: center;
 }
