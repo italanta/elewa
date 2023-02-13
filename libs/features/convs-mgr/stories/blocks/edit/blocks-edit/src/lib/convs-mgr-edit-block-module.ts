@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiLangModule } from '@ngfi/multi-lang';
-
+import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import {
   MaterialDesignModule,
   MaterialBricksModule,
 } from '@iote/bricks-angular';
 
+import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
 import { OpenEndedQuestionEditComponent } from './components/open-ended-question-edit/open-ended-question-edit.component';
 import { ImageInputBlockEditComponent } from './components/image-input-block-edit/image-input-block-edit.component';
@@ -28,9 +29,11 @@ import { DefaultComponent } from './components/default/default.component';
     MultiLangModule,
     MaterialBricksModule,
     MaterialDesignModule,
+    ConvsMgrBlockOptionsModule,
   ],
 
   declarations: [
+    QuestionButtonsEditFormsComponent,
     LocationInputBlockEditComponent,
     OpenEndedQuestionEditComponent,
     ImageInputBlockEditComponent,
