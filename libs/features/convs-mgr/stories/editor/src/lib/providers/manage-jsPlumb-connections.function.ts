@@ -7,14 +7,11 @@ export function CreateDeleteButton() {
   let deleteButton = document.createElement("button");
 
   // Set the innerHTML of the button to display a trash icon
-  deleteButton.innerHTML = "<i class='fas fa-trash' style='color: red; font-size: 16px;'></i>";
+  deleteButton.innerHTML = "<i class='fas fa-trash'></i>";
 
-  // Set the styles for the button
-  deleteButton.style.backgroundColor = "#ffffff";
-  deleteButton.style.border = "none";
-  deleteButton.style.borderRadius = "30px";
-  deleteButton.style.padding = "4px 4px 3px 4px";
-  deleteButton.style.cursor = "pointer";
+  // Set the class for the  styles for the button
+  deleteButton.id = "overlay-delete-button";
+  // deleteButton.classList.add("overlay-button ");
 
   // Return the created button
   return deleteButton
@@ -36,5 +33,6 @@ export function DeleteConnectorbyID(jsPlumb: BrowserJsPlumbInstance, state: Stor
   // Delete each filtered connection using the jsPlumb.deleteConnection method
   dCon.forEach((cn: any) => {
     jsPlumb.deleteConnection(cn);
+    
   });
 }
