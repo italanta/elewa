@@ -99,11 +99,6 @@
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input"
       },
-      "EDIT": {
-        "NAME": "Name Edit Block",
-        "EMAIL": "Email Edit Block",
-        "PHONE-NUMBER": "Phone Edit Block"
-      },
       "BUTTONS": {
         "JUMP-BLOCK": {
           "SUCCESS": "Success",

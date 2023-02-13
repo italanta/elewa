@@ -71,11 +71,6 @@
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
         "AUDIO-LINK":"Lien audio"
-      },
-      "EDIT": {
-        "NAME": "Bloc d'édition du nom",
-        "EMAIL": "Bloc d'édition des e-mails",
-        "PHONE-NUMBER": "Bloc de modification du numéro de téléphone"
       }
     },
     "COMPONENTS": {
