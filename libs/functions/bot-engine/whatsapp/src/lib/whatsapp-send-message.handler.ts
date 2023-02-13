@@ -19,7 +19,7 @@ import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/me
  * Listens to messages sent from a third party app to the end user, processes them and 
  *    forwards them to the end user
  */
-export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
+export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<any, RestResult>
 {
   /**
    * Listens to messages sent from the farmbetter app to the end user, processes them and 
@@ -36,7 +36,7 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<Message, Res
    * @param {IncomingMessage} message - The message to process.
    * @returns A REST 200 or 500 response
    */
-  public async execute(outgoingPayload: Message, context: HttpsContext, tools: HandlerTools) 
+  public async execute(outgoingPayload: any, context: HttpsContext, tools: HandlerTools) 
   {
     try {
       // STEP 1: Check if the message is meant for the end user
