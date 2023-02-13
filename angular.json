@@ -40,6 +40,34 @@
       },
       "tags": []
     },
+    "features-convs-mgr-conversations-messaging": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/conversations/messaging",
+      "sourceRoot": "libs/features/convs-mgr/conversations/messaging/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/conversations/messaging"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/conversations/messaging/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/conversations/messaging/**/*.ts",
+              "libs/features/convs-mgr/conversations/messaging/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-blocks-edit-blocks-edit": {
       "projectType": "library",

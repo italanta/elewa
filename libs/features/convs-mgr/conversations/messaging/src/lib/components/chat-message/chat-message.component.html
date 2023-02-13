@@ -1,0 +1,21 @@
+<div class="message"
+    [class.message-agent]="agentMessage"
+    [class.message-mine]="!messageIsNotMine"
+    [class.message-other]="messageIsNotMine">
+
+    <div [ngSwitch]="message.type">
+     <div                    *ngSwitchCase="'text'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
+
+     <!-- Button Options -->
+     <elewa-button-message   *ngSwitchCase="'dialog'" [message]="message"></elewa-button-message>
+
+     <!-- Button Press -->
+     <div                    *ngSwitchCase="'button'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
+
+     <elewa-resource-message *ngSwitchCase="'image'"  [message]="message"></elewa-resource-message>
+     <elewa-resource-message *ngSwitchCase="'iframe'" [message]="message"></elewa-resource-message>
+   </div>
+
+  <span class="message-timestamp">{{ timestamp }}</span>
+</div>
+
