@@ -1,0 +1,57 @@
+<div id="table-header" fxLayout="column" class="mat-elevation-z4">
+
+  <table mat-table [dataSource]="dataSource" matSort fxFlex="100">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="33"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="33"> {{ element.chat.name }} </mat-cell>
+    </ng-container>
+
+      <!-- County Column -->
+      <ng-container matColumnDef="last-active">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20"> Last Interaction </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="20"> {{ getLastActive(element) }} </mat-cell>
+      </ng-container>
+
+
+    <!-- County Column -->
+    <ng-container matColumnDef="county">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="33"> County </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="33"> {{ element.chat.info?.county }} </mat-cell>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20"> Phonenumber </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20"> {{ element.chat.phone }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stage">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15"> Age </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15"> {{ element.chat.info?.age }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20"> Course </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20"> ITC </mat-cell>
+    </ng-container>
+
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef  fxFlex="12.5"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="12.5">
+          <button (click)="goTo(element.chat)" mat-raised-button color="accent">
+            <i class="fas fa-eye"></i>&nbsp;
+
+          </button>
+        </mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 20, 50]" showFirstLastButtons></mat-paginator>
+
+</div>

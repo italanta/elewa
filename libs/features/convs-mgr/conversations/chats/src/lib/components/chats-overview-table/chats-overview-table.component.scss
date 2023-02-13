@@ -1,0 +1,17 @@
+@import 'libs/elements/theme.scss';
+
+.new-msg-icon {
+  color: red;
+}
+
+.active {
+  color: green;
+}
+
+.paused {
+  color: red;
+}
+
+.complete {
+  color: mat-color($accent, A200);;
+}

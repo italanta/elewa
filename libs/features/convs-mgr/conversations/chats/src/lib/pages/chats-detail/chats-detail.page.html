@@ -1,0 +1,20 @@
+
+<ele-page fxLayout="column" *ngIf="chat$ | async as chat" fxFlexFill
+          [title]="'Single Chat'">
+
+  <div class="section-container">
+
+    <div class="section-header">
+      <elewa-chat-detail-header [chat]="chat"></elewa-chat-detail-header>
+    </div>
+
+    <div class="section-body" id="chat-container" fxLayout="column" fxLayoutAlign="end">
+      <div class="container-inner">
+        <elewa-messages-container></elewa-messages-container>
+      </div>
+
+      <elewa-new-message [chat]="chat" [status]="chat.flow"></elewa-new-message>
+    </div>
+
+  </div>
+</ele-page>

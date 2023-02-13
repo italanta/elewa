@@ -1,0 +1,14 @@
+<ele-page [title]="'Chats'">
+
+  <div class="sections" fxLayout="row" fxLayout.lt-md="column">
+
+    <app-chats-list fxFlex="30" fxFlex.lt-md="100" [fxHide.lt-md]="currentChat">
+    </app-chats-list>
+
+    <div fxFlex style="min-height: 100%;">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</ele-page>
