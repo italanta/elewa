@@ -13,7 +13,8 @@
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Enter password",
       "FLD-REMEMBER-ME": "Remember me",
-      "SUBMIT": "Login"
+      "SUBMIT": "Login",
+      "PROCEED": "PROCEED"
     },
     "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
