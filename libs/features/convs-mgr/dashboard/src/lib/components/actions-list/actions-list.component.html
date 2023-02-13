@@ -1,0 +1,75 @@
+<div fxLayout="column">
+
+  <table mat-table [dataSource]="dataSource" matSort fxFlex="100">
+
+    <!-- New Message Column -->
+    <ng-container matColumnDef="new-msg">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5">  </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5">
+        <span class="mobile-label">New message:</span>
+        <i *ngIf="element.awaitingResponse" class="fas fa-comment-alt new-msg-icon"></i>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="5"></mat-footer-cell>
+    </ng-container>
+
+     <!-- Last Chat Date Column -->
+     <ng-container matColumnDef="last-chat">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="30"> Requested on </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="30"> 
+        <span class="mobile-label">Requested on:</span> 
+        {{ getLastChatDate(element) }}  
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="30"><b>Total chats:</b></mat-footer-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="30"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="30"> 
+        <span class="mobile-label">Name:</span>
+        {{ element.name }} 
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="30"><b>{{dataSource.filteredData.length}}</b></mat-footer-cell>
+    </ng-container>
+
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20"> Phonenumber </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20"> 
+        <span class="mobile-label">Phonenumber:</span>
+        {{ element.phone }} 
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="20"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Stage Column -->
+    <ng-container matColumnDef="stage">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="30"> Stage </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="30"> 
+        <span class="mobile-label">Stage:</span>
+        {{ getStage(element.status) }} 
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="30"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef  fxFlex="20">View</mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20">
+        <span class="mobile-label">Actions:</span>
+        <button (click)="goTo(element)" mat-raised-button color="accent">
+          <i class="fas fa-eye"></i>&nbsp;
+        </button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="20"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Table Definition -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row class="sticky-footer" *matFooterRowDef="displayedColumns"></mat-footer-row>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+
+</div>
