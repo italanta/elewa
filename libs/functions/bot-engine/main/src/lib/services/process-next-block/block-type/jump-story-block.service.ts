@@ -47,12 +47,16 @@ export class JumpStoryBlockService implements IProcessNextBlock
 
     const blockSuccessConn = await this._connDataService.getConnByOption(blockSuccessSourceId, orgId, currentStory);
 
+    this.tools.Logger.log(()=> `Block Success Connection: ${JSON.stringify(blockSuccessConn)}`);
+
     const blockFailConn = await this._connDataService.getConnByOption(blockFailSourceId, orgId, currentStory);
 
     let nextBlock: StoryBlock;
     // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
 
     nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.targetStoryId);
+
+    this.tools.Logger.log(()=> `Jumping to block: ${JSON.stringify(nextBlock)}`);
 
     // if(!storyBlock.targetBlockId) {
     //   console.log('No target block id');
@@ -75,8 +79,8 @@ export class JumpStoryBlockService implements IProcessNextBlock
     // 2. Create routed cursor
     const routedCursor: RoutedCursor = {
       storyId: storyBlock.targetStoryId,
-      blockSuccess: blockSuccessConn.targetId,
-      // blockFail: blockFailConn.targetId,
+      blockSuccess: blockSuccessConn ? blockSuccessConn.targetId : "",
+      blockFail: blockFailConn ? blockFailConn.targetId : "",
     };
 
     // Update the EndUser 

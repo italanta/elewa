@@ -61,6 +61,8 @@ export class MultipleOptionsMessageService extends NextBlockService
 
 		const connection = await this._connDataService.getConnByOption(sourceId, orgId, currentStory);
 
+		this.tools.Logger.log(()=> `Connection: ${JSON.stringify(connection)}`);
+
 		const newUserPosition: EndUserPosition = {
 			storyId: currentStory,
 			blockId: connection.targetId
