@@ -41,6 +41,8 @@ export class DefaultOptionMessageService extends NextBlockService
 
 		// Get the connection
 		const connection = await this._connDataService.getConnBySourceId(lastBlockId, orgId, currentStory);
+
+		this.tools.Logger.log(()=> `Connection: ${JSON.stringify(connection)}`);
 		// Get the next block using the id. Connection.targetId == id of the next block
 		// if (connection)
 		// 	nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);
