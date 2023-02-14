@@ -82,7 +82,8 @@
         "MULTIPLEINPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
-        "VIDEO-INPUT":"Video Input"
+        "VIDEO-INPUT":"Video Input",
+        "KEYWORD-JUMP": "keyword Jump"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
