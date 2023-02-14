@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
@@ -7,14 +7,11 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './question-buttons-edit-forms.component.html',
   styleUrls: ['./question-buttons-edit-forms.component.scss'],
 })
-export class QuestionButtonsEditFormsComponent implements OnInit {
+export class QuestionButtonsEditFormsComponent {
   @Input() form: FormGroup;
+  @Input() title: string;
 
   constructor(private _fb: FormBuilder) {}
-
-  ngOnInit() {
-    console.log(this.form);
-  }
 
   get options(): FormArray {
     return this.form.controls['options'] as FormArray;
