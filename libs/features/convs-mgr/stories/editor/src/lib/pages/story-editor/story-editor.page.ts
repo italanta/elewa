@@ -31,6 +31,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   portal$: Observable<TemplatePortal>;
   activeComponent: ComponentPortal<any>
   activeBlockForm: FormGroup
+  activeBlockTitle: string
   
   opened: boolean;
 
@@ -75,10 +76,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._sb.sink = this._blockPortalService.portal$.subscribe((blockForm: FormGroup) => {
-      if (blockForm) {
-        const comp = getActiveBlock(blockForm.value.type);
-        this.activeBlockForm = blockForm
+    this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
+      if (blockDetails.form) {
+        const comp = getActiveBlock(blockDetails.form.value.type);
+        this.activeBlockForm = blockDetails.form
+        this.activeBlockTitle = blockDetails.title
         this.activeComponent = new ComponentPortal(comp);
         this.opened = true;
       }
@@ -92,6 +94,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   onBlockComponentRendering(ref: any) {
     ref = ref as ComponentRef<any>
     ref.instance['form'] = this.activeBlockForm
+    ref.instance['title'] = this.activeBlockTitle
   }
 
   /**  Detach and close Block Edit form */

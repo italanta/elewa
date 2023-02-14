@@ -22,17 +22,44 @@ html, body {
   stroke: var(--endpoint-outline);
 }
 
-//endpoint class when connected
-.block_endpoint.jtk-endpoint-connected {
-  // z-index: 2;
-}
-
 //connector
 .jsplumb_instance svg path {
   stroke: var(--connector-color);
-  stroke-width: 5px;
+  stroke-width: 3.5px;
+
 }
 
 .frame-connector {
   z-index: -1;
 }
+.jtk-overlay {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 8px 6px 8px;
+  cursor: pointer;
+  position:relative;
+  display: none;
+  z-index: 5;
+
+  
+}
+
+.jtk-overlay svg {
+  color: var(--convs-mgr-color-primary-pink)!important;
+  font-size: 16px !important;
+}
+
+.jsplumb_instance svg path:hover {
+  stroke: var(--convs-mgr-color-primary-purple);
+}
+
+.jtk-hover {
+  cursor: pointer;
+  z-index: 4;
+}
+
+.jtk-hover + .jtk-overlay{
+  display: block;
+}
+
