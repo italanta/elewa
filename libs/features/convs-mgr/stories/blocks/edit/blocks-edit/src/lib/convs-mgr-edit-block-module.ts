@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { OpenEndedQuestionEditComponent } from './components/open-ended-question-edit/open-ended-question-edit.component';
 import { MessageBlockEditComponent } from './components/message-block-edit/message-block-edit.component';
@@ -10,7 +11,7 @@ import { NameBlockEditComponent } from './components/name-block-edit/name-block-
 import { DefaultComponent } from './components/default/default.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MultiLangModule],
 
   declarations: [
     OpenEndedQuestionEditComponent,
