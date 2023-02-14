@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class WebhookEditComponent implements OnInit {
   @Input() form: FormGroup
+  @Input() title: string;
   
   httpCategories: HttpMethods[] = [
     { method: HttpMethodTypes.POST, name: 'POST' },
