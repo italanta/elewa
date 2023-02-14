@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -13,17 +15,25 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
+import { BlockPortalService } from '../../providers/block-portal.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-import { FormControl } from '@angular/forms';
+
+import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnDestroy {
+export class StoryEditorPageComponent implements OnInit, OnDestroy {
   private _sb = new SubSink();
+  portal$: Observable<TemplatePortal>;
+  activeComponent: ComponentPortal<any>
+  activeBlockForm: FormGroup
+  activeBlockTitle: string
+  
+  opened: boolean;
 
   pageName: string;
 
@@ -47,6 +57,7 @@ export class StoryEditorPageComponent implements OnDestroy {
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
+              private _blockPortalService: BlockPortalService,
               _router: Router
   ) {
     this._editorStateService.get()
@@ -62,6 +73,34 @@ export class StoryEditorPageComponent implements OnDestroy {
         this.loading.next(false);
       }
       );
+  }
+
+  ngOnInit() {
+    this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
+      if (blockDetails.form) {
+        const comp = getActiveBlock(blockDetails.form.value.type);
+        this.activeBlockForm = blockDetails.form
+        this.activeBlockTitle = blockDetails.title
+        this.activeComponent = new ComponentPortal(comp);
+        this.opened = true;
+      }
+    });
+  }
+
+  /**
+  * Called when the portal component is rendered. Passes formGroup as an input to newly rendered Block Component
+  * @param ref represents a component created by a Component factory.
+  */
+  onBlockComponentRendering(ref: any) {
+    ref = ref as ComponentRef<any>
+    ref.instance['form'] = this.activeBlockForm
+    ref.instance['title'] = this.activeBlockTitle
+  }
+
+  /**  Detach and close Block Edit form */
+  onClose() {
+    this.activeComponent?.detach()
+    this.opened = false;
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame) {
@@ -123,10 +162,13 @@ export class StoryEditorPageComponent implements OnDestroy {
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
     this._editorStateService.persist(this.state)
-      .subscribe(() => {
-        this.stateSaved = true;
-        this.storyHasBeenSaved = true;
-      });
+        .subscribe((success) => {
+          if (success) {
+            this.stateSaved = true;
+            this.opened = false;
+            this.storyHasBeenSaved = true;
+          }
+        });
   }
 
   addToChannel() {

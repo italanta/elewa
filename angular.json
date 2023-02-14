@@ -15,6 +15,34 @@
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
+    "features-convs-mgr-stories-blocks-edit-blocks-edit": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/edit/blocks-edit",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/edit/blocks-edit"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-add-more-message-block": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/library/add-more-message-block",
@@ -302,6 +330,34 @@
             "lintFilePatterns": [
               "libs/features/convs-mgr/stories/blocks/library/webhook-block/**/*.ts",
               "libs/features/convs-mgr/stories/blocks/library/webhook-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-stories-blocks-library-video-input-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/video-input-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/video-input-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/video-input-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/video-input-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/video-input-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/video-input-block/**/*.html"
             ]
           }
         }
