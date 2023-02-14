@@ -62,7 +62,8 @@
         "VIDEO": "Video Bloquer",
         "STICKER": "Autocollant Bloquer",
         "LIST": "Liste Bloquer",
-        "DOCUMENT": "Document Bloquer"
+        "DOCUMENT": "Document Bloquer",
+        "KEYWORD-JUMP": "saut de mots-clés"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
