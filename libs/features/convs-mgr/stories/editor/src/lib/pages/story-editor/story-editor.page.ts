@@ -123,11 +123,9 @@ export class StoryEditorPageComponent implements OnDestroy {
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
     this._editorStateService.persist(this.state)
-      .subscribe((success) => {
-        if (success) {
-          this.stateSaved = true;
-          this.storyHasBeenSaved = true;
-        }
+      .subscribe(() => {
+        this.stateSaved = true;
+        this.storyHasBeenSaved = true;
       });
   }
 
