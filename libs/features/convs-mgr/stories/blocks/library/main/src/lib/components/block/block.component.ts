@@ -257,7 +257,7 @@ export class BlockComponent implements OnInit {
   }
 
   editBlock() {
-    this._blockPortalBridge.sendFormGroup(this.blockFormGroup);
+    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 
   copyblock(block: StoryBlock) {
