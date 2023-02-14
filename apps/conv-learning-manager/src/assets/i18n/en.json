@@ -13,7 +13,8 @@
       "FLD-EMAIL-ERR": "Please provide a valid email address",
       "FLD-PASSWD": "Enter password",
       "FLD-REMEMBER-ME": "Remember me",
-      "SUBMIT": "Login"
+      "SUBMIT": "Login",
+      "PROCEED": "PROCEED"
     },
     "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
@@ -78,12 +79,12 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "MULTIPLEINPUT":"Multiple-Input",
-        "IMAGE-INPUT":"Image Input",
+        "MULTIPLEINPUT": "Multiple-Input",
+        "IMAGE-INPUT": "Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
-        "VIDEO-INPUT":"Video Input",
-        "AUDIO-INPUT":"Audio Input",
-        "LOCATION-INPUT":"Location Input",
+        "VIDEO-INPUT": "Video Input",
+        "AUDIO-INPUT": "Audio Input",
+        "LOCATION-INPUT": "Location Input",
         "WEBHOOK": "Webhook"
       },
       "PLACEHOLDER": {
@@ -94,7 +95,7 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",
-        "AUDIO-LINK":"Audio Link",
+        "AUDIO-LINK": "Audio Link",
         "VIDEO-LINK": "Video Link",
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
@@ -105,7 +106,7 @@
         "WEBHOOK": "Url Input"
       },
       "BUTTONS": {
-        "JUMP-BLOCK" : {
+        "JUMP-BLOCK": {
           "SUCCESS": "Success",
           "FAILED": "Failed"
         }
@@ -127,10 +128,10 @@
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
-        "CHANNEL-TYPE" : "Choose platform",
+        "CHANNEL-TYPE": "Choose platform",
         "CHANNEL-NAME": "Enter the name of your bot",
         "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",
-        "AUTH-KEY":"Enter the authentication key",
+        "AUTH-KEY": "Enter the authentication key",
         "ACTION-BUTTONS": {
           "SAVE": "Save",
           "CANCEL": "Cancel"
