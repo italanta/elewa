@@ -3,8 +3,20 @@
   <!-- Main body page -->
   <div fxLayout="row" fxFlexFill>
     <div fxFlex="20" class="nav">
-      <convl-blocks-library *ngIf="frame" [frame]="frame">
-      </convl-blocks-library>
+
+      <div *ngIf="opened; else library">
+        <div class="wrapper-edit">
+          <div class="btn-wrapper" (click)="onClose()">
+            <i class="fas fa-times close-btn"></i>
+          </div>
+          <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
+        </div>
+      </div>
+
+      <ng-template #library>
+        <convl-blocks-library *ngIf="frame" [frame]="frame">
+        </convl-blocks-library>
+      </ng-template>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start" fxFlex>
@@ -15,7 +27,8 @@
             <mat-icon>zoom_out</mat-icon>
           </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)" type="number">
+          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)"
+            type="number">
 
           <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
             <mat-icon>zoom_in</mat-icon>
@@ -32,7 +45,7 @@
               </span>
             </ng-template>
           </button>
-  
+
           <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
             <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
           </button>
