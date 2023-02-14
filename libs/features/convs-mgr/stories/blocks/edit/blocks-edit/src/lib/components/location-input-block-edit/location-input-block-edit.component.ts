@@ -8,4 +8,5 @@ import { FormGroup } from '@angular/forms';
 })
 export class LocationInputBlockEditComponent {
   @Input() form: FormGroup;
+  @Input() title: string;
 }

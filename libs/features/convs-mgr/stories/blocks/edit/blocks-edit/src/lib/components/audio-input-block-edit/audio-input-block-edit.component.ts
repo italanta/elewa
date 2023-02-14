@@ -7,5 +7,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./audio-input-block-edit.component.scss'],
 })
 export class AudioInputBlockEditComponent {
-  @Input() form: FormGroup
+  @Input() form: FormGroup;
+  @Input() title: string;
 }
