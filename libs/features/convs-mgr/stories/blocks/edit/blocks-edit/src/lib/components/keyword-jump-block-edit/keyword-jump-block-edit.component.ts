@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 @Component({
@@ -8,10 +7,9 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './keyword-jump-block-edit.component.html',
   styleUrls: ['./keyword-jump-block-edit.component.scss'],
 })
-export class KeywordJumpBlockEditComponent {
+export class KeywordJumpBlockEditComponent<T> {
   @Input() form: FormGroup;
   @Input() title: string;
-  keywordType = StoryBlockTypes.keyword;
 
   constructor(private _fb: FormBuilder) {}
 
@@ -19,7 +17,7 @@ export class KeywordJumpBlockEditComponent {
     return this.form.controls['options'] as FormArray;
   }
 
-  addKeywordOptions(keywordItem?: ButtonsBlockButton<any>) {
+  addKeywordOptions(keywordItem?: ButtonsBlockButton<T>) {
     return this._fb.group({
       id: [keywordItem?.id ?? `${this.keywordItems.value.id}-${this.keywordItems.length + 1}`],
       message: [keywordItem?.message ?? ''],
