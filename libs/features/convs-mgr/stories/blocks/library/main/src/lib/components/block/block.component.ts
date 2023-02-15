@@ -213,6 +213,7 @@ export class BlockComponent implements OnInit {
           break; 
         case StoryBlockTypes.keyword:
           this.blockFormGroup = _CreateKeywordJumpBlockMessageForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
           break;
         default:
           break;
