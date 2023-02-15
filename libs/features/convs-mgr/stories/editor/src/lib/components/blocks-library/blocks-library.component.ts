@@ -61,7 +61,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-video-input-block', type: StoryBlockTypes.VideoInput, message: 'VideoInput', blockIcon:this.getBlockIcon(StoryBlockTypes.VideoInput) } as VideoInputBlock,
     { id: 'webhook-block' , type: StoryBlockTypes.WebhookBlock, message: 'Webhook', blockIcon:this.getBlockIcon(StoryBlockTypes.WebhookBlock) } as WebhookBlock,
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion) } as OpenEndedQuestionBlock,
-    { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump Block', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword) } as KeywordMessageBlock
+    { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword) } as KeywordMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
   constructor(private _logger: Logger) { }
