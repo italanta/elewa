@@ -4,7 +4,7 @@
       <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock"></app-default-option-field>
 
       <div formArrayName="options" fxFlexFill>
-        <div *ngFor="let listItem of listItems.controls; let i = index" class="full-width" fxFlexFill>
+        <div *ngFor="let keywordItem of keywordItems.controls; let i = index" class="full-width" fxFlexFill>
           <span [formGroupName]="i" fxFlex>
             <div class="inputList">
               <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>

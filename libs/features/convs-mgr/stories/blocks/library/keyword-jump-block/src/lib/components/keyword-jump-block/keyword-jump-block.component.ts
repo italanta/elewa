@@ -19,32 +19,33 @@ export class KeywordJumpBlockComponent<T> implements AfterViewInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   type: StoryBlockTypes;
-  listType = StoryBlockTypes.List;
+  keywordType = StoryBlockTypes.keyword;
 
   constructor(private _fb: FormBuilder) {}
 
   ngAfterViewInit(): void {
-    this.block.options?.forEach((listItem) => {
-      this.listItems.push(this.addListOptions(listItem));
+    this.block.options?.forEach((keywordItem) => {
+      this.keywordItems.push(this.addKeywordOptions(keywordItem));
     });
   }
 
-  get listItems(): FormArray {
+  get keywordItems(): FormArray {
     return this.keywordJumpBlock.controls['options'] as FormArray;
   }
 
-  addListOptions(listItem?: ButtonsBlockButton<T>) {
+  addKeywordOptions(keywordItem?: ButtonsBlockButton<T>) {
     return this._fb.group({
-      id: [listItem?.id ?? `${this.id}-${this.listItems.length + 1}`],
-      message: [listItem?.message ?? ''],
-      value: [listItem?.value ?? ''],
+      id: [keywordItem?.id ?? `${this.id}-${this.keywordItems.length + 1}`],
+      message: [keywordItem?.message ?? ''],
+      value: [keywordItem?.value ?? ''],
     });
   }
 
   addNewOption() {
-    this.listItems.push(this.addListOptions());
+    this.keywordItems.push(this.addKeywordOptions());
   }
+
   deleteInput(i: number) {
-    this.listItems.removeAt(i);
+    this.keywordItems.removeAt(i);
   }
 }
