@@ -64,6 +64,7 @@
         "LIST": "Liste Bloquer",
         "DOCUMENT": "Document Bloquer",
         "WEBHOOK": "webhook Bloquer",
+        "IMAGE-INPUT": "Entrée d'images",
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
         "LOCATION-INPUT":"saisie de position"
@@ -75,7 +76,11 @@
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
         "AUDIO-LINK":"Lien audio",
-        "WEBHOOK": "Un webhook"
+        "WEBHOOK": "Un webhook",
+        "IMAGE-INPUT": "Entrée d'images",
+        "VIDEO-INPUT":"entrée vidéo",
+        "AUDIO-INPUT":"entrée audio",
+        "LOCATION-INPUT":"saisie de position"
       }
     },
     "COMPONENTS": {
