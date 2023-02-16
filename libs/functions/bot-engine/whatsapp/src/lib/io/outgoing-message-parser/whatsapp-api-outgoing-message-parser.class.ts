@@ -169,6 +169,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     const mediaMessage = {
       type: WhatsAppMessageType.IMAGE,
       image: {
+        caption: imageBlock.message || "",
         link: imageBlock.fileSrc,
       },
     } as WhatsAppImageMessage;
@@ -221,6 +222,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     const mediaMessage = {
       type: WhatsAppMessageType.VIDEO,
       video: {
+        caption: videoBlock.message || "",
         link: videoBlock.fileSrc,
       },
     } as WhatsAppVideoMessage;
