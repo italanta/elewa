@@ -1,26 +1,24 @@
-<mat-card [id]="id" *ngIf="imageMessageForm">
-    <mat-card-content>
-        <form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
-            <div [id]="imageInputId">
+<div [id]="id" *ngIf="imageMessageForm">
+	<form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
+		<div [id]="imageInputId">
 
-                <input (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
-                <label [for]="imageInputUpload">
-                    <div *ngIf="!hasImage; else inputHasImage">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <ng-template #inputHasImage>
-                        <img type="image" class="upload-image" [src]="imageLink" alt="" />
-                    </ng-template>
-                </label>
+			<input (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
+			<label [for]="imageInputUpload">
+				<div *ngIf="!hasImage; else inputHasImage">
+					<i class="fas fa-image"></i>
+				</div>
+				<ng-template #inputHasImage>
+					<img type="image" class="upload-image" [src]="imageLink" alt="" />
+				</ng-template>
+			</label>
 
-            </div>
+		</div>
 
-            <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>
 
-            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco"
-                formControlName="message" id="caption" />
-            <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco"
-                 id="image-link" formControlName="fileSrc" />
-        </form>
-    </mat-card-content>
-</mat-card>
+		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message"
+			id="caption" />
+		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-LINK' | transloco" id="image-link"
+			formControlName="fileSrc" />
+	</form>
+</div>
