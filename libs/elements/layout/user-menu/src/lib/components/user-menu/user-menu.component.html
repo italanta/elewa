@@ -1,11 +1,13 @@
 
-<div *ngIf="user$ | async as user">
+<div *ngIf="user$ | async as user" class="user-component">
+
+  <img *ngIf="user.photoUrl; else avatar" class="user-photo" [src]="user.photoUrl" alt="">
+  <ng-template #avatar>
+    <i class="far fa-user-circle user-photo"></i> 
+  </ng-template>
+
   <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
-    <img *ngIf="user.photoUrl; else avatar" class="user-photo" [src]="user.photoUrl" alt="">
-    <ng-template #avatar>
-      <i class="far fa-user-circle user-photo"></i> 
-    </ng-template>
-    {{ user.displayName }}&nbsp;<!-- -&nbsp;{{user.phone}}&nbsp; -->
+    {{ user.displayName }}
     <i class="fas fa-caret-down"></i>
   </button>
 
