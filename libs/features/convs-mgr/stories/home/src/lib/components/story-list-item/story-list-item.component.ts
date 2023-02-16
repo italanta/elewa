@@ -42,6 +42,11 @@ export class StoryListItemComponent implements OnDestroy
     });
   }
 
+  truncateDesc(desc: string): string {
+    let text = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
+    return text.length > 0 ? text : 'No description';
+  }
+
   ngOnDestroy()
   {
     this._sb.unsubscribe();

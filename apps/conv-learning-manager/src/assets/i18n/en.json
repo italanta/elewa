@@ -79,11 +79,12 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "MULTIPLEINPUT": "Multiple-Input",
-        "IMAGE-INPUT": "Image Input",
+        "MULTIPLEINPUT":"Multiple-Input",
+        "IMAGE-INPUT":"Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
         "VIDEO-INPUT":"Video Input",
-        "KEYWORD-JUMP": "keyword Jump"
+        "KEYWORD-JUMP": "keyword Jump",
+        "WEBHOOK": "Webhook"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -99,7 +100,8 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "IMAGE-INPUT": "Image Input",
-        "VIDEO-INPUT": "Video Input"
+        "VIDEO-INPUT": "Video Input",
+        "WEBHOOK": "Url Input"
       },
       "BUTTONS": {
         "JUMP-BLOCK": {

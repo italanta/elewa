@@ -63,7 +63,8 @@
         "STICKER": "Autocollant Bloquer",
         "LIST": "Liste Bloquer",
         "DOCUMENT": "Document Bloquer",
-        "KEYWORD-JUMP": "saut de mots-clés"
+        "KEYWORD-JUMP": "saut de mots-clés",
+        "WEBHOOK": "webhook Bloquer"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
@@ -71,7 +72,8 @@
         "NAME": "Nom",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
-        "AUDIO-LINK":"Lien audio"
+        "AUDIO-LINK":"Lien audio",
+        "WEBHOOK": "Un webhook"
       }
     },
     "COMPONENTS": {

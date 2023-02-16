@@ -1,25 +1,24 @@
-<mat-card [id]="id" *ngIf="videoMessageForm">
-	<mat-card-content>
-		<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
+<div [id]="id" *ngIf="videoMessageForm">
+	<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-			<div [id]="videoInputId">
-				<input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
-				<label [for]="videoInputUpload">
-					<div *ngIf="!hasVideo; else inputHasVideo">
-						<i id="icon" class="fas fa-play-circle"></i>
-					</div>
-					<ng-template #inputHasVideo>
-						<video class="upload-video" alt="" controls autoplay>
-							<source [src]="videoUrl" type="video/mp4">
-						</video>
-					</ng-template>
-				</label>
-			</div>
+		<div [id]="videoInputId">
+			<input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
+			<label [for]="videoInputUpload">
+				<div *ngIf="!hasVideo; else inputHasVideo">
+					<i id="icon" class="fas fa-play-circle"></i>
+				</div>
+				<ng-template #inputHasVideo>
+					<video class="upload-video" alt="" controls autoplay>
+						<source [src]="videoUrl" type="video/mp4">
+					</video>
+				</ng-template>
+			</label>
+		</div>
 
-			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
 
-			<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
-			<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco" formControlName="fileSrc">
-		</form>
-	</mat-card-content>
-</mat-card>
+		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
+		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
+			formControlName="fileSrc">
+	</form>
+</div>
