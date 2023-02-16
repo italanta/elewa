@@ -13,7 +13,7 @@ import { TranslateService } from '@ngfi/multi-lang';
 
 import { Story } from "@app/model/convs-mgr/stories/main";
 import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
@@ -114,6 +114,22 @@ export class NewStoryService implements OnDestroy {
     });
   }
 
+  removeBlock(block: StoryBlock){
+    this._sbS.add(
+      this._blocksStore$$.remove(block).subscribe({
+        error: () => {
+          this._toast.doSimpleToast(
+            this._translate.translate("TOAST.DELETE-BLOCK.FAIL")
+          )
+        },
+        complete: () => {
+            this._toast.doSimpleToast(
+              this._translate.translate("TOAST.DELETE-BLOCK.SUCCESSFUL")
+            )
+        },
+      })
+    );
+  }
 
   createStoryEndBlock(orgId: string, storyId: string) {
     let endBlock: EndStoryAnchorBlock = {
