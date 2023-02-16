@@ -12,6 +12,7 @@ import { HttpMethods, HttpMethodTypes, Variable } from '@app/model/convs-mgr/sto
 })
 export class WebhookEditComponent {
   @Input() form: FormGroup
+  @Input() title: string;
   
   httpCategories: HttpMethods[] = [
     { method: HttpMethodTypes.POST, name: 'POST' },

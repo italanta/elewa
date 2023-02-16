@@ -1,10 +1,9 @@
-<mat-card [id]="id" *ngIf=" replyMessageForm">
-    <mat-card-content>
-        <form [formGroup]="replyMessageForm" fxLayout="column" fxLayoutALign="start center">
+<div [id]="id" *ngIf=" replyMessageForm">
+	<form [formGroup]="replyMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-            <!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
-            <input [id]="replyInputId" matInput type="text" id="message" placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.REPLY' | transloco }}" />
+		<!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
+		<input [id]="replyInputId" matInput type="text" id="message"
+			placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.REPLY' | transloco }}" />
 
-        </form>
-    </mat-card-content>
-</mat-card>
+	</form>
+</div>
