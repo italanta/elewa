@@ -100,6 +100,7 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
+        "LOCATION-INPUT": "Location Input",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
