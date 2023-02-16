@@ -1,6 +1,18 @@
 <mat-card [id]="id" *ngIf="keywordJumpBlock">
   <mat-card-content>
     <form [formGroup]="keywordJumpBlock" fxLayout="column" fxLayoutALign="start center">
+
+      <div formArrayName="options" fxFlexFill>
+        <div *ngFor="let keyword of keywordItems.controls; let i = index" class="full-width" fxFlexFill>
+          <span [formGroupName]="i" fxFlex>
+            <div class="inputList">
+              <app-option-view-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock" [formGroupNameInput]="i"
+                class="input"></app-option-view-field>
+            </div>
+          </span>
+        </div>
+      </div>
+
       <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock"></app-default-option-field>
     </form>
   </mat-card-content>
