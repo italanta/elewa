@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+  min-width: 200px;
 }
 
 textarea {
@@ -16,20 +16,17 @@ textarea:focus-visible {
 }
 
 .add-button {
-	width: 100%;
-	background-color: var(--convs-mgr-color-primary-purple);
-	color: white;
+  width: 100%;
+  background-color: var(--convs-mgr-color-primary-purple);
+  color: white;
 }
+
 .listgone {
-  margin-left: auto;
   border: none;
   background-color: transparent;
 }
+
 .input {
   margin: 0;
   padding-right: 5px;
-}
-.inputList {
-  display: flex;
-  align-items: center;
 }

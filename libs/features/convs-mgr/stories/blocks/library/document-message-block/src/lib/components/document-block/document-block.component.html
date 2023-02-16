@@ -1,25 +1,25 @@
-<mat-card [id]="id" *ngIf="documentMessageForm">
-	<mat-card-content>
-		<form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
-			<div [id]="docInputId" class="audio_bg">
+<div [id]="id" *ngIf="documentMessageForm">
+	<form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
+		<div [id]="docInputId" class="audio_bg">
 
-				<div *ngIf="this.block.fileSrc && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
-					<i class="fas fa-file-upload"></i>
-				</div>
-				<div *ngIf="isDocLoading" class="doc-icon">
-					<i class="fas fa-circle-notch fa-spin"></i>
-				</div>
-				<div *ngIf="!this.block.fileSrc && !isDocLoading" class="doc-icon" (click)="docInput.click()">
-					<i class="far fa-file"></i>
-				</div>
-				<div>
-					<input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />
-				</div>
+			<div *ngIf="this.block.fileSrc && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
+				<i class="fas fa-file-upload"></i>
 			</div>
-			<input formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
-			<input formControlName="fileSrc" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco "/>
+			<div *ngIf="isDocLoading" class="doc-icon">
+				<i class="fas fa-circle-notch fa-spin"></i>
+			</div>
+			<div *ngIf="!this.block.fileSrc && !isDocLoading" class="doc-icon" (click)="docInput.click()">
+				<i class="far fa-file"></i>
+			</div>
+			<div>
+				<input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />
+			</div>
+		</div>
+		<input formControlName="message" type="text"
+			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
+		<input formControlName="fileSrc" type="text"
+			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.DOCUMENT-LINK' | transloco " />
 
-			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="documentMessageForm"></app-default-option-field>
-		</form>
-	</mat-card-content>
-</mat-card>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="documentMessageForm"></app-default-option-field>
+	</form>
+</div>
