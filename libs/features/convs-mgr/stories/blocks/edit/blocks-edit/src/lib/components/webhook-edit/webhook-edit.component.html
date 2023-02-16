@@ -1,0 +1,33 @@
+<div class="form-wrapper">
+  <form [formGroup]="form" action="" class="form-edit">
+    <span class="title">{{ title | transloco }}</span>
+
+    <div class="heading">
+      URL & Method
+    </div>
+
+    <div class="child-1" fxLayout="row" fxLayoutALign="space-between center" fxLayoutGap="5px" fxFlex>
+      <div class="webhook-details">
+        <input type="text" class="url" formControlName="httpUrl"
+          [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
+        <button class="button-select">
+          <select formControlName="httpMethod">
+            <option *ngFor="let  http of httpCategories ; let
+                i=index" [value]="http.method" [selected]="i === 0">{{http.name}}
+            </option>
+          </select>
+        </button>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" fxFlex>
+      <mat-form-field fxFlex *ngIf="variables$ | async as variables" appearance="outline" class="variables">
+        <mat-select placeholder="Variables" multiple>
+          <mat-option *ngFor="let variable of variables" [value]="variable.name">
+            {{variable.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
