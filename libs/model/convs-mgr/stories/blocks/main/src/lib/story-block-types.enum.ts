@@ -161,3 +161,18 @@ export function isOperationBlock(blockType: StoryBlockTypes)
       return false;
   }
 }
+
+export function isMediaBlock(blockType: StoryBlockTypes): boolean {
+  switch (blockType) {
+    case StoryBlockTypes.Image:
+      return true;
+    case StoryBlockTypes.Audio:
+      return true;
+    case StoryBlockTypes.Video:
+      return true;
+    case StoryBlockTypes.Sticker:
+      return true;
+    default:
+      return false
+  }
+}

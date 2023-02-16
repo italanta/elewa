@@ -2,7 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { FileMessage, Message, MessageDirection, TextMessage } from "@app/model/convs-mgr/conversations/messages";
-import { isOutputBlock, StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { isMediaBlock, isOutputBlock, StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { isFileMessage, MessageTypes } from "@app/model/convs-mgr/functions";
 
@@ -32,6 +32,8 @@ export class BotEnginePlay implements IBotEnginePlay
   private orgId: string;
 
   private defaultStory: string;
+
+  private blockSent: StoryBlock;
 
   private chatCommandsManager: ChatCommandsManager;
 
@@ -75,6 +77,13 @@ export class BotEnginePlay implements IBotEnginePlay
     // 
     // So, to ensure faster response to end users, we store all these operations to an array and resolve 
     //      them after we have responded to the user
+
+    // If the last block sent was media, we wait for 500ms 
+    //  before replying as media processing can take a while
+    if(isMediaBlock(this.blockSent.type) && !isMediaBlock(nextBlock.type)) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+    } 
+
     await this.__reply(nextBlock, endUser, message);
 
     this.__move(newCursor, endUser.id);
@@ -82,6 +91,7 @@ export class BotEnginePlay implements IBotEnginePlay
     // Here is where the message chaining happens. 
     //  If it is not an input block we replay until we get hit an input block. 
     if (isOutputBlock(nextBlock.type)) {
+      this.blockSent = nextBlock;
       return await this.play(null, endUser, newCursor);
     }
 
