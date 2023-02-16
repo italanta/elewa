@@ -5,6 +5,7 @@ import { MessageBlockEditComponent } from '@app/features/convs-mgr/stories/block
 import { EmailBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { PhoneBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { WebhookEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { DefaultComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 
 export function getActiveBlock(type: StoryBlockTypes) {
@@ -48,7 +49,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.AudioInput:
       return DefaultComponent;
     case StoryBlockTypes.WebhookBlock:
-      return DefaultComponent;
+      return WebhookEditComponent;
     case StoryBlockTypes.EndStoryAnchorBlock:
       return DefaultComponent;
     case StoryBlockTypes.OpenEndedQuestion:
