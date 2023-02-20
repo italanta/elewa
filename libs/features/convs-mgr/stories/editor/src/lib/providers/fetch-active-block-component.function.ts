@@ -1,5 +1,11 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+
+import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { MessageBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { EmailBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { PhoneBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { WebhookEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { DefaultComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 
 export function getActiveBlock(type: StoryBlockTypes) {
@@ -9,11 +15,11 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.Image:
       return DefaultComponent;
     case StoryBlockTypes.Name:
-      return DefaultComponent;
+      return NameBlockEditComponent;
     case StoryBlockTypes.Email:
-      return DefaultComponent;
+      return EmailBlockEditComponent;
     case StoryBlockTypes.PhoneNumber:
-      return DefaultComponent;
+      return PhoneBlockEditComponent;
     case StoryBlockTypes.QuestionBlock:
       return DefaultComponent;
     case StoryBlockTypes.Location:
@@ -43,11 +49,11 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.AudioInput:
       return DefaultComponent;
     case StoryBlockTypes.WebhookBlock:
-      return DefaultComponent;
+      return WebhookEditComponent;
     case StoryBlockTypes.EndStoryAnchorBlock:
       return DefaultComponent;
     case StoryBlockTypes.OpenEndedQuestion:
-      return DefaultComponent;
+      return OpenEndedQuestionEditComponent;
     default:
       return DefaultComponent;
   }

@@ -1,27 +1,23 @@
-<mat-card [id]="id" *ngIf="listMessageBlock">
-  <mat-card-content>
-    <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
+<div [id]="id" *ngIf="listMessageBlock">
+  <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
-      <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+    <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
 
-      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"></app-default-option-field>
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"></app-default-option-field>
 
-      <div formArrayName="options" fxFlexFill>
-        <div *ngFor="let listItem of listItems.controls; let i = index" class="full-width" fxFlexFill>
-          <span [formGroupName]="i" fxFlex>
-            <div class="inputList">
-              <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
-            <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"
-              [formGroupNameInput]="i" class="input" ></app-option-input-field>
-            </div>
-          </span>
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let listItem of listItems.controls; let i = index">
+        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
+          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
+            class="input"></app-option-input-field>
         </div>
       </div>
+    </div>
 
-    </form>
+  </form>
 
-    <button (click)="addNewOption()" mat-flat-button class="add-button">
-      {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
-    </button>
-  </mat-card-content>
-</mat-card>
+  <button (click)="addNewOption()" mat-flat-button class="add-button">
+    {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+  </button>
+</div>

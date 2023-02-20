@@ -1,4 +1,10 @@
-@use '_variables';
+.user-component {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+
+ min-height: 100%;
+}
 
 .user-photo {
   width: 30px;

@@ -1,36 +1,35 @@
-<mat-card [id]="id" *ngIf="multipleInputMessageBlock">
-  <mat-card-content>
-    <form [formGroup]="multipleInputMessageBlock" fxLayout="column" fxLayoutALign="start center">
+<div [id]="id" *ngIf="multipleInputMessageBlock">
+  <form [formGroup]="multipleInputMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
-      <textarea id="message" name="message" formControlName="message" type="text" rows="1" placeholder="Message"></textarea>
-      <textarea id="addMore" name="addMore" formControlName="addMore" type="text" rows="1" placeholder="Add more message"></textarea>
+    <textarea id="message" name="message" formControlName="message" type="text" rows="1"
+      placeholder="Message"></textarea>
+    <textarea id="addMore" name="addMore" formControlName="addMore" type="text" rows="1"
+      placeholder="Add more message"></textarea>
 
-      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="multipleInputMessageBlock"></app-default-option-field>
-      
-      <div formArrayName="options" fxFlexFill>
-        <div *ngFor="let option of options.controls; let groupIndex = index" class="full-width" fxFlexFill>
-          <div fxLayout="column" fxLayoutALign="start">
-            <span [formGroupName]="groupIndex" fxFlex>
-              <div formArrayName="values" >
-                <div *ngFor="let grpControls of getGroupControls(groupIndex).controls; let fIndex = index">
-                  <div class="inputlist">
-                    <button  (click)="removeList(fIndex, groupIndex)" class="listgone"><i class="far fa-trash-alt"></i></button>
-                    <input [formControlName]="fIndex">
-                  </div>
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of options.controls; let groupIndex = index" class="full-width" fxFlexFill>
+        <div fxLayout="column" fxLayoutALign="start">
+          <span [formGroupName]="groupIndex" fxFlex>
+            <div formArrayName="values">
+              <div *ngFor="let grpControls of getGroupControls(groupIndex).controls; let fIndex = index">
+                <div class="inputlist">
+                  <button (click)="removeList(fIndex, groupIndex)" class="listgone"><i
+                      class="far fa-trash-alt"></i></button>
+                  <input [formControlName]="fIndex">
                 </div>
               </div>
-            </span>
-  
-            <button (click)="addNewOption(groupIndex)" mat-flat-button class="add-button">
-              {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
-            </button>
-          </div>
+            </div>
+          </span>
+
+          <button (click)="addNewOption(groupIndex)" mat-flat-button class="add-button">
+            {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+          </button>
         </div>
       </div>
-    </form>
+    </div>
+  </form>
 
-    <button (click)="addNewOptionGroup()" mat-flat-button class="add-button">
-      {{ 'BOTS.ACTIONS.NEW-LIST' | transloco }}
-    </button>
-  </mat-card-content>
-</mat-card>
+  <button (click)="addNewOptionGroup()" mat-flat-button class="add-button">
+    {{ 'BOTS.ACTIONS.NEW-LIST' | transloco }}
+  </button>
+</div>
