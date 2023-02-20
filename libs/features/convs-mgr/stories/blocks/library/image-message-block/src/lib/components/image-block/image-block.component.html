@@ -11,6 +11,9 @@
                     <ng-template #inputHasImage>
                         <img type="image" class="upload-image" [src]="imageLink" alt="" />
                     </ng-template>
+                    <div *ngIf="isLoading" class="spinner">
+						<div class="spinner"></div>
+					</div>
                 </label>
 
             </div>
