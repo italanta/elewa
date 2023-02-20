@@ -1,5 +1,4 @@
-<mat-card [id]="id" *ngIf="keywordJumpBlock">
-  <mat-card-content>
+<div [id]="id" *ngIf="keywordJumpBlock">
     <form [formGroup]="keywordJumpBlock" fxLayout="column" fxLayoutALign="start center">
 
       <div formArrayName="options" fxFlexFill>
@@ -15,5 +14,9 @@
 
       <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock"></app-default-option-field>
     </form>
-  </mat-card-content>
-</mat-card>
+
+    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
+      fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+    </button>
+</div>

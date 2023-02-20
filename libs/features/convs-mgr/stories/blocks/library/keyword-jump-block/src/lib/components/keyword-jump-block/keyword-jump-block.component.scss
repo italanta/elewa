@@ -28,8 +28,20 @@ textarea:focus-visible {
 .input {
   margin: 0;
   padding-right: 5px;
+  width: 100%;
 }
 .inputList {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.add-button {
+  width: 100%;
+  background-color: var(--convs-mgr-color-primary-purple);
+  border-radius: 5px;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  color: white;
 }

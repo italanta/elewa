@@ -40,4 +40,8 @@ export class KeywordJumpBlockComponent<T> implements AfterViewInit {
       value: [keywordItem?.value ?? ''],
     });
   }
+
+  addNewOption() {
+    this.keywordItems.push(this.addKeywordOptions());
+  }
 }
