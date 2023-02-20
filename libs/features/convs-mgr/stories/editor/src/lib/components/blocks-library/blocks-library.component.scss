@@ -1,6 +1,12 @@
 .nav {
 	max-width: 100%;
+	max-height: 100vh;
 	padding: 10px;
+	margin-bottom: 20%;
+}
+
+.nav:hover{
+	overflow-y: scroll;
 }
 
 h4 {
