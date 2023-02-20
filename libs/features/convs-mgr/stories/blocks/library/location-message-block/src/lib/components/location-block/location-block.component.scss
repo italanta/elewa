@@ -8,15 +8,21 @@ mat-card-title {
 }
 
 input {
-  max-width: 100%;
   height: fit-content !important;
   padding: 5px 10px;
-  margin-bottom: 5px;
-  border-radius: 3px;
   caret-color: var(--convs-mgr-color-text-black);
   color: var(--convs-mgr-color-text-black);
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 5px;
+  max-width: 100%;
+  margin: 5px 0;
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
+  resize: none;
+}
+
+input:focus-visible {
+	border: 1px solid var(--convs-mgr-color-primary-purple);
+	outline-color: var(--convs-mgr-color-primary-purple);
 }
 
 .block {
