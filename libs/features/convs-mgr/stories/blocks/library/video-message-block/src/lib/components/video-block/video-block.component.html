@@ -1,3 +1,6 @@
+
+  
+
 <mat-card [id]="id" *ngIf="videoMessageForm">
 	<mat-card-content>
 		<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
@@ -13,6 +16,9 @@
 							<source [src]="videoUrl" type="video/mp4">
 						</video>
 					</ng-template>
+					<div *ngIf="isLoading" class="spinner">
+						<div class="spinner"></div>
+					</div>
 				</label>
 			</div>
 
