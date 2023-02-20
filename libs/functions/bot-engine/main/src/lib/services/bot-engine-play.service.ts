@@ -81,7 +81,7 @@ export class BotEnginePlay implements IBotEnginePlay
     // If the last block sent was media, we wait for 500ms 
     //  before replying as media processing can take a while
     if(this.blockSent && isMediaBlock(this.blockSent.type) && !isMediaBlock(nextBlock.type)) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 1500));
     } 
 
     await this.__reply(nextBlock, endUser, message);
