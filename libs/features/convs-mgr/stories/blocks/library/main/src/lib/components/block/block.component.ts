@@ -272,10 +272,10 @@ export class BlockComponent implements OnInit {
     this._blockInjectorService.newBlock(block, this.jsPlumb, this.viewPort, this.blocksGroup);
   }
 
-  deleteBlock(block: StoryBlock) {
-    block.deleted = true;
+  deleteBlock() {
+    this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;
-    this._storyService.removeBlock(block);
+    this._storyService.removeBlockConnections(this.block);
     const index = this.viewPort.indexOf(this.ref.hostView);
     this.viewPort.remove(index);
     this._cd.detectChanges();
