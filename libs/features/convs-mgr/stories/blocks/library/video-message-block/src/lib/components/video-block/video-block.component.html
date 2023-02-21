@@ -17,7 +17,7 @@
 						</video>
 					</ng-template> -->
 					<ng-template #inputHasVideo>
-						<video (loadedmetadata)="isLoading = false" *ngIf="!isLoading" class="upload-video" alt="" controls autoplay (loadstart)="isLoading = true">
+						<video (loadedmetadata)="isLoading = true" *ngIf="!isLoading" class="upload-video" alt="" controls autoplay (loadstart)="isLoading = true">
 							<source [src]="videoUrl" type="video/mp4">
 						</video>
 					</ng-template>
