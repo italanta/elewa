@@ -23,7 +23,7 @@ export class ImageBlockComponent implements OnInit {
   @Input() block: ImageMessageBlock;
   @Input() imageMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-  @Input() isLoading = true;
+  @Input() isLoading = false;
 
   type: StoryBlockTypes;
   imagetype = StoryBlockTypes.Image;
