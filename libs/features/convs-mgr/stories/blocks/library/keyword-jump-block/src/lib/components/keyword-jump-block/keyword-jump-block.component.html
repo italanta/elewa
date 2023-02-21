@@ -5,8 +5,7 @@
         <div *ngFor="let keyword of keywordItems.controls; let i = index" class="full-width" fxFlexFill>
           <span [formGroupName]="i" fxFlex>
             <div class="inputList">
-              <app-option-view-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock" [formGroupNameInput]="i"
-                class="input"></app-option-view-field>
+              <app-option-input-field [jsPlumb]="jsPlumb" [isEndpoint]="true" [isReadOnly]="true" [blockFormGroup]="keywordJumpBlock" [formGroupNameInput]="i" class="input"></app-option-input-field>
             </div>
           </span>
         </div>
