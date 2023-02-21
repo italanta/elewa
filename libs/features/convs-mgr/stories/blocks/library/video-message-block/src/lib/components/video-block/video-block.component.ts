@@ -23,7 +23,7 @@ export class VideoBlockComponent implements OnInit {
   @Input() block: VideoMessageBlock;
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-  @Input() isLoading = true;
+  @Input() isLoading = false;
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
