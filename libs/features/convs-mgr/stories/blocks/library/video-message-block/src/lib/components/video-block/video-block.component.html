@@ -11,8 +11,13 @@
 					<div *ngIf="!hasVideo; else inputHasVideo">
 						<i id="icon" class="fas fa-play-circle"></i>
 					</div>
-					<ng-template #inputHasVideo>
+					<!-- <ng-template #inputHasVideo>
 						<video class="upload-video" alt="" controls autoplay>
+							<source [src]="videoUrl" type="video/mp4">
+						</video>
+					</ng-template> -->
+					<ng-template #inputHasVideo>
+						<video (loadedmetadata)="isLoading = false" *ngIf="!isLoading" class="upload-video" alt="" controls autoplay (loadstart)="isLoading = true">
 							<source [src]="videoUrl" type="video/mp4">
 						</video>
 					</ng-template>
