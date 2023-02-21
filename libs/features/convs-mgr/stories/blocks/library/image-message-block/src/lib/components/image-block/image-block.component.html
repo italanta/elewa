@@ -9,7 +9,7 @@
                         <i class="fas fa-image"></i>
                     </div>
                     <ng-template #inputHasImage>
-                        <img type="image" class="upload-image" [src]="imageLink" alt="" />
+                        <img (load)="isLoading = true" *ngIf="!isLoading" type="image" class="upload-image" [src]="imageLink" alt="" />
                     </ng-template>
                     <div *ngIf="isLoading" class="spinner">
 						<div class="spinner"></div>
