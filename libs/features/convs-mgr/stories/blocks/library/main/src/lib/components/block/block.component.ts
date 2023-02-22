@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { CdkPortal, ComponentPortal } from '@angular/cdk/portal';
+import { CdkPortal } from '@angular/cdk/portal';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -8,6 +8,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -36,7 +37,6 @@ import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-questi
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model'
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 /**
  * Block which sends a message from bot to user.
