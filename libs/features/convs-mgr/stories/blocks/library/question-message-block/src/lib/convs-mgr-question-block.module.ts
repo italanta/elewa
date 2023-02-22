@@ -11,6 +11,7 @@ import {
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { QuestionsBlockComponent } from './components/questions-block/questions-block.component';
+import { ConvsMgrTextMessageBlockModule } from '../../../text-message-block/src/lib/convs-mgr-text-message-block.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrTextMessageBlockModule
   ],
 
   declarations: [

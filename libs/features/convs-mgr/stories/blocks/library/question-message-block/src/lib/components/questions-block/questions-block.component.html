@@ -1,7 +1,9 @@
 <div [id]="id" *ngIf="questionMessageBlock">
   <form [formGroup]="questionMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
-    <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+    <!-- <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea> -->
+
+    <app-text-message></app-text-message>
 
     <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"></app-default-option-field>
 

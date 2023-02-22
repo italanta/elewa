@@ -2,6 +2,8 @@
 	<form [formGroup]="replyMessageForm" fxLayout="column" fxLayoutALign="start center">
 
 		<!-- <textarea id="location" name="location" formControlName="location" type="text" rows="3"></textarea> -->
+		<app-text-message></app-text-message>
+		
 		<input [id]="replyInputId" matInput type="text" id="message"
 			placeholder="{{'PAGE-CONTENT.BLOCK.PLACEHOLDER.REPLY' | transloco }}" />
 

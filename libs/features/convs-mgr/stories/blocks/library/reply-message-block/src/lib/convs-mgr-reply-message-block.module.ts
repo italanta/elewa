@@ -13,6 +13,7 @@ import {
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { ReplyBlockComponent } from './components/reply-block/reply-block.component';
+import { ConvsMgrTextMessageBlockModule } from '../../../text-message-block/src';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { ReplyBlockComponent } from './components/reply-block/reply-block.compon
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrTextMessageBlockModule
   ],
 
   declarations: [ReplyBlockComponent],
