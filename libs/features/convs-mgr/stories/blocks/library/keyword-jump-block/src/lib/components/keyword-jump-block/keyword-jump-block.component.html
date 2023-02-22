@@ -1,0 +1,21 @@
+<div [id]="id" *ngIf="keywordJumpBlock">
+    <form [formGroup]="keywordJumpBlock" fxLayout="column" fxLayoutALign="start center">
+
+      <div formArrayName="options" fxFlexFill>
+        <div *ngFor="let keyword of keywordItems.controls; let i = index" class="full-width" fxFlexFill>
+          <span [formGroupName]="i" fxFlex>
+            <div class="inputList">
+              <app-option-input-field [jsPlumb]="jsPlumb" [isEndpoint]="true" [isReadOnly]="true" [blockFormGroup]="keywordJumpBlock" [formGroupNameInput]="i" class="input"></app-option-input-field>
+            </div>
+          </span>
+        </div>
+      </div>
+
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock"></app-default-option-field>
+    </form>
+
+    <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
+      fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+    </button>
+</div>

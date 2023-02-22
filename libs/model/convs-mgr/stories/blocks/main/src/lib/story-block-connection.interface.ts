@@ -1,8 +1,8 @@
 
 /**
- * A StoryBlock connection connects two StoryBlocks together. 
+ * A StoryBlock connection connects two StoryBlocks together.
  *  One as input, the other as output.
- * 
+ *
  * @note A StoryBlockConnection acts as a JSPlumb edge on the editor (@see https://docs.jsplumbtoolkit.com/toolkit/5.x/lib/graph)
  */
 export interface StoryBlockConnection {
