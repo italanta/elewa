@@ -17,7 +17,7 @@ export class NewMessageComponent implements OnChanges
 {
   disabled: boolean;
   @Input() chat: Chat;
-  @Input() status: ChatFlowStatus;
+  @Input() status: ChatFlowStatus | undefined;
   
   message = '';
   user: User;
