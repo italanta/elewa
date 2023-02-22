@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
-import { Chat, ChatFlowStatus } from '@elewa/model/conversations/chats';
-import { ChatsStore } from '@elewa/state/conversations/chats';
 
+import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'elewa-trainer-stats',

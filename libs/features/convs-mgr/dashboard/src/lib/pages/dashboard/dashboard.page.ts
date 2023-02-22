@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { User } from '@iote/bricks';
-import { UserStore } from '@elewa/state/user';
-import { EleUser } from '@elewa/model/user';
+import { iTalUser } from '@app/model/user';
+import { UserStore } from '@app/state/user';
+// import { UserStore } from '@elewa/state/user';
+// import { EleUser } from '@elewa/model/user';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -14,7 +16,7 @@ import { EleUser } from '@elewa/model/user';
 export class DashboardPage implements OnInit
 {
   isLoading = true;
-  user$: Observable<EleUser>;
+  user$: Observable<iTalUser>;
 
   selectVal = 'Onboarding';
 
@@ -29,7 +31,7 @@ export class DashboardPage implements OnInit
 
   }
 
-  onChangeGraph(evt) {
+  onChangeGraph(evt: any) {
     debugger;
   }
 
