@@ -51,4 +51,4 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     StashChatModal
   ]
 })
-export class FeaturesConvsMgrConversationsChatsModule { }
+export class ConvsMgrConversationsChatsModule { }
