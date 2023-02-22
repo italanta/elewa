@@ -13,13 +13,12 @@ import { TranslateService } from '@ngfi/multi-lang';
 
 import { Story } from "@app/model/convs-mgr/stories/main";
 import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { ActiveOrgStore } from "@app/state/organisation";
 import { StoriesStore } from "@app/state/convs-mgr/stories";
 import { FileStorageService } from "@app/state/file";
 import { StoryBlocksStore } from "@app/state/convs-mgr/stories/blocks";
-import { StoryConnectionsStore } from "@app/state/convs-mgr/stories/block-connections";
 
 
 /** Service which can create new stories. */
@@ -30,7 +29,6 @@ export class NewStoryService implements OnDestroy {
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
               private _blocksStore$$: StoryBlocksStore,
-              private _blocksConnectionStore$$: StoryConnectionsStore,
               private _fileStorageService$$: FileStorageService,
               private _router: Router,
               private _toast: ToastService,
@@ -114,24 +112,6 @@ export class NewStoryService implements OnDestroy {
         );
       },
     });
-  }
-
-
-  removeBlockConnections(block: StoryBlock){
-    const blockId = block.id?.toString() as string
-    let connections: StoryBlockConnection[] = []
-
-    this._sbS.add(
-      this._blocksConnectionStore$$.get().subscribe(_connections => {
-        connections = _connections.filter(conn => conn.sourceId.endsWith(blockId) || conn.targetId === blockId);
-        // Mark the connections as deleted
-        connections.forEach(function(value){
-          value.deleted = true;
-        });
-        // Delete from store
-        this._blocksConnectionStore$$.removeMultiple(connections);
-      })
-    );
   }
 
   createStoryEndBlock(orgId: string, storyId: string) {
