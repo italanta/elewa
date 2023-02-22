@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
+import { ConvsMgrConversationsMessagingModule } from '@app/features/convs-mgr/conversations/messaging';
+
 import { ChatCardComponent } from './components/chat-card/chat-card.component';
 import { ChatConversationComponent } from './components/chat-conversation/chat-conversation.component';
 import { ChatDetailHeaderComponent } from './components/chat-detail-header/chat-detail-header.component';
@@ -25,7 +27,8 @@ import { ChatsDetailPage } from './pages/chats-detail/chats-detail.page';
     MaterialDesignModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ConvsMgrConversationsMessagingModule
   ],
 
   declarations: [
