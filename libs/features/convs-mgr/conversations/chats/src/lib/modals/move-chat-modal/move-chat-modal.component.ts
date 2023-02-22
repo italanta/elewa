@@ -1,14 +1,14 @@
+import * as _ from 'lodash';
+
 import {Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-import * as _ from 'lodash';
-
 import { Logger, ToastService } from '@iote/bricks-angular';
+import { BackendService } from '@ngfi/angular';
 
-import { Chat, ChatFlowStatus, ChatJumpPoint, ChatJumpPointMilestone } from '@elewa/model/conversations/chats';
-import { BackendService } from '@ngfire/angular';
-import { ChatJumpPointsStore } from '@elewa/state/conversations/chats';
-
+import { Chat, ChatJumpPoint, ChatJumpPointMilestone, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { ChatJumpPointsStore } from '@app/state/convs-mgr/conversations/chats';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'elewa-move-to-section-modal',
@@ -56,7 +56,7 @@ export class MoveChatModal
   {
     const blockRef = (this.section as ChatJumpPointMilestone).blockId;
     const req = { chatId: this._data.chat.id, action: 'jump', blockReference: blockRef};
-    this._backendService.callFunction('assignChat', req).subscribe();
+    from(this._backendService.callFunction('assignChat', req)).subscribe();
     this.exitModal();
     this._toastService.doSimpleToast('Applying your changes..'); 
   }
