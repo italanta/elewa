@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Breadcrumb } from '@iote/bricks-angular';
+
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
 @Component({
@@ -14,6 +16,8 @@ export class ChatsHomePage
   filterMode = false;
   selected = "Learning";
   currentChat: Chat;
+
+  breadcrumbs: Breadcrumb[] = [];
 
   constructor()
   {}
