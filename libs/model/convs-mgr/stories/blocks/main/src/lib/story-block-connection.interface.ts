@@ -14,5 +14,4 @@ export interface StoryBlockConnection {
 
   /** The target block at which the connection points. */
   targetId: string;
-  deleted?: boolean;
 }
