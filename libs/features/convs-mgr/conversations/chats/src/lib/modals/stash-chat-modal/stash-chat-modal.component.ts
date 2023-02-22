@@ -1,15 +1,16 @@
 import {Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import * as _ from 'lodash';
+import { from } from 'rxjs';
 
 import { Logger, ToastService } from '@iote/bricks-angular';
-
-import { Chat } from '@elewa/model/conversations/chats';
-import { BackendService, UserService } from '@ngfire/angular';
 import { User } from '@iote/bricks';
-import { EleUser } from '@elewa/model/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { UserService, BackendService } from '@ngfi/angular';
+
+import { Chat } from '@app/model/convs-mgr/conversations/chats';
+import { iTalUser } from '@app/model/user';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class StashChatModal implements OnInit
 
   
   constructor(private _fb: FormBuilder,
-              private userService: UserService<EleUser>,
+              private userService: UserService<iTalUser>,
               private _backendService: BackendService,
               private _dialogRef: MatDialogRef<StashChatModal>,
               private _toastService: ToastService,
@@ -61,7 +62,7 @@ export class StashChatModal implements OnInit
     {
       const agentId = this.user.id;
       const req = { chatId: this._data.chat.id, action: 'stash', agentId: agentId, stashReason: this.reason};
-      this._backendService.callFunction('assignChat', req).subscribe();
+      from(this._backendService.callFunction('assignChat', req)).subscribe();
       this.actionComplete();
     }    
   }
