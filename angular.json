@@ -516,6 +516,29 @@
     "model-convs-mgr-stories-blocks-scenario": "libs/model/convs-mgr/stories/blocks/scenario",
     "model-convs-mgr-stories-blocks-structural": "libs/model/convs-mgr/stories/blocks/structural",
     "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
+    "model-finance-payments": {
+      "root": "libs/model/finance/payments",
+      "sourceRoot": "libs/model/finance/payments/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/finance/payments/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/finance/payments"],
+          "options": {
+            "jestConfig": "libs/model/finance/payments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "model-organisation": "libs/model/organisation/main",
     "model-user": "libs/model/user/base",
     "model-user-bot-users": {
