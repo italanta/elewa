@@ -10,7 +10,7 @@ import { ChatStatus } from './end-user.interface';
 /**
  * An end user which 
  */
-export interface ChatUser extends IObject
+export interface Chat extends IObject
 {
   /** Chat ID used by LandBot and acting as general identifier. */
   id: string;
