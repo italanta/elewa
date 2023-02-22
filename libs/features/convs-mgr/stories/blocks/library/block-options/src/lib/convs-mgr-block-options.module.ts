@@ -12,13 +12,13 @@ import { DefaultOptionFieldComponent } from './components/default-option-field/d
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ListOptionComponent } from './components/list-option/list-option.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
-
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -29,6 +29,10 @@ import { ListOptionComponent } from './components/list-option/list-option.compon
     ListOptionComponent,
   ],
 
-  exports: [OptionInputFieldComponent, DefaultOptionFieldComponent,ListOptionComponent],
+  exports: [
+    OptionInputFieldComponent,
+    DefaultOptionFieldComponent,
+    ListOptionComponent,
+  ],
 })
 export class ConvsMgrBlockOptionsModule {}

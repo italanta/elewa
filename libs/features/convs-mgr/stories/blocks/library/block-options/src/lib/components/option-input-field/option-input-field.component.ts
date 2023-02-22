@@ -17,6 +17,8 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit
   @Input() formGroupNameInput: number | string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() optionClass: string;
+  @Input() isEndpoint: boolean;
+  @Input() isReadOnly: boolean;
 
   inputUniqueId: string;
 
@@ -24,7 +26,9 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit
 
   ngOnInit(): void 
   {
-    this.inputUniqueId = `i-${this.formGroupNameInput}-${this.blockFormGroup.value.id}`;
+    if (this.isEndpoint) {
+      this.inputUniqueId = `i-${this.formGroupNameInput}-${this.blockFormGroup.value.id}`;
+    }
   }
 
   ngAfterViewInit(): void 

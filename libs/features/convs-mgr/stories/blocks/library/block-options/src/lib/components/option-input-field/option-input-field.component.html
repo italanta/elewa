@@ -2,7 +2,9 @@
   <div [formGroup]="blockFormGroup" fxFlex>
     <div formArrayName="options" fxFlex>
       <div [formGroupName]="formGroupNameInput" class="option" fxFlex>
-        <input [id]="inputUniqueId" [class]="optionClass" formControlName="message" type="text" placeholder="Click here to edit" fxFlexFill>
+        <input [id]="inputUniqueId" [class]="optionClass" [readOnly]="isReadOnly"
+        [ngClass]="isReadOnly? 'readonly' : ''" formControlName="message"
+          type="text" placeholder="Click here to edit" fxFlexFill>
       </div>
     </div>
   </div>

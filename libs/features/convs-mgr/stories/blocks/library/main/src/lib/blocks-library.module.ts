@@ -37,6 +37,7 @@ import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/block
 import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/open-ended-question-block';
 
 import { ConvsMgrVideoInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-input-block';
+import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/keyword-jump-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
@@ -81,6 +82,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrAnchorBlockModule,
     ConvsMgrVideoInputBlockModule,
     ConvsMgrOpenEndedQuestionBlockModule,
+    ConvsMgrKeywordJumpBlockModule,
 
     FileStateModule
   
