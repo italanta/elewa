@@ -85,6 +85,7 @@
         "VIDEO-INPUT":"Video Input",
         "AUDIO-INPUT":"Audio Input",
         "LOCATION-INPUT":"Location Input",
+        "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook"
       },
       "PLACEHOLDER": {

@@ -67,7 +67,8 @@
         "IMAGE-INPUT": "Entrée d'images",
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position"
+        "LOCATION-INPUT":"saisie de position",
+        "KEYWORD-JUMP": "saut de mots-clés"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
