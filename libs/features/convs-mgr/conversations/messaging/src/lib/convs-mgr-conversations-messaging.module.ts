@@ -14,7 +14,6 @@ import { ResourceMessageComponent } from './components/resource-message/resource
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
     MaterialBricksModule,
     MaterialDesignModule,
     FormsModule

@@ -102,6 +102,8 @@ export class ChatDetailHeaderComponent implements OnChanges
         return "Requested for Assistance";
       case ChatFlowStatus.Stashed:
         return "Stashed";
+      default:
+        return "Flowing";
     }
   }
 

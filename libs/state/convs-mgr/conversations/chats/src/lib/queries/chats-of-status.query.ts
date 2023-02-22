@@ -23,7 +23,7 @@ export class ChatsOfStatusQuery
   {
     return this._chats$$
                   .get(c => c.status === status)
-                  .pipe(map(ch => ___orderBy(ch, (c) => __DateFromStorage(c.createdOn).unix(), 'desc')));
+                  .pipe(map(ch => ___orderBy(ch, (c) => __DateFromStorage(c.createdOn as Date).unix(), 'desc')));
   }
 
 }

@@ -118,6 +118,8 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
         return "Stashed";
       case ChatFlowStatus.Disabled:
         return "Disabled";
+      default:
+        return "Flowing";
     }
   }
 
@@ -169,14 +171,9 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
     return rowFilter.includes(filter);
   }
 
-  applyFilter(filtrString?: string)
+  applyFilter()
   {
-    if(filtrString)
-    {
-      this.filterString = filtrString;
-      return this.dataSource.filter = filtrString;
-    }
-    else if(this.filterString){
+    if(this.filterString){
       this.filterString = '';
       return this.dataSource.filter = '';
     }
@@ -215,6 +212,7 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
         this.dataSource.filter = '';        
     }
 
+    return this.dataSource.filter = this.filterString;
   }
       
 }
