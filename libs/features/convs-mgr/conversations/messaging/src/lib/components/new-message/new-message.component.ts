@@ -1,11 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChange, SimpleChanges} from '@angular/core';
-import { Chat, ChatFlowStatus } from '@elewa/model/conversations/chats';
-import { EleUser } from '@elewa/model/user';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+
+import { from } from 'rxjs';
+
 import { User } from '@iote/bricks';
-import { BackendService, UserService } from '@ngfire/angular';
+import { UserService, BackendService } from '@ngfi/angular';
+
+import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { iTalUser } from '@app/model/user';
 
 @Component({
-  selector: 'elewa-new-message',
+  selector: 'app-new-message',
   templateUrl: './new-message.component.html',
   styleUrls:  ['new-message.component.scss'],
 })
@@ -21,7 +25,7 @@ export class NewMessageComponent implements OnChanges
   @Output()
   newMessage = new EventEmitter<string>();
 
-  constructor(private userService: UserService<EleUser>,
+  constructor(private userService: UserService<iTalUser>,
               private _backendService: BackendService) 
   {
     userService.getUser().subscribe(user => this.user = user);
@@ -59,7 +63,7 @@ export class NewMessageComponent implements OnChanges
     if (this.message && !this.disabled) 
     {
       const data = { chatId: this.chat.id, message: this.message, agentId: this.user.id };
-      this._backendService.callFunction('sendMessage', data).subscribe();
+      from(this._backendService.callFunction('sendMessage', data)).subscribe();
       this.newMessage.emit(this.message);
       this.message = '';
     }

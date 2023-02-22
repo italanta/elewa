@@ -2,6 +2,7 @@ import { IObject } from "@iote/bricks";
 
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { IObject } from "@iote/bricks";
 
 import { IncomingMessagePayload } from "./payload-in.interface";
 
