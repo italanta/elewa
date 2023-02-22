@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 
 import { ConvsMgrConversationsMessagingModule } from '@app/features/convs-mgr/conversations/messaging';
+import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { ChatCardComponent } from './components/chat-card/chat-card.component';
 import { ChatConversationComponent } from './components/chat-conversation/chat-conversation.component';
@@ -19,6 +20,7 @@ import { ViewDetailsModal } from './modals/view-details-modal/view-details-modal
 import { MoveChatModal } from './modals/move-chat-modal/move-chat-modal.component';
 import { ChatsHomePage } from './pages/chats-home/chats-home.page';
 import { ChatsDetailPage } from './pages/chats-detail/chats-detail.page';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -28,7 +30,9 @@ import { ChatsDetailPage } from './pages/chats-detail/chats-detail.page';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ConvsMgrConversationsMessagingModule
+    ConvlPageModule,
+    ConvsMgrConversationsMessagingModule,
+    FlexLayoutModule
   ],
 
   declarations: [
