@@ -6,14 +6,14 @@ import { DataService, Repository } from '@ngfi/angular';
 import { PaginatedScroll } from '@ngfi/infinite-scroll';
 
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
-import { ChatMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Injectable()
 export class MessagesQuery
 {
-  protected _qRepo: Repository<ChatMessage>;
+  protected _qRepo: Repository<Message>;
   private _activeChat: Chat;
 
   constructor(_activeChat$: ActiveChatStore,
@@ -28,7 +28,7 @@ export class MessagesQuery
   {
     this._activeChat = chat;
     
-    return new PaginatedScroll<ChatMessage>
+    return new PaginatedScroll<Message>
                   ({ path: ['sessions', this._activeChat.id, 'messages'],
                      limit: 20,
                      orderByField: 'date',

@@ -1,4 +1,4 @@
-<div class="card" [class.selected]="currentChat?.id === chat.id"
+<div class="card" [class.selected]="currentChat.id === chat.id"
      fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
   <div class="avatar" [class]="getClass()" [class.new-msg]="chat.awaitingResponse">
     <i class="fas fa-user-circle fa-2x"></i>
