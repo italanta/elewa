@@ -63,6 +63,7 @@
         "STICKER": "Autocollant Bloquer",
         "LIST": "Liste Bloquer",
         "DOCUMENT": "Document Bloquer",
+        "KEYWORD-JUMP": "saut de mots-clés",
         "WEBHOOK": "webhook Bloquer"
       },
       "PLACEHOLDER": {
