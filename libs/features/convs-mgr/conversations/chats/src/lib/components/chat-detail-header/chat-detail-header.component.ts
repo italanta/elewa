@@ -19,7 +19,7 @@ import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-ac
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 
 @Component({
-  selector: 'elewa-chat-detail-header',
+  selector: 'app-chat-detail-header',
   templateUrl: './chat-detail-header.component.html',
   styleUrls:  ['./chat-detail-header.component.scss'],
 })

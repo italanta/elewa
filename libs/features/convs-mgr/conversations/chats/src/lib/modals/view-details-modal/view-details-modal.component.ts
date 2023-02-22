@@ -22,6 +22,9 @@ export class ViewDetailsModal
     this.isAdmin = this._data.isAdmin;
   }
 
+  update() {
+    
+  }
   exitModal = () => this._dialogRef.close();
 
 }

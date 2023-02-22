@@ -138,7 +138,7 @@ export class ChatsListComponent implements AfterViewInit
     }
   }
 
-  applyFilter(evt?: { target: HTMLInputElement; } | undefined)
+  applyFilter(evt?: { target: EventTarget | null; } | undefined)
   {
     this.filterByCategory();
     if(evt)
