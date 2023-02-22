@@ -1,18 +1,16 @@
+import * as _ from 'lodash';
+
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-
-import { Logger } from '@iote/bricks-angular';
-import { __FormatDateFromStorage, __DateFromStorage } from '@iote/time';
-
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-import * as _ from 'lodash';
+import { Logger } from '@iote/bricks-angular';
+import { __FormatDateFromStorage, __DateFromStorage } from '@iote/time';
 
-import { Chat, ChatFlowStatus, ChatJumpPoint, ChatStatus } from '@elewa/model/conversations/chats';
-// import { FullChat } from '@elewa/state/conversations/data';
-import { ChatsStore } from '@elewa/state/conversations/chats';
+import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
+import { ChatJumpPoint, Chat, ChatFlowStatus, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'elewa-actions-list',
@@ -39,10 +37,10 @@ export class ActionsListomponent implements OnInit, AfterViewInit
 
   ngOnInit()
   {
-    this.dataSource = new MatTableDataSource([]);
+    this.dataSource = new MatTableDataSource([] as any);
 
     this._chats$
-          .get(ch => ch.flow === ChatFlowStatus.Paused || ch.flow === ChatFlowStatus.PausedByAgent || ch.awaitingResponse )
+          .get(ch => ch.flow === ChatFlowStatus.Paused || ch.flow === ChatFlowStatus.PausedByAgent || ch.awaitingResponse as boolean)
           .subscribe(chats => this.dataSource.data = chats);
   }
 
@@ -53,32 +51,32 @@ export class ActionsListomponent implements OnInit, AfterViewInit
     this.dataSource.sortingDataAccessor = this._sortData;
   }
 
-  private _sortData(chat: Chat, col)
+  private _sortData(chat: Chat, col: string | number)
   {
     switch(col) {
       case 'name': return chat.name;
-      case 'county': return __DateFromStorage(chat.updatedOn).unix;
+      case 'county': return __DateFromStorage(chat.updatedOn as Date).unix;
       case 'phone': return chat.phone;
 
-      default: return chat[col];
+      default: return chat[col as keyof Chat];
     }
   };
 
   getLastChatDate(chat: Chat)
   {
-    return __DateFromStorage(chat.updatedOn).format('MM-DD-YYYY HH:mm:ss');
+    return __DateFromStorage(chat.updatedOn as Date).format('MM-DD-YYYY HH:mm:ss');
   }
 
   getStage(status: ChatStatus)
   {
     switch(status)
     {
-      case ChatStatus.New:
-        return 'Capturing Information';
-      case ChatStatus.Onboarded:
-        return 'Making Purchase';
-      case ChatStatus.Purchased:
-        return 'ITC';
+      case ChatStatus.Running:
+        return 'Running';
+      case ChatStatus.Paused:
+        return 'Paused';
+      case ChatStatus.TakingToAgent:
+        return 'TakingToAgent';
 
       default:
         return 'Unknown';
