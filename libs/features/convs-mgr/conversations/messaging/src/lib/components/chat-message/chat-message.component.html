@@ -7,13 +7,13 @@
      <div                    *ngSwitchCase="'text'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
 
      <!-- Button Options -->
-     <elewa-button-message   *ngSwitchCase="'dialog'" [message]="message"></elewa-button-message>
+     <app-button-message   *ngSwitchCase="'dialog'" [message]="message"></app-button-message>
 
      <!-- Button Press -->
      <div                    *ngSwitchCase="'button'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
 
-     <elewa-resource-message *ngSwitchCase="'image'"  [message]="message"></elewa-resource-message>
-     <elewa-resource-message *ngSwitchCase="'iframe'" [message]="message"></elewa-resource-message>
+     <app-resource-message *ngSwitchCase="'image'"  [message]="message"></app-resource-message>
+     <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
    </div>
 
   <span class="message-timestamp">{{ timestamp }}</span>
