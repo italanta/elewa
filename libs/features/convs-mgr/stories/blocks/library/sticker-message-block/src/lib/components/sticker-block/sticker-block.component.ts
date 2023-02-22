@@ -1,11 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
+import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { UploadFileService } from '@app/state/file';
 
 
@@ -25,9 +28,9 @@ export class StickerBlockComponent implements OnInit {
   file: File;
   isLoadingSticker: boolean;
   isStickerLoaded: string;
-  stickerLink = "";
+  stickerLink: string = "";
   stickerInputId: string;
-  defaultImage = "assets/images/lib/block-builder/sticker-block-placeholder.png"
+  defaultImage: string = "assets/images/lib/block-builder/sticker-block-placeholder.png"
 
   type: StoryBlockTypes;
   stickerType = StoryBlockTypes.Sticker;
@@ -41,6 +44,8 @@ export class StickerBlockComponent implements OnInit {
   {
     this.stickerInputId = `stckr-${this.id}`
   }
+
+  ngAfterViewInit(): void {}
 
   async processSticker(event: any) 
   {

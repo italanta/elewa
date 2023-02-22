@@ -1,6 +1,5 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { KeywordJumpBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { MessageBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { EmailBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -55,8 +54,6 @@ export function getActiveBlock(type: StoryBlockTypes) {
       return DefaultComponent;
     case StoryBlockTypes.OpenEndedQuestion:
       return OpenEndedQuestionEditComponent;
-    case StoryBlockTypes.keyword:
-      return KeywordJumpBlockEditComponent;
     default:
       return DefaultComponent;
   }

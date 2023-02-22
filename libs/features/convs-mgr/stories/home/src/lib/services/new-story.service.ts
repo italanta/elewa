@@ -114,6 +114,7 @@ export class NewStoryService implements OnDestroy {
     });
   }
 
+
   createStoryEndBlock(orgId: string, storyId: string) {
     let endBlock: EndStoryAnchorBlock = {
       id: 'story-end-anchor',
