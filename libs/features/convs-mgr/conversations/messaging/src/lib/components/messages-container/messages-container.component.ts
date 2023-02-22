@@ -1,22 +1,21 @@
+import * as _ from 'lodash';
+
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
-import * as moment from 'moment';
-
-import * as _ from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 import { Logger }            from '@iote/bricks-angular';
-import { PaginatedScroll }   from '@ngfire/infinite-scroll';
+import { PaginatedScroll } from '@ngfi/infinite-scroll';
 
-import { ChatMessage, MessageTypes }   from '@elewa/model/conversations/messages';
-import { MessagesQuery } from '@elewa/state/conversations/messages';
-import { Chat } from '@elewa/model/conversations/chats';
+import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
+import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
 @Component({
-  selector: 'elewa-messages-container',
+  selector: 'app-messages-container',
   templateUrl: './messages-container.component.html',
   styleUrls:  ['./messages-container.component.scss']
 })
@@ -28,11 +27,11 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 
   subscription: Subscription;
 
-  messages:  ChatMessage[];
-  messages$: Observable<ChatMessage[]>;
+  messages:  Message[];
+  messages$: Observable<Message[]>;
 
   @ViewChild('container') private _container: ElementRef;
-  model: PaginatedScroll<ChatMessage>;
+  model: PaginatedScroll<Message>;
 
   isLoaded = false;
   newMessages = false;
@@ -71,9 +70,9 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
       this._logger.log(() => '[MessagesContainerComponent] - Detected change in messages-subscr');
 
       // TODO: Weird bug in paginator seems to skip ordering on new load, so we re-order here.
-      this.messages = _.orderBy(msgs, m => __DateFromStorage(m.date));
+      this.messages = _.orderBy(msgs, m => __DateFromStorage(m.createdOn as Date));
 
-      this.messages = this.messages.filter(msg => msg.type !== MessageTypes.Event)
+      // this.messages = this.messages.filter(msg => msg.type !== MessageTypes.Event)
 
       this.chat.lastMsg = this.messages[this.messages.length - 1]
 
@@ -89,7 +88,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
     });
   }
 
-  scrollHandler(e) : void
+  scrollHandler(e: any) : void
   {
     if(this.isLoaded)
     {
@@ -109,9 +108,9 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
     catch(err) { }
   }
 
-  isNewDate(message: ChatMessage)
+  isNewDate(message: Message)
   {
-    const newDate = __DateFromStorage(message.createdOn);
+    const newDate = __DateFromStorage(message.createdOn as Date);
     if(!this.lastDate || this.lastDate.diff(newDate, 'days'))
     {
       this.lastDate = newDate;
