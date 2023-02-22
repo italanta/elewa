@@ -104,5 +104,9 @@
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-video-input-block>
         </div>
+        <div *ngSwitchCase="keywordJumpType">
+            <app-keyword-jump-block [id]="id" [block]="block" [keywordJumpBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-keyword-jump-block>
+        </div>
     </div>
 </mat-card>
