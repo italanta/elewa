@@ -26,6 +26,14 @@ import { ResourceMessageComponent } from './components/resource-message/resource
     MessagesContainerComponent,
     NewMessageComponent,
     ResourceMessageComponent
+  ],
+
+  exports: [
+    ButtonMessageComponent,
+    ChatMessageComponent,
+    MessagesContainerComponent,
+    NewMessageComponent,
+    ResourceMessageComponent
   ]
 })
-export class FeaturesConvsMgrConversationsMessagingModule {}
+export class ConvsMgrConversationsMessagingModule {}
