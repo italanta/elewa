@@ -1,23 +1,20 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, SimpleChanges, OnChanges } from '@angular/core';
+import * as _ from 'lodash';
 
-import { Logger } from '@iote/bricks-angular';
-import { Chat, ChatFlowStatus } from '@elewa/model/conversations/chats';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-// DataPerChatQuery
-// import { FullChat } from '@elewa/state/conversations/data';
-import { ChatStatus } from '@elewa/model/conversations/chats';
-import { ChatsStore } from '@elewa/state/conversations/chats';
-
-// import { map } from 'rxjs/operators';
-import { __DateFromStorage } from '@iote/time';
-import * as _ from 'lodash';
-import { DataService, Repository } from '@ngfire/angular';
-import { Payment, PaymentStatus } from '@elewa/model/finance/payments';
 import { map } from 'rxjs/operators';
+
+import { Logger } from '@iote/bricks-angular';
+import { __DateFromStorage } from '@iote/time';
+import { DataService, Repository } from '@ngfi/angular';
+
+import { Chat, ChatStatus, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { Payment, PaymentStatus } from '@app/model/finance/payments';
+import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-overview-table',
@@ -90,7 +87,7 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
     this.isLoading = false;
   }
 
-  private _sortData(chat: Chat, col)
+  private _sortData(chat: Chat, col: string | number)
   {
     switch(col) {
       case 'name': return   chat.name;
@@ -98,7 +95,7 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
       case 'last-active': return  chat.updatedOn;
       case 'status': return  chat.flow;
 
-      default: return chat[col];
+      default: return chat[col as keyof Chat];
     }
   }
 
@@ -163,7 +160,7 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
 
   getLastChatDate(chat: Chat)
   {
-    return __DateFromStorage(chat.updatedOn).format('MM-DD-YYYY HH:mm:ss');
+    return __DateFromStorage(chat.updatedOn as Date).format('MM-DD-YYYY HH:mm:ss');
   }
 
   private _filterData(row: Chat, filter: string)
