@@ -1,14 +1,11 @@
+import * as _ from 'lodash';
+
 import {Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-import * as _ from 'lodash';
-
 import { Logger, ToastService } from '@iote/bricks-angular';
-
-import { Chat, ChatFlowStatus, ChatJumpPoint, ChatJumpPointMilestone } from '@elewa/model/conversations/chats';
-import { BackendService } from '@ngfire/angular';
-import { ChatJumpPointsStore } from '@elewa/state/conversations/chats';
-
+import { BackendService } from '@ngfi/angular';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'elewa-move-to-section-modal',
@@ -33,7 +30,8 @@ export class ConfirmActionModal
 
   confirm()
   {
-    this._backendService.callFunction(this._data.action, this._data.req).subscribe();
+    from(this._backendService.callFunction(this._data.action, this._data.req)).subscribe();
+    
     this.exitModal();
     if(this.resume)
     {
