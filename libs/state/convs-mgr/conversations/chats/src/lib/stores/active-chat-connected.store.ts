@@ -16,7 +16,9 @@ import { ChatsStore } from './chats.store';
  *              -> Will result in reload of child collections every time this object updates!
  *                 While only thing we need for load of child collections is the chat id.
 */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class ActiveChatConnectedStore extends Store<Chat>
 {
   protected store = 'active-chat-connected-store';

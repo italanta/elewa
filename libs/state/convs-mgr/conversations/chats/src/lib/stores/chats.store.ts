@@ -8,7 +8,9 @@ import { DataService, Repository } from '@ngfi/angular';
 
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class ChatsStore extends DataStore<Chat>
 {
   protected store = 'chat-store';
