@@ -1,11 +1,12 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { KeywordMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 @Component({
   selector: 'app-keyword-jump-block',
