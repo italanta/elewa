@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -7,11 +7,15 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
+const MAX_OPTION_LENGTH = 20;
+
 @Component({
   selector: 'app-questions-block',
   templateUrl: './questions-block.component.html',
   styleUrls: ['./questions-block.component.scss'],
 })
+
+
 export class QuestionsBlockComponent implements OnInit, AfterViewInit {  
   @ViewChild('inputOtion') inputOtion: ElementRef;
 
@@ -43,13 +47,16 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   addQuestionOptions (option? : ButtonsBlockButton<any>) {
     return this._fb.group({
       id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
-      message: [option?.message ?? ''],
+      message: [option?.message ?? '', Validators.maxLength(MAX_OPTION_LENGTH)],
       value: [option?.value ?? '']
     })
   }
 
   addNewOption() {
-    this.options.push(this.addQuestionOptions());
+    if (this.options.length < 3) {
+      this.options.push(this.addQuestionOptions());
+    }
+    
   }
   deleteInput(i: number) {
     this.options.removeAt(i);
