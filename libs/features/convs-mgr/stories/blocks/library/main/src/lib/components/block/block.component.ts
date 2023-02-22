@@ -36,7 +36,7 @@ import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-questi
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model'
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
-import { NewStoryService } from 'libs/features/convs-mgr/stories/home/src/lib/services/new-story.service';
+import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 /**
  * Block which sends a message from bot to user.
@@ -93,7 +93,7 @@ export class BlockComponent implements OnInit {
               private _fb: FormBuilder,
               private _blockPortalBridge: BlockPortalService,
               private _blockInjectorService: BlockInjectorService,
-              private _storyService: NewStoryService,
+              private _connectionsService: BlockConnectionsService,
               private _logger: Logger
   ) { }
 
@@ -275,7 +275,7 @@ export class BlockComponent implements OnInit {
   deleteBlock() {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;
-    this._storyService.removeBlockConnections(this.block);
+    this._connectionsService.deleteBlockConnections(this.block);
     const index = this.viewPort.indexOf(this.ref.hostView);
     this.viewPort.remove(index);
     this._cd.detectChanges();
