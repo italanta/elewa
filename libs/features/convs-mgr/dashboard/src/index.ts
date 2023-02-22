@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-dashboard.module';
+export * from './lib/convs-mgr-dashboard.module';
