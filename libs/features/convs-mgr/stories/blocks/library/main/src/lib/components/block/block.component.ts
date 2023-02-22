@@ -34,7 +34,8 @@ import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.m
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
-import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model'
+import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model';
+import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
 
@@ -78,6 +79,7 @@ export class BlockComponent implements OnInit {
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
+  keywordJumpType = StoryBlockTypes.keyword;
 
 
   blockFormGroup: FormGroup;
@@ -209,6 +211,10 @@ export class BlockComponent implements OnInit {
           break;
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.keyword:
+          this.blockFormGroup = _CreateKeywordJumpBlockMessageForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
         default:
