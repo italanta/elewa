@@ -2,7 +2,7 @@ import { Timestamp } from '@firebase/firestore-types';
 
 import { IObject } from '@iote/bricks';
 
-import { CatalogueItem } from '@elewa/model/finance/sales';
+import { CatalogueItem } from '@app/model/finance/sales';
 
 import { PaymentStatus } from './payment-status.enum';
 
