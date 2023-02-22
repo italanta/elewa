@@ -11,7 +11,7 @@ import { ChatJumpPointsStore } from '@app/state/convs-mgr/conversations/chats';
 import { from } from 'rxjs';
 
 @Component({
-  selector: 'elewa-move-to-section-modal',
+  selector: 'app-move-to-section-modal',
   styleUrls: ['move-chat-modal.component.scss'],
   templateUrl: 'move-chat-modal.component.html',
 })

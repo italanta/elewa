@@ -13,7 +13,7 @@
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
-    <button *ngIf="!chatIsPaused(chat) && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button matTooltip="Pause Chat"
+    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button matTooltip="Pause Chat"
               (click)="pauseChat()">
         <i class="fas fa-pause-circle"></i>
     </button>

@@ -6,7 +6,7 @@ import { BackendService } from '@ngfi/angular';
 import { from } from 'rxjs';
 
 @Component({
-  selector: 'elewa-move-to-section-modal',
+  selector: 'app-move-to-section-modal',
   styleUrls: ['confirm-action-modal.component.scss'],
   templateUrl: 'confirm-action-modal.component.html',
 })

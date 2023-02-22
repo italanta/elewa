@@ -26,9 +26,9 @@ export class ChatCardComponent implements OnChanges
     }
   }
 
-  convertDate(date: Date)
+  convertDate(date: Date | undefined)
   {
-    return __DateFromStorage(date);
+    return __DateFromStorage(date as Date);
   }
 
   getClass()

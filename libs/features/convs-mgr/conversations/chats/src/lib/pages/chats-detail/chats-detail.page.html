@@ -5,15 +5,15 @@
   <div class="section-container">
 
     <div class="section-header">
-      <elewa-chat-detail-header [chat]="chat"></elewa-chat-detail-header>
+      <app-chat-detail-header [chat]="chat"></app-chat-detail-header>
     </div>
 
     <div class="section-body" id="chat-container" fxLayout="column" fxLayoutAlign="end">
       <div class="container-inner">
-        <elewa-messages-container></elewa-messages-container>
+        <app-messages-container></app-messages-container>
       </div>
 
-      <elewa-new-message [chat]="chat" [status]="chat.flow"></elewa-new-message>
+      <app-new-message [chat]="chat" [status]="chat.flow"></app-new-message>
     </div>
 
   </div>

@@ -27,7 +27,7 @@
 
     <ng-template #filter>
       <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field appearance="standard" fxFlex="80" class="filter">
+        <mat-form-field fxFlex="80" class="filter">
           <i matPrefix class="fas fa-search" style="margin-right: 10px;"></i>
           <input matInput (keyup)="applyFilter($event)" autocomplete="off" cdkFocusInitial/>
         </mat-form-field>

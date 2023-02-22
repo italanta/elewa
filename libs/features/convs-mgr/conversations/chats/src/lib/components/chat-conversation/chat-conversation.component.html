@@ -1,16 +1,16 @@
 <div fxFill class="conversations left-margin" fxLayout="column" *ngIf="chat else noChat">
 
   <div class="section-header" fxFlex="10">
-    <elewa-chat-detail-header [chat]="chat"></elewa-chat-detail-header>
+    <app-chat-detail-header [chat]="chat"></app-chat-detail-header>
   </div>
 
   <div class="section-body" id="chat-container" fxFlex="80" fxLayout="column">
     <div class="container-inner">
-      <elewa-messages-container fxLayout="column" [chat]="chat"  fxFlex></elewa-messages-container>
+      <app-messages-container fxLayout="column" [chat]="chat"  fxFlex></elewa-messages-container>
     </div>
   </div>
 
-  <elewa-new-message [chat]="chat" [status]="chat.flow" fxFlex="10"></elewa-new-message>
+  <app-new-message [chat]="chat" [status]="chat.flow" fxFlex="10"></app-new-message>
 </div>
 
 <ng-template #noChat>
