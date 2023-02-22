@@ -12,9 +12,10 @@ import { Logger } from '@iote/bricks-angular';
 import { __DateFromStorage } from '@iote/time';
 
 import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
-// import { Payment, PaymentStatus } from '@app/model/convs-mgr/payments';
 import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+
 
 @Component({
   selector: 'app-chats-list',
@@ -137,7 +138,7 @@ export class ChatsListComponent implements AfterViewInit
     }
   }
 
-  applyFilter(evt?)
+  applyFilter(evt?: { target: HTMLInputElement; } | undefined)
   {
     this.filterByCategory();
     if(evt)
