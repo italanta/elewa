@@ -196,6 +196,7 @@
       "@app/model/finance/payments": [
         "libs/model/finance/payments/src/index.ts"
       ],
+      "@app/model/finance/sales": ["libs/model/finance/sales/src/index.ts"],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
