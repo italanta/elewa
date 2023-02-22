@@ -15,6 +15,8 @@ import { ConfirmActionModal } from './modals/confirm-action-modal/confirm-action
 import { StashChatModal } from './modals/stash-chat-modal/stash-chat-modal.component';
 import { ViewDetailsModal } from './modals/view-details-modal/view-details-modal.component';
 import { MoveChatModal } from './modals/move-chat-modal/move-chat-modal.component';
+import { ChatsHomePage } from './pages/chats-home/chats-home.page';
+import { ChatsDetailPage } from './pages/chats-detail/chats-detail.page';
 
 @NgModule({
   imports: [
@@ -27,15 +29,19 @@ import { MoveChatModal } from './modals/move-chat-modal/move-chat-modal.componen
   ],
 
   declarations: [
+    ChatsHomePage,
+    ChatsDetailPage,
+
     ChatCardComponent,
     ChatConversationComponent,
     ChatDetailHeaderComponent,
     ChatsListComponent,
     ChatsOverviewTableComponent,
+    
     ConfirmActionModal,
     ViewDetailsModal,
     MoveChatModal,
-    StashChatModal,
+    StashChatModal
   ]
 })
 export class FeaturesConvsMgrConversationsChatsModule { }
