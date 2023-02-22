@@ -68,11 +68,25 @@
             {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
           </span>
         </div>
+
       </div>
     </div>
     <!-- end Active-bots section -->
 
     <!-- Section Chats -->
+
+    <div [routerLink]="['/chats']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
+    [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
+
+    <div *ngIf="rlaHome.isActive">
+      <div [routerLink]="['/chats']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item class="menu-item menu-item--one">
+        <i class="far fa-comments"></i>
+        <span *ngIf="isExpanded" class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
+        </span>
+      </div>
+    </div>
+  </div>
     <!-- <div [routerLink]="['/home','org', orgId, 'flows', flowId, 'chats']" routerLinkActive #rlaChats="routerLinkActive"
       mat-list-item class="container" fxLayout="column">
 
