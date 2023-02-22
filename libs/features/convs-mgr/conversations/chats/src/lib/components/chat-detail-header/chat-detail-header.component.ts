@@ -1,19 +1,22 @@
 import { Timestamp } from '@firebase/firestore-types';
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import { BackendService, UserService } from '@ngfire/angular';
 
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
+import { from } from 'rxjs';
+
+import { BackendService, UserService } from '@ngfi/angular';
+import { ToastService } from '@iote/bricks-angular';
 import { __FormatDateFromStorage } from '@iote/time';
 
-import { Chat, ChatFlowStatus } from '@elewa/model/conversations/chats';
-import { ToastService } from '@iote/bricks-angular';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChatFlowStatus, Chat } from '@app/model/convs-mgr/conversations/chats';
+import { iTalUser } from '@app/model/user';
+
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
-import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
-import { User } from '@iote/bricks';
+import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component'
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
-import { EleUser } from '@elewa/model/user';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'elewa-chat-detail-header',
@@ -29,9 +32,9 @@ export class ChatDetailHeaderComponent implements OnChanges
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
   agentPaused: boolean;
 
-  user: EleUser;
+  user: iTalUser;
 
-  constructor(private userService: UserService<EleUser>,
+  constructor(private userService: UserService<iTalUser>,
               private _backendService: BackendService,
               private _router: Router,
               private _toastService: ToastService,
@@ -49,12 +52,12 @@ export class ChatDetailHeaderComponent implements OnChanges
       if(this.confirmDialogRef)
       {
         this.confirmDialogRef.close();
-        this.confirmDialogRef = null;
+        this.confirmDialogRef = null as any;
       }
       else if(this.moveChatDialogRef)
       {
         this.moveChatDialogRef.close();
-        this.moveChatDialogRef = null;
+        this.moveChatDialogRef = null as any;
       }
     }
   }
@@ -202,7 +205,10 @@ export class ChatDetailHeaderComponent implements OnChanges
   completeCourse()
   {
     const req = { chatId: this.chat.id,  course: "ITC" };
-    this._backendService.callFunction('endCourse', req).subscribe();
+
+    const callBackendService = from(this._backendService.callFunction('endCourse', req));
+
+    callBackendService.subscribe();
   }
 
   goBack()
