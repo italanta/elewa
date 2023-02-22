@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Chat } from '@elewa/model/conversations/chats';
 
+import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-home-page',

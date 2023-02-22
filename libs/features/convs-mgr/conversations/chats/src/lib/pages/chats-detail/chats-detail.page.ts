@@ -4,10 +4,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { ActiveChatConnectedStore } from '@elewa/state/conversations/chats';
-
-import { Chat, ChatFlowStatus } from '@elewa/model/conversations/chats';
-
+import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-detail-page',
