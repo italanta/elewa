@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+
+const MAX_OPTION_LENGTH = 24;
 
 @Component({
   selector: 'app-list-block',
@@ -40,11 +42,12 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
     return this._fb.group({
       id: [listItem?.id ?? `${this.id}-${this.listItems.length + 1}`],
       message: [listItem?.message ?? ''],
-      value: [listItem?.value ?? '']
+      value: [listItem?.value ?? '', Validators.maxLength(MAX_OPTION_LENGTH)]
     })
   }
 
   addNewOption() {
+    if (this.listItems.length < 10)
     this.listItems.push(this.addListOptions());
   }
   deleteInput(i:number) {
