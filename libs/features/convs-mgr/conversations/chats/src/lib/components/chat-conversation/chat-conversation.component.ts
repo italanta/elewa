@@ -1,12 +1,12 @@
-import { Subscription } from 'rxjs';
-
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+
+import { Subscription } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { ActiveChatConnectedStore, ChatsStore } from '@elewa/state/conversations/chats';
+import { ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
 
-import { Chat } from '@elewa/model/conversations/chats';
+import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
 
 @Component({
