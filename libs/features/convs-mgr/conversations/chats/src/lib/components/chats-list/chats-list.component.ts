@@ -1,17 +1,20 @@
-import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Input, QueryList, ViewChildren } from '@angular/core';
-import { Chat, ChatFlowStatus } from '@elewa/model/conversations/chats';
-import { Payment, PaymentStatus } from '@elewa/model/finance/payments';
-import { ActiveChatConnectedStore, ChatsStore } from '@elewa/state/conversations/chats';
-
 import * as _ from 'lodash';
 
-import { Logger } from '@iote/bricks-angular';
-import { __DateFromStorage } from '@iote/time';
-import { DataService } from '@ngfire/angular';
-import { filter, map, tap } from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
+import { DataService } from '@ngfi/angular';
+import { Logger } from '@iote/bricks-angular';
+import { __DateFromStorage } from '@iote/time';
+
+import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+
+// import { Payment, PaymentStatus } from '@app/model/convs-mgr/payments';
+import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-list',
