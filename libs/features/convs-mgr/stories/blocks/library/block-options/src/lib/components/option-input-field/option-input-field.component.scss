@@ -16,6 +16,11 @@ input {
   border: 1px solid var(--convs-mgr-color-text-black);
 }
 
+.readonly {
+  background-color: var(--convs-mgr-color-tertiary-tint);
+  border: none;
+}
+
 .success {
   background-color: green;
   color: white;
