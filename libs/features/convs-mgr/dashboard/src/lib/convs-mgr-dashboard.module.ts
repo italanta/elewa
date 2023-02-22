@@ -22,4 +22,4 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
     TrainerStatsComponent
   ]
 })
-export class FeaturesConvsMgrDashboardModule {}
+export class ConvsMgrDashboardModule {}
