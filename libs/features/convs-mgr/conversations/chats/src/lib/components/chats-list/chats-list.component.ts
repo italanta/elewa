@@ -33,7 +33,7 @@ export class ChatsListComponent implements AfterViewInit
   filterMode = false;
   selected = "Help Requests";
   chats: Chat[];
-  displayedChats: Chat[];
+  displayedChats: Chat[] = [];
   filtrString: string = '';
   paidCustomers: string[] = [];
 
