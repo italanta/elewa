@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
+
 import { ChatFlowStatus, Chat } from '@app/model/convs-mgr/conversations/chats';
-// import { Chat, ChatFlowStatus } from '@app/model/conversations/chats';
 
 import { Logger } from '@iote/bricks-angular';
 import { __DateFromStorage } from '@iote/time';
