@@ -1,5 +1,6 @@
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { IObject } from "@iote/bricks";
 
 import { IncomingMessagePayload } from "./payload-in.interface";
 
@@ -11,7 +12,7 @@ import { IncomingMessagePayload } from "./payload-in.interface";
  * 
  *@type {Message} is our standardized format returned by @see {IncomingMessageParser} and passed to the bot engine.
 */
-export interface Message
+export interface Message extends IObject
 {
   /** The unique id that is assigned to the third party platform */
   id?                 : string;

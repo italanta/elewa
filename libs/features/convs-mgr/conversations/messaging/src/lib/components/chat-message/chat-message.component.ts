@@ -1,18 +1,19 @@
 import {Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Message, MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages';
 
 import { __NewDate, __DateFromStorage } from '@iote/time';
 
-import { ChatMessage, MessageOrigins, TextMessage }   from '@elewa/model/conversations/messages';
+// import { ChatMessage, MessageOrigins, TextMessage }   from '@elewa/model/conversations/messages';
 
 @Component({
-  selector: 'elewa-chat-message',
+  selector: 'app-chat-message',
   templateUrl: './chat-message.component.html',
   styleUrls:  ['./chat-message.component.scss'],
 })
 export class ChatMessageComponent implements OnInit
 {
-  @Input() message: ChatMessage;
+  @Input() message: Message;
 
   // Calculated properties
   messageIsNotMine: boolean;
@@ -23,16 +24,16 @@ export class ChatMessageComponent implements OnInit
 
   ngOnInit()
   {
-    this.messageIsNotMine = this.message.origin === MessageOrigins.User;
+    this.messageIsNotMine = this.message.direction === MessageDirection.FROM_END_USER;
 
-    this.agentMessage = this.message.origin === MessageOrigins.Operator;
+    this.agentMessage = this.message.direction === MessageDirection.TO_END_USER;
 
-    this.timestamp = __DateFromStorage(this.message.date).format('DD/MM HH:mm');
+    this.timestamp = __DateFromStorage(this.message.createdOn as Date).format('DD/MM HH:mm');
   }
 
-  textMessage(message: ChatMessage)
+  textMessage(message: Message)
   {
-    const html = this._convertText((message as TextMessage).message);
+    const html = this._convertText((message as TextMessage).text);
     return this._sanetizer.bypassSecurityTrustHtml(html);
   }
 

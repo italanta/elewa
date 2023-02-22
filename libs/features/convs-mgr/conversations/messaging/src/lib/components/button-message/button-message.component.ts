@@ -1,16 +1,16 @@
 import {Component, OnInit, Input } from '@angular/core';
 import { __NewDate, __DateFromStorage } from '@iote/time';
 
-import { ButtonMessage }   from '@elewa/model/conversations/messages';
+import { QuestionMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
-  selector: 'elewa-button-message',
+  selector: 'app-button-message',
   templateUrl: './button-message.component.html',
   styleUrls:  ['./button-message.component.scss'],
 })
 export class ButtonMessageComponent implements OnInit
 {
-  @Input() message: ButtonMessage;
+  @Input() message: QuestionMessage;
 
   ngOnInit() { }
 

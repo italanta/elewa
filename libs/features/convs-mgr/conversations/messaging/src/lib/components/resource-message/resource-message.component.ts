@@ -1,21 +1,21 @@
 import {Component, Input } from '@angular/core';
 import { __NewDate, __DateFromStorage } from '@iote/time';
 
-import { ResourceMessage }   from '@elewa/model/conversations/messages';
-import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { FileMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
-  selector: 'elewa-resource-message',
+  selector: 'app-resource-message',
   templateUrl: './resource-message.component.html',
   styleUrls:  ['./resource-message.component.scss'],
 })
 export class ResourceMessageComponent
 {
-  @Input() message: ResourceMessage;
+  @Input() message: FileMessage;
 
   constructor(private _sanetizer: DomSanitizer) {}
 
-  cleanUrl = (url: string) => this._sanetizer.bypassSecurityTrustResourceUrl(this._embedYoutube(this.message.url))
+  cleanUrl = (url: string | undefined) => this.message.url && this._sanetizer.bypassSecurityTrustResourceUrl(this._embedYoutube(this.message.url))
 
   // Checks if youtube url and adjusts embedding if that's the case.
   private _embedYoutube(url: string)
