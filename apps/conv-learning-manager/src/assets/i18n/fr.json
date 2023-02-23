@@ -152,5 +152,8 @@
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
     }
+  },
+  "OPTION-INPUT": {
+    "MAX-CHARACTERS": "maximum de caractères atteint"
   }
 }

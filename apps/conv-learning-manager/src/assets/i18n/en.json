@@ -188,5 +188,8 @@
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
     }
+  },
+  "OPTION-INPUT": {
+    "MAX-CHARACTERS": "maximum characters reached"
   }
 }
