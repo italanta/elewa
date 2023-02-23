@@ -16,7 +16,7 @@ export interface Chat extends IObject
   id: string;
 
   /** Important! Stored in format 712345678 */
-  phone: string;
+  phoneNumber: string;
 
   name: string;
 
