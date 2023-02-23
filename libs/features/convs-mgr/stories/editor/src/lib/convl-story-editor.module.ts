@@ -24,6 +24,8 @@ import { ManageChannelStoryLinkService } from './providers/manage-channel-story-
 import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 @NgModule({
   imports: [
@@ -32,8 +34,8 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
-    CommonModule,
-    ConvlStoryEditorRouterModule
+    ConvlStoryEditorRouterModule,
+    InfiniteScrollModule
   ],
 
   declarations: [
