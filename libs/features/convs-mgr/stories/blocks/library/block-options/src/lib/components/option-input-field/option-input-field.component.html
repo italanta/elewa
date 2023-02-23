@@ -6,7 +6,7 @@
         [ngClass]="isReadOnly? 'readonly' : ''" formControlName="message"
           type="text" placeholder="Click here to edit" [maxlength]="charMaxlength" [(ngModel)]="optionValue" fxFlexFill>
         <span class="length-error" *ngIf="optionValue.length >= charMaxlength">
-          maximum characters reached
+          {{ 'OPTION-INPUT.MAX-CHARACTERS' | transloco }}
         </span>
       </div>
     </div>
