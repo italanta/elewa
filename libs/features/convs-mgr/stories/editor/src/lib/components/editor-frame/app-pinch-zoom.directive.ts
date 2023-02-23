@@ -7,7 +7,7 @@ import { clamp } from 'lodash';
 })
 export class PinchZoomDirective implements OnInit {
   @Input() scaleFactor = 0.03;
-  @Input() zoomThreshold = 4;
+  @Input() zoomThreshold = 2;
   @Input() initialZoom = 1;
   @Input() debounceTime = 100; // in ms
   scale: number;
