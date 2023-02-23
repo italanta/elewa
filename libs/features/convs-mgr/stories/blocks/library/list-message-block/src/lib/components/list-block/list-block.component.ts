@@ -20,11 +20,11 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   type: StoryBlockTypes;
-  listType= StoryBlockTypes.List;
+  listType = StoryBlockTypes.List;
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.block.options?.forEach((listItem) => {
@@ -32,11 +32,11 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
     })
   }
 
-  get listItems () : FormArray {
+  get listItems(): FormArray {
     return this.listMessageBlock.controls['options'] as FormArray;
   }
 
-  addListOptions (listItem? : ButtonsBlockButton<T>) {
+  addListOptions(listItem?: ButtonsBlockButton<T>) {
     return this._fb.group({
       id: [listItem?.id ?? `${this.id}-${this.listItems.length + 1}`],
       message: [listItem?.message ?? ''],
@@ -45,9 +45,9 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   addNewOption() {
-    this.listItems.push(this.addListOptions());
+    if (this.listItems.length < 10) this.listItems.push(this.addListOptions());
   }
-  deleteInput(i:number) {
+  deleteInput(i: number) {
     this.listItems.removeAt(i);
   }
 }
