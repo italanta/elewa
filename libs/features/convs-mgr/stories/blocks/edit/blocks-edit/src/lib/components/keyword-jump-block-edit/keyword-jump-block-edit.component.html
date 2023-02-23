@@ -7,7 +7,7 @@
         <span [formGroupName]="i" fxFlex>
           <div class="inputList">
             <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
-            <app-option-input-field [blockFormGroup]="form" [isEndpoint]="false" [isReadOnly]="false" [formGroupNameInput]="i"
+            <app-option-input-field [blockFormGroup]="form" [isNotEndpoint]="true" [isReadOnly]="false" [formGroupNameInput]="i"
               class="input" ></app-option-input-field>
           </div>
         </span>
