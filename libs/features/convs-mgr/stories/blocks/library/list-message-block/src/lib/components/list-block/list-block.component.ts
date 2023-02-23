@@ -7,6 +7,9 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
+const listOptionInputLimit: number = 24;
+const listOptionsArrayLimit: number = 10;
+
 @Component({
   selector: 'app-list-block',
   templateUrl: './list-block.component.html',
@@ -21,6 +24,8 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
 
   type: StoryBlockTypes;
   listType = StoryBlockTypes.List;
+
+  readonly listOptionInputLimit = listOptionInputLimit;
 
   constructor(private _fb: FormBuilder) { }
 
@@ -45,7 +50,7 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   addNewOption() {
-    if (this.listItems.length < 10) this.listItems.push(this.addListOptions());
+    if (this.listItems.length < listOptionsArrayLimit) this.listItems.push(this.addListOptions());
   }
   deleteInput(i: number) {
     this.listItems.removeAt(i);
