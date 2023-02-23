@@ -17,10 +17,15 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
 
   constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
 
+
   ngAfterViewInit() {
     const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
 
     this.frameLoaded.emit(frame);
-
   }
+
+  onScroll(event: any): void {
+    console.log(event)
+  }
+
 }
