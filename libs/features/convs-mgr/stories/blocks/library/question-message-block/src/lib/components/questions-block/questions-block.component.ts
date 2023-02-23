@@ -12,7 +12,7 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './questions-block.component.html',
   styleUrls: ['./questions-block.component.scss'],
 })
-export class QuestionsBlockComponent implements OnInit, AfterViewInit {  
+export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   @ViewChild('inputOtion') inputOtion: ElementRef;
 
   @Input() id: string;
@@ -26,7 +26,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   questiontype = StoryBlockTypes.QuestionBlock;
   blockFormGroup: FormGroup;
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.block.options?.forEach((option) => {
@@ -34,13 +34,13 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
-  get options () : FormArray {
+  get options(): FormArray {
     return this.questionMessageBlock.controls['options'] as FormArray;
   }
 
-  addQuestionOptions (option? : ButtonsBlockButton<any>) {
+  addQuestionOptions(option?: ButtonsBlockButton<any>) {
     return this._fb.group({
       id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [option?.message ?? ''],
@@ -49,7 +49,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   }
 
   addNewOption() {
-    this.options.push(this.addQuestionOptions());
+    if (this.options.length < 3) this.options.push(this.addQuestionOptions());
   }
   deleteInput(i: number) {
     this.options.removeAt(i);
