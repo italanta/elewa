@@ -9,14 +9,19 @@ import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
+import { ActiveOrgStore } from '@app/state/organisation';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessagesQuery
 {
   protected _qRepo: Repository<Message>;
   private _activeChat: Chat;
 
-  constructor(_activeChat$: ActiveChatStore,
+  constructor(
+                private _activeOrg: ActiveOrgStore,
+                _activeChat$: ActiveChatStore,
                private _dataService: DataService,
                protected _logger: Logger)
   {
@@ -26,12 +31,14 @@ export class MessagesQuery
 
   getPaginator(chat: Chat)
   {
+    const orgId = this._activeOrg._activeOrg; 
+    
     this._activeChat = chat;
     
     return new PaginatedScroll<Message>
-                  ({ path: ['sessions', this._activeChat.id, 'messages'],
+                  ({ path: [`orgs/${orgId}/end-users`, this._activeChat.id, 'messages'],
                      limit: 20,
-                     orderByField: 'date',
+                     orderByField: 'createdOn',
                      orderByFn: (date: Date) => __DateFromStorage(date).unix,
                      reverse: true, prepend: true
                    },
