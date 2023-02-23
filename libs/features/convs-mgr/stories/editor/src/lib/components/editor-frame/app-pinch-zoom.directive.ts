@@ -1,6 +1,7 @@
+import { clamp } from 'lodash';
 import { Directive, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
-import { clamp } from 'lodash';
+
 
 @Directive({
   selector: '[convlPinchZoom]',
