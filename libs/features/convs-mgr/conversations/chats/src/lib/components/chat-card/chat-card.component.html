@@ -7,10 +7,10 @@
   <div class="text-section" fxLayout="column" fxFlex>
     <div class="top-section" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="name-section">
-        {{ chat.name }}
+        {{ chat.name || 'No Name'}}
       </div>
       <div class="date-section" fxFlex="30">
-        {{ convertDate(chat.updatedOn)}}
+        {{ convertDate(chat.createdOn)}}
       </div>
     </div>
     <div class="bottom-section" fxLayout="row" fxLayoutAlign="end">
