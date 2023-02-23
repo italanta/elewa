@@ -56,7 +56,7 @@ export class ActionsListomponent implements OnInit, AfterViewInit
     switch(col) {
       case 'name': return chat.name;
       case 'county': return __DateFromStorage(chat.updatedOn as Date).unix;
-      case 'phone': return chat.phone;
+      case 'phone': return chat.phoneNumber;
 
       default: return chat[col as keyof Chat];
     }
