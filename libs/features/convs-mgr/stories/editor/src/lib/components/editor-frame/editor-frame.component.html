@@ -1,5 +1,15 @@
-<div class="frame-bg" fxLayout="column" fxLayoutALign="start"  fxFlexFill>
-  <div #editor id="editor-frame" style="position: relative;" fxFlex="95">
+<div class="frame-bg" fxLayout="column" fxLayoutALign="start" fxFlexFill>
+  <div
+    #editor
+    id="editor-frame"
+    style="position: relative"
+    fxFlex="95"
+    convlPinchZoom
+    (pinch$)="onPinch($event)"
+    [scaleFactor]="0.03"
+    [zoomThreshold]="1"
+    [initialZoom]="1"
+  >
     <ng-template #viewport></ng-template>
   </div>
 </div>
