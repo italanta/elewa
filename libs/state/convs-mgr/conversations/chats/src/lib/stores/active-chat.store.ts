@@ -7,7 +7,9 @@ import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
 import { ActiveChatConnectedStore } from './active-chat-connected.store';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ActiveChatStore extends Store<Chat>
 {
   protected store = 'active-chat-store';
