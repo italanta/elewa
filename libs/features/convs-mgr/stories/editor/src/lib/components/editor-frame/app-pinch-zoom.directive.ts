@@ -7,7 +7,7 @@ import { clamp } from 'lodash';
 })
 export class PinchZoomDirective implements OnInit {
   @Input() scaleFactor = 0.03;
-  @Input() zoomThreshold = 9;
+  @Input() zoomThreshold = 4;
   @Input() initialZoom = 1;
   @Input() debounceTime = 100; // in ms
   scale: number;
@@ -20,7 +20,7 @@ export class PinchZoomDirective implements OnInit {
     if (!$event.ctrlKey) return;
     $event.preventDefault();
     let scale = this.scale - $event.deltaY * this.scaleFactor;
-    scale = clamp(scale, 1, this.zoomThreshold);
+    scale = clamp(scale, 0.5, this.zoomThreshold);
     this.calculatePinch(scale);
   }
   calculatePinch(scale: number) {
