@@ -1,7 +1,6 @@
 <div [id]="id" *ngIf="textMessageForm">
 	<form [formGroup]="textMessageForm" fxLayout="column" fxLayoutALign="start center">
-		<textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
-
+    <app-text-message [form]="textMessageForm"></app-text-message>
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="textMessageForm"></app-default-option-field>
 	</form>
 </div>
