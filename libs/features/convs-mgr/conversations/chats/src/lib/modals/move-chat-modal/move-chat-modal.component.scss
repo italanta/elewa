@@ -1,5 +1,3 @@
-@import 'libs/elements/theme.scss';
-
 .section-body {
   padding: 0 10px;    
 }
@@ -20,7 +18,7 @@
 }
 
 .submit-btn {
-  background-color: mat-color($accent, A200);;
+  background-color: var(--convs-mgr-color-primary-purple);
   color: #000;
 }
 

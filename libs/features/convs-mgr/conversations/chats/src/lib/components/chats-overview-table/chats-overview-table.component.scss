@@ -1,5 +1,3 @@
-@import 'libs/elements/theme.scss';
-
 .new-msg-icon {
   color: red;
 }
@@ -13,5 +11,5 @@
 }
 
 .complete {
-  color: mat-color($accent, A200);;
+  color: var(--convs-mgr-color-primary-yellow);
 }
