@@ -10,7 +10,7 @@
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
           <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
           <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
-            class="input"></app-option-input-field>
+            class="input" [charMaxlength]=24></app-option-input-field>
         </div>
       </div>
     </div>
