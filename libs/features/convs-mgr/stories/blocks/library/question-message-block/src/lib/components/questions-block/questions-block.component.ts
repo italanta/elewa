@@ -7,6 +7,9 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
+const questionOptionInputLimit: number = 20;
+const questionOptionsArrayLimit: number = 3;
+
 @Component({
   selector: 'app-questions-block',
   templateUrl: './questions-block.component.html',
@@ -25,6 +28,8 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   type: StoryBlockTypes;
   questiontype = StoryBlockTypes.QuestionBlock;
   blockFormGroup: FormGroup;
+
+  readonly questionOptionInputLimit = questionOptionInputLimit;
 
   constructor(private _fb: FormBuilder) { }
 
@@ -49,7 +54,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   }
 
   addNewOption() {
-    if (this.options.length < 3) this.options.push(this.addQuestionOptions());
+    if (this.options.length < questionOptionsArrayLimit) this.options.push(this.addQuestionOptions());
   }
   deleteInput(i: number) {
     this.options.removeAt(i);
