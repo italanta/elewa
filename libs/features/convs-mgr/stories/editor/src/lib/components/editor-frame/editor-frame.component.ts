@@ -25,7 +25,6 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
 
   }
   onPinch(level:number){
-    console.log("Level ",level);
     this.pinchZoom.emit(level)
   }
 }
