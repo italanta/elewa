@@ -1,4 +1,4 @@
-<convl-page [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
+<convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
 
   <!-- Main body page -->
   <div fxLayout="row" class="story-editor" fxFlexFill>
@@ -19,7 +19,7 @@
       </ng-template>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign="start" fxFlex>
+    <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
       <!-- Convl page subbar -->
       <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
@@ -52,8 +52,8 @@
         </div>
       </div>
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90">
-      </convl-story-editor-frame>
+        <convl-story-editor-frame  (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90">
+        </convl-story-editor-frame>
     </div>
 
   </div>
