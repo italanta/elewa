@@ -12,12 +12,12 @@
 						<i id="icon" class="fas fa-play-circle"></i>
 					</div>
 					<!-- <ng-template #inputHasVideo>
-						<video class="upload-video" alt="" controls autoplay>
+						<video (load)="isLoading = false" *ngIf="!isLoading" class="upload-video" [src]="videoLink" alt="" controls autoplay (loadstart)="isLoading = false">
 							<source [src]="videoUrl" type="video/mp4">
 						</video>
 					</ng-template> -->
 					<ng-template #inputHasVideo>
-						<video (loadedmetadata)="isLoading = true" *ngIf="!isLoading" class="upload-video" alt="" controls autoplay (loadstart)="isLoading = true">
+						<video (load)="isLoading = true" *ngIf="!isLoading" class="upload-video" alt="" controls autoplay    (loadstart)="isLoading = true"                       >
 							<source [src]="videoUrl" type="video/mp4">
 						</video>
 					</ng-template>
