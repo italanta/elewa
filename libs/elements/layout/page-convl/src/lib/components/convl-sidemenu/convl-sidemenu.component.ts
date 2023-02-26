@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { SidemenuToggleService } from '../../../../../../../services/sidemenu-toggle.service'
+import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
