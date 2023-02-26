@@ -30,14 +30,14 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
               private sideMenu:SidemenuToggleService,
               @Inject('ENVIRONMENT') private _env: any)
   {
-    this.sideMenu.expand.subscribe(v=>this.isExpanded=v)
+    this.sideMenu.expand.subscribe(isOpen => this.isExpanded = isOpen)
   }
 
   ngOnInit()
   {
     this.projectName = this._env.project.name;
     this.projectInfo = this._env.project.info;
-    this.sideMenu.expand.subscribe(v=>this.isExpanded=v)
+    this.sideMenu.expand.subscribe(isOpen => this.isExpanded = isOpen)
   }
 
   
