@@ -7,4 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class SidemenuToggleService {
   expand = new BehaviorSubject(true);
 
+  toggleExpand(value:boolean){
+    this.expand.next(value)
+  }
 }
