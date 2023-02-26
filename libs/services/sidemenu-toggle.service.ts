@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidemenuToggleService {
-  // expand: BehaviorSubject<boolean>;
   expand = new BehaviorSubject(true);
 
 }
