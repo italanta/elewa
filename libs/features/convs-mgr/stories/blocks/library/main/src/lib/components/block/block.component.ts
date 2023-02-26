@@ -38,7 +38,7 @@ import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.m
 import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
-
+import { SidemenuToggleService } from 'libs/services/sidemenu-toggle.service';
 /**
  * Block which sends a message from bot to user.
  */
@@ -96,7 +96,8 @@ export class BlockComponent implements OnInit {
               private _blockPortalBridge: BlockPortalService,
               private _blockInjectorService: BlockInjectorService,
               private _connectionsService: BlockConnectionsService,
-              private _logger: Logger
+              private _logger: Logger,
+              private sideMenu:SidemenuToggleService
   ) { }
 
   ngOnInit(): void {
@@ -265,6 +266,7 @@ export class BlockComponent implements OnInit {
   }
 
   editBlock() {
+    this.sideMenu.expand.next(false)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 
