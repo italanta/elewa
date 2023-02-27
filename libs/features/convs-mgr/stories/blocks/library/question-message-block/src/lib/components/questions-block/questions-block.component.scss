@@ -22,11 +22,20 @@ textarea:focus-visible {
 }
 
 .listgone {
+  cursor: pointer;
   border: none;
   background-color: transparent;
 }
 
 .input {
   margin: 0;
+}
+.inputList {
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+.fa-trash-alt {
+  color: var(--convs-mgr-color-primary-purple);
   padding-right: 5px;
 }
