@@ -7,5 +7,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./video-input-block-edit.component.scss'],
 })
 export class VideoInputBlockEditComponent {
-  @Input() form: FormGroup
+  @Input() form: FormGroup;
+  @Input() title: string;
 }
