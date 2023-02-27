@@ -16,7 +16,6 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   @Input() user: any;
-  @Output() menuToggled: EventEmitter<any> = new EventEmitter();
   
   getLogo = 'assets/images/italanta-logo.png';
   projectName: string;
@@ -44,7 +43,6 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   
 
   toggleMenu () {
-    this.menuToggled.emit();
     this.sideMenu.toggleExpand(!this.isExpanded)
     
   }
