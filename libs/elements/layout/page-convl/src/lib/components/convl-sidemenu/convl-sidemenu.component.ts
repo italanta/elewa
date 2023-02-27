@@ -37,7 +37,6 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   {
     this.projectName = this._env.project.name;
     this.projectInfo = this._env.project.info;
-    this._sbS.sink = this.sideMenu.observable$.subscribe(isOpen => this.isExpanded = isOpen)
   }
 
   
