@@ -24,8 +24,6 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
     this.frameLoaded.emit(frame);
   }
 
-  onScroll(event: any): void {
-    console.log(event)
-  }
+  onScroll(): void { }
 
 }

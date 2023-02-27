@@ -1,6 +1,6 @@
 <div id="frame-bg" class="frame-bg" fxLayout="column" fxLayoutALign="start" fxFlexFill>
   <div #editor id="editor-frame" infinite-scroll [scrollWindow]="true" [horizontal]="true" [infiniteScrollContainer]="editorVC" [fromRoot]="false" [infiniteScrollDistance]="9"
-    [infiniteScrollThrottle]="150" (scrolled)="onScroll($event)" style="position: relative;" fxFlex="grow">
+    [infiniteScrollThrottle]="150" (scrolled)="onScroll()" style="position: relative;" fxFlex="grow">
     <ng-template id="viewport" #viewport></ng-template>
   </div>
 </div>
