@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class SidemenuToggleService {
-  private expand = new BehaviorSubject(true);
-  observable$ = this.expand.asObservable();
+  private _expand = new BehaviorSubject(true);
+  observable$ = this._expand.asObservable();
 
   toggleExpand(value: boolean) {
-    this.expand.next(value);
+    this._expand.next(value);
   }
 }
