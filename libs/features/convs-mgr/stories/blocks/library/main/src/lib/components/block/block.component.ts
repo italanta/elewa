@@ -266,7 +266,7 @@ export class BlockComponent implements OnInit {
   }
 
   editBlock() {
-    this.sideMenu.expand.next(false)
+    this.sideMenu.toggleExpand(false)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 
