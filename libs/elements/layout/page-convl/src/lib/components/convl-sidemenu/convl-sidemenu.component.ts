@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
