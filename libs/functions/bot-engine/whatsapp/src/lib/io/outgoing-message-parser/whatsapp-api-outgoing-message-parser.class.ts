@@ -14,13 +14,16 @@ import
   WhatsAppImageMessage,
   WhatsAppInteractiveMessage,
   WhatsAppMessageType,
+  WhatsAppTemplateMessage,
+  WhatsappTemplateParameter,
   WhatsAppTextMessage,
   WhatsAppVideoMessage,
 } from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
+import { MessageTemplateConfig } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -239,6 +242,41 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
       ...mediaMessage,
     };
     return generatedMessage;
+  }
+
+  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string)
+  {
+    const { name, languageCode, params } = templateConfig;
+
+    const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
+    {
+      return {
+        type: WhatsAppMessageType.TEXT,
+        text: param,
+      };
+    });
+
+    // Create the message template payload which will be sent to whatsapp
+    const messageTemplate: WhatsAppTemplateMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.TEMPLATE,
+      template: {
+        name,
+        language: {
+          code: languageCode,
+        },
+        components: [
+          {
+            type: "body",
+            parameters: templateParams,
+          }
+        ]
+      }
+    };
+
+    return messageTemplate;
   }
 
   // getDocumentBlockParserOut(storyBlock: StoryBlock, phone: string) {

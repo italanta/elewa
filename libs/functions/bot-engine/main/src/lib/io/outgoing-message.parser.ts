@@ -1,4 +1,4 @@
-import { Message, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Message, MessageTemplateConfig, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -26,6 +26,8 @@ export abstract class OutgoingMessageParser
   abstract getVideoBlockParserOut    (storyBlock: StoryBlock, phone: string): any
 
   abstract getListBlockParserOut     (storyBlock: StoryBlock, phone: string): any
+
+  abstract getMessageTemplateParserOut (templateConfig: MessageTemplateConfig, phone: string): any
 
   // abstract getStickerBlockParserOut  (storyBlock: StoryBlock, phone: string): Message
 
@@ -65,5 +67,9 @@ export abstract class OutgoingMessageParser
     }
 
     return parser(storyBlock, phone);
+  }
+
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string) {
+    return this.getMessageTemplateParserOut(templateConfig, phone);
   }
 }
