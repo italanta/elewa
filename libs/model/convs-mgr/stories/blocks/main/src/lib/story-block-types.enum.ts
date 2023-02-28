@@ -140,8 +140,10 @@ export function isOutputBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.Sticker:
       return true;
+    case StoryBlockTypes.Document:
+      return true;
     default:
-      return false
+      return false;
   }
 }
 /**
@@ -176,6 +178,8 @@ export function isMediaBlock(blockType: StoryBlockTypes): boolean {
     case StoryBlockTypes.Video:
       return true;
     case StoryBlockTypes.Sticker:
+      return true;
+    case StoryBlockTypes.Document:
       return true;
     default:
       return false
