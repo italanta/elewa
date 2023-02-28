@@ -1,5 +1,8 @@
 .option {
   width: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 input {
@@ -29,4 +32,9 @@ input {
 .failed {
   background-color: firebrick;
   color: white;
+}
+
+.length-error {
+  color: red;
+  font-size: x-small;
 }
