@@ -41,6 +41,7 @@ export interface WhatsAppStickerMessage extends WhatsAppOutgoingMessage {
 export interface WhatsAppDocumentMessage extends WhatsAppOutgoingMessage {
   type: WhatsAppMessageType,
   document: {
+    filename: string;
     caption?: string;
     link: string;
   }
