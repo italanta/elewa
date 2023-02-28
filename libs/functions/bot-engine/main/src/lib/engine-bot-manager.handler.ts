@@ -78,7 +78,7 @@ export class EngineBotManager
 
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
 
-      const END_USER_ID = generateEndUserId(message, this._activeChannel.channel.type, this._activeChannel.channel.n);
+      const END_USER_ID = generateEndUserId(message.endUserPhoneNumber, this._activeChannel.channel.type, this._activeChannel.channel.n);
 
       if(!this.endUser) {
         this.endUser = await this._endUserService$.getOrCreateEndUser(END_USER_ID, message.endUserPhoneNumber);
