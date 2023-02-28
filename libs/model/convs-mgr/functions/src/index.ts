@@ -10,4 +10,5 @@ export * from './lib/whatsapp/whatsapp-media-message.interface';
 export * from './lib/whatsapp/whatsapp-message-response.interface';
 export * from './lib/whatsapp/whatsapp-message-types.interface';
 export * from './lib/whatsapp/whatsapp-text-message.interface';
+export * from './lib/whatsapp/whatsapp-template-message.interface';
 
