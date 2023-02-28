@@ -7,6 +7,8 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
+import { MultiLangModule } from '@ngfi/multi-lang';
+
 import { OptionInputFieldComponent } from './components/option-input-field/option-input-field.component';
 import { DefaultOptionFieldComponent } from './components/default-option-field/default-option-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +23,7 @@ import { ListOptionComponent } from './components/list-option/list-option.compon
     MaterialBricksModule,
     FormsModule,
     ReactiveFormsModule,
+    MultiLangModule
   ],
 
   declarations: [
@@ -35,4 +38,4 @@ import { ListOptionComponent } from './components/list-option/list-option.compon
     ListOptionComponent,
   ],
 })
-export class ConvsMgrBlockOptionsModule {}
+export class ConvsMgrBlockOptionsModule { }
