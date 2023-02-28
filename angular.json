@@ -393,6 +393,34 @@
       "tags": []
     },
     "features-convs-mgr-stories-blocks-main": "libs/features/convs-mgr/stories/blocks/main",
+    "features-convs-mgr-stories-blocks-process-inputs": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/process-inputs",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/process-inputs/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/process-inputs"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/process-inputs/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/process-inputs/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/process-inputs/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
     "functions-base": "libs/functions/base",
