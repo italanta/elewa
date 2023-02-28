@@ -2,16 +2,17 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
 
-import { ChannelDataService } from '@app/functions/bot-engine';
+import { ChannelDataService, generateEndUserId, MessagesDataService } from '@app/functions/bot-engine';
 import { WhatsAppOutgoingMessage } from '@app/model/convs-mgr/functions';
-import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { MessageDirection, OutgoingMessagePayload } from '@app/model/convs-mgr/conversations/messages';
 
 import { WhatsappActiveChannel } from './models/whatsapp-active-channel.model';
 
-import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 import { StandardMessageOutgoingMessageParser } from './io/outgoing-message-parser/standardized-message-to-outgoing-message.parser';
-import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { WhatsappOutgoingMessageParser } from './io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class';
 
+import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
  *    handles the message and forwards it to whatsapp
@@ -21,6 +22,7 @@ import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/me
  */
 export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<any, RestResult>
 {
+  private _orgId: string;
   /**
    * Listens to messages sent from the farmbetter app to the end user, processes them and 
    *    forwards them to the end user
@@ -38,6 +40,8 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<any, RestRes
    */
   public async execute(outgoingPayload: any, context: HttpsContext, tools: HandlerTools) 
   {
+    let outgoingMessagePayload: OutgoingMessagePayload;
+
     try {
       // STEP 1: Check if the message is meant for the end user
       if (outgoingPayload.direction !== MessageDirection.TO_END_USER) return { status: 200 } as RestResult;
@@ -54,16 +58,41 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<any, RestRes
 
       const communicationChannel = await _channelService$.getChannelByConnection(outgoingPayload.n) as WhatsAppCommunicationChannel;
 
+      // Set the org id
+      this._orgId = communicationChannel.orgId;
+
+      // Set the technical ref
+      const n = communicationChannel.n;
+
       // STEP 3: Create Active Channel
       //         We need to create the active channel so that the engine can use it to process and send the message
       //         The active channel contains the Communication Channel and a send message function
       //         So here we create an instance of the SendWhatsAppMessageModel which implements the active channel
       const whatsappActiveChannel = new WhatsappActiveChannel(tools, communicationChannel);
 
-      // STEP 4: Get the outgoing message in whatsapp format
-      const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      // STEP 4: Get the latest message from the conversation
+      const msgService = new MessagesDataService(tools);
 
-      // STEP 5: Send the message
+      // STEP 5: Get the outgoing message in whatsapp format
+      outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+
+      const endUserId = generateEndUserId(outgoingPayload.endUserPhoneNumber, PlatformType.WhatsApp, n);
+
+      const latestMessage = await msgService.getLatestMessage(endUserId, this._orgId);
+
+      // Get the date in milliseconds
+      const latestMessageTime = new Date(latestMessage ? latestMessage.createdOn : 0).getTime();
+
+      // Check if the last message sent was more than 24hours ago
+      if ((Date.now() - latestMessageTime) > 86400000) {
+        const templateConfig = communicationChannel.templateConfig;
+        // Send the opt-in message template
+
+        // Get the opt-in message template
+        outgoingMessagePayload = new WhatsappOutgoingMessageParser().parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber);
+      }
+
+      // STEP 6: Send the message
       await whatsappActiveChannel.send(outgoingMessagePayload as WhatsAppOutgoingMessage);
 
       return { success: true } as RestResult200;
