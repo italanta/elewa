@@ -1,3 +1,7 @@
+mat-card {
+	min-width: 200px;
+}
+
 .block {
 	position: relative;
 	cursor: move;
@@ -10,11 +14,8 @@
 }
 
 .block-title-container {
+	display: flex;
 	align-items: center;
-}
-
-.outer:hover {
-	cursor: move;
 }
 
 .icon-color {
@@ -23,38 +24,48 @@
 
 .block-title {
 	font-weight: 600;
-	font-size: small;
-	margin: 0 0 0 .4em;
+	font-size: small;	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	justify-content: space-between;
 	padding: 10px;
-	padding-bottom: 0;
+	padding-bottom: 1px;
+
+	&:hover {
+		cursor: move;
+	}
 }
 
 .block-card {
 	border-radius: 10px;
-	padding: 0%;
+	padding: 10px;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icons {
-	cursor: pointer;
-}
+.icon-block {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 
-.fa-clone {
-	padding-right: 10px;
+	.icons {
+		cursor: pointer;
+	
+		* {
+			color: var(--convs-mgr-color-medium-shade);
+			
+			&:hover {
+				color: var(--convs-mgr-color-primary-purple);
+			}
+		}
+	}
 }
-
-.fa-clone,
-.fa-trash-alt {
-	color: var(--convs-mgr-color-medium-shade);
-}
-
-.fa-clone:hover,
-.fa-trash-alt:hover {
-	color: var(--convs-mgr-color-primary-purple);
+.hide-block {
+	display: none;
 }
 
 ::ng-deep .mat-mdc-card-content {

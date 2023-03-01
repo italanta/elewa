@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PortalModule } from '@angular/cdk/portal';
 import {
   FlexLayoutModule,
   MaterialBricksModule,
@@ -28,7 +29,7 @@ import { ConvsMgrReplyMessageBlockModule } from '@app/features/convs-mgr/stories
 
 import { ConvsMgrJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/jump-story-block';
 import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block';
-import { ConvsMgrImageInputBlockModule} from '@app/features/convs-mgr/stories/blocks/library/image-input-block'
+import { ConvsMgrImageInputBlockModule} from '@app/features/convs-mgr/stories/blocks/library/image-input-block';
 import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
 import { ConvsMgrStoriesWebhookBlockModule } from '@app/features/convs-mgr/stories/blocks/library/webhook-block';
 
@@ -36,6 +37,8 @@ import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/block
 import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/open-ended-question-block';
 import { ConvsMgrMultiContentInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multi-content-input-block';
 
+import { ConvsMgrVideoInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-input-block';
+import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/keyword-jump-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
@@ -50,6 +53,7 @@ import { BlockComponent } from './components/block/block.component';
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
+    PortalModule,
 
     ReactiveFormsModule,
 
@@ -71,16 +75,16 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrTextMessageBlockModule,
     ConvsMgrMultipleInputMessageBlockModule,
     ConvsMgrFailBlockModule,
-
     ConvsMgrLocationInputBlockModule,
-
     ConvsMgrImageInputBlockModule,
     ConvsMgrAudioInputBlockModule,
     ConvsMgrStoriesWebhookBlockModule,
     ConvsMgrMultiContentInputBlockModule,
 
     ConvsMgrAnchorBlockModule,
+    ConvsMgrVideoInputBlockModule,
     ConvsMgrOpenEndedQuestionBlockModule,
+    ConvsMgrKeywordJumpBlockModule,
 
     FileStateModule
   

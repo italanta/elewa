@@ -2,6 +2,11 @@ app-blocks-library {
   width: 200px;
 }
 
+mat-sidenav {
+  width: 400px;
+  height: 400px;
+}
+
 .sub-bar {
   padding: 10px 5px;
   background-color: white;
@@ -30,6 +35,29 @@ app-blocks-library {
 
 .nav {
   border-right: solid black 1px;
+}
+
+.wrapper-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: auto;
+  position: relative;
+  padding: 1rem 0.5rem;
+  min-height: calc(100vh - 4rem);
+
+  .btn-wrapper {
+    padding: 0.2rem;
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    
+    .close-btn {
+      font-size: 1.2rem;
+      color: black;
+    }
+  }
 }
 
 ::ng-deep .mat-mini-fab .mat-button-wrapper {

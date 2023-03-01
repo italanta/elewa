@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { StoryConnectionsStore } from '../stores/story-connections.store';
+import { SubSink } from 'subsink';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BlockConnectionsService {
+export class BlockConnectionsService implements OnDestroy {
+  private _sbS = new SubSink();
 
   constructor(private _connections$$: StoryConnectionsStore) { }
 
@@ -19,5 +21,17 @@ export class BlockConnectionsService {
 
   addNewConnections(connections: StoryBlockConnection[]): Observable<StoryBlockConnection[]> {
     return this._connections$$.addMultiple(connections as StoryBlockConnection[], true);
+  }
+
+  deleteConnection(connection: StoryBlockConnection) {
+    return this._connections$$.remove(connection).subscribe();
+  }
+
+  deleteBlockConnections(block: StoryBlock){
+    this._connections$$.deleteBlockConnections(block);
+  }
+
+  ngOnDestroy(): void {
+    this._sbS.unsubscribe();
   }
 }

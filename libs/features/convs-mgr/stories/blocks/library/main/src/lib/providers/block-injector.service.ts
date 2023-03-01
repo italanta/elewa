@@ -25,8 +25,12 @@ export class BlockInjectorService
     blockComp.instance.id = block.id as string;
     blockComp.instance.block = block;
     blockComp.instance.jsPlumb = jsPlumb;
+    blockComp.instance.viewPort = viewport;
 
     blockComp.instance.blocksGroup = blocksGroup;
+
+    blockComp.instance.viewPort = viewport;
+    blockComp.instance.ref = blockComp
 
     // Set style to absolute to be draggable in jsPlumb
     blockComp.location.nativeElement.style = `position: absolute; left: ${block.position.x}px; top: ${block.position.y}px;`;
