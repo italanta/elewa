@@ -11,11 +11,12 @@ import { BotDataService } from './data-service-abstract.class';
 export class ConnectionsDataService extends BotDataService<Connection> 
 {
   private _docPath: string;
+  private tools: HandlerTools;
 
   constructor(private _channel: CommunicationChannel, tools: HandlerTools) 
   {
     super(tools);
-    // this._init(channel, currentStory);
+    this.tools = tools;
   }
 
   /** 
@@ -48,6 +49,19 @@ export class ConnectionsDataService extends BotDataService<Connection>
     this._docPath = `orgs/${orgId}/stories/${currentStory}/connections`;
 
     const conn = await this.getDocumentByField('sourceId', `defo-${blockId}`, this._docPath);
+
+    if(conn.length > 1) {
+      this.tools.Logger.error(() => `More than one connection originating from this block ${blockId}`);
+
+      this.tools.Logger.log(() => `Getting the last created connection`);
+
+      // Return the last created connection
+      const lastCreatedConnection = conn.reduce((prev, current) => {
+        return (prev.createdOn > current.createdOn) ? prev : current
+      });
+
+      return lastCreatedConnection
+    }
 
     return conn[0];
   }

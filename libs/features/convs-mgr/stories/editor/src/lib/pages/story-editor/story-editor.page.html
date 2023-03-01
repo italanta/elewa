@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90">
+      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>
     </div>
 

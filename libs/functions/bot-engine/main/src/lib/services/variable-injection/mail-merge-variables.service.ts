@@ -12,8 +12,11 @@ import { HandlerTools } from "@iote/cqrs";
  * 
  * TODO: Implement a way to fetch data from different data sources
  */
-export class VariableInjectorService 
+export class MailMergeVariables
 {
+  /** Regex to extract the variable between the {{}} curly braces */
+  private _exp: RegExp = new RegExp('\{{(.*?)\}}');
+
   constructor(private _tools: HandlerTools) { }
   /**
    * For a better user experience and validation, we would need to respond back to the end user with
@@ -26,17 +29,29 @@ export class VariableInjectorService
    *          we add the text to the block as 'Hello {{name}}'
    * 
    */
-  injectVariableToText(outgoingText: string, dataSource: any): string
+  async merge(outgoingText: string, orgId: string, endUserId: string, savedVariables?: any): Promise<string>
   {
-    const variable = this.__getVariableFromText(outgoingText);
+    this._tools.Logger.log(() => `[VariableInjectorService] - Checking message :: ${outgoingText}`);
 
-    // Replace the variable with the information contained in the data source
-    if (variable) {
-      this._tools.Logger.log(() => `[VariableInjectorService] - Replacing '${variable}' with '${dataSource[variable]}`);
+    if(!this._exp.test(outgoingText)) return outgoingText;
 
-      return outgoingText.replace(`{{${variable}}}`, dataSource[variable]);
+    const savedVariableValues = await this.__getVariableValues(orgId, endUserId);
+
+    const outgoingTextArray = outgoingText.split(" ");
+
+    let newOutgoingText = outgoingText;
+
+    for (const word of outgoingTextArray) {
+      const variable = this.__getVariableFromText(word);
+
+      if (variable) {
+        this._tools.Logger.log(() => `[VariableInjectorService] - Replacing '${variable}' with '${savedVariableValues[variable as string]}`);
+
+        newOutgoingText = newOutgoingText.replace(this._exp, savedVariableValues[variable]);
+      }
     }
-    return outgoingText;
+
+    return newOutgoingText;
   }
 
   /**
@@ -46,14 +61,20 @@ export class VariableInjectorService
    */
   private __getVariableFromText(outgoingText: string): string
   {
-    // Regex to extract the variable between the {{}} curly braces
-    const varRegex = new RegExp('\{{(.*?)\}}');
-
     // Extract the variable
-    const variable = varRegex.exec(outgoingText);
-    
-    if(!variable) return null
-    
+    const variable = this._exp.exec(outgoingText);
+
+    if (!variable) return null;
+
     return variable[1];
+  }
+
+  private async __getVariableValues(orgId: string, endUserId: string) 
+  {
+    const variableRepo = this._tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
+
+    const variableValues = await variableRepo.getDocumentById(`values`);
+
+    return variableValues;
   }
 }
