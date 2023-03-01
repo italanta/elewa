@@ -2,7 +2,6 @@
  * Different types and roles a block can play
  */
 export enum StoryBlockTypes {
-
   /**
    * Block that marks the beginning of a story
    * Automatically loaded on the editor when user creates a story
@@ -22,7 +21,6 @@ export enum StoryBlockTypes {
    * Usage         : operator awaits feedback, ... */
   Input = 2,
 
-
   /**
    * Block that sends a location to the userxs
    */
@@ -41,7 +39,6 @@ export enum StoryBlockTypes {
    * Block that sends a message to the user in form of a video
    */
   Video = 13,
-
 
   /**
    * Block sends message then expects input.
@@ -77,8 +74,8 @@ export enum StoryBlockTypes {
   PhoneNumber = 12,
 
   /**
-  * Block that sends a document to the user as output
-  */
+   * Block that sends a document to the user as output
+   */
   Document = 7,
 
   /**
@@ -94,18 +91,13 @@ export enum StoryBlockTypes {
   List = 16,
 
   /**
-   * Block that processes a user response and determines the next step/block
+   * Block that expects input from the user by replying to a message
    */
-  keyword = 28,
-
-  /**
-  * Block that expects input from the user by replying to a message
-  */
   Reply = 17,
 
   /**
-  * Block that allows linking a different story within the same story.
-  */
+   * Block that allows linking a different story within the same story.
+   */
   JumpBlock = 18,
 
   /**
@@ -121,9 +113,21 @@ export enum StoryBlockTypes {
 
   /** Block that calls a specified URL endpoint when hit */
   WebhookBlock = 25,
+
+  /**
+   * Block that accepts any type of input
+   */
   MultiContentInput = 28,
+
+  /**
+   * Block that accepts an Open-ended answer from the user
+   */
   OpenEndedQuestion = 27,
 
-  EndStoryAnchorBlock = 9999
+  /**
+   * Block that processes a user response and determines the next step/block
+   */
+  keyword = 29,
 
+  EndStoryAnchorBlock = 9999,
 }
