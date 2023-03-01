@@ -83,6 +83,8 @@
         "IMAGE-INPUT":"Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
         "VIDEO-INPUT":"Video Input",
+        "AUDIO-INPUT":"Audio Input",
+        "LOCATION-INPUT":"Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook"
       },
@@ -99,8 +101,10 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
+        "LOCATION-INPUT": "Location Input",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
+        "AUDIO-INPUT": "Audio Input",
         "WEBHOOK": "Url Input"
       },
       "BUTTONS": {
@@ -188,5 +192,8 @@
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
     }
+  },
+  "OPTION-INPUT": {
+    "MAX-CHARACTERS": "maximum characters reached"
   }
 }
