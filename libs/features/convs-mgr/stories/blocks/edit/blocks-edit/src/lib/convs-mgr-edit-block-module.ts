@@ -7,6 +7,8 @@ import {
   MaterialDesignModule,
   MaterialBricksModule,
 } from '@iote/bricks-angular';
+
+import { ConvsMgrProcessInputsModule } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { KeywordJumpBlockEditComponent } from './components/keyword-jump-block-edit/keyword-jump-block-edit.component';
@@ -27,6 +29,7 @@ import { DefaultComponent } from './components/default/default.component';
     ConvsMgrBlockOptionsModule,
     MaterialBricksModule,
     MaterialDesignModule,
+    ConvsMgrProcessInputsModule,
   ],
   
   declarations: [
