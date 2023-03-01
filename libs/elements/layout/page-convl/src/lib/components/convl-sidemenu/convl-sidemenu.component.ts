@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-
+import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -16,19 +16,23 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   private _sbS = new SubSink();
 
   @Input() user: any;
-  @Output() menuToggled: EventEmitter<any> = new EventEmitter();
   
   getLogo = 'assets/images/italanta-logo.png';
   projectName: string;
   projectInfo: string;
 
-  isExpanded = true;
+  isExpanded:boolean;
 
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
+              private sideMenu:SidemenuToggleService,
               @Inject('ENVIRONMENT') private _env: any)
-  {}
+  {
+    this._sbS.sink = this.sideMenu.menuStatus$.subscribe(
+      (isOpen) => (this.isExpanded = isOpen)
+    );
+  }
 
   ngOnInit()
   {
@@ -39,8 +43,8 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   
 
   toggleMenu () {
-    this.menuToggled.emit();
-    this.isExpanded = !this.isExpanded;
+    this.sideMenu.toggleExpand(!this.isExpanded)
+    
   }
 
   ngOnDestroy()

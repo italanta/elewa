@@ -63,8 +63,12 @@
         "STICKER": "Autocollant Bloquer",
         "LIST": "Liste Bloquer",
         "DOCUMENT": "Document Bloquer",
-        "KEYWORD-JUMP": "saut de mots-clés",
-        "WEBHOOK": "webhook Bloquer"
+        "WEBHOOK": "webhook Bloquer",
+        "IMAGE-INPUT": "Entrée d'images",
+        "VIDEO-INPUT":"entrée vidéo",
+        "AUDIO-INPUT":"entrée audio",
+        "LOCATION-INPUT":"saisie de position",
+        "KEYWORD-JUMP": "saut de mots-clés"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
@@ -73,7 +77,11 @@
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
         "AUDIO-LINK":"Lien audio",
-        "WEBHOOK": "Un webhook"
+        "WEBHOOK": "Un webhook",
+        "IMAGE-INPUT": "Entrée d'images",
+        "VIDEO-INPUT":"entrée vidéo",
+        "AUDIO-INPUT":"entrée audio",
+        "LOCATION-INPUT":"saisie de position"
       }
     },
     "COMPONENTS": {
@@ -152,5 +160,8 @@
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
     }
+  },
+  "OPTION-INPUT": {
+    "MAX-CHARACTERS": "maximum de caractères atteint"
   }
 }
