@@ -1,44 +1,5 @@
-<mat-card [id]="id" *ngIf=" webhookForm">
-	<mat-card-content>
-		<form [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
-
-			<div [id]="webhookInputId" fxLayout="column" fxLayoutALign="start" fxLayoutGap="10px" fxFlex>
-
-				<div class="section1" fxLayout="row" fxLayoutALign="start end">
-					<div class="heading">
-						URL & Method
-					</div>
-				</div>
-
-				<div fxFlex>
-					<div class="child-1" fxLayout="row" fxLayoutALign="space-between center" fxLayoutGap="5px" fxFlex>
-						<div class="dropdown">
-							<input type="text" class="url" formControlName="httpUrl" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.WEBHOOK' | transloco" />
-							<button class="button-select">
-								<select [formControl]="httpMethod">
-									<option *ngFor="let  http of httpCategories ; let
-										i=index" [value]="http.method" [selected]="i == 0">{{http.name}}
-									</option>
-								</select>
-							</button>
-						</div>
-					</div>
-				</div>
-
-				<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px" fxFlex>
-					<mat-form-field fxFlex *ngIf="variables$ | async as variables" appearance="outline" class="variables" formControlName="httpMethod" >
-						<mat-select placeholder="Variables" multiple>
-							<mat-option *ngFor="let variable of variables" [value]="variable.name">
-								{{variable.name}}
-							</mat-option>
-						</mat-select>
-					</mat-form-field>
-
-				</div>
-
-			</div>
-
-			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookForm"></app-default-option-field>
-		</form>
-	</mat-card-content>
-</mat-card>
+<div [id]="id" *ngIf=" webhookForm">
+	<form [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookForm"></app-default-option-field>
+	</form>
+</div>

@@ -1,0 +1,50 @@
+.form-wrapper {
+  display: grid;
+  justify-content: center;
+  margin: 0;
+  padding: 0.5rem;
+  overflow-y: hidden;
+
+  .form-edit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    width: 90%;
+
+    .title {
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .full-width{
+      display: grid;
+      grid-template-rows: auto;
+      gap: 0.4rem;
+    }
+
+    .inputList {
+      width: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .listgone {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  .add-button {
+    width: 100%;
+    background-color: var(--convs-mgr-color-primary-purple);
+    border-radius: 5px;
+    padding: 0.5rem;
+    border: none;
+    outline: none;
+    color: white;
+  }
+}

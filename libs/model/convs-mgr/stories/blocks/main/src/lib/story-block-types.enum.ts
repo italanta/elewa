@@ -94,6 +94,11 @@ export enum StoryBlockTypes {
   List = 16,
 
   /**
+   * Block that processes a user response and determines the next step/block
+   */
+  keyword = 28,
+
+  /**
   * Block that expects input from the user by replying to a message
   */
   Reply = 17,
@@ -110,8 +115,9 @@ export enum StoryBlockTypes {
 
   /** */
   FailBlock = 20,
-  LocationInputBlock = 22,
   AudioInput = 21,
+  LocationInputBlock = 22,
+  VideoInput = 23,
 
   /** Block that calls a specified URL endpoint when hit */
   WebhookBlock = 25,
