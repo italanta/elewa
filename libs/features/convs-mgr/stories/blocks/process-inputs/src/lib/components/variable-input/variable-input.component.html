@@ -1,0 +1,20 @@
+<section class="variables-section">
+  <div class="variables">
+
+    <form [formGroup]="variableForm" class="variable_input">
+      <div>
+        <label for="variable">save answers in the variable</label>
+        <input type="text" id="variable" name="variable" formControlName="variable">
+        <span class="item">@</span>
+        <button (click)="createValues()">Create</button>
+      </div>
+
+      <div>
+        <label for="validation-message">Validation Error Message</label>
+        <textarea name="validation-message" id="validation-message" formControlName="validationMessage" cols="30"
+          rows="10"></textarea>
+      </div>
+    </form>
+
+  </div>
+</section>
