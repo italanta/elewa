@@ -7,6 +7,8 @@ import {
   MaterialDesignModule,
   MaterialBricksModule,
 } from '@iote/bricks-angular';
+
+import { ConvsMgrProcessInputsModule } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
@@ -32,7 +34,7 @@ import { DefaultComponent } from './components/default/default.component';
     ConvsMgrBlockOptionsModule,
     MaterialBricksModule,
     MaterialDesignModule,
-    ConvsMgrBlockOptionsModule,
+    ConvsMgrProcessInputsModule,
   ],
   
   declarations: [
