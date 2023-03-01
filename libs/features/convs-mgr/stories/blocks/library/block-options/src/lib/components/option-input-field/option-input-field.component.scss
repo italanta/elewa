@@ -1,11 +1,14 @@
 .option {
   width: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 input {
-  width: inherit!important;
+  width: 90% !important;
   height: fit-content!important;
-  min-width: 91%!important;
+  min-width: auto !important;
   min-height: fit-content!important;
   padding: 5px 10px;
   margin: 5px 0;
@@ -29,4 +32,9 @@ input {
 .failed {
   background-color: firebrick;
   color: white;
+}
+
+.length-error {
+  color: red;
+  font-size: x-small;
 }

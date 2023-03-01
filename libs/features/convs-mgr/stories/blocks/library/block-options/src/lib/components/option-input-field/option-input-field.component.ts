@@ -10,19 +10,20 @@ import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.fu
   templateUrl: './option-input-field.component.html',
   styleUrls: ['./option-input-field.component.scss'],
 })
-export class OptionInputFieldComponent implements OnInit, AfterViewInit 
-{
+export class OptionInputFieldComponent implements OnInit, AfterViewInit {
 
   @Input() blockFormGroup: FormGroup;
   @Input() formGroupNameInput: number | string;
-  @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() jsPlumb?: BrowserJsPlumbInstance;
   @Input() optionClass: string;
   @Input() isNotEndpoint: boolean;
   @Input() isReadOnly: boolean;
+  @Input() charMaxlength: number;
 
   inputUniqueId: string;
+  optionValue: string = "";
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void 
   {
@@ -31,13 +32,11 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit
     }
   }
 
-  ngAfterViewInit(): void 
-  {
+  ngAfterViewInit(): void {
     this._decorateInput();
   }
 
-  private _decorateInput() 
-  {
+  private _decorateInput() {
     let input = document.getElementById(this.inputUniqueId) as Element;
     if (this.jsPlumb) {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
