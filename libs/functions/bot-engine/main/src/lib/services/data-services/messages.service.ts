@@ -25,7 +25,7 @@ export class MessagesDataService extends BotDataService<Message> {
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
 
     // If the message id is not set, we set it here
-    msg.id! && (msg.id = Date.now().toString())
+    !msg.id && (msg.id = Date.now().toString());
 
     // Create the message document with the timestamp as the id
     const savedMessage = await this.createDocument(msg, this._docPath, msg.id)

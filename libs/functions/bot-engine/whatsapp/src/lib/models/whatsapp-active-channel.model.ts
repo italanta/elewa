@@ -12,11 +12,12 @@ import { ActiveChannel } from "@app/functions/bot-engine";
 
 import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
 import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
+
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -211,11 +212,5 @@ export class WhatsappActiveChannel implements ActiveChannel
      } catch (error) {
        this._tools.Logger.log(() => `Encountered error while fetching file: ${error}`);
      }
- 
- 
- 
- 
    }
- 
-
 }

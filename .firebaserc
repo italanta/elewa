@@ -1,5 +1,22 @@
 {
   "projects": {
     "default": "ele-convl-manager"
-  }
+  },
+  "targets": {
+    "elewa-conv-learning-prod": {
+      "hosting": {
+        "convl-manager": [
+          "elewa-conv-learning-prod"
+        ]
+      }
+    },
+    "farmbetter-review": {
+      "hosting": {
+        "convl-manager": [
+          "farmbetter-review"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
