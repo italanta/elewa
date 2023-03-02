@@ -29,9 +29,9 @@ export class ChatsListComponent implements AfterViewInit
   chats$: Observable<Chat[]>;
 
   isLoading = true;
-  filter = "paused";
+  filter = "All";
   filterMode = false;
-  selected = "Help Requests";
+  selected = "All";
   chats: Chat[];
   displayedChats: Chat[] = [];
   filtrString: string = '';
