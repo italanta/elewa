@@ -2,8 +2,13 @@
   display: block;
   max-height: 100%;
   overflow-y: scroll;
+  height: 100%;
 }
 
+.new-msg-btn {
+  color: #fff;
+  background: var(--convs-mgr-color-primary-purple);
+}
 mat-list {
   height: 100%;
 }
