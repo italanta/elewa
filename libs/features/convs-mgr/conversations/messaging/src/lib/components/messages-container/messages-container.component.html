@@ -15,7 +15,8 @@
 <div class="btn-new-msg" fxLayout="row" fxLayoutAlign="center">
     <button *ngIf="newMessages"
             (click)="scrollToBottom()"
-            mat-raised-button color="primary">
+            class="new-msg-btn"
+            mat-raised-button>
       New messages..
     </button>
   </div>
