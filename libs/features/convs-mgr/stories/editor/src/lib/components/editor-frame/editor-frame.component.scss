@@ -1,3 +1,12 @@
+#editor-frame {
+  min-height: 2000px!important;
+  min-width: 2000px!important;
+  margin-top: 500px!important;
+  margin-left: 500px!important;
+  overflow-x: scroll!important;
+  overflow-x: scroll!important;
+}
+
 #editor-frame .block {
   position: absolute;
 }
@@ -21,6 +30,7 @@ app-message-block {
   background-image: url(^/assets/bg/pattern-bg.png);
   background-size: cover;
   background-repeat: no-repeat;
-  position: relative;
   overflow: scroll;
+  position: relative;
+  //border: 9px solid red;
 }
