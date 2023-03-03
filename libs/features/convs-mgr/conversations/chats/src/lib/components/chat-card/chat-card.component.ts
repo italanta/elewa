@@ -18,11 +18,14 @@ export class ChatCardComponent implements OnChanges, OnInit
   @Input() chat: Chat;
   @Input() currentChat: Chat;
 
+  chatDate: string;
+
   constructor(private _chats$: ChatsStore)
   {}
 
   ngOnInit() {
     this.getChatName();
+    this.convertDate(this.chat.createdOn);
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -43,7 +46,8 @@ export class ChatCardComponent implements OnChanges, OnInit
 
   convertDate(date: Date | undefined)
   {
-    return __DateFromStorage(date as Date);
+    const newDate = __DateFromStorage(date as Date);
+    this.chatDate = newDate.format('DD/MM/YYYY HH:mm');
   }
 
   getClass()
