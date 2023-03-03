@@ -3,11 +3,18 @@
 	max-height: 100vh;
 	padding: 10px;
 	margin-bottom: 20%;
+	overflow-y: hidden;
+	scrollbar-gutter: stable both-edges;
 }
 
 .nav:hover{
 	overflow-y: scroll;
+	scrollbar-gutter: stable both-edges;
 }
+
+::-webkit-scrollbar {
+	width: 5px;
+  }
 
 h4 {
 	padding: 0 16px;

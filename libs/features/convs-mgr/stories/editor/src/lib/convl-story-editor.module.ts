@@ -25,6 +25,7 @@ import { ManageChannelStoryLinkService } from './providers/manage-channel-story-
 import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
+import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 
 
 @NgModule({
@@ -38,12 +39,13 @@ import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module
   ],
 
   declarations: [
-    StoryEditorPageComponent, AddBotToChannelModal,
-    StoryEditorFrameComponent, BlocksLibraryComponent
+    StoryEditorPageComponent,
+    AddBotToChannelModal,
+    StoryEditorFrameComponent,
+    BlocksLibraryComponent,
+    PinchZoomDirective,
   ],
 
-  providers: [
-    StoryEditorInitialiserService, ManageChannelStoryLinkService
-  ]
+  providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],
 })
-export class ConvlStoryEditorModule { }
+export class ConvlStoryEditorModule {}
