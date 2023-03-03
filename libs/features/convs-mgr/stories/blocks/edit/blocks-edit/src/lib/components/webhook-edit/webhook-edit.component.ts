@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { HttpMethods, HttpMethodTypes, Variable } from '@app/model/convs-mgr/sto
   templateUrl: './webhook-edit.component.html',
   styleUrls: ['./webhook-edit.component.scss'],
 })
-export class WebhookEditComponent implements OnInit {
+export class WebhookEditComponent {
   @Input() form: FormGroup
   @Input() title: string;
   
@@ -22,8 +22,4 @@ export class WebhookEditComponent implements OnInit {
 
   variables = new FormControl();
   variables$: Observable<Variable[]>;
-
-  ngOnInit() {
-    console.log(this.form)
-  }
 }

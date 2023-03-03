@@ -5,7 +5,7 @@
                 <i [class]="iconClass"></i>
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
-        
+
             <div fxLayout="row" class="icon-block">
                 <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
                 <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
@@ -103,6 +103,10 @@
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-video-input-block>
+        </div>
+        <div *ngSwitchCase="keywordJumpType">
+            <app-keyword-jump-block [id]="id" [block]="block" [keywordJumpBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-keyword-jump-block>
         </div>
     </div>
 </mat-card>

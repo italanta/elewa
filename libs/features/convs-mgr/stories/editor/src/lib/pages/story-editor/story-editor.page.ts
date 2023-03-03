@@ -125,6 +125,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     })
     this.zoom(this.frameZoom);
   }
+  setZoomByPinch(value:number){
+this.frameZoom=value
+this.zoom(this.frameZoom)
+  }
 
   increaseFrameZoom() {
     if (this.zoomLevel.value <= 100) this.zoom(this.frameZoom += 0.03);

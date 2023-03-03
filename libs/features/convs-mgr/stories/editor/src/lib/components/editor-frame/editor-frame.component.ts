@@ -14,6 +14,7 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
   @ViewChild('viewport', { read: ViewContainerRef, static: true }) viewport: ViewContainerRef;
 
   @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
+  @Output()pinchZoom = new EventEmitter<number>()
 
   constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
 
@@ -24,6 +25,10 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
     this.frameLoaded.emit(frame);
   }
 
+
   onScroll(): void { }
 
+  onPinch(level:number){
+    this.pinchZoom.emit(level)
+  }
 }

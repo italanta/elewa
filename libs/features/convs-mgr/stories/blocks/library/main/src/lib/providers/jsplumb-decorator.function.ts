@@ -7,7 +7,10 @@ import { BlockComponent } from '../components/block/block.component';
 
 import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMessageBlock, 
           NameMessageBlock, ListMessageBlock, PhoneMessageBlock, QuestionMessageBlock, TextMessageBlock, 
-          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+          VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, 
+          JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, 
+          AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock, KeywordMessageBlock 
+} from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
 import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
@@ -32,6 +35,7 @@ import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
 import { _VideoInputBlockDecoratePlumb } from './video-input-block.jsplumb';
 import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
 import { _OpenEndedQuestionBlockDecoratePlumb } from './open-ended-question-block.jsplumb';
+import { _KeywordJumpBlockDecoratePlumb } from './keyword-jump-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -109,6 +113,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       break;
     case StoryBlockTypes.OpenEndedQuestion:
       return _OpenEndedQuestionBlockDecoratePlumb(block as OpenEndedQuestionBlock, comp, jsPlumb);
+      break;
+    case StoryBlockTypes.keyword:
+      return _KeywordJumpBlockDecoratePlumb(block as KeywordMessageBlock, comp, jsPlumb);
       break;
   }
 
