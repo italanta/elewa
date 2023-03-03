@@ -10,6 +10,8 @@ import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
 import { ActiveOrgStore } from '@app/state/organisation';
+import { Query } from '@ngfi/firestore-qbuilder';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,16 @@ export class MessagesQuery
                      reverse: true, prepend: true
                    },
                    this._dataService.__db);
+  }
+
+  getLatestMessageDate(chatId: string) {
+    const orgId = this._activeOrg._activeOrg;
+    
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${orgId}/end-users/${chatId}/messages`);
+
+    const messages = messagesRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));  
+
+    return messages.pipe(map(messages => messages[0].createdOn));
   }
 
   // get(index: number, n: number): Observable<ChatMessage[]>
