@@ -7,6 +7,7 @@ import { __DateFromStorage } from '@iote/time';
 
 import { ChatFlowStatus, Chat } from '@app/model/convs-mgr/conversations/chats';
 import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
+import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-chat-card',
@@ -18,14 +19,14 @@ export class ChatCardComponent implements OnChanges, OnInit
   @Input() chat: Chat;
   @Input() currentChat: Chat;
 
-  chatDate: string;
+  lastMessageDate: string;
 
-  constructor(private _chats$: ChatsStore)
+  constructor(private _chats$: ChatsStore, private _msgsQuery$: MessagesQuery)
   {}
 
   ngOnInit() {
     this.getChatName();
-    this.convertDate(this.chat.createdOn);
+    this.setLastMessageDate();
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -44,10 +45,12 @@ export class ChatCardComponent implements OnChanges, OnInit
     }
   }
 
-  convertDate(date: Date | undefined)
-  {
-    const newDate = __DateFromStorage(date as Date);
-    this.chatDate = newDate.format('DD/MM/YYYY HH:mm');
+  setLastMessageDate() {
+    this._msgsQuery$.getLatestMessageDate(this.chat.id).subscribe((date) => { 
+      const newDate = __DateFromStorage(date as Date);
+      this.lastMessageDate = newDate.format('DD/MM/YYYY HH:mm');
+    }
+    );
   }
 
   getClass()
