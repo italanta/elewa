@@ -1,20 +1,27 @@
 <section class="variables-section">
-  <div class="variables">
-
-    <form [formGroup]="variableForm" class="variable_input">
+  <form [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
+    <div>
       <div>
-        <label for="variable">save answers in the variable</label>
-        <input type="text" id="variable" name="variable" formControlName="variable">
+        <label for="name">save answers in the variable</label>
+        <input type="text" id="variable" name="variable" formControlName="name">
         <span class="item">@</span>
-        <button (click)="createValues()">Create</button>
       </div>
 
       <div>
-        <label for="validation-message">Validation Error Message</label>
-        <textarea name="validation-message" id="validation-message" formControlName="validationMessage" cols="30"
-          rows="10"></textarea>
+        <select formControlName="type" required>
+          <option *ngFor="let type of variablesTypesList; let i=index" [value]="type.value">
+            {{ type.name }}
+          </option>
+        </select>
       </div>
-    </form>
 
-  </div>
+      <!-- dynamic rendering of validation forms -->
+      <div *ngSwitchCase="nametype">
+        <app-name-validations [formGroup]="variablesForm" formGroupName="validators"
+          [setValidation]="setValidation">
+        </app-name-validations>
+      </div>
+    </div>
+    <input type="submit" value="Apply">
+  </form>
 </section>
