@@ -101,6 +101,9 @@
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/multi-content-input-block": [
+        "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"
       ],

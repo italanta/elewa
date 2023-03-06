@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock, 
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock
+  KeywordMessageBlock, MultiContentInputBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -61,6 +61,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-video-input-block', type: StoryBlockTypes.VideoInput, message: 'VideoInput', blockIcon:this.getBlockIcon(StoryBlockTypes.VideoInput) } as VideoInputBlock,
     { id: 'webhook-block' , type: StoryBlockTypes.WebhookBlock, message: 'Webhook', blockIcon:this.getBlockIcon(StoryBlockTypes.WebhookBlock) } as WebhookBlock,
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion) } as OpenEndedQuestionBlock,
+    { id: 'multi-content-input' , type:StoryBlockTypes.MultiContentInput, message:'Multi Content Input', blockIcon:this.getBlockIcon(StoryBlockTypes.MultiContentInput) } as MultiContentInputBlock,
     { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword) } as KeywordMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -148,6 +149,9 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
         break;
       case StoryBlockTypes.OpenEndedQuestion:
         this.frame.newBlock(StoryBlockTypes.OpenEndedQuestion);
+        break;  
+      case StoryBlockTypes.MultiContentInput:
+        this.frame.newBlock(StoryBlockTypes.MultiContentInput);
         break;  
       case StoryBlockTypes.keyword:
         this.frame.newBlock(StoryBlockTypes.keyword);
