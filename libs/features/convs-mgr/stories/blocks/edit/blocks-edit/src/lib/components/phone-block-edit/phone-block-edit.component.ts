@@ -7,6 +7,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./phone-block-edit.component.scss'],
 })
 export class PhoneBlockEditComponent {
-  @Input() form: FormGroup
+  @Input() form: FormGroup;
   @Input() title: string;
 }
