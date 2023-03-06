@@ -274,6 +274,34 @@
     },
     "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
     "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
+    "features-convs-mgr-stories-blocks-library-multi-content-input-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/multi-content-input-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-multiple-input-message-block": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block",
