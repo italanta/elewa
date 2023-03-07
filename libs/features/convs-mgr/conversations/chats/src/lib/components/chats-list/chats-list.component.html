@@ -1,0 +1,53 @@
+<div id="chat-list" fxLayout="column">
+  <div class="heading-area" fxLayout="column">
+    <div *ngIf="!filterMode else filter" fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Select a category">
+          <i class="fas fa-bars menu-icon"></i>
+        </button>
+        <mat-menu #menu="matMenu">
+          <!-- <button mat-menu-item (click)="updateList('learning', 'Learning')">Learning</button>
+          <button mat-menu-item (click)="updateList('paused', 'Help Requests/Inquiries')">Help Requests/Inquiries</button>
+          <button mat-menu-item (click)="updateList('paused-by-agent', 'Paused By Trainer')">Paused By Trainer</button>
+          <button mat-menu-item (click)="updateList('active', 'Onboarding')">Onboarding</button>
+          <button mat-menu-item (click)="updateList('stashed', 'Stashed')">Stashed</button>
+          <button mat-menu-item (click)="updateList('completed', 'Completed')">Completed</button> -->
+          <button mat-menu-item (click)="updateList('all', 'All')">All</button>
+        </mat-menu>
+        <div class="menu-title">
+          {{ selected }} ({{displayedChats.length}})
+        </div>
+      </div>
+      <div class="activate-filter">
+        <button mat-icon-button (click)="toggleFilter()" matTooltip="Search">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+    <ng-template #filter>
+      <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="80" class="filter">
+          <i matPrefix class="fas fa-search" style="margin-right: 10px;"></i>
+          <input matInput (keyup)="applyFilter($event)" autocomplete="off" cdkFocusInitial/>
+        </mat-form-field>
+        <div>
+          <button class="close-btn" mat-icon-button (click)="toggleFilter()" matTooltip="Close search">
+            <i class="fas fa-search-minus"></i>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <mat-paginator #matPagi [pageSizeOptions]="[ 10, 20, 30, 40, 100]" [hidePageSize]="isMobile()"></mat-paginator>
+
+  <div class="list" *ngIf="!isLoading else loading">
+    <app-chat-card *ngFor="let item of chats$ | async as chats; index as i" [chat]="chats[i]" [routerLink]="['/chats', chats[i].id]"
+                    [currentChat]="currentChat">
+    </app-chat-card>
+  </div>
+
+</div>
+
+<ng-template #loading><app-spinner></app-spinner></ng-template>

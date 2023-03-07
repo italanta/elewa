@@ -50,6 +50,15 @@
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
+      "@app/features/convs-mgr/conversations/chats": [
+        "libs/features/convs-mgr/conversations/chats/src/index.ts"
+      ],
+      "@app/features/convs-mgr/conversations/messaging": [
+        "libs/features/convs-mgr/conversations/messaging/src/index.ts"
+      ],
+      "@app/features/convs-mgr/dashboard": [
+        "libs/features/convs-mgr/dashboard/src/index.ts"
+      ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
@@ -190,6 +199,10 @@
       "@app/model/convs-mgr/stories/main": [
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
+      "@app/model/finance/payments": [
+        "libs/model/finance/payments/src/index.ts"
+      ],
+      "@app/model/finance/sales": ["libs/model/finance/sales/src/index.ts"],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],

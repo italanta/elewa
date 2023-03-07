@@ -14,6 +14,86 @@
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
+    "features-convs-mgr-conversations-chats": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/conversations/chats",
+      "sourceRoot": "libs/features/convs-mgr/conversations/chats/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/conversations/chats"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/conversations/chats/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/conversations/chats/**/*.ts",
+              "libs/features/convs-mgr/conversations/chats/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-conversations-messaging": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/conversations/messaging",
+      "sourceRoot": "libs/features/convs-mgr/conversations/messaging/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/conversations/messaging"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/conversations/messaging/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/conversations/messaging/**/*.ts",
+              "libs/features/convs-mgr/conversations/messaging/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-dashboard": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/dashboard",
+      "sourceRoot": "libs/features/convs-mgr/dashboard/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/dashboard"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/dashboard/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/dashboard/**/*.ts",
+              "libs/features/convs-mgr/dashboard/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
     "features-convs-mgr-stories-blocks-edit-blocks-edit": {
       "projectType": "library",
@@ -492,6 +572,52 @@
     "model-convs-mgr-stories-blocks-scenario": "libs/model/convs-mgr/stories/blocks/scenario",
     "model-convs-mgr-stories-blocks-structural": "libs/model/convs-mgr/stories/blocks/structural",
     "model-convs-mgr-stories-main": "libs/model/convs-mgr/stories/main",
+    "model-finance-payments": {
+      "root": "libs/model/finance/payments",
+      "sourceRoot": "libs/model/finance/payments/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/finance/payments/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/finance/payments"],
+          "options": {
+            "jestConfig": "libs/model/finance/payments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-finance-sales": {
+      "root": "libs/model/finance/sales",
+      "sourceRoot": "libs/model/finance/sales/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/finance/sales/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/finance/sales"],
+          "options": {
+            "jestConfig": "libs/model/finance/sales/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "model-organisation": "libs/model/organisation/main",
     "model-user": "libs/model/user/base",
     "model-user-bot-users": {
