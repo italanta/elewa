@@ -15,7 +15,7 @@
         </select>
       </div>
 
-      <!-- dynamic rendering of validation forms -->
+      <!-- dynamic rendering of optional validation forms -->
       <div *ngSwitchCase="nametype">
         <app-name-validations [formGroup]="variablesForm" formGroupName="validators"
           [setValidation]="setValidation">
