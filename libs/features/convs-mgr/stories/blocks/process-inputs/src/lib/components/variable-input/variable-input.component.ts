@@ -39,6 +39,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.blockId = this.BlockFormGroup.value.id;
     this.blockType = this.BlockFormGroup.value.type;
+
     const variable = this.getVariableName(this.blockType);
     this.variablesForm = _CreateNameBlockVariableForm(
       this._fb,
@@ -64,17 +65,17 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** pass properties to block's formGroup */
+  /** check if name is already used and pass properties to block's formGroup */
   setVariable() {
     const variable = this.variablesForm.get('name')?.value;
 
     this._processInputSer.blocksWithVars$.subscribe((blocks) => {
       const isPresent = blocks.find(
-        (block) => block.variable?.name === variable && block.id != this.blockId
+        (block) => block.variable?.name === variable && block.id !== this.blockId
       );
 
       if (isPresent) {
-        this.name.setErrors({ incorrect: true });
+        this.name.setErrors({ incorrect: 'name is already used' });
       } else {
         this.BlockFormGroup.value.variable = {
           name: this.variablesForm.get('name')?.value,
