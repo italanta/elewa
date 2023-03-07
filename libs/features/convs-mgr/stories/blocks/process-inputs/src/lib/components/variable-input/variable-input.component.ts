@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { map } from 'rxjs';
+
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { VariablesConfigService } from '@app/state/convs-mgr/stories/variables-config';
 import {
@@ -9,8 +11,9 @@ import {
 } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { _CreateNameBlockVariableForm } from '../../model/name-variables-form.model';
 import { ProcessInputService } from '../../providers/process-input.service';
+import { _CreateNameBlockVariableForm } from '../../model/name-variables-form.model';
+
 
 @Component({
   selector: 'app-variable-input',
@@ -67,14 +70,23 @@ export class VariableInputComponent implements OnInit {
 
   checkIsPresent(setVar: Variable) {
     let isPresent;
-    this._blockStore$$.get().subscribe((blocks) => {
-      const newb = blocks.filter(
-        (block) =>
-          !block.deleted && block.type < 1000 && block.variable?.name !== ''
-      );
 
-      isPresent = newb.find((block) => block.variable?.name === setVar.name);
-    });
+    this._blockStore$$
+      .get()
+      .pipe(
+        map((blocks) =>
+          blocks.filter(
+            (block) =>
+              !block.deleted && block.type < 1000 && block.variable?.name !== ''
+          )
+        )
+      )
+      .subscribe((blocks) => {
+        isPresent = blocks.find(
+          (block) => block.variable?.name === setVar.name
+        );
+      });
+
     return isPresent;
   }
 
@@ -92,7 +104,7 @@ export class VariableInputComponent implements OnInit {
           validators: this.variablesForm.get('validators')?.value ?? {},
         };
       } else {
-        this.variablesForm.controls['name'].setErrors({'incorrect': true});
+        this.variablesForm.controls['name'].setErrors({ incorrect: true });
       }
     }
   }
