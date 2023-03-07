@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 /**
  *
  * @param _fb instance of formbuilder that creates formgroups controls etc
@@ -12,8 +12,8 @@ export function _CreateNameBlockVariableForm(
   variable: string
 ): FormGroup {
   return _fb.group({
-    name: [form.value.variable.name || variable],
-    type: [form.value.variable.type || 1],
+    name: [form.value.variable.name || variable, [Validators.required]],
+    type: [form.value.variable.type || 1, [Validators.required]],
     validators: _fb.group({
       regex: [form.value.variable.validators.regex],
       max: [form.value.variable.validators.max],
