@@ -16,6 +16,13 @@
           "farmbetter-review"
         ]
       }
+    },
+    "enabel-elearning": {
+      "hosting": {
+        "convl-manager": [
+          "enabel-elearning"
+        ]
+      }
     }
   },
   "etags": {}
