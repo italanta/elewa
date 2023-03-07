@@ -4,7 +4,7 @@
 		<div [id]="videoInputId">
 			<input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
 			<label [for]="videoInputUpload">
-				<div *ngIf="!hasVideo; else inputHasVideo">
+				<div *ngIf="!hasVideo; else inputHasVideo" (click)="openVideoModal()">
 					<i id="icon" class="fas fa-play-circle"></i>
 				</div>
 				<ng-template #inputHasVideo>

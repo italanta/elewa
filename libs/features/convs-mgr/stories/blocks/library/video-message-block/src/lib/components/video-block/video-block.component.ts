@@ -11,6 +11,9 @@ import { UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { VideoBlockModalComponent } from '../../modals/video-block-modal/video-block-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-video-block',
   templateUrl: './video-block.component.html',
@@ -39,7 +42,8 @@ export class VideoBlockComponent implements OnInit {
   videoInputUpload: string = '';
 
   constructor(private _videoUploadService: UploadFileService,
-              private _ngfiStorage:AngularFireStorage
+              private _ngfiStorage:AngularFireStorage,
+              private matdialog:MatDialog
   ) 
   {
     this.block = this.block as VideoMessageBlock;
@@ -55,6 +59,10 @@ export class VideoBlockComponent implements OnInit {
   checkIfVideoExists(){
     this.videoUrl = this.videoMessageForm.value.fileSrc;
     this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+  }
+
+  openVideoModal(){
+    this.matdialog.open(VideoBlockModalComponent)
   }
 
   async processVideo(event: any) {
