@@ -8,6 +8,6 @@ import { FormGroup } from '@angular/forms';
 })
 export class NameValidationsComponent {
   @Input() formGroup: FormGroup;
-  @Input() setValidation: boolean;
+  @Input() validate: boolean;
   @Input() formGroupName: string;
 }

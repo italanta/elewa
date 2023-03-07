@@ -5,5 +5,10 @@
       formControlName="message" />
   </form>
 
-  <app-variable-input [BlockFormGroup]="form" [setValidation]="true"></app-variable-input>
+  <div>
+    <label for="setValidation">Set Validation</label>
+    <input type="checkbox" [checked]="validate" (change)="setValidation()" name="setValidation" id="">
+  </div>
+
+  <app-variable-input [BlockFormGroup]="form" [validate]="validate"></app-variable-input>
 </div>

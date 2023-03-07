@@ -1,5 +1,5 @@
 <div [formGroup]="formGroup">
-  <div *ngIf="setValidation" [formGroupName]="formGroupName">
+  <div *ngIf="validate" [formGroupName]="formGroupName">
     <div>
       <label for="regex">label</label>
       <input type="text" id="regex" formControlName="regex" placeholder="Regex">
