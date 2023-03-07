@@ -1,3 +1,23 @@
 <ng-template transloco let-t>
   <h1> {{ t('title') }} </h1>
 </ng-template>
+<div>
+  <!-- add a click even t to this div so that when I click on the thumbnail I am able to select a video -->
+  <div class="thumbnail" (click)="onVideoChange($event)"> 
+    <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png">
+  </div>
+</div>
+<form>
+  <p>Give This media Item a Name</p>
+  <label for="name-input">Name:</label>
+  <input type="text" id="name-input" [(ngModel)]="name">
+  <br>
+
+  <h3>Media Encoding</h3>
+  <label>Please select the size you want to encode the video. <br /> The larger the video the longer it will take to load and play</label>
+  <div *ngFor="let option of sizeOptions">
+    <input type="radio" id="{{ option }}" name="size" [(ngModel)]="size" [value]="option">
+    <label for="{{ option }}">{{ option }}</label>
+  </div>
+</form>
+<button (click)="apply()">Apply</button>
