@@ -5,7 +5,7 @@
         <label for="name">save answers in the variable</label>
         <input type="text" id="variable" name="variable" formControlName="name">
         <span class="item">@</span>
-        <div *ngIf="name.invalid">{{name.errors| json}}</div>
+        <div *ngIf="name.invalid">{{ name.errors?.['incorrect'] }}</div>
       </div>
 
       <div>
@@ -22,6 +22,6 @@
         </app-name-validations>
       </div>
     </div>
-    <input type="submit" value="Apply">
+    <input [disabled]="variablesForm.invalid" type="submit" value="Apply">
   </form>
 </section>
