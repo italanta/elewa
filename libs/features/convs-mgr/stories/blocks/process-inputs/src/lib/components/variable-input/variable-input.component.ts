@@ -14,7 +14,7 @@ import { _CreateNameBlockVariableForm } from '../../model/name-variables-form.mo
   providers: [ProcessInputService],
 })
 export class VariableInputComponent implements OnInit, OnDestroy {
-  @Input() setValidation: boolean;
+  @Input() validate: boolean;
   @Input() BlockFormGroup: FormGroup;
 
   blockId: string;

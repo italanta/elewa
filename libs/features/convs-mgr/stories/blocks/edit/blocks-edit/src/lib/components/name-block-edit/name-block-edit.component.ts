@@ -9,4 +9,10 @@ import { FormGroup } from '@angular/forms';
 export class NameBlockEditComponent {
   @Input() form: FormGroup;
   @Input() title: string;
+
+  validate = false;
+
+  setValidation() {
+    this.validate = !this.validate;
+  }
 }
