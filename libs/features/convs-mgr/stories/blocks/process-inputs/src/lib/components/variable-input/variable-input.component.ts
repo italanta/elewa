@@ -1,21 +1,27 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { VariablesConfigService } from '@app/state/convs-mgr/stories/variables-config';
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import {
+  StoryBlockTypes,
+  Variable,
+} from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { _CreateNameBlockVariableForm } from '../../model/name-variables-form.model';
+import { ProcessInputService } from '../../providers/process-input.service';
 
 @Component({
   selector: 'app-variable-input',
   templateUrl: './variable-input.component.html',
   styleUrls: ['./variable-input.component.scss'],
+  providers: [ProcessInputService],
 })
 export class VariableInputComponent implements OnInit {
   @Input() setValidation: boolean;
   @Input() BlockFormGroup: FormGroup;
-  
+
   blockType: StoryBlockTypes;
   variablesForm: FormGroup;
   variablesTypesList = [
@@ -31,12 +37,13 @@ export class VariableInputComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _variableService: VariablesConfigService
+    private _variableService: VariablesConfigService,
+    private _blockStore$$: StoryBlocksStore
   ) {}
 
   ngOnInit(): void {
     this.blockType = this.BlockFormGroup.value.type;
-    
+
     const variable = this.getVariableName(this.blockType);
     this.variablesForm = _CreateNameBlockVariableForm(
       this._fb,
@@ -58,20 +65,35 @@ export class VariableInputComponent implements OnInit {
     }
   }
 
+  checkIsPresent(setVar: Variable) {
+    let isPresent;
+    this._blockStore$$.get().subscribe((blocks) => {
+      const newb = blocks.filter(
+        (block) =>
+          !block.deleted && block.type < 1000 && block.variable?.name !== ''
+      );
+
+      isPresent = newb.find((block) => block.variable?.name === setVar.name);
+    });
+    return isPresent;
+  }
+
   /** pass properties to block's formGroup */
   setVariable() {
-    this.BlockFormGroup.value.variable = {
-      name: this.variablesForm.get('name')?.value,
-      type: parseInt(this.variablesForm.get('type')?.value),
-      validators: this.variablesForm.get('validators')?.value ?? {},
-    };
+    const variable = this.variablesForm.get('name')?.value;
 
-    // update list of avalilable variables
-    const variable = this.variablesForm.get('name')?.value
-    
-    if(variable) {
-      // todo check in store for variable
+    if (variable) {
+      const isPresent = this.checkIsPresent(variable);
 
+      if (!isPresent) {
+        this.BlockFormGroup.value.variable = {
+          name: this.variablesForm.get('name')?.value,
+          type: parseInt(this.variablesForm.get('type')?.value),
+          validators: this.variablesForm.get('validators')?.value ?? {},
+        };
+      } else {
+        this.variablesForm.controls['name'].setErrors({'incorrect': true});
+      }
     }
   }
 
