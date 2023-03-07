@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { SubSink } from 'subsink';
+
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
@@ -12,11 +14,11 @@ import { variableCreateFn } from '../../model/shared-types.model';
   selector: 'app-variable-input',
   templateUrl: './variable-input.component.html',
   styleUrls: ['./variable-input.component.scss'],
-  providers: [ProcessInputService],
 })
 export class VariableInputComponent implements OnInit, OnDestroy {
   @Input() validate: boolean;
   @Input() BlockFormGroup: FormGroup;
+  private _sub = new SubSink();
 
   blockId: string;
   blockType: StoryBlockTypes;
@@ -74,7 +76,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   setVariable() {
     const variable = this.variablesForm.get('name')?.value;
 
-    this._processInputSer.blocksWithVars$.subscribe((blocks) => {
+    this._sub.sink = this._processInputSer.blocksWithVars$.subscribe((blocks) => {
       const isPresent = blocks.find(
         (block) =>
           block.variable?.name === variable && block.id !== this.blockId
@@ -94,11 +96,9 @@ export class VariableInputComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.setVariable();
-    console.log(this.BlockFormGroup);
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnDestroy(): void {
-    //
+    this._sub.unsubscribe()
   }
 }
