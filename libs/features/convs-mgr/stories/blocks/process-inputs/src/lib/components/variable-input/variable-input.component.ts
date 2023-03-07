@@ -6,6 +6,7 @@ import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
 import { _CreateNameBlockVariableForm } from '../../model/name-variables-form.model';
+import { variableCreateFn } from '../../model/shared-types.model';
 
 @Component({
   selector: 'app-variable-input',
@@ -40,28 +41,32 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     this.blockId = this.BlockFormGroup.value.id;
     this.blockType = this.BlockFormGroup.value.type;
 
-    const variable = this.getVariableName(this.blockType);
-    this.variablesForm = _CreateNameBlockVariableForm(
-      this._fb,
-      this.BlockFormGroup,
-      variable
-    );
+    const { name, formCreator } = this.getFormCreationDetails(this.blockType);
+    this.variablesForm = formCreator(this._fb, this.BlockFormGroup, name);
   }
 
   get name() {
     return this.variablesForm.controls['name'];
   }
 
-  getVariableName(blockType: StoryBlockTypes) {
+  /**
+   * selects the details required to create a variables form group
+   * @param blockType - type of the selected block.
+   * @returns '{name, formcreatorFunction}' - details required to build the formgroup
+   */
+  getFormCreationDetails(blockType: StoryBlockTypes): {
+    name: string;
+    formCreator: variableCreateFn;
+  } {
     switch (blockType) {
       case StoryBlockTypes.Name:
-        return 'name';
+        return { name: 'name', formCreator: _CreateNameBlockVariableForm };
       case StoryBlockTypes.Email:
-        return 'email';
+        return { name: 'email', formCreator: _CreateNameBlockVariableForm };
       case StoryBlockTypes.PhoneNumber:
-        return 'number';
+        return { name: 'phone', formCreator: _CreateNameBlockVariableForm };
       default:
-        return '';
+        return { name: '', formCreator: _CreateNameBlockVariableForm };
     }
   }
 
@@ -71,7 +76,8 @@ export class VariableInputComponent implements OnInit, OnDestroy {
 
     this._processInputSer.blocksWithVars$.subscribe((blocks) => {
       const isPresent = blocks.find(
-        (block) => block.variable?.name === variable && block.id !== this.blockId
+        (block) =>
+          block.variable?.name === variable && block.id !== this.blockId
       );
 
       if (isPresent) {
@@ -88,7 +94,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.setVariable();
-    // console.log(this.BlockFormGroup);
+    console.log(this.BlockFormGroup);
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
