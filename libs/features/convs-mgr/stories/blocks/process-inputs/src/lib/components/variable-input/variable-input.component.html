@@ -18,7 +18,7 @@
 
       <!-- dynamic rendering of optional validation forms -->
       <div *ngSwitchCase="nametype">
-        <app-name-validations [formGroup]="variablesForm" formGroupName="validators" [setValidation]="setValidation">
+        <app-name-validations [formGroup]="variablesForm" formGroupName="validators" [validate]="validate">
         </app-name-validations>
       </div>
     </div>
