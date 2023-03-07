@@ -1,0 +1,38 @@
+#chat-list{
+  // max-width: 350px;
+}
+
+.menu-title{
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.heading-area{
+  background-color: white;
+  padding: 10px 15px;
+}
+
+.search-bar{
+  font-size: 16px;
+  margin-top: -25px;
+  margin-bottom: -10px;
+}
+
+.close-btn{
+  padding-top: 5px;
+}
+
+.list{
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+mat-paginator{
+  @media screen and (min-width: 1000px) {
+    margin-left: -8px;
+  }
+}
+
+app-chat-card{
+  outline: none;
+}

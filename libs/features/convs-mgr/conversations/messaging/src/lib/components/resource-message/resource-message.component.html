@@ -1,0 +1,4 @@
+<div class="resource-holder">
+  <img *ngIf="message.type === 'image'"     [src]="cleanUrl(message.url)" class="chat-image" />
+  <!-- <iframe *ngIf="message.type === 'iframe'" [src]="cleanUrl(message.url)" class="chat-resource"></iframe> -->
+</div>
