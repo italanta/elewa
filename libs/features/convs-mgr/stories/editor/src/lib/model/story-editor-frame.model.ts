@@ -6,7 +6,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
@@ -101,7 +101,7 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
-    let startAnchor = this._viewport.createComponent(AnchorBlockComponent);
+    const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
   }
 
@@ -137,17 +137,17 @@ export class StoryEditorFrame {
     // and target elements for connection drawing later
     // sources are mostly inputs
     // targets (blocks) are wrapped inside a mat-card
-    let domSourceInputs = Array.from(document.querySelectorAll("input"));
-    let domBlockCards = Array.from(document.querySelectorAll('mat-card'));
+    const domSourceInputs = Array.from(document.querySelectorAll("input"));
+    const domBlockCards = Array.from(document.querySelectorAll('mat-card'));
 
 
     for (const conn of this._connections) {
 
       // anchorBlock.id == this._story.id!;
       // fetching the source (input) that matches the connection source id
-      let sourceElement = domSourceInputs.find((el) => el.id == conn.sourceId);
+      const sourceElement = domSourceInputs.find((el) => el.id == conn.sourceId);
       // fetching the target (block) that matches the connection target id
-      let targetElement = domBlockCards.find((el) => el.id == conn.targetId);
+      const targetElement = domBlockCards.find((el) => el.id == conn.targetId);
 
       // more infor on connect can be found -> https://docs.jsplumbtoolkit.com/community-2.x/current/articles/connections.html
       // this._jsPlumb.bind("connection", function (info: any) {
@@ -179,10 +179,12 @@ export class StoryEditorFrame {
                 // Add a double-click event to the overlay
                 dblclick: (overlayData) => {
                   // Find the connection in the state object by the connection ID in the overlayData object
-                  let con = this.state.connections.find((c) => c.id == overlayData.overlay.id);
+                  const con = this.state.connections.find((c) => c.id == overlayData.overlay.id);
 
                   // Call the `deleteConnection` method of the `_connectionsService` object
-                  this._connectionsService.deleteConnection(con!);
+                  if(con) {
+                    this._connectionsService.deleteConnection(con);
+                  }
 
                   // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
                   return DeleteConnectorbyID(this._jsPlumb, this.state, overlayData);
@@ -209,49 +211,6 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes) {
-
-    // TODO - Dynamic rendering of default blocks.
-    switch (type) {
-      case StoryBlockTypes.TextMessage:
-        break;
-      case StoryBlockTypes.Image:
-        break;
-      case StoryBlockTypes.Name:
-        break;
-      case StoryBlockTypes.Email:
-        break
-      case StoryBlockTypes.PhoneNumber:
-        break;
-      case StoryBlockTypes.QuestionBlock:
-        break;
-      case StoryBlockTypes.Location:
-        break;
-      case StoryBlockTypes.Audio:
-        break;
-      case StoryBlockTypes.Video:
-        break
-      case StoryBlockTypes.Sticker:
-        break
-      case StoryBlockTypes.List:
-        break;
-      case StoryBlockTypes.Document:
-        break
-      case StoryBlockTypes.Reply:
-        break;
-      case StoryBlockTypes.MultipleInput:
-        break;
-      case StoryBlockTypes.FailBlock:
-        break;
-      case StoryBlockTypes.ImageInput:
-        break; 
-      case StoryBlockTypes.OpenEndedQuestion:
-        break;
-      case StoryBlockTypes.VideoInput:
-        break;  
-      default:
-        break
-    }
-
     const block = {
       id: `${this._cnt}`,
       type: type,

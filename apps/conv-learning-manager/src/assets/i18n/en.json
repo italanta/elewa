@@ -82,6 +82,7 @@
         "MULTIPLEINPUT":"Multiple-Input",
         "IMAGE-INPUT":"Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "MULTI-CONTENT-INPUT":"Multi Content Input",
         "VIDEO-INPUT":"Video Input",
         "AUDIO-INPUT":"Audio Input",
         "LOCATION-INPUT":"Location Input",
@@ -148,7 +149,12 @@
       "EDIT-BOT": "Edit",
       "DELETE-BOT": "Delete",
       "ADD-OPTION": "Add Option",
-      "NEW-LIST": "New List"
+      "NEW-LIST": "New List",
+      "IMAGE":"Image",
+      "AUDIO":"Audio",
+      "VIDEO":"Video",
+      "TEXT":"Text",
+      "DOCUMENT":"Document"
     },
     "FIELDS": {
       "NAME": "Name",
