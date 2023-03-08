@@ -7,7 +7,7 @@
      <div                    *ngSwitchCase="'text'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
 
      <!-- Button Options -->
-     <app-button-message   *ngSwitchCase="'dialog'" [message]="message"></app-button-message>
+     <app-button-message   *ngSwitchCase="'question'" [message]="message" [messageIsNotMine]="messageIsNotMine" [agentMessage]="agentMessage"></app-button-message>
 
      <!-- Button Press -->
      <div                    *ngSwitchCase="'button'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
