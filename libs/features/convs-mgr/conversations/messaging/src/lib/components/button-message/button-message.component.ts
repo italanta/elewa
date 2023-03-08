@@ -12,6 +12,12 @@ export class ButtonMessageComponent implements OnInit
 {
   @Input() message: QuestionMessage;
 
+  @Input() timestamp: string;
+
+  @Input()   messageIsNotMine: boolean;
+  @Input()   agentMessage: boolean;
+
+
   ngOnInit() { }
 
 }
