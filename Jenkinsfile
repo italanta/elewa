@@ -5,7 +5,9 @@ pipeline {
     }
 
     environment {
-        FIREBASE_TOKEN = credentials('ENABEL_FIREBASE_TOKEN')
+        FIREBASE_TOKEN = credentials('ENABEL_FIREBASE_TOKEN');
+        ENV_FILE_DEST = 'apps/conv-learning-manager/src/environments/environment.ts'
+        ENV_FILE_DEST_PROD = 'apps/conv-learning-manager/src/environments/environment.prod.ts'
         }
     stages {
         stage ('Install firebase-tools'){
@@ -20,15 +22,27 @@ pipeline {
             }
         }
 
-        stage('Deploy to Enabel firebase hosting') { 
+        stage('Deploy to Enabel') { 
             steps {
                 withCredentials([file(credentialsId: 'enabel-prod-environment-file', variable: 'ENV_FILE')]) {
                 // some block
                 sh 'mkdir -p apps/conv-learning-manager/src/environments'
-                sh 'sudo cat ${ENV_FILE} > apps/conv-learning-manager/src/environments/environment.ts'
-                sh 'sudo cat ${ENV_FILE} > apps/conv-learning-manager/src/environments/environment.prod.ts'
-                sh 'echo $FIREBASE_TOKEN'
+                sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST}'
+                sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
                 sh 'firebase use enabel-elearning'
+                sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
+}
+            }
+        }
+
+        stage('Deploy to Farmbetter') { 
+            steps {
+                withCredentials([file(credentialsId: 'farmbetter-prod-environment-file', variable: 'ENV_FILE')]) {
+                // some block
+                sh 'mkdir -p apps/conv-learning-manager/src/environments'
+                sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST}'
+                sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
+                sh 'firebase use farmbetter-prod'
                 sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
 }
             }
