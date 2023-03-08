@@ -22,10 +22,6 @@ export class ConvlPageComponent
 
   @ViewChild(ConlvSideNavContainerComponent) sidnav: ConlvSideNavContainerComponent;
 
-  toggleSideNav()
-  {
-    this.sidnav.toggleSidemenu();
-  }
   
   setMenuStatus($event: boolean) {
     this.isMenuOpen = $event

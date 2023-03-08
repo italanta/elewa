@@ -11,6 +11,7 @@ export enum WhatsAppMessageType{
   AUDIO = 'audio',
   DOCUMENT = 'document',
   STICKER = 'sticker',
-  VIDEO = 'video'
+  VIDEO = 'video',
+  TEMPLATE = 'template',
 
 }

@@ -3,7 +3,7 @@
   <convl-nav-wrapper (menuStatusEvent)="setMenuStatus($event)" *ngIf="!noside" fxFlex="column" fxFill>
     <div class="content-wrapper-outer" fxLayout="column" fxFlexFill>
 
-      <convl-navbar [isMenuOpen]="isMenuOpen" (toggleMenu)="toggleSideNav()">
+      <convl-navbar [isMenuOpen]="isMenuOpen">
         <div title *ngIf="title">{{title}}</div>
         <!-- <convl-user-menu></convl-user-menu> -->
       </convl-navbar>

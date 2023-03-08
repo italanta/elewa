@@ -1,7 +1,5 @@
-<mat-card [id]="id" *ngIf="failBlockForm">
-  <mat-card-content>
-      <form [formGroup]="failBlockForm" fxLayout="column" fxLayoutALign="start center">
-          <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
-      </form>
-  </mat-card-content>
-</mat-card>
+<div [id]="id" *ngIf="failBlockForm">
+  <form [formGroup]="failBlockForm" fxLayout="column" fxLayoutALign="start center">
+    <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+  </form>
+</div>

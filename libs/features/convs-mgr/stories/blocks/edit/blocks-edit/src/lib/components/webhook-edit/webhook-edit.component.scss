@@ -1,0 +1,61 @@
+.form-wrapper {
+  display: grid;
+  justify-content: center;
+  margin: 0;
+  padding: 0.5rem;
+  overflow-y: hidden;
+
+  .form-edit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    width: 90%;
+
+    .webhook-details {
+      display: flex;
+      width: 64%;
+
+      input {
+        border: 1px solid var(--convs-mgr-color-primary-purple);
+        outline-color: var(--convs-mgr-color-primary-purple);
+        padding: 0.5rem;
+        width: 7rem;
+      }
+      
+      .button-select {
+        background-color: var(--convs-mgr-color-primary-purple);
+        padding: 0.5rem;
+        border: none;
+        color: white !important;
+        margin: 0;
+
+        select {
+          background: transparent;
+          outline: none;
+          border: none;
+          color: white;
+        }
+
+        option {
+          color: black;
+        }
+      }
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    .heading {
+      font-weight: 500;
+    }
+
+    .text {
+      background: transparent;
+      border-radius: 5px;
+    }
+  }
+}

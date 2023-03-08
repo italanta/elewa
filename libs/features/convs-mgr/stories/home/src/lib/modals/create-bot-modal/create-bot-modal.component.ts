@@ -21,13 +21,17 @@ export class CreateBotModalComponent implements OnInit {
 
   storyImageFile: File;
   fileName: string;
+  fileSizeIsValid: boolean = true;
   storyHasImage: boolean = false;
+
+  isSavingStory: boolean = false;
 
   constructor(private _addStory$: NewStoryService,
               private _formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: {
                         isEditMode: boolean,
-                        story?: Story}
+                        story?: Story
+  }
   ) {
     this.modalMode = data.isEditMode;
     this.story = data.story as Story;
@@ -81,7 +85,7 @@ export class CreateBotModalComponent implements OnInit {
     // Capture changes to bot name and bot description
     this.story.name = this.botForm.value.botName;
     this.story.description = this.botForm.value.botDesc;
-    this.story.imageField = this.botForm.value.botImage;
+    this.story.imageField = this.botForm.value.botImage ?? '';
 
     // Update bot details
     this._addStory$.update(this.story, this.storyImageFile, this.imagePath!);
@@ -90,10 +94,16 @@ export class CreateBotModalComponent implements OnInit {
   imageChanged(event: any) {
     if (event.target.files[0]) {
       let image: File = event.target.files[0];
-      this.storyImageFile = image;
-      this.imagePath = `images/${this.storyImageFile.name}`;
-      this.fileName = this.storyImageFile.name;
-      this.storyHasImage = true;
+      if (this.validateFileSize(image)) {
+        this.storyImageFile = image;
+        this.imagePath = `images/${this.storyImageFile.name}`;
+        this.fileName = this.storyImageFile.name;
+        this.storyHasImage = true;
+        this.fileSizeIsValid = true;
+      }
+      else {
+        this.fileSizeIsValid = false;
+      }
     }
   }
 
@@ -101,7 +111,12 @@ export class CreateBotModalComponent implements OnInit {
     return fbUrl.split('%2F')[1].split("?")[0];
   }
 
+  validateFileSize(file: File): boolean {
+    return file.size <= 1000000;
+  }
+
   submitForm() {
+    this.isSavingStory = true;
     this.modalMode ? this.update() : this.add();
   }
 }

@@ -95,6 +95,9 @@
       "@app/features/convs-mgr/stories/blocks/library/jump-story-block": [
         "libs/features/convs-mgr/stories/blocks/library/jump-story-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/keyword-jump-block": [
+        "libs/features/convs-mgr/stories/blocks/library/keyword-jump-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/list-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/list-message-block/src/index.ts"
       ],
@@ -106,6 +109,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/multi-content-input-block": [
+        "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"

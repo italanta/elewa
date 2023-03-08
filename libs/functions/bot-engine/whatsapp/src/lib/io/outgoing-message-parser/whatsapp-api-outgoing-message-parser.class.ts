@@ -1,20 +1,30 @@
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import
-  {
-    ActionButtonsInfo,
-    InteractiveButtonMessage,
-    MetaMessagingProducts,
-    RecepientType,
-    WhatsAppImageMessage,
-    WhatsAppInteractiveMessage,
-    WhatsAppMessageType,
-    WhatsAppTextMessage,
-  } from '@app/model/convs-mgr/functions';
+{
+  ActionButtonsInfo,
+  ActionInfo,
+  ActionSectionInfo,
+  ActionSectionInfoRow,
+  InteractiveButtonMessage,
+  InteractiveListMessage,
+  MetaMessagingProducts,
+  RecepientType,
+  WhatsAppAudioMessage,
+  WhatsAppDocumentMessage,
+  WhatsAppImageMessage,
+  WhatsAppInteractiveMessage,
+  WhatsAppMessageType,
+  WhatsAppTemplateMessage,
+  WhatsappTemplateParameter,
+  WhatsAppTextMessage,
+  WhatsAppVideoMessage,
+} from '@app/model/convs-mgr/functions';
 
-import { ImageMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { DocumentMessageBlock, ImageMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
+import { MessageTemplateConfig } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -38,7 +48,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         preview_url: false,
         body: textBlock.message as string,
       },
-    } as WhatsAppTextMessage
+    } as WhatsAppTextMessage;
 
     const generatedMessage: WhatsAppTextMessage = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
@@ -60,11 +70,16 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
 
     const buttons = questionBlock.options.map((option) =>
     {
+      // Truncate option.message to 24 characters
+      if (option.message.length > 20) {
+        option.message = option.message.substring(0, 20);
+      }
+
       return {
         type: 'reply',
         reply: {
           id: option.id,
-          title: option.message,
+          title: option.message || "",
         },
       } as ActionButtonsInfo;
     });
@@ -72,7 +87,7 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     const interactiveMessage = {
       type: 'button',
       body: {
-        text: questionBlock.message,
+        text: questionBlock.message || "",
       },
       action: {
         buttons,
@@ -96,14 +111,69 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
+  /**
+    * We transform the Question block to a button interactive message for whatsapp api
+    * @Description Used to send Question Block to whatsapp api
+    */
+  getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const listBlock = storyBlock as QuestionMessageBlock;
+
+    const rows = listBlock.options.map((option) => 
+    {
+      // Truncate option.message to 24 characters
+      if (option.message.length > 24) {
+        option.message = option.message.substring(0, 24);
+      }
+
+
+      return {
+        id: option.id,
+        title: option.message || "",
+        description: option.value
+      } as ActionSectionInfoRow;
+    });
+
+    const interactiveMessage = {
+      type: 'list',
+      body: {
+        text: listBlock.message || ""
+      },
+      action: {
+        button: "Options",
+        sections: [{
+          title: "Please select",
+          rows
+        }]
+      } as ActionInfo,
+    } as InteractiveListMessage;
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppInteractiveMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.INTERACTIVE,
+      interactive: {
+        ...interactiveMessage,
+      },
+    };
+
+    return generatedMessage;
+  }
+
   getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
   {
-    const imageBlock = storyBlock as ImageMessageBlock
+    const imageBlock = storyBlock as ImageMessageBlock;
 
     // Create the image payload which will be sent to api
     const mediaMessage = {
       type: WhatsAppMessageType.IMAGE,
       image: {
+        caption: imageBlock.message || "",
         link: imageBlock.fileSrc,
       },
     } as WhatsAppImageMessage;
@@ -122,81 +192,121 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  // getAudioBlockParserOut(storyBlock: StoryBlock, phone: string) {
-  //   const audioBlock = storyBlock as AudioMessageBlock
+  getAudioBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const audioBlock = storyBlock as VoiceMessageBlock;
 
-  //   // Create the text payload which will be sent to api
-  //   const mediaMessage = {
-  //     type: WhatsAppMessageType.AUDIO,
-  //     audio: {
-  //       link: audioBlock.src,
-  //     },
-  //   } as WhatsAppAudioMessage;
+    // Create the text payload which will be sent to api
+    const mediaMessage = {
+      type: WhatsAppMessageType.AUDIO,
+      audio: {
+        link: audioBlock.fileSrc,
+      },
+    } as WhatsAppAudioMessage;
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.AUDIO,
-  //     ...mediaMessage,
-  //   };
-  //   return generatedMessage;
-  // }
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppAudioMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.AUDIO,
+      ...mediaMessage,
+    };
+    return generatedMessage;
+  }
 
-  // getDocumentBlockParserOut(storyBlock: StoryBlock, phone: string) {
-  //   const documentBlock = storyBlock as DocumentMessageBlock
+  getVideoBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const videoBlock = storyBlock as VideoMessageBlock;
 
-  //   // Create the text payload which will be sent to api
-  //   const mediaMessage = {
-  //     type: WhatsAppMessageType.DOCUMENT,
-  //     document: {
-  //       link: documentBlock.src,
-  //     },
-  //   } as WhatsAppDocumentMessage;
+    // Create the text payload which will be sent to api
+    const mediaMessage = {
+      type: WhatsAppMessageType.VIDEO,
+      video: {
+        caption: videoBlock.message || "",
+        link: videoBlock.fileSrc,
+      },
+    } as WhatsAppVideoMessage;
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.DOCUMENT,
-  //     ...mediaMessage,
-  //   };
-  //   return generatedMessage;
-  // }
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppVideoMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.VIDEO,
+      ...mediaMessage,
+    };
+    return generatedMessage;
+  }
 
-  // getVideoBlockParserOut(storyBlock: StoryBlock, phone: string) {
-  //   let link: string;
+  getDocumentBlockParserOut(storyBlock: StoryBlock, phone: string)
+  {
+    const documentBlock = storyBlock as DocumentMessageBlock;
+    
+    // Create the text payload which will be sent to api
+    const documentMessage = {
+      type: WhatsAppMessageType.DOCUMENT,
+      document: {
+        filename: documentBlock.message || "untitled",
+        link: documentBlock.fileSrc,
+      },
+    } as WhatsAppDocumentMessage;
 
-  //   // Create the text payload which will be sent to api
-  //   const mediaMessage = {
-  //     type: WhatsAppMessageType.VIDEO,
-  //     video: {
-  //       link,
-  //     },
-  //   } as WhatsAppVideoMessage;
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppDocumentMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.DOCUMENT,
+      ...documentMessage,
+    };
+    return generatedMessage;
+  }
 
-  //   /**
-  //    * Add the required fields for the whatsapp api
-  //    * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
-  //    */
-  //   const generatedMessage: WhatsAppMessage = {
-  //     messaging_product: MetaMessagingProducts.WHATSAPP,
-  //     recepient_type: RecepientType.INDIVIDUAL,
-  //     to: phone,
-  //     type: WhatsAppMessageType.VIDEO,
-  //     ...mediaMessage,
-  //   };
-  //   return generatedMessage;
-  // }
 
+  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string)
+  {
+    const { name, languageCode, params } = templateConfig;
+
+    const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
+    {
+      return {
+        type: WhatsAppMessageType.TEXT,
+        text: param,
+      };
+    });
+
+    // Create the message template payload which will be sent to whatsapp
+    const messageTemplate: WhatsAppTemplateMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.TEMPLATE,
+      template: {
+        name,
+        language: {
+          code: languageCode,
+        },
+        components: [
+          {
+            type: "body",
+            parameters: templateParams,
+          }
+        ]
+      }
+    };
+
+    return messageTemplate;
+  }
   // getStickerBlockParserOut(storyBlock: StoryBlock, phone: string) {
   //   // TODO: 
   //   let link: string;

@@ -1,10 +1,9 @@
-<mat-card [id]="id" *ngIf=" imageInputForm">
-	<mat-card-content>
-		<form [formGroup]="imageInputForm" fxLayout="column" fxLayoutALign="start center">
-			<input [id]="imageInputId" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-INPUT' | transloco" />
+<div [id]="id" *ngIf=" imageInputForm">
+	<form [formGroup]="imageInputForm" fxLayout="column" fxLayoutALign="start center">
+		<input [id]="imageInputId" formControlName="message" type="text"
+			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.IMAGE-INPUT' | transloco" />
 
-			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageInputForm"></app-default-option-field>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageInputForm"></app-default-option-field>
 
-		</form>
-	</mat-card-content>
-</mat-card>
+	</form>
+</div>

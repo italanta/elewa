@@ -18,7 +18,7 @@ export interface EndUser extends IObject
     status              : ChatStatus;
 
     /** The story that the end user is currently responding to */
-    currentStory        : string;
+    currentStory       ?: string;
 }
 
 /**

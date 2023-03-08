@@ -1,20 +1,20 @@
-<div>
-  <mat-card class="bot-card">
-    <div id="images">
-      <img *ngIf="!story.imageField; else hasImage" src="https://place-hold.it/420x240" alt="story img" />
+<mat-card class="story-card">
 
-      <ng-template #hasImage>
-        <img [src]="story.imageField" alt="story img" />
-      </ng-template>
-    </div>
+  <img class="story-header-image" mat-card-image *ngIf="!story.imageField; else hasImage"
+    src="https://www.slntechnologies.com/wp-content/uploads/2017/08/ef3-placeholder-image.jpg" alt="" />
 
-    <div class="bot-container" fxLayout="row" fxLayoutAlign="space-between">
-      <div class="bot-text">
-        <p class="bot">
-          {{ story.name }} <span class="bot-number"></span>
-        </p>
-      </div>
-      <button class="mat-icon-button" [matMenuTriggerFor]="menu">
+  <ng-template #hasImage>
+    <img class="story-header-image" mat-card-image [src]="story.imageField" alt="story img" />
+  </ng-template>
+  <mat-card-content>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+
+      <p class="bot-name">
+        {{ story.name }} <span class="bot-number"></span>
+      </p>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu">
         <i class="fas fa-ellipsis-v"></i>
       </button>
       <mat-menu #menu="matMenu">
@@ -28,15 +28,13 @@
       </mat-menu>
     </div>
 
-    <mat-card-content>
-      <p class="text">
-        {{story.description}}
-      </p>
-    </mat-card-content>
-    <div class="action-holder">
-      <button class="mat-raised-button" (click)="goTo()">
-        {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
-      </button>
-    </div>
-  </mat-card>
-</div>
+    <p class="bot-description" maxlength="140">
+      {{ truncateDesc(story.description!) }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button class="submit-btn" mat-raised-button (click)="goTo()">
+      {{ 'BOTS.ACTIONS.OPEN-BOT' | transloco }}
+    </button>
+  </mat-card-actions>
+</mat-card>
