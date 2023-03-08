@@ -1,20 +1,25 @@
-<div [formGroup]="formGroup">
-  <div *ngIf="validate" [formGroupName]="formGroupName">
-    <div>
-      <label for="regex">label</label>
-      <input type="text" id="regex" formControlName="regex" placeholder="Regex">
+<div class="validation-section" [formGroup]="formGroup">
+  <div class="validation-wrapper" *ngIf="validate" [formGroupName]="formGroupName">
+    <div class="validation_regex">
+      <label class="label" for="regex">regex</label>
+      <input class="input" type="text" id="regex" formControlName="regex" placeholder="Regex">
     </div>
-    <div>
-      <label for="max">max</label>
-      <input type="number" name="max" id="max" formControlName="max" placeholder="min-Characters">
 
-      <label for="min">min</label>
-      <input type="number" name="min" id="min" formControlName="min" placeholder="max-characters">
+    <div class="validation_minmax">
+      <div class="validation_max">
+        <label class="label" for="max">max</label>
+        <input class="input" type="number" name="max" id="max" formControlName="max" placeholder="min-Characters">
+      </div>
+      <div class="validation_min">
+        <label class="label" for="min">min</label>
+        <input class="input" type="number" name="min" id="min" formControlName="min" placeholder="max-characters">
+      </div>
     </div>
-    <div>
-      <label for="validationMessage">Validation Error Message</label>
-      <textarea name="validationMessage" id="validationMessage" formControlName="validationMessage" cols="30"
-        rows="10"></textarea>
+
+    <div class="validation_message">
+      <label class="label" for="validationMessage">Validation Error Message</label>
+      <textarea class="text-area" name="validationMessage" id="validationMessage" formControlName="validationMessage"
+        cols="30" rows="5"></textarea>
     </div>
   </div>
 </div>
