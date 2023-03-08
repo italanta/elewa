@@ -13,7 +13,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { ListBlockComponent } from './components/list-block/list-block.component';
-import { ConvsMgrTextMessageBlockModule } from '../../../text-message-block/src';
+import { BlocksLibraryModule } from '../../../main/src';
 
 @NgModule({
   imports: [
@@ -26,7 +26,7 @@ import { ConvsMgrTextMessageBlockModule } from '../../../text-message-block/src'
     ReactiveFormsModule,
 
     ConvsMgrBlockOptionsModule,
-    ConvsMgrTextMessageBlockModule
+    BlocksLibraryModule
   ],
 
   declarations: [

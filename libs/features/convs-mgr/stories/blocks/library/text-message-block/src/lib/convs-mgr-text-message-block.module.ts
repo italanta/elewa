@@ -11,7 +11,7 @@ import {
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { MessageBlockComponent } from './components/message-block/message-block.component';
-import { TextMessageComponent } from './components/text-message/text-message.component';
+import { BlocksLibraryModule } from '../../../main/src';
 
 @NgModule({
   imports: [
@@ -23,11 +23,12 @@ import { TextMessageComponent } from './components/text-message/text-message.com
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    BlocksLibraryModule
   ],
 
-  declarations: [MessageBlockComponent, TextMessageComponent],
+  declarations: [MessageBlockComponent],
 
-  exports: [MessageBlockComponent, TextMessageComponent],
+  exports: [MessageBlockComponent],
 })
 export class ConvsMgrTextMessageBlockModule {}

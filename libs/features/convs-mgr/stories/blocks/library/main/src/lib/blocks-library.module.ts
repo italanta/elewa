@@ -43,6 +43,7 @@ import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+import { TextMessageComponent } from './components/text-message-block/text-message.component';
 
 
 @NgModule({
@@ -89,7 +90,12 @@ import { BlockComponent } from './components/block/block.component';
   ],
 
   declarations: [
-    BlockComponent
+    BlockComponent,
+    TextMessageComponent
+  ],
+
+  exports: [
+    TextMessageComponent
   ],
 
   // Injector which creates all block types within the editor context.
