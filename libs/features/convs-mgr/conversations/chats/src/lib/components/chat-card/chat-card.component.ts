@@ -41,7 +41,7 @@ export class ChatCardComponent implements OnChanges, OnInit
     const variableValues = this._chats$.getChatUserName(this.chat.id);
 
     if(variableValues) {
-      variableValues.pipe(take(1)).subscribe((values)=> this.chat.name = values.name);
+      variableValues.subscribe((values)=> this.chat.name = values.name);
     }
   }
 
