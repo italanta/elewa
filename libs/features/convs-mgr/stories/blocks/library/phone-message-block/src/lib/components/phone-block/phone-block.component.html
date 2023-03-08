@@ -1,10 +1,9 @@
-<mat-card [id]="id" *ngIf=" phoneMessageForm">
-	<mat-card-content>
-		<form [formGroup]="phoneMessageForm" fxLayout="column" fxLayoutALign="start center">
+<div [id]="id" *ngIf=" phoneMessageForm">
+	<form [formGroup]="phoneMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-			<input [id]="phoneInputId" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.PHONE-NUMBER' | transloco" />
+		<input [id]="phoneInputId" formControlName="message" type="text"
+			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.PHONE-NUMBER' | transloco" />
 
-			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="phoneMessageForm"></app-default-option-field>
-		</form>
-	</mat-card-content>
-</mat-card>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="phoneMessageForm"></app-default-option-field>
+	</form>
+</div>

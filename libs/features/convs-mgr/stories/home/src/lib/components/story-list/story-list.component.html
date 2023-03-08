@@ -1,12 +1,11 @@
 <!-- edited the search -->
 <div class="search">
-  <i class="fas fa-search">
-  </i>
+  <i class="fas fa-search"></i>
   <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)" />
 </div>
 
-<div *ngIf="stories$ | async as stories" class="bot-selector" fxLayout="row wrap" fxFlexFill>
-  <div *ngIf="stories.length > 0; else noBots" fxLayout="row wrap" fxFlex>
+<div *ngIf="stories$ | async as stories" class="bot-selector" fxFlexFill>
+  <div *ngIf="stories.length > 0; else noBots" fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px"  fxFlex>
     <div *ngFor="let story of stories" fxFlex="24">
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </div>

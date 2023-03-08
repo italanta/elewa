@@ -1,23 +1,22 @@
-<mat-card [id]="id" *ngIf="jumpBlockForm">
-    <mat-card-content>
-        <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
-            <select id="story" name="story" formControlName="targetStoryId" (change)='getBlocks()'>
-                <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
-                <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-STORY" | transloco}}</option>
-              </select>
+<div [id]="id" *ngIf="jumpBlockForm">
+  <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
+    <select id="story" name="story" formControlName="targetStoryId" (change)='getBlocks()'>
+      <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
+      <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-STORY" | transloco}}</option>
+    </select>
 
-              <select id="block" name="block" formControlName="targetBlockId">
-                <option *ngFor="let block of blocks" [value]='block.id'>{{block.id}}</option>
-                <option value="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-BLOCK" | transloco}}</option>
-              </select>
+    <select id="block" name="block" formControlName="targetBlockId">
+      <option *ngFor="let block of blocks" [value]='block.id'>{{block.id}}</option>
+      <option value="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-BLOCK" | transloco}}</option>
+    </select>
 
-              <div formArrayName="options" fxFlexFill>
-                <div *ngFor="let option of jumpBlockOptions; let i = index" class="full-width" fxFlexFill>
-                  <span [formGroupName]="i" fxFlex>
-                    <app-option-input-field [jsPlumb]="jsPlumb" [optionClass]="option.value" [blockFormGroup]="jumpBlockForm" [formGroupNameInput]="i"></app-option-input-field>
-                  </span>
-                </div>
-              </div>
-        </form>
-   </mat-card-content>
-</mat-card>
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of jumpBlockOptions; let i = index" class="full-width" fxFlexFill>
+        <span [formGroupName]="i" fxFlex>
+          <app-option-input-field [jsPlumb]="jsPlumb" [optionClass]="option.value" [blockFormGroup]="jumpBlockForm"
+            [formGroupNameInput]="i"></app-option-input-field>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>

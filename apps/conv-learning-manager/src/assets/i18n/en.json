@@ -81,8 +81,13 @@
         "DOCUMENT": "Document",
         "MULTIPLEINPUT":"Multiple-Input",
         "IMAGE-INPUT":"Image Input",
-        "OPEN-ENDED-QUESTION": "Open Emded Question",
-        "VIDEO-INPUT":"Video Input"
+        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "MULTI-CONTENT-INPUT":"Multi Content Input",
+        "VIDEO-INPUT":"Video Input",
+        "AUDIO-INPUT":"Audio Input",
+        "LOCATION-INPUT":"Location Input",
+        "KEYWORD-JUMP": "Keyword Jump",
+        "WEBHOOK": "Webhook"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -92,16 +97,19 @@
         "NAME": "Name",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Phone",
-        "AUDIO-LINK":"Audio Link",
+        "AUDIO-LINK": "Audio Link",
         "VIDEO-LINK": "Video Link",
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
+        "LOCATION-INPUT": "Location Input",
         "IMAGE-INPUT": "Image Input",
-        "VIDEO-INPUT": "Video Input"
+        "VIDEO-INPUT": "Video Input",
+        "AUDIO-INPUT": "Audio Input",
+        "WEBHOOK": "Url Input"
       },
       "BUTTONS": {
-        "JUMP-BLOCK" : {
+        "JUMP-BLOCK": {
           "SUCCESS": "Success",
           "FAILED": "Failed"
         }
@@ -124,10 +132,10 @@
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
-        "CHANNEL-TYPE" : "Choose platform",
+        "CHANNEL-TYPE": "Choose platform",
         "CHANNEL-NAME": "Enter the name of your bot",
         "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",
-        "AUTH-KEY":"Enter the authentication key",
+        "AUTH-KEY": "Enter the authentication key",
         "ACTION-BUTTONS": {
           "SAVE": "Save",
           "CANCEL": "Cancel"
@@ -142,7 +150,12 @@
       "EDIT-BOT": "Edit",
       "DELETE-BOT": "Delete",
       "ADD-OPTION": "Add Option",
-      "NEW-LIST": "New List"
+      "NEW-LIST": "New List",
+      "IMAGE":"Image",
+      "AUDIO":"Audio",
+      "VIDEO":"Video",
+      "TEXT":"Text",
+      "DOCUMENT":"Document"
     },
     "FIELDS": {
       "NAME": "Name",
@@ -186,5 +199,8 @@
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
     }
+  },
+  "OPTION-INPUT": {
+    "MAX-CHARACTERS": "maximum characters reached"
   }
 }

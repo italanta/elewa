@@ -1,0 +1,7 @@
+<div class="form-wrapper">
+  <form [formGroup]="form" action="" class="form-edit">
+    <span class="title">{{ title | transloco }}</span>
+    <input class="text" id="message" name="message" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.NAME' | transloco"
+      formControlName="message" />
+  </form>
+</div>

@@ -1,5 +1,24 @@
-<div class="frame-bg" fxLayout="column" fxLayoutALign="start"  fxFlexFill>
-  <div #editor id="editor-frame" style="position: relative;" fxFlex="95">
-    <ng-template #viewport></ng-template>
+
+<div
+ id="frame-bg"
+  class="frame-bg"
+  fxLayout="column"
+  fxLayoutALign="start"
+  fxFlexFill
+  convlPinchZoom
+  (pinch$)="onPinch($event)"
+  
+>
+  <div 
+  infinite-scroll 
+  [scrollWindow]="true" 
+  [horizontal]="true" 
+  [infiniteScrollContainer]="editorVC" 
+  [fromRoot]="false" 
+  [infiniteScrollDistance]="9"
+    [infiniteScrollThrottle]="150" 
+    (scrolled)="onScroll()"
+     #editor id="editor-frame" style="position: relative" fxFlex="95">
+    <ng-template id="viewport" #viewport></ng-template>
   </div>
 </div>
