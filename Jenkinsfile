@@ -26,7 +26,8 @@ pipeline {
                 // some block
                 sh 'mkdir -p apps/conv-learning-manager/src/environments && sudo cat ${ENV_FILE} > apps/conv-learning-manager/src/environments/environment.ts'
                 sh 'echo $FIREBASE_TOKEN'
-                sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting:enabel-elearning' 
+                sh 'firebase use enabel-elearning'
+                sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
 }
             }
         }
