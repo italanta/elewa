@@ -2,16 +2,8 @@
 	<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
 		<div [id]="videoInputId">
-			<input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
-			<label [for]="videoInputUpload">
-				<div *ngIf="!hasVideo; else inputHasVideo" (click)="openVideoModal()">
-					<i id="icon" class="fas fa-play-circle"></i>
-				</div>
-				<ng-template #inputHasVideo>
-					<video class="upload-video" alt="" controls>
-						<source [src]="videoUrl" type="video/mp4">
-					</video>
-				</ng-template>
+			<label [for]="videoInputUpload" (click)="openVideoModal()">
+				<i id="icon" class="fas fa-play-circle"></i>
 			</label>
 		</div>
 

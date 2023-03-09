@@ -2,9 +2,18 @@
   <h1> {{ t('title') }} </h1>
 </ng-template>
 <div>
-  <!-- add a click even t to this div so that when I click on the thumbnail I am able to select a video -->
-  <div class="thumbnail" (click)="onVideoChange($event)"> 
-    <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png">
+  <div [id]="videoInputId">
+    <input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
+    <label [for]="videoInputUpload">
+      <div *ngIf="!hasVideo; else inputHasVideo">
+        <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png">
+      </div>
+      <ng-template #inputHasVideo>
+        <video class="upload-video" alt="" controls>
+          <source [src]="videoUrl" type="video/mp4">
+        </video>
+      </ng-template>
+    </label>
   </div>
 </div>
 <form>
