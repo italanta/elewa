@@ -27,8 +27,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'enabel-prod-environment-file', variable: 'ENV_FILE')]) {
                 // some block
                 sh 'mkdir -p apps/conv-learning-manager/src/environments'
-                sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST}'
-                sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
+                sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST}'
+                sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
                 sh 'firebase use enabel-elearning'
                 sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
 }
