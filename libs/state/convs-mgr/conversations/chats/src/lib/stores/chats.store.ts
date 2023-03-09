@@ -12,7 +12,7 @@ import { Organisation } from '@app/model/organisation';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { ActiveOrgStore } from '@app/state/organisation';
-import { Chat, EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +50,7 @@ export class ChatsStore extends DataStore<Chat>
     });
   }
 
+
   getChatUserName(id: string) {
 
     const namesRepo = this._repoFac.getRepo<any>(`orgs/${this._activeOrg.id}/end-users/${id}/variables`);
@@ -57,5 +58,22 @@ export class ChatsStore extends DataStore<Chat>
     const valuesDoc$ = namesRepo.getDocumentById('values');
 
     return valuesDoc$;
+  }
+
+  pauseChat(id: string) {
+
+    const chatsRepo = this._repoFac.getRepo<Chat>(`orgs/${this._activeOrg.id}/end-users`);
+
+    const chat = chatsRepo.getDocumentById(id);
+
+    return chat.pipe(map((chat: Chat) => {
+
+      if (chat.status === ChatStatus.PausedByAgent) {
+        chat.status = ChatStatus.Running;
+      } else {
+        chat.status = ChatStatus.PausedByAgent;
+      }
+      return chatsRepo.update(chat)
+    }));
   }
 }
