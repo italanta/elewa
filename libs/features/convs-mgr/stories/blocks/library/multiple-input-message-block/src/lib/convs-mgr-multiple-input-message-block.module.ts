@@ -12,7 +12,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { MultipleInputBlockComponent } from './components/multiple-input-block/multiple-input-block.component';
-import { BlocksLibraryModule } from '../../../main/src';
+import { TextMessageModule } from '../../../main/src/lib/components/text-message-block/text-message.module';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { BlocksLibraryModule } from '../../../main/src';
     FormsModule,
     ReactiveFormsModule,
     ConvsMgrBlockOptionsModule,
-    BlocksLibraryModule
+    TextMessageModule
   ],
 
   declarations: [
