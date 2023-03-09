@@ -207,7 +207,7 @@ export class BotEnginePlay implements IBotEnginePlay
     this.sideOperations.push(saveEndUserMessage);
   }
 
-  private async __setFileMessageUrl(msg: FileMessage, endUserId: string) { 
+  async __setFileMessageUrl(msg: FileMessage, endUserId: string) { 
 
     msg.url = await this._processMediaService$.getFileURL(msg, endUserId, this._activeChannel) || null;
 
