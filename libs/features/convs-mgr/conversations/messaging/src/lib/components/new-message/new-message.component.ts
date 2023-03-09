@@ -1,12 +1,13 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
-import { from } from 'rxjs';
-
 import { User } from '@iote/bricks';
 import { UserService, BackendService } from '@ngfi/angular';
 
-import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { iTalUser } from '@app/model/user';
+import { MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTypes } from '@app/model/convs-mgr/functions';
+import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-new-message',
@@ -17,7 +18,7 @@ export class NewMessageComponent implements OnChanges
 {
   disabled: boolean;
   @Input() chat: Chat;
-  @Input() status: ChatFlowStatus | undefined;
+  @Input() status: ChatStatus | undefined;
   
   message = '';
   user: User;
@@ -26,7 +27,9 @@ export class NewMessageComponent implements OnChanges
   newMessage = new EventEmitter<string>();
 
   constructor(private userService: UserService<iTalUser>,
-              private _backendService: BackendService) 
+              private _backendService: BackendService,
+              private _msgQuery: MessagesQuery,
+              ) 
   {
     userService.getUser().subscribe(user => this.user = user);
   }
@@ -45,12 +48,12 @@ export class NewMessageComponent implements OnChanges
 
   isPaused()
   {
-    return this.status === ChatFlowStatus.Paused || this.status === ChatFlowStatus.PausedByAgent;
+    return this.status === ChatStatus.Paused || this.status === ChatStatus.PausedByAgent;
   }
 
   hasCompleted()
   {
-    return this.status === ChatFlowStatus.Completed && this.chat.awaitingResponse;
+    return this.status === ChatStatus.Ended && this.chat.awaitingResponse;
   }
 
   onInputKeyup({ keyCode }: KeyboardEvent) {
@@ -63,7 +66,19 @@ export class NewMessageComponent implements OnChanges
     if (this.message && !this.disabled) 
     {
       const data = { chatId: this.chat.id, message: this.message, agentId: this.user.id };
-      from(this._backendService.callFunction('sendMessage', data)).subscribe();
+
+      const textMessage: TextMessage = {
+        text: this.message,
+        type: MessageTypes.TEXT,
+        direction: MessageDirection.TO_END_USER,
+        endUserPhoneNumber: this.chat.phoneNumber,
+        n: 1,
+      }
+
+      // from(this._backendService.callFunction('sendOutgoingMessage', textMessage)).subscribe();
+
+      this._msgQuery.addMessage(textMessage).subscribe();
+
       this.newMessage.emit(this.message);
       this.message = '';
     }
