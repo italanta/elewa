@@ -62,7 +62,7 @@ export class VideoBlockComponent implements OnInit {
   }
 
   openVideoModal(){
-    this.matdialog.open(VideoBlockModalComponent)
+    this.matdialog.open(VideoBlockModalComponent, {minWidth: '1000px'})
   }
 
   async processVideo(event: any) {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -36,14 +36,20 @@ export class VideoBlockModalComponent implements OnInit {
   videoUrl: string;
 
   videoInputUpload: string = '';
-   
+
   @Output() applied = new EventEmitter<any>();
   name: string
   size: string
   title = 'Upload Video';
-  sizeOptions = ['4K', '1080p', '720p (Recommended)', '480p', '360p']
+  sizeOptions = [
+  { vidSize: '4K', resolution: '3840px x 2160px' },
+  { vidSize: '1080p', resolution: '1920px x 1080px' },
+  { vidSize: '720p (Recommended)', resolution: '1280px x 720px' },
+  { vidSize: '540p', resolution: '960px x 540px' },
+  { vidSize: "Don't Encode Media", resolution: 'This will use the original media you provided' },
+  ]
 
-    apply() {
+  apply() {
     const videoBlock = {
       name: this.name,
       size: this.size
@@ -53,20 +59,19 @@ export class VideoBlockModalComponent implements OnInit {
   }
 
   constructor(private _videoUploadService: UploadFileService,
-              private _ngfiStorage:AngularFireStorage,
-  ) 
-  {
+    private _ngfiStorage: AngularFireStorage,
+  ) {
     this.block = this.block as VideoMessageBlock;
   }
 
   ngOnInit(): void {
     this.videoInputId = `vid-${this.id}`;
     this.videoInputUpload = `vid-${this.id}-upload`;
-    
+
     this.checkIfVideoExists();
   }
 
-  checkIfVideoExists(){
+  checkIfVideoExists() {
     this.videoUrl = this.videoMessageForm.value.fileSrc;
     this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
   }
@@ -84,7 +89,7 @@ export class VideoBlockModalComponent implements OnInit {
     this.isLoadingVideo = true;
     this.videoMessageForm.get('fileName')?.setValue(this.file.name);
 
-    this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
+    this.videoUrl = await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
     (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
   }
 }
