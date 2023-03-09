@@ -57,6 +57,14 @@ export class MessagesQuery
     return messages.pipe(map(messages => messages[0].createdOn));
   }
 
+  addMessage(message: Message) {
+    const orgId = this._activeOrg._activeOrg;
+
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${orgId}/end-users/${this._activeChat.id}/messages`);
+
+    return messagesRepo$.create(message, Date.now().toString());
+  }
+
   // get(index: number, n: number): Observable<ChatMessage[]>
   // {
 
