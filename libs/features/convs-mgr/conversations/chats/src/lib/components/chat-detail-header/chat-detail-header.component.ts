@@ -10,7 +10,7 @@ import { BackendService, UserService } from '@ngfi/angular';
 import { ToastService } from '@iote/bricks-angular';
 import { __FormatDateFromStorage } from '@iote/time';
 
-import { ChatFlowStatus, Chat } from '@app/model/convs-mgr/conversations/chats';
+import {Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { iTalUser } from '@app/model/user';
 
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
@@ -30,7 +30,7 @@ export class ChatDetailHeaderComponent implements OnChanges
   loading = true;
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
-  agentPaused: boolean;
+  agentPaused: boolean = true;
 
   user: iTalUser;
 
@@ -47,7 +47,7 @@ export class ChatDetailHeaderComponent implements OnChanges
   {
     if(changes['chat'])
     {
-      this.agentPaused = this.chat.flow === ChatFlowStatus.PausedByAgent;
+      this.agentPaused = this.chat.status === ChatStatus.Paused;
       this.loading = false;
       if(this.confirmDialogRef)
       {
@@ -68,14 +68,14 @@ export class ChatDetailHeaderComponent implements OnChanges
 
   getClass()
   {
-    switch(this.chat.flow)
+    switch(this.chat.status)
     {
-      case ChatFlowStatus.Flowing:
+      case ChatStatus.Running:
         return 'active';
-      case ChatFlowStatus.Completed:
+      case ChatStatus.Ended:
         return 'complete';
-      case ChatFlowStatus.Disabled:
-      case ChatFlowStatus.Stashed:
+      case ChatStatus.Disabled:
+      case ChatStatus.Stashed:
         return '';
       default:
         return 'paused';
@@ -84,23 +84,23 @@ export class ChatDetailHeaderComponent implements OnChanges
 
   checkStatus()
   {
-    return this.chat.flow === ChatFlowStatus.Flowing ;
+    return this.chat.status === ChatStatus.Running;
   }
 
-  getStatus(flowCode: number)
+  getStatus(flowCode: string)
   {
     switch(flowCode){
-      case ChatFlowStatus.Paused:
+      case ChatStatus.Paused:
         return "Requested for Assistance";
-      case ChatFlowStatus.PausedByAgent:
+      case ChatStatus.PausedByAgent:
         return "Paused by Trainer";
-      case ChatFlowStatus.Completed:
+      case ChatStatus.Ended:
         return "Completed";
-      case ChatFlowStatus.PendingAssessment:
-        return "Pending Assessment";
-      case ChatFlowStatus.OnWaitlist:
-        return "Requested for Assistance";
-      case ChatFlowStatus.Stashed:
+      // case ChatStatus.PendingAssessment:
+      //   return "Pending Assessment";
+      // case ChatStatus.OnWaitlist:
+      //   return "Requested for Assistance";
+      case ChatStatus.Stashed:
         return "Stashed";
       default:
         return "Flowing";
@@ -109,17 +109,17 @@ export class ChatDetailHeaderComponent implements OnChanges
 
   chatIsPaused()
   {
-    return this.chat.flow === ChatFlowStatus.Paused || this.chat.flow === ChatFlowStatus.PausedByAgent;
+    return this.chat.status === ChatStatus.PausedByAgent;
   }
 
   hasCompleted()
   {
-    return this.chat.flow === ChatFlowStatus.Completed && this.chat.awaitingResponse;
+    return this.chat.status === ChatStatus.Ended && this.chat.awaitingResponse;
   }
 
   isInactive()
   {
-    return this.chat.flow === ChatFlowStatus.Stashed || this.chat.flow === ChatFlowStatus.Disabled;
+    return this.chat.status === ChatStatus.Stashed || this.chat.status === ChatStatus.Disabled;
   }
 
   viewDetails()
@@ -154,7 +154,7 @@ export class ChatDetailHeaderComponent implements OnChanges
   pauseChat()
   {
     const agentId = this.user.id;
-    const req = { id: this.chat.id, agentId: agentId};
+    const req = { chatId: this.chat.id, agentId: agentId};
 
     this.confirmDialogRef = this._dialog.open(ConfirmActionModal, {
       data: { req: req, action: 'talkToHuman' },
@@ -165,7 +165,7 @@ export class ChatDetailHeaderComponent implements OnChanges
 
   resumeChat()
   {
-    if(this.chat.flow === ChatFlowStatus.PausedByAgent)
+    if(this.chat.status === ChatStatus.Paused)
     {
       this.moveChat();
     }

@@ -1,9 +1,10 @@
 import {Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 
 import { Logger, ToastService } from '@iote/bricks-angular';
 import { BackendService } from '@ngfi/angular';
-import { from } from 'rxjs';
+import { from, take } from 'rxjs';
 
 @Component({
   selector: 'app-move-to-section-modal',
@@ -15,7 +16,7 @@ export class ConfirmActionModal
   isLoaded = false;
   resume = false;
   
-  constructor(
+  constructor(private _chats$: ChatsStore,
               private _backendService: BackendService,
               private _dialogRef: MatDialogRef<ConfirmActionModal>,
               private _toastService: ToastService,
@@ -28,7 +29,11 @@ export class ConfirmActionModal
 
   confirm()
   {
-    from(this._backendService.callFunction(this._data.action, this._data.req)).subscribe();
+    // from(this._backendService.callFunction(this._data.action, this._data.req)).subscribe();
+
+    console.log(this._data);
+
+    this._chats$.pauseChat(this._data.req.chatId).pipe(take(1)).subscribe()
     
     this.exitModal();
     if(this.resume)
