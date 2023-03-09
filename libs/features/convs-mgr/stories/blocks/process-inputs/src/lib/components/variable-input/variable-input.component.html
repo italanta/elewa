@@ -10,7 +10,7 @@
 
       <div class="variable-defaults">
         <div class="variables_name">
-          <label class="label" for="name">save answers in the variable</label>
+          <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
           <input class="input" type="text" id="variable" name="variable" formControlName="name">
           <div class="errors" *ngIf="name.invalid">{{ name.errors?.['incorrect'] }}</div>
         </div>
