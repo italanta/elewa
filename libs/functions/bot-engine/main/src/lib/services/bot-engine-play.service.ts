@@ -29,7 +29,7 @@ import { __isCommand } from "../utils/isCommand";
  */
 export class BotEnginePlay implements IBotEnginePlay
 {
-  private orgId: string;
+  protected orgId: string;
 
   private defaultStory: string;
 
@@ -95,9 +95,11 @@ export class BotEnginePlay implements IBotEnginePlay
       return await this.play(null, endUser, newCursor);
     }
 
-    const processMessageOps = this._processMessageService$.getSideOperations();
+    // const processMessageOps = this._processMessageService$.getSideOperations();
 
-    this.addSideOperations(processMessageOps);
+    // this.addSideOperations(processMessageOps);
+
+    console.log("Side Operations: ", this.sideOperations);
     
     // Resolve all pending operations.
     await Promise.all(this.sideOperations);
@@ -132,7 +134,7 @@ export class BotEnginePlay implements IBotEnginePlay
     }
   }
 
-  private async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
+  async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
 
     // Inject Variables to the block
@@ -162,7 +164,7 @@ export class BotEnginePlay implements IBotEnginePlay
   /**
    * Updates the position of the end user with the block we send back to them
    */
-  private __move(newPosition: Cursor, endUserId: string)
+  __move(newPosition: Cursor, endUserId: string)
   {
     const moveCursor = this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, newPosition);
 
