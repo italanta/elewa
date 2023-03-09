@@ -75,8 +75,8 @@ export class ActionsListomponent implements OnInit, AfterViewInit
         return 'Running';
       case ChatStatus.Paused:
         return 'Paused';
-      case ChatStatus.TakingToAgent:
-        return 'TakingToAgent';
+      case ChatStatus.PausedByAgent:
+        return 'PausedByAgent';
 
       default:
         return 'Unknown';
