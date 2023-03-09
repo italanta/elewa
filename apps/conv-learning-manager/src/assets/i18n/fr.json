@@ -82,6 +82,17 @@
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
         "LOCATION-INPUT":"saisie de position"
+      },
+      "VALIDATORS": {
+        "SET-VALIDATION-CHECKBOX": "Validation de l'ensemble",
+        "VARIABLE-INFO": "enregistrer les réponses dans la variable",
+        "REGEX": "expression régulière",
+        "PLACEHOLDER-REGEX": "regex",
+        "MAX": "Max",
+        "PLACEHOLDER-MAX": "Caractères maximum",
+        "MIN": "Min",
+        "PLACEHOLDER-MIN": "Caractères minimum",
+        "ERROR-MESSAGE": "Message d'erreur de validation"
       }
     },
     "COMPONENTS": {
