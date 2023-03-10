@@ -37,12 +37,16 @@ pipeline {
 
         stage('Deploy to Farmbetter') { 
             steps {
+
+                sshagent(['github_jenkins_ssh']) {
+                    sh 'git checkout farmbetter-private-dev'
+                    sh 'git pull origin farmbetter-private-dev'
+                    sh 'git merge origin/private-prod'
+                    sh 'git push origin farmbetter-private-dev'
+                }
+
                 withCredentials([file(credentialsId: 'farmbetter-prod-environment-file', variable: 'ENV_FILE')]) {
                 // some block
-                sh 'git checkout farmbetter-private-dev'
-                sh 'git pull origin farmbetter-private-dev'
-                sh 'git merge origin/private-prod'
-                sh 'git push origin farmbetter-private-dev'
                 
                 sh 'mkdir -p apps/conv-learning-manager/src/environments'
                 sh 'sudo cat ${ENV_FILE} > ${ENV_FILE_DEST}'
