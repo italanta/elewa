@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -76,7 +76,13 @@ export class StoryEditorStateService {
     // Persist the story and all the blocks
     return combineLatest(actions$)
       .pipe(tap(() => this._lastLoadedState = ___cloneDeep(state)),
-        tap(() => this._isSaving = false));
+            tap(() => this._isSaving = false),
+            catchError(err => {
+              this._logger.log(() => `Error saving story editor state, ${err}`);
+              alert('Error saving story, please try again. If the problem persists, contact support.');
+              this._isSaving = false;
+              return of(err);
+            }));
   }
 
   /**
