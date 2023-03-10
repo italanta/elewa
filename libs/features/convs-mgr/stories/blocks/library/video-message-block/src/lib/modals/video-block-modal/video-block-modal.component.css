@@ -10,9 +10,11 @@
   font-weight: 600;
 
 }
-i {
+#close__icon{
   height: 30px;
-  width: 30px;  
+  width: 30px;
+  position: relative;
+  right: -850px;
 }
 .wrapper {
     /* padding: 0 5; */

@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container"*ngIf="modalOpen" >
   <div class="heading">
+    <i class="fas fa-times" id="close__icon" (click)="closeModal()"></i>
     <ng-template transloco let-t>
       <h2 class="title">{{ t  ('Upload Video') }}</h2>
     </ng-template>
-    <i class="fa-regular fa-xmark">X</i>
     </div>
 <div class="wrapper">
   

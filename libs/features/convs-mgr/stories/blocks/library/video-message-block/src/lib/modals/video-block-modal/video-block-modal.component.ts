@@ -23,6 +23,8 @@ export class VideoBlockModalComponent implements OnInit {
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  modalOpen = true;
+
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
 
@@ -74,6 +76,12 @@ export class VideoBlockModalComponent implements OnInit {
   checkIfVideoExists() {
     this.videoUrl = this.videoMessageForm.value.fileSrc;
     this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+  }
+
+  
+
+  closeModal() {
+    this.modalOpen = false;
   }
 
   async processVideo(event: any) {
