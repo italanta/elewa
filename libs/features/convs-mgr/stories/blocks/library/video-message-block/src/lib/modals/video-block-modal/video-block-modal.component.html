@@ -1,18 +1,25 @@
-<div class="container"*ngIf="modalOpen" >
+<div class="container" *ngIf="modalOpen">
   <div class="heading">
-    <i class="fas fa-times" id="close__icon" (click)="closeModal()"></i>
-    <ng-template transloco let-t>
-      <h2 class="title">{{ t  ('Upload Video') }}</h2>
-    </ng-template>
+    <div (click)="closeModal()" id="close__icon">
+      <i class="fas fa-times"></i>
     </div>
-<div class="wrapper">
-  
+    <ng-template transloco let-t>
+      <h2 class="title">{{ t('Upload Video') }}</h2>
+    </ng-template>
+  </div>
+  <div class="wrapper">
     <div class="left__side">
       <p class="p__text">Give This media Item a Name</p>
       <label for="name-input" class="name__input"></label>
-      <input type="text" id="name-input" class="name__input" placeholder="Name"[(ngModel)]="name" />
+      <input
+        type="text"
+        id="name-input"
+        class="name__input"
+        placeholder="Name"
+        [(ngModel)]="name"
+      />
       <br />
-  
+
       <div [id]="videoInputId">
         <input
           (change)="processVideo($event)"
@@ -34,7 +41,7 @@
         </label>
       </div>
     </div>
-  
+
     <div class="right__side">
       <h3 class="right__header">Media Encoding</h3>
       <label
@@ -44,19 +51,20 @@
       <div *ngFor="let option of sizeOptions">
         <input
           type="radio"
-          id="{{ option}}"
+          id="{{ option }}"
           name="size"
           [(ngModel)]="size"
           [value]="option.vidSize"
           id="radio"
         />
-       <label for="{{ option }}" class="size__options">{{ option.vidSize }}</label>
-       <p class="resolution">{{option.resolution}}</p>
+        <label for="{{ option }}" class="size__options">{{
+          option.vidSize
+        }}</label>
+        <p class="resolution">{{ option.resolution }}</p>
       </div>
     </div>
-  
-</div>
+  </div>
   <div class="apply">
-    <button (click)="apply()">Apply</button> 
-  </div> 
+    <button (click)="apply()" class="apply__button">Apply</button>
+  </div>
 </div>

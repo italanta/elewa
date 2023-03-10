@@ -8,13 +8,13 @@
   color: var(--convs-mgr-color-700);
   text-align: center;
   font-weight: 600;
-
 }
 #close__icon{
   height: 30px;
   width: 30px;
   position: relative;
   right: -850px;
+  color: var(--convs-mgr-color-700);
 }
 .wrapper {
     /* padding: 0 5; */
@@ -27,39 +27,34 @@
     justify-content: center;
     grid-gap: 40px;
 }
-button {
+.apply__button {
   position: absolute;
   right: 20px;
   bottom: 20px;
   background-color: var(--convs-mgr-color-primary-purple);
   font-size: medium;
   font-weight: 400;
-  color: white;
-  width: 100px;
+  color: var(--convs-mgr-color-primary-white);
+  width: 120px;
   border-radius: 6px;
 }
 .apply {
   padding-top: 5px;
 }
 .left__side {
-  /* padding-left: 10px;   */
-  /* width: 50%;  */
-   background-color: white; 
+   background-color: var(--convs-mgr-color-primary-white); 
 }
 
 #name-input {
   border: none;
   outline: none;
-  width: 100%;
   background-color: var(--convs-mgr-color-tertiary-tint);
 }
 
 .right__side {
-  /* padding-right: 10px; */
   font-size: small;
   max-height: 500px;
-  /* width: 50%; */
-  background-color: white;
+  background-color:var(--convs-mgr-color-primary-white);
 }
 .right__header{
     color: var(--convs-mgr-color-700);
@@ -89,7 +84,10 @@ img {
   opacity: 0.7
 }
 
-#radio{
-    cursor: pointer;
-    color: var(--convs-mgr-color-text-black);
+input[type="radio"]{
+    color: var(--convs-mgr-color-700);
+}
+.heading{
+  padding: none;
+  height: fit-content;
 }
