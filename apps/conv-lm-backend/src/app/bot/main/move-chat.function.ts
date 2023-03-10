@@ -1,4 +1,4 @@
-import { EndpointRegistrar } from "@ngfi/functions";
+import { RestRegistrar } from "@ngfi/functions";
 
 import { MoveChatHandler } from "@app/functions/bot-engine";
 
@@ -17,7 +17,7 @@ const handler = new MoveChatHandler();
  * 
  */
 export const moveChat = new ConvLearnFunction('moveChat', 
-                                                  new EndpointRegistrar(),  
+                                                  new RestRegistrar(),  
                                                   [], 
                                                   handler)
                                .build();
