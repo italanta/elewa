@@ -1,6 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { FunctionHandler, RestResult200, FunctionContext } from '@ngfi/functions';
+import { FunctionHandler, RestResult200, FunctionContext, RestResult } from '@ngfi/functions';
 import { JumpStoryBlockService } from '../services/process-next-block/block-type/jump-story-block.service';
 
 import { CommunicationChannel, Cursor, __PlatformTypeToPrefix, __PrefixToPlatformType } from "@app/model/convs-mgr/conversations/admin/system";
@@ -21,7 +21,7 @@ import { BotEngineJump } from '../services/bot-engine-jump.service';
 import { EndUserDataService } from '../services/data-services/end-user.service';
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 
-export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string}, RestResult200>
+export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string}, RestResult>
 {
   jumpBlockService$: JumpStoryBlockService;
   sideOperations: Promise<any>[] = [];
@@ -29,7 +29,7 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
    * Put a break on execution and halt the system to talk to a Human agent. */
   public async execute(req: { storyId: string, orgId: string, endUserId: string, blockId?: string}, context: FunctionContext, tools: HandlerTools)
   {
-    tools.Logger.log(() => `[MoveChatHandler].execute: Open up channel to talk to Human Agent.`);
+    tools.Logger.log(() => `[MoveChatHandler].execute: Attempting to jump user to story: ${req.storyId}`);
     tools.Logger.log(() => JSON.stringify(req));
 
     const splitEndUserId = req.endUserId.split('_');
@@ -40,7 +40,7 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
 
     const communicationChannel: CommunicationChannel = await _channelService$.getChannelByConnection(n) as CommunicationChannel;
 
-    console.log(`[MoveChatHandler].execute: Communication Channel: ${JSON.stringify(communicationChannel)}`);
+    tools.Logger.log(()=>(`[MoveChatHandler].execute: Communication Channel: ${JSON.stringify(communicationChannel)}`));
 
     const connDataService = new ConnectionsDataService(communicationChannel, tools);
     const blockDataService = new BlockDataService(communicationChannel, connDataService, tools);
@@ -55,18 +55,24 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
       status: ChatStatus.Running
     }
 
-    const currentCursor = await cursorDataService.getLatestCursor(req.endUserId, req.orgId);
+    try {
+      const currentCursor = await cursorDataService.getLatestCursor(req.endUserId, req.orgId);
 
-    const activeChannelFactory = new ActiveChannelFactory();
+      const activeChannelFactory = new ActiveChannelFactory();
+  
+      const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools);
+      
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, tools, activeChannel, processMediaService);
+  
+      const bot = new BotEngineJump(processMessageService, cursorDataService, msgDataService, processMediaService, activeChannel, tools);
+  
+      await bot.jump(req.storyId, req.orgId, endUser, currentCursor as Cursor, req.blockId);
+  
+      return { success: true } as RestResult200;
+    } catch (error) {
+      tools.Logger.log(() => `[MoveChatHandler].execute: Error: ${error}`);
 
-    const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools);
-    
-    const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, tools, activeChannel, processMediaService);
-
-    const bot = new BotEngineJump(processMessageService, cursorDataService, msgDataService, processMediaService, activeChannel, tools);
-
-    await bot.jump(req.storyId, req.orgId, endUser, currentCursor as Cursor, req.blockId);
-
-    return { success: true } as RestResult200;
+      return { status: 500 } as RestResult;
+    }
   }
 }
