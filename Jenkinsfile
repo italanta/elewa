@@ -41,7 +41,7 @@ pipeline {
                 // some block
                 sh 'git checkout farmbetter-private-dev'
                 sh 'git pull origin farmbetter-private-dev'
-                sh 'git merge private-prod'
+                sh 'git merge origin/private-prod'
                 sh 'git push origin farmbetter-private-dev'
                 
                 sh 'mkdir -p apps/conv-learning-manager/src/environments'
