@@ -82,10 +82,8 @@ this.block = this.block as ImageMessageBlock;
     const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
   const selectedFileType = event.target.files[0].type;
 
-
   if (!allowedFileTypes.includes(selectedFileType)) {
-    // display error modal here
-    console.error('Invalid file type');
+    //error modal displayed here
     this.openErrorModal();
     return;
   }

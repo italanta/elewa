@@ -5,6 +5,8 @@ import {  HttpClientModule } from '@angular/common/http';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+
+
 import {
   FlexLayoutModule,
   MaterialBricksModule,
@@ -12,6 +14,8 @@ import {
 } from '@iote/bricks-angular';
 
 import {MultiLangModule}from '@ngfi/multi-lang';
+
+import { ElementsLayoutModalsModule } from '@app/elements/layout/modals';
 
 import { VideoBlockComponent } from './components/video-block/video-block.component';
 
@@ -28,6 +32,8 @@ import { VideoBlockComponent } from './components/video-block/video-block.compon
 
     HttpClientModule,
     ConvsMgrBlockOptionsModule,
+
+    ElementsLayoutModalsModule,
   ],
 
   declarations: [VideoBlockComponent],

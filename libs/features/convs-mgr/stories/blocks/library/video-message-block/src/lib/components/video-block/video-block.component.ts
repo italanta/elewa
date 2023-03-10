@@ -11,6 +11,10 @@ import { UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { MatDialog } from '@angular/material/dialog';
+
+import { ErrorPromptModalComponent } from 'libs/elements/layout/modals/src/lib/modals/error-prompt-modal/error-prompt-modal.component';
+
 @Component({
   selector: 'app-video-block',
   templateUrl: './video-block.component.html',
@@ -39,7 +43,8 @@ export class VideoBlockComponent implements OnInit {
   videoInputUpload: string = '';
 
   constructor(private _videoUploadService: UploadFileService,
-              private _ngfiStorage:AngularFireStorage
+              private _ngfiStorage:AngularFireStorage,
+              private dialog: MatDialog
   ) 
   {
     this.block = this.block as VideoMessageBlock;
@@ -57,7 +62,28 @@ export class VideoBlockComponent implements OnInit {
     this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
   }
 
+  openErrorModal() {
+    this.dialog.open(ErrorPromptModalComponent, {
+      width: '400px',
+      data: {
+        title: 'Invalid File Type',
+        message: 'Please select an MP4 video file only.'
+      }
+    });
+  }
+  
+
   async processVideo(event: any) {
+
+    const allowedFileTypes = ['video/mp4'];
+    const selectedFileType = event.target.files[0].type;
+
+    if (!allowedFileTypes.includes(selectedFileType)) {
+      //error modal displayed here
+      this.openErrorModal();
+      return;
+    }
+
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.videoLink = e.target.result;

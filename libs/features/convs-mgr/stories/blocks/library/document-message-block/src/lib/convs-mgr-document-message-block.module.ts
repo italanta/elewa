@@ -15,6 +15,7 @@ import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/bloc
 
 import { DocumentBlockComponent } from './components/document-block/document-block.component';
 
+import { ElementsLayoutModalsModule } from '@app/elements/layout/modals';
 
 @NgModule({
   imports: [
@@ -29,7 +30,9 @@ import { DocumentBlockComponent } from './components/document-block/document-blo
 
     HttpClientModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+
+    ElementsLayoutModalsModule,
   ],
 
   declarations: [DocumentBlockComponent],

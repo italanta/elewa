@@ -8,7 +8,12 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { UploadFileService } from '@app/state/file';
 
+import { MatDialog } from '@angular/material/dialog';
+
+
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+import { ErrorPromptModalComponent } from 'libs/elements/layout/modals/src/lib/modals/error-prompt-modal/error-prompt-modal.component';
 
 @Component({
   selector: 'app-document-block',
@@ -32,7 +37,9 @@ export class DocumentBlockComponent implements OnInit {
   type: StoryBlockTypes;
   documentType = StoryBlockTypes.Document;
 
-  constructor(private _docUploadService: UploadFileService)
+  constructor(private _docUploadService: UploadFileService,
+    private dialog: MatDialog
+    )
   { }
 
   ngOnInit(): void 
@@ -42,8 +49,46 @@ export class DocumentBlockComponent implements OnInit {
 
   ngAfterViewInit(): void {}
 
+
+  openErrorModal() {
+    this.dialog.open(ErrorPromptModalComponent, {
+      width: '400px',
+      data: {
+        title: 'Invalid File Type',
+        message: 'Please select a .pdf file only.'
+      }
+    });
+  }
+  
+
   async processDocs(event: any)
-  {   
+  { 
+    const allowedFileTypes = ['application/pdf'];
+    
+    const selectedFileType = event.target.files[0].type;
+
+    
+  if (!allowedFileTypes.includes(selectedFileType)) {
+    //error modal displayed here
+    this.openErrorModal();
+    return;
+  }
+
+    
+
+    if (!event.target.files || !event.target.files[0]) {
+      this.docLink = this.defaultLink;
+      return;
+    }
+
+    if (event.target.files[0].type !== 'application/pdf') {
+      // Show error modal
+      alert('Please select a PDF file.');
+      return;
+    }
+    
+    
+
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.docLink = e.target.result;
