@@ -22,6 +22,7 @@ pipeline {
             }
         }
 
+        stage('Deploy to hosting') {
         parallel {
         stage('Deploy to Enabel') { 
             steps {
@@ -58,6 +59,6 @@ pipeline {
             }
         }
         }
-
+        }
     }
 }
