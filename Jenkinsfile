@@ -56,10 +56,10 @@ pipeline {
                 sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
                 sh 'firebase use farmbetter-prod'
                 sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
-}
+                }
             }
         }
         // }
-        }
+        // }
     }
 }
