@@ -42,7 +42,7 @@ export class NewStoryService implements OnDestroy {
 
   async saveImage(imageFile: File, imagePath: string) {
     let savedImage = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
-    let url = await savedImage.getDownloadURL();
+    let url = await savedImage;
     return url;
   }
 
@@ -52,7 +52,7 @@ export class NewStoryService implements OnDestroy {
 
   async saveBotImage(bot: Story, storyImage?: File, storyImagePath?: string) {
     if (storyImagePath) {
-      bot.imageField = await this.saveImage(storyImage!, storyImagePath);
+      // bot.imageField = await this.saveImage(storyImage!, storyImagePath);
       this.addStoryToDb(bot);
     }
   }
@@ -85,7 +85,7 @@ export class NewStoryService implements OnDestroy {
         bot.imageField = '';
       }
 
-      bot.imageField = await this.saveImage(storyImage!, storyImagePath!);
+      // bot.imageField = await this.saveImage(storyImage!, storyImagePath!);
     }
 
     this._stories$$.update(bot).subscribe((botSaved) => {
