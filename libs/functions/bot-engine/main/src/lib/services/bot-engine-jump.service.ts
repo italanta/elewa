@@ -39,12 +39,9 @@ export class BotEngineJump extends BotEnginePlay
 
     await this.__reply(storyBlock, endUser);
     
-    this.__move(newCursor, endUser.id);
+    await this.cursorDataService$.updateCursor(endUser.id, this.orgId, newCursor);
 
     await this.play(null, endUser, newCursor);
-
-    // Resolve all pending operations.
-    await Promise.all(this.sideOperations);
   }
 
   private async __moveChat(storyId: string, orgId: string, currentCursor: Cursor, endUserId: string, blockId?: string) 
