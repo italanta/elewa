@@ -14,7 +14,7 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
 @Component({
   selector: 'app-video-block-modal',
   templateUrl: './video-block-modal.component.html',
-  styleUrls: ['./video-block-modal.component.css']
+  styleUrls: ['./video-block-modal.component.scss']
 })
 export class VideoBlockModalComponent implements OnInit {
 
