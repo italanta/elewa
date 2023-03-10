@@ -43,12 +43,14 @@
     </div>
 
     <div class="right__side">
-      <h3 class="right__header">Media Encoding</h3>
-      <label
-        >Please select the size you want to encode the video. <br />
-        The larger the video the longer it will take to load and play</label
-      >
-      <div *ngFor="let option of sizeOptions">
+      <div>
+        <h3 class="right__header">Media Encoding</h3>
+        <label
+          >Please select the size you want to encode the video. <br />
+          The larger the video the longer it will take to load and play</label
+        >
+      </div>
+      <div class="input__div" *ngFor="let option of sizeOptions">
         <input
           type="radio"
           id="{{ option }}"
