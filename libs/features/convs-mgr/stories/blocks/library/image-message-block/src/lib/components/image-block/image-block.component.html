@@ -2,8 +2,9 @@
 	<form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
 		<div [id]="imageInputId">
 
-			<input (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
-			<label [for]="imageInputUpload">
+			<input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
+
+			<label *ngIf="!isLoadingImage" [for]="imageInputUpload">
 				<div *ngIf="!hasImage; else inputHasImage">
 					<i class="fas fa-image"></i>
 				</div>
@@ -11,6 +12,10 @@
 					<img type="image" class="upload-image" [src]="imageLink" alt="" />
 				</ng-template>
 			</label>
+
+			<div *ngIf="isLoadingImage" class="doc-icon">
+				<i class="fas fa-circle-notch fa-spin"></i>
+			</div>
 
 		</div>
 
