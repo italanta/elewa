@@ -22,9 +22,6 @@ pipeline {
             }
         }
 
-        // stage('Deploy to hosting') {
-
-        // parallel {
         stage('Deploy to Enabel') { 
             steps {
                 withCredentials([file(credentialsId: 'enabel-prod-environment-file', variable: 'ENV_FILE')]) {
@@ -59,7 +56,5 @@ pipeline {
                 }
             }
         }
-        // }
-        // }
     }
 }
