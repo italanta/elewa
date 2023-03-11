@@ -38,7 +38,7 @@ pipeline {
         stage('Deploy to Farmbetter') { 
             steps {
 
-                sshagent(['github_jenkins_ssh']) {
+                sshagent(['jenkins_github']) {
                     sh 'git checkout farmbetter-private-dev'
                     sh 'git pull origin farmbetter-private-dev'
                     sh 'git merge origin/private-prod'
