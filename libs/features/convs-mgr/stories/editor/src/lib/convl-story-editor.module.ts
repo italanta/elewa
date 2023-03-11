@@ -23,6 +23,8 @@ import { ManageChannelStoryLinkService } from './providers/manage-channel-story-
 
 import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
+import { UpdateChannelDetailsModalComponent } from './modals/update-channel-details-modal/update-channel-details-modal.component';
+
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 
@@ -48,6 +50,7 @@ import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
   declarations: [
     StoryEditorPageComponent,
     AddBotToChannelModal,
+    UpdateChannelDetailsModalComponent,
     StoryEditorFrameComponent,
     BlocksLibraryComponent,
     PinchZoomDirective,
