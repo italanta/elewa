@@ -5,7 +5,7 @@ pipeline {
     }
 
     environment {
-        FIREBASE_TOKEN = credentials('ENABEL_FIREBASE_TOKEN');
+        FIREBASE_TOKEN = credentials('FIREBASE_TOKEN');
         ENV_FILE_DEST = 'apps/conv-learning-manager/src/environments/environment.ts'
         ENV_FILE_DEST_PROD = 'apps/conv-learning-manager/src/environments/environment.prod.ts'
         }
