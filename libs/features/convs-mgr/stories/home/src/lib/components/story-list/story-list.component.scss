@@ -1,29 +1,29 @@
-// Import theming functions
-@use '@angular/material' as mat; // Import your custom theme
-@use '_variables';
-
-.fa {
-  color: var(--convs-mgr-color-primary-purple);
-  margin-left: 6px;
-  margin-top: 10px;
-  margin-right: 6px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  transform: rotate(90deg);
-  font-weight: 500;
+.bots-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, auto));
+  gap: 20px;
+  justify-content: space-between;
+  padding-bottom: 1.5rem;
 }
+
 .search {
-  // min-width: 40%;
   height: 5px;
   background-color: white;
-  // background-color: var(----convs-mgr-color-primary-background);
   border-radius: 8px;
   display: flex;
   align-items: center;
   padding: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  input {
-    flex: 1;
+
+  &_tooltip {
+    color: var(--convs-mgr-color-primary-purple);
+    transform: rotate(90deg);
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &_input {
+    width: 90%;
     height: 40px;
     border: none;
     outline: none;
@@ -31,39 +31,25 @@
     padding-left: 6px;
   }
 }
-.fa-search {
-  color: var(--convs-mgr-color-primary-purple);
-  transform: rotate(90deg);
-  margin-left: 6px;
-  margin-top: 10px;
-  margin-right: 6px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 500;.create-bot p{
-    padding-left: 1em;
-  }
-}
 
 // create bot card
-.create-bot{
-  width: 65em;
-	text-align:center;
-	height: 10em;
-  margin-left: 24em;
-  margin-top: 12em;
-  margin-right: 23em;
+.create-bot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  height: 100%;
+  padding: 4rem 0;
 }
-.create-bot p{
-  padding-left: 1em;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center ;
+  justify-content: center;
+  width: 100%;
 }
-.create-bot mat-card-title{
-  padding-top: 1em;
-  padding-left: 1em;
-}
-.fa-plus{
-    color: var(--convs-mgr-color-tertiary)
-}
-.bot-selector{
-  box-sizing: border-box;
+
+.fa-plus {
+  color: var(--convs-mgr-color-tertiary);
 }
