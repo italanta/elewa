@@ -3,10 +3,10 @@
 }
 
 select {
-	max-width: 100%;
 	margin: 5px 0;
 	border: 1px solid var(--convs-mgr-color-primary-purple);
 	border-radius: 5px;
 	resize: none;
 	padding: 10px;
+	max-width: 24rem;
 }
