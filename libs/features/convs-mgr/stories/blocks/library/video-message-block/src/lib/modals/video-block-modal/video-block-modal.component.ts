@@ -54,10 +54,12 @@ export class VideoBlockModalComponent implements OnInit {
   apply() {
     const videoBlock = {
       name: this.name,
-      size: this.size
+      size: this.size,
       // VideoUrl should go here?
+      file: this.file 
     };
     this.applied.emit(videoBlock);
+    this.modalOpen = false
   }
 
   constructor(private _videoUploadService: UploadFileService,
