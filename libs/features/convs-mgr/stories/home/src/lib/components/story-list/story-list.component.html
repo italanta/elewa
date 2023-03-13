@@ -1,23 +1,22 @@
 <!-- edited the search -->
 <div class="search">
-  <i class="fas fa-search"></i>
-  <input type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)" />
+  <i class="fas fa-search search_tooltip"></i>
+  <input class="search_input" type="text" name="" placeholder="Search for a bot" (input)="filterBots($event)" />
 </div>
 
-<div *ngIf="stories$ | async as stories" class="bot-selector" fxFlexFill>
-  <div *ngIf="stories.length > 0; else noBots" fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="10px"  fxFlex>
-    <div *ngFor="let story of stories" fxFlex="24">
+<div *ngIf="stories$ | async as stories">
+  <div class="bots-wrapper" *ngIf="stories.length > 0; else noBots">
+    <div *ngFor="let story of stories">
       <convl-story-list-item [story]="story"> </convl-story-list-item>
     </div>
   </div>
 </div>
 
 <ng-template #noBots>
-  <mat-card class="create-bot" (click)="openCreateDialog()">
-    <mat-card-title><i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-    </mat-card-title>
-    <mat-card-content>
+  <div class="create-bot" (click)="openCreateDialog()">
+    <div class="wrapper">
+      <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
       <p>Create my first bot!</p>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
 </ng-template>
