@@ -21,10 +21,10 @@ import
   WhatsAppVideoMessage,
 } from '@app/model/convs-mgr/functions';
 
-import { DocumentMessageBlock, ImageMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { DocumentMessageBlock, ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { OutgoingMessageParser } from '@app/functions/bot-engine';
-import { MessageTemplateConfig } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageTemplateConfig } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -273,9 +273,13 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   }
 
 
-  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string)
+  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string, message: Message)
   {
-    const { name, languageCode, params } = templateConfig;
+    let { name, languageCode, params } = templateConfig;
+
+    if(message && message.params) {
+      params = message.params.map((param) => param.value);
+    }
 
     const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
     {
