@@ -44,5 +44,5 @@ export interface ActiveChannel
 
   getMediaFile(mediaId: string, mime_type: string);
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phoneNumber: string);
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phoneNumber: string, message: Message);
 }
