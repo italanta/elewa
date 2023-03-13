@@ -87,7 +87,8 @@
         "AUDIO-INPUT":"Audio Input",
         "LOCATION-INPUT":"Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
-        "WEBHOOK": "Webhook"
+        "WEBHOOK": "Webhook",
+        "JUMP":"Jump"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -106,7 +107,11 @@
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
-        "WEBHOOK": "Url Input"
+        "WEBHOOK": "Url Input",
+        "JUMP": {
+          "SELECT_STORY": "Select Story",
+          "SELECT-BLOCK": "Select Block"
+        }
       },
       "BUTTONS": {
         "JUMP-BLOCK": {

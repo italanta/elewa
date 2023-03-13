@@ -2,12 +2,12 @@
   <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
     <select id="story" name="story" formControlName="targetStoryId" (change)='getBlocks()'>
       <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
-      <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-STORY" | transloco}}</option>
+      <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-STORY" | transloco}}</option>
     </select>
 
     <select id="block" name="block" formControlName="targetBlockId">
       <option *ngFor="let block of blocks" [value]='block.id'>{{block.id}}</option>
-      <option value="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.SELECT-BLOCK" | transloco}}</option>
+      <option value="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-BLOCK" | transloco}}</option>
     </select>
 
     <div formArrayName="options" fxFlexFill>

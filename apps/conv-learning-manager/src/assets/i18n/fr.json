@@ -68,7 +68,8 @@
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
         "LOCATION-INPUT":"saisie de position",
-        "KEYWORD-JUMP": "saut de mots-clés"
+        "KEYWORD-JUMP": "saut de mots-clés",
+        "JUMP":"saut"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
@@ -81,7 +82,17 @@
         "IMAGE-INPUT": "Entrée d'images",
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position"
+        "LOCATION-INPUT":"saisie de position",
+        "JUMP": {
+          "SELECT_STORY": "sélectionner l'histoire",
+          "SELECT-BLOCK": "sélectionner le bloc"
+        }
+      },
+      "BUTTONS": {
+        "JUMP-BLOCK": {
+          "SUCCESS": "Succès",
+          "FAILED": "Échoué"
+        }
       }
     },
     "COMPONENTS": {
