@@ -57,11 +57,11 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string)
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string, message: Message)
   {
     // Create the message template payload which will be sent to whatsapp
     const messageTemplate = new WhatsappOutgoingMessageParser()
-                              .parseOutMessageTemplate(templateConfig, phone);
+                              .parseOutMessageTemplate(templateConfig, phone, message);
 
     return messageTemplate;
   }

@@ -86,7 +86,8 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
         // Send the opt-in message template
 
         // Get the opt-in message template
-        outgoingMessagePayload = activeChannel.parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber);
+        outgoingMessagePayload = activeChannel
+                                  .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
       }}
 
       // STEP 5: Send the message
