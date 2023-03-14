@@ -3,6 +3,7 @@ $primary-color: #ffc200;
 $secondary-elements-color: white;
 .uppercase-txt {
     text-transform: uppercase;
+    color: $secondary-elements-color;
 }
 
 #googleBtn {
@@ -91,4 +92,10 @@ input {
 .form-body {
     align-self: center;
     width: 80%;
+}
+
+.white-icon {
+    color: $secondary-elements-color;
+    margin-right: 10px;
+    font-size: 20px;
 }
