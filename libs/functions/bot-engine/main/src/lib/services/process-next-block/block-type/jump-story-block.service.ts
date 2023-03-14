@@ -99,7 +99,7 @@ export class JumpStoryBlockService implements IProcessNextBlock
 
       newCursor.parentStack = parentStack;
     } else {
-      newCursor.parentStack.push(routedCursor);
+      newCursor.parentStack.unshift(routedCursor);
     }
 
     newCursor.position = newUserPosition;
