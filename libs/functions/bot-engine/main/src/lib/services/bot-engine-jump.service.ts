@@ -60,7 +60,7 @@ export class BotEngineJump extends BotEnginePlay
       blockTitle: '',
       blockIcon: '',
       targetStoryId: storyId,
-      targetBlockId: blockId || "",
+      targetBlockId: blockId || null,
     }
 
    const {storyBlock, newCursor}  =  await jumpBlockService$.handleBlock(jumpBlock, currentCursor, orgId, endUserId);
