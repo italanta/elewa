@@ -35,12 +35,13 @@
       "P4-LINK": "the privacy policy"
     },
     "BTN-WITH-GOOGLE": "With Google",
+    "BTN-WITH-GOOGLE-SIGN-UP": "Sign up With Google",
     "BTN-WITH-MICROSOFT": "With Microsoft",
     "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
-      "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "https://elewa.education"
+      "TITLE": "World's first LMS designed for conversational learning.",
+      "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non sunt maxime, aliquam consectetur unde est corrupti dolor perferendis ab quisquam! Rerum ex magnam quam aspernatur delectus quidem ad atque quod!Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque assumenda in non officiis id nostrum possimus quas dicta vitae nam, necessitatibus consequuntur labore perspiciatis quae, suscipit velit! Sequi, neque illum.",
+      "LEARN-MORE": "Learn more about the project on",
+      "LEARN-MORE-LINK": "https://github.com/italanta/italanta-apps"
     }
   },
   "TOS": {
@@ -50,6 +51,7 @@
     "P4-LINK": "the privacy policy"
   },
   "BTN-WITH-GOOGLE": "With Google",
+  "BTN-WITH-GOOGLE-SIGN-UP": "Sign up With Google",
   "BTN-WITH-MICROSOFT": "With Microsoft",
   "HERO": {
     "TITLE": "Karibu Elewa Conversational Learning!",
