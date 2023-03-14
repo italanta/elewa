@@ -10,8 +10,8 @@ import { __DECODE_AES } from "@app/elements/base/security-config";
 
 import { ActiveChannel } from "@app/functions/bot-engine";
 
-import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
-import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { MetaMessagingProducts, RecepientType, WhatsAppMessageType, WhatsAppOutgoingMessage, WhatsAppTemplateMessage } from "@app/model/convs-mgr/functions";
+import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message } from "@app/model/convs-mgr/conversations/messages";
 
@@ -55,6 +55,23 @@ export class WhatsappActiveChannel implements ActiveChannel
     const outgoingMessagePayload =  new StandardMessageOutgoingMessageParser().parse(message, phone)
 
     return outgoingMessagePayload
+  }
+
+  parseOutTemplateMessage(templateName: string, phone: string) {
+    const templateMessage: WhatsAppTemplateMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      type: WhatsAppMessageType.TEMPLATE,
+      template: {
+        name: templateName,
+        language: {
+          code: "fr"
+        }
+      },
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone
+    }
+
+    return templateMessage;
   }
 
   async send(whatsappMessage: WhatsAppOutgoingMessage)
