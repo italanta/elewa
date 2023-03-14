@@ -17,3 +17,4 @@ export * from 'libs/functions/bot-engine/main/src/lib/services/data-services/end
 export * from 'libs/functions/bot-engine/main/src/lib/utils/generateUserId';
 export * from 'libs/functions/bot-engine/main/src/lib/io/incoming-message-parsers/models/incoming-message-parser.interface'
 export * from './lib/handlers/talk-to-operator.handler';
+export * from './lib/handlers/milestones.handler';
