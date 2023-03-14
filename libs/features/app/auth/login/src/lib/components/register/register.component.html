@@ -8,9 +8,8 @@
             </mat-form-field>
             <mat-form-field id="name-input" data-intercom-tooltip="Name Input" class="special-input"  fxFlex="45">
                 <input matInput name="lastName" type="text" formControlName="lastName" required placeholder="{{ 'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco }}">
-                <mat-error>{{ 'OGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
+                <mat-error>{{ 'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco }}</mat-error>
             </mat-form-field>
-
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center">
@@ -35,17 +34,6 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-            <mat-checkbox id="terms-input" data-intercom-tooltip="Terms Input" formControlName="acceptConditions" class="small-txt">
-            </mat-checkbox>
-            <div class="small-txt">
-                {{ "LOGIN.TOS.P1" | transloco }}
-                <a href="{{ getTermsLink() }}" target="_blank">{{ "LOGIN.TOS.P2-LINK" | transloco}}</a> {{ "LOGIN.TOS.P3" | transloco}}
-                <a href="{{ getPolicyLink() }}" target="_blank">{{ "LOGIN.TOS.P4-LINK" | transloco}}</a>.
-            </div>
-
-        </div>
-
         <div fxLayoutAlign="center none">
             <app-spinner *ngIf="isLoading" [diameter]="25"></app-spinner>
 
@@ -54,28 +42,16 @@
           </button>
         </div>
 
-        <div class="hr-with-text" fxFlex="row" fxLayoutAlign="start center">
-            {{ 'LOGIN.OR' | transloco }}
-        </div>
+        <div fxLayout="row" fxLayoutAlign="start stretch">
+            <!-- <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center"> -->
+                
+                <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
+                    <i class="fab fa-google white-icon"></i>
+                    {{ "LOGIN.BTN-WITH-GOOGLE-SIGN-UP" | transloco }}
+                </button>
+            <!-- </div> -->
 
-        <div fxLayout="row" fxLayoutAlign="center">
-            <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="start center">
-                <i class="fab fa-microsoft"></i>
-            </div>
-
-            <button mat-raised-button id="msBtn" class="uppercase-txt" (click)="loginMicrosoft()" fxFlex>
-            {{ "LOGIN.BTN-WITH-MICROSOFT" | transloco }}
-          </button>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="center">
-            <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="start center">
-                <i class="fab fa-google"></i>
-            </div>
-
-            <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
-            {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
-          </button>
+            
         </div>
 
     </form>
