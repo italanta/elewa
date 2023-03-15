@@ -10,12 +10,7 @@ pipeline {
         ENV_FILE_DEST_PROD = 'apps/conv-learning-manager/src/environments/environment.prod.ts'
         }
     stages {
-        stage ('Install firebase-tools'){
-            steps {
-               sh "npm install -g firebase-tools"
-            }
-        }
-
+        
         stage('Build the project') { 
             steps {
                 sh 'npm install --legacy-peer-deps' 
