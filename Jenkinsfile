@@ -35,6 +35,19 @@ pipeline {
             }
         }
 
+        stage('Deploy to Elewa Production') { 
+            steps {
+                withCredentials([file(credentialsId: 'elewa-prod-environment-file', variable: 'ENV_FILE')]) {
+                // some block
+                sh 'mkdir -p apps/conv-learning-manager/src/environments'
+                sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST}'
+                sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
+                sh 'firebase use elewa-conv-learning-prod'
+                sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
+        }
+            }
+        }
+
         stage('Deploy to Farmbetter') { 
             steps {
 

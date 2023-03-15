@@ -5,7 +5,7 @@
   "targets": {
     "elewa-conv-learning-prod": {
       "hosting": {
-        "convl-manager-prod": [
+        "convl-manager": [
           "elewa-conv-learning-prod"
         ]
       }
