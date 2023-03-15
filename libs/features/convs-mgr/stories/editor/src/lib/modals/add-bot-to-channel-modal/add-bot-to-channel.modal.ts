@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog'
 
 import { SubSink } from 'subsink';
 
-import { combineLatest, filter, map } from 'rxjs';
+import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
 
 import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 
@@ -15,6 +15,7 @@ import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
+import { SharedService } from '../../components/shared-service';
 
 
 @Component({
@@ -51,6 +52,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   isSaving: boolean;
 
   constructor(private _fb: FormBuilder,
+    private sharedService: SharedService,
     private _dialog: MatDialog,
     private _manageStoryLinkService: ManageChannelStoryLinkService,
     private _activeStoryStore$$: ActiveStoryStore,
@@ -96,18 +98,18 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
 
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
-    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists) => {
-      if (!exists) {
-        //If it does not exist, link it to the channel
-        return this._manageStoryLinkService
-          .addStoryToChannel(channelToSubmit).subscribe();
-      } else {
-        return;
-      }
-    })).subscribe(() => {
-      this.isSaving = false;
-      this.closeDialog();
-    });
+    this._sBs.sink = _storyExistsInChannel$.pipe(
+  tap((exists) => {
+    //isPublished value is set to the value of exists
+    this.sharedService.setPublishedStatus(exists);
+  }),
+  filter((exists) => !exists),
+  switchMap(() => this._manageStoryLinkService.addStoryToChannel(channelToSubmit))
+).subscribe(() => {
+  this.isSaving = false;
+  this.closeDialog();
+});
+
   }
 
   private _storyExistsInChannel(channel: CommunicationChannel) {

@@ -45,10 +45,11 @@
               </span>
             </ng-template>
           </button>
-
           <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
-            <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
+            <span>{{ isPublished ? ('PAGE-CONTENT.TOP-BAR.UPDATE-CHANNEL-DETAILS' | transloco) : ('PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco) }}
+            </span>
           </button>
+          
         </div>
       </div>
 

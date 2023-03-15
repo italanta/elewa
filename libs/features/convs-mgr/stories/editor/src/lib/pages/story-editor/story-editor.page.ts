@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable, Subscription } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -20,6 +20,7 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+import { SharedService } from '../../components/shared-service';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -27,6 +28,9 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
   styleUrls: ['./story-editor.page.scss']
 })
 export class StoryEditorPageComponent implements OnInit, OnDestroy {
+  isPublished = false;
+  subscription: Subscription;
+  
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
   activeComponent: ComponentPortal<any>
@@ -53,7 +57,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   frameZoom: number = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
-  constructor(private _editorStateService: StoryEditorStateService,
+  constructor(
+              private sharedService: SharedService,
+              private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
@@ -84,6 +90,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         this.activeComponent = new ComponentPortal(comp);
         this.opened = true;
       }
+    });
+    //subscrbing to isPublished
+    this.subscription = this.sharedService.isPublished$.subscribe((isPublished) => {
+      this.isPublished = isPublished;
     });
   }
 
@@ -185,5 +195,6 @@ this.zoom(this.frameZoom)
   ngOnDestroy() {
     this._editorStateService.flush();
     this._sb.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }
