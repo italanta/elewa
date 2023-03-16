@@ -83,13 +83,8 @@ export class BotMediaProcessService
 
       this._tools.Logger.log(() => `${storageFileName} uploaded to /${path}/${storageFileName}.`);
 
-      return result[0].getSignedUrl({
-        action: 'read',
-        expires: '03-09-2491'
-      }).then((url) =>
-      {
-        return url[0] as string;
-      }).catch((error) => this._tools.Logger.error(() => `[Upload Service] Encoutered error when getting URL: ${error}`));
+      result[0].makePublic()
+      return result[0].publicUrl()
     }
     catch (e) {
 
