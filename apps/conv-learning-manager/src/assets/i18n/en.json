@@ -119,9 +119,11 @@
     },
     "SIDE-MENU": {
       "MAIN-TITLE": "",
+      "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
+      "CHATS": "WhatsApp",
       "LOG-OUT": "Logout"
     },
     "TOP-BAR": {
