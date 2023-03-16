@@ -26,7 +26,7 @@
         <div [routerLink]="['/home']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item class="menu-item menu-item--one">
           <i class="fas fa-tachometer-alt menu-item__tooltip" aria-hidden="true"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
-            {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+            {{'PAGE-CONTENT.SIDE-MENU.HOME'| transloco }}
           </span>
         </div>
       </div>
@@ -40,7 +40,7 @@
       <div class="menu-item" [class.active]="rlaBots.isActive">
         <i matListIcon class="fas fa-headset menu-item__tooltip"></i>
         <span *ngIf="isExpanded" class="menu-item__word">
-          {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
+          {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
         </span>
       </div>
 

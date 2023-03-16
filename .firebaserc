@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "ele-convl-manager"
+    "default": "clm-ngr"
   },
   "targets": {
     "elewa-conv-learning-prod": {
