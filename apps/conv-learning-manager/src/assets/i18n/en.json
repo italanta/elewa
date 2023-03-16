@@ -79,7 +79,7 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "MULTIPLEINPUT":"Multiple-Input",
+        "MULTIPLE-INPUT":"Multiple-Input",
         "IMAGE-INPUT":"Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
         "MULTI-CONTENT-INPUT":"Multi Content Input",
@@ -88,6 +88,7 @@
         "LOCATION-INPUT":"Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
+        "FAILBLOCK": "Fail Block",
         "JUMP":"Jump"
       },
       "PLACEHOLDER": {
@@ -109,7 +110,7 @@
         "AUDIO-INPUT": "Audio Input",
         "WEBHOOK": "Url Input",
         "JUMP": {
-          "SELECT_STORY": "Select Story",
+          "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
         }
       },
