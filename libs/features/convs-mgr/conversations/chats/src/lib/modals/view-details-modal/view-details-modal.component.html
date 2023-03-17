@@ -1,0 +1,60 @@
+<div class="section-container">
+  <div class="section-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Chat Details
+    </div>
+    <div>
+      <button (click)="exitModal()" class="icon-button" mat-icon-button>
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="section-body" fxLayout="column">
+
+    <!---------------- Name -------------->
+    <div class="field-row"><b>Name: </b></div>
+    <textarea matInput cdkTextareaAutosize class="field-row detail" 
+              value="{{chat.name}}"
+              [disabled]="!isAdmin">
+    </textarea>
+
+    <!---------------- Phone -------------->
+    <div class="field-row"><b>Phone: </b></div>    
+    <textarea matInput cdkTextareaAutosize class="field-row detail" 
+              value="{{chat.phoneNumber}}"
+              [disabled]="!isAdmin">
+    </textarea>
+
+    <!---------------- ChatFlowStatus -------------->
+    <!-- <div class="field-row"><b>ChatFlowStatus: </b></div>    
+    <textarea matInput cdkTextareaAutosize class="field-row detail" 
+              value="{{chat.flow}}"
+              [disabled]="!isAdmin">
+    </textarea> -->
+
+    <!---------------- Reference Number -------------->
+    <div class="field-row"><b>Reference Number: </b></div>
+    <textarea matInput cdkTextareaAutosize class="field-row detail" 
+              value="{{chat.id}}"
+              [disabled]="!isAdmin">
+    </textarea>
+
+    <!---------------- County -------------->
+    <div class="field-row"><b>County: </b></div>
+    <textarea matInput cdkTextareaAutosize class="field-row detail" 
+              value="{{chat.info?.county}}"
+              [disabled]="!isAdmin">
+    </textarea>
+
+    <!---------------- Last Milestone -------------->
+    <!-- <div class="field-row"><b>Last Milestone: </b></div>
+    <div class="field-row">{{chat.status}}</div> -->
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button class="cancel-btn" mat-raised-button color="secondary" (click)="exitModal()">Close</button>
+      &nbsp;&nbsp;&nbsp;
+      <button [disabled]="true" *ngIf="isAdmin" mat-raised-button color="primary" (click)="update()">Update</button>
+    </div>
+  </div>
+</div>

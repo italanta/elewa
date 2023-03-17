@@ -4,6 +4,7 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { IncomingMessagePayload } from "./payload-in.interface";
+import { MessageParams } from "./message-params.interface";
 
 /** 
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -44,6 +45,8 @@ export interface Message extends IObject
   direction?          : MessageDirection;
 
   url?                : string;
+
+  params?             : MessageParams[];
 }
 
 
@@ -79,7 +82,7 @@ export interface LocationMessage extends Message
 
 export interface FileMessage extends Message
 {
-  mediaId         : string;
+  mediaId?        : string;
   url?            : string;
   mime_type?      : string
 }
@@ -99,7 +102,7 @@ export interface QuestionMessage extends Message
 {
   questionText?       : string;
 
-  options             : QuestionMessageOptions[];
+  options?             : QuestionMessageOptions[];
 }
  
  export interface QuestionMessageOptions 
