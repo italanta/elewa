@@ -126,6 +126,7 @@
     },
     "SIDE-MENU": {
       "MAIN-TITLE": "",
+      "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
