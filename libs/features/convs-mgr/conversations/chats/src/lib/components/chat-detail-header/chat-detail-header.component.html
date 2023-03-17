@@ -1,0 +1,50 @@
+<div id="chat-detail-header" *ngIf="chat; else loading"
+    fxLayout="row" fxLayoutAlign="space-between center"
+    class="">
+
+  <div fxLayout="row" class="chat-title">
+    <div id="statusIndicator" class="{{getClass()}}">
+      <i class="fas fa-user-circle"></i>
+    </div>
+    <div class="chat-title-txt">
+      {{ chat.name?.toLowerCase() }}
+    </div>
+  </div>
+
+  <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
+
+    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button matTooltip="Pause Chat"
+              (click)="pauseChat()">
+        <i class="fas fa-pause-circle"></i>
+    </button>
+
+    <ng-template #resumeBtn>
+      <button class="icon-button" mat-icon-button matTooltip="Resume Chat"
+            (click)="openModal('resume')">
+        <i class="fas fa-play-circle"></i>
+      </button>
+    </ng-template>
+
+    <button class="icon-button" mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="viewDetails()">View Chat details</button>
+      <button mat-menu-item (click)="openModal('stash')">Stash Chat</button>
+      <button mat-menu-item (click)="openModal('move')">Move Chat to</button>
+      <!-- For Testing Use -->
+      <!-- <button mat-menu-item (click)="testPayment()">Request Payment</button> -->
+      <!-- <button mat-menu-item (click)="cancelReq()">Cancel Request</button> -->
+      <!-- <button mat-menu-item (click)="completeCourse()">Mark Complete</button> -->
+
+    </mat-menu>
+
+    <button class="icon-button" mat-icon-button (click)="goBack()">
+      <i class="fas fa-reply"></i>
+    </button>
+
+  </div>
+</div>
+
+<ng-template #loading><app-spinner></app-spinner></ng-template>

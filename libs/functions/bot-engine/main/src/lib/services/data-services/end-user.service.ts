@@ -49,6 +49,10 @@ import { throws } from 'assert';
     return endUser;
   }
 
+  async getEndUser(endUserId: string) {
+    return this.getDocumentById(endUserId, this._docPath);
+  }
+
   async updateEndUser(endUser: EndUser)
   {
    return this.updateDocument(endUser, this._docPath, endUser.id)

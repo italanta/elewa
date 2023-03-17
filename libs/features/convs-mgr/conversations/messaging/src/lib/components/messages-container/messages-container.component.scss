@@ -1,0 +1,43 @@
+#message-container {
+  display: block;
+  max-height: 100%;
+  overflow-y: scroll;
+  height: 100%;
+}
+
+.new-msg-btn {
+  color: #fff;
+  background: var(--convs-mgr-color-primary-purple);
+}
+mat-list {
+  height: 100%;
+}
+
+::ng-deep .mat-list-item-content {
+  display: block !important;
+}
+
+.mat-mdc-list-item {
+  // padding-top: 2.2rem;
+  height: auto;
+}
+
+.btn-new-msg{
+  margin-top: -10%;
+}
+
+.hr-with-text{
+  color: #919698;
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.hr-with-text::before, .hr-with-text::after{
+  content: '';
+  width: 20px;
+  flex: 1;
+  border-bottom: 1px solid #919698;
+  margin: 0 3px 8px 3px;
+  opacity: 0.6;
+}
