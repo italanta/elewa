@@ -68,7 +68,7 @@ export const iconsAndTitles: any = {
     icon: 'fas fa-forward',
   },
   19: {
-    title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLEINPUT',
+    title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLE-INPUT',
     icon: 'fas fa-tasks',
   },
   20: {
@@ -76,7 +76,7 @@ export const iconsAndTitles: any = {
     icon: 'fas fa-exclamation-circle',
   },
   21: {
-    title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIOINPUT',
+    title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
     icon: 'fas fa-microphone-alt',
   },
   50: {
