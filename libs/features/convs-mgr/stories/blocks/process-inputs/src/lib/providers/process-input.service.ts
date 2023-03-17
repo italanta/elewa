@@ -8,6 +8,7 @@ import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
   providedIn: 'root'
 })
 export class ProcessInputService {
+  /** list of blocks with variables already set */
   blocksWithVars$: Observable<StoryBlock[]>;
 
   constructor(private _blockStore$$: StoryBlocksStore) {
