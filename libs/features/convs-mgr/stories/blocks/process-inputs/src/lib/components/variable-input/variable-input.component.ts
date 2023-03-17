@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockTypes, VariablesValidator } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
@@ -63,10 +63,6 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     switch (blockType) {
       case StoryBlockTypes.Name:
         return { name: 'name', formCreator: _CreateNameBlockVariableForm };
-      case StoryBlockTypes.Email:
-        return { name: 'email', formCreator: _CreateNameBlockVariableForm };
-      case StoryBlockTypes.PhoneNumber:
-        return { name: 'phone', formCreator: _CreateNameBlockVariableForm };
       default:
         return { name: '', formCreator: _CreateNameBlockVariableForm };
     }
@@ -74,22 +70,25 @@ export class VariableInputComponent implements OnInit, OnDestroy {
 
   /** check if name is already used and pass properties to block's formGroup */
   setVariable() {
-    const variable = this.variablesForm.get('name')?.value;
+    const variableName = this.variablesForm.get('name')?.value;
 
     this._sub.sink = this._processInputSer.blocksWithVars$.subscribe((blocks) => {
       const isPresent = blocks.find(
         (block) =>
-          block.variable?.name === variable && block.id !== this.blockId
+          block.variable?.name === variableName && block.id !== this.blockId
       );
 
       if (isPresent) {
         this.name.setErrors({ incorrect: 'name is already used' });
       } else {
-        this.BlockFormGroup.value.variable = {
+        
+        const variableData: VariablesValidator = {
           name: this.variablesForm.get('name')?.value,
           type: parseInt(this.variablesForm.get('type')?.value),
           validators: this.variablesForm.get('validators')?.value ?? {},
-        };
+        }
+
+        this.BlockFormGroup.value.variable = variableData;
       }
     });
   }
