@@ -44,6 +44,8 @@ import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
+import { TextMessageComponent } from './components/text-message-block/text-message.component';
+import { TextMessageModule } from './components/text-message-block/text-message.module';
 
 
 @NgModule({
@@ -86,11 +88,16 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrOpenEndedQuestionBlockModule,
     ConvsMgrKeywordJumpBlockModule,
 
-    FileStateModule
-  
+    FileStateModule,
+
+    TextMessageModule
   ],
 
   declarations: [
+    BlockComponent
+  ],
+
+  exports: [
     BlockComponent
   ],
 

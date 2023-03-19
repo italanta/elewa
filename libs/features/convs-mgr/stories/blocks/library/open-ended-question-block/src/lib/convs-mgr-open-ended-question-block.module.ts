@@ -11,6 +11,7 @@ import {
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { OpenEndedQuestionBlockComponent } from './components/open-ended-question-block/open-ended-question-block.component';
+import { TextMessageModule } from '../../../main/src/lib/components/text-message-block/text-message.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,9 @@ import { OpenEndedQuestionBlockComponent } from './components/open-ended-questio
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    
+    TextMessageModule
   ],
 
   declarations: [OpenEndedQuestionBlockComponent],

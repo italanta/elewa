@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="listMessageBlock">
   <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
-    <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+    <app-text-message></app-text-message>
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let listItem of listItems.controls; let i = index">
