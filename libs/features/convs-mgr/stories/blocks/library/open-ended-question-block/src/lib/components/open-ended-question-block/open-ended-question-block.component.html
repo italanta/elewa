@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="openEndedQuestionForm">
 	<form [formGroup]="openEndedQuestionForm" fxLayout="column" fxLayoutALign="start center">
 
-		<app-text-message></app-text-message>
+		<app-text-message [formgroup]="openEndedQuestionForm"></app-text-message>
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="openEndedQuestionForm"></app-default-option-field>
 	</form>
