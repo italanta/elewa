@@ -11,4 +11,5 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
   styleUrls: ['./text-message.component.scss'],
 })
 export class TextMessageComponent {
+  @Input() formgroup: FormGroup
 }
