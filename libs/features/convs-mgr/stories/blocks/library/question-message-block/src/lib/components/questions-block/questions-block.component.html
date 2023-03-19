@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="questionMessageBlock">
   <form [formGroup]="questionMessageBlock" fxLayout="column" fxLayoutALign="start center">
 
-    <app-text-message></app-text-message>
+    <app-text-message [formgroup]="questionMessageBlock"></app-text-message>
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">
