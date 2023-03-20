@@ -9,9 +9,7 @@
   "hosting": {
     "target": "convl-manager",
     "public": "dist/apps/conv-learning-manager",
-    "predeploy": [
-      "nx build conv-learning-manager --skip-nx-cache --prod"
-    ],
+    "predeploy":["nx build conv-learning-manager --skip-nx-cache --prod"],
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -33,25 +31,6 @@
     },
     "ui": {
       "enabled": true
-    },
-    "auth": {
-      "port": 9099
-    },
-    "firestore": {
-      "port": 8080
-    },
-    "database": {
-      "port": 9000
-    },
-    "pubsub": {
-      "port": 8085
-    },
-    "storage": {
-      "port": 9199
-    },
-    "eventarc": {
-      "port": 9299
-    },
-    "singleProjectMode": true
+    }
   }
 }
