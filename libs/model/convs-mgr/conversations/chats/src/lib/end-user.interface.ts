@@ -33,11 +33,7 @@ export enum ChatStatus
 
     Paused                = 'paused',
 
-    PausedByAgent         = 'takingtoagent',
+    TakingToAgent         = 'takingtoagent',
 
-    Ended                 = 'ended',
-
-    Stashed               = 'stashed',
-
-    Disabled              = 'disabled'
+    Ended                 = 'ended'
   }

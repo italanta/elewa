@@ -89,8 +89,7 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<any, RestRes
         // Send the opt-in message template
 
         // Get the opt-in message template
-        outgoingMessagePayload = new WhatsappOutgoingMessageParser()
-                                  .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+        outgoingMessagePayload = new WhatsappOutgoingMessageParser().parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber);
       }
 
       // STEP 6: Send the message

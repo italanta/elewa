@@ -8,9 +8,7 @@ import { DataService, Repository } from '@ngfi/angular';
 
 import { ChatJumpPoint } from '@app/model/convs-mgr/conversations/chats';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ChatJumpPointsStore extends Store<ChatJumpPoint[]>
 {
   protected store = 'chat-jump-points-store';

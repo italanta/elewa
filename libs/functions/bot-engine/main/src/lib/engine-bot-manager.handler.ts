@@ -4,7 +4,7 @@ import { Logger } from '@iote/bricks-angular';
 import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -19,7 +19,6 @@ import { generateEndUserId } from './utils/generateUserId';
 import { ProcessMessageService } from './services/process-message/process-message.service';
 import { createTextMessage } from './utils/createTextMessage.util';
 import { BotMediaProcessService } from './services/media/process-media-service';
-import { isFileMessage } from '@app/model/convs-mgr/functions';
 
 
 /**
@@ -114,12 +113,8 @@ export class EngineBotManager
           // await bot.sendMessage(pauseTextMessage);
 
           break;
-        case ChatStatus.PausedByAgent:
+        case ChatStatus.TakingToAgent:
           message.direction = MessageDirection.TO_AGENT;
-
-          if(isFileMessage(message.type) && !message.url) {
-            message = await bot.__setFileMessageUrl(message as FileMessage, END_USER_ID);
-          }
 
           // Save the message to the database for later use
           await _msgDataService$.saveMessage(message, this.orgId, this.endUser.id);

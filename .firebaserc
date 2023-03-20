@@ -5,29 +5,15 @@
   "targets": {
     "elewa-conv-learning-prod": {
       "hosting": {
-        "convl-manager-prod": [
+        "convl-manager": [
           "elewa-conv-learning-prod"
         ]
       }
     },
     "farmbetter-review": {
       "hosting": {
-        "farmbetter-review": [
-          "farmbetter-review"
-        ]
-      }
-    },
-    "enabel-elearning": {
-      "hosting": {
         "convl-manager": [
-          "enabel-elearning"
-        ]
-      }
-    },
-    "farmbetter-prod": {
-      "hosting": {
-        "farmbetter-prod": [
-          "farmbetter-prod"
+          "farmbetter-review"
         ]
       }
     }

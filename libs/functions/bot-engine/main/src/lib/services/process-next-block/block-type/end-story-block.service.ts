@@ -15,8 +15,6 @@ import { IProcessNextBlock } from "../models/process-next-block.interface";
  */
 export class EndStoryBlockService implements IProcessNextBlock
 {
-  sideOperations: Promise<any>[];
-  
   constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools)
   { }
 

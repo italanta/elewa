@@ -7,7 +7,6 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { ConvsMgrDashboardModule } from '@app/features/convs-mgr/dashboard';
 
 import { HomePageComponent } from './pages/home/home.page';
 
@@ -21,8 +20,7 @@ import { ConvsMgrHomeRouterModule } from './convs-mgr-home.router.module';
     FlexLayoutModule,
     ConvlPageModule,
     ConvsMgrHomeRouterModule,
-    MultiLangModule,
-    ConvsMgrDashboardModule
+    MultiLangModule
   ],
 
   declarations: [
