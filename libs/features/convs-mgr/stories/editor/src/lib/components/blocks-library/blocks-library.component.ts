@@ -52,7 +52,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
     { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock,
-    { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
+    // { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
     { id: 'fail-block', type: StoryBlockTypes.FailBlock, message: 'Fail', blockIcon:this.getBlockIcon(StoryBlockTypes.FailBlock) } as FailBlock,
     { id: 'io-image-input-block' , type: StoryBlockTypes.ImageInput, message: 'ImageInput', blockIcon:this.getBlockIcon(StoryBlockTypes.ImageInput) } as ImageInputBlock,
     { id: 'io-audio-input-block' , type: StoryBlockTypes.AudioInput, message: 'Audio Input', blockIcon:this.getBlockIcon(StoryBlockTypes.AudioInput) } as AudioInputBlock,

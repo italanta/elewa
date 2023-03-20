@@ -1,0 +1,62 @@
+<!-- <convl-page fxFlexFill title="Dashboard">
+
+
+</convl-page> -->
+
+<div fxFlexFill fxLayout="column">
+
+  <div class="section-container stat-cards">
+    <elewa-trainer-stats></elewa-trainer-stats>
+  </div>
+
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between">
+
+    <!-- <div fxLayout="column" fxFlex="55" class="mat-elevation-z2">
+
+      <div fxLayout="row" class="section-header">
+        <mat-form-field appearance="fill">
+          <mat-label>Information</mat-label>
+          <mat-select [(ngModel)]="selectVal">
+            <mat-option value="Onboarding">Onboarding</mat-option>
+            <mat-option value="System Usage">System Usage</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div class="section-body">
+        <elewa-bar-chart [mode]="selectVal"></elewa-bar-chart>
+      </div>
+
+    </div> -->
+
+    <div class="section-container mat-elevation-z4" fxFlex="100">
+
+      <div class="section-header">
+        <div class="header-area" fxLayout="row" fxLayoutAlign="space-between">
+          <div class="section-title" fxLayout="row" fxLayoutAlign="center center">Pending inquiries</div>
+        </div>
+      </div>
+
+      <div class="section-body">
+        <elewa-actions-list ></elewa-actions-list>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+<!--
+  <div fxLayout="row" class="page-section-row">
+    <app-action-tile label="Onboarding" color="#43a047" icon="fas fa-poll-h"              (action)="navToChats('onboarding')"></app-action-tile>
+    <app-action-tile label="Sales"      color="#ffb74d" icon="fas fa-headset"             (action)="navToSales()"></app-action-tile>
+    <app-action-tile label="Active ITC" color="#a98274" icon="fas fa-chalkboard-teacher"  (action)="navToChats('sales')"></app-action-tile>
+  </div> -->
+
+</div>
+
+<div class="footer"></div>
+

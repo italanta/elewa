@@ -1,0 +1,21 @@
+<div class="message"     
+[class.message-agent]="agentMessage"
+[class.message-mine]="!messageIsNotMine"
+[class.message-other]="messageIsNotMine"
+>
+<div>
+  <div *ngIf="message.questionText" class="message-content"><span [innerHtml]="message.questionText"></span></div>
+<mat-chip-listbox>
+  <mat-chip *ngFor="let btn of message.options; let idx = index" 
+  
+  [class.to-end-user]="agentMessage"
+  [class.from-end-user]="!agentMessage"
+
+   selected>
+   {{ btn.optionText }}
+  </mat-chip>
+</mat-chip-listbox>
+</div>
+
+<span class="message-timestamp">{{ timestamp }}</span>
+</div>
