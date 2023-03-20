@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MultiLangModule } from '@ngfi/multi-lang';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import {
   MaterialDesignModule,
@@ -22,6 +23,7 @@ import { PhoneBlockEditComponent } from './components/phone-block-edit/phone-blo
 import { NameBlockEditComponent } from './components/name-block-edit/name-block-edit.component';
 import { WebhookEditComponent } from './components/webhook-edit/webhook-edit.component';
 import { DefaultComponent } from './components/default/default.component';
+import { ResizableModule } from 'angular-resizable-element';
 
 @NgModule({
   imports: [
@@ -33,6 +35,8 @@ import { DefaultComponent } from './components/default/default.component';
     MaterialBricksModule,
     MaterialDesignModule,
     ConvsMgrBlockOptionsModule,
+    CKEditorModule,
+    ResizableModule
   ],
   
   declarations: [
