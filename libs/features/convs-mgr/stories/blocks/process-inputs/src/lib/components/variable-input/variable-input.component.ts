@@ -68,7 +68,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** check if name is already used and pass properties to block's formGroup */
+  /** check if name is already used if not pass properties to block's formGroup */
   setVariable() {
     const variableName = this.variablesForm.get('name')?.value;
 
