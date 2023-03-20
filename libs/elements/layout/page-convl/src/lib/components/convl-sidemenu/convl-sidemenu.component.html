@@ -51,23 +51,27 @@
         <div *ngIf="isExpanded"  [routerLink]="['/stories/dashboard']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header child-header--one">
-          <span class="child-header__word">
-            {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
-          </span>
-          <span  class="active-bots-caret-icon">
-            <i matListIcon class="fas fa-caret-right menu-item__tooltip"></i>
-          </span>
+          <div class="child-header__items">
+            <span class="child-header__word">
+              {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
+            </span>
+            <span  class="child-header__caret-icon">
+              <i matListIcon class="fas fa-caret-right menu-item__tooltip"></i>
+            </span>
+          </div>
         </div>
 
         <div *ngIf="isExpanded" [routerLink]="['/stories/analytics']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
           class="child-header">
-          <span  class="child-header__word">
-            {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
-          </span>
-          <span class="analytics-caret-icon">
-            <i matListIcon class="fas fa-caret-right menu-item__tooltip"></i>
-          </span>
+          <div class="child-header__items">
+            <span  class="child-header__word">
+              {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
+            </span>
+            <span class="child-header__caret-icon">
+              <i matListIcon class="fas fa-caret-right menu-item__tooltip"></i>
+            </span>
+          </div>
         </div>
 
       </div>
