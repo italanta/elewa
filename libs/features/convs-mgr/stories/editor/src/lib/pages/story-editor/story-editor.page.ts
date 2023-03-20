@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
@@ -20,7 +20,11 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { SharedService } from '../../components/shared-service';
+import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { Story } from '@app/model/convs-mgr/stories/main';
+
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -28,8 +32,19 @@ import { SharedService } from '../../components/shared-service';
   styleUrls: ['./story-editor.page.scss']
 })
 export class StoryEditorPageComponent implements OnInit, OnDestroy {
-  isPublished = false;
-  subscription: Subscription;
+  
+ 
+  
+  
+  isPublishedArray: CommunicationChannel[] = [];
+
+
+
+  public publishedChannel: CommunicationChannel;
+  
+  publishedChannelSub: Subscription
+  activeStorySub: Subscription;
+ 
   
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
@@ -56,9 +71,12 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   frameElement: HTMLElement;
   frameZoom: number = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
+  activeId: string | undefined;
+
 
   constructor(
               private sharedService: SharedService,
+              private _activeStoryStore$$: ActiveStoryStore,
               private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
@@ -92,11 +110,38 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
       }
     });
     //subscrbing to isPublished
-    this.subscription = this.sharedService.isPublished$.subscribe((isPublished) => {
-      this.isPublished = isPublished;
+
+    this.publishedChannelSub = this.sharedService.isPublished$.subscribe((isPublished) => {
+      // Retrieve the current value of the array from localStorage
+      const currentIsPublishedArray = JSON.parse(localStorage.getItem('isPublishedArray') || '[]');
+    
+      // Add the new item to the array
+      currentIsPublishedArray.push(isPublished);
+    
+      // Save the updated array back to localStorage
+      localStorage.setItem('isPublishedArray', JSON.stringify(currentIsPublishedArray));
+    
+      // Update the component's array
+      this.isPublishedArray = currentIsPublishedArray;
+    });
+    
+
+    this.activeStorySub = this._activeStoryStore$$.get().subscribe(data => {
+      
+    //   this.publishedChannel = data
+    //   this.isPublishedArray.push(this.publishedChannel);
+    //   console.log(this.isPublishedArray)
+    // console.log(this.publishedChannel)
+    this.activeId = data.id
+    
     });
   }
 
+  public isStoryPublished(): boolean {
+    const isPublishedArray = JSON.parse(localStorage.getItem('isPublishedArray') || '[]');
+    return isPublishedArray.some((c: { id: string | undefined; }) => c.id === this.activeId);
+  }
+  
   /**
   * Called when the portal component is rendered. Passes formGroup as an input to newly rendered Block Component
   * @param ref represents a component created by a Component factory.
@@ -186,6 +231,7 @@ this.zoom(this.frameZoom)
   }
 
   addToChannel() {
+    
     this._dialog.open(AddBotToChannelModal, {
       width: '550px'
     })
@@ -195,6 +241,7 @@ this.zoom(this.frameZoom)
   ngOnDestroy() {
     this._editorStateService.flush();
     this._sb.unsubscribe();
-    this.subscription.unsubscribe();
+    this.activeStorySub.unsubscribe();
+    this.publishedChannelSub.unsubscribe();
   }
 }

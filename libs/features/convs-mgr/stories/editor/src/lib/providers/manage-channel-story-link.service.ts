@@ -10,6 +10,7 @@ import { DataService, Repository } from '@ngfi/angular';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Logger } from '@iote/bricks-angular';
+import { SharedService } from '../components/shared-service';
 // import * as firebase from 'firebase/firestore';
 
 const db = getFirestore();
@@ -19,7 +20,8 @@ const db = getFirestore();
 export class ManageChannelStoryLinkService
 {
 
-  constructor(private _repoFac: DataService, protected _logger: Logger) { }
+
+  constructor(private _repoFac: DataService, protected _logger: Logger,   private sharedService: SharedService,) {}
 
   private _getChannelRepo(channel: CommunicationChannel): Repository<CommunicationChannel>
   {
@@ -35,16 +37,39 @@ export class ManageChannelStoryLinkService
    */
   public addStoryToChannel(channel: CommunicationChannel)
   {
+
     const _channelRepo = this._getChannelRepo(channel);
     const channelCount = from(this.incrementCounter(channel.orgId));
 
     return channelCount.pipe(concatMap(count =>
     {
+      this.sharedService.setPublishedStatus(channel);
       channel.n = count;
       return _channelRepo.write(channel, channel.id as string);
     }));
 
   }
+
+  public updateChannel(channelToUpdate: CommunicationChannel) {
+    // Construct a new channel object with the same ID and phone number ID as the existing channel,
+    // but with all other properties from the updated channel
+    // const channelToUpdate: CommunicationChannel = {
+    //   id: existingChannel.id,
+    //   orgId: existingChannel.orgId,
+    //   n: existingChannel.n,
+    //   type: existingChannel.type,
+    //   name: updatedChannel.name,
+    //   description: updatedChannel.description,
+    //   // Add other properties that can be updated here
+    //   phone_number_id: existingChannel.phone_number_id
+    // };
+  
+    // Call the repository's write method to update the channel
+    const _channelRepo = this._getChannelRepo(channelToUpdate);
+    return _channelRepo.write(channelToUpdate, channelToUpdate.id as string);
+  }
+  
+
 
   /**
    * Increments 'n' from @type {CommunicationChannel} 
@@ -90,4 +115,10 @@ export class ManageChannelStoryLinkService
     const channelRepo = this._getChannelRepo(channel);
     return channelRepo.getDocuments(new Query().where("id", "==", channel.id));
   }
+  
+  // public getData(channelId) {
+  //   const channelRepo = this._getChannelRepo(channel);
+  //   return channelRepo.getDocuments(new Query().where("id", "==", channelId));
+  // }
+  
 }

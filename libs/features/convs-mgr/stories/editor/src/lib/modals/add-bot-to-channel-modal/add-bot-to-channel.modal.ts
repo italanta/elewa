@@ -58,12 +58,15 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
     private _activeStoryStore$$: ActiveStoryStore,
     private _activeOrgStore$$: ActiveOrgStore)
     {
+    this._activeStoryStore$$.get().subscribe(data => {  
     this.addToChannelForm = this._fb.group({
       channel: this.channels,
-      businessPhoneNumberId: [null, [Validators.required]],
-      channelName: [null, Validators.required],
-      authenticationKey: [null, Validators.required]
+      businessPhoneNumberId: [data.id, [Validators.required]],
+      channelName: [data.name, Validators.required],
+      authenticationKey: [data.orgId, Validators.required]
     })
+  }
+    )
   }
 
   ngOnInit() {
@@ -99,13 +102,26 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
     this._sBs.sink = _storyExistsInChannel$.pipe(
-  tap((exists) => {
-    //isPublished value is set to the value of exists
-    this.sharedService.setPublishedStatus(exists);
-  }),
-  filter((exists) => !exists),
-  switchMap(() => this._manageStoryLinkService.addStoryToChannel(channelToSubmit))
-).subscribe(() => {
+  // tap((exists) => {
+  //   //isPublished value is set to the value of exists
+  //   this.sharedService.setPublishedStatus(exists);
+  // }),
+  switchMap((exists) => {
+    if (exists) {
+      // Update the existing channel
+      return this._activeStoryStore$$.update(channelToSubmit)
+      
+    }
+       else {
+      // Create a new channel
+      return this._manageStoryLinkService.addStoryToChannel(channelToSubmit).pipe(
+        tap((channel) => {
+          // Set isPublished to true after adding the story to the channel
+          this.sharedService.setPublishedStatus(channel);
+        })
+      );
+    }
+  })).subscribe(() => {
   this.isSaving = false;
   this.closeDialog();
 });
