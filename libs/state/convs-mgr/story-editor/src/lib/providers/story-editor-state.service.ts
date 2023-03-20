@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -26,10 +26,10 @@ export class StoryEditorStateService {
   private _isSaving = false;
 
   constructor(private _story$$: ActiveStoryStore,
-    private _blocks$$: StoryBlocksStore,
-    private _connections$$: StoryConnectionsStore,
-    private _blockConnectionsService: BlockConnectionsService,
-    private _logger: Logger) { }
+              private _blocks$$: StoryBlocksStore,
+              private _connections$$: StoryConnectionsStore,
+              private _blockConnectionsService: BlockConnectionsService,
+              private _logger: Logger) { }
 
   /**
    * Service which returns the data state of the editor.
@@ -39,16 +39,17 @@ export class StoryEditorStateService {
    * @returns : The initial state of the story editor @see {StoryEditorState}
    */
   get(): Observable<StoryEditorState> {
-    const state$ =
-      combineLatest([this._story$$.get(), this._blocks$$.get(), this._connections$$.get()])
-        .pipe(
-          map(([story, blocks, connections]) => ({ story, blocks, connections }) as StoryEditorState));
+    const state$ = this._story$$.get().pipe(
+                      switchMap(story => story ? combineLatest([of(story), this._blocks$$.getBlocksByStory(story.id!), this._connections$$.get()]) 
+                                                : of([])));
+
+    const stateData$ = state$.pipe(map(([story, blocks, connections]) => ({ story, blocks, connections }) as StoryEditorState));
 
     // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
-    state$.pipe(take(1)).subscribe(state => this._lastLoadedState = ___cloneDeep(state));
+    stateData$.pipe(take(1)).subscribe(state => this._lastLoadedState = ___cloneDeep(state));
 
     // Return state.
-    return state$;
+    return stateData$;
   }
 
   /** Persists a story editor state. */
@@ -75,7 +76,13 @@ export class StoryEditorStateService {
     // Persist the story and all the blocks
     return combineLatest(actions$)
       .pipe(tap(() => this._lastLoadedState = ___cloneDeep(state)),
-        tap(() => this._isSaving = false));
+            tap(() => this._isSaving = false),
+            catchError(err => {
+              this._logger.log(() => `Error saving story editor state, ${err}`);
+              alert('Error saving story, please try again. If the problem persists, contact support.');
+              this._isSaving = false;
+              return of(err);
+            }));
   }
 
   /**

@@ -1,0 +1,40 @@
+<div class="section-container">
+  <div class="section-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      Move Chat
+    </div>    
+    <div>
+      <button (click)="exitModal()" class="icon-button" mat-icon-button>
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <div class="section-body" fxLayout="column">
+
+    <div class="warning-text" *ngIf="!chatIsPaused()">Make sure chat is paused first!</div>
+
+    <div class="field-row"><b>Select Section: </b></div>
+    
+    <mat-select class="field-row"  name="selectChapter" 
+                [(value)]="selectedStory">
+      <mat-option *ngFor="let story of stories$ | async" 
+                  [value]="story">{{ story.name }}
+      </mat-option>
+    </mat-select>
+
+    <!-- <div class="field-row"><b>Select Section: </b></div> -->
+
+    <!-- <mat-select [(value)]="section" name="selectSection" class="field-row">
+      <mat-option *ngFor="let sect of data"
+                  [value]="sect">{{ sect.name}}
+      </mat-option>
+    </mat-select> -->
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button class="cancel-btn" mat-raised-button (click)="exitModal()">Cancel</button>
+      &nbsp;&nbsp;&nbsp;
+      <button mat-raised-button color="primary" (click)="moveChat()" 
+              [disabled]="chatIsPaused()">Apply</button>
+    </div>
+  </div>
+</div>

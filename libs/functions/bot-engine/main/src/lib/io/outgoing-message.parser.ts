@@ -27,7 +27,7 @@ export abstract class OutgoingMessageParser
 
   abstract getListBlockParserOut     (storyBlock: StoryBlock, phone: string): any
 
-  abstract getMessageTemplateParserOut (templateConfig: MessageTemplateConfig, phone: string): any
+  abstract getMessageTemplateParserOut (templateConfig: MessageTemplateConfig, phone: string, message: Message): any
 
   // abstract getStickerBlockParserOut  (storyBlock: StoryBlock, phone: string): Message
 
@@ -69,7 +69,7 @@ export abstract class OutgoingMessageParser
     return parser(storyBlock, phone);
   }
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string) {
-    return this.getMessageTemplateParserOut(templateConfig, phone);
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string, message: Message) {
+    return this.getMessageTemplateParserOut(templateConfig, phone, message);
   }
 }
