@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { ErrorPromptModalComponent } from 'libs/elements/layout/modals/src/lib/modals/error-prompt-modal/error-prompt-modal.component';
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 
 @Component({
   selector: 'app-document-block',
