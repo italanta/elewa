@@ -73,22 +73,8 @@ export class DocumentBlockComponent implements OnInit {
     this.openErrorModal();
     return;
   }
-
     
-
-    if (!event.target.files || !event.target.files[0]) {
-      this.docLink = this.defaultLink;
-      return;
-    }
-
-    if (event.target.files[0].type !== 'application/pdf') {
-      // Show error modal
-      alert('Please select a PDF file.');
-      return;
-    }
-    
-    
-
+  
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.docLink = e.target.result;
