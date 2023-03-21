@@ -5,7 +5,7 @@
 }
 
 form{
-  width: 500px;
+  width: 550px;
 }
 
 mat-form-field {
@@ -20,9 +20,32 @@ mat-form-field {
 }
 
 .cancel-btn{
-  background-color: #ffff;
-  color: red;
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.modal-container {
+  padding: 0.5rem;
+}
+
+mat-stepper {
+  min-height: 300px;
+}
+
+.close-modal {
+  color: #FFAB2D;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.step-btn {
+  background-color: #FFAB2D;
+  color: white;
   font-weight: 600;
   min-width: 100px;
-
 }

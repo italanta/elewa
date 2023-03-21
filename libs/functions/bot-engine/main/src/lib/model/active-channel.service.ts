@@ -1,5 +1,5 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { Message, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Message, MessageTemplateConfig, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -43,4 +43,6 @@ export interface ActiveChannel
   send(msg: OutgoingMessagePayload);
 
   getMediaFile(mediaId: string, mime_type: string);
+
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phoneNumber: string, message: Message);
 }

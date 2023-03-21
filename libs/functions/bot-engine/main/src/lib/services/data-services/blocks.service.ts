@@ -13,11 +13,13 @@ import { ConnectionsDataService } from './connections.service';
 export class BlockDataService extends BotDataService<StoryBlock> {
   private _docPath: string;
   private _channel: CommunicationChannel;
+  private tools: HandlerTools;
 
   constructor(channel: CommunicationChannel, private _connDataService$: ConnectionsDataService, tools: HandlerTools) 
   {
     super(tools);
     this._init(channel);
+    this.tools = tools;
   }
 
   protected _init(channel: CommunicationChannel) {
@@ -38,7 +40,12 @@ export class BlockDataService extends BotDataService<StoryBlock> {
    *  First gets the connection where sourceId == story id, then uses the target id of the connection to return the first block
    */
   async getFirstBlock(orgId: string, storyId: string): Promise<StoryBlock> {
+
+    this.tools.Logger.log(()=> `Getting first block for story: ${storyId}`);
+    
     const firstConnection = await this._connDataService$.getFirstConnection(storyId);
+
+    this.tools.Logger.log(()=> `First Connection: ${JSON.stringify(firstConnection)}`);
 
     const firstBlock = await this.getBlockById(firstConnection.targetId, orgId,storyId);
 

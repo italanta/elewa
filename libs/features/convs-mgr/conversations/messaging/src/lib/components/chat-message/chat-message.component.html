@@ -1,0 +1,21 @@
+<div class="message"
+    [class.message-agent]="agentMessage"
+    [class.message-mine]="!messageIsNotMine"
+    [class.message-other]="messageIsNotMine">
+
+    <div [ngSwitch]="message.type">
+     <div                    *ngSwitchCase="'text'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
+
+     <!-- Button Options -->
+     <app-button-message   *ngSwitchCase="'question'" [message]="message" [messageIsNotMine]="messageIsNotMine" [agentMessage]="agentMessage"></app-button-message>
+
+     <!-- Button Press -->
+     <div                    *ngSwitchCase="'button'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
+
+     <app-resource-message *ngSwitchCase="'image'"  [message]="message"></app-resource-message>
+     <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
+   </div>
+
+  <span class="message-timestamp">{{ timestamp }}</span>
+</div>
+

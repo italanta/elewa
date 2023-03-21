@@ -7,7 +7,26 @@ mat-sidenav {
   height: 400px;
 }
 
+
+.story-editor{
+  overflow-y: hidden;
+  display: flex;
+  width: 100%;
+}
+
+.nav {
+  border-right: solid black 1px;
+  background-color: #fff;
+  width: 20%;
+}
+
+.story-index{
+  overflow-y: hidden;
+  width: 80%;
+}
+
 .sub-bar {
+  width: auto;
   padding: 10px 5px;
   background-color: white;
   border-bottom: solid #eee 1px;
@@ -31,10 +50,6 @@ mat-sidenav {
 .zoom-btn {
   background-color: white;
   color: black;
-}
-
-.nav {
-  border-right: solid black 1px;
 }
 
 .wrapper-edit {

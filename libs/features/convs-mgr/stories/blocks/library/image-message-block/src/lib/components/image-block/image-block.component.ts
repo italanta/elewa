@@ -2,12 +2,14 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { take } from 'rxjs';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { UploadFileService } from '@app/state/file';
+import { FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
@@ -41,6 +43,7 @@ export class ImageBlockComponent implements OnInit {
   imageLink: string;
   hasImage: boolean = false;
 
+
   constructor(private _imageUploadService: UploadFileService,
     public domSanitizer: DomSanitizer,
     private dialog: MatDialog
@@ -48,16 +51,14 @@ export class ImageBlockComponent implements OnInit {
 this.block = this.block as ImageMessageBlock;
 }
 
-
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
 
     this.checkIfImageExists();
   }
-  
-  checkIfImageExists(){
+
+  checkIfImageExists() {
     this.imageLink = this.imageMessageForm.value.fileSrc;
     this.hasImage = this.imageLink && this.imageLink != '' ? true : false;
   }
@@ -88,7 +89,6 @@ this.block = this.block as ImageMessageBlock;
     return;
   }
 
-
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imageLink = e.target.result;
@@ -99,10 +99,17 @@ this.block = this.block as ImageMessageBlock;
     }
 
     //Step 1 - Create the file path that will be in firebase storage
-    const imgFilePath = `images/${this.file.name}_${new Date().getTime()}`;
+    const imgFilePath = `images/${this.file.name}`;
     this.isLoadingImage = true;
 
-    (await this._imageUploadService.uploadFile(this.file, this.block,imgFilePath)).subscribe();
+    this._imageUploadService.uploadSingleFile(this.file, imgFilePath).then((url) => {
+      url.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
+    })
+  }
+
+  private _autofillUrl(url: string) {
+    this.imageMessageForm.patchValue({fileSrc: url});
+    this.isLoadingImage = false;
   }
 }
 

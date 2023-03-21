@@ -18,12 +18,16 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
 
   constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
 
+
   ngAfterViewInit() {
     const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
 
     this.frameLoaded.emit(frame);
-
   }
+
+
+  onScroll(): void { }
+
   onPinch(level:number){
     this.pinchZoom.emit(level)
   }

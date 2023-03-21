@@ -7,6 +7,7 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ChatsRouterModule } from '@app/features/convs-mgr/conversations/chats';
 
 import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
 import { StoryListComponent } from './components/story-list/story-list.component';
@@ -26,7 +27,8 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     ReactiveFormsModule,
     MaterialDesignModule, FlexLayoutModule,
     ConvlPageModule, MultiLangModule,
-    ConvsMgrStoriesRouterModule
+    ConvsMgrStoriesRouterModule,
+    ChatsRouterModule
   ],
   declarations: [
     StoriesDashboardComponent, StoryListItemComponent,
