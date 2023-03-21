@@ -7,6 +7,7 @@ import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular
 
 import { ConvsMgrBlockOptionsModule } from '../../../block-options/src';
 import { FailBlockComponent } from './components/fail-block/fail-block.component';
+import { TextMessageModule } from '../../../main/src/lib/components/text-message/text-message.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,8 @@ import { FailBlockComponent } from './components/fail-block/fail-block.component
     ReactiveFormsModule,
 
     ConvsMgrBlockOptionsModule,
+
+    TextMessageModule
   ],
   declarations: [FailBlockComponent],
   exports: [FailBlockComponent]
