@@ -10,3 +10,4 @@ export * from './app/bot/main/send-outgoing-message.function';
 export * from './app/bot/main/talk-to-human.function';
 export * from './app/bot/main/milestone-tracker.function';
 export * from './app/bot/main/send-reminder-messages.function';
+export * from './app/bot/main/send-invitation-messages.function';

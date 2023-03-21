@@ -19,3 +19,4 @@ export * from 'libs/functions/bot-engine/main/src/lib/io/incoming-message-parser
 export * from './lib/handlers/talk-to-operator.handler';
 export * from './lib/handlers/milestones.handler';
 export * from './lib/handlers/send-message-templates.handler';
+export * from './lib/handlers/send-invitation-templates.handler';
