@@ -2,6 +2,7 @@ import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/s
 
 export interface WhatsAppCommunicationChannel extends CommunicationChannel
 {
+    phoneNumberId(phoneNumberId: any): unknown;
     /** This is a unique token given by Whatsapp and required to 
      *    send and receive messages on whatsapp endpoints
      *  
