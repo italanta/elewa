@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { StoryBlockTypes, VariablesValidator } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
@@ -81,8 +81,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
       if (isPresent) {
         this.name.setErrors({ incorrect: 'name is already used' });
       } else {
-        
-        const variableData: VariablesValidator = {
+        const variableData = {
           name: this.variablesForm.get('name')?.value,
           type: parseInt(this.variablesForm.get('type')?.value),
           validators: this.variablesForm.get('validators')?.value ?? {},
