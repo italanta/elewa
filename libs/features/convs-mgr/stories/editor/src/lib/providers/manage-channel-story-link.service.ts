@@ -66,7 +66,7 @@ export class ManageChannelStoryLinkService
   
     // Call the repository's write method to update the channel
     const _channelRepo = this._getChannelRepo(channelToUpdate);
-    return _channelRepo.write(channelToUpdate, channelToUpdate.id as string);
+    return _channelRepo.update(channelToUpdate);
   }
   
 
