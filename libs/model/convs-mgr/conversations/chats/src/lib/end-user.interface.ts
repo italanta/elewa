@@ -18,7 +18,7 @@ export interface EndUser extends IObject
     status              : ChatStatus;
 
     /** The story that the end user is currently responding to */
-    currentStory        : string;
+    currentStory       ?: string;
 }
 
 /**
@@ -33,7 +33,11 @@ export enum ChatStatus
 
     Paused                = 'paused',
 
-    TakingToAgent         = 'takingtoagent',
+    PausedByAgent         = 'takingtoagent',
 
-    Ended                 = 'ended'
+    Ended                 = 'ended',
+
+    Stashed               = 'stashed',
+
+    Disabled              = 'disabled'
   }

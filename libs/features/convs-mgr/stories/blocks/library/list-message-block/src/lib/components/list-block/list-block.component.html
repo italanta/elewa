@@ -3,8 +3,6 @@
 
     <app-text-message [formgroup]="listMessageBlock"></app-text-message>
 
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock"></app-default-option-field>
-
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let listItem of listItems.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">

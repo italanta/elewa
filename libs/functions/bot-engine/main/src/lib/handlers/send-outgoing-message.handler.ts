@@ -2,9 +2,9 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
 
-import { ChannelDataService } from '@app/functions/bot-engine';
+import { ChannelDataService, generateEndUserId, MessagesDataService } from '@app/functions/bot-engine';
 
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
@@ -18,6 +18,7 @@ import { ActiveChannelFactory } from '../factories/active-channel/active-channel
  */
 export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
 {
+  private _orgId: string;
   /**
    * Listens to messages sent from the farmbetter app to the end user, processes them and 
    *    forwards them to the end user
@@ -51,6 +52,10 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
 
       const communicationChannel = await _channelService$.getChannelByConnection(outgoingPayload.n) as CommunicationChannel;
 
+      this._orgId = communicationChannel.orgId;
+
+      const n = communicationChannel.n;
+
       // STEP 3: Create Active Channel
       //         We need to create the active channel so that the engine can use it to process and send the message
       //         The active channel contains the Communication Channel and a send message function
@@ -61,7 +66,29 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools)
 
       // STEP 4: Get the outgoing message in whatsapp format
-      const outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      let outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+
+      // Only send the opt-in message if the platform is whatsapp
+      if(communicationChannel.type === PlatformType.WhatsApp) 
+      {      
+      const msgService = new MessagesDataService(tools);
+      
+      const endUserId = generateEndUserId(outgoingPayload.endUserPhoneNumber, PlatformType.WhatsApp, n);
+
+      const latestMessage = await msgService.getLatestMessage(endUserId, this._orgId);
+
+      // Get the date in milliseconds
+      const latestMessageTime = new Date(latestMessage ? latestMessage.createdOn : 0).getTime();
+
+      // Check if the last message sent was more than 24hours ago
+      if ((Date.now() - latestMessageTime) > 86400000) {
+        const templateConfig = communicationChannel.templateConfig;
+        // Send the opt-in message template
+
+        // Get the opt-in message template
+        outgoingMessagePayload = activeChannel
+                                  .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+      }}
 
       // STEP 5: Send the message
       await activeChannel.send(outgoingMessagePayload as any);

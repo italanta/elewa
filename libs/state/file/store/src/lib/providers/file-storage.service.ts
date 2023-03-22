@@ -9,8 +9,12 @@ export class FileStorageService {
   constructor(private _afS$$: AngularFireStorage) { }
 
   async uploadSingleFile(file: File, filePath: string) {
-    const uploadTask = this._afS$$.upload(filePath, file);
-    return uploadTask.task.snapshot.ref;
+    const customMetadata = { app: 'ele-convs-mgr' };
+
+    let taskRef = this._afS$$.ref(filePath);
+    await taskRef.put(file, { customMetadata });
+
+    return taskRef.getDownloadURL();
   }
 
   deleteSingleFile(fileUrl: string) {

@@ -3,8 +3,6 @@
 
     <app-text-message [formgroup]="questionMessageBlock"></app-text-message>
 
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="questionMessageBlock"></app-default-option-field>
-
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
