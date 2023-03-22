@@ -100,10 +100,6 @@ mat-nav-list {
     color: var(--convs-mgr-color-primary-purple);
     cursor: pointer;
 
-    &--one {
-      margin-top: 8px;
-    }
-
     .caret-icon {
       position: relative;
       .menu-item__tooltip {
