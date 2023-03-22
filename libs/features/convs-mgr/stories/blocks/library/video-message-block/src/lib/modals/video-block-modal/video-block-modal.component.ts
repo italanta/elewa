@@ -75,7 +75,12 @@ export class VideoBlockModalComponent implements OnInit {
     this.videoInputId = `vid-${this.id}`;
     this.videoInputUpload = `vid-${this.id}-upload`;
 
-    this.checkIfVideoExists();
+    if (this.block && this.block.fileSrc) {
+      this.videoUrl = this.block.fileSrc;
+      this.hasVideo = true;
+    } else {
+      this.checkIfVideoExists();
+    }
   }
 
   checkIfVideoExists() {

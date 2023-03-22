@@ -10,7 +10,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { VideoBlockModalComponent } from '../../modals/video-block-modal/video-block-modal.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-video-block',
@@ -31,8 +31,7 @@ export class VideoBlockComponent{
   constructor(
               private matdialog:MatDialog,
               //private dialogueRef: MatDialogRef
-  ) 
-  {
+  ) {
     this.block = this.block as VideoMessageBlock;
   }
 
