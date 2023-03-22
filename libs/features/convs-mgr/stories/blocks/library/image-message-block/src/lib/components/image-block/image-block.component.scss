@@ -47,3 +47,22 @@ div {
 #imageFile {
 	border-color: var(--convs-mgr-color-primary-purple)
 }
+
+.doc-icon {
+	text-align: center;
+	color: var(--convs-mgr-color-primary-purple) !important;
+	width: 200px;
+	height: 100px;
+	background-color: var(--convs-mgr-color-primary-white) !important;
+	opacity: 1;
+
+	.fa-file-doc {
+		color: var(--convs-mgr-color-primary-purple) !important;
+		border: none;
+	}
+
+	.fa-spin {
+		color: var(--convs-mgr-color-primary-purple) !important;
+		border: none;
+	}
+}

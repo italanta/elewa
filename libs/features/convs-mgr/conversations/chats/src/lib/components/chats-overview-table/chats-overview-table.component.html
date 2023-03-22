@@ -1,0 +1,87 @@
+<div id="table-header" fxLayout="column">
+
+  <table *ngIf="!isLoading else loading" mat-table [dataSource]="dataSource" matSort fxFlex="100">
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="color">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5">  </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5" class="{{getClass(element)}}" > 
+        <i class="fas fa-circle" matTooltip="Chat status"></i> 
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="5"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="30"> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="30"> {{ element.name }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="30"><b>Total chats:</b></mat-footer-cell>
+    </ng-container>
+
+    <!-- Last Active Column -->
+    <ng-container matColumnDef="last-active">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="15"> Last Interaction </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="15"> {{ getLastChatDate(element) | date }} {{ getLastChatDate(element) | date:"HH:mm" }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="15"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20"> Phonenumber </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20"> {{ element.phone }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="20"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="20"> Status </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20"> {{ getStatus(element.flow) }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="20"><b>{{dataSource.data.length}}</b></mat-footer-cell>
+    </ng-container>
+
+    <!-- New Message Column -->
+    <ng-container matColumnDef="new-msg">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5">  </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5">
+        <i *ngIf="element.awaitingResponse" class="fas fa-comment-alt new-msg-icon"></i>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="5"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Course Column -->
+    <ng-container matColumnDef="course">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="5"> Course </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="5"> ITC </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="5"></mat-footer-cell>
+
+    </ng-container>
+
+    <!-- County Column -->
+    <ng-container matColumnDef="county">
+      <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10"> County </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10"> {{ element.info?.county }} </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="10"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef  fxFlex="10">View</mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10">
+        <button (click)="goTo(element)" mat-raised-button color="accent">
+          <i class="fas fa-eye"></i>&nbsp;
+        </button>
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef fxFlex="10"></mat-footer-cell>
+    </ng-container>
+
+    <!-- Table Definition -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-footer-row class="sticky-footer" *matFooterRowDef="displayedColumns"></mat-footer-row>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+
+</div>
+
+<ng-template #loading><app-spinner></app-spinner></ng-template>

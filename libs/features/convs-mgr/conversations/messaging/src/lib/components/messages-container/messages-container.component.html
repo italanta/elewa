@@ -1,0 +1,26 @@
+<div id="message-container" #container
+     scrollable (scrollPosition)="scrollHandler($event)" fxFlex>
+
+  <mat-list *ngIf="isLoaded; else loading">
+    <mat-list-item *ngFor="let message of messages; let i = index">
+      <!-- <div *ngIf="isNewDate(messages[i])" class="hr-with-text" fxLayout="row" fxLayoutAlign="center">
+        {{ lastDate | date }}
+      </div> -->
+      <app-chat-message [message]="message"></app-chat-message>
+    </mat-list-item>
+  </mat-list>
+
+</div>
+
+<div class="btn-new-msg" fxLayout="row" fxLayoutAlign="center">
+    <button *ngIf="newMessages"
+            (click)="scrollToBottom()"
+            class="new-msg-btn"
+            mat-raised-button>
+      New messages..
+    </button>
+  </div>
+
+<ng-template #loading><app-spinner [diameter]="30"></app-spinner></ng-template>
+
+<!-- (multiple)="deleteMessages($event)" -->

@@ -79,14 +79,17 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "MULTIPLEINPUT":"Multiple-Input",
+        "MULTIPLE-INPUT":"Multiple-Input",
         "IMAGE-INPUT":"Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "MULTI-CONTENT-INPUT":"Multi Content Input",
         "VIDEO-INPUT":"Video Input",
         "AUDIO-INPUT":"Audio Input",
         "LOCATION-INPUT":"Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
-        "WEBHOOK": "Webhook"
+        "WEBHOOK": "Webhook",
+        "FAILBLOCK": "Fail Block",
+        "JUMP":"Jump"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -105,7 +108,11 @@
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
-        "WEBHOOK": "Url Input"
+        "WEBHOOK": "Url Input",
+        "JUMP": {
+          "SELECT-STORY": "Select Story",
+          "SELECT-BLOCK": "Select Block"
+        }
       },
       "BUTTONS": {
         "JUMP-BLOCK": {
@@ -119,9 +126,11 @@
     },
     "SIDE-MENU": {
       "MAIN-TITLE": "",
+      "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
+      "CHATS": "Chats",
       "LOG-OUT": "Logout"
     },
     "TOP-BAR": {
@@ -130,6 +139,7 @@
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
+        "ADD-CHANNEL": "Add Channel",
         "CHANNEL-TYPE": "Choose platform",
         "CHANNEL-NAME": "Enter the name of your bot",
         "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",
@@ -148,7 +158,12 @@
       "EDIT-BOT": "Edit",
       "DELETE-BOT": "Delete",
       "ADD-OPTION": "Add Option",
-      "NEW-LIST": "New List"
+      "NEW-LIST": "New List",
+      "IMAGE":"Image",
+      "AUDIO":"Audio",
+      "VIDEO":"Video",
+      "TEXT":"Text",
+      "DOCUMENT":"Document"
     },
     "FIELDS": {
       "NAME": "Name",

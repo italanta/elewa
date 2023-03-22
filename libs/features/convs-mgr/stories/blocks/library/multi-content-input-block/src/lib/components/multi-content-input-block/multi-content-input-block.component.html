@@ -1,0 +1,28 @@
+<mat-card [id]="id" *ngIf="multiContentInputBlock">
+  <mat-card-content>
+    <form [formGroup]="multiContentInputBlock" fxLayout="column" fxLayoutALign="start center">
+
+      <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+
+    </form>
+
+    <button [class]="buttonId" mat-flat-button   fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.IMAGE' | transloco }}
+    </button>
+
+    <button  [class]="buttonId" mat-flat-button   fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.AUDIO' | transloco }}
+    </button>
+
+
+    <button  [class]="buttonId" mat-flat-button   fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.VIDEO' | transloco }}
+    </button>
+    <button  [class]="buttonId" mat-flat-button   fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.TEXT' | transloco }}
+    </button>
+    <button  [class]="buttonId" mat-flat-button   fxLayout="row" fxLayoutAlign="center" fxLayoutGap="10px">
+      {{ 'BOTS.ACTIONS.DOCUMENT' | transloco }}
+    </button>
+  </mat-card-content>
+</mat-card>
