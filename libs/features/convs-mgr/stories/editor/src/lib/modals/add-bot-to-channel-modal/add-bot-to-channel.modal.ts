@@ -23,12 +23,6 @@ import { ManageChannelStoryLinkService } from '../../providers/manage-channel-st
   selector: 'conv-add-bot-to-channel',
   templateUrl: 'add-bot-to-channel.modal.html',
   styleUrls: ['./add-bot-to-channel.modal.scss'],
-  providers: [
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: { showError: true },
-    },
-  ]
 })
 
 /**
@@ -59,6 +53,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
   languages: string[];
 
   isSaving: boolean;
+  isLinear = true;
 
   constructor(private _fb: FormBuilder,
     private _dialog: MatDialog,
@@ -89,7 +84,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
     this.isSaving = true;
     const phoneNumberId = this.addToChannelForm.get('businessPhoneNumberId')?.value;
-    var authKey = this.addToChannelForm.get('authenticationKey')?.value;
+    let authKey = this.addToChannelForm.get('authenticationKey')?.value;
     const businessName = this.addToChannelForm.get('channelName')?.value;
 
     authKey = __ENCODE_AES(authKey);
