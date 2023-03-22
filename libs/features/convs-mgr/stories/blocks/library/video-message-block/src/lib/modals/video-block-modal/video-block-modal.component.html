@@ -1,4 +1,4 @@
-<div class="container" *ngIf="modalOpen">
+<div class="container">
   <div class="heading">
     <div (click)="closeModal()" id="close__icon">
       <i class="fas fa-times"></i>
@@ -34,9 +34,7 @@
             <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png" />
           </div>
           <ng-template #inputHasVideo>
-            <video class="upload-video" alt="" controls>
-              <source [src]="videoUrl" type="video/mp4" />
-            </video>
+            <video class="upload-video" alt="" controls #videoPlayer [src]="videoUrl" *ngIf="hasVideo"></video>
           </ng-template>
         </label>
       </div>

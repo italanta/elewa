@@ -5,11 +5,13 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+//import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-video-block-modal',
@@ -23,10 +25,7 @@ export class VideoBlockModalComponent implements OnInit {
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  modalOpen = true;
-
-  type: StoryBlockTypes;
-  videoType = StoryBlockTypes.Video;
+ // modalOpen = true;
 
   blockFormGroup: FormGroup;
 
@@ -51,21 +50,25 @@ export class VideoBlockModalComponent implements OnInit {
   { vidSize: "Don't Encode Media", resolution: 'This will use the original media you provided' },
   ]
 
+  constructor(
+    private _videoUploadService: UploadFileService,
+    private _ngfiStorage: AngularFireStorage,
+    private _firestore: AngularFirestore,
+    private dialogueRef: MatDialogRef<VideoBlockModalComponent>
+  ) {
+    this.block = this.block as VideoMessageBlock;
+  }
+
   apply() {
     const videoBlock = {
       name: this.name,
       size: this.size,
-      // VideoUrl should go here?
-      file: this.file 
+      file: this.file,
+      videoUrl: this.videoUrl // Add the video URL to the video block object
     };
-    this.applied.emit(videoBlock);
-    this.modalOpen = false
-  }
-
-  constructor(private _videoUploadService: UploadFileService,
-    private _ngfiStorage: AngularFireStorage,
-  ) {
-    this.block = this.block as VideoMessageBlock;
+  // Save the video block to the Firestore database
+  this._firestore.collection('videoBlocks').add(videoBlock);
+  this.applied.emit(videoBlock);
   }
 
   ngOnInit(): void {
@@ -82,8 +85,8 @@ export class VideoBlockModalComponent implements OnInit {
 
   
 
-  closeModal() {
-    this.modalOpen = false;
+  closeModal(): void {
+    this.dialogueRef.close();
   }
 
   async processVideo(event: any) {

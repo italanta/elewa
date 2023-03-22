@@ -1,8 +1,8 @@
 <div [id]="id" *ngIf="videoMessageForm">
 	<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-		<div [id]="videoInputId">
-			<label [for]="videoInputUpload" (click)="openVideoModal()">
+		<div>
+			<label  (click)="openVideoModal()">
 				<i id="icon" class="fas fa-play-circle"></i>
 			</label>
 		</div>
