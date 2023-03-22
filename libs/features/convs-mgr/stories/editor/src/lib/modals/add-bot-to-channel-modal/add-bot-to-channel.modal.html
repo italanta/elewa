@@ -7,8 +7,7 @@
       {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ADD-CHANNEL'}}
     </span>
     <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
-      <mat-stepper>
-
+      <mat-stepper [linear]="isLinear">
         <mat-step label="Select Channel" [stepControl]="this.addToChannelForm.controls['channel']" errorMessage="Channel required">
           <mat-form-field>
             <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-TYPE' | transloco }}</mat-label>
@@ -28,7 +27,7 @@
           [stepControl]="this.addToChannelForm.controls['businessPhoneNumberId'] || this.addToChannelForm.controls['businessPhoneNumberId']" 
           errorMessage="Phone/Auth required"
         >
-          <div *ngIf="channelType.value == channels[0]">
+          <div *ngIf="channelType.value === channels[0]">
             <mat-form-field>
               <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.PHONENUMBER-ID'| transloco }}</mat-label>
               <input formControlName="businessPhoneNumberId" matInput placeholder="Enter bot phone number Id">
