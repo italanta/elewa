@@ -9,11 +9,10 @@ import { ListMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging"
  * @param blockData the data being patched into the FormGroup
  * @returns builds the formgroup with data if available and returns the Formgroup
  */
- export function _CreateListBlockMessageForm(_fb: FormBuilder, blockData: ListMessageBlock): FormGroup {
+export function _CreateListBlockMessageForm(_fb: FormBuilder, blockData: ListMessageBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
-    defaultTarget: [''],
     options: _fb.array([]),
     type: [blockData.type ?? StoryBlockTypes.List],
     position: [blockData.position ?? { x: 200, y: 50 }]

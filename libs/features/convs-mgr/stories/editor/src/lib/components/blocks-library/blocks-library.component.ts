@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock, 
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock
+  KeywordMessageBlock, MultiContentInputBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -52,7 +52,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List) } as ListMessageBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
     { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock) } as JumpBlock,
-    { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
+    // { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
     { id: 'fail-block', type: StoryBlockTypes.FailBlock, message: 'Fail', blockIcon:this.getBlockIcon(StoryBlockTypes.FailBlock) } as FailBlock,
     { id: 'io-image-input-block' , type: StoryBlockTypes.ImageInput, message: 'ImageInput', blockIcon:this.getBlockIcon(StoryBlockTypes.ImageInput) } as ImageInputBlock,
     { id: 'io-audio-input-block' , type: StoryBlockTypes.AudioInput, message: 'Audio Input', blockIcon:this.getBlockIcon(StoryBlockTypes.AudioInput) } as AudioInputBlock,
@@ -61,6 +61,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-video-input-block', type: StoryBlockTypes.VideoInput, message: 'VideoInput', blockIcon:this.getBlockIcon(StoryBlockTypes.VideoInput) } as VideoInputBlock,
     { id: 'webhook-block' , type: StoryBlockTypes.WebhookBlock, message: 'Webhook', blockIcon:this.getBlockIcon(StoryBlockTypes.WebhookBlock) } as WebhookBlock,
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion) } as OpenEndedQuestionBlock,
+    { id: 'multi-content-input' , type:StoryBlockTypes.MultiContentInput, message:'Multi Content Input', blockIcon:this.getBlockIcon(StoryBlockTypes.MultiContentInput) } as MultiContentInputBlock,
     { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword) } as KeywordMessageBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -148,6 +149,9 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
         break;
       case StoryBlockTypes.OpenEndedQuestion:
         this.frame.newBlock(StoryBlockTypes.OpenEndedQuestion);
+        break;  
+      case StoryBlockTypes.MultiContentInput:
+        this.frame.newBlock(StoryBlockTypes.MultiContentInput);
         break;  
       case StoryBlockTypes.keyword:
         this.frame.newBlock(StoryBlockTypes.keyword);

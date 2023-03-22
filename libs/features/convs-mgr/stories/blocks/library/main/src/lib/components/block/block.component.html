@@ -100,6 +100,10 @@
             <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-end-anchor>
         </div>
+        <div *ngSwitchCase="multiContentInputType">
+            <app-multi-content-input-block [id]="id" [block]="block" [multiContentInputBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-multi-content-input-block>
+        </div>
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-video-input-block>

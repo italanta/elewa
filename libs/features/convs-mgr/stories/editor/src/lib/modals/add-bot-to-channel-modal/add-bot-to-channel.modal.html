@@ -1,47 +1,80 @@
 <ng-container>
-    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
-        <span class="header-text">
-     {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ADD-CHANNEL'}}
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100" class="modal-container">
+    <button class="cancel-btn" (click)="closeDialog()" [disabled]="isSaving" fxLayoutAlign="end">
+      <i class="fas fa-times close-modal"></i>
+    </button>
+    <span class="header-text">
+      {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ADD-CHANNEL'}}
     </span>
-        <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+    <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
+      <mat-stepper>
 
+        <mat-step label="Select Channel" [stepControl]="this.addToChannelForm.controls['channel']" errorMessage="Channel required">
+          <mat-form-field>
+            <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-TYPE' | transloco }}</mat-label>
+            <mat-select formControlName="channel" required #channelType>
+              <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
+                  {{singleChannel.type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div fxLayoutAlign="end">
+            <button mat-button matStepperNext type="button" class="step-btn">Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step 
+          label="Add Details" 
+          [stepControl]="this.addToChannelForm.controls['businessPhoneNumberId'] || this.addToChannelForm.controls['businessPhoneNumberId']" 
+          errorMessage="Phone/Auth required"
+        >
+          <div *ngIf="channelType.value == channels[0]">
             <mat-form-field>
-                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-TYPE' | transloco }}</mat-label>
-                <mat-select formControlName="channel" required>
-                    <mat-option *ngFor="let singleChannel of channels" [value]="singleChannel">
-                        {{singleChannel.type}}
-                    </mat-option>
-                </mat-select>
+              <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.PHONENUMBER-ID'| transloco }}</mat-label>
+              <input formControlName="businessPhoneNumberId" matInput placeholder="Enter bot phone number Id">
             </mat-form-field>
-
+    
             <mat-form-field>
-                <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-NAME' | transloco }}</mat-label>
-                <input formControlName="channelName" matInput placeholder="Enter name of channel">
+              <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.AUTH-KEY' | transloco }}</mat-label>
+              <input formControlName="authenticationKey" type="string" matInput placeholder="Enter your Meta Authentication Key">
             </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between">
+            <button mat-button matStepperPrevious type="button" class="step-btn">Back</button>
+            <button mat-button matStepperNext type="button" class="step-btn">Next</button>
+          </div> 
+        </mat-step>
 
-            <mat-form-field>
-                <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.PHONENUMBER-ID'| transloco }}</mat-label>
-                <input formControlName="businessPhoneNumberId" matInput placeholder="Enter bot phone number Id">
-            </mat-form-field>
+        <mat-step label="Bot Name" [stepControl]="this.addToChannelForm.controls['channelName']" errorMessage="Name is required">
+          <mat-form-field>
+            <mat-label>{{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.CHANNEL-NAME' | transloco }}</mat-label>
+            <input formControlName="channelName" matInput placeholder="Enter name of channel">            
+          </mat-form-field>
 
+          <mat-form-field>
+            <mat-label>Message Template Name</mat-label>
+            <input formControlName="messageTemplate" matInput placeholder="Enter template name">                       
+          </mat-form-field>
 
-            <mat-form-field>
-                <mat-label> {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.AUTH-KEY' | transloco }}</mat-label>
-                <input formControlName="authenticationKey" type="string" matInput placeholder="Enter your Meta Authentication Key">
-            </mat-form-field>
+          <mat-form-field>
+            <mat-label>Template Variables</mat-label>
+            <mat-select formControlName="templateVariables" multiple>
+              <mat-option>Option 1</mat-option>
+              <mat-option>Option 2</mat-option>
+              <mat-option>Option 3</mat-option>
+            </mat-select>          
+          </mat-form-field>
 
-            <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
-        <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
-            {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ACTION-BUTTONS.SAVE' | transloco }}
-        </button>
+          <span fxLayout="row" fxFlex="100" fxLayoutAlign="space-between">             
+            <button mat-button matStepperPrevious type="button" class="step-btn">Back</button>
+            <button mat-flat-button class="save-btn" type="submit" [disabled]="addToChannelForm.invalid || isSaving">
+              {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }}
+            </button>          
+          </span>  
+        </mat-step>
+      </mat-stepper>            
+    </form>
 
-        <button mat-raised-button class="cancel-btn" (click)="closeDialog()" [disabled]="isSaving">
-            {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ACTION-BUTTONS.CANCEL' | transloco }}
-        </button>
-      </span>
-        </form>
-
-    </div>
-
-
+  </div>
+  
 </ng-container>

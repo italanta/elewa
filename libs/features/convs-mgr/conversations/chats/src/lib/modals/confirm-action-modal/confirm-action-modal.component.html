@@ -1,0 +1,27 @@
+<div class="section-container">
+  <div class="section-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div *ngIf="resume else pause">
+      Are you sure you want to Resume this chat?
+    </div>
+    <ng-template #pause>
+      <div>
+        Are you sure you want to Pause this chat?
+      </div>
+    </ng-template>    
+    <div>
+      <button (click)="exitModal()" class="icon-button" mat-icon-button>
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <div class="section-body" fxLayout="column">
+
+    <div class="field-row"><b> </b></div>
+
+    <div fxLayout="row" fxLayoutAlign="end">
+      <button class="cancel-btn" mat-raised-button color="secondary" (click)="exitModal()">Cancel</button>
+      &nbsp;&nbsp;&nbsp;
+      <button class="submit-btn" mat-raised-button color="primary" (click)="confirm()">Confirm</button>
+    </div>
+  </div>
+</div>

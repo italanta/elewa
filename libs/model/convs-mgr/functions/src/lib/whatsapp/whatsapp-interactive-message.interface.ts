@@ -45,13 +45,13 @@ export interface ActionInfo {
 }
 
 //Can have multiple sections for every action
-interface ActionSectionInfo {
+export interface ActionSectionInfo {
   title: string,
   rows: ActionSectionInfoRow[]
 }
 
 //Can have multiple rows per section
-interface ActionSectionInfoRow {
+export interface ActionSectionInfoRow {
   id: string,
   title: string,
   description?: string
