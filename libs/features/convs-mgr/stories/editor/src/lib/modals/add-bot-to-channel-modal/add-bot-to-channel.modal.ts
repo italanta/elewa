@@ -58,16 +58,52 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
     private _activeStoryStore$$: ActiveStoryStore,
     private _activeOrgStore$$: ActiveOrgStore)
     {
-    this._activeStoryStore$$.get().subscribe(data => {  
-    this.addToChannelForm = this._fb.group({
+    
+  //   if (sharedService.isPublished$)
+  //   {
+  //     this._activeStoryStore$$.get().subscribe(data => 
+  //     {  
+  //   this.addToChannelForm = this._fb.group({
+  //     channel: this.channels,
+  //     businessPhoneNumberId: [{value: data.id, disabled: true }, [Validators.required]],
+  //     channelName: [data.name, Validators.required],
+  //     authenticationKey: [data.orgId, Validators.required]
+  //   })
+  // }
+  //   )
+  // }
+  // else {
+  //   this.addToChannelForm = this._fb.group({
+  //     channel: [null],
+  //     businessPhoneNumberId: [null],
+  //     channelName: [null],
+  //     authenticationKey: [null]
+  //   });
+    
+  
+  // }
+  if (sharedService.isPublished$) { 
+    this._activeStoryStore$$.get().subscribe(data => { 
+      this.addToChannelForm = this._fb.group({
+        channel: this.channels,
+        businessPhoneNumberId: [data.id],
+        channelName: [data.name],
+        authenticationKey: [data.orgId]
+      });
+      this.addToChannelForm.get('businessPhoneNumberId')?.disable();
+    });
+  } else {
+    this.addToChannelForm.setValue({
       channel: this.channels,
-      businessPhoneNumberId: [data.id, [Validators.required]],
-      channelName: [data.name, Validators.required],
-      authenticationKey: [data.orgId, Validators.required]
-    })
+      businessPhoneNumberId: null,
+      channelName: null,
+      authenticationKey: null
+    });
   }
-    )
-  }
+  
+  
+
+}
 
   ngOnInit() {
     this._sBs.sink =
@@ -109,8 +145,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   switchMap((exists) => {
     if (exists) {
       // Update the existing channel
-      return this._activeStoryStore$$.update(channelToSubmit)
-      
+      // return this._activeStoryStore$$.update(channelToSubmit)
+      return this._manageStoryLinkService.updateChannel(channelToSubmit) 
     }
        else {
       // Create a new channel
