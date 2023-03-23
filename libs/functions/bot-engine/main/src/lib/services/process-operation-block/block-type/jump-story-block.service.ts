@@ -8,8 +8,7 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
-import { EndUserDataService } from "../../data-services/end-user.service";
-import { IProcessNextBlock } from "../models/process-next-block.interface";
+import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 
 /**
@@ -23,7 +22,7 @@ import { IProcessNextBlock } from "../models/process-next-block.interface";
  *  - Add function to get the first block in the new story if the block is not provided
  *  - Add function to jump to the same story, if the story is not provided
  */
-export class JumpStoryBlockService implements IProcessNextBlock
+export class JumpStoryBlockService implements IProcessOperationBlock
 {
   sideOperations: Promise<any>[] = [];
   userInput: string;
@@ -78,7 +77,7 @@ export class JumpStoryBlockService implements IProcessNextBlock
 
     // 2. Create routed cursor
     const routedCursor: RoutedCursor = {
-      storyId: storyBlock.targetStoryId,
+      storyId: currentStory,
       blockSuccess: blockSuccessConn ? blockSuccessConn.targetId : "",
       blockFail: blockFailConn ? blockFailConn.targetId : "",
     };
@@ -99,7 +98,7 @@ export class JumpStoryBlockService implements IProcessNextBlock
 
       newCursor.parentStack = parentStack;
     } else {
-      newCursor.parentStack.push(routedCursor);
+      newCursor.parentStack.unshift(routedCursor);
     }
 
     newCursor.position = newUserPosition;

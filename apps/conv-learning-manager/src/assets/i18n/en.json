@@ -126,6 +126,7 @@
     },
     "SIDE-MENU": {
       "MAIN-TITLE": "",
+      "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
@@ -138,6 +139,7 @@
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
+        "ADD-CHANNEL": "Add Channel",
         "CHANNEL-TYPE": "Choose platform",
         "CHANNEL-NAME": "Enter the name of your bot",
         "PHONENUMBER-ID": "Enter the phone number id as provided by the platform",

@@ -9,7 +9,7 @@ import { DefaultOptionMessageService } from "../../next-block/block-type/default
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
-import { IProcessNextBlock } from "../models/process-next-block.interface";
+import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
 import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
@@ -21,7 +21,7 @@ import { MailMergeVariables } from "../../variable-injection/mail-merge-variable
  * This service processes a location input from the user.
  * 
  */
-export class WebhookBlockService extends DefaultOptionMessageService implements IProcessNextBlock
+export class WebhookBlockService extends DefaultOptionMessageService implements IProcessOperationBlock
 {
 	sideOperations: Promise<any>[] = [];
 	tools: HandlerTools;
