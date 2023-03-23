@@ -3,6 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { isOperationBlock, isOutputBlock, StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { ActiveChannel } from '@app/functions/bot-engine';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
 
@@ -10,9 +11,9 @@ import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
-import { ProcessNextBlockFactory } from '../process-next-block/process-next-block.factory';
-import { ActiveChannel } from '@app/functions/bot-engine';
+
 import { BotMediaProcessService } from '../media/process-media-service';
+import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 
 export class ProcessMessageService
 {
@@ -77,7 +78,7 @@ export class ProcessMessageService
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
 
     while (isOperationBlock(nextBlock.type)) {
-      const updatedPosition = await this.processNextBlock(msg, nextBlock, newCursor, orgId, endUserId);
+      const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUserId);
 
       nextBlock = updatedPosition.storyBlock;
       newCursor = updatedPosition.newCursor;
@@ -118,13 +119,13 @@ export class ProcessMessageService
     }
   }
 
-  private async processNextBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUserId: string)
+  private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUserId: string)
   {
-    const processNextBlock = new ProcessNextBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
 
-    const updatedPosition = await processNextBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
+    const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
 
-    if (processNextBlock.sideOperations.length > 0) this.sideOperations.push(...processNextBlock.sideOperations);
+    if (processOperationBlock.sideOperations.length > 0) this.sideOperations.push(...processOperationBlock.sideOperations);
 
     return updatedPosition;
   }
