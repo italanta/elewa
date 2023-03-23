@@ -8,4 +8,3 @@ export * from './lib/variables.interface';
 export * from './lib/story-block-variables-config.interface';
 export * from './lib/http-methods.interface';
 export * from './lib/storyblock-variable.interface';
-export * from './lib/story-block-variables-validator.interface';
