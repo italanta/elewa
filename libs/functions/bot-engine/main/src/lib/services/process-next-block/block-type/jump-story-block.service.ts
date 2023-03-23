@@ -78,7 +78,7 @@ export class JumpStoryBlockService implements IProcessNextBlock
 
     // 2. Create routed cursor
     const routedCursor: RoutedCursor = {
-      storyId: storyBlock.targetStoryId,
+      storyId: currentStory,
       blockSuccess: blockSuccessConn ? blockSuccessConn.targetId : "",
       blockFail: blockFailConn ? blockFailConn.targetId : "",
     };
