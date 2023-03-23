@@ -16,6 +16,8 @@ import { IProcessOperationBlock } from "../models/process-operation-block.interf
 export class FailBlockService implements IProcessOperationBlock
 {
 
+  sideOperations: Promise<any>[];
+
   constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools)
   { }
 
@@ -50,7 +52,7 @@ export class FailBlockService implements IProcessOperationBlock
       await cursorService.updateCursor(endUserId, orgId, newCursor);
 
       // Resolve and return the fail block
-      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockFail, orgId, currentCursor.position.storyId);
+      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockFail, orgId, topRoutineStoryId);
 
       return {
         storyBlock: nextBlock,
