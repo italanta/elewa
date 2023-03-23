@@ -6,7 +6,6 @@ import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
-import { CursorDataService } from "../../data-services/cursor.service";
 import { IProcessNextBlock } from "../models/process-next-block.interface";
 
 /**
@@ -29,8 +28,6 @@ export class EndStoryBlockService implements IProcessNextBlock
    */
   async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, currentStory: string, endUserId?: string)
   {
-    const cursorService = new CursorDataService(this.tools);
-
     const cursor = currentCursor;
 
     /** If the parent stack is not empty, then we are in a child story */
@@ -48,9 +45,8 @@ export class EndStoryBlockService implements IProcessNextBlock
 
       };
 
-
       // Resolve and return the success block
-      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockSuccess, orgId, currentStory);
+      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockSuccess, orgId, topRoutineStoryId);
 
       return {
         storyBlock: nextBlock,
