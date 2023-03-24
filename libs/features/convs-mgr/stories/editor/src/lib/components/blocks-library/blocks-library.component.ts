@@ -37,7 +37,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   blockTemplates: StoryBlock[] = [
     { id: 'input-message-block', type: StoryBlockTypes.TextMessage, message: 'Message', blockIcon: this.getBlockIcon(StoryBlockTypes.TextMessage) } as TextMessageBlock,
     // { id: 'io-questions-block', type: StoryBlockTypes.Input, message: 'Input', blockIcon: this.getBlockIcon(StoryBlockTypes.Input) } as QuestionMessageBlock,
-    { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock)} as EndStoryAnchorBlock,
+    { id: 'story-end-anchor', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock)} as EndStoryAnchorBlock,
     // { id: 'io-block', type: StoryBlockTypes.IO, message: 'IO', blockIcon: this.getBlockIcon(StoryBlockTypes.IO) } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location', blockIcon: this.getBlockIcon(StoryBlockTypes.Location) } as LocationMessageBlock,
     { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image', blockIcon: this.getBlockIcon(StoryBlockTypes.Image) } as ImageMessageBlock,
