@@ -10,8 +10,8 @@
 
 	<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="space-between start" *ngIf="blockTemplate$ | async as blocks " fxFlex>
 		<div *ngFor="let block of blocks" (click)=" addBlock(block.type)" fxLayout="column" fxLayoutAlign="start center"
-			fxFlex="25" style="height: 100px">
-			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main" fxFlex>
+			fxFlex="25" class="block-wrapper">
+			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
 				<i class="{{ block.blockIcon }}" id="icons"></i>
 			</div>
 			
