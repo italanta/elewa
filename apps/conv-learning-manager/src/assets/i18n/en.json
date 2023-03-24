@@ -119,6 +119,17 @@
           "SUCCESS": "Success",
           "FAILED": "Failed"
         }
+      },
+      "VALIDATORS": {
+        "SET-VALIDATION-CHECKBOX": "Set Validation",
+        "VARIABLE-INFO": "save answers in the variable",
+        "REGEX": "regex",
+        "PLACEHOLDER-REGEX": "regex",
+        "MAX": "Max",
+        "PLACEHOLDER-MAX": "Max Characters",
+        "MIN": "Min",
+        "PLACEHOLDER-MIN": "Min Characters",
+        "ERROR-MESSAGE": "Validation Error Message"
       }
     },
     "COMPONENTS": {
