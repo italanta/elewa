@@ -36,6 +36,17 @@ export class VideoBlockComponent{
   }
 
   openVideoModal(){
-    this.matdialog.open(VideoBlockModalComponent, {minWidth: '1000px'})
+   const dialogRef = this.matdialog.open(VideoBlockModalComponent, {minWidth: '1000px',
+    data: {
+      id: this.id,
+      block: this.block,
+      videoMessageForm: this.videoMessageForm,
+      jsPlumb: this.jsPlumb
+    }
+  })
+  dialogRef.componentInstance.applied.subscribe((videoBlock: any) => {
+    this.block = { ...this.block, ...videoBlock };
+  });
+  
   }
 }
