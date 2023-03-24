@@ -109,7 +109,7 @@ export const iconsAndTitles: any = {
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
-    icon: 'fas fa-clock'
+    icon: 'fas fa-stop'
   },
   9999: {
     title: '',

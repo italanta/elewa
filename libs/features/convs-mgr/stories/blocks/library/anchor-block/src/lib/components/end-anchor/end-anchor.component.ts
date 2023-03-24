@@ -35,7 +35,7 @@ export class EndAnchorComponent implements OnInit {
 
   private _decorateInput()
   {
-    let input = document.getElementById(this.endAnchorId) as Element;
+    let input = document.getElementById(this.id) as Element;
     if (this.jsPlumb)
     {
       input = _JsPlumbTargetLeftComponentDecorator(input, this.jsPlumb);
