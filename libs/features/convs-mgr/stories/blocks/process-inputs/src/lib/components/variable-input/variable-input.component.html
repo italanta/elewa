@@ -1,0 +1,31 @@
+<section class="variables-section">
+  <form [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
+    <div class="variables-container">
+
+      <!-- dynamic rendering of optional validation forms -->
+      <div *ngSwitchCase="nametype">
+        <app-name-validations [formGroup]="variablesForm" formGroupName="validators" [validate]="validate">
+        </app-name-validations>
+      </div>
+
+      <div class="variable-defaults">
+        <div class="variables_name">
+          <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
+          <input class="input" type="text" id="variable" name="variable" formControlName="name">
+          <div class="errors" *ngIf="name.invalid">{{ name.errors?.['incorrect'] }}</div>
+        </div>
+
+        <div class="variables_type">
+          <label class="label" for="type">type</label>
+          <select class="select" formControlName="type" id="type" required>
+            <option class="option" *ngFor="let type of variablesTypesList; let i=index" [value]="type.value">
+              {{ type.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <input class="btn submit-btn" [disabled]="variablesForm.invalid" type="submit" value="Apply">
+  </form>
+</section>
