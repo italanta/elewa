@@ -1,3 +1,11 @@
-<form [formGroup]='formgroup'>
-  <textarea id="message" name="message" formControlName="message" type="text" rows="3"></textarea>
+<form [formGroup]="formgroup">
+  <ckeditor
+    tagName="textarea"
+    [editor]="editor"
+    id="message"
+    [config]="config"
+    name="message"
+    formControlName="message"
+    (ready)="onReady($event)"
+  ></ckeditor>
 </form>
