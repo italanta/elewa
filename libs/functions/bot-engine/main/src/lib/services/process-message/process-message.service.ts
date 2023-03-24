@@ -125,7 +125,9 @@ export class ProcessMessageService
 
     const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
 
-    if (processOperationBlock.sideOperations.length > 0) this.sideOperations.push(...processOperationBlock.sideOperations);
+    const sideOperations = processOperationBlock.sideOperations;
+
+    if (sideOperations && sideOperations.length > 0) this.sideOperations.push(...sideOperations);
 
     return updatedPosition;
   }
