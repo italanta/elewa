@@ -34,7 +34,9 @@
             <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png" />
           </div>
           <ng-template #inputHasVideo>
-            <video class="upload-video" alt="" controls #videoPlayer [src]="videoUrl" *ngIf="hasVideo"></video>
+            				<video controls>
+					<source type="video" class="upload-video" [src]="videoLink" alt="">
+				</video>
           </ng-template>
         </label>
       </div>
@@ -68,3 +70,4 @@
     <button (click)="apply()" class="apply__button">Apply</button>
   </div>
 </div>
+

@@ -27,12 +27,35 @@ export class VideoBlockComponent{
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
+  videoLink: string = "";
+  videoInputId: string;
+  isLoadingVideo: boolean;
+  hasVideo: boolean;
+  videoUrl: string;
+  videoInputUpload: string = '';
 
   constructor(
               private matdialog:MatDialog,
               //private dialogueRef: MatDialogRef
   ) {
     this.block = this.block as VideoMessageBlock;
+  }
+  
+  ngOnIni(): void {
+    this.videoInputId = `vid-${this.id}`;
+    this.videoInputUpload = `vid-${this.id}-upload`;
+
+    if (this.block && this.block.fileSrc) {
+      this.videoUrl = this.block.fileSrc;
+      this.hasVideo = true;
+    } else {
+      this.checkIfVideoExists();
+    }
+  }
+
+  checkIfVideoExists() {
+    this.videoUrl = this.videoMessageForm.value.fileSrc;
+    this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
   }
 
   openVideoModal(){

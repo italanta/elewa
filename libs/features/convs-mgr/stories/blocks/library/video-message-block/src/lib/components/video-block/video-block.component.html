@@ -1,11 +1,16 @@
 <div [id]="id" *ngIf="videoMessageForm">
 	<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-		<div>
-			<label  (click)="openVideoModal()">
+		<label [for]="videoInputUpload">
+			<div *ngIf="!hasVideo; else inputHasVideo" (click)="openVideoModal()" >
 				<i id="icon" class="fas fa-play-circle"></i>
-			</label>
-		</div>
+			</div>
+			<ng-template #inputHasVideo>
+				<video controls>
+					<source type="video" class="upload-video" [src]="videoLink" alt="">
+				</video>
+			</ng-template>
+		</label>
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
 
@@ -14,3 +19,6 @@
 			formControlName="fileSrc">
 	</form>
 </div>
+<!-- 
+	type="video" class="upload-video" [src]="videoLink" alt=""
+ -->
