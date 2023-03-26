@@ -1,4 +1,4 @@
-import { NameBlockVariable } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { NameBlockVariable } from '../variables-models/name-block-variable.model';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 /**
