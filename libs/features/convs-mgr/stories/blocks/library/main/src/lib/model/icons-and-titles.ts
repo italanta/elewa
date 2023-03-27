@@ -107,12 +107,8 @@ export const iconsAndTitles: any = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.KEYWORD-JUMP',
     icon: 'fas fa-bullseye',
   },
-  30: {
-    title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
-    icon: 'fas fa-stop'
-  },
   9999: {
-    title: '',
-    icon: '',
+    title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
+    icon: 'fas fa-stop',
   },
 };
