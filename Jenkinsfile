@@ -38,13 +38,6 @@ pipeline {
         stage('Deploy to Farmbetter') { 
             steps {
 
-                sshagent(['jenkins_github_clm']) {
-                    sh 'git checkout farmbetter-private-dev'
-                    sh 'git pull origin farmbetter-private-dev'
-                    sh 'git merge origin/private-prod'
-                    sh 'git push origin farmbetter-private-dev'
-                }
-
                 withCredentials([file(credentialsId: 'farmbetter-prod-environment-file', variable: 'ENV_FILE')]) {
                 // some block
                 
