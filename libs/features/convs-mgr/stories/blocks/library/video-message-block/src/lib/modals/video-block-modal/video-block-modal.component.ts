@@ -54,12 +54,11 @@ export class VideoBlockModalComponent implements OnInit {
   }
 
   apply() {
-    const videoBlock = {
-      name: this.name,
-      size: this.sizeOptions,
-      file: this.file,
-    };
-  this.applied.emit(videoBlock);
+    if(this.videoLink){
+      this.block.fileSrc = this.videoLink;
+      this.applied.emit(this.block);
+      this.closeModal() 
+    }
   }
 
   ngOnInit(): void {
