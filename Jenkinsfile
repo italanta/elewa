@@ -53,6 +53,7 @@ pipeline {
                 sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST}'
                 sh 'cat ${ENV_FILE} > ${ENV_FILE_DEST_PROD}'
                 sh 'firebase use farmbetter-prod'
+                sh 'firebase target:apply hosting convl-manager farmbetter-prod'
                 sh 'firebase deploy --token ${FIREBASE_TOKEN} --only hosting' 
                 }
             }
