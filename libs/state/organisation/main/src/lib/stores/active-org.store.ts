@@ -8,6 +8,7 @@ import { Store } from '@iote/state';
 
 import { UserStore } from '@app/state/user';
 import { Organisation } from '@app/model/organisation';
+import { iTalUser } from '@app/model/user';
 
 import { OrgStore } from './organisation.store';
 
@@ -30,24 +31,14 @@ export class ActiveOrgStore extends Store<Organisation>
     this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
                         .subscribe(([orgs, user]) => //route
     {
-      if(orgs.find(o => (o as any).prio))
+      const orgId = (user as iTalUser).activeOrg || (user as User).id as string;
+
+      const org = orgs.find(o => o.id === orgId);
+      
+      if(org && this._activeOrg !== orgId)
       {
-        const org = orgs.find(o => (o as any).prio);
-        if(org && this._activeOrg !== org.id)
-        {
           this._activeOrg = org.id as string;
           this.set(org, 'UPDATE - FROM DB || ROUTE');
-        }
-      }
-      else {
-        const orgId = (user as User).id as string;
-
-        const org = orgs.find(o => o.id === orgId);
-        if(org && this._activeOrg !== orgId)
-        {
-          this._activeOrg = orgId;
-          this.set(org, 'UPDATE - FROM DB || ROUTE');
-        }
       }
 
       // const orgId = this._getRoute(route);
