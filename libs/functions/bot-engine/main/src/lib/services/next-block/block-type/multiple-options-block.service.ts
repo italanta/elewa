@@ -25,11 +25,13 @@ export class MultipleOptionsMessageService extends NextBlockService
 	userInput: string;
 	_logger: Logger;
 	tools: HandlerTools;
+	matchInput: MatchInputService;
 
 	constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, tools: HandlerTools)
 	{
 		super(tools);
 		this.tools = tools;
+		this.matchInput = new MatchInputService();
 	}
 
 	/**
@@ -37,21 +39,20 @@ export class MultipleOptionsMessageService extends NextBlockService
 	 * 
 	 * @note It does this by matching the id of the button and the id of the option saved in the database
 	 */
-	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<Cursor>
+	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string, type?: string): Promise<Cursor>
 	{
+		let selectedOptionIndex: number;
 		const cursor = currentCursor;
 		
 		const response = msg as QuestionMessage;
-
-		const matchInput = new MatchInputService();
 
 		const lastBlock = currentBlock as QuestionMessageBlock
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies
-		matchInput.setMatchStrategy(new ExactMatch());
+		this.matchInput.setMatchStrategy(new ExactMatch());
 
-		const selectedOptionIndex = matchInput.matchId(response.options[0].optionId, lastBlock.options);
+		selectedOptionIndex = this.match(type || "matchId", response, lastBlock.options);
 
 		if (selectedOptionIndex == -1) {
 			this._logger.error(() => `The message did not match any option found`);
@@ -70,5 +71,17 @@ export class MultipleOptionsMessageService extends NextBlockService
 		cursor.position = newUserPosition;
 
 		return cursor;
+	}
+
+	match(type: string, message: QuestionMessage, options: any[])
+	{
+		switch (type) {
+			case 'matchId':
+				return this.matchInput.matchId(message.options[0].optionId, options);
+			case 'matchText':
+				return this.matchInput.matchText(message.questionText, options);
+			default:
+				return this.matchInput.matchId(message.options[0].optionId, options);
+		}
 	}
 }

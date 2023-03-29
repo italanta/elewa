@@ -33,7 +33,7 @@ export class KeywordJumpBlockService extends MultipleOptionsMessageService imple
 
 	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string, message: Message)
 	{
-		const newCursor = await this.getNextBlock(message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
+		const newCursor = await this.getNextBlock(message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId, "matchText");
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 
