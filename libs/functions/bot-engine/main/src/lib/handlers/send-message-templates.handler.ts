@@ -1,5 +1,6 @@
 import { WhatsappActiveChannel } from '@app/functions/bot-engine/whatsapp';
 import { CommunicationChannel, Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { HandlerTools } from '@iote/cqrs';
 import { __DateFromStorage } from '@iote/time';
 
@@ -35,12 +36,17 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
       const blockDataService = new BlockDataService(null, null, tools);
 
       const allEndUsers =  await endUserService.getDocuments(`orgs/${this.orgId}/end-users`);
+      // const allEndUsers: EndUser[] =  [{
+      //   id: 'w_1_254710969595',
+      //   phoneNumber: '254710969595',
+      //   status: ChatStatus.Running,
+      // }]
 
       let count = 0;
       const milestoneData = allEndUsers.map(async (user) => {
-      const userCreatedTime = __DateFromStorage(user.createdOn).unix() * 1000;
+      // const userCreatedTime = __DateFromStorage(user.createdOn).unix() * 1000;
 
-        if((Date.now() - userCreatedTime) > 86400000) {
+        if(true) {
           const docPath = `orgs/${this.orgId}/end-users/${user.id}/variables`;
 
           const valuesRepo$ = tools.getRepository<any>(docPath);
@@ -59,7 +65,7 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
   
           let outgoingMessage;
   
-          if(currentChapter.includes('1a') || currentChapter.includes('1b') || currentChapter.includes('1c'))
+          if(currentChapter.includes('Introduction au systeme de sante') && (currentChapter.includes('1a') || currentChapter.includes('1b') || currentChapter.includes('1c')))
           {
             outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[0], user.phoneNumber);
             await whatsappActiveChannel.send(outgoingMessage);
@@ -70,7 +76,7 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
   
             await whatsappActiveChannel.send(lastMessage as any);
   
-          } else if(currentChapter.includes('2a') || currentChapter.includes('2b') || currentChapter.includes('2c')) {
+          } else if(currentChapter.includes('Introduction au systeme de sante') && (currentChapter.includes('2a') || currentChapter.includes('2b') || currentChapter.includes('2c'))) {
   
             outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[1], user.phoneNumber);
   
@@ -81,7 +87,7 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
   
             await whatsappActiveChannel.send(lastMessage as any);
   
-          } else if (currentChapter.includes('3a') || currentChapter.includes('3b') || currentChapter.includes('3c')) {
+          } else if(currentChapter.includes('Introduction au systeme de sante') && (currentChapter.includes('3a') || currentChapter.includes('3b') || currentChapter.includes('3c'))) {
   
             outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[2], user.phoneNumber);
   
@@ -92,9 +98,82 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
   
             await whatsappActiveChannel.send(lastMessage as any);
   
-          } else if (currentChapter.includes('4a') || currentChapter.includes('4b') || currentChapter.includes('4c')) {
+          } else if(currentChapter.includes('Introduction au systeme de sante') && (currentChapter.includes('4a') || currentChapter.includes('4b') || currentChapter.includes('4c'))) {
   
             outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[3], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Indicators') && (currentChapter.includes('1a') || currentChapter.includes('1b') || currentChapter.includes('1c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[4], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+
+          } else if(currentChapter.includes('Indicators') && (currentChapter.includes('2a') || currentChapter.includes('2b') || currentChapter.includes('2c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[5], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Therapeutic guides') && (currentChapter.includes('1a') || currentChapter.includes('1b') || currentChapter.includes('1c') ||  currentChapter.includes('1d'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[6], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Therapeutic guides') && (currentChapter.includes('2a') || currentChapter.includes('2b') || currentChapter.includes('2c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[7], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Therapeutic guides') && (currentChapter.includes('3a') || currentChapter.includes('3b') || currentChapter.includes('3c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[8], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Therapeutic guides') && (currentChapter.includes('4a') || currentChapter.includes('4b') || currentChapter.includes('4c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[9], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Maternal & Child Health') && (currentChapter.includes('1a') || currentChapter.includes('1b') || currentChapter.includes('1c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[10], user.phoneNumber);
+  
+            await whatsappActiveChannel.send(outgoingMessage);
+                      const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
+  
+            const lastMessage = whatsappActiveChannel.parseOutMessage(lastBlock, user.phoneNumber);
+  
+            await whatsappActiveChannel.send(lastMessage as any);
+          } else if(currentChapter.includes('Statistics') && (currentChapter.includes('1a') || currentChapter.includes('1b') || currentChapter.includes('1c'))){
+            outgoingMessage = whatsappActiveChannel.parseOutTemplateMessage(templatesNames[11], user.phoneNumber);
   
             await whatsappActiveChannel.send(outgoingMessage);
                       const lastBlock = await blockDataService.getBlockById(latestCursor.position.blockId, this.orgId, storyId);
@@ -130,5 +209,13 @@ const templatesNames = [
   "enabel_elearning_1a_1c",
   "enabel_elearning_2a_2c",
   "enabel_elearning_3a_3c",
-  "enabel_elearning_4a_4c"
+  "enabel_elearning_4a_4c",
+  "enabel_national_indicators_1a_1c",
+  "enabel_national_indicators_2a_2c",
+  "enabel_therapeutic_guides_1a_1d", 
+  "enabel_therapeutic_guides_2a_2c", 
+  "enabel_therapeutic_guides_3a_3c", 
+  "enabel_therapeutic_guides_4a_4c",
+  "enabel_maternal_child_health_1a_1c", 
+  "enabel_statistics_1a_1c ", 
 ]
