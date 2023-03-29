@@ -168,6 +168,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
       return true;
     case StoryBlockTypes.WebhookBlock:
       return true;
+    case StoryBlockTypes.keyword:
+      return true;
     default:
       return false;
   }
