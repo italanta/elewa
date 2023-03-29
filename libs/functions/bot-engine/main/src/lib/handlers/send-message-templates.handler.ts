@@ -43,10 +43,11 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
       // }]
 
       let count = 0;
+      let numbersSent = [];
       const milestoneData = allEndUsers.map(async (user) => {
       // const userCreatedTime = __DateFromStorage(user.createdOn).unix() * 1000;
 
-        if(true) {
+        if(this.isAllowed(user.phoneNumber)) {
           const docPath = `orgs/${this.orgId}/end-users/${user.id}/variables`;
 
           const valuesRepo$ = tools.getRepository<any>(docPath);
@@ -188,11 +189,12 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
 
         count = count + 1;
 
+        numbersSent.push(user.phoneNumber);
         tools.Logger.log(() => `[MilestonesTrackerHandler].execute - Sent message to ${user.phoneNumber}`);
       });
 
       tools.Logger.log(() => `[MilestonesTrackerHandler].execute - Sent messages to ${count} users`);
-
+      tools.Logger.log(() => `[MilestonesTrackerHandler].execute - Sent messages to: ${numbersSent}`);
       const data = await Promise.all(milestoneData);
 
       return data
@@ -202,7 +204,33 @@ export class SendReminderMessages extends FunctionHandler<{n: number}, RestResul
       return { error: error.message, status: 500} as RestResult
     }
   }
+
+  private isAllowed(phoneNumber: string) {
+    const omittedNumbers =[
+      "254795225348",
+      "32460957901",
+      "32472175906",
+      "32472539514",
+      "32479385504",
+      "32479385504",
+      "33753061358",
+      "254710113242",
+      "254719728131",
+      "254723219984",
+      "254723219984",
+      "254727429076",
+      "254795225348",
+      "254798698156"
+    ]
+
+    if(omittedNumbers.includes(phoneNumber)) {
+      return false
+    }
+
+    return true;
+  }
 }
+
 
 
 const templatesNames = [
