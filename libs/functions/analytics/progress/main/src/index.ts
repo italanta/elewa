@@ -1,1 +1,2 @@
-export * from './lib/functions-analytics-progress-main';
+export * from './lib/measure-group-progress.handler';
+export * from './lib/measure-participant-progress.handler';

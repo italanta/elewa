@@ -48,10 +48,10 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     if(storyGroupIdentifier)
     {
-      return _groupedUserProgress(userProgress, storyGroupIdentifier);
+      return _groupedUserProgress(participantId, userProgress, storyGroupIdentifier);
     }
 
-    return _userProgress(userProgress);
+    return _userProgress(participantId, userProgress);
   }
 }
 
@@ -81,24 +81,30 @@ async function _getLatestMessageAtEachInterval(unixToMeasure: number, cursorRepo
 }
 
 /** Visualise user progress story to story */
-function _userProgress(progress: UserPositionStub[]) : ParticipantProgressModel
+function _userProgress(uid: string, progress: UserPositionStub[]) : ParticipantProgressModel
 {
   const milestones = progress.map((p) => ({ time: p.p.time, milestone: p.story.name, storyId: p.story.id }) as ParticipantProgressMilestone)
                              .sort(p => p.time);
 
-  return { milestones } ;
+  return { 
+    userId: uid,
+    milestones
+  };
 }
 
 /** visualise user progress per milestone (grouped story/labelled story)  */
-function _groupedUserProgress(progress: UserPositionStub[], groupByLblIndex: number)
+function _groupedUserProgress(uid: string, progress: UserPositionStub[], groupByLblIndex: boolean)
 {
   const milestones = progress.map((p) => ({ time: p.p.time, 
-                                            milestone: p.story.labels ? 'unlabeled' 
-                                                                      : p.story.labels[groupByLblIndex], 
+                                            milestone: (groupByLblIndex && p.story.labels) ? p.story.labels[0] 
+                                                                                           : 'unlabeled', 
                                             storyId: p.story.id }) as ParticipantProgressMilestone)
                              .sort(p => p.time);
 
-  return { milestones } ;
+  return { 
+    userId: uid,
+    milestones 
+  } ;
 }
 
 /** Temp structure to group user positions */
