@@ -93,9 +93,14 @@ export class EngineBotManager
       //    The chat status enables us to manage the conversation of the end user and the chatbot.
 
       // Get the last saved end user position in the story
-      const currentCursor = await cursorDataService.getLatestCursor(this.endUser.id, this.orgId);
+      const currentCursor = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId);
 
       this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${this.endUser.status}`);
+
+      // STEP 2: Update the isComplete flag
+      //         We need to update the isComplete flag to -1 so that the user can continue the conversation
+      //         We do this here because we have successfully received the message
+      await this._endUserService$.setConversationComplete(END_USER_ID, -1);
 
       // STEP 3: Process the message
       //         Because the status of the chat can change anytime, we use the current status
@@ -122,7 +127,7 @@ export class EngineBotManager
           }
 
           // Save the message to the database for later use
-          await _msgDataService$.saveMessage(message, this.orgId, this.endUser.id);
+          await _msgDataService$.saveMessage(message, this.orgId, END_USER_ID);
           break;
         default:
           break;
