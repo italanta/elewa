@@ -160,6 +160,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     if (evt)
       this.filtrString = (evt.target as HTMLInputElement).value.trim().toLowerCase();
 
+      this.displayedChats = this.displayedChats.filter(chat => chat.name && chat.name.toLowerCase().includes(this.filtrString));
       this.dataSource.data = this.displayedChats;
   }
 
