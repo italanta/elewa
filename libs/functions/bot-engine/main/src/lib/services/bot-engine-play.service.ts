@@ -186,6 +186,8 @@ export class BotEnginePlay implements IBotEnginePlay
   {
     const botMessage = this.__convertBlockToStandardMessage(storyBlock);
 
+    botMessage.n = this._activeChannel.channel.n;
+
     const saveMessage = this.__save(botMessage, endUserId);
 
     this.sideOperations.push(saveMessage);
