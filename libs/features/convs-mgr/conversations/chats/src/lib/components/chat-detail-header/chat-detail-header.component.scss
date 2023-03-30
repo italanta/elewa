@@ -64,19 +64,30 @@
   color: red;
 }
 
-.story, .status, .number, .class {
+.header__item {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: black;
   font-size: 1rem;
+  gap: 10px;
+  min-width: auto; 
+  height: 2rem; 
+  border-radius: 1rem; 
+  background-color: #ccc; 
+  padding: 0.3rem 1rem;
 }
 
 .story {
   .link {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
     text-decoration: none;
     color: black;
+    min-width: auto;
   }
 }
 
@@ -91,5 +102,8 @@
 }
 
 .class {
+  width: 5rem;
+  padding: 10px;
+  border-radius: 20px;
   cursor: normal;
 }

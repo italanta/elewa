@@ -14,6 +14,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { ActiveOrgStore } from '@app/state/organisation';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class ChatsStore extends DataStore<Chat>
   // Answer: No, as Angular's DI engine is lazy, meaning it will only initialise services the first time they are called.
   constructor(_org$$: ActiveOrgStore,
               private _repoFac: DataService,
+              private _StoryStore$$: StoriesStore, 
               _logger: Logger)
   {
     super("always", _logger);
@@ -67,6 +69,16 @@ export class ChatsStore extends DataStore<Chat>
     const latestCursor$ = cursorRepo.getLatestDocument();
 
     return latestCursor$;
+  }
+
+  getCurrentStory(id: string) {
+    debugger
+    return this._StoryStore$$.getOne(id).pipe(
+      map((story) => {
+        console.log(story)
+        debugger
+        return story
+    }))
   }
 
   pauseChat(id: string) {
