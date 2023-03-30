@@ -49,6 +49,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   paused: Chat[];
   completed: Chat[];
   stashed: Chat[];
+  blocked: Chat[];
 
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
@@ -111,10 +112,16 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     this.onboarding = [];
     this.completed = [];
     this.stashed = [];
+    this.blocked = [];
   }
 
   categorize(chat: Chat)
   {
+    if(chat.isConversationComplete === -1) {
+      this.blocked.push(chat);
+      return;
+    }
+    
     switch(chat.flow)
     {
       case ChatFlowStatus.PausedByAgent:
@@ -198,6 +205,9 @@ export class ChatsListComponent implements AfterViewInit, OnInit
         break;
       case "completed":
         this.displayedChats = this.completed;
+        break;
+      case "blocked":
+        this.displayedChats = this.blocked;
         break;
       case 'all':
       default:
