@@ -108,7 +108,7 @@ export const iconsAndTitles: any = {
     icon: 'fas fa-bullseye',
   },
   9999: {
-    title: '',
-    icon: '',
+    title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
+    icon: 'fas fa-stop',
   },
 };
