@@ -4,7 +4,7 @@ import {Component, Input, OnChanges, SimpleChanges, OnInit} from '@angular/core'
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { from } from 'rxjs';
+import { from, tap } from 'rxjs';
 
 import { BackendService, UserService } from '@ngfi/angular';
 import { ToastService } from '@iote/bricks-angular';
@@ -17,6 +17,7 @@ import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.comp
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component'
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
+import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chat-detail-header',
@@ -33,19 +34,29 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges
   agentPaused: boolean = true;
 
   user: iTalUser;
-  label:any
+  class: string[];
+  storyId: any;
+  status: string;
+  name: string;
 
   constructor(private userService: UserService<iTalUser>,
               private _backendService: BackendService,
               private _router: Router,
               private _toastService: ToastService,
-              private _dialog: MatDialog)
+              private _chatStore: ChatsStore,
+              private _dialog: MatDialog
+            )
   {
     this.userService.getUser().subscribe(user => this.user = user);
   }
 
   ngOnInit() {
+    this.name = this.getName()
     this.getLabels()
+    this.storyId = this.getCurrentStoryId()
+    this.status = this.getUserChatStatus(this.chat)
+
+    console.log(this.chat.isConversationComplete)
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -71,6 +82,7 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges
 
   testPayment = () => this._backendService.callFunction('purchase', { id: this.chat.id, course: 'ITC' });
 
+  
   getClass()
   {
     switch(this.chat.status)
@@ -87,14 +99,30 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges
     }
   }
 
+  getName() {
+    return this.chat.name
+  }
+
+  getCurrentStoryId() {
+    return this._chatStore.getCurrentCursor(this.chat.id).pipe(tap((cur) => {
+      this.storyId = cur[0].position.storyId
+    })).subscribe()
+  }
+
   getLabels() {
-    this.label = this.chat.labels.map(label =>
-      {
-        const split = label.split('_')
-        console.log(split)
-        return split[1]
-      }
-      )
+    this.class = this.chat.labels.map(label => {
+      const split = label.split('_')
+      return split[1]
+    })
+  }
+
+  getUserChatStatus(chat: Chat) {
+    switch(chat.isConversationComplete) {
+      case -1:
+        return 'Stuck'
+      default:
+        return 'Playing'
+    }
   }
 
   checkStatus()
