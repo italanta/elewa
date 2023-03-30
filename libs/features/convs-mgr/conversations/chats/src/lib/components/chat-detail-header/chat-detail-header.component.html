@@ -1,6 +1,4 @@
-<div id="chat-detail-header" *ngIf="chat; else loading"
-    fxLayout="row" fxLayoutAlign="space-between center"
-    class="">
+<div id="chat-detail-header" *ngIf="chat; else loading" fxLayout="row" fxLayoutAlign="space-between center" class="">
 
   <div fxLayout="row" class="chat-title">
     <div id="statusIndicator" class="{{getClass()}}">
@@ -14,14 +12,13 @@
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
-    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button matTooltip="Pause Chat"
-              (click)="pauseChat()">
-        <i class="fas fa-pause-circle"></i>
+    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button
+      matTooltip="Pause Chat" (click)="pauseChat()">
+      <i class="fas fa-pause-circle"></i>
     </button>
 
     <ng-template #resumeBtn>
-      <button class="icon-button" mat-icon-button matTooltip="Resume Chat"
-            (click)="openModal('resume')">
+      <button class="icon-button" mat-icon-button matTooltip="Resume Chat" (click)="openModal('resume')">
         <i class="fas fa-play-circle"></i>
       </button>
     </ng-template>
@@ -42,13 +39,13 @@
     </mat-menu>
 
     <div class="class">
-      Class: {{ chat?.class }}
+      {{ label }}
     </div>
 
     <div class="status">
-      Status
+      {{ chat?.isConversationComplete }}
     </div>
-<!-- 
+    <!-- 
     <button class="icon-button" mat-icon-button (click)="goBack()">
       <i class="fas fa-reply"></i>
     </button> -->

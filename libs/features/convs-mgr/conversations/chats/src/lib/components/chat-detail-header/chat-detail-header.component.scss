@@ -11,6 +11,7 @@
 .fab-holder {
   display: flex;
   align-items: center;
+  text-align: center;
   gap: 10px;
 }
 
@@ -57,4 +58,12 @@
 
 .paused {
   color: red;
+}
+
+.class {
+  font-size: 1rem;
+}
+
+.status {
+  font-size: 1rem;
 }
