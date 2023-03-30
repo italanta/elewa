@@ -1,6 +1,6 @@
 import { Timestamp } from '@firebase/firestore-types';
 
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
@@ -23,7 +23,7 @@ import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-m
   templateUrl: './chat-detail-header.component.html',
   styleUrls:  ['./chat-detail-header.component.scss'],
 })
-export class ChatDetailHeaderComponent implements OnChanges
+export class ChatDetailHeaderComponent implements OnInit, OnChanges
 {
   @Input() chat: Chat;
 
@@ -33,6 +33,7 @@ export class ChatDetailHeaderComponent implements OnChanges
   agentPaused: boolean = true;
 
   user: iTalUser;
+  label:any
 
   constructor(private userService: UserService<iTalUser>,
               private _backendService: BackendService,
@@ -41,6 +42,10 @@ export class ChatDetailHeaderComponent implements OnChanges
               private _dialog: MatDialog)
   {
     this.userService.getUser().subscribe(user => this.user = user);
+  }
+
+  ngOnInit() {
+    this.getLabels()
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -80,6 +85,16 @@ export class ChatDetailHeaderComponent implements OnChanges
       default:
         return 'paused';
     }
+  }
+
+  getLabels() {
+    this.label = this.chat.labels.map(label =>
+      {
+        const split = label.split('_')
+        console.log(split)
+        return split[1]
+      }
+      )
   }
 
   checkStatus()

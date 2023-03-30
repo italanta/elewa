@@ -20,7 +20,9 @@ export interface Chat extends IObject
 
   name: string;
 
-  class: string;
+  labels: string[];
+
+  isConversationComplete: any;
 
   info?: ChatUserInfo;
 
