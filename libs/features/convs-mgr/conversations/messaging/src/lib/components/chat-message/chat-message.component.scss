@@ -53,11 +53,14 @@
 
   .green {
     background-color:#4E416D !important;
-    color: fff;    
+
+    span {
+      color: #fff;    
+    }
   }
 
   .grey {
-    background-color: #f8e8ce !important;
+    background-color: #F4F7FB !important;
   }
 
   .message-content {
