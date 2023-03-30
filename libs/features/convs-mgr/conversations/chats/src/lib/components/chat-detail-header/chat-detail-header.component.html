@@ -2,15 +2,33 @@
 
   <div fxLayout="row" class="chat-title">
     <div id="statusIndicator" class="{{getClass()}}">
-      <i class="fas fa-user-circle"></i>
+      <i class="user-tooltip fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      <span class="name"> {{ chat.name?.toLowerCase() }} </span>
-      <span class="number"> {{ chat.phoneNumber }} </span>
+      <span *ngIf="chat?.name" class="name"> Name: {{ chat.name?.toLowerCase() }} </span>
+      <span class="number"> Number: {{ chat.phoneNumber }} </span>
     </div>
   </div>
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
+
+    <div class="class">
+      {{ class }}
+    </div>
+
+    <div class="story">
+      <a class="link" routerLink="/stories/{{ storyId }}">CurrentChapter</a>
+    </div>
+
+    <div class="status">
+      <span *ngIf="status === 'Stuck', else elseBlock">
+        <i class="fail fas fa-exclamation"></i>
+      </span>
+
+      <ng-template #elseBlock>
+        <i class="check fas fa-check"></i>
+      </ng-template>
+    </div>
 
     <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button
       matTooltip="Pause Chat" (click)="pauseChat()">
@@ -38,13 +56,6 @@
 
     </mat-menu>
 
-    <div class="class">
-      {{ label }}
-    </div>
-
-    <div class="status">
-      {{ chat?.isConversationComplete }}
-    </div>
     <!-- 
     <button class="icon-button" mat-icon-button (click)="goBack()">
       <i class="fas fa-reply"></i>
