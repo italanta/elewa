@@ -13,7 +13,7 @@ import { CursorDataService } from "./data-services/cursor.service";
 import { MessagesDataService } from "./data-services/messages.service";
 import { BotMediaProcessService } from "./media/process-media-service";
 import { ProcessMessageService } from "./process-message/process-message.service";
-import { JumpStoryBlockService } from "./process-next-block/block-type/jump-story-block.service";
+import { JumpStoryBlockService } from "./process-operation-block/block-type/jump-story-block.service";
 
 export class BotEngineJump extends BotEnginePlay
 {
