@@ -22,6 +22,7 @@ export function _CreateNameMessageBlockForm(
       blockData.variable ?? {
         name: 'name',
         type: 1,
+        validate: 'false',
         validators: {
           regex: '',
           min: '',
