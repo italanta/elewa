@@ -8,7 +8,7 @@ import { extension } from "mime-types";
 import { HandlerTools } from "@iote/cqrs";
 import { __DECODE_AES } from "@app/elements/base/security-config";
 
-import { ActiveChannel } from "@app/functions/bot-engine";
+import { ActiveChannel, EndUserDataService } from "@app/functions/bot-engine";
 
 import { MetaMessagingProducts, RecepientType, WhatsAppMessageType, WhatsAppOutgoingMessage, WhatsAppTemplateMessage, WhatsappTemplateParameter } from "@app/model/convs-mgr/functions";
 import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
@@ -37,10 +37,12 @@ import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-par
 export class WhatsappActiveChannel implements ActiveChannel
 {
   channel: WhatsAppCommunicationChannel;
+  endUserService: EndUserDataService;
 
   constructor(private _tools: HandlerTools, channel: WhatsAppCommunicationChannel)
   {
     this.channel = channel;
+    this.endUserService = new EndUserDataService(_tools, channel.orgId);
   }
 
   parseOutMessage(storyBlock: StoryBlock, phone: string)
@@ -61,7 +63,7 @@ export class WhatsappActiveChannel implements ActiveChannel
   {
     // Create the message template payload which will be sent to whatsapp
     const messageTemplate = new WhatsappOutgoingMessageParser()
-                              .parseOutMessageTemplate(templateConfig, phone, message);
+                              .getMessageTemplateParserOut(templateConfig, phone, message);
 
     return messageTemplate;
   }
@@ -102,6 +104,16 @@ export class WhatsappActiveChannel implements ActiveChannel
     ).then(response =>
     {
       this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
+
+      // Mark the conversation as complete
+      this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1).then(() => {
+
+        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
+      }).catch(err => {
+        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Error in updating isComplete`);
+      }
+      );
+
     }).catch(error =>
     {
       if (error.response) {

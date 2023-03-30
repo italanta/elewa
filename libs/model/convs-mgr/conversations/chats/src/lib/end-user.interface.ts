@@ -9,16 +9,18 @@ import { IObject } from "@iote/bricks";
 export interface EndUser extends IObject
 {
     /** The name of the end user chatting with our bot */
-    name?               : string;
+    name?                          : string;
 
     /** The phone number of the end user chatting with our bot */
-    phoneNumber         : string;
+    phoneNumber                    : string;
 
     /** The current status of the ongoing chat between the end user and our chatbot */
-    status              : ChatStatus;
+    status                         : ChatStatus;
 
     /** The story that the end user is currently responding to */
-    currentStory       ?: string;
+    currentStory                  ?: string;
+
+    isConversationComplete        ?: number;
 }
 
 /**
