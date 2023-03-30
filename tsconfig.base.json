@@ -131,6 +131,9 @@
       "@app/features/convs-mgr/stories/blocks/library/reply-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/reply-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/reusable-text-area": [
+        "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/sticker-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/sticker-message-block/src/index.ts"
       ],
@@ -145,9 +148,6 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/webhook-block": [
         "libs/features/convs-mgr/stories/blocks/library/webhook-block/src/index.ts"
-      ],
-      "@app/features/convs-mgr/stories/blocks/library/reusable-text-area": [
-        "libs/features/convs-mgr/stories/blocks/library/reusable-text-area/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/main": [
         "libs/features/convs-mgr/stories/blocks/main/src/index.ts"
