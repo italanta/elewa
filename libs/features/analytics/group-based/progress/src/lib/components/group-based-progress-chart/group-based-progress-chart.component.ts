@@ -6,11 +6,11 @@ import {Component, OnInit, Input } from '@angular/core';
 import { QuestionMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
-  selector: 'app-class-based-progress-chart',
-  templateUrl: './class-based-progress-chart.component.html',
-  styleUrls:  ['./class-based-progress-chart.component.scss'],
+  selector: 'app-group-based-progress-chart',
+  templateUrl: './group-based-progress-chart.component.html',
+  styleUrls:  ['./group-based-progress-chart.component.scss'],
 })
-export class ClassBasedProgressChartComponent implements OnInit
+export class GroupBasedProgressChartComponent implements OnInit
 {
   @Input() model: QuestionMessage;
 

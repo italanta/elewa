@@ -13,7 +13,7 @@
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
-    "features-analytics-class-based-progress": {
+    "features-analytics-group-based-progress": {
       "projectType": "library",
       "root": "libs/features/analytics/class-based/progress",
       "sourceRoot": "libs/features/analytics/class-based/progress/src",
@@ -610,6 +610,31 @@
           "outputs": ["coverage/libs/functions/bot-users"],
           "options": {
             "jestConfig": "libs/functions/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-analytics-group-based-progress": {
+      "root": "libs/model/analytics/class-based/progress",
+      "sourceRoot": "libs/model/analytics/class-based/progress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/analytics/class-based/progress/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/analytics/class-based/progress"],
+          "options": {
+            "jestConfig": "libs/model/analytics/class-based/progress/jest.config.ts",
             "passWithNoTests": true
           }
         }
