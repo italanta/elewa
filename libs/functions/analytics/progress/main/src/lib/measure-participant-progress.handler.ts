@@ -1,57 +1,57 @@
 import { HandlerTools, Repository } from '@iote/cqrs';
 
-import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
+import { Query } from '@ngfi/firestore-qbuilder';
+import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
-import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { MeasureProgressCommand } from '@app/model/analytics/class-based/progress';
-import { Query } from '@ngfi/firestore-qbuilder';
-
+import { MeasureProgressCommand, ParticipantProgressModel, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress'
 
 /**
- * Capture a measurement of participants progress at a certain point in time.
+ * Function which calculates progress of a given participant based on the stories they have completed.
  */
-export class MeasureParticipantProgressHandler extends FunctionHandler<MeasureProgressCommand, RestResult>
+export class MeasureParticipantProgressHandler extends FunctionHandler<MeasureProgressCommand, ParticipantProgressModel>
 {
   /**
-   * Capture a measurement of participants progress at a certain point in time.
+   * Calculate progress of a given participant based on the stories they have completed.e.
    * 
-   * @param payload - Command with participant ID and intervals at which to measure.
+   * @param cmd - Command with participant ID and intervals at which to measure.
    */
-  public async execute(payload: MeasureProgressCommand, context: HttpsContext, tools: HandlerTools) 
+  public async execute(cmd: MeasureProgressCommand, context: HttpsContext, tools: HandlerTools) 
   {
-    const{ orgId , participantId, interval } = payload;
+    const{ orgId , participantId, interval, storyGroupIdentifier } = cmd;
 
-    // 1. Get end user
-    const userRepo = tools.getRepository<EndUser>(`orgs/${orgId}/end-users`); 
-    const endUser = await userRepo.getDocumentById(participantId);
-
-    // 2. Get latest chat at each interval in time to measure progress
-    const cursorRepo = tools.getRepository<Message>(`orgs/${orgId}/end-users/${participantId}/cursor`);
+    // 1. Get latest chat at each interval in time to measure progress
+    const cursorRepo = tools.getRepository<Cursor>(`orgs/${orgId}/end-users/${participantId}/cursor`);
     
-      // 2.1. Get the user cursor at each measurement point.
+      // 1.1. Get the user cursor at each measurement point.
     const userProgressAtTime
       = await Promise.all(
           interval.map(async (unixTime) => 
              _getLatestMessageAtEachInterval(unixTime, cursorRepo)
           ));
 
-      // 2.2 Get the story information for each of the stories the user visited while on the cursor.
-    const qualifiedStories = new Set(userProgressAtTime.map((p) => p.position.storyId));
+      // 1.2 Get the story information for each of the stories the user visited while on the cursor.
+    const qualifiedStories = new Set(userProgressAtTime.map((p) => p.position.position.storyId));
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
 
     const storyQuery = new Query().where('id', 'in', Array.from(qualifiedStories));
     const stories = await storyRepo.getDocuments(storyQuery);
     
-      // 2.3. Combine cursors and their stories
+      // 1.3. Combine cursors and their stories
     const userProgress 
-      = userProgressAtTime.map((p) => ({ p, story: stories.find((s) => s.id === p.position.storyId)}));
+      = userProgressAtTime.map((p) => ({ p, story: stories.find((s) => s.id === p.position.position.storyId)}));
     
-    // 3. Create the progress model, visualising this data
+    // 2. Create the progress model, visualising this data
 
+    if(storyGroupIdentifier)
+    {
+      return _groupedUserProgress(userProgress, storyGroupIdentifier);
+    }
+
+    return _userProgress(userProgress);
   }
 }
 
@@ -80,26 +80,30 @@ async function _getLatestMessageAtEachInterval(unixToMeasure: number, cursorRepo
   return { time: unixToMeasure, position: cursor };
 }
 
-/**
- * Function which shows progress of participants in a group based on the stories they have completed.
- * 
- * @param participants - List of participants
- * @param stories      - List of stories through which the participants are moving
- * @param interval     - Collection of dates at which time to measure progress
- */
-export function __MeasureParticipantsProgress(participants: EndUser[], stories: Story[], interval: Date[]) : GroupBasedProgressModel
+/** Visualise user progress story to story */
+function _userProgress(progress: UserPositionStub[]) : ParticipantProgressModel
 {
+  const milestones = progress.map((p) => ({ time: p.p.time, milestone: p.story.name, storyId: p.story.id }) as ParticipantProgressMilestone)
+                             .sort(p => p.time);
 
+  return { milestones } ;
 }
 
-  /** 
-   * Measure the progress of a participant on a certain day.
-   * 
-   * @param participant - Participant to measure progress of
-   * @param stories     - List of stories through which the participant is moving
-   * @param day         - Day at which to measure progress
-   */
-  export function __ProgressOfParticipantOnDay(participant: EndUser, stories: Story[], day: Date)
-  {
+/** visualise user progress per milestone (grouped story/labelled story)  */
+function _groupedUserProgress(progress: UserPositionStub[], groupByLblIndex: number)
+{
+  const milestones = progress.map((p) => ({ time: p.p.time, 
+                                            milestone: p.story.labels ? 'unlabeled' 
+                                                                      : p.story.labels[groupByLblIndex], 
+                                            storyId: p.story.id }) as ParticipantProgressMilestone)
+                             .sort(p => p.time);
 
-  }
+  return { milestones } ;
+}
+
+/** Temp structure to group user positions */
+interface UserPositionStub
+{ 
+  p: { time: number;  position: Cursor; } 
+  story: Story; 
+}
