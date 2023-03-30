@@ -52,8 +52,16 @@ export class JumpStoryBlockService implements IProcessOperationBlock
 
     let nextBlock: StoryBlock;
     // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
+    if (storyBlock.targetBlockId) {
 
-    nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.targetStoryId);
+      nextBlock = await this._blockDataService.getBlockById(storyBlock.targetBlockId, orgId, storyBlock.targetStoryId);
+      
+     }
+
+     if(!storyBlock.targetBlockId || nextBlock === null) 
+     {
+      nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.targetStoryId);
+     }
 
     this.tools.Logger.log(()=> `Jumping to block: ${JSON.stringify(nextBlock)}`);
 
