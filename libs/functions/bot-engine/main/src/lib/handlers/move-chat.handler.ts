@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult200, FunctionContext, RestResult } from '@ngfi/functions';
-import { JumpStoryBlockService } from '../services/process-next-block/block-type/jump-story-block.service';
+import { JumpStoryBlockService } from '../services/process-operation-block/block-type/jump-story-block.service';
 
 import { CommunicationChannel, Cursor, __PlatformTypeToPrefix, __PrefixToPlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 
