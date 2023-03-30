@@ -6,6 +6,7 @@
  */
 export interface ParticipantProgressModel 
 {
+  userId: string;
   milestones: ParticipantProgressMilestone[];
 }
 
