@@ -33,7 +33,7 @@ export class BotEnginePlay implements IBotEnginePlay
 
   private defaultStory: string;
 
-  private blockSent: StoryBlock;
+  blockSent: StoryBlock;
 
   private chatCommandsManager: ChatCommandsManager;
 
@@ -184,9 +184,11 @@ export class BotEnginePlay implements IBotEnginePlay
    */
   private async _saveBlockAsMessage(storyBlock: StoryBlock, endUserId: string)
   {
+    const endUserPhoneNumber = endUserId.split('_')[2]
     const botMessage = this.__convertBlockToStandardMessage(storyBlock);
 
     botMessage.n = this._activeChannel.channel.n;
+    botMessage.endUserPhoneNumber = endUserPhoneNumber;
 
     const saveMessage = this.__save(botMessage, endUserId);
 
