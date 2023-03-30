@@ -22,14 +22,12 @@
       float: right;
 
       .message-content {
-        background-color: #e2f9d1;
         border-top-left-radius: 10px !important;
       }
     }
 
     .message-content {
       border-top-left-radius: 10px !important;
-      background-color:#DCF8C6;
 
     }
 
@@ -51,6 +49,15 @@
       left: -11px;
       background-image: url(/assets/images/message-other.png)
     }
+  }
+
+  .green {
+    background-color:#4E416D !important;
+    color: fff;    
+  }
+
+  .grey {
+    background-color: #f8e8ce !important;
   }
 
   .message-content {
