@@ -13,6 +13,7 @@
           <button mat-menu-item (click)="updateList('stashed', 'Stashed')">Stashed</button>
           <button mat-menu-item (click)="updateList('completed', 'Completed')">Completed</button> -->
           <button mat-menu-item (click)="updateList('all', 'All')">All</button>
+          <button mat-menu-item (click)="updateList('blocked', 'Help Requests')">Help Requests</button>
         </mat-menu>
         <div class="menu-title">
           {{ selected }} ({{displayedChats.length}})
