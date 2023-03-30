@@ -73,13 +73,15 @@ import { throws } from 'assert';
   async setConversationComplete(endUserId: string, value: number)
   {
     const endUser = await this.getDocumentById(endUserId, this._docPath);
-    const isConversationComplete = value;
+    if(endUser) {
+      const isConversationComplete = value;
 
-    const newStatus: EndUser = {
-      ...endUser,
-      isConversationComplete
-    };
-
-    await this.updateDocument(newStatus, this._docPath, endUser.id);
+      const newStatus: EndUser = {
+        ...endUser,
+        isConversationComplete
+      };
+  
+      await this.updateDocument(newStatus, this._docPath, endUser.id);
+    }
   }
 }
