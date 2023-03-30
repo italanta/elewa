@@ -32,9 +32,11 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
           interval.map(async (unixTime) => 
              _getLatestMessageAtEachInterval(unixTime, cursorRepo)
           ));
-
+    
+    const userProgressClean = userProgressAtTime.filter(p => !!p && !!p.position);
+    
       // 1.2 Get the story information for each of the stories the user visited while on the cursor.
-    const qualifiedStories = new Set(userProgressAtTime.map((p) => p.position.position.storyId));
+    const qualifiedStories = new Set(userProgressClean.map((p) => p.position.position.storyId));
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
 
     const storyQuery = new Query().where('id', 'in', Array.from(qualifiedStories));
@@ -42,7 +44,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
     
       // 1.3. Combine cursors and their stories
     const userProgress 
-      = userProgressAtTime.map((p) => ({ p, story: stories.find((s) => s.id === p.position.position.storyId)}));
+      = userProgressClean.map((p) => ({ p, story: stories.find((s) => s.id === p.position.position.storyId)}));
     
     // 2. Create the progress model, visualising this data
 
