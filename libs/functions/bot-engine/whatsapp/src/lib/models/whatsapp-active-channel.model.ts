@@ -63,7 +63,7 @@ export class WhatsappActiveChannel implements ActiveChannel
   {
     // Create the message template payload which will be sent to whatsapp
     const messageTemplate = new WhatsappOutgoingMessageParser()
-                              .parseOutMessageTemplate(templateConfig, phone, message);
+                              .getMessageTemplateParserOut(templateConfig, phone, message);
 
     return messageTemplate;
   }
@@ -106,7 +106,7 @@ export class WhatsappActiveChannel implements ActiveChannel
       this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
 
       // Mark the conversation as complete
-      this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, +1).then(() => {
+      this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1).then(() => {
 
         this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
       }).catch(err => {

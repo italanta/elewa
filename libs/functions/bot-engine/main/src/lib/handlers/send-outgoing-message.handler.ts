@@ -83,15 +83,19 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       // Check if the last message sent was more than 24hours ago
       if ((Date.now() - latestMessageTime) > 86400000) {
         const templateConfig = communicationChannel.templateConfig;
+        if(templateConfig) {
         // Send the opt-in message template
 
         // Get the opt-in message template
         outgoingMessagePayload = activeChannel
-                                  .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+        .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+        }
       }}
 
       // STEP 5: Send the message
       await activeChannel.send(outgoingMessagePayload as any);
+
+      tools.Logger.error(() => `[WhatsAppSendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
 
       return { success: true } as RestResult200;
     } catch (error) {
