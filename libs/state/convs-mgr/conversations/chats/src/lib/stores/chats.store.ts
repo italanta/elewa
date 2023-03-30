@@ -13,6 +13,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { ActiveOrgStore } from '@app/state/organisation';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
+import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +59,14 @@ export class ChatsStore extends DataStore<Chat>
     const valuesDoc$ = namesRepo.getDocumentById('values');
 
     return valuesDoc$;
+  }  
+  
+  getCurrentCursor(id: string) {
+    const cursorRepo = this._repoFac.getRepo<Cursor>(`orgs/${this._activeOrg.id}/end-users/${id}/cursor`);
+
+    const latestCursor$ = cursorRepo.getLatestDocument();
+
+    return latestCursor$;
   }
 
   pauseChat(id: string) {

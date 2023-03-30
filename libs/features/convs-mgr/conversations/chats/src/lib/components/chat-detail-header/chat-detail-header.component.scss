@@ -1,5 +1,7 @@
 #chat-detail-header{
   border-bottom: 2px solid #fafafa;
+  height: 4.5rem;
+  padding: 0.5rem;
 }
 
 .icon-button {
@@ -17,21 +19,23 @@
 
 .chat-title {
   display: flex;
-  align-items: start;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
 }
 
+.user-tooltip {
+  font-size: 32px !important;
+}
+
 .chat-title-txt{
   display: grid;
-  overflow: hidden;
+  gap: 5px;
   grid-template-rows: 2;
-
-  .number {
-    font-size: 0.8rem;
-  }
 }
 
 .inactive {
@@ -60,10 +64,32 @@
   color: red;
 }
 
-.class {
+.story, .status, .number, .class {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: black;
   font-size: 1rem;
 }
 
+.story {
+  .link {
+    text-decoration: none;
+    color: black;
+  }
+}
+
 .status {
-  font-size: 1rem;
+  .check {
+    color: green;
+  }
+
+  .fail {
+    color: gold;
+  }
+}
+
+.class {
+  cursor: normal;
 }
