@@ -35,6 +35,10 @@
       .message-content {
         background-color: #4E416D;
         border-top-left-radius: 10px !important;
+
+        span {
+          color: #f2f2f2;
+        }
       }
     }
 
@@ -92,9 +96,12 @@
 
 .green {
   background-color:#4E416D!important;
-  color: f2f2f2;
+
+  span {
+    color: #f2f2f2;
+  }
 }
 
 .grey {
-  background-color: #f8e8ce!important;
+  background-color: #F4F7FB !important;
 }
