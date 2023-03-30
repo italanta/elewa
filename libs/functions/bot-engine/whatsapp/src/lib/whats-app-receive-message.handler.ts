@@ -87,6 +87,11 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
 
     const message = whatsappIncomingMessageParser.parse(sanitizedResponse.message);
 
+    // STEP 6: Update the isComplete flag
+    //         We need to update the isComplete flag to -1 so that the user can continue the conversation
+    //         We do this here because we have successfully received the message
+    await this._setConversationComplete(communicationChannel.orgId, communicationChannel.n, message.endUserPhoneNumber, tools);
+
     // Don't process the message if we cannot parse it
     if (!message) return { status: 500, message: `Failed to parse incoming message: ${sanitizedResponse.message}` } as RestResult;
     
@@ -101,4 +106,18 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
   {
     return Object.keys(data).length === 0;
   }
+
+  /**
+   * Method which updates the isComplete flag to -1 so that the user can continue the conversation
+   * @param {string} orgId - The organization id
+   * @param {number} n - The channel number
+   * @param {string} phoneNumber - The phone number of the user
+   * */
+  private _setConversationComplete(orgId: string, n: number, phoneNumber: string, tools: HandlerTools)
+  {
+    const _endUserService$ = new EndUserDataService(tools, orgId);
+
+    return _endUserService$.setConversationComplete(generateEndUserId(phoneNumber, PlatformType.WhatsApp, n), -1);
+  }
 }
+
