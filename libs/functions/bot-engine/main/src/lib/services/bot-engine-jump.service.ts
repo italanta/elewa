@@ -2,7 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
-import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { isOutputBlock, StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { JumpBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { ActiveChannel } from "../model/active-channel.service";
@@ -41,7 +41,11 @@ export class BotEngineJump extends BotEnginePlay
     
     await this.cursorDataService$.updateCursor(endUser.id, this.orgId, newCursor);
 
-    await this.play(null, endUser, newCursor);
+    if (isOutputBlock(storyBlock.type)) {
+      this.blockSent = storyBlock;
+      await this.play(null, endUser, newCursor);
+    }
+    
   }
 
   private async __moveChat(storyId: string, orgId: string, currentCursor: Cursor, endUserId: string, blockId?: string) 
