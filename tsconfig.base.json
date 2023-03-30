@@ -164,6 +164,9 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/functions/analytics/progress/main": [
+        "libs/functions/analytics/progress/main/src/index.ts"
+      ],
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
       "@app/functions/bot-engine": [
         "libs/functions/bot-engine/main/src/index.ts"
