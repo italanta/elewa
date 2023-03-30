@@ -69,8 +69,8 @@ async function _getLatestMessageAtEachInterval(unixToMeasure: number, cursorRepo
 
   // Get latest message before the measurement time to show progress of user at that time
   const query = new Query()
-                  .where('timestamp', '<=', timeToMeasure)
-                  .orderBy('timestamp', 'desc')
+                      .where('createdOn', '<=', timeToMeasure)
+                      .orderBy('createdOn', 'desc')
                   .limit(1);
 
   const crsors$ = await cursorRepo.getDocuments(query);
