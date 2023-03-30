@@ -8,6 +8,11 @@
   margin-right: 10px;
 }
 
+.fab-holder {
+  display: flex;
+  gap: 20px;
+}
+
 .chat-title {
   font-size: 16px;
   text-transform: capitalize;
@@ -15,10 +20,13 @@
 }
 
 .chat-title-txt{
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  display: grid;
   overflow: hidden;
+  grid-template-rows: 2;
+
+  .number {
+    font-size: 0.8rem;
+  }
 }
 
 .inactive {

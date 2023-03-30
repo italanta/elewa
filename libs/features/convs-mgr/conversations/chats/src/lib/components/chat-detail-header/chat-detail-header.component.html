@@ -7,7 +7,8 @@
       <i class="fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      {{ chat.name?.toLowerCase() }}
+      <span class="name"> {{ chat.name?.toLowerCase() }} </span>
+      <span class="number"> {{ chat.phoneNumber }} </span>
     </div>
   </div>
 
@@ -40,9 +41,17 @@
 
     </mat-menu>
 
+    <div>
+      Class
+    </div>
+
+    <div>
+      Status
+    </div>
+<!-- 
     <button class="icon-button" mat-icon-button (click)="goBack()">
       <i class="fas fa-reply"></i>
-    </button>
+    </button> -->
 
   </div>
 </div>
