@@ -13,5 +13,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory:
-    '../../../../../coverage/libs/model/analytics/class-based/progress',
+    '../../../../../coverage/libs/model/analytics/group-based/progress',
 };

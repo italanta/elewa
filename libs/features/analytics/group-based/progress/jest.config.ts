@@ -10,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../coverage/libs/features/analytics/class-based/progress',
+    '../../../../../coverage/libs/features/analytics/group-based/progress',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

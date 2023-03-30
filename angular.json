@@ -15,15 +15,15 @@
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-analytics-group-based-progress": {
       "projectType": "library",
-      "root": "libs/features/analytics/class-based/progress",
-      "sourceRoot": "libs/features/analytics/class-based/progress/src",
+      "root": "libs/features/analytics/group-based/progress",
+      "sourceRoot": "libs/features/analytics/group-based/progress/src",
       "prefix": "app",
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/analytics/class-based/progress"],
+          "outputs": ["coverage/libs/features/analytics/group-based/progress"],
           "options": {
-            "jestConfig": "libs/features/analytics/class-based/progress/jest.config.ts",
+            "jestConfig": "libs/features/analytics/group-based/progress/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -31,8 +31,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/features/analytics/class-based/progress/**/*.ts",
-              "libs/features/analytics/class-based/progress/**/*.html"
+              "libs/features/analytics/group-based/progress/**/*.ts",
+              "libs/features/analytics/group-based/progress/**/*.html"
             ]
           }
         }
@@ -642,8 +642,8 @@
       "tags": []
     },
     "model-analytics-group-based-progress": {
-      "root": "libs/model/analytics/class-based/progress",
-      "sourceRoot": "libs/model/analytics/class-based/progress/src",
+      "root": "libs/model/analytics/group-based/progress",
+      "sourceRoot": "libs/model/analytics/group-based/progress/src",
       "projectType": "library",
       "targets": {
         "lint": {
@@ -651,15 +651,15 @@
           "outputs": ["{options.outputFile}"],
           "options": {
             "lintFilePatterns": [
-              "libs/model/analytics/class-based/progress/**/*.ts"
+              "libs/model/analytics/group-based/progress/**/*.ts"
             ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/model/analytics/class-based/progress"],
+          "outputs": ["coverage/libs/model/analytics/group-based/progress"],
           "options": {
-            "jestConfig": "libs/model/analytics/class-based/progress/jest.config.ts",
+            "jestConfig": "libs/model/analytics/group-based/progress/jest.config.ts",
             "passWithNoTests": true
           }
         }
