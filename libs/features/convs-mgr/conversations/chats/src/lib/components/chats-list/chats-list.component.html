@@ -2,9 +2,9 @@
   <div class="heading-area" fxLayout="column">
     <div *ngIf="!filterMode else filter" fxLayout="row" fxLayoutAlign="space-between center">
       <div fxLayout="row" fxLayoutAlign="start center">
-        <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Select a category">
+        <!-- <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Select a category">
           <i class="fas fa-bars menu-icon"></i>
-        </button>
+        </button> -->
         <mat-menu #menu="matMenu">
           <!-- <button mat-menu-item (click)="updateList('learning', 'Learning')">Learning</button>
           <button mat-menu-item (click)="updateList('paused', 'Help Requests/Inquiries')">Help Requests/Inquiries</button>
@@ -30,9 +30,9 @@
         <input type="text" placeholder="search"[formControl]="search">
       </div>
     </ng-template>
+    <mat-paginator #matPagi [pageSizeOptions]="[ 10, 20, 30, 40, 100]" [hidePageSize]="isMobile()"></mat-paginator>
   </div>
 
-  <mat-paginator #matPagi [pageSizeOptions]="[ 10, 20, 30, 40, 100]" [hidePageSize]="isMobile()"></mat-paginator>
 
   <div class="list" *ngIf="!isLoading else loading">
     <app-chat-card *ngFor="let item of (chats$|filter:searchString$) | async as chats; index as i" [chat]="chats[i]" [routerLink]="['/chats', chats[i].id]"

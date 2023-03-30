@@ -20,6 +20,8 @@ export interface Chat extends IObject
 
   name: string;
 
+  class: string;
+
   info?: ChatUserInfo;
 
   // channel: CommunicationChannel;

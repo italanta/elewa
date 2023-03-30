@@ -10,10 +10,14 @@
 
 .fab-holder {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 10px;
 }
 
 .chat-title {
+  display: flex;
+  align-items: start;
+
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
