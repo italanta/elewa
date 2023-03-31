@@ -1,8 +1,10 @@
 import * as _ from 'lodash';
 
-import { AfterViewInit, ChangeDetectorRef, Component, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, QueryList, ViewChildren, OnInit, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -22,7 +24,7 @@ import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conve
   templateUrl: './chats-list.component.html',
   styleUrls: ['./chats-list.component.scss']
 })
-export class ChatsListComponent implements AfterViewInit
+export class ChatsListComponent implements AfterViewInit, OnInit
 {
   currentChat: Chat;
 
@@ -34,8 +36,11 @@ export class ChatsListComponent implements AfterViewInit
   selected = "All";
   chats: Chat[];
   displayedChats: Chat[] = [];
-  filtrString: string = '';
+  filtrString = '';
   paidCustomers: string[] = [];
+
+  searchString$: Observable<string>
+  search = new FormControl<string>('');
 
   dataSource: MatTableDataSource<any>;
   helpRequests: Chat[];
@@ -68,6 +73,11 @@ export class ChatsListComponent implements AfterViewInit
     this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 
+  
+  ngOnInit() {
+    this.searchString$ = this.search.valueChanges as Observable<string>;
+  }
+
   ngAfterViewInit()
   {
     // Update paginator after it is initialized
@@ -75,7 +85,7 @@ export class ChatsListComponent implements AfterViewInit
     {
       if (this.paginator.length && this.dataSource) {
         this.dataSource.paginator = this.paginator?.first;
-        this.cd.detectChanges();
+        // this.cd.detectChanges();
       }
     });
   }
@@ -153,8 +163,9 @@ export class ChatsListComponent implements AfterViewInit
     if (evt)
       this.filtrString = (evt.target as HTMLInputElement).value.trim().toLowerCase();
 
-    this.displayedChats = this.displayedChats.filter(chat => chat.name.toLowerCase().includes(this.filtrString));
-    this.dataSource.data = this.displayedChats;
+      this.displayedChats
+      this.dataSource.data = this.displayedChats;
+
   }
 
   toggleFilter()
