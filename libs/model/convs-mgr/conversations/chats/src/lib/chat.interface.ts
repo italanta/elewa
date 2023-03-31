@@ -22,8 +22,6 @@ export interface Chat extends IObject
 
   labels: string[];
 
-  isConversationComplete: any;
-
   info?: ChatUserInfo;
 
   // channel: CommunicationChannel;
