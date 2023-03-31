@@ -1,24 +1,19 @@
 {
+  "name": "util-iote-cqrs",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/iote/cqrs/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/util/iote/cqrs/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/util/iote/cqrs/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/util/iote/cqrs"
-      ],
+      "outputs": ["coverage/libs/util/iote/cqrs"],
       "options": {
         "jestConfig": "libs/util/iote/cqrs/jest.config.ts",
         "passWithNoTests": true
@@ -26,17 +21,13 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/util/iote/cqrs",
         "tsConfig": "libs/util/iote/cqrs/tsconfig.lib.json",
         "packageJson": "libs/util/iote/cqrs/package.json",
         "main": "libs/util/iote/cqrs/src/index.ts",
-        "assets": [
-          "libs/util/iote/cqrs/*.md"
-        ]
+        "assets": ["libs/util/iote/cqrs/*.md"]
       }
     }
   },

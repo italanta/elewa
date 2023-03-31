@@ -47,6 +47,9 @@
       "@app/elements/nav/convl/breadcrumbs": [
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
+      "@app/features/analytics/group-based/progress": [
+        "libs/features/analytics/group-based/progress/src/index.ts"
+      ],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
@@ -161,6 +164,9 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/functions/analytics/progress/main": [
+        "libs/functions/analytics/progress/main/src/index.ts"
+      ],
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
       "@app/functions/bot-engine": [
         "libs/functions/bot-engine/main/src/index.ts"
@@ -172,6 +178,9 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/model/analytics/group-based/progress": [
+        "libs/model/analytics/group-based/progress/src/index.ts"
+      ],
       "@app/model/bot/blocks/default-block": [
         "libs/model/bot/blocks/default-block/src/index.ts"
       ],
