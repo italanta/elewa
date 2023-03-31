@@ -24,7 +24,7 @@
           formControlName="firstName"
           required
           placeholder="John"
-          [disabled]="!isLoading"
+
         />
         <mat-error>{{
           'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco
@@ -46,7 +46,7 @@
           formControlName="lastName"
           required
           placeholder="Doe"
-          [disabled]="!isLoading"
+
         />
         <mat-error>{{
           'LOGIN.CREATE-ACC-FORM.FLD-NAME-REQ' | transloco
@@ -70,7 +70,7 @@
           type="email"
           formControlName="email"
           required
-          [disabled]="!isLoading"
+
           placeholder="name@example.com"
         />
         <mat-error>{{
@@ -96,7 +96,7 @@
           type="password"
           formControlName="password"
           required
-          [disabled]="!isLoading"
+
         />
       </mat-form-field>
     </div>
@@ -118,7 +118,7 @@
           type="password"
           formControlName="confirmPassword"
           required
-          [disabled]="!isLoading"
+
         />
         <mat-error>{{
           'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD-ERR' | transloco
