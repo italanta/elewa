@@ -8,10 +8,10 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { concatMap, from, map } from 'rxjs';
+import { combineLatest, concatMap, from, map, switchMap, tap } from 'rxjs';
 
 import { BackendService, UserService } from '@ngfi/angular';
 import { ToastService } from '@iote/bricks-angular';
@@ -53,6 +53,7 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
     private userService: UserService<iTalUser>,
     private _backendService: BackendService,
     private _router: Router,
+    private _acR: ActivatedRoute,
     private _toastService: ToastService,
     private _chatStore: ChatsStore,
     private _dialog: MatDialog
@@ -107,22 +108,26 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getCurrentStory() {
-    this._sbs.sink = this._chatStore
-      .getCurrentCursor(this.chat.id)
-      .pipe(
-        map((cur) => cur[0].position.storyId),
-        concatMap((id) => {
-          return this._chatStore.getCurrentStory(id);
-        }),
-        map((story) => {
-          if (story) {
-            this.story = story;
-          }
-          return story;
-        })
-      )
-      .subscribe();
+    let url$ = this._acR.params;
+    this._sbs.sink = url$.pipe(switchMap((url) => this.getChatStore(url['chatId']))).subscribe()
   }
+
+  getChatStore(chatId: string) {
+    return this._chatStore.getCurrentCursor(chatId)
+    .pipe(
+      map((cur) => cur[0].position.storyId),
+      concatMap((id) => {
+        return this._chatStore.getCurrentStory(id);
+      }),
+      map((story) => {
+        if (story) {
+          this.story = story;
+        }
+        return story;
+      })
+    )
+  }
+  
 
   getLabels() {
     this.class = this.chat.labels.map((label) => {

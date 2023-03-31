@@ -1,27 +1,28 @@
 {
-    "projectType": "library",
-    "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/reply-message-block/src",
-    "prefix": "app",
-    "targets": {
-        "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": [
-                "coverage/libs/features/convs-mgr/stories/blocks/library/reply-message-block"
-            ],
-            "options": {
-                "jestConfig": "libs/features/convs-mgr/stories/blocks/library/reply-message-block/jest.config.ts",
-                "passWithNoTests": true
-            }
-        },
-        "lint": {
-            "executor": "@nrwl/linter:eslint",
-            "options": {
-                "lintFilePatterns": [
-                    "libs/features/convs-mgr/stories/blocks/library/reply-message-block/**/*.ts",
-                    "libs/features/convs-mgr/stories/blocks/library/reply-message-block/**/*.html"
-                ]
-            }
-        }
+  "name": "features-convs-mgr-stories-blocks-library-reply-message-block",
+  "projectType": "library",
+  "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/reply-message-block/src",
+  "prefix": "app",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/features/convs-mgr/stories/blocks/library/reply-message-block"
+      ],
+      "options": {
+        "jestConfig": "libs/features/convs-mgr/stories/blocks/library/reply-message-block/jest.config.ts",
+        "passWithNoTests": true
+      }
     },
-    "tags": []
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/features/convs-mgr/stories/blocks/library/reply-message-block/**/*.ts",
+          "libs/features/convs-mgr/stories/blocks/library/reply-message-block/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
 }
