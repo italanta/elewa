@@ -1,6 +1,7 @@
 .card{
   padding: 10px;
   cursor: pointer;
+  background-color: white;
 }
 
 .new-msg{
@@ -34,6 +35,10 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.number {
+  font-size: 10px;
 }
 
 .date-section{

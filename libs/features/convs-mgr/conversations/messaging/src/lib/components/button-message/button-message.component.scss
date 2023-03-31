@@ -33,7 +33,7 @@
       float: right;
 
       .message-content {
-        background-color: #4E416D;
+        background-color: #4E416D !important;
         border-top-left-radius: 10px !important;
 
         span {
@@ -96,10 +96,11 @@
 
 
 .green {
-  background-color:#4E416D!important;
+  background-color: #4E416D !important;
 
   span {
     color: #f2f2f2;
+    font-weight: 300;
   }
 }
 
