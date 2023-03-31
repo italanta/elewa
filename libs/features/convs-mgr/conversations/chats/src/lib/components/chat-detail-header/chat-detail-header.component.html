@@ -6,7 +6,7 @@
     </div>
     <div class="chat-title-txt">
       <span *ngIf="chat?.name" class="name"> {{ chat.name?.toLowerCase() }} </span>
-      <span class="number"> +{{ chat.phoneNumber }} </span>
+      <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
 
@@ -14,24 +14,26 @@
 
     <div class="header__item">
       <i class="icon fas fa-layer-group"></i>
-      {{ class }}
+      <span title="user's class/grouping"> {{ class }}</span>
     </div>
 
     <div class="header__item story">
       <i class="icon fas fa-bookmark"></i>
-      <a class="link" routerLink="/stories/{{ story?.id }}">{{story?.name}}</a>
+      <a class="link" routerLink="/stories/{{ story?.id }}">
+        <span title="Current Story ">{{story?.name}}</span> 
+      </a>
     </div>
 
     <div class="">
       <span class="header__item status" *ngIf="status === 'Stuck', else elseBlock">
         <i class="icon fail fas fa-exclamation"></i>
-        <span>Stuck</span>
+        <span title="User status">Stuck</span>
       </span>
 
       <ng-template class="header__item status" #elseBlock>
         <span class="header__item status">
           <i class="icon check fas fa-check"></i>
-          <span>Playing</span>
+          <span title="User status">Playing</span>
         </span>
       </ng-template>
     </div>

@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="start end" fxFlex class="input-row">
-  <textarea type="text" placeholder="Type a message (Enter is send)"
+  <textarea class="text-area" type="text" placeholder="Type a message (Enter is send)"
           [(ngModel)]="message" (keyup)="onInputKeyup($event)"
           [disabled]="disabled"></textarea>
 
