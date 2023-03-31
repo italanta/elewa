@@ -161,7 +161,6 @@ export class ChatsListComponent implements AfterViewInit, OnInit
       this.filtrString = (evt.target as HTMLInputElement).value.trim().toLowerCase();
 
       this.dataSource.data = this.displayedChats;
-
   }
 
   toggleFilter()

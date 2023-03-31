@@ -12,8 +12,7 @@
 
 .fab-holder {
   display: flex;
-  align-items: center;
-  text-align: center;
+  align-items: center !important;
   gap: 10px;
 }
 
@@ -70,13 +69,17 @@
   justify-content: center;
   cursor: pointer;
   color: black;
-  font-size: 1rem;
+  font-size: 0.8rem;
   gap: 10px;
   min-width: auto; 
-  height: 2rem; 
+  height: 1rem; 
   border-radius: 1rem; 
-  background-color: #ccc; 
-  padding: 0.3rem 1rem;
+  background-color: hsl(0, 2%, 83%); 
+  padding: 0.3rem 0.5rem;
+
+  .icon {
+    color:  black;
+  }
 }
 
 .story {
