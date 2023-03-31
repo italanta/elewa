@@ -72,11 +72,8 @@ export class ChatsStore extends DataStore<Chat>
   }
 
   getCurrentStory(id: string) {
-    debugger
     return this._StoryStore$$.getOne(id).pipe(
       map((story) => {
-        console.log(story)
-        debugger
         return story
     }))
   }
