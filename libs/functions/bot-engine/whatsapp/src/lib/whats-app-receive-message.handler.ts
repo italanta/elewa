@@ -102,3 +102,4 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     return Object.keys(data).length === 0;
   }
 }
+

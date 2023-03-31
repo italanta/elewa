@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { StoriesStore } from './stores/stories.store';
 import { ActiveStoryStore } from './stores/active-story.store';
+import { LabelsStore } from './stores/labels.store';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ export class StoriesStateModule
       ngModule: StoriesStateModule,
       providers: [
         StoriesStore,
-        ActiveStoryStore
+        ActiveStoryStore,
+        LabelsStore
       ]
     };
   }
