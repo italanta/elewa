@@ -62,20 +62,24 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+    this.getHeaderInfo()
+  }
+  
+  getHeaderInfo() {
     const url$ = this._acR.params;
     this._sbs.sink = url$
-      .pipe(
-        switchMap((url) => this.getChatStore(url['chatId'])),
-        tap(() => this.getDashboardInfo())
+    .pipe(
+      switchMap((url) => this.getChatStore(url['chatId'])),
+      tap(() => this.setHeaderInfo())
       )
-      .subscribe();
+    .subscribe();
   }
-
-  getDashboardInfo() {
+  
+  setHeaderInfo() {
     this.getLabels();
     this.status = this.getUserChatStatus(this.chat);
   }
-
+  
   ngOnChanges(changes: SimpleChanges) {
     if (changes['chat']) {
       this.agentPaused = this.chat.status === ChatStatus.Paused;
