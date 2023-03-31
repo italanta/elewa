@@ -99,6 +99,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     this.initializeLists();
     //Set into categories
     chatList.forEach(chat => this.categorize(chat));
+
     if (!this.filtrString) this.filtrString = '';
     this.applyFilter();
     this.dataSource.paginator = this.paginator?.first;
@@ -119,11 +120,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   categorize(chat: Chat)
   {
     if (chat.isConversationComplete === -1) {
-      setTimeout(() =>
-      {
         this.blocked.push(chat);
-      }, 60000);
-
       return;
     }
 
@@ -163,7 +160,6 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     if (evt)
       this.filtrString = (evt.target as HTMLInputElement).value.trim().toLowerCase();
 
-      this.displayedChats
       this.dataSource.data = this.displayedChats;
 
   }
