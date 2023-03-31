@@ -1,5 +1,5 @@
 import { Component }    from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup,FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { User }                from '@iote/bricks';
 import { Logger, EventLogger } from '@iote/bricks-angular';
@@ -35,21 +35,31 @@ export class RegisterComponent
   private _initForm()
   {
     this.registerForm = this._fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', [Validators.required]],
+      firstName:new FormControl({value: '', disabled: false}, Validators.required),
+      lastName:new FormControl({value: '', disabled:false}, Validators.required),
+      email:new FormControl({value: '', disabled: false}, [Validators.required,Validators.email]),
+      password:new FormControl({value: '', disabled: false}, Validators.required),
+      confirmPassword:new FormControl({value: '', disabled: false}, Validators.required),
       acceptConditions: [ false, [Validators.required]]
+
     },
     { validator: this._mustMatch('password', 'confirmPassword') });
+
   }
 
+
+
   doRegister(event: any){
-  
+
     if(this.registerForm.valid)
     {
       this.isLoading = true;
+      this.registerForm.get('firstName')?.disable();
+      this.registerForm.get('lastName')?.disable();
+      this.registerForm.get('email')?.disable();
+      this.registerForm.get('password')?.disable();
+      this.registerForm.get('confirmPassword')?.disable();
+      this.registerForm.get('acceptConditions')?.disable();
       const frm = this.registerForm.value;
       const firstName = frm.firstName;
       const lastName = frm.lastName;
