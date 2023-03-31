@@ -36,7 +36,7 @@ import { SubSink } from 'subsink';
 })
 export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   @Input() chat: Chat;
-  private _sbs = new SubSink()
+  private _sbs = new SubSink();
 
   loading = true;
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
@@ -62,8 +62,17 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
+    const url$ = this._acR.params;
+    this._sbs.sink = url$
+      .pipe(
+        switchMap((url) => this.getChatStore(url['chatId'])),
+        tap(() => this.getDashboardInfo())
+      )
+      .subscribe();
+  }
+
+  getDashboardInfo() {
     this.getLabels();
-    this.getCurrentStory();
     this.status = this.getUserChatStatus(this.chat);
   }
 
@@ -107,14 +116,8 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
     return this.chat.name;
   }
 
-  getCurrentStory() {
-    let url$ = this._acR.params;
-    this._sbs.sink = url$.pipe(switchMap((url) => this.getChatStore(url['chatId']))).subscribe()
-  }
-
   getChatStore(chatId: string) {
-    return this._chatStore.getCurrentCursor(chatId)
-    .pipe(
+    return this._chatStore.getCurrentCursor(chatId).pipe(
       map((cur) => cur[0].position.storyId),
       concatMap((id) => {
         return this._chatStore.getCurrentStory(id);
@@ -125,9 +128,8 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
         }
         return story;
       })
-    )
+    );
   }
-  
 
   getLabels() {
     this.class = this.chat.labels.map((label) => {
@@ -274,6 +276,6 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._sbs.unsubscribe()
+    this._sbs.unsubscribe();
   }
 }
