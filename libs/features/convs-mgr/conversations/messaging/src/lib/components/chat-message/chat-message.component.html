@@ -4,13 +4,13 @@
     [class.message-other]="messageIsNotMine">
 
     <div [ngSwitch]="message.type">
-     <div                    *ngSwitchCase="'text'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
+     <div *ngSwitchCase="'text'" [ngClass]="message.direction === 5 ? ['message-content', 'green'] : ['message-content', 'grey']"><span [innerHtml]=" textMessage(message)"></span></div>
 
      <!-- Button Options -->
      <app-button-message   *ngSwitchCase="'question'" [message]="message" [messageIsNotMine]="messageIsNotMine" [agentMessage]="agentMessage"></app-button-message>
 
      <!-- Button Press -->
-     <div                    *ngSwitchCase="'button'" class="message-content"><span [innerHtml]=" textMessage(message)"></span></div>
+     <div *ngSwitchCase="'button'" [ngClass]="message.direction === 5 ? ['message-content', 'green'] : ['message-content', 'grey']"><span [innerHtml]=" textMessage(message)"></span></div>
 
      <app-resource-message *ngSwitchCase="'image'"  [message]="message"></app-resource-message>
      <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
