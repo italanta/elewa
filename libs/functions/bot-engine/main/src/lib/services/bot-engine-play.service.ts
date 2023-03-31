@@ -29,11 +29,11 @@ import { __isCommand } from "../utils/isCommand";
  */
 export class BotEnginePlay implements IBotEnginePlay
 {
-  private orgId: string;
+  protected orgId: string;
 
   private defaultStory: string;
 
-  private blockSent: StoryBlock;
+  blockSent: StoryBlock;
 
   private chatCommandsManager: ChatCommandsManager;
 
@@ -132,7 +132,7 @@ export class BotEnginePlay implements IBotEnginePlay
     }
   }
 
-  private async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
+  async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
 
     // Inject Variables to the block
@@ -162,7 +162,7 @@ export class BotEnginePlay implements IBotEnginePlay
   /**
    * Updates the position of the end user with the block we send back to them
    */
-  private __move(newPosition: Cursor, endUserId: string)
+  __move(newPosition: Cursor, endUserId: string)
   {
     const moveCursor = this._cursorDataService$.updateCursor(endUserId, this._activeChannel.channel.orgId, newPosition);
 
@@ -184,7 +184,11 @@ export class BotEnginePlay implements IBotEnginePlay
    */
   private async _saveBlockAsMessage(storyBlock: StoryBlock, endUserId: string)
   {
+    const endUserPhoneNumber = endUserId.split('_')[2]
     const botMessage = this.__convertBlockToStandardMessage(storyBlock);
+
+    botMessage.n = this._activeChannel.channel.n;
+    botMessage.endUserPhoneNumber = endUserPhoneNumber;
 
     const saveMessage = this.__save(botMessage, endUserId);
 

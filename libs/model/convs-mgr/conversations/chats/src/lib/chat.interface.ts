@@ -55,6 +55,8 @@ export interface Chat extends IObject
   instructors?: string[];
 
   lastMsg?: any;
+
+  isConversationComplete?: number;
 }
 
 export interface ChatUserInfo {

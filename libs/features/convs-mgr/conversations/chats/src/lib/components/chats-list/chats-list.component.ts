@@ -22,7 +22,7 @@ import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conve
 @Component({
   selector: 'app-chats-list',
   templateUrl: './chats-list.component.html',
-  styleUrls:  ['./chats-list.component.scss']
+  styleUrls: ['./chats-list.component.scss']
 })
 export class ChatsListComponent implements AfterViewInit, OnInit
 {
@@ -49,22 +49,23 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   paused: Chat[];
   completed: Chat[];
   stashed: Chat[];
+  blocked: Chat[];
 
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
   constructor(private _chats$: ChatsStore,
-              private _activeChat$: ActiveChatConnectedStore,
-              private cd: ChangeDetectorRef,
-              _dS: DataService,
-              private _logger: Logger)
+    private _activeChat$: ActiveChatConnectedStore,
+    private cd: ChangeDetectorRef,
+    _dS: DataService,
+    private _logger: Logger)
   {
     const _repo = _dS.getRepo<Payment>('payments');
     _repo
-        .getDocuments()
-        .pipe(
-          map(ps => ps.filter(p => p.status === PaymentStatus.Success)),
-          map(ps => _.orderBy(ps, p => __DateFromStorage(p.timestamp).unix(), 'desc')))
-        .subscribe((list)=> list.forEach(payment => this.paidCustomers.push(payment.chatId)));
+      .getDocuments()
+      .pipe(
+        map(ps => ps.filter(p => p.status === PaymentStatus.Success)),
+        map(ps => _.orderBy(ps, p => __DateFromStorage(p.timestamp).unix(), 'desc')))
+      .subscribe((list) => list.forEach(payment => this.paidCustomers.push(payment.chatId)));
 
     this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
@@ -80,12 +81,13 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   ngAfterViewInit()
   {
     // Update paginator after it is initialized
-    this.paginator.changes.subscribe(item => {
+    this.paginator.changes.subscribe(item =>
+    {
       if (this.paginator.length && this.dataSource) {
         this.dataSource.paginator = this.paginator?.first;
         // this.cd.detectChanges();
       }
-    })
+    });
   }
 
   getChats(chatList: Chat[])
@@ -97,7 +99,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     this.initializeLists();
     //Set into categories
     chatList.forEach(chat => this.categorize(chat));
-    if(!this.filtrString) this.filtrString = '';
+    if (!this.filtrString) this.filtrString = '';
     this.applyFilter();
     this.dataSource.paginator = this.paginator?.first;
     this.isLoading = false;
@@ -111,12 +113,21 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     this.onboarding = [];
     this.completed = [];
     this.stashed = [];
+    this.blocked = [];
   }
 
   categorize(chat: Chat)
   {
-    switch(chat.flow)
-    {
+    if (chat.isConversationComplete === -1) {
+      setTimeout(() =>
+      {
+        this.blocked.push(chat);
+      }, 60000);
+
+      return;
+    }
+
+    switch (chat.flow) {
       case ChatFlowStatus.PausedByAgent:
         this.paused.push(chat);
         this.helpRequests.push(chat);
@@ -135,15 +146,13 @@ export class ChatsListComponent implements AfterViewInit, OnInit
         this.stashed.push(chat);
         break;
     }
-    if(chat.awaitingResponse && (chat.flow !== ChatFlowStatus.Paused
-                              && chat.flow !== ChatFlowStatus.OnWaitlist
-                              && chat.flow !== ChatFlowStatus.PausedByAgent))
-    {
+    if (chat.awaitingResponse && (chat.flow !== ChatFlowStatus.Paused
+      && chat.flow !== ChatFlowStatus.OnWaitlist
+      && chat.flow !== ChatFlowStatus.PausedByAgent)) {
       this.helpRequests.push(chat);
     }
 
-    if(this.paidCustomers.includes(chat.id) && !this.hasCompleted(chat) && !this.isInactive(chat))
-    {
+    if (this.paidCustomers.includes(chat.id) && !this.hasCompleted(chat) && !this.isInactive(chat)) {
       this.learning.push(chat);
     }
   }
@@ -151,18 +160,18 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   applyFilter(evt?: { target: EventTarget | null; } | undefined)
   {
     this.filterByCategory();
-    if(evt)
+    if (evt)
       this.filtrString = (evt.target as HTMLInputElement).value.trim().toLowerCase();
 
       this.displayedChats
       this.dataSource.data = this.displayedChats;
+
   }
 
   toggleFilter()
   {
     this.filterMode = !this.filterMode;
-    if(!this.filterMode)
-    {
+    if (!this.filterMode) {
       this.filtrString = '';
       this.filterByCategory();
     }
@@ -179,8 +188,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   filterByCategory()
   {
 
-    switch(this.filter)
-    {
+    switch (this.filter) {
       case "active":
         this.displayedChats = this.onboarding;
         break;
@@ -199,11 +207,14 @@ export class ChatsListComponent implements AfterViewInit, OnInit
       case "completed":
         this.displayedChats = this.completed;
         break;
+      case "blocked":
+        this.displayedChats = this.blocked;
+        break;
       case 'all':
       default:
         this.displayedChats = this.chats;
     }
-    this.dataSource.data = this.displayedChats
+    this.dataSource.data = this.displayedChats;
     this.isLoading = false;
   }
 
