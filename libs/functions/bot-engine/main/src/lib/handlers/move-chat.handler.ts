@@ -25,9 +25,10 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
 {
   jumpBlockService$: JumpStoryBlockService;
   sideOperations: Promise<any>[] = [];
+  orgId: string;
   /**
    * Put a break on execution and halt the system to talk to a Human agent. */
-  public async execute(req: { storyId: string, orgId: string, endUserId: string, blockId?: string}, context: FunctionContext, tools: HandlerTools)
+  public async execute(req: { storyId: string, endUserId: string, blockId?: string}, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `[MoveChatHandler].execute: Attempting to jump user to story: ${req.storyId}`);
     tools.Logger.log(() => JSON.stringify(req));
@@ -41,6 +42,8 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
     const communicationChannel: CommunicationChannel = await _channelService$.getChannelByConnection(n) as CommunicationChannel;
 
     tools.Logger.log(()=>(`[MoveChatHandler].execute: Communication Channel: ${JSON.stringify(communicationChannel)}`));
+
+    this.orgId = communicationChannel.orgId;
 
     const connDataService = new ConnectionsDataService(communicationChannel, tools);
     const blockDataService = new BlockDataService(communicationChannel, connDataService, tools);
@@ -56,7 +59,9 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
     }
 
     try {
-      const currentCursor = await cursorDataService.getLatestCursor(req.endUserId, req.orgId);
+      const currentCursor = await cursorDataService.getLatestCursor(req.endUserId, this.orgId);
+
+      tools.Logger.log(() => `[MoveChatHandler].execute: Current Cursor: ${JSON.stringify(currentCursor)}`);
 
       const activeChannelFactory = new ActiveChannelFactory();
   
@@ -66,7 +71,7 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
   
       const bot = new BotEngineJump(processMessageService, cursorDataService, msgDataService, processMediaService, activeChannel, tools);
   
-      await bot.jump(req.storyId, req.orgId, endUser, currentCursor as Cursor, req.blockId);
+      await bot.jump(req.storyId, this.orgId, endUser, currentCursor as Cursor, req.blockId);
   
       return { success: true } as RestResult200;
     } catch (error) {
