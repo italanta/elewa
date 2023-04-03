@@ -16,27 +16,20 @@
         id="name-input"
         class="name__input"
         placeholder="Name"
-        [(ngModel)]="name"
       />
       <br />
 
       <div [id]="videoInputId">
-        <input
-          (change)="processVideo($event)"
-          type="file"
-          accept=".mp4"
-          [id]="videoInputUpload"
-          hidden
-          class="video"
-        />
+        <!-- <input type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" [(ngModel)]="file"/> -->
+        <input type="file" accept=".mp4" id="file-input" hidden class="video" (change)="onVideoSelected($event)" /> <!--Call onVideoSelected method when a video is selected  -->
         <label [for]="videoInputUpload">
           <div *ngIf="!hasVideo; else inputHasVideo">
-            <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png" />
+            <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png" (click)="openFileManager()" /> <!-- Call openFileManager method when image is clicked -->
           </div>
           <ng-template #inputHasVideo>
-            				<video controls>
-					<source type="video" class="upload-video" [src]="videoLink" alt="">
-				</video>
+            <video controls>
+              <source type="video" class="upload-video" [src]="videoUrl" alt="">
+            </video>
           </ng-template>
         </label>
       </div>
@@ -53,13 +46,12 @@
       <div class="input__div" *ngFor="let option of sizeOptions">
         <input
           type="radio"
-          id="{{ option }}"
           name="size"
-          [(ngModel)]="size"
           [value]="option.vidSize"
-          id="radio"
+          id="{{ option.vidSize }}"
+          [checked]="option.vidSize === '720p (Recommended)'"
         />
-        <label for="{{ option }}" class="size__options">{{
+        <label for="{{ option.vidSize }}" class="size__options">{{
           option.vidSize
         }}</label>
         <p class="resolution">{{ option.resolution }}</p>

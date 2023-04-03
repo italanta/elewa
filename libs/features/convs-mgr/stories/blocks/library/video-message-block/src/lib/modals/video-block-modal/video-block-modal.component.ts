@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -10,13 +10,14 @@ import { UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-video-block-modal',
   templateUrl: './video-block-modal.component.html',
   styleUrls: ['./video-block-modal.component.scss']
 })
-export class VideoBlockModalComponent implements OnInit {
+export class VideoBlockModalComponent{
 
   @Input() id: string;
   @Input() block: VideoMessageBlock;
@@ -28,15 +29,18 @@ export class VideoBlockModalComponent implements OnInit {
   blockFormGroup: FormGroup;
 
   file: File;
-  videoLink: string = "";
   videoInputId: string;
   isLoadingVideo: boolean;
   hasVideo: boolean;
   videoInputUpload: string = '';
 
-  @Output() applied = new EventEmitter<any>();
-  name: string
-  size: string
+  videoUrl: string;
+  videoFile: string
+  videoLink: string = "";
+
+  // @Output() applied = new EventEmitter<any>();
+  // name: string
+  // size: string
   title = 'Upload Video';
   sizeOptions = [
   { vidSize: '4K', resolution: '3840px x 2160px' },
@@ -48,49 +52,112 @@ export class VideoBlockModalComponent implements OnInit {
 
   constructor(
     private _videoUploadService: UploadFileService,
-    private dialogueRef: MatDialogRef<VideoBlockModalComponent>
+    private dialogueRef: MatDialogRef<VideoBlockModalComponent>,
+    private _ngfiStorage:AngularFireStorage
   ) {
     this.block = this.block as VideoMessageBlock;
   }
 
+   @Output() videoSelected = new EventEmitter<File>();
+   
+  //@Output() applyClicked = new EventEmitter<{ video: File, name: string, size: string }>();
+
   apply() {
-    if(this.videoLink){
-      this.block.fileSrc = this.videoLink;
-      this.applied.emit(this.block);
-      this.closeModal() 
-    }
+    console.log(this.videoSelected)
+    this.videoSelected.emit(this.file);
+    this.closeModal()
   }
 
-  ngOnInit(): void {
-    this.videoInputId = `vid-${this.id}`;
-    this.videoInputUpload = `vid-${this.id}-upload`;
-
-    this.checkIfVideoExists();
-  }
-
-  checkIfVideoExists() {
-    this.videoLink = this.videoMessageForm.value.fileSrc;
-    this.hasVideo = this.videoLink && this.videoLink != '' ? true : false;
-  }
+  // apply(){
+  //   const video = this.file;
+  //   const name = this.videoMessageForm.get('fileName')?.value;
+  //   const size = this.videoMessageForm.get('fileSize')?.value;
+  //   this.applyClicked.emit({ video, name, size });
+  // }
 
   closeModal(): void {
     this.dialogueRef.close();
   }
 
-  async processVideo(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.videoLink = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
-      this.file = event.target.files[0];
-      this.isLoadingVideo = true;
+  openFileManager() {
+    // document.getElementById(this.videoInputUpload).click();
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    fileInput.click();
+  }
+
+   onVideoSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const url = URL.createObjectURL(file);
+      this.videoUrl = url;
+      this.block.fileSrc = url;
+      this.block.fileName = file.name; // set the fileName property of the VideoMessageBlock to the name of the selected file
       this.hasVideo = true;
     }
-    //Step 1 - Create the file path that will be in firebase storage
-    const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
-    this.isLoadingVideo = true;
-    this.videoMessageForm.get('fileName')?.setValue(this.file.name);
-
-    (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
   }
 }
+
+/*
+  apply(): void {
+  // Pass the required data to the parent component using an event emitter
+  this.applyClicked.emit({
+    video: this.videoFile,
+    name: this.block.name,
+    size: this.block.size
+  });
+}
+*/
+
+/*
+  @Input() formGroup: FormGroup;
+  @Input() instance: BrowserJsPlumbInstance;
+  @Input() block: VideoMessageBlock;
+  @Input() dialogRef: MatDialogRef<any>;
+
+  sizeOptions = [
+    { vidSize: '240p', resolution: '426 x 240' },
+    { vidSize: '360p', resolution: '640 x 360' },
+    { vidSize: '480p', resolution: '854 x 480' },
+    { vidSize: '720p', resolution: '1280 x 720' },
+    { vidSize: '1080p', resolution: '1920 x 1080' },
+  ];
+
+  videoUrl: string = '';
+  hasVideo: boolean = false;
+  videoInputId = 'video-input-id';
+  videoInputUpload = 'video-input-upload';
+
+  constructor(private uploadFileService: UploadFileService) {}
+
+  ngOnInit() {
+    if (this.block.fileSrc) {
+      this.videoUrl = this.block.fileSrc;
+      this.hasVideo = true;
+    }
+  }
+
+  openFileManager() {
+    document.getElementById(this.videoInputUpload).click();
+  }
+
+  onVideoSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const url = URL.createObjectURL(file);
+      this.videoUrl = url;
+      this.block.fileSrc = url;
+      this.block.fileName = file.name; // set the fileName property of the VideoMessageBlock to the name of the selected file
+      this.hasVideo = true;
+    }
+  }
+
+  apply() {
+    this.dialogRef.close({ block: this.block });
+  }
+
+  closeModal() {
+    this.dialogRef.close();
+  }
+*/
