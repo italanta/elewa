@@ -66,4 +66,22 @@ import { throws } from 'assert';
     };
     await this.createDocument(newStatus, this._docPath, endUser.id);
   }
+
+  /**
+   *  Updates the end-user's conversation status to complete
+   */
+  async setConversationComplete(endUserId: string, value: number)
+  {
+    const endUser = await this.getDocumentById(endUserId, this._docPath);
+    if(endUser) {
+      const isConversationComplete = value;
+
+      const newStatus: EndUser = {
+        ...endUser,
+        isConversationComplete
+      };
+  
+      await this.updateDocument(newStatus, this._docPath, endUser.id);
+    }
+  }
 }
