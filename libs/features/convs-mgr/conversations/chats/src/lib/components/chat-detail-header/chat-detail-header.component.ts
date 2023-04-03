@@ -11,7 +11,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { combineLatest, concatMap, from, map, switchMap, tap } from 'rxjs';
+import { combineLatest, concatMap, from, map, switchMap, take, tap } from 'rxjs';
 
 import { BackendService, UserService } from '@ngfi/angular';
 import { ToastService } from '@iote/bricks-angular';
@@ -28,6 +28,9 @@ import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-ac
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { SubSink } from 'subsink';
+import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-chat-detail-header',
@@ -42,6 +45,7 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
   agentPaused: boolean = true;
+  currentPosition: EndUserPosition;
 
   user: iTalUser;
   class: string[];
@@ -50,11 +54,13 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   story: Story;
 
   constructor(
+    private _snackBar: MatSnackBar,
     private userService: UserService<iTalUser>,
     private _backendService: BackendService,
     private _router: Router,
     private _acR: ActivatedRoute,
     private _toastService: ToastService,
+    private _afsF: AngularFireFunctions,
     private _chatStore: ChatsStore,
     private _dialog: MatDialog
   ) {
@@ -62,7 +68,8 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.getHeaderInfo()
+    this.getHeaderInfo();
+    debugger
   }
   
   getHeaderInfo() {
@@ -122,7 +129,11 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
 
   getChatStore(chatId: string) {
     return this._chatStore.getCurrentCursor(chatId).pipe(
-      map((cur) => cur[0].position.storyId),
+      map((cur) => {
+        // Set the current position of the user in the story
+        this.currentPosition = cur[0].position;
+        return cur[0].position.storyId
+      }),
       concatMap((id) => {
         return this._chatStore.getCurrentStory(id);
       }),
@@ -257,6 +268,24 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
       data: { chat: this.chat },
       width: '500px',
     });
+  }
+
+  unblockUser() {
+    if(this.chat.isConversationComplete === -1) {
+  
+      const storyId = this.currentPosition.storyId;
+      const blockId = this.currentPosition.blockId;
+  
+      const req = { storyId, endUserId: this.chat.id, blockId};
+  
+      this._afsF.httpsCallable('moveChat')(req).subscribe(() => 
+      
+      this._snackBar.open('User unblocked!', 'OK', { duration: 3000, verticalPosition: 'top' }));
+
+    } else {
+
+      this._snackBar.open('User is not blocked!', 'OK', { duration: 3000, verticalPosition: 'top' });
+    }
   }
 
   // cancelReq()
