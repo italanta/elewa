@@ -64,8 +64,8 @@ export class MoveChatModal
   moveChat()
   {
     const req = { storyId: this.selectedStory.id, orgId: this.selectedStory.orgId, endUserId: this._data.chat.id,};
+    this._chats$.pauseChat(this._data.chat.id).subscribe()
     this._afsF.httpsCallable('moveChat')(req).subscribe();
-    this._chats$.pauseChat(this._data.chat.id).pipe(take(1)).subscribe()
     this.exitModal();
   }
 

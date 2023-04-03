@@ -6,7 +6,11 @@
       <!-- <div *ngIf="isNewDate(messages[i])" class="hr-with-text" fxLayout="row" fxLayoutAlign="center">
         {{ lastDate | date }}
       </div> -->
-      <app-chat-message [message]="message"></app-chat-message>
+      <div class="message-block">
+        <span [ngClass]="message.direction === 5 ? ['right'] : ['left']">
+          <app-chat-message [message]="message"></app-chat-message>
+        </span>
+      </div>
     </mat-list-item>
   </mat-list>
 

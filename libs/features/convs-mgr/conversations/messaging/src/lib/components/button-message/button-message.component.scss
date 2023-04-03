@@ -9,16 +9,13 @@
 }
 
 .to-end-user {
-  background-color: #c5dfb2 !important;
-
   ::ng-deep .mdc-evolution-chip__text-label {
-    color: #438CAC !important;
+    color: lightblue !important;
   }
 
 }
 
 .from-end-user {
-  background-color: #DCF8C6 !important;
   color: #000;
 }
 
@@ -36,16 +33,18 @@
       float: right;
 
       .message-content {
-        background-color: #e2f9d1;
-        // color: #fff;
+        background-color: #4E416D !important;
         border-top-left-radius: 10px !important;
+
+        span {
+          color: #f2f2f2;
+          font-weight: 300;
+        }
       }
     }
 
     .message-content {
       border-top-left-radius: 10px !important;
-      background-color:#DCF8C6;
-
     }
 
     &::before {
@@ -95,3 +94,16 @@
   }
 }
 
+
+.green {
+  background-color: #4E416D !important;
+
+  span {
+    color: #f2f2f2;
+    font-weight: 300;
+  }
+}
+
+.grey {
+  background-color: #F4F7FB !important;
+}

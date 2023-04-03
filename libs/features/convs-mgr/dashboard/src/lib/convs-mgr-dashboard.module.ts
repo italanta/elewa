@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { GroupBasedProgressModule } from '@app/features/analytics/group-based/progress';
 
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 
@@ -15,7 +16,8 @@ import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@i
     MaterialBricksModule,
     MaterialDesignModule,
     ConvlPageModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    GroupBasedProgressModule
   ],
   declarations: [
     DashboardPage,

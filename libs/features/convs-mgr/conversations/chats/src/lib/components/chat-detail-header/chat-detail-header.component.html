@@ -1,26 +1,50 @@
-<div id="chat-detail-header" *ngIf="chat; else loading"
-    fxLayout="row" fxLayoutAlign="space-between center"
-    class="">
+<div id="chat-detail-header" *ngIf="chat; else loading" fxLayout="row" fxLayoutAlign="space-between center" class="">
 
   <div fxLayout="row" class="chat-title">
     <div id="statusIndicator" class="{{getClass()}}">
-      <i class="fas fa-user-circle"></i>
+      <i class="user-tooltip fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      {{ chat.name?.toLowerCase() }}
+      <span *ngIf="chat?.name" class="name"> {{ chat.name?.toLowerCase() }} </span>
+      <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
-    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button matTooltip="Pause Chat"
-              (click)="pauseChat()">
-        <i class="fas fa-pause-circle"></i>
+    <div class="header__item">
+      <i class="icon fas fa-layer-group"></i>
+      <span title="user's class/grouping"> {{ class }}</span>
+    </div>
+
+    <div class="header__item story">
+      <i class="icon fas fa-bookmark"></i>
+      <a class="link" routerLink="/stories/{{ story?.id }}">
+        <span title="Current Story ">{{story?.name}}</span> 
+      </a>
+    </div>
+
+    <div class="">
+      <span class="header__item status" *ngIf="status === 'Stuck', else elseBlock">
+        <i class="icon fail fas fa-exclamation"></i>
+        <span title="User status">Stuck</span>
+      </span>
+
+      <ng-template class="header__item status" #elseBlock>
+        <span class="header__item status">
+          <i class="icon check fas fa-check"></i>
+          <span title="User status">Playing</span>
+        </span>
+      </ng-template>
+    </div>
+
+    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button
+      matTooltip="Pause Chat" (click)="pauseChat()">
+      <i class="fas fa-pause-circle"></i>
     </button>
 
     <ng-template #resumeBtn>
-      <button class="icon-button" mat-icon-button matTooltip="Resume Chat"
-            (click)="openModal('resume')">
+      <button class="icon-button" mat-icon-button matTooltip="Resume Chat" (click)="openModal('resume')">
         <i class="fas fa-play-circle"></i>
       </button>
     </ng-template>
@@ -40,9 +64,10 @@
 
     </mat-menu>
 
+    <!-- 
     <button class="icon-button" mat-icon-button (click)="goBack()">
       <i class="fas fa-reply"></i>
-    </button>
+    </button> -->
 
   </div>
 </div>
