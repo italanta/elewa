@@ -69,7 +69,6 @@ export class ChatDetailHeaderComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.getHeaderInfo();
-    debugger
   }
   
   getHeaderInfo() {
