@@ -2,10 +2,10 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { cloneDeep as __cloneDeep } from 'lodash';
-import { map, of, switchMap } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockTypes,StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
@@ -57,7 +57,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   validateForm() {
     this._sub.sink = this.variablesForm.controls['variable'].valueChanges
       .pipe(
-        switchMap((value) =>
+        switchMap((value: StoryBlockVariable) =>
           this._processInputSer.blocksWithVars$.pipe(
             map((blocks) => {
               const isPresent = blocks.find(
