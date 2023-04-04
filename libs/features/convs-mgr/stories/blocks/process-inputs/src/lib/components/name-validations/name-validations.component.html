@@ -1,28 +1,31 @@
-<div class="validation-section" [formGroup]="formGroup">
-  <div class="validation-wrapper" *ngIf="validate" [formGroupName]="formGroupName">
-    <div class="validation_regex">
-      <label class="label" for="regex">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.REGEX" | transloco }}</label>
-      <input class="input" type="text" id="regex" formControlName="regex"
-        [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-REGEX' | transloco">
-    </div>
-
-    <div class="validation_minmax">
-      <div class="validation_max">
-        <label class="label" for="max">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.MAX" | transloco }}</label>
-        <input class="input" type="number" name="max" id="max" formControlName="max"
-         [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-MAX' | transloco">
+<div [formGroup]="variablesForm">
+  <div class="validation-section" formGroupName="variable">
+    <div class="validation-wrapper" *ngIf="validate" formGroupName="validators">
+      <div class="validation_regex">
+        <label class="label" for="regex">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.REGEX" | transloco }}</label>
+        <input class="input" type="text" id="regex" formControlName="regex"
+          [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-REGEX' | transloco">
       </div>
-      <div class="validation_min">
-        <label class="label" for="min">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.MIN" | transloco }}</label>
-        <input class="input" type="number" name="min" id="min" formControlName="min"
-          [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-MIN' | transloco">
-      </div>
-    </div>
 
-    <div class="validation_message">
-      <label class="label" for="validationMessage">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.ERROR-MESSAGE" | transloco }}</label>
-      <textarea class="text-area" name="validationMessage" id="validationMessage" formControlName="validationMessage"
-        cols="30" rows="5"></textarea>
+      <div class="validation_minmax">
+        <div class="validation_max">
+          <label class="label" for="max">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.MAX" | transloco }}</label>
+          <input class="input" type="number" name="max" id="max" formControlName="max"
+            [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-MAX' | transloco">
+        </div>
+        <div class="validation_min">
+          <label class="label" for="min">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.MIN" | transloco }}</label>
+          <input class="input" type="number" name="min" id="min" formControlName="min"
+            [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-MIN' | transloco">
+        </div>
+      </div>
+
+      <div class="validation_message">
+        <label class="label" for="validationMessage">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.ERROR-MESSAGE" | transloco
+          }}</label>
+        <textarea class="text-area" name="validationMessage" id="validationMessage" formControlName="validationMessage"
+          cols="30" rows="5"></textarea>
+      </div>
     </div>
   </div>
 </div>
