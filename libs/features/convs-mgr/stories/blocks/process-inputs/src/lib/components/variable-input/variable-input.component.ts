@@ -1,15 +1,14 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
-import { map } from 'rxjs';
+import { cloneDeep as __cloneDeep } from 'lodash';
+import { map, of, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
-import { _CreateNameBlockVariableForm } from '../../model/name-variables-form.model';
-import { variableCreateFn } from '../../model/shared-types.model';
 
 @Component({
   selector: 'app-variable-input',
@@ -24,6 +23,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   blockId: string;
   blockType: StoryBlockTypes;
   variablesForm: FormGroup;
+
   variablesTypesList = [
     { name: VariableTypes[1], value: 1 },
     { name: VariableTypes[2], value: 2 },
@@ -35,91 +35,62 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   emailtype = StoryBlockTypes.Email;
   phonetype = StoryBlockTypes.PhoneNumber;
 
-  constructor(
-    private _fb: FormBuilder,
-    private _processInputSer: ProcessInputService
-  ) {}
+  constructor(private _processInputSer: ProcessInputService) {}
 
   ngOnInit(): void {
     this.blockId = this.BlockFormGroup.value.id;
     this.blockType = this.BlockFormGroup.value.type;
 
-    const { variableName, formCreator } = this.getFormCreationDetails(
-      this.blockType
-    );
-
-    this.variablesForm = formCreator(
-      this._fb,
-      this.BlockFormGroup,
-      variableName
-    );
+    // we create a copy of the formGroup so we can validate before setting the values on submit
+    this.variablesForm = __cloneDeep(this.BlockFormGroup);
+    this.validateForm();
   }
 
   get name() {
-    return this.variablesForm.controls['name'];
+    return this.variablesForm.get('variable.name');
   }
 
   /**
-   * Retrieves the variable form creation details for a given StoryBlockTypes.
-   *
-   * @param {StoryBlockTypes} blockType The type of the StoryBlock.
-   * @returns {{ variableName: string; formCreator: variableCreateFn }} The form creation details including the default variableName for the variable and the form creator function.
-   *
-   * The `variableName` parameter is the default name to prefill the form when the block is selected.
-   * The `formCreator` parameter is the function to create the FormGroup depending on the StoryBlockTypes.
+   * - Validates the form by checking if the variable name is already used in other blocks.
+   * - If the variable name is already used, the form control will be marked as invalid.
    */
-  getFormCreationDetails(blockType: StoryBlockTypes): {
-    variableName: string;
-    formCreator: variableCreateFn;
-  } {
-    switch (blockType) {
-      case StoryBlockTypes.Name:
-        return {
-          variableName: 'name',
-          formCreator: _CreateNameBlockVariableForm,
-        };
-      default:
-        return { variableName: '', formCreator: _CreateNameBlockVariableForm };
-    }
-  }
-
-  /**
-   * Sets a variable in the block form based on the user's input and validates that the variable name is not already used.
-   *
-   * @returns {void}
-   */
-  setVariable(): void {
-    const variableName = this.variablesForm.get('name')?.value;
-
-    this._sub.sink = this._processInputSer.blocksWithVars$
+  validateForm() {
+    this._sub.sink = this.variablesForm.controls['variable'].valueChanges
       .pipe(
-        map((blocks) => {
-          const isPresent = blocks.find(
-            (block) =>
-              block.variable?.name === variableName && block.id !== this.blockId
-          );
+        switchMap((value) =>
+          this._processInputSer.blocksWithVars$.pipe(
+            map((blocks) => {
+              const isPresent = blocks.find(
+                (block) =>
+                  block.variable?.name === value.name &&
+                  block.id !== this.blockId
+              );
 
-          if (isPresent) {
-            this.name.setErrors({ incorrect: 'name is already used' });
-          } else {
-            const variableData = {
-              name: this.variablesForm.get('name')?.value,
-              type: parseInt(this.variablesForm.get('type')?.value),
-              validate: this.validate,
-              validators: this.validate
-                ? this.variablesForm.get('validators')?.value ?? {}
-                : {},
-            };
-
-            this.BlockFormGroup.value.variable = variableData;
-          }
-        })
+              if (isPresent) {
+                this.name?.setErrors({ incorrect: 'name is already used' });
+              }
+            })
+          )
+        )
       )
       .subscribe();
   }
 
+  /**
+   * - Updates the BlockFormGroup with the selected validation type and input value type.
+   * - If validate is false, the variable validators will be reset to null.
+   * - The `type` property of the variable will be converted to an integer.
+   */
   onSubmit() {
-    this.setVariable();
+    this.BlockFormGroup = this.variablesForm;
+    this.BlockFormGroup.controls['variable'].value.validate = this.validate;
+
+    if (!this.validate) {
+      this.BlockFormGroup.get('variable.validators')?.reset();
+    }
+
+    const type = this.variablesForm.get('variable.type')?.value;
+    this.BlockFormGroup.controls['variable'].value.type = parseInt(type);
   }
 
   ngOnDestroy(): void {
