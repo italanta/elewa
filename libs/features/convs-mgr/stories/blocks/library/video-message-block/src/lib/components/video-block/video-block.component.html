@@ -1,6 +1,5 @@
 <div [id]="id" *ngIf="videoMessageForm">
-	<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
-
+	<div>
 		<label [for]="videoInputUpload">
 			<div *ngIf="!hasVideo; else inputHasVideo" (click)="openVideoModal()" >
 				<i id="icon" class="fas fa-play-circle"></i>
@@ -14,8 +13,8 @@
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
 
-		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
-		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
-			formControlName="fileSrc">
-	</form>
+
+		<input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco" formControlName="fileSrc">
+	</div>
 </div>
+	

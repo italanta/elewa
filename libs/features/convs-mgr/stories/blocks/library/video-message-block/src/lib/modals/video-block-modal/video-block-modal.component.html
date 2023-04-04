@@ -1,4 +1,4 @@
-<div class="container">
+<form [formGroup]="videoMessageForm" class="container">
   <div class="heading">
     <div (click)="closeModal()" id="close__icon">
       <i class="fas fa-times"></i>
@@ -10,25 +10,19 @@
   <div class="wrapper">
     <div class="left__side">
       <p class="p__text">Give This media Item a Name</p>
-      <label for="name-input" class="name__input"></label>
-      <input
-        type="text"
-        id="name-input"
-        class="name__input"
-        placeholder="Name"
-      />
+      <label for="name-input" class="name__input"> 
+        <input type="text" id="name-input" class="name__input" placeholder="Name" />
+      </label>
       <br />
-
-      <div [id]="videoInputId">
-        <!-- <input type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" [(ngModel)]="file"/> -->
-        <input type="file" accept=".mp4" id="file-input" hidden class="video" (change)="onVideoSelected($event)" /> <!--Call onVideoSelected method when a video is selected  -->
+      <div [id]="videoInputId"> <!--why is there a validations error here?-->
+        <input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
         <label [for]="videoInputUpload">
           <div *ngIf="!hasVideo; else inputHasVideo">
-            <img src="https://i.postimg.cc/K8LGbpcx/thumbnail.png" (click)="openFileManager()" /> <!-- Call openFileManager method when image is clicked -->
+            <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" class="thumbnail" />
           </div>
           <ng-template #inputHasVideo>
-            <video controls>
-              <source type="video" class="upload-video" [src]="videoUrl" alt="">
+            <video class="upload-video" alt="" controls>
+              <source [src]="videoUrl" type="video/mp4">
             </video>
           </ng-template>
         </label>
@@ -61,5 +55,4 @@
   <div class="apply">
     <button (click)="apply()" class="apply__button">Apply</button>
   </div>
-</div>
-
+</form>
