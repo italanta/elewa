@@ -1,4 +1,3 @@
-import { NameBlockVariable } from '../variables-models/name-block-variable.model';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 /**
@@ -9,6 +8,4 @@ export interface TextMessageBlock extends StoryBlock {
   message?: string;
 
   defaultTarget?: string;
-
-  variable?: NameBlockVariable;
 }
