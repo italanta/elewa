@@ -78,6 +78,8 @@ export class AddBotToChannelModal implements OnInit, OnDestroy
   //     businessPhoneNumberId: [null],
   //     channelName: [null],
   //     authenticationKey: [null]
+  //      messageTemplate: [null],
+  //      templateVariables: [null]
   //   });
     
   
