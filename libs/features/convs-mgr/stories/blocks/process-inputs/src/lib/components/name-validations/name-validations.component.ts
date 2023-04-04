@@ -7,7 +7,6 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./name-validations.component.scss'],
 })
 export class NameValidationsComponent {
-  @Input() formGroup: FormGroup;
-  @Input() validate: boolean;
-  @Input() formGroupName: string;
+  @Input() validate: boolean
+  @Input() variablesForm: FormGroup;
 }

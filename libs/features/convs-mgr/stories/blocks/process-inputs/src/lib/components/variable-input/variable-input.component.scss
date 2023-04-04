@@ -72,4 +72,9 @@
   &:active {
     transform: scale(0.98);
   }
+
+  &:disabled {
+    transform: scale(1);
+    cursor: default;
+  }
 }
