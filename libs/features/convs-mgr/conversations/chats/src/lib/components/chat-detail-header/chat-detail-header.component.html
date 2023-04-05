@@ -5,27 +5,27 @@
       <i class="user-tooltip fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      <span *ngIf="chat?.name" class="name"> {{ chat.name?.toLowerCase() }} </span>
+      <span *ngIf="chat.name" class="name"> {{ chat.name?.toLowerCase() }} </span>
       <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
-    <div class="header__item">
+    <div *ngIf="userClass" class="header__item">
       <i class="icon fas fa-layer-group"></i>
-      <span title="user's class/grouping"> {{ class }}</span>
+      <span title="user's class/grouping"> {{ userClass }}</span>
     </div>
 
     <div class="header__item story">
       <i class="icon fas fa-bookmark"></i>
-      <a class="link" routerLink="/stories/{{ story?.id }}">
-        <span title="Current Story ">{{story?.name}}</span> 
+      <a class="link" routerLink="/stories/{{ currentStory?.id }}">
+        <span title="Current Story ">{{ currentStory?.name }}</span>
       </a>
     </div>
 
     <div class="">
-      <span class="header__item status" *ngIf="status === 'Stuck', else elseBlock">
+      <span class="header__item status" *ngIf="chatStatus === 'Stuck', else elseBlock">
         <i class="icon fail fas fa-exclamation"></i>
         <span title="User status">Stuck</span>
       </span>
