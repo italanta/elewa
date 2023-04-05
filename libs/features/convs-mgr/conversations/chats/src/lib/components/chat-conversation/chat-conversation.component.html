@@ -1,7 +1,10 @@
 <div fxFill class="conversations left-margin" fxLayout="column" *ngIf="chat else noChat">
 
   <div class="">
-    <app-chat-detail-header [chat]="chat"></app-chat-detail-header>
+    <app-chat-detail-header 
+      [chat]="chat" [currentPosition]="currentPosition" [chatStatus]="chatStatus"
+      [userClass]="userClass" [currentStory]="currentStory">
+    </app-chat-detail-header>
   </div>
 
   <div class="section-body" id="chat-container" fxFlex="80" fxLayout="column">
