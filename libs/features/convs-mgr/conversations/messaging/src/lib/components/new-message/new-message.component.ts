@@ -70,7 +70,7 @@ export class NewMessageComponent implements OnChanges
       const textMessage: TextMessage = {
         text: this.message,
         type: MessageTypes.TEXT,
-        direction: MessageDirection.TO_END_USER,
+        direction: MessageDirection.FROM_AGENT_TO_END_USER,
         endUserPhoneNumber: this.chat.phoneNumber,
         n: 1,
       }

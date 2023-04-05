@@ -225,7 +225,7 @@ export class BotEnginePlay implements IBotEnginePlay
   private __convertBlockToStandardMessage(nextBlock: StoryBlock)
   {
     const botMessage = new BlockToStandardMessage().convert(nextBlock);
-    botMessage.direction = MessageDirection.TO_END_USER;
+    botMessage.direction = MessageDirection.FROM_CHATBOT_TO_END_USER;
 
     return botMessage;
   }
