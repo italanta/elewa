@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorModalComponentComponent } from './error-modal-component/error-modal-component.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { ErrorPromptModalComponent } from './error-prompt-modal/error-prompt-modal.component';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [ErrorModalComponentComponent],
+  imports: [CommonModule, MatDialogModule],
+  declarations: [ErrorPromptModalComponent],
 })
 export class ElementsLayoutModalsModule {}
