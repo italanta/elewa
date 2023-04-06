@@ -3,10 +3,11 @@ import * as _ from 'lodash';
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { SubSink } from 'subsink';
 import { Observable, Subscription } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
-import { Logger }            from '@iote/bricks-angular';
+import { Logger } from '@iote/bricks-angular';
 import { PaginatedScroll } from '@ngfi/infinite-scroll';
 
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
@@ -21,6 +22,7 @@ import { Chat } from '@app/model/convs-mgr/conversations/chats';
 })
 export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 {
+  private _sbs = new SubSink()
   @Input() chat: Chat;
 
   lastDate: moment.Moment;
@@ -66,7 +68,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
     this.model = this._messages$$.getPaginator(this.chat);
     this.messages$ = this.model.get();
 
-    this.subscription =  this.messages$.subscribe(msgs => {
+    this._sbs.sink =  this.messages$.subscribe(msgs => {
       this._logger.log(() => '[MessagesContainerComponent] - Detected change in messages-subscr');
 
       // TODO: Weird bug in paginator seems to skip ordering on new load, so we re-order here.
@@ -122,5 +124,6 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   ngOnDestroy()
   {
     this.model.detachListeners();
+    this._sbs.unsubscribe();
   }
 }
