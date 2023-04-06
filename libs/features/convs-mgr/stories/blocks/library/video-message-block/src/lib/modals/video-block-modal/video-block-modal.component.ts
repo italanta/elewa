@@ -1,15 +1,11 @@
-import { Component, Input,OnInit} from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
-import { AngularFireStorage } from '@angular/fire/compat/storage';
-
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
-import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { UploadFileService } from '@app/state/file';
+import { FileStorageService } from '@app/state/file';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 
 
@@ -20,21 +16,19 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
 })
 export class VideoBlockModalComponent implements OnInit{
 
-  @Input() id: string;
-  @Input() block: VideoMessageBlock;
-  @Input() videoMessageForm: FormGroup;
-  @Input() jsPlumb: BrowserJsPlumbInstance;
-
   blockFormGroup: FormGroup;
+  //public formData: any;
+
 
   file: File;
-  videoLink: string = "";
+  videoLink:"";
   videoInputId: string;
   isLoadingVideo: boolean;
   hasVideo: boolean;
   videoUrl: string;
+  vidFilePath: string
 
-  videoInputUpload: string = '';
+  videoInputUpload = '';
 
   title = 'Upload Video';
   sizeOptions = [
@@ -46,29 +40,36 @@ export class VideoBlockModalComponent implements OnInit{
   ]
 
   constructor(
-    private _videoUploadService: UploadFileService,
-    private dialogueRef: MatDialogRef<VideoBlockModalComponent>,
-    private _ngfiStorage:AngularFireStorage
+    private _videoUploadService: FileStorageService,
+    private dialogRef: MatDialogRef<VideoBlockModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup, block: Story },
   ) { }
 
   ngOnInit(): void {
-    this.videoInputId = `vid-${this.id}`;
-    this.videoInputUpload = `vid-${this.id}-upload`;
+    this.videoInputId = `vid-${this.data.block.id}`;
+    this.videoInputUpload = `vid-${this.data.block.id}-upload`;
     
     this.checkIfVideoExists();
   }
 
   checkIfVideoExists(){
-    this.videoUrl = this.videoMessageForm.value.fileSrc;
+    this.videoUrl = this.data.videoMessageForm.value.fileSrc;
     this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
   }
 
-  apply() {
+   async apply() {
+    if(this.vidFilePath){
+      const res = await this._videoUploadService.uploadSingleFile(this.file, this.vidFilePath);
+      res.subscribe(url => this._autofillUrl(url))
+    } else {
+      alert('not uploaded')
+    }
+  
     this.closeModal()
   }
 
   closeModal(): void {
-    this.dialogueRef.close();
+    this.dialogRef.close();
   }
 
   async processVideo(event: any) {
@@ -80,11 +81,13 @@ export class VideoBlockModalComponent implements OnInit{
       this.isLoadingVideo = true;
     }
     //Step 1 - Create the file path that will be in firebase storage
-    const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
+    this.vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingVideo = true;
-    this.videoMessageForm.get('fileName')?.setValue(this.file.name);
+    this.data.videoMessageForm.get('fileName')?.setValue(this.file.name);
+  }
 
-    this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
-    (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
+  private _autofillUrl(url: string) {
+    debugger
+    this.data.videoMessageForm.patchValue({fileSrc: url});
   }
 }

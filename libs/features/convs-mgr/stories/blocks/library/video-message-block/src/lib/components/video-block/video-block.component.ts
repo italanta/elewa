@@ -29,15 +29,10 @@ export class VideoBlockComponent implements OnInit{
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
+  videoInputUpload: string
+  videoLink: string
 
   file: File;
-  videoLink: string = "";
-  videoInputId: string;
-  isLoadingVideo: boolean;
-  hasVideo: boolean;
-  videoUrl: string;
-
-  videoInputUpload: string = '';
 
   constructor(
               private matdialog:MatDialog,
@@ -46,20 +41,17 @@ export class VideoBlockComponent implements OnInit{
     this.block = this.block as VideoMessageBlock;
   }
   
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.videoLink = this.videoMessageForm.value.fileSrc
+   }
 
   
   openVideoModal(){
-   const dialogRef = this.matdialog.open(VideoBlockModalComponent, {minWidth: '1000px',
+   this.matdialog.open(VideoBlockModalComponent, {minWidth: '1000px',
     data: {
-      id: this.id,
       block: this.block,
       videoMessageForm: this.videoMessageForm,
-      //jsPlumb: this.jsPlumb
-    }
-  })
-  // dialogRef.componentInstance.applied.subscribe((videoBlock: any) => {
-  //   this.block = { ...this.block, ...videoBlock };
-  // }); 
+      }
+    })
   }
 }

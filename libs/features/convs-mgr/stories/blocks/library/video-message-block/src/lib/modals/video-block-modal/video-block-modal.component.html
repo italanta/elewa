@@ -1,4 +1,4 @@
-<form [formGroup]="videoMessageForm" class="container">
+<form class="container">
   <div class="heading">
     <div (click)="closeModal()" id="close__icon">
       <i class="fas fa-times"></i>
@@ -11,7 +11,7 @@
     <div class="left__side">
       <p class="p__text">Give This media Item a Name</p>
       <label for="name-input" class="name__input"> 
-        <input type="text" id="name-input" class="name__input" placeholder="Name" />
+        <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="name" />
       </label>
       <br />
       <div [id]="videoInputId"> <!--why is there a validations error here?-->
@@ -44,8 +44,9 @@
           [value]="option.vidSize"
           id="{{ option.vidSize }}"
           [checked]="option.vidSize === '720p (Recommended)'"
+         
         />
-        <label for="{{ option.vidSize }}" class="size__options">{{
+        <label for="{{ option.vidSize }}" class="size__options"  formControlName="size">{{
           option.vidSize
         }}</label>
         <p class="resolution">{{ option.resolution }}</p>

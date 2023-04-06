@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="videoMessageForm">
 	<div>
 		<label [for]="videoInputUpload">
-			<div *ngIf="!hasVideo; else inputHasVideo" (click)="openVideoModal()" >
+			<div *ngIf="!videoLink else inputHasVideo" (click)="openVideoModal()" >
 				<i id="icon" class="fas fa-play-circle"></i>
 			</div>
 			<ng-template #inputHasVideo>
