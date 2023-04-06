@@ -1,4 +1,9 @@
 <div id="message-container" #container appScrollPosition (scrollPosition)="scrollHandler($event)" fxFlex>
+
+  <div *ngIf="unblocking$ | async as unblocking" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
   <mat-list *ngIf="isLoaded; else loading">
     <mat-list-item *ngFor="let message of messages; let i = index">
       <!-- <div *ngIf="isNewDate(messages[i])" class="hr-with-text" fxLayout="row" fxLayoutAlign="center">
