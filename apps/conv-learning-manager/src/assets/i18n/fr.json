@@ -82,7 +82,11 @@
         "IMAGE-INPUT": "Entrée d'images",
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position"
+        "LOCATION-INPUT":"saisie de position",
+        "JUMP": {
+          "SELECT_STORY": "sélectionner l'histoire",
+          "SELECT-BLOCK": "sélectionner le bloc"
+        }
       },
       "VALIDATORS": {
         "SET-VALIDATION-CHECKBOX": "Validation de l'ensemble",
@@ -94,6 +98,12 @@
         "MIN": "Min",
         "PLACEHOLDER-MIN": "Caractères minimum",
         "ERROR-MESSAGE": "Message d'erreur de validation"
+      },
+      "BUTTONS": {
+        "JUMP-BLOCK": {
+          "SUCCESS": "Succès",
+          "FAILED": "Échoué"
+        }
       }
     },
     "COMPONENTS": {

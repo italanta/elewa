@@ -31,10 +31,10 @@ import { DefaultComponent } from './components/default/default.component';
     FormsModule,
     ReactiveFormsModule,
     MultiLangModule,
-    ConvsMgrBlockOptionsModule,
     MaterialBricksModule,
     MaterialDesignModule,
     ConvsMgrProcessInputsModule,
+    ConvsMgrBlockOptionsModule,
   ],
   
   declarations: [
