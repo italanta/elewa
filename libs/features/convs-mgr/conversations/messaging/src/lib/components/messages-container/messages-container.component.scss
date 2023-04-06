@@ -7,8 +7,10 @@
 
 .new-msg-btn {
   color: #fff;
-  background: var(--convs-mgr-color-primary-purple);
+  background-color: var(--convs-mgr-color-primary-yellow);
+  z-index: 5;
 }
+
 mat-list {
   height: 100%;
 }
@@ -23,7 +25,7 @@ mat-list {
 }
 
 .btn-new-msg{
-  margin-top: -10%;
+  margin-top: -5%;
 }
 
 .hr-with-text{
