@@ -4,7 +4,7 @@ import { MatDialog } from "@angular/material/dialog";
 
 import { SubSink } from 'subsink';
 
-import { take, map } from "rxjs/operators";
+import { take, map, tap } from "rxjs/operators";
 
 import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 
@@ -40,10 +40,13 @@ export class NewStoryService implements OnDestroy {
     await this.saveBotImage(bot, imageFile, imagePath)
   }
 
-  async saveImage(imageFile: File, imagePath: string) {
-    let savedImage = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
-    let url = await savedImage;
-    return url;
+  async saveImage(bot:Story, imageFile: File, imagePath: string) {
+    const res  = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath)
+    this._sbS.sink = res.pipe(tap((url) => {
+      bot.imageField = url
+    })).subscribe()
+
+    return bot
   }
 
   saveImagelessStory(bot: Story) {
@@ -52,7 +55,10 @@ export class NewStoryService implements OnDestroy {
 
   async saveBotImage(bot: Story, storyImage?: File, storyImagePath?: string) {
     if (storyImagePath) {
-      // bot.imageField = await this.saveImage(storyImage!, storyImagePath);
+      if(storyImage){
+        this.saveImage(bot, storyImage, storyImagePath);
+      }
+
       this.addStoryToDb(bot);
     }
   }
@@ -60,7 +66,7 @@ export class NewStoryService implements OnDestroy {
   addStoryToDb(bot: Story) {
     this._org$$.get().pipe(take(1)).subscribe(async (org) => {
       if (org) {
-        bot.orgId = org.id!;
+        bot.orgId = org.id as string;
         this._stories$$.add(bot).subscribe((story) => {
           if (story) {
             this._dialog.closeAll();
@@ -81,11 +87,14 @@ export class NewStoryService implements OnDestroy {
     if (storyImage) {
       //delete the image if any
       if (bot.imageField && bot.imageField != '') {
-        this.deleteImage(bot.imageField!);
+        this.deleteImage(bot.imageField);
         bot.imageField = '';
       }
 
-      // bot.imageField = await this.saveImage(storyImage!, storyImagePath!);
+      const res  = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath as string)
+      this._sbS.sink = res.pipe(tap((url) => {
+        bot.imageField = url
+      })).subscribe()
     }
 
     this._stories$$.update(bot).subscribe((botSaved) => {
@@ -102,20 +111,20 @@ export class NewStoryService implements OnDestroy {
     this._sbS.sink = this._stories$$.remove(story).subscribe({
       error: () => {
         this._toast.doSimpleToast(
-          this._translate.translate("TOAST.DELETE-BOT.SUCCESSFUL")
-        );
-      },
-      complete: () => {
-        this._dialog.closeAll()
-        this._toast.doSimpleToast(
           this._translate.translate("TOAST.DELETE-BOT.FAIL")
+          );
+        },
+        complete: () => {
+          this._dialog.closeAll()
+          this._toast.doSimpleToast(
+          this._translate.translate("TOAST.DELETE-BOT.SUCCESSFUL")
         );
       },
     });
   }
 
   createStoryEndBlock(orgId: string, storyId: string) {
-    let endBlock: EndStoryAnchorBlock = {
+    const endBlock: EndStoryAnchorBlock = {
       id: 'story-end-anchor',
       type: StoryBlockTypes.EndStoryAnchorBlock,
       position: {x: 200, y: 100},
