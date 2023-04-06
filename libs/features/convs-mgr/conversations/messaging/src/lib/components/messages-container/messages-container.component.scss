@@ -65,3 +65,22 @@ mat-list {
 .message-position {
   width: 100%;
 }
+
+.loading-container {
+  
+  position: absolute;
+  display: grid;
+  place-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 200;
+
+  mat-spinner::ng-deep circle {
+    stroke: var(--convs-mgr-color-primary-yellow) !important;
+  }
+}
+

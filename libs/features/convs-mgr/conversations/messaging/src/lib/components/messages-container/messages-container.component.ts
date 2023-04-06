@@ -15,6 +15,8 @@ import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
+import { SpinnerService } from '../../providers/spinner.service';
+
 @Component({
   selector: 'app-messages-container',
   templateUrl: './messages-container.component.html',
@@ -28,6 +30,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   lastDate: moment.Moment;
 
   subscription: Subscription;
+  unblocking$: Observable<boolean>;
 
   messages:  Message[];
   messages$: Observable<Message[]>;
@@ -41,11 +44,14 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   constructor(private _messages$$: MessagesQuery,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
-              private router: Router)
-  {}
+              private router: Router,
+              private _spinner: SpinnerService
+  ){}
 
   ngOnInit()
-  {  }
+  {  
+    this.unblocking$ = this._spinner.showSpinner
+  }
 
   ngOnChanges(changes: SimpleChanges)
   {
@@ -107,7 +113,9 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
     try {
       this._container.nativeElement.scrollTop = this._container.nativeElement.scrollHeight;
     }
-    catch(err) { }
+    catch(err) { 
+      //
+    }
   }
 
   isNewDate(message: Message)
