@@ -37,6 +37,9 @@
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
+      "@app/elements/layout/modals": [
+        "libs/elements/layout/modals/src/index.ts"
+      ],
       "@app/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
       "@app/elements/layout/page-convl": [
         "libs/elements/layout/page-convl/src/index.ts"
