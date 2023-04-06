@@ -1,1 +1,1 @@
-export * from './lib/elements-layout-modals';
+export * from './lib/elements-layout-modals.module';
