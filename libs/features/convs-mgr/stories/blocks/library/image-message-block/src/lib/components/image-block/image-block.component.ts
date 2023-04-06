@@ -13,6 +13,8 @@ import { FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
+
 @Component({
   selector: 'app-image-block',
   templateUrl: './image-block.component.html',
@@ -60,6 +62,17 @@ export class ImageBlockComponent implements OnInit {
   getFileNameFromFbUrl(fbUrl: string): string {
     return fbUrl.split('%2F')[1].split("?")[0];
   }
+
+  openErrorModal() {
+    this.dialog.open(ErrorPromptModalComponent, {
+      width: '400px',
+      data: {
+        title: 'Invalid File Type',
+        message: 'Please select an image file (.jpg, .jpeg, .png) only.'
+      }
+    });
+  }
+  
 
   async processImage(event: any) {
     if (event.target.files && event.target.files[0]) {
