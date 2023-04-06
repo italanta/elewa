@@ -9,6 +9,29 @@
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
     "elements-base-firebase": "libs/elements/base/firebase",
+    "elements-layout-modals": {
+      "root": "libs/elements/layout/modals",
+      "sourceRoot": "libs/elements/layout/modals/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/elements/layout/modals/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/elements/layout/modals"],
+          "options": {
+            "jestConfig": "libs/elements/layout/modals/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-layout-page": "libs/elements/layout/page",
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
