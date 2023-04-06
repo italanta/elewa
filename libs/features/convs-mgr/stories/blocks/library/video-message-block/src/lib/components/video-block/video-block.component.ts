@@ -59,7 +59,7 @@ export class VideoBlockComponent implements OnInit {
   }
 
   async processVideo(event: any) {
-    this.isLoading = true; // set isLoading to true to show the spinner
+    this.isLoading = true;
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.videoLink = e.target.result;
@@ -74,7 +74,7 @@ export class VideoBlockComponent implements OnInit {
 
     this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
     (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
-    this.isLoading = false; // set isLoading to false to hide the spinner
+    this.isLoading = false;
   }
   
 }
