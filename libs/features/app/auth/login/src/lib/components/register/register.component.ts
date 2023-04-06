@@ -35,11 +35,11 @@ export class RegisterComponent
   private _initForm()
   {
     this.registerForm = this._fb.group({
-      firstName:new FormControl({value: '', disabled: false}, Validators.required),
-      lastName:new FormControl({value: '', disabled:false}, Validators.required),
-      email:new FormControl({value: '', disabled: false}, [Validators.required,Validators.email]),
-      password:new FormControl({value: '', disabled: false}, Validators.required),
-      confirmPassword:new FormControl({value: '', disabled: false}, Validators.required),
+      firstName:[{value: '', disabled: false}, Validators.required],
+      lastName:[{value: '', disabled: false}, Validators.required],
+      email:[{value: '', disabled: false}, [Validators.required,Validators.email]],
+      password:[{value: '', disabled: false}, Validators.required],
+      confirmPassword:[{value: '', disabled: false}, Validators.required],
       acceptConditions: [ false, [Validators.required]]
 
     },
@@ -54,15 +54,12 @@ export class RegisterComponent
     if(this.registerForm.valid)
     {
       this.isLoading = true;
-      this.registerForm.get('firstName')?.disable();
-      this.registerForm.get('lastName')?.disable();
-      this.registerForm.get('email')?.disable();
-      this.registerForm.get('password')?.disable();
-      this.registerForm.get('confirmPassword')?.disable();
-      this.registerForm.get('acceptConditions')?.disable();
+
       const frm = this.registerForm.value;
       const firstName = frm.firstName;
       const lastName = frm.lastName;
+
+      this.registerForm.disable()
 
       const user  = {
         email: frm.email,
