@@ -25,6 +25,8 @@ import { StashChatModal } from './modals/stash-chat-modal/stash-chat-modal.compo
 import { ViewDetailsModal } from './modals/view-details-modal/view-details-modal.component';
 import { MoveChatModal } from './modals/move-chat-modal/move-chat-modal.component';
 
+import { FilterPipe } from './pipes/filter.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ import { MoveChatModal } from './modals/move-chat-modal/move-chat-modal.componen
     ConfirmActionModal,
     ViewDetailsModal,
     MoveChatModal,
-    StashChatModal
+    StashChatModal,
+    FilterPipe
   ]
 })
 export class ConvsMgrConversationsChatsModule { }

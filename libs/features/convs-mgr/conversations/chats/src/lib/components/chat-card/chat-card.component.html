@@ -7,7 +7,15 @@
   <div class="text-section" fxLayout="column" fxFlex>
     <div class="top-section" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="name-section">
-        {{ chat.name || '+' + chat.phoneNumber }}
+        <div class="name-section">
+          {{ chat.name || '+' + chat.phoneNumber }}
+        </div>
+        <div *ngIf="chat.phoneNumber && chat.name" class="name-section number">
+          {{ '+' + chat.phoneNumber }}
+        </div>
+        <!-- <div *ngIf="chat.class" class="name-section">
+          {{ '+' + chat.class }}
+        </div> -->
       </div>
       <div class="date-section" fxFlex="30">
         {{ lastMessageDate }}

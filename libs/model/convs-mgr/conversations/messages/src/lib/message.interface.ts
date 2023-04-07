@@ -58,13 +58,13 @@ export interface Message extends IObject
  */
 export enum MessageDirection
 {
-  TO_END_USER       =  5,
+  FROM_AGENT_TO_END_USER      =  5,
 
-  FROM_END_USER     =  10,
+  FROM_ENDUSER_TO_AGENT       =  20,
 
-  TO_CHATBOT        =  15,
+  FROM_END_USER_TO_CHATBOT    =  15,
 
-  TO_AGENT          =  20
+  FROM_CHATBOT_TO_END_USER    =  25,
 }
 
 /**

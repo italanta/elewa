@@ -20,6 +20,8 @@ export interface Chat extends IObject
 
   name: string;
 
+  labels: string[];
+
   info?: ChatUserInfo;
 
   // channel: CommunicationChannel;
@@ -51,6 +53,8 @@ export interface Chat extends IObject
   instructors?: string[];
 
   lastMsg?: any;
+
+  isConversationComplete?: number;
 }
 
 export interface ChatUserInfo {

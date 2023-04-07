@@ -38,7 +38,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
   {
     try {
       // STEP 1: Check if the message is meant for the end user
-      if (outgoingPayload.direction !== MessageDirection.TO_END_USER) return { status: 200 } as RestResult;
+      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER) return { status: 200 } as RestResult;
 
       tools.Logger.log(() => `[WhatsAppSendOutgoingMsgHandler] - Outgoing message: ${JSON.stringify(outgoingPayload)}`);
 
@@ -83,15 +83,19 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       // Check if the last message sent was more than 24hours ago
       if ((Date.now() - latestMessageTime) > 86400000) {
         const templateConfig = communicationChannel.templateConfig;
+        if(templateConfig) {
         // Send the opt-in message template
 
         // Get the opt-in message template
         outgoingMessagePayload = activeChannel
-                                  .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+        .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+        }
       }}
 
       // STEP 5: Send the message
       await activeChannel.send(outgoingMessagePayload as any);
+
+      tools.Logger.error(() => `[WhatsAppSendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
 
       return { success: true } as RestResult200;
     } catch (error) {
