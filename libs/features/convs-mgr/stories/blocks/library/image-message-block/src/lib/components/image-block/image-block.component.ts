@@ -13,7 +13,6 @@ import { FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 
 @Component({
   selector: 'app-image-block',
@@ -40,9 +39,10 @@ export class ImageBlockComponent implements OnInit {
   isLoadingImage: boolean = false;
   imageLink: string;
   hasImage: boolean = false;
+ 
 
   constructor(private _imageUploadService: FileStorageService,
-              public domSanitizer: DomSanitizer
+              public domSanitizer: DomSanitizer,
   ) {
     this.block = this.block as ImageMessageBlock;
   }
@@ -63,18 +63,16 @@ export class ImageBlockComponent implements OnInit {
     return fbUrl.split('%2F')[1].split("?")[0];
   }
 
-  openErrorModal() {
-    this.dialog.open(ErrorPromptModalComponent, {
-      width: '400px',
-      data: {
-        title: 'Invalid File Type',
-        message: 'Please select an image file (.jpg, .jpeg, .png) only.'
-      }
-    });
-  }
-  
+  async processImage(event: any) {   
+     const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  const selectedFileType = event.target.files[0].type;
 
-  async processImage(event: any) {
+  if (!allowedFileTypes.includes(selectedFileType)) {
+    //error modal displayed here
+    this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
+    event.target.value = '' //clear input
+     return;
+  }
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imageLink = e.target.result;
