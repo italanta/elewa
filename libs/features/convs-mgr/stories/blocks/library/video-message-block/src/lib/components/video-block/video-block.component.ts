@@ -7,9 +7,10 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { UploadFileService } from '@app/state/file';
+import { UploadFileService, FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-video-block',
@@ -39,7 +40,8 @@ export class VideoBlockComponent implements OnInit {
   videoInputUpload: string = '';
 
   constructor(private _videoUploadService: UploadFileService,
-              private _ngfiStorage:AngularFireStorage
+              private _ngfiStorage:AngularFireStorage,
+              private _fileStorageService: FileStorageService
   ) 
   {
     this.block = this.block as VideoMessageBlock;
@@ -58,6 +60,18 @@ export class VideoBlockComponent implements OnInit {
   }
 
   async processVideo(event: any) {
+
+    const allowedFileTypes = ['video/mp4'];
+
+    if (!allowedFileTypes.includes(event.target.files[0].type)) {
+      //error modal displayed here
+      this._fileStorageService.openErrorModal("Invalid File Type", "Please select a .mp4 only.");
+      event.target.value = '' //clear input
+       return;
+    }
+
+
+
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.videoLink = e.target.result;
@@ -71,6 +85,13 @@ export class VideoBlockComponent implements OnInit {
     this.videoMessageForm.get('fileName')?.setValue(this.file.name);
 
     this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
-    (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
+    (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).pipe(
+      catchError(error => {
+        console.error('Error uploading file:', error);
+        return of(null);
+      })
+    ).subscribe(() => {
+      this.isLoadingVideo = false;
+    });
   }
 }
