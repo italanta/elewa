@@ -1,0 +1,107 @@
+.container {
+    padding: 5% 5%;
+    overflow-y: hidden;
+    overflow-x: hidden    ;
+  }
+  
+  .title {
+    color: var(--convs-mgr-color-700);
+    text-align: center;
+    font-weight: 600;
+  }
+  #close__icon{
+    height: 30px;
+    width: 30px;
+    position: relative;
+    right: -850px;
+    color: var(--convs-mgr-color-700);
+  }
+  .wrapper {
+      /* padding: 0 5; */
+      width: 100%; 
+      display: flex;
+      display: -ms-grid;
+      display: grid;
+      -ms-grid-columns: (350px);
+      grid-template-columns: repeat(2, 350px);
+      justify-content: center;
+      grid-gap: 40px;
+  }
+  .apply__button {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    background-color: var(--convs-mgr-color-primary-purple);
+    font-size: medium;
+    font-weight: bold;
+    color: var(--convs-mgr-color-primary-white);
+    width: 120px;
+    border-radius: 6px;
+  }
+  .apply {
+    padding-top: 5px;
+  }
+  .left__side {
+     background-color: var(--convs-mgr-color-primary-white); 
+  }
+  
+  #name-input {
+    border: none;
+    outline: none;
+    background-color: var(--convs-mgr-color-tertiary-tint);
+  }
+  
+  .right__side {
+    font-size: small;
+    max-height: 500px;
+    background-color:var(--convs-mgr-color-primary-white);
+  }
+  .right__header{
+      color: var(--convs-mgr-color-700);
+      font-weight: 600;
+  }
+  .p__text {
+    color: var(--convs-mgr-color-700);
+    font-weight: 600;
+  }
+  .name__input {
+    outline: none;
+    width: 96%;
+  }
+  .size__options {
+    color: var(--convs-mgr-color-700);
+    padding-left: 10px;
+    font-weight: bold;
+  }
+  .thumbnail{
+  background-color: red;
+  border-radius: 2.5%;
+  }
+  .resolution {
+    padding-left: 20px;
+    font-size: 12px;
+    opacity: 0.7
+  }
+  
+  input[type="radio"]{
+      color: var(--convs-mgr-color-700);
+      cursor: pointer;
+      background-color: var(--convs-mgr-color-700);
+      
+  }
+  
+  .heading{
+    padding: none;
+    height: fit-content;
+  }
+  .input__div{
+    line-height: 1px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
