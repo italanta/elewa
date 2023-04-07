@@ -11,6 +11,7 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 
 import { ListBlockComponent } from './components/list-block/list-block.component';
 
@@ -24,16 +25,12 @@ import { ListBlockComponent } from './components/list-block/list-block.component
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrReusableTextAreaModule,
   ],
 
-  declarations: [
-    ListBlockComponent
-  ],
+  declarations: [ListBlockComponent],
 
-  exports: [
-    ListBlockComponent
-  ]
+  exports: [ListBlockComponent],
 })
-
-export class ConvsMgrListMessageBlockModule { }
+export class ConvsMgrListMessageBlockModule {}

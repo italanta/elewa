@@ -4,6 +4,7 @@ import { BotDataService } from './data-service-abstract.class';
 
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { throws } from 'assert';
 
 /**
  * Contains all the required database flow methods for the chat-status collection
@@ -24,12 +25,12 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
     this._docPath = `orgs/${orgId}/end-users`;
   }
 
-  async createEndUser(endUserId: string, phoneNumber: string, storyId: string)
+  async createEndUser(endUserId: string, phoneNumber: string)
   {
     const newEndUser: EndUser = {
-      currentStory: storyId,
       phoneNumber,
       status: ChatStatus.Running,
+      id: endUserId,
 
     };
 
@@ -38,12 +39,18 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
     return endUser;
   }
 
-  async getEndUser(endUserId: string)
+  async getOrCreateEndUser(endUserId: string, phoneNumber: string)
   {
 
-    const endUser = await this.getDocumentById(endUserId, this._docPath);
+    let endUser = await this.getDocumentById(endUserId, this._docPath);
+
+    if(!endUser) endUser = await this.createEndUser(endUserId, phoneNumber);
 
     return endUser;
+  }
+
+  async getEndUser(endUserId: string) {
+    return this.getDocumentById(endUserId, this._docPath);
   }
 
   async updateEndUser(endUser: EndUser)
@@ -58,5 +65,23 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
       status,
     };
     await this.createDocument(newStatus, this._docPath, endUser.id);
+  }
+
+  /**
+   *  Updates the end-user's conversation status to complete
+   */
+  async setConversationComplete(endUserId: string, value: number)
+  {
+    const endUser = await this.getDocumentById(endUserId, this._docPath);
+    if(endUser) {
+      const isConversationComplete = value;
+
+      const newStatus: EndUser = {
+        ...endUser,
+        isConversationComplete
+      };
+  
+      await this.updateDocument(newStatus, this._docPath, endUser.id);
+    }
   }
 }

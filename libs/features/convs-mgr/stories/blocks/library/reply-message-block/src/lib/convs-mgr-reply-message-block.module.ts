@@ -11,6 +11,7 @@ import {
 } from '@iote/bricks-angular';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 
 import { ReplyBlockComponent } from './components/reply-block/reply-block.component';
 
@@ -25,12 +26,12 @@ import { ReplyBlockComponent } from './components/reply-block/reply-block.compon
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrReusableTextAreaModule,
   ],
 
   declarations: [ReplyBlockComponent],
 
   exports: [ReplyBlockComponent],
 })
-
-export class ConvsMgrReplyMessageBlockModule { }
+export class ConvsMgrReplyMessageBlockModule {}

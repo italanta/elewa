@@ -29,11 +29,6 @@ export class ConlvSideNavContainerComponent
     this._checkIsDesktop();
   }
 
-  toggleSidemenu()
-  {
-    this.opened = !this.opened;
-    this.menuStatusEvent.emit(this.opened)
-  }
 
   @HostListener('window: resize', ['$event'])
   onResize() {

@@ -10,6 +10,8 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { finalize } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-block',
@@ -23,7 +25,7 @@ export class VideoBlockComponent implements OnInit {
   @Input() block: VideoMessageBlock;
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-  @Input() isLoading = false;
+  
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
@@ -31,16 +33,17 @@ export class VideoBlockComponent implements OnInit {
   blockFormGroup: FormGroup;
 
   file: File;
-  videoLink: string = "";
   videoInputId: string;
   isLoadingVideo: boolean;
   hasVideo: boolean;
-  videoUrl: string;
+  videoUrl: any;
 
   videoInputUpload: string = '';
+  videoId: any;
+  private _afs: any;
 
   constructor(private _videoUploadService: UploadFileService,
-              private _ngfiStorage:AngularFireStorage
+    public domSanitizer: DomSanitizer
   ) 
   {
     this.block = this.block as VideoMessageBlock;
@@ -59,10 +62,9 @@ export class VideoBlockComponent implements OnInit {
   }
 
   async processVideo(event: any) {
-    this.isLoading = true;
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e: any) => this.videoLink = e.target.result;
+      reader.onload = (e: any) => this.videoUrl = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingVideo = true;
@@ -72,9 +74,7 @@ export class VideoBlockComponent implements OnInit {
     this.isLoadingVideo = true;
     this.videoMessageForm.get('fileName')?.setValue(this.file.name);
 
-    this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
     (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
-    this.isLoading = false;
-  }
-  
+    this.isLoadingVideo = false;
+  }  
 }

@@ -53,12 +53,6 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
     // Get users
     // Takes longer than get by Id
     const channelInfo = await this.getDocumentById(id ,this._docPath)
-    
-    if (!channelInfo)
-      this.tools.Logger.error(() => `[ChannelInfo].getChannelInfo - The user has not been registered to a channel: ${JSON.stringify(id)}`);
-
-
-    this.tools.Logger.log(() => `[ChannelInfo].getChannelInfo - Channel Information acquired successfully: ${JSON.stringify(channelInfo)}`);
 
     return channelInfo;
   }

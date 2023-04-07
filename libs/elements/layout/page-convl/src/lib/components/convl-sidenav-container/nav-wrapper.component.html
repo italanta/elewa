@@ -1,10 +1,10 @@
 <div class="page-content-wrapper"  *ngIf="user$ | async as user; else loading">
 
-  <mat-sidenav-container (backdropClick)="toggleSidemenu()" autosize>
+  <mat-sidenav-container autosize>
 
     <mat-sidenav #sidenav [mode]="mode" opened="true" class="mat-elevation-z4" autosize>
 
-      <convl-sidemenu (menuToggled)="toggleSidemenu()" [user]="user" fxFlex="column" fxFill></convl-sidemenu>
+      <convl-sidemenu [user]="user" fxFlex="column" fxFill></convl-sidemenu>
 
     </mat-sidenav>
 

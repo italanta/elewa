@@ -1,0 +1,28 @@
+.input-row{
+  padding: 5px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  border: 2px solid  #000000;
+  // border-color: #000000;
+  width: 95%;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
+  outline: none;
+}
+
+textarea:disabled {
+  background-color: lightgray;
+}
+
+button {
+  height: 4.5rem !important;
+  min-width: 100px;
+  background-color: var(--convs-mgr-color-primary-yellow) !important;
+  margin-left: 5px;
+  color: black !important;
+}

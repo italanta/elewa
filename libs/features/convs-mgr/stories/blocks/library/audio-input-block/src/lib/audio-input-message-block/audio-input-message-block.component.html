@@ -1,10 +1,9 @@
-<mat-card [id]="id" *ngIf=" audioInputForm">
-	<mat-card-content>
-		<form [formGroup]="audioInputForm" fxLayout="column" fxLayoutALign="start center">
-			<input [id]="audioInputForm" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-INPUT' | transloco" />
+<div [id]="id" *ngIf=" audioInputForm">
+	<form [formGroup]="audioInputForm" fxLayout="column" fxLayoutALign="start center">
+		<input [id]="audioInputForm" formControlName="message" type="text"
+			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-INPUT' | transloco" />
 
-			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioInputForm"></app-default-option-field>
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioInputForm"></app-default-option-field>
 
-		</form>
-	</mat-card-content>
-</mat-card>
+	</form>
+</div>

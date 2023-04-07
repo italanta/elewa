@@ -1,10 +1,9 @@
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 /**
  * Block which sends a message in the form of text.
  */
-export interface TextMessageBlock extends StoryBlock
-{
+export interface TextMessageBlock extends StoryBlock {
   /** Message to accompany image. */
   message?: string;
 

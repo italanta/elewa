@@ -9,6 +9,7 @@ import {
 } from '@iote/bricks-angular';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 
 import { MessageBlockComponent } from './components/message-block/message-block.component';
 
@@ -22,7 +23,8 @@ import { MessageBlockComponent } from './components/message-block/message-block.
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    ConvsMgrReusableTextAreaModule,
   ],
 
   declarations: [MessageBlockComponent],
