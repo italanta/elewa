@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SpinnerService {
   private unBlockState$ = new BehaviorSubject(false);
-  readonly showSpinner = this.unBlockState$.asObservable();
+  readonly showSpinner$ = this.unBlockState$.asObservable();
 
   /**
    * Show spinner
