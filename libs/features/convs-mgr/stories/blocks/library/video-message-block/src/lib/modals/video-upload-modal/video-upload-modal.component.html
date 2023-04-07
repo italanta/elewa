@@ -1,3 +1,59 @@
-<ng-template transloco let-t>
-  <h1> {{ t('title') }} </h1>
-</ng-template>
+<form class="container">
+  <div class="heading">
+    <div (click)="closeModal()" id="close__icon">
+      <i class="fas fa-times"></i>
+    </div>
+    <ng-template transloco let-t>
+      <h2 class="title">{{ t('Upload Video') }}</h2>
+    </ng-template>
+  </div>
+  <div class="wrapper">
+    <div class="left__side">
+      <p class="p__text">Give This media Item a Name</p>
+      <label for="name-input" class="name__input"> 
+        <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="name" />
+      </label>
+      <br />
+      <div [id]="videoInputId"> <!--why is there a validations error here?-->
+        <input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
+        <label [for]="videoInputUpload">
+          <div *ngIf="!hasVideo; else inputHasVideo">
+            <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" class="thumbnail" />
+          </div>
+          <ng-template #inputHasVideo>
+            <video class="upload-video" alt="" controls>
+              <source [src]="videoUrl" type="video/mp4">
+            </video>
+          </ng-template>
+        </label>
+      </div>
+    </div>
+
+    <div class="right__side">
+      <div>
+        <h3 class="right__header">Media Encoding</h3>
+        <label
+          >Please select the size you want to encode the video. <br />
+          The larger the video the longer it will take to load and play</label
+        >
+      </div>
+      <div class="input__div" *ngFor="let option of sizeOptions">
+        <input
+          type="radio"
+          name="size"
+          [value]="option.vidSize"
+          id="{{ option.vidSize }}"
+          [checked]="option.vidSize === '720p (Recommended)'"
+         
+        />
+        <label for="{{ option.vidSize }}" class="size__options"  formControlName="size">{{
+          option.vidSize
+        }}</label>
+        <p class="resolution">{{ option.resolution }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="apply">
+    <button (click)="apply()" class="apply__button">Apply</button>
+  </div>
+</form>
