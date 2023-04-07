@@ -73,6 +73,8 @@ export class DocumentBlockComponent implements OnInit {
       catchError(error => {
         console.error('Error uploading file:', error);
         // show error message to user
+         this._fileStorageService.openErrorModal("Error occurred", "Try again later.");
+        event.target.value = '' //clear input
         return of(null);
       })
     ).subscribe(() => {

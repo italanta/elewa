@@ -78,16 +78,20 @@ export class VideoBlockComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingVideo = true;
+    
     }
     //Step 1 - Create the file path that will be in firebase storage
     const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
     this.isLoadingVideo = true;
     this.videoMessageForm.get('fileName')?.setValue(this.file.name);
-
+   
     this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
+    
     (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).pipe(
       catchError(error => {
         console.error('Error uploading file:', error);
+        this._fileStorageService.openErrorModal("Error occurred", "Try again later.");
+        event.target.value = '' //clear input
         return of(null);
       })
     ).subscribe(() => {

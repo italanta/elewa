@@ -92,8 +92,10 @@ export class ImageBlockComponent implements OnInit {
     }).catch((error) => {
       console.error('Error uploading file:', error);
       this.isLoadingImage = false;
-      this.imageLink = '';
-      this.hasImage = false;
+    
+      // show error message to user
+      this._imageUploadService.openErrorModal("Error occurred", "Try again later.");
+      event.target.value = '' //clear input
     })
   }
 
