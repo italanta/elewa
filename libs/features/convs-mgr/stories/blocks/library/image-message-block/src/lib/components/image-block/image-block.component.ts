@@ -64,10 +64,10 @@ export class ImageBlockComponent implements OnInit {
   }
 
   async processImage(event: any) {   
-     const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
-  const selectedFileType = event.target.files[0].type;
+  
+  const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
-  if (!allowedFileTypes.includes(selectedFileType)) {
+  if (!allowedFileTypes.includes(event.target.files[0].type)) {
     //error modal displayed here
     this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
     event.target.value = '' //clear input
@@ -88,6 +88,12 @@ export class ImageBlockComponent implements OnInit {
 
     this._imageUploadService.uploadSingleFile(this.file, imgFilePath).then((url) => {
       url.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
+      this.isLoadingImage = false;
+    }).catch((error) => {
+      console.error('Error uploading file:', error);
+      this.isLoadingImage = false;
+      this.imageLink = '';
+      this.hasImage = false;
     })
   }
 
