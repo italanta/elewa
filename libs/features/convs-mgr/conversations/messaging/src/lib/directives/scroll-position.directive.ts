@@ -24,8 +24,6 @@ export class ScrollPositionDirective {
       if (top === 0) {
         this.scrollPosition.emit('top');
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) { /* empty */ }
   }
 }
