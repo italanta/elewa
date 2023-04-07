@@ -29,24 +29,25 @@ import { ConvsMgrReplyMessageBlockModule } from '@app/features/convs-mgr/stories
 
 import { ConvsMgrJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/jump-story-block';
 import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block';
-import { ConvsMgrImageInputBlockModule} from '@app/features/convs-mgr/stories/blocks/library/image-input-block';
+import { ConvsMgrImageInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-input-block';
 import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
 import { ConvsMgrStoriesWebhookBlockModule } from '@app/features/convs-mgr/stories/blocks/library/webhook-block';
 
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/open-ended-question-block';
+import { ConvsMgrMultiContentInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/multi-content-input-block';
 
 import { ConvsMgrVideoInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-input-block';
+import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/keyword-jump-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
-
 @NgModule({
   imports: [
-    CommonModule, 
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
@@ -77,20 +78,21 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrImageInputBlockModule,
     ConvsMgrAudioInputBlockModule,
     ConvsMgrStoriesWebhookBlockModule,
+    ConvsMgrMultiContentInputBlockModule,
 
     ConvsMgrAnchorBlockModule,
     ConvsMgrVideoInputBlockModule,
     ConvsMgrOpenEndedQuestionBlockModule,
+    ConvsMgrKeywordJumpBlockModule,
 
-    FileStateModule
-  
+    FileStateModule,
   ],
 
-  declarations: [
-    BlockComponent
-  ],
+  declarations: [BlockComponent],
+
+  exports: [BlockComponent],
 
   // Injector which creates all block types within the editor context.
   providers: [BlockInjectorService, UploadFileService],
 })
-export class BlocksLibraryModule { }
+export class BlocksLibraryModule {}

@@ -7,9 +7,11 @@ import {
   MaterialBricksModule,
   MaterialDesignModule,
 } from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { MultiLangModule } from '@ngfi/multi-lang';
+import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
+
 import { QuestionsBlockComponent } from './components/questions-block/questions-block.component';
 
 @NgModule({
@@ -23,15 +25,13 @@ import { QuestionsBlockComponent } from './components/questions-block/questions-
     FormsModule,
     ReactiveFormsModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+
+    ConvsMgrReusableTextAreaModule,
   ],
 
-  declarations: [
-    QuestionsBlockComponent
-  ],
+  declarations: [QuestionsBlockComponent],
 
-  exports: [
-    QuestionsBlockComponent
-  ]
+  exports: [QuestionsBlockComponent],
 })
 export class ConvsMgrQuestionBlockModule {}

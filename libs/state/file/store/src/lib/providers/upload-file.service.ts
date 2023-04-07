@@ -25,6 +25,9 @@ import { FileUpload } from '../model/file-upload.interface';
 
 /**This service handles the upload of files on firestorage and firestore*/
 export class UploadFileService {
+  uploadSingleFile(file: File, vidFilePath: string) {
+    throw new Error('Method not implemented.');
+  }
 
   //The filepath on firestore for the files
   protected _activeRepo: Repository<FileUpload>;

@@ -33,6 +33,13 @@
       </div>
 
     </div>
+
+    <mat-error>
+      <span *ngIf="!fileSizeIsValid">
+        The file size is too large. Please upload a file smaller than 1MB.
+      </span>
+    </mat-error>
+
     <h4 class="create-bot-name">
       {{ 'BOTS.FIELDS.NAME' | transloco }}
     </h4>
@@ -49,7 +56,7 @@
       </div>
 
       <div>
-        <button mat-raised-button class="add-btn" (click)="submitForm()">
+        <button [disabled]="isSavingStory" mat-raised-button class="add-btn" (click)="submitForm()">
           <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
           <ng-template #isEdit>
             <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
@@ -57,5 +64,6 @@
         </button>
       </div>
     </div>
+
   </form>
 </div>

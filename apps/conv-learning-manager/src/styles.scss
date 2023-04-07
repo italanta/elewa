@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@use '@angular/material' as mat; 
+@use '@angular/material' as mat;
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
 @import '_theme';
@@ -9,7 +9,8 @@
   font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
 }
@@ -32,21 +33,20 @@ html, body {
 .frame-connector {
   z-index: -1;
 }
+
 .jtk-overlay {
   background-color: #ffffff;
   border: none;
   border-radius: 30px;
   padding: 8px 8px 6px 8px;
   cursor: pointer;
-  position:relative;
+  position: relative;
   display: none;
   z-index: 5;
-
-  
 }
 
 .jtk-overlay svg {
-  color: var(--convs-mgr-color-primary-pink)!important;
+  color: var(--convs-mgr-color-primary-pink) !important;
   font-size: 16px !important;
 }
 
@@ -59,30 +59,25 @@ html, body {
   z-index: 4;
 }
 
-.jtk-hover + .jtk-overlay{
+.jtk-hover+.jtk-overlay {
   display: block;
 }
 
-// spinner
-@keyframes spin {
-	from { transform: rotate(0deg); }
-	to { transform: rotate(360deg); }
-  }
+.doc-icon {
+	text-align: center;
+	color: var(--convs-mgr-color-primary-purple) !important;
+	width: 200px;
+	height: 100px;
+	background-color: var(--convs-mgr-color-primary-white) !important;
+	opacity: 1;
 
-.spinner {
-	display: flex;
-	position: absolute;
-	right: 1;
-  }
-  
-  .spinner::after {
-	content: '';
-	display: block;
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	border: 4px solid #f3f3f3;
-	border-top: 4px solid var(--convs-mgr-color-primary-purple);
-	animation: spin 1s linear infinite;
-  }
-  
+	.fa-file-doc {
+		color: var(--convs-mgr-color-primary-purple) !important;
+		border: none;
+	}
+
+	.fa-spin {
+		color: var(--convs-mgr-color-primary-purple) !important;
+		border: none;
+	}
+}

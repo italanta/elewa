@@ -15,4 +15,10 @@ export class ExactMatch implements MatchStrategy {
 
     return optionIndex;
   }
+
+  matchText(text: string, options: any[]) {
+    const optionIndex: number = __findIndex(options, (o) => o.message.toLowerCase() == text.toLowerCase());
+
+    return optionIndex;
+  }
 }

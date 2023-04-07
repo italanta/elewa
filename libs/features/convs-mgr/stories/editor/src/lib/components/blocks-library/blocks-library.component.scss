@@ -1,16 +1,35 @@
 .nav {
 	max-width: 100%;
+	max-height: calc(100vh - 64px);
 	padding: 10px;
+	margin-bottom: 20%;
+	overflow-y: hidden;
+	scrollbar-gutter: stable both-edges;
 }
 
-h4,
-.search {
+.nav:hover{
+	overflow-y: scroll;
+	scrollbar-gutter: stable both-edges;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+  }
+
+h4 {
 	padding: 0 16px;
+}
+
+.search, .search input {
+	max-width: 100%;
+}
+.block-wrapper{
+	height: max-content;
 }
 
 .blocks-main {
 	min-width: 100%;
-	height: 80px;
+	height: 60px;
 
 	border-radius: 5px;
 	background-color: white;
@@ -37,10 +56,15 @@ h4,
 }
 
 .block-messages {
-
 	font-size: 0.8rem;
 	text-align: center;
-	white-space: nowrap;
+	white-space:normal;
+	word-break:normal;
+	height: max-content;
 	font-weight: 500;
 	color: black;
+}
+
+::ng-deep .mat-mdc-form-field {
+	max-width: 100%;
 }

@@ -6,6 +6,7 @@ import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
+import { TranslateService } from '@ngfi/multi-lang';
 
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
@@ -13,8 +14,6 @@ import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { JumpBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Story } from '@app/model/convs-mgr/stories/main';
-
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 /**
  * Block which sends a message from bot to user.
@@ -42,7 +41,6 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   optionClass: string;
   jumpBlockOptions: any[];
 
-  transloco: string;
   type: StoryBlockTypes;
   jumpType = StoryBlockTypes.JumpBlock;
   blockFormGroup: FormGroup;
@@ -50,6 +48,7 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   constructor(private _stories$$: StoriesStore,
     private _fb: FormBuilder,
     private _storyBlockStore$$: StoryBlocksStore,
+    private _translate: TranslateService,
     private _logger: Logger)
   { }
 
@@ -78,11 +77,11 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   setJumpBlockOptions()
   {
     this.jumpBlockOptions = [{
-      message: `${"PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.SUCCESS" || this.transloco}`,
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.SUCCESS"),
       value: "success"
     },
     {
-      message: `${"PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.FAILED" || this.transloco}`,
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.FAILED"),
       value: "failed"
     }
 

@@ -1,4 +1,4 @@
-@use '@angular/material' as mat; 
+@use '@angular/material' as mat;
 @use 'sass:map';
 @use '_variables';
 
@@ -87,7 +87,7 @@ $theme: mat.define-light-theme(
   (
   color: (
     primary: $primary,
-    accent: $accent, 
+    accent: $accent,
  ),
  typography: $custom-typography,
 ));
@@ -220,9 +220,7 @@ a:focus {outline:0;}
 }
 
 
-.svg-inline--fa {
-  color: var(--convs-mgr-color-primary-purple);
-}
+
 /*
  *  Scrollbar styling
  */

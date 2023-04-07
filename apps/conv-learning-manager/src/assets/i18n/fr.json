@@ -62,7 +62,14 @@
         "VIDEO": "Video Bloquer",
         "STICKER": "Autocollant Bloquer",
         "LIST": "Liste Bloquer",
-        "DOCUMENT": "Document Bloquer"
+        "DOCUMENT": "Document Bloquer",
+        "WEBHOOK": "webhook Bloquer",
+        "IMAGE-INPUT": "Entrée d'images",
+        "VIDEO-INPUT":"entrée vidéo",
+        "AUDIO-INPUT":"entrée audio",
+        "LOCATION-INPUT":"saisie de position",
+        "KEYWORD-JUMP": "saut de mots-clés",
+        "JUMP":"saut"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
@@ -70,7 +77,22 @@
         "NAME": "Nom",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
-        "AUDIO-LINK":"Lien audio"
+        "AUDIO-LINK":"Lien audio",
+        "WEBHOOK": "Un webhook",
+        "IMAGE-INPUT": "Entrée d'images",
+        "VIDEO-INPUT":"entrée vidéo",
+        "AUDIO-INPUT":"entrée audio",
+        "LOCATION-INPUT":"saisie de position",
+        "JUMP": {
+          "SELECT_STORY": "sélectionner l'histoire",
+          "SELECT-BLOCK": "sélectionner le bloc"
+        }
+      },
+      "BUTTONS": {
+        "JUMP-BLOCK": {
+          "SUCCESS": "Succès",
+          "FAILED": "Échoué"
+        }
       }
     },
     "COMPONENTS": {
@@ -149,5 +171,8 @@
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
     }
+  },
+  "OPTION-INPUT": {
+    "MAX-CHARACTERS": "maximum de caractères atteint"
   }
 }

@@ -50,7 +50,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
-  frameZoom: number = 1;
+  frameZoom = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
   constructor(private _editorStateService: StoryEditorStateService,
@@ -124,6 +124,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
       container: this.frameElement
     })
     this.zoom(this.frameZoom);
+  }
+  setZoomByPinch(value:number){
+this.frameZoom=value
+this.zoom(this.frameZoom)
   }
 
   increaseFrameZoom() {

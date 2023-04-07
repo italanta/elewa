@@ -1,0 +1,26 @@
+<convl-page title="Chats" [breadcrumbs]="breadcrumbs"  fxLayout="column" fxFlexFill>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <!-- <div *ngIf="org$ | async as org"> -->
+        <!-- <h2>{{ org.name }} bots</h2> -->
+      </div>
+    </div>
+
+    <div id="add-btn-holder">
+      <!-- <button class="mat-raised-button"  (click)="openCreateDialog()">{{ 'BOTS.ACTIONS.LBL-NEW-BOT' | transloco }}</button> -->
+    </div>
+  <!-- </div> -->
+
+  <div class="sections" fxLayout="row" fxLayout.lt-md="column">
+
+    <app-chats-list fxFlex="30" fxFlex.lt-md="100" [fxHide.lt-md]="currentChat">
+    </app-chats-list>
+
+    <div fxFlex="70%" style="min-height: 100%;">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</convl-page>
