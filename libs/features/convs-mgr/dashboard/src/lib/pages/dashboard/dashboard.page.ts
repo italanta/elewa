@@ -32,7 +32,6 @@ export class DashboardPage implements OnInit
   }
 
   onChangeGraph(evt: any) {
-    debugger;
   }
 
   navToChats = (type: string) => this._router.navigate(['/chats']);
