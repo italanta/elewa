@@ -70,6 +70,9 @@ body {
 	height: 100px;
 	background-color: var(--convs-mgr-color-primary-white) !important;
 	opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 	.fa-file-doc {
 		color: var(--convs-mgr-color-primary-purple) !important;
