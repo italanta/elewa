@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -10,7 +9,6 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { finalize } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -40,7 +38,6 @@ export class VideoBlockComponent implements OnInit {
 
   videoInputUpload: string = '';
   videoId: any;
-  private _afs: any;
 
   constructor(private _videoUploadService: UploadFileService,
     public domSanitizer: DomSanitizer
