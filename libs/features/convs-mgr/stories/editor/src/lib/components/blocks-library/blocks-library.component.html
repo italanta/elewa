@@ -1,23 +1,177 @@
 <div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
-	<h4>{{'PAGE-CONTENT.COMPONENTS.TITLE'| transloco }}</h4>
-
 	<div class="search" fxFlex>
-		<mat-form-field class="search-input">
-			<mat-icon matSuffix>search</mat-icon>
-			<input matInput placeholder="search for a block" (input)="filterBlocks($event)">
+		<mat-form-field class="search-input" appearance="outline">
+			<input matInput placeholder="Search" (input)="filterBlocks($event)">
+      <mat-icon matPrefix>search</mat-icon>
 		</mat-form-field>
 	</div>
 
-	<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="space-between start" *ngIf="blockTemplate$ | async as blocks " fxFlex>
-		<div *ngFor="let block of blocks" (click)=" addBlock(block.type)" fxLayout="column" fxLayoutAlign="start center"
-			fxFlex="25" class="block-wrapper">
-			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
-				<i class="{{ block.blockIcon }}" id="icons"></i>
-			</div>
-			
-			<p class="block-messages">
-				{{ block.message }}
-			</p>
-		</div>
-	</div>
+	<div fxLayout="column" *ngIf="blockTemplate$ | async as blocks " fxFlex>
+    <!-- message block -->
+    <div class="block-list">
+      <h6>Message block</h6>
+     <div class="blocks">
+      <div (click)="addBlock(blocks[0].type)">
+        <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+          <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+        </div>
+        <p class="block-messages">
+          {{ blocks[0].message }}
+        </p>
+      </div>
+     </div>
+    </div>
+
+    <!-- Question block -->
+    <div fxLayout="column" class="block-list">
+      <h6>Question Block</h6>
+      <div class="blocks">
+        <!-- Buttons -->
+        <div (click)="addBlock(blocks[0].type)">
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+        <!-- Buttons -->
+        <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+        <!-- Buttons -->
+        <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Image block -->
+    <div fxLayout="column" class="block-list">
+      <h6>Image Block</h6>
+      <div class="blocks">
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+         <!-- Buttons -->
+         <div>
+          <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+            <i class="{{ blocks[0].blockIcon }}" id="icons"></i>
+          </div>
+          <p class="block-messages">
+            {{ blocks[0].message }}
+          </p>
+        </div>
+    </div>
+  </div>
 </div>
+
+
+
+
+
