@@ -5,6 +5,9 @@
 	margin-bottom: 20%;
 	overflow-y: hidden;
 	scrollbar-gutter: stable both-edges;
+  background-color: #F0EFF3;
+  color: slategray;
+
 }
 
 .nav:hover{
@@ -16,9 +19,6 @@
 	width: 5px;
   }
 
-h4 {
-	padding: 0 16px;
-}
 
 .search, .search input {
 	max-width: 100%;
@@ -30,15 +30,14 @@ h4 {
 .blocks-main {
 	min-width: 100%;
 	height: 60px;
-
 	border-radius: 5px;
 	background-color: white;
 	word-wrap: break-word;
-	box-shadow: slategray 2px 4px 8px;
+  box-shadow: 0px 10px -14px 14px #FFF;
 }
 
 .blocks-main:hover {
-	background-color: var(--convs-mgr-color-primary-purple) !important;
+  background-color: #FBC113 !important;
 
 	#icons {
 		color: white !important;
@@ -46,7 +45,7 @@ h4 {
 }
 
 #icons {
-	color: black;
+	color: slategray;
 	font-weight: 900;
 	align-items: center;
 
@@ -56,15 +55,52 @@ h4 {
 }
 
 .block-messages {
-	font-size: 0.8rem;
+	font-size: 0.7rem;
 	text-align: center;
 	white-space:normal;
 	word-break:normal;
 	height: max-content;
 	font-weight: 500;
-	color: black;
+	color: slategray;
+  margin: 0;
 }
 
 ::ng-deep .mat-mdc-form-field {
 	max-width: 100%;
 }
+
+::ng-deep .mat-mdc-form-field-infix{
+  min-height: 50px !important;
+}
+
+::ng-deep .mat-mdc-form-field-icon-prefix>.mat-icon, .mat-mdc-form-field-icon-suffix>.mat-icon {
+  padding-right: 2px !important;
+}
+
+::ng-deep .mdc-notched-outline__leading {
+  border: 2px solid var(--convs-mgr-color-text-white) !important;
+  border-right: none !important;
+}
+::ng-deep .mdc-notched-outline__notch {
+  border: 2px solid var(--convs-mgr-color-text-white) !important;
+  border-left: none !important;
+}
+::ng-deep .mdc-notched-outline__trailing {
+  border: 2px solid var(--convs-mgr-color-text-white) !important;
+  border-left: none !important;
+}
+
+.block-list{
+  margin-bottom: 1rem;
+  h6{
+    margin: 0;
+    margin-bottom: .4rem;
+  }
+  .blocks{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+}
+
+
