@@ -6,6 +6,10 @@
       <div *ngSwitchCase="nametype">
         <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
       </div>
+      
+      <div *ngSwitchCase="audiotype">
+        <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
+      </div>
 
       <div class="variable-defaults">
         <div class="variables_name">
