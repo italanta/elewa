@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-location-validations',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./location-validations.component.scss']
 })
 export class LocationValidationsComponent {
+
+  @Input() validate: boolean
+  @Input() variablesForm: FormGroup;
 
 }
