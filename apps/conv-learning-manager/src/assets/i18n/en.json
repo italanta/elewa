@@ -112,6 +112,7 @@
         "AUDIO-INPUT": "Audio Input",
         "WEBHOOK": "Url Input",
         "EVENT-NAME": "Event Name",
+        "0PTIONAL-PAYLOAD": "Optional - Payload",
         "JUMP": {
           "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
@@ -133,6 +134,9 @@
         "MIN": "Min",
         "PLACEHOLDER-MIN": "Min Characters",
         "ERROR-MESSAGE": "Validation Error Message"
+      },
+      "LABELS": {
+        "TRACK-MILESTONE": "Track as a milestone"
       }
     },
     "COMPONENTS": {
