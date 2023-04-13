@@ -18,6 +18,7 @@ import {
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
 import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
+import { Coordinate } from '../../model/coordinates.interface';
 
 /**
  * Component which holds a library (list) of all blocks that can be created 
@@ -67,7 +68,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock)} as EndStoryAnchorBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
-  coordinates: object;
+  coordinates: Coordinate;
   constructor(private _logger: Logger, private dragService: DragDropService) {}
 
   ngOnInit(): void {
@@ -75,10 +76,9 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
-    const dragSubscription = this.dragService.coord$.subscribe(position => this.coordinates = position)
-    this._sbS.add(dragSubscription);
+    this._sbS.sink = this.dragService.coord$.subscribe(position => this.coordinates = position)
   }
-  addBlock(type: number, coordinates?: object) {
+  addBlock(type: number, coordinates?: Coordinate) {
     switch (type) {
       case StoryBlockTypes.EndStoryAnchorBlock:
         this.frame.newBlock(StoryBlockTypes.EndStoryAnchorBlock, coordinates); 
