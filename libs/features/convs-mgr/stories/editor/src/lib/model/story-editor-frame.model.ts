@@ -16,6 +16,7 @@ import { EndAnchorComponent } from '@app/features/convs-mgr/stories/blocks/libra
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
+import { Coordinate } from './coordinates.interface';
 
 /**
  * Model which holds the state of a story-editor.
@@ -214,13 +215,13 @@ export class StoryEditorFrame {
    * Create a new block for the frame.
    * TODO: Move this to a factory later
    */
-  newBlock(type: StoryBlockTypes, coordinates:object = { x: 200, y: 50 }) {
+  newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
     const block = {
       id: `${this._cnt}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
-      position: coordinates,
+      position: coordinates ? coordinates : { x: 200, y: 50 },
     } as StoryBlock;
 
     this._cnt++;
