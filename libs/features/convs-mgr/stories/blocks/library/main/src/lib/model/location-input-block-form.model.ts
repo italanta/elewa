@@ -18,7 +18,7 @@ export function _CreateLocationInputBlockForm(_fb: FormBuilder, blockData: Locat
     type: [blockData.type ?? StoryBlockTypes.LocationInputBlock],
     position: [blockData.position ?? { x: 200, y: 50 }],
 
-    variables: _fb.group({
+    variable: _fb.group({
       name: [blockData.variable?.name ?? '', [Validators.required]],
       type: [blockData.variable?.type ?? 1, [Validators.required]],
       validate: [blockData.variable?.validate ?? false, [Validators.required]],
