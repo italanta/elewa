@@ -69,6 +69,7 @@
         "AUDIO-INPUT":"entrée audio",
         "LOCATION-INPUT":"saisie de position",
         "KEYWORD-JUMP": "saut de mots-clés",
+        "EVENT": "Événement",
         "JUMP":"saut"
       },
       "PLACEHOLDER": {
@@ -83,6 +84,7 @@
         "VIDEO-INPUT":"entrée vidéo",
         "AUDIO-INPUT":"entrée audio",
         "LOCATION-INPUT":"saisie de position",
+        "EVENT-NAME": "Nom de l'événement",
         "JUMP": {
           "SELECT_STORY": "sélectionner l'histoire",
           "SELECT-BLOCK": "sélectionner le bloc"

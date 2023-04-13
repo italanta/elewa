@@ -90,6 +90,7 @@
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
         "JUMP":"Jump",
+        "EVENT": "Event",
         "END-BLOCK":"End Block"
       },
       "PLACEHOLDER": {
@@ -110,6 +111,7 @@
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
         "WEBHOOK": "Url Input",
+        "EVENT-NAME": "Event Name",
         "JUMP": {
           "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
