@@ -1,1 +1,20 @@
-<p>phone-validations works!</p>
+<div [formGroup]="variablesForm">
+  <div class="validation-section" formGroupName="variable">
+    <div class="validation-wrapper" *ngIf="validate" formGroupName="validators">
+      <div class="validation_regex">
+        <label class="label" for="regex">{{
+          'PAGE-CONTENT.BLOCK.VALIDATORS.REGEX' | transloco
+        }}</label>
+        <input
+          class="input"
+          type="text"
+          formControlName="regex"
+          id="regex"
+          [placeholder]="
+            'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-REGEX' | transloco
+          "
+        />
+      </div>
+    </div>
+  </div>
+</div>
