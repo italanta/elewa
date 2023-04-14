@@ -37,6 +37,7 @@ import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-questi
 import { _CreateMultiContentInputForm } from '../../model/multi-content-input-block-form.model';
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model';
 import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
+import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
@@ -82,6 +83,7 @@ export class BlockComponent implements OnInit {
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
   multiContentInputType = StoryBlockTypes.MultiContentInput;
   keywordJumpType = StoryBlockTypes.keyword;
+  eventType = StoryBlockTypes.Event;
 
 
   blockFormGroup: FormGroup;
@@ -223,6 +225,10 @@ export class BlockComponent implements OnInit {
           break;
         case StoryBlockTypes.keyword:
           this.blockFormGroup = _CreateKeywordJumpBlockMessageForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.Event:
+          this.blockFormGroup = _CreateEventBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
         default:
