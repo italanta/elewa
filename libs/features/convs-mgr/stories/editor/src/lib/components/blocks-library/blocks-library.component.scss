@@ -1,7 +1,7 @@
 .nav {
 	max-width: 100%;
 	max-height: calc(100vh - 64px);
-	padding: 10px;
+	padding:10px;
 	margin-bottom: 20%;
 	overflow-y: hidden;
 	scrollbar-gutter: stable both-edges;
@@ -27,22 +27,37 @@
 	height: max-content;
 }
 
-.blocks-main {
-	min-width: 100%;
-	height: 60px;
-	border-radius: 5px;
-	background-color: white;
-	word-wrap: break-word;
-  box-shadow: 0px 10px -14px 14px #FFF;
-}
+.block-list{
+  margin-bottom: 1rem;
+  h6{
+    margin-bottom: .4rem;
+    font-size: 0.8rem;
+    margin-top: 0px;
+  }
+  .blocks{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    .blocks-main {
+      height: 60px;
+      border-radius: 5px;
+      word-wrap: break-word;
+      background-color: #FFF;
+      box-shadow: 0px 10px -14px 14px #FFF;
+    }
+    p{
+      padding: 0;
+      margin: 0;
+    }
 
-.blocks-main:hover {
-  background-color: #FBC113 !important;
+    .blocks-main:hover {
+      background-color: #FBC113 !important;
 
-	#icons {
-		color: white !important;
-	}
-}
+      #icons {
+        color: white !important;
+      }
+    }
+
 
 #icons {
 	color: slategray;
@@ -64,6 +79,14 @@
 	color: slategray;
   margin: 0;
 }
+
+
+  }
+}
+
+
+
+
 
 ::ng-deep .mat-mdc-form-field {
 	max-width: 100%;
@@ -90,17 +113,6 @@
   border-left: none !important;
 }
 
-.block-list{
-  margin-bottom: 1rem;
-  h6{
-    margin-bottom: .4rem;
-    font-size: 0.8rem;
-  }
-  .blocks{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-}
+
 
 
