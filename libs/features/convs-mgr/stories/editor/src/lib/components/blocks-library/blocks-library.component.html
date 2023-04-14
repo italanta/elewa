@@ -1,23 +1,156 @@
 <div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
-	<h4>{{'PAGE-CONTENT.COMPONENTS.TITLE'| transloco }}</h4>
+  <div class="search" fxFlex>
+    <mat-form-field class="search-input" appearance="outline">
+      <input matInput placeholder="Search" (input)="filterBlocks($event)" />
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
 
-	<div class="search" fxFlex>
-		<mat-form-field class="search-input">
-			<mat-icon matSuffix>search</mat-icon>
-			<input matInput placeholder="search for a block" (input)="filterBlocks($event)">
-		</mat-form-field>
-	</div>
-
-	<div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="space-between start" *ngIf="blockTemplate$ | async as blocks " fxFlex>
-		<div *ngFor="let block of blocks" (click)=" addBlock(block.type)" fxLayout="column" fxLayoutAlign="start center" draggable="true" (dragend)="onDragEnd(block.type)"
-			fxFlex="25" class="block-wrapper">
-			<div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
-				<i class="{{ block.blockIcon }}" id="icons"></i>
-			</div>
-			
-			<p class="block-messages">
-				{{ block.message }}
-			</p>
-		</div>
-	</div>
+  <div fxLayout="column" *ngIf="blockTemplate$ | async as blocks" fxFlex>
+    <!-- message block -->
+    <div class="block-list">
+      <h6 class="message-block">Message block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blocks; let i = index">
+          <div *ngIf="block.blockCategory === 'messages-block'">
+            <div>
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- questions block -->
+    <div class="block-list">
+      <h6>Questions block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blocks; let i = index">
+          <div *ngIf="block.blockCategory === 'questions-block'">
+            <div>
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+     <!-- Image block -->
+    <div class="block-list">
+      <h6>Images block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blocks; let i = index">
+          <div *ngIf="block.blockCategory === 'images-block'">
+            <div>
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- documents block -->
+    <div class="block-list">
+      <h6>Documents block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blocks; let i = index">
+          <div *ngIf="block.blockCategory === 'documents-block'">
+            <div>
+              <div (click)="addBlock(block.type)"  draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+     <!-- multimedia block -->
+     <div class="block-list">
+      <h6>Multimedia block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blocks; let i = index">
+          <div *ngIf="block.blockCategory === 'multimedia-block'">
+            <div>
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- end block -->
+    <div class="block-list">
+      <h6>End block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blocks; let i = index">
+          <div *ngIf="block.blockCategory === 'end-block'">
+            <div>
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </div>
+
