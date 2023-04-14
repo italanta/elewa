@@ -10,7 +10,6 @@ export class TrackCursorDirective {
   @HostListener('dragover', ['$event'])
   onDragOver(event: MouseEvent) {
     this.dragService.coordinates = {
-      ...this.dragService.coordinates,
       x: event.offsetX,
       y: event.offsetY,
     };
