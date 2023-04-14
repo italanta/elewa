@@ -7,6 +7,10 @@
         <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
       </div>
 
+      <div *ngSwitchCase="emailtype">
+        <app-email-validations [variablesForm]="variablesForm" [validate]="validate"></app-email-validations>
+      </div>
+
       <div class="variable-defaults">
         <div class="variables_name">
           <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
