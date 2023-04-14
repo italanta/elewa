@@ -1,5 +1,8 @@
 import { Chart } from 'chart.js/auto';
 
+import { ActiveOrgStore } from '@app/state/organisation';
+
+import { SubSink } from 'subsink';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { QuestionMessage } from '@app/model/convs-mgr/conversations/messages';
@@ -14,20 +17,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GroupBasedProgressChartComponent implements OnInit, OnDestroy
 {
+  private _sbs = new SubSink()
+
   @Input() model: QuestionMessage;
 
   @Input() chart: Chart;
 
-  constructor(private _backend: HttpClient)
-  {
+  currentOrgId: string
 
+  constructor(private _backend: HttpClient, private _activeOrg: ActiveOrgStore)
+  {
+    this._sbs.sink = this._activeOrg.get().subscribe(org => this.currentOrgId = org.id as string)
   }
 
   ngOnInit() 
   { 
     // participantGroupIdentifier: '',
     const cmd = { 
-      orgId: 'yXyu2Rn5FJbwfZVAl6w6agHNW4I2', 
+      orgId:  this.currentOrgId, 
       participantGroupIdentifier:'class_BDOM',
       interval: [1677283169, 1677887969, 1678492769, 1679097569, 1679702369, 1680307169], 
       storyGroupIdentifier: true 
@@ -78,7 +85,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy
   ngOnDestroy(): void {
     if (this.chart) {
       this.chart.destroy()
-      console.log('cleaned chart')
+      this._sbs.unsubscribe()
     }
   }
 }
