@@ -1,6 +1,6 @@
 import { Chart } from 'chart.js/auto';
 
-import {Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { QuestionMessage } from '@app/model/convs-mgr/conversations/messages';
 
@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './group-based-progress-chart.component.html',
   styleUrls:  ['./group-based-progress-chart.component.scss'],
 })
-export class GroupBasedProgressChartComponent implements OnInit
+export class GroupBasedProgressChartComponent implements OnInit, OnDestroy
 {
   @Input() model: QuestionMessage;
 
@@ -23,11 +23,16 @@ export class GroupBasedProgressChartComponent implements OnInit
 
   }
 
-  async ngOnInit() 
+  ngOnInit() 
   { 
     // participantGroupIdentifier: '',
-    const cmd = { orgId: '', interval: [1677283169, 1677887969, 1678492769, 1679097569, 1679702369, 1680307169], storyGroupIdentifier: true } as MeasureGroupProgressCommand;
-    
+    const cmd = { 
+      orgId: 'yXyu2Rn5FJbwfZVAl6w6agHNW4I2', 
+      participantGroupIdentifier:'class_BDOM',
+      interval: [1677283169, 1677887969, 1678492769, 1679097569, 1679702369, 1680307169], 
+      storyGroupIdentifier: true 
+    } as MeasureGroupProgressCommand;
+
     // TODO: Put properly into state
     this._backend
         .post('https://europe-west1-enabel-elearning.cloudfunctions.net/measureGroupProgress',
@@ -50,7 +55,7 @@ export class GroupBasedProgressChartComponent implements OnInit
     {
       type: 'bar',
       data: {
-        labels: model.measurements.map(m => _formatDate(new Date(m.time * 1000))),
+        labels: model.measurements.map(m => _formatDate(new Date(m.time * 1000))),
 
         datasets: milestones.map((milestone, idx) => _unpackLabel(milestone, idx, model))
       },
@@ -70,6 +75,12 @@ export class GroupBasedProgressChartComponent implements OnInit
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy()
+      console.log('cleaned chart')
+    }
+  }
 }
 
 function _unpackLabel(milestone: string, idx: number, model: GroupProgressModel)
