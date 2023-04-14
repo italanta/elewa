@@ -14,7 +14,7 @@
         <ng-container *ngFor="let block of blockTemplates; let i = index">
           <div *ngIf="block.blockCategory === 'messages-block'">
             <div>
-              <div (click)="addBlock(block.type)" class="block">
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
                 <div
                   fxLayout="column"
                   fxLayoutAlign="center center"
@@ -38,7 +38,7 @@
         <ng-container *ngFor="let block of blockTemplates; let i = index">
           <div *ngIf="block.blockCategory === 'questions-block'">
             <div>
-              <div (click)="addBlock(block.type)" class="block">
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
                 <div
                   fxLayout="column"
                   fxLayoutAlign="center center"
@@ -62,7 +62,7 @@
         <ng-container *ngFor="let block of blockTemplates; let i = index">
           <div *ngIf="block.blockCategory === 'images-block'">
             <div>
-              <div (click)="addBlock(block.type)" class="block">
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
                 <div
                   fxLayout="column"
                   fxLayoutAlign="center center"
@@ -86,7 +86,7 @@
         <ng-container *ngFor="let block of blockTemplates; let i = index">
           <div *ngIf="block.blockCategory === 'documents-block'">
             <div>
-              <div (click)="addBlock(block.type)" class="block">
+              <div (click)="addBlock(block.type)"  draggable="true" (dragend)="onDragEnd(block.type)" class="block">
                 <div
                   fxLayout="column"
                   fxLayoutAlign="center center"
@@ -110,7 +110,7 @@
         <ng-container *ngFor="let block of blockTemplates; let i = index">
           <div *ngIf="block.blockCategory === 'multimedia-block'">
             <div>
-              <div (click)="addBlock(block.type)" class="block">
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
                 <div
                   fxLayout="column"
                   fxLayoutAlign="center center"
@@ -134,7 +134,7 @@
         <ng-container *ngFor="let block of blockTemplates; let i = index">
           <div *ngIf="block.blockCategory === 'end-block'">
             <div>
-              <div (click)="addBlock(block.type)" class="block">
+              <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
                 <div
                   fxLayout="column"
                   fxLayoutAlign="center center"
@@ -153,3 +153,4 @@
     </div>
   </div>
 </div>
+
