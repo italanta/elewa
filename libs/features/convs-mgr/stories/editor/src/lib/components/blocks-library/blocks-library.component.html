@@ -127,5 +127,29 @@
         </ng-container>
       </div>
     </div>
+    <!-- end block -->
+    <div class="block-list">
+      <h6>End block</h6>
+      <div class="blocks">
+        <ng-container *ngFor="let block of blockTemplates; let i = index">
+          <div *ngIf="block.blockCategory === 'end-block'">
+            <div>
+              <div (click)="addBlock(block.type)" class="block">
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="center center"
+                  class="blocks-main"
+                >
+                  <i class="{{ block.blockIcon }}" id="icons"></i>
+                </div>
+                <p class="block-messages">
+                  {{ block.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
   </div>
 </div>
