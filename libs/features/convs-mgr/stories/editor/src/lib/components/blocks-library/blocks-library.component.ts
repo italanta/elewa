@@ -16,8 +16,9 @@ import {
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
-
+import { DragDropService } from '../../providers/drag-drop.service';
 import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
+import { Coordinate } from '../../model/coordinates.interface';
 
 /**
  * Component which holds a library (list) of all blocks that can be created
@@ -67,102 +68,104 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
-  constructor(private _logger: Logger) { }
+  coordinates: Coordinate;
+  constructor(private _logger: Logger, private dragService: DragDropService) {}
 
   ngOnInit(): void {
     // WARN in case frame is not yet loaded. This might cause issues on the node loader.
     if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
+    this._sbS.sink = this.dragService.coord$.subscribe(position => this.coordinates = position)
   }
-  addBlock(type: number) {
+  addBlock(type: number, coordinates?: Coordinate) {
     switch (type) {
       case StoryBlockTypes.EndStoryAnchorBlock:
-        this.frame.newBlock(StoryBlockTypes.EndStoryAnchorBlock);
+        this.frame.newBlock(StoryBlockTypes.EndStoryAnchorBlock, coordinates);
         break;
       case StoryBlockTypes.TextMessage:
-        this.frame.newBlock(StoryBlockTypes.TextMessage);
+        this.frame.newBlock(StoryBlockTypes.TextMessage, coordinates);
         break;
       case StoryBlockTypes.Input:
-        this.frame.newBlock(StoryBlockTypes.Input);
+        this.frame.newBlock(StoryBlockTypes.Input, coordinates);
         break;
       case StoryBlockTypes.IO:
-        this.frame.newBlock(StoryBlockTypes.IO);
+        this.frame.newBlock(StoryBlockTypes.IO, coordinates);
         break;
       case StoryBlockTypes.Location:
-        this.frame.newBlock(StoryBlockTypes.Location);
+        this.frame.newBlock(StoryBlockTypes.Location, coordinates);
         break;
       case StoryBlockTypes.Image:
-        this.frame.newBlock(StoryBlockTypes.Image);
+        this.frame.newBlock(StoryBlockTypes.Image, coordinates);
         break;
       case StoryBlockTypes.QuestionBlock:
-        this.frame.newBlock(StoryBlockTypes.QuestionBlock);
+        this.frame.newBlock(StoryBlockTypes.QuestionBlock, coordinates);
         break;
       case StoryBlockTypes.Document:
-        this.frame.newBlock(StoryBlockTypes.Document);
+        this.frame.newBlock(StoryBlockTypes.Document, coordinates);
         break;
       case StoryBlockTypes.Audio:
-        this.frame.newBlock(StoryBlockTypes.Audio);
+        this.frame.newBlock(StoryBlockTypes.Audio, coordinates);
         break;
       case StoryBlockTypes.Structural:
-        this.frame.newBlock(StoryBlockTypes.Structural);
+        this.frame.newBlock(StoryBlockTypes.Structural, coordinates);
         break
       case StoryBlockTypes.Name:
-        this.frame.newBlock(StoryBlockTypes.Name);
+        this.frame.newBlock(StoryBlockTypes.Name, coordinates);
         break
       case StoryBlockTypes.Email:
-        this.frame.newBlock(StoryBlockTypes.Email);
+        this.frame.newBlock(StoryBlockTypes.Email, coordinates);
         break;
       case StoryBlockTypes.PhoneNumber:
-        this.frame.newBlock(StoryBlockTypes.PhoneNumber);
+        this.frame.newBlock(StoryBlockTypes.PhoneNumber, coordinates);
         break
       case StoryBlockTypes.Video:
-        this.frame.newBlock(StoryBlockTypes.Video);
+        this.frame.newBlock(StoryBlockTypes.Video, coordinates);
         break;
       case StoryBlockTypes.Sticker:
-        this.frame.newBlock(StoryBlockTypes.Sticker);
+        this.frame.newBlock(StoryBlockTypes.Sticker, coordinates);
         break;
       case StoryBlockTypes.List:
-        this.frame.newBlock(StoryBlockTypes.List);
+        this.frame.newBlock(StoryBlockTypes.List, coordinates);
         break;
       case StoryBlockTypes.Reply:
-        this.frame.newBlock(StoryBlockTypes.Reply);
+        this.frame.newBlock(StoryBlockTypes.Reply, coordinates);
         break;
       case StoryBlockTypes.JumpBlock:
-        this.frame.newBlock(StoryBlockTypes.JumpBlock);
+        this.frame.newBlock(StoryBlockTypes.JumpBlock, coordinates);
         break;
       case StoryBlockTypes.MultipleInput:
-        this.frame.newBlock(StoryBlockTypes.MultipleInput);
+        this.frame.newBlock(StoryBlockTypes.MultipleInput, coordinates);
         break;
       case StoryBlockTypes.FailBlock:
-        this.frame.newBlock(StoryBlockTypes.FailBlock);
+        this.frame.newBlock(StoryBlockTypes.FailBlock, coordinates);
         break;
       case StoryBlockTypes.ImageInput:
-        this.frame.newBlock(StoryBlockTypes.ImageInput);
+        this.frame.newBlock(StoryBlockTypes.ImageInput, coordinates);
         break;
       case StoryBlockTypes.LocationInputBlock:
-        this.frame.newBlock(StoryBlockTypes.LocationInputBlock);
+        this.frame.newBlock(StoryBlockTypes.LocationInputBlock, coordinates);
         break;
       case StoryBlockTypes.AudioInput:
-        this.frame.newBlock(StoryBlockTypes.AudioInput);
+        this.frame.newBlock(StoryBlockTypes.AudioInput, coordinates);
         break;
       case StoryBlockTypes.VideoInput:
-        this.frame.newBlock(StoryBlockTypes.VideoInput);
+        this.frame.newBlock(StoryBlockTypes.VideoInput, coordinates);
         break;
       case StoryBlockTypes.WebhookBlock:
-        this.frame.newBlock(StoryBlockTypes.WebhookBlock);
+        this.frame.newBlock(StoryBlockTypes.WebhookBlock, coordinates);
         break;
       case StoryBlockTypes.OpenEndedQuestion:
-        this.frame.newBlock(StoryBlockTypes.OpenEndedQuestion);
+        this.frame.newBlock(StoryBlockTypes.OpenEndedQuestion, coordinates);
         break;
       case StoryBlockTypes.MultiContentInput:
-        this.frame.newBlock(StoryBlockTypes.MultiContentInput);
+        this.frame.newBlock(StoryBlockTypes.MultiContentInput, coordinates);
         break;
       case StoryBlockTypes.keyword:
-        this.frame.newBlock(StoryBlockTypes.keyword);
+        this.frame.newBlock(StoryBlockTypes.keyword, coordinates);
         break;
       case StoryBlockTypes.Event:
-        this.frame.newBlock(StoryBlockTypes.Event);
+        this.frame.newBlock(StoryBlockTypes.Event, coordinates);
         break;
     }
   }
@@ -182,6 +185,10 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
+  }
+
+  onDragEnd(blockType: number){
+    this.addBlock(blockType, this.coordinates)
   }
 
   ngOnDestroy() {
