@@ -75,11 +75,8 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     if (!this.frame || !this.frame.loaded)
       this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
-    this._sbS.add(
-      this.dragService.coord$.subscribe(
-        (position) => (this.coordinates = position)
-      )
-    );
+    const dragSubscription = this.dragService.coord$.subscribe(position => this.coordinates = position)
+    this._sbS.add(dragSubscription);
   }
   addBlock(type: number, coordinates?: object) {
     switch (type) {
