@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock,
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock
+  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -160,6 +160,10 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
         break;
       case StoryBlockTypes.keyword:
         this.frame.newBlock(StoryBlockTypes.keyword);
+        break;
+      case StoryBlockTypes.Event:
+        this.frame.newBlock(StoryBlockTypes.Event);
+        break;
     }
   }
 
