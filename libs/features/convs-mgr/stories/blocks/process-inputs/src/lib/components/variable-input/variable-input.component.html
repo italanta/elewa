@@ -7,6 +7,14 @@
         <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
       </div>
 
+      <div *ngSwitchCase="phonetype">
+        <app-phone-validations [variablesForm]="variablesForm" [validate]="validate"></app-phone-validations>
+      </div>
+
+      <div *ngSwitchCase="locationtype">
+        <app-location-validations [variablesForm]="variablesForm" [validate]="validate"></app-location-validations>
+      </div>
+
       <div class="variable-defaults">
         <div class="variables_name">
           <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>

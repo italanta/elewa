@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock, 
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock
+  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -65,6 +65,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion) } as OpenEndedQuestionBlock,
     { id: 'multi-content-input' , type:StoryBlockTypes.MultiContentInput, message:'Multi Content Input', blockIcon:this.getBlockIcon(StoryBlockTypes.MultiContentInput) } as MultiContentInputBlock,
     { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword) } as KeywordMessageBlock,
+    { id: 'event-block', type: StoryBlockTypes.Event, message: 'Event', blockIcon: this.getBlockIcon(StoryBlockTypes.Event)} as EventBlock,
     { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock)} as EndStoryAnchorBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
@@ -163,6 +164,10 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
         break;  
       case StoryBlockTypes.keyword:
         this.frame.newBlock(StoryBlockTypes.keyword, coordinates);
+        break;
+      case StoryBlockTypes.Event:
+        this.frame.newBlock(StoryBlockTypes.Event, coordinates);
+        break;
     }
   }
 

@@ -221,7 +221,7 @@ export class StoryEditorFrame {
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
-      position: coordinates ? coordinates : { x: 200, y: 50 },
+      position: coordinates || { x: 200, y: 50 },
     } as StoryBlock;
 
     this._cnt++;
