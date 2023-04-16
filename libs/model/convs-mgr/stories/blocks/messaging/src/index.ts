@@ -21,3 +21,4 @@ export * from './lib/open-ended-question-block.interface';
 export * from './lib/end-story-anchor.interface';
 export * from './lib/multi-content-input-block.interface'
 export * from './lib/keyword-message-block.interface';
+export * from './lib/event-block.interface';
