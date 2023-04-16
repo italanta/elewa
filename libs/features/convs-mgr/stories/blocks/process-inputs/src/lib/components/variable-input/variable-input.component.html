@@ -11,6 +11,14 @@
         <app-email-validations [variablesForm]="variablesForm" [validate]="validate"></app-email-validations>
       </div>
 
+      <div *ngSwitchCase="phonetype">
+        <app-phone-validations [variablesForm]="variablesForm" [validate]="validate"></app-phone-validations>
+      </div>
+
+      <div *ngSwitchCase="locationtype">
+        <app-location-validations [variablesForm]="variablesForm" [validate]="validate"></app-location-validations>
+      </div>
+
       <div class="variable-defaults">
         <div class="variables_name">
           <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
@@ -20,7 +28,7 @@
 
         <div class="variables_type">
           <label class="label" for="type">type</label>
-          <select class="select" formControlName="type" id="type" required>
+          <select class="select" formControlName="type" id="type" required>...ib/convs-mgr-process-inputs.module.ts
             <option class="option" *ngFor="let type of variablesTypesList; let i=index" [value]="type.value">
               {{ type.name }}
             </option>
