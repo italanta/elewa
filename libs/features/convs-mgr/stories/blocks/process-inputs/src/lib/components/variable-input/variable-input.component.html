@@ -7,6 +7,10 @@
         <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
       </div>
 
+      <div *ngSwitchCase="emailtype">
+        <app-email-validations [variablesForm]="variablesForm" [validate]="validate"></app-email-validations>
+      </div>
+
       <div *ngSwitchCase="phonetype">
         <app-phone-validations [variablesForm]="variablesForm" [validate]="validate"></app-phone-validations>
       </div>
