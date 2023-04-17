@@ -35,7 +35,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy
     // participantGroupIdentifier: '',
     const cmd = { 
       orgId:  this.currentOrgId, 
-      participantGroupIdentifier:'class_BDOM',
+      participantGroupIdentifier:'all',
       interval: [1677283169, 1677887969, 1678492769, 1679097569, 1679702369, 1680307169], 
       storyGroupIdentifier: true 
     } as MeasureGroupProgressCommand;

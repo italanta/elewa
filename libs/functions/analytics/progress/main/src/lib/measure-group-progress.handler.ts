@@ -58,7 +58,7 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
 
 function getParticipantsQuery(participantGroupIdentifier: string) {
   if (participantGroupIdentifier === 'all') {
-    return new Query().where('labels', 'in', ['class_TBD', 'class_BDOM'])
+    return new Query().where('labels', 'array-contains-any', ['class_TBD', 'class_BDOM', 'class_HGRSJ'])
   } else {
     return new Query().where('labels', 'array-contains', participantGroupIdentifier)
   }
