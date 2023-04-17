@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,17 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './email-block-edit.component.html',
   styleUrls: ['./email-block-edit.component.scss'],
 })
-export class EmailBlockEditComponent {
+export class EmailBlockEditComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() title: string;
+  validate: boolean;
+
+  ngOnInit() {
+    this.validate = this.form.value.variable.validate;
+}
+
+  setValidation(){
+    this.validate = !this.validate;
+  }
+
 }

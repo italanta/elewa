@@ -26,7 +26,7 @@
       "FLD-PASSWD": "Password",
       "FLD-CONF-PASSWD": "Confirm password",
       "FLD-CONF-PASSWD-ERR": "Duplicate password. Mismatch!",
-      "SUBMIT": "Create account"
+      "SUBMIT": "Create Account"
     },
     "TOS": {
       "P1": "By registering I agree to",
@@ -34,13 +34,13 @@
       "P3": "and",
       "P4-LINK": "the privacy policy"
     },
-    "BTN-WITH-GOOGLE": "With Google",
+    "BTN-WITH-GOOGLE": "Sign up With Google",
     "BTN-WITH-MICROSOFT": "With Microsoft",
     "HERO": {
-      "TITLE": "Karibu Elewa Conversational Learning!",
-      "DESCRIPTION": "Elewa LMS is worldst first Conversational Learning Manager.",
-      "LEARN-MORE": "Learn more on",
-      "LEARN-MORE-LINK": "https://elewa.education"
+      "TITLE": "World's first LMS designed for conversational learning",
+      "DESCRIPTION": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy elrmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At uero eos et accusam et justo duo dolores et ea rebum. Stet ciita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+      "LEARN-MORE": "Learn more about the on",
+      "LEARN-MORE-LINK": "github.com/italanta/italanta-apps"
     }
   },
   "TOS": {
