@@ -129,6 +129,11 @@ export enum StoryBlockTypes {
    */
   keyword = 29,
 
+  /** 
+   * Block that tracks when a user reaches a certain action
+  */
+  Event = 30,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -167,6 +172,10 @@ export function isOperationBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.FailBlock:
       return true;
     case StoryBlockTypes.WebhookBlock:
+      return true;
+    case StoryBlockTypes.keyword:
+      return true;
+    case StoryBlockTypes.Event:
       return true;
     default:
       return false;

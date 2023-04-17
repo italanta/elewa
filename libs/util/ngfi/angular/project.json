@@ -1,13 +1,12 @@
 {
+  "name": "util-ngfi-angular",
   "projectType": "library",
   "sourceRoot": "libs/util/ngfi/angular/src",
   "prefix": "italanta-apps",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": [
-        "dist/libs/util/ngfi/angular"
-      ],
+      "outputs": ["dist/libs/util/ngfi/angular"],
       "options": {
         "project": "libs/util/ngfi/angular/ng-package.json"
       },
@@ -23,9 +22,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/util/ngfi/angular"
-      ],
+      "outputs": ["coverage/libs/util/ngfi/angular"],
       "options": {
         "jestConfig": "libs/util/ngfi/angular/jest.config.ts",
         "passWithNoTests": true

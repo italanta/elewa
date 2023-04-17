@@ -89,7 +89,9 @@
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
-        "JUMP":"Jump"
+        "JUMP":"Jump",
+        "EVENT": "Event",
+        "END-BLOCK":"End Block"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -109,6 +111,8 @@
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
         "WEBHOOK": "Url Input",
+        "EVENT-NAME": "Event Name",
+        "0PTIONAL-PAYLOAD": "Optional - Payload",
         "JUMP": {
           "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
@@ -119,6 +123,20 @@
           "SUCCESS": "Success",
           "FAILED": "Failed"
         }
+      },
+      "VALIDATORS": {
+        "SET-VALIDATION-CHECKBOX": "Set Validation",
+        "VARIABLE-INFO": "save answers in the variable",
+        "REGEX": "regex",
+        "PLACEHOLDER-REGEX": "regex",
+        "MAX": "Max",
+        "PLACEHOLDER-MAX": "Max Characters",
+        "MIN": "Min",
+        "PLACEHOLDER-MIN": "Min Characters",
+        "ERROR-MESSAGE": "Validation Error Message"
+      },
+      "LABELS": {
+        "TRACK-MILESTONE": "Track as a milestone"
       }
     },
     "COMPONENTS": {

@@ -44,7 +44,7 @@ export class WhatsAppSendOutgoingMsgHandler extends FunctionHandler<any, RestRes
 
     try {
       // STEP 1: Check if the message is meant for the end user
-      if (outgoingPayload.direction !== MessageDirection.TO_END_USER) return { status: 200 } as RestResult;
+      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER) return { status: 200 } as RestResult;
 
       tools.Logger.log(() => `[WhatsAppSendOutgoingMsgHandler] - Outgoing message: ${JSON.stringify(outgoingPayload)}`);
 

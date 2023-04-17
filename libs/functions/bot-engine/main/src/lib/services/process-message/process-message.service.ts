@@ -123,7 +123,7 @@ export class ProcessMessageService
   {
     const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
 
-    const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUserId);
+    const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUserId, msg);
 
     const sideOperations = processOperationBlock.sideOperations;
 

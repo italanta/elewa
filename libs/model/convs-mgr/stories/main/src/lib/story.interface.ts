@@ -21,6 +21,8 @@ export interface Story extends IObject
   imageField?: string;
 
   /* description of the story */
+  description?: string;
 
-    description?: string;
+  /* Labels of the story */
+  labels?: string[];
 }
