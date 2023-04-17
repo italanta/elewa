@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+     allow read, write: if request.auth != null;
+    }
+    
+  	// Collection: channels
+    match /channels/{channel} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Collection: orgs
+    match /orgs/{orgId} {
+    
+      allow create: if request.auth != null;
+			allow read, write: if request.auth != null;
+    
+	    // orgs > stories 
+      match /stories/{story}  {
+      	allow read, write: if request.auth != null;
+      }
+      
+      // orgs > end-users 
+    	match /end-users/{endUser} {
+      allow read, write, update: if request.auth != null;
+    	}
+      
+      // orgs > files 
+    	match /files/{file} {
+      allow read, write, update: if request.auth != null;
+    	}
+    }
+  }
+}
