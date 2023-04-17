@@ -1,53 +1,107 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { Subscription } from 'rxjs';
+import { SubSink } from 'subsink';
+import { Subscription, concatMap, map, tap } from 'rxjs';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+import {
+  ActiveChatConnectedStore,
+  ChatsStore,
+} from '@app/state/convs-mgr/conversations/chats';
 
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
-
+import { Story } from '@app/model/convs-mgr/stories/main';
+import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-chat-conversation',
   templateUrl: './chat-conversation.component.html',
-  styleUrls:  ['./chat-conversation.component.scss']
+  styleUrls: ['./chat-conversation.component.scss'],
 })
-export class ChatConversationComponent implements OnInit, OnChanges
-{
+export class ChatConversationComponent implements OnInit, OnDestroy {
+  private _sbs = new SubSink();
   chat: Chat;
-
   chat$: Subscription;
-
   isLoading = true;
 
-  constructor(private _activeChat$: ActiveChatConnectedStore,
-              private _logger: Logger)
-  { }
+  currentPosition: EndUserPosition;
+  currentStory: Story;
+  chatStatus: string;
+  userClass: string;
 
-  ngOnInit()
-  {
-    if(!this.chat)
-    {
-      this._activeChat$.get().subscribe((chat) => { if(chat?.id) this.chat = chat;});
+  constructor(
+    private _activeChat$: ActiveChatConnectedStore,
+    private _chatStore: ChatsStore,
+    private _logger: Logger
+  ) {}
+
+  ngOnInit() {
+    if (!this.chat) {
+      this.getActiveChat();
     }
   }
 
-  ngOnChanges(changes: SimpleChanges)
-  {
-    // if(changes['chat'])
-    // {
-    //   const updatedChat = changes['chat'].currentValue;
+  getActiveChat() {
+    this._sbs.sink = this._activeChat$
+      .get()
+      .pipe(
+        tap((chat) => {
+          if (chat?.id) this.chat = chat;
+        }),
+        tap(() => this.getChatInfo())
+      )
+      .subscribe();
+  }
 
-    //   if(this.chat$) this.chat$.unsubscribe();
-    //   if(updatedChat)
-    //   {
-    //     this.chat$ = this._chats$.getOne(updatedChat.id).subscribe(chat => this.chat = chat);
-    //   }
-    //   else{
-    //     this.chat = updatedChat;
-    //   }
-    // }
+  getChatInfo() {
+    this.getUserClass();
+    this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
+    this.chatStatus = this.getUserChatStatus(this.chat);
+  }
+
+  getUserClass() {
+    if (this.chat.labels) {
+      const userClass = this.chat.labels.map((label) => {
+        const split = label.split('_');
+        return split[1];
+      });
+
+      this.userClass = userClass[0];
+    } else {
+      this.userClass = '';
+    }
+  }
+
+  getUserChatStatus(chat: Chat) {
+    switch (chat.isConversationComplete) {
+      case -1:
+        return 'Stuck';
+      default:
+        return 'Playing';
+    }
+  }
+
+  getCurrentUserPosAndStory(chatId: string) {
+    return this._chatStore.getCurrentCursor(chatId).pipe(
+      map((cur) => {
+        // Set the current position of the user in the story
+        this.currentPosition = cur[0].position;
+        return cur[0].position.storyId;
+      }),
+      concatMap((id) => {
+        return this._chatStore.getCurrentStory(id);
+      }),
+      map((story) => {
+        if (story) {
+          this.currentStory = story;
+        }
+        return story;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this._sbs.unsubscribe();
   }
 }

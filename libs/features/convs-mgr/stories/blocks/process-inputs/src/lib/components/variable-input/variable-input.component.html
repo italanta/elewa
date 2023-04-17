@@ -1,18 +1,29 @@
 <section class="variables-section">
   <form [formGroup]="variablesForm" class="variables-form" [ngSwitch]="blockType" (ngSubmit)="onSubmit()">
-    <div class="variables-container">
+    <div formGroupName="variable" class="variables-container">
 
       <!-- dynamic rendering of optional validation forms -->
       <div *ngSwitchCase="nametype">
-        <app-name-validations [formGroup]="variablesForm" formGroupName="validators" [validate]="validate">
-        </app-name-validations>
+        <app-name-validations [variablesForm]="variablesForm" [validate]="validate"></app-name-validations>
+      </div>
+
+      <div *ngSwitchCase="emailtype">
+        <app-email-validations [variablesForm]="variablesForm" [validate]="validate"></app-email-validations>
+      </div>
+
+      <div *ngSwitchCase="phonetype">
+        <app-phone-validations [variablesForm]="variablesForm" [validate]="validate"></app-phone-validations>
+      </div>
+
+      <div *ngSwitchCase="locationtype">
+        <app-location-validations [variablesForm]="variablesForm" [validate]="validate"></app-location-validations>
       </div>
 
       <div class="variable-defaults">
         <div class="variables_name">
           <label class="label" for="name">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.VARIABLE-INFO" | transloco }}</label>
           <input class="input" type="text" id="variable" name="variable" formControlName="name">
-          <div class="errors" *ngIf="name.invalid">{{ name.errors?.['incorrect'] }}</div>
+          <div class="errors" *ngIf="name?.invalid">{{ name?.errors?.['incorrect'] }}</div>
         </div>
 
         <div class="variables_type">

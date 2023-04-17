@@ -13,6 +13,7 @@
           <button mat-menu-item (click)="updateList('stashed', 'Stashed')">Stashed</button>
           <button mat-menu-item (click)="updateList('completed', 'Completed')">Completed</button> -->
           <button mat-menu-item (click)="updateList('all', 'All')">All</button>
+          <button mat-menu-item (click)="updateList('blocked', 'Help Requests')">Help Requests</button>
         </mat-menu>
         <div class="menu-title">
           {{ selected }} ({{displayedChats.length}})
@@ -29,7 +30,7 @@
       <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="80" class="filter">
           <i matPrefix class="fas fa-search" style="margin-right: 10px;"></i>
-          <input matInput (keyup)="applyFilter($event)" autocomplete="off" cdkFocusInitial/>
+          <input matInput type="text" placeholder="search"[formControl]="search">
         </mat-form-field>
         <div>
           <button class="close-btn" mat-icon-button (click)="toggleFilter()" matTooltip="Close search">
@@ -43,7 +44,7 @@
   <mat-paginator #matPagi [pageSizeOptions]="[ 10, 20, 30, 40, 100]" [hidePageSize]="isMobile()"></mat-paginator>
 
   <div class="list" *ngIf="!isLoading else loading">
-    <app-chat-card *ngFor="let item of chats$ | async as chats; index as i" [chat]="chats[i]" [routerLink]="['/chats', chats[i].id]"
+    <app-chat-card *ngFor="let item of (chats$|filter:searchString$) | async as chats; index as i" [chat]="chats[i]" [routerLink]="['/chats', chats[i].id]"
                     [currentChat]="currentChat">
     </app-chat-card>
   </div>

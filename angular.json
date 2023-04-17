@@ -5,6 +5,34 @@
     "admin-config-environment-config": "libs/admin/config/environment-config",
     "conv-learning-manager": "apps/conv-learning-manager",
     "conv-lm-backend": "apps/conv-lm-backend",
+    "convs-mgr-event-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/event-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/event-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/event-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/event-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/event-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/event-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-base-authorisation": "libs/elements/base/authorisation",
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
@@ -13,6 +41,32 @@
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
+    "features-analytics-group-based-progress": {
+      "projectType": "library",
+      "root": "libs/features/analytics/group-based/progress",
+      "sourceRoot": "libs/features/analytics/group-based/progress/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/analytics/group-based/progress"],
+          "options": {
+            "jestConfig": "libs/features/analytics/group-based/progress/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/analytics/group-based/progress/**/*.ts",
+              "libs/features/analytics/group-based/progress/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-conversations-chats": {
       "projectType": "library",
@@ -531,6 +585,31 @@
     },
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
+    "functions-analytics-progress-main": {
+      "root": "libs/functions/analytics/progress/main",
+      "sourceRoot": "libs/functions/analytics/progress/main/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/functions/analytics/progress/main/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/analytics/progress/main"],
+          "options": {
+            "jestConfig": "libs/functions/analytics/progress/main/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-base": "libs/functions/base",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-whatsapp": {
@@ -584,6 +663,31 @@
           "outputs": ["coverage/libs/functions/bot-users"],
           "options": {
             "jestConfig": "libs/functions/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-analytics-group-based-progress": {
+      "root": "libs/model/analytics/group-based/progress",
+      "sourceRoot": "libs/model/analytics/group-based/progress/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/analytics/group-based/progress/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/analytics/group-based/progress"],
+          "options": {
+            "jestConfig": "libs/model/analytics/group-based/progress/jest.config.ts",
             "passWithNoTests": true
           }
         }

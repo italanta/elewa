@@ -26,7 +26,7 @@ export class EndStoryBlockService implements IProcessOperationBlock
    *  3. Update the cursor
    *  4. Resolve and return the success block
    */
-  async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, currentStory: string, endUserId?: string)
+  async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, endUserId: string)
   {
     const cursor = currentCursor;
 

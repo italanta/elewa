@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 
-import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
+import { Chat, ChatFlowStatus, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
@@ -14,7 +14,7 @@ export class TrainerStatsComponent
   engagedChats: number;
   activeChats: number;
   seekingAssistance: number;
-  pendingAssessments: number;
+  pausedChats: number;
 
   constructor(private _chats$: ChatsStore)
   {
@@ -24,11 +24,9 @@ export class TrainerStatsComponent
   getChatStats(chats: Chat[])
   {
     this.engagedChats = chats.length;
-    this.activeChats = chats.filter(chat => chat.flow !== ChatFlowStatus.Completed).length;
-    const helpRequests = chats.filter(chat => chat.flow === ChatFlowStatus.Paused).length;
-    const offlineRequests = chats.filter(chat => chat.flow === ChatFlowStatus.OnWaitlist).length;
-    this.seekingAssistance = helpRequests + offlineRequests;
-    this.pendingAssessments = chats.filter(chat => chat.flow === ChatFlowStatus.PendingAssessment).length;
+    this.activeChats = chats.filter(chat => chat.status === ChatStatus.Running).length;
+    this.seekingAssistance = chats.filter(chat => chat.isConversationComplete === -1).length;
+    this.pausedChats = chats.filter(chat => chat.status === (ChatStatus.PausedByAgent)).length;
   }
   
 }
