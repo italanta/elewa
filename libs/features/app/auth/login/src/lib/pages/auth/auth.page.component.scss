@@ -11,9 +11,6 @@ $secondary-elements-color: white;
     min-height: 100%;
 }
 
-.form {
-    padding: 30px;
-}
 
 .auth-card {
     border-radius: 8px;
@@ -21,13 +18,12 @@ $secondary-elements-color: white;
     border: 1px solid $secondary-elements-color;
     max-width: 100%;
     min-height: 100%;
-    padding-bottom: 4em;
 }
 
 .elewa-info {
-    text-align: center;
+    text-align: left;
     color: $secondary-elements-color;
-    padding: 50px;
+    padding: 6rem 2rem;
     font-weight: 400;
     background: var(--convs-mgr-color-primary-yellow);
     background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9F74D5 100%);
@@ -49,35 +45,29 @@ $secondary-elements-color: white;
     height: auto;
     margin-left: 150px;
     margin-bottom: -150px;
-} 
-
-.tiny-logo {
-    margin-bottom: 30px;
-    margin-left: -15%;
-
-    @media screen and (max-width: 768px) {
-        display: flex !important;
-        margin-bottom: 30px;
-    }
 }
 
 button {
     background-color: $secondary-elements-color;
     width: 50%;
     border: none;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    font-size: 25px;
-    font-weight: 5;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--convs-mgr-color-light-shade);
+    border-bottom: 1px solid var(--convs-mgr-color-light-shade);
 
 }
+
 
 .button-area {
     background-color: $secondary-elements-color;
     cursor: pointer;
     text-align: center;
-    align-self: center;
-    width: 40%;
+    margin-bottom: 1.5rem;
+    .toggle-btn{
+      display: flex;
+      justify-content: space-between;
+    }
     @media screen and (max-width: 768px) {
         border-bottom-right-radius: 8px;
         max-width: 100%;
@@ -91,35 +81,42 @@ button {
     font-size: 18px;
     text-transform: uppercase;
 }
-
-.login-form {
-    min-height: 80vh;
-    padding-top: 10%;
+.forms{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  .login-form {
+    margin-top: auto;
+    margin-bottom: auto;
 }
+}
+
+
 
 .login-button {
     border-bottom: 3px solid $primary-color;
     border-width: 50%;
-    font-weight: 500;
+    font-weight: 600;
+    color: black;
 }
 
 .title {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.description {
-    font-size: 20px;
-    font-weight: 600;
     line-height: 2;
 }
 
+.description {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2;
+}
+.hyperlink{
+  font-size: 600;
+}
 .image {
-    width: 180px;
-    height: 97px;
-    object-fit: contain;
-    padding-bottom: 2em;
+    width: 150px;
+    height: 80px;
 }
 
 
