@@ -24,7 +24,7 @@ body {
 }
 
 //connector
-.jsplumb_instance svg path {
+.jsplumb_instance svg.jtk-connector > path {
   stroke: var(--connector-color);
   stroke-width: 3.5px;
 
@@ -50,7 +50,7 @@ body {
   font-size: 16px !important;
 }
 
-.jsplumb_instance svg path:hover {
+.jsplumb_instance svg.jtk-connector path:hover {
   stroke: var(--convs-mgr-color-primary-purple);
 }
 
