@@ -85,8 +85,9 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy
   ngOnDestroy(): void {
     if (this.chart) {
       this.chart.destroy()
-      this._sbs.unsubscribe()
     }
+
+    this._sbs.unsubscribe()
   }
 }
 
