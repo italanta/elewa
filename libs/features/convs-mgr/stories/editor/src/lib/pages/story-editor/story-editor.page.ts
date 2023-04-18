@@ -45,6 +45,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   stateSaved: boolean = true;
 
+  hasEmptyFields = false;
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved: boolean = false;
 
@@ -164,7 +165,7 @@ this.zoom(this.frameZoom)
       alert('Please fill in all text fields before saving.');
       return;
     }
-
+ 
     this.stateSaved = false;
 
     let updatedState = this.state;
