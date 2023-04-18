@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -11,7 +11,7 @@ import { LocationInputBlock } from '@app/model/convs-mgr/stories/blocks/messagin
   templateUrl: './location-input-block.component.html',
   styleUrls: ['./location-input-block.component.scss'],
 })
-export class LocationInputBlockComponent {
+export class LocationInputBlockComponent implements OnInit{
   @Input() id: string;
   @Input() block: LocationInputBlock;
   @Input() locationInputForm: FormGroup;
