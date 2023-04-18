@@ -1,18 +1,19 @@
-import * as _ from 'lodash';
+import { orderBy as __orderBy } from 'lodash';
 
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { Observable, Subscription } from 'rxjs';
+import { SubSink } from 'subsink';
+import { Observable } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
-import { Logger }            from '@iote/bricks-angular';
+import { Logger } from '@iote/bricks-angular';
 import { PaginatedScroll } from '@ngfi/infinite-scroll';
 
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
-
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
+
+import { SpinnerService } from '../../providers/spinner.service';
 
 @Component({
   selector: 'app-messages-container',
@@ -21,11 +22,11 @@ import { Chat } from '@app/model/convs-mgr/conversations/chats';
 })
 export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 {
+  private _sbs = new SubSink()
   @Input() chat: Chat;
 
   lastDate: moment.Moment;
-
-  subscription: Subscription;
+  unblocking$: Observable<boolean>;
 
   messages:  Message[];
   messages$: Observable<Message[]>;
@@ -39,11 +40,12 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   constructor(private _messages$$: MessagesQuery,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
-              private router: Router)
-  {}
+              private _spinner: SpinnerService
+  ){}
 
-  ngOnInit()
-  {  }
+  ngOnInit() {
+    this.unblocking$ = this._spinner.showSpinner$
+  }
 
   ngOnChanges(changes: SimpleChanges)
   {
@@ -58,19 +60,16 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   {
     if(!this.chat) return;
 
-    if(this.subscription)
-    {
-      this.subscription.unsubscribe();
-    }
+    this._sbs.unsubscribe();
 
     this.model = this._messages$$.getPaginator(this.chat);
     this.messages$ = this.model.get();
 
-    this.subscription =  this.messages$.subscribe(msgs => {
+    this._sbs.sink =  this.messages$.subscribe(msgs => {
       this._logger.log(() => '[MessagesContainerComponent] - Detected change in messages-subscr');
 
       // TODO: Weird bug in paginator seems to skip ordering on new load, so we re-order here.
-      this.messages = _.orderBy(msgs, m => __DateFromStorage(m.createdOn as Date));
+      this.messages = __orderBy(msgs, m => __DateFromStorage(m.createdOn as Date));
 
       // this.messages = this.messages.filter(msg => msg.type !== MessageTypes.Event)
 
@@ -105,7 +104,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
     try {
       this._container.nativeElement.scrollTop = this._container.nativeElement.scrollHeight;
     }
-    catch(err) { }
+    catch(err) { /* empty */ }
   }
 
   isNewDate(message: Message)
@@ -122,5 +121,6 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   ngOnDestroy()
   {
     this.model.detachListeners();
+    this._sbs.unsubscribe();
   }
 }

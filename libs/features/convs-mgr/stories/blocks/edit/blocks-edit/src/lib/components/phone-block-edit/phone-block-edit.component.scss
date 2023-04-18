@@ -26,3 +26,14 @@
     }
   }
 }
+
+
+.validation-check {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+
+  .label {
+    font-size: 0.8rem;
+  }
+}
