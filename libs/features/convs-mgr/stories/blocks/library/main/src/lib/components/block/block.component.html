@@ -112,5 +112,9 @@
             <app-keyword-jump-block [id]="id" [block]="block" [keywordJumpBlock]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-keyword-jump-block>
         </div>
+        <div *ngSwitchCase="eventType">
+            <app-event-block [id]="id" [block]="block" [eventBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+            </app-event-block>
+        </div>
     </div>
 </mat-card>
