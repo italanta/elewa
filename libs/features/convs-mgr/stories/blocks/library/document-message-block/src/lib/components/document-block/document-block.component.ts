@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { catchError, of } from 'rxjs';
+import { SubSink } from 'subsink';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -9,8 +12,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { FileStorageService, UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { catchError, of } from 'rxjs';
-import { SubSink } from 'subsink';
+
 
 @Component({
   selector: 'app-document-block',
