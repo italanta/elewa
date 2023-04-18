@@ -25,16 +25,7 @@ import { FileUpload } from '../model/file-upload.interface';
 
 /**This service handles the upload of files on firestorage and firestore*/
 export class UploadFileService {
-  // uploadSingleFile(file: File, vidFilePath: string) {
-  //   throw new Error('Method not implemented.');
-  // }
-
-  async uploadSingleFile(file: File, vidFilePath: string): Promise<any> {
-    // your code here
-    return Promise.resolve();
-  }
   
-
   //The filepath on firestore for the files
   protected _activeRepo: Repository<FileUpload>;
   protected store = 'file-store';
@@ -147,6 +138,7 @@ export class UploadFileService {
     return this.upload(reference, block).pipe(take(1));
 
   }
+
 
   public async FileUploader(file: File, story: Story) {
     //Step 1 - Create the file path that will be in firebase storage
