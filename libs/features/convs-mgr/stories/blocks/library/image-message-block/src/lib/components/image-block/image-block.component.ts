@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { take } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -13,7 +14,7 @@ import { FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { SubSink } from 'subsink';
+
 
 @Component({
   selector: 'app-image-block',
