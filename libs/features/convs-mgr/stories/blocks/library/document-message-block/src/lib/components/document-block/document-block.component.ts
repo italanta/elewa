@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -10,13 +10,14 @@ import { FileStorageService, UploadFileService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { catchError, of } from 'rxjs';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-document-block',
   templateUrl: './document-block.component.html',
   styleUrls: ['./document-block.component.scss'],
 })
-export class DocumentBlockComponent implements OnInit {
+export class DocumentBlockComponent implements OnInit, OnDestroy  {
 
   @Input() id: string;
   @Input() block: DocumentMessageBlock;
@@ -32,6 +33,8 @@ export class DocumentBlockComponent implements OnInit {
   
   type: StoryBlockTypes;
   documentType = StoryBlockTypes.Document;
+
+  private _sBs = new SubSink();  //SubSink instance
 
   constructor(private _docUploadService: UploadFileService,
     private _fileStorageService: FileStorageService
@@ -52,7 +55,7 @@ export class DocumentBlockComponent implements OnInit {
 
     if (!allowedFileTypes.includes(event.target.files[0].type)) {
       //error modal displayed here
-      this._fileStorageService.openErrorModal("Invalid File Type", "Please select a .pdf only.");
+       this._fileStorageService.openErrorModal("Invalid File Type", "Please select a .pdf only.");
       event.target.value = '' //clear input
        return;
     }
@@ -69,16 +72,22 @@ export class DocumentBlockComponent implements OnInit {
     this.isDocLoading= true;
       //Step 1 - Create the file path that will be in firebase storage
      const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
-     (await this._docUploadService.uploadFile(this.file, this.block, docFilePath)).pipe(
-      catchError(error => {
-        console.error('Error uploading file:', error);
-        // show error message to user
+     this._sBs.sink = (await this._docUploadService.uploadFile(this.file, this.block, docFilePath))
+     .pipe(
+       catchError(error => {
+         console.error('Error uploading file:', error);
+         // show error message to user
          this._fileStorageService.openErrorModal("Error occurred", "Try again later.");
-        event.target.value = '' //clear input
-        return of(null);
-      })
-    ).subscribe(() => {
-      this.isDocLoading = false;
-    });
+         event.target.value = '' //clear input
+         return of(null);
+       })
+     )
+     .subscribe(() => {
+       this.isDocLoading = false;
+     });
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe(); // unsubscribe from all subscriptions
   }
 }

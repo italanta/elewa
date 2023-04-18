@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -13,6 +13,7 @@ import { FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-image-block',
@@ -20,7 +21,7 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
   styleUrls: ['./image-block.component.scss'],
 })
 
-export class ImageBlockComponent implements OnInit {
+export class ImageBlockComponent implements OnInit, OnDestroy {
 
   @Input() id: string;
   @Input() block: ImageMessageBlock;
@@ -40,6 +41,8 @@ export class ImageBlockComponent implements OnInit {
   imageLink: string;
   hasImage: boolean = false;
  
+
+  private _sBs = new SubSink();  //SubSink instance
 
   constructor(private _imageUploadService: FileStorageService,
               public domSanitizer: DomSanitizer,
@@ -86,8 +89,8 @@ export class ImageBlockComponent implements OnInit {
     const imgFilePath = `images/${this.file.name}`;
     this.isLoadingImage = true;
 
-    this._imageUploadService.uploadSingleFile(this.file, imgFilePath).then((url) => {
-      url.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
+   this._imageUploadService.uploadSingleFile(this.file, imgFilePath).then((url) => {
+    this._sBs.sink = url.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
       this.isLoadingImage = false;
     }).catch((error) => {
       console.error('Error uploading file:', error);
@@ -102,6 +105,10 @@ export class ImageBlockComponent implements OnInit {
   private _autofillUrl(url: string) {
     this.imageMessageForm.patchValue({fileSrc: url});
     this.isLoadingImage = false;
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe(); // unsubscribe from all subscriptions
   }
 }
 
