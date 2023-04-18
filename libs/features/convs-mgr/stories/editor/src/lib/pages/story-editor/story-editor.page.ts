@@ -152,6 +152,19 @@ this.zoom(this.frameZoom)
 
   /** Save the changes made in the data model. */
   save() {
+
+    // Get all the text area elements
+    const textAreas = document.querySelectorAll('textarea');
+
+    // Check if any of the text area elements are empty
+    const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
+
+    // If there are empty fields, display a warning message and prevent saving
+    if (hasEmptyFields) {
+      alert('Please fill in all text fields before saving.');
+      return;
+    }
+
     this.stateSaved = false;
 
     let updatedState = this.state;
