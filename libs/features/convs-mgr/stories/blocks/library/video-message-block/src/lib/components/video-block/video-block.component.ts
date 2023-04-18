@@ -38,6 +38,7 @@ export class VideoBlockComponent implements OnInit {
 
   videoInputUpload: string = '';
   videoId: any;
+  videoLink: any;
 
   constructor(private _videoUploadService: UploadFileService,
     public domSanitizer: DomSanitizer
@@ -54,24 +55,33 @@ export class VideoBlockComponent implements OnInit {
   }
 
   checkIfVideoExists(){
-    this.videoUrl = this.videoMessageForm.value.fileSrc;
-    this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+    if (this.videoMessageForm) {
+      this.videoUrl = this.videoMessageForm.value.fileSrc;
+      this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+    }
   }
-
+  
   async processVideo(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e: any) => this.videoUrl = e.target.result;
+      reader.onload = (e: any) => this.videoLink = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
+      this.videoUrl = URL.createObjectURL(event.target.files[0]);
       this.isLoadingVideo = true;
+      this.hasVideo = true;
     }
+
     //Step 1 - Create the file path that will be in firebase storage
     const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
-    this.isLoadingVideo = true;
-    this.videoMessageForm.get('fileName')?.setValue(this.file.name);
 
-    (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).subscribe();
+    this._videoUploadService.uploadFile(this.file, this.block, vidFilePath).then((url) => {
+      this._autofillVideoUrl(url);
+    });
+  }
+
+  private _autofillVideoUrl(url: any) {
+    this.videoMessageForm.patchValue({ fileSrc: url });
     this.isLoadingVideo = false;
-  }  
+  }
 }
