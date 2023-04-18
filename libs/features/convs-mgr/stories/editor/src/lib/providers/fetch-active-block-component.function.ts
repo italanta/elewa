@@ -64,6 +64,8 @@ export function getActiveBlock(type: StoryBlockTypes) {
       return OpenEndedQuestionEditComponent;
     case StoryBlockTypes.keyword:
       return KeywordJumpBlockEditComponent;
+    case StoryBlockTypes.Event:
+      return DefaultComponent;
     default:
       return DefaultComponent;
   }
