@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -11,6 +11,7 @@ import { UploadFileService, FileStorageService } from '@app/state/file';
 
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { catchError, of } from 'rxjs';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-video-block',
@@ -18,7 +19,7 @@ import { catchError, of } from 'rxjs';
   styleUrls: ['./video-block.component.scss'],
 })
 
-export class VideoBlockComponent implements OnInit {
+export class VideoBlockComponent implements OnInit, OnDestroy {
 
   @Input() id: string;
   @Input() block: VideoMessageBlock;
@@ -38,6 +39,8 @@ export class VideoBlockComponent implements OnInit {
   videoUrl: string;
 
   videoInputUpload: string = '';
+
+  private _sBs = new SubSink();  //SubSink instance
 
   constructor(private _videoUploadService: UploadFileService,
               private _ngfiStorage:AngularFireStorage,
@@ -87,7 +90,7 @@ export class VideoBlockComponent implements OnInit {
    
     this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
     
-    (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).pipe(
+    this._sBs.sink = (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).pipe(
       catchError(error => {
         console.error('Error uploading file:', error);
         this._fileStorageService.openErrorModal("Error occurred", "Try again later.");
@@ -97,5 +100,9 @@ export class VideoBlockComponent implements OnInit {
     ).subscribe(() => {
       this.isLoadingVideo = false;
     });
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe(); // unsubscribe from all subscriptions
   }
 }
