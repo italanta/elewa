@@ -10,24 +10,25 @@ import {
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { from } from 'rxjs';
+import { from, tap } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { BackendService, UserService } from '@ngfi/angular';
 import { ToastService } from '@iote/bricks-angular';
 import { __FormatDateFromStorage } from '@iote/time';
 
-import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { iTalUser } from '@app/model/user';
+import { Story } from '@app/model/convs-mgr/stories/main';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
+import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
 
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
-import { Story } from '@app/model/convs-mgr/stories/main';
-import { SubSink } from 'subsink';
-import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-chat-detail-header',
@@ -56,7 +57,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     private _router: Router,
     private _toastService: ToastService,
     private _afsF: AngularFireFunctions,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _spinner: SpinnerService,
   ) {
     this.userService.getUser().subscribe((user) => (this.user = user));
   }
@@ -212,8 +214,10 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
       const req = { storyId, endUserId: this.chat.id, blockId };
 
+      this._spinner.show();
       this._sbs.sink = this._afsF
         .httpsCallable('moveChat')(req)
+        .pipe(tap(() => this._spinner.hide()))
         .subscribe(() =>
           this._snackBar.open('User unblocked!', 'OK', {
             duration: 3000,

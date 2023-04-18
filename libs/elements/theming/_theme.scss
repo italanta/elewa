@@ -48,6 +48,39 @@ $mat-ele: (
   )
 );
 
+$mat-purple: (
+  50 : #ece3f8,
+  100 : #d1baed,
+  200 : #b28ce1,
+  300 : #935dd5,
+  400 : #7b3bcc,
+  500 : #6418c3,
+  600 : #5c15bd,
+  700 : #5211b5,
+  800 : #480eae,
+  900 : #3608a1,
+  A100 : #d9cdff,
+  A200 : #b39aff,
+  A400 : #8d67ff,
+  A700 : #7a4dff,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #ffffff,
+      400 : #ffffff,
+      500 : #ffffff,
+      600 : #ffffff,
+      700 : #ffffff,
+      800 : #ffffff,
+      900 : #ffffff,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #ffffff,
+  )
+);
+
 
 /* A100: #b9e4f8,
   A200: #8ed2f3,
@@ -59,6 +92,7 @@ $mat-ele: (
 // hue. Available color palettes: https://material.io/design/color/
 $primary:  mat.define-palette($mat-ele);
 $accent:   mat.define-palette($mat-ele);
+$primary-purple: mat.define-palette($mat-purple);
 
 // The warn palette is optional (defaults to red).
 $warn:   mat.define-palette(mat.$red-palette);
@@ -88,6 +122,7 @@ $theme: mat.define-light-theme(
   color: (
     primary: $primary,
     accent: $accent,
+    warn: $primary-purple,
  ),
  typography: $custom-typography,
 ));
