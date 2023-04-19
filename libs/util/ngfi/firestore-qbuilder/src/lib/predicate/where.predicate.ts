@@ -1,7 +1,7 @@
 import { Query as FirebaseQuery } from '@firebase/firestore-types';
 import { Predicate } from "./predicate.interface";
 
-export type WhereComparitor = '<' | '>' | '<=' | '==' | '>=' | 'array-contains' | 'in' | 'array-contains-any' | '!=';
+export type WhereComparitor = '<' | '>' | '<=' | '==' | '>=' | 'array-contains' | 'in'   | 'not-in' | 'array-contains-any' | '!=';
 
 export class WherePredicate extends Predicate {
 
