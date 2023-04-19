@@ -1,0 +1,22 @@
+<div [id]="id" *ngIf="brickForm">
+  <form [formGroup]="brickForm" fxLayout="column" fxLayoutALign="start center">
+    <textarea [id]="id" formControlName="brick" type="text" rows="3"></textarea>
+    <button
+      type="button"
+      mat-raised-button
+      style="
+        background-color: #ffab2d;
+        color: #fff;
+        width: max-content;
+        padding: 8px;
+        margin: 0.5rem auto 0.25rem auto;
+      "
+    >
+      Edit
+    </button>
+    <!-- <app-default-option-field
+      [jsPlumb]="jsPlumb"
+      [blockFormGroup]="brickForm"
+    ></app-default-option-field> -->
+  </form>
+</div>
