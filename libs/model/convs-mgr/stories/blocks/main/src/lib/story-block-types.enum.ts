@@ -7,17 +7,17 @@ export enum StoryBlockTypes {
    * Automatically loaded on the editor when user creates a story
    */
   AnchorBlock = 0,
-  /** 
-   * Block only produces message output and will not wait for input. 
-   * 
+  /**
+   * Block only produces message output and will not wait for input.
+   *
    * Block examples: Sending messages
    * Usage         : Operator sends a message, terminal chatflow, ...
    */
   TextMessage = 1,
 
-  /** 
-   * Block only waits for input and has no leading message. 
-   * Block examples: get location, get audio, get message, ... 
+  /**
+   * Block only waits for input and has no leading message.
+   * Block examples: get location, get audio, get message, ...
    * Usage         : operator awaits feedback, ... */
   Input = 2,
 
@@ -31,7 +31,7 @@ export enum StoryBlockTypes {
   ListBlock = 16,
 
   /**
-   * Block that sends an audio as output to the user 
+   * Block that sends an audio as output to the user
    */
   Audio = 8,
 
@@ -40,7 +40,7 @@ export enum StoryBlockTypes {
    */
   Video = 13,
 
-  /** 
+  /**
    * Block sends message then expects input.
    * Block examples: buttons question, ...
    * Usage         : bot scenario-designs */
@@ -52,7 +52,7 @@ export enum StoryBlockTypes {
   Structural = 9,
 
   /**
-   * Block that sends an image and expects no input from the user 
+   * Block that sends an image and expects no input from the user
    */
   Image = 5,
 
@@ -114,6 +114,9 @@ export enum StoryBlockTypes {
   /** Block that calls a specified URL endpoint when hit */
   WebhookBlock = 25,
 
+  /** Block that allows users to navigate to different routes in the conversation flow. */
+  BrickBlock = 26,
+
   /**
    * Block that accepts any type of input
    */
@@ -129,9 +132,9 @@ export enum StoryBlockTypes {
    */
   keyword = 29,
 
-  /** 
+  /**
    * Block that tracks when a user reaches a certain action
-  */
+   */
   Event = 30,
 
   EndStoryAnchorBlock = 9999,
@@ -176,6 +179,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.keyword:
       return true;
     case StoryBlockTypes.Event:
+      return true;
+    case StoryBlockTypes.BrickBlock:
       return true;
     default:
       return false;
