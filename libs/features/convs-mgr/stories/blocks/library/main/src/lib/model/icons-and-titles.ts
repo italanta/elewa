@@ -95,6 +95,10 @@ export const iconsAndTitles: any = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
     icon: 'fas fa-link',
   },
+  26: {
+    title: 'PAGE-CONTENT.BLOCK.TITLES.BRICK',
+    icon: 'fas fa-cubes'
+  },
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
     icon: 'fas fa-question-circle',
