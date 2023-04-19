@@ -25,7 +25,7 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
 import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.model';
-
+import { _CreateBrickBlockForm } from '../../model/brick-block-form.model';
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
 import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
@@ -79,6 +79,7 @@ export class BlockComponent implements OnInit {
   audioInputType =  StoryBlockTypes.AudioInput;
   videoInputType = StoryBlockTypes.VideoInput;
   webhookType =  StoryBlockTypes.WebhookBlock;
+  brickType = StoryBlockTypes.BrickBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
   multiContentInputType = StoryBlockTypes.MultiContentInput;
@@ -204,6 +205,10 @@ export class BlockComponent implements OnInit {
           break;
         case StoryBlockTypes.WebhookBlock:
           this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        case StoryBlockTypes.BrickBlock:
+          this.blockFormGroup = _CreateBrickBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
         case StoryBlockTypes.EndStoryAnchorBlock:
