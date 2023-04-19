@@ -70,7 +70,8 @@
         "LOCATION-INPUT":"saisie de position",
         "KEYWORD-JUMP": "saut de mots-clés",
         "EVENT": "Événement",
-        "JUMP":"saut"
+        "JUMP":"saut",
+        "BRICK":"Brique"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
