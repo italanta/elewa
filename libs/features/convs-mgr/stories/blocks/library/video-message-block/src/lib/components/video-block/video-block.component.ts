@@ -1,15 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
+import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
+import { FileStorageService } from '@app/state/file';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { UploadFileService } from '@app/state/file';
-
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-block',
@@ -17,13 +17,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./video-block.component.scss'],
 })
 
-export class VideoBlockComponent implements OnInit {
+export class VideoBlockComponent implements OnInit, OnDestroy {
 
   @Input() id: string;
   @Input() block: VideoMessageBlock;
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   
+  private _sBs = new SubSink()
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
@@ -34,13 +35,13 @@ export class VideoBlockComponent implements OnInit {
   videoInputId: string;
   isLoadingVideo: boolean;
   hasVideo: boolean;
-  videoUrl: any;
+  videoUrl: string;
 
-  videoInputUpload: string = '';
-  videoId: any;
-  videoLink: any;
+  videoInputUpload = '';
+  videoId: string;
+  videoLink: string;
 
-  constructor(private _videoUploadService: UploadFileService,
+  constructor(private _videoUploadService: FileStorageService,
     public domSanitizer: DomSanitizer
   ) 
   {
@@ -50,7 +51,6 @@ export class VideoBlockComponent implements OnInit {
   ngOnInit(): void {
     this.videoInputId = `vid-${this.id}`;
     this.videoInputUpload = `vid-${this.id}-upload`;
-    
     this.checkIfVideoExists();
   }
 
@@ -67,7 +67,9 @@ export class VideoBlockComponent implements OnInit {
       reader.onload = (e: any) => this.videoLink = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
+  
       this.videoUrl = URL.createObjectURL(event.target.files[0]);
+      this.videoMessageForm.patchValue({ fileName: this.file.name });
       this.isLoadingVideo = true;
       this.hasVideo = true;
     }
@@ -75,13 +77,16 @@ export class VideoBlockComponent implements OnInit {
     //Step 1 - Create the file path that will be in firebase storage
     const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
 
-    this._videoUploadService.uploadFile(this.file, this.block, vidFilePath).then((url) => {
-      this._autofillVideoUrl(url);
-    });
+    const response = await this._videoUploadService.uploadSingleFile(this.file, vidFilePath)
+    this._sBs.sink = response.subscribe(url => this._autofillVideoUrl(url))
   }
 
   private _autofillVideoUrl(url: any) {
     this.videoMessageForm.patchValue({ fileSrc: url });
     this.isLoadingVideo = false;
+  }
+
+  ngOnDestroy(){
+    this._sBs.unsubscribe()
   }
 }
