@@ -1,0 +1,20 @@
+
+<convl-page fxLayout="column" *ngIf="chat$ | async as chat" fxFlexFill
+          [title]="'Single Chat'">
+
+  <div class="section-container">
+
+    <div class="section-header">
+      <app-chat-detail-header [chat]="chat"></app-chat-detail-header>
+    </div>
+
+    <div class="section-body" id="chat-container" fxLayout="column" fxLayoutAlign="end">
+      <div class="container-inner">
+        <app-messages-container></app-messages-container>
+      </div>
+
+      <app-new-message [chat]="chat" [status]="chat.status"></app-new-message>
+    </div>
+
+  </div>
+</convl-page>

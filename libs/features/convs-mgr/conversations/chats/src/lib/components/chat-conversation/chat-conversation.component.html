@@ -1,0 +1,20 @@
+<div fxFill class="conversations left-margin" fxLayout="column" *ngIf="chat else noChat">
+
+  <div class="section-header" fxFlex="10">
+    <app-chat-detail-header [chat]="chat"></app-chat-detail-header>
+  </div>
+
+  <div class="section-body" id="chat-container" fxFlex="80" fxLayout="column">
+    <div class="container-inner">
+      <app-messages-container fxLayout="column" [chat]="chat"  fxFlex="100"></app-messages-container>
+    </div>
+  </div>
+
+  <app-new-message [chat]="chat" [status]="chat.status" fxFlex="10"></app-new-message>
+</div>
+
+<ng-template #noChat>
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" style="background-color: #ffffff;">
+    No Chat selected for display
+  </div>
+</ng-template>

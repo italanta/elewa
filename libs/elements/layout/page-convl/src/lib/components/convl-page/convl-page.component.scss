@@ -5,12 +5,12 @@
 
 .content-wrapper-inner {
   overflow: auto;
-  min-height: 100%;
-  padding: 10px;
+  padding: 20px;
 }
-  .content-wrapper-inner.nomarg {
-    padding: 0;
-  }
+
+.content-wrapper-inner.nomarg {
+  padding: 0;
+}
 
 convl-navbar{
   margin-bottom: 1px;

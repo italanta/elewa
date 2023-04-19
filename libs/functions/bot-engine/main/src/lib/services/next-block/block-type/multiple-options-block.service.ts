@@ -3,6 +3,7 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
@@ -36,11 +37,15 @@ export class MultipleOptionsMessageService extends NextBlockService
 	 * 
 	 * @note It does this by matching the id of the button and the id of the option saved in the database
 	 */
-	async getNextBlock(msg: Message, lastBlock: QuestionMessageBlock, orgId: string, currentStory: string, endUserId: string): Promise<StoryBlock>
+	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<Cursor>
 	{
+		const cursor = currentCursor;
+		
 		const response = msg as QuestionMessage;
 
 		const matchInput = new MatchInputService();
+
+		const lastBlock = currentBlock as QuestionMessageBlock
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies
@@ -56,32 +61,14 @@ export class MultipleOptionsMessageService extends NextBlockService
 
 		const connection = await this._connDataService.getConnByOption(sourceId, orgId, currentStory);
 
-		const nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);
+		this.tools.Logger.log(()=> `Connection: ${JSON.stringify(connection)}`);
 
-		return nextBlock;
-	}
+		const newUserPosition: EndUserPosition = {
+			storyId: currentStory,
+			blockId: connection.targetId
+		}
+		cursor.position = newUserPosition;
 
- /**
- 	* The user/organisation creating the bot might choose to save the response of the end user for later use.
- 	* 
- 	* This method takes the response(value) and saves it to a temporary collection. This data can then
- 	*  be retrieved from this collection later e.g. when the story ends the user creating the bot might choose to 
- 	*    post the data to a REST endpoint.
-	* 
-	* Each story block will need to have a field called 'milestone', which we will use to group variables together.
-	* 	A milestone is the end goal which the user wants to achieve with the saving variables. E.g. If the milestone is
-	*			'reportproblem', the end user reponse to the input blocks with that milestone will be saved together.
-	*
-	* This will also help in knowing where to retrieve the data, when posting the data to an api endpoint.
- 	*/
-	async saveUserResponse(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<any>
-	{
-		const response = msg as QuestionMessage;
-
-		// Get the text value of the option the end user has clicked
-		const value = response.options[0].optionText;
-
-		// Check if the milestone exists on this block
-		if (lastBlock.milestone) return this.saveData(lastBlock.tag, orgId, lastBlock.milestone, value, endUserId);
+		return cursor;
 	}
 }

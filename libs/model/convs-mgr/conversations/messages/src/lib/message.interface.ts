@@ -1,7 +1,10 @@
+import { IObject } from "@iote/bricks";
+
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { IncomingMessagePayload } from "./payload-in.interface";
+import { MessageParams } from "./message-params.interface";
 
 /** 
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -11,7 +14,7 @@ import { IncomingMessagePayload } from "./payload-in.interface";
  * 
  *@type {Message} is our standardized format returned by @see {IncomingMessageParser} and passed to the bot engine.
 */
-export interface Message
+export interface Message extends IObject
 {
   /** The unique id that is assigned to the third party platform */
   id?                 : string;
@@ -42,6 +45,8 @@ export interface Message
   direction?          : MessageDirection;
 
   url?                : string;
+
+  params?             : MessageParams[];
 }
 
 
@@ -77,7 +82,7 @@ export interface LocationMessage extends Message
 
 export interface FileMessage extends Message
 {
-  mediaId         : string;
+  mediaId?        : string;
   url?            : string;
   mime_type?      : string
 }
@@ -97,7 +102,7 @@ export interface QuestionMessage extends Message
 {
   questionText?       : string;
 
-  options             : QuestionMessageOptions[];
+  options?             : QuestionMessageOptions[];
 }
  
  export interface QuestionMessageOptions 
