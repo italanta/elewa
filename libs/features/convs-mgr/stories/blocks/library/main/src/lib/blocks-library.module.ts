@@ -32,6 +32,7 @@ import { ConvsMgrMultipleInputMessageBlockModule } from '@app/features/convs-mgr
 import { ConvsMgrImageInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/image-input-block';
 import { ConvsMgrLocationInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/location-input-block';
 import { ConvsMgrStoriesWebhookBlockModule } from '@app/features/convs-mgr/stories/blocks/library/webhook-block';
+import { ConvsMgrBrickBlockModule } from '@app/features/convs-mgr/stories/blocks/library/brick-block';
 
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 import { ConvsMgrOpenEndedQuestionBlockModule } from '@app/features/convs-mgr/stories/blocks/library/open-ended-question-block';
@@ -40,7 +41,6 @@ import { ConvsMgrMultiContentInputBlockModule } from '@app/features/convs-mgr/st
 import { ConvsMgrVideoInputBlockModule } from '@app/features/convs-mgr/stories/blocks/library/video-input-block';
 import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/keyword-jump-block';
 import { ConvsMgrEventBlockModule } from '@app/features/convs-mgr/stories/blocks/library/event-block';
-
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
@@ -80,6 +80,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrAudioInputBlockModule,
     ConvsMgrStoriesWebhookBlockModule,
     ConvsMgrMultiContentInputBlockModule,
+    ConvsMgrBrickBlockModule,
 
     ConvsMgrAnchorBlockModule,
     ConvsMgrVideoInputBlockModule,
