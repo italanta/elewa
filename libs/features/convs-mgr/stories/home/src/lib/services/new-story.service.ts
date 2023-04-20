@@ -157,7 +157,9 @@ export class NewStoryService implements OnDestroy {
       deleted: false,
       blockTitle: 'End here',
       blockIcon: '',
-    };
+      blockCategory:''
+    }
+    
     this._blocksStore$$.createEndBlock(orgId, storyId, endBlock);
   }
 
