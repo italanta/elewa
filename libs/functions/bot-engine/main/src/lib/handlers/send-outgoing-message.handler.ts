@@ -75,7 +75,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       
       const endUserId = generateEndUserId(outgoingPayload.endUserPhoneNumber, PlatformType.WhatsApp, n);
 
-      const latestMessage = await msgService.getLatestMessage(endUserId, this._orgId);
+      const latestMessage = await msgService.getLatestUserMessage(endUserId, this._orgId);
 
       // Get the date in milliseconds
       const latestMessageTime = new Date(latestMessage ? latestMessage.createdOn : 0).getTime();
