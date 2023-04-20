@@ -8,6 +8,7 @@ import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/convers
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
+import { __DateFromStorage } from '@iote/time';
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
@@ -78,7 +79,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       const latestMessage = await msgService.getLatestUserMessage(endUserId, this._orgId);
 
       // Get the date in milliseconds
-      const latestMessageTime = new Date(latestMessage ? latestMessage.createdOn : 0).getTime();
+      const latestMessageTime = __DateFromStorage(latestMessage.createdOn).unix() * 1000;
 
       // Check if the last message sent was more than 24hours ago
       if ((Date.now() - latestMessageTime) > 86400000) {
