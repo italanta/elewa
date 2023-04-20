@@ -67,12 +67,14 @@ export class NewMessageComponent implements OnChanges
     {
       const data = { chatId: this.chat.id, message: this.message, agentId: this.user.id };
 
+      const n = parseInt(this.chat.id.split('-')[1]) ;
+
       const textMessage: TextMessage = {
         text: this.message,
         type: MessageTypes.TEXT,
         direction: MessageDirection.FROM_AGENT_TO_END_USER,
         endUserPhoneNumber: this.chat.phoneNumber,
-        n: 1,
+        n,
       }
 
       // from(this._backendService.callFunction('sendOutgoingMessage', textMessage)).subscribe();
