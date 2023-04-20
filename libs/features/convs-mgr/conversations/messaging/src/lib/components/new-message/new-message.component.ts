@@ -67,7 +67,7 @@ export class NewMessageComponent implements OnChanges
     {
       const data = { chatId: this.chat.id, message: this.message, agentId: this.user.id };
 
-      const n = parseInt(this.chat.id.split('-')[1]) ;
+      const n = parseInt(this.chat.id.split('_')[1]) ;
 
       const textMessage: TextMessage = {
         text: this.message,
