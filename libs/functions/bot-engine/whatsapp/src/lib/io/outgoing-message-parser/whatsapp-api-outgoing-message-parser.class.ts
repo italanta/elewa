@@ -15,6 +15,7 @@ import
   WhatsAppImageMessage,
   WhatsAppInteractiveMessage,
   WhatsAppMessageType,
+  WhatsappTemplateComponent,
   WhatsAppTemplateMessage,
   WhatsappTemplateParameter,
   WhatsAppTextMessage,
@@ -275,22 +276,12 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
 
   getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string, message: Message)
   {
+    let messageTemplate: WhatsAppTemplateMessage;
+
     let { name, languageCode, params } = templateConfig;
 
-    if(message && message.params) {
-      params = message.params.map((param) => param.value);
-    }
-
-    const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
-    {
-      return {
-        type: WhatsAppMessageType.TEXT,
-        text: param,
-      };
-    });
-
     // Create the message template payload which will be sent to whatsapp
-    const messageTemplate: WhatsAppTemplateMessage = {
+    messageTemplate = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: phone,
@@ -300,14 +291,33 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         language: {
           code: languageCode,
         },
-        components: [
-          {
-            type: "body",
-            parameters: templateParams,
-          }
-        ]
+
       }
     };
+
+    // Set the params if they exist
+    if(message && message.params) {
+      params = message.params.map((param) => param.value);
+    }
+
+    if(params) {
+      const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
+      {
+        return {
+          type: WhatsAppMessageType.TEXT,
+          text: param,
+        };
+      });
+
+      const templateComponents = [
+        {
+          type: "body",
+          parameters: templateParams,
+        }
+      ] as WhatsappTemplateComponent[];
+
+      messageTemplate.template.components = templateComponents;
+    }
 
     return messageTemplate;
   }
