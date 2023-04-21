@@ -79,28 +79,33 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       const latestMessage = await msgService.getLatestUserMessage(endUserId, this._orgId);
 
       // Get the date in milliseconds
-      const latestMessageTime = __DateFromStorage(latestMessage.createdOn).unix() * 1000;
+      const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
 
       // Check if the last message sent was more than 24hours ago
-      if ((Date.now() - latestMessageTime) > 86400000) {
+      if ((Date.now() - latestMessageTime.unix()*1000) > 864000) {
+
+        tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
+        tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${outgoingPayload.endUserPhoneNumber}`);
+
         const templateConfig = communicationChannel.templateConfig;
         if(templateConfig) {
-        // Send the opt-in message template
 
-        // Get the opt-in message template
+        // Get the message template
         outgoingMessagePayload = activeChannel
         .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
+        } else {
+          tools.Logger.warn(() => `[SendOutgoingMsgHandler].execute [Warning] - Missing Template Config! Message may fail to reach user`);
         }
       }}
 
       // STEP 5: Send the message
       await activeChannel.send(outgoingMessagePayload as any);
 
-      tools.Logger.error(() => `[WhatsAppSendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
+      tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
 
       return { success: true } as RestResult200;
     } catch (error) {
-      tools.Logger.error(() => `[WhatsAppSendOutgoingMsgHandler].execute - Encountered an error ${error}`);
+      tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Encountered an error ${error}`);
     }
   }
 }
