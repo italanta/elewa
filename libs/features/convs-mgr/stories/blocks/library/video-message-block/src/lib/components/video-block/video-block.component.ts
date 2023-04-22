@@ -48,7 +48,7 @@ export class VideoBlockComponent implements OnInit{
 
   
   openVideoModal(){
-   this.matdialog.open(VideoUploadModalComponent, {minWidth: '1000px',
+   this.matdialog.open(VideoUploadModalComponent, {minWidth: '900px', minHeight: '500px',
     data: {
       block: this.block,
       videoMessageForm: this.videoMessageForm,

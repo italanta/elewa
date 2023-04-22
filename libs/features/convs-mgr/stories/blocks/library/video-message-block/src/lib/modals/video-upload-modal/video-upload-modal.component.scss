@@ -1,11 +1,10 @@
-.container {
-    padding: 5% 5%;
-    overflow-y: hidden;
-    overflow-x: hidden    ;
-  }
+// .container {
+//     padding: 5% 5%;
+//   }
   
   .title {
-    color: var(--convs-mgr-color-700);
+    color: var(--convs-mgr-color-primary-dark-blue);
+    font-family: 'Poppins', sans-serif;
     text-align: center;
     font-weight: 600;
   }
@@ -14,29 +13,29 @@
     width: 30px;
     position: relative;
     right: -850px;
-    color: var(--convs-mgr-color-700);
+    color: var(--convs-mgr-color-primary-dark-blue);
   }
   .wrapper {
-      /* padding: 0 5; */
       width: 100%; 
-      display: flex;
-      display: -ms-grid;
+      //display: flex;
       display: grid;
       -ms-grid-columns: (350px);
       grid-template-columns: repeat(2, 350px);
-      justify-content: center;
       grid-gap: 40px;
+      color: var(--convs-mgr-color-primary-dark-blue);
+      font-weight: 500;
   }
   .apply__button {
     position: absolute;
     right: 20px;
     bottom: 20px;
     background-color: var(--convs-mgr-color-primary-purple);
-    font-size: medium;
-    font-weight: bold;
+    font-size: large;
+    font-weight: bolder;
     color: var(--convs-mgr-color-primary-white);
-    width: 120px;
+    width: 140px;
     border-radius: 6px;
+    height: 50px;
   }
   .apply {
     padding-top: 5px;
@@ -44,11 +43,20 @@
   .left__side {
      background-color: var(--convs-mgr-color-primary-white); 
   }
+
+  .upload-video{
+    width: 400px;
+    height: 350px;
+  }
   
   #name-input {
     border: none;
     outline: none;
     background-color: var(--convs-mgr-color-tertiary-tint);
+    width: 340px;
+    margin-bottom: 10px;
+    height: 30px;
+    border-radius: 5px;
   }
   
   .right__side {
@@ -57,24 +65,20 @@
     background-color:var(--convs-mgr-color-primary-white);
   }
   .right__header{
-      color: var(--convs-mgr-color-700);
+      //color: var(--convs-mgr-color-primary-dark-blue);
       font-weight: 600;
   }
   .p__text {
-    color: var(--convs-mgr-color-700);
+    //color: var(--convs-mgr-color-primary-dark-blue);
     font-weight: 600;
   }
-  .name__input {
-    outline: none;
-    width: 96%;
-  }
+
   .size__options {
-    color: var(--convs-mgr-color-700);
+    //color: var(--convs-mgr-color-primary-dark-blue);
     padding-left: 10px;
     font-weight: bold;
   }
   .thumbnail{
-  background-color: red;
   border-radius: 2.5%;
   }
   .resolution {
@@ -84,9 +88,9 @@
   }
   
   input[type="radio"]{
-      color: var(--convs-mgr-color-700);
+     // color: var(--convs-mgr-color-700);
       cursor: pointer;
-      background-color: var(--convs-mgr-color-700);
+     // background-color: var(--convs-mgr-color-700);
       
   }
   

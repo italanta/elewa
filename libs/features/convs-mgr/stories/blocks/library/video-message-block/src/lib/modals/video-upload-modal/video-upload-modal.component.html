@@ -14,7 +14,7 @@
         <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="name" />
       </label>
       <br />
-      <div [id]="videoInputId"> <!--why is there a validations error here?-->
+      <div [id]="videoInputId"> 
         <input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
         <label [for]="videoInputUpload">
           <div *ngIf="!hasVideo; else inputHasVideo">
