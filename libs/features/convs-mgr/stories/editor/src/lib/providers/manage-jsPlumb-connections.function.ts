@@ -13,6 +13,9 @@ export function CreateDeleteButton() {
   deleteButton.id = "overlay-delete-button";
   // deleteButton.classList.add("overlay-button ");
 
+    // Set the title attribute to provide guidance on how to delete a connection
+    deleteButton.title = "Double click";
+
   // Return the created button
   return deleteButton
 }
