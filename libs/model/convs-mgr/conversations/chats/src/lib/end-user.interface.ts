@@ -20,6 +20,8 @@ export interface EndUser extends IObject
     /** The story that the end user is currently responding to */
     currentStory                  ?: string;
 
+    labels                        ?:string[];
+
     isConversationComplete        ?: number;
 }
 
