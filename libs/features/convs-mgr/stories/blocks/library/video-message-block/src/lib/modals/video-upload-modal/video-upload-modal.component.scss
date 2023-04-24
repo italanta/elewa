@@ -65,16 +65,13 @@
     background-color:var(--convs-mgr-color-primary-white);
   }
   .right__header{
-      //color: var(--convs-mgr-color-primary-dark-blue);
       font-weight: 600;
   }
   .p__text {
-    //color: var(--convs-mgr-color-primary-dark-blue);
     font-weight: 600;
   }
 
   .size__options {
-    //color: var(--convs-mgr-color-primary-dark-blue);
     padding-left: 10px;
     font-weight: bold;
   }
@@ -82,24 +79,13 @@
   border-radius: 2.5%;
   }
   .resolution {
-    padding-left: 20px;
+    padding-left: 30px;
     font-size: 12px;
     opacity: 0.7
   }
   
   input[type="radio"]{
-     // color: var(--convs-mgr-color-700);
-      cursor: pointer;
-     // background-color: var(--convs-mgr-color-700);
-      
-  }
-  
-  .heading{
-    padding: none;
-    height: fit-content;
-  }
-  .input__div{
-    line-height: 1px;
+    cursor: pointer;      
   }
   
   @media only screen and (max-width: 600px) {
