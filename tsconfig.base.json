@@ -234,6 +234,9 @@
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
       ],
+      "@app/state/convs-mgr/monitoring": [
+        "libs/state/convs-mgr/monitoring/src/index.ts"
+      ],
       "@app/state/convs-mgr/stories": [
         "libs/state/convs-mgr/stories/main/src/index.ts"
       ],
