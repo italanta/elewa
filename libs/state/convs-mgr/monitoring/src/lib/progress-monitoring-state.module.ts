@@ -1,7 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, ModuleWithProviders } from '@angular/core';
+
+import { ProgressMonitoringStore } from './stores/progress-monitoring.store';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [],
 })
-export class StateProgressMonitoringModule {}
+export class ProgressMonitoringStateModule {
+  static forRoot(): ModuleWithProviders<ProgressMonitoringStateModule> {
+    return {
+      ngModule: ProgressMonitoringStateModule,
+      providers: [ProgressMonitoringStore],
+    };
+  }
+}
