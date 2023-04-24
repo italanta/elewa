@@ -3,8 +3,8 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/
 
 import { Repository, DataService } from '@ngfi/angular';
 
-import { of } from 'rxjs';
-import { switchMap, map, take, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { switchMap, map, take, catchError, concatMap, last, tap, finalize } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -25,7 +25,7 @@ import { FileUpload } from '../model/file-upload.interface';
 
 /**This service handles the upload of files on firestorage and firestore*/
 export class UploadFileService {
-
+  
   //The filepath on firestore for the files
   protected _activeRepo: Repository<FileUpload>;
   protected store = 'file-store';
@@ -138,6 +138,8 @@ export class UploadFileService {
     return this.upload(reference, block).pipe(take(1));
 
   }
+
+
   public async FileUploader(file: File, story: Story) {
     //Step 1 - Create the file path that will be in firebase storage
     const imgFilePath = `images/${file.name}_${new Date().getTime()}`;
