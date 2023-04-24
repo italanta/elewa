@@ -4,17 +4,12 @@
  * 
  * Used in the participant progress barchart.
  */
-export interface ParticipantProgressModel 
-{
-  userId: string;
-  milestones: ParticipantProgressMilestone[];
-}
 
-/** Progress of a user on a single moment in time. */
 export interface ParticipantProgressMilestone
 {
+  participant: { id:string, name:string, phone:string };
   /** Unix time interval at which is measured */
-  time: number; 
+  group: string; 
   /** Milestone the user has reached */
   milestone: string; 
   /** Story ID of the milestone the user has reached */
