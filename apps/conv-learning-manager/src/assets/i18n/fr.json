@@ -70,6 +70,7 @@
         "LOCATION-INPUT":"saisie de position",
         "KEYWORD-JUMP": "saut de mots-clés",
         "EVENT": "Événement",
+        "ASSESSMENT": "Évaluation",
         "JUMP":"saut"
       },
       "PLACEHOLDER": {
