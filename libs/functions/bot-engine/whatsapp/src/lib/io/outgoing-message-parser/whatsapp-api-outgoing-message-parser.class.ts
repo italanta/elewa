@@ -1,10 +1,10 @@
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import
 {
   ActionButtonsInfo,
   ActionInfo,
-  ActionSectionInfo,
   ActionSectionInfoRow,
   InteractiveButtonMessage,
   InteractiveListMessage,
@@ -23,9 +23,7 @@ import
 } from '@app/model/convs-mgr/functions';
 
 import { DocumentMessageBlock, ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
-import { OutgoingMessageParser } from '@app/functions/bot-engine';
-import { Message, MessageTemplateConfig } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -274,11 +272,11 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   }
 
 
-  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string, message: Message)
+  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message)
   {
     let messageTemplate: WhatsAppTemplateMessage;
 
-    let { name, languageCode, params } = templateConfig;
+    let { name, languageCode } = templateConfig;
 
     // Create the message template payload which will be sent to whatsapp
     messageTemplate = {
@@ -291,21 +289,15 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         language: {
           code: languageCode,
         },
-
       }
     };
-
-    // Set the params if they exist
-    if(message && message.params) {
-      params = message.params.map((param) => param.value);
-    }
 
     if(params) {
       const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
       {
         return {
           type: WhatsAppMessageType.TEXT,
-          text: param,
+          text: param.value,
         };
       });
 
@@ -321,6 +313,9 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
 
     return messageTemplate;
   }
+
+
+
   // getStickerBlockParserOut(storyBlock: StoryBlock, phone: string) {
   //   // TODO: 
   //   let link: string;
