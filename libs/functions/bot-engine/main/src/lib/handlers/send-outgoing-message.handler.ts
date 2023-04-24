@@ -2,13 +2,12 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
 
-import { ChannelDataService, generateEndUserId, MessagesDataService } from '@app/functions/bot-engine';
+import { ChannelDataService} from '@app/functions/bot-engine';
 
-import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
-import { __DateFromStorage } from '@iote/time';
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
@@ -69,37 +68,8 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       // STEP 4: Get the outgoing message in whatsapp format
       let outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
 
-      // Only send the opt-in message if the platform is whatsapp
-      if(communicationChannel.type === PlatformType.WhatsApp) 
-      {      
-      const msgService = new MessagesDataService(tools);
-      
-      const endUserId = generateEndUserId(outgoingPayload.endUserPhoneNumber, PlatformType.WhatsApp, n);
-
-      const latestMessage = await msgService.getLatestUserMessage(endUserId, this._orgId);
-
-      // Get the date in milliseconds
-      const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
-
-      // Check if the last message sent was more than 24hours ago
-      if ((Date.now() - latestMessageTime.unix()*1000) > 864000) {
-
-        tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
-        tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${outgoingPayload.endUserPhoneNumber}`);
-
-        const templateConfig = communicationChannel.templateConfig;
-        if(templateConfig) {
-
-        // Get the message template
-        outgoingMessagePayload = activeChannel
-        .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
-        } else {
-          tools.Logger.warn(() => `[SendOutgoingMsgHandler].execute [Warning] - Missing Template Config! Message may fail to reach user`);
-        }
-      }}
-
       // STEP 5: Send the message
-      await activeChannel.send(outgoingMessagePayload as any);
+      await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);
 
       tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
 
