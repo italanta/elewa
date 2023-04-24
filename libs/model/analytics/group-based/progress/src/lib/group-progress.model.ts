@@ -1,4 +1,4 @@
-import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { ParticipantProgressMilestone } from "./participant-progress.model";
 
 /**
  * Model for analysing and visualing grouping progress data. 
@@ -7,25 +7,22 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
  */
 export interface GroupProgressModel 
 {
-  measurements: GroupProgressMeasurement[];
+  /** All users milestones */
+  measurements: GroupProgressMilestone[];
+
+  /** Grouped milestones by class/group */
+  groupedMeasurements: GroupProgressMilestone[];
+}
+
+export interface GroupedParticipants { 
+  [key: string]: ParticipantProgressMilestone[];
 }
 
 /** Progress of a group at a single moment in time. */
-export interface GroupProgressMeasurement
-{
-  /** Unix time interval at which is measured */
-  time: number; 
-  milestones: GroupProgressMilestone[];
-}
-
 export interface GroupProgressMilestone
 {
-  /** Milestone the user has reached */
-  milestone: string; 
-  /** First encountered Story ID of the milestone the group has reached */
-  storyId: string;
+  /** Name of Milestone the user has reached */
+  name: string; 
   /** Users */
-  participants: { id: string, name: string, phone: string }[];
-  /** Number of users */
-  nParticipants: number;
+  participants: ParticipantProgressMilestone[];
 }
