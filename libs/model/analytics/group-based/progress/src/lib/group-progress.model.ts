@@ -1,3 +1,4 @@
+import { IObject } from "@iote/bricks";
 import { ParticipantProgressMilestone } from "./participant-progress.model";
 
 /**
@@ -5,8 +6,11 @@ import { ParticipantProgressMilestone } from "./participant-progress.model";
  * 
  * Used in the group-based-progress hierarchical barchart.
  */
-export interface GroupProgressModel 
+export interface GroupProgressModel extends IObject 
 {
+  /** time in unix */
+  time: number;
+
   /** All users milestones */
   measurements: GroupProgressMilestone[];
 
