@@ -1,5 +1,5 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { Message, MessageTemplateConfig, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Message, MessageTemplateConfig, OutgoingMessagePayload, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
@@ -40,9 +40,9 @@ export interface ActiveChannel
    *                      with the chatbot
    * 
    */
-  send(msg: OutgoingMessagePayload);
+  send(msg: OutgoingMessagePayload, standardMessage?: Message);
 
   getMediaFile(mediaId: string, mime_type: string);
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phoneNumber: string, message: Message);
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phoneNumber: string, message: Message);
 }
