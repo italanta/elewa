@@ -12,5 +12,5 @@ export interface MeasureProgressCommand
   participant: EndUser;
 
   /** Collection of unix timestamps at which time to measure. */
-  interval: number[];
+  interval?: number;
 }

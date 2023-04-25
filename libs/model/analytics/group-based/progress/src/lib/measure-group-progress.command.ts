@@ -3,9 +3,6 @@
  */
 export interface MeasureGroupProgressCommand 
 {
-  /** Organisation of the participant to measure. */
-  orgId: string;
-
-  /** Collection of unix timestamps at which time to measure progress. */
-  interval?: number[];
+  /** Unix timestamp at which time to measure progress. */
+  interval: number;
 }
