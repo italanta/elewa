@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringStore } from '../stores/progress-monitoring.store';
 
 @Injectable({
@@ -10,8 +11,11 @@ export class ProgressMonitoringService {
 
   constructor(private _progressStore$$: ProgressMonitoringStore) { }
 
-  getMilestones() : Observable<any[]> {
-    return this._progressStore$$.get();
+  /**
+   * @returns all milestones for all users
+   */
+  getMilestones() : Observable<GroupProgressModel[]> {
+    return this._progressStore$$.get()
   }
 }
 
