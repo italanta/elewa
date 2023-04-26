@@ -2,3 +2,30 @@
   width: 100%;
   height: 500px;
 }
+
+.menu {
+  .menu__wrapper {
+    display: flex;
+    gap: 0.5rem;
+
+    .group {
+      padding: 0.3rem;
+
+      &__btn {
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+        // background-color: ;
+        cursor: pointer;
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+
+  span {
+    color: white;
+  }
+}

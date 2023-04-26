@@ -32,7 +32,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   getGroups(model: GroupProgressModel[]) {
     // TODO: @LemmyMwaura Pull existing groups from DB after the grouping feature is complete.
-    return model[model.length - 1].groupedMeasurements.map((item) => item.name);
+    return model[model.length - 1].groupedMeasurements.map((item) => item.name.split('_')[1]);
   }
 
   selectActiveGroup(group: string) {
@@ -93,7 +93,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
       return model.map(
         (item) =>
           item.groupedMeasurements
-            .find((group) => group.name === this.activeGroup)
+            .find((group) => group.name.includes(this.activeGroup))
             ?.measurements.find((m) => m.name === milestone)?.participants
             .length ?? 0
       );
