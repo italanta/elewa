@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-## Technologies and Knowledge Scope 🧠
+**Technology and Knowledge Scope 🧠**
 
 Please delete options that are not relevant.
 
