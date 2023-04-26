@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
+import { Query } from '@ngfi/firestore-qbuilder';
 import { DataStore }  from '@ngfi/state';
 
 import { of } from 'rxjs'
@@ -26,12 +27,14 @@ export class ProgressMonitoringStore extends DataStore<GroupProgressModel>
   {
     super("always", _logger);
 
+    const query = new Query().orderBy("time","asc");
+
     const data$ = _org$$.get()
                     .pipe(
                       tap((org: Organisation) => this._activeOrg  = org),
                       tap((org: Organisation) => this._activeRepo = _repoFac.getRepo<GroupProgressModel>(`orgs/${org.id}/monitoring`)),
                       switchMap((org: Organisation) => 
-                        org ? this._activeRepo.getDocuments() : of([] as GroupProgressModel[])
+                        org ? this._activeRepo.getDocuments(query) : of([] as GroupProgressModel[])
                       ),
                       throttleTime(500, undefined, { leading: true, trailing: true })
                     );
