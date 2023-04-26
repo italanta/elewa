@@ -1,6 +1,5 @@
-import { HandlerTools, Repository } from '@iote/cqrs';
+import { HandlerTools } from '@iote/cqrs';
 
-import { Query } from '@ngfi/firestore-qbuilder';
 import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -16,23 +15,26 @@ import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model
 export class MeasureParticipantProgressHandler extends FunctionHandler<MeasureProgressCommand, ParticipantProgressMilestone>
 {
   /**
-   * Calculate progress of a given participant based on the stories they have completed.e.
+   * Calculate progress of a given participant based on the stories they have completed.
    * 
-   * @param cmd - Command with participant ID and intervals at which to measure.
+   * @param cmd - Command with participant ID and an optional interval at which to measure - defaults to current date.
    */
   public async execute(cmd: MeasureProgressCommand, context: HttpsContext, tools: HandlerTools) 
   {
     const { orgId , participant, interval } = cmd;
 
-    // 1. Get latest chat at each interval in time to measure progress
-    // const cursorRepo = tools.getRepository<Cursor>(`orgs/${orgId}/end-users/${participant.id}/cursor`);
-    
-      // 1.1. Get the user cursor at each measurement point.
     const cursorDataService = new CursorDataService(tools)
-
-    const latestCursor = await cursorDataService.getLatestCursor(participant.id, orgId)  as Cursor
+    
+    // 1.1. Get the user cursor at the measurement point.
+    const latestCursor = interval
+      ? (await cursorDataService.getUserCursorAtSetTime(interval, orgId, participant.id))?.cursor
+  
+      : ((await cursorDataService.getLatestCursor(participant.id, orgId)) as Cursor);
 
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
+
+    //guard clause to filter user's with no cursor history when calculating past data
+    if (!latestCursor) return
 
     const { storyId } = latestCursor.position
 
@@ -49,29 +51,4 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
       storyId: story.id,
     }
   }
-}
-
-/**
- * Gets the latest message which was sent to a user at the time of measurement.
- * 
- * @param timeToMeasure - Unix time when to take a measurement
- * @param repo          - Repository to use to find the cursor
- * @returns 
- */
-async function _getLatestMessageAtEachInterval(unixToMeasure: number, cursorRepo: Repository<Cursor>)
-{
-  // Convert unix time to date
-  const timeToMeasure = new Date(unixToMeasure * 1000);
-
-  // Get latest message before the measurement time to show progress of user at that time
-  const query = new Query()
-                      .where('createdOn', '<=', timeToMeasure)
-                      .orderBy('createdOn', 'desc')
-                  .limit(1);
-
-  const crsors$ = await cursorRepo.getDocuments(query);
-
-  const cursor = crsors$.length > 0 ? crsors$[0] : null;
-
-  return { time: unixToMeasure, position: cursor };
 }
