@@ -11,7 +11,7 @@ export class FileStorageService {
   async uploadSingleFile(file: File, filePath: string) {
     const customMetadata = { app: 'ele-convs-mgr' };
 
-    let taskRef = this._afS$$.ref(filePath);
+    const taskRef = this._afS$$.ref(filePath);
     await taskRef.put(file, { customMetadata });
 
     return taskRef.getDownloadURL();
