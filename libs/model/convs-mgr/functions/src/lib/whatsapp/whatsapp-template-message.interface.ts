@@ -14,7 +14,7 @@ export interface WhatsAppTemplateMessage extends WhatsAppOutgoingMessage
     language: {
       code: string;
     },
-    components: WhatsappTemplateComponent[];
+    components?: WhatsappTemplateComponent[];
   };
 
 }
