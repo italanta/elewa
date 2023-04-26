@@ -37,7 +37,8 @@ export class MessengerReceiveMsgHandler extends FunctionHandler<IncomingWhatsApp
    */
   public async execute(payload: any, context: HttpsContext, tools: HandlerTools) 
   {
-    // STEP 1: Validate the token
+    try {
+      // STEP 1: Validate the token
     // Check if the data received contains the validation token
     // @See https://developers.facebook.com/docs/messenger-platform/webhooks#configure-webhooks-product
 
@@ -96,8 +97,11 @@ export class MessengerReceiveMsgHandler extends FunctionHandler<IncomingWhatsApp
     
     // STEP 6: Pass the standardized message and run the bot engine
     return engine.run(message);
-
-    return { status: 200 } as RestResult;
+    } catch (error) {
+      tools.Logger.error(() => `[MessengerReceiveMsgHandler].execute - Error processing message: ${error}`);
+      
+      return { status: 500 } as RestResult; 
+    }
   }
 }
 
