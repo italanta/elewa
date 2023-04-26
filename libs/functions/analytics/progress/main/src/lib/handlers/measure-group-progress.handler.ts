@@ -9,9 +9,10 @@ import { ChannelDataService } from '@app/functions/bot-engine';
 import {
   MeasureGroupProgressCommand,
   ParticipantProgressMilestone,
-  GroupProgressMilestone,
   GroupedParticipants,
   GroupProgressModel,
+  UsersProgressMilestone,
+  GroupedProgressMilestone,
 } from '@app/model/analytics/group-based/progress';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
@@ -31,14 +32,14 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
     try {
       const { interval } = cmd;
 
-      // get OrgId from channel
+      //1. get OrgId from channel
       const channelDataService = new ChannelDataService(tools);
 
       const channels = await channelDataService.getChannels();
 
       const orgId = channels.orgId;
 
-      // 1. Get all end users of org
+      // 2. Get all end users of org
       const userRepo = tools.getRepository<EndUser>(`orgs/${orgId}/end-users`);
 
       // TODO: @LemmyMwaura - pull groups from DB after user grouping feature is implemented.
@@ -49,16 +50,18 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
       const engine = new MeasureParticipantProgressHandler();
       const monitoringAndEvalDataService = new MonitoringAndEvaluationService(tools, orgId);
 
+      //3. get all users progress
       const allUsersProgress = await Promise.all(
         endUsers?.map((user) =>
           engine.execute({ orgId, participant: user, interval }, context, tools)
         )
       );
 
-      // const time = interval | _getMilestoneTime();
+      // get the time/date for the measurement calculated in unix
+      const timeInUnix = interval ? interval : _getCurrentDateInUnix();
 
-      // 3. Combine the progress of each user into a group progress model
-      return _groupProgress(allUsersProgress, monitoringAndEvalDataService);
+      // 4. Combine the progress of each user into a group progress model
+      return _groupProgress(allUsersProgress, monitoringAndEvalDataService, timeInUnix);
     } catch (error) {
       tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
       return { error: error.message, status: 500 } as RestResult;
@@ -70,26 +73,33 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
  * Groups participant progress by milestone and group.
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
-async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[],monitoringAndEvalDataService: MonitoringAndEvaluationService) {
+async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[],monitoringDataServ: MonitoringAndEvaluationService, timeInUnix:number) {
   //1. group users by milestones
   const measurements = _groupUsersByMilestone(allUsersProgress);
 
   //2. group users by milestones and group
-  const groupedMeasurements = _groupUsersByGroup(allUsersProgress);
+  const groupedMeasurements = _groupUsersByGroupThenMilestone(allUsersProgress);
 
-  const time = new Date();
-  const timeInUnix = Math.floor(time.getTime() / 1000);
+  const date = new Date(timeInUnix * 1000);
 
-  //4. Add To Database
-  const savedMilestone = await monitoringAndEvalDataService.createNewMilestone(
-    timeInUnix, measurements, groupedMeasurements, `m_${time.getDate()}-${time.getMonth()}-${time.getFullYear()}`
+  //3. Add To Database
+  const savedMilestone = await monitoringDataServ.createNewMilestone(
+    timeInUnix, measurements, groupedMeasurements, `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
   );
 
   return savedMilestone;
 }
 
-function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]) {
+/**
+ * Groups users by milestone in their progress.
+ * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
+ * @returns {UsersProgressMilestone[]} An array of participants grouped by milestone.
+ */
+function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]): UsersProgressMilestone[] {
   const groupedByMilestone = allUsersProgress.reduce((acc, participant) => {
+    //guard clause to filter user's with no history when calculating past data
+    if (!participant) return acc
+  
     const { milestone } = participant;
 
     if (!acc[milestone]) {
@@ -103,8 +113,17 @@ function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]
   return _convertGroupedObjectsToArray(groupedByMilestone);
 }
 
-function _groupUsersByGroup(allUsersProgress: ParticipantProgressMilestone[]) {
-  const groupedByGroupAndMilestone: GroupProgressMilestone[] = Object.values(allUsersProgress.reduce((acc, participant) => {
+
+/**
+ * Groups users by group, then by milestone in their progress.
+ * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
+ * @returns {GroupedProgressMilestone[]} An array of participants grouped by group, then by milestone.
+ */
+function _groupUsersByGroupThenMilestone(allUsersProgress: ParticipantProgressMilestone[]): GroupedProgressMilestone[] {
+  const groupedByGroupAndMilestone: GroupedProgressMilestone[] = Object.values(allUsersProgress.reduce((acc, participant) => {
+    //guard clause to filter user's with no history when calculating past data
+    if (!participant) return acc
+
     const { group, milestone, participant: user } = participant;
   
     if (!acc[group]) {
@@ -136,14 +155,15 @@ function _groupUsersByGroup(allUsersProgress: ParticipantProgressMilestone[]) {
  * @param {Object} groupedData - An object where each key represents a group name and the value is an array of participant objects belonging to that group.
  * @returns {Array} An array of objects containing the name of the group and its corresponding array of participants.
  */
-function _convertGroupedObjectsToArray(groupedData: GroupedParticipants): GroupProgressMilestone[] {
+function _convertGroupedObjectsToArray(groupedData: GroupedParticipants): UsersProgressMilestone[] {
   return Object.keys(groupedData).map((key) => ({
     name: key,
     participants: groupedData[key],
   }));
 }
 
-function _getMilestoneTime() {
+/** get current Date in unix */
+function _getCurrentDateInUnix() {
   const time = new Date();
   return Math.floor(time.getTime() / 1000);
 }
