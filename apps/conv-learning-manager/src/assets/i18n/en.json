@@ -137,7 +137,8 @@
         "ERROR-MESSAGE": "Validation Error Message"
       },
       "LABELS": {
-        "TRACK-MILESTONE": "Track as a milestone"
+        "TRACK-MILESTONE": "Track as a milestone",
+        "ASSESSMENTS-NAME": "Assessment's name"
       }
     },
     "COMPONENTS": {

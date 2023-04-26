@@ -2,7 +2,7 @@
   <form [formGroup]="assessmentBrickForm" fxLayout="column" fxLayoutALign="start center">
     <div fxLayout="row">
       <mat-form-field>
-        <mat-label class="assess-label">Assessment's name</mat-label>
+        <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</mat-label>
         <mat-select formControlName="message" required>
           <mat-option>--</mat-option>
           <mat-option>
