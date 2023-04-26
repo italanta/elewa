@@ -99,7 +99,9 @@
         }
       },
       "LABELS": {
-        "TRACK-MILESTONE": "Suivre comme un jalon"
+        "TRACK-MILESTONE": "Suivre comme un jalon",
+        "ASSESSMENTS-NAME": "Nom de l'évaluation"
+
       }
     },
     "COMPONENTS": {
