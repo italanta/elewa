@@ -1,1 +1,1 @@
-export * from './lib/functions-bot-engine-messenger';
+export * from './lib/messenger-receive-message.handler';
