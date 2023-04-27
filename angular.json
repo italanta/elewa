@@ -149,6 +149,32 @@
       "tags": []
     },
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
+    "features-convs-mgr-stories-assessments": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/assessments",
+      "sourceRoot": "libs/features/convs-mgr/stories/assessments/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/stories/assessments"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/assessments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/assessments/**/*.ts",
+              "libs/features/convs-mgr/stories/assessments/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-edit-blocks-edit": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/edit/blocks-edit",

@@ -148,6 +148,22 @@
     </div> -->
     <!-- end Chats -->
 
+    <!-- Section Assessments -->
+
+    <div [routerLink]="['/assessments']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
+      [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
+
+      <div *ngIf="rlaHome.isActive">
+        <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          class="menu-item menu-item--one">
+          <i matListIcon class="fas fa-chart-bar menu-item__tooltip"></i>
+          <span *ngIf="isExpanded" class="menu-item__word">
+            {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- end Assessments -->
 
     <!-- Section Sales -->
     <!-- <div *ngIf="user?.roles.admin || user?.roles.finance" [routerLink]="['/home/sales']" routerLinkActive
