@@ -46,18 +46,8 @@ export class NewStoryService implements OnDestroy {
   }
 
   async saveImage(bot: Story, imageFile: File, imagePath: string) {
-    const res = await this._fileStorageService$$.uploadSingleFile(
-      imageFile,
-      imagePath
-    );
-    this._sbS.sink = res
-      .pipe(
-        tap((url) => {
-          bot.imageField = url;
-        })
-      )
-      .subscribe();
-
+    const res = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
+    this._sbS.sink = res.pipe(tap((url) => bot.imageField = url )).subscribe();
     return bot;
   }
 
@@ -76,21 +66,18 @@ export class NewStoryService implements OnDestroy {
   }
 
   addStoryToDb(bot: Story) {
-    this._org$$
-      .get()
-      .pipe(take(1))
-      .subscribe(async (org) => {
-        if (org) {
-          bot.orgId = org.id as string;
-          this._stories$$.add(bot).subscribe((story) => {
-            if (story) {
-              this._dialog.closeAll();
-              this._router.navigate(['/stories', story.id]),
-                this.createStoryEndBlock(story.orgId, story.id!);
-            }
-          });
-        }
-      });
+    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+      if (org) {
+        bot.orgId = org.id as string;
+        this._stories$$.add(bot).subscribe((story) => {
+          if (story) {
+            this._dialog.closeAll();
+            this._router.navigate(['/stories', story.id]),
+            this.createStoryEndBlock(story.orgId, story.id as string);
+          }
+        });
+      }
+    });
   }
 
   deleteImage(imagePath: string) {
@@ -105,14 +92,13 @@ export class NewStoryService implements OnDestroy {
         bot.imageField = '';
       }
 
-      const res = await this._fileStorageService$$.uploadSingleFile(
-        storyImage,
-        storyImagePath as string
-      );
-      this._sbS.sink = res.pipe(take(1), tap((url) => {
-            bot.imageField = url;
-            this.patchFunction(bot);
-          })).subscribe();
+      const res = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath as string);
+
+      this._sbS.sink = res.pipe(take(1)).subscribe(url => {
+        bot.imageField = url;
+        this.patchFunction(bot);
+      });
+
     } else {
       this.patchFunction
     }
@@ -163,16 +149,10 @@ export class NewStoryService implements OnDestroy {
     this._blocksStore$$.createEndBlock(orgId, storyId, endBlock);
   }
 
-  private _getOrgId$ = () =>
-    this._org$$.get().pipe(
-      take(1),
-      map((o) => o.id)
-    );
+  private _getOrgId$ = () => this._org$$.get().pipe(take(1), map((o) => o.id));
 
   generateName() {
-    const defaultName = uniqueNamesGenerator({
-      dictionaries: [adjectives, colors, animals],
-    });
+    const defaultName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals],});
     return defaultName;
   }
 
