@@ -18,6 +18,7 @@ export interface GroupProgressModel extends IObject
   groupedMeasurements: GroupedProgressMilestone[];
 }
 
+/** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
 export interface GroupedParticipants { 
   [key: string]: ParticipantProgressMilestone[];
 }
