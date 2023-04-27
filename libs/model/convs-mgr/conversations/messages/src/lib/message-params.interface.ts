@@ -1,5 +1,5 @@
-export interface MessageParams 
+export interface TemplateMessageParams 
 {
-  name                : string;
-  value               : string;
+  name: string;
+  value: string | '_var_';
 }

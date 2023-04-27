@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
+// import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
@@ -10,6 +10,7 @@ import { ChatMessageComponent } from './components/chat-message/chat-message.com
 import { MessagesContainerComponent } from './components/messages-container/messages-container.component';
 import { NewMessageComponent } from './components/new-message/new-message.component';
 import { ResourceMessageComponent } from './components/resource-message/resource-message.component';
+import { ScrollPositionDirective } from './directives/scroll-position.directive';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { ResourceMessageComponent } from './components/resource-message/resource
     ChatMessageComponent,
     MessagesContainerComponent,
     NewMessageComponent,
-    ResourceMessageComponent
+    ResourceMessageComponent,
+    ScrollPositionDirective
   ],
 
   exports: [

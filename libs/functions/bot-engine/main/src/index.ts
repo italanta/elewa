@@ -18,3 +18,4 @@ export * from 'libs/functions/bot-engine/main/src/lib/utils/generateUserId';
 export * from 'libs/functions/bot-engine/main/src/lib/io/incoming-message-parsers/models/incoming-message-parser.interface'
 export * from './lib/handlers/talk-to-operator.handler';
 export * from './lib/handlers/move-chat.handler';
+export * from './lib/services/variable-injection/mail-merge-variables.service';

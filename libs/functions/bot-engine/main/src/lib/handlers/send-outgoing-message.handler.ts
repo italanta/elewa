@@ -2,9 +2,9 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
 
-import { ChannelDataService, generateEndUserId, MessagesDataService } from '@app/functions/bot-engine';
+import { ChannelDataService} from '@app/functions/bot-engine';
 
-import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
@@ -68,38 +68,14 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       // STEP 4: Get the outgoing message in whatsapp format
       let outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
 
-      // Only send the opt-in message if the platform is whatsapp
-      if(communicationChannel.type === PlatformType.WhatsApp) 
-      {      
-      const msgService = new MessagesDataService(tools);
-      
-      const endUserId = generateEndUserId(outgoingPayload.endUserPhoneNumber, PlatformType.WhatsApp, n);
-
-      const latestMessage = await msgService.getLatestMessage(endUserId, this._orgId);
-
-      // Get the date in milliseconds
-      const latestMessageTime = new Date(latestMessage ? latestMessage.createdOn : 0).getTime();
-
-      // Check if the last message sent was more than 24hours ago
-      if ((Date.now() - latestMessageTime) > 86400000) {
-        const templateConfig = communicationChannel.templateConfig;
-        if(templateConfig) {
-        // Send the opt-in message template
-
-        // Get the opt-in message template
-        outgoingMessagePayload = activeChannel
-        .parseOutMessageTemplate(templateConfig, outgoingPayload.endUserPhoneNumber, outgoingPayload);
-        }
-      }}
-
       // STEP 5: Send the message
-      await activeChannel.send(outgoingMessagePayload as any);
+      await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);
 
-      tools.Logger.error(() => `[WhatsAppSendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
+      tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
 
       return { success: true } as RestResult200;
     } catch (error) {
-      tools.Logger.error(() => `[WhatsAppSendOutgoingMsgHandler].execute - Encountered an error ${error}`);
+      tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Encountered an error ${error}`);
     }
   }
 }

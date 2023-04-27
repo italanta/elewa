@@ -62,3 +62,18 @@ body {
 .jtk-hover+.jtk-overlay {
   display: block;
 }
+
+.doc-icon {
+	text-align: center;
+	color: var(--convs-mgr-color-primary-purple) !important;
+	background-color: var(--convs-mgr-color-primary-white) !important;
+	opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+	.fa-spin {
+		color: var(--convs-mgr-color-primary-purple) !important;
+		border: none;
+	}
+}
