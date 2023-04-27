@@ -115,8 +115,14 @@ button {
   font-size: 600;
 }
 .image {
-    width: 150px;
     height: 80px;
+}
+
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5rem;
 }
 
 

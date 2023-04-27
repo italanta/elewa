@@ -17,7 +17,7 @@ import { LocationValidationsComponent } from './components/location-validations/
     NameValidationsComponent,
     EmailValidationsComponent,
     PhoneValidationsComponent,
-    LocationValidationsComponent
+    LocationValidationsComponent,
   ],
   exports: [VariableInputComponent],
 })
