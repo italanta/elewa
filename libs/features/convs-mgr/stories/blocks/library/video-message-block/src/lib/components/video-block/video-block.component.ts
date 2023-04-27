@@ -1,19 +1,15 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { DomSanitizer } from '@angular/platform-browser';
 
-
-import { catchError, of } from 'rxjs';
 import { SubSink } from 'subsink';
-
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
+import { FileStorageService } from '@app/state/file';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { UploadFileService, FileStorageService } from '@app/state/file';
-
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 
 @Component({
@@ -28,6 +24,8 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   @Input() block: VideoMessageBlock;
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  
+  private _sBs = new SubSink()
 
   type: StoryBlockTypes;
   videoType = StoryBlockTypes.Video;
@@ -35,20 +33,16 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   blockFormGroup: FormGroup;
 
   file: File;
-  videoLink: string = "";
   videoInputId: string;
   isLoadingVideo: boolean;
   hasVideo: boolean;
   videoUrl: string;
 
-  videoInputUpload: string = '';
+  videoInputUpload = '';
+  videoId: string;
+  videoLink: string;
 
-  private _sBs = new SubSink();  //SubSink instance
-
-  constructor(private _videoUploadService: UploadFileService,
-              private _ngfiStorage:AngularFireStorage,
-              private _fileStorageService: FileStorageService
-  ) 
+  constructor(private _videoUploadService: FileStorageService) 
   {
     this.block = this.block as VideoMessageBlock;
   }
@@ -56,56 +50,49 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.videoInputId = `vid-${this.id}`;
     this.videoInputUpload = `vid-${this.id}-upload`;
-    
     this.checkIfVideoExists();
   }
 
   checkIfVideoExists(){
-    this.videoUrl = this.videoMessageForm.value.fileSrc;
-    this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+    if (this.videoMessageForm) {
+      this.videoUrl = this.videoMessageForm.value.fileSrc;
+      this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+    }
   }
-
+  
   async processVideo(event: any) {
 
     const allowedFileTypes = ['video/mp4'];
 
     if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      //error modal displayed here
-      this._fileStorageService.openErrorModal("Invalid File Type", "Please select a .mp4 only.");
-      event.target.value = '' //clear input
-       return;
+      this._videoUploadService.openErrorModal("Invalid File Type", "Please select a .mp4 only.");
+      return;
     }
-
-
 
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e: any) => this.videoLink = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
+
+      this.videoMessageForm.patchValue({ fileName: this.file.name });
       this.isLoadingVideo = true;
-    
+
+      //Step 1 - Create the file path that will be in firebase storage
+      const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
+      this.videoMessageForm.get('fileName')?.setValue(this.file.name);
+
+      const response = await this._videoUploadService.uploadSingleFile(this.file, vidFilePath)
+      this._sBs.sink = response.subscribe(url => this._autofillVideoUrl(url))
     }
-    //Step 1 - Create the file path that will be in firebase storage
-    const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
-    this.isLoadingVideo = true;
-    this.videoMessageForm.get('fileName')?.setValue(this.file.name);
-   
-    this.videoUrl =await (await this._ngfiStorage.upload(vidFilePath, this.file)).ref.getDownloadURL();
-    
-    this._sBs.sink = (await this._videoUploadService.uploadFile(this.file, this.block, vidFilePath)).pipe(
-      catchError(error => {
-        console.error('Error uploading file:', error);
-        this._fileStorageService.openErrorModal("Error occurred", "Try again later.");
-        event.target.value = '' //clear input
-        return of(null);
-      })
-    ).subscribe(() => {
-      this.isLoadingVideo = false;
-    });
   }
 
-  ngOnDestroy(): void {
-    this._sBs.unsubscribe(); // unsubscribe from all subscriptions
+  private _autofillVideoUrl(url: any) {
+    this.videoMessageForm.patchValue({ fileSrc: url });
+    this.isLoadingVideo = false;
+  }
+
+  ngOnDestroy(){
+    this._sBs.unsubscribe()
   }
 }

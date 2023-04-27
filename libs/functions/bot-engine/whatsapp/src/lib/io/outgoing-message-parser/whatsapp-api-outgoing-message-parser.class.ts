@@ -1,10 +1,10 @@
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import
 {
   ActionButtonsInfo,
   ActionInfo,
-  ActionSectionInfo,
   ActionSectionInfoRow,
   InteractiveButtonMessage,
   InteractiveListMessage,
@@ -15,6 +15,7 @@ import
   WhatsAppImageMessage,
   WhatsAppInteractiveMessage,
   WhatsAppMessageType,
+  WhatsappTemplateComponent,
   WhatsAppTemplateMessage,
   WhatsappTemplateParameter,
   WhatsAppTextMessage,
@@ -22,9 +23,7 @@ import
 } from '@app/model/convs-mgr/functions';
 
 import { DocumentMessageBlock, ImageMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
-import { OutgoingMessageParser } from '@app/functions/bot-engine';
-import { Message, MessageTemplateConfig } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -273,24 +272,14 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
   }
 
 
-  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, phone: string, message: Message)
+  getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message)
   {
-    let { name, languageCode, params } = templateConfig;
+    let messageTemplate: WhatsAppTemplateMessage;
 
-    if(message && message.params) {
-      params = message.params.map((param) => param.value);
-    }
-
-    const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
-    {
-      return {
-        type: WhatsAppMessageType.TEXT,
-        text: param,
-      };
-    });
+    let { name, languageCode } = templateConfig;
 
     // Create the message template payload which will be sent to whatsapp
-    const messageTemplate: WhatsAppTemplateMessage = {
+    messageTemplate = {
       messaging_product: MetaMessagingProducts.WHATSAPP,
       recepient_type: RecepientType.INDIVIDUAL,
       to: phone,
@@ -300,17 +289,33 @@ export class WhatsappOutgoingMessageParser extends OutgoingMessageParser
         language: {
           code: languageCode,
         },
-        components: [
-          {
-            type: "body",
-            parameters: templateParams,
-          }
-        ]
       }
     };
 
+    if(params) {
+      const templateParams: WhatsappTemplateParameter[] = params.map((param) =>
+      {
+        return {
+          type: WhatsAppMessageType.TEXT,
+          text: param.value,
+        };
+      });
+
+      const templateComponents = [
+        {
+          type: "body",
+          parameters: templateParams,
+        }
+      ] as WhatsappTemplateComponent[];
+
+      messageTemplate.template.components = templateComponents;
+    }
+
     return messageTemplate;
   }
+
+
+
   // getStickerBlockParserOut(storyBlock: StoryBlock, phone: string) {
   //   // TODO: 
   //   let link: string;
