@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
@@ -11,10 +10,6 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { FileStorageService } from '@app/state/file';
-
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
-
 
 @Component({
   selector: 'app-image-block',
@@ -36,80 +31,56 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
 
   file: File;
   imageInputId: string;
-  imageInputUpload: string = '';
+  imageInputUpload = '';
   imageName: string;
-  isLoadingImage: boolean = false;
+  isLoadingImage = false;
   imageLink: string;
-  hasImage: boolean = false;
- 
+  hasImage = false;
 
-  private _sBs = new SubSink();  //SubSink instance
+  private _sBs = new SubSink();
 
-  constructor(private _imageUploadService: FileStorageService,
-              public domSanitizer: DomSanitizer,
-  ) {
-    this.block = this.block as ImageMessageBlock;
-  }
+  constructor(private _imageUploadService: FileStorageService) {}
 
   ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
-
     this.checkIfImageExists();
   }
 
   checkIfImageExists() {
     this.imageLink = this.imageMessageForm.value.fileSrc;
-    this.hasImage = this.imageLink && this.imageLink != '' ? true : false;
-  }
-
-  getFileNameFromFbUrl(fbUrl: string): string {
-    return fbUrl.split('%2F')[1].split("?")[0];
+    this.hasImage = this.imageLink != '' ? true : false;
   }
 
   async processImage(event: any) {   
-  
-  const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
-  if (!allowedFileTypes.includes(event.target.files[0].type)) {
-    //error modal displayed here
-    this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
-    event.target.value = '' //clear input
-     return;
-  }
+    if (!allowedFileTypes.includes(event.target.files[0].type)) {
+      this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
+      return;
+    }
+
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.imageLink = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
       this.hasImage = true;
+
+      //Step 1 - Create the file path that will be in firebase storage
+      const imgFilePath = `images/${this.file.name}`;
+      this.isLoadingImage = true;
+
+      const response = await this._imageUploadService.uploadSingleFile(this.file, imgFilePath)
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
     }
-
-    //Step 1 - Create the file path that will be in firebase storage
-    const imgFilePath = `images/${this.file.name}`;
-    this.isLoadingImage = true;
-
-   this._imageUploadService.uploadSingleFile(this.file, imgFilePath).then((url) => {
-    this._sBs.sink = url.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
-      this.isLoadingImage = false;
-    }).catch((error) => {
-      console.error('Error uploading file:', error);
-      this.isLoadingImage = false;
-    
-      // show error message to user
-      this._imageUploadService.openErrorModal("Error occurred", "Try again later.");
-      event.target.value = '' //clear input
-    })
   }
 
   private _autofillUrl(url: string) {
     this.imageMessageForm.patchValue({fileSrc: url});
     this.isLoadingImage = false;
+    this.checkIfImageExists()
   }
 
   ngOnDestroy(): void {
-    this._sBs.unsubscribe(); // unsubscribe from all subscriptions
+    this._sBs.unsubscribe();
   }
 }
-
