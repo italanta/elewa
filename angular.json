@@ -233,6 +233,34 @@
       },
       "tags": []
     },
+    "features-convs-mgr-stories-blocks-library-assessment-brick": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/assessment-brick",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/assessment-brick/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/assessment-brick"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/assessment-brick/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/assessment-brick/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/assessment-brick/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-audio-input-block": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/library/audio-input-block",
