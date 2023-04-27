@@ -2,11 +2,15 @@ import { cloneDeep as ___cloneD } from 'lodash';
 import { HandlerTools } from '@iote/cqrs';
 
 import { Query } from '@ngfi/firestore-qbuilder';
-import { FunctionHandler, HttpsContext } from '@ngfi/functions';
+import { FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
-import { MeasureGroupProgressCommand, GroupProgressModel, ParticipantProgressModel, ParticipantProgressMilestone, GroupProgressMilestone, GroupProgressMeasurement } from '@app/model/analytics/group-based/progress'
+import { 
+  MeasureGroupProgressCommand, GroupProgressModel, 
+  ParticipantProgressModel, ParticipantProgressMilestone, 
+  GroupProgressMilestone, GroupProgressMeasurement 
+} from '@app/model/analytics/group-based/progress'
 
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
@@ -15,7 +19,7 @@ import { MeasureParticipantProgressHandler } from './measure-participant-progres
  * 
  * Can be used to create a stacjed bar chart which visualises the progress of a group of participants over time.
  */
-export class MeasureParticipantGroupProgressHandler extends FunctionHandler<MeasureGroupProgressCommand, GroupProgressModel>
+export class MeasureParticipantGroupProgressHandler extends FunctionHandler<MeasureGroupProgressCommand, GroupProgressModel | RestResult>
 {
   /**
    * Calculate progress of a given participant based on the stories they have completed.e.
@@ -24,25 +28,39 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
    */
   public async execute(cmd: MeasureGroupProgressCommand, context: HttpsContext, tools: HandlerTools) 
   {
-    const{ orgId , participantGroupIdentifier, interval, storyGroupIdentifier } = cmd;
+    try {
+      const{ orgId , participantGroupIdentifier, interval, storyGroupIdentifier } = cmd;
+        
+      // 1. Get all end users of org
+      const userRepo = tools.getRepository<EndUser>(`orgs/${orgId}/end-users`); 
 
-    // 1. Get all end users of org
-    const userRepo = tools.getRepository<EndUser>(`orgs/${orgId}/end-users`); 
+      // If we are only interested in a group of participants, then we need to filter the users by the group identifier.
+      const usersOfGroupQ = getParticipantsQuery(participantGroupIdentifier);
 
-    // If we are only interested in a group of participants, then we need to filter the users by the group identifier.
-    const usersOfGroupQ = participantGroupIdentifier ? new Query().where('labels', 'array-contains', participantGroupIdentifier)
-                                                     : new Query();
-    const endUsers = await userRepo.getDocuments(usersOfGroupQ);        
+      const endUsers = await userRepo.getDocuments(usersOfGroupQ);    
   
-    // 2. Get the progress of each end user
-    const engine = new MeasureParticipantProgressHandler();
+      // 2. Get the progress of each end user
+      const engine = new MeasureParticipantProgressHandler();
 
-    const userProgress = await Promise.all(
-      endUsers.map((u) =>
-        engine.execute({ orgId, participantId: u.id, interval, storyGroupIdentifier }, context, tools)));
-    
-    // 3. Combine the progress of each user into a group progress model
-    return _groupProgress(interval, endUsers, userProgress);
+      const userProgress = await Promise.all(
+        endUsers.map((u) =>
+          engine.execute({ orgId, participantId: u.id, interval, storyGroupIdentifier }, context, tools)));
+      
+      // 3. Combine the progress of each user into a group progress model
+      return _groupProgress(interval, endUsers, userProgress);
+
+    } catch(error) {
+      tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
+      return { error: error.message, status: 500} as RestResult
+    }
+  }
+}
+
+function getParticipantsQuery(participantGroupIdentifier: string) {
+  if (participantGroupIdentifier === 'all') {
+    return new Query().where('labels', 'array-contains-any', ['class_TBD', 'class_BDOM', 'class_HGRSJ'])
+  } else {
+    return new Query().where('labels', 'array-contains', participantGroupIdentifier)
   }
 }
 

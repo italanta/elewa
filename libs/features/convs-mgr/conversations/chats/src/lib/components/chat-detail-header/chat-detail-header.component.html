@@ -5,7 +5,7 @@
       <i class="user-tooltip fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      <span *ngIf="chat.name" class="name"> {{ chat.name?.toLowerCase() }} </span>
+      <span *ngIf="chat.name" class="name"> {{ chat.name.toLowerCase() }} </span>
       <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
@@ -17,10 +17,10 @@
       <span title="user's class/grouping"> {{ userClass }}</span>
     </div>
 
-    <div class="header__item story">
+    <div *ngIf="currentStory" class="header__item story">
       <i class="icon fas fa-bookmark"></i>
-      <a class="link" routerLink="/stories/{{ currentStory?.id }}">
-        <span title="Current Story ">{{ currentStory?.name }}</span>
+      <a class="link" routerLink="/stories/{{ currentStory.id }}">
+        <span title="Current Story ">{{ currentStory.name }}</span>
       </a>
     </div>
 

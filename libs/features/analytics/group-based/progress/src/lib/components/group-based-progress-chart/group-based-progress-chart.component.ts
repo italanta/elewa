@@ -1,6 +1,9 @@
 import { Chart } from 'chart.js/auto';
 
-import {Component, OnInit, Input } from '@angular/core';
+import { ActiveOrgStore } from '@app/state/organisation';
+
+import { SubSink } from 'subsink';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { QuestionMessage } from '@app/model/convs-mgr/conversations/messages';
 
@@ -12,22 +15,31 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './group-based-progress-chart.component.html',
   styleUrls:  ['./group-based-progress-chart.component.scss'],
 })
-export class GroupBasedProgressChartComponent implements OnInit
+export class GroupBasedProgressChartComponent implements OnInit, OnDestroy
 {
+  private _sbs = new SubSink()
+
   @Input() model: QuestionMessage;
 
   @Input() chart: Chart;
 
-  constructor(private _backend: HttpClient)
-  {
+  currentOrgId: string
 
+  constructor(private _backend: HttpClient, private _activeOrg: ActiveOrgStore)
+  {
+    this._sbs.sink = this._activeOrg.get().subscribe(org => this.currentOrgId = org.id as string)
   }
 
-  async ngOnInit() 
+  ngOnInit() 
   { 
     // participantGroupIdentifier: '',
-    const cmd = { orgId: '', interval: [1677283169, 1677887969, 1678492769, 1679097569, 1679702369, 1680307169], storyGroupIdentifier: true } as MeasureGroupProgressCommand;
-    
+    const cmd = { 
+      orgId:  this.currentOrgId, 
+      participantGroupIdentifier:'all',
+      interval: [1677283169, 1677887969, 1678492769, 1679097569, 1679702369, 1680307169, 1680935349, 1681540149], 
+      storyGroupIdentifier: true 
+    } as MeasureGroupProgressCommand;
+
     // TODO: Put properly into state
     this._backend
         .post('https://europe-west1-enabel-elearning.cloudfunctions.net/measureGroupProgress',
@@ -50,7 +62,7 @@ export class GroupBasedProgressChartComponent implements OnInit
     {
       type: 'bar',
       data: {
-        labels: model.measurements.map(m => _formatDate(new Date(m.time * 1000))),
+        labels: model.measurements.map(m => _formatDate(new Date(m.time * 1000))),
 
         datasets: milestones.map((milestone, idx) => _unpackLabel(milestone, idx, model))
       },
@@ -70,6 +82,13 @@ export class GroupBasedProgressChartComponent implements OnInit
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.chart) {
+      this.chart.destroy()
+    }
+
+    this._sbs.unsubscribe()
+  }
 }
 
 function _unpackLabel(milestone: string, idx: number, model: GroupProgressModel)

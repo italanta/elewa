@@ -86,6 +86,9 @@
       "@app/features/convs-mgr/stories/blocks/library/email-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/email-message-block/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/event-block": [
+        "libs/features/convs-mgr/stories/blocks/library/event-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/fail-block": [
         "libs/features/convs-mgr/stories/blocks/library/fail-block/src/index.ts"
       ],
