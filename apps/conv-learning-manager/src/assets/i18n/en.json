@@ -91,6 +91,7 @@
         "FAILBLOCK": "Fail Block",
         "JUMP":"Jump",
         "EVENT": "Event",
+        "ASSESSMENT": "Assessment",
         "END-BLOCK":"End Block"
       },
       "PLACEHOLDER": {
@@ -136,7 +137,8 @@
         "ERROR-MESSAGE": "Validation Error Message"
       },
       "LABELS": {
-        "TRACK-MILESTONE": "Track as a milestone"
+        "TRACK-MILESTONE": "Track as a milestone",
+        "ASSESSMENTS-NAME": "Assessment's name"
       }
     },
     "COMPONENTS": {
@@ -153,7 +155,8 @@
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
-      "PUBLISH-STORY": "Publish Story"
+      "PUBLISH-STORY": "Publish Story",
+      "SEARCH": "Search"
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
@@ -167,6 +170,15 @@
           "CANCEL": "Cancel"
         }
       }
+    },
+    "BLOCK-CATEGORY": {
+      "BRICKS": "Bricks",
+      "END-BLOCK": "End Block",
+      "MULTIMEDIA-BLOCKS": "Multimedia blocks",
+      "DOCUMENT-BLOCKS": "Document blocks",
+      "IMAGE-BLOCKS": "Images blocks",
+      "QUESTION-BLOCKS": "Question Blocks",
+      "MESSAGE-BLOCK": "Message Block"
     }
   },
   "BOTS": {
