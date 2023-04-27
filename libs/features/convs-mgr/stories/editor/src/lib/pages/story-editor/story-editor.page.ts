@@ -20,6 +20,7 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -160,11 +161,12 @@ this.zoom(this.frameZoom)
     // Check if any of the text area elements are empty
     const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
 
-    // If there are empty fields, display a warning message and prevent saving
     if (hasEmptyFields) {
-      alert('Please fill in all text fields before saving.');
-      return;
-    }
+      this._dialog.open(ErrorPromptModalComponent, {
+        data: { title: "Error", message: "Please fill in ALL text fields before saving."}
+      });
+      return
+   }
  
     this.stateSaved = false;
 

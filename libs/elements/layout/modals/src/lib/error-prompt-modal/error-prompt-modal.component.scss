@@ -1,28 +1,22 @@
-.header-text{
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--convs-mgr-color-primary-purple);
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  .header-text {
+    font-size: 1rem;
+    color: var(--convs-mgr-color-primary-dark-blue);
+    font-weight: bolder;
   }
-  
-  form{
-    width: 500px;
-  }
-  
-  mat-form-field {
-    width: 100%;
-  }
-  
-  .save-btn{
-    background-color: var(--convs-mgr-color-primary-purple);
-    color: white;
-    font-weight: 600;
-    min-width: 100px;
-  }
-  
+
   .cancel-btn{
-    background-color: #ffff;
-    color: red;
-    font-weight: 600;
-    min-width: 100px;
-  
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    width: 50px;
+    height: 30px;
+    background-color: var(--convs-mgr-color-primary-yellow);
+    color: var(--convs-mgr-color-text-white);
   }
+}
