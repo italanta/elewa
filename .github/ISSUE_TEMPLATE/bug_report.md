@@ -7,6 +7,22 @@ assignees: ''
 
 ---
 
+**Technology and Knowledge Scope 🧠**
+
+Please delete options that are not relevant.
+
+- [ ] RxJs
+- [ ] HTML, SCSS
+- [ ] Typescript
+- [ ] NodeJs
+- [ ] Jest
+- [ ] State Pattern e.g. Akita
+- [ ] Firestore
+- [ ] Firebase Functions
+- [ ] Firebase Storage
+- [ ] Firebase Authentication
+- [ ] Nx
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 

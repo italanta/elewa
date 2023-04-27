@@ -134,6 +134,11 @@ export enum StoryBlockTypes {
   */
   Event = 30,
 
+  /**
+   * Brick block to link to assessments in the story flow
+  */
+  Assessment = 31,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -176,6 +181,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.keyword:
       return true;
     case StoryBlockTypes.Event:
+      return true;
+    case StoryBlockTypes.Assessment:
       return true;
     default:
       return false;

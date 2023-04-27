@@ -70,6 +70,7 @@
         "LOCATION-INPUT":"saisie de position",
         "KEYWORD-JUMP": "saut de mots-clés",
         "EVENT": "Événement",
+        "ASSESSMENT": "Évaluation",
         "JUMP":"saut"
       },
       "PLACEHOLDER": {
@@ -98,7 +99,9 @@
         }
       },
       "LABELS": {
-        "TRACK-MILESTONE": "Suivre comme un jalon"
+        "TRACK-MILESTONE": "Suivre comme un jalon",
+        "ASSESSMENTS-NAME": "Nom de l'évaluation"
+
       }
     },
     "COMPONENTS": {
