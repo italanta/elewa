@@ -38,7 +38,7 @@ export interface StoryBlock extends IObject
   blockIcon: string;
 
   /** block category */
-  blockCategory:string;
+  blockCategory?:string;
 
 
   /** The variable tagged to the input story block. This variable is used to store the user response to that particular block */
