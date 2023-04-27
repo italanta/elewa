@@ -22,7 +22,7 @@ export class Query {
    * @param comparitor '==', '>=', >', '<=', '<'
    * @param value      'Value for targetted fieldname
    */
-  where(fieldName: string, comparitor: '==' | '>=' | '>' | '<=' | '<' | 'array-contains' | 'array-contains-any' | 'in' | 'not-in' | '!=', value: any) {
+  where(fieldName: string, comparitor: '==' | '>=' | '>' | '<=' | '<' | 'array-contains' | 'array-contains-any' | 'in'| '!=', value: any) {
     this._addPredicate(new WherePredicate(fieldName, comparitor, value));
 
     return this;
