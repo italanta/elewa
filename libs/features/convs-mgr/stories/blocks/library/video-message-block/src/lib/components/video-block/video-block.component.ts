@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -9,8 +8,6 @@ import { FileStorageService } from '@app/state/file';
 
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-
-
 
 @Component({
   selector: 'app-video-block',
@@ -40,7 +37,6 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
 
   videoInputUpload = '';
   videoId: string;
-  videoLink: string;
 
   constructor(private _videoUploadService: FileStorageService) 
   {
@@ -56,10 +52,10 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   checkIfVideoExists(){
     if (this.videoMessageForm) {
       this.videoUrl = this.videoMessageForm.value.fileSrc;
-      this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+      this.hasVideo = this.videoUrl != '' ? true : false;
     }
   }
-  
+
   async processVideo(event: any) {
 
     const allowedFileTypes = ['video/mp4'];
@@ -69,20 +65,19 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.videoLink = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
+    if (event.target.files[0]) {
       this.file = event.target.files[0];
 
       this.videoMessageForm.patchValue({ fileName: this.file.name });
       this.isLoadingVideo = true;
 
-      //Step 1 - Create the file path that will be in firebase storage
+      // 1. - Create the file path that will be in firebase storage
       const vidFilePath = `videos/${this.file.name}_${new Date().getTime()}`;
-      this.videoMessageForm.get('fileName')?.setValue(this.file.name);
 
+      // 2. Upload video file
       const response = await this._videoUploadService.uploadSingleFile(this.file, vidFilePath)
+
+      // 3. Patch URL
       this._sBs.sink = response.subscribe(url => this._autofillVideoUrl(url))
     }
   }
@@ -90,6 +85,7 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   private _autofillVideoUrl(url: any) {
     this.videoMessageForm.patchValue({ fileSrc: url });
     this.isLoadingVideo = false;
+    this.checkIfVideoExists()
   }
 
   ngOnDestroy(){
