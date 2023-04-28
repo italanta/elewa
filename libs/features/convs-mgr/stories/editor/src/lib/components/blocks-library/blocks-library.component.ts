@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, MultipleInputMessageBlock, FailBlock,
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock
+  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -65,7 +65,9 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion), blockCategory: 'questions-block' } as OpenEndedQuestionBlock,
     { id: 'multi-content-input' , type:StoryBlockTypes.MultiContentInput, message:'Multi Content Input', blockIcon:this.getBlockIcon(StoryBlockTypes.MultiContentInput), blockCategory: 'multimedia-block' } as MultiContentInputBlock,
     { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword), blockCategory: 'questions-block' } as KeywordMessageBlock,
-    { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
+    { id: 'event-block', type:StoryBlockTypes.Event, message: 'Event', blockIcon:this.getBlockIcon(StoryBlockTypes.Event), blockCategory: 'questions-block' } as EventBlock,
+    { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment), blockCategory: 'bricks' } as AssessmentBrick,
+    // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
   coordinates: Coordinate;
@@ -166,6 +168,9 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
         break;
       case StoryBlockTypes.Event:
         this.frame.newBlock(StoryBlockTypes.Event, coordinates);
+        break;
+      case StoryBlockTypes.Assessment:
+        this.frame.newBlock(StoryBlockTypes.Assessment, coordinates);
         break;
     }
   }
