@@ -1,10 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { NewStoryService } from '../../services/new-story.service';
+import { MatChipInputEvent } from '@angular/material/chips';
+
+export interface Label {
+  name:string;
+  color:string;
+  desc:string;
+}
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -25,6 +33,32 @@ export class CreateBotModalComponent implements OnInit {
   storyHasImage: boolean = false;
 
   isSavingStory: boolean = false;
+
+  // These are label adds
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
+  // Handle all label logic
+  labels:Label[] = [{name:'Farming',color:'red',desc:"this is a test run"}];
+  addLabel(event: MatChipInputEvent): void{
+    const value = (event.value || '').trim();
+
+    // add label
+    if(value){
+      this.labels.push({name:value,color:value,desc:value});
+    }
+    event.chipInput?.clear();
+  }
+
+  remove(labels:Label):void {
+    const index = this.labels.indexOf(labels);
+
+    if(index >= 0){
+      this.labels.splice(index,1)
+    }
+  }
+
+  // END
 
   constructor(private _addStory$: NewStoryService,
               private _formBuilder: FormBuilder,
