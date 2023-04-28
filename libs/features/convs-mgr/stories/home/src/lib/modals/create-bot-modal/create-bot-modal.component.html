@@ -52,8 +52,9 @@
     
     <mat-form-field class="label-chip-list" appearance="fill">
       <mat-chip-grid #chipGrid aria-label="Enter Labels">
-        <mat-chip-row>
-          <button matChipRemove [attr.aria-label] = "">
+        <mat-chip-row *ngFor="let label of labelTag" (removed)="remove(label)">
+          {{label.name}}
+          <button matChipRemove [attr.aria-label] = "'remove' + label.name + label.color + label.desc">
             <mat-icon>cancel</mat-icon>
           </button>
         </mat-chip-row>
