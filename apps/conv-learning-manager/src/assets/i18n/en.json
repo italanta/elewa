@@ -187,7 +187,9 @@
       "NAME": "Name",
       "NAME-PLACEHOLDER": "Bot name",
       "DESC": "Description",
-      "DESC-PLACEHOLDER": "Bot description"
+      "DESC-PLACEHOLDER": "Bot description",
+      "LABEL":"Labels",
+      "LABEL-PLACEHOLDER":"Select a label"
     },
     "CREATE-MODAL": {
       "TITLE": "Create a bot",
@@ -198,6 +200,8 @@
         "NAME-PLACEHOLDER": "Bot name",
         "DESC": "Description",
         "DESC-PLACEHOLDER": "Bot description",
+        "LABEL":"Labels",
+        "LABEL-PLACEHOLDER":"Select a label",
         "COPY": "Copy",
         "DELETE": "Delete"
       },

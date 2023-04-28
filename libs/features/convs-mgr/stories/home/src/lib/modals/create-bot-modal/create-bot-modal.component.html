@@ -48,6 +48,24 @@
     <textarea formControlName="botDesc" [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco">
     </textarea>
 
+    <h4>{{ 'BOTS.FIELDS.LABEL' | transloco }}</h4>
+    
+    <mat-form-field class="label-chip-list" appearance="fill">
+      <mat-chip-grid #chipGrid aria-label="Enter Labels">
+        <mat-chip-row>
+          <button matChipRemove [attr.aria-label] = "">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <input formControlName="botLabel" [placeholder]="'BOTS.FIELDS.LABEL-PLACEHOLDER' | transloco"
+        [matChipInputFor]="chipGrid"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="addLabel($event)"
+        >
+      </mat-chip-grid>
+    </mat-form-field>
+
     <div fxLayout="row" fxLayoutAlign="end" class="bot-buttons">
       <div>
         <button mat-stroked-button mat-dialog-close class="cancel-btn">
