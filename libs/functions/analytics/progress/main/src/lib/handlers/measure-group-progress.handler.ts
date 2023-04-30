@@ -73,7 +73,7 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
  * Groups participant progress by milestone and group.
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
-async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[],monitoringDataServ: MonitoringAndEvaluationService, timeInUnix:number) {
+async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], monitoringDataServ: MonitoringAndEvaluationService, timeInUnix:number) {
   //1. group users by milestones
   const measurements = _groupUsersByMilestone(allUsersProgress);
 
@@ -120,7 +120,7 @@ function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]
  * @returns {GroupedProgressMilestone[]} An array of participants grouped by group, then by milestone.
  */
 function _groupUsersByGroupThenMilestone(allUsersProgress: ParticipantProgressMilestone[]): GroupedProgressMilestone[] {
-  const groupedByGroupAndMilestone: GroupedProgressMilestone[] = Object.values(allUsersProgress.reduce((acc, participant) => {
+  const groupedByGroupAndMilestone = Object.values(allUsersProgress.reduce((acc, participant) => {
     //guard clause to filter user's with no history when calculating past data
     if (!participant) return acc
 
@@ -142,7 +142,7 @@ function _groupUsersByGroupThenMilestone(allUsersProgress: ParticipantProgressMi
   
     acc[group].measurements[milestone].participants.push(user);
     return acc;
-  }, {})).map((group: any)=> {
+  }, {})).map((group: GroupedProgressMilestone)=> {
     group.measurements = Object.values(group.measurements);
     return group;
   });
