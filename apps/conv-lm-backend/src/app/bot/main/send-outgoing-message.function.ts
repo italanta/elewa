@@ -1,8 +1,7 @@
 import { FirestoreCreateRegistrar } from "@ngfi/functions";
 
-import { SendOutgoingMsgHandler } from "@app/functions/bot-engine";
-
 import { ConvLearnFunction } from "../../../conv-learn-func.class";
+import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
 
 
 const handler = new SendOutgoingMsgHandler();

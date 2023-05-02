@@ -6,8 +6,8 @@ import { ChannelDataService} from '@app/functions/bot-engine';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { ActiveChannelFactory } from './factories/active-channel/active-channel.factory';
 
-import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
@@ -66,7 +66,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools)
 
       // STEP 4: Get the outgoing message in whatsapp format
-      let outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      const outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
 
       // STEP 5: Send the message
       await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);
