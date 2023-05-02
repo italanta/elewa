@@ -1,24 +1,23 @@
-import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { IncomingMessengerMessage, IncomingMessengerPayload, MessageTypes } from "@app/model/convs-mgr/functions";
 
 
 /** Function which converts the raw whatsapp incoming message to something more readable by our system. 
  * @see https://developers.facebook.com/docs/messenger-platform/reference/webhook-events/messages
  * */
-export function __ConvertMessengerApiPayload(message: any): any 
+export function __ConvertMessengerApiPayload(message: IncomingMessengerPayload): IncomingMessengerMessage 
 {
   const messaging = message.entry[0].messaging[0];
 
   return {
-    //botAccountDisplayPhoneNumber: formattedPayLoad.entry[0].changes[0].value.metadata.display_phone_number,
-    platformId: message.entry[0].changes[0].value.metadata.phone_number_id,
-    endUserId: messaging.sender.id,
+    endUserPageId: messaging.sender.id,
     pageId: messaging.recipient.id,
     timeStamp: messaging.timestamp,
-    message: messaging.message[0],
 
-    type: __ConvertWhatsAppTypeToEngineMessageType(messaging.message[0]),
+    type: __ConvertWhatsAppTypeToEngineMessageType(messaging.message),
 
     channel: null,
+
+    message: messaging.message,
 
     payload: message
   };
