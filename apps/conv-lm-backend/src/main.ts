@@ -11,3 +11,4 @@ export * from './app/bot/main/talk-to-human.function';
 export * from './app/bot/main/move-chat.function';
 
 export * from './app/analytics/fns-measure-group-progress';
+export * from './app/bot/messenger/messenger-receive-message.function';
