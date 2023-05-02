@@ -660,6 +660,29 @@
       },
       "tags": []
     },
+    "functions-bot-engine-utils": {
+      "root": "libs/functions/bot-engine/utils",
+      "sourceRoot": "libs/functions/bot-engine/utils/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/bot-engine/utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/bot-engine/utils"],
+          "options": {
+            "jestConfig": "libs/functions/bot-engine/utils/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-bot-engine-whatsapp": {
       "root": "libs/functions/bot-engine/whatsapp",
       "sourceRoot": "libs/functions/bot-engine/whatsapp/src",
