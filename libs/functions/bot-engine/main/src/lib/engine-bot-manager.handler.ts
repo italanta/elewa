@@ -51,7 +51,7 @@ export class EngineBotManager
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
    * @returns A REST 200/500 response so the third-party provider knows the message arrived well/failed.
    */
-  public async run(message: Message) 
+  public async run(message: Message, endUser: EndUser) 
   {
     /**
      * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
@@ -79,11 +79,9 @@ export class EngineBotManager
 
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
 
-      const END_USER_ID = generateEndUserId(message.endUserPhoneNumber, this._activeChannel.channel.type, this._activeChannel.channel.n);
+      const END_USER_ID = endUser.id;
 
-      if(!this.endUser) {
-        this.endUser = await this._endUserService$.getOrCreateEndUser(END_USER_ID, message.endUserPhoneNumber);
-      }
+      this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
@@ -93,7 +91,7 @@ export class EngineBotManager
       //    The chat status enables us to manage the conversation of the end user and the chatbot.
 
       // Get the last saved end user position in the story
-      const currentCursor = await cursorDataService.getLatestCursor(END_USER_ID, this.orgId);
+      const currentCursor = await cursorDataService.getLatestCursor(this.endUser.id, this.orgId);
 
       this._tools.Logger.log(() => `[EngineBotManager].run - Current chat status: ${this.endUser.status}`);
 

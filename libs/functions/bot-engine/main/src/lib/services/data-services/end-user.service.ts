@@ -25,28 +25,32 @@ import { throws } from 'assert';
     this._docPath = `orgs/${orgId}/end-users`;
   }
 
-  async createEndUser(endUserId: string, phoneNumber: string)
+  async createEndUser(endUser: EndUser)
   {
-    const newEndUser: EndUser = {
-      phoneNumber,
-      status: ChatStatus.Running,
-      id: endUserId,
 
-    };
+    // const newEndUser: EndUser = {
+    //   phoneNumber: phoneNumber || null,
+    //   endUserId,
+    //   status: ChatStatus.Running,
+    //   id: endUserId,
 
-    const endUser = await this.createDocument(newEndUser, this._docPath, endUserId);
+    // };
 
-    return endUser;
+    endUser.status = ChatStatus.Running;
+
+    return this.createDocument(endUser, this._docPath, endUser.id);
   }
 
-  async getOrCreateEndUser(endUserId: string, phoneNumber: string)
+  async getOrCreateEndUser(endUser: EndUser, endUserId?: string)
   {
+    let currentEndUser;
+    if(!endUserId) {
+      currentEndUser = await this.getDocumentById(endUserId || endUser.id, this._docPath)
+    }
 
-    let endUser = await this.getDocumentById(endUserId, this._docPath);
+    if(!currentEndUser) currentEndUser = await this.createEndUser(endUser);
 
-    if(!endUser) endUser = await this.createEndUser(endUserId, phoneNumber);
-
-    return endUser;
+    return currentEndUser;
   }
 
   async getEndUser(endUserId: string) {
