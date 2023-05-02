@@ -6,8 +6,8 @@ import { ChannelDataService} from '@app/functions/bot-engine';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
-import { ActiveChannelFactory } from './factories/active-channel/active-channel.factory';
 
+import { ActiveChannelFactory } from '@app/functions/bot-engine/utils';
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 

@@ -5,12 +5,12 @@ import { JumpStoryBlockService } from '../services/process-operation-block/block
 
 import { CommunicationChannel, Cursor, __PlatformTypeToPrefix, __PrefixToPlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { ActiveChannelFactory } from '@app/functions/bot-engine/utils';
 
 import { BlockDataService } from '../services/data-services/blocks.service';
 import { ConnectionsDataService } from '../services/data-services/connections.service';
 import { CursorDataService } from '../services/data-services/cursor.service';
 
-import { ActiveChannelFactory } from '../factories/active-channel/active-channel.factory';
 import { ChannelDataService } from '../services/data-services/channel-info.service';
 import { MessagesDataService } from '../services/data-services/messages.service';
 import { ProcessMessageService } from '../services/process-message/process-message.service';

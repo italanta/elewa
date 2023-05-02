@@ -1,8 +1,8 @@
 import { FirestoreCreateRegistrar } from "@ngfi/functions";
 
-import { ConvLearnFunction } from "../../../conv-learn-func.class";
 import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
 
+import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
 const handler = new SendOutgoingMsgHandler();
 
@@ -15,7 +15,7 @@ const handler = new SendOutgoingMsgHandler();
  * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/set-up-webhooks
  * 
  */
-export const channelWhatsAppMsgSendMsg = new ConvLearnFunction('sendOutgoingMessage', 
+export const channelSendOutgoingMessage = new ConvLearnFunction('sendOutgoingMessage', 
                                                   new FirestoreCreateRegistrar('orgs/{orgId}/end-users/{endUserId}/messages/{id}'), 
                                                   [], 
                                                   handler)
