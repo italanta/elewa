@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
@@ -7,9 +7,10 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
   templateUrl: './question-buttons-edit-forms.component.html',
   styleUrls: ['./question-buttons-edit-forms.component.scss'],
 })
-export class QuestionButtonsEditFormsComponent {
+export class QuestionButtonsEditFormsComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() title: string;
+  validate: boolean;
 
   constructor(private _fb: FormBuilder) {}
 
@@ -32,4 +33,13 @@ export class QuestionButtonsEditFormsComponent {
   deleteInput(i: number) {
     this.options.removeAt(i);
   }
+
+  ngOnInit() {
+      this.validate = this.form.value.variable.validate;
+  }
+
+  setValidation(){
+    this.validate = !this.validate;
+  }
+
 }

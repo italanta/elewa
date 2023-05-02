@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { QuestionMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
@@ -15,6 +15,24 @@ export function _CreateQuestionBlockMessageForm(_fb: FormBuilder, blockData: Que
     message: [blockData?.message! ?? ''],
     options: _fb.array([]),
     type: [blockData.type ?? StoryBlockTypes.IO],
-    position: [blockData.position ?? { x: 200, y: 50 }]
+    position: [blockData.position ?? { x: 200, y: 50 }],
+
+    // variables FormGroup
+    variable: _fb.group({
+      name: [blockData.variable?.name ?? '', [Validators.required]],
+      type: [blockData.variable?.type ?? 1, [Validators.required]],
+      validate: [blockData.variable?.validate ?? false, [Validators.required]],
+
+      // validators FormGroup
+      validators: _fb.group({
+        regex: [blockData.variable?.validators?.regex ?? ''],
+        min: [blockData.variable?.validators?.min ?? ''],
+        max: [blockData.variable?.validators?.max ?? ''],
+        validationMessage: [
+          blockData.variable?.validators?.validationMessage ??
+            "I'm afraid I didn't understand, could you try again, please?",
+        ],
+      }),
+    }),
   })
 }
