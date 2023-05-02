@@ -13,6 +13,11 @@ export function CreateDeleteButton() {
   deleteButton.id = "overlay-delete-button";
   // deleteButton.classList.add("overlay-button ");
 
+   // Add event listener for mouseover event
+   deleteButton.addEventListener("mouseover", () => {
+    deleteButton.title = "Double click to delete";
+  });
+
   // Return the created button
   return deleteButton
 }

@@ -25,14 +25,14 @@ export class CreateBotModalComponent implements OnInit {
   modalMode: boolean;
   story: Story;
   imagePath: string;
-  defaultImage: string = "assets/images/lib/block-builder/image-block-placeholder.jpg";
+  defaultImage = "assets/images/lib/block-builder/image-block-placeholder.jpg";
 
   storyImageFile: File;
   fileName: string;
-  fileSizeIsValid: boolean = true;
-  storyHasImage: boolean = false;
+  fileSizeIsValid = true;
+  storyHasImage = false;
 
-  isSavingStory: boolean = false;
+  isSavingStory = false;
 
   // These are label adds
   addOnBlur = true;
@@ -136,12 +136,12 @@ export class CreateBotModalComponent implements OnInit {
     this.story.imageField = this.botForm.value.botImage ?? '';
 
     // Update bot details
-    this._addStory$.update(this.story, this.storyImageFile, this.imagePath!);
+    this._addStory$.update(this.story, this.storyImageFile, this.imagePath);
   }
 
   imageChanged(event: any) {
     if (event.target.files[0]) {
-      let image: File = event.target.files[0];
+      const image: File = event.target.files[0];
       if (this.validateFileSize(image)) {
         this.storyImageFile = image;
         this.imagePath = `images/${this.storyImageFile.name}`;
