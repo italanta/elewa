@@ -1,0 +1,37 @@
+// global styles component-level
+.label {
+    font-weight: 400;
+    font-size: 0.8rem;
+  }
+  
+  .input {
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5rem;
+    min-width: 5rem;
+    width: auto;
+  }
+  
+  .validation-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #e8eaec;
+    padding: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  .validation_minmax {
+    display: flex;
+    justify-content: space-between;
+    gap: 10%;
+  }
+  
+  .validation_regex,
+  .validation_max,
+  .validation_min {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    gap: 5px;
+  }
