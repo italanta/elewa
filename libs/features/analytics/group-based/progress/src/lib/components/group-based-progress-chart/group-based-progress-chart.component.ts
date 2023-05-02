@@ -55,6 +55,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         datasets: [...milestones].map((milestone, idx) => this.unpackLabel(milestone, idx, model)),
       },
       options: {
+        normalized: true,
         plugins: {
           title: {
             display: true,
