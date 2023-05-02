@@ -1,7 +1,9 @@
-<h2 mat-dialog-title class="header-text">{{ data.title }}</h2>
-<mat-dialog-content>
-  <p>{{ data.message }}</p>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button class="cancel-btn" (click)="closeDialog()">Close</button>
-</mat-dialog-actions>
+<div class="container">
+  <span mat-dialog-title class="header-text">{{ data.title }}</span>
+  <div>
+    <p>{{ data.message }}</p>
+  </div>
+  <div>
+    <button class="cancel-btn" (click)="closeDialog()">Close</button>
+  </div>
+</div>
