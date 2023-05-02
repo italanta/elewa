@@ -1,21 +1,20 @@
-import { Component, Input, SimpleChanges, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, OnInit, OnDestroy } from '@angular/core';
 
-import { take } from 'rxjs';
-
-import { Logger } from '@iote/bricks-angular';
 import { __DateFromStorage } from '@iote/time';
 
 import { ChatFlowStatus, Chat } from '@app/model/convs-mgr/conversations/chats';
 import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-chat-card',
   templateUrl: './chat-card.component.html',
   styleUrls:  ['./chat-card.component.scss']
 })
-export class ChatCardComponent implements OnChanges, OnInit
+export class ChatCardComponent implements OnChanges, OnInit, OnDestroy
 {
+  private _sbs = new SubSink()
   @Input() chat: Chat;
   @Input() currentChat: Chat;
 
@@ -41,12 +40,12 @@ export class ChatCardComponent implements OnChanges, OnInit
     const variableValues = this._chats$.getChatUserName(this.chat.id);
 
     if(variableValues) {
-      variableValues.subscribe((values)=> this.chat.name = values.name);
+      this._sbs.sink = variableValues.subscribe((values)=> this.chat.name = values.name);
     }
   }
 
   setLastMessageDate() {
-    this._msgsQuery$.getLatestMessageDate(this.chat.id).subscribe((date) => { 
+    this._sbs.sink = this._msgsQuery$.getLatestMessageDate(this.chat.id).subscribe((date) => { 
       const newDate = __DateFromStorage(date as Date);
       this.lastMessageDate = newDate.format('DD/MM/YYYY HH:mm');
     }
@@ -68,4 +67,7 @@ export class ChatCardComponent implements OnChanges, OnInit
     }
   }
 
+  ngOnDestroy() {
+    this._sbs.unsubscribe();
+  }
 }
