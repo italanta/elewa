@@ -68,6 +68,34 @@
       "tags": []
     },
     "features-app-auth-login": "libs/features/app/auth/login",
+    "features-convs-mgr-conversations-assessments": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/conversations/assessments",
+      "sourceRoot": "libs/features/convs-mgr/conversations/assessments/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/conversations/assessments"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/conversations/assessments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/conversations/assessments/**/*.ts",
+              "libs/features/convs-mgr/conversations/assessments/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-conversations-chats": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/conversations/chats",
@@ -149,32 +177,6 @@
       "tags": []
     },
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
-    "features-convs-mgr-stories-assessments": {
-      "projectType": "library",
-      "root": "libs/features/convs-mgr/stories/assessments",
-      "sourceRoot": "libs/features/convs-mgr/stories/assessments/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/convs-mgr/stories/assessments"],
-          "options": {
-            "jestConfig": "libs/features/convs-mgr/stories/assessments/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/features/convs-mgr/stories/assessments/**/*.ts",
-              "libs/features/convs-mgr/stories/assessments/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "features-convs-mgr-stories-blocks-edit-blocks-edit": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/edit/blocks-edit",
@@ -722,6 +724,34 @@
     },
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
     "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
+    "model-convs-mgr-conversations-assessments": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/conversations/assessments",
+      "sourceRoot": "libs/model/convs-mgr/conversations/assessments/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/model/convs-mgr/conversations/assessments"
+          ],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/conversations/assessments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/conversations/assessments/**/*.ts",
+              "libs/model/convs-mgr/conversations/assessments/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
     "model-convs-mgr-conversations-messages": "libs/model/convs-mgr/conversations/messages",
     "model-convs-mgr-functions": "libs/model/convs-mgr/functions",
@@ -813,6 +843,34 @@
       "tags": []
     },
     "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
+    "state-convs-mgr-conversations-assessments": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/conversations/assessments",
+      "sourceRoot": "libs/state/convs-mgr/conversations/assessments/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/state/convs-mgr/conversations/assessments"
+          ],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/conversations/assessments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/conversations/assessments/**/*.ts",
+              "libs/state/convs-mgr/conversations/assessments/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
     "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
     "state-convs-mgr-stories": "libs/state/convs-mgr/stories/main",
