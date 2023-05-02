@@ -1,18 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { NewStoryService } from '../../services/new-story.service';
-import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-
-export interface Label {
-  name:string;
-  color:string;
-  desc:string;
-}
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -33,46 +25,6 @@ export class CreateBotModalComponent implements OnInit {
   storyHasImage = false;
 
   isSavingStory = false;
-
-  // These are label adds
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-
-  // Handle all label logic
-  labelTag:Label[] = [{name:'Farming',color:'red',desc:"this is a test run"}];
-  addLabel(event: MatChipInputEvent): void{
-    const value = (event.value || '').trim();
-
-    // add label
-    if(value){
-      this.labelTag.push({name:value,color:value,desc:value});
-    }
-    event.chipInput?.clear();
-  }
-
-  remove(labels:Label):void {
-    const index = this.labelTag.indexOf(labels);
-
-    if(index >= 0){
-      this.labelTag.splice(index,1)
-    }
-  }
-
-  edit(labels:Label, event: MatChipEditedEvent){
-    const value = event.value.trim();
-    // remove tag if no name is provided
-    if(!value){
-      this.remove(labels);
-      return;
-    }
-    // Edit existing label
-    const index = this.labelTag.indexOf(labels);
-    if(index >=0){
-      this.labelTag[index].name = value;
-    }
-  }
-
-  // END
 
   constructor(private _addStory$: NewStoryService,
               private _formBuilder: FormBuilder,
