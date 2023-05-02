@@ -7,17 +7,17 @@ import { extension } from "mime-types";
 
 import { __DateFromStorage } from "@iote/time";
 import { HandlerTools } from "@iote/cqrs";
+
 import { __DECODE_AES } from "@app/elements/base/security-config";
 import { ActiveChannel, EndUserDataService, MailMergeVariables, MessagesDataService, generateEndUserId } from "@app/functions/bot-engine";
-
-import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
-import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
+import { MessengerOutgoingMessage } from "@app/model/convs-mgr/functions";
+import { MessengerCommunicationChannel, MessengerEndUser, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
 
-import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
+import { MessengerOutgoingMessageParser } from "../io/outgoing-message-parser/messenger-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
-import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -26,7 +26,7 @@ import { EndUser } from "@app/model/convs-mgr/conversations/chats";
  * 
  * @Description Model used to send the prepared messages through whatsApp api
  * 
- * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+ * @see https://developers.facebook.com/docs/messenger-platform/send-messages
  * 
  * @extends {ActiveChannel}
  * 
@@ -34,12 +34,12 @@ import { EndUser } from "@app/model/convs-mgr/conversations/chats";
  * STEP 2: Prepare the outgoing whatsapp message
  * STEP 3: Send the message
  */
-export class WhatsappActiveChannel implements ActiveChannel
+export class MessengerActiveChannel implements ActiveChannel
 {
-  channel: WhatsAppCommunicationChannel;
+  channel: MessengerCommunicationChannel;
   endUserService: EndUserDataService;
 
-  constructor(private _tools: HandlerTools, channel: WhatsAppCommunicationChannel)
+  constructor(private _tools: HandlerTools, channel: MessengerCommunicationChannel)
   {
     this.channel = channel;
     this.endUserService = new EndUserDataService(_tools, channel.orgId);
@@ -47,7 +47,8 @@ export class WhatsappActiveChannel implements ActiveChannel
 
   parseOutMessage(storyBlock: StoryBlock, endUser: EndUser)
   {
-    const outgoingMessagePayload = new WhatsappOutgoingMessageParser().parse(storyBlock, endUser.phoneNumber);
+    const messengerUser =  endUser as MessengerEndUser
+    const outgoingMessagePayload = new MessengerOutgoingMessageParser().parse(storyBlock, messengerUser.endUserPageId);
 
     return outgoingMessagePayload;
   }
@@ -62,10 +63,10 @@ export class WhatsappActiveChannel implements ActiveChannel
   parseOutMessageTemplate(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message)
   {
     // Create the message template payload which will be sent to whatsapp
-    const messageTemplate = new WhatsappOutgoingMessageParser()
-                              .getMessageTemplateParserOut(templateConfig, params, phone, message);
+    // const messageTemplate = new WhatsappOutgoingMessageParser()
+    //                           .getMessageTemplateParserOut(templateConfig, params, phone, message);
 
-    return messageTemplate;
+    // return messageTemplate;
   }
 
   private async _handle24hourWindow(phone: string, message: Message)
@@ -127,26 +128,28 @@ export class WhatsappActiveChannel implements ActiveChannel
     return Promise.all(resolvedParams);
   }
 
-  async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message)
+  /**
+   * Send the message to the user on messenger
+   * 
+   * @see https://developers.facebook.com/docs/messenger-platform/get-started#step-3--send-the-customer-a-message
+   */
+  async send(messengerMessage: MessengerOutgoingMessage, standardMessage?: Message)
   {
-    if(standardMessage) {
-      whatsappMessage = await this._handle24hourWindow(whatsappMessage.to, standardMessage) || whatsappMessage;
-    }
     // STEP 1: Assign the access token and the business phone number id
     //            required by the whatsapp api to send messages
     const ACCESS_TOKEN = this.channel.accessToken;
-    const PHONE_NUMBER_ID = this.channel.id;
+    const PAGE_ID = this.channel.id;
 
 
-    // STEP 2: Prepare the outgoing whatsapp message
+    // STEP 2: Prepare the outgoing messenger message
     //         Convert it to a JSON string
-    const outgoingMessage = JSON.stringify(whatsappMessage);
+    const outgoingMessage = JSON.stringify(messengerMessage);
 
-    this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(whatsappMessage)}`);
+    this._tools.Logger.log(() => `[MessengerActiveChannel].send - Generated message ${JSON.stringify(messengerMessage)}`);
 
     // STEP 3: Send the message
     //         Generate the facebook url through which we send the message
-    const URL = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`;
+    const URL = `https://graph.facebook.com/v14.0/${PAGE_ID}/messages`;
 
     /**
      * Execute the post request using axios and pass in the URL, ACCESS_TOKEN and the outgoingMessage
@@ -168,7 +171,7 @@ export class WhatsappActiveChannel implements ActiveChannel
       this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
 
       // Mark the conversation as complete
-      this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1).then(() => {
+      this.endUserService.setConversationComplete(`w_${this.channel.n}_${messengerMessage.recipient.id}`, 1).then(() => {
 
         this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
       }).catch(err => {
@@ -199,10 +202,10 @@ export class WhatsappActiveChannel implements ActiveChannel
 
 
   /**
-   * When a user sends an image from whatsapp, we just receive an ID, so we have to call another endpoint
+   * When a user sends an image from messenger, we just receive an ID, so we have to call another endpoint
    *    to get the URL, and then call this URL to get the image.
    * 
-   * @param mediaId - The unique identifier assigned to the media file by the whatsapp api
+   * @param mediaId - The unique identifier assigned to the media file by the messenger api
    * @returns binary data of the media file
    */
   async getMediaFile(mediaId: string, mime_type: string)
@@ -288,7 +291,7 @@ export class WhatsappActiveChannel implements ActiveChannel
                   "fileName": fileNameWithExt
                 });
 
-                this._tools.Logger.log(() => `Fetched file from whatsapp successful`);
+                this._tools.Logger.log(() => `Fetched file from messenger successful`);
               }
             });
           });

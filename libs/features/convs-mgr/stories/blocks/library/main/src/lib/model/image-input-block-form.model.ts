@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import { ImageInputBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
@@ -16,6 +16,12 @@ export function _CreateImageInputBlockForm(_fb: FormBuilder, blockData: ImageInp
     defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.ImageInput],
-    position: [blockData.position ?? { x: 200, y: 50 }]
+    position: [blockData.position ?? { x: 200, y: 50 }], 
+
+    variable: _fb.group({
+      name: [blockData.variable?.name ?? '', [Validators.required]],
+      type: [blockData.variable?.type ?? 1, [Validators.required]]
+    })
+    
   })
 }
