@@ -13,9 +13,9 @@ export * from './lib/io/incoming-message-parsers/video-message-parser.class';
 export * from './lib/io/incoming-message-parsers/image-message-parser.class';
 export * from './lib/io/incoming-message-parsers/location-message-parser.class';
 export * from './lib/io/incoming-message-parsers/interactive-message-parser.class';
-export * from 'libs/functions/bot-engine/main/src/lib/services/data-services/end-user.service';
-export * from 'libs/functions/bot-engine/main/src/lib/utils/generateUserId';
-export * from 'libs/functions/bot-engine/main/src/lib/io/incoming-message-parsers/models/incoming-message-parser.interface'
+export * from './lib/services/data-services/end-user.service';
+export * from './lib/utils/generateUserId';
+export * from './lib/io/incoming-message-parsers/models/incoming-message-parser.interface'
 export * from './lib/handlers/talk-to-operator.handler';
 export * from './lib/handlers/move-chat.handler';
 export * from './lib/services/variable-injection/mail-merge-variables.service';
