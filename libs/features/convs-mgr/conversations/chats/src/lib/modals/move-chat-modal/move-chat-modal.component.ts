@@ -1,10 +1,10 @@
 import * as _ from 'lodash';
 
-import {Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnDestroy } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Logger, ToastService } from '@iote/bricks-angular';
 import { BackendService } from '@ngfi/angular';
 
@@ -12,14 +12,17 @@ import { Chat, ChatJumpPoint, ChatJumpPointMilestone, ChatFlowStatus } from '@ap
 import { ChatJumpPointsStore, ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-move-to-section-modal',
   styleUrls: ['move-chat-modal.component.scss'],
   templateUrl: 'move-chat-modal.component.html',
 })
-export class MoveChatModal
+export class MoveChatModal implements OnDestroy
 {
+  private _sbs = new SubSink()
+
   isLoaded = false;
   chat: Chat;
   chapter: ChatJumpPoint;
@@ -29,6 +32,7 @@ export class MoveChatModal
   sectionsList: string[];
   chapters: ChatJumpPoint[];
   data: ChatJumpPointMilestone[];
+
   
   constructor(
               private _backendService: BackendService,
@@ -42,7 +46,7 @@ export class MoveChatModal
               @Inject(MAT_DIALOG_DATA) private _data: { chat: Chat })
   {
     this.stories$ = this._stories$$.get()
-    this._chatJumpPoints$.get().subscribe(jumpPoints => this.convertToChapters(jumpPoints));
+    this._sbs.sink = this._chatJumpPoints$.get().subscribe(jumpPoints => this.convertToChapters(jumpPoints));
     this.chat = this._data.chat;
   }
 
@@ -64,10 +68,14 @@ export class MoveChatModal
   moveChat()
   {
     const req = { storyId: this.selectedStory.id, endUserId: this._data.chat.id,};
-    this._chats$.pauseChat(this._data.chat.id).subscribe()
-    this._afsF.httpsCallable('moveChat')(req).subscribe();
+    this._sbs.sink = this._chats$.pauseChat(this._data.chat.id).subscribe()
+    this._sbs.sink = this._afsF.httpsCallable('moveChat')(req).subscribe();
     this.exitModal();
   }
 
   exitModal = () => this._dialogRef.close();
+
+  ngOnDestroy(): void {
+    this._sbs.unsubscribe()
+  }
 }
