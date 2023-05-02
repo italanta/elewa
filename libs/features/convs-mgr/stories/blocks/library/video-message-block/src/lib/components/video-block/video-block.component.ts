@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog} from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
@@ -44,8 +43,7 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
  
 
   constructor(private _videoUploadService: FileStorageService,
-    public domSanitizer: DomSanitizer, 
-    private matdialog:MatDialog,
+              private matdialog:MatDialog,
   ) 
   {
     this.block = this.block as VideoMessageBlock;
@@ -64,6 +62,22 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
     }
   }
   
+  openVideoUploadModal() {
+    const dialogRef = this.matdialog.open(VideoUploadModalComponent, {
+        width: '900px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+            this.videoUrl = result.url;
+            this.videoId = result.id;
+            this.hasVideo = true;
+            this.videoMessageForm.patchValue({ fileName: result.name });
+            this.videoMessageForm.patchValue({ fileSrc: this.videoUrl });
+        }
+    });
+}
+
   async processVideo(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();

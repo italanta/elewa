@@ -14,18 +14,18 @@
         <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="name" />
       </label>
       <br />
-      <div [id]="videoInputId"> 
-        <input (change)="processVideo($event)" type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" />
-        <label [for]="videoInputUpload">
-          <div *ngIf="!hasVideo; else inputHasVideo">
-            <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" class="thumbnail" />
-          </div>
-          <ng-template #inputHasVideo>
-            <video class="upload-video" alt="" controls>
-              <source [src]="videoUrl" type="video/mp4">
-            </video>
-          </ng-template>
-        </label>
+      <div [id]="videoInputId">
+        <input type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" (change)="onFileSelected($event)" />
+        <ng-container *ngIf="videoUrl === ''">
+          <label [for]="videoInputUpload">
+            <div>
+              <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" class="thumbnail" />
+            </div>
+          </label>
+        </ng-container>
+        <ng-container *ngIf="videoUrl !== ''">
+          <video class="upload-video" alt="" controls [src]="videoUrl"></video>
+        </ng-container>
       </div>
     </div>
 
@@ -54,6 +54,6 @@
     </div>
   </div>
   <div class="apply">
-    <button (click)="apply()" class="apply__button">Apply</button>
+    <button type="submit" class="apply__button">Apply</button>
   </div>
 </form>
