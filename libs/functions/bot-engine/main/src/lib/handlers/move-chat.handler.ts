@@ -4,9 +4,7 @@ import { FunctionHandler, RestResult200, FunctionContext, RestResult } from '@ng
 import { JumpStoryBlockService } from '../services/process-operation-block/block-type/jump-story-block.service';
 
 import { CommunicationChannel, Cursor, __PlatformTypeToPrefix, __PrefixToPlatformType } from "@app/model/convs-mgr/conversations/admin/system";
-
-import { JumpBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { isOutputBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 
 import { BlockDataService } from '../services/data-services/blocks.service';
 import { ConnectionsDataService } from '../services/data-services/connections.service';
@@ -18,8 +16,6 @@ import { MessagesDataService } from '../services/data-services/messages.service'
 import { ProcessMessageService } from '../services/process-message/process-message.service';
 import { BotMediaProcessService } from '../services/media/process-media-service';
 import { BotEngineJump } from '../services/bot-engine-jump.service';
-import { EndUserDataService } from '../services/data-services/end-user.service';
-import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 
 export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string}, RestResult>
 {
