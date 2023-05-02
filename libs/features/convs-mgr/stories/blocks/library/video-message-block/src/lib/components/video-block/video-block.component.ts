@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatDialog} from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -11,9 +12,6 @@ import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 
-
-import { MatDialog} from '@angular/material/dialog';
-//import { UploadFileService } from '@app/state/file';
 import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video-upload-modal.component';
 
 
