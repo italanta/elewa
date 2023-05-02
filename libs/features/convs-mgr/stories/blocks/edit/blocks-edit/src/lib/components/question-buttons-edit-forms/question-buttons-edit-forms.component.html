@@ -22,6 +22,8 @@
 
   </div>
 
+  <app-variable-input [BlockFormGroup]="form" [validate]="validate"></app-variable-input>
+
   <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
     fxLayoutGap="10px">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
