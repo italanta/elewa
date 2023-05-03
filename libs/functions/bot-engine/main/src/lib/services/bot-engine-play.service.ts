@@ -144,7 +144,7 @@ export class BotEnginePlay implements IBotEnginePlay
     this._saveBlockAsMessage(mailMergedBlock, endUser.id);
 
     // Reply To the end user
-    await this._sendBlockMessage(mailMergedBlock, endUser.phoneNumber);
+    await this._sendBlockMessage(mailMergedBlock, endUser);
   }
 
   private async __mailMergeVariables(storyBlock: StoryBlock, endUserId: string) 
@@ -172,9 +172,9 @@ export class BotEnginePlay implements IBotEnginePlay
   /**
    * Parses @see StoryBlock and sends it as a message to the end user.
    */
-  private async _sendBlockMessage(newStoryBlock: StoryBlock, phoneNumber: string)
+  private async _sendBlockMessage(newStoryBlock: StoryBlock, endUser: EndUser)
   {
-    const outgoingMessage = this._activeChannel.parseOutMessage(newStoryBlock, phoneNumber);
+    const outgoingMessage = this._activeChannel.parseOutMessage(newStoryBlock, endUser);
 
     return this._activeChannel.send(outgoingMessage);
   }
