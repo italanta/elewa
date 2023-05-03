@@ -38,6 +38,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   phonetype = StoryBlockTypes.PhoneNumber;
   locationtype = StoryBlockTypes.LocationInputBlock;
   imagetype = StoryBlockTypes.ImageInput;
+  questiontype = StoryBlockTypes.QuestionBlock;
 
   constructor(private _processInputSer: ProcessInputService) {}
 
