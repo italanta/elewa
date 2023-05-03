@@ -23,3 +23,4 @@ export * from './lib/multi-content-input-block.interface'
 export * from './lib/keyword-message-block.interface';
 export * from './lib/event-block.interface';
 export * from './lib/assessment-brick.interface';
+export * from './lib/conditional-block.interface';
