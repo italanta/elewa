@@ -9,8 +9,6 @@ import {
 } from '@iote/bricks-angular';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
-
-import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 import { ConditionalBlockComponent } from './component/conditional-block/conditional-block.component';
@@ -24,7 +22,6 @@ import { ConditionalBlockComponent } from './component/conditional-block/conditi
     MaterialBricksModule,
     MaterialDesignModule,
     ConvsMgrBlockOptionsModule,
-    ConvsMgrReusableTextAreaModule,
   ],
   declarations: [ConditionalBlockComponent],
   exports: [ConditionalBlockComponent],
