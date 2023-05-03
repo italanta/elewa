@@ -22,8 +22,6 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
 
   protected _init(msg: IncomingMessage){
 
-    this.tools.Logger.log(() => `[ChannelDataService]._init - Raw message ${JSON.stringify(msg)}`);
-
     this._docPath = `channels`
     this._msg = msg
   }
