@@ -2,6 +2,7 @@ import { IParseInMessage } from '@app/functions/bot-engine';
 import { MessageTypes } from '@app/model/convs-mgr/functions';
 
 import { MessengerIncomingTextParser } from './message-types/messenger-incoming-text.parser';
+import { MessengerIncomingInteractiveParser } from './message-types/messenger-incoming-interactive.parser';
 
 
 /**
@@ -33,8 +34,8 @@ export class MessengerIncomingMessageParser
       //   return new WhatsappIncomingVideoParser();
       // case MessageTypes.LOCATION:
       //   return new WhatsappIncomingLocationParser();
-      // case MessageTypes.QUESTION:
-      //   return new WhatsappIncomingInteractiveParser();
+      case MessageTypes.QUESTION:
+        return new MessengerIncomingInteractiveParser();
       default:
         return null;
     }
