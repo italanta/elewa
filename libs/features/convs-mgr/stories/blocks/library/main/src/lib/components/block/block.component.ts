@@ -43,6 +43,8 @@ import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
+import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
+
 /**
  * Block which sends a message from bot to user.
  */
@@ -87,6 +89,7 @@ export class BlockComponent implements OnInit {
   keywordJumpType = StoryBlockTypes.keyword;
   eventType = StoryBlockTypes.Event;
   assessmentBrickType= StoryBlockTypes.Assessment;
+  conditionalBlockType = StoryBlockTypes.Conditional;
 
   blockFormGroup: FormGroup;
 
@@ -248,7 +251,12 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAssessmentBrickForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-          
+
+        case StoryBlockTypes.Conditional:
+          this.blockFormGroup = _CreateConditionalBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+
         default:
           break;
       }
