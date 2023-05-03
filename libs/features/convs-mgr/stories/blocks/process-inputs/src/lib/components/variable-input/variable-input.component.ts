@@ -5,10 +5,11 @@ import { cloneDeep as __cloneDeep } from 'lodash';
 import { map, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { StoryBlockTypes,StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockTypes, StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
+import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 
 @Component({
   selector: 'app-variable-input',
@@ -37,7 +38,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   phonetype = StoryBlockTypes.PhoneNumber;
   locationtype = StoryBlockTypes.LocationInputBlock;
   imagetype = StoryBlockTypes.ImageInput;
-  questiontype = StoryBlockTypes.QuestionBlock;
+  questiontype = StoryBlockTypes.QuestionBlock
 
   constructor(private _processInputSer: ProcessInputService) {}
 
@@ -45,7 +46,10 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     this.blockId = this.BlockFormGroup.value.id;
     this.blockType = this.BlockFormGroup.value.type;
 
-    // we create a copy of the formGroup so we can validate before setting the values on submit
+    /**
+     * * we create a copy of the formGroup so we can validate before setting the values on submit.
+     * * using the blocksFormGroup creates a very rare race condition where two variables can exist with the same name (if the user is warned that the variable is alredy used but still doesn't change the value) this is why we clone.
+     */ 
     this.variablesForm = __cloneDeep(this.BlockFormGroup);
     this.validateForm();
   }
@@ -81,20 +85,30 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * - Updates the BlockFormGroup with the selected validation type and input value type.
+   * - Updates the BlockFormGroup with all the selected properties.
    * - If validate is false, the variable validators will be reset to null.
-   * - The `type` property of the variable will be converted to an integer.
    */
   onSubmit() {
-    this.BlockFormGroup = this.variablesForm;
-    this.BlockFormGroup.controls['variable'].value.validate = this.validate;
+    // Patch variable values from the cloned variablesFrom to the BlocksFromGroup
+    const form = this.BlockFormGroup.get('variable') as FormGroup;
+    const name = this.variablesForm.get('variable.name')?.value;
+    const type = this.variablesForm.get('variable.type')?.value;
 
-    if (!this.validate) {
+    form.patchValue({ name, type: parseInt(type), validate: this.validate });
+
+    // patch validators values to BlockFormGroup validators.
+    const blockValidators = this.BlockFormGroup.get('variable.validators') as FormGroup;
+
+    if (this.validate) {
+      const regex = (this.variablesForm.get('variable.validators') as FormGroup).get('regex')?.value;
+      const max = (this.variablesForm.get('variable.validators') as FormGroup).get('max')?.value;
+      const min = (this.variablesForm.get('variable.validators') as FormGroup).get('min')?.value;
+      const validationMessage = (this.variablesForm.get('variable.validators') as FormGroup).get('validationMessage')?.value;
+
+      blockValidators.patchValue({ regex, max, min, validationMessage });
+    } else {
       this.BlockFormGroup.get('variable.validators')?.reset();
     }
-
-    const type = this.variablesForm.get('variable.type')?.value;
-    this.BlockFormGroup.controls['variable'].value.type = parseInt(type);
   }
 
   ngOnDestroy(): void {
