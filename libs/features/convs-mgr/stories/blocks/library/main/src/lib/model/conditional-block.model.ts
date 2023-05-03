@@ -13,6 +13,7 @@ export function _CreateConditionalBlockForm(_fb: FormBuilder, blockData: Conditi
   return _fb.group({
     id: [blockData?.id! ?? ''],
     message: [blockData?.message! ?? ''],
+    selectedVariable: [blockData?.selectedVariable! ?? ''],
     defaultTarget: [blockData.defaultTarget ?? ''],
     options: _fb.array([]),
     type: [blockData.type ?? StoryBlockTypes.Conditional],

@@ -1,7 +1,19 @@
 <div [id]="id" *ngIf="conditionalBlockForm">
   <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
+    <div class="details-wrapper">
+      <input class="input" type="text" formControlName="message" placeholder="Add Variable">
 
-    <app-text-message [formgroup]="conditionalBlockForm"></app-text-message>
+      <div fxLayout="row">
+        <mat-form-field>
+          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONBLOCK-NAME' | transloco }}</mat-label>
+          <mat-select formControlName="selectedVariable">
+            <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
+              {{ variable }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">

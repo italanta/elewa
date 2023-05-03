@@ -6,6 +6,9 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
+import { ProcessInputService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-conditional-block',
   templateUrl: './conditional-block.component.html',
@@ -18,10 +21,14 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
   @Input() conditionalBlockForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  vars$: Observable<string[]>;
+
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private variables:ProcessInputService) {
+    this.vars$ = this.variables.getAllVariables()
+  }
 
   ngAfterViewInit(): void {
     this.block.options?.forEach((item) => {
