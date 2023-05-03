@@ -92,6 +92,7 @@
         "JUMP":"Jump",
         "EVENT": "Event",
         "ASSESSMENT": "Assessment",
+        "CONDITIONAL": "Conditional",
         "END-BLOCK":"End Block"
       },
       "PLACEHOLDER": {
