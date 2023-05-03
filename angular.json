@@ -316,6 +316,34 @@
       "tags": []
     },
     "features-convs-mgr-stories-blocks-library-block-options": "libs/features/convs-mgr/stories/blocks/library/block-options",
+    "features-convs-mgr-stories-blocks-library-conditional-block": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/stories/blocks/library/conditional-block",
+      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/conditional-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/features/convs-mgr/stories/blocks/library/conditional-block"
+          ],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/conditional-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/stories/blocks/library/conditional-block/**/*.ts",
+              "libs/features/convs-mgr/stories/blocks/library/conditional-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-library-document-message-block": "libs/features/convs-mgr/stories/blocks/library/document-message-block",
     "features-convs-mgr-stories-blocks-library-email-message-block": "libs/features/convs-mgr/stories/blocks/library/email-message-block",
     "features-convs-mgr-stories-blocks-library-fail-block": {

@@ -86,6 +86,9 @@
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/conditional-block": [
+        "libs/features/convs-mgr/stories/blocks/library/conditional-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/document-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/document-message-block/src/index.ts"
       ],
