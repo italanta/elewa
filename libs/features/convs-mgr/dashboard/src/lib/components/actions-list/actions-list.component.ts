@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,7 +11,6 @@ import { __FormatDateFromStorage, __DateFromStorage } from '@iote/time';
 
 import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { ChatJumpPoint, Chat, ChatFlowStatus, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'elewa-actions-list',
@@ -19,9 +18,8 @@ import { SubSink } from 'subsink';
   styleUrls:  ['./actions-list.component.scss']
 })
 
-export class ActionsListomponent implements OnInit, AfterViewInit, OnDestroy
+export class ActionsListomponent implements OnInit, AfterViewInit
 {
-  private _sbs = new SubSink();
   isLoading = true;
 
   stages: ChatJumpPoint[];
@@ -41,7 +39,7 @@ export class ActionsListomponent implements OnInit, AfterViewInit, OnDestroy
   {
     this.dataSource = new MatTableDataSource([] as any);
 
-    this._sbs.sink = this._chats$
+    this._chats$
           .get(ch => ch.flow === ChatFlowStatus.Paused || ch.flow === ChatFlowStatus.PausedByAgent || ch.awaitingResponse as boolean)
           .subscribe(chats => this.dataSource.data = chats);
   }
@@ -86,8 +84,4 @@ export class ActionsListomponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   goTo = (chat: Chat) => this._router.navigate(['chats', chat.id]);
-
-  ngOnDestroy() {
-    this._sbs.unsubscribe()
-  }
 }

@@ -1,9 +1,8 @@
-import {Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { from } from 'rxjs';
-import { SubSink } from 'subsink';
 
 import { Logger, ToastService } from '@iote/bricks-angular';
 import { User } from '@iote/bricks';
@@ -20,16 +19,14 @@ import { iTalUser } from '@app/model/user';
   templateUrl: 'stash-chat-modal.component.html',
 })
 
-export class StashChatModal implements OnInit, OnDestroy
+export class StashChatModal implements OnInit
 {
-  private _sbs = new SubSink();
-
   stashReasonForm: FormGroup;
   isLoaded = false;
   user: User;
   chat: Chat;
   reason: string;
-
+  // reasons: string[];
   reasons = [
     'User has already completed ITC. ',
     'User has already completed PTC. ',
@@ -47,7 +44,7 @@ export class StashChatModal implements OnInit, OnDestroy
               private _logger: Logger,
               @Inject(MAT_DIALOG_DATA) private _data: { chat: Chat })
   {
-    this._sbs.sink = this.userService.getUser().subscribe(user => this.user = user);
+    this.userService.getUser().subscribe(user => this.user = user);
     this.chat = this._data.chat;
   }
 
@@ -65,7 +62,7 @@ export class StashChatModal implements OnInit, OnDestroy
     {
       const agentId = this.user.id;
       const req = { chatId: this._data.chat.id, action: 'stash', agentId: agentId, stashReason: this.reason};
-      this._sbs.sink = from(this._backendService.callFunction('assignChat', req)).subscribe();
+      from(this._backendService.callFunction('assignChat', req)).subscribe();
       this.actionComplete();
     }    
   }
@@ -88,7 +85,4 @@ export class StashChatModal implements OnInit, OnDestroy
 
   exitModal = () => this._dialogRef.close();
 
-  ngOnDestroy() {
-    this._sbs.unsubscribe()
-  }
 }
