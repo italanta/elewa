@@ -19,7 +19,7 @@ import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messag
       type: [blockData.type ?? StoryBlockTypes.QuestionBlock],
       position: [blockData.position ?? { x: 200, y: 50 }],
 
-      variable: ({
+      variable: _fb.group({
         name: [blockData.variable?.name ?? '', [Validators.required]],
         type: [blockData.variable?.type ?? 1, [Validators.required]]
       })
