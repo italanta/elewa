@@ -139,7 +139,8 @@
       },
       "LABELS": {
         "TRACK-MILESTONE": "Track as a milestone",
-        "ASSESSMENTS-NAME": "Assessment's name"
+        "ASSESSMENTS-NAME": "Assessment's name",
+        "CONDITIONBLOCK-NAME": "Select Variable"
       }
     },
     "COMPONENTS": {

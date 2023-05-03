@@ -2,19 +2,14 @@ mat-card {
   min-width: 200px;
 }
 
-textarea {
-  margin: 5px 0;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  border-radius: 5px;
-  resize: none;
-  padding: 10px;
+input {
+	max-width: 100%;
+	margin: 5px 0;
+	border: 1px solid var(--convs-mgr-color-primary-purple);
+	border-radius: 5px;
+	resize: none;
+	padding: 10px;
 }
-
-textarea:focus-visible {
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  outline-color: var(--convs-mgr-color-primary-purple);
-}
-
 .add-button {
   width: 100%;
   background-color: var(--convs-mgr-color-primary-purple);
@@ -29,4 +24,9 @@ textarea:focus-visible {
 .input {
   margin: 0;
   padding-right: 5px;
+}
+
+.details-wrapper {
+  display: grid;
+  gap: 15px;
 }

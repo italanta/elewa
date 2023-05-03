@@ -6,6 +6,8 @@ export interface ConditionalBlock extends StoryBlock {
   /** Actual  variable */
   message?: string;
 
+  selectedVariable?: string;
+
   defaultTarget?: string;
 
   /** Response options */
