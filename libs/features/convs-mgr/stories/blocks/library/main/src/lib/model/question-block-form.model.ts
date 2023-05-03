@@ -21,7 +21,7 @@ import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messag
 
       variable: _fb.group({
         name: [blockData.variable?.name ?? '', [Validators.required]],
-        
+        type: [blockData.variable?.type ?? 1, [Validators.required]]
       })
     })
   }
