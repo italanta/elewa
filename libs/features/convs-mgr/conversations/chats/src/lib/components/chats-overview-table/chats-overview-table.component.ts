@@ -1,12 +1,11 @@
 import * as _ from 'lodash';
 
-import { Component, OnInit, ViewChild, Input, AfterViewInit, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
-import { SubSink } from 'subsink';
 import { map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
@@ -22,9 +21,8 @@ import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
   templateUrl: './chats-overview-table.component.html',
   styleUrls:  ['./chats-overview-table.component.scss']
 })
-export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy
+export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnChanges
 {
-  private _sbs = new SubSink()
   isLoading = true;
   data: Chat[];
 
@@ -47,7 +45,7 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
               private _logger: Logger)
   { 
     this._repo = _dS.getRepo<Payment>('payments');
-    this._sbs.sink = this._repo
+    this._repo
         .getDocuments()
         .pipe(
           map(ps => ps.filter(p => p.status === PaymentStatus.Success)),
@@ -59,7 +57,7 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
   {
     this.dataSource = new MatTableDataSource();
 
-    this._sbs.sink = this._chats$
+    this._chats$
             .get()
             // .pipe(map((chs) => chs.filter(ch => ch.chat.status === this.status)))
             .subscribe(chats => this.loadData(chats));
@@ -216,8 +214,5 @@ export class ChatsOverviewTableComponent implements OnInit, AfterViewInit, OnCha
 
     return this.dataSource.filter = this.filterString;
   }
-
-  ngOnDestroy(){
-    this._sbs.unsubscribe()
-  }   
+      
 }
