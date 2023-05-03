@@ -2,9 +2,9 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
-import { MessengerMessagingTypes, MessengerOutgoingTextMessage } from '@app/model/convs-mgr/functions';
+import { MessengerMessagingTypes, MessengerOutgoingButtonMessage, MessengerOutgoingTextMessage } from '@app/model/convs-mgr/functions';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -29,7 +29,7 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
         id: recepientId,
       },
       messaging_type: MessengerMessagingTypes.RESPONSE,
-      message: { 
+      message: {
         text: textBlock.message || "",
       }
     };
@@ -37,9 +37,37 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  getQuestionBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getQuestionBlockParserOut(questionBlock: QuestionMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+
+    const questionButtons = questionBlock.options.map(button =>
+    {
+      return {
+        type: "postback",
+        title: button.message,
+        payload: button.id
+      };
+    });
+
+    // Create the text payload which will be sent to api
+    const generatedMessage: MessengerOutgoingButtonMessage = {
+      recipient: {
+        id: recepientId,
+      },
+      messaging_type: MessengerMessagingTypes.RESPONSE,
+      message: {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "button",
+            text: questionBlock.message || "",
+            buttons: questionButtons
+          }
+        }
+      }
+    };
+
+    return generatedMessage;
   }
   getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
   {
