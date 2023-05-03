@@ -20,6 +20,7 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -45,6 +46,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   stateSaved: boolean = true;
 
+  hasEmptyFields = false;
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved: boolean = false;
 
@@ -152,6 +154,20 @@ this.zoom(this.frameZoom)
 
   /** Save the changes made in the data model. */
   save() {
+
+    // Get all the text area elements
+    const textAreas = document.querySelectorAll('textarea');
+
+    // Check if any of the text area elements are empty
+    const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
+
+    if (hasEmptyFields) {
+      this._dialog.open(ErrorPromptModalComponent, {
+        data: { title: "Error", message: "Please fill in ALL text fields before saving."}
+      });
+      return
+   }
+ 
     this.stateSaved = false;
 
     let updatedState = this.state;

@@ -1,0 +1,23 @@
+input {
+    border: none;
+    padding: 5px 10px;
+    width: 70px;
+}
+
+.input-score-min {
+    text-align: center;
+}
+
+.input-score-max {
+    text-align: end;
+}
+
+.option {
+    border: solid 1px grey;
+    display: flex;
+    justify-content: space-between;
+}
+
+#dash {
+    text-align: end;
+}

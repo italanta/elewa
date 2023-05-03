@@ -37,6 +37,9 @@
       "@app/elements/convs-mgr/controls/input-fields": [
         "libs/elements/convs-mgr/controls/input-fields/src/index.ts"
       ],
+      "@app/elements/layout/modals": [
+        "libs/elements/layout/modals/src/index.ts"
+      ],
       "@app/elements/layout/page": ["libs/elements/layout/page/src/index.ts"],
       "@app/elements/layout/page-convl": [
         "libs/elements/layout/page-convl/src/index.ts"
@@ -70,6 +73,9 @@
       ],
       "@app/features/convs-mgr/stories/blocks/library/anchor-block": [
         "libs/features/convs-mgr/stories/blocks/library/anchor-block/src/index.ts"
+      ],
+      "@app/features/convs-mgr/stories/blocks/library/assessment-brick": [
+        "libs/features/convs-mgr/stories/blocks/library/assessment-brick/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/library/audio-input-block": [
         "libs/features/convs-mgr/stories/blocks/library/audio-input-block/src/index.ts"
@@ -173,6 +179,15 @@
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
       "@app/functions/bot-engine": [
         "libs/functions/bot-engine/main/src/index.ts"
+      ],
+      "@app/functions/bot-engine/messenger": [
+        "libs/functions/bot-engine/messenger/src/index.ts"
+      ],
+      "@app/functions/bot-engine/send-message": [
+        "libs/functions/bot-engine/send-message/src/index.ts"
+      ],
+      "@app/functions/bot-engine/utils": [
+        "libs/functions/bot-engine/utils/src/index.ts"
       ],
       "@app/functions/bot-engine/whatsapp": [
         "libs/functions/bot-engine/whatsapp/src/index.ts"
