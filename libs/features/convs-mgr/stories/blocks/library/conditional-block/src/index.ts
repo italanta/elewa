@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-stories-blocks-library-conditional-block.module';
+export * from './lib/convs-mgr-conditional-block.module';
