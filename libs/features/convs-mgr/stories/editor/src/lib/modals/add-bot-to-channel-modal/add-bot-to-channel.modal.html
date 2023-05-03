@@ -4,7 +4,7 @@
       <i class="fas fa-times close-modal"></i>
     </button>
     <span class="header-text">
-      {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ADD-CHANNEL'}}
+      {{'PAGE-CONTENT.CHANNEL.ADD-CHANNEL.ADD-CHANNEL' | transloco }}
     </span>
     <form (ngSubmit)="onSubmit()" [formGroup]="addToChannelForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" fxFlex="100">
       <mat-stepper [linear]="isLinear">

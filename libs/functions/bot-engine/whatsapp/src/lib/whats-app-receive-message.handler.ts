@@ -2,9 +2,10 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
 
-import { ChannelDataService, EndUserDataService, EngineBotManager, generateEndUserId, MessagesDataService } from '@app/functions/bot-engine';
+import { ChannelDataService, EngineBotManager, generateEndUserId } from '@app/functions/bot-engine';
 import { IncomingWhatsAppMessage } from '@app/model/convs-mgr/functions';
 import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
 import { WhatsappActiveChannel } from './models/whatsapp-active-channel.model';
 
@@ -12,6 +13,7 @@ import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.ut
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 
 import { WhatsappIncomingMessageParser } from './io/incoming-message-parser/whatsapp-api-incoming-message-parser.class';
+
 /**
  * Receives a message, through a channel registered on the WhatsApp Business API,
  *    handles it, and potentially responds to it.
@@ -81,17 +83,20 @@ export class WhatsAppReceiveIncomingMsgHandler extends FunctionHandler<IncomingW
     //        Since we receive different types of messages e.g. text message, location,
     const engine = new EngineBotManager(tools, tools.Logger, whatsappActiveChannel);
 
-    const _msgDataService$ = new MessagesDataService(tools);
-
     const whatsappIncomingMessageParser = new WhatsappIncomingMessageParser().resolve(sanitizedResponse.type);
 
     const message = whatsappIncomingMessageParser.parse(sanitizedResponse.message);
 
     // Don't process the message if we cannot parse it
     if (!message) return { status: 500, message: `Failed to parse incoming message: ${sanitizedResponse.message}` } as RestResult;
+
+    const whatsappEndUser: EndUser = {
+      id: generateEndUserId(sanitizedResponse.endUserNumber, PlatformType.WhatsApp, communicationChannel.n),
+      phoneNumber: sanitizedResponse.endUserNumber,
+    }
     
     // STEP 6: Pass the standardized message and run the bot engine
-    return engine.run(message);
+    return engine.run(message, whatsappEndUser);
   }
 
   /**

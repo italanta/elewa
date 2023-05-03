@@ -36,7 +36,7 @@
         </div>
 
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+          <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
             <span *ngIf="stateSaved; else saving"> Save </span>
             <ng-template #saving>
               <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
