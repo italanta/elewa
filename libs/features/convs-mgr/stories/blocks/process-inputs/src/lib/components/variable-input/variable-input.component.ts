@@ -38,6 +38,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   phonetype = StoryBlockTypes.PhoneNumber;
   locationtype = StoryBlockTypes.LocationInputBlock;
   imagetype = StoryBlockTypes.ImageInput;
+  listtype = StoryBlockTypes.List;
 
   constructor(private _processInputSer: ProcessInputService) {}
 
@@ -48,7 +49,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     /**
      * * we create a copy of the formGroup so we can validate before setting the values on submit.
      * * using the blocksFormGroup creates a very rare race condition where two variables can exist with the same name (if the user is warned that the variable is alredy used but still doesn't change the value) this is why we clone.
-     */ 
+     */
     this.variablesForm = __cloneDeep(this.BlockFormGroup);
     this.validateForm();
   }
