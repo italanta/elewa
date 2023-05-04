@@ -1,18 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { NewStoryService } from '../../services/new-story.service';
-import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-
-export interface Label {
-  name:string;
-  color:string;
-  desc:string;
-}
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
