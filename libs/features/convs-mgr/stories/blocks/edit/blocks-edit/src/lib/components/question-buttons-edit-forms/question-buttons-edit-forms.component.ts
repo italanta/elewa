@@ -10,7 +10,6 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
 export class QuestionButtonsEditFormsComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() title: string;
-  validate: boolean;
 
   constructor(private _fb: FormBuilder) {}
 
@@ -32,14 +31,6 @@ export class QuestionButtonsEditFormsComponent implements OnInit {
 
   deleteInput(i: number) {
     this.options.removeAt(i);
-  }
-
-  ngOnInit() {
-      this.validate = this.form.value.variable.validate;
-  }
-
-  setValidation(){
-    this.validate = !this.validate;
   }
 
 }
