@@ -23,16 +23,6 @@ export function _CreateQuestionBlockMessageForm(_fb: FormBuilder, blockData: Que
       type: [blockData.variable?.type ?? 1, [Validators.required]],
       validate: [blockData.variable?.validate ?? false, [Validators.required]],
 
-      // validators FormGroup
-      validators: _fb.group({
-        regex: [blockData.variable?.validators?.regex ?? ''],
-        min: [blockData.variable?.validators?.min ?? ''],
-        max: [blockData.variable?.validators?.max ?? ''],
-        validationMessage: [
-          blockData.variable?.validators?.validationMessage ??
-            "I'm afraid I didn't understand, could you try again, please?",
-        ],
-      }),
     }),
   })
 }
