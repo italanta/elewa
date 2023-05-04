@@ -10,3 +10,5 @@ export * from './lib/platform-channels/whatsapp-channel.interface';
 export * from './lib/platform-channels/telegram-channel.interface';
 
 export * from './lib/routed-cursor.interface';
+export * from './lib/platform-channels/messenger-channel.interface';
+export * from './lib/platform-end-users/messenger-enduser.interface';

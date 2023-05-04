@@ -18,6 +18,7 @@ import { OpenEndedQuestionEditComponent } from './components/open-ended-question
 import { ImageInputBlockEditComponent } from './components/image-input-block-edit/image-input-block-edit.component';
 import { VideoInputBlockEditComponent } from './components/video-input-block-edit/video-input-block-edit.component';
 import { AudioInputBlockEditComponent } from './components/audio-input-block-edit/audio-input-block-edit.component';
+import { AssessmentBrickEditComponent } from './components/assessment-brick-edit/assessment-brick-edit.component';
 import { MessageBlockEditComponent } from './components/message-block-edit/message-block-edit.component';
 import { EmailBlockEditComponent } from './components/email-block-edit/email-block-edit.component';
 import { PhoneBlockEditComponent } from './components/phone-block-edit/phone-block-edit.component';
@@ -46,6 +47,7 @@ import { DefaultComponent } from './components/default/default.component';
     ImageInputBlockEditComponent,
     AudioInputBlockEditComponent,
     VideoInputBlockEditComponent,
+    AssessmentBrickEditComponent,
     MessageBlockEditComponent,
     NameBlockEditComponent,
     EmailBlockEditComponent,
