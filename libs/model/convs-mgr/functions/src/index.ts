@@ -19,3 +19,5 @@ export * from './lib/messenger/messenger-text-message-out.interface';
 export * from './lib/messenger/messenger-base-outgoing-message.interface';
 export * from './lib/messenger/messenger-messaging-types.enum';
 export * from './lib/messenger/messenger-button-message-out.interface';
+export * from './lib/messenger/messenger-attachment-message-out.interface';
+export * from './lib/messenger/messenger-attachment-types.enum';
