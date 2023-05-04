@@ -16,14 +16,6 @@
     </div>
   </form>
 
-  <div class="validation-check"> 
-    <label class="label" for="setValidation">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</label>
-    <input class="checkbox" type="checkbox" [checked]="validate" (change)="setValidation()" name="setValidation" id="">
-
-  </div>
-
-  <app-variable-input [BlockFormGroup]="form" [validate]="validate"></app-variable-input>
-
   <button (click)="addNewOption()" mat-flat-button class="add-button" fxLayout="row" fxLayoutAlign="center"
     fxLayoutGap="10px">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
