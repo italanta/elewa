@@ -36,7 +36,8 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   emailtype = StoryBlockTypes.Email;
   phonetype = StoryBlockTypes.PhoneNumber;
   locationtype = StoryBlockTypes.LocationInputBlock
-
+  listtype = StoryBlockTypes.List
+  
   constructor(private _processInputSer: ProcessInputService) {}
 
   ngOnInit(): void {
