@@ -7,6 +7,7 @@ import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/
 import { AudioInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { VideoInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { ImageInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { AssessmentBrickEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { MessageBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { EmailBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -68,7 +69,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.Event:
       return DefaultComponent;
     case StoryBlockTypes.Assessment:
-      return DefaultComponent;
+      return AssessmentBrickEditComponent;
     default:
       return DefaultComponent;
   }
