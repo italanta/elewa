@@ -9,7 +9,6 @@ import { NameValidationsComponent } from './components/name-validations/name-val
 import { EmailValidationsComponent } from './components/email-validations/email-validations.component';
 import { PhoneValidationsComponent } from './components/phone-validations/phone-validations.component';
 import { LocationValidationsComponent } from './components/location-validations/location-validations.component';
-import { QuestionButtonValidationsComponent } from './components/question-button-validations/question-button-validations.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MultiLangModule],
@@ -19,7 +18,6 @@ import { QuestionButtonValidationsComponent } from './components/question-button
     EmailValidationsComponent,
     PhoneValidationsComponent,
     LocationValidationsComponent,
-    QuestionButtonValidationsComponent,
   ],
   exports: [VariableInputComponent],
 })
