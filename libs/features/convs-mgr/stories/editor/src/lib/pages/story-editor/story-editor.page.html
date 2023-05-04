@@ -2,8 +2,8 @@
 
   <!-- Main body page -->
   <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="25" class="nav" class="lib-container">
-
+    <div fxFlex="25" class="nav">
+ 
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
           <div class="btn-wrapper" (click)="onClose()">
@@ -12,8 +12,8 @@
           <ng-template (attached)="onBlockComponentRendering($event)" [cdkPortalOutlet]='activeComponent'></ng-template>
         </div>
       </div>
-
-      <ng-template #library>
+    
+      <ng-template #library class="lib-container">
         <convl-blocks-library *ngIf="frame" [frame]="frame">
         </convl-blocks-library>
       </ng-template>
@@ -33,7 +33,10 @@
           <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
             <mat-icon>zoom_in</mat-icon>
           </button>
+
+          <button (click)="toggle()">{{buttonName}}</button>
         </div>
+
 
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
           <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
