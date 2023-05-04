@@ -34,46 +34,6 @@ export class CreateBotModalComponent implements OnInit {
 
   isSavingStory = false;
 
-  // These are label adds
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-
-  // Handle all label logic
-  labelTag:Label[] = [{name:'Farming',color:'red',desc:"this is a test run"}];
-  addLabel(event: MatChipInputEvent): void{
-    const value = (event.value || '').trim();
-
-    // add label
-    if(value){
-      this.labelTag.push({name:value,color:value,desc:value});
-    }
-    event.chipInput?.clear();
-  }
-
-  remove(labels:Label):void {
-    const index = this.labelTag.indexOf(labels);
-
-    if(index >= 0){
-      this.labelTag.splice(index,1)
-    }
-  }
-
-  edit(labels:Label, event: MatChipEditedEvent){
-    const value = event.value.trim();
-    // remove tag if no name is provided
-    if(!value){
-      this.remove(labels);
-      return;
-    }
-    // Edit existing label
-    const index = this.labelTag.indexOf(labels);
-    if(index >=0){
-      this.labelTag[index].name = value;
-    }
-  }
-
-  // END
-
   constructor(private _addStory$: NewStoryService,
               private _formBuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: {
