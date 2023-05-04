@@ -13,6 +13,7 @@ import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/e
 import { PhoneBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { WebhookEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { DefaultComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { ListBlockEditComponent } from 'libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/lib/components/list-block-edit/list-block-edit.component';
 
 export function getActiveBlock(type: StoryBlockTypes) {
   switch (type) {
@@ -31,7 +32,7 @@ export function getActiveBlock(type: StoryBlockTypes) {
     case StoryBlockTypes.Location:
       return DefaultComponent;
     case StoryBlockTypes.List:
-      return DefaultComponent;
+      return ListBlockEditComponent;
     case StoryBlockTypes.Document:
       return DefaultComponent;
     case StoryBlockTypes.Audio:
