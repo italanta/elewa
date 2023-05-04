@@ -52,6 +52,11 @@ mat-sidenav {
   color: black;
 }
 
+.lib-container{
+  position: absolute;
+  left: auto;
+}
+
 .wrapper-edit {
   display: flex;
   flex-direction: column;
