@@ -180,6 +180,15 @@
       "@app/functions/bot-engine": [
         "libs/functions/bot-engine/main/src/index.ts"
       ],
+      "@app/functions/bot-engine/messenger": [
+        "libs/functions/bot-engine/messenger/src/index.ts"
+      ],
+      "@app/functions/bot-engine/send-message": [
+        "libs/functions/bot-engine/send-message/src/index.ts"
+      ],
+      "@app/functions/bot-engine/utils": [
+        "libs/functions/bot-engine/utils/src/index.ts"
+      ],
       "@app/functions/bot-engine/whatsapp": [
         "libs/functions/bot-engine/whatsapp/src/index.ts"
       ],

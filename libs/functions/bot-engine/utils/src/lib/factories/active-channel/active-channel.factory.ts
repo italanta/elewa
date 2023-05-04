@@ -1,6 +1,7 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { WhatsappActiveChannel } from "@app/functions/bot-engine/whatsapp";
+import { MessengerActiveChannel } from "@app/functions/bot-engine/messenger";
 
 import { CommunicationChannel, PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 
@@ -20,6 +21,8 @@ export class ActiveChannelFactory
     switch (communicationChannel.type) {
       case PlatformType.WhatsApp:
         return new WhatsappActiveChannel(tools, communicationChannel);
+      case PlatformType.Messenger:
+        return new MessengerActiveChannel(tools, communicationChannel);
       default:
         return new WhatsappActiveChannel(tools, communicationChannel);
     }

@@ -17,6 +17,7 @@ import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/mode
 
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -44,9 +45,9 @@ export class WhatsappActiveChannel implements ActiveChannel
     this.endUserService = new EndUserDataService(_tools, channel.orgId);
   }
 
-  parseOutMessage(storyBlock: StoryBlock, phone: string)
+  parseOutMessage(storyBlock: StoryBlock, endUser: EndUser)
   {
-    const outgoingMessagePayload = new WhatsappOutgoingMessageParser().parse(storyBlock, phone);
+    const outgoingMessagePayload = new WhatsappOutgoingMessageParser().parse(storyBlock, endUser.phoneNumber);
 
     return outgoingMessagePayload;
   }
