@@ -14,7 +14,7 @@ import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messag
     return _fb.group({
       id: [blockData?.id! ?? ''],
       message: [blockData?.message! ?? ''],
-      // defaultTarget: [blockData.defaultTarget ?? ''],
+      defaultTarget: [blockData.defaultTarget ?? ''],
       options: _fb.array([]),
       type: [blockData.type ?? StoryBlockTypes.QuestionBlock],
       position: [blockData.position ?? { x: 200, y: 50 }],
