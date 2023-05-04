@@ -7,6 +7,5 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./question-button-validations.component.scss'],
 })
 export class QuestionButtonValidationsComponent {
-  @Input() validate: boolean
   @Input() variablesForm: FormGroup;
 }
