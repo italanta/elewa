@@ -2,7 +2,7 @@
 
   <!-- Main body page -->
   <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="25" class="nav">
+    <div fxFlex="25" class="nav" class="lib-container">
 
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <ng-template #library class="lib-container">
+      <ng-template #library>
         <convl-blocks-library *ngIf="frame" [frame]="frame">
         </convl-blocks-library>
       </ng-template>
