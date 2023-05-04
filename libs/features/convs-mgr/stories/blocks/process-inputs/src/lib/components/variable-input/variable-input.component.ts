@@ -39,6 +39,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   locationtype = StoryBlockTypes.LocationInputBlock;
   imagetype = StoryBlockTypes.ImageInput;
   listtype = StoryBlockTypes.List;
+  videotype = StoryBlockTypes.VideoInput;
 
   constructor(private _processInputSer: ProcessInputService) {}
 
