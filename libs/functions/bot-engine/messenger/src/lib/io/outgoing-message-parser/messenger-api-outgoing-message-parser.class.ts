@@ -2,9 +2,9 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { FileMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
-import { MessengerMessagingTypes, MessengerOutgoingButtonMessage, MessengerOutgoingTextMessage } from '@app/model/convs-mgr/functions';
+import { MessengerAttachmentType, MessengerMessagingTypes, MessengerOutgoingAttachmentMessage, MessengerOutgoingButtonMessage, MessengerOutgoingTextMessage } from '@app/model/convs-mgr/functions';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -49,7 +49,7 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
       };
     });
 
-    // Create the text payload which will be sent to api
+    // Create the button payload which will be sent to api
     const generatedMessage: MessengerOutgoingButtonMessage = {
       recipient: {
         id: recepientId,
@@ -69,18 +69,28 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
 
     return generatedMessage;
   }
-  getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getImageBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the image payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.IMAGE);
   }
-  getAudioBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getAudioBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the audio payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.AUDIO);
   }
-  getVideoBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getVideoBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the video payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.VIDEO);
   }
+
+  getDocumentBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
+  {
+    // Create the file payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.FILE);
+  }
+
   getListBlockParserOut(storyBlock: StoryBlock, phone: string)
   {
     throw new Error('Method not implemented.');
@@ -89,8 +99,25 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
   {
     throw new Error('Method not implemented.');
   }
-  getDocumentBlockParserOut(storyBlock: StoryBlock, phone: string)
-  {
-    throw new Error('Method not implemented.');
-  }
+}
+
+function __getMediaBlockParserOut(mediaBlock: FileMessageBlock, recepientId: string, type: MessengerAttachmentType)
+{
+
+  const generatedMessage: MessengerOutgoingAttachmentMessage = {
+    recipient: {
+      id: recepientId,
+    },
+    messaging_type: MessengerMessagingTypes.RESPONSE,
+    message: {
+      attachment: {
+        type: type,
+        payload: {
+          url: mediaBlock.fileSrc,
+          is_reusable: true
+        }
+      }
+    }
+  };
+  return generatedMessage;
 }
