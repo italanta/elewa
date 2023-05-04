@@ -11,6 +11,7 @@ import {
 import { ConvsMgrProcessInputsModule } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { ListBlockEditComponent } from './components/list-block-edit/list-block-edit.component';
 import { QuestionButtonsEditFormsComponent } from './components/question-buttons-edit-forms/question-buttons-edit-forms.component';
 import { LocationInputBlockEditComponent } from './components/location-input-block-edit/location-input-block-edit.component';
 import { KeywordJumpBlockEditComponent } from './components/keyword-jump-block-edit/keyword-jump-block-edit.component';
@@ -38,8 +39,9 @@ import { DefaultComponent } from './components/default/default.component';
     ConvsMgrProcessInputsModule,
     ConvsMgrBlockOptionsModule,
   ],
-  
+
   declarations: [
+    ListBlockEditComponent,
     QuestionButtonsEditFormsComponent,
     LocationInputBlockEditComponent,
     KeywordJumpBlockEditComponent,
