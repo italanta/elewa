@@ -13,7 +13,10 @@ export * from './lib/io/incoming-message-parsers/location-message-parser.class';
 export * from './lib/io/incoming-message-parsers/interactive-message-parser.class';
 export * from './lib/services/data-services/end-user.service';
 export * from './lib/utils/generateUserId';
-export * from './lib/io/incoming-message-parsers/models/incoming-message-parser.interface'
+export * from './lib/io/incoming-message-parsers/models/incoming-message-parser.interface';
 export * from './lib/handlers/talk-to-operator.handler';
 export * from './lib/handlers/move-chat.handler';
+export * from './lib/services/data-services/cursor.service';
+export * from './lib/services/data-services/data-service-abstract.class';
+export * from './lib/services/data-services/channel-info.service';
 export * from './lib/services/variable-injection/mail-merge-variables.service';

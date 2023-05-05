@@ -1,3 +1,11 @@
+<div class="menu">
+  <div class="menu__wrapper">
+    <div *ngFor="let group of groups" class="group">
+      <button class="group__btn" (click)="selectActiveGroup(group)">{{ group }}</button>
+    </div>
+  </div>
+</div>
+
 <div class="chart">
-  <canvas  id="chart-ctx" >{{ chart }}</canvas>
+  <canvas id="chart-ctx">{{ chart }}</canvas>
 </div>
