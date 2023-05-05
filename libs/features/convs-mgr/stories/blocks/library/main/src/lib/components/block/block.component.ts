@@ -301,7 +301,7 @@ export class BlockComponent implements OnInit {
   editBlock() {
     this.sideMenu.toggleExpand(false)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
-    this.libraryMenu.toggleLibraryExpand(true)
+    this.libraryMenu.toggleLibraryExpand(false)
   }
 
   copyblock(block: StoryBlock) {
