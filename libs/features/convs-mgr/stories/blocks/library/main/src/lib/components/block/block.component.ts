@@ -301,7 +301,7 @@ export class BlockComponent implements OnInit {
 
   editBlock() {
     this.sideMenu.toggleExpand(false)
-    this.sideScreen.toggleSideScreen(true)
+    this.sideScreen.toggleSideScreen(false)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 
