@@ -1,9 +1,8 @@
 <convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
 
   <!-- Main body page -->
-  <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="25" class="nav" [hidden]="isSideScreenOpen">
-
+  <div class="story-editor" fxFlexFill>
+    <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
           <div class="btn-wrapper" (click)="onClose()">
@@ -22,10 +21,15 @@
     <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
       <div class="toggle-btn">
         <button (click)="toggleSidenav()">
-          <span *ngIf="!isSideScreenOpen"><i class="fas fa-chevron-right"></i></span>
-          <span *ngIf="isSideScreenOpen"><i class="fas fa-chevron-left"></i></span>
+          <span *ngIf="isSideScreenOpen">
+            <i class="fas fa-arrow-left tooltip"></i>
+          </span>
+          <span *ngIf="!isSideScreenOpen">
+            <i class="fas fa-arrow-right tooltip"></i>
+          </span>
         </button>
       </div>
+
       <!-- Convl page subbar -->
       <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">

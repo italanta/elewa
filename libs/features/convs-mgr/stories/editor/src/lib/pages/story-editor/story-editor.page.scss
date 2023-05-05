@@ -7,8 +7,7 @@ mat-sidenav {
   height: 400px;
 }
 
-
-.story-editor{
+.story-editor {
   overflow-y: hidden;
   display: flex;
   width: 100%;
@@ -19,26 +18,41 @@ mat-sidenav {
   background-color: #fff;
   width: 20%;
   top: 0;
-  transition: all 0.3s ease-out;
+  transition: 0.2s ease;
+
+  &.open {
+    width: 25%;
+  }
+
+  &.close {
+    width: 0%;
+  }
 }
 
-.story-index{
+.story-index {
   overflow-y: hidden;
   width: 80%;
   position: relative;
-  .toggle-btn{
+
+  .toggle-btn {
     position: absolute;
-    top: 8rem;
+    top: 10rem;
     z-index: 999;
     left: 1rem;
 
-    button{
-     background-color: var(--endpoint-color);;
-     border: none;
-     transition: transform 0.3s ease;
-     padding: 10px;
-     border-radius: 5px;
-     color: var(--endpoint-outline);
+    button {
+      background-color: var(--endpoint-color);
+      border: none;
+      transition: transform 0.3s ease;
+      padding: 10px;
+      border-radius: 5px;
+      width: 5rem;
+      cursor: pointer;
+      color: var(--endpoint-outline);
+ 
+      .tooltip {
+        font-size: 1.5rem;
+      }
     }
   }
 }
@@ -52,14 +66,14 @@ mat-sidenav {
 }
 
 .subbar-btn {
-  background-color: #FFAB2D;
+  background-color: #ffab2d;
   color: white;
   font-weight: 600;
   min-width: 100px;
 }
 
-.add-channel-btn{
-  background-color: #6418C3;
+.add-channel-btn {
+  background-color: #6418c3;
   color: white;
   font-weight: 600;
   min-width: 100px;
@@ -96,5 +110,3 @@ mat-sidenav {
 ::ng-deep .mat-mini-fab .mat-button-wrapper {
   bottom: 0px;
 }
-
-
