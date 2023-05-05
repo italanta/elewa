@@ -14,7 +14,7 @@ export interface MessengerOutgoingButtonMessage extends MessengerOutgoingMessage
 }
 
 export interface MessengerOutgoingButtons { 
-  type: string; // E.g. "postback", "web_url", "call", 
+  type: string; // E.g. "postback", "web_url", "phone_number", 
   title: string;
   payload: string;
 }
