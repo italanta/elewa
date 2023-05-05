@@ -18,11 +18,29 @@ mat-sidenav {
   border-right: solid black 1px;
   background-color: #fff;
   width: 20%;
+  top: 0;
+  transition: left 0.5s;
 }
 
 .story-index{
   overflow-y: hidden;
   width: 80%;
+  position: relative;
+  .toggle-btn{
+    position: absolute;
+    top: 8rem;
+    z-index: 999;
+    left: 1rem;
+
+    button{
+     background-color: var(--endpoint-color);;
+     border: none;
+     transition: transform 0.3s ease;
+     padding: 10px;
+     border-radius: 5px;
+     color: var(--endpoint-outline);
+    }
+  }
 }
 
 .sub-bar {
@@ -67,7 +85,7 @@ mat-sidenav {
     position: absolute;
     right: 5px;
     top: 5px;
-    
+
     .close-btn {
       font-size: 1.2rem;
       color: black;
@@ -78,3 +96,5 @@ mat-sidenav {
 ::ng-deep .mat-mini-fab .mat-button-wrapper {
   bottom: 0px;
 }
+
+
