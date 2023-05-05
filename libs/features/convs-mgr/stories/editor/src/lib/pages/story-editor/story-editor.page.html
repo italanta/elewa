@@ -2,7 +2,7 @@
 
   <!-- Main body page -->
   <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="25" class="nav">
+    <div fxFlex="25" class="nav" *ngIf="isSideScreenOpen">
 
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
@@ -20,6 +20,12 @@
     </div>
 
     <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
+      <div class="toggle-btn">
+        <button (click)="toggleSidenav()">
+          <span *ngIf="!isSideScreenOpen"><i class="fas fa-chevron-right"></i></span>
+          <span *ngIf="isSideScreenOpen"><i class="fas fa-chevron-left"></i></span>
+        </button>
+      </div>
       <!-- Convl page subbar -->
       <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
@@ -51,8 +57,6 @@
           </button>
         </div>
       </div>
-
-
       <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>
     </div>
