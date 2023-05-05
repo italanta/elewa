@@ -3,6 +3,9 @@ import { MessageTypes } from '@app/model/convs-mgr/functions';
 
 import { MessengerIncomingTextParser } from './message-types/messenger-incoming-text.parser';
 import { MessengerIncomingInteractiveParser } from './message-types/messenger-incoming-interactive.parser';
+import { MessengerIncomingAudioParser } from './message-types/messenger-incoming-audio.parser';
+import { MessengerIncomingImageParser } from './message-types/messenger-incoming-image.parser';
+import { MessengerIncomingVideoParser } from './message-types/messenger-incoming-video.parser';
 
 
 /**
@@ -26,12 +29,12 @@ export class MessengerIncomingMessageParser
     switch (messageType) {
       case MessageTypes.TEXT:
         return new MessengerIncomingTextParser();
-      // case MessageTypes.AUDIO:
-      //   return new WhatsappIncomingAudioParser();
-      // case MessageTypes.IMAGE:
-      //   return new WhatsappIncomingImageParser();
-      // case MessageTypes.VIDEO:
-      //   return new WhatsappIncomingVideoParser();
+      case MessageTypes.AUDIO:
+        return new MessengerIncomingAudioParser();
+      case MessageTypes.IMAGE:
+        return new MessengerIncomingImageParser();
+      case MessageTypes.VIDEO:
+        return new MessengerIncomingVideoParser();
       // case MessageTypes.LOCATION:
       //   return new WhatsappIncomingLocationParser();
       case MessageTypes.QUESTION:
