@@ -43,6 +43,7 @@ import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
+import { LibraryMenuToggleService } from '../../providers/library-toggle.service';
 /**
  * Block which sends a message from bot to user.
  */
@@ -103,6 +104,7 @@ export class BlockComponent implements OnInit {
               private _blockInjectorService: BlockInjectorService,
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
+              private libraryMenu: LibraryMenuToggleService,
               private sideMenu:SidemenuToggleService
   ) { }
 
@@ -299,6 +301,7 @@ export class BlockComponent implements OnInit {
   editBlock() {
     this.sideMenu.toggleExpand(false)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+    this.libraryMenu.toggleLibraryExpand(true)
   }
 
   copyblock(block: StoryBlock) {

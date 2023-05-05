@@ -16,6 +16,8 @@ import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { BlockPortalService } from '../../providers/block-portal.service';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import {LibraryMenuToggleService} from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/providers/library-toggle.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
@@ -60,6 +62,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
+              private libraryMenu: LibraryMenuToggleService,
               private _blockPortalService: BlockPortalService,
               _router: Router
   ) {
@@ -74,6 +77,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         const story = state.story;
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
         this.loading.next(false);
+        this._sb.sink = this.libraryMenu.libraryStatus$.subscribe((isOpen) => (this.isLibraryOpen = isOpen))
       }
       );
   }
@@ -194,7 +198,8 @@ this.zoom(this.frameZoom)
 
   // Add toggle function
   toggleLibrary(){
-    this.isLibraryOpen = !this.isLibraryOpen;
+    // this.isLibraryOpen = !this.isLibraryOpen;
+    this.libraryMenu.toggleLibraryExpand(!this.isLibraryOpen)
   }
 
   addToChannel() {
