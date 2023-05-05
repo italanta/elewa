@@ -1,8 +1,7 @@
 import { EndpointRegistrar } from "@ngfi/functions";
+import { MessengerReceiveMsgHandler } from "@app/functions/bot-engine/messenger";
 
 import { ConvLearnFunction } from "../../../conv-learn-func.class";
-import { MessengerReceiveMsgHandler } from "libs/functions/bot-engine/messenger/src";
-
 
 const handler = new MessengerReceiveMsgHandler();
 
