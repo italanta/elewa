@@ -2,9 +2,9 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { FileMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { FileMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
-import { MessengerAttachmentType, MessengerMessagingTypes, MessengerOutgoingAttachmentMessage, MessengerOutgoingButtonMessage, MessengerOutgoingTextMessage } from '@app/model/convs-mgr/functions';
+import { MessengerAttachmentType, MessengerMessagingTypes, MessengerOutgoingAttachmentMessage, MessengerOutgoingButtonMessage, MessengerOutgoingListMessage, MessengerOutgoingListMessageElement, MessengerOutgoingTextMessage, MessengerTemplateType } from '@app/model/convs-mgr/functions';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -91,10 +91,42 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
     return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.FILE);
   }
 
-  getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getListBlockParserOut(listBlock: ListMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    const listItems = listBlock.options.map(button =>
+      {
+        return {
+          title: button.message,
+          buttons: [
+            {
+              type: "postback",
+              title: button.message,
+              payload: button.id
+            }
+          ]
+        } as MessengerOutgoingListMessageElement;
+      });
+  
+      // Create the button payload which will be sent to api
+      const generatedMessage: MessengerOutgoingListMessage = {
+        recipient: {
+          id: recepientId,
+        },
+        messaging_type: MessengerMessagingTypes.RESPONSE,
+        message: {
+          attachment: {
+            type: MessengerAttachmentType.TEMPLATE,
+            payload: {
+              template_type:  MessengerTemplateType.GENERIC,
+              elements: listItems
+            }
+          }
+        }
+      };
+  
+      return generatedMessage;
   }
+  
   getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message)
   {
     throw new Error('Method not implemented.');
