@@ -21,7 +21,7 @@ import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
-
+import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
@@ -61,7 +61,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
-              _router: Router
+              _router: Router,
+              private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
       .subscribe((state: StoryEditorState) => {
@@ -74,6 +75,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         const story = state.story;
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
         this.loading.next(false);
+        this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => (this.isSideScreenOpen = isOpen))
       }
       );
   }
@@ -200,7 +202,8 @@ this.zoom(this.frameZoom)
   }
 
   toggleSidenav() {
-    this.isSideScreenOpen = !this.isSideScreenOpen;
+    this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
+    this.onClose()
   }
 
   ngOnDestroy() {
