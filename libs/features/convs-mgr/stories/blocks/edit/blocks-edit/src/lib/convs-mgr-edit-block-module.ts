@@ -25,6 +25,7 @@ import { PhoneBlockEditComponent } from './components/phone-block-edit/phone-blo
 import { NameBlockEditComponent } from './components/name-block-edit/name-block-edit.component';
 import { WebhookEditComponent } from './components/webhook-edit/webhook-edit.component';
 import { DefaultComponent } from './components/default/default.component';
+import { ListBlockEditComponent } from './components/list-block-edit/list-block-edit.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { DefaultComponent } from './components/default/default.component';
     PhoneBlockEditComponent,
     WebhookEditComponent,
     DefaultComponent,
+    ListBlockEditComponent
   ],
 })
 export class ConvsMgrEditBlockModule {}

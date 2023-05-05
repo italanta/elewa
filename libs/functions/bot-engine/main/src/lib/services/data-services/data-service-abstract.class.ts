@@ -34,6 +34,18 @@ export abstract class BotDataService<T> {
       return doc;
    }
 
+   async getDocumentsBySetDate(timeToMeasure: Date, path: string) {
+      this.repo$ = this._tools.getRepository<T>(path);
+
+      const query = new Query()
+                           .where('createdOn', '<=', timeToMeasure)
+                           .orderBy('createdOn', 'desc')
+                     .limit(1);
+   
+      const documents = await this.repo$.getDocuments(query);
+      return documents
+   }
+
    async createDocument(doc: T, path: string, id?: string)
    {
       try {
