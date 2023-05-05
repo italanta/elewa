@@ -1,21 +1,23 @@
-import { Component, Inject } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { FileStorageService } from '@app/state/file';
 import { SubSink } from 'subsink';
-
-import { Story } from '@app/model/convs-mgr/stories/main';
 
 @Component({
   selector: 'app-video-upload-modal',
   templateUrl: './video-upload-modal.component.html',
   styleUrls: ['./video-upload-modal.component.scss'],
 })
-export class VideoUploadModalComponent {
+export class VideoUploadModalComponent implements OnInit{
+  private _sBs = new SubSink()
+  videoModalForm: FormGroup;
   title = 'Upload Video';
   videoName: string;
   videoFile: File;
+  videoPath: string
+  
   sizeOptions = [
     { vidSize: '4K', resolution: '3840px x 2160px' },
     { vidSize: '1080p', resolution: '1920px x 1080px' },
@@ -28,47 +30,58 @@ export class VideoUploadModalComponent {
   ];
   videoUrl = '';
   videoInputId = 'videoInput';
-  videoInputUpload = 'videoInputUpload';
-  private _sBs = new SubSink();
-
+  //videoInputUpload = 'videoInputUpload';
+  testingData: any
+  
   constructor(
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup; block: Story },
-    private _videoUploadService: FileStorageService,
+    private _formbuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data:any,
+    private fileStorageService: FileStorageService
   ) {}
 
-  closeModal(): void {
+  ngOnInit(): void {
+      this.createFormGroup()
+      this.testingData = this.data
+      console.log(this.testingData)
+  }
+
+  createFormGroup(){
+    this.videoModalForm = this._formbuilder.group({
+      videoName: [''],
+      videoFile: [''],
+      size: ['']
+    })
+  }
+
+  closeModal() {
     this.dialogRef.close();
   }
 
-  async apply(): Promise<void> {
+   apply(){
+    console.log(this.videoModalForm.value)
+    
+  }
+  
+  async processVideo(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => this.videoUrl = e.target.result;
+      reader.readAsDataURL(event.target.files[0]);
+      this.videoFile = event.target.files[0];
+  
+      this.videoUrl = URL.createObjectURL(event.target.files[0]);
+      this.data.videoMessageForm.patchValue({ fileName: this.videoFile.name });
+    }
+
     //Step 1 - Create the file path that will be in firebase storage
     const vidFilePath = `videos/${this.videoFile.name}_${new Date().getTime()}`;
 
-    const response = await this._videoUploadService.uploadSingleFile(this.videoFile, vidFilePath);
-
-    this._sBs.sink = response.subscribe((url) => {
-      this.data.videoMessageForm.patchValue({ fileSrc: url });
-      this.data.videoMessageForm.patchValue({ fileName: this.videoFile.name });
-      this.dialogRef.close({
-        name: this.videoFile.name,
-        file: this.videoFile,
-        url,
-      });
-    });
+    const response = await this.fileStorageService.uploadSingleFile(this.videoFile, vidFilePath)
+    this._sBs.sink = response.subscribe(url => this._autofillVideoUrl(url))
   }
 
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      this.videoUrl = reader.result as string;
-    };
-    reader.readAsDataURL(file);
-    this.videoFile = file;
-  }
-
-  ngOnDestroy() {
-    this._sBs.unsubscribe();
+  private _autofillVideoUrl(url: any) {
+    this.data.videoMessageForm.patchValue({ fileSrc: url });
   }
 }

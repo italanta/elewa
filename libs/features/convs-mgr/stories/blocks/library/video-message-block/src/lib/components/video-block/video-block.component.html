@@ -2,8 +2,8 @@
 	<form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
 		<div [id]="videoInputId">
-			<label [for]="videoInputUpload">
-			  <div *ngIf="!hasVideo && !isLoadingVideo && !videoUrl; else inputHasVideo" (click)="openVideoUploadModal()">
+			<label [for]="videoInputUpload" >
+			  <div *ngIf="!hasVideo && !isLoadingVideo && !videoUrl; else inputHasVideo" (click)="openVideoUploadModal() ">
 				<i id="icon" class="fas fa-play-circle"></i>
 			  </div>
 			  <ng-template #inputHasVideo>

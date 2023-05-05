@@ -62,18 +62,14 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
     }
   }
   
-  openVideoUploadModal() {
+   openVideoUploadModal() {
+   // console.log(this.videoMessageForm)
     const dialogRef = this.matdialog.open(VideoUploadModalComponent, {
         width: '900px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-            this.videoUrl = result.url;
-            this.videoId = result.id;
-            this.hasVideo = true;
-            this.videoMessageForm.patchValue({ fileName: result.name });
-            this.videoMessageForm.patchValue({ fileSrc: this.videoUrl });
+        data: {
+          id: this.id,
+          block: this.block,
+          videoMessageForm: this.videoMessageForm,
         }
     });
 }
