@@ -2,7 +2,7 @@
 
   <!-- Main body page -->
   <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="25" class="nav">
+    <div fxFlex="25" class="nav" *ngIf="isLibraryOpen">
 
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
@@ -20,6 +20,13 @@
     </div>
 
     <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
+      <!-- Toggle navigation for library -->
+      <div class="toggle-btn">
+        <button (click)="toggleLibrary()">
+          <span *ngIf="!isLibraryOpen"><i class="fas fa-chevron-right"></i></span>
+          <span *ngIf="isLibraryOpen"><i class="fas fa-chevron-left"></i></span>
+        </button>
+      </div>
       <!-- Convl page subbar -->
       <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
