@@ -2,7 +2,7 @@
 
   <!-- Main body page -->
   <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="25" class="nav" *ngIf="isSideScreenOpen">
+    <div fxFlex="25" class="nav" [hidden]="isSideScreenOpen">
 
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
