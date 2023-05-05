@@ -42,6 +42,7 @@ import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-for
 import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
+import { SideScreenToggleService } from 'libs/features/convs-mgr/stories/editor/src/lib/providers/side-screen-toggle.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
 /**
  * Block which sends a message from bot to user.
@@ -103,7 +104,9 @@ export class BlockComponent implements OnInit {
               private _blockInjectorService: BlockInjectorService,
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
-              private sideMenu:SidemenuToggleService
+              private sideMenu:SidemenuToggleService,
+              private sideScreen:SideScreenToggleService
+
   ) { }
 
   ngOnInit(): void {
@@ -203,7 +206,7 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-          
+
         case StoryBlockTypes.AudioInput:
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -222,12 +225,12 @@ export class BlockComponent implements OnInit {
         case StoryBlockTypes.OpenEndedQuestion:
           this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
 
         case StoryBlockTypes.MultiContentInput:
           this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
 
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
@@ -248,7 +251,7 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAssessmentBrickForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-          
+
         default:
           break;
       }
@@ -298,6 +301,7 @@ export class BlockComponent implements OnInit {
 
   editBlock() {
     this.sideMenu.toggleExpand(false)
+    this.sideScreen.toggleSideScreen(true)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 
