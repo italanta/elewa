@@ -11,6 +11,7 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
+import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -42,7 +43,6 @@ import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-for
 import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
-import { SideScreenToggleService } from 'libs/features/convs-mgr/stories/editor/src/lib/providers/side-screen-toggle.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
 /**
  * Block which sends a message from bot to user.
