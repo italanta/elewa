@@ -17,7 +17,7 @@ import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcru
 
 import { BlockPortalService } from '../../providers/block-portal.service';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import {LibraryMenuToggleService} from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/providers/library-toggle.service';
+import {LibraryMenuToggleService} from '../../../../../blocks/library/main/src/lib/providers/library-toggle.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
