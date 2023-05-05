@@ -75,9 +75,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         const story = state.story;
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
         this.loading.next(false);
-        this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => (this.isSideScreenOpen = isOpen))
       }
       );
+
+      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => (this.isSideScreenOpen = isOpen))
+
   }
 
   ngOnInit() {
