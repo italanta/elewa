@@ -9,7 +9,6 @@ import { StoryBlockTypes, StoryBlockVariable } from '@app/model/convs-mgr/storie
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ProcessInputService } from '../../providers/process-input.service';
-import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 
 @Component({
   selector: 'app-variable-input',
@@ -33,13 +32,10 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   ];
 
   nametype = StoryBlockTypes.Name;
-  audiotype = StoryBlockTypes.AudioInput;
   emailtype = StoryBlockTypes.Email;
   phonetype = StoryBlockTypes.PhoneNumber;
-  locationtype = StoryBlockTypes.LocationInputBlock
-  imagetype = StoryBlockTypes.ImageInput;
-  videotype = StoryBlockTypes.VideoInput;
-  
+  locationtype = StoryBlockTypes.LocationInputBlock;
+
   constructor(private _processInputSer: ProcessInputService) {}
 
   ngOnInit(): void {
