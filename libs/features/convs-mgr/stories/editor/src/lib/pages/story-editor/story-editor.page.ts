@@ -33,10 +33,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   activeComponent: ComponentPortal<any>
   activeBlockForm: FormGroup
   activeBlockTitle: string
-  
+
   opened: boolean;
 
   pageName: string;
+  isSideScreenOpen=true;
 
   state: StoryEditorState;
   breadcrumbs: Breadcrumb[] = [];
@@ -167,7 +168,7 @@ this.zoom(this.frameZoom)
       });
       return
    }
- 
+
     this.stateSaved = false;
 
     let updatedState = this.state;
@@ -196,6 +197,10 @@ this.zoom(this.frameZoom)
       width: '550px'
     })
 
+  }
+
+  toggleSidenav() {
+    this.isSideScreenOpen = !this.isSideScreenOpen;
   }
 
   ngOnDestroy() {
