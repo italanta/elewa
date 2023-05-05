@@ -37,7 +37,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   opened: boolean;
 
   pageName: string;
-  isSideScreenOpen=true;
+  isSideScreenOpen:boolean;
 
   state: StoryEditorState;
   breadcrumbs: Breadcrumb[] = [];
@@ -45,11 +45,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
-  stateSaved: boolean = true;
+  stateSaved = true;
 
   hasEmptyFields = false;
   //TODO @CHESA LInk boolean to existence of story in DB
-  storyHasBeenSaved: boolean = false;
+  storyHasBeenSaved = false;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -77,22 +77,20 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         this.loading.next(false);
       }
       );
+    }
 
-      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => (this.isSideScreenOpen = isOpen))
-
-  }
-
-  ngOnInit() {
-    this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
-      if (blockDetails.form) {
-        const comp = getActiveBlock(blockDetails.form.value.type);
-        this.activeBlockForm = blockDetails.form
-        this.activeBlockTitle = blockDetails.title
-        this.activeComponent = new ComponentPortal(comp);
-        this.opened = true;
-      }
-    });
-  }
+    ngOnInit() {
+      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+      this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
+        if (blockDetails.form) {
+          const comp = getActiveBlock(blockDetails.form.value.type);
+          this.activeBlockForm = blockDetails.form
+          this.activeBlockTitle = blockDetails.title
+          this.activeComponent = new ComponentPortal(comp);
+          this.opened = true;
+        }
+      });
+    }
 
   /**
   * Called when the portal component is rendered. Passes formGroup as an input to newly rendered Block Component
@@ -106,8 +104,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   /**  Detach and close Block Edit form */
   onClose() {
-    this.activeComponent?.detach()
-    this.opened = false;
+    if (this.activeComponent && this.activeComponent.isAttached) {
+      this.activeComponent?.detach()
+      this.opened = false;
+    }
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame) {
@@ -126,15 +126,16 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   }
 
   setFrameZoom() {
-    this.frameElement = document.getElementById('editor-frame')!;
+    this.frameElement = document.getElementById('editor-frame') as HTMLElement;
     this.frameZoomInstance = newInstance({
       container: this.frameElement
     })
     this.zoom(this.frameZoom);
   }
+
   setZoomByPinch(value:number){
-this.frameZoom=value
-this.zoom(this.frameZoom)
+    this.frameZoom=value
+    this.zoom(this.frameZoom)
   }
 
   increaseFrameZoom() {
@@ -152,7 +153,7 @@ this.zoom(this.frameZoom)
   }
 
   zoomChanged(event: any) {
-    let z = event.target.value / 100;
+    const z = event.target.value / 100;
     this.zoomLevel.setValue(z);
     this.zoom(z);
   }
@@ -175,13 +176,13 @@ this.zoom(this.frameZoom)
 
     this.stateSaved = false;
 
-    let updatedState = this.state;
+    const updatedState = this.state;
     updatedState.blocks = [...this.frame.blocksArray.value];
 
     //TODO: compare old state connections to updated connections
     // from getConnections()
     // find a jsPlumb types library to replace any with strict type
-    let connections = this.frame.getJsPlumbConnections as any[];
+    const connections = this.frame.getJsPlumbConnections as any[];
 
     // remove duplicate jsplumb connections
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
