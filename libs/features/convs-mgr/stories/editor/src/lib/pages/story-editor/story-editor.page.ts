@@ -35,6 +35,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   activeBlockTitle: string
   
   opened: boolean;
+  isLibraryOpen:boolean = true;
 
   pageName: string;
 
@@ -189,6 +190,11 @@ this.zoom(this.frameZoom)
             this.storyHasBeenSaved = true;
           }
         });
+  }
+
+  // Add toggle function
+  toggleLibrary(){
+    this.isLibraryOpen = !this.isLibraryOpen;
   }
 
   addToChannel() {
