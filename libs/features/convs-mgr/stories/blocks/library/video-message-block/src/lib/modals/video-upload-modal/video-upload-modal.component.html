@@ -1,4 +1,4 @@
-<form class="container">
+<div class="container">
   <div class="heading">
     <div (click)="closeModal()" id="close__icon">
       <i class="fas fa-times"></i>
@@ -7,17 +7,17 @@
       <h2 class="title">{{ t('Upload Video') }}</h2>
     </ng-template>
   </div>
-  <div class="wrapper">
+  <form [formGroup]="videoModalForm" class="wrapper">
     <div class="left__side">
       <p class="p__text">Give This media Item a Name</p>
       <label for="name-input" class="name__input"> 
-        <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="name" />
+        <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="videoName" />
       </label>
       <br />
-      <div [id]="videoInputId">
-        <input type="file" accept=".mp4" [id]="videoInputUpload" hidden class="video" (change)="onFileSelected($event)" />
+      <div>
+        <input type="file" accept=".mp4" [id]="videoInputId" class="video" (change)="processVideo($event)" formControlName="videoFile" hidden/>
         <ng-container *ngIf="videoUrl === ''">
-          <label [for]="videoInputUpload">
+          <label>
             <div>
               <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" class="thumbnail" />
             </div>
@@ -44,16 +44,17 @@
           [value]="option.vidSize"
           id="{{ option.vidSize }}"
           [checked]="option.vidSize === '720p (Recommended)'"
-         
+          formControlName="size"
         />
-        <label for="{{ option.vidSize }}" class="size__options"  formControlName="size">{{
+        <label for="{{ option.vidSize }}" class="size__options">{{
           option.vidSize
         }}</label>
         <p class="resolution">{{ option.resolution }}</p>
       </div>
     </div>
-  </div>
-  <div class="apply">
-    <button type="submit" class="apply__button">Apply</button>
-  </div>
-</form>
+    <div class="apply">
+      <button type="submit" class="apply__button" (click)="apply()">Apply</button>
+    </div>
+  </form>
+</div>
+
