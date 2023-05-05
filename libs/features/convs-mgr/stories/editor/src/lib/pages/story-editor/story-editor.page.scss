@@ -23,11 +23,29 @@ mat-sidenav {
   border-right: solid black 1px;
   background-color: #fff;
   width: 20%;
+  top: 0;
+  transition: left 0.5s;
 }
 
 .story-index{
   overflow-y: hidden;
   width: 80%;
+  position: relative;
+  .toggle-btn{
+    position: absolute;
+    top: 8rem;
+    z-index: 999;
+    left: 1rem;
+
+    button{
+     background-color: var(--convs-mgr-color-primary-purple);;
+     border: none;
+     transition: transform 0.3s ease;
+     padding: 10px;
+     border-radius: 5px;
+     color: var(--endpoint-outline);
+    }
+  }
 }
 
 .sub-bar {
