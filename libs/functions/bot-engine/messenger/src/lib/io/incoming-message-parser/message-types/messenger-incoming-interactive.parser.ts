@@ -15,7 +15,7 @@ export class MessengerIncomingInteractiveParser extends IncomingInteractiveMessa
     const postbackPayload = incomingMessage.message as IncomingMessengerPostBackMessage
     // Create the base message object
     const newMessage: QuestionMessage = {
-      id: incomingMessage.timeStamp.toString(),
+      id: Date.now().toString(),
       type: MessageTypes.QUESTION,
       options: [{
         optionId: postbackPayload.payload,
