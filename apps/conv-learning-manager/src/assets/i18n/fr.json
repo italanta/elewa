@@ -133,6 +133,14 @@
           }
         }
       }
+    },
+    "ASSESSMENTS": {
+      "TABLE-HEADER": {
+        "NAME": "Nom",
+        "IN-PROGRESS": "En cours",
+        "RESPONSES": "Résponses",
+        "ACTION": "Action"
+      }
     }
   },
   "BOTS": {
