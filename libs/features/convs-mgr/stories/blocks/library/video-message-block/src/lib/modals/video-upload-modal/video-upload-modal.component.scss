@@ -39,7 +39,9 @@
   .left__side {
      background-color: var(--convs-mgr-color-primary-white); 
   }
-
+  .hidden{
+    display: none;
+  }
   .upload-video{
     width: 350px;
     height: 300px;

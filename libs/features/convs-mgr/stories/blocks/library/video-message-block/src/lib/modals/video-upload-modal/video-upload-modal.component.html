@@ -15,17 +15,11 @@
       </label>
       <br />
       <div>
-        <input type="file" accept=".mp4" [id]="videoInputId" class="video" (change)="processVideo($event)" formControlName="videoFile" hidden/>
-        <ng-container *ngIf="videoUrl === ''">
-          <label>
-            <div>
-              <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" class="thumbnail" />
-            </div>
-          </label>
+        <input type="file" accept=".mp4" #videoInput (change)="videoInput.files && onVideoSelected(videoInput.files[0])" [ngClass]="{ 'hidden': true }">
+        <ng-container *ngIf="!videoUrl">
+          <img src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" (click)="videoInput.click()">
         </ng-container>
-        <ng-container *ngIf="videoUrl !== ''">
-          <video class="upload-video" alt="" controls [src]="videoUrl"></video>
-        </ng-container>
+        <video class="upload-video" *ngIf="videoUrl" [src]="videoUrl" controls></video>
       </div>
     </div>
 

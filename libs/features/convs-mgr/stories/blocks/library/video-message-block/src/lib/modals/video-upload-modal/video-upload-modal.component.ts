@@ -17,6 +17,7 @@ export class VideoUploadModalComponent implements OnInit{
   videoName: string;
   videoFile: File;
   videoPath: string
+  videoUrl: string;
   
   sizeOptions = [
     { vidSize: '4K', resolution: '3840px x 2160px' },
@@ -28,9 +29,8 @@ export class VideoUploadModalComponent implements OnInit{
       resolution: 'This will use the original media you provided',
     },
   ];
-  videoUrl = '';
+
   videoInputId = 'videoInput';
-  //videoInputUpload = 'videoInputUpload';
   testingData: any
   
   constructor(
@@ -62,26 +62,21 @@ export class VideoUploadModalComponent implements OnInit{
     console.log(this.videoModalForm.value)
     
   }
-  
-  async processVideo(event: any) {
-    if (event.target.files && event.target.files[0]) {
+
+  onVideoSelected(file: File) {
+    if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => this.videoUrl = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
-      this.videoFile = event.target.files[0];
-  
-      this.videoUrl = URL.createObjectURL(event.target.files[0]);
-      this.data.videoMessageForm.patchValue({ fileName: this.videoFile.name });
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.videoFile = file;
+        this.videoPath = reader.result as string;
+        this.videoModalForm.patchValue({
+          videoName: file.name,
+          videoFile: file,
+          size: '' // Set the default size value here
+        });
+      };
     }
-
-    //Step 1 - Create the file path that will be in firebase storage
-    const vidFilePath = `videos/${this.videoFile.name}_${new Date().getTime()}`;
-
-    const response = await this.fileStorageService.uploadSingleFile(this.videoFile, vidFilePath)
-    this._sBs.sink = response.subscribe(url => this._autofillVideoUrl(url))
   }
-
-  private _autofillVideoUrl(url: any) {
-    this.data.videoMessageForm.patchValue({ fileSrc: url });
-  }
+  
 }
