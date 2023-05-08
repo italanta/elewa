@@ -6,7 +6,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
-import { ProcessInputService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -26,7 +26,7 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10
 
-  constructor(private _fb: FormBuilder, private variables:ProcessInputService) {
+  constructor(private _fb: FormBuilder, private variables:VariablesService) {
     this.vars$ = this.variables.getAllVariables()
   }
 
