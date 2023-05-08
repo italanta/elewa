@@ -168,6 +168,18 @@
           "CANCEL": "Cancel"
         }
       }
+    },
+    "ASSESSMENTS": {
+      "TABLE-HEADER": {
+        "NAME": "Name",
+        "IN-PROGRESS": "In Progress",
+        "RESPONSES": "Responses",
+        "ACTIONS": "Actions"
+      },
+      "BUTTON": {
+        "VIEW": "View", 
+        "RESULTS": "Results"
+      }
     }
   },
   "BOTS": {
