@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { FileStorageService } from '@app/state/file';
 import { SubSink } from 'subsink';
+import { VideoService } from '../../services/video-service';
 
 @Component({
   selector: 'app-video-upload-modal',
@@ -37,7 +38,8 @@ export class VideoUploadModalComponent implements OnInit{
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _formbuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data:any,
-    private fileStorageService: FileStorageService
+    private fileStorageService: FileStorageService,
+    private _videoService: VideoService
   ) {}
 
   ngOnInit(): void {
@@ -58,10 +60,21 @@ export class VideoUploadModalComponent implements OnInit{
     this.dialogRef.close();
   }
 
-   apply(){
-    console.log(this.videoModalForm.value)
-    
+  async apply() {
+    const name = this.videoModalForm.controls['videoName'].value;
+    const file = this.videoModalForm.controls['videoFile'].value;
+    const size = this.videoModalForm.controls['size'].value;
+  
+    try {
+      const result = await this.fileStorageService.uploadSingleFile(file, name);
+      this.dialogRef.close(result);
+    } catch (error) {
+      console.error('Error uploading video', error);
+    }
   }
+  
+  
+  
 
   onVideoSelected(file: File) {
     if (file) {
