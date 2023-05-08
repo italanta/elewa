@@ -7,7 +7,7 @@ import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 @Injectable({
   providedIn: 'root',
 })
-export class ProcessInputService {
+export class VariablesService {
   /** list of blocks with variables already set */
   blocksWithVars$: Observable<StoryBlock[]>;
 
