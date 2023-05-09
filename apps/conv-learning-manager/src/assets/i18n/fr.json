@@ -140,6 +140,13 @@
         "IN-PROGRESS": "En cours",
         "RESPONSES": "Résponses",
         "ACTION": "Action"
+      },
+      "BUTTON": {
+        "VIEW": "Voir", 
+        "RESULTS": "Résultats"
+      },
+      "ACCESSIBILITY": {
+         "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations"
       }
     }
   },
