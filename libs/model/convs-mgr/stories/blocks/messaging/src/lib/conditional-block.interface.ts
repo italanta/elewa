@@ -6,7 +6,8 @@ export interface ConditionalBlock extends StoryBlock {
   /** Actual  variable */
   message?: string;
 
-  selectedVariable?: string;
+  /** Whether the variable is typed and not selected, we save this for ux reasons  */
+  isTyped?: boolean;
 
   defaultTarget?: string;
 
