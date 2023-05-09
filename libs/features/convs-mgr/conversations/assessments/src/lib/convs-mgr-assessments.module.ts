@@ -13,6 +13,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentListComponent } from './components/assessment-list/assessment-list.component';
+import { AssessmentPaginatorComponent } from './components/assessment-paginator/assessment-paginator.component';
 import { AssessmentsRouterModule } from './assessments.router.module';
 import { AssessmentService } from './services/assessment.service';
 
@@ -29,7 +30,8 @@ import { AssessmentService } from './services/assessment.service';
             FlexLayoutModule
           ],
   declarations: [AssessmentsHomeComponent,
-                 AssessmentListComponent],
+                 AssessmentListComponent,
+                 AssessmentPaginatorComponent],
   providers: [AssessmentService,
               AssessmentsStore]
 })
