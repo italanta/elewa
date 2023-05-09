@@ -143,7 +143,9 @@
       },
       "BUTTON": {
         "VIEW": "Voir", 
-        "RESULTS": "Résultats"
+        "RESULTS": "Résultats",
+        "ADD": "Créer",
+        "SEARCH": "Rechercher des évaluations"
       },
       "ACCESSIBILITY": {
          "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",

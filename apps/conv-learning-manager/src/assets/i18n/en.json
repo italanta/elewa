@@ -178,7 +178,9 @@
       },
       "BUTTON": {
         "VIEW": "View", 
-        "RESULTS": "Results"
+        "RESULTS": "Results",
+        "ADD": "Create",
+        "SEARCH": "Search assessments"
       },
       "ACCESSIBILITY": {
          "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
