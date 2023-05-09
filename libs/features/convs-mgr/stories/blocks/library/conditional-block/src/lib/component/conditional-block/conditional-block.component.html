@@ -3,13 +3,13 @@
     <div class="details-wrapper">
 
       <div class="type-variable" *ngIf="isTyped.value">
-        <label for="variableToCheck">Variable</label>
-        <input class="input" type="text" formControlName="message" placeholder="Type variable" id="variableToCheck">
+        <label for="variableToCheck">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}</label>
+        <input class="input" type="text" formControlName="message" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
       </div>
 
       <div class="options-wrapper" *ngIf="!isTyped.value">
         <mat-form-field>
-          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONBLOCK-NAME' | transloco }}</mat-label>
+          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
           <mat-select formControlName="message">
             <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
               {{ variable }}
@@ -19,8 +19,8 @@
       </div>
 
       <div class="select-variable">
-        <span>Other</span>
-        <input type="checkbox" formControlName="isTyped" name="check">
+        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
+        <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
       </div>
     </div>
 
