@@ -11,6 +11,7 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
+import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -106,7 +107,9 @@ export class BlockComponent implements OnInit {
               private _blockInjectorService: BlockInjectorService,
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
-              private sideMenu:SidemenuToggleService
+              private sideMenu:SidemenuToggleService,
+              private sideScreen:SideScreenToggleService
+
   ) { }
 
   ngOnInit(): void {
@@ -206,7 +209,7 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-          
+
         case StoryBlockTypes.AudioInput:
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -225,12 +228,12 @@ export class BlockComponent implements OnInit {
         case StoryBlockTypes.OpenEndedQuestion:
           this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
 
         case StoryBlockTypes.MultiContentInput:
           this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
 
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
@@ -306,6 +309,7 @@ export class BlockComponent implements OnInit {
 
   editBlock() {
     this.sideMenu.toggleExpand(false)
+    this.sideScreen.toggleSideScreen(true)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 
