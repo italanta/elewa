@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { Observable } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-conditional-block',
@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./conditional-block.component.scss'],
 })
 export class ConditionalBlockComponent<T> implements AfterViewInit {
-  
   @Input() id: string;
   @Input() block: ConditionalBlock;
   @Input() conditionalBlockForm: FormGroup;
@@ -24,16 +23,20 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
   vars$: Observable<string[]>;
 
   readonly listOptionInputLimit = 20;
-  readonly listOptionsArrayLimit = 10
+  readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, private variables:VariablesService) {
-    this.vars$ = this.variables.getAllVariables()
+  constructor(private _fb: FormBuilder, private variables: VariablesService) {
+    this.vars$ = this.variables.getAllVariables();
   }
 
   ngAfterViewInit(): void {
     this.block.options?.forEach((item) => {
       this.options.push(this.addExistingOptions(item));
-    })
+    });
+  }
+
+  get isTyped(): AbstractControl {
+    return this.conditionalBlockForm.controls['isTyped']
   }
 
   get options(): FormArray {
@@ -49,7 +52,9 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
   }
 
   addNewOption() {
-    if (this.options.length < this.listOptionsArrayLimit) this.options.push(this.addExistingOptions());
+    if (this.options.length < this.listOptionsArrayLimit) {
+      this.options.push(this.addExistingOptions());
+    }
   }
 
   deleteInput(i: number) {
