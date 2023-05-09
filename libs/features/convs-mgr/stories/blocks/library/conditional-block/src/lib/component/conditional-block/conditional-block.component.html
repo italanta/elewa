@@ -1,17 +1,26 @@
 <div [id]="id" *ngIf="conditionalBlockForm">
   <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
     <div class="details-wrapper">
-      <input class="input" type="text" formControlName="message" placeholder="Add Variable">
 
-      <div fxLayout="row">
+      <div class="type-variable" *ngIf="isTyped.value">
+        <label for="variableToCheck">Variable</label>
+        <input class="input" type="text" formControlName="message" placeholder="Type variable" id="variableToCheck">
+      </div>
+
+      <div class="options-wrapper" *ngIf="!isTyped.value">
         <mat-form-field>
           <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONBLOCK-NAME' | transloco }}</mat-label>
-          <mat-select formControlName="selectedVariable">
+          <mat-select formControlName="message">
             <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
               {{ variable }}
             </mat-option>
           </mat-select>
         </mat-form-field>
+      </div>
+
+      <div class="select-variable">
+        <span>Other</span>
+        <input type="checkbox" formControlName="isTyped" name="check">
       </div>
     </div>
 
