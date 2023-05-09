@@ -1,4 +1,18 @@
 <div class="mat-elevation-z1">
+    <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
+        <mat-form-field appearance="outline" class="search">
+            <mat-label>
+                <i class="fas fa-search"></i>
+                <span class="label">{{'PAGE-CONTENT.ASSESSMENTS.BUTTON.SEARCH' | transloco}}</span>
+            </mat-label>
+            <input matInput (keyup)="searchTable($event)">
+        </mat-form-field>
+    
+        <button mat-flat-button class="btn-add">
+            {{'PAGE-CONTENT.ASSESSMENTS.BUTTON.ADD' | transloco}}
+        </button>
+    </div>
+
     <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)">
         <ng-container matColumnDef="name">
             <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SORT-BY-NAME' | transloco}}">{{'PAGE-CONTENT.ASSESSMENTS.TABLE-HEADER.NAME' | transloco}}</th>
@@ -32,8 +46,10 @@
     
         <tr mat-header-row *matHeaderRowDef="assessmentsColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: assessmentsColumns"></tr>
+
     </table>
     
     <convl-italanta-apps-assessment-paginator #tablePaginator [totalItems]="totalItems" [defaultPageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
     </convl-italanta-apps-assessment-paginator> 
+    
 </div>

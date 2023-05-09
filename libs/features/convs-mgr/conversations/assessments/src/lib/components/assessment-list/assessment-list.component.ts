@@ -47,6 +47,11 @@ export class AssessmentListComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
+  searchTable(event: Event){
+    let searchValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = searchValue.trim();
+  }
+
   // For assistive technology to be notified of table sorting changes
   onSortChange(sort: Sort){
     if(sort.direction == 'asc'){
