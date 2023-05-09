@@ -179,6 +179,9 @@
       "BUTTON": {
         "VIEW": "View", 
         "RESULTS": "Results"
+      },
+      "ACCESSIBILITY": {
+         "SELECT-ASSESSMENT-PAGE": "Select page of assessments"
       }
     }
   },
