@@ -186,6 +186,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
       return true;
     case StoryBlockTypes.Assessment:
       return true;
+    case StoryBlockTypes.Conditional:
+      return true;
     default:
       return false;
   }
