@@ -181,7 +181,12 @@
         "RESULTS": "Results"
       },
       "ACCESSIBILITY": {
-         "SELECT-ASSESSMENT-PAGE": "Select page of assessments"
+         "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
+         "SORT-BY-NAME": "Sort by assessment name",
+         "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
+         "SORT-BY-RESPONSES": "Sort by assessment responses",
+         "SORTED-ASC": "Sorted in ascending order",
+         "SORTED-DESC": "Sorted in descending order"
       }
     }
   },

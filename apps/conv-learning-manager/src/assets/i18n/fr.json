@@ -146,7 +146,12 @@
         "RESULTS": "Résultats"
       },
       "ACCESSIBILITY": {
-         "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations"
+         "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
+         "SORT-BY-NAME": "Trier par nom d'évaluation",
+         "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
+         "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
+         "SORTED-ASC": "Trié par ordre croissant",
+         "SORTED-DESC": "Trié par ordre décroissant"
       }
     }
   },
