@@ -115,6 +115,10 @@
         "WEBHOOK": "Url Input",
         "EVENT-NAME": "Event Name",
         "0PTIONAL-PAYLOAD": "Optional - Payload",
+        "CONDITIONAL-BLOCK": {
+          "INPUT-VARIABLE": "Type Variable",
+          "SELECT-VARIABLE":"Select Variable"
+        },
         "JUMP": {
           "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
@@ -140,7 +144,11 @@
       "LABELS": {
         "TRACK-MILESTONE": "Track as a milestone",
         "ASSESSMENTS-NAME": "Assessment's name",
-        "CONDITIONBLOCK-NAME": "Select Variable"
+        "CONDITIONAL-BLOCK": {
+          "INPUT-VARIABLE": "Variable",
+          "SELECT-VARIABLE":"Select Variable",
+          "CHECKBOX": "Other"
+        }
       }
     },
     "COMPONENTS": {
