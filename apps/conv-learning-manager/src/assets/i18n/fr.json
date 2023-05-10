@@ -133,28 +133,6 @@
           }
         }
       }
-    },
-    "ASSESSMENTS": {
-      "TABLE-HEADER": {
-        "NAME": "Nom",
-        "IN-PROGRESS": "En cours",
-        "RESPONSES": "Résponses",
-        "ACTION": "Action"
-      },
-      "BUTTON": {
-        "VIEW": "Voir", 
-        "RESULTS": "Résultats",
-        "ADD": "Créer",
-        "SEARCH": "Rechercher des évaluations"
-      },
-      "ACCESSIBILITY": {
-         "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
-         "SORT-BY-NAME": "Trier par nom d'évaluation",
-         "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
-         "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
-         "SORTED-ASC": "Trié par ordre croissant",
-         "SORTED-DESC": "Trié par ordre décroissant"
-      }
     }
   },
   "BOTS": {
@@ -190,6 +168,41 @@
     }
   }
 },
+  "ASSESSMENTS": {
+    "TABLE-HEADER": {
+      "NAME": "Nom",
+      "IN-PROGRESS": "En cours",
+      "RESPONSES": "Résponses",
+      "ACTION": "Action"
+    },
+    "BUTTON": {
+      "VIEW": "Voir", 
+      "RESULTS": "Résultats",
+      "ADD": "Créer",
+      "SEARCH": "Rechercher des évaluations"
+    },
+    "ACCESSIBILITY": {
+       "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
+       "SORT-BY-NAME": "Trier par nom d'évaluation",
+       "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
+       "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
+       "SORTED-ASC": "Trié par ordre croissant",
+       "SORTED-DESC": "Trié par ordre décroissant"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Créer une évaluation",
+      "FIELDS": {
+         "NAME": "Nom",
+         "NAME-PLACEHOLDER": "Nom de l'évaluation",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Description de l'évaluation"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Créer une évaluation",
+        "CANCEL": "Annuler"
+      }
+   }
+  },
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "L'opération de modification a réussi",
