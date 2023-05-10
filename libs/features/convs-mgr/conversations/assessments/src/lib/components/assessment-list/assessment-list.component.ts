@@ -26,6 +26,8 @@ export class AssessmentListComponent implements OnInit{
 
   dataSource: AssessmentDataSource;
 
+  dataFound = true;
+
   @ViewChild(MatSort) set matSort(sort: MatSort){
     this.dataSource.sort = sort;
   }
@@ -47,6 +49,7 @@ export class AssessmentListComponent implements OnInit{
   searchTable(event: Event){
     let searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
+    this.dataFound = (this.dataSource.filteredData.length > 0);
   }
 
   openCreateAssessmentDialog(){
