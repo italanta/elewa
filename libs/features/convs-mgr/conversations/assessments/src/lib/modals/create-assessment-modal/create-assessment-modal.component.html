@@ -1,0 +1,31 @@
+<div class="modal">
+    <h2 class="create-assessment-header">
+        {{'ASSESSMENTS.CREATE-MODAL.TITLE' | transloco}}
+    </h2>
+
+    <form>
+        <div class="form-field">
+            <h4 class="field-name">
+                {{'ASSESSMENTS.CREATE-MODAL.FIELDS.NAME' | transloco}}
+            </h4>
+            <input type="text" [placeholder]="'ASSESSMENTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco">
+        </div>
+
+        <div class="form-field">
+            <h4 class="field-name">
+                {{'ASSESSMENTS.CREATE-MODAL.FIELDS.DESC' | transloco}}
+            </h4>
+            <textarea rows="8" [placeholder]="'ASSESSMENTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco">
+            </textarea>
+        </div>
+
+        <div class="assessment-buttons" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2%">
+            <button mat-stroked-button class="btn-cancel">
+                {{'ASSESSMENTS.CREATE-MODAL.BUTTONS.CANCEL' | transloco}}
+            </button>
+            <button mat-flat-button class="btn-add">
+                {{'ASSESSMENTS.CREATE-MODAL.BUTTONS.CREATE' | transloco}}
+            </button>
+        </div>
+    </form>
+</div>
