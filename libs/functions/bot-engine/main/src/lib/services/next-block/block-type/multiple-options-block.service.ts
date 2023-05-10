@@ -54,7 +54,7 @@ export class MultipleOptionsMessageService extends NextBlockService
 		const selectedOptionIndex = this.match(type || "matchId", response, lastBlock.options);
 
 		if (selectedOptionIndex == -1) {
-			return await this.getNextBlockFromDefaultOption(lastBlock, orgId, currentStory, cursor);
+			return this.getNextBlockFromDefaultOption(lastBlock, orgId, currentStory, cursor);
 		}
 
 		const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`;
