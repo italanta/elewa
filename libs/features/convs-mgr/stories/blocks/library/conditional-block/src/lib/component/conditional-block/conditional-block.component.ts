@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
+import { Observable, map, startWith } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -14,7 +15,7 @@ import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process
   templateUrl: './conditional-block.component.html',
   styleUrls: ['./conditional-block.component.scss'],
 })
-export class ConditionalBlockComponent<T> implements AfterViewInit {
+export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @Input() id: string;
   @Input() block: ConditionalBlock;
   @Input() conditionalBlockForm: FormGroup;
@@ -22,11 +23,16 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
 
   vars$: Observable<string[]>;
 
+  private _sBs = new SubSink();
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
   constructor(private _fb: FormBuilder, private variables: VariablesService) {
     this.vars$ = this.variables.getAllVariables();
+  }
+
+  ngOnInit() {
+    this.manageFormControls()
   }
 
   ngAfterViewInit(): void {
@@ -35,8 +41,31 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
     });
   }
 
+  manageFormControls() {
+    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value),map(isTyped => {
+      if (isTyped) {
+        this.selectedVar.reset()
+        this.selectedVar.disable()
+        this.typedVar.enable()
+      }
+      else {
+        this.typedVar.reset()
+        this.typedVar.disable()
+        this.selectedVar.enable()
+      }
+    })).subscribe()
+  }
+
   get isTyped(): AbstractControl {
     return this.conditionalBlockForm.controls['isTyped']
+  }
+
+  get selectedVar(): AbstractControl {
+    return this.conditionalBlockForm.controls['selectedVar']
+  }
+
+  get typedVar(): AbstractControl {
+    return this.conditionalBlockForm.controls['typedVar']
   }
 
   get options(): FormArray {
@@ -59,5 +88,9 @@ export class ConditionalBlockComponent<T> implements AfterViewInit {
 
   deleteInput(i: number) {
     this.options.removeAt(i);
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe()
   }
 }
