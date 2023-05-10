@@ -1,11 +1,12 @@
 import { Component, Input, SimpleChanges, OnChanges, OnInit, OnDestroy } from '@angular/core';
 
+import { SubSink } from 'subsink';
+
 import { __DateFromStorage } from '@iote/time';
 
 import { ChatFlowStatus, Chat } from '@app/model/convs-mgr/conversations/chats';
 import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-chat-card',
