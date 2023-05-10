@@ -219,7 +219,7 @@
   },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
-      "NAME": "Name",
+      "TITLE": "Title",
       "IN-PROGRESS": "In Progress",
       "RESPONSES": "Responses",
       "ACTIONS": "Actions"
@@ -228,11 +228,12 @@
       "VIEW": "View", 
       "RESULTS": "Results",
       "ADD": "Create",
-      "SEARCH": "Search assessments"
+      "SEARCH": "Search assessments",
+      "ADD-FIRST-ASSESSMENT": "Create my first assessment"
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
-       "SORT-BY-NAME": "Sort by assessment name",
+       "SORT-BY-TITLE": "Sort by assessment title",
        "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
        "SORT-BY-RESPONSES": "Sort by assessment responses",
        "SORTED-ASC": "Sorted in ascending order",
@@ -241,13 +242,13 @@
     "CREATE-MODAL": {
       "TITLE": "Create an assessment",
       "FIELDS": {
-         "NAME": "Name",
-         "NAME-PLACEHOLDER": "Assessment name",
+         "TITLE": "Title",
+         "TITLE-PLACEHOLDER": "Assessment name",
          "DESC": "Description",
          "DESC-PLACEHOLDER": "Assessment description"
       },
       "BUTTONS": {
-        "CREATE": "Create assessment",
+        "SUBMIT": "Create assessment",
         "CANCEL": "Cancel"
       }
    }

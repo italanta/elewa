@@ -179,7 +179,8 @@
       "VIEW": "Voir", 
       "RESULTS": "Résultats",
       "ADD": "Créer",
-      "SEARCH": "Rechercher des évaluations"
+      "SEARCH": "Rechercher des évaluations",
+      "ADD-FIRST-ASSESSMENT": "Créer ma première évaluation"
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
