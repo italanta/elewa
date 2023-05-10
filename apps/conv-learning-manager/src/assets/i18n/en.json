@@ -168,28 +168,6 @@
           "CANCEL": "Cancel"
         }
       }
-    },
-    "ASSESSMENTS": {
-      "TABLE-HEADER": {
-        "NAME": "Name",
-        "IN-PROGRESS": "In Progress",
-        "RESPONSES": "Responses",
-        "ACTIONS": "Actions"
-      },
-      "BUTTON": {
-        "VIEW": "View", 
-        "RESULTS": "Results",
-        "ADD": "Create",
-        "SEARCH": "Search assessments"
-      },
-      "ACCESSIBILITY": {
-         "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
-         "SORT-BY-NAME": "Sort by assessment name",
-         "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
-         "SORT-BY-RESPONSES": "Sort by assessment responses",
-         "SORTED-ASC": "Sorted in ascending order",
-         "SORTED-DESC": "Sorted in descending order"
-      }
     }
   },
   "BOTS": {
@@ -238,6 +216,41 @@
       "SUBMIT": "Delete Bot",
       "MESSAGE": " Are you sure you want to delete this bot?"
     }
+  },
+  "ASSESSMENTS": {
+    "TABLE-HEADER": {
+      "NAME": "Name",
+      "IN-PROGRESS": "In Progress",
+      "RESPONSES": "Responses",
+      "ACTIONS": "Actions"
+    },
+    "BUTTON": {
+      "VIEW": "View", 
+      "RESULTS": "Results",
+      "ADD": "Create",
+      "SEARCH": "Search assessments"
+    },
+    "ACCESSIBILITY": {
+       "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
+       "SORT-BY-NAME": "Sort by assessment name",
+       "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
+       "SORT-BY-RESPONSES": "Sort by assessment responses",
+       "SORTED-ASC": "Sorted in ascending order",
+       "SORTED-DESC": "Sorted in descending order"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create an assessment",
+      "FIELDS": {
+         "NAME": "Name",
+         "NAME-PLACEHOLDER": "Assessment name",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Assessment description"
+      },
+      "BUTTONS": {
+        "CREATE": "Create assessment",
+        "CANCEL": "Cancel"
+      }
+   }
   },
   "TOAST": {
     "EDIT-BOT": {

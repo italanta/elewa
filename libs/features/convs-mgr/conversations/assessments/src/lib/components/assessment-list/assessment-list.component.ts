@@ -11,6 +11,8 @@ import { TranslateService } from '@ngfi/multi-lang';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentService } from '../../services/assessment.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 
 
 @Component({
@@ -32,6 +34,7 @@ export class AssessmentListComponent implements OnInit, AfterViewInit, OnDestroy
   @ViewChild(MatPaginator) tablePaginator: MatPaginator;
 
   constructor(private _assessments: AssessmentService,
+              private _dialog: MatDialog,
               private _liveAnnounce: LiveAnnouncer,
               private _translate: TranslateService){}
 
@@ -52,12 +55,16 @@ export class AssessmentListComponent implements OnInit, AfterViewInit, OnDestroy
     this.dataSource.filter = searchValue.trim();
   }
 
+  openCreateAssessmentDialog(){
+    this._dialog.open(CreateAssessmentModalComponent);
+  }
+
   // For assistive technology to be notified of table sorting changes
   onSortChange(sort: Sort){
     if(sort.direction == 'asc'){
-      this._liveAnnounce.announce(this._translate.translate('PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SORTED-ASC'));
+      this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-ASC'));
     } else if(sort.direction == 'desc'){
-      this._liveAnnounce.announce(this._translate.translate('PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
+      this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
     }
   }
 

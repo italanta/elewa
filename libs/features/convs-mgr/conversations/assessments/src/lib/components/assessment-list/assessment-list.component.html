@@ -3,42 +3,42 @@
         <mat-form-field appearance="outline" class="search">
             <mat-label>
                 <i class="fas fa-search"></i>
-                <span class="label">{{'PAGE-CONTENT.ASSESSMENTS.BUTTON.SEARCH' | transloco}}</span>
+                <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH' | transloco}}</span>
             </mat-label>
             <input matInput (keyup)="searchTable($event)">
         </mat-form-field>
     
-        <button mat-flat-button class="btn-add">
-            {{'PAGE-CONTENT.ASSESSMENTS.BUTTON.ADD' | transloco}}
+        <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
+            {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
         </button>
     </div>
 
     <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)">
         <ng-container matColumnDef="name">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SORT-BY-NAME' | transloco}}">{{'PAGE-CONTENT.ASSESSMENTS.TABLE-HEADER.NAME' | transloco}}</th>
+            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-NAME' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.NAME' | transloco}}</th>
             <td mat-cell *matCellDef="let assessment">{{assessment.name}}</td>
         </ng-container>
     
         <ng-container matColumnDef="inProgress">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'PAGE-CONTENT.ASSESSMENTS.TABLE-HEADER.IN-PROGRESS' | transloco}}</th>
+            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.IN-PROGRESS' | transloco}}</th>
             <td mat-cell *matCellDef="let assessment">10</td>
         </ng-container>
     
         <ng-container matColumnDef="responses">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">{{'PAGE-CONTENT.ASSESSMENTS.TABLE-HEADER.RESPONSES' | transloco}}</th>
+            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.RESPONSES' | transloco}}</th>
             <td mat-cell *matCellDef>48</td>
         </ng-container>
     
         <ng-container matColumnDef="actions">
-            <th class="table-header" mat-header-cell *matHeaderCellDef>{{'PAGE-CONTENT.ASSESSMENTS.TABLE-HEADER.ACTIONS' | transloco}}</th>
+            <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.ACTIONS' | transloco}}</th>
             <td mat-cell *matCellDef>
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
                     <button mat-flat-button class="btn-view">
-                        {{'PAGE-CONTENT.ASSESSMENTS.BUTTON.VIEW' | transloco}}
+                        {{'ASSESSMENTS.BUTTON.VIEW' | transloco}}
                     </button>
                     
                     <button mat-flat-button class="btn-result">
-                        {{'PAGE-CONTENT.ASSESSMENTS.BUTTON.RESULTS' | transloco}}
+                        {{'ASSESSMENTS.BUTTON.RESULTS' | transloco}}
                     </button>
                 </div>
             </td>
@@ -49,7 +49,7 @@
 
     </table>
     
-    <convl-italanta-apps-assessment-paginator #tablePaginator [totalItems]="totalItems" [defaultPageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'PAGE-CONTENT.ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
+    <convl-italanta-apps-assessment-paginator #tablePaginator [totalItems]="totalItems" [defaultPageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
     </convl-italanta-apps-assessment-paginator> 
     
 </div>
