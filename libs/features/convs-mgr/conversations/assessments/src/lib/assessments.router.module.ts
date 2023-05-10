@@ -2,15 +2,16 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
+import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 
 const ASSESSMENTS_ROUTERS: Route[] = [
   {
     path: '',
     component: AssessmentsHomeComponent,
-    // children: [
-    //   { path: '', component: ChatConversationComponent },
-    //   { path: ':chatId', component: ChatConversationComponent }
-    // ]
+  },
+  {
+    path: ':id',
+    component: AssessmentViewComponent,
   }
 ];
 
