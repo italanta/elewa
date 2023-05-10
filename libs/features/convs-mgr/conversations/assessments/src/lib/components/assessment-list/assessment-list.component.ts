@@ -1,18 +1,17 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator} from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { SubSink } from 'subsink';
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment} from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentService } from '../../services/assessment.service';
-import { MatDialog } from '@angular/material/dialog';
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
+import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
 
 
 @Component({
@@ -20,18 +19,20 @@ import { CreateAssessmentModalComponent } from '../../modals/create-assessment-m
   templateUrl: './assessment-list.component.html',
   styleUrls: ['./assessment-list.component.scss'],
 })
-export class AssessmentListComponent implements OnInit, AfterViewInit, OnDestroy{
-  assessments$: Observable<AssessmentQuestion[]>;
-  assessments: AssessmentQuestion[];
-  totalItems: number;
+export class AssessmentListComponent implements OnInit{
+  assessments$: Observable<Assessment[]>;
 
-  assessmentsColumns = ['name', 'inProgress', 'responses', 'actions'];
-  dataSource = new MatTableDataSource<AssessmentQuestion>
+  assessmentsColumns = ['title', 'inProgress', 'responses', 'actions'];
 
-  private _sbS = new SubSink();
+  dataSource: AssessmentDataSource;
 
-  @ViewChild(MatSort) tableSort: MatSort;
-  @ViewChild(MatPaginator) tablePaginator: MatPaginator;
+  @ViewChild(MatSort) set matSort(sort: MatSort){
+    this.dataSource.sort = sort;
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(paginator: MatPaginator){
+    this.dataSource.paginator = paginator;
+  }
 
   constructor(private _assessments: AssessmentService,
               private _dialog: MatDialog,
@@ -40,14 +41,7 @@ export class AssessmentListComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngOnInit(): void {
     this.assessments$ = this._assessments.getAssessments$();
-    this.initializeDataSource();
-  }
-
-  initializeDataSource(){
-    this._sbS.sink = this.assessments$.subscribe(_assessments => {
-      this.dataSource.data = _assessments;
-      this.totalItems = _assessments.length;
-    })
+    this.dataSource = new AssessmentDataSource(this.assessments$);
   }
 
   searchTable(event: Event){
@@ -66,14 +60,5 @@ export class AssessmentListComponent implements OnInit, AfterViewInit, OnDestroy
     } else if(sort.direction == 'desc'){
       this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.tableSort;
-    this.dataSource.paginator = this.tablePaginator;
-  }
-
-  ngOnDestroy(): void {
-    this._sbS.unsubscribe();
   }
 }
