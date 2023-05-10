@@ -26,3 +26,13 @@ span.label{
     background-color: var(--convs-mgr-color-primary-yellow);
     color: var(--convs-mgr-color-primary-white);
 }
+
+.create-assessments{
+    cursor: pointer;
+    padding: 1.875rem 0;
+    height: 100%;
+}
+
+.fa-plus {
+    color: var(--convs-mgr-color-tertiary);
+  }
