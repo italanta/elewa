@@ -2,15 +2,10 @@
   <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
     <div class="details-wrapper">
 
-      <div class="type-variable" *ngIf="isTyped.value">
-        <label for="variableToCheck">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}</label>
-        <input class="input" type="text" formControlName="message" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
-      </div>
-
-      <div class="options-wrapper" *ngIf="!isTyped.value">
+      <div class="options-wrapper">
         <mat-form-field>
           <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
-          <mat-select formControlName="message">
+          <mat-select formControlName="selectedVar">
             <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
               {{ variable }}
             </mat-option>
@@ -21,6 +16,11 @@
       <div class="select-variable">
         <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
         <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
+      </div>
+
+      <div class="type-variable">
+        <!-- <label for="variableToCheck">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}</label> -->
+        <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
       </div>
     </div>
 
