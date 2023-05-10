@@ -180,7 +180,7 @@
       "RESULTS": "Résultats",
       "ADD": "Créer",
       "SEARCH": "Rechercher des évaluations",
-      "ADD-FIRST-ASSESSMENT": "Créer ma première évaluation"
+      "ADD-ASSESSMENT": "Créer une évaluation"
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
@@ -202,6 +202,9 @@
         "SUBMIT": "Créer une évaluation",
         "CANCEL": "Annuler"
       }
+   },
+   "ALERT": {
+      "NOT-FOUND": "Évaluation introuvable"
    }
   },
   "TOAST": {

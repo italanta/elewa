@@ -229,7 +229,7 @@
       "RESULTS": "Results",
       "ADD": "Create",
       "SEARCH": "Search assessments",
-      "ADD-FIRST-ASSESSMENT": "Create my first assessment"
+      "ADD-ASSESSMENT": "Create an assessment"
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
@@ -251,6 +251,9 @@
         "SUBMIT": "Create assessment",
         "CANCEL": "Cancel"
       }
+   },
+   "ALERT": {
+      "NOT-FOUND": "Assessment not found"
    }
   },
   "TOAST": {
