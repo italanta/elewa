@@ -43,8 +43,11 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 
 		const variableValue = await varDataService.getSpecificVariable(variableToCheck);
 
+		// if variable stored in the db is undefined or null return an empty string (prevents bot from crushing ahead)
+		const message = variableValue ? variableValue : ''
+
 		const newMessage: QuestionMessage = {
-			questionText : variableValue,
+			questionText : message,
 			type: MessageTypes.TEXT,
 			options : this.getOptions(storyBlock)
 		}

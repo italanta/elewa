@@ -177,7 +177,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     this.stateSaved = false;
 
     const updatedState = this.state;
-    updatedState.blocks = [...this.frame.blocksArray.value];
+    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
 
     //TODO: compare old state connections to updated connections
     // from getConnections()
