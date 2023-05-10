@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
 
+import { SubSink } from 'subsink';
+
 import { User } from '@iote/bricks';
 import { UserService, BackendService } from '@ngfi/angular';
 
-import { SubSink } from 'subsink';
+
 
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { iTalUser } from '@app/model/user';

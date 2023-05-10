@@ -87,6 +87,10 @@
         "LOCATION-INPUT":"saisie de position",
         "EVENT-NAME": "Nom de l'événement",
         "0PTIONAL-PAYLOAD": "Facultatif - Charge utile",
+        "CONDITIONAL-BLOCK": {
+          "INPUT-VARIABLE": "Variable de type",
+          "SELECT-VARIABLE":"Sélectionnez Variable"
+        },
         "JUMP": {
           "SELECT_STORY": "sélectionner l'histoire",
           "SELECT-BLOCK": "sélectionner le bloc"
@@ -100,8 +104,12 @@
       },
       "LABELS": {
         "TRACK-MILESTONE": "Suivre comme un jalon",
-        "ASSESSMENTS-NAME": "Nom de l'évaluation"
-
+        "ASSESSMENTS-NAME": "Nom de l'évaluation",
+        "CONDITIONAL-BLOCK": {
+          "INPUT-VARIABLE": "Variable",
+          "SELECT-VARIABLE":"Sélectionnez Variable",
+          "CHECKBOX": "variable personnalisée"
+        }
       }
     },
     "COMPONENTS": {

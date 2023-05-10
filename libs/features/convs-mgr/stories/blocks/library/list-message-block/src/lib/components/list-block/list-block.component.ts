@@ -3,12 +3,8 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-
-const listOptionInputLimit: number = 24;
-const listOptionsArrayLimit: number = 10;
 
 @Component({
   selector: 'app-list-block',
@@ -22,10 +18,8 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   @Input() listMessageBlock: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  type: StoryBlockTypes;
-  listType = StoryBlockTypes.List;
-
-  readonly listOptionInputLimit = listOptionInputLimit;
+  readonly listOptionInputLimit = 24;
+  readonly listOptionsArrayLimit = 10;
 
   constructor(private _fb: FormBuilder) { }
 
@@ -50,7 +44,7 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   addNewOption() {
-    if (this.listItems.length < listOptionsArrayLimit) this.listItems.push(this.addListOptions());
+    if (this.listItems.length < this.listOptionsArrayLimit) this.listItems.push(this.addListOptions());
   }
   deleteInput(i: number) {
     this.listItems.removeAt(i);
