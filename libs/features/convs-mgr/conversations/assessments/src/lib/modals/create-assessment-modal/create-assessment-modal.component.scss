@@ -16,6 +16,7 @@ input[type='text'] {
 textarea {
     width: 100%;
     box-sizing: border-box;
+    padding: 0.75rem 0.625rem;
     border: 0.125rem solid var(--convs-mgr-field-border-color);
     border-radius: 0.25rem;
     background-color: var(--convs-mgr-color-primary-white);
@@ -32,7 +33,7 @@ textarea {
 }
 
 .modal{
-    min-width: 30vw;
+    min-width: 60vw;
     padding: 1.875rem;
 }
 
@@ -48,4 +49,36 @@ textarea {
 .btn-cancel{
     color: var(--convs-mgr-color-primary-yellow);;
     background-color: var(--convs-mgr-color-primary-white);
+}
+
+
+/*=======================================================
+MEDIA QUERIES
+=========================================================*/
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .modal{
+        min-width: 60vw;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .modal{
+        min-width: 50vw;
+    }
+}
+
+// Extra-Large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+    .modal{
+        min-width: 40vw;
+    }
+}
+
+// XX-Large devices (larger desktops, 1400px and up)
+@media (min-width: 1400px) {
+    .modal{
+        min-width: 30vw;
+    }
 }

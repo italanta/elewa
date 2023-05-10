@@ -3,28 +3,27 @@
         {{'ASSESSMENTS.CREATE-MODAL.TITLE' | transloco}}
     </h2>
 
-    <form>
+    <form [formGroup]="assessmentForm">
         <div class="form-field">
             <h4 class="field-name">
-                {{'ASSESSMENTS.CREATE-MODAL.FIELDS.NAME' | transloco}}
+                {{'ASSESSMENTS.CREATE-MODAL.FIELDS.TITLE' | transloco}}
             </h4>
-            <input type="text" [placeholder]="'ASSESSMENTS.CREATE-MODAL.FIELDS.NAME-PLACEHOLDER' | transloco">
+            <input type="text" formControlName="assessmentTitle" [placeholder]="'ASSESSMENTS.CREATE-MODAL.FIELDS.TITLE-PLACEHOLDER' | transloco">
         </div>
 
         <div class="form-field">
             <h4 class="field-name">
                 {{'ASSESSMENTS.CREATE-MODAL.FIELDS.DESC' | transloco}}
             </h4>
-            <textarea rows="8" [placeholder]="'ASSESSMENTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco">
-            </textarea>
+            <textarea formControlName="assessmentDesc" rows="8" [placeholder]="'ASSESSMENTS.CREATE-MODAL.FIELDS.DESC-PLACEHOLDER' | transloco"></textarea>
         </div>
 
         <div class="assessment-buttons" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2%">
-            <button mat-stroked-button class="btn-cancel">
+            <button mat-stroked-button mat-dialog-close class="btn-cancel">
                 {{'ASSESSMENTS.CREATE-MODAL.BUTTONS.CANCEL' | transloco}}
             </button>
-            <button mat-flat-button class="btn-add">
-                {{'ASSESSMENTS.CREATE-MODAL.BUTTONS.CREATE' | transloco}}
+            <button [disabled]="isSavingAssessment" mat-flat-button class="btn-add" (click)="submitAssessment()">
+                {{'ASSESSMENTS.CREATE-MODAL.BUTTONS.SUBMIT' | transloco}}
             </button>
         </div>
     </form>
