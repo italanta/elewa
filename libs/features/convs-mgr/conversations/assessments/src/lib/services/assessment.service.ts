@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
 @Injectable({
@@ -10,6 +11,10 @@ export class AssessmentService {
 
   getAssessments$(){
     return this._assessments$$.get();
+  }
+
+  addAssessment$(assessment: Assessment){
+    return this._assessments$$.add(assessment);
   }
   
 }
