@@ -12,7 +12,8 @@ import { ConditionalBlock } from "@app/model/convs-mgr/stories/blocks/messaging"
 export function _CreateConditionalBlockForm(_fb: FormBuilder, blockData: ConditionalBlock): FormGroup {
   return _fb.group({
     id: [blockData?.id! ?? ''],
-    message: [blockData?.message! ?? ''],
+    selectedVar: [blockData?.selectedVar ?? ''],
+    typedVar: [blockData?.typedVar ?? ''],
     isTyped: [blockData?.isTyped ?? false],
     defaultTarget: [blockData.defaultTarget ?? ''],
     options: _fb.array([]),

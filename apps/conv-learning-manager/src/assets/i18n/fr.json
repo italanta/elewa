@@ -108,7 +108,7 @@
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
           "SELECT-VARIABLE":"Sélectionnez Variable",
-          "CHECKBOX": "Autre"
+          "CHECKBOX": "variable personnalisée"
         }
       }
     },
