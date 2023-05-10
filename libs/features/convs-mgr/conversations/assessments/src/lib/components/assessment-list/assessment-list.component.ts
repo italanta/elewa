@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
@@ -39,11 +40,16 @@ export class AssessmentListComponent implements OnInit{
   constructor(private _assessments: AssessmentService,
               private _dialog: MatDialog,
               private _liveAnnounce: LiveAnnouncer,
-              private _translate: TranslateService){}
+              private _translate: TranslateService,
+              private _router: Router){}
 
   ngOnInit(): void {
     this.assessments$ = this._assessments.getAssessments$();
     this.dataSource = new AssessmentDataSource(this.assessments$);
+  }
+
+  goToQuestions(assessmentId: string){
+    this._router.navigate(['/assessments', assessmentId]);
   }
 
   searchTable(event: Event){
