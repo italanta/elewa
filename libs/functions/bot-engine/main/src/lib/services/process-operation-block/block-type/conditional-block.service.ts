@@ -35,12 +35,13 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 
 	public async handleBlock(storyBlock: ConditionalBlock, updatedCursor: Cursor, orgId: string, endUserId: string, _message:Message)
 	{
-		const selectedVar = storyBlock.message;
+		// get the selected or typed variable (only one is returned)
+		const variableToCheck = storyBlock.selectedVar ? storyBlock.selectedVar : storyBlock.typedVar;
 
 		// get variable value from DB
 		const varDataService = new VariablesDataService(this.tools, orgId, endUserId);
 
-		const variableValue = await varDataService.getSpecificVariable(selectedVar);
+		const variableValue = await varDataService.getSpecificVariable(variableToCheck);
 
 		const newMessage: QuestionMessage = {
 			questionText : variableValue,
