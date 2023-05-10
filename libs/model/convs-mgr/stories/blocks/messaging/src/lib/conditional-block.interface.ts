@@ -3,8 +3,11 @@ import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario
 
 export interface ConditionalBlock extends StoryBlock {
 
-  /** Actual  variable */
-  message?: string;
+  /** Selected  variable */
+  selectedVar?: string;
+
+ /** Typed  variable */
+  typedVar?: string;
 
   /** Whether the variable is typed and not selected, we save this for ux reasons  */
   isTyped?: boolean;
