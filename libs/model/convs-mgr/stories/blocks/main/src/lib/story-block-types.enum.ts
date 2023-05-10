@@ -138,6 +138,9 @@ export enum StoryBlockTypes {
   */
   Assessment = 31,
 
+  /** Conditional Block that maps the path the user will take depending on a predefined variable  */
+  Conditional = 32,
+
   EndStoryAnchorBlock = 9999
 }
 

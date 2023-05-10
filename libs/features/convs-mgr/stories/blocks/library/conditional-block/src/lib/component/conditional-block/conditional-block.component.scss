@@ -1,0 +1,64 @@
+mat-card {
+  min-width: 200px;
+}
+
+input[type='text'] {
+  max-width: 100%;
+  width: auto;
+  box-sizing: border-box;
+  margin: 5px 0;
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+
+  &:disabled {
+    border: none;
+  }
+}
+
+.add-button {
+  width: 100%;
+  background-color: var(--convs-mgr-color-primary-purple);
+  color: white;
+}
+
+.listgone {
+  border: none;
+  background-color: transparent;
+}
+
+.input {
+  margin: 0;
+  padding-right: 5px;
+}
+
+.details-wrapper {
+  display: grid;
+  padding: 50x;
+
+  .type-variable {
+    display: flex;
+    flex-direction: column;
+  
+    label {
+      font-weight: 500;
+      font-size: 0.9rem;
+    } 
+  }
+
+  .select-variable {
+    display: flex;
+    gap: 0.4rem;
+    padding: 5px 0;
+
+    label {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  }
+
+  .options-wrapper {
+    margin-bottom: -15px;
+  }
+}
