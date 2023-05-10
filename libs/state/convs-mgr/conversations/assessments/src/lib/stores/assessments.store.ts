@@ -9,15 +9,15 @@ import { tap, throttleTime, switchMap } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { ActiveOrgStore } from '@app/state/organisation';
 
 @Injectable()
-export class AssessmentsStore extends DataStore<AssessmentQuestion>
+export class AssessmentsStore extends DataStore<Assessment>
 {
   protected store = 'assessments-store';
-  protected _activeRepo: Repository<AssessmentQuestion>;
+  protected _activeRepo: Repository<Assessment>;
 
   private _activeOrg: Organisation;
   
@@ -30,9 +30,9 @@ export class AssessmentsStore extends DataStore<AssessmentQuestion>
     const data$ = _org$$.get()
                     .pipe(
                       tap((org: Organisation) => this._activeOrg  = org),
-                      tap((org: Organisation ) => {this._activeRepo = _repoFac.getRepo<AssessmentQuestion>(`orgs/${org.id}/assessments`)}),
+                      tap((org: Organisation ) => {this._activeRepo = _repoFac.getRepo<Assessment>(`orgs/${org.id}/assessments`)}),
                       switchMap((org: Organisation) => 
-                        org ? this._activeRepo.getDocuments() : of([] as AssessmentQuestion[])),
+                        org ? this._activeRepo.getDocuments() : of([] as Assessment[])),
                       throttleTime(500, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(properties => {
