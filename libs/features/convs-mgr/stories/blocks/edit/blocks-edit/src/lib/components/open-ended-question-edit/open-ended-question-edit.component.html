@@ -1,6 +1,7 @@
 <div class="form-wrapper">
   <form [formGroup]="form" action="" class="form-edit">
     <span class="title">{{ title | transloco }}</span>
-    <textarea class="text" id="message" name="message" formControlName="message" rows="3"></textarea>
+    <input class="text" id="message" name="message" formControlName="message" rows="3"/>
   </form>
+  <app-variable-input [BlockFormGroup]="form"></app-variable-input>
 </div>
