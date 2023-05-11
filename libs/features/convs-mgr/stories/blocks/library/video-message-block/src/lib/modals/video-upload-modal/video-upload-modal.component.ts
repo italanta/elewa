@@ -1,12 +1,10 @@
-import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { FileStorageService } from '@app/state/file';
 import { SubSink } from 'subsink';
 
-import { VideoService } from '../../services/video-service';
-import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-video-upload-modal',
   templateUrl: './video-upload-modal.component.html',
@@ -19,9 +17,7 @@ export class VideoUploadModalComponent implements OnInit{
   videoName: string;
   videoFile: File;
   videoPath: string
-  //videoUrl: string;
-  @Output() videoUrl = new EventEmitter<any>();
-
+ 
   sizeOptions = [
     { vidSize: '4K', resolution: '3840px x 2160px' },
     { vidSize: '1080p', resolution: '1920px x 1080px' },
@@ -34,67 +30,45 @@ export class VideoUploadModalComponent implements OnInit{
   ];
 
   videoInputId = 'videoInput';
-  testingData: any
 
   constructor(
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
-    private _formbuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data:any,
     private _videoUploadService: FileStorageService,
-    private _videoService: VideoService
+    @Inject(MAT_DIALOG_DATA) public data:{videoMessageForm: FormGroup},
   ) {}
 
   ngOnInit(): void {
-      this.createFormGroup()
-      this.testingData = this.data
-      console.log(this.testingData)
-      console.log('VideoUploadModalComponent initialized');
-  }
-
-  createFormGroup(){
-    this.videoModalForm = this._formbuilder.group({
-      videoName: [''],
-      videoFile: [''],
-      size: ['']
-    })
+    this.videoModalForm = this.data.videoMessageForm;
   }
 
   closeModal() {
     this.dialogRef.close();
   }
 
-  async apply() {
-    const name = this.videoModalForm.controls['videoName'].value;
-    const size = this.videoModalForm.controls['size'].value;
-    // Get the video URL from the onVideoSelected emitter
-    const url = await firstValueFrom(this.videoUrl);
-    console.log('url', url);
-    // Create a new object with the video details
-    const video = {
-      name,
-      url,
-      size
-    };
-    console.log('video', video);
-    this.dialogRef.close(video);
+  apply() {
+    this.dialogRef.close()
   }
   
-  async onVideoSelected(file: File) {
+  async onVideoSelected(event:any) {
+    const file = event.target.files[0]
+    // Getting a file from explorer, first position
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = async () => {
-        const videoName = this.videoModalForm.controls['videoName'].value;
-        const url = await this._videoUploadService.uploadSingleFile(file, videoName);
-        
-        this.videoUrl.emit(url);
-  
-        this.videoFile = file;
-        this.videoPath = reader.result as string;
-        this.videoModalForm.patchValue({
-          videoFile: file,
-        });
+        // Get video name 
+        const name = this.videoModalForm.controls['fileName'].value;
+        const videoName = name ? name : file.name
+
+        // upload videofile and patch values
+        const res = await this._videoUploadService.uploadSingleFile(file, videoName);
+        res.subscribe((url) => this._autofillVideoUrl(url, videoName))
       };
     }
-  } 
+ } 
+
+  private _autofillVideoUrl(url: string, videoName: string) {
+    this.videoModalForm.patchValue({fileSrc: url, fileName:videoName})
+    this.videoPath = url
+  }
 }
