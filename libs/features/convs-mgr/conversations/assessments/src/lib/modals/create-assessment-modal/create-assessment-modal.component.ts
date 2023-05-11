@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AssessmentService } from '../../services/assessment.service';
 
 @Component({
-  selector: 'app-create-assessment-modal',
+  selector: 'convl-italanta-apps-create-assessment-modal',
   templateUrl: './create-assessment-modal.component.html',
   styleUrls: ['./create-assessment-modal.component.scss'],
 })
