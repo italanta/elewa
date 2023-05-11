@@ -1,0 +1,26 @@
+<div *ngIf="questions$ | async as questions">
+    <div *ngIf="questions.length > 0; else noQuestions">
+        <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="2%">
+            <div class="question-list">
+                List of questions
+            </div>
+        
+            <div class="edit-icon">
+                <button mat-flat-button class="btn-edit" (click)="goToAssessmentEdit(assessment.id!!)">
+                    <i class="fa fa-edit fa-2x" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #noQuestions>
+        <div class="mat-elevation-z1">
+            <div class="edit-assessment" fxLayout="row" fxLayout="center center" (click)="goToAssessmentEdit(assessment.id!!)">
+                <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+                  <i class="fa fa-edit fa-5x" aria-hidden="true"></i>
+                  <p>{{'ASSESSMENTS.BUTTON.EDIT-ASSESSMENT' | transloco}}</p>
+                </div>
+              </div>
+        </div>
+    </ng-template>
+</div>
