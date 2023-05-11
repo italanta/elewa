@@ -229,7 +229,8 @@
       "RESULTS": "Results",
       "ADD": "Create",
       "SEARCH": "Search assessments",
-      "ADD-ASSESSMENT": "Create an assessment"
+      "ADD-ASSESSMENT": "Create an assessment",
+      "EDIT-ASSESSMENT": "Edit assessment"
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Select page of assessments",

@@ -180,7 +180,8 @@
       "RESULTS": "Résultats",
       "ADD": "Créer",
       "SEARCH": "Rechercher des évaluations",
-      "ADD-ASSESSMENT": "Créer une évaluation"
+      "ADD-ASSESSMENT": "Créer une évaluation",
+      "EDIT-ASSESSMENT": "Modifier l'évaluation"
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
