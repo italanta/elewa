@@ -14,13 +14,13 @@ export interface IncomingMessage extends IObject
   id?: string;
 
   /** Id of phone number of business/manager of the bot */
-  platformId:string,
+  platformId?:string,
 
   /** Name of the end user communicating the bot */
-  endUserName: string,
+  endUserName?: string,
 
   /** Phone number of the end user communicating with the bot */
-  endUserNumber:string,
+  endUserNumber?:string,
 
   /** Type of message received from the end user e.g. text, image, etc */
   type : MessageTypes;

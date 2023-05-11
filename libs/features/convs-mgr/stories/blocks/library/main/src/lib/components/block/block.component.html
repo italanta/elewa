@@ -116,5 +116,13 @@
             <app-event-block [id]="id" [block]="block" [eventBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-event-block>
         </div>
+        <div *ngSwitchCase="assessmentBrickType">
+            <app-assessment-brick [id]="id" [block]="block" [assessmentBrickForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
+            </app-assessment-brick>
+        </div>
+        <div *ngSwitchCase="conditionalBlockType">
+            <app-conditional-block [id]="id" [block]="block" [conditionalBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
+            </app-conditional-block>
+        </div>
     </div>
 </mat-card>

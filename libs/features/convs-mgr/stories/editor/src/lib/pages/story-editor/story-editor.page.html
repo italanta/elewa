@@ -1,9 +1,8 @@
 <convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
 
   <!-- Main body page -->
-  <div fxLayout="row" class="story-editor" fxFlexFill>
-    <div fxFlex="20" class="nav">
-
+  <div class="story-editor" fxFlexFill>
+    <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
           <div class="btn-wrapper" (click)="onClose()">
@@ -20,6 +19,17 @@
     </div>
 
     <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
+      <div class="toggle-btn">
+        <button (click)="toggleSidenav()">
+          <span *ngIf="isSideScreenOpen">
+            <i class="fas fa-arrow-left tooltip"></i>
+          </span>
+          <span *ngIf="!isSideScreenOpen">
+            <i class="fas fa-arrow-right tooltip"></i>
+          </span>
+        </button>
+      </div>
+
       <!-- Convl page subbar -->
       <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
@@ -36,7 +46,7 @@
         </div>
 
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button [disabled]="!stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+          <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
             <span *ngIf="stateSaved; else saving"> Save </span>
             <ng-template #saving>
               <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -51,8 +61,6 @@
           </button>
         </div>
       </div>
-
-
       <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="90" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>
     </div>
