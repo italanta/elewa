@@ -49,7 +49,7 @@ export class AssessmentListComponent implements OnInit{
   }
 
   goToQuestions(assessmentId: string){
-    this._router.navigate(['/assessments', assessmentId]);
+    this._router.navigate(['/assessments', assessmentId, 'view']);
   }
 
   searchTable(event: Event){
