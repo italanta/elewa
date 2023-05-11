@@ -23,6 +23,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   blockId: string;
   blockType: StoryBlockTypes;
   variablesForm: FormGroup;
+  validationForm: FormGroup;
 
   variablesTypesList = [
     { name: VariableTypes[1], value: 1 },
@@ -35,6 +36,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   emailtype = StoryBlockTypes.Email;
   phonetype = StoryBlockTypes.PhoneNumber;
   locationtype = StoryBlockTypes.LocationInputBlock;
+  OpenEndedQuestion = StoryBlockTypes.OpenEndedQuestion
 
   constructor(private _processInputSer: ProcessInputService) {}
 
