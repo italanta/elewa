@@ -1,0 +1,8 @@
+<convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
+    <div class="wrapper">
+        <div *ngIf="assessment$ | async as assessment">
+            <convl-italanta-apps-assessment-list-item [assessment]="assessment" fxFlexFill>  
+            </convl-italanta-apps-assessment-list-item>
+        </div>
+    </div>
+</convl-page>
