@@ -20,6 +20,8 @@ export class OpenEndedQuestionBlockComponent implements OnInit{
   @Input() openEndedQuestionForm: FormGroup
 
   @Input() blocksGroup: FormArray;
+
+  OpenEndedQuestionId: string;
  
   type: StoryBlockTypes;
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
@@ -29,5 +31,7 @@ export class OpenEndedQuestionBlockComponent implements OnInit{
               private _logger: Logger) 
   { }
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.OpenEndedQuestionId  = `Open_Ended_Question-${this.id}`
+  }
 }
