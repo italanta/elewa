@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+
+  .header-text {
+    font-size: 1rem;
+    color: var(--convs-mgr-color-primary-dark-blue);
+    font-weight: bolder;
+  }
+
+  .cancel-btn{
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    width: 50px;
+    height: 30px;
+    background-color: var(--convs-mgr-color-primary-yellow);
+    color: var(--convs-mgr-color-text-white);
+  }
+}

@@ -50,7 +50,7 @@ export class VideoBlockComponent implements OnInit {
   checkIfVideoExists() {
     if (this.videoMessageForm) {
       this.videoUrl = this.videoMessageForm.value.fileSrc;
-      this.hasVideo = this.videoUrl && this.videoUrl != '' ? true : false;
+      this.hasVideo = this.videoUrl != '' ? true : false;
     }
   }
 

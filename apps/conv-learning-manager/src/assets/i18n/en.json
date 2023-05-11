@@ -91,6 +91,8 @@
         "FAILBLOCK": "Fail Block",
         "JUMP":"Jump",
         "EVENT": "Event",
+        "ASSESSMENT": "Assessment",
+        "CONDITIONAL": "Conditional",
         "END-BLOCK":"End Block"
       },
       "PLACEHOLDER": {
@@ -113,6 +115,10 @@
         "WEBHOOK": "Url Input",
         "EVENT-NAME": "Event Name",
         "0PTIONAL-PAYLOAD": "Optional - Payload",
+        "CONDITIONAL-BLOCK": {
+          "INPUT-VARIABLE": "Type Variable",
+          "SELECT-VARIABLE":"Select Variable"
+        },
         "JUMP": {
           "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
@@ -136,7 +142,13 @@
         "ERROR-MESSAGE": "Validation Error Message"
       },
       "LABELS": {
-        "TRACK-MILESTONE": "Track as a milestone"
+        "TRACK-MILESTONE": "Track as a milestone",
+        "ASSESSMENTS-NAME": "Assessment's name",
+        "CONDITIONAL-BLOCK": {
+          "INPUT-VARIABLE": "Variable",
+          "SELECT-VARIABLE":"Select Variable",
+          "CHECKBOX": "Custom Variable"
+        }
       }
     },
     "COMPONENTS": {
@@ -153,7 +165,8 @@
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
-      "PUBLISH-STORY": "Publish Story"
+      "PUBLISH-STORY": "Publish Story",
+      "SEARCH": "Search"
     },
     "CHANNEL": {
       "ADD-CHANNEL": {
@@ -167,6 +180,15 @@
           "CANCEL": "Cancel"
         }
       }
+    },
+    "BLOCK-CATEGORY": {
+      "BRICKS": "Bricks",
+      "END-BLOCK": "End Block",
+      "MULTIMEDIA-BLOCKS": "Multimedia blocks",
+      "DOCUMENT-BLOCKS": "Document blocks",
+      "IMAGE-BLOCKS": "Images blocks",
+      "QUESTION-BLOCKS": "Question Blocks",
+      "MESSAGE-BLOCK": "Message Block"
     }
   },
   "BOTS": {
