@@ -1,54 +1,62 @@
 <div class="container">
+  <div (click)="closeModal()" id="close__icon">
+    <i class="fas fa-times"></i>
+  </div>
   <div class="heading">
-    <div (click)="closeModal()" id="close__icon">
-      <i class="fas fa-times"></i>
-    </div>
     <ng-template transloco let-t>
       <h2 class="title">{{ t('Upload Video') }}</h2>
     </ng-template>
   </div>
-  <form [formGroup]="videoModalForm" class="wrapper">
-    <div class="left__side">
-      <p class="p__text">Give This media Item a Name</p>
-      <label for="name-input" class="name__input"> 
-        <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="videoName" />
-      </label>
-      <br />
-      <div>
-        <input type="file" accept=".mp4" #videoInput (change)="videoInput.files && onVideoSelected(videoInput.files[0])" [ngClass]="{ 'hidden': true }">
-        <ng-container *ngIf="!videoPath">
-          <img *ngIf="!videoPath" src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png" (click)="videoInput.click()">
-        </ng-container>
-        <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
+  <div >
+    <form [formGroup]="videoModalForm" class="form">
+      <div class="wrapper">
+        <div class="left__side">
+          <div class="name__input">
+            <label for="name-input" >Give This media Item a Name</label>
+            <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="fileName" />
+          </div>
+    
+          <div class="media">
+            <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoUpload">
+            <label for="videoUpload">
+              <ng-container *ngIf="!videoPath">
+                <img *ngIf="!videoPath" src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png">
+              </ng-container>
+              <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
+            </label>   
+          </div>
+        </div>
+    
+        <div class="right__side">
+          <div>
+            <h3 class="right__header">Media Encoding</h3>
+            <label
+              >Please select the size you want to encode the video. <br />
+              The larger the video the longer it will take to load and play</label
+            >
+          </div>
+          <div class="input__div">
+            <div *ngFor="let option of sizeOptions">
+              <input
+                type="radio"
+                name="size"
+                [value]="option.vidSize"
+                id="{{ option.vidSize }}"
+                [checked]="option.vidSize === '720p (Recommended)'"
+                formContolName="mediaQuality"
+              />
+              <label for="{{ option.vidSize }}" class="size__options">{{
+                option.vidSize
+              }}</label>
+              <p class="resolution">{{ option.resolution }}</p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="right__side">
-      <div>
-        <h3 class="right__header">Media Encoding</h3>
-        <label
-          >Please select the size you want to encode the video. <br />
-          The larger the video the longer it will take to load and play</label
-        >
+      <div class="apply">
+        <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid" (click)="apply()">Apply</button>
       </div>
-      <div class="input__div" *ngFor="let option of sizeOptions">
-        <input
-          type="radio"
-          name="size"
-          [value]="option.vidSize"
-          id="{{ option.vidSize }}"
-          [checked]="option.vidSize === '720p (Recommended)'"
-          formControlName="size"
-        />
-        <label for="{{ option.vidSize }}" class="size__options">{{
-          option.vidSize
-        }}</label>
-        <p class="resolution">{{ option.resolution }}</p>
-      </div>
-    </div>
-    <div class="apply">
-      <button type="submit" class="apply__button" (click)="apply()">Apply</button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 
