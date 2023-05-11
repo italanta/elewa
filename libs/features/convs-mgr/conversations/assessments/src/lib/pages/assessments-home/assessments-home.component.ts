@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 
 @Component({
-  selector: 'app-assessments-home',
+  selector: 'italanta-apps-assessments-home',
   templateUrl: './assessments-home.component.html',
   styleUrls: ['./assessments-home.component.scss'],
 })
