@@ -3,4 +3,15 @@
     <span class="title">{{ title | transloco }}</span>
     <textarea class="text" id="message" name="message" formControlName="message" rows="3"></textarea>
   </form>
+  
+  <div class="validation-check">
+    <label for="setValidation" class="label">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</label>
+    <input type="checkbox" class="checkbox" [checked]="validate" (change)="setValidation()" name="setValidation" id="">
+  </div>
+
+  <div class="">
+
+  </div>
+
+  <app-variable-input [BlockFormGroup]="form" [validate]="validate"></app-variable-input>
 </div>
