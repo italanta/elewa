@@ -16,5 +16,9 @@ export class AssessmentService {
   addAssessment$(assessment: Assessment){
     return this._assessments$$.add(assessment);
   }
+
+  getAssessment$(assessmentId: string){
+    return this._assessments$$.getOne(assessmentId);
+  }
   
 }
