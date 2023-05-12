@@ -1,13 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
+import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { FileStorageService } from '@app/state/file';
-
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video-upload-modal.component';
 
@@ -16,48 +14,37 @@ import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video
   templateUrl: './video-block.component.html',
   styleUrls: ['./video-block.component.scss'],
 })
-export class VideoBlockComponent implements OnInit {
+export class VideoBlockComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() block: VideoMessageBlock;
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  type: StoryBlockTypes;
-  videoType = StoryBlockTypes.Video;
-  videoInputUpload: string;
-  videoLink: string;
-
-  file: File;
-  videoInputId: string;
+  private _sBs = new SubSink();
   isLoadingVideo: boolean;
-  hasVideo: boolean;
   videoUrl: string;
-  videoId: string;
 
-  constructor(
-    private _videoUploadService: FileStorageService,
-    private matdialog: MatDialog
-  ) {
-    this.block = this.block as VideoMessageBlock;
-  }
+  constructor(private matdialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.videoInputId = `vid-${this.id}`;
-    this.videoInputUpload = `vid-${this.id}-upload`;
     this.checkIfVideoExists();
   }
 
   checkIfVideoExists() {
     if (this.videoMessageForm) {
       this.videoUrl = this.videoMessageForm.value.fileSrc;
-      this.hasVideo = this.videoUrl != '' ? true : false;
     }
   }
 
   openVideoUploadModal() {
-    this.matdialog.open(VideoUploadModalComponent, {
-      //width: '900px',
+    const dialogRef = this.matdialog.open(VideoUploadModalComponent, {
       data: { videoMessageForm: this.videoMessageForm },
     });
+
+    this._sBs.sink = dialogRef.afterClosed().subscribe(() => this.checkIfVideoExists())
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe()
   }
 }
