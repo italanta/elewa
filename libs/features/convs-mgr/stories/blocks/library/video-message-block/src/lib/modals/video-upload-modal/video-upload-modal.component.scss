@@ -102,6 +102,11 @@ img {
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  .description {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .right__header {
