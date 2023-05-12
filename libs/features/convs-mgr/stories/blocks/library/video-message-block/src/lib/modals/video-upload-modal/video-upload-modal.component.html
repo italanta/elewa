@@ -5,15 +5,15 @@
     </div>
   </div>
   <div class="heading">
-    <h2 class="title">Upload Video</h2>
+    <h2 class="title">{{'PAGE-CONTENT.BLOCK.TITLES.VIDEO-MODAL.MAIN-TITLE' | transloco}}</h2>
   </div>
   <div>
     <form [formGroup]="videoModalForm" class="form">
       <div class="wrapper">
         <div class="left__side">
           <div class="name-wrapper">
-            <label for="name-input">Give This media Item a Name</label>
-            <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="fileName" />
+            <label for="name-input">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.NAME' | transloco}}</label>
+            <input type="text" id="name-input" class="name__input" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-MODAL.VIDEO-NAME' | transloco" formControlName="fileName" />
           </div>
     
           <div class="media">
@@ -29,11 +29,15 @@
     
         <div class="right__side">
           <div>
-            <h3 class="right__header">Media Encoding</h3>
-            <label
-              >Please select the size you want to encode the video. <br />
-              The larger the video the longer it will take to load and play</label
-            >
+            <h3 class="right__header">{{'PAGE-CONTENT.BLOCK.TITLES.VIDEO-MODAL.MEDIA-TITLE' | transloco}}</h3>
+            <div class="description">
+              <span>
+                {{'PAGE-CONTENT.BLOCK.CONTENT.VIDEO-MODAL.MEDIA.DESC-1' | transloco}}
+              </span>
+              <span>
+                {{'PAGE-CONTENT.BLOCK.CONTENT.VIDEO-MODAL.MEDIA.DESC-2' | transloco}}
+              </span>
+            </div>
           </div>
           <div class="input__div">
             <div *ngFor="let option of sizeOptions">
@@ -55,7 +59,9 @@
         </div>
       </div>
       <div class="apply">
-        <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid" (click)="apply()">Apply</button>
+        <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid" (click)="apply()">
+          {{'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco}}
+        </button>
       </div>
     </form>
   </div>
