@@ -384,16 +384,6 @@ Log into Firebase using your Google account by running the following command:
 This command connects your local machine to Firebase and grants you access to your Firebase projects.
 ```
 
-### Install Firebase Emulators
-
-Set up the Emulator Suite. This command starts a configuration wizard that lets you select emulators of interest, download the corresponding emulator binary files, and set emulator ports if the defaults are not appropriate.
-
-```bash
-  firebase init emulators
-```
-
-Read the instructions on the emulator wizard carefully and install all the emulators
-
 ### Install project dependencies using npm
 #### Go to the project directory
 
@@ -405,23 +395,34 @@ Read the instructions on the emulator wizard carefully and install all the emula
   npm install
 ```
 
-Start the App & Emulators
+The project is now succesfuly installed on your machine.
 
-```bash
-  npm run run-develop
+### Setup Firebase Emulators
+
+Make sure the below are installed: 
+
+- Node.js version 8.0 or higher.
+- Java JDK version 11 or higher 
+
+Download the JDK from [here](https://www.oracle.com/ke/java/technologies/downloads/)
+
+Download the emulator sample data by running the script below in the root of the project folder.
+
+```sh
+> ./emulator-data.sh
 ```
 
-```
-The project is now succesfuly installed and running on your machine
-```
+Go to your project environments and set the `useEmulators` property to `true`.
 
-The application ships with a demo account provided with a few application data e.g. budgets
-
-Use the following credentials to log in:
+Start the emulators
 
 ```
-Email: user@demo.com
-Password: demoUser
+> npm run emulators:start
+```
+
+Run the project
+```
+> nx serve
 ```
 
 #### Note: it is recommended to always keep your fork up to date with the original repository, by syncing your fork (explained in detail on contributing section).
