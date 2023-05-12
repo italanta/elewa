@@ -19,14 +19,6 @@
 	width: 5px;
   }
 
-
-// .search, .search input {
-// 	max-width: 100%;
-// }
-// .block-wrapper{
-// 	height: max-content;
-// }
-
 .search {
   position: relative;
   display: flex;
@@ -36,9 +28,8 @@
 
 .search input[type="text"] {
   flex: 1;
-  padding: 5px 30px 5px 40px; /* Add space for the search icon */
-  margin-left: 1px; /* Add margin to the left */
-  // margin-right: 1px;
+  padding: 5px 30px 5px 40px; 
+  margin-left: 1px; 
   width: 180px;
 }
 
