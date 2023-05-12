@@ -20,12 +20,39 @@
   }
 
 
-.search, .search input {
-	max-width: 100%;
+// .search, .search input {
+// 	max-width: 100%;
+// }
+// .block-wrapper{
+// 	height: max-content;
+// }
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 3px;
 }
-.block-wrapper{
-	height: max-content;
+
+.search input[type="text"] {
+  flex: 1;
+  padding: 5px 30px 5px 40px; /* Add space for the search icon */
+  margin-left: 1px; /* Add margin to the left */
+  // margin-right: 1px;
+  width: 180px;
 }
+
+.search .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+.search .search-icon i {
+  color: #888;
+}
+
 
 .block-list{
   margin-bottom: 1rem;

@@ -1,9 +1,13 @@
 <div class="nav" fxLayout="column" fxLayoutAlign="start" fxFlex>
   <div class="search" fxFlex>
-    <mat-form-field class="search-input" appearance="outline">
+    <!-- <mat-form-field class="search-input" appearance="outline">
       <input matInput placeholder="Search" (input)="filterBlocks($event)" />
       <mat-icon matPrefix>{{ 'PAGE-CONTENT.TOP-BAR.SEARCH' | transloco }}</mat-icon>
-    </mat-form-field>
+    </mat-form-field> -->
+    <input type="text" placeholder="Search...">
+    <span class="search-icon">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </span>
   </div>
 
   <div fxLayout="column" *ngIf="blockTemplate$ | async as blocks" fxFlex>
