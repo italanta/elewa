@@ -1,18 +1,18 @@
 <div class="container">
-  <div (click)="closeModal()" id="close__icon">
-    <i class="fas fa-times"></i>
+  <div id="close__icon">
+    <div class="icon-wrapper" (click)="closeModal()">
+      <i class="fas fa-times icon"></i>
+    </div>
   </div>
   <div class="heading">
-    <ng-template transloco let-t>
-      <h2 class="title">{{ t('Upload Video') }}</h2>
-    </ng-template>
+    <h2 class="title">Upload Video</h2>
   </div>
-  <div >
+  <div>
     <form [formGroup]="videoModalForm" class="form">
       <div class="wrapper">
         <div class="left__side">
-          <div class="name__input">
-            <label for="name-input" >Give This media Item a Name</label>
+          <div class="name-wrapper">
+            <label for="name-input">Give This media Item a Name</label>
             <input type="text" id="name-input" class="name__input" placeholder="Name" formControlName="fileName" />
           </div>
     
@@ -42,7 +42,8 @@
                 name="size"
                 [value]="option.vidSize"
                 id="{{ option.vidSize }}"
-                [checked]="option.vidSize === '720p (Recommended)'"
+                [disabled]="option.vidSize !== defaultSize"
+                [checked]="option.vidSize === defaultSize"
                 formContolName="mediaQuality"
               />
               <label for="{{ option.vidSize }}" class="size__options">{{
