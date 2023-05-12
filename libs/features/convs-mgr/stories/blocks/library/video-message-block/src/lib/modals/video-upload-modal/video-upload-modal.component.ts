@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { FileStorageService } from '@app/state/file';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-video-upload-modal',
@@ -11,12 +10,11 @@ import { SubSink } from 'subsink';
   styleUrls: ['./video-upload-modal.component.scss'],
 })
 export class VideoUploadModalComponent implements OnInit{
-  private _sBs = new SubSink()
   videoModalForm: FormGroup;
-  title = 'Upload Video';
   videoName: string;
-  videoFile: File;
-  videoPath: string
+  videoPath: string;
+
+  readonly defaultSize = "Don't Encode Media";
  
   sizeOptions = [
     { vidSize: '4K', resolution: '3840px x 2160px' },
@@ -39,6 +37,7 @@ export class VideoUploadModalComponent implements OnInit{
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
+    this.videoPath = this.videoModalForm.controls['fileSrc'].value
   }
 
   closeModal() {
@@ -46,11 +45,12 @@ export class VideoUploadModalComponent implements OnInit{
   }
 
   apply() {
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
-  
-  async onVideoSelected(event:any) {
-    const file = event.target.files[0]
+
+  async onVideoSelected(event: any) {
+    const file = event.target.files[0] as File;
+
     // Getting a file from explorer, first position
     if (file) {
       const reader = new FileReader();
@@ -65,7 +65,7 @@ export class VideoUploadModalComponent implements OnInit{
         res.subscribe((url) => this._autofillVideoUrl(url, videoName))
       };
     }
- } 
+  } 
 
   private _autofillVideoUrl(url: string, videoName: string) {
     this.videoModalForm.patchValue({fileSrc: url, fileName:videoName})
