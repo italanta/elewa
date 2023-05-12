@@ -15,8 +15,12 @@ if command -v bsdtar >/dev/null; then
 elif command -v unzip >/dev/null; then
   unzip "$filename" -d "$target_dir"
 else
-  echo "Error: Neither 'bsdtar' nor 'unzip' commands found."
-  exit 1
+  if command -v powershell.exe >/dev/null; then
+    powershell.exe -Command "Expand-Archive -Path \"$filename\" -DestinationPath \"$target_dir\""
+  else
+    echo "Error: Neither 'bsdtar', 'unzip', nor 'powershell' commands found."
+    exit 1
+  fi
 fi
 
 rm "$filename"
