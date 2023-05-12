@@ -1,11 +1,10 @@
 #!/bin/bash
 
+filename="emulator-data.zip"
 fileurl="https://firebasestorage.googleapis.com/v0/b/elewa-conv-learning-prod.appspot.com/o/emulator-data.zip?alt=media&token=bab68cc2-a84d-4d14-99d4-d7e8ecd71efe"
 
 # Download the zipped emulator data file
-curl -O "$fileurl"
-
-filename="emulator-data.zip"
+curl -o emulator-data.zip "$fileurl"
 
 # Create a directory to extract the contents
 target_dir="."
