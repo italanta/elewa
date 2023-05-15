@@ -1,0 +1,25 @@
+.question-title{
+    font-weight: 600;
+    margin: 0;
+}
+
+.fa-trash{
+    color: var(--convs-mgr-color-tertiary);
+}
+
+.fa-trash:hover{
+    color: var(--convs-mgr-color-primary-purple);
+}
+
+mat-card-header{
+    border-bottom: 0.1rem solid var(--convs-mgr-color-tertiary);
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.marks-label{
+    padding-bottom: 1.25rem;
+}
+
+
+
