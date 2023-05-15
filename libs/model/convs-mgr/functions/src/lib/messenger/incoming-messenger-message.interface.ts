@@ -20,7 +20,8 @@ export interface MessengerMessagingData {
   sender: MessengerSenderData;
   recipient: MessengerRecipientData;
   timestamp: number;
-  message: MessengerMessageData;
+  message?: MessengerMessageData;
+  postback?: IncomingMessengerPostBackMessage;
 }
 
 export interface MessengerSenderData {
@@ -43,6 +44,12 @@ export interface MessengerMessageData {
 export interface IncomingMessengerTextMessage extends MessengerMessageData {
   text: string;
 }
+
+export interface IncomingMessengerPostBackMessage extends MessengerMessageData {
+  title: string;
+  payload: string;
+}
+
 
 /**
  * Incoming quick reply message from messenger.

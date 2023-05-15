@@ -52,13 +52,14 @@ export class MessengerReceiveMsgHandler extends FunctionHandler<IncomingWhatsApp
     if (!payload) return { status: 400, message: "No messages in incoming payload to process" } as RestResult;
 
     tools.Logger.log(() => `Received Messenger msg ${JSON.stringify(payload)}`);
-    console.log(`Received Messenger msg ${JSON.stringify(payload)}`);
 
     // STEP 2: We have validated.
     //         We now unpack the message and search for the correct channel
     //         The message is converted to a generic object our engine can understand.
     //         We then need to parse the incoming message and return a standardized format so that our bot engine can read and process the message
     const sanitizedResponse = __ConvertMessengerApiPayload(payload);
+
+    tools.Logger.log(() => `Sanitized Response: ${JSON.stringify(sanitizedResponse)}`);
 
     // STEP 3: Get the Channel
     //         TODO: Cache the channel
