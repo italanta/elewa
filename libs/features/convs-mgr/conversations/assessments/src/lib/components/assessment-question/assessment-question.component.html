@@ -1,0 +1,40 @@
+<div class="question">
+    <mat-card appearance="outlined">
+        <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title>
+                <h5 class="question-title">{{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}} {{questionNo}}</h5>
+            </mat-card-title>
+            <mat-card-actions>
+                <button mat-icon-button class="btn-delete">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </mat-card-actions>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div [formGroup]="questionForm">
+                <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+                    <h4 class="marks-label">{{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS' | transloco}}: </h4>
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            {{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS-PLACEHOLDER' | transloco}}
+                        </mat-label>
+                        <input type="number" matInput formControlName="marks">
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field appearance="outline" class="full-field">
+                        <mat-label>
+                            {{'ASSESSMENTS.QUESTIONS.FIELDS.QUESTION' | transloco}}
+                        </mat-label>
+                        <input type="text" matInput formControlName="message">
+                    </mat-form-field>
+                </div>
+                
+                <convl-italanta-apps-assessment-answers [assessmentMode]="assessmentMode" [answers]="question.options"></convl-italanta-apps-assessment-answers>
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
