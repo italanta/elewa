@@ -2,9 +2,9 @@ import { OutgoingMessageParser } from '@app/functions/bot-engine';
 
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { FileMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Message, MessageTemplateConfig, TemplateMessageParams } from '@app/model/convs-mgr/conversations/messages';
-import { MessengerMessagingTypes, MessengerOutgoingTextMessage } from '@app/model/convs-mgr/functions';
+import { MessengerAttachmentType, MessengerMessagingTypes, MessengerOutgoingAttachmentMessage, MessengerOutgoingButtonMessage, MessengerOutgoingListMessage, MessengerOutgoingListMessageElement, MessengerOutgoingTextMessage, MessengerTemplateType } from '@app/model/convs-mgr/functions';
 
 /**
  * Interprets messages received from whatsapp and converts them to a Message
@@ -29,7 +29,7 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
         id: recepientId,
       },
       messaging_type: MessengerMessagingTypes.RESPONSE,
-      message: { 
+      message: {
         text: textBlock.message || "",
       }
     };
@@ -37,32 +37,119 @@ export class MessengerOutgoingMessageParser extends OutgoingMessageParser
     return generatedMessage;
   }
 
-  getQuestionBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getQuestionBlockParserOut(questionBlock: QuestionMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+
+    const questionButtons = questionBlock.options.map(button =>
+    {
+      return {
+        type: "postback",
+        title: button.message,
+        payload: button.id
+      };
+    });
+
+    // Create the button payload which will be sent to api
+    const generatedMessage: MessengerOutgoingButtonMessage = {
+      recipient: {
+        id: recepientId,
+      },
+      messaging_type: MessengerMessagingTypes.RESPONSE,
+      message: {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "button",
+            text: questionBlock.message || "",
+            buttons: questionButtons
+          }
+        }
+      }
+    };
+
+    return generatedMessage;
   }
-  getImageBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getImageBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the image payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.IMAGE);
   }
-  getAudioBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getAudioBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the audio payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.AUDIO);
   }
-  getVideoBlockParserOut(storyBlock: StoryBlock, phone: string)
+  getVideoBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the video payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.VIDEO);
   }
-  getListBlockParserOut(storyBlock: StoryBlock, phone: string)
+
+  getDocumentBlockParserOut(textBlock: TextMessageBlock, recepientId: string)
   {
-    throw new Error('Method not implemented.');
+    // Create the file payload which will be sent to api
+    return __getMediaBlockParserOut(textBlock, recepientId, MessengerAttachmentType.FILE);
   }
+
+  getListBlockParserOut(listBlock: ListMessageBlock, recepientId: string)
+  {
+    const listItems = listBlock.options.map(button =>
+      {
+        return {
+          title: button.message,
+          buttons: [
+            {
+              type: "postback",
+              title: button.message,
+              payload: button.id
+            }
+          ]
+        } as MessengerOutgoingListMessageElement;
+      });
+  
+      // Create the button payload which will be sent to api
+      const generatedMessage: MessengerOutgoingListMessage = {
+        recipient: {
+          id: recepientId,
+        },
+        messaging_type: MessengerMessagingTypes.RESPONSE,
+        message: {
+          attachment: {
+            type: MessengerAttachmentType.TEMPLATE,
+            payload: {
+              template_type:  MessengerTemplateType.GENERIC,
+              elements: listItems
+            }
+          }
+        }
+      };
+  
+      return generatedMessage;
+  }
+  
   getMessageTemplateParserOut(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message)
   {
     throw new Error('Method not implemented.');
   }
-  getDocumentBlockParserOut(storyBlock: StoryBlock, phone: string)
-  {
-    throw new Error('Method not implemented.');
-  }
+}
+
+function __getMediaBlockParserOut(mediaBlock: FileMessageBlock, recepientId: string, type: MessengerAttachmentType)
+{
+
+  const generatedMessage: MessengerOutgoingAttachmentMessage = {
+    recipient: {
+      id: recepientId,
+    },
+    messaging_type: MessengerMessagingTypes.RESPONSE,
+    message: {
+      attachment: {
+        type: type,
+        payload: {
+          url: mediaBlock.fileSrc,
+          is_reusable: true
+        }
+      }
+    }
+  };
+  return generatedMessage;
 }

@@ -56,9 +56,13 @@ export class ProcessMessageService
    */
   async resolveNextBlock(msg: Message, currentCursor: Cursor, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
   {
+    this._tools.Logger.log(()=> `Resolving next block...`);
+
     let newCursor = currentCursor;
 
     const lastBlock = await this._blockService$.getBlockById(currentCursor.position.blockId, orgId, currentStory);
+
+    this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
     // Handle input: validates and saves the input to variable
     const inputPromise = this.processInput(msg, lastBlock, orgId, endUserId);
