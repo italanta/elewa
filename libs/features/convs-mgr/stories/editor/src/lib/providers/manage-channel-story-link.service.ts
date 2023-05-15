@@ -1,27 +1,58 @@
 import { Injectable } from '@angular/core';
-import { runTransaction, getFirestore, doc } from "firebase/firestore";
+import { runTransaction, getFirestore, doc, collection, updateDoc} from "firebase/firestore";
 
-import { from } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 
-import { concatMap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 
 import { Query } from '@ngfi/firestore-qbuilder';
 import { DataService, Repository } from '@ngfi/angular';
 
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+
 import { Logger } from '@iote/bricks-angular';
 // import * as firebase from 'firebase/firestore';
 
 const db = getFirestore();
+
+
+const currentChannel: CommunicationChannel = {
+  id: "string",
+  name: "string",
+  orgId: "string",
+  defaultStory: "string",
+  n: 1,
+  type: PlatformType.WhatsApp
+};
 
 @Injectable({ providedIn: 'root' })
 
 export class ManageChannelStoryLinkService
 {
 
-  constructor(private _repoFac: DataService, protected _logger: Logger) { }
 
-  private _getChannelRepo(channel: CommunicationChannel): Repository<CommunicationChannel>
+  private _currentChannel = new BehaviorSubject<CommunicationChannel>(currentChannel)
+
+ 
+
+  setCurrentChannel(channel: CommunicationChannel) {
+    this._currentChannel.next(channel);
+    // this._currentChannel.complete();
+
+  }
+
+  getCurrentChannel() {
+    return this._currentChannel.asObservable();
+  }
+
+  getDefaultChannel () {
+    return currentChannel
+  }
+
+
+  constructor(private _repoFac: DataService, protected _logger: Logger,) {}
+
+  private _getChannelRepo(): Repository<CommunicationChannel>
   {
     const _channelRepo = this._repoFac.getRepo<CommunicationChannel>(`channels`);
 
@@ -35,7 +66,8 @@ export class ManageChannelStoryLinkService
    */
   public addStoryToChannel(channel: CommunicationChannel)
   {
-    const _channelRepo = this._getChannelRepo(channel);
+
+    const _channelRepo = this._getChannelRepo();
     const channelCount = from(this.incrementCounter(channel.orgId));
 
     return channelCount.pipe(concatMap(count =>
@@ -45,6 +77,22 @@ export class ManageChannelStoryLinkService
     }));
 
   }
+
+  public updateChannel(channelToUpdate: CommunicationChannel) {
+   
+   console.log(channelToUpdate.id)
+
+const channelsRef = collection(db, "channels");
+  const channelDocRef = doc(channelsRef, channelToUpdate.id);
+  return updateDoc(channelDocRef, {
+    id: channelToUpdate.id,
+    name: channelToUpdate.name,
+    orgId: channelToUpdate.orgId,
+    type: channelToUpdate.type,
+  });
+  }
+  
+
 
   /**
    * Increments 'n' from @type {CommunicationChannel} 
@@ -87,7 +135,16 @@ export class ManageChannelStoryLinkService
 
   public getSingleStoryInChannel(channel: CommunicationChannel)
   {
-    const channelRepo = this._getChannelRepo(channel);
+    const channelRepo = this._getChannelRepo();
     return channelRepo.getDocuments(new Query().where("id", "==", channel.id));
   }
+
+  getChannelByName(name: string): Observable<CommunicationChannel> {
+    const channelRepo = this._getChannelRepo();
+    return channelRepo.getDocuments(new Query().where('name', '==', name).limit(1)).pipe(
+      map((channels: CommunicationChannel[]) => channels[0])
+    );
+  }
+  
+  
 }
