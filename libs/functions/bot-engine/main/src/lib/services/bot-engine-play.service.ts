@@ -124,6 +124,8 @@ export class BotEnginePlay implements IBotEnginePlay
       // If the end user position does not exist then the conversation is new and we return the first block
       return this._processMessageService$.getFirstBlock(this._tools, this.orgId, this.defaultStory);
     } else {
+      this._tools.Logger.log(() => `[BotEnginePlay].__getNextBlock: Continuing conversation, getting the next block.`);
+
       const endUserPosition = currentPosition as Cursor;
       const currentStory  = endUserPosition.position.storyId;
 
