@@ -1,0 +1,34 @@
+<div class="question-list">
+    <h4>{{'ASSESSMENTS.QUESTIONS.QUESTIONS' | transloco}}</h4>
+
+    <mat-form-field appearance="outline" class="search">
+        <mat-label>
+            <i class="fas fa-search"></i>
+            <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
+        </mat-label>
+        <input type="search" matInput (keyup)="filterQuestions($event)">
+    </mat-form-field>
+
+    <convl-italanta-apps-assessment-question [questionNo]="1"></convl-italanta-apps-assessment-question>
+
+    <form [formGroup]="questionsForm">
+        <div formArrayName="questionForms">
+            <ng-container *ngFor="let questionForm of questionForms.controls; let f = index">
+                <ng-container *ngFor="let question of questions; let i = index">
+                    <ng-template let-question>
+                        <convl-italanta-apps-assessment-question [formGroupName]="f" [questionNo]="i + 1" [question]="question" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
+                    </ng-template>
+                </ng-container>
+            </ng-container>
+        </div>
+    </form>
+</div>
+
+<div class="question-button" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-flat-button class="btn-add">
+        <i class="fas fa-plus"></i>
+        <span class="label">
+            {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}
+        </span>
+    </button>
+</div>
