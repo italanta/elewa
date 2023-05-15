@@ -5,6 +5,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AssessmentService } from '../../services/assessment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'convl-italanta-apps-create-assessment-modal',
@@ -19,6 +20,7 @@ export class CreateAssessmentModalComponent implements OnInit {
 
   constructor(private _assessment: AssessmentService,
               private _formBuilder: FormBuilder,
+              private _route: Router,
               private _dialog: MatDialog){}
 
   ngOnInit(): void {
@@ -41,6 +43,7 @@ export class CreateAssessmentModalComponent implements OnInit {
     this._assessment.addAssessment$(assessment).subscribe(_assessmentSaved => {
       if(_assessmentSaved) {
         this._dialog.closeAll();
+        this._route.navigate(['/assessments', _assessmentSaved.id, 'edit'], {queryParams: {mode: 1}});
       }
     });
   }
