@@ -1,8 +1,7 @@
 <div class="form-wrapper">
   <form [formGroup]="form" action="" class="form-edit">
     <span class="title">{{ title | transloco }}</span>
-    <input class="text" id="message" name="message" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.OPEN-ENDED-QUESTION' | transloco"
-      formControlName="message" />
+    <textarea name="message" id="message" cols="30" rows="10" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.OPEN-ENDED-QUESTION' | transloco"></textarea>
   </form>
   
   <div class="validation-check">
