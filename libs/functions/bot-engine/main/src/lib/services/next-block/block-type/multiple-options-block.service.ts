@@ -41,7 +41,6 @@ export class MultipleOptionsMessageService extends NextBlockService
 	 */
 	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string, type?: string): Promise<Cursor>
 	{
-		let selectedOptionIndex: number;
 		const cursor = currentCursor;
 		
 		const response = msg as QuestionMessage;
@@ -52,10 +51,10 @@ export class MultipleOptionsMessageService extends NextBlockService
 		// TODO: Add a dynamic way of selecting matching strategies
 		this.matchInput.setMatchStrategy(new ExactMatch());
 
-		selectedOptionIndex = this.match(type || "matchId", response, lastBlock.options);
+		const selectedOptionIndex = this.match(type || "matchId", response, lastBlock.options);
 
 		if (selectedOptionIndex == -1) {
-			this._logger.error(() => `The message did not match any option found`);
+			return this.getNextBlockFromDefaultOption(lastBlock, orgId, currentStory, cursor);
 		}
 
 		const sourceId = `i-${selectedOptionIndex}-${lastBlock.id}`;
@@ -83,5 +82,25 @@ export class MultipleOptionsMessageService extends NextBlockService
 			default:
 				return this.matchInput.matchId(message.options[0].optionId, options);
 		}
+	}
+
+	private async getNextBlockFromDefaultOption(lastBlock: StoryBlock, orgId: string, currentStory: string, cursor: Cursor) {
+		this.tools.Logger.log(() => `The message did not match any option found, finding next block from default connection`);
+
+		// check for next block from default option
+		const connection = await this._connDataService.getConnBySourceId(lastBlock.id, orgId, currentStory);
+
+		if (!connection.targetId) {
+			this.tools.Logger.error(() => `The message did not match any option and no default next block was found`)
+		}
+
+		const newUserPosition: EndUserPosition = {
+			storyId: currentStory,
+			blockId: connection.targetId
+		}
+
+		cursor.position = newUserPosition;
+
+		return cursor
 	}
 }

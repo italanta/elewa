@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { FormControl } from '@angular/forms';
 
+import { SubSink } from 'subsink';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -26,6 +27,7 @@ import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conve
 })
 export class ChatsListComponent implements AfterViewInit, OnInit
 {
+  private _sbs = new SubSink()
   currentChat: Chat;
 
   chats$: Observable<Chat[]>;
@@ -60,17 +62,17 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     private _logger: Logger)
   {
     const _repo = _dS.getRepo<Payment>('payments');
-    _repo
+    this._sbs.sink = _repo
       .getDocuments()
       .pipe(
         map(ps => ps.filter(p => p.status === PaymentStatus.Success)),
         map(ps => _.orderBy(ps, p => __DateFromStorage(p.timestamp).unix(), 'desc')))
       .subscribe((list) => list.forEach(payment => this.paidCustomers.push(payment.chatId)));
 
-    this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
+    this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
     this.chats$ = this._chats$.get();
-    this.chats$.subscribe(chatList => this.getChats(chatList));
+    this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 
   
@@ -81,7 +83,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   ngAfterViewInit()
   {
     // Update paginator after it is initialized
-    this.paginator.changes.subscribe(item =>
+    this._sbs.sink = this.paginator.changes.subscribe(item =>
     {
       if (this.paginator.length && this.dataSource) {
         this.dataSource.paginator = this.paginator?.first;
@@ -226,5 +228,9 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   isMobile()
   {
     return !window.matchMedia("(min-width: 480px)").matches;
+  }
+
+  ngOnDestroy() {
+    this._sbs.unsubscribe()
   }
 }

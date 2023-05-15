@@ -138,6 +138,9 @@ export enum StoryBlockTypes {
   */
   Assessment = 31,
 
+  /** Conditional Block that maps the path the user will take depending on a predefined variable  */
+  Conditional = 32,
+
   EndStoryAnchorBlock = 9999
 }
 
@@ -182,6 +185,8 @@ export function isOperationBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.Event:
       return true;
     case StoryBlockTypes.Assessment:
+      return true;
+    case StoryBlockTypes.Conditional:
       return true;
     default:
       return false;

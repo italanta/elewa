@@ -31,6 +31,13 @@
           "farmbetter-prod"
         ]
       }
+    },
+    "ele-convl-manager-7cd0a": {
+      "hosting": {
+        "convl-manager": [
+          "ele-convl-manager-7cd0a"
+        ]
+      }
     }
   },
   "etags": {}
