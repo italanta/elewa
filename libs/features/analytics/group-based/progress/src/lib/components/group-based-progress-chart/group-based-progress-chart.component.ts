@@ -15,6 +15,13 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   @Input() chart: Chart;
 
   private _sBs = new SubSink();
+  allProgress: GroupProgressModel[];
+  dailyProgress: GroupProgressModel[]; 
+  weeklyProgress: GroupProgressModel[];
+  monthlyProgress: GroupProgressModel[];
+
+  trackMode: 'daily' | 'weekly' | 'monthly' = 'weekly';
+
   model: GroupProgressModel[];
   groups: string[];
   activeGroup = 'All';
@@ -22,22 +29,74 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   constructor (private _progressService: ProgressMonitoringService) {}
 
   ngOnInit() {
-    this._sBs.sink = this._progressService.getMilestones().subscribe((model) => { 
-      this.model = model;
-      this.groups = this.getGroups(this.model);
-      this.groups.unshift('All');
-      this.chart = this._loadChart(this.model);
-    });
-  }  
+    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => { 
+      this.allProgress = models;
 
-  getGroups(model: GroupProgressModel[]) {
+      // 1. get all groups/ classes
+      this.groups = this.getGroups(this.allProgress);
+      this.groups.unshift('All');
+
+      // 2. get daily progress
+      this.getDailyProgress();
+
+      // 3. get weekly progress 
+      this.getWeeklyProgress();
+
+      // get Monthly Progress
+      this.getMonthlyProgress();
+
+      // start with the weekly Progress
+      this.chart = this._loadChart(this.weeklyProgress);
+    });
+  }
+
+  private getGroups(model: GroupProgressModel[]) {
     // TODO: @LemmyMwaura Pull existing groups from DB after the grouping feature is complete.
     return model[model.length - 1].groupedMeasurements.map((item) => item.name.split('_')[1]);
   }
 
   selectActiveGroup(group: string) {
     this.activeGroup = group;
-    this.chart = this._loadChart(this.model);
+    this.selectProgressTracking(this.trackMode)
+  }
+
+  selectProgressTracking(trackBy: 'weekly' | 'daily' | 'monthly') {
+    this.trackMode = trackBy;
+  
+    if (trackBy === 'daily') {
+      this.chart = this._loadChart(this.dailyProgress);
+    } else if (this.trackMode === 'weekly') {
+      this.chart = this._loadChart(this.weeklyProgress);
+    } else {
+      this.chart = this._loadChart(this.monthlyProgress);
+    }
+  }
+
+  /** Retrieves daily milestones of all users */
+  private getDailyProgress() {
+    this.dailyProgress = this.allProgress;
+  }
+
+  /** Retrieves weekly milestones of all users */
+  private getWeeklyProgress() {
+    this.weeklyProgress = this.allProgress.filter(model => {
+      const timeInDate = new Date((model.time * 1000))
+      const dayOfWeek = timeInDate.getDay();
+
+      if (dayOfWeek === 6) return true
+      else return false
+    });
+  }
+
+  /** Retrieves weekly milestones of all users */
+  private getMonthlyProgress() {
+    this.monthlyProgress = this.allProgress.filter(model => {
+      const timeInDate = new Date((model.time * 1000))
+      const dayOfWeek = timeInDate.getDate();
+
+      if (dayOfWeek === 1) return true
+      else return false
+    });
   }
 
   private _loadChart(model: GroupProgressModel[]): Chart {
@@ -71,7 +130,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  unpackLabel(milestone: string, idx: number, model: GroupProgressModel[]) {
+  private unpackLabel(milestone: string, idx: number, model: GroupProgressModel[]) {
     return {
       label: milestone,
       data: this.getData(milestone, model),
@@ -79,7 +138,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     };
   }
 
-  getData(milestone: string, model: GroupProgressModel[]): number[] {
+  private getData(milestone: string, model: GroupProgressModel[]): number[] {
     if (this.activeGroup === 'All') {
     
       // return milestone data for all users
@@ -101,12 +160,12 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     }
   }
 
-  formatDate(time: number): string {
+  private formatDate(time: number): string {
     const date = new Date(time * 1000);
     return date.getDate() + '/' + (date.getMonth() + 1);
   }
 
-  getColor(idx: number) {
+  private getColor(idx: number) {
     // TODO: @LemmyMwaura set colors on new events after the events brick backend implementation is complete.
     return [ '#e3342f', '#f6993f', '#f66d9b', '#ffed4a', '#4dc0b5', '#3490dc', '#6574cd', '#9561e2', '#38c172' ][idx];
   }  
