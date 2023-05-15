@@ -21,3 +21,7 @@ export * from './lib/messenger/messenger-messaging-types.enum';
 export * from './lib/messenger/messenger-button-message-out.interface';
 export * from './lib/messenger/messenger-attachment-message-out.interface';
 export * from './lib/messenger/messenger-attachment-types.enum';
+export * from './lib/messenger/messenger-button-types.enum';
+export * from './lib/messenger/messsenger-list-message-out.interface';
+export * from './lib/messenger/messenger-template-types.enum';
+export * from './lib/messenger/messenger-attachment-types.enum';
