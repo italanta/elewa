@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -22,6 +22,10 @@ import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
+import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
@@ -56,7 +60,15 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   frameZoom = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
+  currentChannel: CommunicationChannel;
+  activeStoryName: string ;
+  activeStory: any;
+  isPublished: boolean;
+
+
   constructor(private _editorStateService: StoryEditorStateService,
+              private _activeStoryStore$$: ActiveStoryStore,
+              private _manageStoryLinkService: ManageChannelStoryLinkService,
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
@@ -90,6 +102,31 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
           this.opened = true;
         }
       });
+
+      this._sb.sink = this._activeStoryStore$$.get().subscribe(data => {
+        this.activeStoryName = data.name;
+        console.log(this.activeStoryName);
+      
+        // subscribe to the getChannelByName observable here
+        this._sb.sink = this._manageStoryLinkService.getChannelByName(this.activeStoryName).pipe(
+          map(channel => {
+            console.log(channel);
+            if (channel) {
+            this._manageStoryLinkService.setCurrentChannel(channel)
+            console.log(channel)
+            this.storyHasBeenSaved = true
+            }
+            else {
+             // subscribe to changes in channelToSubmit in the service
+             const defaultChannel = this._manageStoryLinkService.getDefaultChannel()
+             console.log(defaultChannel)
+             this._manageStoryLinkService.setCurrentChannel(defaultChannel);
+            }
+            this.isPublished = !!channel;   
+          })
+        ).subscribe();
+      });
+      console.log(this.currentChannel)
     }
 
   /**
@@ -198,10 +235,12 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   }
 
   addToChannel() {
-    this._dialog.open(AddBotToChannelModal, {
-      width: '550px'
-    })
-
+    if (this.storyHasBeenSaved){
+      this.save()
+      }
+      this._dialog.open(AddBotToChannelModal, {
+        width: '550px'
+      })
   }
 
   toggleSidenav() {
