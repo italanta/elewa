@@ -1,4 +1,4 @@
-import { FormGroup,FormBuilder } from "@angular/forms";
+import { FormGroup,FormBuilder, Validators } from "@angular/forms";
 
 import { StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
 import {VideoMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
@@ -14,8 +14,9 @@ import {VideoMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging"
     id: [blockData?.id! ?? ''],
     defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
-    fileSrc:[blockData?.fileSrc! ?? ''],
+    fileSrc:[blockData?.fileSrc! ?? '', Validators.required],
     fileName:[blockData?.fileName! ?? ''],
+    mediaQulaity:[blockData?.mediaQuality! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Video],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })

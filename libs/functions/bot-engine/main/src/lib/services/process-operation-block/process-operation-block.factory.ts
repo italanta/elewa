@@ -10,6 +10,7 @@ import { JumpStoryBlockService } from "./block-type/jump-story-block.service";
 import { IProcessOperationBlock } from "./models/process-operation-block.interface";
 import { EndStoryBlockService } from "./block-type/end-story-block.service";
 import { FailBlockService } from "./block-type/fail-story-block.service";
+import { ConditionalBlockService } from "./block-type/conditional-block.service";
 
 
 export class OperationBlockFactory
@@ -27,6 +28,8 @@ export class OperationBlockFactory
         return new EndStoryBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.FailBlock:
         return new FailBlockService(this._blockDataService, this._connDataService, this.tools);
+      case StoryBlockTypes.Conditional:
+        return new ConditionalBlockService(this._blockDataService, this._connDataService, this.tools);
       default:
         break;
     }
