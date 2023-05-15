@@ -1,0 +1,22 @@
+<div class="assessment-config">
+    <h4>{{'ASSESSMENTS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}}</h4>
+    <form [formGroup]="config" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2%">
+        <mat-form-field appearance="outline" class="full-field">
+            <mat-label>
+                {{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}
+            </mat-label>
+            <mat-select formControlName="feedback">
+                <mat-option [value]="immediateFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.IMMEDIATELY' | transloco}}</mat-option>
+                <mat-option [value]="onEndFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.ON-END' | transloco}}</mat-option>
+                <mat-option [value]="noFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.NEVER' | transloco}}</mat-option>
+            </mat-select>    
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-field">
+            <mat-label>
+                {{'ASSESSMENTS.QUESTIONS.FIELDS.USER-ATTEMPTS' | transloco}}
+            </mat-label>
+            <input type="number" formControlName="userAttempts" matInput>
+        </mat-form-field>
+    </form>
+</div>
