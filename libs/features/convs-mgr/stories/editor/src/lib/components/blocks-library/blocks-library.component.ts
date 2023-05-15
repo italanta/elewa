@@ -34,6 +34,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   @Input() frame: StoryEditorFrame;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  filter = false;
 
   blockTemplates: StoryBlock[] = [
     { id: 'input-message-block', type: StoryBlockTypes.TextMessage, message: 'Message', blockIcon: this.getBlockIcon(StoryBlockTypes.TextMessage), blockCategory: 'messages-block' } as TextMessageBlock,
@@ -191,7 +192,8 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
         })))
   }
 
-  filterBlocks(event: any) {
+  filterBlocks(event:any) {
+    this.filter = true;
     this.filterInput$$.next(event.target.value);
   }
 
