@@ -6,16 +6,37 @@
 .menu {
   .menu__wrapper {
     display: flex;
-    gap: 0.5rem;
+    justify-content: space-between;
 
-    .group {
-      padding: 0.3rem;
+    // left side
+    .groups {
+      display: flex;
+      gap: 0.5rem;
 
-      &__btn {
+      .group {
+        padding: 0.3rem;
+  
+        &__btn {
+          border: none;
+          padding: 0.5rem;
+          border-radius: 5px;
+          cursor: pointer;
+  
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+
+    // right side
+    .sort_by {
+      button {
         border: none;
         padding: 0.5rem;
         border-radius: 5px;
         cursor: pointer;
+        background-color: #f0f0f0;
 
         &:active {
           transform: scale(0.95);
