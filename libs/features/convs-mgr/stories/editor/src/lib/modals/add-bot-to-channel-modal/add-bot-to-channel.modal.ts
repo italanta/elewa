@@ -5,12 +5,12 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 import { SubSink } from 'subsink';
 
-import { combineLatest, filter, map } from 'rxjs';
+import { combineLatest, filter, map, switchMap } from 'rxjs';
 
 import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore   } from '@app/state/organisation';
 
 import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
@@ -18,6 +18,7 @@ import { TelegramCommunicationChannel } from '@app/model/convs-mgr/conversations
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
 
+let channelToSubmit: CommunicationChannel;
 
 @Component({
   selector: 'conv-add-bot-to-channel',
@@ -41,7 +42,10 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
   private _activeStoryId: string;
+ 
   private _orgId: string;
+
+  currentChannel: CommunicationChannel;
 
   addToChannelForm: FormGroup;
 
@@ -60,6 +64,33 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     private _manageStoryLinkService: ManageChannelStoryLinkService,
     private _activeStoryStore$$: ActiveStoryStore,
     private _activeOrgStore$$: ActiveOrgStore) {
+
+this._sBs.sink = _manageStoryLinkService.getCurrentChannel().subscribe((channel: CommunicationChannel) => {
+ console.log(channel)
+  this.currentChannel = channel;
+});
+
+ 
+ console.log(this.currentChannel)
+
+ 
+ 
+ const _currentStoryExists = this._storyExistsInChannel(this.currentChannel)
+
+ console.log(_currentStoryExists)
+
+ this._sBs.sink = _currentStoryExists.pipe(map((exists) => {
+  console.log(exists)
+  if (exists) {
+    this.addToChannelForm = this._fb.group({
+      channel: this.channels,
+      businessPhoneNumberId: { value: this.currentChannel.id, disabled: true },
+      channelName: this.currentChannel.name,
+      authenticationKey: [null],
+      messageTemplate: [null],
+      templateVariables: [null]   
+      })
+  } else {
     this.addToChannelForm = this._fb.group({
       channel: this.channels,
       businessPhoneNumberId: [null, [Validators.required]],
@@ -67,9 +98,12 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       authenticationKey: [null, Validators.required],
       messageTemplate: [null],
       templateVariables: [null]
-    })
+  });
   }
-
+})).subscribe((value) =>
+   console.log(value));
+}
+  
   ngOnInit() {
     this._sBs.sink =
       combineLatest([this._activeStoryStore$$.get(), this._activeOrgStore$$.get()])
@@ -78,6 +112,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
           this._activeStoryId = activeStory.id as string;
           this._orgId = activeOrg.id as string;
         });
+        
   }
 
   onSubmit() {
@@ -86,10 +121,11 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     const phoneNumberId = this.addToChannelForm.get('businessPhoneNumberId')?.value;
     let authKey = this.addToChannelForm.get('authenticationKey')?.value;
     const businessName = this.addToChannelForm.get('channelName')?.value;
+    // const platformType = this.addToChannelForm.get('channel')?.value;
 
     authKey = __ENCODE_AES(authKey);
 
-    const channelToSubmit = {
+    channelToSubmit = {
       id: phoneNumberId,
       name: businessName,
       orgId: this._orgId,
@@ -97,27 +133,35 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       n: 1,
       accessToken: authKey,
       type: PlatformType.WhatsApp
-    } as WhatsAppCommunicationChannel;
+    } as WhatsAppCommunicationChannel
+
+   
+
+    //  this._manageStoryLinkService.setCurrentChannel(channelToSubmit);
 
     // TODO: @CHESA =======> Add cipher for channel authKey so that we can store auth key in db
-
     const _storyExistsInChannel$ = this._storyExistsInChannel(channelToSubmit);
 
-    this._sBs.sink = _storyExistsInChannel$.pipe(map((exists) => {
-      if (!exists) {
-        //If it does not exist, link it to the channel
-        return this._manageStoryLinkService
-          .addStoryToChannel(channelToSubmit).subscribe();
-      } else {
-        return;
-      }
-    })).subscribe(() => {
+    this._sBs.sink = _storyExistsInChannel$.pipe(
+      switchMap((exists) => {
+        if (!exists) {
+          //If it does not exist, link it to the channel
+          return this._manageStoryLinkService.addStoryToChannel(channelToSubmit);
+        } else {
+          console.log(exists);
+          return this._manageStoryLinkService.updateChannel(channelToSubmit);
+        }
+      })
+    ).subscribe(() => {
       this.isSaving = false;
       this.closeDialog();
     });
+    
+
   }
 
   private _storyExistsInChannel(channel: CommunicationChannel) {
+ 
     return this._manageStoryLinkService.getSingleStoryInChannel(channel).pipe(map(channels => !!channels.length));
   }
 
