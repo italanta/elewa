@@ -1,0 +1,22 @@
+<convl-italanta-apps-assessment-answer></convl-italanta-apps-assessment-answer>
+
+<div [formGroup]="answersForm">
+    <div formArrayName="answerForms">
+        <ng-container *ngFor="let answerForm of answerForms.controls; let f = index">
+            <ng-container *ngFor="let answer of answers">
+                <ng-template let-answer>
+                    <convl-italanta-apps-assessment-answer [assessmentMode]="assessmentMode" [formGroupName]="f" [answer]="answer"></convl-italanta-apps-assessment-answer>
+                </ng-template>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
+
+<div class="answer-button" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-flat-button class="btn-add-option">
+        <i class="fas fa-plus"></i>
+        <span class="label">
+            {{'ASSESSMENTS.QUESTIONS.ANSWER' | transloco}}
+        </span>
+    </button>
+</div>
