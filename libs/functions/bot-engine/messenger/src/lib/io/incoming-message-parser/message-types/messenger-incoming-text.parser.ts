@@ -14,7 +14,7 @@ export class MessengerIncomingTextParser extends IncomingTextMessageParser {
     const textMessagePayload = incomingMessage.message as IncomingMessengerTextMessage
     // Create the base message object
     const newMessage: TextMessage = {
-      id: incomingMessage.timeStamp.toString(),
+      id: Date.now().toString(),
       type: MessageTypes.TEXT,
       text: textMessagePayload.text,
       payload: incomingMessage.payload,

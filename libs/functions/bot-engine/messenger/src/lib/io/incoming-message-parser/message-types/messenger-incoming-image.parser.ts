@@ -13,7 +13,7 @@ export class MessengerIncomingImageParser extends IncomingImageMessageParser {
     const imagePayload = incomingMessage.message as MessengerAttachments
     // Create the base message object
     const newMessage: ImageMessage = {
-      id: incomingMessage.timeStamp.toString(),
+      id: Date.now().toString(),
       type: MessageTypes.IMAGE,
       url: imagePayload.attachments[0].payload.url,
     };
