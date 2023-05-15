@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentService } from '../../services/assessment.service';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SubSink } from 'subsink';
 
