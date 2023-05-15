@@ -19,6 +19,11 @@ import { AssessmentService } from './services/assessment.service';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 import { AssessmentListItemComponent } from './components/assessment-list-item/assessment-list-item.component';
 import { AssessmentEditComponent } from './pages/assessment-edit/assessment-edit.component';
+import { AssessmentQuestionComponent } from './components/assessment-question/assessment-question.component';
+import { AssessmentAnswerComponent } from './components/assessment-answer/assessment-answer.component';
+import { AssessmentQuestionsComponent } from './components/assessment-questions/assessment-questions.component';
+import { AssessmentAnswersComponent } from './components/assessment-answers/assessment-answers.component';
+import { AssessmentConfigComponent } from './components/assessment-config/assessment-config.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -37,6 +42,11 @@ import { AssessmentEditComponent } from './pages/assessment-edit/assessment-edit
                  AssessmentViewComponent,
                  AssessmentListItemComponent,
                  AssessmentEditComponent,
+                 AssessmentQuestionsComponent,
+                 AssessmentQuestionComponent,
+                 AssessmentAnswersComponent,
+                 AssessmentAnswerComponent,
+                 AssessmentConfigComponent,
                  CreateAssessmentModalComponent],
   providers: [AssessmentService,
               AssessmentsStore]
