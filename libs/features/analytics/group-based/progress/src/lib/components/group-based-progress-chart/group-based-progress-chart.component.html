@@ -1,22 +1,24 @@
-<div class="menu">
-  <div class="menu__wrapper">
-    <div class="groups">
-      <div *ngFor="let group of groups" class="group">
-        <button class="group__btn" (click)="selectActiveGroup(group)">{{ group }}</button>
+<div class="chart-container">
+  <div class="menu">
+    <div class="menu__wrapper">
+      <div class="groups">
+        <div *ngFor="let group of groups" class="group">
+          <button class="group__btn" (click)="selectActiveGroup(group)">{{ group }}</button>
+        </div>
+      </div>
+
+      <div *ngIf="dataIsFetched" class="sort_by">
+        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)=" selectProgressTracking('monthly')">Month</button>
+          <button mat-menu-item (click)=" selectProgressTracking('weekly')">Week</button>
+          <button mat-menu-item (click)=" selectProgressTracking('daily')">Day</button>
+        </mat-menu>
       </div>
     </div>
-
-    <div class="sort_by">
-      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)=" selectProgressTracking('monthly')">Month</button>
-        <button mat-menu-item (click)=" selectProgressTracking('weekly')">Week</button>
-        <button mat-menu-item (click)=" selectProgressTracking('daily')">Day</button>
-      </mat-menu>
-    </div>
   </div>
-</div>
 
-<div class="chart">
-  <canvas id="chart-ctx">{{ chart }}</canvas>
+  <div class="chart">
+    <canvas id="chart-ctx">{{ chart }}</canvas>
+  </div>
 </div>
