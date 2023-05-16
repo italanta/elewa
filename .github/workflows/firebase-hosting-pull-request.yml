@@ -32,10 +32,6 @@ jobs:
           ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
         run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
-      - name: Hello world
-        shell: bash
-        run: echo "Hello world!"
-
       - name: Create environment prod file from secrets
         shell: bash
         env:
