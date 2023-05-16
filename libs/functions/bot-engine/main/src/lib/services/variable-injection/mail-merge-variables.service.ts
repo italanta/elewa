@@ -77,4 +77,12 @@ export class MailMergeVariables
 
     return variableValues;
   }
+
+  async getSingleVariableValue(orgId: string, endUserId: string, variableName: string) {
+    const variableRepo = this._tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
+
+    const variableValues = await variableRepo.getDocumentById(`values`);
+
+    return variableValues[variableName];
+  }
 }

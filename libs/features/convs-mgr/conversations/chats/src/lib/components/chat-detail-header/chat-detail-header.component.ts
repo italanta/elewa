@@ -60,7 +60,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     private _dialog: MatDialog,
     private _spinner: SpinnerService,
   ) {
-    this.userService.getUser().subscribe((user) => (this.user = user));
+    this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -172,7 +172,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
       data: { req: req, action: 'talkToHuman' },
       width: '500px',
     });
-    this.confirmDialogRef.afterClosed().subscribe(() => (this.loading = false));
+    this._sbs.sink = this.confirmDialogRef.afterClosed().subscribe(() => (this.loading = false));
   }
 
   resumeChat() {
@@ -187,7 +187,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         data: { req: req, action: 'assignChat' },
         width: '500px',
       });
-      this.confirmDialogRef
+      this._sbs.sink = this.confirmDialogRef
         .afterClosed()
         .subscribe(() => (this.loading = false));
     }
@@ -245,7 +245,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
       this._backendService.callFunction('endCourse', req)
     );
 
-    callBackendService.subscribe();
+    this._sbs.sink = callBackendService.subscribe();
   }
 
   goBack() {

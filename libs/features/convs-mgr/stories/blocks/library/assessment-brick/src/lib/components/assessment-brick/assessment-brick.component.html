@@ -1,0 +1,26 @@
+<div [id]="id" *ngIf="assessmentBrickForm">
+  <form [formGroup]="assessmentBrickForm" fxLayout="column" fxLayoutALign="start center">
+    <div fxLayout="row">
+      <mat-form-field>
+        <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</mat-label>
+        <mat-select formControlName="message" required>
+          <mat-option>--</mat-option>
+          <mat-option>
+            <!-- dispay all available assessments for active organization -->
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div formArrayName="scoreOptions" *ngIf="scores">
+      <div *ngFor="let score of scores.controls; let i = index">
+        <span [formGroupName]="i">
+          <div class="option">
+            <input [readOnly]="true" class="input-score-min" formControlName="min" type="text" placeholder="Enter min value">
+            <span id="dash">-</span>
+            <!-- Connection is created from max score. The assessmentsScore connetions sourceId is e.g max-score-1-42 -->
+            <input [id]="'max-score-'+i+'-'+block.id" [readOnly]="true" class="input-score-max" formControlName="max" type="text" placeholder="Enter max value">
+          </div>
+        </span>
+      </div>
+    </div>
+  </form>

@@ -11,7 +11,9 @@ import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMes
           JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, 
           AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock, KeywordMessageBlock, 
           MultiContentInputBlock,
-          EventBlock
+          EventBlock,
+          AssessmentBrick,
+          ConditionalBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
@@ -40,6 +42,8 @@ import { _OpenEndedQuestionBlockDecoratePlumb } from './open-ended-question-bloc
 import { _MultiContentInputBlockDecoratePlumb } from './multi-content-input-block.jsplumb';
 import { _KeywordJumpBlockDecoratePlumb } from './keyword-jump-block.jsplumb';
 import { _EventBlockDecoratePlumb } from './event-block.jsplumb';
+import { _AssessmentBrickDecoratePlumb } from './assessment-brick.jsplumb';
+import { _ConditionalBlockDecoratePlumb } from './conditional-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -125,6 +129,10 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       break;
     case StoryBlockTypes.Event:
       return _EventBlockDecoratePlumb(block as EventBlock, comp, jsPlumb);
+    case StoryBlockTypes.Assessment:
+      return _AssessmentBrickDecoratePlumb(block as AssessmentBrick, comp, jsPlumb);
+    case StoryBlockTypes.Conditional:
+      return _ConditionalBlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
   }
 
   return comp;

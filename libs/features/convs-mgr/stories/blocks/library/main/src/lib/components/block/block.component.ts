@@ -10,6 +10,9 @@ import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
+import { SidemenuToggleService } from '@app/elements/layout/page-convl';
+import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
+
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
 import { _CreateQuestionBlockMessageForm } from '../../model/questions-block-form.model';
@@ -40,7 +43,9 @@ import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-for
 import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
-import { SidemenuToggleService } from '@app/elements/layout/page-convl';
+import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
+import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
+
 /**
  * Block which sends a message from bot to user.
  */
@@ -84,7 +89,8 @@ export class BlockComponent implements OnInit {
   multiContentInputType = StoryBlockTypes.MultiContentInput;
   keywordJumpType = StoryBlockTypes.keyword;
   eventType = StoryBlockTypes.Event;
-
+  assessmentBrickType= StoryBlockTypes.Assessment;
+  conditionalBlockType = StoryBlockTypes.Conditional;
 
   blockFormGroup: FormGroup;
 
@@ -101,7 +107,9 @@ export class BlockComponent implements OnInit {
               private _blockInjectorService: BlockInjectorService,
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
-              private sideMenu:SidemenuToggleService
+              private sideMenu:SidemenuToggleService,
+              private sideScreen:SideScreenToggleService
+
   ) { }
 
   ngOnInit(): void {
@@ -161,10 +169,12 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break
+
         case StoryBlockTypes.Video:
           this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break
+
         case StoryBlockTypes.Sticker:
           this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -194,43 +204,62 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateImageInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.LocationInputBlock:
           this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.AudioInput:
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.WebhookBlock:
           this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.EndStoryAnchorBlock:
           this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.OpenEndedQuestion:
           this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
+
         case StoryBlockTypes.MultiContentInput:
           this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
           break;
+
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.keyword:
           this.blockFormGroup = _CreateKeywordJumpBlockMessageForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
         case StoryBlockTypes.Event:
           this.blockFormGroup = _CreateEventBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
+
+        case StoryBlockTypes.Assessment:
+          this.blockFormGroup = _CreateAssessmentBrickForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+
+        case StoryBlockTypes.Conditional:
+          this.blockFormGroup = _CreateConditionalBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
         default:
           break;
       }
@@ -280,6 +309,7 @@ export class BlockComponent implements OnInit {
 
   editBlock() {
     this.sideMenu.toggleExpand(false)
+    this.sideScreen.toggleSideScreen(true)
     this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
   }
 

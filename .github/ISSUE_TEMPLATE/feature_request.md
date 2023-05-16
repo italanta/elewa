@@ -7,6 +7,22 @@ assignees: ''
 
 ---
 
+## Technologies and Knowledge Scope 🧠
+
+Please delete options that are not relevant.
+
+- [ ] RxJs
+- [ ] HTML, SCSS
+- [ ] Typescript
+- [ ] NodeJs
+- [ ] Jest
+- [ ] State Pattern e.g. Akita
+- [ ] Firestore
+- [ ] Firebase Functions
+- [ ] Firebase Storage
+- [ ] Firebase Authentication
+- [ ] Nx
+
 ## User stories
 
 A user story is implemented as well as it is communicated.

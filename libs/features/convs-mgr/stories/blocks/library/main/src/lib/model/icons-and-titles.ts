@@ -111,6 +111,14 @@ export const iconsAndTitles: any = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
     icon: 'fas fa-flag'
   },
+  31: {
+    title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
+    icon: 'fas fa-chart-bar'
+  },
+  32: {
+    title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
+    icon: 'fas fa-random'
+  },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
     icon: 'fas fa-stop',
