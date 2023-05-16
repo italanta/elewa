@@ -40,9 +40,8 @@ jobs:
       - name: Create environment file from secrets
         shell: bash
         run: |
-             echo "${{ secrets.PROD_ENV_FILE }}" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts 
              echo "${{ secrets.PROD_ENV_FILE }}" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
-             cat apps/conv-learning-manager/src/environments/environment.prod.ts
+             echo "${{ secrets.PROD_ENV_FILE }}" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts 
         env:
           FIREBASE_ENVS: ${{secrets.PROD_ENV_FILE}}
 
