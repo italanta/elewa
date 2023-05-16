@@ -39,10 +39,15 @@ jobs:
 
       - name: Create environment file from secrets
         env:
-          FIREBAE_ENVS: ${{secrets.FIREBASE_ELEWA_CONV_LEARNING_PROD_ENV}}
+          FIREBASE_ENVS: ${{secrets.FIREBASE_ELEWA_CONV_LEARNING_PROD_ENV}}
         shell: bash
-        run: 'echo "$FIREBAE_ENVS" > ./apps/conv-learning-manager/src/environments/environment.prod.ts &&
-              echo "$FIREBAE_ENVS" > ./apps/conv-learning-manager/src/environments/environment.ts'
+        run: 'echo "$FIREBASE_ENVS" > ./apps/conv-learning-manager/src/environments/environment.prod.ts &&
+              echo "$FIREBASE_ENVS" > ./apps/conv-learning-manager/src/environments/environment.ts'
+
+      - name: Log the env files
+        shell: bash
+        run: 'cat ./apps/conv-learning-manager/src/environments/environment.prod.ts &&
+              cat ./apps/conv-learning-manager/src/environments/environment.ts'
 
       - name: Build and preview
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
