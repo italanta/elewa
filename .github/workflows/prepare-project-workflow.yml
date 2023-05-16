@@ -31,9 +31,6 @@ jobs:
         with:
             node-version: ${{ matrix.node }}
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
       - name: Create environments folder
         run: mkdir apps/conv-learning-manager/src/environments
 
