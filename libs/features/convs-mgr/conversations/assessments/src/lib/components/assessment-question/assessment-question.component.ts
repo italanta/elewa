@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormGroupName } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 import { AssessmentQuestion, AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentAnswerComponent } from '../assessment-answer/assessment-answer.component';
+
 import { AssessmentAnswersComponent } from '../assessment-answers/assessment-answers.component';
 
 @Component({
@@ -14,6 +15,7 @@ export class AssessmentQuestionComponent implements OnInit {
   @Input() questionNo: number;
 
   @Input() assessmentMode: number;
+  @Output() created: EventEmitter<any> = new EventEmitter<any>();
 
   @ViewChild(AssessmentAnswersComponent) answersComponent: AssessmentAnswersComponent;
   
@@ -23,10 +25,20 @@ export class AssessmentQuestionComponent implements OnInit {
 
   ngOnInit(){
     this.createFormGroup(); 
+    // Notify component creation after initialization of form group
+    this.notifyCreationEvent();
 
     if(!this.assessmentMode){
       this.updateFormGroup();
     }
+  }
+
+  get inputQuestion(){
+    return this.questionForm.value;
+  }
+
+  notifyCreationEvent(){
+    this.created.emit();
   }
 
   createFormGroup(){
@@ -46,7 +58,5 @@ export class AssessmentQuestionComponent implements OnInit {
     });
   }
 
-  get inputAnswers(){ 
-    return this.answersComponent.inputAnswers 
-  }
+
 }
