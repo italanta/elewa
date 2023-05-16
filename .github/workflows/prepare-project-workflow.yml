@@ -38,20 +38,13 @@ jobs:
         shell: bash
         env:
           ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
-        run: |
-            ls
-            echo "$ENV_FILE" > environment_enc.ts
-            echo "$(<environment_enc.ts)"
-            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
+        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
       - name: Create environment prod file from secrets
         shell: bash
         env:
           ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
-        run: |
-            ls
-            echo "$ENV_FILE" > environment_prod_enc.ts
-            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
+        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
 
       - name: Build and preview
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
