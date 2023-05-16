@@ -7,6 +7,7 @@ jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
+    environment: elewa-prod
   
     strategy:
       matrix:
@@ -29,14 +30,10 @@ jobs:
       - name: Create environment file from secrets
         shell: bash
         env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
-        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
-
-      - name: Create environment prod file from secrets
-        shell: bash
-        env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
-        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
+          ENV_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+        run: |
+            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
+            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
