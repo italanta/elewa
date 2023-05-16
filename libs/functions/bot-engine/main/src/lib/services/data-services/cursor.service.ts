@@ -49,6 +49,30 @@ export class CursorDataService extends BotDataService<Cursor> {
   }
 
   /**
+   * Gets the cursor for an end user at a specific Unix time in the organization.
+   *
+   * @async
+   * @param {number} unixToMeasure - The Unix time to measure.
+   * @param {string} orgId - The organization ID.
+   * @param {string} endUserId - The end user ID.
+   * @returns {Promise<{ time: Date, cursor: Cursor }>} A promise that resolves to an object with the measured time and cursor.
+   */
+  async getUserCursorAtSetTime(unixToMeasure: number, orgId:string, endUserId: string) : Promise<{ time: Date, cursor: Cursor }>
+  {
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
+  
+    // Convert unix time to date
+    const timeToMeasure = new Date(unixToMeasure * 1000);
+  
+    const crsors$ = await this.getDocumentsBySetDate(timeToMeasure, this._docPath);
+
+    //The cursor for the end user at the measured time.
+    const cursor = crsors$.length > 0 ? crsors$[0] : null;
+
+    return { time: timeToMeasure, cursor };
+  }
+
+  /**
    * Updates the cursor collection with a new cursor(End User Position) and when applicable, updates
    *   a subroutine in the current cursor.
    * 

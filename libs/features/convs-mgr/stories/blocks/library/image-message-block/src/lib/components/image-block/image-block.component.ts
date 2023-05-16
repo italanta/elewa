@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { take } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -11,15 +11,13 @@ import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 
 import { FileStorageService } from '@app/state/file';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
 @Component({
   selector: 'app-image-block',
   templateUrl: './image-block.component.html',
   styleUrls: ['./image-block.component.scss'],
 })
 
-export class ImageBlockComponent implements OnInit {
+export class ImageBlockComponent implements OnInit, OnDestroy {
 
   @Input() id: string;
   @Input() block: ImageMessageBlock;
@@ -33,56 +31,56 @@ export class ImageBlockComponent implements OnInit {
 
   file: File;
   imageInputId: string;
-  imageInputUpload: string = '';
+  imageInputUpload = '';
   imageName: string;
-  isLoadingImage: boolean = false;
+  isLoadingImage = false;
   imageLink: string;
-  hasImage: boolean = false;
+  hasImage = false;
 
-  constructor(private _imageUploadService: FileStorageService,
-              public domSanitizer: DomSanitizer
-  ) {
-    this.block = this.block as ImageMessageBlock;
-  }
+  private _sBs = new SubSink();
+
+  constructor(private _imageUploadService: FileStorageService) {}
 
   ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
-
     this.checkIfImageExists();
   }
 
   checkIfImageExists() {
     this.imageLink = this.imageMessageForm.value.fileSrc;
-    this.hasImage = this.imageLink && this.imageLink != '' ? true : false;
+    this.hasImage = this.imageLink != '' ? true : false;
   }
 
-  getFileNameFromFbUrl(fbUrl: string): string {
-    return fbUrl.split('%2F')[1].split("?")[0];
-  }
+  async processImage(event: any) {   
+    const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
-  async processImage(event: any) {
+    if (!allowedFileTypes.includes(event.target.files[0].type)) {
+      this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
+      return;
+    }
+
     if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.imageLink = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
       this.file = event.target.files[0];
       this.isLoadingImage = true;
       this.hasImage = true;
+
+      //Step 1 - Create the file path that will be in firebase storage
+      const imgFilePath = `images/${this.file.name}`;
+      this.isLoadingImage = true;
+
+      const response = await this._imageUploadService.uploadSingleFile(this.file, imgFilePath)
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
     }
-
-    //Step 1 - Create the file path that will be in firebase storage
-    const imgFilePath = `images/${this.file.name}`;
-    this.isLoadingImage = true;
-
-    this._imageUploadService.uploadSingleFile(this.file, imgFilePath).then((url) => {
-      url.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
-    })
   }
 
   private _autofillUrl(url: string) {
     this.imageMessageForm.patchValue({fileSrc: url});
     this.isLoadingImage = false;
+    this.checkIfImageExists()
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe();
   }
 }
-

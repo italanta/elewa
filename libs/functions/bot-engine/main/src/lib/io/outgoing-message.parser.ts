@@ -1,5 +1,6 @@
-import { Message, MessageTemplateConfig, OutgoingMessagePayload } from "@app/model/convs-mgr/conversations/messages";
+import { Message, MessageTemplateConfig, OutgoingMessagePayload, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { HandlerTools } from "@iote/cqrs";
 
 /**
  * Our chatbot can send different types of messages, be it a text message, a location, an image, ...
@@ -27,7 +28,7 @@ export abstract class OutgoingMessageParser
 
   abstract getListBlockParserOut     (storyBlock: StoryBlock, phone: string): any
 
-  abstract getMessageTemplateParserOut (templateConfig: MessageTemplateConfig, phone: string, message: Message): any
+  abstract getMessageTemplateParserOut (templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message): any
 
   // abstract getStickerBlockParserOut  (storyBlock: StoryBlock, phone: string): Message
 
@@ -69,7 +70,7 @@ export abstract class OutgoingMessageParser
     return parser(storyBlock, phone);
   }
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string, message: Message) {
-    return this.getMessageTemplateParserOut(templateConfig, phone, message);
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message) {
+    return this.getMessageTemplateParserOut(templateConfig, params, phone, message);
   }
 }

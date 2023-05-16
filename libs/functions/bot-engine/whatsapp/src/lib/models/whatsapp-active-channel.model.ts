@@ -5,19 +5,19 @@ import { createWriteStream } from "fs";
 import { join } from 'path';
 import { extension } from "mime-types";
 
+import { __DateFromStorage } from "@iote/time";
 import { HandlerTools } from "@iote/cqrs";
 import { __DECODE_AES } from "@app/elements/base/security-config";
+import { ActiveChannel, EndUserDataService, MailMergeVariables, MessagesDataService, generateEndUserId } from "@app/functions/bot-engine";
 
-import { ActiveChannel, EndUserDataService } from "@app/functions/bot-engine";
-
-import { MetaMessagingProducts, RecepientType, WhatsAppMessageType, WhatsAppOutgoingMessage, WhatsAppTemplateMessage, WhatsappTemplateParameter } from "@app/model/convs-mgr/functions";
-import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
+import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
-import { Message, MessageTemplateConfig } from "@app/model/convs-mgr/conversations/messages";
+import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
 
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
-
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -45,9 +45,9 @@ export class WhatsappActiveChannel implements ActiveChannel
     this.endUserService = new EndUserDataService(_tools, channel.orgId);
   }
 
-  parseOutMessage(storyBlock: StoryBlock, phone: string)
+  parseOutMessage(storyBlock: StoryBlock, endUser: EndUser)
   {
-    const outgoingMessagePayload = new WhatsappOutgoingMessageParser().parse(storyBlock, phone);
+    const outgoingMessagePayload = new WhatsappOutgoingMessageParser().parse(storyBlock, endUser.phoneNumber);
 
     return outgoingMessagePayload;
   }
@@ -59,17 +59,79 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, phone: string, message: Message)
+  parseOutMessageTemplate(templateConfig: MessageTemplateConfig, params: TemplateMessageParams[], phone: string, message: Message)
   {
     // Create the message template payload which will be sent to whatsapp
     const messageTemplate = new WhatsappOutgoingMessageParser()
-                              .getMessageTemplateParserOut(templateConfig, phone, message);
+                              .getMessageTemplateParserOut(templateConfig, params, phone, message);
 
     return messageTemplate;
   }
 
-  async send(whatsappMessage: WhatsAppOutgoingMessage)
+  private async _handle24hourWindow(phone: string, message: Message)
   {
+    const msgService = new MessagesDataService(this._tools);
+    const n = this.channel.n;
+    const orgId = this.channel.orgId;
+    const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+
+    const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
+
+    if (latestMessage) {
+      // Get the date in milliseconds
+      const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
+
+      if ((Date.now() - latestMessageTime.unix() * 1000) > 864000) {
+
+        this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
+        this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${phone}`);
+
+        const templateConfig = this.channel.templateConfig;
+
+        if (templateConfig) {
+          let params = message.params || templateConfig.params || null;
+
+          if(params) params = await this.__resolveParamVariables(params, orgId, endUserId);
+
+          // Get the message template
+          return this.parseOutMessageTemplate(templateConfig, params, phone, message);
+        } else {
+          this._tools.Logger.warn(() => `[SendOutgoingMsgHandler].execute [Warning] - Missing Template Config! Message may fail to reach user`);
+          return null;
+        }
+      }
+    }
+  }
+
+  private __getValueFromVariable(orgId: string, endUserId: string, variable: string) {
+    const variablesService = new MailMergeVariables(this._tools);
+
+    return variablesService.getSingleVariableValue(orgId, endUserId, variable)
+  }
+
+  private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, endUserId: string) { 
+    const resolvedParams = params.map(async (param) => {
+
+      if(param.value === '_var_') {
+        const value = await this.__getValueFromVariable(orgId, endUserId, param.name);
+
+        return { 
+          name: param.name,
+          value
+        } as TemplateMessageParams
+      } else {
+        return param
+      }
+    });
+
+    return Promise.all(resolvedParams);
+  }
+
+  async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message)
+  {
+    if(standardMessage) {
+      whatsappMessage = await this._handle24hourWindow(whatsappMessage.to, standardMessage) || whatsappMessage;
+    }
     // STEP 1: Assign the access token and the business phone number id
     //            required by the whatsapp api to send messages
     const ACCESS_TOKEN = this.channel.accessToken;

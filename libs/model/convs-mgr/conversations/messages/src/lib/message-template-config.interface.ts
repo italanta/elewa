@@ -1,3 +1,5 @@
+import { TemplateMessageParams } from "./message-params.interface";
+
 /** This interface represents the message template configuration 
  *   which can be used to opt-in users to the chatbot
  */
@@ -14,5 +16,5 @@ export interface MessageTemplateConfig
    *  then the final message will be 'Hello John, how are you?'
    * 
   */
-  params: string[];
+  params: TemplateMessageParams[];
 }

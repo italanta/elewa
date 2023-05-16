@@ -1,6 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { BotDataService } from './data-service-abstract.class';
 
@@ -10,10 +10,12 @@ import { BotDataService } from './data-service-abstract.class';
 export class MessagesDataService extends BotDataService<Message> {
   private _docPath: string;
   private _msg: Message;
+  tools: HandlerTools;
 
   constructor(tools: HandlerTools) 
   {
     super(tools)
+    this.tools = tools;
   }
 
   /**
@@ -30,6 +32,8 @@ export class MessagesDataService extends BotDataService<Message> {
     // Create the message document with the timestamp as the id
     const savedMessage = await this.createDocument(msg, this._docPath, msg.id)
 
+    this.tools.Logger.log(()=>`Message with id: ${savedMessage.id} saved to ${this._docPath}`);
+
     return savedMessage;
   }
 
@@ -39,5 +43,23 @@ export class MessagesDataService extends BotDataService<Message> {
     const latestMessage = await this.getLatestDocument(this._docPath);
 
     return latestMessage[0];
+  }
+
+  async getLatestUserMessage(endUserId: string, orgId: string): Promise<Message> {
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
+
+    const latestMessage = await this.getDocuments(this._docPath);
+
+    // Filter out the messages that are not from the user
+    const userMessages = latestMessage.filter(msg => 
+       (msg.direction === MessageDirection.FROM_ENDUSER_TO_AGENT ||
+        msg.direction === MessageDirection.FROM_END_USER_TO_CHATBOT));
+
+    // Return the latest message using createdOn timestamp
+    const latestUserMessage = userMessages.reduce((prev, current) => {
+      return (prev.createdOn > current.createdOn) ? prev : current
+    });
+
+    return latestUserMessage;
   }
 }

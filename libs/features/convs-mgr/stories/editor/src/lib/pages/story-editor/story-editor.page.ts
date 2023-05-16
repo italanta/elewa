@@ -20,7 +20,8 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
-
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
+import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
@@ -32,10 +33,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   activeComponent: ComponentPortal<any>
   activeBlockForm: FormGroup
   activeBlockTitle: string
-  
+
   opened: boolean;
 
   pageName: string;
+  isSideScreenOpen:boolean;
 
   state: StoryEditorState;
   breadcrumbs: Breadcrumb[] = [];
@@ -43,10 +45,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
 
-  stateSaved: boolean = true;
+  stateSaved = true;
 
+  hasEmptyFields = false;
   //TODO @CHESA LInk boolean to existence of story in DB
-  storyHasBeenSaved: boolean = false;
+  storyHasBeenSaved = false;
 
   zoomLevel: FormControl = new FormControl(100);
   frameElement: HTMLElement;
@@ -58,7 +61,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
-              _router: Router
+              _router: Router,
+              private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
       .subscribe((state: StoryEditorState) => {
@@ -73,19 +77,20 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         this.loading.next(false);
       }
       );
-  }
+    }
 
-  ngOnInit() {
-    this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
-      if (blockDetails.form) {
-        const comp = getActiveBlock(blockDetails.form.value.type);
-        this.activeBlockForm = blockDetails.form
-        this.activeBlockTitle = blockDetails.title
-        this.activeComponent = new ComponentPortal(comp);
-        this.opened = true;
-      }
-    });
-  }
+    ngOnInit() {
+      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+      this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
+        if (blockDetails.form) {
+          const comp = getActiveBlock(blockDetails.form.value.type);
+          this.activeBlockForm = blockDetails.form
+          this.activeBlockTitle = blockDetails.title
+          this.activeComponent = new ComponentPortal(comp);
+          this.opened = true;
+        }
+      });
+    }
 
   /**
   * Called when the portal component is rendered. Passes formGroup as an input to newly rendered Block Component
@@ -99,8 +104,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   /**  Detach and close Block Edit form */
   onClose() {
-    this.activeComponent?.detach()
-    this.opened = false;
+    if (this.activeComponent && this.activeComponent.isAttached) {
+      this.activeComponent?.detach()
+      this.opened = false;
+    }
   }
 
   onFrameViewLoaded(frame: StoryEditorFrame) {
@@ -119,15 +126,16 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   }
 
   setFrameZoom() {
-    this.frameElement = document.getElementById('editor-frame')!;
+    this.frameElement = document.getElementById('editor-frame') as HTMLElement;
     this.frameZoomInstance = newInstance({
       container: this.frameElement
     })
     this.zoom(this.frameZoom);
   }
+
   setZoomByPinch(value:number){
-this.frameZoom=value
-this.zoom(this.frameZoom)
+    this.frameZoom=value
+    this.zoom(this.frameZoom)
   }
 
   increaseFrameZoom() {
@@ -145,22 +153,36 @@ this.zoom(this.frameZoom)
   }
 
   zoomChanged(event: any) {
-    let z = event.target.value / 100;
+    const z = event.target.value / 100;
     this.zoomLevel.setValue(z);
     this.zoom(z);
   }
 
   /** Save the changes made in the data model. */
   save() {
+
+    // Get all the text area elements
+    const textAreas = document.querySelectorAll('textarea');
+
+    // Check if any of the text area elements are empty
+    const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
+
+    if (hasEmptyFields) {
+      this._dialog.open(ErrorPromptModalComponent, {
+        data: { title: "Error", message: "Please fill in ALL text fields before saving."}
+      });
+      return
+   }
+
     this.stateSaved = false;
 
-    let updatedState = this.state;
-    updatedState.blocks = [...this.frame.blocksArray.value];
+    const updatedState = this.state;
+    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
 
     //TODO: compare old state connections to updated connections
     // from getConnections()
     // find a jsPlumb types library to replace any with strict type
-    let connections = this.frame.getJsPlumbConnections as any[];
+    const connections = this.frame.getJsPlumbConnections as any[];
 
     // remove duplicate jsplumb connections
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
@@ -180,6 +202,11 @@ this.zoom(this.frameZoom)
       width: '550px'
     })
 
+  }
+
+  toggleSidenav() {
+    this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
+    this.onClose()
   }
 
   ngOnDestroy() {

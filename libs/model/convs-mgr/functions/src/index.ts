@@ -11,4 +11,17 @@ export * from './lib/whatsapp/whatsapp-message-response.interface';
 export * from './lib/whatsapp/whatsapp-message-types.interface';
 export * from './lib/whatsapp/whatsapp-text-message.interface';
 export * from './lib/whatsapp/whatsapp-template-message.interface';
-
+export * from './lib/base/message-types.enum';
+export * from './lib/messenger/messenger-attachment-types.enum';
+export * from './lib/messenger/incoming-messenger-message.interface';
+export * from './lib/messenger/messenger-sanitized-message.interface';
+export * from './lib/messenger/messenger-text-message-out.interface';
+export * from './lib/messenger/messenger-base-outgoing-message.interface';
+export * from './lib/messenger/messenger-messaging-types.enum';
+export * from './lib/messenger/messenger-button-message-out.interface';
+export * from './lib/messenger/messenger-attachment-message-out.interface';
+export * from './lib/messenger/messenger-attachment-types.enum';
+export * from './lib/messenger/messenger-button-types.enum';
+export * from './lib/messenger/messsenger-list-message-out.interface';
+export * from './lib/messenger/messenger-template-types.enum';
+export * from './lib/messenger/messenger-attachment-types.enum';

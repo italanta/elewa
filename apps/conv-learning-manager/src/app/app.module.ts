@@ -30,6 +30,7 @@ import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
+import { ProgressMonitoringStateModule } from '@app/state/convs-mgr/monitoring';
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 
@@ -73,6 +74,7 @@ import { environment } from '../environments/environment';
     StoryBlocksStateModule.forRoot(),
     StoryBlockConnectionsStateModule.forRoot(),
     VariablesConfigStateModule.forRoot(),
+    ProgressMonitoringStateModule.forRoot(),
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),
     // MessagingStateModule.forRoot(),

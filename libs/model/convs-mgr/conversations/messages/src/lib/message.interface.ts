@@ -4,7 +4,7 @@ import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { Location } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { IncomingMessagePayload } from "./payload-in.interface";
-import { MessageParams } from "./message-params.interface";
+import { TemplateMessageParams } from "./message-params.interface";
 
 /** 
  * Our chatbot recieves different types of messages, be it a text message, a location, an image, ...
@@ -46,7 +46,7 @@ export interface Message extends IObject
 
   url?                : string;
 
-  params?             : MessageParams[];
+  params?             : TemplateMessageParams[];
 }
 
 
