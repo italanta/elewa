@@ -8,6 +8,7 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
+import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { ConvsMgrReusableTextAreaModule } from '@app/features/convs-mgr/stories/blocks/library/reusable-text-area';
 
@@ -19,6 +20,7 @@ import { OpenEndedQuestionBlockComponent } from './components/open-ended-questio
     MaterialDesignModule,
     FlexLayoutModule,
     MaterialBricksModule,
+    MultiLangModule,
 
     FormsModule,
     ReactiveFormsModule,

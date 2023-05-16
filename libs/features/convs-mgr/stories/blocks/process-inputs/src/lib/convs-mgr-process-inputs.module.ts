@@ -9,6 +9,7 @@ import { NameValidationsComponent } from './components/name-validations/name-val
 import { EmailValidationsComponent } from './components/email-validations/email-validations.component';
 import { PhoneValidationsComponent } from './components/phone-validations/phone-validations.component';
 import { LocationValidationsComponent } from './components/location-validations/location-validations.component';
+import { OpenEndedValidationsComponent } from './components/open-ended-validations/open-ended-validations.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MultiLangModule],
@@ -18,6 +19,7 @@ import { LocationValidationsComponent } from './components/location-validations/
     EmailValidationsComponent,
     PhoneValidationsComponent,
     LocationValidationsComponent,
+    OpenEndedValidationsComponent,
   ],
   exports: [VariableInputComponent],
 })
