@@ -7,10 +7,30 @@ jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16]
+
     steps:
-      - uses: actions/checkout@v2
-      - run: nx build conv-learning-manager --skip-nx-cache --prod
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Checkout PR code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build and preview
+        run: nx build conv-learning-manager --skip-nx-cache --prod
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ELEWA_CONV_LEARNING_PROD }}'

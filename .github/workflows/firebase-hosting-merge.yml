@@ -9,9 +9,27 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16]
+
     steps:
-      - uses: actions/checkout@v2
-      - run: nx build conv-learning-manager --skip-nx-cache --prod
+      - name: Checkout PR code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build and preview
+        run: nx build conv-learning-manager --skip-nx-cache --prod
 
       - name: Deploy to Enabel Elearning
         uses: FirebaseExtended/action-hosting-deploy@v0
