@@ -1,12 +1,15 @@
-elewa-bar-chart {
-  display: block;
-  height: 320px;
-}
+.dash-wrapper {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 20% 70%;
+  height: calc(100vh - 8rem);
+  gap: 20px;
 
-.stat-cards {
-  background-color: transparent;
-}
+  .stat-cards {
+    background-color: transparent;
+  }
 
-.footer {
-  margin-bottom: 20px;
+  .chart-section {
+    height: 100%;
+  }
 }

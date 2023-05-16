@@ -19,6 +19,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
+  dataIsFetched = false;
 
   trackMode: 'daily' | 'weekly' | 'monthly' = 'weekly';
 
@@ -44,6 +45,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
       // get Monthly Progress
       this.getMonthlyProgress();
+
+      this.dataIsFetched = true;
 
       // start with the weekly Progress
       this.chart = this._loadChart(this.weeklyProgress);
@@ -114,6 +117,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         datasets: [...milestones].map((milestone, idx) => this.unpackLabel(milestone, idx, model)),
       },
       options: {
+        maintainAspectRatio: false,
+        responsive: true,
         normalized: true,
         plugins: {
           title: {
@@ -121,10 +126,9 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
             text: 'Course progression',
           },
         },
-        responsive: true,
         scales: {
-          x: { stacked: true },
-          y: { stacked: true },
+          x: { stacked: true, grid: { display: false } },
+          y: { stacked: true, grid: { display: true } },
         },
       },
     });
@@ -135,6 +139,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
       label: milestone,
       data: this.getData(milestone, model),
       backgroundColor: this.getColor(idx),
+      borderRadius: 10
     };
   }
 
