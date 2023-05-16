@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentService } from '../../services/assessment.service';
-import { Observable, tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+
+import { Observable, tap } from 'rxjs';
 import { SubSink } from 'subsink';
+
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+
+import { AssessmentService } from '../../services/assessment.service';
 
 @Component({
   selector: 'italanta-apps-assessment-view',

@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+
 import { Observable, of } from 'rxjs';
+
+import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+
 
 @Component({
   selector: 'convl-italanta-apps-assessment-list-item',
