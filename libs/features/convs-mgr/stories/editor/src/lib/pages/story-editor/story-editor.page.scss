@@ -44,14 +44,14 @@ mat-sidenav {
       background-color: var(--endpoint-color);
       border: none;
       transition: transform 0.3s ease;
-      padding: 10px;
+      padding: 8px;
       border-radius: 5px;
-      width: 5rem;
+      width: 3.5rem;
       cursor: pointer;
       color: var(--endpoint-outline);
  
       .tooltip {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
     }
   }
