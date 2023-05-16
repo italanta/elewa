@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - name: Setup NodeJs
         uses: actions/setup-node@v3
         with:
@@ -27,7 +27,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build and preview
-        run: nx build conv-learning-manager --skip-nx-cache --prod
+        run: npx nx build conv-learning-manager --skip-nx-cache --prod
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
