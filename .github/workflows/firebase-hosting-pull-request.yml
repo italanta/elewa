@@ -4,24 +4,45 @@
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
 jobs:
-  call-workflow:
-    uses: ./.github/workflows/prepare-project-workflow.yml
-    with: 
-      environment: elewa-prod
-
   build_and_preview:
-    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
+    environment: elewa-dev
   
     strategy:
       matrix:
-        node-version: [16]
+        nodeversion: [16]
 
     steps:
+      - name: Checkout PR code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.nodeversion }}
+
+      - name: Create environments folder
+        run: mkdir apps/conv-learning-manager/src/environments
+
+      - name: Create environment file from secrets
+        shell: bash
+        env:
+          ENV_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+        run: |
+            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
+            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build and preview
+        run: npx nx build conv-learning-manager --skip-nx-cache --prod
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ELEWA_CONV_LEARNING_PROD }}'
-          projectId: elewa-conv-learning-prod
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ELEWA_DEV }}'
+          projectId: ele-convl-manager-7cd0a
