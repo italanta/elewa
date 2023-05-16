@@ -1,25 +1,42 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentQuestionComponent } from '../assessment-question/assessment-question.component';
+import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+
+import { tap } from 'rxjs';
+import { SubSink } from 'subsink';
+
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+
+import { AssessmentQuestionComponent } from '../assessment-question/assessment-question.component';
+
 
 @Component({
   selector: 'convl-italanta-apps-assessment-questions',
   templateUrl: './assessment-questions.component.html',
   styleUrls: ['./assessment-questions.component.scss'],
 })
-export class AssessmentQuestionsComponent implements OnInit {
+export class AssessmentQuestionsComponent implements OnInit, OnDestroy {
   @Input() questions: AssessmentQuestion[]
   @Input() assessmentMode: number;
 
   questionsForm: FormGroup;
+  questionNo = 1;
 
-  @ViewChild(AssessmentQuestionComponent) questionComponent: AssessmentQuestionComponent;
+  @ViewChild('addQuestions', { read: ViewContainerRef }) addQuestions: ViewContainerRef;
+
+  private _sbS = new SubSink();
 
   constructor(private _formBuilder: FormBuilder){}
 
   ngOnInit(): void {
     this.createFormGroup();
+  }
+
+  get questionForms(){
+    return this.questionsForm.value.questionForms as FormArray;
+  }
+
+  get inputQuestions(){
+    return this.questionForms
   }
 
   createFormGroup(){
@@ -28,26 +45,24 @@ export class AssessmentQuestionsComponent implements OnInit {
     })
   }
 
-  get questionForms(){
-    return this.questionsForm.value.questionForms as FormArray;
+  generateQuestionForm(){
+    const component = this.addQuestions.createComponent(AssessmentQuestionComponent);
+    component.instance.assessmentMode = 1;
+    component.instance.questionNo = this.questionNo++;
+    // Populate questions form array with question form group after component is created
+    this._sbS.sink = component.instance.created.pipe(tap((_event) => {
+      this.questionForms.push(component.instance.questionForm);
+      console.log(this.questionForms);
+    })).subscribe();
+    
   }
 
-  get inputQuestions(){
-    let questions: AssessmentQuestion[] = [];
-    let question: AssessmentQuestion = {} as AssessmentQuestion;
-
-    this.questionForms.controls.map((_formGroup) => {
-      question.marks = _formGroup.value.marks;
-      question.message = _formGroup.value.message;
-      question.options = this.questionComponent.inputAnswers;
-
-      questions.push(question);
-    });
-
-    return questions;
-  }
 
   filterQuestions(event: Event){
 
+  }
+
+  ngOnDestroy(): void {
+    this._sbS.unsubscribe();
   }
 }

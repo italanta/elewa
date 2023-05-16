@@ -1,31 +1,36 @@
 <div class="question-list">
     <h4>{{'ASSESSMENTS.QUESTIONS.QUESTIONS' | transloco}}</h4>
 
-    <mat-form-field appearance="outline" class="search">
-        <mat-label>
-            <i class="fas fa-search"></i>
-            <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
-        </mat-label>
-        <input type="search" matInput (keyup)="filterQuestions($event)">
-    </mat-form-field>
-
-    <convl-italanta-apps-assessment-question [questionNo]="1"></convl-italanta-apps-assessment-question>
+    <div *ngIf="assessmentMode < 1">
+        <mat-form-field appearance="outline" class="search">
+            <mat-label>
+                <i class="fas fa-search"></i>
+                <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
+            </mat-label>
+            <input type="search" matInput (keyup)="filterQuestions($event)">
+        </mat-form-field>
+    </div>
 
     <form [formGroup]="questionsForm">
         <div formArrayName="questionForms">
-            <ng-container *ngFor="let questionForm of questionForms.controls; let f = index">
-                <ng-container *ngFor="let question of questions; let i = index">
-                    <ng-template let-question>
-                        <convl-italanta-apps-assessment-question [formGroupName]="f" [questionNo]="i + 1" [question]="question" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
-                    </ng-template>
-                </ng-container>
-            </ng-container>
+            <div #addQuestions *ngIf="assessmentMode > 0; else editQuestions">
+            </div>
+
+            <ng-template #editQuestions>
+                <div *ngFor="let questionForm of questionForms.controls; let f = index">
+                    <div *ngFor="let question of questions; let i = index">
+                        <div class="container">
+                            <convl-italanta-apps-assessment-question [formGroupName]="f" [questionNo]="i + 2" [question]="question" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
         </div>
     </form>
 </div>
 
 <div class="question-button" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-flat-button class="btn-add">
+    <button mat-flat-button class="btn-add" (click)="generateQuestionForm()">
         <i class="fas fa-plus"></i>
         <span class="label">
             {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}
