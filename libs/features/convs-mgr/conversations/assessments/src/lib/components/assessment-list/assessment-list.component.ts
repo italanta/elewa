@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { Observable } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
+
 import { TranslateService } from '@ngfi/multi-lang';
+import { Observable } from 'rxjs';
 
 import { Assessment} from '@app/model/convs-mgr/conversations/assessments';
 
