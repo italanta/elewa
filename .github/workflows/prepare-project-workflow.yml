@@ -39,11 +39,16 @@ jobs:
 
       - name: Create environment file from secrets
         shell: bash
-        run: echo ${{ secrets.PROD_ENV_FILE }} | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
+        run: |
+            ls
+            echo ${{ secrets.PROD_ENV_FILE }} > environment_enc.ts
+            cat environment_enc.ts | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
       - name: Create environment prod file from secrets
         shell: bash
-        run: echo ${{ secrets.PROD_ENV_FILE }} | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
+        run: |
+            echo ${{ secrets.PROD_ENV_FILE }} > environment_prod_enc.ts
+            cat environment_prod_enc.ts | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
 
       - name: Build and preview
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
