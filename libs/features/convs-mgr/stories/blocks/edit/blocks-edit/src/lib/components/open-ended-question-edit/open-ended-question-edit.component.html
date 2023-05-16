@@ -1,16 +1,12 @@
 <div class="form-wrapper">
   <form [formGroup]="form" action="" class="form-edit">
     <span class="title">{{ title | transloco }}</span>
-    <textarea name="message" id="message" cols="30" rows="10" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.OPEN-ENDED-QUESTION' | transloco"></textarea>
+    <app-text-message [formgroup]="form"></app-text-message>
   </form>
   
   <div class="validation-check">
     <label for="setValidation" class="label">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.SET-VALIDATION-CHECKBOX" | transloco }}</label>
     <input type="checkbox" class="checkbox" [checked]="validate" (change)="setValidation()" name="setValidation" id="">
-  </div>
-
-  <div class="">
-
   </div>
 
   <app-variable-input [BlockFormGroup]="form" [validate]="validate"></app-variable-input>
