@@ -13,20 +13,29 @@
         <div class="left__side">
           <div class="name-wrapper">
             <label for="name-input">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.NAME' | transloco}}</label>
-            <input type="text" id="name-input" class="name__input" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-MODAL.VIDEO-NAME' | transloco" formControlName="fileName" />
+            <input type="text" id="name-input" class="name__input"
+              [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-MODAL.VIDEO-NAME' | transloco"
+              formControlName="fileName" />
           </div>
-    
+
           <div class="media">
             <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoUpload">
             <label for="videoUpload">
-              <ng-container *ngIf="!videoPath">
-                <img *ngIf="!videoPath" src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png">
+              <ng-container *ngIf="!videoPath && !isLoading">
+                <img *ngIf="!videoPath && !isLoading" src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png">
               </ng-container>
-              <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
-            </label>   
+              <div class="spinner" *ngIf="isLoading else vid">
+                <app-spinner [diameter]="50"></app-spinner>
+              </div>
+              <ng-template #vid>
+                <div class="vid">
+                  <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
+                </div>
+              </ng-template>
+            </label>
           </div>
         </div>
-    
+
         <div class="right__side">
           <div>
             <h3 class="right__header">{{'PAGE-CONTENT.BLOCK.TITLES.VIDEO-MODAL.MEDIA-TITLE' | transloco}}</h3>
@@ -41,18 +50,12 @@
           </div>
           <div class="input__div">
             <div *ngFor="let option of sizeOptions">
-              <input
-                type="radio"
-                name="size"
-                [value]="option.vidSize"
-                id="{{ option.vidSize }}"
-                [disabled]="option.vidSize !== defaultSize"
-                [checked]="option.vidSize === defaultSize"
-                formContolName="mediaQuality"
-              />
+              <input type="radio" name="size" [value]="option.vidSize" id="{{ option.vidSize }}"
+                [disabled]="option.vidSize !== defaultSize" [checked]="option.vidSize === defaultSize"
+                formContolName="mediaQuality" />
               <label for="{{ option.vidSize }}" class="size__options">{{
                 option.vidSize
-              }}</label>
+                }}</label>
               <p class="resolution">{{ option.resolution }}</p>
             </div>
           </div>
@@ -66,4 +69,3 @@
     </form>
   </div>
 </div>
-
