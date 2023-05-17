@@ -96,8 +96,14 @@ img {
 .upload-video {
   width: 100%;
   cursor: pointer;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
+  // border: 1px solid var(--convs-mgr-color-primary-purple);
   border-radius: 9px;
+  height: 16rem;
+
+  video{
+    width: 100%;
+    height: 16rem;
+  }
 }
 
 .name__input {
