@@ -22,6 +22,7 @@ mat-sidenav {
 
   &.open {
     width: 25%;
+    background-color:#F0EFF3;
   }
 
   &.close {
@@ -49,7 +50,7 @@ mat-sidenav {
       width: 5rem;
       cursor: pointer;
       color: var(--endpoint-outline);
- 
+
       .tooltip {
         font-size: 1.5rem;
       }
