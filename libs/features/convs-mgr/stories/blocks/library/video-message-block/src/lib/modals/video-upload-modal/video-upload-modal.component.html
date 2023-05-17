@@ -12,10 +12,10 @@
       <div class="wrapper">
         <div class="left__side">
           <div class="name-wrapper">
-            <label for="name-input">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.NAME' | transloco}}</label>
+            <label for="name-input" *ngIf="videoPath || isLoading || !isLoading || !videoPath">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.NAME' | transloco}}</label>
             <input type="text" id="name-input" class="name__input"
               [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-MODAL.VIDEO-NAME' | transloco"
-              formControlName="fileName" />
+              formControlName="fileName" *ngIf="videoPath || isLoading || !isLoading || !videoPath"/>
           </div>
 
           <div class="media">
