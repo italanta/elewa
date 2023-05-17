@@ -6,6 +6,8 @@ import { SubSink } from 'subsink';
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 
+import { periodicals } from '../../models/periodicals.interface';
+
 @Component({
   selector: 'app-group-based-progress-chart',
   templateUrl: './group-based-progress-chart.component.html',
@@ -15,40 +17,41 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   @Input() chart: Chart;
 
   private _sBs = new SubSink();
+
+  groups: string[];
+  dataIsFetched = false;
   allProgress: GroupProgressModel[];
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
-  dataIsFetched = false;
-
-  trackMode: 'daily' | 'weekly' | 'monthly' = 'weekly';
-
-  model: GroupProgressModel[];
-  groups: string[];
+  periodical: periodicals = 'Weekly';
   activeGroup = 'All';
 
   constructor (private _progressService: ProgressMonitoringService) {}
 
   ngOnInit() {
     this._sBs.sink = this._progressService.getMilestones().subscribe((models) => { 
+
+      // 1. save all progress
       this.allProgress = models;
 
-      // 1. get all groups/ classes
+      // 2. get all groups/ classes
       this.groups = this.getGroups(this.allProgress);
       this.groups.unshift('All');
 
-      // 2. get daily progress
+      // 3. get daily progress
       this.getDailyProgress();
 
-      // 3. get weekly progress 
+      // 4. get weekly progress 
       this.getWeeklyProgress();
 
-      // get Monthly Progress
+      // 5. get Monthly Progress
       this.getMonthlyProgress();
 
+      // 6. show periodical toggle menu after data is fetched
       this.dataIsFetched = true;
 
-      // start with the weekly Progress
+      // start the chart with the weekly Progressions
       this.chart = this._loadChart(this.weeklyProgress);
     });
   }
@@ -60,15 +63,15 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   selectActiveGroup(group: string) {
     this.activeGroup = group;
-    this.selectProgressTracking(this.trackMode)
+    this.selectProgressTracking(this.periodical)
   }
 
-  selectProgressTracking(trackBy: 'weekly' | 'daily' | 'monthly') {
-    this.trackMode = trackBy;
+  selectProgressTracking(trackBy: periodicals) {
+    this.periodical = trackBy;
   
-    if (trackBy === 'daily') {
+    if (this.periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
-    } else if (this.trackMode === 'weekly') {
+    } else if (this.periodical === 'Weekly') {
       this.chart = this._loadChart(this.weeklyProgress);
     } else {
       this.chart = this._loadChart(this.monthlyProgress);
@@ -127,8 +130,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
           },
         },
         scales: {
-          x: { stacked: true, grid: { display: false } },
-          y: { stacked: true, grid: { display: true } },
+          x: { stacked: true },
+          y: { stacked: true },
         },
       },
     });
