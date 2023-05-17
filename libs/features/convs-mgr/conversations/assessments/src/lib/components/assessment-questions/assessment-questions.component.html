@@ -11,10 +11,11 @@
         </mat-form-field>
     </div>
 
+    <convl-italanta-apps-assessment-question #initialQuestion [questionNo]="1" [hidden]="assessmentMode < 1" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
+
     <form [formGroup]="questionsForm">
         <div formArrayName="questionForms">
-            <div #addQuestions *ngIf="assessmentMode > 0; else editQuestions">
-            </div>
+            <div #addQuestions *ngIf="assessmentMode > 0; else editQuestions"></div>
 
             <ng-template #editQuestions>
                 <div *ngFor="let questionForm of questionForms.controls; let f = index">
