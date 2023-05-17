@@ -9,6 +9,10 @@ $secondary-elements-color: white;
     background-color: $secondary-elements-color;
     min-width: 100%;
     min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 150px;
 }
 
 
