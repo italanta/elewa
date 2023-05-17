@@ -144,6 +144,14 @@
           }
         }
       }
+    },
+    "ANALYTICS": {
+      "PERIODICALS": {
+        "MONTH": "Mois",
+        "WEEK": "Semaine",
+        "DAY": "Jour"
+      },
+      "PROGRESSION": "Progression"
     }
   },
   "BOTS": {

@@ -8,11 +8,11 @@
       </div>
 
       <div *ngIf="dataIsFetched" class="sort_by">
-        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <button mat-button [matMenuTriggerFor]="menu">{{ periodical }} {{'PAGE-CONTENT.ANALYTICS.PROGRESSION' | transloco }}</button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)=" selectProgressTracking('monthly')">Month</button>
-          <button mat-menu-item (click)=" selectProgressTracking('weekly')">Week</button>
-          <button mat-menu-item (click)=" selectProgressTracking('daily')">Day</button>
+          <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.MONTH' | transloco }}</button>
+          <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.WEEK' | transloco }}</button>
+          <button mat-menu-item (click)=" selectProgressTracking('Daily')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.DAY' | transloco }}</button>
         </mat-menu>
       </div>
     </div>
