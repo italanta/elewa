@@ -7,44 +7,9 @@ $secondary-elements-color: white;
 
 .auth-page {
     background-color: $secondary-elements-color;
-    min-width: 100%;
-    min-height: 100%;
-}
-
-
-.auth-card {
-    border-radius: 8px;
-    background: $secondary-elements-color;
-    border: 1px solid $secondary-elements-color;
+    margin: auto;
     max-width: 100%;
     min-height: 100%;
-}
-
-.elewa-info {
-    text-align: left;
-    color: $secondary-elements-color;
-    padding: 6rem 2rem;
-    font-weight: 400;
-    background: var(--convs-mgr-color-primary-yellow);
-    background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9F74D5 100%);
-    min-height: 100vh;
-}
-
-.logoImg {
-    width: 200px;
-}
-
-.actual-form {
-    @media screen and (max-width: 768px) {
-        max-width: 100% !important;
-    }
-}
-
-.maison {
-    width: 350px;
-    height: auto;
-    margin-left: 150px;
-    margin-bottom: -150px;
 }
 
 button {
