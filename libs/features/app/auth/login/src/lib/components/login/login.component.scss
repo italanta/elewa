@@ -22,14 +22,15 @@ $secondary-elements-color: white;
     background-color: $secondary-elements-color;
     display: flex;
     align-items: center;
-    padding-left: 30px;
+    padding-left: 10px;
     width: 400px;
     height: 50px;
     font-weight: 600;
     font-size: large;
     .googleBtnTxt {
         padding-left: 50px;
-        padding-right: 35px;
+        font-size: 21px;
+        padding-right: 30px;
     }
     mat-icon{
         height: 26px;
