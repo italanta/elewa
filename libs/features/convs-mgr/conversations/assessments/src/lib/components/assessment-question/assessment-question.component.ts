@@ -25,7 +25,7 @@ export class AssessmentQuestionComponent implements OnInit {
 
   ngOnInit(){
     this.createFormGroup(); 
-    // Notify component creation after initialization of form group
+    // Notify parent of component creation after initialization of form group
     this.notifyCreationEvent();
 
     if(!this.assessmentMode){
