@@ -6,10 +6,7 @@
 </div>
 
 <ng-template #showLogin>
-  <div class="auth-page" fxLayout="row">
-    <div
-      class="auth-card"
-    >
+  <div class="auth-page" fxLayoutAlign="center">
       <div class="forms">
         <div
         class="login-form"
@@ -18,7 +15,7 @@
           <img class="image" src="assets/images/elewa-logo.png" />
         </div>
         <div class="button-area" fxLayout="column">
-          <div mat-raised-button class="toggle-btn" fxFlex>
+          <div class="toggle-btn">
             <button
               (click)="toggleModeLogin()"
               [ngClass]="isLogin ? 'login-button' : ''"
@@ -44,19 +41,5 @@
         </div>
         </div>
       </div>
-
-
-      <div fxFlex fxLayout="column" class="elewa-info">
-        <!--fxLayoutAlign="space-evenly"-->
-        <p class="title">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
-        <p class="description">{{ 'LOGIN.HERO.DESCRIPTION' | transloco }}</p>
-        <p class="hyperlink">
-          {{ 'LOGIN.HERO.LEARN-MORE' | transloco }}
-          <a [href]="'LOGIN.HERO.LEARN-MORE-LINK' | transloco">{{
-            'LOGIN.HERO.LEARN-MORE-LINK' | transloco
-          }}</a>
-        </p>
-      </div>
     </div>
-  </div>
 </ng-template>
