@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { tap } from 'rxjs';
@@ -14,21 +14,27 @@ import { AssessmentQuestionComponent } from '../assessment-question/assessment-q
   templateUrl: './assessment-questions.component.html',
   styleUrls: ['./assessment-questions.component.scss'],
 })
-export class AssessmentQuestionsComponent implements OnInit, OnDestroy {
+export class AssessmentQuestionsComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() questions: AssessmentQuestion[]
   @Input() assessmentMode: number;
 
   questionsForm: FormGroup;
-  questionNo = 1;
+  
 
+  @ViewChild('initialQuestion') initialQuestionComponent: AssessmentQuestionComponent;
   @ViewChild('addQuestions', { read: ViewContainerRef }) addQuestions: ViewContainerRef;
 
   private _sbS = new SubSink();
+  questionNo = 1;
 
   constructor(private _formBuilder: FormBuilder){}
 
   ngOnInit(): void {
     this.createFormGroup();
+  }
+
+  ngAfterViewInit(): void {
+    this.onInitialQuestionCreated();
   }
 
   get questionForms(){
@@ -45,16 +51,19 @@ export class AssessmentQuestionsComponent implements OnInit, OnDestroy {
     })
   }
 
+  onInitialQuestionCreated(){
+    this.questionForms.push(this.initialQuestionComponent.questionForm);
+  }
+
   generateQuestionForm(){
     const component = this.addQuestions.createComponent(AssessmentQuestionComponent);
     component.instance.assessmentMode = 1;
-    component.instance.questionNo = this.questionNo++;
+    component.instance.questionNo = ++this.questionNo;
     // Populate questions form array with question form group after component is created
     this._sbS.sink = component.instance.created.pipe(tap((_event) => {
       this.questionForms.push(component.instance.questionForm);
       console.log(this.questionForms);
     })).subscribe();
-    
   }
 
 
