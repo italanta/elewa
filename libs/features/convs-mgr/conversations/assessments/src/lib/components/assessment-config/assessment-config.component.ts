@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 import { Assessment, FeedbackType } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -11,33 +11,13 @@ import { Assessment, FeedbackType } from '@app/model/convs-mgr/conversations/ass
 export class AssessmentConfigComponent {
   @Input() assessment: Assessment;
   @Input() assessmentMode: number
-  config: FormGroup;
+  @Input() assessmentFormGroup: FormGroup;
 
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
 
-  constructor(private _formBuilder: FormBuilder){}
+  constructor(){}
 
-  ngOnInit(){
-    this.createFormGroup();
-
-    if(!this.assessmentMode){
-      this.updateFormGroup();
-    }
-  }
-
-  createFormGroup(){
-    this.config = this._formBuilder.group({
-      feedback: [''],
-      userAttempts: ['']
-    })
-  }
-
-  updateFormGroup(){
-    this.config.patchValue({
-      feedback: this.assessment.configs?.feedback,
-      userAttempts: this.assessment.configs?.userAttempts
-    })
-  }
+  ngOnInit(){}
 }

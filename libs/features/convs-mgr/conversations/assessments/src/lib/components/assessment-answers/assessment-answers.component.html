@@ -1,26 +1,18 @@
-<convl-italanta-apps-assessment-answer [hidden]="assessmentMode < 1" #initialAnswer [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-answer>
-
-<div [formGroup]="answersForm">
-    <div formArrayName="answerForms">
-        <div #addAnswers *ngIf="assessmentMode > 0; else editAnswers"></div>
-
-        <ng-template #editAnswers>
-            <div *ngFor="let answerForm of answerForms.controls; let f = index">
-                <div *ngFor="let answer of answers">
-                    <ng-template let-answer>
-                        <convl-italanta-apps-assessment-answer [assessmentMode]="assessmentMode" [formGroupName]="f" [answer]="answer"></convl-italanta-apps-assessment-answer>
-                    </ng-template>
-                </div>
-            </div>
-        </ng-template>
-    </div>
+<div *ngIf="questionFormGroup">
+  <div [formGroup]="questionFormGroup">
+        <div formArrayName="answerForms">
+          <div *ngFor="let answerForm of answerForms.controls; let i = index">
+            <convl-italanta-apps-assessment-answer [assessmentMode]="assessmentMode" [questionFormGroup]="questionFormGroup" [answerFormGroupName]="i"></convl-italanta-apps-assessment-answer>
+          </div>
+      </div>
+  </div>
 </div>
 
 <div class="answer-button" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-flat-button class="btn-add-option" (click)="generateAnswerForm()">
-        <i class="fas fa-plus"></i>
-        <span class="label">
-            {{'ASSESSMENTS.QUESTIONS.ANSWER' | transloco}}
-        </span>
-    </button>
+  <button mat-flat-button class="btn-add-option" (click)="generateAnswerForm()">
+    <i class="fas fa-plus"></i>
+    <span class="label">
+      {{'ASSESSMENTS.QUESTIONS.ANSWER' | transloco}}
+    </span>
+  </button>
 </div>

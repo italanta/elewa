@@ -1,40 +1,31 @@
 <div class="question-list">
-    <h4>{{'ASSESSMENTS.QUESTIONS.QUESTIONS' | transloco}}</h4>
+  <h4>{{'ASSESSMENTS.QUESTIONS.QUESTIONS' | transloco}}</h4>
 
-    <div *ngIf="assessmentMode < 1">
-        <mat-form-field appearance="outline" class="search">
-            <mat-label>
-                <i class="fas fa-search"></i>
-                <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
-            </mat-label>
-            <input type="search" matInput (keyup)="filterQuestions($event)">
-        </mat-form-field>
+  <div *ngIf="assessmentMode < 1">
+    <mat-form-field appearance="outline" class="search">
+      <mat-label>
+        <i class="fas fa-search"></i>
+        <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
+      </mat-label>
+      <input type="search" matInput (keyup)="filterQuestions($event)">
+    </mat-form-field>
+  </div>
+
+  <form [formGroup]="assessmentFormGroup">
+    <div formArrayName="questionForms">
+      <div *ngFor="let questionForm of questionForms.controls; let f = index">
+        <convl-italanta-apps-assessment-question [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="f" [questionNo]="f+1"
+        [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
+      </div>
     </div>
-
-    <convl-italanta-apps-assessment-question #initialQuestion [questionNo]="1" [hidden]="assessmentMode < 1" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
-
-    <form [formGroup]="questionsForm">
-        <div formArrayName="questionForms">
-            <div #addQuestions *ngIf="assessmentMode > 0; else editQuestions"></div>
-
-            <ng-template #editQuestions>
-                <div *ngFor="let questionForm of questionForms.controls; let f = index">
-                    <div *ngFor="let question of questions; let i = index">
-                        <div class="container">
-                            <convl-italanta-apps-assessment-question [formGroupName]="f" [questionNo]="i + 2" [question]="question" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-question>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </div>
-    </form>
+  </form>
 </div>
 
 <div class="question-button" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-flat-button class="btn-add" (click)="generateQuestionForm()">
-        <i class="fas fa-plus"></i>
-        <span class="label">
-            {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}
-        </span>
-    </button>
+  <button mat-flat-button class="btn-add" (click)="generateQuestionForm()">
+    <i class="fas fa-plus"></i>
+    <span class="label">
+      {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}
+    </span>
+  </button>
 </div>
