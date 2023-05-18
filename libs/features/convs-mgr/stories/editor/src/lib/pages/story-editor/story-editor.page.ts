@@ -185,7 +185,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     const connections = this.frame.getJsPlumbConnections as any[];
 
     // remove duplicate jsplumb connections
-    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
+    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb') && !con.deleted);
 
     this._editorStateService.persist(this.state)
         .subscribe((success) => {
