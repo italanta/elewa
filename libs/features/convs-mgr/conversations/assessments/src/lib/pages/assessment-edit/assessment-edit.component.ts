@@ -1,13 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 import { Observable, of, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { Assessment, AssessmentQuestion, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentService } from '../../services/assessment.service';
-import { AssessmentConfigComponent } from '../../components/assessment-config/assessment-config.component';
-import { AssessmentQuestionsComponent } from '../../components/assessment-questions/assessment-questions.component';
+import { AssessmentFormService } from '../../services/assessment-form.service';
 
 
 @Component({
@@ -22,19 +22,19 @@ export class AssessmentEditComponent implements OnInit, OnDestroy {
   assessmentTitle: string;
   assessmentDesc: string;
 
-  assessmentMode: number
-
-  @ViewChild(AssessmentConfigComponent) configComponent: AssessmentConfigComponent;
-  @ViewChild(AssessmentQuestionsComponent) questionsComponent: AssessmentQuestionsComponent;
+  assessmentMode: number;
+  assessmentForm: FormGroup;
 
   private _sbS = new SubSink();
   
   constructor(private _assessment: AssessmentService,
+              private _assessmentForm: AssessmentFormService,
               private _route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.initAssessment();
     this.setPageTitle();
+    this.createFormGroup();
   }
 
   initAssessment(){
@@ -56,25 +56,13 @@ export class AssessmentEditComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
+  createFormGroup(){
+    this.assessmentForm = this._assessmentForm.createAssessmentDetailForm();
+  }
+
   onPublish(){
     // Add publish functionality
-  }
-
-  get assessmentInfo(){
-    let assessment: Assessment = {
-      title: this.assessmentTitle,
-      description: this.assessmentDesc,
-      configs: {
-        feedback: this.configComponent.config.value.feedback,
-        userAttempts: this.configComponent.config.value.userAttempts
-      }
-    }
-
-    return assessment;
-  }
-
-  get questionsInfo(){
-    return this.questionsComponent.inputQuestions;
+    
   }
 
   ngOnDestroy(): void {
