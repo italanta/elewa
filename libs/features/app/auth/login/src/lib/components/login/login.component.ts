@@ -9,10 +9,10 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit
-{
+export class LoginComponent implements OnInit {
+  passwordVisible: boolean = false;
 
   isLoading: boolean;
   email: string;
@@ -21,41 +21,40 @@ export class LoginComponent implements OnInit
   // isLoading: boolean;
   isLogin = true;
 
-  constructor( private _authService: AuthService,
-              private _dialog: MatDialog,
-              private _analytics: EventLogger)
-  {  }
+  constructor(
+    private _authService: AuthService,
+    private _dialog: MatDialog,
+    private _analytics: EventLogger
+  ) {}
 
-  ngOnInit()
-  {
-  }
+  ngOnInit() {}
 
   validateLoginCred = () => this.email && this.password;
 
   // When user clicks enter, try log in.
-  detectEnter = (event: any) => (event.key === "Enter") ? this.loginUser() : 'noop';
+  detectEnter = (event: any) =>
+    event.key === 'Enter' ? this.loginUser() : 'noop';
 
-  loginUser()
-  {
+  loginUser() {
     this.isLoading = true;
 
-    if(this.validateLoginCred())
-      this._authService.loginWithEmailAndPassword(this.email, this.password)
-                      .then(()=> this._analytics.logEvent('login'))
-                      .catch((error) => { this.isLoading = false;
-                                          this._analytics.logEvent('login_error', {"errorMsg": error})
-                                        });
+    if (this.validateLoginCred())
+      this._authService
+        .loginWithEmailAndPassword(this.email, this.password)
+        .then(() => this._analytics.logEvent('login'))
+        .catch((error) => {
+          this.isLoading = false;
+          this._analytics.logEvent('login_error', { errorMsg: error });
+        });
   }
 
   forgotPass() {
-    this._dialog
-          .open(ForgotPasswordModalComponent, {
-            width: '500px'
-          });
+    this._dialog.open(ForgotPasswordModalComponent, {
+      width: '500px',
+    });
   }
 
-  toggleMode = () => this.isLogin = ! this.isLogin;
-
+  toggleMode = () => (this.isLogin = !this.isLogin);
 
   loginGoogle() {
     return this._authService.loadGoogleLogin();
@@ -71,4 +70,8 @@ export class LoginComponent implements OnInit
     return this._authService.loadMicrosoftLogin();
   }
 
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
 }
