@@ -1,6 +1,15 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxFlex>
     <div fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none">
 
+        <div fxLayout="row" fxLayoutAlign="start stretch">
+            <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
+                <i class="fab fa-google"></i>
+            </div>
+
+            <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
+            {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
+          </button>
+        </div>
         <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="email-input" class="special-input"  fxFlex floatLabel="always">
             <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
@@ -26,15 +35,7 @@
           </button>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="start stretch">
-            <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
-                <i class="fab fa-google"></i>
-            </div>
-
-            <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
-            {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
-          </button>
-        </div>
+       
 
         <div fxLayout="row" fxLayoutAlign="start" class="forgot-btn">
             <div>

@@ -15,8 +15,9 @@ $secondary-elements-color: white;
 }
 
 #googleBtn {
-    background-color: #de5246;
-    color: $secondary-elements-color;
+    background-color: #fff;
+    color: black;
+    margin: 2px solid rgba(255, 177, 0, 1);
     width: 300px;
     height: 50px;
     font-weight: 600;
