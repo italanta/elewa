@@ -1,24 +1,26 @@
 <convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
-    <div class="wrapper">
-        <div *ngIf="assessment$ | async as assessment">
-            <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
-                <h2 class="title">{{assessment.title}}</h2>
+  <div class="wrapper">
+    <div *ngIf="assessment$ | async as assessment">
+      <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="title">{{assessment.title}}</h2>
 
-                <button type="submit" mat-flat-button class="btn-publish" (click)="onPublish()">
-                    {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
-                </button>
-            </div>
+        <button type="submit" mat-flat-button class="btn-publish" (click)="onPublish()">
+          {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
+        </button>
+      </div>
 
-            <div class="mat-elevation-z1 page-content">
-                
-                    <convl-italanta-apps-assessment-config [assessment]="assessment" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-config>
+      <div class="mat-elevation-z1 page-content">
 
-                    <div *ngIf="questions$ | async as questions">
-                        <convl-italanta-apps-assessment-questions [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-questions>
-                    </div>
-    
-            </div>
+        <form [formGroup]="assessmentForm">
+          <convl-italanta-apps-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-config>
 
-        </div>
+          <div *ngIf="questions$ | async as questions">
+							<convl-italanta-apps-assessment-questions [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-questions>
+					</div>
+        </form>
+
+      </div>
+
     </div>
+  </div>
 </convl-page>
