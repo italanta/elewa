@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CdkPortal } from '@angular/cdk/portal';
+import { MatDialog } from '@angular/material/dialog';
+
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -12,6 +14,7 @@ import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-conn
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
+import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/blocks/library/video-message-block'
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -45,9 +48,8 @@ import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
 import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
-import { ConvsMgrVideoMessageBlockModule } from '../../../../../video-message-block/src/lib/convs-mgr-video-message-block.module';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { VideoUploadModalComponent } from '../../../../../video-message-block/src/lib/modals/video-upload-modal/video-upload-modal.component';
+
+
 
 
 /**
