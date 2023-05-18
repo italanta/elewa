@@ -73,6 +73,5 @@ export class LoginComponent implements OnInit
   }
   toggleShow(){
     this.show = !this.show
-    console.log('Show:', this.show)
   }
 }
