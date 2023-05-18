@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
@@ -27,10 +27,18 @@ export class BlockConnectionsService implements OnDestroy {
     return this._connections$$.remove(connection).subscribe();
   }
 
-  deleteBlockConnections(block: StoryBlock){
-    this._connections$$.deleteBlockConnections(block);
-  }
 
+  deleteBlockConnections(block: StoryBlock) {
+    this._connections$$.get().pipe(take(1)).subscribe((connections: StoryBlockConnection[]) => {
+
+      // Filter out the connections associated with the block
+      const remainingConnections = connections.filter(
+        (connection) => connection.sourceId !== block.id && connection.targetId !== block.id
+      );
+      this._connections$$.set(remainingConnections);
+    });
+  }
+  
   ngOnDestroy(): void {
     this._sbS.unsubscribe();
   }
