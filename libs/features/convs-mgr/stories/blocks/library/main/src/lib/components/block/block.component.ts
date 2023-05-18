@@ -51,7 +51,6 @@ import { _CreateConditionalBlockForm } from '../../model/conditional-block.model
 
 
 
-
 /**
  * Block which sends a message from bot to user.
  */
