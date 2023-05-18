@@ -1,47 +1,53 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxFlex>
-    <div fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none">
+  <div fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none">
 
-        <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-form-field id="email-input" class="special-input"  fxFlex floatLabel="always">
-            <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
-            <input matInput name="email" [disabled]="isLoading" type="email" [(ngModel)]="email" required ngvemail placeholder="name@example.com">
-            <mat-error>{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
-            </mat-form-field>       
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="start center">                 
-            <mat-form-field id="password-input" class="special-input"  fxFlex floatLabel="always">
-            <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
-            <input matInput placeholder="************" name="password" [disabled]="isLoading" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
-            </mat-form-field>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="start stretch">
-            <!-- <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="center center">
-                <i class="fab fa-microsoft"></i>
-            </div> -->
-
-            <button mat-raised-button id="loginBtn" class="uppercase-txt" (click)="loginUser()" fxFlex>
-                {{ 'LOGIN.LOGIN-FORM.PROCEED' | transloco }}
-          </button>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="start stretch">
-            <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
-                <i class="fab fa-google"></i>
-            </div>
-
-            <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
-            {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
-          </button>
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="start" class="forgot-btn">
-            <div>
-                <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
-                   <u> {{"LOGIN.FORGOT-PASSWD" |transloco}}</u>
-                </button>
-            </div>
-        </div>
+    <div [formGroup]="loginForm" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field id="email-input" class="special-input" fxFlex floatLabel="always">
+        <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="name@example.com">
+        <mat-error *ngIf="loginForm.get('email').errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="loginForm.get('email').errors?.email">Invalid email format</mat-error>
+      </mat-form-field>
     </div>
+
+    <div [formGroup]="loginForm" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field id="password-input" class="special-input" fxFlex floatLabel="always">
+        <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="************">
+        <mat-error *ngIf="loginForm.get('password').errors?.required">Password is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="loginFailed" class="login-failed-message">
+      Incorrect password or email
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start stretch">
+      <!-- <div class="icon-box fb-icon mat-elevation-z2" fxLayoutAlign="center center">
+<i class="fab fa-microsoft"></i>
+</div> -->
+
+      <button mat-raised-button id="loginBtn" class="uppercase-txt" (click)="loginUser()" fxFlex>
+        {{ 'LOGIN.LOGIN-FORM.PROCEED' | transloco }}
+      </button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start stretch">
+      <div class="icon-box google-icon mat-elevation-z2" fxLayoutAlign="center center">
+        <i class="fab fa-google"></i>
+      </div>
+
+      <button mat-raised-button id="googleBtn" class="uppercase-txt" (click)="loginGoogle()" fxFlex>
+        {{ "LOGIN.BTN-WITH-GOOGLE" | transloco }}
+      </button>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start" class="forgot-btn">
+      <div>
+        <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
+          <u> {{"LOGIN.FORGOT-PASSWD" |transloco}}</u>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
