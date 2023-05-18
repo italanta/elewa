@@ -9,13 +9,12 @@ import { FileStorageService } from '@app/state/file';
   templateUrl: './video-upload-modal.component.html',
   styleUrls: ['./video-upload-modal.component.scss'],
 })
-export class VideoUploadModalComponent implements OnInit{
+export class VideoUploadModalComponent implements OnInit {
   videoModalForm: FormGroup;
-  videoName: string;
   videoPath: string;
 
   readonly defaultSize = "Don't Encode Media";
- 
+
   sizeOptions = [
     { vidSize: '4K', resolution: '3840px x 2160px' },
     { vidSize: '1080p', resolution: '1920px x 1080px' },
@@ -32,12 +31,12 @@ export class VideoUploadModalComponent implements OnInit{
   constructor(
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _videoUploadService: FileStorageService,
-    @Inject(MAT_DIALOG_DATA) public data:{videoMessageForm: FormGroup},
+    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup },
   ) {}
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
-    this.videoPath = this.videoModalForm.controls['fileSrc'].value
+    this.videoPath = this.videoModalForm.controls['fileSrc'].value;
   }
 
   closeModal() {
@@ -48,27 +47,28 @@ export class VideoUploadModalComponent implements OnInit{
     this.dialogRef.close();
   }
 
-  async onVideoSelected(event: any) {
+  openFileExplorer() {
+    document.getElementById(this.videoInputId)?.click();
+  }
+
+  onVideoSelected(event: any) {
     const file = event.target.files[0] as File;
 
-    // Getting a file from explorer, first position
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = async () => {
-        // Get video name 
         const name = this.videoModalForm.controls['fileName'].value;
-        const videoName = name ? name : file.name
+        const videoName = name ? name : file.name;
 
-        // upload videofile and patch values
         const res = await this._videoUploadService.uploadSingleFile(file, videoName);
-        res.subscribe((url) => this._autofillVideoUrl(url, videoName))
+        res.subscribe((url) => this._autofillVideoUrl(url, videoName));
       };
     }
-  } 
+  }
 
   private _autofillVideoUrl(url: string, videoName: string) {
-    this.videoModalForm.patchValue({fileSrc: url, fileName:videoName})
-    this.videoPath = url
+    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
+    this.videoPath = url;
   }
 }
