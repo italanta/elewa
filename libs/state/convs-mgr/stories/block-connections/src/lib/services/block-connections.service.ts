@@ -24,12 +24,12 @@ export class BlockConnectionsService implements OnDestroy {
   }
 
   deleteConnection(connection: StoryBlockConnection) {
-    return this._connections$$.remove(connection).subscribe();
+    return this._sbS.sink = this._connections$$.remove(connection).subscribe();
   }
 
 
   deleteBlockConnections(block: StoryBlock) {
-    this._connections$$.get().pipe(take(1)).subscribe((connections: StoryBlockConnection[]) => {
+    this.getAllConnections().pipe(take(1)).subscribe((connections: StoryBlockConnection[]) => {
 
       // Filter out the connections associated with the block
       const remainingConnections = connections.filter(
