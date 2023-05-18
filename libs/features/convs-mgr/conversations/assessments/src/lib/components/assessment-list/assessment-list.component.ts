@@ -10,13 +10,14 @@ import { Observable } from 'rxjs';
 
 import { Assessment} from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentService } from '../../services/assessment.service';
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
 
 
 @Component({
-  selector: 'convl-italanta-apps-assessment-list',
+  selector: 'app-assessment-list',
   templateUrl: './assessment-list.component.html',
   styleUrls: ['./assessment-list.component.scss'],
 })
@@ -53,7 +54,7 @@ export class AssessmentListComponent implements OnInit{
   }
 
   searchTable(event: Event){
-    let searchValue = (event.target as HTMLInputElement).value;
+    const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
     this.dataFound = (this.dataSource.filteredData.length > 0);
   }

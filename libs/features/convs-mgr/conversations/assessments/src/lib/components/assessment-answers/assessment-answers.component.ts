@@ -2,11 +2,12 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
+
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
 
 @Component({
-  selector: 'convl-italanta-apps-assessment-answers',
+  selector: 'app-assessment-answers',
   templateUrl: './assessment-answers.component.html',
   styleUrls: ['./assessment-answers.component.scss'],
 })
@@ -22,12 +23,12 @@ export class AssessmentAnswersComponent implements OnInit {
     this.generateAnswerForm();
   }
 
-  get answerForms(){
-    return this.questionFormGroup.controls['answerForms'] as FormArray;
+  get choicesList(){
+    return this.questionFormGroup.controls['choicesList'] as FormArray;
   }
 
   generateAnswerForm(){
-    this.answerForms.push(this._assessmentForm.createAnswerForm());
+    this.choicesList.push(this._assessmentForm.createAnswerForm());
   }
 
 }

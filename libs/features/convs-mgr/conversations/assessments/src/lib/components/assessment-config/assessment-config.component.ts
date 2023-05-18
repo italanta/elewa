@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Assessment, FeedbackType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
-  selector: 'convl-italanta-apps-assessment-config',
+  selector: 'app-assessment-config',
   templateUrl: './assessment-config.component.html',
   styleUrls: ['./assessment-config.component.scss'],
 })
@@ -16,8 +16,5 @@ export class AssessmentConfigComponent {
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
-
-  constructor(){}
-
-  ngOnInit(){}
+  
 }

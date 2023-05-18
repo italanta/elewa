@@ -14,7 +14,7 @@
         <mat-card-content>
             <div *ngIf="assessmentFormGroup">
                 <div [formGroup]="assessmentFormGroup">
-                    <div formArrayName="questionForms">
+                    <div formArrayName="questionsList">
                         <div [formGroup]="questionFormGroup">
                             <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
                                 <h4 class="marks-label">{{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS' | transloco}}: </h4>
@@ -35,7 +35,7 @@
                                 </mat-form-field>
                             </div>
                             
-                            <convl-italanta-apps-assessment-answers [questionFormGroup]="questionFormGroup" [assessmentMode]="assessmentMode" [answers]="question.options"></convl-italanta-apps-assessment-answers>
+                            <app-assessment-answers [questionFormGroup]="questionFormGroup" [assessmentMode]="assessmentMode" [answers]="question.options"></app-assessment-answers>
                         </div>
                     </div>
                 </div>

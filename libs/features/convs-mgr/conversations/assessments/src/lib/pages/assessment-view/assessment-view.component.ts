@@ -6,10 +6,10 @@ import { SubSink } from 'subsink';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentService } from '../../services/assessment.service';
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 @Component({
-  selector: 'italanta-apps-assessment-view',
+  selector: 'app-assessment-view',
   templateUrl: './assessment-view.component.html',
   styleUrls: ['./assessment-view.component.scss'],
 })
@@ -28,7 +28,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   }
 
   initiaizeAssessment(){
-    let assessmentId = this._route.snapshot.paramMap.get('id') as string;
+    const assessmentId = this._route.snapshot.paramMap.get('id') as string;
     this.assessment$ = this._assessment.getAssessment$(assessmentId) as Observable<Assessment>; 
   }
 
