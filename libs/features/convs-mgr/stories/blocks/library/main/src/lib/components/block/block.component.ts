@@ -45,6 +45,10 @@ import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
 import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
+import { ConvsMgrVideoMessageBlockModule } from '../../../../../video-message-block/src/lib/convs-mgr-video-message-block.module';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { VideoUploadModalComponent } from '../../../../../video-message-block/src/lib/modals/video-upload-modal/video-upload-modal.component';
+
 
 /**
  * Block which sends a message from bot to user.
@@ -96,6 +100,8 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  videoMessageForm: FormGroup
+  
 
   @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
@@ -108,7 +114,8 @@ export class BlockComponent implements OnInit {
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
               private sideMenu:SidemenuToggleService,
-              private sideScreen:SideScreenToggleService
+              private sideScreen:SideScreenToggleService,
+              private matdialog: MatDialog
 
   ) { }
 
@@ -307,11 +314,20 @@ export class BlockComponent implements OnInit {
     return false;
   }
 
-  editBlock() {
-    this.sideMenu.toggleExpand(false)
-    this.sideScreen.toggleSideScreen(true)
-    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+  editBlock() { 
+    
+    if (this.type === this.videoType) {
+      this.matdialog.open(VideoUploadModalComponent, {
+        data: { videoMessageForm: this.blockFormGroup },
+      });
+    }
+      else{
+        this.sideMenu.toggleExpand(false)
+        this.sideScreen.toggleSideScreen(true)
+        this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+      }   
   }
+
 
   copyblock(block: StoryBlock) {
     block.id = (this.blocksGroup.value.length + 1).toString();
