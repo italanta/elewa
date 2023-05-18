@@ -33,6 +33,6 @@ import { VideoUploadModalComponent } from './modals/video-upload-modal/video-upl
 
   declarations: [VideoBlockComponent, VideoUploadModalComponent],
 
-  exports: [VideoBlockComponent],
+  exports: [VideoBlockComponent]
 })
 export class ConvsMgrVideoMessageBlockModule {}
