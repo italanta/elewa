@@ -3,6 +3,7 @@ import { IObject } from "@iote/bricks";
 export interface Assessment extends IObject{
     title: string,
     description: string,
+    orgId: string,
     configs?: AssessmentConfiguration,
     scoreCategories?: ScoreCategory[]
 }
