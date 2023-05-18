@@ -7,7 +7,7 @@ import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversatio
 
 
 @Component({
-  selector: 'convl-italanta-apps-assessment-list-item',
+  selector: 'app-assessment-list-item',
   templateUrl: './assessment-list-item.component.html',
   styleUrls: ['./assessment-list-item.component.scss'],
 })

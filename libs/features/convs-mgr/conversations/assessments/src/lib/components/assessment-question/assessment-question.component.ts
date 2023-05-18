@@ -5,7 +5,7 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 
 
 @Component({
-  selector: 'convl-italanta-apps-assessment-question',
+  selector: 'app-assessment-question',
   templateUrl: './assessment-question.component.html',
   styleUrls: ['./assessment-question.component.scss'],
 })
@@ -18,10 +18,8 @@ export class AssessmentQuestionComponent {
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
 
-  constructor(){}
-
   get questionFormGroup(){
-    let questionsFormArray = this.assessmentFormGroup.get('questionForms') as FormArray;
+    const questionsFormArray = this.assessmentFormGroup.get('questionsList') as FormArray;
     return questionsFormArray.controls[this.questionFormGroupName as number] as FormGroup;
   }
 

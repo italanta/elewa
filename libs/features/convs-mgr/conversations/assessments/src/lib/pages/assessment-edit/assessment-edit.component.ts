@@ -6,12 +6,14 @@ import { Observable, of, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentService } from '../../services/assessment.service';
+
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
 
 @Component({
-  selector: 'italanta-apps-assessment-edit',
+  selector: 'app-assessment-edit',
   templateUrl: './assessment-edit.component.html',
   styleUrls: ['./assessment-edit.component.scss'],
 })
@@ -38,7 +40,7 @@ export class AssessmentEditComponent implements OnInit, OnDestroy {
   }
 
   initAssessment(){
-    let assessmentId = this._route.snapshot.paramMap.get('id') as string;
+    const assessmentId = this._route.snapshot.paramMap.get('id') as string;
     this.assessment$ = this._assessment.getAssessment$(assessmentId) as Observable<Assessment>; 
     this.questions$ = of([]);
 

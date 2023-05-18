@@ -7,7 +7,7 @@ import { AssessmentFormService } from '../../services/assessment-form.service';
 
 
 @Component({
-  selector: 'convl-italanta-apps-assessment-questions',
+  selector: 'app-assessment-questions',
   templateUrl: './assessment-questions.component.html',
   styleUrls: ['./assessment-questions.component.scss'],
 })
@@ -23,15 +23,16 @@ export class AssessmentQuestionsComponent implements OnInit {
     this.generateQuestionForm();
   }
 
-  get questionForms(){
-    return this.assessmentFormGroup.get('questionForms') as FormArray;
+  get questionsList(){
+    return this.assessmentFormGroup.get('questionsList') as FormArray;
   }
 
   generateQuestionForm(){
-    this.questionForms.push(this._assessmentForm.createQuestionForm());
+    this.questionsList.push(this._assessmentForm.createQuestionForm());
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filterQuestions(event: Event){
-
+    // Add filter question functionality
   }
 }

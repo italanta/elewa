@@ -12,10 +12,10 @@
       <div class="mat-elevation-z1 page-content">
 
         <form [formGroup]="assessmentForm">
-          <convl-italanta-apps-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-config>
+          <app-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment" [assessmentMode]="assessmentMode"></app-assessment-config>
 
           <div *ngIf="questions$ | async as questions">
-							<convl-italanta-apps-assessment-questions [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode"></convl-italanta-apps-assessment-questions>
+							<app-assessment-questions [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode"></app-assessment-questions>
 					</div>
         </form>
 

@@ -8,12 +8,11 @@ import { tap } from 'rxjs';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentService } from '../../services/assessment.service';
-
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 
 @Component({
-  selector: 'convl-italanta-apps-create-assessment-modal',
+  selector: 'app-create-assessment-modal',
   templateUrl: './create-assessment-modal.component.html',
   styleUrls: ['./create-assessment-modal.component.scss'],
 })
@@ -50,7 +49,7 @@ export class CreateAssessmentModalComponent implements OnInit, OnDestroy {
   }
 
   addAssessment(){
-    let assessment: Assessment = {
+    const assessment: Assessment = {
       title: this.assessmentForm.value.assessmentTitle,
       description: this.assessmentForm.value.assessmentDesc,
       orgId: this.assessmentOrg

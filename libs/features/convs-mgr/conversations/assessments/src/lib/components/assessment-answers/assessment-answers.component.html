@@ -1,8 +1,8 @@
 <div *ngIf="questionFormGroup">
   <div [formGroup]="questionFormGroup">
-        <div formArrayName="answerForms">
-          <div *ngFor="let answerForm of answerForms.controls; let i = index">
-            <convl-italanta-apps-assessment-answer [assessmentMode]="assessmentMode" [questionFormGroup]="questionFormGroup" [answerFormGroupName]="i"></convl-italanta-apps-assessment-answer>
+        <div formArrayName="choicesList">
+          <div *ngFor="let choice of choicesList.controls; let i = index">
+            <app-assessment-answer [assessmentMode]="assessmentMode" [questionFormGroup]="questionFormGroup" [answerFormGroupName]="i"></app-assessment-answer>
           </div>
       </div>
   </div>
