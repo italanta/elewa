@@ -7,6 +7,17 @@
     fxLayoutAlign="center none"
     (ngSubmit)="doRegister($event)"
   >
+  <button
+      mat-raised-button
+      id="googleBtn"
+      (click)="loginGoogle()"
+      class="googleBtn"
+    >
+      <mat-icon><i class="fab fa-google"></i></mat-icon>
+      <span class="googleBtnTxt">
+        {{ 'LOGIN.BTN-WITH-GOOGLE' | transloco }}
+      </span>
+    </button>
     <div fxLayout="row" fxLayoutAlign="space-between none">
       <mat-form-field
         id="name-input"
@@ -144,16 +155,6 @@
         <ng-container *ngIf="isLoading">Please wait...</ng-container>
       </button>
     </div>
-    <button
-      mat-raised-button
-      id="googleBtn"
-      (click)="loginGoogle()"
-      class="googleBtn"
-    >
-      <mat-icon><i class="fab fa-google"></i></mat-icon>
-      <span class="googleBtnTxt">
-        {{ 'LOGIN.BTN-WITH-GOOGLE' | transloco }}
-      </span>
-    </button>
+    
   </form>
 </div>

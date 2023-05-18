@@ -75,17 +75,17 @@ label{
   }
 }
   .googleBtn{
-    color: $secondary-elements-color;
-    background-color: #de5246;
-    border-radius: 11px;
+    background-color: #fff;
+    color: black;
+    width: 300px;
+    height: 50px;
+    outline: 2px solid rgba(255, 177, 0, 1);
     .googleBtnTxt {
-      padding-left: 35px;
-      padding-right: 60px;
+      padding-left: 10px;
       font-weight: 600;
       font-size: 1.125rem;
   }
   }
-
   .special-input ::ng-deep .mat-mdc-unelevated-button>.mat-icon, .mat-mdc-raised-button>.mat-icon, .mat-mdc-outlined-button>.mat-icon {
     height: 1.2rem;
 }
