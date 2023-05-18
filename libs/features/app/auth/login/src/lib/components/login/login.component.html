@@ -17,7 +17,7 @@
             <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
            <input matInput placeholder="************" name="password" [disabled]="isLoading" [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
             <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-  <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+  <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
 </button>
             </mat-form-field>
         </div>
