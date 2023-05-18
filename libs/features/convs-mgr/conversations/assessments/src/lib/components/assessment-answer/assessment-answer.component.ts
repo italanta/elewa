@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import {  FormArray, FormGroup } from '@angular/forms';
 
 import { AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -12,37 +12,15 @@ export class AssessmentAnswerComponent implements OnInit {
   @Input() answer: AssessmentQuestionOptions = {} as AssessmentQuestionOptions;
   @Input() assessmentMode: number;
 
-  @Output() created: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() questionFormGroup: FormGroup;
+  @Input() answerFormGroupName: number | string;
 
-  answerForm: FormGroup;
+  constructor(){}
 
-  constructor(private _formBuilder: FormBuilder){}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.createFormGroup();
-    // Notify parent of component creation after initialization of form group
-    this.notifyCreationEvent();
-
-    if(!this.assessmentMode){
-      this.updateFormGroup();
-    }
-  }
-
-  createFormGroup(){
-    this.answerForm = this._formBuilder.group({
-      answerText: [''],
-      answerValue: ['']
-    });
-  }
-
-  updateFormGroup(){
-    this.answerForm.patchValue({
-      text: this.answer.text,
-      value: this.answer.value 
-    });
-  }
-
-  notifyCreationEvent(){
-    this.created.emit(true);
+  get answerFormGroup(){
+    let answerForms = this.questionFormGroup.get('answerForms') as FormArray;
+    return answerForms.controls[this.answerFormGroupName as number] as FormGroup;
   }
 }

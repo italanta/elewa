@@ -1,17 +1,21 @@
-<div [formGroup]="answerForm" class="answer" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1%" fxFlexFill>
-  <div class="circle"></div>
-  <mat-form-field appearance="outline" class="full-field">
-    <mat-label>
-      {{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}
-    </mat-label>
-    <input type="text" matInput formControlName="answerText">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-select formControlName="answerValue">
-      <mat-option [value]="1">{{'ASSESSMENTS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
-      <mat-option [value]="2">{{'ASSESSMENTS.QUESTIONS.SELECT.WRONG' | transloco}}</mat-option>
-      <mat-option [value]="3">{{'ASSESSMENTS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div [formGroup]="questionFormGroup">
+  <div formArrayName="answerForms">
+    <div [formGroup]="answerFormGroup" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1%" fxFlexFill>
+      <div class="circle"></div>
+      <mat-form-field appearance="outline" class="full-field">
+        <mat-label class="answer">
+          {{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}
+        </mat-label>
+        <input type="text" matInput formControlName="text">
+      </mat-form-field>
+    
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="value">
+          <mat-option [value]="1">{{'ASSESSMENTS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
+          <mat-option [value]="2">{{'ASSESSMENTS.QUESTIONS.SELECT.WRONG' | transloco}}</mat-option>
+          <mat-option [value]="3">{{'ASSESSMENTS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
 </div>
