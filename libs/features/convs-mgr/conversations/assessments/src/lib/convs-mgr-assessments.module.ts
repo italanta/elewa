@@ -24,6 +24,7 @@ import { AssessmentAnswerComponent } from './components/assessment-answer/assess
 import { AssessmentQuestionsComponent } from './components/assessment-questions/assessment-questions.component';
 import { AssessmentAnswersComponent } from './components/assessment-answers/assessment-answers.component';
 import { AssessmentConfigComponent } from './components/assessment-config/assessment-config.component';
+import { AssessmentFormService } from './services/assessment-form.service';
 
 @NgModule({
   imports: [CommonModule,
@@ -49,6 +50,7 @@ import { AssessmentConfigComponent } from './components/assessment-config/assess
                  AssessmentConfigComponent,
                  CreateAssessmentModalComponent],
   providers: [AssessmentService,
+              AssessmentFormService,
               AssessmentsStore]
 })
 export class ConvsMgrAssessmentsModule {}
