@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+
 <div fxLayout="column" fxLayoutAlign="start center" fxFlex>
     <div fxLayout="column" class="form-body" fxLayoutGap="10px" fxLayoutAlign="center none">
 
@@ -6,13 +9,16 @@
             <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
             <input matInput name="email" [disabled]="isLoading" type="email" [(ngModel)]="email" required ngvemail placeholder="name@example.com">
             <mat-error>{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL-ERR' | transloco }}</mat-error>
-            </mat-form-field>       
+            </mat-form-field>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="start center">                 
+        <div fxLayout="row" fxLayoutAlign="start center">
             <mat-form-field id="password-input" class="special-input"  fxFlex floatLabel="always">
             <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
-            <input matInput placeholder="************" name="password" [disabled]="isLoading" type="password" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
+           <input matInput placeholder="************" name="password" [disabled]="isLoading" [type]="passwordVisible ? 'text' : 'password'" [(ngModel)]="password" (keyup)="detectEnter($event)" required>
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+  <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+</button>
             </mat-form-field>
         </div>
 
