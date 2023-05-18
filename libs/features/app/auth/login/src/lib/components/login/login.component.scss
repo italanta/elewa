@@ -18,33 +18,23 @@ $secondary-elements-color: white;
 #googleBtn {
     margin-top: -20px;
     border: 1px solid $primary-color;
-    // padding-top: 7px;
     border-radius: 5px;
     background-color: $secondary-elements-color;
     display: flex;
     align-items: center;
-    // padding-left: 30px;
     width: 400px;
-    height: 52px;
+    height: 55px;
     font-weight: 600;
     font-size: large;
 }
-mat-icon{
-    height: 70px;
-    width: 50px;
+.logo-icon{
     padding-right: 40px;
 }
 
-.google-logo-icon{
-    height: 40px;
-    width: 30px;
-    background-repeat: none;
-    background-size: cover;
+img{
+    height: 100%;
+    width: 100%;
 }
-
-// .button-container{
-//     display: flex;
-// }
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 0 !important;
