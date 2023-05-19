@@ -24,7 +24,7 @@ export class AssessmentQuestionsComponent implements OnInit {
   }
 
   get questionsList(){
-    return this.assessmentFormGroup.get('questionsList') as FormArray;
+    return this.assessmentFormGroup.get('questions') as FormArray;
   }
 
   generateQuestionForm(){
