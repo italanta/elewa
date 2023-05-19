@@ -5,7 +5,7 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { CursorDataService } from '@app/functions/bot-engine';
+import { CursorDataService, VariablesDataService } from '@app/functions/bot-engine';
 
 import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress'
 
@@ -33,7 +33,11 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
 
-    //guard clause to filter user's with no cursor history when calculating past data
+    // Get User's Name
+    const varService = new VariablesDataService(tools, orgId, participant.id);
+    const userName = await varService.getSpecificVariable('name');
+
+    // guard clause to filter user's with no cursor history when calculating past data
     if (!latestCursor) return
 
     const { storyId } = latestCursor.position
@@ -43,10 +47,10 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
     return {
       participant: {
         id: participant.id,
-        name: participant.name || 'unknown',
+        name: userName ? userName : 'unknown',
         phone: participant.phoneNumber,
       },
-      group: participant.labels[0],
+      group: participant.labels ? participant.labels[0] : 'class_TBD',
       milestone: story.chapter,
       storyId: story.id,
     }
