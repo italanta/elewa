@@ -48,4 +48,8 @@ export class ActiveAssessmentStore extends Store<Assessment> {
     const assessmentId = urlSegments.length >= 3 ? urlSegments[2] : '__noop__';
     return assessmentId;
   }
+
+  override get = () => super.get().pipe(filter(val => val != null));
+
+  update = (assessment: Assessment) => this._assessments$$.update(assessment);
 }
