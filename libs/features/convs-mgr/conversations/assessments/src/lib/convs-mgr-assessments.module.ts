@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { AssessmentService, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
+import { ActiveAssessmentStore, AssessmentQuestionService, AssessmentQuestionStore, AssessmentService, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
@@ -50,6 +50,9 @@ import { AssessmentFormService } from './services/assessment-form.service';
                  CreateAssessmentModalComponent],
   providers: [AssessmentService,
               AssessmentFormService,
-              AssessmentsStore]
+              AssessmentQuestionService,
+              AssessmentsStore,
+              ActiveAssessmentStore,
+              AssessmentQuestionStore]
 })
 export class ConvsMgrAssessmentsModule {}
