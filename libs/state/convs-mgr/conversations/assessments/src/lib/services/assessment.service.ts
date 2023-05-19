@@ -25,6 +25,10 @@ export class AssessmentService {
     return this._assessments$$.add(assessment);
   }
 
+  updateAssessment$(assessment: Assessment){
+    return this._assessments$$.update(assessment);
+  }
+
   getAssessmentOrg$ = () => this._orgId$$.get().pipe(take(1), map((_org) => _org.id));
 
   getAssessment$(assessmentId: string){
