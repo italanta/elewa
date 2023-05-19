@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {  FormArray, FormGroup } from '@angular/forms';
 
-import { AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentOptionValue, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-answer',
@@ -14,6 +14,10 @@ export class AssessmentAnswerComponent  {
 
   @Input() questionFormGroup: FormGroup;
   @Input() answerFormGroupName: number | string;
+
+  correct = AssessmentOptionValue.Correct;
+  wrong = AssessmentOptionValue.Wrong;
+  fiftyFifty = AssessmentOptionValue.FiftyFifty;
 
   get answerFormGroup(){
     const answerForms = this.questionFormGroup.get('choicesList') as FormArray;

@@ -13,9 +13,15 @@ export interface AssessmentQuestionOptions
 { 
     id: string, 
     text: string, 
-    value: string
+    value: AssessmentOptionValue
 }
 
 export enum AssessmentQuestionType {
     SingleSelectOptions = 1,
+}
+
+export enum AssessmentOptionValue {
+    Correct = 1,
+    Wrong = 2,
+    FiftyFifty = 3
 }

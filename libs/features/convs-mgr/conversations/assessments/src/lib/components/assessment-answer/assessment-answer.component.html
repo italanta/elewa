@@ -11,9 +11,9 @@
     
       <mat-form-field appearance="outline">
         <mat-select formControlName="value">
-          <mat-option [value]="1">{{'ASSESSMENTS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
-          <mat-option [value]="2">{{'ASSESSMENTS.QUESTIONS.SELECT.WRONG' | transloco}}</mat-option>
-          <mat-option [value]="3">{{'ASSESSMENTS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
+          <mat-option [value]="correct">{{'ASSESSMENTS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
+          <mat-option [value]="wrong">{{'ASSESSMENTS.QUESTIONS.SELECT.WRONG' | transloco}}</mat-option>
+          <mat-option [value]="fiftyFifty">{{'ASSESSMENTS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
