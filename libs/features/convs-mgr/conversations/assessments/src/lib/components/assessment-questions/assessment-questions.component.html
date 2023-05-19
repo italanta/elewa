@@ -1,6 +1,5 @@
 <div class="question-list">
-  <h4>{{'ASSESSMENTS.QUESTIONS.QUESTIONS' | transloco}}</h4>
-
+  
   <div *ngIf="assessmentMode < 1">
     <mat-form-field appearance="outline" class="search">
       <mat-label>
@@ -14,8 +13,8 @@
   <form [formGroup]="assessmentFormGroup">
     <div formArrayName="questions">
       <div *ngFor="let question of questionsList.controls; let f = index">
-        <app-assessment-question [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="f" [questionNo]="f+1"
-        [assessmentMode]="assessmentMode"></app-assessment-question>
+        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="f" [questionNo]="f+1"
+        [assessmentMode]="assessmentMode"></app-assessment-question-form>
       </div>
     </div>
   </form>
