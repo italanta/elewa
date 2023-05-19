@@ -14,6 +14,7 @@ import { AssessmentFormService } from '../../services/assessment-form.service';
 export class AssessmentAnswersComponent implements OnInit {
   @Input() answers?: AssessmentQuestionOptions[] = [] as AssessmentQuestionOptions[];
   @Input() assessmentMode: number;
+  @Input() questionId: string
 
   @Input() questionFormGroup: FormGroup;
 
@@ -24,11 +25,11 @@ export class AssessmentAnswersComponent implements OnInit {
   }
 
   get choicesList(){
-    return this.questionFormGroup.controls['choicesList'] as FormArray;
+    return this.questionFormGroup.controls['options'] as FormArray;
   }
 
   generateAnswerForm(){
-    this.choicesList.push(this._assessmentForm.createChoiceForm());
+    this.choicesList.push(this._assessmentForm.createChoiceForm(this.questionId, this.choicesList));
   }
 
 }

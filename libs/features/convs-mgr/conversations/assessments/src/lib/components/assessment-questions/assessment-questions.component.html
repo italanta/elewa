@@ -12,7 +12,7 @@
   </div>
 
   <form [formGroup]="assessmentFormGroup">
-    <div formArrayName="questionsList">
+    <div formArrayName="questions">
       <div *ngFor="let question of questionsList.controls; let f = index">
         <app-assessment-question [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="f" [questionNo]="f+1"
         [assessmentMode]="assessmentMode"></app-assessment-question>

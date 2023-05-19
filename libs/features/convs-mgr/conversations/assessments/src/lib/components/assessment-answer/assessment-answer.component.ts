@@ -20,7 +20,7 @@ export class AssessmentAnswerComponent  {
   fiftyFifty = AssessmentOptionValue.FiftyFifty;
 
   get answerFormGroup(){
-    const answerForms = this.questionFormGroup.get('choicesList') as FormArray;
+    const answerForms = this.questionFormGroup.get('options') as FormArray;
     return answerForms.controls[this.answerFormGroupName as number] as FormGroup;
   }
 }
