@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
@@ -9,7 +9,7 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
   templateUrl: './assessment-question.component.html',
   styleUrls: ['./assessment-question.component.scss'],
 })
-export class AssessmentQuestionComponent {
+export class AssessmentQuestionComponent implements OnInit {
   @Input() question: AssessmentQuestion = {} as AssessmentQuestion;
   @Input() questionNo: number;
 
@@ -18,8 +18,16 @@ export class AssessmentQuestionComponent {
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
 
+  ngOnInit(): void {
+    if(!this.question.id){
+      this.questionFormGroup.patchValue({
+        id: `${this.questionNo}`
+      });
+    }
+  }
+
   get questionFormGroup(){
-    const questionsFormArray = this.assessmentFormGroup.get('questionsList') as FormArray;
+    const questionsFormArray = this.assessmentFormGroup.get('questions') as FormArray;
     return questionsFormArray.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
