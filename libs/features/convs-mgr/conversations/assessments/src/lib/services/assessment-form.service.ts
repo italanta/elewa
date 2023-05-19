@@ -30,7 +30,7 @@ export class AssessmentFormService {
     });
   }
 
-  createAnswerForm(){
+  createChoiceForm(){
     return this._formBuilder.group({
       text: [''],
       value: ['']

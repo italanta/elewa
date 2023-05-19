@@ -28,7 +28,7 @@ export class AssessmentAnswersComponent implements OnInit {
   }
 
   generateAnswerForm(){
-    this.choicesList.push(this._assessmentForm.createAnswerForm());
+    this.choicesList.push(this._assessmentForm.createChoiceForm());
   }
 
 }
