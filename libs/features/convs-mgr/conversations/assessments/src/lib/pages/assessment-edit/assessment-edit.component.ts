@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, of, tap } from 'rxjs';
+import { Observable, forkJoin, of, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+import { AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
@@ -21,16 +21,17 @@ export class AssessmentEditComponent implements OnInit, OnDestroy {
   assessment$: Observable<Assessment>;
   questions$: Observable<AssessmentQuestion[]>;
   pageTitle: string;
-  assessmentTitle: string;
-  assessmentDesc: string;
-
+ 
   assessmentMode: number;
   assessmentForm: FormGroup;
+
+  assessment: Assessment;
 
   private _sbS = new SubSink();
   
   constructor(private _assessment: AssessmentService,
               private _assessmentForm: AssessmentFormService,
+              private _assessmentQuestion: AssessmentQuestionService,
               private _route: ActivatedRoute){}
 
   ngOnInit(): void {
@@ -51,9 +52,8 @@ export class AssessmentEditComponent implements OnInit, OnDestroy {
   setPageTitle(){
     this._sbS.sink = this.assessment$.pipe(tap(
       (_assessment: Assessment) => {
-        this.assessmentTitle = _assessment.title;
-        this.assessmentDesc = _assessment.description;
-        this.pageTitle = `Assessments/${this.assessmentTitle}/Edit`;
+        this.assessment = _assessment;
+        this.pageTitle = `Assessments/${this.assessment.title}/Edit`;
       })
     ).subscribe();
   }
@@ -63,8 +63,28 @@ export class AssessmentEditComponent implements OnInit, OnDestroy {
   }
 
   onPublish(){
-    // Add publish functionality
-    
+    this._sbS.add(
+      forkJoin([this.insertAssessmentConfig$(), this.insertAssessmentQuestions$()]).subscribe(_saved => {
+        if(_saved){
+          console.log(_saved);
+          console.log('Saved');
+        }
+      })
+    );
+  }
+
+  insertAssessmentConfig$(){
+    this.assessment.configs = {
+      feedback: this.assessmentForm.value.configs.feedback,
+      userAttempts: this.assessmentForm.value.configs.userAttempts
+    }
+
+    return this._assessment.updateAssessment$(this.assessment);
+  }
+
+  insertAssessmentQuestions$(){
+    const assessmentQuestions: AssessmentQuestion[] = this.assessmentForm.value.questions;
+    return this._assessmentQuestion.addQuestions$(assessmentQuestions);
   }
 
   ngOnDestroy(): void {
