@@ -9,17 +9,15 @@
         </button>
       </div>
 
-      <div class="mat-elevation-z1 page-content">
+      <form [formGroup]="assessmentForm">
+        <app-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment"
+          [assessmentMode]="assessmentMode"></app-assessment-config>
 
-        <form [formGroup]="assessmentForm">
-          <app-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment" [assessmentMode]="assessmentMode"></app-assessment-config>
-
-          <div *ngIf="questions$ | async as questions">
-							<app-assessment-questions [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode"></app-assessment-questions>
-					</div>
-        </form>
-
-      </div>
+        <div *ngIf="questions$ | async as questions">
+          <app-assessment-questions [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode">
+          </app-assessment-questions>
+        </div>
+      </form>
 
     </div>
   </div>
