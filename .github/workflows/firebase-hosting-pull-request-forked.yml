@@ -20,7 +20,8 @@ jobs:
       - name: Checkout PR code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          ref: refs/pull/${{ github.event.number }}/merge
+          repository: ${{ github.repository_owner }}/elewa
 
       - name: Setup NodeJs
         uses: actions/setup-node@v3
