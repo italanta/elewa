@@ -4,8 +4,9 @@ import { map, take } from 'rxjs';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
 import { ActiveOrgStore } from '@app/state/organisation';
+
+import { AssessmentsStore } from '../stores/assessments.store';
 
 
 @Injectable({
