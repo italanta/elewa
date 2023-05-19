@@ -1,8 +1,8 @@
 <convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
     <div class="wrapper">
         <div *ngIf="assessment$ | async as assessment">
-            <app-assessment-list-item [assessment]="assessment" fxFlexFill>  
-            </app-assessment-list-item>
+            <app-assessment-question fxFlexFill>  
+            </app-assessment-question>
         </div>
     </div>
 </convl-page>
