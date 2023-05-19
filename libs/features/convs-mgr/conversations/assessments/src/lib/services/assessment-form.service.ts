@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder } from '@angular/forms';
 
 import { AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -16,28 +16,26 @@ export class AssessmentFormService {
         feedback: [''],
         userAttempts: ['']
       }),
-      questionsList: this._formBuilder.array([]) 
+      questions: this._formBuilder.array([])
     });
   }
 
   createQuestionForm(){
     return this._formBuilder.group({
+      id: [''],
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [''],
       message: [''],
       feedback: [''],
-      choicesList: this._formBuilder.array([])
+      options: this._formBuilder.array([])
     });
   }
 
-  createChoiceForm(){
+  createChoiceForm(questionId: string, options: FormArray){
     return this._formBuilder.group({
+      id: [`${questionId} - ${options.length + 1}`],
       text: [''],
       value: ['']
     });
-  }
-
-  getFormValues(form: FormGroup){
-    return form.value
   }
 }
