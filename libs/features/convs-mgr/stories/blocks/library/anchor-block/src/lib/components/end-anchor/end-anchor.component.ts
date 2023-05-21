@@ -1,44 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
-import { _JsPlumbTargetComponentDecorator, _JsPlumbTargetLeftComponentDecorator } from '../../providers/jsplumb-target-decorator.function';
+import { _JsPlumbTargetLeftComponentDecorator } from '../../providers/jsplumb-target-decorator.function';
 
 @Component({
   selector: 'app-end-anchor',
   templateUrl: './end-anchor.component.html',
   styleUrls: ['./end-anchor.component.scss'],
 })
-export class EndAnchorComponent implements OnInit {
-
+export class EndAnchorComponent implements AfterViewInit {
   @Input() id: string;
   @Input() block: EndStoryAnchorBlock;
   @Input() endStoryAnchorForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-  
-  endAnchorId: string = 'story-end-anchor';
 
-  constructor() { }
+  endAnchorId = 'story-end-anchor';
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void
-  {
+  ngAfterViewInit(): void {
     this._decorateInput();
   }
 
+  private _decorateInput() {
+    const input = document.getElementById(this.id) as Element;
 
-  private _decorateInput()
-  {
-    let input = document.getElementById(this.id) as Element;
-    if (this.jsPlumb)
-    {
-      input = _JsPlumbTargetLeftComponentDecorator(input, this.jsPlumb);
+    if (this.jsPlumb) {
+      _JsPlumbTargetLeftComponentDecorator(input, this.jsPlumb);
     }
   }
 }
