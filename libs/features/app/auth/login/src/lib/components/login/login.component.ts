@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit
 
   // isLoading: boolean;
   isLogin = true;
-  show = false
+  showPassword = false
 
   constructor( private _authService: AuthService,
               private _dialog: MatDialog,
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit
   loginMicrosoft() {
     return this._authService.loadMicrosoftLogin();
   }
-  toggleShow(){
-    this.show = !this.show
+  toggleShowPassword(){
+    this.showPassword = !this.showPassword
   }
 }

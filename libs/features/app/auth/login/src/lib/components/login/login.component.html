@@ -13,10 +13,10 @@
             <mat-form-field id="password-input" class="special-input"  fxFlex floatLabel="always">
             <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
             <input matInput placeholder="************" name="password" [disabled]="isLoading" [type]="show? 'text' : 'password' " [(ngModel)]="password" (keyup)="detectEnter($event)" required>
-            <span (click)="toggleShow()" *ngIf="!show" style="cursor: pointer;" fxFlex>
+            <span (click)="toggleShowPassword()" *ngIf="!showPassword" style="cursor: pointer;" fxFlex>
                     <i class="fas fa-low-vision"></i>   
             </span>
-            <span (click)="toggleShow()" *ngIf="show" style="cursor: pointer;" fxFlex>
+            <span (click)="toggleShowPassword()" *ngIf="showPassword" style="cursor: pointer;" fxFlex>
                 <i class="fa fa-eye"></i>   
             </span>
             </mat-form-field>
