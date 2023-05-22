@@ -26,8 +26,7 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
 export class AnchorBlockComponent implements AfterViewInit {
   @Input() id: string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
-
-  anchorInput: 'anchorId';
+  @Input() anchorInput: string;
 
   ngAfterViewInit(): void {
     this._decorateInput();
@@ -36,6 +35,7 @@ export class AnchorBlockComponent implements AfterViewInit {
   private _decorateInput() {
     //Step 1 - Get the id of the element to decorate with jsplumb
     const input = document.getElementById(this.anchorInput) as Element;
+
 
     if (this.jsPlumb) {
       //Step 2 - Call the jsplumb decorator function

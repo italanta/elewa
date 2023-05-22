@@ -14,6 +14,7 @@ import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/lib
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -102,6 +103,7 @@ export class StoryEditorFrame {
   createStartAnchor() {
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
+    startAnchor.instance.anchorInput = this._story.id as string;
   }
 
   /**
