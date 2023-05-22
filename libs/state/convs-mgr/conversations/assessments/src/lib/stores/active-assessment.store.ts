@@ -30,7 +30,7 @@ export class ActiveAssessmentStore extends Store<Assessment> {
       tap(([assessments, route]) => {
         const assessmentId = this._getActiveAssessmentId(route);
         const assessment = assessments.find(_assessment => _assessment.id === assessmentId);
-
+          
         if(assessmentId !== '__noop__' && assessment && this._activeAssessment !== assessmentId){
           this._activeAssessment = assessmentId;
           this.set(assessment, 'UPDATE - FROM DB || ROUTE');
@@ -45,8 +45,9 @@ export class ActiveAssessmentStore extends Store<Assessment> {
 
   private _getActiveAssessmentId(route: NavigationEnd){
     const urlSegments = this._getUrlSegments(route);
-    const assessmentId = urlSegments.length >= 3 ? urlSegments[2] : '__noop__';
-    return assessmentId;
+    const assessmentIdSegment = urlSegments.length >= 3 ? urlSegments[2] : '__noop__';
+    // Select assessment Id portion without query params
+    return assessmentIdSegment.split(";")[0];
   }
 
   override get = () => super.get().pipe(filter(val => val != null));
