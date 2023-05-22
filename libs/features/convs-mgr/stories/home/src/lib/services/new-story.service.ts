@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { take, map, tap } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 import {
   uniqueNamesGenerator,
@@ -13,7 +13,7 @@ import {
   animals,
 } from 'unique-names-generator';
 
-import { ToastService } from '@iote/bricks-angular';
+// import { ToastService } from '@iote/bricks-angular';
 import { TranslateService } from '@ngfi/multi-lang';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -36,43 +36,36 @@ export class NewStoryService implements OnDestroy {
     private _blocksStore$$: StoryBlocksStore,
     private _fileStorageService$$: FileStorageService,
     private _router: Router,
-    private _toast: ToastService,
+    // private _toast: ToastService,
     private _translate: TranslateService,
     private _dialog: MatDialog
   ) {}
 
-  async saveStoryWithImage(bot: Story, imageFile: File, imagePath: string) {
-    await this.saveBotImage(bot, imageFile, imagePath);
-  }
+  /** Save story for the first time */
+  async saveStory(story: Story, storyImage?: File, storyImagePath?: string) {
+    // first Upload and patch image src value if it was provided.
+    if (storyImage && storyImagePath) {
+      const res = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath);
 
-  async saveImage(bot: Story, imageFile: File, imagePath: string) {
-    const res = await this._fileStorageService$$.uploadSingleFile(imageFile, imagePath);
-    this._sbS.sink = res.pipe(tap((url) => bot.imageField = url )).subscribe();
-    return bot;
-  }
+      this._sbS.sink = res.pipe(take(1)).subscribe(url  => {
+        story.imageField = url
+        this.addStoryToDb(story);
+      });
 
-  saveImagelessStory(bot: Story) {
-    this.addStoryToDb(bot);
-  }
-
-  async saveBotImage(bot: Story, storyImage?: File, storyImagePath?: string) {
-    if (storyImagePath) {
-      if (storyImage) {
-        this.saveImage(bot, storyImage, storyImagePath);
-      }
-
-      this.addStoryToDb(bot);
+    } else {
+      this.addStoryToDb(story);
     }
   }
 
-  addStoryToDb(bot: Story) {
-    this._org$$.get().pipe(take(1)).subscribe(async (org) => {
+  // 2. Add the story to DB with all values
+  addStoryToDb(story: Story) {
+    this._org$$.get().pipe(take(1)).subscribe((org) => {
       if (org) {
-        bot.orgId = org.id as string;
-        this._stories$$.add(bot).subscribe((story) => {
+        story.orgId = org.id as string;
+        this._sbS.sink = this._stories$$.add(story).subscribe((story) => {
           if (story) {
             this._dialog.closeAll();
-            this._router.navigate(['/stories', story.id]),
+            this._router.navigate(['/stories', story.id])
             this.createStoryEndBlock(story.orgId, story.id as string);
           }
         });
@@ -80,57 +73,55 @@ export class NewStoryService implements OnDestroy {
     });
   }
 
-  deleteImage(imagePath: string) {
-    this._fileStorageService$$.deleteSingleFile(imagePath);
-  }
-
-  async update(bot: Story, storyImage?: File, storyImagePath?: string) {
-    if (storyImage) {
+   /** Update a stories values */
+  async updateStory(story: Story, storyImage?: File, storyImagePath?: string) {
+    // first Upload and patch image src values if it was provided.
+    if (storyImage && storyImagePath) {
       //delete the image if any
-      if (bot.imageField && bot.imageField != '') {
-        this.deleteImage(bot.imageField);
-        bot.imageField = '';
+      if (story.imageField && story.imageField != '') {
+        this._fileStorageService$$.deleteSingleFile(story.imageField).subscribe(() => story.imageField = '');
       }
 
-      const res = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath as string);
+      const res = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath);
 
       this._sbS.sink = res.pipe(take(1)).subscribe(url => {
-        bot.imageField = url;
-        this.patchFunction(bot);
+        story.imageField = url;
+        this.updateStoryDetails(story);
       });
 
     } else {
-      this.patchFunction
+      this.updateStoryDetails(story)
     }
   }
 
-  patchFunction(bot: Story) {
-    this._stories$$.update(bot).subscribe((botSaved) => {
+  // 2. Update the story details in the Db.
+  updateStoryDetails(story: Story) {
+    this._sbS.sink = this._stories$$.update(story).subscribe((botSaved) => {
       if (botSaved) {
         this._dialog.closeAll();
-        this._toast.doSimpleToast(
-          this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL')
-        );
+        // this._toast.doSimpleToast(
+        //   this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL')
+        // );
       } else {
-        this._toast.doSimpleToast(
-          this._translate.translate('TOAST.EDIT-BOT.FAIL')
-        );
+        // this._toast.doSimpleToast(
+        //   this._translate.translate('TOAST.EDIT-BOT.FAIL')
+        // );
       }
     });
   }
 
-  remove(story: Story) {
+  removeStory(story: Story) {
     this._sbS.sink = this._stories$$.remove(story).subscribe({
       error: () => {
-        this._toast.doSimpleToast(
-          this._translate.translate('TOAST.DELETE-BOT.FAIL')
-        );
+        // this._toast.doSimpleToast(
+        //   this._translate.translate('TOAST.DELETE-BOT.FAIL')
+        // );
       },
       complete: () => {
         this._dialog.closeAll();
-        this._toast.doSimpleToast(
-          this._translate.translate('TOAST.DELETE-BOT.SUCCESSFUL')
-        );
+        // this._toast.doSimpleToast(
+        //   this._translate.translate('TOAST.DELETE-BOT.SUCCESSFUL')
+        // );
       },
     });
   }
@@ -145,11 +136,9 @@ export class NewStoryService implements OnDestroy {
       blockIcon: '',
       blockCategory:''
     }
-    
+
     this._sbS.sink = this._blocksStore$$.createEndBlock(orgId, storyId, endBlock).subscribe();
   }
-
-  private _getOrgId$ = () => this._org$$.get().pipe(take(1), map((o) => o.id));
 
   generateName() {
     const defaultName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals],});
