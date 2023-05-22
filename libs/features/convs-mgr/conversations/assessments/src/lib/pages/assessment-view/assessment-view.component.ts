@@ -89,7 +89,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   toggleForm(){
     this.assessmentMode = AssessmentMode.Edit;
     // Update url parameter mode to edit
-    this._router.navigate(['/assessments', this.assessment.id, {mode: 'edit'}]);
+    this._router.navigate(['/assessments', this.assessment.id], {queryParams: {mode: 'edit'}});
     this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
   }
 

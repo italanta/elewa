@@ -50,7 +50,7 @@ export class AssessmentListComponent implements OnInit{
   }
 
   goToQuestions(assessmentId: string){
-    this._router.navigate(['/assessments', assessmentId, {mode: 'view'}]);
+    this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
   }
 
   searchTable(event: Event){
