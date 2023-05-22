@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { AssessmentOptionValue, AssessmentQuestion, AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 
 @Component({
@@ -10,30 +10,5 @@ import { AssessmentOptionValue, AssessmentQuestion, AssessmentQuestionType } fro
 })
 export class AssessmentQuestionComponent {
   @Input() question: AssessmentQuestion;
-
-  testquestion = {
-    questionType: AssessmentQuestionType.SingleSelectOptions,
-    marks: 20,
-    feedback: '',
-    message: 'What are examples of soil types?',
-    options: [
-      {
-        id: '1',
-        text: 'Loam, Sand, Clay',
-        value: AssessmentOptionValue.Correct
-      },
-      {
-        id: '1',
-        text: 'Loam, Sand, Clay',
-        value: AssessmentOptionValue.Correct
-      },
-      {
-        id: '1',
-        text: 'Loam, Sand, Clay',
-        value: AssessmentOptionValue.Correct
-      }
-    ]
-  }
-
-  constructor(){}
+  @Input() questionNo: number;
 }
