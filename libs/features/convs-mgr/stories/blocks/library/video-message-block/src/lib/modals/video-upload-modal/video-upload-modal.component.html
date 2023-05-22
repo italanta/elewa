@@ -24,7 +24,7 @@
               </ng-container>
               <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
             </label>
-          </div>         
+          </div>
         </div>
 
         <div class="right__side">
@@ -54,10 +54,10 @@
       </div>
       <div *ngIf="videoPath" class="upload-button-wrapper">
         <button class="left-button" type="button" class="upload-button" (click)="openFileExplorer()">
-          {{ getUploadButtonText() }}
+          {{ 'Update Video' | transloco }}
         </button>
       </div>
-        <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoInput">
+      <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoInput">
       <div class="apply">
         <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid">
           {{ 'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco }}
@@ -66,4 +66,3 @@
     </form>
   </div>
 </div>
-

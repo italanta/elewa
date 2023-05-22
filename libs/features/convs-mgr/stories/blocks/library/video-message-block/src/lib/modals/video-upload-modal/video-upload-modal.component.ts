@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-
 import { FileStorageService } from '@app/state/file';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-video-upload-modal',
@@ -28,17 +27,22 @@ export class VideoUploadModalComponent implements OnInit {
   ];
 
   videoInputId = 'videoInput';
+  updateVideoTranslation: string;
 
   constructor(
-    private translateService: TranslateService,
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _videoUploadService: FileStorageService,
-    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup }
+    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup },
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
     this.videoPath = this.videoModalForm.controls['fileSrc'].value;
+
+    this.translate.get('update video').subscribe((translation: string) => {
+      this.updateVideoTranslation = translation;
+    });
   }
 
   closeModal() {
@@ -51,10 +55,6 @@ export class VideoUploadModalComponent implements OnInit {
 
   openFileExplorer() {
     document.getElementById(this.videoInputId)?.click();
-  }
-
-  getUploadButtonText(): string {
-    return this.translateService.instant('UPDATE_VIDEO');
   }
 
   onVideoSelected(event: any) {
