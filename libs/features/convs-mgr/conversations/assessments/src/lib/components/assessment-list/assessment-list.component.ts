@@ -8,7 +8,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { TranslateService } from '@ngfi/multi-lang';
 import { Observable } from 'rxjs';
 
-import { Assessment, AssessmentMode} from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment} from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
