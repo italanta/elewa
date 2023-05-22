@@ -3,6 +3,7 @@
     "TOGGLES": {
       "SWITCH-LANG": "Switch language"
     }
+    
   },
   "LOGIN": {
     "LOGIN": "Login",
@@ -138,7 +139,9 @@
           "FAILED": "Failed"
         },
         "VIDEO-MODAL": {
-          "APPLY": "Apply"
+          "APPLY": "Apply",
+          "UPDATE_VIDEO": "Update Video"
+
         }
       },
       "CONTENT": {
@@ -273,4 +276,6 @@
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
   }
+  
 }
+

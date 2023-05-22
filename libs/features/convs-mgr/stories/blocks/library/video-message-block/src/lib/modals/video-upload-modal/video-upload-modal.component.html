@@ -54,10 +54,10 @@
       </div>
       <div *ngIf="videoPath" class="upload-button-wrapper">
         <button class="left-button" type="button" class="upload-button" (click)="openFileExplorer()">
-          Upload Video
+          {{ getUploadButtonText() }}
         </button>
-        <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoInput">
       </div>
+        <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoInput">
       <div class="apply">
         <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid">
           {{ 'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco }}
@@ -66,3 +66,4 @@
     </form>
   </div>
 </div>
+
