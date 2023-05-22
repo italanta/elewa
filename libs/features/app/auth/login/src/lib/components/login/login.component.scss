@@ -23,12 +23,12 @@ $secondary-elements-color: white;
     display: flex;
     align-items: center;
     padding-left: 10px;
-    width: 400px;
+    width: 100%;
     height: 50px;
     font-weight: 600;
     font-size: large;
     .googleBtnTxt {
-        padding-left: 50px;
+        padding-left: 35px;
         font-size: 21px;
         padding-right: 30px;
     }
@@ -105,6 +105,10 @@ $secondary-elements-color: white;
     align-self: center;
     width: 100%;
     padding-top: 25px;
+
+    @media screen and (max-width: 400px) {
+        width: 88%;
+    }
 }
 
 .form-label {
