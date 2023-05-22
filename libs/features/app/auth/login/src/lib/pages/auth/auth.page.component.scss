@@ -20,9 +20,7 @@ button {
     font-weight: 600;
     color: var(--convs-mgr-color-light-shade);
     border-bottom: 1px solid var(--convs-mgr-color-light-shade);
-
 }
-
 
 .button-area {
     background-color: $secondary-elements-color;
@@ -50,13 +48,14 @@ button {
   width: 50%;
   display: flex;
   justify-content: center;
-  .login-form {
+}
+
+.login-form {
     margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: auto;
 }
-}
-
-
 
 .login-button {
     border-bottom: 3px solid $primary-color;
@@ -88,38 +87,6 @@ button {
     justify-content: center;
     align-items: center;
     padding-bottom: 5rem;
-}
-
-
-.tab-groups {
-    max-width: 45%;
-}
-
-@media screen and (max-width: 768px) {
-    .elewa-info {
-        display: none !important;
-    }
-}
-
-@media screen and (min-width: 320px) and (max-width: 425px) {
-    .tab-groups {
-        max-width: 100%!important;
-    }
-    .auth-card {
-        padding: 80px;
-    }
-}
-
-@media screen and (width: 320px) {
-    .auth-card {
-        padding: 60px !important;
-    }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-    .tab-groups {
-        max-width: 70%!important;
-    }
 }
 
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
