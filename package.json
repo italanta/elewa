@@ -33,6 +33,7 @@
     "@jsplumb/connector-flowchart": "^5.9.4",
     "@jsplumb/util": "^5.9.4",
     "@ngneat/transloco": "^4.1.0",
+    "@ngx-translate/core": "^15.0.0",
     "@nrwl/angular": "^14.4.2",
     "@types/googlemaps": "^3.43.3",
     "axios": "^0.27.2",
