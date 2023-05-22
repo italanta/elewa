@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CdkPortal } from '@angular/cdk/portal';
+import { MatDialog } from '@angular/material/dialog';
+
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -11,6 +13,8 @@ import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
+import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
+import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/blocks/library/video-message-block'
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -43,6 +47,10 @@ import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
+import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
+
+
+
 /**
  * Block which sends a message from bot to user.
  */
@@ -87,11 +95,14 @@ export class BlockComponent implements OnInit {
   keywordJumpType = StoryBlockTypes.keyword;
   eventType = StoryBlockTypes.Event;
   assessmentBrickType= StoryBlockTypes.Assessment;
+  conditionalBlockType = StoryBlockTypes.Conditional;
 
   blockFormGroup: FormGroup;
 
   iconClass = ''
   blockTitle = ''
+  videoMessageForm: FormGroup
+  
 
   @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
@@ -103,7 +114,10 @@ export class BlockComponent implements OnInit {
               private _blockInjectorService: BlockInjectorService,
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
-              private sideMenu:SidemenuToggleService
+              private sideMenu:SidemenuToggleService,
+              private sideScreen:SideScreenToggleService,
+              private matdialog: MatDialog
+
   ) { }
 
   ngOnInit(): void {
@@ -203,7 +217,7 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-          
+
         case StoryBlockTypes.AudioInput:
           this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -222,12 +236,12 @@ export class BlockComponent implements OnInit {
         case StoryBlockTypes.OpenEndedQuestion:
           this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
 
         case StoryBlockTypes.MultiContentInput:
           this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
-          break;  
+          break;
 
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
@@ -248,7 +262,12 @@ export class BlockComponent implements OnInit {
           this.blockFormGroup = _CreateAssessmentBrickForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
-          
+
+        case StoryBlockTypes.Conditional:
+          this.blockFormGroup = _CreateConditionalBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+  
         default:
           break;
       }
@@ -296,10 +315,20 @@ export class BlockComponent implements OnInit {
     return false;
   }
 
-  editBlock() {
-    this.sideMenu.toggleExpand(false)
-    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+  editBlock() { 
+    
+    if (this.type === this.videoType) {
+      this.matdialog.open(VideoUploadModalComponent, {
+        data: { videoMessageForm: this.blockFormGroup },
+      });
+    }
+      else{
+        this.sideMenu.toggleExpand(false)
+        this.sideScreen.toggleSideScreen(true)
+        this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+      }   
   }
+
 
   copyblock(block: StoryBlock) {
     block.id = (this.blocksGroup.value.length + 1).toString();
