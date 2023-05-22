@@ -83,7 +83,7 @@ $secondary-elements-color: white;
     width: 100%;
     background-color: $primary-color;
     font-size: 30px;
-    height: 30px; 
+    height: 30px;
 }
 
 #login-button:hover {
@@ -116,7 +116,7 @@ $secondary-elements-color: white;
 }
 
 input {
-    background-color: $secondary-elements-color;
+    // background-color: $secondary-elements-color;
     border: none;
     width: 100%;
 }
