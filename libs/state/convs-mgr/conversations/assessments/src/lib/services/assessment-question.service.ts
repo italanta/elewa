@@ -15,6 +15,10 @@ export class AssessmentQuestionService {
     return this._assessmentQuestion$$.addMultiple(questions, true);
   }
 
+  getQuestions$(){
+    return this._assessmentQuestion$$.get();
+  }
+
   updateQuestion$(question: AssessmentQuestion){
     return this._assessmentQuestion$$.update(question);
   }
