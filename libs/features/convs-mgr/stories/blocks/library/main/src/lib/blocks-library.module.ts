@@ -41,6 +41,7 @@ import { ConvsMgrVideoInputBlockModule } from '@app/features/convs-mgr/stories/b
 import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/blocks/library/keyword-jump-block';
 import { ConvsMgrEventBlockModule } from '@app/features/convs-mgr/stories/blocks/library/event-block';
 import { ConvsMgrAssessmentBrickModule } from '@app/features/convs-mgr/stories/blocks/library/assessment-brick';
+import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
 
 import { FileStateModule, UploadFileService } from '@app/state/file';
 
@@ -88,6 +89,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrKeywordJumpBlockModule,
     ConvsMgrEventBlockModule,
     ConvsMgrAssessmentBrickModule,
+    ConvsMgrConditionalBlockModule,
 
     FileStateModule,
   ],

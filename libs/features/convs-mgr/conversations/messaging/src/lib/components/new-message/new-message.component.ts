@@ -1,7 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges} from '@angular/core';
+
+import { SubSink } from 'subsink';
 
 import { User } from '@iote/bricks';
 import { UserService, BackendService } from '@ngfi/angular';
+
+
 
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { iTalUser } from '@app/model/user';
@@ -14,8 +18,10 @@ import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
   templateUrl: './new-message.component.html',
   styleUrls:  ['new-message.component.scss'],
 })
-export class NewMessageComponent implements OnChanges
+export class NewMessageComponent implements OnChanges, OnDestroy
 {
+  private _sbs = new SubSink()
+
   disabled: boolean;
   @Input() chat: Chat;
   @Input() status: ChatStatus | undefined;
@@ -31,7 +37,7 @@ export class NewMessageComponent implements OnChanges
               private _msgQuery: MessagesQuery,
               ) 
   {
-    userService.getUser().subscribe(user => this.user = user);
+    this._sbs.sink = userService.getUser().subscribe(user => this.user = user);
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -79,10 +85,14 @@ export class NewMessageComponent implements OnChanges
 
       // from(this._backendService.callFunction('sendOutgoingMessage', textMessage)).subscribe();
 
-      this._msgQuery.addMessage(textMessage).subscribe();
+      this._sbs.sink = this._msgQuery.addMessage(textMessage).subscribe();
 
       this.newMessage.emit(this.message);
       this.message = '';
     }
+  }
+
+  ngOnDestroy() {
+    this._sbs.unsubscribe();
   }
 }

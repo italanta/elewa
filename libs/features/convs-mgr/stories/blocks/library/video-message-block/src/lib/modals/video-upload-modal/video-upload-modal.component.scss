@@ -1,0 +1,146 @@
+.title {
+  color: var(--convs-mgr-color-primary-dark-blue);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  font-weight: 600;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+#close__icon {
+  display: flex;
+  justify-content: end;
+  height: 45px;
+  color: var(--convs-mgr-color-primary-dark-blue);
+  
+  .icon-wrapper {
+    padding: 20px;
+    cursor: pointer;
+  }
+}
+
+.form {
+  max-width: 1000px;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 2rem;
+  justify-content: space-around;
+  color: var(--convs-mgr-color-primary-dark-blue);
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.apply {
+  display: flex;
+  justify-content: end;
+
+  &__button {
+    cursor: pointer;
+    background-color: var(--convs-mgr-color-primary-purple);
+    font-size: large;
+    font-weight: bolder;
+    color: var(--convs-mgr-color-primary-white);
+    width: 140px;
+    border-radius: 6px;
+    height: 50px;
+  }
+}
+
+.left__side {
+  padding-bottom: 25px;
+
+  .media {
+    cursor: pointer;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+img {
+  border-radius: 9px;
+  width: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.upload-video {
+  width: 100%;
+  cursor: pointer;
+  border: 1px solid var(--convs-mgr-color-primary-purple);
+  border-radius: 9px;
+}
+
+.name__input {
+  border: none;
+  outline: none;
+  background-color: rgb(223, 217, 217);
+  width: 100%;
+  margin-bottom: 10px;
+  height: 50px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 20px;
+}
+
+.name__input {
+  padding-bottom: 10px;
+  gap: 100px;
+}
+
+.right__side {
+  font-size: small;
+  max-height: 500px;
+  background-color: var(--convs-mgr-color-primary-white);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .description {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.right__header {
+  font-weight: 600;
+}
+.p__text {
+  font-weight: 600;
+}
+
+.size__options {
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.resolution {
+  padding-left: 30px;
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 0px;
+}
+.thumbnail {
+  margin-top: 10px;
+  width: 380px;
+  height: 300px;
+}
+
+input[type='radio'] {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

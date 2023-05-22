@@ -1,0 +1,44 @@
+<div [id]="id" *ngIf="conditionalBlockForm">
+  <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
+    <div class="details-wrapper">
+
+      <div class="options-wrapper">
+        <mat-form-field>
+          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
+          <mat-select formControlName="selectedVar">
+            <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
+              {{ variable }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="select-variable">
+        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
+        <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
+      </div>
+
+      <div class="type-variable">
+        <!-- <label for="variableToCheck">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}</label> -->
+        <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
+      </div>
+    </div>
+
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of options.controls; let i = index">
+        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
+          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i"
+            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+        </div>
+      </div>
+    </div>
+
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
+
+  </form>
+
+  <button (click)="addNewOption()" mat-flat-button class="add-button">
+    {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
+  </button>
+</div>

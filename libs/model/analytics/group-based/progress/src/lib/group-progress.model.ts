@@ -1,31 +1,43 @@
-import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { IObject } from "@iote/bricks";
+import { ParticipantProgressMilestone } from "./participant-progress.model";
 
 /**
  * Model for analysing and visualing grouping progress data. 
  * 
  * Used in the group-based-progress hierarchical barchart.
  */
-export interface GroupProgressModel 
+export interface GroupProgressModel extends IObject 
 {
-  measurements: GroupProgressMeasurement[];
+  /** time in unix */
+  time: number;
+
+  /** All users milestones */
+  measurements: UsersProgressMilestone[];
+
+  /** Grouped milestones by class/group */
+  groupedMeasurements: GroupedProgressMilestone[];
+}
+
+/** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
+export interface GroupedParticipants { 
+  [key: string]: ParticipantProgressMilestone[];
 }
 
 /** Progress of a group at a single moment in time. */
-export interface GroupProgressMeasurement
+export interface UsersProgressMilestone
 {
-  /** Unix time interval at which is measured */
-  time: number; 
-  milestones: GroupProgressMilestone[];
+  /** Name of Milestone the user has reached */
+  name: string; 
+
+  /** Users */
+  participants: ParticipantProgressMilestone[];
 }
 
-export interface GroupProgressMilestone
+export interface GroupedProgressMilestone
 {
-  /** Milestone the user has reached */
-  milestone: string; 
-  /** First encountered Story ID of the milestone the group has reached */
-  storyId: string;
-  /** Users */
-  participants: { id: string, name: string, phone: string }[];
-  /** Number of users */
-  nParticipants: number;
+  /** Name of group / class */
+  name: string; 
+
+  /** milestones for users in  that class*/
+  measurements: UsersProgressMilestone[];
 }

@@ -5,11 +5,13 @@ import { cloneDeep as __cloneDeep } from 'lodash';
 import { map, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { StoryBlockTypes, StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
+import {
+  StoryBlockTypes,
+  StoryBlockVariable,
+} from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { ProcessInputService } from '../../providers/process-input.service';
-import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
+import { VariablesService } from '../../providers/variables.service';
 
 @Component({
   selector: 'app-variable-input',
@@ -24,6 +26,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   blockId: string;
   blockType: StoryBlockTypes;
   variablesForm: FormGroup;
+  validationForm: FormGroup;
 
   variablesTypesList = [
     { name: VariableTypes[1], value: 1 },
@@ -33,13 +36,12 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   ];
 
   nametype = StoryBlockTypes.Name;
-  audiotype = StoryBlockTypes.AudioInput;
   emailtype = StoryBlockTypes.Email;
   phonetype = StoryBlockTypes.PhoneNumber;
   locationtype = StoryBlockTypes.LocationInputBlock;
-  imagetype = StoryBlockTypes.ImageInput;
+  OpenEndedQuestion = StoryBlockTypes.OpenEndedQuestion
 
-  constructor(private _processInputSer: ProcessInputService) {}
+  constructor(private _variablesSer: VariablesService) {}
 
   ngOnInit(): void {
     this.blockId = this.BlockFormGroup.value.id;
@@ -48,7 +50,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     /**
      * * we create a copy of the formGroup so we can validate before setting the values on submit.
      * * using the blocksFormGroup creates a very rare race condition where two variables can exist with the same name (if the user is warned that the variable is alredy used but still doesn't change the value) this is why we clone.
-     */ 
+     */
     this.variablesForm = __cloneDeep(this.BlockFormGroup);
     this.validateForm();
   }
@@ -65,7 +67,7 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     this._sub.sink = this.variablesForm.controls['variable'].valueChanges
       .pipe(
         switchMap((value: StoryBlockVariable) =>
-          this._processInputSer.blocksWithVars$.pipe(
+          this._variablesSer.blocksWithVars$.pipe(
             map((blocks) => {
               const isPresent = blocks.find(
                 (block) =>

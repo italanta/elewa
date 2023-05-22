@@ -86,6 +86,9 @@
       "@app/features/convs-mgr/stories/blocks/library/block-options": [
         "libs/features/convs-mgr/stories/blocks/library/block-options/src/index.ts"
       ],
+      "@app/features/convs-mgr/stories/blocks/library/conditional-block": [
+        "libs/features/convs-mgr/stories/blocks/library/conditional-block/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/library/document-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/document-message-block/src/index.ts"
       ],
@@ -183,6 +186,12 @@
       "@app/functions/bot-engine/messenger": [
         "libs/functions/bot-engine/messenger/src/index.ts"
       ],
+      "@app/functions/bot-engine/send-message": [
+        "libs/functions/bot-engine/send-message/src/index.ts"
+      ],
+      "@app/functions/bot-engine/utils": [
+        "libs/functions/bot-engine/utils/src/index.ts"
+      ],
       "@app/functions/bot-engine/whatsapp": [
         "libs/functions/bot-engine/whatsapp/src/index.ts"
       ],
@@ -242,6 +251,9 @@
       ],
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
+      ],
+      "@app/state/convs-mgr/monitoring": [
+        "libs/state/convs-mgr/monitoring/src/index.ts"
       ],
       "@app/state/convs-mgr/stories": [
         "libs/state/convs-mgr/stories/main/src/index.ts"

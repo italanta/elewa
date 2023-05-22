@@ -32,6 +32,7 @@ export interface VideoMessageBlock extends FileMessageBlock{
 
   /**This is store the file name that has been retrieved when uploading the file */
   fileName?: string;
+  mediaQuality?: string;
 }
 
 /** 

@@ -14,6 +14,7 @@ import {
 import {MultiLangModule}from '@ngfi/multi-lang';
 
 import { VideoBlockComponent } from './components/video-block/video-block.component';
+import { VideoUploadModalComponent } from './modals/video-upload-modal/video-upload-modal.component';
 
 @NgModule({
   imports: [
@@ -30,8 +31,8 @@ import { VideoBlockComponent } from './components/video-block/video-block.compon
     ConvsMgrBlockOptionsModule,
   ],
 
-  declarations: [VideoBlockComponent],
+  declarations: [VideoBlockComponent, VideoUploadModalComponent],
 
-  exports: [VideoBlockComponent],
+  exports: [VideoBlockComponent]
 })
 export class ConvsMgrVideoMessageBlockModule {}
