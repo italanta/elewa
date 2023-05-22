@@ -1,30 +1,13 @@
-<div class="question-list">
-  
-  <div *ngIf="assessmentMode < 1">
-    <mat-form-field appearance="outline" class="search">
-      <mat-label>
-        <i class="fas fa-search"></i>
-        <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
-      </mat-label>
-      <input type="search" matInput (keyup)="filterQuestions($event)">
-    </mat-form-field>
-  </div>
-
-  <form [formGroup]="assessmentFormGroup">
-    <div formArrayName="questions">
-      <div *ngFor="let question of questionsList.controls; let f = index">
-        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="f" [questionNo]="f+1"
-        [assessmentMode]="assessmentMode"></app-assessment-question-form>
-      </div>
-    </div>
-  </form>
+<div class="search-question">
+  <mat-form-field appearance="outline" class="search">
+    <mat-label>
+      <i class="fas fa-search"></i>
+      <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
+    </mat-label>
+    <input type="search" matInput (keyup)="filterQuestions($event)">
+  </mat-form-field>
 </div>
 
-<div class="question-button" fxLayout="row" fxLayoutAlign="center center">
-  <button mat-flat-button class="btn-add" (click)="generateQuestionForm()">
-    <i class="fas fa-plus"></i>
-    <span class="label">
-      {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}
-    </span>
-  </button>
+<div *ngFor="let question of questions; let i = index">
+  <app-assessment-question [question]="question" [questionNo]="i+1"></app-assessment-question>
 </div>
