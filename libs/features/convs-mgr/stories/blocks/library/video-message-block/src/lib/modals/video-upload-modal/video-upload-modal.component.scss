@@ -151,31 +151,37 @@ input[type='radio'] {
   }
 }
 .upload-button-wrapper {
-  position: relative;
+  position: absolute;
+  top: 95%;
+  right: 80%;
+  transform: translateY(-50%);
 }
 
 .upload-button {
-  position: absolute;
-  top: calc(50% - 25px); 
-  left: 10%;
-  transform: translateX(-50%);
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+  background-color: #007bff;
   z-index: 1;
-  border: 2px dashed var(--convs-mgr-color-primary-purple);
-  border-radius: 8px; 
-  padding: 15px;
   background-color: transparent;
+  border: 2px dashed var(--convs-mgr-color-primary-purple);
   color: var(--convs-mgr-color-primary-purple);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-
 }
-
 
 .upload-button:hover {
   background-color: var(--convs-mgr-color-primary-purple);
   color: var(--convs-mgr-color-primary-white);
 }
 
+.upload-button:focus {
+  outline: none;
+}
 .media {
   margin-bottom: 20px;
 }
