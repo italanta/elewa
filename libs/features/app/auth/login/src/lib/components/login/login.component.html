@@ -3,23 +3,26 @@
 
     <div [formGroup]="loginForm" fxLayout="row" fxLayoutAlign="start center">
       <mat-form-field id="email-input" class="special-input" fxFlex floatLabel="always">
-        <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-EMAIL' | transloco }}</mat-label>
+        <mat-label class="form-label">{{ 'Email' | transloco }}</mat-label>
         <input matInput formControlName="email" type="email" placeholder="name@example.com">
-        <mat-error *ngIf="loginForm.get('email').errors?.required">Email is required</mat-error>
-        <mat-error *ngIf="loginForm.get('email').errors?.email">Invalid email format</mat-error>
+        <mat-error *ngIf="loginForm.get('email').errors?.required">{{ 'Email is required' | transloco
+          }}</mat-error>
+        <mat-error *ngIf="loginForm.get('email').errors?.email">{{ 'Invalid email format' | transloco
+          }}</mat-error>
       </mat-form-field>
     </div>
 
     <div [formGroup]="loginForm" fxLayout="row" fxLayoutAlign="start center">
       <mat-form-field id="password-input" class="special-input" fxFlex floatLabel="always">
-        <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.FLD-PASSWD' | transloco }}</mat-label>
+        <mat-label class="form-label">{{ 'Password' | transloco }}</mat-label>
         <input matInput formControlName="password" type="password" placeholder="************">
-        <mat-error *ngIf="loginForm.get('password').errors?.required">Password is required</mat-error>
+        <mat-error *ngIf="loginForm.get('password').errors?.required">{{ 'Password required' | transloco
+          }}</mat-error>
       </mat-form-field>
     </div>
 
     <div *ngIf="loginFailed" class="login-failed-message">
-      Incorrect password or email
+      {{ 'Incorrect Password or email' | transloco }}
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start stretch">
