@@ -47,7 +47,7 @@ export class ActiveAssessmentStore extends Store<Assessment> {
     const urlSegments = this._getUrlSegments(route);
     const assessmentIdSegment = urlSegments.length >= 3 ? urlSegments[2] : '__noop__';
     // Select assessment Id portion without query params
-    return assessmentIdSegment.split(";")[0];
+    return assessmentIdSegment.split("?")[0];
   }
 
   override get = () => super.get().pipe(filter(val => val != null));

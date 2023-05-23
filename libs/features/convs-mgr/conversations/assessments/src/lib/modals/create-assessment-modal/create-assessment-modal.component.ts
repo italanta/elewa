@@ -60,7 +60,7 @@ export class CreateAssessmentModalComponent implements OnInit, OnDestroy {
         tap((_assessmentSaved) => {
             if(_assessmentSaved) {
               this._dialog.closeAll();
-              this._route.navigate(['/assessments', _assessmentSaved.id, 'edit'], {queryParams: {mode: 1}});
+              this._route.navigate(['/assessments', _assessmentSaved.id], {queryParams: {mode: 'edit'}});
             }
           }
         )
