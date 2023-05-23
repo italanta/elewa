@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
-import { AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentConfiguration, AssessmentQuestion, AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,11 @@ export class AssessmentFormService {
 
   constructor(private _formBuilder: FormBuilder) {}
 
-  createAssessmentDetailForm(){
+  createAssessmentDetailForm(configs?: AssessmentConfiguration){
     return this._formBuilder.group({
       configs: this._formBuilder.group({
-        feedback: [''],
-        userAttempts: ['']
+        feedback: [configs?.feedback ?? ''],
+        userAttempts: [configs?.userAttempts ?? '']
       }),
       questions: this._formBuilder.array([])
     });
