@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, forkJoin, of, tap } from 'rxjs';
+import { Observable, forkJoin, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
@@ -38,8 +38,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initAssessment();
-    this.setPageTitle();
-    this.createFormGroup();
+    this.initPage();
   }
 
   initAssessment(){
@@ -49,17 +48,22 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     this.assessmentMode = this.getAssessmentMode();
   }
 
-  setPageTitle(){
+  initPage(){
     this._sbS.sink = this.assessment$.pipe(tap(
       (_assessment: Assessment) => {
         this.assessment = _assessment;
-        this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`; 
+        // Initialize the page title
+        this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
+        // Initialize assessment form
+        if(this.assessmentMode){
+          this.createFormGroup();
+        } 
       })
     ).subscribe();
   }
 
   createFormGroup(){
-    this.assessmentForm = this._assessmentForm.createAssessmentDetailForm();
+    this.assessmentForm = this._assessmentForm.createAssessmentDetailForm(this.assessment?.configs);
   }
 
   getAssessmentMode(){
@@ -79,8 +83,8 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     this._sbS.add(
       forkJoin([this.insertAssessmentConfig$(), this.insertAssessmentQuestions$()]).subscribe(_saved => {
         if(_saved){
-          console.log(_saved);
-          console.log('Saved');
+          this.assessmentMode = AssessmentMode.View;
+          this._router.navigate(['/assessments', this.assessment.id], {queryParams: {mode: 'view'}});
         }
       })
     );
@@ -91,6 +95,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     // Update url parameter mode to edit
     this._router.navigate(['/assessments', this.assessment.id], {queryParams: {mode: 'edit'}});
     this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
+    this.createFormGroup();
   }
 
   determineAction(){
