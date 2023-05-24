@@ -44,6 +44,8 @@ export class VideoUploadModalComponent implements OnInit{
   }
 
   closeModal() {
+    this.videoModalForm.controls['fileName'].setValue(''); // Clear the value of fileName control
+    this.videoName = '';
     this.dialogRef.close();
   }
   
