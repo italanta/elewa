@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -10,6 +10,7 @@ import { FileStorageService } from '@app/state/file';
   styleUrls: ['./video-upload-modal.component.scss'],
 })
 export class VideoUploadModalComponent implements OnInit{
+  @ViewChild('videoInput') videoInput: ElementRef;
   videoModalForm: FormGroup;
   videoName: string;
   videoPath: string;
@@ -38,35 +39,50 @@ export class VideoUploadModalComponent implements OnInit{
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
     this.videoPath = this.videoModalForm.controls['fileSrc'].value
+    // Set default value for mediaQuality
+    this.videoModalForm.patchValue({ mediaQuality: this.defaultSize });
   }
 
   closeModal() {
     this.dialogRef.close();
   }
+  
 
-  apply() {
-    this.dialogRef.close();
+  submit(){
+    console.log('submit was clicked')
+    this.apply()
   }
 
-  async onVideoSelected(event: any) {
+  async apply() {
+    const videoFile = this.videoInput.nativeElement.files[0] as File;
+  
+    if (videoFile) {
+      const videoName = this.videoModalForm.controls['fileName'].value || videoFile.name;
+      const res: any = await this._videoUploadService.uploadSingleFile(videoFile, videoName);
+      res.subscribe((url: string) => {
+        this._autofillVideoUrl(url, videoName);
+        this.dialogRef.close();
+      });
+    } else {
+      this.dialogRef.close();
+    }
+  }
+  
+  onVideoSelected(event: any) {
     const file = event.target.files[0] as File;
-
-    // Getting a file from explorer, first position
+  
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = async () => {
-        // Get video name 
-        const name = this.videoModalForm.controls['fileName'].value;
-        const videoName = name ? name : file.name
-
-        // upload videofile and patch values
-        const res = await this._videoUploadService.uploadSingleFile(file, videoName);
-        res.subscribe((url) => this._autofillVideoUrl(url, videoName))
+      reader.onload = () => {
+        const videoUrl = reader.result as string;
+        this.videoPath = videoUrl;
+        this.videoName = file.name;
+        this.videoModalForm.patchValue({ fileName: this.videoName });
       };
     }
-  } 
-
+  }
+   
   private _autofillVideoUrl(url: string, videoName: string) {
     this.videoModalForm.patchValue({fileSrc: url, fileName:videoName})
     this.videoPath = url
