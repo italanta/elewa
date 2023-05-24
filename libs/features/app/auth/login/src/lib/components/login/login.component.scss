@@ -123,19 +123,6 @@ $secondary-elements-color: white;
 }
 
 input {
-  background-color: $secondary-elements-color;
   border: none;
   width: 100%;
-}
-
-.space {
-  column-gap: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.pass-input {
-  &::placeholder {
-    align-self: center !important;
-  }
 }
