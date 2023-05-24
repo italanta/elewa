@@ -2,94 +2,121 @@ $primary-icon-color: #919698;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
 #ele-logo-sub {
-    max-width: 220px;
+  max-width: 220px;
 }
 
 .auth-page {
-    background-color: $secondary-elements-color;
-    margin: auto;
-    max-width: 100%;
-    min-height: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	min-height: 100vh;
+  background-color: $secondary-elements-color;
+
+	@media screen and (max-width: 920px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 button {
-    background-color: $secondary-elements-color;
-    width: 50%;
-    border: none;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--convs-mgr-color-light-shade);
-    border-bottom: 1px solid var(--convs-mgr-color-light-shade);
+  background-color: $secondary-elements-color;
+  width: 50%;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--convs-mgr-color-light-shade);
+  border-bottom: 1px solid var(--convs-mgr-color-light-shade);
 }
 
 .button-area {
-    background-color: $secondary-elements-color;
-    cursor: pointer;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    .toggle-btn{
-      display: flex;
-      justify-content: space-between;
-    }
-    @media screen and (max-width: 768px) {
-        border-bottom-right-radius: 8px;
-        max-width: 100%;
-    }
-    @media screen and (max-width: 320px) {
-        border-bottom-right-radius: 8px;
-    }
-}
-.bottom-content {
-    color: $secondary-elements-color;
-    font-size: 18px;
-    text-transform: uppercase;
-}
-.forms{
-  width: 50%;
-  display: flex;
-  justify-content: center;
+  background-color: $secondary-elements-color;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  .toggle-btn {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width: 768px) {
+    border-bottom-right-radius: 8px;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 320px) {
+    border-bottom-right-radius: 8px;
+  }
 }
 
-.login-form {
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: auto;
+.bottom-content {
+  color: $secondary-elements-color;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.forms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-button {
-    border-bottom: 3px solid $primary-color;
-    border-width: 50%;
-    font-weight: 600;
-    color: black;
+  border-bottom: 3px solid $primary-color;
+  border-width: 50%;
+  font-weight: 600;
+  color: black;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 2;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 2;
 }
 
 .description {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 2;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2;
 }
-.hyperlink{
+.hyperlink {
   font-size: 600;
 }
 .image {
-    height: 80px;
+  height: 80px;
 }
 
 .logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5rem;
+}
+
+.elewa-info {
+	display: flex;
+	flex-direction: column;
+  text-align: left;
+  color: $secondary-elements-color;
+  padding: 6rem 2rem;
+  font-weight: 400;
+  background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9f74d5 100%);
+
+  .info-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 5rem;
+    flex-direction: column;
+    justify-content: start;
+    margin-top: 20vh;
+  }
+
+  @media screen and (max-width: 920px) {
+    display: none;
+  }
+}
+
+.logoImg {
+  width: 200px;
 }
 
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
