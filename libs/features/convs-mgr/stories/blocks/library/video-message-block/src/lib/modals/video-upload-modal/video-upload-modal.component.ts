@@ -49,7 +49,6 @@ export class VideoUploadModalComponent implements OnInit{
   
 
   submit(){
-    console.log('submit was clicked')
     this.apply()
   }
 
