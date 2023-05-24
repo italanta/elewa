@@ -15,6 +15,7 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
 
   selectedFile: File;
+  isSaved = false;
 
   readonly defaultSize = "Don't Encode Media";
 
@@ -75,8 +76,14 @@ export class VideoUploadModalComponent implements OnInit {
       // upload videofile and patch values
       const res = await this._videoUploadService.uploadSingleFile(file, videoName);
       res.subscribe((url) => this._autofillVideoUrl(url, videoName))
+      this.isSaved = true;
+      if (this.isSaved) {
+        setTimeout(() => {
+          this.dialogRef.close();
+        }, 3000);
+      }
     }
-    this.dialogRef.close();
+
 
   }
 
