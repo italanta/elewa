@@ -17,14 +17,14 @@
           </div>
     
           <div class="media">
-            <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoUpload">
-            <label for="videoUpload">
+            <input type="file" accept=".mp4" [id]="videoInputId" hidden (change)="onVideoSelected($event)" #videoInput>
+            <label [for]="videoInputId">
               <ng-container *ngIf="!videoPath">
                 <img *ngIf="!videoPath" src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png">
               </ng-container>
               <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
             </label>   
-          </div>
+          </div>          
         </div>
     
         <div class="right__side">
@@ -48,7 +48,7 @@
                 id="{{ option.vidSize }}"
                 [disabled]="option.vidSize !== defaultSize"
                 [checked]="option.vidSize === defaultSize"
-                formContolName="mediaQuality"
+                formControlName="mediaQuality"
               />
               <label for="{{ option.vidSize }}" class="size__options">{{
                 option.vidSize
@@ -56,10 +56,11 @@
               <p class="resolution">{{ option.resolution }}</p>
             </div>
           </div>
+          
         </div>
       </div>
       <div class="apply">
-        <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid" (click)="apply()">
+        <button type="submit" class="apply__button" (click)="submit()">
           {{'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco}}
         </button>
       </div>
