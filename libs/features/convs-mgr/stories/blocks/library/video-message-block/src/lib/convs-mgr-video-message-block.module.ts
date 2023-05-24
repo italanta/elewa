@@ -31,9 +31,9 @@ import { FileStorageService } from '@app/state/file'; // Import the FileStorageS
     HttpClientModule,
     ConvsMgrBlockOptionsModule,
   ],
-  declarations: [VideoBlockComponent, VideoUploadModalComponent],
-  exports: [VideoBlockComponent, VideoUploadModalComponent],
-  entryComponents: [VideoUploadModalComponent],
-  providers: [FileStorageService],
-})
+declarations: [VideoBlockComponent, VideoUploadModalComponent],
+exports: [VideoBlockComponent, VideoUploadModalComponent],
+entryComponents: [VideoUploadModalComponent],
+providers: [FileStorageService]
+
 export class ConvsMgrVideoMessageBlockModule {}
