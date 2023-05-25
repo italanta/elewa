@@ -146,7 +146,7 @@ export class NewStoryService implements OnDestroy {
       blockCategory:''
     }
     
-    this._blocksStore$$.createEndBlock(orgId, storyId, endBlock);
+    this._sbS.sink = this._blocksStore$$.createEndBlock(orgId, storyId, endBlock).subscribe();
   }
 
   private _getOrgId$ = () => this._org$$.get().pipe(take(1), map((o) => o.id));
