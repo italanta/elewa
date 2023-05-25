@@ -13,7 +13,7 @@ import {
   animals,
 } from 'unique-names-generator';
 
-// import { ToastService } from '@iote/bricks-angular';
+import { ToastService } from '@iote/bricks-angular';
 import { TranslateService } from '@ngfi/multi-lang';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -36,7 +36,7 @@ export class NewStoryService implements OnDestroy {
     private _blocksStore$$: StoryBlocksStore,
     private _fileStorageService$$: FileStorageService,
     private _router: Router,
-    // private _toast: ToastService,
+    private _toast: ToastService,
     private _translate: TranslateService,
     private _dialog: MatDialog
   ) {}
@@ -99,13 +99,13 @@ export class NewStoryService implements OnDestroy {
     this._sbS.sink = this._stories$$.update(story).subscribe((botSaved) => {
       if (botSaved) {
         this._dialog.closeAll();
-        // this._toast.doSimpleToast(
-        //   this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL')
-        // );
+        this._toast.doSimpleToast(
+          this._translate.translate('TOAST.EDIT-BOT.SUCCESSFUL')
+        );
       } else {
-        // this._toast.doSimpleToast(
-        //   this._translate.translate('TOAST.EDIT-BOT.FAIL')
-        // );
+        this._toast.doSimpleToast(
+          this._translate.translate('TOAST.EDIT-BOT.FAIL')
+        );
       }
     });
   }
@@ -113,15 +113,15 @@ export class NewStoryService implements OnDestroy {
   removeStory(story: Story) {
     this._sbS.sink = this._stories$$.remove(story).subscribe({
       error: () => {
-        // this._toast.doSimpleToast(
-        //   this._translate.translate('TOAST.DELETE-BOT.FAIL')
-        // );
+        this._toast.doSimpleToast(
+          this._translate.translate('TOAST.DELETE-BOT.FAIL')
+        );
       },
       complete: () => {
         this._dialog.closeAll();
-        // this._toast.doSimpleToast(
-        //   this._translate.translate('TOAST.DELETE-BOT.SUCCESSFUL')
-        // );
+        this._toast.doSimpleToast(
+          this._translate.translate('TOAST.DELETE-BOT.SUCCESSFUL')
+        );
       },
     });
   }
