@@ -38,7 +38,7 @@ export class VideoUploadModalComponent implements OnInit{
   }
   closeModal() {
     if (this.videoUploaded) {
-      this.videoModalForm.patchValue({ fileSrc: null, fileName: null });
+      this.videoModalForm.patchValue({ fileSrc: null, fileName: null, videoPath: null, videoUploaded: null });
       this.videoPath = '';
       this.videoUploaded = false;
     }
