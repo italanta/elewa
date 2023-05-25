@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {  HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
@@ -11,10 +11,11 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 
-import {MultiLangModule}from '@ngfi/multi-lang';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { VideoBlockComponent } from './components/video-block/video-block.component';
 import { VideoUploadModalComponent } from './modals/video-upload-modal/video-upload-modal.component';
+import { FileStorageService } from '@app/state/file'; // Import the FileStorageService
 
 @NgModule({
   imports: [
@@ -30,9 +31,9 @@ import { VideoUploadModalComponent } from './modals/video-upload-modal/video-upl
     HttpClientModule,
     ConvsMgrBlockOptionsModule,
   ],
+declarations: [VideoBlockComponent, VideoUploadModalComponent],
+exports: [VideoBlockComponent, VideoUploadModalComponent],
+entryComponents: [VideoUploadModalComponent],
+providers: [FileStorageService]
 
-  declarations: [VideoBlockComponent, VideoUploadModalComponent],
-
-  exports: [VideoBlockComponent]
-})
 export class ConvsMgrVideoMessageBlockModule {}
