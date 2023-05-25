@@ -41,6 +41,8 @@ export class VideoUploadModalComponent implements OnInit {
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
     this.videoPath = this.videoModalForm.controls['fileSrc'].value;
+
+       // Set default value for mediaQuality
   }
 
   closeModal() {
@@ -54,6 +56,8 @@ export class VideoUploadModalComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
       reader.onload = () => {
         this.videoPath = reader.result as string;
+        this.videoName = this.selectedFile.name;
+        this.videoModalForm.patchValue({ fileName: this.videoName });
       };
     }
   }
