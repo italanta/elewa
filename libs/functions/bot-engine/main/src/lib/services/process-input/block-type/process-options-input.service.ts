@@ -27,7 +27,7 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
       // const formattedTitle = lastBlock.blockTitle.replace(/ /g,"_").toLowerCase();
 
       // If the storyblock is already assigned a variable we use that variable first
-      this.variableName = lastBlock.variable ? lastBlock.variable.name : `${lastBlock.id}_${lastBlock.type}`;
+      this.variableName = this.variableExists(lastBlock.variable) ? lastBlock.variable.name : `${lastBlock.id}_${lastBlock.type}`;
 
       const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String
 
