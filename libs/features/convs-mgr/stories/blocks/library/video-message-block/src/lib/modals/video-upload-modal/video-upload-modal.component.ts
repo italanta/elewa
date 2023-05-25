@@ -80,7 +80,7 @@ export class VideoUploadModalComponent implements OnInit {
       if (this.isSaved) {
         setTimeout(() => {
           this.dialogRef.close();
-        }, 3000);
+        },2000);
       }
     }
 
