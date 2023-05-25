@@ -36,11 +36,7 @@ export class VideoUploadModalComponent implements OnInit {
     private _videoUploadService: FileStorageService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup }
-  ) {
-    this.videoModalForm = this.fb.group({
-      fileName: [''],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
@@ -62,25 +58,22 @@ export class VideoUploadModalComponent implements OnInit {
     }
   }
 
-  apply() {
+  async apply() {
     const file = this.selectedFile;
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = async () => {
-      // Get video name
-      const name = this.videoModalForm.controls['fileName'].value;
-      const videoName = name ? name : file.name;
+    const name = this.videoModalForm.controls['fileName'].value;
+    const videoName = name ? name : file.name;
 
-      // upload videofile and patch values
-      const res = await this._videoUploadService.uploadSingleFile(
-        file,
-        videoName
-      );
-      res.subscribe((url) => {
-        this._autofillVideoUrl(url, videoName);
-        this.dialogRef.close();
-      });
-    };
+    // upload videofile and patch values
+    const res = await this._videoUploadService.uploadSingleFile(
+      file,
+      videoName
+    );
+    res.subscribe((url) => {
+      this._autofillVideoUrl(url, videoName);
+      this.dialogRef.close();
+    });
   }
 
   private _autofillVideoUrl(url: string, videoName: string) {
