@@ -15,7 +15,6 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
 
   selectedFile: File;
-  isSaved = false;
 
   readonly defaultSize = "Don't Encode Media";
 
@@ -36,7 +35,7 @@ export class VideoUploadModalComponent implements OnInit {
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _videoUploadService: FileStorageService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup },
+    @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup }
   ) {
     this.videoModalForm = this.fb.group({
       fileName: [''],
@@ -45,7 +44,7 @@ export class VideoUploadModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
-    this.videoPath = this.videoModalForm.controls['fileSrc'].value
+    this.videoPath = this.videoModalForm.controls['fileSrc'].value;
   }
 
   closeModal() {
@@ -59,8 +58,7 @@ export class VideoUploadModalComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
       reader.onload = () => {
         this.videoPath = reader.result as string;
-
-      }
+      };
     }
   }
 
@@ -71,25 +69,22 @@ export class VideoUploadModalComponent implements OnInit {
     reader.onload = async () => {
       // Get video name
       const name = this.videoModalForm.controls['fileName'].value;
-      const videoName = name ? name : file.name
+      const videoName = name ? name : file.name;
 
       // upload videofile and patch values
-      const res = await this._videoUploadService.uploadSingleFile(file, videoName);
-      res.subscribe((url) => this._autofillVideoUrl(url, videoName))
-      this.isSaved = true;
-      if (this.isSaved) {
-        setTimeout(() => {
-          this.dialogRef.close();
-        },2000);
-      }
-    }
-
-
+      const res = await this._videoUploadService.uploadSingleFile(
+        file,
+        videoName
+      );
+      res.subscribe((url) => {
+        this._autofillVideoUrl(url, videoName);
+        this.dialogRef.close();
+      });
+    };
   }
 
-
   private _autofillVideoUrl(url: string, videoName: string) {
-    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName })
-    this.videoPath = url
+    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
+    this.videoPath = url;
   }
 }
