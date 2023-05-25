@@ -5,10 +5,7 @@
       <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-STORY" | transloco}}</option>
     </select>
 
-    <select id="block" name="block" formControlName="targetBlockId">
-      <option *ngFor="let block of blocks" [value]='block.id'>{{block.id}}</option>
-      <option value="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-BLOCK" | transloco}}</option>
-    </select>
+  <input id="block" formControlName="targetBlockId" placeholder="Block ID" />
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of jumpBlockOptions; let i = index" class="full-width" fxFlexFill>
