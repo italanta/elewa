@@ -15,9 +15,12 @@
       "FLD-PASSWD": "Mot de passe",
       "FLD-REMEMBER-ME": "Se souvenir de moi",
       "SUBMIT": "Connexion",
-      "FORM-PLACEHOLDERS": {
+      "PLACEHOLDER": {
     "EMAIL": "name@example.com",
-    "PASSWORD": "************"
+    "PASSWORD": "************",
+    "LOGINFAILED": "Mot de passe incorrect ou email invalide",
+    "PASSWORDERROR": "Mot de passe requis",
+    "EMAILERROR": "Format d'email invalide"
   }
     },
     "FORGOT-PASSWD": "Mot de passe oublié ?",
