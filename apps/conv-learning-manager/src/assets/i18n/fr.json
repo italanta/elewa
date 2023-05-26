@@ -50,6 +50,7 @@
       }
     },
     "BLOCK": {
+      "BLOCK_ID": "ID de bloc",
       "TITLES": {
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
@@ -78,6 +79,7 @@
         "IMAGE-LINK": "Lien d'image",
         "NAME": "Nom",
         "EMAIL": "Email",
+        "JUMP":"saut",
         "PHONE-NUMBER": "Téléphoner",
         "AUDIO-LINK":"Lien audio",
         "WEBHOOK": "Un webhook",
@@ -90,10 +92,6 @@
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable de type",
           "SELECT-VARIABLE":"Sélectionnez Variable"
-        },
-        "JUMP": {
-          "SELECT_STORY": "sélectionner l'histoire",
-          "SELECT-BLOCK": "sélectionner le bloc"
         }
       },
       "BUTTONS": {

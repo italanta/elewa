@@ -66,6 +66,7 @@
       }
     },
     "BLOCK": {
+      "BLOCK_ID": "Block ID",
       "TITLES": {
         "IMAGE": "Image",
         "LOCATION": "Location",
@@ -119,14 +120,11 @@
         "AUDIO-INPUT": "Audio Input",
         "WEBHOOK": "Url Input",
         "EVENT-NAME": "Event Name",
+        "JUMP": "Jump",
         "0PTIONAL-PAYLOAD": "Optional - Payload",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Type Variable",
-          "SELECT-VARIABLE":"Select Variable"
-        },
-        "JUMP": {
-          "SELECT-STORY": "Select Story",
-          "SELECT-BLOCK": "Select Block"
+          "SELECT-VARIABLE": "Select Variable"
         },
         "VIDEO-MODAL": {
           "VIDEO-NAME": "Video Name"
