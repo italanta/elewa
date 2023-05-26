@@ -14,7 +14,11 @@
       "FLD-PASSWD": "Enter password",
       "FLD-REMEMBER-ME": "Remember me",
       "SUBMIT": "Login",
-      "PROCEED": "PROCEED"
+      "PROCEED": "PROCEED",
+      "FORM-PLACEHOLDERS": {
+      "EMAIL": "name@example.com",
+      "PASSWORD": "************"
+      }
     },
     "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
@@ -79,21 +83,21 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "MULTIPLE-INPUT":"Multiple-Input",
-        "IMAGE-INPUT":"Image Input",
+        "MULTIPLE-INPUT": "Multiple-Input",
+        "IMAGE-INPUT": "Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
-        "MULTI-CONTENT-INPUT":"Multi Content Input",
-        "VIDEO-INPUT":"Video Input",
-        "AUDIO-INPUT":"Audio Input",
-        "LOCATION-INPUT":"Location Input",
+        "MULTI-CONTENT-INPUT": "Multi Content Input",
+        "VIDEO-INPUT": "Video Input",
+        "AUDIO-INPUT": "Audio Input",
+        "LOCATION-INPUT": "Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
-        "JUMP":"Jump",
+        "JUMP": "Jump",
         "EVENT": "Event",
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
-        "END-BLOCK":"End Block"
+        "END-BLOCK": "End Block"
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -117,7 +121,7 @@
         "0PTIONAL-PAYLOAD": "Optional - Payload",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Type Variable",
-          "SELECT-VARIABLE":"Select Variable"
+          "SELECT-VARIABLE": "Select Variable"
         },
         "JUMP": {
           "SELECT-STORY": "Select Story",
@@ -146,7 +150,7 @@
         "ASSESSMENTS-NAME": "Assessment's name",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
-          "SELECT-VARIABLE":"Select Variable",
+          "SELECT-VARIABLE": "Select Variable",
           "CHECKBOX": "Custom Variable"
         }
       }
@@ -199,11 +203,11 @@
       "DELETE-BOT": "Delete",
       "ADD-OPTION": "Add Option",
       "NEW-LIST": "New List",
-      "IMAGE":"Image",
-      "AUDIO":"Audio",
-      "VIDEO":"Video",
-      "TEXT":"Text",
-      "DOCUMENT":"Document"
+      "IMAGE": "Image",
+      "AUDIO": "Audio",
+      "VIDEO": "Video",
+      "TEXT": "Text",
+      "DOCUMENT": "Document"
     },
     "FIELDS": {
       "NAME": "Name",
