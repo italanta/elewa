@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, OnInit} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -10,10 +10,10 @@ import { FileStorageService } from '@app/state/file';
   styleUrls: ['./video-upload-modal.component.scss'],
 })
 export class VideoUploadModalComponent implements OnInit{
-  @ViewChild('videoInput') videoInput: ElementRef;
   videoModalForm: FormGroup;
   videoName: string;
   videoPath: string;
+  selectedVideoFile: File
 
   readonly defaultSize = "Don't Encode Media";
  
@@ -45,7 +45,6 @@ export class VideoUploadModalComponent implements OnInit{
 
   closeModal() {
     this.videoModalForm.controls['fileName'].setValue(''); // Clear the value of fileName control
-    this.videoName = '';
     this.dialogRef.close();
   }
   
@@ -55,7 +54,8 @@ export class VideoUploadModalComponent implements OnInit{
   }
 
   async apply() {
-    const videoFile = this.videoInput.nativeElement.files[0] as File;
+    const videoFile = this.selectedVideoFile;
+
   
     if (videoFile) {
       const videoName = this.videoModalForm.controls['fileName'].value || videoFile.name;
@@ -70,16 +70,15 @@ export class VideoUploadModalComponent implements OnInit{
   }
   
   onVideoSelected(event: any) {
-    const file = event.target.files[0] as File;
+    this.selectedVideoFile = event.target.files[0] as File;
   
-    if (file) {
+    if (this.selectedVideoFile) {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.selectedVideoFile);
       reader.onload = () => {
         const videoUrl = reader.result as string;
         this.videoPath = videoUrl;
-        this.videoName = file.name;
-        this.videoModalForm.patchValue({ fileName: this.videoName });
+        this.videoModalForm.patchValue({ fileName: this.selectedVideoFile.name });
       };
     }
   }

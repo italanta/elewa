@@ -17,7 +17,7 @@
           </div>
     
           <div class="media">
-            <input type="file" accept=".mp4" [id]="videoInputId" hidden (change)="onVideoSelected($event)" #videoInput>
+            <input type="file" accept=".mp4" [id]="videoInputId" hidden (change)="onVideoSelected($event)" >
             <label [for]="videoInputId">
               <ng-container *ngIf="!videoPath">
                 <img *ngIf="!videoPath" src="https://i.postimg.cc/zvbh3gqD/thumbnail1.png">
@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="apply">
-        <button type="submit" class="apply__button" (click)="submit()">
+        <button type="submit" class="apply__button" [disabled]="!selectedVideoFile" (click)="apply()">
           {{'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco}}
         </button>
       </div>
