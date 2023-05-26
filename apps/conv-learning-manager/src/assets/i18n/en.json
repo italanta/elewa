@@ -9,15 +9,14 @@
     "OR": "or",
     "CREATE-ACCOUNT": "Create account",
     "LOGIN-FORM": {
-      "FLD-EMAIL": "Enter email",
-      "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Enter password",
-      "FLD-REMEMBER-ME": "Remember me",
       "SUBMIT": "Login",
       "PROCEED": "PROCEED",
-      "FORM-PLACEHOLDERS": {
-      "EMAIL": "name@example.com",
-      "PASSWORD": "************"
+      "PLACEHOLDER": {
+        "EMAIL": "Email is required",
+        "PASSWORD": "************",
+        "LOGINFAILED": "Incorrect Password or email",
+        "EMAILERROR": "Invalid email format",
+        "PASSWORDERROR": "Password Required"
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
