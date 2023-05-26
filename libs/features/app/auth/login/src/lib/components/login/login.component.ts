@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EventLogger } from '@iote/bricks-angular';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '@ngfi/angular';
 import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
@@ -13,9 +13,9 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 })
 export class LoginComponent implements OnInit {
   isLoading: boolean;
-  loginForm: any;
+  loginForm: FormGroup;
   isLogin: boolean;
-  _loginFailed: string;
+  loginFailed: string;
 
   isLoginFormValid(): boolean {
     return this.loginForm.valid;
@@ -44,16 +44,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  get email() {
-    return this.loginForm.get('email').value;
+    get email() {
+    return this.loginForm.get('email');
   }
 
   get password() {
-    return this.loginForm.get('password').value;
-  }
-
-  get loginFailed(): string {
-    return this._loginFailed;
+    return this.loginForm.get('password');
   }
 
   loginUser(): void {
@@ -68,7 +64,8 @@ export class LoginComponent implements OnInit {
         .catch((error) => {
           this.isLoading = false;
           this._analytics.logEvent('login_error', { errorMsg: error });
-          this._loginFailed = 'Invalid email or password';
+          this.loginForm.setErrors({"invalid_email": 'invalid email or password'})
+          this.loginFailed = 'Invalid email or password';
         });
     }
   }
