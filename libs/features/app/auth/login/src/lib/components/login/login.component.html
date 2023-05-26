@@ -5,9 +5,9 @@
       <mat-form-field id="email-input" class="special-input" fxFlex floatLabel="always">
         <mat-label class="form-label">{{ 'Email' | transloco }}</mat-label>
         <input matInput formControlName="email" type="email" placeholder="name@example.com">
-        <mat-error *ngIf="loginForm.get('email').errors?.required">{{ 'Email is required' | transloco
+        <mat-error *ngIf="email?.invalid && email?.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL' | transloco
           }}</mat-error>
-        <mat-error *ngIf="loginForm.get('email').errors?.email">{{ 'Invalid email format' | transloco
+        <mat-error *ngIf="email?.invalid && email?.hasError('email')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAILERROR' | transloco
           }}</mat-error>
       </mat-form-field>
     </div>
@@ -16,13 +16,13 @@
       <mat-form-field id="password-input" class="special-input" fxFlex floatLabel="always">
         <mat-label class="form-label">{{ 'Password' | transloco }}</mat-label>
         <input matInput formControlName="password" type="password" placeholder="************">
-        <mat-error *ngIf="loginForm.get('password').errors?.required">{{ 'Password required' | transloco
+        <mat-error *ngIf="password?.invalid && password?.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.PASSWORDERROR' | transloco
           }}</mat-error>
       </mat-form-field>
     </div>
 
     <div *ngIf="loginFailed" class="login-failed-message">
-      {{ 'Incorrect Password or email' | transloco }}
+      {{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.LOGINFAILED' | transloco }}
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start stretch">
