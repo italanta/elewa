@@ -42,10 +42,13 @@ export class VideoUploadModalComponent implements OnInit {
     this.videoModalForm = this.data.videoMessageForm;
     this.videoPath = this.videoModalForm.controls['fileSrc'].value;
 
-       // Set default value for mediaQuality
   }
 
   closeModal() {
+    if (!this.videoModalForm.controls['fileSrc'].value) {
+      this.videoModalForm.controls['fileName'].setValue('');
+      this.dialogRef.close();
+    }
     this.dialogRef.close();
   }
 
@@ -69,16 +72,13 @@ export class VideoUploadModalComponent implements OnInit {
     const name = this.videoModalForm.controls['fileName'].value;
     const videoName = name ? name : file.name;
 
-    // upload videofile and patch values
-    const res = await this._videoUploadService.uploadSingleFile(
-      file,
-      videoName
-    );
+    const res = await this._videoUploadService.uploadSingleFile(file,videoName);
     res.subscribe((url) => {
       this._autofillVideoUrl(url, videoName);
       this.dialogRef.close();
     });
   }
+
 
   private _autofillVideoUrl(url: string, videoName: string) {
     this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
