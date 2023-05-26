@@ -13,13 +13,10 @@ import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal
 })
 export class LoginComponent implements OnInit {
   isLoading: boolean;
-  email: string;
-  password: string;
   loginForm: any;
-  loginFailed: boolean;
   isLogin: boolean;
+  _loginFailed: string;
 
-  // isLoading: boolean;
   isLoginFormValid(): boolean {
     return this.loginForm.valid;
   }
@@ -46,6 +43,19 @@ export class LoginComponent implements OnInit {
       this.loginUser();
     }
   }
+
+  get email() {
+    return this.loginForm.get('email').value;
+  }
+
+  get password() {
+    return this.loginForm.get('password').value;
+  }
+
+  get loginFailed(): string {
+    return this._loginFailed;
+  }
+
   loginUser(): void {
     this.isLoading = true;
 
@@ -58,7 +68,7 @@ export class LoginComponent implements OnInit {
         .catch((error) => {
           this.isLoading = false;
           this._analytics.logEvent('login_error', { errorMsg: error });
-          this.loginFailed = true;
+          this._loginFailed = 'Invalid email or password';
         });
     }
   }
