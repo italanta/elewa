@@ -31,22 +31,20 @@ jobs:
         with:
             node-version: ${{ matrix.node }}
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
       - name: Create environments folder
-        run: mkdir ./apps/conv-learning-manager/src/environments
+        run: mkdir apps/conv-learning-manager/src/environments
 
       - name: Create environment file from secrets
+        shell: bash
         env:
-          FIREBASE_ENVS: ${{secrets.FIREBASE_ELEWA_CONV_LEARNING_PROD_ENV}}
-        shell: bash
-        run: 'echo "$FIREBASE_ENVS" > apps/conv-learning-manager/src/environments/environment.prod.ts &&
-              echo "$FIREBASE_ENVS" > apps/conv-learning-manager/src/environments/environment.ts'
+          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
+        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
-      - name: Log the env files
+      - name: Create environment prod file from secrets
         shell: bash
-        run: 'cat apps/conv-learning-manager/src/environments/environment.prod.ts'
+        env:
+          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
+        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
 
       - name: Build and preview
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
