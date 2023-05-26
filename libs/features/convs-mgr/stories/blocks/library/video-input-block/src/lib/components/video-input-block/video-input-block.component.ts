@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { VideoInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
