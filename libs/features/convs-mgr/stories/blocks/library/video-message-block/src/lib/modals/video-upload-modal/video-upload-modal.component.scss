@@ -14,7 +14,7 @@ input {
   justify-content: end;
   height: 45px;
   color: var(--convs-mgr-color-primary-dark-blue);
-  
+
   .icon-wrapper {
     padding: 20px;
     cursor: pointer;
@@ -49,6 +49,10 @@ input {
     width: 140px;
     border-radius: 6px;
     height: 50px;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   & .spin_tooltip {

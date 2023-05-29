@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="apply">
-        <button type="submit" class="apply__button" [disabled]="!selectedFile">
+        <button type="submit" class="apply__button" [disabled]="!selectedFile || isUploading">
           <span *ngIf="isUploading; else notUploading"><i class="spin_tooltip fas fa-circle-notch fa-spin"></i> </span>
           <ng-template #notUploading> {{'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco}} </ng-template>
         </button>
