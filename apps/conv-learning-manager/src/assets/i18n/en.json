@@ -14,7 +14,8 @@
       "PLACEHOLDER": {
         "EMAIL": "Email is required",
         "PASSWORD": "************",
-        "LOGINFAILED": "Incorrect Password or email",
+        "LOGIN-FAILED": "Incorrect Password or email",
+        "INVALID-DETAILS": "Form is invalid",
         "EMAIL-ERROR": "Invalid email format",
         "PASSWORD-ERROR": "Password Required"
       }, 

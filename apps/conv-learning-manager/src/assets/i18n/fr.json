@@ -18,7 +18,8 @@
       "PLACEHOLDER": {
         "EMAIL": "name@example.com",
         "PASSWORD": "************",
-        "LOGINFAILED": "Mot de passe incorrect ou email invalide",
+        "LOGIN-FAILED": "Mot de passe incorrect ou email invalide",
+        "INVALID-DETAILS": "Le formulaire est invalide",
         "PASSWORD-ERROR": "Mot de passe requis",
         "EMAIL-ERROR": "Format d'email invalide"
       },
