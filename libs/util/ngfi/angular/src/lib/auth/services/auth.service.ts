@@ -58,7 +58,7 @@ export class AuthService
                });
   }
 
-  public async loginWithEmailAndPassword(email: string, password: string)
+  public async loginWithEmailAndPassword(email: string, password: string): Promise<void>
   {
     return this.afAuth.signInWithEmailAndPassword(email, password)
               .then(() => {

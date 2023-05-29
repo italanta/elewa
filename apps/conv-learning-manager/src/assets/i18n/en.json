@@ -9,12 +9,20 @@
     "OR": "or",
     "CREATE-ACCOUNT": "Create account",
     "LOGIN-FORM": {
-      "FLD-EMAIL": "Enter email",
-      "FLD-EMAIL-ERR": "Please provide a valid email address",
-      "FLD-PASSWD": "Enter password",
-      "FLD-REMEMBER-ME": "Remember me",
       "SUBMIT": "Login",
-      "PROCEED": "PROCEED"
+      "PROCEED": "PROCEED",
+      "PLACEHOLDER": {
+        "EMAIL": "Email is required",
+        "PASSWORD": "************",
+        "LOGIN-FAILED": "Incorrect Password or email",
+        "INVALID-DETAILS": "Form is invalid",
+        "EMAIL-ERROR": "Invalid email format",
+        "PASSWORD-ERROR": "Password Required"
+      }, 
+      "LABELS" : {
+        "EMAIL": "Enter Email",
+        "PASSWORD": "Enter Password"
+      }
     },
     "FORGOT-PASSWD": "Forgot password?",
     "CREATE-ACC-FORM": {
@@ -66,6 +74,7 @@
       }
     },
     "BLOCK": {
+      "BLOCK_ID": "Block ID",
       "TITLES": {
         "IMAGE": "Image",
         "LOCATION": "Location",
@@ -79,17 +88,17 @@
         "STICKER": "Sticker",
         "LIST": "List",
         "DOCUMENT": "Document",
-        "MULTIPLE-INPUT":"Multiple-Input",
-        "IMAGE-INPUT":"Image Input",
+        "MULTIPLE-INPUT": "Multiple-Input",
+        "IMAGE-INPUT": "Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
-        "MULTI-CONTENT-INPUT":"Multi Content Input",
-        "VIDEO-INPUT":"Video Input",
-        "AUDIO-INPUT":"Audio Input",
-        "LOCATION-INPUT":"Location Input",
+        "MULTI-CONTENT-INPUT": "Multi Content Input",
+        "VIDEO-INPUT": "Video Input",
+        "AUDIO-INPUT": "Audio Input",
+        "LOCATION-INPUT": "Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
-        "JUMP":"Jump",
+        "JUMP": "Jump",
         "EVENT": "Event",
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
@@ -122,11 +131,11 @@
         "0PTIONAL-PAYLOAD": "Optional - Payload",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Type Variable",
-          "SELECT-VARIABLE":"Select Variable"
+          "SELECT-VARIABLE": "Select Variable"
         },
         "JUMP": {
           "SELECT-STORY": "Select Story",
-          "SELECT-BLOCK": "Select Block"
+          "SELECT-BLOCK": "Paste Block ID"
         },
         "VIDEO-MODAL": {
           "VIDEO-NAME": "Video Name"
@@ -165,7 +174,7 @@
         "ASSESSMENTS-NAME": "Assessment's name",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
-          "SELECT-VARIABLE":"Select Variable",
+          "SELECT-VARIABLE": "Select Variable",
           "CHECKBOX": "Custom Variable"
         },
         "VIDEO-MODAL": {
@@ -211,6 +220,14 @@
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block"
+    },
+    "ANALYTICS": {
+      "PERIODICALS": {
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      },
+      "PROGRESSION": "Progression"
     }
   },
   "BOTS": {
@@ -221,11 +238,11 @@
       "DELETE-BOT": "Delete",
       "ADD-OPTION": "Add Option",
       "NEW-LIST": "New List",
-      "IMAGE":"Image",
-      "AUDIO":"Audio",
-      "VIDEO":"Video",
-      "TEXT":"Text",
-      "DOCUMENT":"Document"
+      "IMAGE": "Image",
+      "AUDIO": "Audio",
+      "VIDEO": "Video",
+      "TEXT": "Text",
+      "DOCUMENT": "Document"
     },
     "FIELDS": {
       "NAME": "Name",
