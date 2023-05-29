@@ -219,6 +219,14 @@
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block"
+    },
+    "ANALYTICS": {
+      "PERIODICALS": {
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      },
+      "PROGRESSION": "Progression"
     }
   },
   "BOTS": {
