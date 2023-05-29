@@ -3,20 +3,20 @@
 
     <div [formGroup]="loginForm" fxLayout="row" fxLayoutAlign="start center">
       <mat-form-field id="email-input" class="special-input" fxFlex floatLabel="always">
-        <mat-label class="form-label">{{ 'Email' | transloco }}</mat-label>
+        <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.LABELS.EMAIL' | transloco }}</mat-label>
         <input matInput formControlName="email" type="email" placeholder="name@example.com">
-        <mat-error *ngIf="email?.invalid && email?.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL' | transloco
+        <mat-error *ngIf="email.invalid && email.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL' | transloco
           }}</mat-error>
-        <mat-error *ngIf="email?.invalid && email?.hasError('email')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAILERROR' | transloco
+        <mat-error *ngIf="email.invalid && email.hasError('email')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL-ERROR' | transloco
           }}</mat-error>
       </mat-form-field>
     </div>
 
     <div [formGroup]="loginForm" fxLayout="row" fxLayoutAlign="start center">
       <mat-form-field id="password-input" class="special-input" fxFlex floatLabel="always">
-        <mat-label class="form-label">{{ 'Password' | transloco }}</mat-label>
+        <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.LABELS.PASSWORD' | transloco }}</mat-label>
         <input matInput formControlName="password" type="password" placeholder="************">
-        <mat-error *ngIf="password?.invalid && password?.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.PASSWORDERROR' | transloco
+        <mat-error *ngIf="password.invalid && password.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.PASSWORD-ERROR' | transloco
           }}</mat-error>
       </mat-form-field>
     </div>

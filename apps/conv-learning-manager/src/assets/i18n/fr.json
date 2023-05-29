@@ -16,12 +16,16 @@
       "FLD-REMEMBER-ME": "Se souvenir de moi",
       "SUBMIT": "Connexion",
       "PLACEHOLDER": {
-    "EMAIL": "name@example.com",
-    "PASSWORD": "************",
-    "LOGINFAILED": "Mot de passe incorrect ou email invalide",
-    "PASSWORDERROR": "Mot de passe requis",
-    "EMAILERROR": "Format d'email invalide"
-  }
+        "EMAIL": "name@example.com",
+        "PASSWORD": "************",
+        "LOGINFAILED": "Mot de passe incorrect ou email invalide",
+        "PASSWORD-ERROR": "Mot de passe requis",
+        "EMAIL-ERROR": "Format d'email invalide"
+      },
+      "LABELS" : {
+        "EMAIL": "E-mail",
+        "PASSWORD": "Mot de passe"
+      }
     },
     "FORGOT-PASSWD": "Mot de passe oublié ?",
     "CREATE-ACC-FORM": {

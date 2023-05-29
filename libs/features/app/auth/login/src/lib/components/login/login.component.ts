@@ -35,6 +35,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  get email() {
+    return this.loginForm.get('email') as FormControl;
+  }
+
+  get password() {
+    return this.loginForm.get('password') as FormControl;
+  }
+
   validateLoginCred = () => this.email && this.password;
 
   // When user clicks enter, try log in.
@@ -44,13 +52,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-    get email() {
-    return this.loginForm.get('email');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
-  }
 
   loginUser(): void {
     this.isLoading = true;
