@@ -64,6 +64,7 @@
       }
     },
     "BLOCK": {
+      "BLOCK_ID": "ID de bloc",
       "TITLES": {
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
@@ -107,7 +108,7 @@
         },
         "JUMP": {
           "SELECT_STORY": "sélectionner l'histoire",
-          "SELECT-BLOCK": "sélectionner le bloc"
+          "SELECT-BLOCK": "Coller l'identifiant du bloc"
         }
       },
       "BUTTONS": {
