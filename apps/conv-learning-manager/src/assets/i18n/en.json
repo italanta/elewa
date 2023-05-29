@@ -20,8 +20,8 @@
         "PASSWORD-ERROR": "Password Required"
       }, 
       "LABELS" : {
-        "EMAIL": "Email",
-        "PASSWORD": "Password"
+        "EMAIL": "Enter Email",
+        "PASSWORD": "Enter Password"
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
@@ -57,7 +57,7 @@
     "P3": "and",
     "P4-LINK": "the privacy policy"
   },
-  "BTN-WITH-GOOGLE": "With Google",
+  "BTN-WITH-GOOGLE": "Sign in With Google",
   "BTN-WITH-MICROSOFT": "With Microsoft",
   "HERO": {
     "TITLE": "Karibu Elewa Conversational Learning!",
@@ -101,7 +101,11 @@
         "EVENT": "Event",
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
-        "END-BLOCK": "End Block"
+        "END-BLOCK":"End Block",
+        "VIDEO-MODAL": {
+          "MAIN-TITLE": "Upload Video",
+          "MEDIA-TITLE":"Media Encoding"
+        }
       },
       "PLACEHOLDER": {
         "ANCHOR": "Start here",
@@ -117,6 +121,7 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "LOCATION-INPUT": "Location Input",
+        "OPEN-ENDED-QUESTION": "Open Ended Question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
@@ -130,12 +135,26 @@
         "JUMP": {
           "SELECT-STORY": "Select Story",
           "SELECT-BLOCK": "Select Block"
+        },
+        "VIDEO-MODAL": {
+          "VIDEO-NAME": "Video Name"
         }
       },
       "BUTTONS": {
         "JUMP-BLOCK": {
           "SUCCESS": "Success",
           "FAILED": "Failed"
+        },
+        "VIDEO-MODAL": {
+          "APPLY": "Apply"
+        }
+      },
+      "CONTENT": {
+        "VIDEO-MODAL" : {
+          "MEDIA": {
+            "DESC-1": "Please select the size you want to encode the video.",
+            "DESC-2": "The larger the video the longer it will take to load and play"
+          }
         }
       },
       "VALIDATORS": {
@@ -156,6 +175,9 @@
           "INPUT-VARIABLE": "Variable",
           "SELECT-VARIABLE": "Select Variable",
           "CHECKBOX": "Custom Variable"
+        },
+        "VIDEO-MODAL": {
+          "NAME": "Give This media Item a Name"
         }
       }
     },

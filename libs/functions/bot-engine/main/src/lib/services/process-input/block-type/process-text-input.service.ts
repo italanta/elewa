@@ -20,7 +20,7 @@ export class ProcessTextInput extends ProcessInput<string> implements IProcessIn
       const textMessage = message as TextMessage;
 
       // If the storyblock is already assigned a variable we use that variable first
-      lastBlock.variable ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
+      this.variableExists(lastBlock.variable) ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
 
       const inputValue = textMessage.text;
 

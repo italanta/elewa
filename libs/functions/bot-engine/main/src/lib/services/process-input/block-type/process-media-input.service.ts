@@ -25,7 +25,7 @@ export class ProcessMediaInput extends ProcessInput<string> implements IProcessI
       const fileMessage = message as FileMessage;
 
       // If the storyblock is already assigned a variable we use that variable first
-      lastBlock.variable ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
+      this.variableExists(lastBlock.variable) ? this.variableName = lastBlock.variable.name : this.setVariableName(lastBlock.type, lastBlock.id);
 
       const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String;
   
