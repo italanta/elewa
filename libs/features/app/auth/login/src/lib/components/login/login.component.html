@@ -21,8 +21,13 @@
       </mat-form-field>
     </div>
 
-    <div *ngIf="loginFailed" class="login-failed-message">
-      {{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.LOGINFAILED' | transloco }}
+    <div *ngIf="loginForm.hasError('invalid_email')" class="login-failed-message">
+      {{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.LOGIN-FAILED' | transloco }}
+    </div>
+
+    <!-- TODO replace with toast service - should be fixed first -->
+    <div *ngIf="loginForm.hasError('invalid_details')" class="login-failed-message">
+      {{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.INVALID-DETAILS' | transloco }}
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start stretch">

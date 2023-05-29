@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EventLogger } from '@iote/bricks-angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { FirebaseError } from 'firebase-admin';
+import { EventLogger } from '@iote/bricks-angular';
 import { AuthService } from '@ngfi/angular';
+
 import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
@@ -15,11 +17,6 @@ export class LoginComponent implements OnInit {
   isLoading: boolean;
   loginForm: FormGroup;
   isLogin: boolean;
-  loginFailed: string;
-
-  isLoginFormValid(): boolean {
-    return this.loginForm.valid;
-  }
 
   constructor(
     private _authService: AuthService,
@@ -43,32 +40,36 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password') as FormControl;
   }
 
-  validateLoginCred = () => this.email && this.password;
-
-  // When user clicks enter, try log in.
-  detectEnter(event: any): void {
-    if (event.key === 'Enter' && this.isLoginFormValid()) {
-      this.loginUser();
-    }
+  get isFormValid () {
+    return this.loginForm.valid;
   }
 
+  // When user clicks enter, try log in.
+  detectEnter(event: any) {
+    if (event.key === 'Enter') this.loginUser();
+  }
 
   loginUser(): void {
     this.isLoading = true;
 
-    if (this.isLoginFormValid()) {
+    if (this.isFormValid) {
       const { email, password } = this.loginForm.value;
 
       this._authService
-        .loginWithEmailAndPassword(email, password)
+        .loginWithEmailAndPassword(email as string, password as string)
         .then(() => this._analytics.logEvent('login'))
-        .catch((error) => {
-          this.isLoading = false;
+        .catch((error: FirebaseError) => {
           this._analytics.logEvent('login_error', { errorMsg: error });
-          this.loginForm.setErrors({"invalid_email": 'invalid email or password'})
-          this.loginFailed = 'Invalid email or password';
+          
+          // replace error message with toast on AuthService once fixed
+          // The error above comes from the toast failing(once login is false)
+          this.loginForm.setErrors({ invalid_email: 'Something went Wrong' });
         });
+    } else {
+      this.loginForm.setErrors({ invalid_details: 'Invalid Details' });
     }
+
+    this.isLoading = false;
   }
 
   forgotPass() {
