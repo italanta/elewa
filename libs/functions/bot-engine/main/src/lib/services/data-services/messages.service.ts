@@ -10,10 +10,12 @@ import { BotDataService } from './data-service-abstract.class';
 export class MessagesDataService extends BotDataService<Message> {
   private _docPath: string;
   private _msg: Message;
+  tools: HandlerTools;
 
   constructor(tools: HandlerTools) 
   {
     super(tools)
+    this.tools = tools;
   }
 
   /**
@@ -29,6 +31,8 @@ export class MessagesDataService extends BotDataService<Message> {
 
     // Create the message document with the timestamp as the id
     const savedMessage = await this.createDocument(msg, this._docPath, msg.id)
+
+    this.tools.Logger.log(()=>`Message with id: ${savedMessage.id} saved to ${this._docPath}`);
 
     return savedMessage;
   }

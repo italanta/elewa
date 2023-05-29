@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   isLoading: boolean;
   loginForm: FormGroup;
   isLogin: boolean;
+  passwordVisible = false;
 
   constructor(
     private _authService: AuthService,
@@ -92,5 +93,9 @@ export class LoginComponent implements OnInit {
   /** Microsoft Login */
   loginMicrosoft() {
     return this._authService.loadMicrosoftLogin();
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 }

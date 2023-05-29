@@ -1,0 +1,18 @@
+<div [formGroup]="variablesForm">
+  <div class="validation-section" formGroupName="variable">
+    <div class="validation-wrapper" *ngIf="validate" formGroupName="validators">
+      <div class="validation_minmax">
+        <div class="validation_max">
+          <label class="label" for="max">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.MAX" | transloco }}</label>
+          <input class="input" type="number" name="max" id="max" formControlName="max"
+            [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-MAX' | transloco">
+        </div>
+        <div class="validation_min">
+          <label class="label" for="min">{{ "PAGE-CONTENT.BLOCK.VALIDATORS.MIN" | transloco }}</label>
+          <input class="input" type="number" name="min" id="min" formControlName="min"
+            [placeholder]="'PAGE-CONTENT.BLOCK.VALIDATORS.PLACEHOLDER-MIN' | transloco">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

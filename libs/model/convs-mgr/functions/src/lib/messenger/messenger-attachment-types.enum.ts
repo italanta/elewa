@@ -8,4 +8,5 @@ export enum MessengerAttachmentType {
   VIDEO = 'video',
   AUDIO = 'audio',
   FILE = 'file',
+  TEMPLATE = 'template',
 }

@@ -10,20 +10,24 @@ import { StoryBlock, VariableTypes } from "@app/model/convs-mgr/stories/blocks/m
 import { IProcessInput } from "../models/process-input.interface";
 
 export class ProcessOptionsInput extends ProcessInput<string> implements IProcessInput {
+  tools: HandlerTools;
 
   constructor(tools: HandlerTools){
     super(tools)
+    this.tools = tools;
   }
 
   public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<boolean> 
   {
+    this.tools.Logger.log(()=> `ProcessOptionsInput: ${JSON.stringify(message)} ${lastBlock.message}`)
+
       const questionMessage = message as QuestionMessage;
 
       // Replace white space with underscore
       // const formattedTitle = lastBlock.blockTitle.replace(/ /g,"_").toLowerCase();
 
       // If the storyblock is already assigned a variable we use that variable first
-      this.variableName = lastBlock.variable ? lastBlock.variable.name : `${lastBlock.id}_${lastBlock.type}`;
+      this.variableName = this.variableExists(lastBlock.variable) ? lastBlock.variable.name : `${lastBlock.id}_${lastBlock.type}`;
 
       const variableType = lastBlock.variable ? lastBlock.variable.type : VariableTypes.String
 
