@@ -15,8 +15,12 @@
         "EMAIL": "Email is required",
         "PASSWORD": "************",
         "LOGINFAILED": "Incorrect Password or email",
-        "EMAILERROR": "Invalid email format",
-        "PASSWORDERROR": "Password Required"
+        "EMAIL-ERROR": "Invalid email format",
+        "PASSWORD-ERROR": "Password Required"
+      }, 
+      "LABELS" : {
+        "EMAIL": "Email",
+        "PASSWORD": "Password"
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
