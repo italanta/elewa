@@ -5,8 +5,8 @@ import { MatPaginator} from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 
-import { TranslateService } from '@ngfi/multi-lang';
 import { Observable } from 'rxjs';
+import { TranslateService } from '@ngfi/multi-lang';
 
 import { Assessment} from '@app/model/convs-mgr/conversations/assessments';
 
