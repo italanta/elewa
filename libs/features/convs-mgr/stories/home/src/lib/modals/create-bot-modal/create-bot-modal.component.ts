@@ -67,18 +67,13 @@ export class CreateBotModalComponent implements OnInit {
   }
 
   add() {
-    const bot: Story = {
+    const newStory: Story = {
       name: this.botForm.value.botName,
       description: this.botForm.value.botDesc,
       orgId: ''
     }
 
-    if (this.storyHasImage) {
-      this._addStory$.saveStoryWithImage(bot, this.storyImageFile, this.imagePath);
-    }
-    else {
-      this._addStory$.saveImagelessStory(bot);
-    }
+    this._addStory$.saveStory(newStory, this.storyImageFile, this.imagePath);
   }
 
   update() {
@@ -88,7 +83,7 @@ export class CreateBotModalComponent implements OnInit {
     this.story.imageField = this.botForm.value.botImage ?? '';
 
     // Update bot details
-    this._addStory$.update(this.story, this.storyImageFile, this.imagePath);
+    this._addStory$.updateStory(this.story, this.storyImageFile, this.imagePath);
   }
 
   imageChanged(event: any) {

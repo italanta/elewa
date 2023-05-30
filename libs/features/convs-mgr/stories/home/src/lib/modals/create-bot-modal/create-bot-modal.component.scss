@@ -5,6 +5,12 @@
 .add-btn {
   background-color: #ffab2d;
   color: white;
+
+  & .spin_tooltip {
+    font-size: 1.2rem;
+    animation: fa-spin 1s infinite linear;
+    -webkit-animation: fa-spin 1s infinite linear;
+  }
 }
 
 .cancel-btn {
