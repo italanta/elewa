@@ -19,6 +19,6 @@ export class DeleteBotModalComponent {
 
 
   delete() {
-    this._addStory$.remove(this.story);
+    this._addStory$.removeStory(this.story);
   }
 }
