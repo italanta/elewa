@@ -295,7 +295,7 @@ export class BlockComponent implements OnInit {
       y: top ? top : this.block.position.y
     };
 
-    this.blockFormGroup.value.position = this.block.position;
+    this.blockFormGroup.patchValue({ position: this.block.position });
   }
 
   /**
