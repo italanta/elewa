@@ -38,7 +38,10 @@ export function _JsPlumbTargetLeftComponentDecorator(sourceElement: Element, jsP
     endpoint: 'Dot',
     // Where to position the anchor
     anchor: "Left",
-    connector : FlowchartConnector.type
+    connector : FlowchartConnector.type,
+
+    // unlimited max connection on the endblock
+    maxConnections: -1
   });  
   return sourceElement;
 }

@@ -27,6 +27,8 @@ export class VariablesDataService extends BotDataService<any>{
 
   public async getSpecificVariable(varName: string) {
     const allVariables = await this.getAllVariables()
-    return allVariables[varName]
+
+    if (allVariables) return allVariables[varName]
+    else return null
   }
 }

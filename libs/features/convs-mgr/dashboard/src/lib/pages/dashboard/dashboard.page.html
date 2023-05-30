@@ -3,14 +3,16 @@
 
 </convl-page> -->
 
-<div fxFlexFill fxLayout="column">
-
-  <div class="section-container stat-cards">
+<div class="dash-wrapper">
+  <div class="stat-cards">
     <elewa-trainer-stats></elewa-trainer-stats>
   </div>
 
-  <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between">
+  <div class="chart-section">
+    <app-group-based-progress-chart></app-group-based-progress-chart>
+  </div>
 
+  <!-- <div> -->
     <!-- <div fxLayout="column" fxFlex="55" class="mat-elevation-z2">
 
       <div fxLayout="row" class="section-header">
@@ -30,24 +32,12 @@
 
     </div> -->
 
-    <div class="section-container mat-elevation-z4" fxFlex="100">
-
-      <div class="section-header">
-        <div class="header-area" fxLayout="row" fxLayoutAlign="space-between">
-          <app-group-based-progress-chart></app-group-based-progress-chart>
-        </div>
-      </div>
-<!-- 
-      <div class="section-body">
-        <elewa-actions-list ></elewa-actions-list>
-      </div> -->
-
-    </div>
-
-
-
-  </div>
-
+  <!-- </div> -->
+  
+  <!-- 
+        <div class="section-body">
+          <elewa-actions-list ></elewa-actions-list>
+        </div> -->
 
 <!--
   <div fxLayout="row" class="page-section-row">
@@ -57,6 +47,4 @@
   </div> -->
 
 </div>
-
-<div class="footer"></div>
 
