@@ -75,13 +75,13 @@ export class VideoUploadModalComponent implements OnInit {
     this.videoPath = url;
   }
 
-  apply() {
+  async apply() {
     this.isUploading = true;
     const name = this.videoModalForm.controls['fileName'].value;
     const videoName = name ? name : this.selectedFile.name;
 
-    this._videoUploadService
-      .uploadSingleFile(this.selectedFile, videoName)
+    (await this._videoUploadService
+      .uploadSingleFile(this.selectedFile, videoName))
       .subscribe((url) => {
         this._autofillVideoUrl(url, videoName);
         this.isUploading = false;
