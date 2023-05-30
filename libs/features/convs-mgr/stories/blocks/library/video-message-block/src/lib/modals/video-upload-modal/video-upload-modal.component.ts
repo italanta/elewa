@@ -12,9 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class VideoUploadModalComponent implements OnInit {
   videoModalForm: FormGroup;
   videoPath: string;
-
+  isUploading: boolean;
+  selectedFile: File;
   readonly defaultSize = "Don't Encode Media";
-
   sizeOptions = [
     { vidSize: '4K', resolution: '3840px x 2160px' },
     { vidSize: '1080p', resolution: '1920px x 1080px' },
@@ -25,7 +25,6 @@ export class VideoUploadModalComponent implements OnInit {
       resolution: 'This will use the original media you provided',
     },
   ];
-
   videoInputId = 'videoInput';
   updateVideoTranslation: string;
 
@@ -46,10 +45,9 @@ export class VideoUploadModalComponent implements OnInit {
   }
 
   closeModal() {
-    this.dialogRef.close();
-  }
-
-  apply() {
+    if (!this.videoPath) {
+      this.videoModalForm.controls['fileName'].setValue('');
+    }
     this.dialogRef.close();
   }
 
@@ -59,7 +57,6 @@ export class VideoUploadModalComponent implements OnInit {
 
   onVideoSelected(event: any) {
     const file = event.target.files[0] as File;
-
     if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -76,5 +73,19 @@ export class VideoUploadModalComponent implements OnInit {
   private _autofillVideoUrl(url: string, videoName: string) {
     this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
     this.videoPath = url;
+  }
+
+  apply() {
+    this.isUploading = true;
+    const name = this.videoModalForm.controls['fileName'].value;
+    const videoName = name ? name : this.selectedFile.name;
+
+    this._videoUploadService
+      .uploadSingleFile(this.selectedFile, videoName)
+      .subscribe((url) => {
+        this._autofillVideoUrl(url, videoName);
+        this.isUploading = false;
+        this.dialogRef.close();
+      });
   }
 }

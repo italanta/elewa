@@ -50,6 +50,12 @@ input {
     border-radius: 6px;
     height: 50px;
   }
+
+  & .spin_tooltip {
+    font-size: 1.8rem;
+    animation: fa-spin 1s infinite linear;
+    -webkit-animation: fa-spin 1s infinite linear;
+  }
 }
 
 .left__side {
