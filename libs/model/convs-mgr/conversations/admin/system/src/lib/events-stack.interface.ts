@@ -4,15 +4,15 @@
  * @interface
  */
 export interface EventsStack {
-  /** The unique identifier for the events stack.*/
+  /** The unique identifier for the event */
   uid: string;
   
-  /** The name of the events stack.*/
+  /** The name of the event.*/
   name: string;
   
-  /** Indicates whether the events stack represents a milestone or achievement.*/
+  /** Indicates whether the event represents a milestone or achievement.*/
   isMilestone: boolean;
   
-  /** The payload associated with the events stack, capturing user-specific data or information.*/
+  /** The payload associated with the event, capturing user-specific data or information.*/
   payload: any;
 }
