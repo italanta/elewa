@@ -57,13 +57,10 @@
           {{ 'Update Video' | transloco }}
         </button>
       </div>
-      <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoInput">
-      <div class="apply">
-        <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid || !selectedFile">
-          <span *ngIf="isUploading; else notUploading"><i class="spin_tooltip fas fa-circle-notch fa-spin"></i> </span>
-          <ng-template #notUploading> {{'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco}} </ng-template>
-        </button>
-      </div>
+     <button type="submit" class="apply__button" [disabled]="videoModalForm.invalid || !selectedFile || isUploading">
+  <span *ngIf="isUploading; else notUploading"><i class="spin_tooltip fas fa-circle-notch fa-spin"></i> </span>
+  <ng-template #notUploading> {{'PAGE-CONTENT.BLOCK.BUTTONS.VIDEO-MODAL.APPLY' | transloco}} </ng-template>
+</button>
     </form>
   </div>
 </div>
