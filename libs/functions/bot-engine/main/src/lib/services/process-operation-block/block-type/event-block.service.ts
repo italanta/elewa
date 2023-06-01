@@ -15,7 +15,7 @@ import { DefaultOptionMessageService } from "../../next-block/block-type/default
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
  *  so that we can process the response based on that block.
  * 
- * This service processes a conditional blocks variable value from the user.
+ * This service processes an event block - we use it to track when our users reach certain parts of the course or achieve certain objectives..
  * 
  */
 export class EventBlockService extends DefaultOptionMessageService implements IProcessOperationBlock

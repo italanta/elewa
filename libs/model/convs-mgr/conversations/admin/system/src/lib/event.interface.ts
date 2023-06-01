@@ -43,6 +43,9 @@ export interface Cursor extends IObject
    */
   parentStack?: RoutedCursor[];
 
+  /**
+   * Events, Milestones and Objectives achieved by the user.
+   */
   eventsStack?: EventsStack[];
 }
 
