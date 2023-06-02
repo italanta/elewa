@@ -30,20 +30,22 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
   isPublishing = false;
   
-  constructor(private _assessment: AssessmentService,
-              private _assessmentForm: AssessmentFormService,
-              private _assessmentQuestion: AssessmentQuestionService,
-              private _router: Router,
-              private _route: ActivatedRoute){}
+  constructor(
+    private _assessmentSer: AssessmentService,
+    private _assessmentForm: AssessmentFormService,
+    private _assessmentQuestion: AssessmentQuestionService,
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {}
+
 
   ngOnInit(): void {
     this.initAssessment();
     this.initPage();
   }
 
-  initAssessment(){
-    const assessmentId = this._route.snapshot.paramMap.get('id') as string;
-    this.assessment$ = this._assessment.getAssessment$(assessmentId) as Observable<Assessment>; 
+  initAssessment() {
+    this.assessment$ = this._assessmentSer.getActiveAssessment$()
     this.questions$ = this._assessmentQuestion.getQuestions$();
     this.assessmentMode = this.getAssessmentMode();
   }
@@ -55,7 +57,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
         // Initialize the page title
         this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
         // Initialize assessment form
-        if(this.assessmentMode){
+        if(this.assessmentMode) {
           this.createFormGroup();
         } 
       })
@@ -108,7 +110,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
       userAttempts: this.assessmentForm.value.configs.userAttempts
     }
 
-    return this._assessment.updateAssessment$(this.assessment);
+    return this._assessmentSer.updateAssessment$(this.assessment);
   }
 
   insertAssessmentQuestions$(){
