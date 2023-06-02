@@ -29,7 +29,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build and preview
-        run: nx build conv-learning-manager --skip-nx-cache --prod
+        run: npx nx build conv-learning-manager --skip-nx-cache --prod
 
       - name: Deploy to Enabel Elearning
         uses: FirebaseExtended/action-hosting-deploy@v0

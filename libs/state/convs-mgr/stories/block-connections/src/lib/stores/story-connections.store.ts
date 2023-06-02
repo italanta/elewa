@@ -9,7 +9,7 @@ import { tap, throttleTime, switchMap } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 
@@ -35,18 +35,5 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     this._sbS.sink = data$.subscribe(connections => {
       this.set(connections, 'UPDATE - FROM DB');
     });
-  }
-
-  deleteBlockConnections(block: StoryBlock){
-    const blockId = block.id?.toString() as string
-    let connections: StoryBlockConnection[] = []
-
-    this._sbS.add(
-      this.get().subscribe(_connections => {
-        connections = _connections.filter(conn => conn.sourceId.endsWith(blockId) || conn.targetId === blockId);
-        // Delete from store
-        this.removeMultiple(connections);
-      })
-    );
   }
 }

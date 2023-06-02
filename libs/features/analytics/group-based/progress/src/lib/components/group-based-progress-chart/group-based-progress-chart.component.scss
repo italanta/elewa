@@ -1,21 +1,52 @@
-#chart-ctx {
-  width: 100%;
-  height: 500px;
+.chart-container {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 5px;
+  height: 100%;
+
+  .chart {
+    position: relative;
+    margin: auto;
+    height: 90%; // This value has to be less than 100% for the chart to be dynamically responsive
+    width: 95%; // same here
+  }
 }
 
 .menu {
   .menu__wrapper {
     display: flex;
-    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
 
-    .group {
-      padding: 0.3rem;
+    // left side
+    .groups {
+      display: flex;
+      gap: 0.5rem;
 
-      &__btn {
+      .group {
+        padding: 0.3rem;
+  
+        &__btn {
+          border: none;
+          padding: 0.5rem;
+          border-radius: 5px;
+          cursor: pointer;
+  
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+    }
+
+    // right side
+    .sort_by {
+      button {
         border: none;
         padding: 0.5rem;
         border-radius: 5px;
         cursor: pointer;
+        background-color: #f0f0f0;
 
         &:active {
           transform: scale(0.95);

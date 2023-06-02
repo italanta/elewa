@@ -9,14 +9,12 @@ import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/co
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
-import { EndAnchorComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -105,6 +103,7 @@ export class StoryEditorFrame {
   createStartAnchor() {
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
+    startAnchor.instance.anchorInput = this._story.id as string;
   }
 
   /**

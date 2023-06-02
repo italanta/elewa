@@ -5,28 +5,42 @@
     }
   },
   "LOGIN": {
-    "LOGIN": "Login",
+  "LOGIN": {
+    "LOGIN": "Connexion",
     "OR": "ou",
     "CREATE-ACCOUNT": "Créer un compte",
     "LOGIN-FORM": {
       "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
       "FLD-PASSWD": "Mot de passe",
-      "FLD-REMEMBER-ME": "Rappelle moi",
-      "SUBMIT": "Login"
+      "FLD-REMEMBER-ME": "Se souvenir de moi",
+      "SUBMIT": "Connexion",
+      "PLACEHOLDER": {
+        "EMAIL": "name@example.com",
+        "PASSWORD": "************",
+        "LOGIN-FAILED": "Mot de passe incorrect ou email invalide",
+        "INVALID-DETAILS": "Le formulaire est invalide",
+        "PASSWORD-ERROR": "Mot de passe requis",
+        "EMAIL-ERROR": "Format d'email invalide"
+      },
+      "LABELS" : {
+        "EMAIL": "E-mail",
+        "PASSWORD": "Mot de passe"
+      }
     },
-    "FORGOT-PASSWD": "Oublie mot de passe?",
+    "FORGOT-PASSWD": "Mot de passe oublié ?",
     "CREATE-ACC-FORM": {
       "FLD-FNAME": "Prénom",
       "FLD-LNAME": "Nom de famille",
-      "FLD-NAME-REQ": "Nom est obligatoire",
+      "FLD-NAME-REQ": "Le nom est obligatoire",
       "FLD-EMAIL": "Email",
       "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
       "FLD-PASSWD": "Mot de passe",
       "FLD-CONF-PASSWD": "Confirmer le mot de passe",
-      "FLD-CONF-PASSWD-ERR": "Mot de passe doit etre le meme",
-      "SUBMIT": "Crée un compte"
-    },
+      "FLD-CONF-PASSWD-ERR": "Le mot de passe doit être identique",
+      "SUBMIT": "Créer un compte"
+    }
+  },
     "TOS": {
       "P1": "En m'inscrivant, j'accepte",
       "P2-LINK": "les conditions d'utilisation du service",
@@ -50,6 +64,7 @@
       }
     },
     "BLOCK": {
+      "BLOCK_ID": "ID de bloc",
       "TITLES": {
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
@@ -93,7 +108,7 @@
         },
         "JUMP": {
           "SELECT_STORY": "sélectionner l'histoire",
-          "SELECT-BLOCK": "sélectionner le bloc"
+          "SELECT-BLOCK": "Coller l'identifiant du bloc"
         }
       },
       "BUTTONS": {
@@ -144,6 +159,14 @@
           }
         }
       }
+    },
+    "ANALYTICS": {
+      "PERIODICALS": {
+        "MONTH": "Mois",
+        "WEEK": "Semaine",
+        "DAY": "Jour"
+      },
+      "PROGRESSION": "Progression"
     }
   },
   "BOTS": {

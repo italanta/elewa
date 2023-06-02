@@ -54,6 +54,6 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
 
   createEndBlock(orgId: string, storyId: string, block: EndStoryAnchorBlock) {
     const blocksRepo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
-    blocksRepo.create(block, block.id).subscribe();
+    return blocksRepo.create(block, block.id);
   }
 }
