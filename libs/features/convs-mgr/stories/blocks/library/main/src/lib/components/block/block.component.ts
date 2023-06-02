@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CdkPortal } from '@angular/cdk/portal';
+import { MatDialog } from '@angular/material/dialog';
+
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -12,6 +14,7 @@ import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-conn
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
+import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/blocks/library/video-message-block'
 
 import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
 import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
@@ -45,6 +48,8 @@ import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
 import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
+
+
 
 /**
  * Block which sends a message from bot to user.
@@ -96,6 +101,8 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  videoMessageForm: FormGroup
+  
 
   @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
@@ -108,7 +115,8 @@ export class BlockComponent implements OnInit {
               private _connectionsService: BlockConnectionsService,
               private _logger: Logger,
               private sideMenu:SidemenuToggleService,
-              private sideScreen:SideScreenToggleService
+              private sideScreen:SideScreenToggleService,
+              private matdialog: MatDialog
 
   ) { }
 
@@ -287,7 +295,7 @@ export class BlockComponent implements OnInit {
       y: top ? top : this.block.position.y
     };
 
-    this.blockFormGroup.value.position = this.block.position;
+    this.blockFormGroup.patchValue({ position: this.block.position });
   }
 
   /**
@@ -307,11 +315,20 @@ export class BlockComponent implements OnInit {
     return false;
   }
 
-  editBlock() {
-    this.sideMenu.toggleExpand(false)
-    this.sideScreen.toggleSideScreen(true)
-    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+  editBlock() { 
+    
+    if (this.type === this.videoType) {
+      this.matdialog.open(VideoUploadModalComponent, {
+        data: { videoMessageForm: this.blockFormGroup },
+      });
+    }
+      else{
+        this.sideMenu.toggleExpand(false)
+        this.sideScreen.toggleSideScreen(true)
+        this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
+      }   
   }
+
 
   copyblock(block: StoryBlock) {
     block.id = (this.blocksGroup.value.length + 1).toString();

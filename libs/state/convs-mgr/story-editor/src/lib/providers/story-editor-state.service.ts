@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
 import { combineLatest, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -24,12 +26,17 @@ export class StoryEditorStateService {
    *  We need this param to diff. between discarded and newly loaded blocks. */
   private _lastLoadedState: StoryEditorState | null;
   private _isSaving = false;
+  private _connections: StoryBlockConnection[];
 
-  constructor(private _story$$: ActiveStoryStore,
-              private _blocks$$: StoryBlocksStore,
-              private _connections$$: StoryConnectionsStore,
-              private _blockConnectionsService: BlockConnectionsService,
-              private _logger: Logger) { }
+  private _sBs = new SubSink();
+
+  constructor(
+    private _story$$: ActiveStoryStore,
+    private _blocks$$: StoryBlocksStore,
+    private _connections$$: StoryConnectionsStore,
+    private _blockConnectionsService: BlockConnectionsService,
+    private _logger: Logger
+  ) {}
 
   /**
    * Service which returns the data state of the editor.
@@ -46,7 +53,10 @@ export class StoryEditorStateService {
     const stateData$ = state$.pipe(map(([story, blocks, connections]) => ({ story, blocks, connections }) as StoryEditorState));
 
     // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
-    stateData$.pipe(take(1)).subscribe(state => this._lastLoadedState = ___cloneDeep(state));
+    stateData$.pipe(take(1)).subscribe((state) => (
+      this._lastLoadedState = ___cloneDeep(state),
+      this._sBs.sink = this._connections$$.get().subscribe(cons => this._connections = cons)
+    ));
 
     // Return state.
     return stateData$;
@@ -59,9 +69,7 @@ export class StoryEditorStateService {
     // Avoid double save
     this._isSaving = true;
 
-    // let connections = state. .getJsPlumbConnections as any[];
-
-    const newConnections = this._determineConnectiontions(state.connections);
+    const newConnections = this._determineConnections(state.connections);
 
     const updateStory$ = this._story$$.update(state.story);
 
@@ -96,12 +104,14 @@ export class StoryEditorStateService {
 
     // Blocks which are newly created and newly configured
     const newBlocks = blocks.filter(nBl => !oldBlocks.find(oBl => nBl.id === oBl.id));
-    // Blocks which were deleted
 
+    // Blocks which were deleted=
     const delBlocks = oldBlocks.filter(oBl => (oBl.id !== 'story-end-anchor' && !blocks.find(nBl => nBl.id === oBl.id)));
+
     // Blocks which were updated.
     const updBlocks = blocks.filter(nBl => !newBlocks.concat(delBlocks)
       .find(aBl => nBl.id === aBl.id));
+
     const newBlocks$ = newBlocks.map(bl => this._createBlock(bl));
     const delBlocks$ = delBlocks.map(bl => this._deleteBlock(bl));
     const updBlocks$ = updBlocks.map(bl => this._updateBlock(bl));
@@ -112,9 +122,9 @@ export class StoryEditorStateService {
   }
 
   // Todo: check for deleted connections and upated conections
-  private _determineConnectiontions(connections: StoryBlockConnection[]) {
+  private _determineConnections(connections: StoryBlockConnection[]) {
     // fetches only the new connections
-    const newConnections = this.fetchNewJsPlumbCOnnections(connections);
+    const newConnections = this.fetchNewJsPlumbConnections(connections);
 
     //TODO: chain connections actions -> refer to determineBlockActions
     return newConnections;
@@ -135,12 +145,12 @@ export class StoryEditorStateService {
     return this._blocks$$.update(block);
   }
 
-  private fetchNewJsPlumbCOnnections(connections: StoryBlockConnection[]): StoryBlockConnection[] {
+  private fetchNewJsPlumbConnections(connections: StoryBlockConnection[]): StoryBlockConnection[] {
 
     /** after add multiple jsplumb adds a target connection to state */
     /** the filter removes the jsplumb duplicate connection as it's not needed */
     /** it also ensures every save has only unique values i.e length > 0 */
-    return connections.filter((c) => !c.targetId.includes('jsplumb'))
+    return connections.filter((c) => this.checkForEndBlockConnections(c))
       .map(c => {
         return {
           id: c.id,
@@ -151,10 +161,27 @@ export class StoryEditorStateService {
       });
   }
 
+  /** Check for existance of endblock conmnection to prevent duplication (weird Jsplumb side effect) */
+  private checkForEndBlockConnections(c:StoryBlockConnection) {
+
+    //if targetId includes jsplumb (connection already exists - not new) mark as an old connection
+    if (c.targetId.includes('jsplumb')) return false
+
+    // filter by source ID and target Id
+    const isPresent = this._connections.find(con => con.targetId === 'story-end-anchor' && con.sourceId === c.sourceId)
+
+    if (isPresent) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   /** 
    * Reset the state to null 
    *  - to use in onDestroy */
   flush() {
     this._lastLoadedState = null;
+    this._sBs.unsubscribe();
   }
 }

@@ -1,61 +1,85 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { FirebaseError } from 'firebase-admin';
 import { EventLogger } from '@iote/bricks-angular';
-
 import { AuthService } from '@ngfi/angular';
-import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
+import { ForgotPasswordModalComponent } from '../../modals/forgot-password-modal/forgot-password-modal.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit
-{
-
+export class LoginComponent implements OnInit {
   isLoading: boolean;
-  email: string;
-  password: string;
+  loginForm: FormGroup;
+  isLogin: boolean;
+  passwordVisible = false;
 
-  // isLoading: boolean;
-  isLogin = true;
+  constructor(
+    private _authService: AuthService,
+    private _dialog: MatDialog,
+    private _analytics: EventLogger,
+    private formBuilder: FormBuilder
+  ) {}
 
-  constructor( private _authService: AuthService,
-              private _dialog: MatDialog,
-              private _analytics: EventLogger)
-  {  }
-
-  ngOnInit()
-  {
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+    });
   }
 
-  validateLoginCred = () => this.email && this.password;
+  get email() {
+    return this.loginForm.get('email') as FormControl;
+  }
+
+  get password() {
+    return this.loginForm.get('password') as FormControl;
+  }
+
+  get isFormValid () {
+    return this.loginForm.valid;
+  }
 
   // When user clicks enter, try log in.
-  detectEnter = (event: any) => (event.key === "Enter") ? this.loginUser() : 'noop';
+  detectEnter(event: any) {
+    if (event.key === 'Enter') this.loginUser();
+  }
 
-  loginUser()
-  {
+  loginUser(): void {
     this.isLoading = true;
 
-    if(this.validateLoginCred())
-      this._authService.loginWithEmailAndPassword(this.email, this.password)
-                      .then(()=> this._analytics.logEvent('login'))
-                      .catch((error) => { this.isLoading = false;
-                                          this._analytics.logEvent('login_error', {"errorMsg": error})
-                                        });
+    if (this.isFormValid) {
+      const { email, password } = this.loginForm.value;
+
+      this._authService
+        .loginWithEmailAndPassword(email as string, password as string)
+        .then(() => this._analytics.logEvent('login'))
+        .catch((error: FirebaseError) => {
+          this._analytics.logEvent('login_error', { errorMsg: error });
+          
+          // replace error message with toast on AuthService once fixed
+          // The error above comes from the toast failing(once login is false)
+          this.loginForm.setErrors({ invalid_email: 'Something went Wrong' });
+        });
+    } else {
+      this.loginForm.setErrors({ invalid_details: 'Invalid Details' });
+    }
+
+    this.isLoading = false;
   }
 
   forgotPass() {
-    this._dialog
-          .open(ForgotPasswordModalComponent, {
-            width: '500px'
-          });
+    this._dialog.open(ForgotPasswordModalComponent, {
+      width: '500px',
+    });
   }
 
-  toggleMode = () => this.isLogin = ! this.isLogin;
-
+  toggleMode = () => (this.isLogin = !this.isLogin);
 
   loginGoogle() {
     return this._authService.loadGoogleLogin();
@@ -71,4 +95,7 @@ export class LoginComponent implements OnInit
     return this._authService.loadMicrosoftLogin();
   }
 
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
 }

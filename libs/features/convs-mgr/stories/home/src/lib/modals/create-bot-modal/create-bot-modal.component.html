@@ -57,11 +57,17 @@
 
       <div>
         <button [disabled]="isSavingStory" mat-raised-button class="add-btn" (click)="submitForm()">
-          <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
-          <ng-template #isEdit>
-            <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+          <span *ngIf="isSavingStory; else notUploading"><i class="spin_tooltip fas fa-circle-notch fa-spin"></i> </span>
+
+          <!-- image is not uploading -->
+          <ng-template #notUploading> 
+            <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
+            <ng-template #isEdit>
+              <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+            </ng-template>
           </ng-template>
         </button>
+
       </div>
     </div>
 
