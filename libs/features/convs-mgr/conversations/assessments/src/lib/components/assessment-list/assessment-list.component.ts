@@ -49,7 +49,7 @@ export class AssessmentListComponent implements OnInit{
     this.dataSource = new AssessmentDataSource(this.assessments$);
   }
 
-  goToQuestions(assessmentId: string){
+  openAssessment(assessmentId: string){
     this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
   }
 
