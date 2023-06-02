@@ -141,7 +141,10 @@ export enum StoryBlockTypes {
   /** Conditional Block that maps the path the user will take depending on a predefined variable  */
   Conditional = 32,
 
-  EndStoryAnchorBlock = 9999
+  /** The block that represents a single assessment question */
+  AssessmentQuestionBlock = 33,
+
+  EndStoryAnchorBlock = 9999,
 }
 
 export function isOutputBlock(blockType: StoryBlockTypes): boolean {
