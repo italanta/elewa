@@ -9,6 +9,12 @@ on:
       environment:
         required: true
         type: string
+      github_token:
+        required: true
+        type: string
+      firebase_service_account:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -37,13 +43,13 @@ jobs:
       - name: Create environment file from secrets
         shell: bash
         env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
+          ENV_FILE: ${{ inputs.environment }}
         run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
       - name: Create environment prod file from secrets
         shell: bash
         env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
+          ENV_FILE: ${{ inputs.environment }}
         run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
 
       - name: Build and preview
