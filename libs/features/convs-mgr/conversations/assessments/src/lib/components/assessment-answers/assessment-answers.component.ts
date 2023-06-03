@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
@@ -11,7 +11,7 @@ import { AssessmentFormService } from '../../services/assessment-form.service';
   templateUrl: './assessment-answers.component.html',
   styleUrls: ['./assessment-answers.component.scss'],
 })
-export class AssessmentAnswersComponent implements OnInit {
+export class AssessmentAnswersComponent {
   @Input() answers?: AssessmentQuestionOptions[] = [] as AssessmentQuestionOptions[];
   @Input() assessmentMode: number;
   @Input() questionId: string
@@ -20,10 +20,6 @@ export class AssessmentAnswersComponent implements OnInit {
 
   constructor(private _assessmentForm: AssessmentFormService){}
 
-  ngOnInit(): void {
-    this.generateAnswerForm();
-  }
-
   get choicesList(){
     return this.questionFormGroup.controls['options'] as FormArray;
   }
@@ -31,5 +27,4 @@ export class AssessmentAnswersComponent implements OnInit {
   generateAnswerForm(){
     this.choicesList.push(this._assessmentForm.createChoiceForm(this.questionId, this.choicesList));
   }
-
 }
