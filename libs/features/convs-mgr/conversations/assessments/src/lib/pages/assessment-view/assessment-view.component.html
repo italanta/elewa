@@ -19,7 +19,7 @@
           [assessmentMode]="assessmentMode"></app-assessment-config>
 
         <div *ngIf="questions$ | async as questions">
-          <app-assessment-question-forms [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode">
+          <app-assessment-question-forms [assessmentFormGroup]="assessmentForm" [questions]="questions" [assessmentMode]="assessmentMode">
           </app-assessment-question-forms>
         </div>
       </form>

@@ -1,15 +1,15 @@
 <div class="question-form-list">
   <form [formGroup]="assessmentFormGroup">
     <div formArrayName="questions">
-      <div *ngFor="let question of questionsList.controls; let f = index">
-        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="f"
-          [questionNo]="f+1" [assessmentMode]="assessmentMode"></app-assessment-question-form>
+      <div *ngFor="let question of questionsList.controls; let i = index">
+        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="i"
+          [questionNo]="i+1" [assessmentMode]="assessmentMode"></app-assessment-question-form>
       </div>
     </div>
   </form>
-
+ 
   <div class="question-button" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-flat-button class="btn-add" (click)="generateQuestionForm()">
+    <button mat-flat-button class="btn-add" (click)="addQuestion()">
       <i class="fas fa-plus"></i>
       <span class="label">
         {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}

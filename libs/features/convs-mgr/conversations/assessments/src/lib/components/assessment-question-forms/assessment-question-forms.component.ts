@@ -20,14 +20,18 @@ export class AssessmentQuestionFormsComponent implements OnInit {
   constructor(private _assessmentForm: AssessmentFormService){}
 
   ngOnInit(): void {
-    this.generateQuestionForm();
+    this.getQuestions()
   }
 
-  get questionsList(){
+  get questionsList() {
     return this.assessmentFormGroup.get('questions') as FormArray;
   }
 
-  generateQuestionForm(){
-    this.questionsList.push(this._assessmentForm.createQuestionForm());
+  getQuestions() {
+    this.questions.map(question => this.questionsList.push(this._assessmentForm.createQuestionForm(question)));
+  }
+
+  addQuestion() {
+    this.questionsList.push(this._assessmentForm.createQuestionForm())
   }
 }
