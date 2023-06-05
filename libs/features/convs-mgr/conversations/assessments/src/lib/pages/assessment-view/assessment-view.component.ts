@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
 import { Observable, forkJoin, tap } from 'rxjs';
+import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
@@ -21,6 +22,8 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   assessment$: Observable<Assessment>;
   questions$: Observable<AssessmentQuestion[]>;
   pageTitle: string;
+
+  questions: AssessmentQuestion[]
  
   assessmentMode: AssessmentMode;
   assessmentForm: FormGroup;
@@ -46,7 +49,8 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
 
   initAssessment() {
     this.assessment$ = this._assessmentSer.getActiveAssessment$()
-    this.questions$ = this._assessmentQuestion.getQuestions$();
+    this.questions$ = this._assessmentQuestion.getQuestions$()
+    this._sbS.sink = this._assessmentQuestion.getQuestions$().subscribe(qstsn => this.questions = qstsn);
     this.assessmentMode = this.getAssessmentMode();
   }
 
@@ -57,9 +61,9 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
         // Initialize the page title
         this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
         // Initialize assessment form
-        if(this.assessmentMode) {
+        if (this.assessmentMode) {
           this.createFormGroup();
-        } 
+        }
       })
     ).subscribe();
   }
@@ -82,9 +86,11 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   onPublish(){
     this.isPublishing = true;
 
+    // we spread the `persistAssessmentQuestions()` since it's an array of Observables.
     this._sbS.add(
-      forkJoin([this.insertAssessmentConfig$(), this.insertAssessmentQuestions$()]).subscribe(_saved => {
+      forkJoin([this.insertAssessmentConfig$(), ...this.persistAssessmentQuestions$()]).subscribe(_saved => {
         if(_saved){
+          this.isPublishing = false
           this.assessmentMode = AssessmentMode.View;
           this._router.navigate(['/assessments', this.assessment.id], {queryParams: {mode: 'view'}});
         }
@@ -113,9 +119,29 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     return this._assessmentSer.updateAssessment$(this.assessment);
   }
 
-  insertAssessmentQuestions$(){
+  persistAssessmentQuestions$(){
     const assessmentQuestions: AssessmentQuestion[] = this.assessmentForm.value.questions;
-    return this._assessmentQuestion.addQuestions$(assessmentQuestions);
+    return this._determineAssesActions(assessmentQuestions)
+  }
+
+  /**
+   * Determines which persist actions to take to update from a previous to a current state.
+   * @param assessmentQuestions - The new questions
+   * @returns A list of database actions to take.
+  */
+  private _determineAssesActions(assessmentQuestions: AssessmentQuestion[]) {
+    const oldQuestions = this.questions;
+
+    // Assessments which are newly created and newly configured
+    const newQstns = assessmentQuestions.filter(question => !oldQuestions.find(oldQ => oldQ.id === question.id));
+
+    // Assessments which were updated.
+    const updQstns = assessmentQuestions.filter(question => !newQstns.find(newQ => newQ.id === question.id));
+
+    const newQstns$ = newQstns.map(question => this._assessmentQuestion.addQuestion$(question));
+    const updQstns$ = updQstns.map(question => this._assessmentQuestion.updateQuestion$(question));
+
+    return __flatten([newQstns$, updQstns$]);
   }
 
   ngOnDestroy(): void {
