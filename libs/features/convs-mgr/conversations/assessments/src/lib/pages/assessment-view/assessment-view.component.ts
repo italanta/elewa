@@ -138,10 +138,13 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     // Assessments which were updated.
     const updQstns = assessmentQuestions.filter(question => !newQstns.find(newQ => newQ.id === question.id));
 
+    const delQstns = oldQuestions.filter(oldQ => !assessmentQuestions.find(question => question.id === oldQ.id));
+
+    const delQstns$ = delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
     const newQstns$ = newQstns.map(question => this._assessmentQuestion.addQuestion$(question));
     const updQstns$ = updQstns.map(question => this._assessmentQuestion.updateQuestion$(question));
 
-    return __flatten([newQstns$, updQstns$]);
+    return __flatten([newQstns$, updQstns$, delQstns$]);
   }
 
   ngOnDestroy(): void {
