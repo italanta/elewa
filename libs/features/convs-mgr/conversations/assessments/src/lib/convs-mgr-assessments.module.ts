@@ -15,6 +15,7 @@ import { AssessmentsRouterModule } from './assessments.router.module';
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 import { CreateAssessmentModalComponent } from './modals/create-assessment-modal/create-assessment-modal.component';
+import { DeleteAssessmentModalComponent } from './modals/delete-bot-modal/delete-assessment-modal.component';
 import { AssessmentListComponent } from './components/assessment-list/assessment-list.component';
 import { AssessmentQuestionsComponent } from './components/assessment-questions/assessment-questions.component';
 import { AssessmentQuestionComponent } from './components/assessment-question/assessment-question.component';
@@ -48,7 +49,9 @@ import { AssessmentFormService } from './services/assessment-form.service';
                  AssessmentAnswersComponent,
                  AssessmentAnswerComponent,
                  AssessmentConfigComponent,
-                 CreateAssessmentModalComponent],
+                 CreateAssessmentModalComponent,
+                 DeleteAssessmentModalComponent,
+                ],
   providers: [AssessmentService,
               AssessmentFormService,
               AssessmentQuestionService,

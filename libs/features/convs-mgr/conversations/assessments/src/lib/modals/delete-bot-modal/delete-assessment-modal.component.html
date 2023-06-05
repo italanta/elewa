@@ -1,0 +1,16 @@
+<div class="delete-assessment__wrapper">
+  <h2 class="delete-assessment__header">
+    {{ 'BOTS.DELETE-MODAL.TITLE' | transloco }}
+  </h2>
+  <p class="delete-assessment__message">
+    {{ 'BOTS.DELETE-MODAL.MESSAGE' | transloco }}
+  </p>
+  <div class="delete-assessment__btns">
+    <button mat-button mat-dialog-close class="delete-assessment__btn--cancel">
+      {{ 'BOTS.DELETE-MODAL.CANCEL' | transloco }}
+    </button>
+    <button mat-raised-button class="delete-assessment__btn--delete" (click)="delete()">
+      {{ 'BOTS.DELETE-MODAL.SUBMIT' | transloco }}
+    </button>
+  </div>
+</div>
