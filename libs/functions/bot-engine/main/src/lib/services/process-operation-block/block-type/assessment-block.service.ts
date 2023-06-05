@@ -2,7 +2,7 @@ import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { AssessmentBrick } from "@app/model/convs-mgr/stories/blocks/messaging";
 
-import { AssessmentCursor, Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
+import { AssessmentCursor, Cursor, EndUserPosition, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -58,13 +58,19 @@ export class AssessmentBlockService implements IProcessOperationBlock
 
     this.tools.Logger.log(()=> `Jumping to assessment question: ${JSON.stringify(nextBlock)}`);
 
-    // 2. Create routed cursor
-    const routedCursor: AssessmentCursor = {
+    // 2. Create assessment cursor
+    const assessmentCursor: AssessmentCursor = {
       assessmentId: storyBlock.assessmentId,
       fail: failConn ? failConn.targetId : "",
       average: avrgConn ? avrgConn.targetId : "",
       pass: passConn ? passConn.targetId : "",
       score: 0
+    };
+
+    const routedCursor: RoutedCursor = {
+      storyId: currentStory,
+      blockSuccess: "",
+      blockFail: "",
     };
 
     // Update the EndUser postion
@@ -79,11 +85,20 @@ export class AssessmentBlockService implements IProcessOperationBlock
     //  push the new routed cursor to the top existing stack
     if (!newCursor.assessmentStack) {
       const assessmentStack = [];
-      assessmentStack.unshift(routedCursor);
+      assessmentStack.unshift(assessmentCursor);
 
       newCursor.assessmentStack = assessmentStack;
     } else {
-      newCursor.assessmentStack.unshift(routedCursor);
+      newCursor.assessmentStack.unshift(assessmentCursor);
+    }
+
+    if (!newCursor.parentStack) {
+      const parentStack = [];
+      parentStack.unshift(routedCursor);
+
+      newCursor.parentStack = parentStack;
+    } else {
+      newCursor.parentStack.unshift(routedCursor);
     }
 
     newCursor.position = newUserPosition;
