@@ -2,6 +2,7 @@ import { IObject } from '@iote/bricks';
 
 import { EventCategoryTypes } from './event-category-types.enum';
 import { RoutedCursor } from './routed-cursor.interface';
+import { AssessmentCursor } from './assessment-cursor.interface';
 
 export interface Event
 {
@@ -52,6 +53,10 @@ export interface Cursor extends IObject
    *   
    */
   parentStack?: RoutedCursor[];
+
+
+  /** When a learner is doing the assessments, we track the assessment details here */
+  assessmentStack?: AssessmentCursor[];
 }
 
 /** 
