@@ -7,9 +7,10 @@ import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
+import { ActiveOrgStore } from '@app/state/organisation';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   isPublishing = false;
   
   constructor(private _assessment: AssessmentService,
+              private _publishAssessment: AssessmentPublishService,
+              private _org$$: ActiveOrgStore,
               private _assessmentForm: AssessmentFormService,
               private _assessmentQuestion: AssessmentQuestionService,
               private _router: Router,
@@ -88,6 +91,10 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  publishAssessment(){
+    this._publishAssessment.publish(this.assessment);
   }
 
   toggleForm(){
