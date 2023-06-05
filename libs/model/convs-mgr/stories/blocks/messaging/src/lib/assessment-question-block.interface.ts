@@ -5,5 +5,6 @@ import { Button } from "./question-message-block.interface";
 
 export interface AssessmentQuestionBlock extends StoryBlock {
   message: string;
+  marks: number;
   options?: ButtonsBlockButton<Button>[];
 }
