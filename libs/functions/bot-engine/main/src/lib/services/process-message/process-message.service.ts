@@ -14,6 +14,8 @@ import { ProcessInputFactory } from '../process-input/process-input.factory';
 
 import { BotMediaProcessService } from '../media/process-media-service';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
+import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
+import { AssessmentQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 export class ProcessMessageService
 {
@@ -71,6 +73,14 @@ export class ProcessMessageService
 
     // Return the cursor updated with the next block in the story
     newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
+
+    // Update the cursor with the user score in the assessment
+    if(newCursor.assessmentStack && newCursor.assessmentStack.length > 0) {
+      const userAnswerScore = assessUserAnswer(lastBlock as AssessmentQuestionBlock, msg)
+      newCursor.assessmentStack[0].score += userAnswerScore;
+      
+      this._tools.Logger.log(()=> `User score on question ${lastBlock.id}: ${userAnswerScore}`);
+    }
 
     // Get the full block object here so that we can return it to the bot engine
     let nextBlock = await this._blockService$.getBlockById(newCursor.position.blockId, orgId, currentStory);
