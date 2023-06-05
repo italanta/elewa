@@ -2,7 +2,7 @@
   <form [formGroup]="assessmentFormGroup">
     <div formArrayName="questions">
       <div *ngFor="let question of questionsList.controls; let i = index">
-        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [questionFormGroupName]="i"
+        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [questions]="questions" [questionFormGroupName]="i"
           [questionNo]="i+1" [assessmentMode]="assessmentMode"></app-assessment-question-form>
       </div>
     </div>

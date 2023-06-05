@@ -27,8 +27,7 @@ export class AssessmentQuestionService {
     return this._assessmentQuestion$$.update(question);
   }
 
-  deleteQuestion$(oldQuestion: AssessmentQuestion){
-    oldQuestion.deleted = true;
-    return this.updateQuestion$(oldQuestion);
+  deleteQuestion$(oldQuestion: AssessmentQuestion) {
+    return this._assessmentQuestion$$.remove(oldQuestion);
   }
 }
