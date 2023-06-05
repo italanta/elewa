@@ -4,7 +4,7 @@
       <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
         <h2 class="title">{{assessment.title}}</h2>
 
-          <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="determineAction()">
+          <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="publishAssessment()">
             <span *ngIf="assessmentMode; else btnEdit">
               {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
             </span>
