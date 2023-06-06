@@ -1,9 +1,10 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
 import { SubSink } from 'subsink';
+
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-delete-assessment-modal',
@@ -15,12 +16,12 @@ export class DeleteAssessmentModalComponent implements OnDestroy {
 
   constructor(
     private _dialog: MatDialog,
-    private _assQuestionSer$: AssessmentQuestionService,
-    @Inject(MAT_DIALOG_DATA) public data: { question: AssessmentQuestion }
+    private _assSer$: AssessmentService,
+    @Inject(MAT_DIALOG_DATA) public data: { assessment : Assessment }
   ) {}
 
   delete() {
-    this._sBs.sink = this._assQuestionSer$.deleteQuestion$(this.data.question).subscribe(() => {
+    this._sBs.sink = this._assSer$.deleteAssessment$(this.data.assessment).subscribe(() => {
       this._dialog.closeAll();
     });
   }
