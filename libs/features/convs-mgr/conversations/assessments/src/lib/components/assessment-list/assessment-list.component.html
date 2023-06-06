@@ -47,6 +47,10 @@
                                 <button mat-flat-button class="btn-result">
                                     {{'ASSESSMENTS.BUTTON.RESULTS' | transloco}}
                                 </button>
+
+                                <button mat-flat-button class="btn-delete" (click)="openDeleteModal(assessment)">
+                                    {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
+                                </button>
                             </div>
                         </td>
                     </ng-container>
