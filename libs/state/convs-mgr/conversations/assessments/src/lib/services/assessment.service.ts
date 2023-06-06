@@ -35,6 +35,10 @@ export class AssessmentService {
     return this._assessments$$.update(assessment);
   }
 
+  deleteAssessment$(oldAssessment: Assessment) {
+    return this._assessments$$.remove(oldAssessment)
+  }
+
   getAssessmentOrg$ = () => this._orgId$$.get().pipe(take(1), map((_org) => _org.id));
 
   getAssessment$(assessmentId: string) {
