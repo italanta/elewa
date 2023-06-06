@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, forkJoin, tap } from 'rxjs';
+import { Observable, concatMap, forkJoin, from, tap, timer } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
@@ -141,7 +141,18 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     const delQstns = oldQuestions.filter(oldQ => !assessmentQuestions.find(question => question.id === oldQ.id));
 
     const delQstns$ = delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
-    const newQstns$ = newQstns.map(question => this._assessmentQuestion.addQuestion$(question));
+
+    // we set a delay here so we can maintain a consistent order on our questions
+    // TODO: replace with drag and drop feature
+    const newQstns$ = from(newQstns).pipe(
+      concatMap((question, index) => {
+        const delay = 10 * index; // Delay in milliseconds (0.01 second per question)
+        return timer(delay).pipe(
+          concatMap(() => this._assessmentQuestion.addQuestion$(question))
+        );
+      })
+    );
+
     const updQstns$ = updQstns.map(question => this._assessmentQuestion.updateQuestion$(question));
 
     return __flatten([newQstns$, updQstns$, delQstns$]);
