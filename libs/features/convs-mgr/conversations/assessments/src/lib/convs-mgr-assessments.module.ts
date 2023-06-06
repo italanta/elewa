@@ -4,10 +4,19 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import {
+  MaterialBricksModule,
+  MaterialDesignModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { ActiveAssessmentStore, AssessmentQuestionService, AssessmentQuestionStore, AssessmentService, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
+import {
+  ActiveAssessmentStore,
+  AssessmentQuestionService,
+  AssessmentQuestionStore,
+  AssessmentService,
+  AssessmentsStore,
+} from '@app/state/convs-mgr/conversations/assessments';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
@@ -15,7 +24,7 @@ import { AssessmentsRouterModule } from './assessments.router.module';
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 import { CreateAssessmentModalComponent } from './modals/create-assessment-modal/create-assessment-modal.component';
-import { DeleteAssessmentModalComponent } from './modals/delete-bot-modal/delete-assessment-modal.component';
+import { DeleteAssessmentModalComponent } from './modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentListComponent } from './components/assessment-list/assessment-list.component';
 import { AssessmentQuestionsComponent } from './components/assessment-questions/assessment-questions.component';
 import { AssessmentQuestionComponent } from './components/assessment-question/assessment-question.component';
@@ -27,36 +36,40 @@ import { AssessmentConfigComponent } from './components/assessment-config/assess
 import { AssessmentFormService } from './services/assessment-form.service';
 
 @NgModule({
-  imports: [CommonModule,
-            AssessmentsRouterModule,
-            MaterialBricksModule,
-            MaterialDesignModule,
-            MultiLangModule,
-            RouterModule,
-            FormsModule,
-            ReactiveFormsModule,
-            ConvlPageModule,
-            FlexLayoutModule
-          ],
-  declarations: [AssessmentsHomeComponent,
-                 AssessmentListComponent,
-                 AssessmentViewComponent,
-                 AssessmentQuestionComponent,
-                 AssessmentViewComponent,
-                 AssessmentQuestionsComponent,
-                 AssessmentQuestionFormsComponent,
-                 AssessmentQuestionFormComponent,
-                 AssessmentAnswersComponent,
-                 AssessmentAnswerComponent,
-                 AssessmentConfigComponent,
-                 CreateAssessmentModalComponent,
-                 DeleteAssessmentModalComponent,
-                ],
-  providers: [AssessmentService,
-              AssessmentFormService,
-              AssessmentQuestionService,
-              AssessmentsStore,
-              ActiveAssessmentStore,
-              AssessmentQuestionStore]
+  imports: [
+    CommonModule,
+    AssessmentsRouterModule,
+    MaterialBricksModule,
+    MaterialDesignModule,
+    MultiLangModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ConvlPageModule,
+    FlexLayoutModule,
+  ],
+  declarations: [
+    AssessmentsHomeComponent,
+    AssessmentListComponent,
+    AssessmentViewComponent,
+    AssessmentQuestionComponent,
+    AssessmentViewComponent,
+    AssessmentQuestionsComponent,
+    AssessmentQuestionFormsComponent,
+    AssessmentQuestionFormComponent,
+    AssessmentAnswersComponent,
+    AssessmentAnswerComponent,
+    AssessmentConfigComponent,
+    CreateAssessmentModalComponent,
+    DeleteAssessmentModalComponent,
+  ],
+  providers: [
+    AssessmentService,
+    AssessmentFormService,
+    AssessmentQuestionService,
+    AssessmentsStore,
+    ActiveAssessmentStore,
+    AssessmentQuestionStore,
+  ],
 })
 export class ConvsMgrAssessmentsModule {}
