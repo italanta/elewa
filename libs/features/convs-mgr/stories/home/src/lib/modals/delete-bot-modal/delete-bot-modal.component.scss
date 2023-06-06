@@ -22,7 +22,7 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 1.5rem;
-    padding-bottom: 0.8rem;
+    padding: 2rem;
   }
 
   &__header {
@@ -44,16 +44,18 @@
     border-radius: 5px;
     
     &--cancel {
-      color :var(--convs-mgr-color-primary-yellow);
-      background-color: var(--convs-mgr-color-primary-white);
-      border: 1.2px solid var(--convs-mgr-color-primary-yellow);
-      width: 8rem;
-    }
-    
-    &--delete {
-      // background-color: mat.color($warn, A200);
       color: var(--convs-mgr-color-primary-white);
-      width: 8rem;
+      background-color: var(--convs-mgr-color-primary-yellow);
+      border: 1.2px solid var(--convs-mgr-color-primary-yellow);
+      width: auto;
+      min-width: 8rem;
+    }
+
+    &--delete {
+      background-color: var(--convs-mgr-color-primary-red);
+      color: var(--convs-mgr-color-primary-white);
+      width: auto;
+      min-width: 8rem;
     }
   }
 }

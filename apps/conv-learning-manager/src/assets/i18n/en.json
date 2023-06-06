@@ -317,10 +317,16 @@
         "SUBMIT": "Create assessment",
         "CANCEL": "Cancel"
       }
-   },
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Delete Assessment",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Delete Assessment",
+      "MESSAGE": "Are you sure you want to delete this Assessment?"
+    },
    "ALERT": {
       "NOT-FOUND": "Assessment not found"
-   },
+    },
    "QUESTIONS": {
       "QUESTION": "Question",
       "QUESTIONS": "Questions",
@@ -342,7 +348,7 @@
         "WRONG": "Wrong",
         "50-50": "50/50"
       }
-   }
+    }
   },
   "TOAST": {
     "EDIT-BOT": {

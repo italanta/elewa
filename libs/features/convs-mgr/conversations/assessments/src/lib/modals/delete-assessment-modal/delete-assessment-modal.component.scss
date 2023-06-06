@@ -23,7 +23,6 @@
     justify-content: space-between;
     gap: 1.5rem;
     padding: 2rem;
-    padding-bottom: 0.8rem;
   }
 
   &__header {
@@ -48,13 +47,13 @@
       color: var(--convs-mgr-color-primary-white);
       background-color: var(--convs-mgr-color-primary-yellow);
       border: 1.2px solid var(--convs-mgr-color-primary-yellow);
-      width: 8rem;
+      width: auto;
     }
     
     &--delete {
       background-color: var(--convs-mgr-color-primary-red);
       color: var(--convs-mgr-color-primary-white);
-      width: 8rem;
+      width: auto;
     }
   }
 }
