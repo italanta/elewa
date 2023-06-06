@@ -13,7 +13,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
-import { DeleteAssessmentModalComponent } from '../../modals/delete-bot-modal/delete-assessment-modal.component';
+import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
 
 
