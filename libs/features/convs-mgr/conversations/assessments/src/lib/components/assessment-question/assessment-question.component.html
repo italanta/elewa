@@ -1,0 +1,22 @@
+<div class="question">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h5 class="question-title">{{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}} {{questionNo}} </h5>
+            </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div class="message">
+                <p class="question-message">{{question.message}}</p>
+            </div>
+
+            <div *ngFor="let choice of question.options" class="choices">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+                    <div class="circle"></div>
+                    <p class="choice-text">{{choice.text}}</p>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

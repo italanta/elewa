@@ -1,0 +1,18 @@
+<div *ngIf="questionFormGroup">
+  <div [formGroup]="questionFormGroup">
+        <div formArrayName="options">
+          <div *ngFor="let choice of choicesList.controls; let i = index">
+            <app-assessment-answer [assessmentMode]="assessmentMode" [questionFormGroup]="questionFormGroup" [answerFormGroupName]="i"></app-assessment-answer>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="answer-button" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-flat-button class="btn-add-option" (click)="generateAnswerForm()">
+    <i class="fas fa-plus"></i>
+    <span class="label">
+      {{'ASSESSMENTS.QUESTIONS.ANSWER' | transloco}}
+    </span>
+  </button>
+</div>
