@@ -52,7 +52,9 @@ import { AssessmentFormService } from './services/assessment-form.service';
                  AssessmentAnswersComponent,
                  AssessmentAnswerComponent,
                  AssessmentConfigComponent,
-                 CreateAssessmentModalComponent],
+                 CreateAssessmentModalComponent,
+                 DeleteAssessmentModalComponent
+                ],
   providers: [AssessmentService,
               AssessmentFormService,
               AssessmentQuestionService,
