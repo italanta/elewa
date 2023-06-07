@@ -6,8 +6,10 @@ export interface AssessmentQuestion extends StoryBlock
     questionType: AssessmentQuestionType, 
     marks: number, 
     feedback?: string, 
-    options?: AssessmentQuestionOptions[]
-} 
+    options?: AssessmentQuestionOptions[],
+    nextQuestionId?: number,
+    prevQuestionId?: number
+}
 
 export interface AssessmentQuestionOptions 
 { 

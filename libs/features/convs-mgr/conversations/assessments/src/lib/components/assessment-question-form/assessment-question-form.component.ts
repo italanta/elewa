@@ -27,7 +27,19 @@ export class AssessmentQuestionFormComponent {
     return this.questionsList.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
-  openDeleteModal() {
+  deleteQuestion() {
+    const question = this.questionsList.at(this.index);
+    const prevQuestion = this.questionsList.at(this.index - 1);
+    const nextQuestion = this.questionsList.at(this.index + 1);
+
+    if (prevQuestion) {
+      prevQuestion.patchValue({ nextQuestionId : question.value.nextQuestionId })
+    };
+
+    if (nextQuestion) {
+      nextQuestion.patchValue({ prevQuestionId : question.value.prevQuestionId })
+    };
+
     this.questionsList.removeAt(this.index);
   }
 }

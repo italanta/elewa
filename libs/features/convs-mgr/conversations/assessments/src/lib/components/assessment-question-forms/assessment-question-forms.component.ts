@@ -5,22 +5,24 @@ import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessmen
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
-
 @Component({
   selector: 'app-assessment-question-forms',
   templateUrl: './assessment-question-forms.component.html',
   styleUrls: ['./assessment-question-forms.component.scss'],
 })
 export class AssessmentQuestionFormsComponent implements OnInit {
-  @Input() questions: AssessmentQuestion[]
+  @Input() questions: AssessmentQuestion[];
   @Input() assessmentMode: number;
 
   @Input() assessmentFormGroup: FormGroup;
 
-  constructor(private _assessmentForm: AssessmentFormService){}
+  count: number;
+
+  constructor(private _assessmentForm: AssessmentFormService) {}
 
   ngOnInit(): void {
-    this.getQuestions()
+    this.getQuestions();
+    this.count = this.questionsList.length;
   }
 
   get questionsList() {
@@ -32,6 +34,17 @@ export class AssessmentQuestionFormsComponent implements OnInit {
   }
 
   addQuestion() {
-    this.questionsList.push(this._assessmentForm.createQuestionForm())
+    const lastQstn = this.questionsList.at(this.questionsList.length - 1);
+    const questionForm = this._assessmentForm.createQuestionForm();
+    this.count += 1;
+
+    // update nodes
+    if (lastQstn) {
+      lastQstn.patchValue({ nextQuestionId: `${this.count}` });
+      questionForm.patchValue({ prevQuestionId: lastQstn.value.id });
+    }
+
+    questionForm.patchValue({ id: `${this.count}` });
+    this.questionsList.push(questionForm);
   }
 }

@@ -148,7 +148,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
       concatMap((question, index) => {
         const delay = 10 * index; // Delay in milliseconds (0.01 second per question)
         return timer(delay).pipe(
-          concatMap(() => this._assessmentQuestion.addQuestion$(question))
+          concatMap(() => this._assessmentQuestion.addQuestion$(question, question.id as string))
         );
       })
     );
