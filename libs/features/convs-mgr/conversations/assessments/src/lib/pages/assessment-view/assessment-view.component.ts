@@ -33,6 +33,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
 
   private _sbS = new SubSink();
   isPublishing = false;
+  isSaving = false;
   
   constructor(private _assessmentService: AssessmentService,
               private _publishAssessment: AssessmentPublishService,
@@ -83,23 +84,27 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  onPublish(){
-    this.isPublishing = true;
+  onSave(){
+    this.isSaving = true;
 
     // we spread the `persistAssessmentQuestions()` since it's an array of Observables.
     this._sbS.add(
-      forkJoin([this.insertAssessmentConfig$(), ...this.persistAssessmentQuestions$()]).subscribe(_saved => {
-        if(_saved){
-          this.isPublishing = false
-          this.assessmentMode = AssessmentMode.View;
-          this._router.navigate(['/assessments', this.assessment.id], {queryParams: {mode: 'view'}});
-        }
+      forkJoin([this.insertAssessmentConfig$(), ...this.persistAssessmentQuestions$()]).subscribe(() => {
+        this.isSaving = false
       })
     );
   }
 
   publishAssessment(){
-    this._publishAssessment.publish(this.assessment).subscribe();
+    this.isPublishing = true;
+
+    this._publishAssessment.publish(this.assessment).subscribe(_published => {
+      if(_published){
+        this.isPublishing = false
+        this.assessmentMode = AssessmentMode.View;
+        this._router.navigate(['/assessments', this.assessment.id], {queryParams: {mode: 'view'}});
+      }
+    });
   }
 
   toggleForm(){
@@ -111,7 +116,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   }
 
   determineAction(){
-    this.assessmentMode ? this.onPublish() : this.toggleForm();
+    this.assessmentMode ? this.onSave() : this.toggleForm();
   }
 
   insertAssessmentConfig$(){
