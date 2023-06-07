@@ -94,7 +94,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   }
 
   publishAssessment(){
-    this._publishAssessment.publish(this.assessment);
+    this._publishAssessment.publish(this.assessment).subscribe();
   }
 
   toggleForm(){
