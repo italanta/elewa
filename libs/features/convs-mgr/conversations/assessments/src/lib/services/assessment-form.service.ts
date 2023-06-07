@@ -43,7 +43,7 @@ export class AssessmentFormService {
     return this._formBuilder.group({
       id: [`${questionId} - ${options.length + 1}`],
       text: [''],
-      value: ['']
+      accuracy: ['']
     });
   }
 
@@ -54,7 +54,7 @@ export class AssessmentFormService {
       const group = this._formBuilder.group({
         id: [option?.id],
         text: [option?.text],
-        value: [option?.value]
+        accuracy: [option?.accuracy]
       })
 
       formArray.push(group);
