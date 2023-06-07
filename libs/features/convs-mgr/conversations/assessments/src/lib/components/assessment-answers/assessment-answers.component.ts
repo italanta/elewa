@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
-import { AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
-
 import { AssessmentFormService } from '../../services/assessment-form.service';
 
 
@@ -12,7 +10,6 @@ import { AssessmentFormService } from '../../services/assessment-form.service';
   styleUrls: ['./assessment-answers.component.scss'],
 })
 export class AssessmentAnswersComponent {
-  @Input() answers?: AssessmentQuestionOptions[] = [] as AssessmentQuestionOptions[];
   @Input() assessmentMode: number;
   @Input() questionId: string
 
