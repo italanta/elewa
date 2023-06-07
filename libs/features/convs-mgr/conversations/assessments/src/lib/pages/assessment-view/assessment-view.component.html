@@ -11,7 +11,7 @@
             </span>
           </button>
   
-            <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="publishAssessment()">
+            <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="determineAction()">
               <span *ngIf="assessmentMode; else btnEdit">
                 {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
               </span>
