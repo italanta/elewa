@@ -45,6 +45,9 @@ jobs:
             echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
             echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
       - name: Build
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
 
