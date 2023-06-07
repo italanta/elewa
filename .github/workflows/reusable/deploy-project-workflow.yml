@@ -9,16 +9,19 @@ on:
       environment:
         required: true
         type: string
+      project_id:
+        required: true
+        type: string
 
 jobs:
-  build:
+  build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
 
     strategy:
       matrix:
-        node-version: [16]
+        nodeversion: [16]
 
     steps:
       - name: Checkout PR code
@@ -29,7 +32,7 @@ jobs:
       - name: Setup NodeJs
         uses: actions/setup-node@v3
         with:
-            node-version: ${{ matrix.node }}
+            node-version: ${{ matrix.nodeversion }}
 
       - name: Create environments folder
         run: mkdir apps/conv-learning-manager/src/environments
@@ -37,14 +40,17 @@ jobs:
       - name: Create environment file from secrets
         shell: bash
         env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
-        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
+          ENV_FILE: ${{ secrets.ENVIRONMENT_FILE }}
+        run: |
+            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
+            echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.ts
 
-      - name: Create environment prod file from secrets
-        shell: bash
-        env:
-          ENV_FILE: ${{ secrets.PROD_ENV_FILE }}
-        run: echo "$ENV_FILE" | base64 -d > apps/conv-learning-manager/src/environments/environment.prod.ts
-
-      - name: Build and preview
+      - name: Build
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ELEWA_DEV }}'
+          projectId: '${{ inputs.project_id }}'
