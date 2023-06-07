@@ -1,0 +1,42 @@
+.question-title{
+    font-weight: 700;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.fa-trash{
+    color: var(--convs-mgr-color-tertiary);
+}
+
+.fa-trash:hover{
+    color: var(--convs-mgr-color-primary-purple);
+}
+
+mat-card-header{
+    border-bottom: 0.1rem solid var(--convs-mgr-color-light);
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--convs-mgr-question-header-color);
+}
+
+.marks-label{
+    padding-bottom: 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.question-form{
+    padding: 1rem 0;
+}
+
+mat-card-actions{
+    padding: 0 0.5rem;
+}
+
+mat-label.question{
+    font-size: 0.85rem;
+}
+
+
+
+
