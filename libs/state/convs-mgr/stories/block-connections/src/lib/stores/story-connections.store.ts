@@ -20,7 +20,7 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
   protected _activeRepo: Repository<StoryBlockConnection>;
 
   constructor(_story$$: ActiveStoryStore,
-              _repoFac: DataService,
+              private _repoFac: DataService,
               _logger: Logger)
   {
     super("always", _logger);
@@ -35,5 +35,11 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     this._sbS.sink = data$.subscribe(connections => {
       this.set(connections, 'UPDATE - FROM DB');
     });
+  }
+
+  addConnectionsByStory(storyId: string, orgId: string, connections: StoryBlockConnection[]){
+    const repo = this._repoFac.getRepo<StoryBlockConnection>(`orgs/${orgId}/stories/${storyId}/connections`);
+
+    return connections.map(connection => repo.write(connection, connection.id!));
   }
 }
