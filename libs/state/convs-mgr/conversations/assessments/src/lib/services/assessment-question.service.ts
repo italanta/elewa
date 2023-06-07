@@ -19,8 +19,8 @@ export class AssessmentQuestionService {
     return this._assessmentQuestion$$.get();
   }
 
-  addQuestion$(question: AssessmentQuestion) {
-    return this._assessmentQuestion$$.add(question);
+  addQuestion$(question: AssessmentQuestion, questionId: string) {
+    return this._assessmentQuestion$$.add(question, questionId);
   }
 
   updateQuestion$(question: AssessmentQuestion){
