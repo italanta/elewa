@@ -7,6 +7,6 @@ jobs:
     call-workflow-deploy-clm:
       uses: ./.github/workflows/deploy-project-workflow.yml
       with:
-        environment: prod
+        environment: elewa-dev
         project_id: ele-convl-manager-7cd0a
       secrets: inherit
