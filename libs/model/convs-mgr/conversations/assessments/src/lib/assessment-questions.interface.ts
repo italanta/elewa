@@ -1,4 +1,3 @@
-
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 export interface AssessmentQuestion extends StoryBlock 
@@ -7,15 +6,15 @@ export interface AssessmentQuestion extends StoryBlock
     marks: number, 
     feedback?: string, 
     options?: AssessmentQuestionOptions[],
-    nextQuestionId?: number,
-    prevQuestionId?: number
-}
+    prevQuestionId?: string, 
+    nextQuestionId?: string
+} 
 
 export interface AssessmentQuestionOptions 
 { 
     id: string, 
-    text: string, 
-    value: AssessmentOptionValue
+    text: string,
+    accuracy: AssessmentOptionValue
 }
 
 export enum AssessmentQuestionType {
