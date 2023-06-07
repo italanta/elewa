@@ -15,6 +15,9 @@ on:
       firebase_service_account:
         required: true
         type: string
+      project_id:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -54,3 +57,10 @@ jobs:
 
       - name: Build and preview
         run: npx nx build conv-learning-manager --skip-nx-cache --prod
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ inputs.github_token }}'
+          firebaseServiceAccount: '${{ inputs.firebase_service_account }}'
+          projectId: '${{ inputs.project_id }}'
