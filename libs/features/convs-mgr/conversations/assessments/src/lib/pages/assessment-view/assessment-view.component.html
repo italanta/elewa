@@ -18,14 +18,14 @@
         <app-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment"
           [assessmentMode]="assessmentMode"></app-assessment-config>
 
-        <div *ngIf="questions$ | async as questions">
+        <div *ngIf="questions">
           <app-assessment-question-forms [assessmentFormGroup]="assessmentForm" [questions]="questions" [assessmentMode]="assessmentMode">
           </app-assessment-question-forms>
         </div>
       </form>
 
       <ng-template #questionList>
-        <div *ngIf="questions$ | async as questions">
+        <div *ngIf="questions">
           <app-assessment-questions [questions]="questions"></app-assessment-questions>
         </div>
       </ng-template>
