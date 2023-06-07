@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { Assessment} from '@app/model/convs-mgr/conversations/assessments';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
+import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
 
 
@@ -49,7 +50,7 @@ export class AssessmentListComponent implements OnInit{
     this.dataSource = new AssessmentDataSource(this.assessments$);
   }
 
-  goToQuestions(assessmentId: string){
+  openAssessment(assessmentId: string){
     this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
   }
 
@@ -70,5 +71,12 @@ export class AssessmentListComponent implements OnInit{
     } else if(sort.direction == 'desc'){
       this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
     }
+  }
+
+  openDeleteModal(assessment: Assessment) {
+    this._dialog.open(DeleteAssessmentModalComponent, {
+      data: { assessment },
+      panelClass: 'delete-assessment-container',
+    });
   }
 }

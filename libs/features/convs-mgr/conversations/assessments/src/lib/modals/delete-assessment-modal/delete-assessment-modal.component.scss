@@ -16,7 +16,7 @@
   padding: 20px;
 }
 
-.delete-bot {
+.delete-assessment {
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -48,14 +48,12 @@
       background-color: var(--convs-mgr-color-primary-yellow);
       border: 1.2px solid var(--convs-mgr-color-primary-yellow);
       width: auto;
-      min-width: 8rem;
     }
-
+    
     &--delete {
       background-color: var(--convs-mgr-color-primary-red);
       color: var(--convs-mgr-color-primary-white);
       width: auto;
-      min-width: 8rem;
     }
   }
 }

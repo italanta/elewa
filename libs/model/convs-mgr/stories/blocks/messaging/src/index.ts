@@ -24,3 +24,4 @@ export * from './lib/keyword-message-block.interface';
 export * from './lib/event-block.interface';
 export * from './lib/assessment-brick.interface';
 export * from './lib/conditional-block.interface';
+export * from './lib/assessment-question-block.interface';

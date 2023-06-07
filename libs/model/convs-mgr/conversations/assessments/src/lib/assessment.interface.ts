@@ -1,6 +1,7 @@
+import { Story } from "@app/model/convs-mgr/stories/main";
 import { IObject } from "@iote/bricks";
 
-export interface Assessment extends IObject{
+export interface Assessment extends Story {
     title: string,
     description: string,
     orgId: string,

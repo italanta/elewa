@@ -8,6 +8,11 @@
     color: var(--convs-mgr-color-primary-white) ;
 }
 
+.btn-delete.mdc-button {
+    background-color: var(--convs-mgr-color-primary-red);
+    color: var(--convs-mgr-color-primary-white) ; 
+}
+
 .create-assessments{
     cursor: pointer;
     padding: 1.875rem 0;
