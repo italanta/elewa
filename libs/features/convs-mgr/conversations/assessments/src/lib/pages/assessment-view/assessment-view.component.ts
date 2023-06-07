@@ -95,7 +95,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     );
   }
 
-  publishAssessment(){
+  onPublish(){
     this.isPublishing = true;
 
     this._publishAssessment.publish(this.assessment).subscribe(_published => {
@@ -116,7 +116,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   }
 
   determineAction(){
-    this.assessmentMode ? this.onSave() : this.toggleForm();
+    this.assessmentMode ==  AssessmentMode.View ? this.toggleForm() : this.onPublish();
   }
 
   insertAssessmentConfig$(){
