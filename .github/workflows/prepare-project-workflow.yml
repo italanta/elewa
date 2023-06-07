@@ -27,7 +27,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16]
+        nodeversion: [16]
 
     steps:
       - name: Checkout PR code
@@ -38,7 +38,7 @@ jobs:
       - name: Setup NodeJs
         uses: actions/setup-node@v3
         with:
-            node-version: ${{ matrix.node }}
+            node-version: ${{ matrix.nodeversion }}
 
       - name: Create environments folder
         run: mkdir apps/conv-learning-manager/src/environments
