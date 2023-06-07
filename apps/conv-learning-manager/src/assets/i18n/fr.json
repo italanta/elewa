@@ -214,6 +214,7 @@
       "RESULTS": "Résultats",
       "ADD": "Créer",
       "EDIT": "Modifier",
+      "DELETE": "Supprimer",
       "SEARCH-ASSESSMENTS": "Rechercher des évaluations",
       "ADD-ASSESSMENT": "Créer une évaluation",
       "EDIT-ASSESSMENT": "Modifier l'évaluation",
@@ -240,10 +241,16 @@
         "SUBMIT": "Créer une évaluation",
         "CANCEL": "Annuler"
       }
-   },
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer l'évaluation",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer l'évaluation",
+      "MESSAGE": "Voulez-vous vraiment supprimer cette évaluation ?"
+    },
    "ALERT": {
       "NOT-FOUND": "Évaluation introuvable"
-   },
+    },
    "QUESTIONS": {
       "QUESTION": "Une question",
       "QUESTIONS": "Les questions",
@@ -265,7 +272,7 @@
         "WRONG": "Faux",
         "50-50": "50/50"
       }
-   }
+    }
   },
   "TOAST": {
     "EDIT-BOT": {
