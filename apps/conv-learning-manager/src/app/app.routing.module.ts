@@ -34,6 +34,12 @@ export const APP_ROUTES: Route[] = [
     loadChildren: () => import('@app/features/convs-mgr/conversations/chats').then(m => m.ConvsMgrConversationsChatsModule),
     canActivate: [IsLoggedInGuard]
   },
+
+  {
+    path: 'assessments',
+    loadChildren: () => import('@app/features/convs-mgr/conversations/assessments').then(m => m.ConvsMgrAssessmentsModule),
+    canActivate: [IsLoggedInGuard]
+  },
 ];
 
 

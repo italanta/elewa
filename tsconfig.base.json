@@ -56,6 +56,9 @@
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
+      "@app/features/convs-mgr/conversations/assessments": [
+        "libs/features/convs-mgr/conversations/assessments/src/index.ts"
+      ],
       "@app/features/convs-mgr/conversations/chats": [
         "libs/features/convs-mgr/conversations/chats/src/index.ts"
       ],
@@ -211,6 +214,9 @@
       "@app/model/convs-mgr/conversations/analytics/units": [
         "libs/model/convs-mgr/conversations/analytics/units/src/index.ts"
       ],
+      "@app/model/convs-mgr/conversations/assessments": [
+        "libs/model/convs-mgr/conversations/assessments/src/index.ts"
+      ],
       "@app/model/convs-mgr/conversations/chats": [
         "libs/model/convs-mgr/conversations/chats/src/index.ts"
       ],
@@ -245,6 +251,9 @@
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
+      ],
+      "@app/state/convs-mgr/conversations/assessments": [
+        "libs/state/convs-mgr/conversations/assessments/src/index.ts"
       ],
       "@app/state/convs-mgr/conversations/chats": [
         "libs/state/convs-mgr/conversations/chats/src/index.ts"

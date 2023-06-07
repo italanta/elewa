@@ -1,0 +1,43 @@
+<div class="question-form">
+    <mat-card>
+        <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title>
+              <h5 class="question-title">{{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}} {{questionNo}}</h5>
+            </mat-card-title>
+						<button mat-icon-button class="btn-delete">
+							<i class="fas fa-trash"></i>
+						</button>
+        </mat-card-header>
+
+        <mat-card-content>
+            <div *ngIf="assessmentFormGroup">
+                <div [formGroup]="assessmentFormGroup">
+                    <div formArrayName="questions">
+                        <div [formGroup]="questionFormGroup">
+                            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+                                <h4 class="marks-label">{{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS' | transloco}}: </h4>
+                                <mat-form-field appearance="outline">
+                                    <mat-label class="question">
+                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS-PLACEHOLDER' | transloco}}
+                                    </mat-label>
+                                    <input type="number" matInput formControlName="marks">
+                                </mat-form-field>
+                            </div>
+            
+                            <div>
+                                <mat-form-field appearance="outline" class="full-field">
+                                    <mat-label class="question">
+                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.QUESTION' | transloco}}
+                                    </mat-label>
+                                    <input type="text" matInput formControlName="message">
+                                </mat-form-field>
+                            </div>
+                            
+                            <app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup" [assessmentMode]="assessmentMode" [answers]="question.options"></app-assessment-answers>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
