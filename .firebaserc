@@ -10,24 +10,10 @@
         ]
       }
     },
-    "farmbetter-review": {
-      "hosting": {
-        "farmbetter-review": [
-          "farmbetter-review"
-        ]
-      }
-    },
     "enabel-elearning": {
       "hosting": {
         "convl-manager": [
           "enabel-elearning"
-        ]
-      }
-    },
-    "farmbetter-prod": {
-      "hosting": {
-        "farmbetter-prod": [
-          "farmbetter-prod"
         ]
       }
     },
