@@ -12,6 +12,9 @@ on:
       project_id:
         required: true
         type: string
+      channelId:
+        required: true
+        type: string
 
 jobs:
   build_and_deploy:
@@ -56,3 +59,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           projectId: '${{ inputs.project_id }}'
+          channelId: '${{ inputs.channelId }}'

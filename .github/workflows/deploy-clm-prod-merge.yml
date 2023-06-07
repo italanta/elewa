@@ -8,8 +8,9 @@ name: Deploy to Firebase Hosting on merge
       - private-prod
 jobs:
   call-workflow-deploy-clm:
-    uses: ./.github/workflows/deploy-project-workflow.yml
+    uses: ./.github/workflows/reusable-deploy-project-workflow.yml
     with:
       environment: elewa-prod
       project_id: elewa-conv-learning-prod
+      channelId: live
     secrets: inherit
