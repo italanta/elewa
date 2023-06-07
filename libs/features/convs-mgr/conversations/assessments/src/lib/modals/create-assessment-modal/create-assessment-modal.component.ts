@@ -50,6 +50,7 @@ export class CreateAssessmentModalComponent implements OnInit, OnDestroy {
 
   addAssessment(){
     const assessment: Assessment = {
+      name: this.assessmentForm.value.assessmentTitle,
       title: this.assessmentForm.value.assessmentTitle,
       description: this.assessmentForm.value.assessmentDesc,
       orgId: this.assessmentOrg

@@ -5,6 +5,8 @@ import { ActiveAssessmentStore } from './stores/active-assessment.store';
 import { AssessmentService } from './services/assessment.service';
 import { AssessmentQuestionService } from './services/assessment-question.service';
 import { AssessmentQuestionStore } from './stores/assessment-question.store';
+import { AssessmentPublishService } from './services/assessment-publish.service';
+import { NewStoryService } from 'libs/features/convs-mgr/stories/home/src/lib/services/new-story.service';
 
 @NgModule({
   imports: [CommonModule],
@@ -13,7 +15,8 @@ import { AssessmentQuestionStore } from './stores/assessment-question.store';
     AssessmentQuestionStore,
     ActiveAssessmentStore,
     AssessmentService,
-    AssessmentQuestionService
+    AssessmentQuestionService,
+    AssessmentPublishService,
   ]
 })
 export class StateAssessmentsModule {}

@@ -8,9 +8,10 @@ import { SubSink } from 'subsink';
 
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
+import { ActiveOrgStore } from '@app/state/organisation';
 
 
 @Component({
@@ -33,14 +34,13 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
   isPublishing = false;
   
-  constructor(
-    private _assessmentSer: AssessmentService,
-    private _assessmentForm: AssessmentFormService,
-    private _assessmentQuestion: AssessmentQuestionService,
-    private _router: Router,
-    private _route: ActivatedRoute
-  ) {}
-
+  constructor(private _assessmentService: AssessmentService,
+              private _publishAssessment: AssessmentPublishService,
+              private _org$$: ActiveOrgStore,
+              private _assessmentForm: AssessmentFormService,
+              private _assessmentQuestion: AssessmentQuestionService,
+              private _router: Router,
+              private _route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.initAssessment();
@@ -48,7 +48,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
   }
 
   initAssessment() {
-    this.assessment$ = this._assessmentSer.getActiveAssessment$()
+    this.assessment$ = this._assessmentService.getActiveAssessment$()
     this.questions$ = this._assessmentQuestion.getQuestions$()
     this._sbS.sink = this._assessmentQuestion.getQuestions$().subscribe(qstsn => this.questions = qstsn);
     this.assessmentMode = this.getAssessmentMode();
@@ -98,6 +98,10 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
     );
   }
 
+  publishAssessment(){
+    this._publishAssessment.publish(this.assessment).subscribe();
+  }
+
   toggleForm(){
     this.assessmentMode = AssessmentMode.Edit;
     // Update url parameter mode to edit
@@ -116,7 +120,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy {
       userAttempts: this.assessmentForm.value.configs.userAttempts
     }
 
-    return this._assessmentSer.updateAssessment$(this.assessment);
+    return this._assessmentService.updateAssessment$(this.assessment);
   }
 
   persistAssessmentQuestions$(){
