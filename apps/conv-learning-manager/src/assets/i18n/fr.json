@@ -202,6 +202,71 @@
     }
   }
 },
+  "ASSESSMENTS": {
+    "TABLE-HEADER": {
+      "NAME": "Nom",
+      "IN-PROGRESS": "En cours",
+      "RESPONSES": "Résponses",
+      "ACTION": "Action"
+    },
+    "BUTTON": {
+      "VIEW": "Voir", 
+      "RESULTS": "Résultats",
+      "ADD": "Créer",
+      "EDIT": "Modifier",
+      "SEARCH-ASSESSMENTS": "Rechercher des évaluations",
+      "ADD-ASSESSMENT": "Créer une évaluation",
+      "EDIT-ASSESSMENT": "Modifier l'évaluation",
+      "PUBLISH": "Publier",
+      "SEARCH-QUESTIONS": "Rechercher des questions"
+    },
+    "ACCESSIBILITY": {
+       "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
+       "SORT-BY-NAME": "Trier par nom d'évaluation",
+       "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
+       "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
+       "SORTED-ASC": "Trié par ordre croissant",
+       "SORTED-DESC": "Trié par ordre décroissant"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Créer une évaluation",
+      "FIELDS": {
+         "NAME": "Nom",
+         "NAME-PLACEHOLDER": "Nom de l'évaluation",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Description de l'évaluation"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Créer une évaluation",
+        "CANCEL": "Annuler"
+      }
+   },
+   "ALERT": {
+      "NOT-FOUND": "Évaluation introuvable"
+   },
+   "QUESTIONS": {
+      "QUESTION": "Une question",
+      "QUESTIONS": "Les questions",
+      "ANSWER": "Une réponse",
+      "FIELDS": {
+        "CONFIGURATION": "Une configuration",
+        "FEEDBACK": "Le retour d'information",
+        "USER-ATTEMPTS": "Les tentative d'utilisateur",
+        "MARKS": "Des marques",
+        "MARKS-PLACEHOLDER": "Entrer des marques",
+        "QUESTION": "Tapez une question que vous aimeriez poser",
+        "ANSWER": "Tapez une réponse possible"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immédiatement",
+        "ON-END": "À la fin",
+        "NEVER": "Jamais",
+        "CORRECT": "Correcte",
+        "WRONG": "Faux",
+        "50-50": "50/50"
+      }
+   }
+  },
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "L'opération de modification a réussi",

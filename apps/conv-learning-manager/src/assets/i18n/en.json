@@ -192,6 +192,7 @@
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
       "CHATS": "Chats",
+      "ASSESSMENTS": "Assessments",
       "LOG-OUT": "Logout"
     },
     "TOP-BAR": {
@@ -276,6 +277,71 @@
       "SUBMIT": "Delete Bot",
       "MESSAGE": " Are you sure you want to delete this bot?"
     }
+  },
+  "ASSESSMENTS": {
+    "TABLE-HEADER": {
+      "TITLE": "Title",
+      "IN-PROGRESS": "In Progress",
+      "RESPONSES": "Responses",
+      "ACTIONS": "Actions"
+    },
+    "BUTTON": {
+      "VIEW": "View", 
+      "RESULTS": "Results",
+      "ADD": "Create",
+      "EDIT": "Edit",
+      "SEARCH-ASSESSMENTS": "Search assessments",
+      "ADD-ASSESSMENT": "Create an assessment",
+      "EDIT-ASSESSMENT": "Edit assessment",
+      "PUBLISH": "Publish",
+      "SEARCH-QUESTIONS": "Search questions"
+    },
+    "ACCESSIBILITY": {
+       "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
+       "SORT-BY-TITLE": "Sort by assessment title",
+       "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
+       "SORT-BY-RESPONSES": "Sort by assessment responses",
+       "SORTED-ASC": "Sorted in ascending order",
+       "SORTED-DESC": "Sorted in descending order"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create an assessment",
+      "FIELDS": {
+         "TITLE": "Title",
+         "TITLE-PLACEHOLDER": "Assessment name",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Assessment description"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Create assessment",
+        "CANCEL": "Cancel"
+      }
+   },
+   "ALERT": {
+      "NOT-FOUND": "Assessment not found"
+   },
+   "QUESTIONS": {
+      "QUESTION": "Question",
+      "QUESTIONS": "Questions",
+      "ANSWER": "Answer",
+      "FIELDS":{
+        "CONFIGURATION": "Configuration",
+        "FEEDBACK": "Feedback",
+        "USER-ATTEMPTS": "User attempts",
+        "MARKS": "Marks",
+        "MARKS-PLACEHOLDER": "Enter marks",
+        "QUESTION": "Type a question you would like to ask",
+        "ANSWER": "Type a possible answer"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immediately",
+        "ON-END": "On end",
+        "NEVER": "Never",
+        "CORRECT": "Correct",
+        "WRONG": "Wrong",
+        "50-50": "50/50"
+      }
+   }
   },
   "TOAST": {
     "EDIT-BOT": {
