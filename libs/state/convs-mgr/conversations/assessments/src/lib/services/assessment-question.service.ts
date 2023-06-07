@@ -19,12 +19,15 @@ export class AssessmentQuestionService {
     return this._assessmentQuestion$$.get();
   }
 
+  addQuestion$(question: AssessmentQuestion, questionId: string) {
+    return this._assessmentQuestion$$.add(question, questionId);
+  }
+
   updateQuestion$(question: AssessmentQuestion){
     return this._assessmentQuestion$$.update(question);
   }
 
-  deleteQuestion$(oldQuestion: AssessmentQuestion){
-    oldQuestion.deleted = true;
-    return this.updateQuestion$(oldQuestion);
+  deleteQuestion$(oldQuestion: AssessmentQuestion) {
+    return this._assessmentQuestion$$.remove(oldQuestion);
   }
 }

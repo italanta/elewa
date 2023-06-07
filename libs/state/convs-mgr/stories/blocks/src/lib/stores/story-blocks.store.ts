@@ -46,6 +46,13 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
     });
   }
 
+  addBlocksByStory(storyId: string, orgId: string, blocks: StoryBlock[]) 
+  {
+    const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
+    
+    return blocks.map(block => repo.write(block, block.id!));
+  }
+
   getBlocksByStory(storyId: string)
   {
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${this._activeStory.orgId}/stories/${storyId}/blocks`);

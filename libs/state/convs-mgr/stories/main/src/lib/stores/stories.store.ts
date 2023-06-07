@@ -44,4 +44,8 @@ export class StoriesStore extends DataStore<Story>
       this.set(properties, 'UPDATE - FROM DB');
     });
   }
+
+  publish(story: Story){
+    return this._activeRepo.write(story, story.id!);
+  }
 }

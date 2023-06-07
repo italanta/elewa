@@ -40,12 +40,16 @@
                         <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.ACTIONS' | transloco}}</th>
                         <td mat-cell *matCellDef="let assessment">
                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
-                                <button mat-flat-button class="btn-view" (click)="goToQuestions(assessment.id)">
+                                <button mat-flat-button class="btn-view" (click)="openAssessment(assessment.id)">
                                     {{'ASSESSMENTS.BUTTON.VIEW' | transloco}}
                                 </button>
                                 
                                 <button mat-flat-button class="btn-result">
                                     {{'ASSESSMENTS.BUTTON.RESULTS' | transloco}}
+                                </button>
+
+                                <button mat-flat-button class="btn-delete" (click)="openDeleteModal(assessment)">
+                                    {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
                                 </button>
                             </div>
                         </td>
