@@ -13,4 +13,5 @@ jobs:
       environment: farmbetter-prod
       project_id: farmbetter-prod
       channelId: live
+      target: farmbetter-prod
     secrets: inherit
