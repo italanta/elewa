@@ -31,10 +31,11 @@ export class AssessmentBlockService implements IProcessOperationBlock
   { }
 
 
-  public async handleBlock(storyBlock: AssessmentBrick, updatedCursor: Cursor, orgId: string, endUserId: string) {
-      
+  public async handleBlock(storyBlock: AssessmentBrick, updatedCursor: Cursor, orgId: string, endUserId: string)
+  {
+
     const currentStory = updatedCursor.position.storyId;
-    
+
     // 1. Get the connections pointing to block success or block fail blocks in the story
     // Then we use the connections to get the blocks id and construct our RoutedCursor
 
@@ -51,15 +52,15 @@ export class AssessmentBlockService implements IProcessOperationBlock
     let nextBlock: StoryBlock;
     // Get the next block by passing the blockId and the storyId and the blockId specified in the story.
 
-     if(storyBlock.assessmentId) 
-     {
-      nextBlock  = await this._blockDataService.getFirstBlock(orgId, storyBlock.assessmentId);
-     }
+    if (storyBlock.assessmentId) {
+      nextBlock = await this._blockDataService.getFirstBlock(orgId, storyBlock.assessmentId);
+    }
 
-    this.tools.Logger.log(()=> `Jumping to assessment question: ${JSON.stringify(nextBlock)}`);
+    this.tools.Logger.log(() => `Jumping to assessment question: ${JSON.stringify(nextBlock)}`);
 
     // 2. Create assessment cursor
     const assessmentCursor: AssessmentCursor = {
+      startedOn: new Date(),
       assessmentId: storyBlock.assessmentId,
       fail: failConn ? failConn.targetId : "",
       average: avrgConn ? avrgConn.targetId : "",
