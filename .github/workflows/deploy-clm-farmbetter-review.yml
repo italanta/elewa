@@ -13,5 +13,5 @@ jobs:
       environment: farmbetter-review
       project_id: farmbetter-review
       channelId: live
-      target: farmbetter-review
+      target: convl-manager
     secrets: inherit
