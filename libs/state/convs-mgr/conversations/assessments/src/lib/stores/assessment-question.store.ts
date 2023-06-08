@@ -2,6 +2,7 @@ import { DataStore } from "@ngfi/state";
 import { DataService, Repository } from "@ngfi/angular";
 
 import { Logger } from "@iote/bricks-angular";
+import { Query } from '@ngfi/firestore-qbuilder';
 import { of, switchMap, tap, throttleTime } from "rxjs";
 
 import { Assessment, AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
@@ -22,11 +23,13 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
   {
     super("always", _logger);
 
+    const query = new Query().orderBy("createdOn","asc");
+
     const data$ = this._assessment$$.get().pipe(
                     tap((_assessment: Assessment) => this._activeAssessment = _assessment),
                     tap((_assessment: Assessment) => this._activeRepo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${_assessment.orgId}/assessments/${_assessment.id}/questions`)),
                     switchMap((_assessment: Assessment) => 
-                      _assessment ? this._activeRepo.getDocuments(): of([] as AssessmentQuestion[])),
+                      _assessment ? this._activeRepo.getDocuments(query): of([] as AssessmentQuestion[])),
                     throttleTime(400, undefined, { leading: true, trailing: true}));
 
     this._sbS.sink = data$.subscribe(properties => {

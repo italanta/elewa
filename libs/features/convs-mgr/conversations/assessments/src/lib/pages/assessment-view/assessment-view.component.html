@@ -4,28 +4,36 @@
       <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
         <h2 class="title">{{assessment.title}}</h2>
 
-          <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="publishAssessment()">
-            <span *ngIf="assessmentMode; else btnEdit">
-              {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
+        <div class="save-button" fxLayout="row">
+          <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="onSave()">
+            <span>
+              {{'ASSESSMENTS.BUTTON.SAVE' | transloco}}
             </span>
-            <ng-template #btnEdit>
-              {{'ASSESSMENTS.BUTTON.EDIT' | transloco}}
-            </ng-template>
           </button>
+  
+            <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="determineAction()">
+              <span *ngIf="assessmentMode; else btnEdit">
+                {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
+              </span>
+              <ng-template #btnEdit>
+                {{'ASSESSMENTS.BUTTON.EDIT' | transloco}}
+              </ng-template>
+            </button>
+        </div>
       </div>
 
       <form *ngIf="assessmentMode; else questionList" [formGroup]="assessmentForm">
         <app-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment"
           [assessmentMode]="assessmentMode"></app-assessment-config>
 
-        <div *ngIf="questions$ | async as questions">
-          <app-assessment-question-forms [assessmentFormGroup]="assessmentForm" [assessmentMode]="assessmentMode">
+        <div *ngIf="questions">
+          <app-assessment-question-forms [assessmentFormGroup]="assessmentForm" [questions]="questions" [assessmentMode]="assessmentMode">
           </app-assessment-question-forms>
         </div>
       </form>
 
       <ng-template #questionList>
-        <div *ngIf="questions$ | async as questions">
+        <div *ngIf="questions">
           <app-assessment-questions [questions]="questions"></app-assessment-questions>
         </div>
       </ng-template>

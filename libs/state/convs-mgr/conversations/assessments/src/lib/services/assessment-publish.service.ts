@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { concatAll, concatMap, map, mergeMap, of, switchMap, take, tap } from 'rxjs';
+import { combineLatest, map, switchMap, tap } from 'rxjs';
+
+import { Logger } from '@iote/bricks-angular';
 
 import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
 
 import { ActiveOrgStore } from '@app/state/organisation';
 
-import { AssessmentsStore } from '../stores/assessments.store';
 import { AssessmentQuestionService } from './assessment-question.service';
 import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentQuestionBlock, Button } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -14,9 +15,6 @@ import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryConnectionsStore, BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
-import { Story } from '@app/model/convs-mgr/stories/main';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +26,8 @@ export class AssessmentPublishService
     private _addStory$: StoriesStore,
     private _blocks$$: StoryBlocksStore,
     private _connections$$: StoryConnectionsStore,
-    private _blockConnectionsService: BlockConnectionsService,
-    private _orgId$$: ActiveOrgStore) { }
+    private _logger: Logger
+    ) { }
 
   publish(assessment: Assessment)
   {
@@ -38,17 +36,14 @@ export class AssessmentPublishService
     // Publish the assessment as a story
     const assessmentStory = {
       id: assessment.id,
+      name: assessment.title,
       configs: assessment.configs,
-      ...assessment
+      description: "",
+      orgId: assessment.orgId,
     };
 
     const orgId = assessmentStory.orgId as string;
     const storyId = assessmentStory.id as string;
-
-    // Create the story
-    const publishAssessment$ = this._addStory$.add(assessmentStory, storyId);
-
-    // publishAssessment$.subscribe();
 
     // Convert questions to blocks
     const questionBlocks$ = questions$.pipe(map(questions => questions.map(question =>
@@ -62,29 +57,30 @@ export class AssessmentPublishService
       } as AssessmentQuestionBlock;
     })));
 
-    // Add the blocks to the store
-    const addBlocks$ = questionBlocks$.pipe(concatMap(blocks => this._blocks$$.addBlocksByStory(storyId, orgId, blocks)));
-
-    // Not working----------------
-    addBlocks$.subscribe();
-
     // Create connections between questions
     const connections$ = questions$.pipe(map(questions => questions.map(question =>
     {
       return {
-        id: `conn_${question.id}`,
+        id: `con_${question.id}`,
         sourceId: question.prevQuestionId ? `defo-${question.prevQuestionId}` : assessment.id,
 
         // TODO: Make sure there is validation for this when publishing
-        targetId: question.nextQuestionId,
+        targetId: question.nextQuestionId || null,
       } as StoryBlockConnection;
     }
     )));
 
-    // Add the connections to the store
-    const addConnections$ = connections$.pipe(map(connections => this._connections$$.addMultiple(connections)));
+    // Create the story
+    const publishAssessment$ = this._addStory$.publish(assessmentStory);
 
-    // return publishAssessment$
+    // Add the blocks to the store
+    const addBlocks$ = questionBlocks$.pipe(switchMap(blocks => this._blocks$$.addBlocksByStory(storyId, orgId, blocks)));
+
+    // Add the connections to the store
+    const addConnections$ = connections$.pipe(switchMap(connections => this._connections$$.addConnectionsByStory(storyId, orgId, connections)));
+
+    return combineLatest([publishAssessment$, addBlocks$, addConnections$])
+            .pipe(tap(() =>this._logger.log(() => `Assessment published!`)));
   }
 
   private __questionOptionsToBlockOptions(questionOptions: AssessmentQuestionOptions[])

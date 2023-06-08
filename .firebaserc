@@ -10,13 +10,6 @@
         ]
       }
     },
-    "farmbetter-review": {
-      "hosting": {
-        "farmbetter-review": [
-          "farmbetter-review"
-        ]
-      }
-    },
     "enabel-elearning": {
       "hosting": {
         "convl-manager": [
@@ -24,17 +17,18 @@
         ]
       }
     },
-    "farmbetter-prod": {
-      "hosting": {
-        "farmbetter-prod": [
-          "farmbetter-prod"
-        ]
-      }
-    },
     "ele-convl-manager-7cd0a": {
       "hosting": {
         "convl-manager": [
           "ele-convl-manager-7cd0a"
+        ]
+      }
+    },
+    "farmbetter-prod": {
+      "hosting": {
+        "convl-manager": [
+          "farmbetter-prod",
+          "farmbetter-review"
         ]
       }
     }

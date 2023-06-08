@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder } from '@angular/forms';
 
-import { AssessmentConfiguration, AssessmentQuestionType } from '@app/model/convs-mgr/conversations/assessments';
+import { 
+  AssessmentConfiguration, 
+  AssessmentQuestion, 
+  AssessmentQuestionOptions, 
+  AssessmentQuestionType 
+} from '@app/model/convs-mgr/conversations/assessments';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +25,41 @@ export class AssessmentFormService {
     });
   }
 
-  createQuestionForm(){
+  createQuestionForm(question?: AssessmentQuestion){
     return this._formBuilder.group({
-      id: [''],
+      id: [question?.id ?? ''],
       questionType: AssessmentQuestionType.SingleSelectOptions,
-      marks: [''],
-      message: [''],
-      feedback: [''],
-      options: this._formBuilder.array([])
+      marks: [question?.marks ?? ''],
+      message: [question?.message ?? ''],
+      feedback: [question?.feedback ?? ''],
+      options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([]),
+      deleted: [question?.deleted ?? false],
+      nextQuestionId: [question?.nextQuestionId ?? null],
+      prevQuestionId: [question?.prevQuestionId ?? null],
     });
   }
 
-  createChoiceForm(questionId: string, options: FormArray){
+  createChoiceForm(questionId: string, options: FormArray) {
     return this._formBuilder.group({
       id: [`${questionId} - ${options.length + 1}`],
       text: [''],
-      value: ['']
+      accuracy: ['']
     });
+  }
+
+  private _prefillOptions(options?: AssessmentQuestionOptions[]) {
+    const formArray = this._formBuilder.array<FormGroup<any>>([])
+
+    options?.map((option) => {
+      const group = this._formBuilder.group({
+        id: [option?.id],
+        text: [option?.text],
+        accuracy: [option?.accuracy]
+      })
+
+      formArray.push(group);
+    })
+
+    return formArray
   }
 }
