@@ -1,16 +1,13 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-import { AssessmentBrick, AssessmentQuestionBlock, Button } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { AssessmentQuestionBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
-import { AssessmentCursor, Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
+import { AssessmentCursor, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
-import { QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
-import { AssessmentQuestionOptions } from "@app/model/convs-mgr/conversations/assessments";
-import { ButtonsBlockButton } from "@app/model/convs-mgr/stories/blocks/scenario";
 
 
 /**
@@ -47,12 +44,17 @@ export class AssessmentQuestionBlockService implements IProcessOperationBlock
       // Get the next block after the assessment depending on the score
       const currentAssessment = updatedCursor.assessmentStack[0];
 
+      // Set the finishedOn date
+      currentAssessment.finishedOn = new Date();
+
       const nextBlockId = await this.getNextBlockIdByScore(currentAssessment);
 
       // Pop the RoutedCursor at the top of the stack
       const topRoutineCursor = updatedCursor.parentStack.shift();
 
       nextBlock = await this._blockDataService.getBlockById(nextBlockId, orgId, topRoutineCursor.storyId);
+      
+      newCursor.assessmentStack[0] = currentAssessment;
       newCursor.position.blockId = nextBlockId;
       newCursor.position.storyId = updatedCursor.position.storyId;
       newCursor.parentStack = updatedCursor.parentStack;
