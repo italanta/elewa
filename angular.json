@@ -1026,6 +1026,32 @@
     },
     "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
     "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
+    "state-convs-mgr-end-users": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/end-users",
+      "sourceRoot": "libs/state/convs-mgr/end-users/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/end-users"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/end-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/end-users/**/*.ts",
+              "libs/state/convs-mgr/end-users/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-monitoring": {
       "projectType": "library",
       "root": "libs/state/convs-mgr/monitoring",
