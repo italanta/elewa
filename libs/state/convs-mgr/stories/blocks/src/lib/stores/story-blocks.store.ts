@@ -50,11 +50,7 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
   {
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
     
-    // TODO: This is a hack to get around the fact that the repo doesn't support batch operations
-    //       This should be fixed in the repo
-    return blocks.map(block => {
-      return repo.create(block, block.id);
-    });
+    return blocks.map(block => repo.write(block, block.id!));
   }
 
   getBlocksByStory(storyId: string)

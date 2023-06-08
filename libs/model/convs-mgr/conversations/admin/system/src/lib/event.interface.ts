@@ -1,6 +1,5 @@
 import { IObject } from '@iote/bricks';
 
-import { EventCategoryTypes } from './event-category-types.enum';
 import { RoutedCursor } from './routed-cursor.interface';
 import { AssessmentCursor } from './assessment-cursor.interface';
 
@@ -13,6 +12,7 @@ export interface Event
   origin: string; //Id of the party that triggered the event
   subject: string; //Id of the party affected by the event
 }
+import { EventsStack } from './events-stack.interface';
 
 /**
  * A story is a conversational flow that models the 
@@ -54,9 +54,12 @@ export interface Cursor extends IObject
    */
   parentStack?: RoutedCursor[];
 
-
   /** When a learner is doing the assessments, we track the assessment details here */
   assessmentStack?: AssessmentCursor[];
+  /**
+   * Events, Milestones and Objectives achieved by the user.
+   */
+  eventsStack?: EventsStack[];
 }
 
 /** 

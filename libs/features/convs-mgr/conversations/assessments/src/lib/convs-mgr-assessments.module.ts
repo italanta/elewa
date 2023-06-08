@@ -4,7 +4,10 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import {
+  MaterialBricksModule,
+  MaterialDesignModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ActiveAssessmentStore, AssessmentPublishService, AssessmentQuestionService, AssessmentQuestionStore, AssessmentService, AssessmentsStore } from '@app/state/convs-mgr/conversations/assessments';
@@ -15,6 +18,7 @@ import { AssessmentsRouterModule } from './assessments.router.module';
 import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-home.component';
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 import { CreateAssessmentModalComponent } from './modals/create-assessment-modal/create-assessment-modal.component';
+import { DeleteAssessmentModalComponent } from './modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentListComponent } from './components/assessment-list/assessment-list.component';
 import { AssessmentQuestionsComponent } from './components/assessment-questions/assessment-questions.component';
 import { AssessmentQuestionComponent } from './components/assessment-question/assessment-question.component';
@@ -48,7 +52,9 @@ import { AssessmentFormService } from './services/assessment-form.service';
                  AssessmentAnswersComponent,
                  AssessmentAnswerComponent,
                  AssessmentConfigComponent,
-                 CreateAssessmentModalComponent],
+                 CreateAssessmentModalComponent,
+                 DeleteAssessmentModalComponent
+                ],
   providers: [AssessmentService,
               AssessmentFormService,
               AssessmentQuestionService,

@@ -6,8 +6,8 @@ export interface AssessmentQuestion extends StoryBlock
     marks: number, 
     feedback?: string, 
     options?: AssessmentQuestionOptions[],
-    prevQuestionId: string | null,
-    nextQuestionId: string | null
+    prevQuestionId?: string, 
+    nextQuestionId?: string
 } 
 
 export interface AssessmentQuestionOptions 
