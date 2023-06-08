@@ -49,7 +49,7 @@ export class DefaultOptionMessageService extends NextBlockService
 
 			const newUserPosition: EndUserPosition = {
 				storyId: currentStory,
-				blockId: connection.targetId
+				blockId: connection ? connection.targetId : null,
 			}
 			cursor.position = newUserPosition;
 
