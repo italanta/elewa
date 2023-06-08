@@ -32,6 +32,8 @@ export class BlockDataService extends BotDataService<StoryBlock> {
 
      this._docPath = `orgs/${orgId}/stories/${currentStory}/blocks`;
 
+    if(!id) return null;
+    
     return this.getDocumentById(id, this._docPath);
 
   }
