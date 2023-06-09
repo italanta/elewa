@@ -3,6 +3,9 @@ import { IObject } from '@iote/bricks';
 import { RoutedCursor } from './routed-cursor.interface';
 import { AssessmentCursor } from './assessment-cursor.interface';
 
+import { EventsStack } from './events-stack.interface';
+import { EventCategoryTypes } from './event-category-types.enum';
+
 export interface Event
 {
   category: EventCategoryTypes;
@@ -12,7 +15,7 @@ export interface Event
   origin: string; //Id of the party that triggered the event
   subject: string; //Id of the party affected by the event
 }
-import { EventsStack } from './events-stack.interface';
+
 
 /**
  * A story is a conversational flow that models the 
