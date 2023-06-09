@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable, map, switchMap, combineLatest } from 'rxjs';
 
-import { EndUserDetails } from '../models/endUser.model';
+import { EndUserDetails } from '../models/end-user.model';
 import { EndUsersStore } from '../store/end-user.store';
 
 @Injectable({
