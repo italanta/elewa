@@ -56,7 +56,10 @@ export class EndUsersStore extends DataStore<EndUser>
 
     const valuesDoc$ = namesRepo.getDocumentById('values');
 
-    return valuesDoc$;
+    return valuesDoc$.pipe(switchMap((variables) => {
+      if (variables) return of(variables['name'])
+      else return of(null)
+    }))
   }
 
   getCurrentCursor(id: string) {
