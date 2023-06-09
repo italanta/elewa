@@ -3,9 +3,10 @@
     <div fxLayout="row">
       <mat-form-field>
         <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</mat-label>
-        <mat-select formControlName="message" required>
+        <mat-select formControlName="assessmentId" required>
           <mat-option>--</mat-option>
-          <mat-option>
+          <mat-option *ngFor="let assessment of assessments" [value]="assessment.id">
+            {{ assessment.name }}
             <!-- dispay all available assessments for active organization -->
           </mat-option>
         </mat-select>
