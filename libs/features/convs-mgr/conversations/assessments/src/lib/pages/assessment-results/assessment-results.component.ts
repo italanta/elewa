@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatSort ,Sort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { SubSink } from 'subsink';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { EndUserService } from '@app/state/convs-mgr/end-users';
-
-import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assessments';
 import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
+
+import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
-import { MatTableDataSource } from '@angular/material/table';
+import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-results',
@@ -20,7 +21,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AssessmentResultsComponent implements OnInit, OnDestroy {
   id: string;
   assessment: Assessment;
-  assessmentCursor:AssessmentCursor | undefined;
+  assessmentCursor: AssessmentCursor | undefined;
 
   dataSource: MatTableDataSource<EndUserDetails>;
   assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
@@ -28,12 +29,13 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
   constructor(
+    private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
     private _activeAssessment: ActiveAssessmentStore,
     private _endUserService: EndUserService
   ) {}
 
-  @ViewChild(MatSort) set MatSort(sort: MatSort) {
+  @ViewChild(MatSort) set initSort(sort: MatSort) {
     this.dataSource.sort = sort;
   }
 
@@ -64,6 +66,10 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  goBack() {
+    this._router.navigate(['/assessments'])
   }
 
   ngOnDestroy() {

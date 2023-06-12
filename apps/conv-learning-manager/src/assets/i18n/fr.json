@@ -210,6 +210,9 @@
       "ACTION": "Action"
     },
     "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Retourner"
+      },
       "TABLE-HEADER": {
         "TITLE": "Titre",
         "NAME": "Nom",

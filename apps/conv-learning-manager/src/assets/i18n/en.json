@@ -286,6 +286,9 @@
       "ACTIONS": "Actions"
     },
     "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Go Back"
+      },
       "TABLE-HEADER": {
         "TITLE": "Title",
         "NAME": "Name",
