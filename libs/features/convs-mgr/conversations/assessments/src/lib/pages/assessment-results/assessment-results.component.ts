@@ -7,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SubSink } from 'subsink';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
@@ -21,29 +20,28 @@ import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assess
 export class AssessmentResultsComponent implements OnInit, OnDestroy {
   id: string;
   assessment: Assessment;
-  assessmentCursor: AssessmentCursor | undefined;
 
   dataSource: MatTableDataSource<EndUserDetails>;
   assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
+
+  @ViewChild(MatSort) sort: MatSort;
 
   private _sBs = new SubSink();
 
   constructor(
     private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
-    private _activeAssessment: ActiveAssessmentStore,
+    private _activeAssessment$$: ActiveAssessmentStore,
     private _endUserService: EndUserService
   ) {}
 
-  @ViewChild(MatSort) set initSort(sort: MatSort) {
-    this.dataSource.sort = sort;
-  }
-
   ngOnInit() {
-    this._sBs.sink = this._activeAssessment.get().subscribe((assess) => this.assessment = assess);
+    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
+
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort
     });
   }
 
