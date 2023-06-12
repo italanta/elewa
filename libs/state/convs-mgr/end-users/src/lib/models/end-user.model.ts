@@ -1,5 +1,5 @@
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { AssessmentCursor, Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 /** Represents details about an end user.*/
 export interface EndUserDetails {
@@ -11,4 +11,10 @@ export interface EndUserDetails {
 
   /** The user's list of cursors. */
   cursor: Cursor[];
+
+  /**
+   * The user's selected assessmentCursor
+   * This is important for optimisations when visualising data(results table and result graph)
+  */
+  selectedAssessmentCursor?: AssessmentCursor
 }

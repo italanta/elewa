@@ -51,9 +51,13 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     const data = results.filter(user => {
       if (!user.cursor[0].assessmentStack) return false
 
-      this.assessmentCursor = user.cursor[0].assessmentStack.find(assess => assess.assessmentId === this.assessment.id)
+      const assessExists = user.cursor[0].assessmentStack.find(assess => assess.assessmentId === this.assessment.id)
 
-      if (this.assessmentCursor) return true
+      if (assessExists) {
+        user.selectedAssessmentCursor = assessExists
+        return true
+      }
+
       else return false
     })
 
