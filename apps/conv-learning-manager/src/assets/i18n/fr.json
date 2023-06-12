@@ -209,6 +209,17 @@
       "RESPONSES": "Résponses",
       "ACTION": "Action"
     },
+    "RESULTS": {
+      "TABLE-HEADER": {
+        "TITLE": "Titre",
+        "NAME": "Nom",
+        "PHONE-NO": "Numéro de téléphone",
+        "STARTED-ON": "Commencé le",
+        "FINISHED-ON": "Terminé le",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Catégorie de note"
+      }
+    },
     "BUTTON": {
       "VIEW": "Voir", 
       "RESULTS": "Résultats",
