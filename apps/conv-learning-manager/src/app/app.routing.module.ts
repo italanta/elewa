@@ -48,7 +48,7 @@ export const APP_ROUTES: Route[] = [
     RouterModule.forRoot(
       APP_ROUTES,
       {
-        enableTracing: false,
+        enableTracing: true,
         // useHash: true,
         preloadingStrategy: PreloadAllModules
       }
