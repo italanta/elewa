@@ -285,6 +285,17 @@
       "RESPONSES": "Responses",
       "ACTIONS": "Actions"
     },
+    "RESULTS": {
+      "TABLE-HEADER": {
+        "TITLE": "Title",
+        "NAME": "Name",
+        "PHONE-NO": "PhoneNumber",
+        "STARTED-ON": "Started On",
+        "FINISHED-ON": "Finished On",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Score Category"
+      }
+    },
     "BUTTON": {
       "VIEW": "View", 
       "RESULTS": "Results",
