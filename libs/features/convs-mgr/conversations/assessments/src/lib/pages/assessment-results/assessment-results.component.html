@@ -18,22 +18,22 @@
 
       <ng-container matColumnDef="startedOn">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="startedOn" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.STARTED-ON' | transloco}}</th>
-          <td mat-cell *matCellDef="let endUser">{{assessmentCursor?.startedOn}}</td>
+          <td mat-cell *matCellDef="let endUser">{{endUser.selectedAssessmentCursor?.startedOn}}</td>
       </ng-container>
 
       <ng-container matColumnDef="finishedOn">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="finishedOn" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.FINISHED-ON' | transloco}}</th>
-          <td mat-cell *matCellDef="let endUser">{{assessmentCursor?.finishedOn}}</td>
+          <td mat-cell *matCellDef="let endUser">{{endUser.selectedAssessmentCursor?.finishedOn}}</td>
       </ng-container>
 
       <ng-container matColumnDef="score">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="score" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE' | transloco}}</th>
-          <td mat-cell *matCellDef>{{assessmentCursor?.score}}</td>
+          <td mat-cell *matCellDef="let endUser">{{endUser.selectedAssessmentCursor?.score}}</td>
       </ng-container>
 
       <ng-container matColumnDef="scoreCategory">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="scoreCategory" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE-CATEGORY' | transloco}}</th>
-          <td mat-cell *matCellDef>{{assessmentCursor?.score}}</td>
+          <td mat-cell *matCellDef="let endUser">{{endUser.selectedAssessmentCursor?.score}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="assessmentResults"></tr>
