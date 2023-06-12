@@ -1,5 +1,8 @@
 <div class="page-container">
-  <p *ngIf="assessment">{{assessment.title}}</p>
+  <div class="title-wrapper">
+    <p *ngIf="assessment">{{assessment.title}}</p>
+    <button class="btn back-btn" (click)="goBack()">{{'ASSESSMENTS.RESULTS.BUTTONS.GO-BACK' | transloco}}</button>
+  </div>
 
   <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">

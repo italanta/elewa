@@ -1,3 +1,19 @@
 .page-container {
+  display: grid;
+  gap: 2rem;
   padding: 3rem;
+
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .back-btn {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      color: var(--convs-mgr-color-primary-white);
+      background-color: var(--convs-mgr-color-primary-yellow);
+    }
+  }
 }
