@@ -75,7 +75,7 @@ export class ProcessMessageService
     newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
 
     // Update the cursor with the user score in the assessment
-    if(lastBlock.type === StoryBlockTypes.QuestionBlock) {
+    if(lastBlock.type === StoryBlockTypes.AssessmentQuestionBlock) {
       const userAnswerScore = assessUserAnswer(lastBlock as AssessmentQuestionBlock, msg)
       newCursor.assessmentStack[0].score += userAnswerScore;
       
@@ -92,7 +92,7 @@ export class ProcessMessageService
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
 
     this._tools.Logger.log(()=> `Next block: ${JSON.stringify(nextBlock)}`);
-    
+
     while (nextBlock && isOperationBlock(nextBlock.type)) {
       const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUserId);
 
