@@ -10,6 +10,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { AssessmentBrickComponent } from './components/assessment-brick/assessment-brick.component';
 
 import { ConvsMgrBlockOptionsModule } from '../../../block-options/src';
+import { AssessmentService, StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
 
 @NgModule({
   imports: [
@@ -24,11 +25,13 @@ import { ConvsMgrBlockOptionsModule } from '../../../block-options/src';
 
     HttpClientModule,
 
-    ConvsMgrBlockOptionsModule
+    ConvsMgrBlockOptionsModule,
+    StateAssessmentsModule
   ],
   declarations: [AssessmentBrickComponent],
 
-  exports: [AssessmentBrickComponent]
+  exports: [AssessmentBrickComponent],
+  providers: [AssessmentService]
 
 })
 export class ConvsMgrAssessmentBrickModule {}

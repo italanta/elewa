@@ -13,9 +13,9 @@ function __getAnswerScore(answer: string, options: ButtonsBlockButton<Button>[],
 
   if(!answerOption) return 0;
 
-  if(answerOption.value === "1") {
+  if(answerOption.value as any === 1) {
     return marks
-  } else if(answerOption.value === "3") {
+  } else if(answerOption.value as any === 3) {
     return marks / 2;
   } else {
     return 0;

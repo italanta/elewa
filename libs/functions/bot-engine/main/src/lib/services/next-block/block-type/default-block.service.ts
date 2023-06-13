@@ -1,12 +1,12 @@
 import { HandlerTools, Logger } from "@iote/cqrs";
 
-import { Message, TextMessage } from "@app/model/convs-mgr/conversations/messages";
+import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { NextBlockService } from "../next-block.class";
-import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admin/system";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
