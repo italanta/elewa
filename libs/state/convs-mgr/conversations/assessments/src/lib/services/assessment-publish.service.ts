@@ -6,14 +6,12 @@ import { Logger } from '@iote/bricks-angular';
 
 import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
 
-import { ActiveOrgStore } from '@app/state/organisation';
-
 import { AssessmentQuestionService } from './assessment-question.service';
 import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
-import { StoryConnectionsStore, BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
+import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 @Injectable({
@@ -23,14 +21,18 @@ export class AssessmentPublishService
 {
 
   constructor(private _assessmentQuestionService$$: AssessmentQuestionService,
-    private _addStory$: StoriesStore,
+    private _story$: StoriesStore,
     private _blocks$$: StoryBlocksStore,
     private _connections$$: StoryConnectionsStore,
     private _logger: Logger
     ) { }
 
-  publish(assessment: Assessment)
+  publish(newAssessment: Assessment)
   {
+    return this.__publishAssessment(newAssessment, newAssessment.isPublished as boolean);
+  }
+
+  private __publishAssessment(assessment: Assessment, isPublished: boolean) {
     const questions$ = this._assessmentQuestionService$$.getQuestions$();
 
     // Publish the assessment as a story
@@ -40,6 +42,7 @@ export class AssessmentPublishService
       configs: assessment.configs,
       description: "",
       orgId: assessment.orgId,
+      isPublished: true,
     };
 
     const orgId = assessmentStory.orgId as string;
@@ -90,13 +93,17 @@ export class AssessmentPublishService
   }));
 
     // Create the story
-    const publishAssessment$ = this._addStory$.publish(assessmentStory);
+    const publishAssessment$ = this._story$.publish(assessmentStory);
 
     // Add the blocks to the store
-    const addBlocks$ = questionBlocks$.pipe(switchMap(blocks => this._blocks$$.addBlocksByStory(storyId, orgId, blocks)));
+    const addBlocks$ = questionBlocks$.
+                              pipe(switchMap(blocks => 
+                                    this._blocks$$.addBlocksByStory(storyId, orgId, blocks, isPublished)));
 
     // Add the connections to the store
-    const addConnections$ = connections$.pipe(switchMap(connections => this._connections$$.addConnectionsByStory(storyId, orgId, connections)));
+    const addConnections$ = connections$.
+                              pipe(switchMap(connections => 
+                                    this._connections$$.addConnectionsByStory(storyId, orgId, connections, isPublished)));
 
     return combineLatest([publishAssessment$, addBlocks$, addConnections$])
             .pipe(tap(() =>this._logger.log(() => `Assessment published!`)));
