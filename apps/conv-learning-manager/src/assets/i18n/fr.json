@@ -221,6 +221,17 @@
         "FINISHED-ON": "Terminé le",
         "SCORE": "Score",
         "SCORE-CATEGORY": "Catégorie de note"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Sélectionnez la page de résultats",
+        "SORT-BY-NAME": "Trier par nom des résultats d'évaluation",
+        "SORT-BY-PHONE-NO": "Trier par numéro de téléphone des résultats d'évaluation",
+        "SORT-BY-STARTED-ON": "Trier par résultats d'évaluation commencés le",
+        "SORT-BY-FINISHED-ON": "Sort by assessment results finished on",
+        "SORT-BY-SCORE": "Trier par score des résultats d'évaluation",
+        "SORT-BY-SCORE-CATEGORY": "Trier par catégorie de score des résultats d'évaluation",
+        "SORTED-ASC": "Trié par ordre croissant",
+        "SORTED-DESC": "Trié par ordre décroissant"
       }
     },
     "BUTTON": {

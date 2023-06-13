@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { SubSink } from 'subsink';
@@ -25,6 +26,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private _sBs = new SubSink();
 
@@ -41,7 +43,8 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       const data = this.filterData(results);
 
       this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
