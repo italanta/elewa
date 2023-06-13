@@ -88,7 +88,7 @@ export class EndStoryBlockService implements IProcessOperationBlock
     private async getNextBlockIdByScore(assessmentCursor: AssessmentCursor)
     {
       const finalScore = assessmentCursor.score;
-      if (finalScore > 0 && finalScore < 50) {
+      if (finalScore >= 0 && finalScore < 50) {
         // Get the next block after the assessment depending on the score
         return assessmentCursor.fail;
       } else if (finalScore >= 50 && finalScore <= 75) {
