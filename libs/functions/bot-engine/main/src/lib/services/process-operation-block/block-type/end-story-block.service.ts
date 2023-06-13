@@ -44,9 +44,9 @@ export class EndStoryBlockService implements IProcessOperationBlock
 
       // Use the RoutedCursor to construct a new cursor
       newCursor = {
+        ...currentCursor,
         position: { storyId: topRoutineStoryId, blockId: nextBlockId },
-        parentStack: currentCursor.parentStack
-
+        parentStack: currentCursor.parentStack,
       };
 
       // If it's the end of an assessment, we need to get the next block based on the score
