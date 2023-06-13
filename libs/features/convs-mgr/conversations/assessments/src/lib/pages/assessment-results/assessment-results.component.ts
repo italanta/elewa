@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { SubSink } from 'subsink';
+import { Timestamp } from 'firebase-admin/firestore';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -71,6 +72,13 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  formatDate(time: Timestamp): string {
+    if (!time) return 'In progress';
+
+    const date = new Date(time.seconds * 1000);
+    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear());
   }
 
   goBack() {
