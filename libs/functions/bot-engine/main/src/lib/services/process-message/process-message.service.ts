@@ -1,6 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { isOperationBlock, isOutputBlock, StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { isOperationBlock, isOutputBlock, StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { ActiveChannel } from '@app/functions/bot-engine';
@@ -75,9 +75,10 @@ export class ProcessMessageService
     newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
 
     // Update the cursor with the user score in the assessment
-    if(newCursor.assessmentStack && newCursor.assessmentStack.length > 0) {
+    if(lastBlock.type === StoryBlockTypes.AssessmentQuestionBlock) {
       const userAnswerScore = assessUserAnswer(lastBlock as AssessmentQuestionBlock, msg)
       newCursor.assessmentStack[0].score += userAnswerScore;
+      newCursor.assessmentStack[0].maxScore += (lastBlock as AssessmentQuestionBlock).marks;
       
       this._tools.Logger.log(()=> `User score on question ${lastBlock.id}: ${userAnswerScore}`);
     }
@@ -91,7 +92,9 @@ export class ProcessMessageService
 
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
 
-    while (isOperationBlock(nextBlock.type)) {
+    this._tools.Logger.log(()=> `Next block: ${JSON.stringify(nextBlock)}`);
+
+    while (nextBlock && isOperationBlock(nextBlock.type)) {
       const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUserId);
 
       nextBlock = updatedPosition.storyBlock;

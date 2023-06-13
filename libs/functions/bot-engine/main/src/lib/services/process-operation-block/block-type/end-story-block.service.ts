@@ -1,12 +1,13 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
+import { AssessmentCursor, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 /**
  * When an end user gets to the end of the story we can either end the conversation(return null) or 
@@ -29,6 +30,9 @@ export class EndStoryBlockService implements IProcessOperationBlock
   async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, endUserId: string)
   {
     const cursor = currentCursor;
+    let nextBlock: StoryBlock;
+    let newCursor: Cursor;
+    let nextBlockId: string;
 
     /** If the parent stack is not empty, then we are in a child story */
     if (currentCursor.parentStack.length > 0) {
@@ -36,17 +40,34 @@ export class EndStoryBlockService implements IProcessOperationBlock
       const topRoutineCursor = cursor.parentStack.shift();
 
       const topRoutineStoryId = topRoutineCursor.storyId;
-      const topRoutineBlockSuccess = topRoutineCursor.blockSuccess;
+      nextBlockId = topRoutineCursor.blockSuccess;
 
       // Use the RoutedCursor to construct a new cursor
-      const newCursor: Cursor = {
-        position: { storyId: topRoutineStoryId, blockId: topRoutineBlockSuccess },
-        parentStack: currentCursor.parentStack
-
+      newCursor = {
+        ...currentCursor,
+        position: { storyId: topRoutineStoryId, blockId: nextBlockId },
+        parentStack: currentCursor.parentStack,
       };
 
+      // If it's the end of an assessment, we need to get the next block based on the score
+      if (storyBlock.id === "end-assessment" && currentCursor.assessmentStack.length > 0) {
+
+        this.tools.Logger.log(() => `End of assessment: ${currentCursor.assessmentStack[0].assessmentId}`);
+
+        // Get the next block after the assessment depending on the score
+        const currentAssessment = currentCursor.assessmentStack[0];
+  
+        // Set the finishedOn date
+        currentAssessment.finishedOn = new Date();
+  
+        nextBlockId = await this.getNextBlockIdByScore(currentAssessment);
+        
+        newCursor.assessmentStack[0] = currentAssessment;
+        newCursor.position.blockId = nextBlockId;
+      }
+
       // Resolve and return the success block
-      const nextBlock = await this._blockDataService.getBlockById(topRoutineBlockSuccess, orgId, topRoutineStoryId);
+      nextBlock = await this._blockDataService.getBlockById(nextBlockId, orgId, topRoutineStoryId);
 
       return {
         storyBlock: nextBlock,
@@ -58,4 +79,30 @@ export class EndStoryBlockService implements IProcessOperationBlock
       return null;
     }
   }
+
+    /** 
+   * Match assessment score to get Id of the next block 
+   * 
+   * TODO: Get block dynamically using the score with the provided inputs on the assessment brick 
+  */
+    private async getNextBlockIdByScore(assessmentCursor: AssessmentCursor)
+    {
+      // Get the final score of the user in the assessment
+      const finalScore = assessmentCursor.score;
+
+      // Get the percentage of the final score
+      const finalPercentage = (finalScore/assessmentCursor.maxScore) * 100;
+
+      this.tools.Logger.log(() => `Final score: ${finalScore} - Final percentage: ${finalPercentage}%`);
+
+      // Return the correct block id based on the score
+      if (finalPercentage >= 0 && finalPercentage < 50) {
+        // Get the next block after the assessment depending on the score
+        return assessmentCursor.fail;
+      } else if (finalPercentage >= 50 && finalPercentage <= 75) {
+        return assessmentCursor.average;
+      } else {
+        return assessmentCursor.pass;
+      }
+    }
 }

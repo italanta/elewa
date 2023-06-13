@@ -41,9 +41,9 @@ export class AssessmentBlockService implements IProcessOperationBlock
 
     // The jump block only has two options, one to use in case the child story is successful
     //  and another incase the story fails
-    const failOption = `i-0-${storyBlock.id}`;
-    const averageOption = `i-1-${storyBlock.id}`;
-    const passOption = `i-2-${storyBlock.id}`;
+    const failOption = `score-0-${storyBlock.id}`;
+    const averageOption = `score-1-${storyBlock.id}`;
+    const passOption = `score-2-${storyBlock.id}`;
 
     const failConn = await this._connDataService.getConnByOption(failOption, orgId, currentStory);
     const avrgConn = await this._connDataService.getConnByOption(averageOption, orgId, currentStory);
@@ -65,7 +65,8 @@ export class AssessmentBlockService implements IProcessOperationBlock
       fail: failConn ? failConn.targetId : "",
       average: avrgConn ? avrgConn.targetId : "",
       pass: passConn ? passConn.targetId : "",
-      score: 0
+      score: 0,
+      maxScore: 0,
     };
 
     const routedCursor: RoutedCursor = {

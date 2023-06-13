@@ -32,14 +32,14 @@ import { AssessmentBrick, ScoreOptions } from "@app/model/convs-mgr/stories/bloc
   return _fb.group({
     id: [blockData?.id! ?? ''],
     defaultTarget: [''],
+    assessmentId: [blockData?.assessmentId! ?? ''],
     /** 
      * NB: As on 25/04/2023 the score options are the static default scores only 
      * @see {AssessmentBrickComponent} - To create functionality to correctly accept dynamic data from the form inputs
     */
     scoreOptions: _fb.array([...defaultScores.map((score)=> initScoreOptions(_fb, score))]),
     type: [blockData.type ?? StoryBlockTypes.Assessment],
-    position: [blockData.position ?? { x: 200, y: 50 }],
-    message: ['']
+    position: [blockData.position ?? { x: 200, y: 50 }]
   });
 }
 
