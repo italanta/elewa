@@ -12,6 +12,9 @@ export interface AssessmentCursor
   /** The id of the child story */
   assessmentId: string;
 
+  /** Maximum score of the assessment */
+  maxScore: number;
+
   /** The time the user started the assessment  */
   startedOn?: Date;
 

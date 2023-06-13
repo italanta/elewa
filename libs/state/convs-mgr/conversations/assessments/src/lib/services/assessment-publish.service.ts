@@ -10,7 +10,7 @@ import { ActiveOrgStore } from '@app/state/organisation';
 
 import { AssessmentQuestionService } from './assessment-question.service';
 import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { AssessmentQuestionBlock, Button } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryConnectionsStore, BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
@@ -46,7 +46,9 @@ export class AssessmentPublishService
     const storyId = assessmentStory.id as string;
 
     // Convert questions to blocks
-    const questionBlocks$ = questions$.pipe(map(questions => questions.map(question =>
+    const questionBlocks$ = questions$.pipe(map(questions => {
+      
+    const blocks = questions.map(question =>
     {
       return {
         id: question.id,
@@ -55,20 +57,37 @@ export class AssessmentPublishService
         marks: question.marks,
         options: this.__questionOptionsToBlockOptions(question.options as AssessmentQuestionOptions[])
       } as AssessmentQuestionBlock;
-    })));
+    })
+
+    // Create and add the end block
+    const endBlock = {
+      id: 'end-assessment',
+      type: StoryBlockTypes.EndStoryAnchorBlock,
+    } as EndStoryAnchorBlock;
+
+    return [...blocks, endBlock];
+  }));
 
     // Create connections between questions
-    const connections$ = questions$.pipe(map(questions => questions.map(question =>
+    const connections$ = questions$.pipe(map(questions => {
+      
+    const connections = questions.map(question =>
     {
       return {
         id: `con_${question.id}`,
         sourceId: question.prevQuestionId ? `defo-${question.prevQuestionId}` : assessment.id,
 
-        // TODO: Make sure there is validation for this when publishing
-        targetId: question.nextQuestionId || null,
+        targetId: question.id,
       } as StoryBlockConnection;
-    }
-    )));
+    })
+    const lastConnection = {
+      id: `con_end`,
+      sourceId: `defo-${questions[questions.length - 1].id}`,
+      targetId: 'end-assessment',
+    } as StoryBlockConnection;
+
+    return [...connections, lastConnection];
+  }));
 
     // Create the story
     const publishAssessment$ = this._addStory$.publish(assessmentStory);

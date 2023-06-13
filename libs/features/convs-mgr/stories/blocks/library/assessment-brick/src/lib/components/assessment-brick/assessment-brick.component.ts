@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -7,6 +7,8 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentBrick } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.provider';
+import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
+import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 
 @Component({
@@ -16,37 +18,60 @@ import { _JsPlumbComponentDecorator } from '../../providers/decorate-jsplumb.pro
 })
 
 
-export class AssessmentBrickComponent
+export class AssessmentBrickComponent implements OnInit, AfterViewInit
 {
 
   @Input() id: string;
   @Input() block: AssessmentBrick;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  @Input() assessmentBrickForm: FormGroup
+  @Input() assessmentBrickForm: FormGroup;
 
   @Input() blocksGroup: FormArray;
- 
+
   type: StoryBlockTypes;
   assessmentBrickType = StoryBlockTypes.Assessment;
   blockFormGroup: FormGroup;
+  assessments: Assessment[];
 
-  ngAfterViewInit(): void {
+  constructor(private _assessmentService$: AssessmentService) { }
+
+  ngOnInit() {
+    this.getAssessments();
+  }
+
+  ngAfterViewInit(): void
+  {
     this._decorateInput();
   }
 
+  /** Get all assessments */
+  getAssessments()
+  {
+    this._assessmentService$.getAssessments$().subscribe((assessments) =>
+    {
+      // Filter out assessments that have not been published
+      assessments = assessments.filter((assessment) => assessment.isPublished);
+
+      this.assessments = assessments;
+    }
+    );
+  }
+
   /** Add JsPlumb connector to max score input */
-  private _decorateInput() {
+  private _decorateInput()
+  {
     let inputs = document.getElementsByClassName('input-score-max');
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
-        let input = inputs[i]
-        input = _JsPlumbComponentDecorator(input, this.jsPlumb)
+        let input = inputs[i];
+        input = _JsPlumbComponentDecorator(input, this.jsPlumb);
       }
     }
   }
 
-  get scores(): FormArray {
-    return this.assessmentBrickForm.controls['scoreOptions'] as FormArray
+  get scores(): FormArray
+  {
+    return this.assessmentBrickForm.controls['scoreOptions'] as FormArray;
   }
 }

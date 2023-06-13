@@ -1,6 +1,5 @@
 import { Message, MessageTemplateConfig, OutgoingMessagePayload, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
 import { StoryBlock, StoryBlockTypes } from "@app/model/convs-mgr/stories/blocks/main";
-import { HandlerTools } from "@iote/cqrs";
 
 /**
  * Our chatbot can send different types of messages, be it a text message, a location, an image, ...
@@ -52,17 +51,17 @@ export abstract class OutgoingMessageParser
     let parser!: (storyBlock: StoryBlock, phone: string) => OutgoingMessagePayload;
     
     switch (storyBlock.type) {
-      case StoryBlockTypes.TextMessage:   parser = this.getTextBlockParserOut;     break;
-      case StoryBlockTypes.Name:          parser = this.getTextBlockParserOut;     break;
-      case StoryBlockTypes.Email:         parser = this.getTextBlockParserOut;     break;
-      case StoryBlockTypes.PhoneNumber:   parser = this.getTextBlockParserOut;     break;   
-      case StoryBlockTypes.QuestionBlock: parser = this.getQuestionBlockParserOut; break;
-      case StoryBlockTypes.List:          parser = this.getListBlockParserOut;     break;
-      case StoryBlockTypes.Image:         parser = this.getImageBlockParserOut;    break;
-      case StoryBlockTypes.Video:         parser = this.getVideoBlockParserOut;    break;
-      case StoryBlockTypes.Document:      parser = this.getDocumentBlockParserOut; break;
-      case StoryBlockTypes.Audio:         parser = this.getAudioBlockParserOut;    break;
-      // case StoryBlockTypes.Sticker:       parser = this.getStickerBlockParserOut;  break;
+      case StoryBlockTypes.TextMessage:                   parser = this.getTextBlockParserOut;     break;
+      case StoryBlockTypes.Name:                          parser = this.getTextBlockParserOut;     break;
+      case StoryBlockTypes.Email:                         parser = this.getTextBlockParserOut;     break;
+      case StoryBlockTypes.PhoneNumber:                   parser = this.getTextBlockParserOut;     break;   
+      case StoryBlockTypes.QuestionBlock:                 parser = this.getQuestionBlockParserOut; break;
+      case StoryBlockTypes.List:                          parser = this.getListBlockParserOut;     break;
+      case StoryBlockTypes.Image:                         parser = this.getImageBlockParserOut;    break;
+      case StoryBlockTypes.Video:                         parser = this.getVideoBlockParserOut;    break;
+      case StoryBlockTypes.Document:                      parser = this.getDocumentBlockParserOut; break;
+      case StoryBlockTypes.Audio:                         parser = this.getAudioBlockParserOut;    break;
+      case StoryBlockTypes.AssessmentQuestionBlock:       parser = this.getQuestionBlockParserOut;  break;
       default:
           parser = this.getTextBlockParserOut;
     }
