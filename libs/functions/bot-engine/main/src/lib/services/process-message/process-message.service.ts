@@ -92,7 +92,8 @@ export class ProcessMessageService
     // Some of the blocks are not meant to be sent back to the end user, but perform specific actions
 
     this._tools.Logger.log(()=> `Next block: ${JSON.stringify(nextBlock)}`);
-    while (isOperationBlock(nextBlock.type)) {
+    
+    while (nextBlock && isOperationBlock(nextBlock.type)) {
       const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUserId);
 
       nextBlock = updatedPosition.storyBlock;
