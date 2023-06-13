@@ -4,7 +4,7 @@ import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
 import { of } from 'rxjs'
-import { tap, throttleTime, switchMap } from 'rxjs/operators';
+import { tap, throttleTime, switchMap, map, take } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -46,16 +46,37 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
     });
   }
 
-  addBlocksByStory(storyId: string, orgId: string, blocks: StoryBlock[]) 
+  addBlocksByStory(storyId: string, orgId: string, blocks: StoryBlock[], isPublished: boolean) 
   {
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
-    
+
+    if(isPublished) {
+      // If the assesment is already published, we need to get the published blocks 
+      //    and delete if they are not in the new set of blocks
+      const publishedBlocks = this.getBlocksByStory(storyId, orgId);
+
+      const deleteBlocks$ = publishedBlocks.pipe(
+        map((publishedBlocks) => {
+          publishedBlocks.forEach((publishedBlock) => {
+            if(!blocks.find((block) => block.id == publishedBlock.id)) {
+              return repo.delete(publishedBlock);
+            } else {
+              return of([]);
+            }
+          });
+        })
+      )
+
+      deleteBlocks$.subscribe();
+    }
     return blocks.map(block => repo.write(block, block.id!));
   }
 
-  getBlocksByStory(storyId: string)
+  getBlocksByStory(storyId: string, orgId?: string)
   {
-    const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${this._activeStory.orgId}/stories/${storyId}/blocks`);
+    orgId = this._activeStory? this._activeStory.orgId : orgId;
+
+    const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
     return repo.getDocuments();
   }
 
