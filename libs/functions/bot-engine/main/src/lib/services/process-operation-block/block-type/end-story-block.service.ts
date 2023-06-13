@@ -87,11 +87,19 @@ export class EndStoryBlockService implements IProcessOperationBlock
   */
     private async getNextBlockIdByScore(assessmentCursor: AssessmentCursor)
     {
+      // Get the final score of the user in the assessment
       const finalScore = assessmentCursor.score;
-      if (finalScore >= 0 && finalScore < 50) {
+
+      // Get the percentage of the final score
+      const finalPercentage = (finalScore/assessmentCursor.maxScore) * 100;
+
+      this.tools.Logger.log(() => `Final score: ${finalScore} - Final percentage: ${finalPercentage}%`);
+
+      // Return the correct block id based on the score
+      if (finalPercentage >= 0 && finalPercentage < 50) {
         // Get the next block after the assessment depending on the score
         return assessmentCursor.fail;
-      } else if (finalScore >= 50 && finalScore <= 75) {
+      } else if (finalPercentage >= 50 && finalPercentage <= 75) {
         return assessmentCursor.average;
       } else {
         return assessmentCursor.pass;
