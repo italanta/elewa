@@ -65,7 +65,8 @@ export class AssessmentBlockService implements IProcessOperationBlock
       fail: failConn ? failConn.targetId : "",
       average: avrgConn ? avrgConn.targetId : "",
       pass: passConn ? passConn.targetId : "",
-      score: 0
+      score: 0,
+      maxScore: 0,
     };
 
     const routedCursor: RoutedCursor = {

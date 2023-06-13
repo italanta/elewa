@@ -78,6 +78,7 @@ export class ProcessMessageService
     if(lastBlock.type === StoryBlockTypes.AssessmentQuestionBlock) {
       const userAnswerScore = assessUserAnswer(lastBlock as AssessmentQuestionBlock, msg)
       newCursor.assessmentStack[0].score += userAnswerScore;
+      newCursor.assessmentStack[0].maxScore += (lastBlock as AssessmentQuestionBlock).marks;
       
       this._tools.Logger.log(()=> `User score on question ${lastBlock.id}: ${userAnswerScore}`);
     }
