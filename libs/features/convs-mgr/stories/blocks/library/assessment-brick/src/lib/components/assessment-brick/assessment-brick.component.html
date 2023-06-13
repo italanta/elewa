@@ -19,7 +19,7 @@
             <input [readOnly]="true" class="input-score-min" formControlName="min" type="text" placeholder="Enter min value">
             <span id="dash">-</span>
             <!-- Connection is created from max score. The assessmentsScore connetions sourceId is e.g max-score-1-42 -->
-            <input [id]="'max-score-'+i+'-'+block.id" [readOnly]="true" class="input-score-max" formControlName="max" type="text" placeholder="Enter max value">
+            <input [id]="'score-'+i+'-'+block.id" [readOnly]="true" class="input-score-max" formControlName="max" type="text" placeholder="Enter max value">
           </div>
         </span>
       </div>
