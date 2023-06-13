@@ -1,12 +1,14 @@
 import { Story } from "@app/model/convs-mgr/stories/main";
-import { IObject } from "@iote/bricks";
 
 export interface Assessment extends Story {
     title: string,
     description: string,
     orgId: string,
     configs?: AssessmentConfiguration,
-    scoreCategories?: ScoreCategory[]
+    scoreCategories?: ScoreCategory[],
+
+    /** Differentiate between published assessment and non published ones */
+    isPublished?: boolean
 }
 
 export interface AssessmentConfiguration{
