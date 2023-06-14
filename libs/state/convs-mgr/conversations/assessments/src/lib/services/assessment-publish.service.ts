@@ -9,8 +9,8 @@ import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conv
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { AssessmentQuestionService } from './assessment-question.service';
-import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryConnectionsStore, BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
@@ -48,7 +48,7 @@ export class AssessmentPublishService
     // Convert questions to blocks
     const questionBlocks$ = questions$.pipe(map(questions => {
       
-    const blocks = questions.map(question =>
+    let blocks = questions.map(question =>
     {
       return {
         id: question.id,
@@ -64,6 +64,9 @@ export class AssessmentPublishService
       id: 'end-assessment',
       type: StoryBlockTypes.EndStoryAnchorBlock,
     } as EndStoryAnchorBlock;
+
+    // Add feedback after each question
+    blocks = this.__addFeedbackBlocks(blocks) as any;
 
     return [...blocks, endBlock];
   }));
@@ -111,6 +114,25 @@ export class AssessmentPublishService
         message: option.text,
         value: option.accuracy as any || ""
       } as ButtonsBlockButton<Button>;
+    });
+  }
+
+  private __addFeedbackBlocks(blocks: AssessmentQuestionBlock[])
+  {
+    // Insert feedback blocks after each question
+    return blocks.flatMap((block) => {
+      const result: (AssessmentQuestionBlock | TextMessageBlock)[] = [block];
+      
+      // Only add if the feedback exists on the question
+      if (block.feedbackComment) {
+        result.push({ 
+          id: `feedback-${block.id}`,
+          type: StoryBlockTypes.TextMessage,
+          message: block.feedbackComment 
+        } as TextMessageBlock);
+      }
+      
+      return result;
     });
   }
 }
