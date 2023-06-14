@@ -7,8 +7,8 @@ import { Logger } from '@iote/bricks-angular';
 import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentQuestionService } from './assessment-question.service';
-import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
@@ -52,7 +52,7 @@ export class AssessmentPublishService
     // Convert questions to blocks
     const questionBlocks$ = questions$.pipe(map(questions => {
       
-    const blocks = questions.map(question =>
+    let blocks = questions.map(question =>
     {
       return {
         id: question.id,
@@ -69,24 +69,26 @@ export class AssessmentPublishService
       type: StoryBlockTypes.EndStoryAnchorBlock,
     } as EndStoryAnchorBlock;
 
+    // Add feedback after each question
+    blocks = this.__addFeedbackBlocks(blocks) as any;
+
     return [...blocks, endBlock];
   }));
 
-    // Create connections between questions
-    const connections$ = questions$.pipe(map(questions => {
-      
-    const connections = questions.map(question =>
+  const connections$ = questionBlocks$.pipe(map(blocks => {
+
+    const connections = blocks.map((block, index) =>
     {
       return {
-        id: `con_${question.id}`,
-        sourceId: question.prevQuestionId ? `defo-${question.prevQuestionId}` : assessment.id,
-
-        targetId: question.id,
+        id: `con_${block.id}`,
+        sourceId: index === 0 ? assessment.id : `defo-${blocks[index - 1].id}`,
+        targetId: block.id,
       } as StoryBlockConnection;
     })
+    
     const lastConnection = {
       id: `con_end`,
-      sourceId: `defo-${questions[questions.length - 1].id}`,
+      sourceId: `defo-${blocks[blocks.length - 1].id}`,
       targetId: 'end-assessment',
     } as StoryBlockConnection;
 
@@ -119,6 +121,25 @@ export class AssessmentPublishService
         message: option.text,
         value: option.accuracy as any || ""
       } as ButtonsBlockButton<Button>;
+    });
+  }
+
+  private __addFeedbackBlocks(blocks: AssessmentQuestionBlock[])
+  {
+    // Insert feedback blocks after each question
+    return blocks.flatMap((block) => {
+      const result: (AssessmentQuestionBlock | TextMessageBlock)[] = [block];
+      
+      // Only add if the feedback exists on the question
+      if (block.feedbackComment) {
+        result.push({ 
+          id: `feedback-${block.id}`,
+          type: StoryBlockTypes.TextMessage,
+          message: block.feedbackComment 
+        } as TextMessageBlock);
+      }
+      
+      return result;
     });
   }
 }
