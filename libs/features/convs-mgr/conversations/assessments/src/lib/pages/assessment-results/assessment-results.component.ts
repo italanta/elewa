@@ -24,7 +24,9 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   assessment: Assessment;
 
   dataSource: MatTableDataSource<EndUserDetails>;
+  itemsLength: number
   assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
+  pageTitle: string;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -40,14 +42,17 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
+    this.pageTitle = `Assessments/${this.assessment?.title}/results`;
+
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
+      this.itemsLength = data.length;
 
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
-  }
+  };
 
   filterData(results: EndUserDetails[]) {
     const data = results.filter(user => {
@@ -79,6 +84,11 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
     const date = new Date(time.seconds * 1000);
     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear());
+  }
+
+  searchTable(event: Event){
+    const searchValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = searchValue.trim();
   }
 
   goBack() {
