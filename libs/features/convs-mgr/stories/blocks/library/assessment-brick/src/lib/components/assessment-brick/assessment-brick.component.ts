@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { SubSink } from 'subsink';
 
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentBrick } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -18,7 +19,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 })
 
 
-export class AssessmentBrickComponent implements OnInit, AfterViewInit
+export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestroy
 {
 
   @Input() id: string;
@@ -28,6 +29,8 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit
   @Input() assessmentBrickForm: FormGroup;
 
   @Input() blocksGroup: FormArray;
+
+  private _sBs = new SubSink();
 
   type: StoryBlockTypes;
   assessmentBrickType = StoryBlockTypes.Assessment;
@@ -48,7 +51,7 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit
   /** Get all assessments */
   getAssessments()
   {
-    this._assessmentService$.getAssessments$().subscribe((assessments) =>
+    this._sBs.sink = this._assessmentService$.getAssessments$().subscribe((assessments) =>
     {
       // Filter out assessments that have not been published
       assessments = assessments.filter((assessment) => assessment.isPublished);
@@ -61,7 +64,7 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit
   /** Add JsPlumb connector to max score input */
   private _decorateInput()
   {
-    let inputs = document.getElementsByClassName('input-score-max');
+    const inputs = document.getElementsByClassName('input-score-max');
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];
@@ -73,5 +76,9 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit
   get scores(): FormArray
   {
     return this.assessmentBrickForm.controls['scoreOptions'] as FormArray;
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe()
   }
 }

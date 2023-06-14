@@ -261,6 +261,9 @@
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
       ],
+      "@app/state/convs-mgr/end-users": [
+        "libs/state/convs-mgr/end-users/src/index.ts"
+      ],
       "@app/state/convs-mgr/monitoring": [
         "libs/state/convs-mgr/monitoring/src/index.ts"
       ],
