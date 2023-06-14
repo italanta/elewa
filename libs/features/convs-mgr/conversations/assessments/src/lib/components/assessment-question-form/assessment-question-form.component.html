@@ -34,6 +34,15 @@
                             </div>
                             
                             <app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup" [assessmentMode]="assessmentMode"></app-assessment-answers>
+
+                            <div class="feedback-wrapper">
+                                <mat-form-field appearance="outline" class="full-field">
+                                    <mat-label class="feedback">
+                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}
+                                    </mat-label>
+                                    <input type="text" matInput formControlName="feedback">
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
                 </div>

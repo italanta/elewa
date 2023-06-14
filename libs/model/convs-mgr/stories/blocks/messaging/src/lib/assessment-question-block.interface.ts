@@ -7,4 +7,5 @@ export interface AssessmentQuestionBlock extends StoryBlock {
   message: string;
   marks: number;
   options?: ButtonsBlockButton<Button>[];
+  feedbackComment?: string;
 }

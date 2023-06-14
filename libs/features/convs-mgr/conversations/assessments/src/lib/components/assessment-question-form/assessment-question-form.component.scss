@@ -33,10 +33,11 @@ mat-card-actions{
     padding: 0 0.5rem;
 }
 
-mat-label.question{
+mat-label.question, mat-label.feedback {
     font-size: 0.85rem;
 }
 
-
-
+.feedback-wrapper {
+    margin-top: 1rem;
+}
 
