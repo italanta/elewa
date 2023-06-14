@@ -25,13 +25,11 @@
 
     td.table-cell {
       .badge {
-        min-width: 3rem;
-
         &--end {
-          padding: 0.4rem;
+          padding: 0.4rem 0.6rem;
           color: var(--convs-mgr-color-primary-white);
           background-color: var(--convs-mgr-color-primary-purple-light);
-          border-radius: 5px;
+          border-radius: 2em;
 
           &.orange {
             background-color: var(--convs-mgr-color-primary-yellow);

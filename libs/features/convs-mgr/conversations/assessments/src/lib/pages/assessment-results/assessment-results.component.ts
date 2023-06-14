@@ -13,6 +13,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
 import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assessments';
+import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-assessment-results',
@@ -84,6 +85,21 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
     const date = new Date(time.seconds * 1000);
     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear());
+  }
+
+  getScoreCategory(assessmentCursor: AssessmentCursor) {
+    if (!assessmentCursor.finishedOn) return 'In progress';
+
+    const finalScore = assessmentCursor.score;
+    const finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
+
+    if (finalPercentage >= 0 && finalPercentage < 50) {
+      return 'Failed';
+    } else if (finalPercentage >= 50 && finalPercentage <= 75) {
+      return 'Average';
+    } else {
+      return 'Pass';
+    }
   }
 
   searchTable(event: Event){
