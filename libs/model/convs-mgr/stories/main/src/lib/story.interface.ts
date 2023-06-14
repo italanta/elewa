@@ -28,4 +28,7 @@ export interface Story extends IObject
 
   /* chapter of the story */
   chapter?: string;
+
+  /* type of the story */
+  isAssessment?: boolean
 }
