@@ -71,21 +71,20 @@ export class AssessmentPublishService
     return [...blocks, endBlock];
   }));
 
-    // Create connections between questions
-    const connections$ = questions$.pipe(map(questions => {
-      
-    const connections = questions.map(question =>
+  const connections$ = questionBlocks$.pipe(map(blocks => {
+
+    const connections = blocks.map((block, index) =>
     {
       return {
-        id: `con_${question.id}`,
-        sourceId: question.prevQuestionId ? `defo-${question.prevQuestionId}` : assessment.id,
-
-        targetId: question.id,
+        id: `con_${block.id}`,
+        sourceId: index === 0 ? assessment.id : `defo-${blocks[index - 1].id}`,
+        targetId: block.id,
       } as StoryBlockConnection;
     })
+    
     const lastConnection = {
       id: `con_end`,
-      sourceId: `defo-${questions[questions.length - 1].id}`,
+      sourceId: `defo-${blocks[blocks.length - 1].id}`,
       targetId: 'end-assessment',
     } as StoryBlockConnection;
 
