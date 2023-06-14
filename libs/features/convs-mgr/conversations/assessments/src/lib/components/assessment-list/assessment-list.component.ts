@@ -50,8 +50,12 @@ export class AssessmentListComponent implements OnInit{
     this.dataSource = new AssessmentDataSource(this.assessments$);
   }
 
-  openAssessment(assessmentId: string){
+  openAssessment(assessmentId: string) {
     this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
+  }
+
+  openAssessmentResults(assessmentId: string) {
+    this._router.navigate(['/assessments', assessmentId, 'results']);
   }
 
   searchTable(event: Event){

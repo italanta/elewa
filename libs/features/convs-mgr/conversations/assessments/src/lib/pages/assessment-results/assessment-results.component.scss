@@ -1,0 +1,42 @@
+.page-container {
+  display: grid;
+  padding: 3rem;
+
+  .title-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+
+    .back-btn {
+      outline: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 5px;
+      color: var(--convs-mgr-color-primary-white);
+      background-color: var(--convs-mgr-color-primary-yellow);
+    }
+  }
+
+  .assessments-table {
+    th.table-header {
+      font-weight: 600;
+    }
+
+    td.table-cell {
+      .badge {
+        &--end {
+          padding: 0.4rem 0.6rem;
+          color: var(--convs-mgr-color-primary-white);
+          background-color: var(--convs-mgr-color-primary-purple-light);
+          border-radius: 2em;
+
+          &.orange {
+            background-color: var(--convs-mgr-color-primary-yellow);
+            color: var(--convs-mgr-color-primary-black);
+          }
+        }
+      }
+    }
+  }
+}
