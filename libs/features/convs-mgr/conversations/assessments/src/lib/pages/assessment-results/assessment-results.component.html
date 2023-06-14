@@ -36,9 +36,9 @@
         <ng-container matColumnDef="finishedOn">
             <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="finishedOn" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-FINISHED-ON' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.FINISHED-ON' | transloco}}</th>
             <td class="table-cell" mat-cell *matCellDef="let endUser">
-              <span class="badge--end" 
-                [ngClass]="formatDate(endUser.selectedAssessmentCursor?.finishedOn) === 'In progress' ? 'orange' : 'purple'"
-              >{{formatDate(endUser.selectedAssessmentCursor?.finishedOn)}}</span>
+              <span class="badge--end" [ngClass]="formatDate(endUser.selectedAssessmentCursor?.finishedOn) === 'In progress' ? 'orange' : 'purple'"
+                >{{formatDate(endUser.selectedAssessmentCursor?.finishedOn)}}
+              </span>
             </td>
         </ng-container>
   
@@ -49,7 +49,11 @@
   
         <ng-container matColumnDef="scoreCategory">
             <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="scoreCategory" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-SCORE-CATEGORY' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE-CATEGORY' | transloco}}</th>
-            <td mat-cell *matCellDef="let endUser">{{endUser.selectedAssessmentCursor?.score}}</td>
+            <td class="table-cell" mat-cell *matCellDef="let endUser">
+              <span class="badge--end" [ngClass]="getScoreCategory(endUser.selectedAssessmentCursor) === 'In progress' ? 'orange' : 'purple'"
+                >{{getScoreCategory(endUser.selectedAssessmentCursor)}}
+              </span>
+            </td>
         </ng-container>
   
         <tr mat-header-row *matHeaderRowDef="assessmentResults"></tr>
