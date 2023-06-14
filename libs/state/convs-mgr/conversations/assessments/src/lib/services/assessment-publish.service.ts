@@ -43,6 +43,7 @@ export class AssessmentPublishService
       description: "",
       orgId: assessment.orgId,
       isPublished: true,
+      isAssessment: true,
     };
 
     const orgId = assessmentStory.orgId as string;
