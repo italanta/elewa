@@ -219,7 +219,7 @@ export class StoryEditorFrame {
     const blockHeight = 100 
 
     const xOffset = 50; //Adding vertical and horizontal spacing between blocks
-    const yOffset = 50;
+    const yOffset = 80;
 
     let maxY = 0;
     if (this._blocks.length > 0) {
@@ -227,13 +227,20 @@ export class StoryEditorFrame {
         ...this._blocks.map((block) => block.position.y + blockHeight)
       );
     }
-    
+
+    let initialY = 0;
+    if (this._blocks.length === 0) {
+      // Set the initial position of block
+      initialY = 50; 
+    }
+
     const block = {
       id: `${this._cnt}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
-      position: coordinates || { x: 200, y: 50 },
+      position: coordinates || {  x: 200 + this._blocks.length * (blockWidth + xOffset),
+        y: initialY !== 0 ? maxY + yOffset : initialY,},
     } as StoryBlock;
 
     this._cnt++;
