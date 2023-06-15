@@ -215,6 +215,12 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+    const blockWidth = 300 //Assuming default block height and width
+    const blockHeight = 100 
+
+    const xOffset = 50; //Adding vertical and horizontal spacing between blocks
+    const yOffset = 50;
+
     const block = {
       id: `${this._cnt}`,
       type: type,
