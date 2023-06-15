@@ -221,6 +221,13 @@ export class StoryEditorFrame {
     const xOffset = 50; //Adding vertical and horizontal spacing between blocks
     const yOffset = 50;
 
+    let maxY = 0;
+    if (this._blocks.length > 0) {
+      maxY = Math.max(
+        ...this._blocks.map((block) => block.position.y + blockHeight)
+      );
+    }
+    
     const block = {
       id: `${this._cnt}`,
       type: type,
