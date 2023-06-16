@@ -7,7 +7,7 @@ import { Logger } from '@iote/bricks-angular';
 import { Assessment, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentQuestionService } from './assessment-question.service';
-import { StoryBlock, StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { AssessmentQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
@@ -59,6 +59,7 @@ export class AssessmentPublishService
         type: StoryBlockTypes.AssessmentQuestionBlock,
         message: question.message,
         marks: question.marks,
+        feedback: question.feedback,
         options: this.__questionOptionsToBlockOptions(question.options as AssessmentQuestionOptions[])
       } as AssessmentQuestionBlock;
     })
@@ -86,13 +87,13 @@ export class AssessmentPublishService
       } as StoryBlockConnection;
     })
     
-    const lastConnection = {
-      id: `con_end`,
-      sourceId: `defo-${blocks[blocks.length - 1].id}`,
-      targetId: 'end-assessment',
-    } as StoryBlockConnection;
+    // const lastConnection = {
+    //   id: `con_end`,
+    //   sourceId: `defo-${blocks[blocks.length - 1].id}`,
+    //   targetId: 'end-assessment',
+    // } as StoryBlockConnection;
 
-    return [...connections, lastConnection];
+    return [...connections];
   }));
 
     // Create the story
@@ -131,11 +132,11 @@ export class AssessmentPublishService
       const result: (AssessmentQuestionBlock | TextMessageBlock)[] = [block];
       
       // Only add if the feedback exists on the question
-      if (block.feedbackComment) {
+      if (block.feedback) {
         result.push({ 
           id: `feedback-${block.id}`,
           type: StoryBlockTypes.TextMessage,
-          message: block.feedbackComment 
+          message: block.feedback 
         } as TextMessageBlock);
       }
       
