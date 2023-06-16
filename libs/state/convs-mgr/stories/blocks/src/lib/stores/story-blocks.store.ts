@@ -9,7 +9,7 @@ import { tap, throttleTime, switchMap, map, take } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -58,7 +58,7 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
       const deleteBlocks$ = publishedBlocks.pipe(
         map((publishedBlocks) => {
           publishedBlocks.forEach((publishedBlock) => {
-            if(!blocks.find((block) => block.id == publishedBlock.id)) {
+            if(!blocks.find((block) => block.id == publishedBlock.id) && !publishedBlock.id!.includes('feedback')) {
               return repo.delete(publishedBlock);
             } else {
               return of([]);

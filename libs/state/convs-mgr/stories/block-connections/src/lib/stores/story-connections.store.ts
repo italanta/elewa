@@ -48,7 +48,7 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
       const deleteConnections$ = publishedConnections.pipe(
         map((publishedConnections) => {
           publishedConnections.forEach((publishedConn) => {
-            if(!connections.find((conn) => conn.id == publishedConn.id)) {
+            if(!connections.find((conn) => conn.id == publishedConn.id) && !publishedConn.id!.includes('feedback') ) {
               return repo.delete(publishedConn);
             } else {
               return of([]);
