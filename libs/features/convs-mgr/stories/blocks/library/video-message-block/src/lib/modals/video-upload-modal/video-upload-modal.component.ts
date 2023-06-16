@@ -35,7 +35,7 @@ export class VideoUploadModalComponent implements OnInit {
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _videoUploadService: FileStorageService,
     @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup }
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
@@ -48,6 +48,11 @@ export class VideoUploadModalComponent implements OnInit {
     }
 
     this.dialogRef.close();
+  }
+
+  openFileExplorer() {
+    const input = document.getElementById('videoUpload') as HTMLInputElement
+    input.click()
   }
 
   onVideoSelected(event: any) {
