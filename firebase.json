@@ -6,7 +6,7 @@
       "node tools/scripts/build-gc-functions-package.js"
     ]
   },
-  "hosting": {
+  "hosting": [{
     "target": "convl-manager",
     "public": "dist/apps/conv-learning-manager",
     "predeploy": [
@@ -24,6 +24,25 @@
       }
     ]
   },
+  {
+    "target": "farmbetter-review",
+    "public": "dist/apps/conv-learning-manager",
+    "predeploy": [
+      "nx build conv-learning-manager --skip-nx-cache --prod"
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+],
   "emulators": {
     "functions": {
       "port": 5001
