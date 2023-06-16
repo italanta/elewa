@@ -60,7 +60,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this.assessment$ = this._assessmentService.getActiveAssessment$();
     this.questions$ = this._assessmentQuestion.getQuestions$();
     this._sbS.sink = this._assessmentQuestion.getQuestions$().subscribe(qstsn => this.questions = qstsn);
-    this.assessmentMode = this.getAssessmentMode();
+    this.assessmentMode = AssessmentMode.View;
   }
 
   initPage()
@@ -84,18 +84,6 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this.assessmentForm = this._assessmentForm.createAssessmentDetailForm(this.assessment?.configs);
   }
 
-  getAssessmentMode()
-  {
-    const assessmentMode = this._route.snapshot.queryParamMap.get('mode') as string;
-
-    // 1 = "Edit" & 0 = "View"
-    if (assessmentMode === 'edit') {
-      return AssessmentMode.Edit;
-    } else {
-      return AssessmentMode.View;
-    }
-  }
-
   onSave()
   {
     this.isSaving = true;
@@ -117,29 +105,28 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
   {
     this.isPublishing = true;
 
-    this._publishAssessment.publish(this.assessment).subscribe(_published =>
+    this._sbS.sink = this._publishAssessment.publish(this.assessment).subscribe(_published =>
       {
         if (_published) {
           this.isPublishing = false;
+          this._sbS.unsubscribe();
           this.assessmentMode = AssessmentMode.View;
           this.openSnackBar('Assessment was successfully published', 'Publish')
   
           // TODO: Optimize this logic
           this.assessment.isPublished = true;
           this._sbS.sink = this._assessmentService.updateAssessment$(this.assessment).subscribe();
-  
-          this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'view' } });
         }
       });
   }
 
   toggleForm()
   {
+    this._sbS.unsubscribe();
     this.assessmentMode = AssessmentMode.Edit;
     this._assessToggle.hidePublish();
 
     // Update url parameter mode to edit
-    this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'edit' } });
     this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
     this.createFormGroup();
   }
