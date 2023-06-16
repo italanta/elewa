@@ -2,16 +2,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, concatMap, forkJoin, from, switchMap, take, tap, timer } from 'rxjs';
+import { Observable, concatMap, forkJoin, from, tap, timer } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
+import { ActiveOrgStore } from '@app/state/organisation';
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
-import { ActiveOrgStore } from '@app/state/organisation';
+import { AssessToggleStateService } from '../../services/assessment-toggle-state.service';
 
 
 @Component({
@@ -34,20 +35,25 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
 
   private _sbS = new SubSink();
   isPublishing = false;
+  showPublishBtn:Observable<boolean>;
   isSaving = false;
 
-  constructor(private _assessmentService: AssessmentService,
+  constructor(
+    private _assessmentService: AssessmentService,
     private _publishAssessment: AssessmentPublishService,
     private _org$$: ActiveOrgStore,
     private _assessmentForm: AssessmentFormService,
     private _assessmentQuestion: AssessmentQuestionService,
+    private _assessToggle: AssessToggleStateService,
     private _router: Router,
-    private _route: ActivatedRoute) { }
+    private _route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void
   {
     this.initAssessment();
     this.initPage();
+    this.showPublishBtn = this._assessToggle.publishBtnState;
   }
 
   initAssessment()
@@ -100,6 +106,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
       forkJoin([this.insertAssessmentConfig$(), ...this.persistAssessmentQuestions$()]).subscribe(() =>
       {
         this.isSaving = false;
+        this._assessToggle.showPublish();
       })
     );
   }

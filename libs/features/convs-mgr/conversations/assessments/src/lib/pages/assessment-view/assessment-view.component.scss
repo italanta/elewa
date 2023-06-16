@@ -18,5 +18,11 @@ h2.title{
     gap: 1rem;
 }
 
+.btn-publish {
+    &:disabled {
+        background-color: red;
+    }
+}
+
 
 
