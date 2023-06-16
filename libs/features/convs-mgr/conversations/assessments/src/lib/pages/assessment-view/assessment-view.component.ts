@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-import { Observable, concatMap, forkJoin, from, tap, timer } from 'rxjs';
+import { Observable, concatMap, combineLatest, from, tap, timer, startWith } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
@@ -101,9 +101,11 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
   {
     this.isSaving = true;
 
-    // we spread the `persistAssessmentQuestions()` since it's an array of Observables.
-    this._sbS.add(
-      forkJoin([this.insertAssessmentConfig$(), ...this.persistAssessmentQuestions$()]).subscribe(() =>
+    // since some observables complete before we call combinelatest, we initialise our stream with an empty string
+    // we spread the `assessmentQstns$()` since it's an array of Observables.
+    const assessmentQstns$ = this.persistAssessmentQuestions$().map(each => each.pipe(startWith('')))
+
+    this._sbS.add(combineLatest([this.insertAssessmentConfig$(), ...assessmentQstns$]).subscribe(() =>
       {
         this.isSaving = false;
         this._assessToggle.showPublish();
