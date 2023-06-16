@@ -91,7 +91,7 @@ export class EndStoryBlockService implements IProcessOperationBlock
       const finalScore = assessmentCursor.score;
 
       // Get the percentage of the final score
-      const finalPercentage = (finalScore/assessmentCursor.maxScore) * 100;
+      let finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
 
       this.tools.Logger.log(() => `Final score: ${finalScore} - Final percentage: ${finalPercentage}%`);
 
