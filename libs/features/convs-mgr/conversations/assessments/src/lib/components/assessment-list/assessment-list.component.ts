@@ -51,7 +51,7 @@ export class AssessmentListComponent implements OnInit{
   }
 
   openAssessment(assessmentId: string) {
-    this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
+    this._router.navigate(['/assessments', assessmentId]);
   }
 
   openAssessmentResults(assessmentId: string) {
