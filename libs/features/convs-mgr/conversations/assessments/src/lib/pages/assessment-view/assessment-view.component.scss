@@ -40,3 +40,13 @@ h2.title {
     stroke: var(--convs-mgr-color-primary-yellow) !important;
   }
 }
+
+
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  background-color: white !important;
+  color: black !important;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+  color: var(--convs-mgr-color-primary-yellow) !important;
+}
