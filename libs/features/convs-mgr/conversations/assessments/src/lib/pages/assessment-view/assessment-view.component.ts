@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, concatMap, combineLatest, from, tap, timer, startWith } from 'rxjs';
+
+import { Observable, concatMap, combineLatest, from, tap, timer, startWith, switchMap } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
@@ -43,8 +43,6 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     private _assessmentForm: AssessmentFormService,
     private _assessmentQuestion: AssessmentQuestionService,
     private _assessToggle: AssessToggleStateService,
-    private _router: Router,
-    private _route: ActivatedRoute,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -101,21 +99,22 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     );
   }
 
-  onPublish()
-  {
+  onPublish() {
     this.isPublishing = true;
 
-    this._sbS.sink = this._publishAssessment.publish(this.assessment).subscribe(_published =>
-      {
-        if (_published) {
+    this._sbS.sink = this._publishAssessment.publish(this.assessment)
+      .pipe(
+        switchMap(() => {
+          this.assessment.isPublished = true;
+          return this._assessmentService.updateAssessment$(this.assessment);
+        })
+      )
+      .subscribe((published) => {
+        if (published) {
           this.isPublishing = false;
           this._sbS.unsubscribe();
           this.assessmentMode = AssessmentMode.View;
-          this.openSnackBar('Assessment was successfully published', 'Publish')
-  
-          // TODO: Optimize this logic
-          this.assessment.isPublished = true;
-          this._sbS.sink = this._assessmentService.updateAssessment$(this.assessment).subscribe();
+          this.openSnackBar('Assessment was successfully published', 'Publish');
         }
       });
   }
