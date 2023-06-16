@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AssessToggleStateService {
-  private _btnState = new BehaviorSubject(false);
+  private _btnState = new BehaviorSubject(true);
 
   publishBtnState = this._btnState.asObservable();
 
