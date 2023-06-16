@@ -360,6 +360,7 @@
       "FIELDS":{
         "CONFIGURATION": "Configuration",
         "FEEDBACK": "Feedback",
+        "CONDITION": "Condition",
         "USER-ATTEMPTS": "User attempts",
         "MARKS": "Marks",
         "MARKS-PLACEHOLDER": "Enter marks",

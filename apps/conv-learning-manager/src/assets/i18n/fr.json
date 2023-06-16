@@ -283,6 +283,7 @@
       "FIELDS": {
         "CONFIGURATION": "Une configuration",
         "FEEDBACK": "Le retour d'information",
+        "CONDITION": "Condition",
         "USER-ATTEMPTS": "Les tentative d'utilisateur",
         "MARKS": "Des marques",
         "MARKS-PLACEHOLDER": "Entrer des marques",
