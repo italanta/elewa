@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, concatMap, combineLatest, from, tap, timer, startWith } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
-import { ActiveOrgStore } from '@app/state/organisation';
 import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
@@ -41,12 +40,12 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
   constructor(
     private _assessmentService: AssessmentService,
     private _publishAssessment: AssessmentPublishService,
-    private _org$$: ActiveOrgStore,
     private _assessmentForm: AssessmentFormService,
     private _assessmentQuestion: AssessmentQuestionService,
     private _assessToggle: AssessToggleStateService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void
@@ -109,6 +108,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
       {
         this.isSaving = false;
         this._assessToggle.showPublish();
+        this.openSnackBar('Assessment successfully saved', 'Save')
       })
     );
   }
@@ -122,6 +122,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
         if (_published) {
           this.isPublishing = false;
           this.assessmentMode = AssessmentMode.View;
+          this.openSnackBar('Assessment was successfully published', 'Publish')
   
           // TODO: Optimize this logic
           this.assessment.isPublished = true;
@@ -139,6 +140,15 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'edit' } });
     this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
     this.createFormGroup();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      panelClass: 'snack_color',
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 2000
+    });
   }
 
   determineAction()
