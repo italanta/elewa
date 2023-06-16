@@ -13,5 +13,4 @@ jobs:
       environment: elewa-dev
       project_id: ele-convl-manager-7cd0a
       channelId: live
-      target: convl-manager
     secrets: inherit
