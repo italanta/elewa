@@ -1,5 +1,10 @@
 <convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
   <div class="wrapper">
+
+    <div *ngIf="isPublishing || isSaving" class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+
     <div *ngIf="assessment$ | async as assessment">
       <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
         <h2 class="title">{{assessment.title}}</h2>
