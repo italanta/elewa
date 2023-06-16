@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -18,6 +19,12 @@ export class AssessmentQuestionFormComponent {
   
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
+
+  feedBackConditions = [
+    FeedbackCondition[1],
+    FeedbackCondition[2],
+    FeedbackCondition[3],
+  ];
   
   get questionsList() {
     return this.assessmentFormGroup.get('questions') as FormArray;
