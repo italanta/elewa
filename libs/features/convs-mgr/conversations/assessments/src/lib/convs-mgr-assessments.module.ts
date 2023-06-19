@@ -9,6 +9,7 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 
 import {
   ActiveAssessmentStore,
@@ -53,6 +54,7 @@ import { AssessmentFormService } from './services/assessment-form.service';
     ReactiveFormsModule,
     ConvlPageModule,
     FlexLayoutModule,
+    MatSnackBarModule
   ],
   declarations: [
     AssessmentsHomeComponent,
