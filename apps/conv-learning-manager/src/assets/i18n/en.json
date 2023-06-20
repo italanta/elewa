@@ -313,7 +313,7 @@
     "BUTTON": {
       "VIEW": "View", 
       "RESULTS": "Results",
-      "ADD": "Create",
+      "ADD": "Create assessment",
       "EDIT": "Edit",
       "SAVE": "Save",
       "DELETE": "Delete",

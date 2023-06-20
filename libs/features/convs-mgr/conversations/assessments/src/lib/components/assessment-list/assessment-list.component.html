@@ -1,18 +1,15 @@
-<div class="mat-elevation-z1">
+<div>
     <div *ngIf="assessments$ | async as assessments">
         <div *ngIf="assessments.length > 0; else noAssessments">
-            <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
-                <mat-form-field appearance="outline" class="search">
-                    <mat-label>
-                        <i class="fas fa-search"></i>
-                        <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-                    </mat-label>
-                    <input matInput (keyup)="searchTable($event)">
-                </mat-form-field>
-            
+            <div class="header-wrapper" fxLayout="column" fxLayoutAlign="space-between end" fxLayoutGap="1rem">
                 <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
-                    {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
+                    <i class="fas fa-plus"></i><span>{{'ASSESSMENTS.BUTTON.ADD' | transloco}}</span>
                 </button>
+            
+                <div class="search">
+                    <i class="fas fa-search search_tooltip"></i>
+                    <input class="search_input" type="text" name="" placeholder="Search for a bot" (keyup)="searchTable($event)" />
+                  </div>
             </div>
 
             <div *ngIf="!dataFound">
