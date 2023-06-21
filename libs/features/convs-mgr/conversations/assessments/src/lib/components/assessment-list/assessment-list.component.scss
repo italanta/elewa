@@ -36,7 +36,7 @@
 
 .fa-plus {
     padding-right: 0.5rem;
-    color: #fff;
+    color: var(--convs-mgr-color-primary-white);
 }
 
 .btn-add.mdc-button{
@@ -50,7 +50,7 @@
 .search {
     height: 5px;
     width: 97%;
-    background-color: white;
+    background-color: var(--convs-mgr-color-primary-white);
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -58,7 +58,7 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   
     &_tooltip {
-      color: var(--convs-mgr-color-primary-purple);
+      color: gray;
       transform: rotate(90deg);
       font-size: 20px;
       font-weight: 500;
@@ -73,4 +73,7 @@
       padding-left: 6px;
     }
   }
+.title-desc{
+    color: var( --convs-mgr-color-400);
+}
       
