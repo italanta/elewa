@@ -15,6 +15,7 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
+import { __DateFromStorage } from '@iote/time';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class AssessmentListComponent implements OnInit{
   }
 
   openAssessment(assessmentId: string) {
-    this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
+    this._router.navigate(['/assessments', assessmentId]);
   }
 
   openAssessmentResults(assessmentId: string) {
@@ -75,6 +76,11 @@ export class AssessmentListComponent implements OnInit{
     } else if(sort.direction == 'desc'){
       this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
     }
+  }
+
+  getFormattedDate(date: Date){
+    const newDate = __DateFromStorage(date as Date);
+    return newDate.format('DD/MM/YYYY HH:mm');
   }
 
   openDeleteModal(assessment: Assessment) {

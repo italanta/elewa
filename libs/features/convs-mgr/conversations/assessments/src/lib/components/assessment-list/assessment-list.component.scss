@@ -1,21 +1,21 @@
 .assessments-table th.table-header{
     font-weight: 600;
+   
 }
 
+.assessments-table {
+    border: 1px solid lightgray;
+}
+
+.btn-view.mdc-button,
 .btn-result.mdc-button{
     background-color: var(--convs-mgr-color-primary-purple);
     color: var(--convs-mgr-color-primary-white) ;
-    width: 100px;
-    height: 25px;
-    border-radius: 6px;
 }
 
 .btn-delete.mdc-button {
     background-color: var(--convs-mgr-color-primary-red);
     color: var(--convs-mgr-color-primary-white) ; 
-    width: 100px;
-    height: 25px;
-    border-radius: 6px;
 }
 
 .create-assessments{
@@ -24,35 +24,48 @@
     height: 100%;
 }
 
-.fa-plus {
-    color: var(--convs-mgr-color-primary-white);
+.header-wrapper {
+    margin-bottom: 2.5rem;
+    margin-top: 1rem;
 }
 
-.header-wrapper{
-    padding: 1rem 1rem 0 1rem;
+.fa-plus {
+    padding-right: 0.5rem;
+    color: #fff;
 }
 
 .btn-add.mdc-button{
-    min-height: 2.375rem;
+    width: 17%;
+    min-height: 1.5rem;
     margin-bottom: 1.375rem;
     background-color: var(--convs-mgr-color-primary-yellow);
     color: var(--convs-mgr-color-primary-white);
-    width: fit-content;
 }
-.title-desc{
-    color: var( --convs-mgr-color-400);
-}
-.table-wrapper{
-    border-top: 1px solid #ccc;
-}
-.mat-elevation-z1 {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-}
-#tablePaginator{
-    background: none;
-}
-::ng-deep .search.mat-form-field-appearance-outline .mat-form-field-outline {
-    outline: none;
+
+.search {
+    height: 5px;
+    width: 97%;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  
+    &_tooltip {
+      color: var(--convs-mgr-color-primary-purple);
+      transform: rotate(90deg);
+      font-size: 20px;
+      font-weight: 500;
+    }
+  
+    &_input {
+      width: 90%;
+      height: 40px;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      padding-left: 6px;
+    }
   }
+      

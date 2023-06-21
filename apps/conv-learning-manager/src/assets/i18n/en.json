@@ -284,7 +284,7 @@
       "TITLE": "Assessment Title",
       "CREATED-ON":"Created On",
       "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Responses",
+      "RESPONSES": "Completed Responses",
       "ACTIONS": "Actions"
     },
     "RESULTS": {
@@ -292,7 +292,6 @@
         "GO-BACK": "Go Back"
       },
       "TABLE-HEADER": {
-        "TITLE": "Title",
         "NAME": "Name",
         "PHONE-NO": "PhoneNumber",
         "STARTED-ON": "Started On",
@@ -302,6 +301,7 @@
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select Results Page",
+        "SORT-BY-CREATED": "Sort by assessment created date",
         "SORT-BY-NAME": "Sort by assessment results name",
         "SORT-BY-PHONE-NO": "Sort by assessment results phone number",
         "SORT-BY-STARTED-ON": "Sort by assessment results started on",
@@ -315,7 +315,7 @@
     "BUTTON": {
       "VIEW": "View", 
       "RESULTS": "Results",
-      "ADD": "Create Assessment",
+      "ADD": "Create assessment",
       "EDIT": "Edit",
       "SAVE": "Save",
       "DELETE": "Delete",
@@ -362,6 +362,7 @@
       "FIELDS":{
         "CONFIGURATION": "Configuration",
         "FEEDBACK": "Feedback",
+        "CONDITION": "Condition",
         "USER-ATTEMPTS": "User attempts",
         "MARKS": "Marks",
         "MARKS-PLACEHOLDER": "Enter marks",
