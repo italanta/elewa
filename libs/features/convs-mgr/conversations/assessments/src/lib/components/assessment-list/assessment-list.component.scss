@@ -2,15 +2,20 @@
     font-weight: 600;
 }
 
-.btn-view.mdc-button,
 .btn-result.mdc-button{
     background-color: var(--convs-mgr-color-primary-purple);
     color: var(--convs-mgr-color-primary-white) ;
+    width: 100px;
+    height: 25px;
+    border-radius: 6px;
 }
 
 .btn-delete.mdc-button {
     background-color: var(--convs-mgr-color-primary-red);
     color: var(--convs-mgr-color-primary-white) ; 
+    width: 100px;
+    height: 25px;
+    border-radius: 6px;
 }
 
 .create-assessments{
