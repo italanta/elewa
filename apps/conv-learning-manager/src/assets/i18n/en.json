@@ -280,7 +280,9 @@
   },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
-      "TITLE": "Title",
+      "NUMBER": "#",
+      "TITLE": "Assessment Title",
+      "CREATED_ON":"Created On",
       "IN-PROGRESS": "In Progress",
       "RESPONSES": "Responses",
       "ACTIONS": "Actions"
@@ -313,7 +315,7 @@
     "BUTTON": {
       "VIEW": "View", 
       "RESULTS": "Results",
-      "ADD": "Create",
+      "ADD": "Create Assessment",
       "EDIT": "Edit",
       "SAVE": "Save",
       "DELETE": "Delete",
