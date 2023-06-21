@@ -1,18 +1,22 @@
 <div class="mat-elevation-z1">
     <div *ngIf="assessments$ | async as assessments">
         <div *ngIf="assessments.length > 0; else noAssessments">
-            <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
-                <mat-form-field appearance="outline" class="search">
-                    <mat-label>
-                        <i class="fas fa-search"></i>
-                        <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-                    </mat-label>
+            <div class="header-wrapper" fxLayout="column" fxLayoutGap="0.5%">
+
+                <div fxLayout="row" fxLayoutAlign="end" >
+                    <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
+                        <i class="fas fa-plus"></i> {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
+                    </button>
+                </div>
+
+                <mat-form-field appearance="outline" class="search" fxFlex="1">
                     <input matInput (keyup)="searchTable($event)">
-                </mat-form-field>
-            
-                <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
-                    {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
-                </button>
+                    <mat-label>
+                      <i class="fas fa-search"></i>
+                      <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
+                    </mat-label>
+                  </mat-form-field>
+                
             </div>
 
             <div *ngIf="!dataFound">
