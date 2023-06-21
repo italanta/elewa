@@ -1,5 +1,10 @@
 .assessments-table th.table-header{
     font-weight: 600;
+   
+}
+
+.assessments-table {
+    border: 1px solid lightgray;
 }
 
 .btn-view.mdc-button,
@@ -20,7 +25,7 @@
 }
 
 .header-wrapper {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     margin-top: 1rem;
 }
 
