@@ -1,66 +1,210 @@
-<convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
+<convl-page title="{{ pageTitle }}" fxLayout="column" fxFlexFill>
   <div class="page-container">
     <div class="title-wrapper">
-      <button class="btn back-btn" (click)="goBack()">{{'ASSESSMENTS.RESULTS.BUTTONS.GO-BACK' | transloco}}</button>
+      <button class="btn back-btn" (click)="goBack()">
+        {{ 'ASSESSMENTS.RESULTS.BUTTONS.GO-BACK' | transloco }}
+      </button>
+      <button class="btn edit-assessment-btn">
+        <mat-icon>edit</mat-icon>
+        Edit assessment
+      </button>
     </div>
-  
-    <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
+    <div class="cards-chart-wrapper">
+      <div class="cards-wrapper" style="flex: 1">
+        <img
+          src="https://user-images.githubusercontent.com/34684844/247146711-c32646a0-4f35-4d1c-8e30-1c211acf6503.png"
+          alt="insights placeholder"
+          style="width: 100%"
+        />
+      </div>
+      <div class="chart-wrapper">
+        <div class="search-results-wrapper">
+          <span style="font-size: 1.1rem">Science Assessment Results</span>
+          <select name="assessment results">
+            <option value="">All classes</option>
+          </select>
+        </div>
+        <img
+          src="https://user-images.githubusercontent.com/34684844/247143904-6ec36257-baf5-40bf-9f0a-46b10da5a16a.png"
+          alt="pie chart"
+          style="width: 32rem"
+        />
+      </div>
+    </div>
+
+    <div
+      class="header-wrapper"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="1%"
+    >
       <mat-form-field appearance="outline" class="search">
-          <mat-label>
-              <i class="fas fa-search"></i>
-              <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-          </mat-label>
-          <input matInput (keyup)="searchTable($event)">
+        <mat-label>
+          <i class="fas fa-search"></i>
+          <span class="label">{{
+            'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco
+          }}</span>
+        </mat-label>
+        <input matInput (keyup)="searchTable($event)" />
       </mat-form-field>
     </div>
-  
+
     <div class="table-wrapper">
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        (matSortChange)="sortData($event)"
+        class="assessments-table"
+      >
         <ng-container matColumnDef="name">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NAME' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.NAME' | transloco}}</th>
-            <td mat-cell *matCellDef="let endUser">{{endUser.name}}</td>
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="name"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NAME' | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.NAME' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.name }}</td>
         </ng-container>
-  
+        <ng-container matColumnDef="#">
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="#"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NAME' | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.NAME' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.name }}</td>
+        </ng-container>
+
         <ng-container matColumnDef="phone">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-PHONE-NO' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.PHONE-NO' | transloco}}</th>
-            <td mat-cell *matCellDef="let endUser">{{endUser.user.phoneNumber}}</td>
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="phone"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-PHONE-NO' | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.PHONE-NO' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let endUser">
+            {{ endUser.user.phoneNumber }}
+          </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="startedOn">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="startedOn" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-STARTED-ON' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.STARTED-ON' | transloco}}</th>
-            <td class="table-cell" mat-cell *matCellDef="let endUser">
-              <span class="badge--start">{{formatDate(endUser.selectedAssessmentCursor?.startedOn)}}</span>
-            </td>
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="startedOn"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-STARTED-ON' | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.STARTED-ON' | transloco }}
+          </th>
+          <td class="table-cell" mat-cell *matCellDef="let endUser">
+            <span class="badge--start">{{
+              formatDate(endUser.selectedAssessmentCursor?.startedOn)
+            }}</span>
+          </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="finishedOn">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="finishedOn" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-FINISHED-ON' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.FINISHED-ON' | transloco}}</th>
-            <td class="table-cell" mat-cell *matCellDef="let endUser">
-              <span class="badge--end" [ngClass]="formatDate(endUser.selectedAssessmentCursor?.finishedOn) === 'In progress' ? 'orange' : 'purple'"
-                >{{formatDate(endUser.selectedAssessmentCursor?.finishedOn)}}
-              </span>
-            </td>
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="finishedOn"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-FINISHED-ON'
+                | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.FINISHED-ON' | transloco }}
+          </th>
+          <td class="table-cell" mat-cell *matCellDef="let endUser">
+            <span
+              class="badge--end"
+              [ngClass]="
+                formatDate(endUser.selectedAssessmentCursor?.finishedOn) ===
+                'In progress'
+                  ? 'orange'
+                  : 'purple'
+              "
+              >{{ formatDate(endUser.selectedAssessmentCursor?.finishedOn) }}
+            </span>
+          </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="score">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="score" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-SCORE' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE' | transloco}}</th>
-            <td mat-cell *matCellDef="let endUser">{{endUser.selectedAssessmentCursor?.score}}</td>
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="score"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-SCORE' | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE' | transloco }}
+          </th>
+          <td mat-cell *matCellDef="let endUser">
+            {{ endUser.selectedAssessmentCursor?.score }}
+          </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="scoreCategory">
-            <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="scoreCategory" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-SCORE-CATEGORY' | transloco}}">{{'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE-CATEGORY' | transloco}}</th>
-            <td class="table-cell" mat-cell *matCellDef="let endUser">
-              <span class="badge--end" [ngClass]="getScoreCategory(endUser.selectedAssessmentCursor) === 'In progress' ? 'orange' : 'purple'"
-                >{{getScoreCategory(endUser.selectedAssessmentCursor)}}
-              </span>
-            </td>
+          <th
+            class="table-header"
+            mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header="scoreCategory"
+            sortActionDescription="{{
+              'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-SCORE-CATEGORY'
+                | transloco
+            }}"
+          >
+            {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.SCORE-CATEGORY' | transloco }}
+          </th>
+          <td class="table-cell" mat-cell *matCellDef="let endUser">
+            <span
+              class="badge--end"
+              [ngClass]="
+                getScoreCategory(endUser.selectedAssessmentCursor) ===
+                'In progress'
+                  ? 'orange'
+                  : 'purple'
+              "
+              >{{ getScoreCategory(endUser.selectedAssessmentCursor) }}
+            </span>
+          </td>
         </ng-container>
-  
+
         <tr mat-header-row *matHeaderRowDef="assessmentResults"></tr>
         <tr mat-row *matRowDef="let row; columns: assessmentResults"></tr>
       </table>
-  
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="itemsLength" [pageSize]="10" [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco"></mat-paginator>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        [length]="itemsLength"
+        [pageSize]="10"
+        [ariaLabel]="
+          'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco
+        "
+      ></mat-paginator>
     </div>
   </div>
 </convl-page>
