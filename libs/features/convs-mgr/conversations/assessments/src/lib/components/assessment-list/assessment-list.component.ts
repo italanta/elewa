@@ -25,7 +25,7 @@ import { AssessmentDataSource } from '../../data-source/assessment-data-source.c
 export class AssessmentListComponent implements OnInit{
   assessments$: Observable<Assessment[]>;
 
-  assessmentsColumns = ['title', 'inProgress', 'responses', 'actions'];
+  assessmentsColumns = ['assignmentNumber','title', 'createdOn', 'inProgress', 'responses', 'actions'];
 
   dataSource: AssessmentDataSource;
 

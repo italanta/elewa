@@ -282,7 +282,7 @@
     "TABLE-HEADER": {
       "NUMBER": "#",
       "TITLE": "Assessment Title",
-      "CREATED_ON":"Created On",
+      "CREATED-ON":"Created On",
       "IN-PROGRESS": "In Progress",
       "RESPONSES": "Responses",
       "ACTIONS": "Actions"

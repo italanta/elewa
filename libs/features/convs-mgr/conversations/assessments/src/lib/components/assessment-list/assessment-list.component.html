@@ -1,40 +1,45 @@
+<div class="header-wrapper" fxLayout="column" fxLayoutGap="0.5%">
+
+    <div fxLayout="row" fxLayoutAlign="end" >
+        <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
+            <i class="fas fa-plus"></i> {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
+        </button>
+    </div>
+
+    <mat-form-field appearance="outline" class="search" fxFlex="1">
+        <input matInput (keyup)="searchTable($event)">
+        <mat-label>
+          <i class="fas fa-search"></i>
+          <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
+        </mat-label>
+      </mat-form-field>
+    
+</div>
 <div class="mat-elevation-z1">
     <div *ngIf="assessments$ | async as assessments">
         <div *ngIf="assessments.length > 0; else noAssessments">
-            <div class="header-wrapper" fxLayout="column" fxLayoutGap="0.5%">
-
-                <div fxLayout="row" fxLayoutAlign="end" >
-                    <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
-                        <i class="fas fa-plus"></i> {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
-                    </button>
-                </div>
-
-                <mat-form-field appearance="outline" class="search" fxFlex="1">
-                    <input matInput (keyup)="searchTable($event)">
-                    <mat-label>
-                      <i class="fas fa-search"></i>
-                      <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-                    </mat-label>
-                  </mat-form-field>
-                
-            </div>
-
+            
             <div *ngIf="!dataFound">
                 <ng-container *ngTemplateOutlet="noAssessments"></ng-container>
             </div>
             
-            <div *ngIf="dataFound">
+            <div *ngIf="dataFound" class="table-wrapper" >
                 <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)">
 
                     <ng-container matColumnDef="assignmentNumber">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef>{{'#'}}</th>
-                        <td mat-cell *matCellDef="let assessment">{{ assessment.assignmentNumber }}</td>
+                        <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.NUMBER' | transloco}}</th>
+                        <td mat-cell *matCellDef="let assessment">1</td>
                       </ng-container>
 
                     <ng-container matColumnDef="title">
                         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-TITLE' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.TITLE' | transloco}}</th>
                         <td class="title-desc" mat-cell *matCellDef="let assessment">{{assessment.title}}</td>
                     </ng-container>
+
+                    <ng-container matColumnDef="createdOn">
+                        <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
+                        <td mat-cell *matCellDef="let assessment">21/06/2023</td>
+                      </ng-container>
                 
                     <ng-container matColumnDef="inProgress">
                         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="inProgress" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.IN-PROGRESS' | transloco}}</th>
@@ -66,9 +71,6 @@
                     <tr mat-row *matRowDef="let row; columns: assessmentsColumns"></tr>
             
                 </table>
-        
-                <mat-paginator #tablePaginator [length]="assessments.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
-                </mat-paginator>
             </div>
         </div>
     </div>
@@ -81,5 +83,9 @@
             </div>
           </div>
     </ng-template>
-    
 </div>
+
+<div *ngIf="assessments$ | async as assessments" >
+    <mat-paginator #tablePaginator [length]="assessments.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
+    </mat-paginator>
+</div> 

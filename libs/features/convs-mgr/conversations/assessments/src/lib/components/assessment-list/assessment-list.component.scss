@@ -42,3 +42,17 @@
 .title-desc{
     color: var( --convs-mgr-color-400);
 }
+.table-wrapper{
+    border-top: 1px solid #ccc;
+}
+.mat-elevation-z1 {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+#tablePaginator{
+    background: none;
+}
+::ng-deep .search.mat-form-field-appearance-outline .mat-form-field-outline {
+    outline: none;
+  }
