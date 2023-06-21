@@ -6,18 +6,47 @@
     display: flex;
     justify-content: flex-end;
     margin-bottom: 2rem;
+    gap: 1rem;
 
-    .back-btn {
+    .back-btn,
+    .edit-assessment-btn {
       outline: none;
       border: none;
       cursor: pointer;
-      padding: 0.5rem;
+      padding: 0.5rem 1rem;
       border-radius: 5px;
       color: var(--convs-mgr-color-primary-white);
       background-color: var(--convs-mgr-color-primary-yellow);
     }
+    .edit-assessment-btn {
+      background-color: var(--convs-mgr-color-primary-purple) !important;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2px;
+    }
   }
-
+  .cards-chart-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 2.25rem;
+  }
+  .cards-wrapper {
+  }
+  .chart-wrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  .search-results-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    align-self: flex-end;
+  }
   .assessments-table {
     th.table-header {
       font-weight: 600;
