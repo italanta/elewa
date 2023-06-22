@@ -1,26 +1,64 @@
 <convl-page title="{{ pageTitle }}" fxLayout="column" fxFlexFill>
   <div class="page-container">
     <div class="title-wrapper">
-      <button class="btn back-btn" (click)="goBack()">{{ 'ASSESSMENTS.RESULTS.BUTTONS.GO-BACK' | transloco }}</button>
-      <button class="btn edit-assessment-btn">
+      <button class="btn btn__back" (click)="goBack()">{{ 'ASSESSMENTS.RESULTS.BUTTONS.GO-BACK' | transloco }}</button>
+      <button class="btn btn__edit">
         <mat-icon>edit</mat-icon>
         <span>{{ 'ASSESSMENTS.RESULTS.BUTTONS.EDIT ASSESSMENT' | transloco }}</span>
       </button>
     </div>
 
-    <div class="cards-chart-wrapper">
-      <div class="cards-wrapper" style="flex: 1">
-        <img src="https://user-images.githubusercontent.com/34684844/247146711-c32646a0-4f35-4d1c-8e30-1c211acf6503.png"
-          alt="insights placeholder" style="width: 100%" />
+    <div class="classes-wrapper">
+      <div> {{ 'ASSESSMENTS.RESULTS.TEXT.ASSESSMENTS RESULTS' | transloco }}</div>
+      <div class="search-results-wrapper">
+        <select name="assessment results">
+          <option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL CLASSES' | transloco }}</option>
+        </select>
       </div>
-      <div class="chart-wrapper">
-        <div class="search-results-wrapper">
-          <span>{{this.assessment.title}} {{ 'ASSESSMENTS.RESULTS.TEXT.ASSESSMENTS RESULTS' | transloco }}</span>
-          <select name="assessment results">
-            <option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL CLASSES' | transloco }}</option>
-          </select>
+    </div>
+
+    <div class="cards-chart-wrapper">
+      <div class="cards-wrapper">
+        <div class="card mat-elevation-z2" >
+          <span class="icon icon--yellow">
+            <i class="fas fa-question"></i>
+          </span>
+          <div class="metrics">
+            <span class="title">Total Questions</span>
+            <span class="score">{{totalQuestions}}</span>
+          </div>
         </div>
-        <img src="https://user-images.githubusercontent.com/34684844/247143904-6ec36257-baf5-40bf-9f0a-46b10da5a16a.png" alt="pie chart"/>
+        <div class="card mat-elevation-z2">
+          <span class="icon icon--purple">
+            <i class="fas fa-signal-alt-3"></i>
+          </span>
+          <div class="metrics">
+            <span class="title">Average Score</span>
+            <span class="score">{{averageScore}}</span>
+          </div>
+        </div>
+        <div class="card mat-elevation-z2">
+          <span class="icon icon--green">
+            <i class="fas fa-arrow-up"></i>
+          </span>
+          <div class="metrics">
+            <span class="title">Highest Score</span>
+            <span class="score">{{highestScore}}</span>
+          </div>
+        </div>
+        <div class="card mat-elevation-z2">
+          <span class="icon icon--red">
+            <i class="fas fa-arrow-down"></i>
+          </span>
+          <div class="metrics">
+            <span class="title">Lowest Score</span>
+            <span class="score">{{lowestScore}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart">
+        <canvas id="chart-ctx">{{ chart }}</canvas>
       </div>
     </div>
 
