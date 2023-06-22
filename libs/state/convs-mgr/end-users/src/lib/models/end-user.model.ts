@@ -13,6 +13,10 @@ export interface EndUserDetails {
   cursor: Cursor[];
 
   /**
+   * the user's score category - either pass/fail
+   */
+  scoreCategory?: string;
+  /**
    * The user's selected assessmentCursor
    * This is important for optimisations when visualising data(results table and result graph)
   */

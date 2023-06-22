@@ -9,11 +9,13 @@
     </div>
 
     <div class="classes-wrapper">
-      <div> {{ 'ASSESSMENTS.RESULTS.TEXT.ASSESSMENTS RESULTS' | transloco }}</div>
       <div class="search-results-wrapper">
-        <select name="assessment results">
-          <option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL CLASSES' | transloco }}</option>
-        </select>
+        <mat-form-field>
+          <mat-label>Groups/Classes</mat-label>
+          <mat-select name="assessment results">
+            <mat-option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL CLASSES' | transloco }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
 
@@ -128,7 +130,7 @@
           </th>
           <td class="table-cell" mat-cell *matCellDef="let endUser">
             <span class="badge--end" [ngClass]="getScoreCategory(endUser.selectedAssessmentCursor) === 'In progress' ? 'orange' : 'purple'">
-              {{ getScoreCategory(endUser.selectedAssessmentCursor) }}
+              {{ endUser.scoreCategory }}
             </span>
           </td>
         </ng-container>
