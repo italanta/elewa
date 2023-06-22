@@ -39,6 +39,11 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
   totalQuestions: number;
 
+  failedCount = 0;
+  passedCount = 0;
+  averageCount = 0;
+  belowAverageCount = 0;
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -67,6 +72,8 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
       this.computeScores();
       this._loadChart();
+
+      console.log({failed: this.failedCount, pass: this.passedCount, ave: this.averageCount, bAve:  this.belowAverageCount})
     });
   };
 
@@ -78,10 +85,10 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'pie',
       data: {
-        labels: ['Pass (75-100)','Average','Below Average', 'Fail'],
+        labels: ['Pass (75-100)','Average (50-74)','Below Average (35-49)','Fail (0-34)'],
         datasets: [{
           label: 'count',
-          data: [200, 50, 80, 50],
+          data: [this.passedCount, this.averageCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -97,10 +104,10 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         responsive: true,
         normalized: true,
         plugins: {
-          // title: {
-          //   display: true,
-          //   text: 'Assessment progression',
-          // },
+          title: {
+            display: true,
+            text: `${this.assessment.title} Assessment Results`,
+          },
           legend: {
             position: 'right',
             labels : {
@@ -119,6 +126,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       const assessExists = user.cursor[0].assessmentStack.find(assess => assess.assessmentId === this.assessment.id)
 
       if (assessExists) {
+        user.scoreCategory = this.getScoreCategory(assessExists);
         user.selectedAssessmentCursor = assessExists
         this.scores.push(assessExists.score);
         return true
@@ -131,6 +139,8 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   }
 
   computeScores() {
+    if (!this.scores.length) return;
+
     this.highestScore = Math.max(...this.scores);
     this.lowestScore = Math.min(...this.scores);
 
@@ -154,16 +164,25 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   }
 
   getScoreCategory(assessmentCursor: AssessmentCursor) {
-    if (!assessmentCursor.finishedOn) return 'In progress';
+    if (!assessmentCursor.finishedOn) {
+      this.failedCount++
+      return 'In progress'
+    }
 
     const finalScore = assessmentCursor.score;
     const finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
 
-    if (finalPercentage >= 0 && finalPercentage < 50) {
+    if (finalPercentage >= 0 && finalPercentage < 34) {
+      this.failedCount++
       return 'Failed';
     } else if (finalPercentage >= 50 && finalPercentage <= 75) {
+      this.averageCount++
       return 'Average';
+    } else if (finalPercentage >= 35 && finalPercentage <= 49) {
+      this.belowAverageCount++
+      return 'Below Average'
     } else {
+      this.passedCount++
       return 'Pass';
     }
   }
