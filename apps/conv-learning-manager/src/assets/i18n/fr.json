@@ -211,7 +211,12 @@
     },
     "RESULTS": {
       "BUTTONS": {
-        "GO-BACK": "Retourner"
+        "GO-BACK": "Retourner",
+        "EDIT ASSESSMENT": "Modifier l'évaluation"
+      },
+      "TEXT": {
+        "ASSESSMENTS RESULTS": "Résultats des évaluations",
+        "ALL CLASSES": "Toutes les classes"
       },
       "TABLE-HEADER": {
         "TITLE": "Titre",
