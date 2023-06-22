@@ -13,7 +13,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
-import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assessments';
+import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
 import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
@@ -35,7 +35,9 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   scores: number[] = [];
   highestScore: number;
   lowestScore: number;
-  averageScore: number;
+  averageScore: number | string;
+
+  totalQuestions: number;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -46,12 +48,14 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
     private _activeAssessment$$: ActiveAssessmentStore,
+    private _assessmentQuestion: AssessmentQuestionService,
     private _endUserService: EndUserService
   ) {}
 
   ngOnInit() {
-    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
     this.pageTitle = `Assessments/${this.assessment?.title}/results`;
+    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
+    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
 
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
@@ -62,8 +66,51 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
 
       this.computeScores();
+      this._loadChart();
     });
   };
+
+  private _loadChart() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    return new Chart('chart-ctx', {
+      type: 'pie',
+      data: {
+        labels: ['Pass (75-100)','Average','Below Average', 'Fail'],
+        datasets: [{
+          label: 'count',
+          data: [200, 50, 80, 50],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            'rgb(25, 105, 86)',
+          ],
+          hoverOffset: 4
+        }]
+      },
+
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        normalized: true,
+        plugins: {
+          // title: {
+          //   display: true,
+          //   text: 'Assessment progression',
+          // },
+          legend: {
+            position: 'right',
+            labels : {
+              usePointStyle: true
+            }
+          }
+        },
+      },
+    });
+  }
 
   filterData(results: EndUserDetails[]) {
     const data = results.filter(user => {
@@ -88,12 +135,12 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     this.lowestScore = Math.min(...this.scores);
 
     const sum = this.scores.reduce((prev, next) => prev + next);
-    this.averageScore = sum/this.scores.length;
+    this.averageScore = (sum/this.scores.length).toFixed(2);
   };
 
   sortData(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
