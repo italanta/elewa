@@ -31,9 +31,13 @@ export class AssessmentFormService {
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
-      feedback: [question?.feedback ?? ''],
+
+      feedback: this._formBuilder.group({
+        message: [question?.feedback?.message ?? ''],
+        condition: [question?.feedback?.condition ?? '']
+      }),
+  
       options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([]),
-      deleted: [question?.deleted ?? false],
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
     });

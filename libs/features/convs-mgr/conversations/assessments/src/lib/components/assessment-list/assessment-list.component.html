@@ -1,18 +1,15 @@
-<div class="mat-elevation-z1">
+<div>
     <div *ngIf="assessments$ | async as assessments">
         <div *ngIf="assessments.length > 0; else noAssessments">
-            <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
-                <mat-form-field appearance="outline" class="search">
-                    <mat-label>
-                        <i class="fas fa-search"></i>
-                        <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-                    </mat-label>
-                    <input matInput (keyup)="searchTable($event)">
-                </mat-form-field>
-            
+            <div class="header-wrapper" fxLayout="column" fxLayoutAlign="space-between end" fxLayoutGap="1rem">
                 <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
-                    {{'ASSESSMENTS.BUTTON.ADD' | transloco}}
+                    <i class="fas fa-plus"></i><span>{{'ASSESSMENTS.BUTTON.ADD' | transloco}}</span>
                 </button>
+            
+                <div class="search">
+                    <i class="fas fa-search search_tooltip"></i>
+                    <input class="search_input" type="text" name="" placeholder="Search for assessments" (keyup)="searchTable($event)" />
+                  </div>
             </div>
 
             <div *ngIf="!dataFound">
@@ -21,9 +18,19 @@
             
             <div *ngIf="dataFound">
                 <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)">
-                    <ng-container matColumnDef="title">
+                    <ng-container matColumnDef="num">
+                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="number" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-NUMBER' | transloco}}">#</th>
+                        <td mat-cell *matCellDef="let assessment; let i = index">{{i+1}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="title" >
                         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-TITLE' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.TITLE' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">{{assessment.title}}</td>
+                        <td class="title-desc" (click)="openAssessment(assessment.id)" mat-cell *matCellDef="let assessment">{{assessment.title}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="createdOn">
+                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="createdOn" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
+                        <td mat-cell *matCellDef="let assessment">{{getFormattedDate(assessment.createdOn)}}</td>
                     </ng-container>
                 
                     <ng-container matColumnDef="inProgress">
@@ -40,11 +47,8 @@
                         <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.ACTIONS' | transloco}}</th>
                         <td mat-cell *matCellDef="let assessment">
                             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
-                                <button mat-flat-button class="btn-view" (click)="openAssessment(assessment.id)">
-                                    {{'ASSESSMENTS.BUTTON.VIEW' | transloco}}
-                                </button>
                                 
-                                <button mat-flat-button class="btn-result">
+                                <button mat-flat-button class="btn-result" (click)="openAssessmentResults(assessment.id)">
                                     {{'ASSESSMENTS.BUTTON.RESULTS' | transloco}}
                                 </button>
 

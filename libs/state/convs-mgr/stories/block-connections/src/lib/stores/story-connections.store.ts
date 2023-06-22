@@ -4,7 +4,7 @@ import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
 import { of } from 'rxjs'
-import { tap, throttleTime, switchMap } from 'rxjs/operators';
+import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -37,9 +37,34 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     });
   }
 
-  addConnectionsByStory(storyId: string, orgId: string, connections: StoryBlockConnection[]){
+  addConnectionsByStory(storyId: string, orgId: string, connections: StoryBlockConnection[], isPublished: boolean){
     const repo = this._repoFac.getRepo<StoryBlockConnection>(`orgs/${orgId}/stories/${storyId}/connections`);
 
+    if(isPublished) {
+      // If the assesment is already published, we need to get the published connections
+      //    and delete if they are not in the new set of blocks
+      const publishedConnections = this.getConnectionsByStory(storyId, orgId);
+
+      const deleteConnections$ = publishedConnections.pipe(
+        map((publishedConnections) => {
+          publishedConnections.forEach((publishedConn) => {
+            if(!connections.find((conn) => conn.id == publishedConn.id) && !publishedConn.id!.includes('feedback') ) {
+              return repo.delete(publishedConn);
+            } else {
+              return of([]);
+            }
+          });
+        })
+      )
+
+      deleteConnections$.subscribe();
+    }
+
     return connections.map(connection => repo.write(connection, connection.id!));
+  }
+
+  getConnectionsByStory(storyId: string, orgId: string) {
+    const repo = this._repoFac.getRepo<StoryBlockConnection>(`orgs/${orgId}/stories/${storyId}/connections`);
+    return repo.getDocuments();
   }
 }
