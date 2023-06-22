@@ -5,6 +5,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
 import { Timestamp } from 'firebase-admin/firestore';
 
@@ -21,6 +22,8 @@ import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/syste
   styleUrls: ['./assessment-results.component.scss'],
 })
 export class AssessmentResultsComponent implements OnInit, OnDestroy {
+  chart: Chart;
+
   id: string;
   assessment: Assessment;
 
@@ -28,6 +31,11 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   itemsLength: number
   assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
   pageTitle: string;
+
+  scores: number[] = [];
+  highestScore: number;
+  lowestScore: number;
+  averageScore: number;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -52,6 +60,8 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+
+      this.computeScores();
     });
   };
 
@@ -63,6 +73,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
       if (assessExists) {
         user.selectedAssessmentCursor = assessExists
+        this.scores.push(assessExists.score);
         return true
       }
 
@@ -71,6 +82,14 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
     return data
   }
+
+  computeScores() {
+    this.highestScore = Math.max(...this.scores);
+    this.lowestScore = Math.min(...this.scores);
+
+    const sum = this.scores.reduce((prev, next) => prev + next);
+    this.averageScore = sum/this.scores.length;
+  };
 
   sortData(sortState: Sort) {
     if (sortState.direction) {
@@ -113,5 +132,6 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._sBs.unsubscribe();
+    this.chart?.destroy();
   }
 }
