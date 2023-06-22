@@ -1,22 +1,52 @@
-.btn-publish.mdc-button{
-    min-height: 3.375rem;
-    margin-bottom: 1.375rem;
-    background-color: var(--convs-mgr-color-primary-yellow);
-    color: var(--convs-mgr-color-primary-white);
+.btn-publish.mdc-button {
+  min-height: 3.375rem;
+  margin-bottom: 1.375rem;
+  background-color: var(--convs-mgr-color-primary-yellow);
+  color: var(--convs-mgr-color-primary-white);
 }
 
-.header-wrapper{
-    padding: 1rem 0;
+.header-wrapper {
+  padding: 1rem 0;
 }
 
-h2.title{
-    font-weight: 600;
+h2.title {
+  font-weight: 600;
 }
 
 .save-button {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-publish {
+  &:disabled {
+    background-color: red;
+  }
+}
+
+.loading-container {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 200;
+
+  mat-spinner::ng-deep circle {
+    stroke: var(--convs-mgr-color-primary-yellow) !important;
+  }
 }
 
 
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  background-color: white !important;
+  color: black !important;
+}
 
+.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+  color: var(--convs-mgr-color-primary-yellow) !important;
+}

@@ -209,6 +209,36 @@
       "RESPONSES": "Résponses",
       "ACTION": "Action"
     },
+    "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Retourner",
+        "EDIT ASSESSMENT": "Modifier l'évaluation"
+      },
+      "TEXT": {
+        "ASSESSMENTS RESULTS": "Résultats des évaluations",
+        "ALL CLASSES": "Toutes les classes"
+      },
+      "TABLE-HEADER": {
+        "TITLE": "Titre",
+        "NAME": "Nom",
+        "PHONE-NO": "Numéro de téléphone",
+        "STARTED-ON": "Commencé le",
+        "FINISHED-ON": "Terminé le",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Catégorie de note"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Sélectionnez la page de résultats",
+        "SORT-BY-NAME": "Trier par nom des résultats d'évaluation",
+        "SORT-BY-PHONE-NO": "Trier par numéro de téléphone des résultats d'évaluation",
+        "SORT-BY-STARTED-ON": "Trier par résultats d'évaluation commencés le",
+        "SORT-BY-FINISHED-ON": "Sort by assessment results finished on",
+        "SORT-BY-SCORE": "Trier par score des résultats d'évaluation",
+        "SORT-BY-SCORE-CATEGORY": "Trier par catégorie de score des résultats d'évaluation",
+        "SORTED-ASC": "Trié par ordre croissant",
+        "SORTED-DESC": "Trié par ordre décroissant"
+      }
+    },
     "BUTTON": {
       "VIEW": "Voir", 
       "RESULTS": "Résultats",
@@ -258,6 +288,7 @@
       "FIELDS": {
         "CONFIGURATION": "Une configuration",
         "FEEDBACK": "Le retour d'information",
+        "CONDITION": "Condition",
         "USER-ATTEMPTS": "Les tentative d'utilisateur",
         "MARKS": "Des marques",
         "MARKS-PLACEHOLDER": "Entrer des marques",

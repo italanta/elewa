@@ -15,6 +15,7 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
+import { __DateFromStorage } from '@iote/time';
 
 
 @Component({
@@ -25,7 +26,7 @@ import { AssessmentDataSource } from '../../data-source/assessment-data-source.c
 export class AssessmentListComponent implements OnInit{
   assessments$: Observable<Assessment[]>;
 
-  assessmentsColumns = ['title', 'inProgress', 'responses', 'actions'];
+  assessmentsColumns = ['num', 'title', 'createdOn', 'inProgress', 'responses', 'actions'];
 
   dataSource: AssessmentDataSource;
 
@@ -50,8 +51,12 @@ export class AssessmentListComponent implements OnInit{
     this.dataSource = new AssessmentDataSource(this.assessments$);
   }
 
-  openAssessment(assessmentId: string){
-    this._router.navigate(['/assessments', assessmentId], {queryParams: {mode: 'view'}});
+  openAssessment(assessmentId: string) {
+    this._router.navigate(['/assessments', assessmentId]);
+  }
+
+  openAssessmentResults(assessmentId: string) {
+    this._router.navigate(['/assessments', assessmentId, 'results']);
   }
 
   searchTable(event: Event){
@@ -71,6 +76,11 @@ export class AssessmentListComponent implements OnInit{
     } else if(sort.direction == 'desc'){
       this._liveAnnounce.announce(this._translate.translate('ASSESSMENTS.ACCESSIBILITY.SORTED-DESC'));
     }
+  }
+
+  getFormattedDate(date: Date){
+    const newDate = __DateFromStorage(date as Date);
+    return newDate.format('DD/MM/YYYY HH:mm');
   }
 
   openDeleteModal(assessment: Assessment) {

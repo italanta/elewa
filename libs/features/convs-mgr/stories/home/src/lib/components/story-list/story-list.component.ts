@@ -29,7 +29,8 @@ export class StoryListComponent implements OnInit {
     this.stories$ = combineLatest([this.filterInput$$, this.stories$]).pipe(
       map(([filter, botsArray]) =>
         botsArray.filter((story: Story) => {
-          return story.name.toString().toLowerCase().includes(filter);
+          // filter out assessments and also include the search filter
+          return (!story?.isAssessment) && story.name.toString().toLowerCase().includes(filter);
         })
       )
     );
