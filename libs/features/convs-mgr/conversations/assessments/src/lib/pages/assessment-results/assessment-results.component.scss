@@ -18,6 +18,7 @@
       color: var(--convs-mgr-color-primary-white);
       background-color: var(--convs-mgr-color-primary-yellow);
     }
+
     .edit-assessment-btn {
       background-color: var(--convs-mgr-color-primary-purple) !important;
       display: flex;
@@ -26,6 +27,7 @@
       gap: 2px;
     }
   }
+
   .cards-chart-wrapper {
     display: flex;
     width: 100%;
@@ -34,19 +36,20 @@
     margin-bottom: 2rem;
     gap: 2.25rem;
   }
-  .cards-wrapper {
-  }
+
   .chart-wrapper {
     display: flex;
     flex: 1;
     flex-direction: column;
   }
+
   .search-results-wrapper {
     display: flex;
     align-items: center;
     gap: 1.5rem;
     align-self: flex-end;
   }
+
   .assessments-table {
     th.table-header {
       font-weight: 600;
