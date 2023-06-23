@@ -1,23 +1,28 @@
 .page-container {
   display: grid;
-  padding: 3rem;
+  padding: 1rem;
 
-  .chart {
-    width: 30vw;
-    height: auto;
+  .chart-wrapper {
+    display: grid;
+    place-content: center;
+
+    .chart {
+      width: 25vw;
+      height: auto;
+    }
   }
 
   .title-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     gap: 1rem;
 
     .btn {
       outline: none;
       border: none;
       cursor: pointer;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem;
       border-radius: 5px;
       color: var(--convs-mgr-color-primary-white);
       background-color: var(--convs-mgr-color-primary-yellow);
@@ -43,26 +48,28 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 2rem;
-    gap: 2.25rem;
+    gap: 1rem;
 
     .cards-wrapper {
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
 
       .card {
-        padding: 1rem;
+        padding: 0.5rem;
         display: flex;
-        gap: 1rem;
+        align-items: center;
+        gap: 0.8rem;
         border-radius: 0.5rem;
 
         .icon {
           border-radius: 50%;
-          width: 3.5rem;
-          height: 3.5rem;
+          width: 2.4rem;
+          height: 2.4rem;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -70,7 +77,7 @@
           // tooltip
           & > svg {
             color: white;
-            font-size: 1.3rem;
+            font-size: 1rem;
           }
 
           &--yellow {
@@ -93,11 +100,8 @@
         .metrics {
           display: flex;
           flex-direction: column;
-          gap: 0.3rem;
-
-          .title {
-            font-weight: bold;
-          }
+          gap: 0.2rem;
+          font-size: 0.8rem;
 
           .score {
             font-weight: bold;
@@ -116,15 +120,18 @@
 
   .assessments-table {
     th.table-header {
+      font-size: 0.8rem;
       font-weight: 600;
     }
 
     td.table-cell {
+      font-size: 0.7rem;
+
       .badge {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 8rem;
+        width: 6rem;
 
         &--end {
           padding: 0.4rem 0.6rem;
