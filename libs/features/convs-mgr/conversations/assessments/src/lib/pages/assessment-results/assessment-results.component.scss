@@ -155,3 +155,31 @@
     }
   }
 }
+
+.search {
+  height: 5px;
+  width: 97%;
+  background-color: var(--convs-mgr-color-primary-white);
+  border-radius: 8px;
+  margin-bottom: 1.375rem;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &_tooltip {
+    color: gray;
+    transform: rotate(90deg);
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &_input {
+    width: 90%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding-left: 6px;
+  }
+}
