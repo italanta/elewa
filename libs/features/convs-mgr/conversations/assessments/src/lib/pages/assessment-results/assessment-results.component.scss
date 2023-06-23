@@ -51,6 +51,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
+      align-items: center;
       gap: 2rem;
 
       .card {
@@ -121,15 +122,34 @@
 
     td.table-cell {
       .badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 8rem;
+
         &--end {
           padding: 0.4rem 0.6rem;
-          color: var(--convs-mgr-color-primary-white);
-          background-color: var(--convs-mgr-color-primary-purple-light);
           border-radius: 2em;
+          color: white;
 
-          &.orange {
+          &.Failed {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &.Pass {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+
+          &.below-average {
             background-color: var(--convs-mgr-color-primary-yellow);
-            color: var(--convs-mgr-color-primary-black);
+          }
+
+          &.Average {
+            background-color: var(--convs-mgr-color-primary-purple-light);
+          }
+
+          &.in-progress {
+            background-color: var(--convs-mgr-color-A100);
           }
         }
       }

@@ -29,7 +29,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
   dataSource: MatTableDataSource<EndUserDetails>;
   itemsLength: number
-  assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
+  assessmentResults = ['index', 'name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
   pageTitle: string;
 
   scores: number[] = [];
@@ -72,33 +72,31 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
       this.computeScores();
       this._loadChart();
-
-      console.log({failed: this.failedCount, pass: this.passedCount, ave: this.averageCount, bAve:  this.belowAverageCount})
     });
   };
 
   private _loadChart() {
-    if (this.chart) {
-      this.chart.destroy();
-    }
+    // don't generate graph if no data is present
+    if (!this.passedCount && !this.averageCount && !this.failedCount && !this.belowAverageCount) return;
+
+    if (this.chart) this.chart.destroy();
 
     return new Chart('chart-ctx', {
       type: 'pie',
       data: {
         labels: ['Pass (75-100)','Average (50-74)','Below Average (35-49)','Fail (0-34)'],
         datasets: [{
-          label: 'count',
+          label: 'learners',
           data: [this.passedCount, this.averageCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)',
-            'rgb(25, 105, 86)',
+            'rgb(13, 138, 77)',
+            'rgb(100, 24, 195)',
+            'rgb(255, 171, 45)',
+            'rgb(255, 0, 0)',
           ],
           hoverOffset: 4
         }]
       },
-
       options: {
         maintainAspectRatio: false,
         responsive: true,
@@ -106,12 +104,13 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         plugins: {
           title: {
             display: true,
-            text: `${this.assessment.title} Assessment Results`,
+            text: `${this._modifyTitle(this.assessment.title)} Assessment Results`,
           },
           legend: {
             position: 'right',
             labels : {
-              usePointStyle: true
+              usePointStyle: true,
+              padding: 30,
             }
           }
         },
@@ -156,11 +155,20 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     }
   }
 
-  formatDate(time: Timestamp): string {
-    if (!time) return 'In progress';
+  formatDate(timeStamp: Timestamp): string {
+    if (!timeStamp) return 'In progress';
+    const date = new Date(timeStamp.seconds * 1000);
 
-    const date = new Date(time.seconds * 1000);
-    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear());
+    const year = `${date.getDate()}/${(date.getMonth() + 1)}/${(date.getFullYear())}`;
+    const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return  year + ' ' + time;
+  }
+
+  private _modifyTitle(title: string) {
+    const firstChar = title.charAt(0).toUpperCase();
+    const restChars = title.slice(1).toLowerCase();
+
+    return `${firstChar}${restChars}`
   }
 
   getScoreCategory(assessmentCursor: AssessmentCursor) {
@@ -185,6 +193,14 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       this.passedCount++
       return 'Pass';
     }
+  }
+
+  addClass(endUser: EndUserDetails) {
+    if (endUser.scoreCategory === 'In progress') {
+      return 'in-progress'
+    } else if (endUser.scoreCategory === 'Below Average') {
+      return 'below-average'
+    } else return endUser.scoreCategory
   }
 
   searchTable(event: Event){
