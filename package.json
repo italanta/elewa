@@ -43,6 +43,7 @@
     "firebase-tools": "^11.19.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "ng-intercom": "^8.0.2",
     "ngx-google-places-autocomplete": "^2.0.5",
     "ngx-infinite-scroll": "^15.0.0",
     "ngx-webstorage-service": "^5.0.0",
