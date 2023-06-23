@@ -187,12 +187,13 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
       .pipe(map(([filter, blocksArray]) => blocksArray
         .filter((block: StoryBlock) => {
-          return block.message?.toString().toLowerCase().includes(filter)
+          return block.message?.toString().toLowerCase().includes(filter) || block.blockTitle?.toString().toLowerCase().includes(filter);
         })))
   }
 
   filterBlocks(event: any) {
-    this.filterInput$$.next(event.target.value);
+    const searchTerm = event.target.value.toLowerCase();
+    this.filterInput$$.next(searchTerm);
   }
 
   onDragEnd(blockType: number){
