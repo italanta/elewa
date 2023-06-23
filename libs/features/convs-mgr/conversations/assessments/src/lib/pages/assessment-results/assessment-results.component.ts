@@ -59,9 +59,9 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.pageTitle = `Assessments/${this.assessment?.title}/results`;
     this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
     this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
+    this.pageTitle = `Assessments / ${this.assessment?.title} / results`;
 
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
