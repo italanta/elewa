@@ -12,6 +12,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { IntercomModule } from 'ng-intercom';
+
 import { MaterialBricksRootModule } from '@iote/bricks-angular';
 import { NgFireModule } from '@ngfi/angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -89,6 +91,10 @@ import { environment } from '../environments/environment';
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
+    }),
+    IntercomModule.forRoot({
+      appId: 'jvwszj2k', 
+      updateOnRouterChange: true // will automatically run `update` on router event changes. Default: `false`
     })
   ],
   providers: [],
