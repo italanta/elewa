@@ -2,14 +2,18 @@
   display: grid;
   padding: 3rem;
 
+  .chart {
+    width: 30vw;
+    height: auto;
+  }
+
   .title-wrapper {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 2rem;
     gap: 1rem;
 
-    .back-btn,
-    .edit-assessment-btn {
+    .btn {
       outline: none;
       border: none;
       cursor: pointer;
@@ -17,36 +21,99 @@
       border-radius: 5px;
       color: var(--convs-mgr-color-primary-white);
       background-color: var(--convs-mgr-color-primary-yellow);
-    }
-    .edit-assessment-btn {
-      background-color: var(--convs-mgr-color-primary-purple) !important;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2px;
+  
+      &__edit {
+        background-color: var(--convs-mgr-color-primary-purple) !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2px;
+      }
     }
   }
-  .cards-chart-wrapper {
+
+  .classes-wrapper {
+    justify-self: flex-start;
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cards-chart-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     margin-bottom: 2rem;
     gap: 2.25rem;
+
+    .cards-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+
+      .card {
+        padding: 1rem;
+        display: flex;
+        gap: 1rem;
+        border-radius: 0.5rem;
+
+        .icon {
+          border-radius: 50%;
+          width: 3.5rem;
+          height: 3.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          // tooltip
+          & > svg {
+            color: white;
+            font-size: 1.3rem;
+          }
+
+          &--yellow {
+            background-color: var(--convs-mgr-color-primary-yellow);
+          }
+
+          &--purple {
+            background-color: var(--convs-mgr-color-primary-purple-light);
+          }
+
+          &--red {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &--green {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+        }
+
+        .metrics {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+
+          .title {
+            font-weight: bold;
+          }
+
+          .score {
+            font-weight: bold;
+          }
+        }
+      }
+    }
   }
-  .cards-wrapper {
-  }
-  .chart-wrapper {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
+
   .search-results-wrapper {
     display: flex;
     align-items: center;
     gap: 1.5rem;
     align-self: flex-end;
   }
+
   .assessments-table {
     th.table-header {
       font-weight: 600;
@@ -54,15 +121,34 @@
 
     td.table-cell {
       .badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 8rem;
+
         &--end {
           padding: 0.4rem 0.6rem;
-          color: var(--convs-mgr-color-primary-white);
-          background-color: var(--convs-mgr-color-primary-purple-light);
           border-radius: 2em;
+          color: white;
 
-          &.orange {
+          &.Failed {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &.Pass {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+
+          &.below-average {
             background-color: var(--convs-mgr-color-primary-yellow);
-            color: var(--convs-mgr-color-primary-black);
+          }
+
+          &.Average {
+            background-color: var(--convs-mgr-color-primary-purple-light);
+          }
+
+          &.in-progress {
+            background-color: var(--convs-mgr-color-A100);
           }
         }
       }
