@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Observable, concatMap, forkJoin, from, switchMap, take, tap, timer } from 'rxjs';
+import { Observable, concatMap, combineLatest, from, tap, timer, startWith, switchMap } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
@@ -11,7 +11,7 @@ import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
-import { ActiveOrgStore } from '@app/state/organisation';
+import { AssessToggleStateService } from '../../services/assessment-toggle-state.service';
 
 
 @Component({
@@ -34,20 +34,23 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
 
   private _sbS = new SubSink();
   isPublishing = false;
+  showPublishBtn:Observable<boolean>;
   isSaving = false;
 
-  constructor(private _assessmentService: AssessmentService,
+  constructor(
+    private _assessmentService: AssessmentService,
     private _publishAssessment: AssessmentPublishService,
-    private _org$$: ActiveOrgStore,
     private _assessmentForm: AssessmentFormService,
     private _assessmentQuestion: AssessmentQuestionService,
-    private _router: Router,
-    private _route: ActivatedRoute) { }
+    private _assessToggle: AssessToggleStateService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void
   {
     this.initAssessment();
     this.initPage();
+    this.showPublishBtn = this._assessToggle.publishBtnState;
   }
 
   initAssessment()
@@ -55,7 +58,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this.assessment$ = this._assessmentService.getActiveAssessment$();
     this.questions$ = this._assessmentQuestion.getQuestions$();
     this._sbS.sink = this._assessmentQuestion.getQuestions$().subscribe(qstsn => this.questions = qstsn);
-    this.assessmentMode = this.getAssessmentMode();
+    this.assessmentMode = AssessmentMode.View;
   }
 
   initPage()
@@ -79,57 +82,61 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this.assessmentForm = this._assessmentForm.createAssessmentDetailForm(this.assessment?.configs);
   }
 
-  getAssessmentMode()
-  {
-    const assessmentMode = this._route.snapshot.queryParamMap.get('mode') as string;
-
-    // 1 = "Edit" & 0 = "View"
-    if (assessmentMode === 'edit') {
-      return AssessmentMode.Edit;
-    } else {
-      return AssessmentMode.View;
-    }
-  }
-
   onSave()
   {
     this.isSaving = true;
 
-    // we spread the `persistAssessmentQuestions()` since it's an array of Observables.
-    this._sbS.add(
-      forkJoin([this.insertAssessmentConfig$(), ...this.persistAssessmentQuestions$()]).subscribe(() =>
+    // since some observables complete before we call combinelatest, we initialise our stream with an empty string
+    // we spread the `assessmentQstns$()` since it's an array of Observables.
+    const assessmentQstns$ = this.persistAssessmentQuestions$().map(each => each.pipe(startWith('')))
+
+    this._sbS.add(combineLatest([this.insertAssessmentConfig$(), ...assessmentQstns$]).subscribe(() =>
       {
         this.isSaving = false;
+        this._assessToggle.showPublish();
+        this.openSnackBar('Assessment successfully saved', 'Save')
       })
     );
   }
 
-  onPublish()
-  {
+  onPublish() {
     this.isPublishing = true;
 
-    this._publishAssessment.publish(this.assessment).subscribe(_published =>
-      {
-        if (_published) {
-          this.isPublishing = false;
-          this.assessmentMode = AssessmentMode.View;
-  
-          // TODO: Optimize this logic
+    this._sbS.sink = this._publishAssessment.publish(this.assessment)
+      .pipe(
+        switchMap(() => {
           this.assessment.isPublished = true;
-          this._sbS.sink = this._assessmentService.updateAssessment$(this.assessment).subscribe();
-  
-          this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'view' } });
+          return this._assessmentService.updateAssessment$(this.assessment);
+        })
+      )
+      .subscribe((published) => {
+        if (published) {
+          this.isPublishing = false;
+          this._sbS.unsubscribe();
+          this.assessmentMode = AssessmentMode.View;
+          this.openSnackBar('Assessment was successfully published', 'Publish');
         }
       });
   }
 
   toggleForm()
   {
+    this._sbS.unsubscribe();
     this.assessmentMode = AssessmentMode.Edit;
+    this._assessToggle.hidePublish();
+
     // Update url parameter mode to edit
-    this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'edit' } });
     this.pageTitle = `Assessments/${this.assessment.title}/${AssessmentMode[this.assessmentMode]}`;
     this.createFormGroup();
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      panelClass: 'snack_color',
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+      duration: 2000
+    });
   }
 
   determineAction()

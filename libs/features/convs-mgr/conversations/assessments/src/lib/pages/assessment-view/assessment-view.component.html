@@ -1,25 +1,35 @@
 <convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
   <div class="wrapper">
+
+    <div *ngIf="isPublishing || isSaving" class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+
     <div *ngIf="assessment$ | async as assessment">
       <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
         <h2 class="title">{{assessment.title}}</h2>
 
-        <div class="save-button" fxLayout="row">
-          <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="onSave()">
+        <div *ngIf="assessmentMode === 1; else elseBtn" class="save-button" fxLayout="row">
+          <button [disabled]="isPublishing" type="button" mat-flat-button class="btn-publish" (click)="onSave()">
             <span>
               {{'ASSESSMENTS.BUTTON.SAVE' | transloco}}
             </span>
           </button>
   
-            <button [disabled]="isPublishing" type="submit" mat-flat-button class="btn-publish" (click)="determineAction()">
-              <span *ngIf="assessmentMode; else btnEdit">
-                {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
-              </span>
-              <ng-template #btnEdit>
-                {{'ASSESSMENTS.BUTTON.EDIT' | transloco}}
-              </ng-template>
-            </button>
+          <button [disabled]="(showPublishBtn | async) || isPublishing" type="button" mat-flat-button class="btn-publish" (click)="onPublish()">
+            <span>
+              {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
+            </span>
+          </button>
         </div>
+
+        <ng-template #elseBtn>
+          <button type="button" mat-flat-button class="btn-publish" (click)="toggleForm()">
+            <span>
+              {{'ASSESSMENTS.BUTTON.EDIT' | transloco}}
+            </span>
+          </button>
+        </ng-template>
       </div>
 
       <form *ngIf="assessmentMode; else questionList" [formGroup]="assessmentForm">

@@ -280,17 +280,22 @@
   },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
-      "TITLE": "Title",
+      "TITLE": "Assessment Title",
+      "CREATED-ON": "Created On",
       "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Responses",
+      "RESPONSES": "Completed Responses",
       "ACTIONS": "Actions"
     },
     "RESULTS": {
       "BUTTONS": {
-        "GO-BACK": "Go Back"
+        "GO-BACK": "Go Back",
+        "EDIT ASSESSMENT": "Edit assessment"
+      },
+      "TEXT":{
+        "ASSESSMENTS RESULTS": "Assessment Results",
+        "ALL-CLASSES":"All classes"
       },
       "TABLE-HEADER": {
-        "TITLE": "Title",
         "NAME": "Name",
         "PHONE-NO": "PhoneNumber",
         "STARTED-ON": "Started On",
@@ -300,6 +305,8 @@
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select Results Page",
+        "SORT-BY-CREATED": "Sort by assessment created date",
+        "SORT-BY-No": "Sort by assessment number",
         "SORT-BY-NAME": "Sort by assessment results name",
         "SORT-BY-PHONE-NO": "Sort by assessment results phone number",
         "SORT-BY-STARTED-ON": "Sort by assessment results started on",
@@ -308,12 +315,21 @@
         "SORT-BY-SCORE-CATEGORY": "Sort by assessment results score category",
         "SORTED-ASC": "Sorted in ascending order",
         "SORTED-DESC": "Sorted in descending order"
+      },
+      "LABELS": {
+        "GROUPS": "Groups"
+      },
+      "METRICS": {
+        "LOWEST": "Lowest Score",
+        "HIGHEST": "Highest Score",
+        "AVERAGE": "Average Score",
+        "TOTAL-QUESTIONS":"Total Questions"
       }
     },
     "BUTTON": {
       "VIEW": "View", 
       "RESULTS": "Results",
-      "ADD": "Create",
+      "ADD": "Create assessment",
       "EDIT": "Edit",
       "SAVE": "Save",
       "DELETE": "Delete",
@@ -360,6 +376,7 @@
       "FIELDS":{
         "CONFIGURATION": "Configuration",
         "FEEDBACK": "Feedback",
+        "CONDITION": "Condition",
         "USER-ATTEMPTS": "User attempts",
         "MARKS": "Marks",
         "MARKS-PLACEHOLDER": "Enter marks",

@@ -5,6 +5,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
 import { Timestamp } from 'firebase-admin/firestore';
 
@@ -12,7 +13,7 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
-import { ActiveAssessmentStore } from '@app/state/convs-mgr/conversations/assessments';
+import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
 import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
@@ -21,13 +22,28 @@ import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/syste
   styleUrls: ['./assessment-results.component.scss'],
 })
 export class AssessmentResultsComponent implements OnInit, OnDestroy {
+  chart: Chart;
+
   id: string;
   assessment: Assessment;
 
   dataSource: MatTableDataSource<EndUserDetails>;
   itemsLength: number
-  assessmentResults = ['name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
+  assessmentResults = ['index', 'name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
   pageTitle: string;
+
+  scores: number[] = [];
+  highestScore: number;
+  lowestScore: number;
+  averageScore: number | string;
+
+  totalQuestions: number;
+
+  failedCount = 0;
+  passedCount = 0;
+  averageCount = 0;
+  inProgressCount = 0;
+  belowAverageCount = 0;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,12 +54,14 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
     private _activeAssessment$$: ActiveAssessmentStore,
+    private _assessmentQuestion: AssessmentQuestionService,
     private _endUserService: EndUserService
   ) {}
 
   ngOnInit() {
     this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
-    this.pageTitle = `Assessments/${this.assessment?.title}/results`;
+    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
+    this.pageTitle = `Assessments / ${this.assessment?.title} / results`;
 
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
@@ -52,8 +70,55 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+
+      this.computeScores();
+      this._loadChart();
     });
   };
+
+  private _loadChart() {
+    // don't generate graph if no data is present
+    if (!this.passedCount && !this.averageCount && !this.failedCount && !this.belowAverageCount) return;
+
+    if (this.chart) this.chart.destroy();
+
+    return new Chart('chart-ctx', {
+      type: 'pie',
+      data: {
+        labels: ['Pass (75-100)','Average (50-74)', 'In Progress', 'Below Average (35-49)','Fail (0-34)'],
+        datasets: [{
+          label: 'learners',
+          data: [this.passedCount, this.averageCount, this.inProgressCount, this.belowAverageCount, this.failedCount],
+          backgroundColor: [
+            'rgb(13, 138, 77)',
+            'rgb(100, 24, 195)',
+            'rgb(2, 179, 254)',
+            'rgb(255, 171, 45)',
+            'rgb(255, 0, 0)',
+          ],
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        responsive: true,
+        normalized: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `${this._modifyTitle(this.assessment.title)} Assessment Results`,
+          },
+          legend: {
+            position: 'right',
+            labels : {
+              usePointStyle: true,
+              padding: 30,
+            }
+          }
+        },
+      },
+    });
+  }
 
   filterData(results: EndUserDetails[]) {
     const data = results.filter(user => {
@@ -62,7 +127,9 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       const assessExists = user.cursor[0].assessmentStack.find(assess => assess.assessmentId === this.assessment.id)
 
       if (assessExists) {
+        user.scoreCategory = this.getScoreCategory(assessExists);
         user.selectedAssessmentCursor = assessExists
+        this.scores.push(assessExists.score);
         return true
       }
 
@@ -72,34 +139,70 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     return data
   }
 
+  computeScores() {
+    if (!this.scores.length) return;
+
+    this.highestScore = Math.max(...this.scores);
+    this.lowestScore = Math.min(...this.scores);
+
+    const sum = this.scores.reduce((prev, next) => prev + next);
+    this.averageScore = (sum/this.scores.length).toFixed(2);
+  };
+
   sortData(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction} ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 
-  formatDate(time: Timestamp): string {
-    if (!time) return 'In progress';
+  formatDate(timeStamp: Timestamp): string {
+    if (!timeStamp) return 'In progress';
+    const date = new Date(timeStamp.seconds * 1000);
 
-    const date = new Date(time.seconds * 1000);
-    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + (date.getFullYear());
+    const year = `${date.getDate()}/${(date.getMonth() + 1)}/${(date.getFullYear())}`;
+    const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return  year + ' ' + time;
+  }
+
+  private _modifyTitle(title: string) {
+    const firstChar = title.charAt(0).toUpperCase();
+    const restChars = title.slice(1).toLowerCase();
+
+    return `${firstChar}${restChars}`
   }
 
   getScoreCategory(assessmentCursor: AssessmentCursor) {
-    if (!assessmentCursor.finishedOn) return 'In progress';
+    if (!assessmentCursor.finishedOn) {
+      this.inProgressCount++
+      return 'In progress'
+    }
 
     const finalScore = assessmentCursor.score;
     const finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
 
-    if (finalPercentage >= 0 && finalPercentage < 50) {
+    if (finalPercentage >= 0 && finalPercentage < 34) {
+      this.failedCount++
       return 'Failed';
     } else if (finalPercentage >= 50 && finalPercentage <= 75) {
+      this.averageCount++
       return 'Average';
+    } else if (finalPercentage >= 35 && finalPercentage <= 49) {
+      this.belowAverageCount++
+      return 'Below Average'
     } else {
+      this.passedCount++
       return 'Pass';
     }
+  }
+
+  addClass(endUser: EndUserDetails) {
+    if (endUser.scoreCategory === 'In progress') {
+      return 'in-progress'
+    } else if (endUser.scoreCategory === 'Below Average') {
+      return 'below-average'
+    } else return endUser.scoreCategory
   }
 
   searchTable(event: Event){
@@ -113,5 +216,6 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._sBs.unsubscribe();
+    this.chart?.destroy();
   }
 }
