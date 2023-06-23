@@ -293,7 +293,7 @@
       },
       "TEXT":{
         "ASSESSMENTS RESULTS": "Assessment Results",
-        "ALL CLASSES":"All classes"
+        "ALL-CLASSES":"All classes"
       },
       "TABLE-HEADER": {
         "NAME": "Name",
@@ -314,6 +314,15 @@
         "SORT-BY-SCORE-CATEGORY": "Sort by assessment results score category",
         "SORTED-ASC": "Sorted in ascending order",
         "SORTED-DESC": "Sorted in descending order"
+      },
+      "LABELS": {
+        "GROUPS": "Groups"
+      },
+      "METRICS": {
+        "LOWEST": "Lowest Score",
+        "HIGHEST": "Highest Score",
+        "AVERAGE": "Average Score",
+        "TOTAL-QUESTIONS":"Total Questions"
       }
     },
     "BUTTON": {

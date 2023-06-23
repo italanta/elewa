@@ -40,9 +40,8 @@
   }
 
   .cards-chart-wrapper {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     margin-bottom: 2rem;
     gap: 2.25rem;

@@ -11,9 +11,9 @@
     <div class="classes-wrapper">
       <div class="search-results-wrapper">
         <mat-form-field>
-          <mat-label>Groups/Classes</mat-label>
+          <mat-label>{{ 'ASSESSMENTS.RESULTS.LABELS.GROUPS' | transloco }}</mat-label>
           <mat-select name="assessment results">
-            <mat-option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL CLASSES' | transloco }}</mat-option>
+            <mat-option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL-CLASSES' | transloco }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -26,8 +26,8 @@
             <i class="fas fa-question"></i>
           </span>
           <div class="metrics">
-            <span class="title">Total Questions</span>
-            <span class="score">{{totalQuestions}}</span>
+            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.TOTAL-QUESTIONS' | transloco }}</span>
+            <span class="score">{{ totalQuestions }}</span>
           </div>
         </div>
         <div class="card mat-elevation-z2">
@@ -35,8 +35,8 @@
             <i class="fas fa-percentage"></i>
           </span>
           <div class="metrics">
-            <span class="title">Average Score</span>
-            <span class="score">{{averageScore}}</span>
+            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.AVERAGE' | transloco }}</span>
+            <span class="score">{{ averageScore }}</span>
           </div>
         </div>
         <div class="card mat-elevation-z2">
@@ -44,8 +44,8 @@
             <i class="fas fa-arrow-up"></i>
           </span>
           <div class="metrics">
-            <span class="title">Highest Score</span>
-            <span class="score">{{highestScore}}</span>
+            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.HIGHEST' | transloco }}</span>
+            <span class="score">{{ highestScore }}</span>
           </div>
         </div>
         <div class="card mat-elevation-z2">
@@ -53,8 +53,8 @@
             <i class="fas fa-arrow-down"></i>
           </span>
           <div class="metrics">
-            <span class="title">Lowest Score</span>
-            <span class="score">{{lowestScore}}</span>
+            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.LOWEST' | transloco }}</span>
+            <span class="score">{{ lowestScore }}</span>
           </div>
         </div>
       </div>
