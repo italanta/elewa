@@ -42,6 +42,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   failedCount = 0;
   passedCount = 0;
   averageCount = 0;
+  inProgressCount = 0;
   belowAverageCount = 0;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -84,13 +85,14 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'pie',
       data: {
-        labels: ['Pass (75-100)','Average (50-74)','Below Average (35-49)','Fail (0-34)'],
+        labels: ['Pass (75-100)','Average (50-74)', 'In Progress', 'Below Average (35-49)','Fail (0-34)'],
         datasets: [{
           label: 'learners',
-          data: [this.passedCount, this.averageCount, this.belowAverageCount, this.failedCount],
+          data: [this.passedCount, this.averageCount, this.inProgressCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
             'rgb(13, 138, 77)',
             'rgb(100, 24, 195)',
+            'rgb(2, 179, 254)',
             'rgb(255, 171, 45)',
             'rgb(255, 0, 0)',
           ],
@@ -173,7 +175,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
   getScoreCategory(assessmentCursor: AssessmentCursor) {
     if (!assessmentCursor.finishedOn) {
-      this.failedCount++
+      this.inProgressCount++
       return 'In progress'
     }
 
