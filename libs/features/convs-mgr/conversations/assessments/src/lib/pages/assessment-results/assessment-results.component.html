@@ -65,13 +65,10 @@
     </div>
 
     <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1%">
-      <mat-form-field appearance="outline" class="search mat-elevation-z2">
-        <mat-label>
-          <i class="fas fa-search"></i>
-          <span class="label">{{'ASSESSMENTS.BUTTON.SEARCH-ASSESSMENTS' | transloco}}</span>
-        </mat-label>
-        <input class="search-input" matInput (keyup)="searchTable($event)" />
-      </mat-form-field>
+      <div class="search">
+        <i class="fas fa-search search_tooltip"></i>
+        <input class="search_input" type="text" name="" placeholder="Search for assessments" (keyup)="searchTable($event)" />
+      </div>
     </div>
 
     <div class="table-wrapper">
