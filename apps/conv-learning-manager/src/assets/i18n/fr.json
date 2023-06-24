@@ -237,6 +237,15 @@
         "SORT-BY-SCORE-CATEGORY": "Trier par catégorie de score des résultats d'évaluation",
         "SORTED-ASC": "Trié par ordre croissant",
         "SORTED-DESC": "Trié par ordre décroissant"
+      },
+      "LABELS": {
+        "GROUPS": "Groupes"
+      },
+      "METRICS": {
+        "LOWEST": "Note la plus basse",
+        "HIGHEST": "Le score le plus élevé",
+        "AVERAGE": "Score moyen",
+        "TOTAL-QUESTIONS":"Nombre total de questions"
       }
     },
     "BUTTON": {
@@ -253,6 +262,7 @@
     },
     "ACCESSIBILITY": {
        "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
+       "SORT-BY-NO": "Trier par numéro d'évaluation",
        "SORT-BY-NAME": "Trier par nom d'évaluation",
        "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
        "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",

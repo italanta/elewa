@@ -1,71 +1,192 @@
 .page-container {
   display: grid;
-  padding: 3rem;
+  padding: 1rem;
+
+  .chart-wrapper {
+    display: grid;
+    place-content: center;
+
+    .chart {
+      width: 25vw;
+      height: auto;
+    }
+  }
 
   .title-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     gap: 1rem;
 
-    .back-btn,
-    .edit-assessment-btn {
+    .btn {
       outline: none;
       border: none;
       cursor: pointer;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem;
       border-radius: 5px;
       color: var(--convs-mgr-color-primary-white);
       background-color: var(--convs-mgr-color-primary-yellow);
-    }
-    .edit-assessment-btn {
-      background-color: var(--convs-mgr-color-primary-purple) !important;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2px;
+  
+      &__edit {
+        background-color: var(--convs-mgr-color-primary-purple) !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2px;
+      }
     }
   }
-  .cards-chart-wrapper {
+
+  .classes-wrapper {
+    justify-self: flex-start;
     display: flex;
-    width: 100%;
-    justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cards-chart-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 2rem;
-    gap: 2.25rem;
+    gap: 1rem;
+
+    .cards-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      align-items: center;
+      gap: 1rem;
+
+      .card {
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        border-radius: 0.5rem;
+
+        .icon {
+          border-radius: 50%;
+          width: 2.4rem;
+          height: 2.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          // tooltip
+          & > svg {
+            color: white;
+            font-size: 1rem;
+          }
+
+          &--yellow {
+            background-color: var(--convs-mgr-color-primary-yellow);
+          }
+
+          &--purple {
+            background-color: var(--convs-mgr-color-primary-purple-light);
+          }
+
+          &--red {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &--green {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+        }
+
+        .metrics {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+          font-size: 0.8rem;
+
+          .score {
+            font-weight: bold;
+          }
+        }
+      }
+    }
   }
-  .cards-wrapper {
-  }
-  .chart-wrapper {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
+
   .search-results-wrapper {
     display: flex;
     align-items: center;
     gap: 1.5rem;
     align-self: flex-end;
   }
+
   .assessments-table {
     th.table-header {
+      font-size: 0.8rem;
       font-weight: 600;
     }
 
     td.table-cell {
+      font-size: 0.7rem;
+
       .badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 6rem;
+
         &--end {
           padding: 0.4rem 0.6rem;
-          color: var(--convs-mgr-color-primary-white);
-          background-color: var(--convs-mgr-color-primary-purple-light);
           border-radius: 2em;
+          color: white;
 
-          &.orange {
+          &.Failed {
+            background-color: var(--convs-mgr-color-primary-red);
+          }
+
+          &.Pass {
+            background-color: var(--convs-mgr-color-primary-shade);
+          }
+
+          &.below-average {
             background-color: var(--convs-mgr-color-primary-yellow);
-            color: var(--convs-mgr-color-primary-black);
+          }
+
+          &.Average {
+            background-color: var(--convs-mgr-color-primary-purple-light);
+          }
+
+          &.in-progress {
+            background-color: var(--convs-mgr-color-A100);
           }
         }
       }
     }
+  }
+}
+
+.search {
+  height: 5px;
+  width: 97%;
+  background-color: var(--convs-mgr-color-primary-white);
+  border-radius: 8px;
+  margin-bottom: 1.375rem;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &_tooltip {
+    color: gray;
+    transform: rotate(90deg);
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &_input {
+    width: 90%;
+    height: 40px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    padding-left: 6px;
   }
 }
