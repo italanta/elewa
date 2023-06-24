@@ -293,7 +293,7 @@
       },
       "TEXT":{
         "ASSESSMENTS RESULTS": "Assessment Results",
-        "ALL CLASSES":"All classes"
+        "ALL-CLASSES":"All classes"
       },
       "TABLE-HEADER": {
         "NAME": "Name",
@@ -306,6 +306,7 @@
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select Results Page",
         "SORT-BY-CREATED": "Sort by assessment created date",
+        "SORT-BY-No": "Sort by assessment number",
         "SORT-BY-NAME": "Sort by assessment results name",
         "SORT-BY-PHONE-NO": "Sort by assessment results phone number",
         "SORT-BY-STARTED-ON": "Sort by assessment results started on",
@@ -314,6 +315,15 @@
         "SORT-BY-SCORE-CATEGORY": "Sort by assessment results score category",
         "SORTED-ASC": "Sorted in ascending order",
         "SORTED-DESC": "Sorted in descending order"
+      },
+      "LABELS": {
+        "GROUPS": "Groups"
+      },
+      "METRICS": {
+        "LOWEST": "Lowest Score",
+        "HIGHEST": "Highest Score",
+        "AVERAGE": "Average Score",
+        "TOTAL-QUESTIONS":"Total Questions"
       }
     },
     "BUTTON": {
