@@ -22,7 +22,9 @@ export class AssessmentQuestionFormsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuestions();
-    this.count = this.questionsList.length;
+
+    const lastQstn = this.questionsList.at(this.questionsList.length - 1);
+    this.count = parseInt(lastQstn.get('id' as string)?.value);
   }
 
   get questionsList() {
