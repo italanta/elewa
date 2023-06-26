@@ -44,7 +44,7 @@
 
       <ng-template #questionList>
         <div *ngIf="questions">
-          <app-assessment-questions [questions]="questions"></app-assessment-questions>
+          <app-assessment-questions [questions$]="questions$"></app-assessment-questions>
         </div>
       </ng-template>
 
