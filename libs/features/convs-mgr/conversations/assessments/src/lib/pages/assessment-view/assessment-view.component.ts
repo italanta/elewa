@@ -147,11 +147,6 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     });
   }
 
-  determineAction()
-  {
-    this.assessmentMode == AssessmentMode.View ? this.toggleForm() : this.onPublish();
-  }
-
   insertAssessmentConfig$()
   {
     this.assessment.configs = {
