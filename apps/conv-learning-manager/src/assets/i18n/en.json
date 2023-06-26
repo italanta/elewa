@@ -178,7 +178,8 @@
           "CHECKBOX": "Custom Variable"
         },
         "VIDEO-MODAL": {
-          "NAME": "Give This media Item a Name"
+          "NAME": "Give This media Item a Name",
+          "UPDATE": "Update Video"
         }
       }
     },
