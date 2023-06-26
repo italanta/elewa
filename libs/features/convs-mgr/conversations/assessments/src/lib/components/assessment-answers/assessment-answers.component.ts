@@ -21,7 +21,11 @@ export class AssessmentAnswersComponent {
     return this.questionFormGroup.controls['options'] as FormArray;
   }
 
-  generateAnswerForm(){
+  generateAnswerForm() {
     this.choicesList.push(this._assessmentForm.createChoiceForm(this.questionId, this.choicesList));
+  }
+
+  deleteChoice(i: any) {
+    this.choicesList.removeAt(i as number);
   }
 }

@@ -1,6 +1,6 @@
 <div [formGroup]="questionFormGroup">
   <div formArrayName="options">
-    <div [formGroup]="answerFormGroup" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1%" fxFlexFill>
+    <div [formGroupName]="answerFormGroupName" fxLayout="row" fxLayoutGap="1%" fxFlexFill>
       <div class="circle"></div>
       <mat-form-field appearance="outline" class="full-field">
         <mat-label class="answer">
@@ -8,7 +8,7 @@
         </mat-label>
         <input type="text" matInput formControlName="text">
       </mat-form-field>
-    
+
       <mat-form-field appearance="outline">
         <mat-select formControlName="accuracy">
           <mat-option [value]="correct">{{'ASSESSMENTS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
@@ -16,6 +16,10 @@
           <mat-option [value]="fiftyFifty">{{'ASSESSMENTS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <button mat-icon-button class="btn-delete" (click)="delete()">
+        <i class="fas fa-trash"></i>
+      </button>
     </div>
   </div>
 </div>
