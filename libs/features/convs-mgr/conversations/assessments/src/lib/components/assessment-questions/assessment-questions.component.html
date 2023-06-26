@@ -8,6 +8,6 @@
   </mat-form-field>
 </div>
 
-<div *ngFor="let question of questions; let i = index">
+<div *ngFor="let question of (questions$ | async); let i = index">
   <app-assessment-question [question]="question" [questionNo]="i+1"></app-assessment-question>
 </div>
