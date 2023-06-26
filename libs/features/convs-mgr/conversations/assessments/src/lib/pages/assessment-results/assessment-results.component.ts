@@ -112,7 +112,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
             position: 'right',
             labels : {
               usePointStyle: true,
-              padding: 30,
+              padding: 25,
             }
           }
         },
