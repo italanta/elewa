@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Observable, concatMap, combineLatest, from, tap, timer, startWith, switchMap } from 'rxjs';
+import { Observable, concatMap, combineLatest, from, tap, timer, startWith, switchMap, finalize } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
@@ -57,7 +57,7 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
   {
     this.assessment$ = this._assessmentService.getActiveAssessment$();
     this.questions$ = this._assessmentQuestion.getQuestions$();
-    this._sbS.sink = this._assessmentQuestion.getQuestions$().subscribe(qstsn => this.questions = qstsn);
+    this.preloadQuestions();
     this.assessmentMode = AssessmentMode.View;
   }
 
@@ -82,20 +82,28 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this.assessmentForm = this._assessmentForm.createAssessmentDetailForm(this.assessment?.configs);
   }
 
+  preloadQuestions() {
+    this._sbS.sink = this._assessmentQuestion.getQuestions$().subscribe(qstsn => this.questions = qstsn);
+  }
+
   onSave()
   {
     this.isSaving = true;
 
     // since some observables complete before we call combinelatest, we initialise our stream with an empty string
-    // we spread the `assessmentQstns$()` since it's an array of Observables.
     const assessmentQstns$ = this.persistAssessmentQuestions$().map(each => each.pipe(startWith('')))
 
-    this._sbS.add(combineLatest([this.insertAssessmentConfig$(), ...assessmentQstns$]).subscribe(() =>
-      {
-        this.isSaving = false;
-        this._assessToggle.showPublish();
-        this.openSnackBar('Assessment successfully saved', 'Save')
-      })
+    // we spread the `assessmentQstns$()` since it's an array of Observables.
+    this._sbS.add(
+      combineLatest([this.insertAssessmentConfig$(), ...assessmentQstns$])
+        .pipe(
+          finalize(() => {
+            this.isSaving = false;
+            this._assessToggle.showPublish();
+            this.openSnackBar('Assessment successfully saved', 'Save')
+          })
+        )
+      .subscribe()
     );
   }
 
@@ -139,11 +147,6 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     });
   }
 
-  determineAction()
-  {
-    this.assessmentMode == AssessmentMode.View ? this.toggleForm() : this.onPublish();
-  }
-
   insertAssessmentConfig$()
   {
     this.assessment.configs = {
@@ -167,6 +170,9 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
   */
   private _determineAssesActions(assessmentQuestions: AssessmentQuestion[])
   {
+    // get's the latest questions from the state().
+    this.preloadQuestions();
+
     const oldQuestions = this.questions;
 
     // Assessments which are newly created and newly configured
