@@ -17,7 +17,7 @@
           </div>
 
           <div class="media">
-            <input type="file" accept=".mp4" (change)="onVideoSelected($event)" hidden id="videoUpload">
+            <input type="file" accept=".mp4" #inputUpload (change)="onVideoSelected($event)" hidden id="videoUpload">
             <label for="videoUpload">
               <button type="button" (click)="openFileExplorer()" class="upload-button" *ngIf="videoPath">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.UPDATE' | transloco}}</button>
               <ng-container *ngIf="!videoPath">
