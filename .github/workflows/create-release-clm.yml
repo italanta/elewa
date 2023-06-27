@@ -15,7 +15,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with: 
-          name: Release ${{ github.ref }}
           generate_release_notes: true
           token: ${{ secrets.GITHUB_TOKEN }}
           draft: false
