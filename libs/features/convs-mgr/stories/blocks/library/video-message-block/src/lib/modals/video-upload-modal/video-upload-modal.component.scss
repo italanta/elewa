@@ -147,6 +147,24 @@ input[type='radio'] {
   cursor: pointer;
 }
 
+.upload-button {
+  border: 2px dashed var(--convs-mgr-color-primary-purple);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 5px;
+  background-color: transparent;
+  color: var(--convs-mgr-color-primary-purple);
+  font-weight: bold;
+  cursor: pointer;
+}
+.upload-button:hover {
+  background-color: var(--convs-mgr-color-primary-purple);
+  color: var(--convs-mgr-color-primary-white);
+}
+
 @media only screen and (max-width: 600px) {
   .wrapper {
     display: flex;
