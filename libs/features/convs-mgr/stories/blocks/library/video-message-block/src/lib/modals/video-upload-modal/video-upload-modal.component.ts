@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -15,6 +15,8 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
   isUploading: boolean;
   selectedFile: File;
+
+  @ViewChild('inputUpload') input: ElementRef<HTMLInputElement>;
 
   readonly defaultSize = "Don't Encode Media";
 
@@ -35,7 +37,7 @@ export class VideoUploadModalComponent implements OnInit {
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _videoUploadService: FileStorageService,
     @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup }
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
@@ -48,6 +50,10 @@ export class VideoUploadModalComponent implements OnInit {
     }
 
     this.dialogRef.close();
+  }
+
+  openFileExplorer() {
+    this.input?.nativeElement.click();
   }
 
   onVideoSelected(event: any) {
@@ -86,3 +92,4 @@ export class VideoUploadModalComponent implements OnInit {
     this.videoPath = url;
   }
 }
+
