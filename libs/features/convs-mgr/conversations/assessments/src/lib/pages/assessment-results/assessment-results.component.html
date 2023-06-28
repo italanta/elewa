@@ -10,8 +10,8 @@
 
     <div class="top-items" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4rem">
 
-      <div class="results-title">
-        <span>{{_modifyTitle(this.assessment.title)}} Assessment Results</span>
+      <div class="results-title" *ngIf="assessment">
+        <span>{{modifyTitle(assessment.title)}} Assessment Results</span>
       </div>
       <div class="classes-wrapper">
         <div class="search-results-wrapper">
