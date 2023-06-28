@@ -8,55 +8,65 @@
       </button>
     </div>
 
-    <div class="classes-wrapper">
-      <div class="search-results-wrapper">
-        <select name="assessment results">
-          <option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL-CLASSES' | transloco }}</option>
-        </select>
+    <div class="top-items" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="4rem">
+
+      <div class="results-title">
+        <span>{{_modifyTitle(this.assessment.title)}} Assessment Results</span>
+      </div>
+      <div class="classes-wrapper">
+        <div class="search-results-wrapper">
+          <select name="assessment results">
+            <option value="">{{ 'ASSESSMENTS.RESULTS.TEXT.ALL-CLASSES' | transloco }}</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <div class="cards-chart-wrapper">
-      <div class="cards-wrapper">
-        <div class="card mat-elevation-z2" >
-          <span class="icon icon--yellow">
-            <i class="fas fa-question"></i>
-          </span>
-          <div class="metrics">
-            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.TOTAL-QUESTIONS' | transloco }}</span>
-            <span class="score">{{ totalQuestions }}</span>
+    <div class="highlights-section" fxLayout="row" fxLayoutAlign="space-between center">
+
+      <div class="cards-chart-wrapper">
+        <div class="cards-wrapper">
+          <div class="card mat-elevation-z2" >
+            <span class="icon icon--yellow">
+              <i class="fas fa-question"></i>
+            </span>
+            <div class="metrics">
+              <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.TOTAL-QUESTIONS' | transloco }}</span>
+              <span class="score">{{ totalQuestions }}</span>
+            </div>
           </div>
-        </div>
-        <div class="card mat-elevation-z2">
-          <span class="icon icon--purple">
-            <i class="fas fa-percentage"></i>
-          </span>
-          <div class="metrics">
-            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.AVERAGE' | transloco }}</span>
-            <span class="score">{{ averageScore }}</span>
+          <div class="card mat-elevation-z2">
+            <span class="icon icon--purple">
+              <i class="fas fa-percentage"></i>
+            </span>
+            <div class="metrics">
+              <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.AVERAGE' | transloco }}</span>
+              <span class="score">{{ averageScore }}</span>
+            </div>
           </div>
-        </div>
-        <div class="card mat-elevation-z2">
-          <span class="icon icon--green">
-            <i class="fas fa-arrow-up"></i>
-          </span>
-          <div class="metrics">
-            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.HIGHEST' | transloco }}</span>
-            <span class="score">{{ highestScore }}</span>
+          <div class="card mat-elevation-z2">
+            <span class="icon icon--green">
+              <i class="fas fa-arrow-up"></i>
+            </span>
+            <div class="metrics">
+              <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.HIGHEST' | transloco }}</span>
+              <span class="score">{{ highestScore }}</span>
+            </div>
           </div>
-        </div>
-        <div class="card mat-elevation-z2">
-          <span class="icon icon--red">
-            <i class="fas fa-arrow-down"></i>
-          </span>
-          <div class="metrics">
-            <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.LOWEST' | transloco }}</span>
-            <span class="score">{{ lowestScore }}</span>
+          <div class="card mat-elevation-z2">
+            <span class="icon icon--red">
+              <i class="fas fa-arrow-down"></i>
+            </span>
+            <div class="metrics">
+              <span class="title">{{ 'ASSESSMENTS.RESULTS.METRICS.LOWEST' | transloco }}</span>
+              <span class="score">{{ lowestScore }}</span>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="chart-wrapper">
+  
+      <div class="chart-wrapper" fxLayout="column">
+        
         <div class="chart">
           <canvas id="chart-ctx">{{ chart }}</canvas>
         </div>

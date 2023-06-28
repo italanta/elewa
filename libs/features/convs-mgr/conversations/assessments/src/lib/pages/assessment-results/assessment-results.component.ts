@@ -105,7 +105,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         normalized: true,
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: `${this._modifyTitle(this.assessment.title)} Assessment Results`,
           },
           legend: {
@@ -166,7 +166,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     return  year + ' ' + time;
   }
 
-  private _modifyTitle(title: string) {
+   _modifyTitle(title: string) {
     const firstChar = title.charAt(0).toUpperCase();
     const restChars = title.slice(1).toLowerCase();
 
