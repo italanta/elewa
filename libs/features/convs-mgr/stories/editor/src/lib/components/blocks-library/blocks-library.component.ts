@@ -202,6 +202,12 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
       return filteredBlocks;
     }));
   }
+
+  hasMatchingBlocks(category: string, blocks: StoryBlock[]): boolean {
+    return blocks.some((block: StoryBlock) => {
+      return block.blockCategory === category && block.message?.toString().toLowerCase().includes(this.filterInput$$.getValue());
+    });
+  }
   
   filterBlocks(event: any) {
    // this.inputText = false
