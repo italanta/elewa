@@ -89,7 +89,6 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       data: {
         labels: ['Pass (75-100)','Average (50-74)', 'In Progress', 'Below Average (35-49)','Fail (0-34)'],
         datasets: [{
-          label: 'learners',
           data: [this.passedCount, this.averageCount, this.inProgressCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
             'rgb(0, 144, 0)',
@@ -113,6 +112,20 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
               padding: 25,
             }
           },
+          tooltip: {
+            callbacks: {
+              label(context) {
+                const sum = context.dataset.data.reduce((sum, value) => {
+                  return sum + value;
+                });
+
+                const value = context.raw as number;
+                const percentage = Math.round((value / sum) * 100);
+  
+                return `learners ${value} (${percentage}%)`;
+              }
+            }
+          }
         },
       },
     });
