@@ -57,10 +57,10 @@
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       align-items: center;
-      gap: 1rem;
+      gap: 3rem;
 
       .card {
-        padding: 0.5rem;
+        padding: 1.2rem;
         display: flex;
         align-items: center;
         gap: 0.8rem;
@@ -85,7 +85,7 @@
           }
 
           &--purple {
-            background-color: var(--convs-mgr-color-primary-purple-light);
+            background-color: var(--convs-mgr-color-primary-purple);
           }
 
           &--red {
@@ -104,7 +104,8 @@
           font-size: 0.8rem;
 
           .score {
-            font-weight: bold;
+            font-size: large;
+            font-weight: 500;
           }
         }
       }
