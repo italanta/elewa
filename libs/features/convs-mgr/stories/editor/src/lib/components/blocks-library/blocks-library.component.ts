@@ -210,7 +210,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   }
   
   filterBlocks(event: any) {
-   // this.inputText = false
+    this.inputText = false
     this.filterInput$$.next(event.target.value);
   }
 
