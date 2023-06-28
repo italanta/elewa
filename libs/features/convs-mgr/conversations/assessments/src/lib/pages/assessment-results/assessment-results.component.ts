@@ -90,7 +90,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
           label: 'learners',
           data: [this.passedCount, this.averageCount, this.inProgressCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
-            'rgb(13, 138, 77)',
+            'rgb(0, 144, 0)',
             'rgb(100, 24, 195)',
             'rgb(2, 179, 254)',
             'rgb(255, 171, 45)',
