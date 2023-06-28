@@ -12,6 +12,14 @@ export interface FileMessageBlock extends StoryBlock
   fileSrc?: string;
 
   defaultTarget?: string;
+
+  /**
+   * To improve performance, we upload the file to whatsapp first, then we get the url
+   *   as it takes time to do it in real time when sending the message
+   * 
+   * This is the url we get back after we upload the file to whatsapp 
+   */
+  whatsappMediaUrl?: string;
   
 }
 
