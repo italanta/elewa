@@ -7,8 +7,9 @@
     place-content: center;
 
     .chart {
-      width: 25vw;
+      width: 24vw;
       height: auto;
+      margin-top: -2rem;
     }
   }
 
@@ -37,6 +38,10 @@
     }
   }
 
+  .top-items {
+    margin: 0.5rem 0;
+  }
+
   .classes-wrapper {
     justify-self: flex-start;
     display: flex;
@@ -45,7 +50,8 @@
   }
 
   .cards-chart-wrapper {
-    display: grid;
+    display: flex;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: space-between;
@@ -54,13 +60,14 @@
 
     .cards-wrapper {
       display: grid;
+      width: 80%;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       align-items: center;
-      gap: 1rem;
+      gap: 3rem;
 
       .card {
-        padding: 0.5rem;
+        padding: 1.2rem;
         display: flex;
         align-items: center;
         gap: 0.8rem;
@@ -85,7 +92,7 @@
           }
 
           &--purple {
-            background-color: var(--convs-mgr-color-primary-purple-light);
+            background-color: var(--convs-mgr-color-primary-purple);
           }
 
           &--red {
@@ -104,7 +111,8 @@
           font-size: 0.8rem;
 
           .score {
-            font-weight: bold;
+            font-size: large;
+            font-weight: 500;
           }
         }
       }
@@ -120,12 +128,12 @@
 
   .assessments-table {
     th.table-header {
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: small;
+      font-weight: bold;
     }
 
     td.table-cell {
-      font-size: 0.7rem;
+      font-size: small;
 
       .badge {
         display: flex;
@@ -134,8 +142,8 @@
         width: 6rem;
 
         &--end {
-          padding: 0.4rem 0.6rem;
-          border-radius: 2em;
+          padding: 0.1rem 0.6rem;
+          border-radius: 3em;
           color: white;
 
           &.Failed {
