@@ -59,10 +59,12 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
-    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
-    this.pageTitle = `Assessments / ${this.assessment?.title} / results`;
+    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => {
+      this.assessment = assess
+      this.pageTitle = `Assessments / ${assess.title} / results`;
+    });
 
+    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
       this.itemsLength = data.length;
@@ -106,7 +108,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         plugins: {
           title: {
             display: false,
-            text: `${this._modifyTitle(this.assessment.title)} Assessment Results`,
+            text: `${this.modifyTitle(this.assessment.title)} Assessment Results`,
           },
           legend: {
             position: 'right',
@@ -163,10 +165,10 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
     const year = `${date.getDate()}/${(date.getMonth() + 1)}/${(date.getFullYear())}`;
     const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    return  year + ' ' + time;
+    return  `${year} ${time}`;
   }
 
-   _modifyTitle(title: string) {
+  modifyTitle(title: string) {
     const firstChar = title.charAt(0).toUpperCase();
     const restChars = title.slice(1).toLowerCase();
 
