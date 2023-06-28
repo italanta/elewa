@@ -128,12 +128,12 @@
 
   .assessments-table {
     th.table-header {
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: small;
+      font-weight: bold;
     }
 
     td.table-cell {
-      font-size: 0.7rem;
+      font-size: small;
 
       .badge {
         display: flex;
