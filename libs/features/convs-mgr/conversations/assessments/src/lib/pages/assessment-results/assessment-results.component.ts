@@ -106,17 +106,13 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         responsive: true,
         normalized: true,
         plugins: {
-          title: {
-            display: false,
-            text: `${this.modifyTitle(this.assessment.title)} Assessment Results`,
-          },
           legend: {
             position: 'right',
             labels : {
               usePointStyle: true,
               padding: 25,
             }
-          }
+          },
         },
       },
     });
