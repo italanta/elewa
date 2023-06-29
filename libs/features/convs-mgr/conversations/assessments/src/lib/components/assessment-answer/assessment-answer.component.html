@@ -37,15 +37,12 @@
 
         <div class="feedback-item">
           <div class="feedback-checkbox">
-            <span class="title" *ngIf="true">ShowFeedBack</span>
+            <span class="title" *ngIf="true">{{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
             <input type="checkbox" name="showFeedback" [checked]="showFeedback" (click)="setFeedback()">
           </div>
 
           <div *ngIf="showFeedback" fxLayout="row">
             <mat-form-field appearance="outline" class="full-field">
-              <mat-label class="answer">
-                {{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}
-              </mat-label>
               <input type="text" matInput formControlName="feedback">
             </mat-form-field>
           </div>
