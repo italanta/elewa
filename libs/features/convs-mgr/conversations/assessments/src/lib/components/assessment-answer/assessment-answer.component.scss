@@ -12,6 +12,10 @@
     width: 0.6rem;
     margin-bottom: 1.25rem;
     border-radius: 50%;
+
+    &.none {
+      opacity: 0;
+    }
   }
 }
 
@@ -26,7 +30,7 @@ mat-label.answer {
 
   .feedback-item {
     display: grid;
-    min-width: 100%;
+    min-width: 97.5%;
     gap: 0.2rem;
 
     .feedback-checkbox {
