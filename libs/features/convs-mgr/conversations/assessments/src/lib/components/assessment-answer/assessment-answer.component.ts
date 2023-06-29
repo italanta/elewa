@@ -14,9 +14,15 @@ export class AssessmentAnswerComponent  {
 
   @Output() deleteChoice = new EventEmitter<number>();
 
+  showFeedback = false;
+
   correct = AssessmentOptionValue.Correct;
   wrong = AssessmentOptionValue.Wrong;
   fiftyFifty = AssessmentOptionValue.FiftyFifty;
+
+  setFeedback() {
+    this.showFeedback = !this.showFeedback;
+  }
 
   delete() {
     this.deleteChoice.emit(this.answerFormGroupName);
