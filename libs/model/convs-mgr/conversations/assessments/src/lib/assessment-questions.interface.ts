@@ -13,6 +13,7 @@ export interface AssessmentQuestionOptions {
   id: string;
   text: string;
   accuracy: AssessmentOptionValue;
+  feedback: string;
 }
 
 export interface AssessmentFeedBack {
