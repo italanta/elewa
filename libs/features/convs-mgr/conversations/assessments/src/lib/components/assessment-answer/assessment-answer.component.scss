@@ -1,11 +1,42 @@
-.circle{
+.answer-container {
+  margin-bottom: 1rem;
+}
+
+.circle-wrapper {
+  display: flex;
+  align-items: center;
+
+  .circle {
     border: 0.04rem solid var(--convs-mgr-color-primary-grey);
     height: 0.6rem;
     width: 0.6rem;
     margin-bottom: 1.25rem;
     border-radius: 50%;
+  }
 }
 
-mat-label.answer{
-    font-size: 0.85rem;
+mat-label.answer {
+  font-size: 0.85rem;
+}
+
+.feedback {
+  display: flex;
+  align-items: baseline;
+  gap: 1%;
+
+  .feedback-item {
+    display: grid;
+    min-width: 100%;
+    gap: 0.2rem;
+
+    .feedback-checkbox {
+      display: flex;
+      gap: 0.2rem;
+      align-items: center;
+  
+      .title {
+        font-size: 0.9rem;
+      }
+    }
+  }
 }
