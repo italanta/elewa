@@ -69,14 +69,32 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       const data = this.filterData(results);
       this.itemsLength = data.length;
 
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
+      this.initDataSource(data);
       this.computeScores();
       this._loadChart();
     });
   };
+
+  private initDataSource(data:EndUserDetails[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.sortingDataAccessor = (endUser, property) => {
+      switch(property) {
+        case 'phoneNumber': 
+          return endUser.user.phoneNumber;
+        case 'startedOn': 
+          return endUser.selectedAssessmentCursor?.startedOn;
+        case 'score': 
+          return endUser.selectedAssessmentCursor?.score;
+        case 'finishedOn': 
+          return endUser.selectedAssessmentCursor?.finishedOn;
+        default:
+          return endUser[property];
+      }
+    };
+
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
   private _loadChart() {
     // don't generate graph if no data is present
@@ -115,9 +133,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
           tooltip: {
             callbacks: {
               label(context) {
-                const sum = context.dataset.data.reduce((sum, value) => {
-                  return sum + value;
-                });
+                const sum = context.dataset.data.reduce((sum, value) => sum + value);
 
                 const value = context.raw as number;
                 const percentage = Math.round((value / sum) * 100);
@@ -172,7 +188,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     if (!timeStamp) return 'In progress';
     const date = new Date(timeStamp.seconds * 1000);
 
-    const year = `${date.getDate()}/${(date.getMonth() + 1)}/${(date.getFullYear())}`;
+    const year = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     return  `${year} ${time}`;
   }
