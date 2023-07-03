@@ -90,7 +90,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
           label: 'learners',
           data: [this.passedCount, this.averageCount, this.inProgressCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
-            'rgb(13, 138, 77)',
+            'rgb(0, 144, 0)',
             'rgb(100, 24, 195)',
             'rgb(2, 179, 254)',
             'rgb(255, 171, 45)',
@@ -105,7 +105,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         normalized: true,
         plugins: {
           title: {
-            display: true,
+            display: false,
             text: `${this._modifyTitle(this.assessment.title)} Assessment Results`,
           },
           legend: {
@@ -166,7 +166,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     return  year + ' ' + time;
   }
 
-  private _modifyTitle(title: string) {
+   _modifyTitle(title: string) {
     const firstChar = title.charAt(0).toUpperCase();
     const restChars = title.slice(1).toLowerCase();
 
