@@ -195,6 +195,12 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
       }));
   }
   
+  blocksInCategory(category: string, blocks: StoryBlock[]): boolean {
+    return blocks.some((block: StoryBlock) => {
+      return block.blockCategory === category;
+    });
+  }
+
   filterBlocks(event: any) {
     this.filterInput$$.next(event.target.value);
   }
