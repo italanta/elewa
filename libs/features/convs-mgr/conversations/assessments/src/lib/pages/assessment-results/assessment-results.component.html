@@ -83,7 +83,7 @@
     <div class="table-wrapper">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
         <ng-container matColumnDef="index">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="#" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NO' | transloco }}">#</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="index" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-NO' | transloco }}">#</th>
           <td mat-cell *matCellDef="let i=index">{{ i + 1 }}</td>
         </ng-container>
 
@@ -95,7 +95,7 @@
         </ng-container>
 
         <ng-container matColumnDef="phone">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-PHONE-NO' | transloco }}">
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phoneNumber" sortActionDescription="{{'ASSESSMENTS.RESULTS.ACCESSIBILITY.SORT-BY-PHONE-NO' | transloco }}">
             {{ 'ASSESSMENTS.RESULTS.TABLE-HEADER.PHONE-NO' | transloco }}
           </th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.user.phoneNumber }}</td>
