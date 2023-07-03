@@ -41,6 +41,7 @@
     "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
     "firebase-tools": "^11.19.0",
+    "interactjs": "^1.10.17",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "ng-intercom": "^8.0.2",
