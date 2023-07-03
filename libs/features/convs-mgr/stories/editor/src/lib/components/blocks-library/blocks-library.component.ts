@@ -34,7 +34,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   @Input() frame: StoryEditorFrame;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  inputText = true
+  filteredBlocks: StoryBlock[] = [];
 
   blockTemplates: StoryBlock[] = [
     { id: 'input-message-block', type: StoryBlockTypes.TextMessage, message: 'Message', blockIcon: this.getBlockIcon(StoryBlockTypes.TextMessage), blockCategory: 'messages-block' } as TextMessageBlock,
@@ -186,31 +186,16 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   //A function that subscribes to when the search control changes and filters the blocks components list
   filterBlockTemplates() {
     this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
-    .pipe(map(([filter, blocksArray]) => {
-      const filteredBlocks = blocksArray.filter((block: StoryBlock) => {
-        return block.message?.toString().toLowerCase().includes(filter);
-      });
-
-      // Check if any of the filtered blocks have a message that matches the filter
-      const hasMatchingMessage = filteredBlocks.some((block: StoryBlock) => {
-        return block.message?.toString().toLowerCase().includes(filter);
-      });
-
-      // Set inputText to true if there is at least one matching message
-      this.inputText = hasMatchingMessage;
-
-      return filteredBlocks;
-    }));
-  }
-
-  hasMatchingBlocks(category: string, blocks: StoryBlock[]): boolean {
-    return blocks.some((block: StoryBlock) => {
-      return block.blockCategory === category && block.message?.toString().toLowerCase().includes(this.filterInput$$.getValue());
-    });
+      .pipe(map(([filter, blocksArray]) => {
+        this.filteredBlocks = blocksArray.filter((block: StoryBlock) => {
+          return block.message?.toString().toLowerCase().includes(filter);
+        });
+  
+        return this.filteredBlocks;
+      }));
   }
   
   filterBlocks(event: any) {
-    this.inputText = false
     this.filterInput$$.next(event.target.value);
   }
 
