@@ -1,21 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 
-import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
+import { Observable, map, switchMap, tap } from 'rxjs';
 import { TranslateService } from '@ngfi/multi-lang';
+import { __DateFromStorage } from '@iote/time';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-
+import { EndUserDetails, EndUserService } from '@app/state/convs-mgr/end-users';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
-import { __DateFromStorage } from '@iote/time';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { __DateFromStorage } from '@iote/time';
   templateUrl: './assessment-list.component.html',
   styleUrls: ['./assessment-list.component.scss'],
 })
-export class AssessmentListComponent implements OnInit{
+export class AssessmentListComponent implements OnInit, OnDestroy {
   assessments$: Observable<Assessment[]>;
 
   assessmentsColumns = ['num', 'title', 'createdOn', 'inProgress', 'responses', 'actions'];
@@ -31,6 +32,8 @@ export class AssessmentListComponent implements OnInit{
   dataSource: AssessmentDataSource;
 
   dataFound = true;
+
+  private _sBs = new SubSink();
 
   @ViewChild(MatSort) set matSort(sort: MatSort){
     this.dataSource.sort = sort;
@@ -40,15 +43,52 @@ export class AssessmentListComponent implements OnInit{
     this.dataSource.paginator = paginator;
   }
 
-  constructor(private _assessments: AssessmentService,
-              private _dialog: MatDialog,
-              private _liveAnnounce: LiveAnnouncer,
-              private _translate: TranslateService,
-              private _router: Router){}
+  constructor(
+    private _assessments: AssessmentService,
+    private _endUserService: EndUserService,
+    private _dialog: MatDialog,
+    private _liveAnnounce: LiveAnnouncer,
+    private _translate: TranslateService,
+    private _router: Router
+  ){}
 
   ngOnInit(): void {
     this.assessments$ = this._assessments.getAssessments$();
     this.dataSource = new AssessmentDataSource(this.assessments$);
+    this.getMetrics();
+  }
+
+  getMetrics() {
+    this._sBs.sink = this._endUserService
+      .getUserDetailsAndTheirCursor()
+      .pipe(
+        switchMap((endUsers) => {
+          return this._assessments.getAssessments$().pipe(
+            map((assessments) => {
+              return assessments.map((assessment) => {
+                return (assessment.metrics = this.computeMetrics(endUsers,assessment));
+              });
+            })
+          );
+        })
+      )
+      .subscribe();
+  }
+
+  computeMetrics(endUsers: EndUserDetails[], assessment: Assessment) {
+    let inProgress = 0;
+    let completedRes = 0;
+
+    endUsers.map((user) => {
+      if (!user.cursor[0].assessmentStack) return;
+
+      const assessExists = user.cursor[0].assessmentStack.find((assess) => assess.assessmentId === assessment.id);
+
+      if (!assessExists) return 
+      assessExists.finishedOn ? completedRes += 1 : inProgress += 1
+    });
+
+    return { inProgress, completedRes }
   }
 
   openAssessment(assessmentId: string) {
@@ -88,5 +128,9 @@ export class AssessmentListComponent implements OnInit{
       data: { assessment },
       panelClass: 'delete-assessment-container',
     });
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe();
   }
 }
