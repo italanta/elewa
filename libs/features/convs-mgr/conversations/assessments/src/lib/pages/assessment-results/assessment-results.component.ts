@@ -147,6 +147,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /** Returns a list of users that have attempted the assessment */
   filterData(results: EndUserDetails[]) {
     const data = results.filter(user => {
       if (!user.cursor[0].assessmentStack) return false
