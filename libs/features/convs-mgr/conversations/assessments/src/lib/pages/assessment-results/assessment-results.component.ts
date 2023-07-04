@@ -241,6 +241,10 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     this._router.navigate(['/assessments'])
   }
 
+  edit() {
+    this._router.navigate(['/assessments', this.assessment.id], { queryParams: { mode: 'edit' }})
+  }
+
   ngOnDestroy() {
     this._sBs.unsubscribe();
     this.chart?.destroy();
