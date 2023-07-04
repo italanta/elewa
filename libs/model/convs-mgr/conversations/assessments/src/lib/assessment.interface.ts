@@ -9,6 +9,12 @@ export interface Assessment extends Story {
 
     /** Differentiate between published assessment and non published ones */
     isPublished?: boolean
+    metrics?: AssessmentMetrics
+}
+
+export interface AssessmentMetrics {
+    inProgress: number,
+    completedRes?: number
 }
 
 export interface AssessmentConfiguration{
