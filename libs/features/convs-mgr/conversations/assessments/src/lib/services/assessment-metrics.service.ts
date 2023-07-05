@@ -38,6 +38,7 @@ export class AssessmentMetricsService {
 
     return {
       data,
+      scores: this.scores,
       assessmentMetrics: {
         inProgress: this.inProgressCount,
         completedRes: (this.averageCount + this.belowAverageCount + this.failedCount + this.passedCount) 
@@ -78,5 +79,6 @@ export class AssessmentMetricsService {
     this.averageCount = 0;
     this.inProgressCount = 0;
     this.belowAverageCount = 0;
+    this.scores = []
   }
 }

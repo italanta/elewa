@@ -16,7 +16,7 @@ import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
 import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
 
-import { AssessmentMetricsService } from '../../services/assessment-details.service';
+import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
 
 @Component({
   selector: 'app-assessment-results',
@@ -34,11 +34,9 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   assessmentResults = ['index', 'name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
   pageTitle: string;
 
-  scores: number[] = [];
   highestScore: number;
   lowestScore: number;
   averageScore: number | string;
-
   totalQuestions: number;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -69,10 +67,10 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
 
           return this._endUserService.getUserDetailsAndTheirCursor().pipe(
             map((endUsers) => {
-              const { data, chartData } = this._aMetrics.computeMetrics(endUsers,assessment);
+              const { data, chartData, scores } = this._aMetrics.computeMetrics(endUsers,assessment);
               this.itemsLength = data.length;
               this.initDataSource(data);
-              this.computeScores();
+              this.computeScores(scores);
               this._loadChart(chartData);
             })
           );
@@ -154,14 +152,14 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     });
   }
 
-  computeScores() {
-    if (!this.scores.length) return;
+  computeScores(scores:number[]) {
+    if (!scores.length) return;
 
-    this.highestScore = Math.max(...this.scores);
-    this.lowestScore = Math.min(...this.scores);
+    this.highestScore = Math.max(...scores);
+    this.lowestScore = Math.min(...scores);
 
-    const sum = this.scores.reduce((prev, next) => prev + next);
-    this.averageScore = (sum/this.scores.length).toFixed(2);
+    const sum = scores.reduce((prev, next) => prev + next);
+    this.averageScore = (sum/scores.length).toFixed(2);
   };
 
   sortData(sortState: Sort) {
