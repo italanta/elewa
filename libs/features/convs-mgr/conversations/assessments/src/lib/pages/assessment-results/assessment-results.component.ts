@@ -59,22 +59,42 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => this.assessment = assess);
-    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
-    this.pageTitle = `Assessments / ${this.assessment?.title} / results`;
+    this._sBs.sink = this._activeAssessment$$.get().subscribe((assess) => {
+      this.assessment = assess
+      this.pageTitle = `Assessments / ${assess.title} / results`;
+    });
 
+    this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
     this._sBs.sink = this._endUserService.getUserDetailsAndTheirCursor().subscribe((results) => {
       const data = this.filterData(results);
       this.itemsLength = data.length;
 
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-
+      this.initDataSource(data);
       this.computeScores();
       this._loadChart();
     });
   };
+
+  private initDataSource(data:EndUserDetails[]) {
+    this.dataSource = new MatTableDataSource(data);
+    this.dataSource.sortingDataAccessor = (endUser, property) => {
+      switch(property) {
+        case 'phoneNumber': 
+          return endUser.user.phoneNumber;
+        case 'startedOn': 
+          return endUser.selectedAssessmentCursor?.startedOn;
+        case 'score': 
+          return endUser.selectedAssessmentCursor?.score;
+        case 'finishedOn': 
+          return endUser.selectedAssessmentCursor?.finishedOn;
+        default:
+          return endUser[property];
+      }
+    };
+
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
   private _loadChart() {
     // don't generate graph if no data is present
@@ -87,7 +107,6 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
       data: {
         labels: ['Pass (75-100)','Average (50-74)', 'In Progress', 'Below Average (35-49)','Fail (0-34)'],
         datasets: [{
-          label: 'learners',
           data: [this.passedCount, this.averageCount, this.inProgressCount, this.belowAverageCount, this.failedCount],
           backgroundColor: [
             'rgb(0, 144, 0)',
@@ -104,15 +123,23 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
         responsive: true,
         normalized: true,
         plugins: {
-          title: {
-            display: false,
-            text: `${this._modifyTitle(this.assessment.title)} Assessment Results`,
-          },
           legend: {
             position: 'right',
             labels : {
               usePointStyle: true,
               padding: 25,
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label(context) {
+                const sum = context.dataset.data.reduce((sum, value) => sum + value);
+
+                const value = context.raw as number;
+                const percentage = Math.round((value / sum) * 100);
+  
+                return `learners ${value} (${percentage}%)`;
+              }
             }
           }
         },
@@ -161,12 +188,12 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     if (!timeStamp) return 'In progress';
     const date = new Date(timeStamp.seconds * 1000);
 
-    const year = `${date.getDate()}/${(date.getMonth() + 1)}/${(date.getFullYear())}`;
+    const year = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    return  year + ' ' + time;
+    return  `${year} ${time}`;
   }
 
-   _modifyTitle(title: string) {
+  modifyTitle(title: string) {
     const firstChar = title.charAt(0).toUpperCase();
     const restChars = title.slice(1).toLowerCase();
 
