@@ -17,7 +17,7 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
-import { AssessmentMetricsService } from '../../services/assessment-details.service';
+import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
 
 
 @Component({
