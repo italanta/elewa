@@ -17,6 +17,7 @@ import { AssessmentService } from '@app/state/convs-mgr/conversations/assessment
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 import { AssessmentDataSource } from '../../data-source/assessment-data-source.class';
+import { AssessmentMetricsService } from '../../services/assessment-details.service';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    private _aMetrics: AssessmentMetricsService,
     private _assessments: AssessmentService,
     private _endUserService: EndUserService,
     private _dialog: MatDialog,
@@ -66,7 +68,7 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
           return this._assessments.getAssessments$().pipe(
             map((assessments) => {
               return assessments.map((assessment) => {
-                return (assessment.metrics = this.computeMetrics(endUsers,assessment));
+                return (assessment.metrics = this._aMetrics.computeMetrics(endUsers,assessment).assessmentMetrics);
               });
             })
           );
