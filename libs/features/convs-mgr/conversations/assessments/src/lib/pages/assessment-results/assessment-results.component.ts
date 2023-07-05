@@ -135,7 +135,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'doughnut',
       data: {
-        labels: ['No Data Available'],
+        labels: ['No Metrics Available'],
         datasets: [{
           data: [100],
           backgroundColor: ['rgba(128, 128, 128, 1)'],
