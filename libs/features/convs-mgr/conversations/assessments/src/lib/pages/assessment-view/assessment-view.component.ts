@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -43,7 +44,8 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     private _assessmentForm: AssessmentFormService,
     private _assessmentQuestion: AssessmentQuestionService,
     private _assessToggle: AssessToggleStateService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar, 
+    private _route:ActivatedRoute
   ) {}
 
   ngOnInit(): void
@@ -58,7 +60,17 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
     this.assessment$ = this._assessmentService.getActiveAssessment$();
     this.questions$ = this._assessmentQuestion.getQuestions$();
     this.preloadQuestions();
-    this.assessmentMode = AssessmentMode.View;
+
+    this._sbS.sink = this._route.queryParamMap.subscribe(params => {
+      const mode = params.get('mode');
+
+      if (mode === 'edit') {
+        this.assessmentMode = AssessmentMode.Edit;
+        this._assessToggle.hidePublish();
+      } else {
+        this.assessmentMode = AssessmentMode.View;
+      }
+    });
   }
 
   initPage()
