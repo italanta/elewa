@@ -34,6 +34,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   @Input() frame: StoryEditorFrame;
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  //filterInput$$ = '';
   filteredBlocks: StoryBlock[] = [];
 
   blockTemplates: StoryBlock[] = [
@@ -193,12 +194,6 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   
         return this.filteredBlocks;
       }));
-  }
-  
-  blocksInCategory(category: string, blocks: StoryBlock[]): boolean {
-    return blocks.some((block: StoryBlock) => {
-      return block.blockCategory === category;
-    });
   }
 
   filterBlocks(event: any) {
