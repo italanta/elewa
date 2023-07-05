@@ -28,6 +28,8 @@ import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
+import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
+
 
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { TrackCursorDirective } from './directives/track-cursor.directive';
     StoryEditorFrameComponent,
     BlocksLibraryComponent,
     PinchZoomDirective,
-    TrackCursorDirective
+    TrackCursorDirective,
+    BlockCategoryPipe,
   ],
 
   providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],
