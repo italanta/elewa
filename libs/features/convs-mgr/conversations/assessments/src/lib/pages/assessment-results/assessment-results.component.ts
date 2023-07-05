@@ -17,6 +17,7 @@ import { EndUserDetails } from '@app/state/convs-mgr/end-users';
 import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
+import { pieChartOptions } from '../../utils/chart.util';
 
 @Component({
   selector: 'app-assessment-results',
@@ -103,9 +104,12 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   private _loadChart(chartData: number[]) {
     // don't generate graph if no data is present
     const isData = chartData.find(score => score > 1)
-    if (!isData) return;
 
     if (this.chart) this.chart.destroy();
+
+    if (!isData) {
+      return this._drawEmptyChart();
+    };
 
     return new Chart('chart-ctx', {
       type: 'pie',
@@ -123,33 +127,23 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
           hoverOffset: 4
         }]
       },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        normalized: true,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels : {
-              usePointStyle: true,
-              padding: 25,
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label(context) {
-                const sum = context.dataset.data.reduce((sum, value) => sum + value);
-
-                const value = context.raw as number;
-                const percentage = Math.round((value / sum) * 100);
-  
-                return `learners ${value} (${percentage}%)`;
-              }
-            }
-          }
-        },
-      },
+      options: pieChartOptions
     });
+  }
+
+  private _drawEmptyChart() {
+    return new Chart('chart-ctx', {
+      type: 'doughnut',
+      data: {
+        labels: ['No Data Available'],
+        datasets: [{
+          data: [100],
+          backgroundColor: ['rgba(128, 128, 128, 1)'],
+          hoverOffset: 4
+        }]
+      },
+      options: pieChartOptions
+    })
   }
 
   computeScores(scores:number[]) {
