@@ -6,12 +6,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 
 import { SubSink } from 'subsink';
-import { Observable, map, switchMap, tap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { TranslateService } from '@ngfi/multi-lang';
 import { __DateFromStorage } from '@iote/time';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
-import { EndUserDetails, EndUserService } from '@app/state/convs-mgr/end-users';
+import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
@@ -75,22 +75,6 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
-  }
-
-  computeMetrics(endUsers: EndUserDetails[], assessment: Assessment) {
-    let inProgress = 0;
-    let completedRes = 0;
-
-    endUsers.map((user) => {
-      if (!user.cursor[0].assessmentStack) return;
-
-      const assessExists = user.cursor[0].assessmentStack.find((assess) => assess.assessmentId === assessment.id);
-
-      if (!assessExists) return 
-      assessExists.finishedOn ? completedRes += 1 : inProgress += 1
-    });
-
-    return { inProgress, completedRes }
   }
 
   openAssessment(assessmentId: string) {
