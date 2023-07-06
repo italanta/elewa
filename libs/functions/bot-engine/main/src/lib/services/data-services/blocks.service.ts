@@ -1,10 +1,11 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { StoryBlock, isMediaBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, StoryBlockTypes, isMediaBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { BotDataService } from './data-service-abstract.class';
 import { ConnectionsDataService } from './connections.service';
+import { JumpBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 
 /**
@@ -55,13 +56,34 @@ export class BlockDataService extends BotDataService<StoryBlock> {
   }
 
   async getAllMediaBlocks(orgId: string, storyId: string): Promise<StoryBlock[]> {
+
+    let jumpBlocks: JumpBlock[] = [];
+    let mediaBlocks: StoryBlock[] = [];
+    let allBlocks: StoryBlock[] = [];
+
     this._docPath = `orgs/${orgId}/stories/${storyId}/blocks`;
 
-    const mediaBlocks = (await this.getDocuments(this._docPath))
-                          .filter(block => isMediaBlock(block.type));
+    allBlocks = await this.getDocuments(this._docPath)
 
-    // TODO: Consider media blocks of child stories
-    // Can follow the jump blocks on this
+    mediaBlocks = allBlocks.filter(block => isMediaBlock(block.type));
+
+    jumpBlocks = allBlocks.filter(block => block.type === StoryBlockTypes.JumpBlock);
+
+
+    // Go through the jump blocks and get the media blocks from the linked stories
+    while (jumpBlocks.length > 0) {
+      const jumpBlock = jumpBlocks.shift();
+
+      if(jumpBlock.targetStoryId) {
+        this._docPath = `orgs/${orgId}/stories/${jumpBlock.targetStoryId}/blocks`;
+
+        allBlocks = await this.getDocuments(this._docPath);
+  
+        mediaBlocks = mediaBlocks.concat(allBlocks.filter(block => isMediaBlock(block.type)));
+  
+        jumpBlocks = jumpBlocks.concat(allBlocks.filter(block => block.type === StoryBlockTypes.JumpBlock));
+      }
+    }
 
     return mediaBlocks;
   }
