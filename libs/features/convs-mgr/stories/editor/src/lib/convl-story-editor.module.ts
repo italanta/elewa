@@ -19,6 +19,7 @@ import { StoryEditorFrameComponent } from './components/editor-frame/editor-fram
 import { BlocksLibraryComponent } from './components/blocks-library/blocks-library.component';
 
 import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
+import { GroupedBlocksComponent } from './components/grouped-blocks/grouped-blocks.component';
 
 import { StoryEditorInitialiserService } from './providers/story-editor-initialiser.service';
 import { ManageChannelStoryLinkService } from './providers/manage-channel-story-link.service';
@@ -28,6 +29,7 @@ import { AddBotToChannelModal } from './modals/add-bot-to-channel-modal/add-bot-
 import { ConvlStoryEditorRouterModule } from './convs-story-editor.router.module';
 import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
+
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 
 
@@ -45,6 +47,7 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     StoryEditorPageComponent,
     AddBotToChannelModal,
     StoryEditorFrameComponent,
+    GroupedBlocksComponent,
     BlocksLibraryComponent,
     PinchZoomDirective,
     TrackCursorDirective,
