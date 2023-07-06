@@ -19,5 +19,7 @@ export * from './lib/handlers/move-chat.handler';
 export * from './lib/services/data-services/cursor.service';
 export * from './lib/services/data-services/variables.service';
 export * from './lib/services/data-services/data-service-abstract.class';
+export * from './lib/services/data-services/blocks.service';
+export * from './lib/services/data-services/connections.service';
 export * from './lib/services/data-services/channel-info.service';
 export * from './lib/services/variable-injection/mail-merge-variables.service';
