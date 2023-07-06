@@ -19,7 +19,7 @@ export interface FileMessageBlock extends StoryBlock
    * 
    * This is the url we get back after we upload the file to whatsapp 
    */
-  whatsappMediaUrl?: string;
+  whatsappMediaId?: string;
   
 }
 
