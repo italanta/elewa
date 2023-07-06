@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as path from 'path';
-import * as fs from 'fs';
+import * as fs from 'fs/promises';
+import {createReadStream} from 'fs';
 import { tmpdir } from 'os';
 import * as mime from 'mime-types';
 import * as FormData from 'form-data';
@@ -41,9 +42,11 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     {
       if(block.fileSrc)
       {
+        let mediaId: string;
+
         const filename = await this._downloadFromFirebaseURL(block.fileSrc);
 
-        const mediaId = await this._uploadMediaToWhatsApp(this.channel, filename);
+        if(filename) mediaId = await this._uploadMediaToWhatsApp(this.channel, filename);
 
         if(mediaId) {
           block.whatsappMediaId = mediaId;
@@ -74,6 +77,8 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
    */
   private async _downloadFromFirebaseURL(URL: string)
   {
+    let tempFilePath: string;
+
     let extension: string;
     try {
       const response = await axios.get(URL, {
@@ -92,19 +97,19 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 
       const filename = `${Date.now()}${extension}`
 
-      const tempFilePath = path.join(tmpdir(), (filename));
+      tempFilePath = path.join(tmpdir(), (filename));
   
       // Save the downloaded file or perform other operations
       // For example, you can use fs.writeFile to save the file to disk:
-      fs.writeFile(tempFilePath, response.data, (error) => {
-        if (error) {
-          this._tools.Logger.error(()=> `Error saving file: ${error}`);
-        } else {
-          this._tools.Logger.log(()=> `File saved: ${tempFilePath}`);
-          return tempFilePath;
-        }
-      });
-      return tempFilePath;
+
+      try {
+        await fs.writeFile(tempFilePath, response.data)
+        this._tools.Logger.log(()=> `File saved: ${tempFilePath}`);
+
+        return tempFilePath;
+      } catch (error) {
+        this._tools.Logger.error(()=> `Error saving file: ${error}`);
+      }
     } catch (error) {
       this._tools.Logger.error(()=> `Error downloading file: ${error}`);
     }
@@ -124,7 +129,8 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 
       const formData = new FormData();
 
-      const rawData = fs.createReadStream(filepath)
+      const rawData = createReadStream(filepath)
+      
       formData.append('file', rawData);
       formData.append('type', type);
       formData.append('messaging_product', messagingProduct);
