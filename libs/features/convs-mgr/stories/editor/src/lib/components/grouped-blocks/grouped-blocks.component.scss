@@ -1,0 +1,37 @@
+.blocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+
+  .blocks-main {
+    height: 60px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    background-color: #fff;
+    box-shadow: 0px 10px -14px 14px #fff;
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  .blocks-main:hover {
+    background-color: #fbc113 !important;
+
+    #icons {
+      color: white !important;
+    }
+  }
+
+  .block-messages {
+    font-size: 0.7rem;
+    text-align: center;
+    white-space: normal;
+    word-break: normal;
+    height: max-content;
+    font-weight: 500;
+    color: slategray;
+    margin: 0;
+  }
+}
