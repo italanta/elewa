@@ -17,8 +17,10 @@ import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.ut
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
 
 /**
- * Receives a message, through a channel registered on the WhatsApp Business API,
- *    handles it, and potentially responds to it.
+ * Uploads media to WhatsApp and updates the block with the media ID.
+ * 
+ * This improves the performance of the bot as it does not need to upload 
+ *      the media to WhatsApp every time a media block is sent.
  */
 export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationChannel, RestResult>
 {
@@ -35,8 +37,10 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     const connDataService = new ConnectionsDataService(this.channel, tools);
     const blockDataService = new BlockDataService(this.channel, connDataService, this._tools);
 
+    // Get all media blocks from the story and nested stories
     const mediaBlocks = (await blockDataService.getAllMediaBlocks(this.channel.orgId, this.channel.defaultStory)) as FileMessageBlock[];
 
+    // Upload media to WhatsApp and update the block with the media ID
     for(const block of mediaBlocks)
     
     {
@@ -44,10 +48,13 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       {
         let mediaId: string;
 
+        // Download the file from Firebase Storage
         const filename = await this._downloadFromFirebaseURL(block.fileSrc);
 
+        // Upload the file to WhatsApp
         if(filename) mediaId = await this._uploadMediaToWhatsApp(this.channel, filename);
 
+        // Update the block with the media ID
         if(mediaId) {
           block.whatsappMediaId = mediaId;
 
@@ -59,14 +66,6 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     }
 
     return {status: 200} as RestResult;
-  }
-
-  /**
-   * Method which checks if the whatsapp data object is empty.
-   *  This means the webhook has not yet been verified. */
-  private _dataResIsEmpty(data) 
-  {
-    return Object.keys(data).length === 0;
   }
 
   /**
@@ -130,7 +129,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       const formData = new FormData();
 
       const rawData = createReadStream(filepath)
-      
+
       formData.append('file', rawData);
       formData.append('type', type);
       formData.append('messaging_product', messagingProduct);
