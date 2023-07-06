@@ -6,10 +6,11 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 })
 export class BlockCategoryPipe implements PipeTransform {
 
-  transform(blocks: StoryBlock[], category: string, filter: string): boolean {
-     const filteredBlocks = blocks.filter((block: StoryBlock) => {
-      return block.blockCategory === category && block.message?.toString().toLowerCase().includes(filter);
-     })
-     return filteredBlocks.length > 0
-  }  
+  transform(blocks: StoryBlock[], category: string): StoryBlock[] {
+    const groupedBlocks = blocks.filter((block: StoryBlock) => {
+      return block.blockCategory === category;
+    });
+
+    return groupedBlocks
+  }
 }
