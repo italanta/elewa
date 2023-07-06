@@ -1,105 +1,69 @@
 .nav {
-	max-width: 100%;
-	max-height: calc(100vh - 64px);
-	padding:10px;
-	margin-bottom: 20%;
-	overflow-y: hidden;
-	scrollbar-gutter: stable both-edges;
-  background-color: #F0EFF3;
+  max-width: 100%;
+  max-height: calc(100vh - 64px);
+  padding: 10px;
+  margin-bottom: 20%;
+  overflow-y: hidden;
+  scrollbar-gutter: stable both-edges;
+  background-color: #f0eff3;
   color: slategray;
-
 }
 
-.nav:hover{
-	overflow-y: scroll;
-	scrollbar-gutter: stable both-edges;
+.nav:hover {
+  overflow-y: scroll;
+  scrollbar-gutter: stable both-edges;
 }
 
 ::-webkit-scrollbar {
-	width: 5px;
-  }
+  width: 5px;
+}
 
 .search-input {
   width: 100%;
 }
 
-.search, .search input {
-	max-width: 100%;
-}
-.block-wrapper{
-	height: max-content;
+.search,
+.search input {
+  max-width: 100%;
 }
 
-.block-list{
-  margin-bottom: 1rem;
-  h6{
-    margin-bottom: .4rem;
+.block-list {
+  h6 {
+    margin-bottom: 0.4rem;
     font-size: 0.8rem;
     margin-top: 0px;
+
+    &:not(.first-title) {
+      margin-top: 1rem;
+    }
   }
-  .blocks{
+
+  .blocks {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    .blocks-main {
-      height: 60px;
-      border-radius: 5px;
-      word-wrap: break-word;
-      background-color: #FFF;
-      box-shadow: 0px 10px -14px 14px #FFF;
+
+    #icons {
+      color: slategray;
+      font-weight: 900;
+      align-items: center;
+
+      fill: white;
+      font-size: large;
     }
-    p{
-      padding: 0;
-      margin: 0;
-    }
-
-    .blocks-main:hover {
-      background-color: #FBC113 !important;
-
-      #icons {
-        color: white !important;
-      }
-    }
-
-
-#icons {
-	color: slategray;
-	font-weight: 900;
-	align-items: center;
-
-	fill: white;
-	font-size: large;
-
-}
-
-.block-messages {
-	font-size: 0.7rem;
-	text-align: center;
-	white-space:normal;
-	word-break:normal;
-	height: max-content;
-	font-weight: 500;
-	color: slategray;
-  margin: 0;
-}
-
-
   }
 }
 
-
-
-
-
 ::ng-deep .mat-mdc-form-field {
-	max-width: 100%;
+  max-width: 100%;
 }
 
-::ng-deep .mat-mdc-form-field-infix{
+::ng-deep .mat-mdc-form-field-infix {
   min-height: 50px !important;
 }
 
-::ng-deep .mat-mdc-form-field-icon-prefix>.mat-icon, .mat-mdc-form-field-icon-suffix>.mat-icon {
+::ng-deep .mat-mdc-form-field-icon-prefix > .mat-icon,
+.mat-mdc-form-field-icon-suffix > .mat-icon {
   padding-right: 2px !important;
 }
 
@@ -115,7 +79,3 @@
   border: 2px solid var(--convs-mgr-color-text-white) !important;
   border-left: none !important;
 }
-
-
-
-

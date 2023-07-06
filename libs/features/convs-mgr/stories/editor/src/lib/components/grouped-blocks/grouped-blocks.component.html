@@ -1,1 +1,13 @@
-<p>grouped-blocks works!</p>
+<div class="blocks">
+  <ng-container *ngFor="let block of groupedBlocks">
+    <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
+      <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
+        <i class="{{ block.blockIcon }}" id="icons"></i>
+      </div>
+      <p class="block-messages">
+        {{ block.message }}
+      </p>
+    </div>
+  </ng-container>
+</div>
+
