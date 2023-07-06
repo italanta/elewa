@@ -1,6 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, isMediaBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { BotDataService } from './data-service-abstract.class';
@@ -52,5 +52,23 @@ export class BlockDataService extends BotDataService<StoryBlock> {
     const firstBlock = await this.getBlockById(firstConnection.targetId, orgId,storyId);
 
     return firstBlock;
+  }
+
+  async getAllMediaBlocks(orgId: string, storyId: string): Promise<StoryBlock[]> {
+    this._docPath = `orgs/${orgId}/stories/${storyId}/blocks`;
+
+    const mediaBlocks = (await this.getDocuments(this._docPath))
+                          .filter(block => isMediaBlock(block.type));
+
+    // TODO: Consider media blocks of child stories
+    // Can follow the jump blocks on this
+
+    return mediaBlocks;
+  }
+
+  async updateBlock(orgId: string, storyId: string, block: StoryBlock): Promise<StoryBlock> {
+    this._docPath = `orgs/${orgId}/stories/${storyId}/blocks`;
+
+    return this.updateDocument(block, this._docPath);
   }
 }
