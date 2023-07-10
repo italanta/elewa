@@ -80,30 +80,32 @@
     <!-- Analytics section -->
     <div [routerLink]="['/analytics']" routerLinkActive #rlaAnalytics="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaAnalytics.isActive" [class.hov]="!rlaAnalytics.isActive" fxLayout="column" >
-        <div class="menu-item" [class.active]="rlaAnalytics.isActive">
+        <div *ngIf="isExpanded" class="menu-item" [class.active]="rlaAnalytics.isActive">
           <i class="fas fa-chart-bar"></i>
-          <span *ngIf="isExpanded" class="menu-item__word">
+          <span class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
           </span>
         </div>
 
-        <div *ngIf="isExpanded" [routerLink]="['/analytics/dashboard']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
-          class="child-header">
-          <div class="child-header__items">
-            <span class="child-header__word">
-              {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
-            </span>
+        <div class="category-children" *ngIf="rlaAnalytics.isActive">
+          <div *ngIf="isExpanded" [routerLink]="['/analytics/dashboard']" routerLinkActive="highlight-active"
+            [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+            class="child-header">
+            <div class="child-header__items">
+              <span class="child-header__word">
+                {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+              </span>
+            </div>
           </div>
-        </div>
-
-        <div *ngIf="isExpanded" [routerLink]="['/analytics/reports']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
-          class="child-header">
-          <div class="child-header__items">
-            <span class="child-header__word">
-              {{'PAGE-CONTENT.SIDE-MENU.REPORTS'| transloco }}
-            </span>
+  
+          <div *ngIf="isExpanded" [routerLink]="['/analytics/reports']" routerLinkActive="highlight-active"
+            [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+            class="child-header">
+            <div class="child-header__items">
+              <span class="child-header__word">
+                {{'PAGE-CONTENT.SIDE-MENU.REPORTS'| transloco }}
+              </span>
+            </div>
           </div>
         </div>
     </div>
