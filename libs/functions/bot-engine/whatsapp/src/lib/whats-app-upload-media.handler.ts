@@ -33,7 +33,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
   {
     this._tools = tools;
     this.channel = payload as WhatsAppCommunicationChannel;
-    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
+    // const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
 
     this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
 
@@ -47,10 +47,10 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     for(const block of mediaBlocks)
     {
       // Get block updated time
-      const blockUpdatedTime = __DateFromStorage(block.updatedOn);
+      // const blockUpdatedTime = __DateFromStorage(block.updatedOn);
 
       // Only upload media if the block was updated after the story was published
-      
+
       // TODO: Uncomment this when the storyPublishedTime is fixed
       // if(storyPublishedTime && blockUpdatedTime > storyPublishedTime) {
 
