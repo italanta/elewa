@@ -41,11 +41,12 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     const blockDataService = new BlockDataService(this.channel, connDataService, this._tools);
 
     // Get all media blocks from the story and nested stories
-    const mediaBlocks = (await blockDataService.getAllMediaBlocks(this.channel.orgId, this.channel.defaultStory)) as FileMessageBlock[];
+    const mediaBlocksData = (await blockDataService.getAllMediaBlocks(this.channel.orgId, this.channel.defaultStory));
 
     // Upload media to WhatsApp and update the block with the media ID
-    for(const block of mediaBlocks)
+    for(const blockData of mediaBlocksData)
     {
+      const fileBlock = blockData.data as FileMessageBlock;
       // Get block updated time
       // const blockUpdatedTime = __DateFromStorage(block.updatedOn);
 
@@ -55,23 +56,23 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       // if(storyPublishedTime && blockUpdatedTime > storyPublishedTime) {
 
       // Only upload media if the block has a file source
-      if(block.fileSrc)
+      if(fileBlock.fileSrc)
       {
         let mediaId: string;
 
         // Download the file from Firebase Storage
-        const filename = await this._downloadFromFirebaseURL(block.fileSrc);
+        const filename = await this._downloadFromFirebaseURL(fileBlock.fileSrc);
 
         // Upload the file to WhatsApp
         if(filename) mediaId = await this._uploadMediaToWhatsApp(this.channel, filename);
 
         // Update the block with the media ID
         if(mediaId) {
-          block.whatsappMediaId = mediaId;
+          fileBlock.whatsappMediaId = mediaId;
 
-          await blockDataService.updateBlock(this.channel.orgId, this.channel.defaultStory, block);
+          await blockDataService.updateBlock(this.channel.orgId, blockData.storyId, fileBlock);
 
-          this._tools.Logger.log(()=> `Block ${block.id} updated with Media ID: ${mediaId}`);
+          this._tools.Logger.log(()=> `Block ${fileBlock.id} updated with Media ID: ${mediaId}`);
         }
       }
     // }
@@ -154,6 +155,8 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
             'Authorization': `Bearer ${channel.accessToken}`,
             "Content-Type": "multipart/form-data"
           },
+          maxContentLength: Infinity,
+          maxBodyLength: Infinity
         }
       );
 
