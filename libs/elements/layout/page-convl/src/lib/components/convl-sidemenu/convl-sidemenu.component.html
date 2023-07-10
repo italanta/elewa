@@ -108,7 +108,7 @@
         </div>
     </div>
     <!-- end Analytics -->
-    
+
     <!-- Section Chats -->
 
     <div [routerLink]="['/chats']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
@@ -173,7 +173,7 @@
       <div *ngIf="rlaHome.isActive">
         <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
           class="menu-item menu-item--one">
-          <i matListIcon class="fas fa-chart-bar menu-item__tooltip"></i>
+          <i matListIcon class="fas fa-clipboard-list-check menu-item__tooltip"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
           </span>
@@ -181,6 +181,23 @@
       </div>
     </div>
     <!-- end Assessments -->
+
+    <!-- Section Learners -->
+
+    <div [routerLink]="['/learners']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
+      [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
+
+      <div *ngIf="rlaHome.isActive">
+        <div [routerLink]="['/learners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          class="menu-item menu-item--one">
+          <i matListIcon class="fas fa-users menu-item__tooltip"></i>
+          <span *ngIf="isExpanded" class="menu-item__word">
+            {{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- end Learners -->
 
     <!-- Section Sales -->
     <!-- <div *ngIf="user?.roles.admin || user?.roles.finance" [routerLink]="['/home/sales']" routerLinkActive
