@@ -31,4 +31,7 @@ export interface Story extends IObject
 
   /* type of the story */
   isAssessment?: boolean
+
+  /* time of publishing */
+  publishedOn?: Date;
 }
