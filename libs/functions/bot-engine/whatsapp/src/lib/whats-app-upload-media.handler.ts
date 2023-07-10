@@ -50,7 +50,9 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       const blockUpdatedTime = __DateFromStorage(block.updatedOn);
 
       // Only upload media if the block was updated after the story was published
-      if(storyPublishedTime && blockUpdatedTime > storyPublishedTime) {
+      
+      // TODO: Uncomment this when the storyPublishedTime is fixed
+      // if(storyPublishedTime && blockUpdatedTime > storyPublishedTime) {
 
       // Only upload media if the block has a file source
       if(block.fileSrc)
@@ -72,7 +74,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
           this._tools.Logger.log(()=> `Block ${block.id} updated with Media ID: ${mediaId}`);
         }
       }
-    }
+    // }
     }
 
     return {status: 200} as RestResult;
