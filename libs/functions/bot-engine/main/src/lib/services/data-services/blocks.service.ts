@@ -55,17 +55,24 @@ export class BlockDataService extends BotDataService<StoryBlock> {
     return firstBlock;
   }
 
-  async getAllMediaBlocks(orgId: string, storyId: string): Promise<StoryBlock[]> {
+  async getAllMediaBlocks(orgId: string, storyId: string) {
 
     let jumpBlocks: JumpBlock[] = [];
-    let mediaBlocks: StoryBlock[] = [];
+    let mediaBlocks: any[] = [];
     let allBlocks: StoryBlock[] = [];
 
     this._docPath = `orgs/${orgId}/stories/${storyId}/blocks`;
 
     allBlocks = await this.getDocuments(this._docPath)
 
-    mediaBlocks = allBlocks.filter(block => isMediaBlock(block.type) && block.deleted !== true);
+    mediaBlocks = allBlocks
+                      .filter(block => isMediaBlock(block.type) && block.deleted !== true)
+                        .map(block => {
+                          return {
+                            data: block,
+                            storyId: storyId
+                          }
+                        });
 
     jumpBlocks = allBlocks.filter(block => block.type === StoryBlockTypes.JumpBlock && block.deleted !== true);
 
@@ -93,7 +100,14 @@ export class BlockDataService extends BotDataService<StoryBlock> {
 
         // Filter out jump blocks and media blocks in the linked story
         const newJumpBlocks = linkedStoryBlocks.filter(block => this.__filterJumpBlocks(block, processedJumpBlockIds));
-        const newMediaBlocks = linkedStoryBlocks.filter(block => isMediaBlock(block.type) && block.deleted !== true);
+        const newMediaBlocks = linkedStoryBlocks
+                                .filter(block => isMediaBlock(block.type) && block.deleted !== true)
+                                    .map(block => {
+                                      return {
+                                        data: block,
+                                        storyId: jumpBlock.targetStoryId
+                                      }
+                                    });
 
         this.tools.Logger.log(() => `New Jump Blocks: ${newJumpBlocks.length}`);
         this.tools.Logger.log(() => `Old Jump Blocks: ${jumpBlocks.length}`);
