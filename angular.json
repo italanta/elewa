@@ -229,6 +229,32 @@
       "tags": []
     },
     "features-convs-mgr-home": "libs/features/convs-mgr/home",
+    "features-convs-mgr-learners": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/learners",
+      "sourceRoot": "libs/features/convs-mgr/learners/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/learners"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/learners/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/learners/**/*.ts",
+              "libs/features/convs-mgr/learners/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-stories-blocks-edit-blocks-edit": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/edit/blocks-edit",
