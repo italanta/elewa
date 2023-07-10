@@ -65,25 +65,50 @@ export class BlockDataService extends BotDataService<StoryBlock> {
 
     allBlocks = await this.getDocuments(this._docPath)
 
-    mediaBlocks = allBlocks.filter(block => isMediaBlock(block.type));
+    mediaBlocks = allBlocks.filter(block => isMediaBlock(block.type) && block.deleted !== true);
 
-    jumpBlocks = allBlocks.filter(block => block.type === StoryBlockTypes.JumpBlock);
+    jumpBlocks = allBlocks.filter(block => block.type === StoryBlockTypes.JumpBlock && block.deleted !== true);
 
+    this.tools.Logger.log(()=> `Found ${jumpBlocks.length} Jump Blocks. Will now get the media blocks from the linked stories`);
+
+    // Filter out the jump blocks that have already been processed
+    //  Because the jump blocks can be linked back to the starting story
+    //    causing an infinite loop
+    let processedJumpBlockIds = [];
 
     // Go through the jump blocks and get the media blocks from the linked stories
     while (jumpBlocks.length > 0) {
       const jumpBlock = jumpBlocks.shift();
 
-      if(jumpBlock.targetStoryId) {
-        this._docPath = `orgs/${orgId}/stories/${jumpBlock.targetStoryId}/blocks`;
+      // Add the jump block to the processed list
+      processedJumpBlockIds.push(jumpBlock.id);
 
-        allBlocks = await this.getDocuments(this._docPath);
+      if(jumpBlock.targetStoryId) {
+
+        this.tools.Logger.log(()=> `In jump block id: ${jumpBlock.id}, target story id: ${jumpBlock.targetStoryId}`);
+
+        const jumpDocPath = `orgs/${orgId}/stories/${jumpBlock.targetStoryId}/blocks`;
+
+        const linkedStoryBlocks = await this.getDocuments(jumpDocPath);
+
+        // Filter out jump blocks and media blocks in the linked story
+        const newJumpBlocks = linkedStoryBlocks.filter(block => this.__filterJumpBlocks(block, processedJumpBlockIds));
+        const newMediaBlocks = linkedStoryBlocks.filter(block => isMediaBlock(block.type) && block.deleted !== true);
+
+        this.tools.Logger.log(() => `New Jump Blocks: ${newJumpBlocks.length}`);
+        this.tools.Logger.log(() => `Old Jump Blocks: ${jumpBlocks.length}`);
   
-        mediaBlocks = mediaBlocks.concat(allBlocks.filter(block => isMediaBlock(block.type)));
+        // Add the new media blocks to the existing blocks
+        mediaBlocks = [...mediaBlocks, ...newMediaBlocks];
   
-        jumpBlocks = jumpBlocks.concat(allBlocks.filter(block => block.type === StoryBlockTypes.JumpBlock));
+        // Add the new jump blocks to the existing ones
+        jumpBlocks = [...jumpBlocks, ...newJumpBlocks];
+
+        this.tools.Logger.log(() => `Current Jump Blocks: ${jumpBlocks.length}`);
       }
     }
+
+    this.tools.Logger.log(()=> `Found ${mediaBlocks.length} Media Blocks`);
 
     return mediaBlocks;
   }
@@ -92,5 +117,9 @@ export class BlockDataService extends BotDataService<StoryBlock> {
     this._docPath = `orgs/${orgId}/stories/${storyId}/blocks`;
 
     return this.updateDocument(block, this._docPath);
+  }
+
+  private __filterJumpBlocks(block: StoryBlock, processedJumpBlocks: string[]): boolean {
+    return block.type === StoryBlockTypes.JumpBlock && block.deleted !== true && !processedJumpBlocks.includes(block.id);
   }
 }
