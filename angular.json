@@ -67,6 +67,32 @@
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
+    "features-analytics": {
+      "projectType": "library",
+      "root": "libs/features/analytics",
+      "sourceRoot": "libs/features/analytics/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/analytics"],
+          "options": {
+            "jestConfig": "libs/features/analytics/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/analytics/**/*.ts",
+              "libs/features/analytics/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-analytics-group-based-progress": {
       "projectType": "library",
       "root": "libs/features/analytics/group-based/progress",
