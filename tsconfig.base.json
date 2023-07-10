@@ -72,6 +72,9 @@
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
       ],
+      "@app/features/convs-mgr/analytics": [
+        "libs/features/convs-mgr/analytics/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/edit/blocks-edit": [
         "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/index.ts"
       ],
