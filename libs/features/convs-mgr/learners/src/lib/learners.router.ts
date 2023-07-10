@@ -14,4 +14,4 @@ const ASSESSMENTS_ROUTES: Route[] = [
   imports: [RouterModule.forChild(ASSESSMENTS_ROUTES)],
   exports: [RouterModule]
 })
-export class AnalyticsRouterModule { }
+export class LearnersRouterModule { }
