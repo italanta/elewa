@@ -8,10 +8,12 @@ import * as FormData from 'form-data';
 
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
+import { __DateFromStorage } from '@iote/time';
 
 import { FileMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ConnectionsDataService, BlockDataService } from '@app/functions/bot-engine';
 import { CommunicationChannel, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { __ConvertWhatsAppApiPayload } from './utils/convert-whatsapp-payload.util';
 import { __SendWhatsAppWebhookVerificationToken } from './utils/validate-webhook.function';
@@ -31,6 +33,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
   {
     this._tools = tools;
     this.channel = payload as WhatsAppCommunicationChannel;
+    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
 
     this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
 
@@ -42,8 +45,14 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 
     // Upload media to WhatsApp and update the block with the media ID
     for(const block of mediaBlocks)
-    
     {
+      // Get block updated time
+      const blockUpdatedTime = __DateFromStorage(block.updatedOn);
+
+      // Only upload media if the block was updated after the story was published
+      if(storyPublishedTime && blockUpdatedTime > storyPublishedTime) {
+
+      // Only upload media if the block has a file source
       if(block.fileSrc)
       {
         let mediaId: string;
@@ -63,6 +72,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
           this._tools.Logger.log(()=> `Block ${block.id} updated with Media ID: ${mediaId}`);
         }
       }
+    }
     }
 
     return {status: 200} as RestResult;
@@ -151,5 +161,13 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       return null;
     }
 
+  }
+
+  private async __getStoryPublishedDate(storyId: string, orgId: string) { 
+    const storyRepo$ = this._tools.getRepository<Story>(`orgs/${orgId}/stories`);
+
+    const story  = await storyRepo$.getDocumentById(storyId);
+
+    return story.publishedOn;
   }
 }
