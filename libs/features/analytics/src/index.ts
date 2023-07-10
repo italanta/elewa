@@ -1,1 +1,1 @@
-export * from './lib/features-analytics.module';
+export * from './lib/analytics.module';
