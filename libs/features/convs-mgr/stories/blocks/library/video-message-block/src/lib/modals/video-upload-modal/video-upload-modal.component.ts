@@ -77,7 +77,7 @@ export class VideoUploadModalComponent implements OnInit {
 
     const res = await this._videoUploadService.uploadSingleFile(
       this.selectedFile,
-      videoName
+      `videos/${videoName}`
     );
 
     res.subscribe((url) => {
