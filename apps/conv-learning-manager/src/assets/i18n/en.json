@@ -194,7 +194,10 @@
       "ANALYTICS": "Analytics",
       "CHATS": "Chats",
       "ASSESSMENTS": "Assessments",
-      "LOG-OUT": "Logout"
+      "LOG-OUT": "Logout",
+      "BOT": "Bots",
+      "REPORTS": "Reports",
+      "LEARNERS": "Learners"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
