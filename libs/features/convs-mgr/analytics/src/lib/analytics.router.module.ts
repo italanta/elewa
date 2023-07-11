@@ -3,7 +3,7 @@ import { Route, RouterModule } from '@angular/router';
 
 import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
 
-const ASSESSMENTS_ROUTES: Route[] = [
+const ANALYTICS_ROUTES: Route[] = [
   {
     path: '',
     component: AnalyticsPageComponent,
@@ -11,7 +11,7 @@ const ASSESSMENTS_ROUTES: Route[] = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(ASSESSMENTS_ROUTES)],
+  imports: [RouterModule.forChild(ANALYTICS_ROUTES)],
   exports: [RouterModule]
 })
 export class AnalyticsRouterModule { }
