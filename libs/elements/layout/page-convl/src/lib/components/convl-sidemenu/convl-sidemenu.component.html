@@ -39,9 +39,9 @@
       fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaBots.isActive">
-        <i matListIcon class="fas fa-border-all menu-item__tooltip"></i>
+        <i matListIcon class="fas fa-robot menu-item__tooltip"></i>
         <span *ngIf="isExpanded" class="menu-item__word">
-          {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+          {{'PAGE-CONTENT.SIDE-MENU.BOT'| transloco }}
         </span>
         <span class="caret-icon">
           <i matListIcon class="fas fa-caret-down menu-item__tooltip"></i>
@@ -56,24 +56,9 @@
             <span class="child-header__word">
               {{'PAGE-CONTENT.SIDE-MENU.ACTIVE-BOTS'| transloco }}
             </span>
-            <span class="child-header__caret-icon">
-              <i matListIcon class="fas fa-caret-right menu-item__tooltip"></i>
-            </span>
           </div>
         </div>
-
-        <div *ngIf="isExpanded" [routerLink]="['/stories/analytics']" routerLinkActive="highlight-active"
-          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
-          class="child-header">
-          <div class="child-header__items">
-            <span class="child-header__word">
-              {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
-            </span>
-            <span class="child-header__caret-icon">
-              <i matListIcon class="fas fa-caret-right menu-item__tooltip"></i>
-            </span>
-          </div>
-        </div>
+        
 <!-- 
         <div *ngIf="isExpanded" [routerLink]="['/stories/labels']" routerLinkActive="highlight-active"
           [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
@@ -91,6 +76,38 @@
       </div>
     </div>
     <!-- end Active-bots section -->
+
+    <!-- Analytics section -->
+    <div [routerLink]="['/analytics']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
+      [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column" >
+        <div class="menu-item" [class.active]="rlaBots.isActive">
+          <i matListIcon class="fas fa-signal-alt-3 fa-rotate-180 menu-item__tooltip"></i>
+          <span *ngIf="isExpanded" class="menu-item__word">
+            {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}
+          </span>
+        </div>
+
+        <div *ngIf="isExpanded" [routerLink]="['/stories/dashboard']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header">
+          <div class="child-header__items">
+            <span class="child-header__word">
+              {{'PAGE-CONTENT.SIDE-MENU.DASHBOARD'| transloco }}
+            </span>
+          </div>
+        </div>
+
+        <div *ngIf="isExpanded" [routerLink]="['/stories/reports']" routerLinkActive="highlight-active"
+          [routerLinkActiveOptions]="{exact: true}" (click)="$event.stopPropagation()" mat-list-item
+          class="child-header">
+          <div class="child-header__items">
+            <span class="child-header__word">
+              {{'PAGE-CONTENT.SIDE-MENU.REPORTS'| transloco }}
+            </span>
+          </div>
+        </div>
+    </div>
+    <!-- end Analytics -->
 
     <!-- Section Chats -->
 
@@ -156,7 +173,7 @@
       <div *ngIf="rlaHome.isActive">
         <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
           class="menu-item menu-item--one">
-          <i matListIcon class="fas fa-chart-bar menu-item__tooltip"></i>
+          <i matListIcon class="fas fa-clipboard-list-check menu-item__tooltip"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
           </span>
@@ -164,6 +181,23 @@
       </div>
     </div>
     <!-- end Assessments -->
+
+    <!-- Section Learners -->
+
+    <div [routerLink]="['/learners']" routerLinkActive #rlaHome="routerLinkActive" mat-list-item class="container"
+      [class.active]="rlaHome.isActive" [class.hov]="!rlaHome.isActive" fxLayout="column">
+
+      <div *ngIf="rlaHome.isActive">
+        <div [routerLink]="['/learners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
+          class="menu-item menu-item--one">
+          <i matListIcon class="fas fa-users menu-item__tooltip"></i>
+          <span *ngIf="isExpanded" class="menu-item__word">
+            {{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- end Learners -->
 
     <!-- Section Sales -->
     <!-- <div *ngIf="user?.roles.admin || user?.roles.finance" [routerLink]="['/home/sales']" routerLinkActive
