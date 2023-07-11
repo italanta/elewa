@@ -3,7 +3,7 @@ import { Route, RouterModule } from '@angular/router';
 
 import { LearnersPageComponent } from './pages/learners-page/learners-page.component';
 
-const ASSESSMENTS_ROUTES: Route[] = [
+const LEARNERS_ROUTES: Route[] = [
   {
     path: '',
     component: LearnersPageComponent,
@@ -11,7 +11,7 @@ const ASSESSMENTS_ROUTES: Route[] = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(ASSESSMENTS_ROUTES)],
+  imports: [RouterModule.forChild(LEARNERS_ROUTES)],
   exports: [RouterModule]
 })
 export class LearnersRouterModule { }
