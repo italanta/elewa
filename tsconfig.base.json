@@ -50,11 +50,15 @@
       "@app/elements/nav/convl/breadcrumbs": [
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
-      "@app/features/analytics/group-based/progress": [
-        "libs/features/analytics/group-based/progress/src/index.ts"
+      "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
+      "@app/features/monitoring": [
+        "libs/features/monitoring/src/index.ts"
       ],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
+      ],
+      "@app/features/convs-mgr/analytics": [
+        "libs/features/convs-mgr/analytics/src/index.ts"
       ],
       "@app/features/convs-mgr/conversations/assessments": [
         "libs/features/convs-mgr/conversations/assessments/src/index.ts"
@@ -70,6 +74,9 @@
       ],
       "@app/features/convs-mgr/home": [
         "libs/features/convs-mgr/home/src/index.ts"
+      ],
+      "@app/features/convs-mgr/learners": [
+        "libs/features/convs-mgr/learners/src/index.ts"
       ],
       "@app/features/convs-mgr/stories/blocks/edit/blocks-edit": [
         "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/index.ts"
