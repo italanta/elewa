@@ -37,7 +37,10 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
       // 2. get all groups/ classes
       this.groups = this.getGroups(this.allProgress);
-      this.groups.unshift('All');
+
+      if (!this.groups) return
+
+      this.groups?.unshift('All');
 
       // 3. get daily progress
       this.getDailyProgress();
@@ -58,7 +61,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   private getGroups(model: GroupProgressModel[]) {
     // TODO: @LemmyMwaura Pull existing groups from DB after the grouping feature is complete.
-    return model[model.length - 1].groupedMeasurements.map((item) => item.name.split('_')[1]);
+    return model[model.length - 1]?.groupedMeasurements.map((item) => item.name.split('_')[1]);
   }
 
   selectActiveGroup(group: string) {
