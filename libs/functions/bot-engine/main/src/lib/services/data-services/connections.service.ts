@@ -33,6 +33,22 @@ export class ConnectionsDataService extends BotDataService<Connection>
 
     const conn = await this.getDocumentByField('sourceId', optionId, this._docPath);
 
+    if(conn.length > 1) {
+      this.tools.Logger.error(() => `More than one connection originating from this option ${optionId}`);
+
+      this.tools.Logger.log(() => `Getting the last created connection`);
+
+      // Return the last created connection
+      const lastCreatedConnection = conn.reduce((prev, current) => {
+        return (prev.createdOn > current.createdOn) ? prev : current
+      });
+
+      return lastCreatedConnection
+    } else if (!conn[0])
+    {
+      return null;
+    }
+
     return conn[0];
   }
 
