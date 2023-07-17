@@ -257,6 +257,9 @@
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
+      "@app/state/convs-mgr/analytics": [
+        "libs/state/convs-mgr/analytics/src/index.ts"
+      ],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
       ],
