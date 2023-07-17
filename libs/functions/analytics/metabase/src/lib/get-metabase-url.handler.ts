@@ -4,13 +4,15 @@ import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 import { HandlerTools } from '@iote/cqrs';
 import { User } from '@iote/bricks';
 
+import { iTalUser } from '@app/model/user';
+
 /** This handler is responsible for creating an authenticated jwt token
  * for the metabase ebedded iframe source.
  */
 
 export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
 {
-  public async execute(user: User, context: FunctionContext, tools: HandlerTools)
+  public async execute(user: iTalUser, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `Setting up metabase url for User: ${JSON.stringify(user.uid)}`);
 
@@ -24,7 +26,7 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
     const payload = {
       email: user.email,
       id: user.uid,
-      org_id: user.uid,
+      org_id: user.activeOrg,
       first_name: displayname[0],
       last_name: displayname[1],
       groups: ["CLM"],
