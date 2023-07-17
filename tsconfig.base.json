@@ -184,6 +184,9 @@
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
       "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
+      "@app/functions/analytics/metabase": [
+        "libs/functions/analytics/metabase/src/index.ts"
+      ],
       "@app/functions/analytics/progress/main": [
         "libs/functions/analytics/progress/main/src/index.ts"
       ],
