@@ -1,1 +1,1 @@
-export * from './lib/functions-analytics-metabase';
+export * from './lib/get-metabase-url.handler';
