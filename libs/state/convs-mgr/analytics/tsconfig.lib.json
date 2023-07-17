@@ -13,5 +13,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts", "../analytics/src/lib/services/metabase.service.ts"]
+  "include": ["**/*.ts"]
 }
