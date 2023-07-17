@@ -745,6 +745,8 @@
           }
         }
       },
+      "tags": []
+    },
     "functions-analytics-metabase": {
       "root": "libs/functions/analytics/metabase",
       "sourceRoot": "libs/functions/analytics/metabase/src",
@@ -1121,6 +1123,10 @@
       "projectType": "library",
       "root": "libs/private/state/organisation/main",
       "sourceRoot": "libs/private/state/organisation/main/src",
+    "state-convs-mgr-analytics": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/analytics",
+      "sourceRoot": "libs/state/convs-mgr/analytics/src",
       "prefix": "app",
       "targets": {
         "test": {
@@ -1128,6 +1134,9 @@
           "outputs": ["coverage/libs/private/state/organisation/main"],
           "options": {
             "jestConfig": "libs/private/state/organisation/main/jest.config.ts",
+          "outputs": ["coverage/libs/state/convs-mgr/analytics"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/analytics/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -1162,7 +1171,9 @@
           "options": {
             "lintFilePatterns": [
               "libs/private/state/user/base/**/*.ts",
-              "libs/private/state/user/base/**/*.html"
+              "libs/private/state/user/base/**/*.html",
+              "libs/state/convs-mgr/analytics/**/*.ts",
+              "libs/state/convs-mgr/analytics/**/*.html"
             ]
           }
         }
