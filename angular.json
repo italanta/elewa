@@ -747,6 +747,29 @@
     },
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
+    "functions-analytics-metabase": {
+      "root": "libs/functions/analytics/metabase",
+      "sourceRoot": "libs/functions/analytics/metabase/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/functions/analytics/metabase/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/functions/analytics/metabase"],
+          "options": {
+            "jestConfig": "libs/functions/analytics/metabase/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-analytics-progress-main": {
       "root": "libs/functions/analytics/progress/main",
       "sourceRoot": "libs/functions/analytics/progress/main/src",
