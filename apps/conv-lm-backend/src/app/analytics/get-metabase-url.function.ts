@@ -1,4 +1,4 @@
-import { EndpointRegistrar } from "@ngfi/functions";
+import { RestRegistrar } from "@ngfi/functions";
 import { GetMetabaseUrlHandler } from "@app/functions/analytics/metabase";
 
 import { ConvLearnFunction } from "../../conv-learn-func.class";
@@ -16,7 +16,7 @@ const handler = new GetMetabaseUrlHandler();
  * 
  */
 export const getMetabaseUrl = new ConvLearnFunction('getMetabaseUrl', 
-                                                  new EndpointRegistrar(), 
+                                                  new RestRegistrar(), 
                                                   [], 
                                                   handler)
                                .build();
