@@ -34,7 +34,7 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
     };
 
     //Sign the jwt with secret key provided by metabase.
-    const token = jwt.sign(payload, METABASE_SECRET_KEY, {expiresIn: '100y'});
+    const token = jwt.sign(payload, METABASE_SECRET_KEY);
 
     const iframeUrl = `${METABASE_SITE_URL}/auth/sso?jwt=${token}&return_to=${encodeURIComponent(METABASE_SITE_URL)}`;
 
