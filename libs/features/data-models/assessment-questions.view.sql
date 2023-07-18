@@ -14,10 +14,4 @@ SELECT
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.createdOn._seconds') as INT64)) AS created_on,
   TIMESTAMP_SECONDS(CAST(JSON_EXTRACT(data, '$.updatedOn._seconds') as INT64)) AS updated_on,
 
-  -- Extract data from the options array as a table
-  JSON_EXTRACT_SCALAR(options, '$.id') AS option_id,
-  JSON_EXTRACT_SCALAR(options, '$.text') AS option_text,
-  JSON_EXTRACT_SCALAR(options, '$.accuracy') AS option_accuracy,
-
-FROM `elewa-conv-learning-prod.chiriku_clm_dev.assessmentQuestions_raw_latest`,
-UNNEST(JSON_EXTRACT_ARRAY(data, '$.options')) AS options WITH OFFSET AS offset ORDER BY question_id, offset;
+FROM `elewa-conv-learning-prod.chiriku_clm_dev.assessmentQuestions_raw_latest`
