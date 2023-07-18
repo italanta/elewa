@@ -15,7 +15,7 @@ export interface Story extends IObject
   orgId: string;
 
   /* Name of the story */
-  name: string;
+  name?: string;
 
   /* image of the story */
   imageField?: string;
