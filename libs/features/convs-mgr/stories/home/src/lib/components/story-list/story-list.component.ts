@@ -30,7 +30,7 @@ export class StoryListComponent implements OnInit {
       map(([filter, botsArray]) =>
         botsArray.filter((story: Story) => {
           // filter out assessments and also include the search filter
-          return (!story?.isAssessment) && story.name.toString().toLowerCase().includes(filter);
+          return (!story?.isAssessment) && story.name?.toString().toLowerCase().includes(filter);
         })
       )
     );

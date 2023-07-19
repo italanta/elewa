@@ -73,7 +73,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         this.pageName = `Story overview :: ${state.story.name}`;
 
         const story = state.story;
-        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name, true)];
+        this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
       }
       );
