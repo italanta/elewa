@@ -51,9 +51,6 @@
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
       "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
-      "@app/features/monitoring": [
-        "libs/features/monitoring/src/index.ts"
-      ],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
@@ -186,6 +183,7 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
       "@app/functions/analytics/progress/main": [
         "libs/functions/analytics/progress/main/src/index.ts"
       ],
@@ -270,6 +268,9 @@
       ],
       "@app/state/convs-mgr/end-users": [
         "libs/state/convs-mgr/end-users/src/index.ts"
+      ],
+      "@app/state/convs-mgr/learners": [
+        "libs/state/convs-mgr/learners/src/index.ts"
       ],
       "@app/state/convs-mgr/monitoring": [
         "libs/state/convs-mgr/monitoring/src/index.ts"
