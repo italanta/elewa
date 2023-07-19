@@ -231,6 +231,9 @@
       "@app/model/convs-mgr/functions": [
         "libs/model/convs-mgr/functions/src/index.ts"
       ],
+      "@app/model/convs-mgr/learners": [
+        "libs/model/convs-mgr/learners/src/index.ts"
+      ],
       "@app/model/convs-mgr/stories/blocks/main": [
         "libs/model/convs-mgr/stories/blocks/main/src/index.ts"
       ],
