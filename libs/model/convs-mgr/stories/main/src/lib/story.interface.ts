@@ -34,4 +34,7 @@ export interface Story extends IObject
 
   /* time of publishing */
   publishedOn?: Date;
+
+  /** If this is a child story, we add the parent story */
+  parentStoryId?: string;
 }
