@@ -1,10 +1,14 @@
 SELECT
+  id AS id,
+  
   JSON_EXTRACT_SCALAR(path_params, '$.org_id') AS org_id,
-  document_id AS id,
+
+  -- Name needs to be ported to this collection 
+  JSON_EXTRACT_SCALAR(data, '$.name') AS name,
 
   JSON_EXTRACT_SCALAR(data, '$.phoneNumber') AS phoneNumber,
   JSON_EXTRACT_SCALAR(data, '$.status') AS status,
-  JSON_EXTRACT(data, '$.isConversationComplete') AS isConversationComplete,
+  -- JSON_EXTRACT(data, '$.isConversationComplete') AS isConversationComplete,
 
   JSON_EXTRACT_SCALAR(data, '$.createdBy') AS created_by,
 
