@@ -99,7 +99,14 @@ export class ProcessInput<T>
 
         break;
       default:
-        updatedInputs[this.variableName] = value;
+        if (this.variableName === "best_practice_id") {
+          let variableValue = value as string;
+          variableValue = "technologies_" + value;
+          updatedInputs[this.variableName] = variableValue;
+        } else {
+          updatedInputs[this.variableName] = value;
+
+        }
         break;
     }
     return updatedInputs;
