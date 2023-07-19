@@ -1,1 +1,1 @@
-export * from './lib/state-convs-mgr-learners.module';
+export * from './lib/learners-state.module';
