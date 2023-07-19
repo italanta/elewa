@@ -4,8 +4,9 @@ import { Route, RouterModule } from '@angular/router';
 import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
 
 const ANALYTICS_ROUTES: Route[] = [
+  { path: '',   redirectTo: 'dashboard', pathMatch: 'full' },
   {
-    path: '',
+    path: 'dashboard',
     component: AnalyticsPageComponent,
   },
 ];

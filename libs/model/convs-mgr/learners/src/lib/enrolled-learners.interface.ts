@@ -1,5 +1,8 @@
 import { IObject } from "@iote/bricks";
 
+/**
+ * instance of an enrolled learner
+ */
 export interface EnrolledEndUser extends IObject {
   name: string;
   phoneNumber: string;
