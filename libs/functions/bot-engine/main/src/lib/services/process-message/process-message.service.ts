@@ -16,6 +16,7 @@ import { BotMediaProcessService } from '../media/process-media-service';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
 import { AssessmentQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
 export class ProcessMessageService
 {
@@ -56,7 +57,7 @@ export class ProcessMessageService
    * @param msg - The message sent by the end-user
    * @returns Next Block
    */
-  async resolveNextBlock(msg: Message, currentCursor: Cursor, endUserId: string, orgId: string, currentStory: string, tools: HandlerTools)
+  async resolveNextBlock(msg: Message, currentCursor: Cursor, endUser: EndUser, orgId: string, currentStory: string, tools: HandlerTools)
   {
     this._tools.Logger.log(()=> `Resolving next block...`);
 
@@ -67,12 +68,12 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
     // Handle input: validates and saves the input to variable
-    const inputPromise = this.processInput(msg, lastBlock, orgId, endUserId);
+    const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
 
     this.sideOperations.push(inputPromise);
 
     // Return the cursor updated with the next block in the story
-    newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUserId);
+    newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);
 
     // Update the cursor with the user score in the assessment
     if(lastBlock.type === StoryBlockTypes.AssessmentQuestionBlock) {
@@ -95,7 +96,7 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Next block: ${JSON.stringify(nextBlock)}`);
 
     while (nextBlock && isOperationBlock(nextBlock.type)) {
-      const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUserId);
+      const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUser.id);
 
       nextBlock = updatedPosition.storyBlock;
       newCursor = updatedPosition.newCursor;
@@ -124,14 +125,14 @@ export class ProcessMessageService
     return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
   }
 
-  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string)
+  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser)
   {
 
     if (!isOutputBlock(lastBlock.type)) {
 
       const processInputFactory = new ProcessInputFactory(this._tools, this._activeChannel, this._processMediaService$);
 
-      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUserId);
+      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUser);
 
     }
   }

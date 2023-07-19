@@ -2,6 +2,7 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { ProcessInput } from "../process-input.class";
 
@@ -17,7 +18,7 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
     this.tools = tools;
   }
 
-  public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUserId: string): Promise<boolean> 
+  public async handleInput(message: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser): Promise<boolean> 
   {
     this.tools.Logger.log(()=> `ProcessOptionsInput: ${JSON.stringify(message)} ${lastBlock.message}`)
 
@@ -35,6 +36,6 @@ export class ProcessOptionsInput extends ProcessInput<string> implements IProces
       
       if (message.type !== MessageTypes.QUESTION) return false;
 
-      return this.saveInput(orgId, endUserId, inputValue, message.type, variableType); 
+      return this.saveInput(orgId, endUser, inputValue, message.type, variableType); 
   }
 }
