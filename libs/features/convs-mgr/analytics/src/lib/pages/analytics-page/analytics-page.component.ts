@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { MetabaseService } from '@app/state/convs-mgr/analytics';
 import { User } from '@iote/bricks';
-
 import { UserService } from '@ngfi/angular';
+
+import { MetabaseService } from '@app/state/convs-mgr/analytics';
 
 @Component({
   selector: 'app-analytics-page',
