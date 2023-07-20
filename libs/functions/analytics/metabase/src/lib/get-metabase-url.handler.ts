@@ -11,7 +11,7 @@ import { iTalUser } from '@app/model/user';
  */
 
 export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
-{
+{ 
   public async execute(user: iTalUser, context: FunctionContext, tools: HandlerTools)
   {
     tools.Logger.log(() => `Setting up metabase url for User: ${JSON.stringify(user.uid)}`);
