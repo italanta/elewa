@@ -16,6 +16,6 @@ export class LearnersPageComponent implements OnInit {
   allLearners$:Observable<EnrolledEndUser[]>;
 
   ngOnInit() {
-    this.allLearners$ = this._eLearners.getAllLearners()
+    this.allLearners$ = this._eLearners.getAllLearners$()
   }
 }
