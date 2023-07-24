@@ -12,6 +12,7 @@ import { BlockDataService } from './services/data-services/blocks.service';
 import { BotEnginePlay } from './services/bot-engine-play.service';
 import { MessagesDataService } from './services/data-services/messages.service';
 import { EndUserDataService } from './services/data-services/end-user.service';
+import { EnrolledUserDataService } from './services/data-services/enrolled-user.service';
 
 import { ActiveChannel } from './model/active-channel.service';
 
@@ -20,6 +21,7 @@ import { ProcessMessageService } from './services/process-message/process-messag
 import { createTextMessage } from './utils/createTextMessage.util';
 import { BotMediaProcessService } from './services/media/process-media-service';
 import { isFileMessage } from '@app/model/convs-mgr/functions';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 
 /**
@@ -33,6 +35,8 @@ export class EngineBotManager
   orgId: string;
 
   endUser: EndUser;
+
+  enrolledUser: EnrolledEndUser;
 
   _endUserService$: EndUserDataService;
 
@@ -51,7 +55,7 @@ export class EngineBotManager
    * @param {IncomingMessage} message - An sanitized incoming message from a third-party provider.
    * @returns A REST 200/500 response so the third-party provider knows the message arrived well/failed.
    */
-  public async run(message: Message, endUser: EndUser) 
+  public async run(message: Message, endUser: EndUser)
   {
     /**
      * The chatbot has some asynchronous operations (which we dont have to wait for, in order to process the message) e.g. saving the messages to firebase
@@ -78,10 +82,12 @@ export class EngineBotManager
       const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
 
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
+      const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
 
       const END_USER_ID = endUser.id;
 
       this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
+      await enrolledUserService.getOrCreateEnrolledUser(this.endUser);
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
