@@ -50,7 +50,6 @@
       "@app/elements/nav/convl/breadcrumbs": [
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
-      "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
