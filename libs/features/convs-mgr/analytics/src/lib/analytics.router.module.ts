@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
-import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { ReportsPageComponent } from './pages/reports-page/reports-page.component';
 
 const ANALYTICS_ROUTES: Route[] = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'dashboard',
-    component: AnalyticsPageComponent,
+    component: DashboardPageComponent,
   },
   {
     path: 'reports',
-    component: AnalyticsPageComponent,
+    component: ReportsPageComponent,
   },
 ];
 
