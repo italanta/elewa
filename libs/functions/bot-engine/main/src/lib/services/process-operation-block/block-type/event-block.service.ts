@@ -7,6 +7,7 @@ import { EventBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
@@ -23,12 +24,18 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 	sideOperations: Promise<any>[] = [];
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
+	enrolledUserService: EnrolledUserDataService;
 
-	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
-	{
+	constructor(
+		blockDataService: BlockDataService, 
+		connDataService: ConnectionsDataService, 
+		enrolledUserService: EnrolledUserDataService, 
+		tools: HandlerTools
+	) {
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
 		this.blockDataService = blockDataService;
+		this.enrolledUserService = enrolledUserService;
 	}
 
 	public async handleBlock(storyBlock: EventBlock, updatedCursor: Cursor, orgId: string, endUserId: string, _message:Message)
@@ -46,6 +53,13 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 
     // if first time recording event create the eventStack.
     if (!newCursor.eventsStack) newCursor.eventsStack = [];
+
+		if (eventDetails.isMilestone) {
+			// const enrolledUser = this.enrolledUserService.getOrCreateEnrolledUser();
+
+			// get enrolled user
+			// add currentcourse
+		};
 
     const eventExists = this.wasEventTracked(newCursor, eventDetails);
 
