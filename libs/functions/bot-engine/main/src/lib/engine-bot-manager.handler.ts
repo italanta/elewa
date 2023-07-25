@@ -86,8 +86,7 @@ export class EngineBotManager
 
       const END_USER_ID = endUser.id;
 
-      this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
-      await enrolledUserService.getOrCreateEnrolledUser(this.endUser);
+      await this.createEndUser(endUser, enrolledUserService);
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
@@ -140,6 +139,11 @@ export class EngineBotManager
     } catch (error) {
       this._tools.Logger.error(() => `[EngineChatManagerHandler].execute: Chat Manager encountered an error: ${error}`);
     }
+  }
+
+  async createEndUser(endUser: EndUser, enrolledUserService: EnrolledUserDataService) {
+    this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
+    await enrolledUserService.getOrCreateEnrolledUser(this.endUser);
   }
 
   async addSideOperation(operation: Promise<any>)
