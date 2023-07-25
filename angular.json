@@ -1047,6 +1047,29 @@
       },
       "tags": []
     },
+    "private-functions-organisation": {
+      "root": "libs/private/functions/organisation",
+      "sourceRoot": "libs/private/functions/organisation/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/functions/organisation/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/organisation"],
+          "options": {
+            "jestConfig": "libs/private/functions/organisation/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-state-organisation-main": {
       "projectType": "library",
       "root": "libs/private/state/organisation/main",
