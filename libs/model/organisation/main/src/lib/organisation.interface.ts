@@ -9,4 +9,8 @@ export interface Organisation extends IObject
 
   address?: Address;
   contact?: Contact;
+  logoUrl?: string;
+  users: string[];
+  roles: string[];
+  permissions: {};
 }
