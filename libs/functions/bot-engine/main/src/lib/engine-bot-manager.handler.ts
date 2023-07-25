@@ -79,10 +79,10 @@ export class EngineBotManager
       const blockDataService = new BlockDataService(this._activeChannel.channel, connDataService, this._tools);
       const cursorDataService = new CursorDataService(this._tools);
       const _msgDataService$ = new MessagesDataService(this._tools);
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
-
+  
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
       const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService, enrolledUserService);
 
       const END_USER_ID = endUser.id;
 

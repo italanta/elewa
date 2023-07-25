@@ -16,6 +16,7 @@ import { MessagesDataService } from '../services/data-services/messages.service'
 import { ProcessMessageService } from '../services/process-message/process-message.service';
 import { BotMediaProcessService } from '../services/media/process-media-service';
 import { BotEngineJump } from '../services/bot-engine-jump.service';
+import { EnrolledUserDataService } from '../services/data-services/enrolled-user.service';
 
 export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string}, RestResult>
 {
@@ -45,6 +46,7 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
     const blockDataService = new BlockDataService(communicationChannel, connDataService, tools);
     const cursorDataService = new CursorDataService(tools);
     const msgDataService = new MessagesDataService(tools);
+    const enrollUserDataService = new EnrolledUserDataService(tools, this.orgId);
     const processMediaService = new BotMediaProcessService(tools);
 
 
@@ -63,7 +65,7 @@ export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: s
   
       const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools);
       
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, tools, activeChannel, processMediaService);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, tools, activeChannel, processMediaService, enrollUserDataService);
   
       const bot = new BotEngineJump(processMessageService, cursorDataService, msgDataService, processMediaService, activeChannel, tools);
   

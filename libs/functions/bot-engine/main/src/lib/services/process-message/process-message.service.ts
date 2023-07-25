@@ -3,12 +3,13 @@ import { HandlerTools } from '@iote/cqrs';
 import { isOperationBlock, isOutputBlock, StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { ActiveChannel } from '@app/functions/bot-engine';
+import { ActiveChannel } from '../../model/active-channel.service';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
+import { EnrolledUserDataService } from '../data-services/enrolled-user.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
 
@@ -29,6 +30,7 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
+    private _enrolledUserService: EnrolledUserDataService,
   ) { }
 
   /**
@@ -138,7 +140,7 @@ export class ProcessMessageService
 
   private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUserId: string)
   {
-    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._enrolledUserService, this._tools).resolve(nextBlock.type);
 
     const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUserId, msg);
 
