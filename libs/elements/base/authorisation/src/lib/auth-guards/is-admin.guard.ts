@@ -15,7 +15,7 @@ export class IsAdminGuard implements CanActivate, CanLoad
   {
     return this.authService
                .getUser()
-               .pipe(map(u => u && u != null && u.roles.admin),
+               .pipe(map(u => u && u != null),
                      tap(canNavigate => {
                         if(!canNavigate)
                           this.router.navigate(['auth/login']);
@@ -27,7 +27,7 @@ export class IsAdminGuard implements CanActivate, CanLoad
   {
     return this.authService
                .getUser()
-               .pipe(map(u => u && u != null && u.roles.admin));
+               .pipe(map(u => u && u != null));
   }
 
 }
