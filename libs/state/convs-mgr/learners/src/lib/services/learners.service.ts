@@ -14,6 +14,10 @@ export class EnrolledLearnersService {
     return this._enrolledLearners$$.get();
   }
 
+  getSpecificLearner$(id: string) {
+    return this._enrolledLearners$$.getOne(id)
+  }
+
   addLearner$(learner: EnrolledEndUser) {
     return this._enrolledLearners$$.add(learner);
   }

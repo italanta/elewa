@@ -36,6 +36,7 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
         name: endUser.name,
         phoneNumber: endUser.phoneNumber,
         classId: '',
+        currentCourse: '',
         whatsappUserId: endUser.id,
         status: EnrolledEndUserStatus.inactive
       };
