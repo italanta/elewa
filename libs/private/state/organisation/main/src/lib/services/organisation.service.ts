@@ -10,9 +10,9 @@ import { switchMap, take } from 'rxjs/operators';
 
 import { EventLogger } from '@iote/bricks-angular';
 
-import { Organisation } from '@app/model/organisation';
+import { UserStore } from '@app/private/state/user/base';
 
-import { UserStore } from '@app/state/user';
+import { Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';
 
 import { PermissionsStore } from '../stores/permissions.store';

@@ -9,14 +9,12 @@ import { flatMap as __flatMap, find as __find, keys as __keys } from 'lodash';
 
 import { AuthService } from '@ngfi/angular';
 
-
-
 import { Organisation } from '@app/model/organisation';
 
+import { OrganisationService } from '@app/private/state/organisation/main';
 
-import { UserStore } from '../stores/user.store';
 import { iTalUser } from '@app/model/user';
-import { OrganisationService } from '@app/state/organisation';
+import { UserStore } from '@app/state/user';
 
 @Injectable({
   providedIn: 'root',

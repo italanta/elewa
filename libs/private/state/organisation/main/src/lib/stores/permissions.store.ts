@@ -7,7 +7,7 @@ import { Logger } from '@iote/bricks-angular';
 
 import { Repository, DataService } from '@ngfi/angular';
 
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from './active-org.store';
 
 import { Store } from '@iote/state';
 import { CLMPermissions } from '@app/model/organisation';

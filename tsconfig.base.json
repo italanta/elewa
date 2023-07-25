@@ -256,6 +256,9 @@
       "@app/private/state/organisation/main": [
         "libs/private/state/organisation/main/src/index.ts"
       ],
+      "@app/private/state/user/base": [
+        "libs/private/state/user/base/src/index.ts"
+      ],
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"

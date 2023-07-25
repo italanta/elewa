@@ -9,7 +9,7 @@ import { throttleTime, switchMap } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
 import { Query } from '@ngfi/firestore-qbuilder';
 
-import { UserStore } from '@app/state/user';
+import { UserStore } from '@app/private/state/user/base';
 
 import { Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';

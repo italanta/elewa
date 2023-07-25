@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 import { User } from '@iote/bricks';
 import { Store } from '@iote/state';
 
-import { UserStore } from '@app/state/user';
+import { UserStore } from '@app/private/state/user/base';
 import { Organisation } from '@app/model/organisation';
 
 import { OrgStore } from './organisation.store';
