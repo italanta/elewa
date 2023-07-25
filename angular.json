@@ -1047,6 +1047,32 @@
       },
       "tags": []
     },
+    "private-state-organisation-main": {
+      "projectType": "library",
+      "root": "libs/private/state/organisation/main",
+      "sourceRoot": "libs/private/state/organisation/main/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/organisation/main"],
+          "options": {
+            "jestConfig": "libs/private/state/organisation/main/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/organisation/main/**/*.ts",
+              "libs/private/state/organisation/main/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
     "state-convs-mgr-conversations-assessments": {
       "projectType": "library",

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { combineLatest } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -8,14 +8,15 @@ import { Store } from '@iote/state';
 
 import { UserStore } from '@app/state/user';
 import { Organisation } from '@app/model/organisation';
+import { iTalUser } from '@app/model/user';
 
 import { OrgStore } from './organisation.store';
 
 @Injectable()
-export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
+export class ActiveOrgStore extends Store<Organisation>
 {
   protected store = 'active-org-store';
-  private _activeOrg : string;
+  _activeOrg : string;
 
   constructor(_orgStore: OrgStore,
               _user$$: UserStore)
@@ -30,29 +31,46 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
     this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
                         .subscribe(([orgs, user]) => //route
     {
-      let org: Organisation = orgs.find((orgs) =>  orgs.id == user.activeOrg)!;
+      const orgId = (user as User).id as string;
 
-      if (!user) {
-        this._activeOrg = '__noop__';
-        this.set(null as any, 'UPDATE - FROM USER');
-      } else {
-        this._activeOrg = org?.id!;
-        this.set(org);
+      const org = orgs.find(o => o.id === orgId);
+      
+      if(org && this._activeOrg !== orgId)
+      {
+          this._activeOrg = org.id as string;
+          this.set(org, 'UPDATE - FROM DB || ROUTE');
       }
+
+      // const orgId = this._getRoute(route);
+
+      // if(orgId !== '__noop__')
+      // {
+      //   const org = orgs.find(o => o.id === orgId);
+
+      //   if(org && this._activeOrg !== orgId)
+      //   {
+      //     this._activeOrg = orgId;
+      //     this.set(org, 'UPDATE - FROM DB || ROUTE');
+      //   }
+      // }
+
     });
   }
 
+  // private _getRoute(route: NavigationEnd) : string
+  // {
+  //   const elements = route.url.split('/');
+  //   const propId = elements.length >= 3 ? elements[2] : '__noop__';
+
+  //   return propId;
+  // }
+
   override get = () => super.get().pipe(filter(val => val != null));
 
-  setOrg(org: Organisation) {
-    this.set({
-      id: org.id,
-      name: org?.name,
-      address: org?.address,
-      roles: org?.roles,
-      users: org?.users,
-    } as Organisation, 'UPDATE - FROM USER');
-  }
-  
-  ngOnDestroy = () => this._sbS.unsubscribe();
+  // /** Warning - Hack. Only use in property creation onboarding.
+  //  *                  Avoids challenge of already creating organisation-owned objects before navigating to org. */
+  // __setTemp(org: Organisation) {
+  //   this._activeOrg = org.id as string;
+  //   this.set(org, 'UPDATE - FROM DB || ROUTE');
+  // }
 }

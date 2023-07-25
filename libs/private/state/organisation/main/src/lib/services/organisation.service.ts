@@ -13,11 +13,11 @@ import { EventLogger } from '@iote/bricks-angular';
 import { Organisation } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
-
-import { OrgStore, ActiveOrgStore } from '../..';
+import { iTalUser } from '@app/model/user';
 
 import { PermissionsStore } from '../stores/permissions.store';
-import { iTalUser } from '@app/model/user';
+import { ActiveOrgStore } from '../stores/active-org.store';
+import { OrgStore } from '../stores/organisation.store';
 
 @Injectable({
   providedIn: 'root'

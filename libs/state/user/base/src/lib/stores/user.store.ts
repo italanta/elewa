@@ -24,8 +24,4 @@ export class UserStore extends UService<iTalUser>
   }
 
   getUsers = () => this.getUsersBase(new Query().where('roles.access', '==', true));
-
-  getOrgUsers(activeOrg: string): Observable<iTalUser[]>{
-    return this.getUsersBase(new Query().where('orgs', '==', activeOrg))
-  }
 }

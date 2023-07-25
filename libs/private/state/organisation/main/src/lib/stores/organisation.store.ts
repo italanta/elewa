@@ -1,22 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import { User } from '@iote/bricks';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
-import { tap, map, throttleTime, switchMap } from 'rxjs/operators';
+import { throttleTime, switchMap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 import { Query } from '@ngfi/firestore-qbuilder';
 
 import { UserStore } from '@app/state/user';
-import { iTalUser  } from '@app/model/user';
 
 import { Organisation } from '@app/model/organisation';
-import { of } from 'rxjs';
+import { iTalUser } from '@app/model/user';
 
 @Injectable()
-export class OrgStore extends DataStore<Organisation>
+export class OrgStore extends DataStore<Organisation> implements OnDestroy
 {
   protected store = 'org-store';
   protected _activeRepo: Repository<Organisation>;
@@ -37,35 +36,28 @@ export class OrgStore extends DataStore<Organisation>
     this._activeRepo = _repoFac.getRepo<Organisation>('orgs');
 
     const data$ = _userService.getUser()
-                              .pipe(tap((user: iTalUser | null) => this._activeUser = user as User),
-                                    switchMap((user: iTalUser | null) => 
-                                        user ? this._activeRepo.getDocuments(this._getDomain(user)) : of([] as Organisation[])),
-                                    
-                                    // If no organisations are set, set to the default org which is of uid
-                                    map((orgs: Organisation[]) => orgs.length > 0 ? orgs : [this._getDefaultOrg(this._activeUser)]),
-                                    
+                              .pipe(switchMap((user: iTalUser) => user ? this._activeRepo.getDocuments(this._getOrgUsers(user)) : []),
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(properties => {
       this.set(properties, 'UPDATE - FROM DB');
     });
+
+    this._sbS.sink = data$.subscribe(orgs => {
+      this.set(orgs, 'UPDATE - FROM DB');
+    });
   }
 
-  private _getDomain(user: iTalUser): Query
+  private _getOrgUsers(user: iTalUser): Query
   {
     let q = new Query();
-
-    if(!user.roles.admin)
+    if(user)
     {
-      const orgId = user.activeOrg || user.id as string;
-
-      // Default org has ID = User ID
-      q = q.where('id', '==', orgId)
-
+      q = q.where('users', 'array-contains', user.id);
     }
-
     return q;
   }
+
 
   private _getDefaultOrg(u: User) : Organisation | null 
   {
@@ -74,10 +66,6 @@ export class OrgStore extends DataStore<Organisation>
     return {
       id: u.id,
       name: u.displayName ?? 'Unidentified',
-      contact: {
-        name: u.displayName ?? 'Unidentified',
-        email: u.email
-      },
       users: [],
       roles: [],
       permissions: {}
@@ -102,5 +90,9 @@ export class OrgStore extends DataStore<Organisation>
   __getOneRegardless(orgId: string)
   {
     return this._activeRepo.getDocumentById(orgId);
+  }
+
+  ngOnDestroy() {
+    this._sbS.unsubscribe();
   }
 }

@@ -51,9 +51,6 @@
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
       "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
-      "@app/features/monitoring": [
-        "libs/features/monitoring/src/index.ts"
-      ],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
@@ -186,6 +183,7 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
       "@app/functions/analytics/progress/main": [
         "libs/functions/analytics/progress/main/src/index.ts"
       ],
@@ -255,6 +253,9 @@
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
+      "@app/private/state/organisation/main": [
+        "libs/private/state/organisation/main/src/index.ts"
+      ],
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
