@@ -57,17 +57,22 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 
     const eventExists = this.wasEventTracked(newCursor, eventDetails);
 
-    // if event does not exist add it.
     if (!eventExists) {
+			// if event does not exist add it.
 			newCursor.eventsStack.unshift(eventDetails);
 
 			// update the enrolled User's current course if event is marked as a milestone.
 			if (eventDetails.isMilestone) {
-				// get enrolled user
-				const user = '';
 				// add currentcourse
+				this.tools.Logger.log(()=> `Updating enrolledUser's currentCourse: ${eventDetails.name}`);
 
-				// update DB
+				const enrolledUser = await this.enrolledUserService.getOrCreateEnrolledUser(endUser, 'whatsappEndUserId');
+
+				// update currentcourse
+				enrolledUser.currentCourse = eventDetails.name;
+
+				// update User's current course
+				await this.enrolledUserService.updateEnrolledUser(enrolledUser);
 			};
 		};
 
