@@ -1,3 +1,91 @@
-<convl-page title="learners-page">
-  <p>Feature is on the way!</p>
+<convl-page title="Learners Tab">
+  <div class="page-container">
+
+    <!-- top actions and filter container -->
+    <div class="top-wrapper">
+      <div class="top-actions">
+        <button class="btn add-to-class">Add to Class</button>
+        <button class="btn bulk-actions">Bulk Actions</button>
+      </div>
+  
+      <div class="table-filters">
+        <input class="search-input" type="text" name="search table" placeholder="search input by name" id="">
+
+        <div class="dropdown">
+          <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+          </select>
+
+          <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+          </select>
+
+          <select name="cars" id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <!-- end top actions and filter container -->
+  
+    <!-- mat-table -->
+    <div class="table-wrapper" *ngIf="(allLearners$ | async) as allLearners">
+      <table mat-table [dataSource]="allLearners" matSort (matSortChange)="sortData($event)" class="assessments-table">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          color="white"
+                          [checked]="selection.hasValue()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox 
+                          (click)="$event.stopPropagation()" 
+                          color="white"
+                          (change)="$event ? selection.toggle(row) : null"
+                          [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">name</th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.name }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="phone">
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">phoneNumber</th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.phoneNumber }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="course">
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="course">Course</th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.currentCourse }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="class">
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">Class</th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.classId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">Status</th>
+          <td mat-cell *matCellDef="let endUser">{{ endUser.status }}</td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="learnersColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: learnersColumns; let i = index"></tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="allLearners.length" [pageSize]="10"
+        [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
+    </div>
+    <!-- end mat-table -->
+
+  </div>
 </convl-page>
