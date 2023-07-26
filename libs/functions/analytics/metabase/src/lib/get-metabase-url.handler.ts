@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import * as jwt from 'jsonwebtoken';
 
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
@@ -17,8 +19,8 @@ export class GetMetabaseUrlHandler extends FunctionHandler<User, string>
     // Load environment variables from the context
     const environment = context.environment as any;
 
-    const METABASE_SITE_URL = environment.metabase.siteUrl;
-    const METABASE_SECRET_KEY = environment.metabase.secretKey;
+    const METABASE_SITE_URL = process.env.METABASE_SITE_URL;
+    const METABASE_SECRET_KEY = process.env.METABASE_SECRET_KEY;
 
     tools.Logger.log(() => `Setting up metabase url for User: ${JSON.stringify(user.uid)}`);
 
