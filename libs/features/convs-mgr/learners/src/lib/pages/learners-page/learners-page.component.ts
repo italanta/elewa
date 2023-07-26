@@ -11,6 +11,8 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
+import { MatDialog } from '@angular/material/dialog';
+import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 
 @Component({
   selector: 'app-learners-page',
@@ -38,7 +40,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _endUsers: EndUserService,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -136,6 +139,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  openBulkActionsDialog(): void {
+    this._dialog.open(BulkActionsModalComponent, {
+      data: { selectedUsers: this.selection.selected },
+    });
   }
 
   ngOnDestroy() {
