@@ -12,6 +12,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { LearnersPageComponent } from './pages/learners-page/learners-page.component';
 
 import { LearnersRouterModule } from './learners.router';
+import { BulkActionsModalComponent } from './modals/bulk-actions-modal/bulk-actions-modal.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { LearnersRouterModule } from './learners.router';
     MaterialBricksModule,
     MaterialDesignModule,
   ],
-  declarations: [LearnersPageComponent],
+  declarations: [LearnersPageComponent, BulkActionsModalComponent],
 })
 export class ConvsMgrLearnersModule {}

@@ -93,32 +93,6 @@
       },
       "tags": []
     },
-    "features-monitoring": {
-      "projectType": "library",
-      "root": "libs/features/monitoring",
-      "sourceRoot": "libs/features/monitoring/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/monitoring"],
-          "options": {
-            "jestConfig": "libs/features/monitoring/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/features/monitoring/**/*.ts",
-              "libs/features/monitoring/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-conversations-assessments": {
       "projectType": "library",
@@ -747,6 +721,32 @@
     },
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
+    "features-monitoring": {
+      "projectType": "library",
+      "root": "libs/features/monitoring",
+      "sourceRoot": "libs/features/monitoring/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/monitoring"],
+          "options": {
+            "jestConfig": "libs/features/monitoring/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/monitoring/**/*.ts",
+              "libs/features/monitoring/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-analytics-progress-main": {
       "root": "libs/functions/analytics/progress/main",
       "sourceRoot": "libs/functions/analytics/progress/main/src",
