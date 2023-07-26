@@ -1,14 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
-import { Observable, map, switchMap, of, combineLatest } from 'rxjs';
+import { map, switchMap, of, combineLatest } from 'rxjs';
 
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
@@ -19,29 +18,37 @@ import { EndUserService } from '@app/state/convs-mgr/end-users';
   styleUrls: ['./learners-page.component.scss'],
 })
 export class LearnersPageComponent implements OnInit, OnDestroy {
+  @ViewChild(MatSort) sort: MatSort;
+
+  private _sBs = new SubSink();
+
+  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status'];
+
+  dataSource = new MatTableDataSource<EnrolledEndUser>();
+  selection = new SelectionModel<EnrolledEndUser>(true, []);
+
+  allClasses: string[] = [];
+  allPlatforms: string[] = [];
+  allCourses:string[] = []
+
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _endUsers: EndUserService,
     private _liveAnnouncer: LiveAnnouncer
   ) {}
 
-  private _sBs = new SubSink();
-
-  allLearners$: Observable<EnrolledEndUser[]>;
-  allLearners: EnrolledEndUser[];
-  learnersColumns = ['select', 'name', 'phone', 'course', 'class', 'status'];
-
-  dataSource = new MatTableDataSource<EnrolledEndUser>();
-  selection = new SelectionModel<EnrolledEndUser>(true, []);
-
   ngOnInit() {
     this.getCurrentCourseForUsers();
+    this.getAllClasses();
+    this.getAllCourses();
+    this.getAllPlatforms();
   }
 
   // TODO @LemmyMwaura: We now update the enrolled user's current milestone from the event brick so this method is redundant.
   // TODO: to be removed after incremental adoption of the event brick(as a way to mark entry into a new milstone) on existing prod versions.
+  /** Get's the current course for all user's with the WhatsappEndUser Id  */
   getCurrentCourseForUsers() {
-    this.allLearners$ = this._eLearners.getAllLearners$().pipe(
+    const allLearners$ = this._eLearners.getAllLearners$().pipe(
       switchMap((enrolledUsrs) => {
         if (enrolledUsrs.length === 0) {
           return of([]);
@@ -64,9 +71,33 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       })
     );
 
-    this._sBs.sink = this.allLearners$.subscribe(
-      (alllearners) => (this.dataSource.data = alllearners)
-    );
+    this._sBs.sink = allLearners$.subscribe((alllearners) => {
+      this.dataSource.data = alllearners;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  // TODO: get all classes
+  getAllClasses() {
+    this.allClasses = []
+  }
+
+  //TODO: get all courses
+  getAllCourses() {
+    this.allCourses = []
+  }
+
+  getAllPlatforms() {
+    this.allPlatforms = ['Whatsapp', 'Facebook']
+  }
+
+  getStatus(status: number) {
+    return EnrolledEndUserStatus[status].charAt(0).toUpperCase() + EnrolledEndUserStatus[status].slice(1);
+  }
+
+  searchTable(event: Event){
+    const searchValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = searchValue.trim();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -89,7 +120,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   isSomeSelected() {
-    console.log(this.selection.selected);
     return this.selection.selected.length > 0;
   }
 
