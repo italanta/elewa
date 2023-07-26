@@ -86,7 +86,8 @@ export class EngineBotManager
 
       const END_USER_ID = endUser.id;
 
-      await this.createEndUser(endUser, enrolledUserService);
+      // create endUser and enrolledUser equivalent.
+      await this.createEndUser(endUser, enrolledUserService, this._logger);
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
@@ -141,9 +142,14 @@ export class EngineBotManager
     }
   }
 
-  async createEndUser(endUser: EndUser, enrolledUserService: EnrolledUserDataService) {
+  async createEndUser(endUser: EndUser, enrolledUserService: EnrolledUserDataService, logger:Logger) {
+    logger.log(() => `Creating EndUser and Enrolled User Equivalent`);
+    
+    // Step 1: Get or Create End User
     this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
-    await enrolledUserService.getOrCreateEnrolledUser(this.endUser);
+
+    // Step 2: Get or Create Enrolled User
+    await enrolledUserService.getOrCreateEnrolledUser(this.endUser, 'whatsappUserId');
   }
 
   async addSideOperation(operation: Promise<any>)

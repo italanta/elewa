@@ -27,14 +27,14 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
     return this.createDocument(enrolledUser, this._docPath);
   }
 
-  async getOrCreateEnrolledUser(endUser: EndUser) {
-    const enrolledUsers = await this.getDocumentByField('whatsappUserId', endUser.id, this._docPath);
+  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string) {
+    const enrolledUsers = await this.getDocumentByField(platformField, endUser.id, this._docPath);
     let currentEnrolledUser = enrolledUsers[0];
 
     if (!currentEnrolledUser) {
       const enrolledUser: EnrolledEndUser = {
-        name: endUser.name,
-        phoneNumber: endUser.phoneNumber,
+        name: endUser.name || '',
+        phoneNumber: endUser.phoneNumber || '',
         classId: '',
         currentCourse: '',
         whatsappUserId: endUser.id,
