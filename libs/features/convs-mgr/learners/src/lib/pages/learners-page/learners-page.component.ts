@@ -29,10 +29,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   learnersColumns = ['name', 'phone', 'course', 'class'];
 
   ngOnInit() {
-    this.getCourseForUsers();
+    this.getCurrentCourseForUsers();
   }
 
-  getCourseForUsers() {
+  // TODO @LemmyMwaura: We now update the enrolled user's current milestone from the event brick so this method is redundant. 
+  // TODO: to be removed after incremental adoption of the event brick(as a way to mark entry into a new milstone) on existing prod versions.
+  getCurrentCourseForUsers() {
     this.allLearners$ = this._eLearners.getAllLearners$().pipe(
       switchMap((enrolledUsrs) => {
         if (enrolledUsrs.length === 0) {

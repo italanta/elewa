@@ -21,7 +21,6 @@ export class EndUserService {
 
   getCourse(id: string) {
     return this.getUserCursor(id).pipe(map(latestCursor => {
-      console.log('latest cursor')
       return latestCursor[0].eventsStack
     }))
   }
@@ -34,6 +33,7 @@ export class EndUserService {
       switchMap((endUsers) => {
         const userObservables = endUsers.map((user) =>
           combineLatest([
+            // TODO: add a User's name to their individual properties from the bot engine.
             this._endUser$$.getUserName(user.id as string),
             this._endUser$$.getCurrentCursor(user.id as string),
           ]).pipe(
