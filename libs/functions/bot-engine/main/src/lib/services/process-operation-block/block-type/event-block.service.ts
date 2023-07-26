@@ -4,6 +4,7 @@ import { Cursor, EventsStack } from "@app/model/convs-mgr/conversations/admin/sy
 
 import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { EventBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
@@ -38,9 +39,9 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 		this.enrolledUserService = enrolledUserService;
 	}
 
-	public async handleBlock(storyBlock: EventBlock, updatedCursor: Cursor, orgId: string, endUserId: string, _message:Message)
+	public async handleBlock(storyBlock: EventBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser, _message:Message)
 	{
-		const newCursor = await this.getNextBlock(_message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
+		const newCursor = await this.getNextBlock(_message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id);
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 
@@ -54,18 +55,22 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
     // if first time recording event create the eventStack.
     if (!newCursor.eventsStack) newCursor.eventsStack = [];
 
-		if (eventDetails.isMilestone) {
-			// const enrolledUser = this.enrolledUserService.getOrCreateEnrolledUser();
-
-			// get enrolled user
-			// add currentcourse
-		};
-
     const eventExists = this.wasEventTracked(newCursor, eventDetails);
 
     // if event does not exist add it.
-    if (!eventExists) newCursor.eventsStack.unshift(eventDetails);
-    
+    if (!eventExists) {
+			newCursor.eventsStack.unshift(eventDetails);
+
+			// update the enrolled User's current course if event is marked as a milestone.
+			if (eventDetails.isMilestone) {
+				// get enrolled user
+				const user = '';
+				// add currentcourse
+
+				// update DB
+			};
+		};
+
 		return {
 			storyBlock: nextBlock,
 			newCursor

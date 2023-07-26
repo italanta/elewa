@@ -130,7 +130,7 @@ export class BotEnginePlay implements IBotEnginePlay
       const currentStory  = endUserPosition.position.storyId;
 
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser.id, this.orgId, currentStory, this._tools);
+      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser, this.orgId, currentStory, this._tools);
     }
   }
 
