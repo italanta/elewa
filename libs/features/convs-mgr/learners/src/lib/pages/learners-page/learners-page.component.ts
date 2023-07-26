@@ -29,7 +29,11 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   allClasses: string[] = [];
   allPlatforms: string[] = [];
-  allCourses:string[] = []
+  allCourses: string[] = [];
+
+  selectedClass: any = 'Class';
+  selectedCourse: any = 'Course';
+  selectedPlatform: any = 'Platform';
 
   constructor(
     private _eLearners: EnrolledLearnersService,
@@ -79,23 +83,26 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   // TODO: get all classes
   getAllClasses() {
-    this.allClasses = []
+    this.allClasses = [];
   }
 
   //TODO: get all courses
   getAllCourses() {
-    this.allCourses = []
+    this.allCourses = [];
   }
 
   getAllPlatforms() {
-    this.allPlatforms = ['Whatsapp', 'Facebook']
+    this.allPlatforms = ['Whatsapp', 'Facebook'];
   }
 
   getStatus(status: number) {
-    return EnrolledEndUserStatus[status].charAt(0).toUpperCase() + EnrolledEndUserStatus[status].slice(1);
+    return (
+      EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
+      EnrolledEndUserStatus[status].slice(1)
+    );
   }
 
-  searchTable(event: Event){
+  searchTable(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
   }

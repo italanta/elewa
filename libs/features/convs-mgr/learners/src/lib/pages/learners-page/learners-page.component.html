@@ -12,21 +12,23 @@
 
         <div class="search">
           <i class="fas fa-search search_tooltip"></i>
-          <input class="search_input" type="text" name="search table" placeholder="search input by name" id="" (keyup)="searchTable($event)">
+          <input class="search_input" type="text" name="search table" placeholder="search input by name" id=""
+            (keyup)="searchTable($event)"
+          >
         </div>
 
         <div class="dropdown">
-          <select name="class" id="class">
+          <select [(value)]="selectedClass">
             <option [value]="null" selected disabled>Class</option>
             <option *ngFor="let class of allClasses" [value]="class">{{class}}</option>
           </select>
 
-          <select name="course" id="course">
+          <select [(value)]="selectedCourse">
             <option [value]="null" selected disabled>Course</option>
             <option *ngFor="let course of allCourses" [value]="course">{{course}}</option>
           </select>
 
-          <select name="platforms" id="platform">
+          <select [(value)]="selectedPlatform">
             <option [value]="null" selected disabled>Platform</option>
             <option *ngFor="let platform of allPlatforms" [value]="platform">{{platform}}</option>
           </select>
