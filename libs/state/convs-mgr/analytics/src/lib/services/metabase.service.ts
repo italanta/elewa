@@ -11,7 +11,7 @@ import { UserStore } from '@app/state/user';
 
 export class MetabaseService
 {
-	constructor(private _aFF: AngularFireFunctions,
+  constructor(private _aFF: AngularFireFunctions,
 		private authService: UserStore) { }
 
 	getMetabaseLink()
