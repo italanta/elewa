@@ -14,6 +14,7 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
+import { ManageClassComponent } from '../../modals/manage-class/manage-class.component';
 
 @Component({
   selector: 'app-learners-page',
@@ -25,7 +26,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status'];
+  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status', 'actions'];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
@@ -143,6 +144,16 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   openBulkActionsDialog(): void {
     this._dialog.open(BulkActionsModalComponent, {
       data: { selectedUsers: this.selection.selected },
+      height: '300px',
+      width: '400px',
+    });
+  }
+
+  openManageClassModal(event: any, enrolledUsr:EnrolledEndUser) {
+    event.stopPropagation();
+
+    this._dialog.open(ManageClassComponent, {
+      data: { enrolledUsr },
       height: '300px',
       width: '400px',
     });
