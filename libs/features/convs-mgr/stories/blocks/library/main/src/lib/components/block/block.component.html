@@ -1,4 +1,4 @@
-<mat-card  class="card" [id]="id" class="block-card" (contextmenu)="copyBlockIdToClipboard($event)">
+<mat-card  class="card" [id]="id" class="block-card" (contextmenu)="copyBlockIdToClipboard($event)" (click)="hideCopyBtn()">
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container">
@@ -10,8 +10,11 @@
                 <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
                 <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
                 <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
-                <span (click)="copyBlockIdToClipboard($event)" class="icons"><i class="far fa-clipboard"></i></span>
+                <div class="copy-button-container " *ngIf="showCopyBtn">
+                    <span (click)="copyBlockIdToClipboard($event)" class="icons" id="copy-span"><i class="far fa-clone"></i>Copy Reference</span> 
+                </div>
             </div>
+            
         </div>
 
         <div *ngSwitchCase="messagetype">

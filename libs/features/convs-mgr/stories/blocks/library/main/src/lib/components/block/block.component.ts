@@ -360,6 +360,17 @@ export class BlockComponent implements OnInit {
     );
   }
   
+  showCopyBtn = false;
+
+  @HostListener('contextmenu', ['$event'])
+  onContextMenu(event: MouseEvent) {
+    event.preventDefault(); // Prevent the default context menu from showing up
+    this.showCopyBtn = true;
+  }
+
+  hideCopyBtn() {
+    this.showCopyBtn = false;
+  }
   
 }
 
