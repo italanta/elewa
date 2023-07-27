@@ -32,7 +32,7 @@ export class JumpStoryBlockService implements IProcessOperationBlock
   { }
 
 
-  public async handleBlock(storyBlock: JumpBlock, updatedCursor: Cursor, orgId: string, endUserId: string) {
+  public async handleBlock(storyBlock: JumpBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser) {
       
     const currentStory = updatedCursor.position.storyId;
     

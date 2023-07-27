@@ -4,9 +4,11 @@ import { Cursor, EventsStack } from "@app/model/convs-mgr/conversations/admin/sy
 
 import { Message } from "@app/model/convs-mgr/conversations/messages";
 import { EventBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
@@ -23,17 +25,23 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 	sideOperations: Promise<any>[] = [];
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
+	enrolledUserService: EnrolledUserDataService;
 
-	constructor(blockDataService: BlockDataService, connDataService: ConnectionsDataService, tools: HandlerTools)
-	{
+	constructor(
+		blockDataService: BlockDataService, 
+		connDataService: ConnectionsDataService, 
+		enrolledUserService: EnrolledUserDataService, 
+		tools: HandlerTools
+	) {
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
 		this.blockDataService = blockDataService;
+		this.enrolledUserService = enrolledUserService;
 	}
 
-	public async handleBlock(storyBlock: EventBlock, updatedCursor: Cursor, orgId: string, endUserId: string, _message:Message)
+	public async handleBlock(storyBlock: EventBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser, _message:Message)
 	{
-		const newCursor = await this.getNextBlock(_message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
+		const newCursor = await this.getNextBlock(_message, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id);
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 
@@ -49,9 +57,25 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 
     const eventExists = this.wasEventTracked(newCursor, eventDetails);
 
-    // if event does not exist add it.
-    if (!eventExists) newCursor.eventsStack.unshift(eventDetails);
-    
+    if (!eventExists) {
+			// if event does not exist add it.
+			newCursor.eventsStack.unshift(eventDetails);
+
+			// update the enrolled User's current course if event is marked as a milestone.
+			if (eventDetails.isMilestone) {
+				// add currentcourse
+				this.tools.Logger.log(()=> `Updating enrolledUser's currentCourse: ${eventDetails.name}`);
+
+				const enrolledUser = await this.enrolledUserService.getOrCreateEnrolledUser(endUser, 'whatsappEndUserId');
+
+				// update currentcourse
+				enrolledUser.currentCourse = eventDetails.name;
+
+				// update User's current course
+				await this.enrolledUserService.updateEnrolledUser(enrolledUser);
+			};
+		};
+
 		return {
 			storyBlock: nextBlock,
 			newCursor

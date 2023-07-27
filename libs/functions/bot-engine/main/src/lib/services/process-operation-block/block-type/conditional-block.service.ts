@@ -4,6 +4,7 @@ import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { ConditionalBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -33,13 +34,13 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 		this.blockDataService = blockDataService;
 	}
 
-	public async handleBlock(storyBlock: ConditionalBlock, updatedCursor: Cursor, orgId: string, endUserId: string, _message:Message)
+	public async handleBlock(storyBlock: ConditionalBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser, _message:Message)
 	{
 		// get the selected or typed variable (only one is returned)
 		const variableToCheck = storyBlock.selectedVar ? storyBlock.selectedVar : storyBlock.typedVar;
 
 		// get variable value from DB
-		const varDataService = new VariablesDataService(this.tools, orgId, endUserId);
+		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id);
 
 		const variableValue = await varDataService.getSpecificVariable(variableToCheck);
 
@@ -52,7 +53,7 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 			options : this.getOptions(storyBlock)
 		}
 
-		const newCursor = await this.getNextBlock(newMessage, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId, "matchText");
+		const newCursor = await this.getNextBlock(newMessage, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id, "matchText");
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 
