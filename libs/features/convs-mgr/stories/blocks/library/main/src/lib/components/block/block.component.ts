@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Logger } from '@iote/bricks-angular';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
@@ -116,7 +117,8 @@ export class BlockComponent implements OnInit {
               private _logger: Logger,
               private sideMenu:SidemenuToggleService,
               private sideScreen:SideScreenToggleService,
-              private matdialog: MatDialog
+              private matdialog: MatDialog,
+              private clipboard: Clipboard
 
   ) { }
 
@@ -348,5 +350,16 @@ export class BlockComponent implements OnInit {
     this.viewPort.remove(index);
     this._cd.detectChanges();
   }
+
+  copyBlockIdToClipboard(event: MouseEvent) {
+    event.preventDefault(); // Prevent the default context menu from showing up
+    const blockId = this.id;
+    navigator.clipboard.writeText(blockId).then(
+      () => console.log('Block ID copied to clipboard: ', blockId),
+      (error) => console.error('Failed to copy block ID: ', error)
+    );
+  }
+  
+  
 }
 
