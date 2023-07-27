@@ -6,7 +6,7 @@ import { ClassroomStore } from '../store/classroom.store';
 @Injectable({
   providedIn: 'root',
 })
-export class EndUserService {
+export class ClassroomService {
   constructor(private _classroom$$: ClassroomStore) {}
 
   getAllClassrooms() {
