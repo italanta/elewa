@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 import { SubSink } from 'subsink';
 
@@ -49,7 +50,9 @@ export class JumpBlockComponent implements OnInit, OnDestroy
     private _fb: FormBuilder,
     private _storyBlockStore$$: StoryBlocksStore,
     private _translate: TranslateService,
-    private _logger: Logger)
+    private _logger: Logger,
+    private clipboard: Clipboard,
+    )
   { }
 
   ngOnInit(): void
@@ -58,6 +61,9 @@ export class JumpBlockComponent implements OnInit, OnDestroy
 
     this.getStories();
     this.getBlocks();
+
+    const inputElement = document.getElementById('blockIdInput') as HTMLInputElement;
+    inputElement.addEventListener('paste', (event) => this.handlePaste(event));
   }
 
   get options(): FormArray
@@ -111,6 +117,14 @@ export class JumpBlockComponent implements OnInit, OnDestroy
       {
         this.blocks = blocks;
       });
+  }
+
+  handlePaste(event: ClipboardEvent){
+    const clipboardData = event.clipboardData || (window as any).clipboardData;
+    const pasteID = clipboardData.getData('text/plain')
+    const blockId = pasteID.trim()
+    this.jumpBlockForm.patchValue({ blockId: blockId})
+    event.preventDefault();
   }
 
   ngOnDestroy()
