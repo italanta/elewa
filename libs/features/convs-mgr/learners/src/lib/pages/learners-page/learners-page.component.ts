@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 
@@ -11,7 +12,7 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
-import { MatDialog } from '@angular/material/dialog';
+
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 
 @Component({
@@ -57,9 +58,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   getCurrentCourseForUsers() {
     const allLearners$ = this._eLearners.getAllLearners$().pipe(
       switchMap((enrolledUsrs) => {
-        if (enrolledUsrs.length === 0) {
-          return of([]);
-        }
+        if (enrolledUsrs.length === 0) return of([]);
 
         const endUsers = enrolledUsrs.map((user) => {
           if (!user.whatsappUserId) return of(user);
@@ -144,6 +143,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   openBulkActionsDialog(): void {
     this._dialog.open(BulkActionsModalComponent, {
       data: { selectedUsers: this.selection.selected },
+      height: '300px',
+      width: '400px',
     });
   }
 
