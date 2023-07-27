@@ -6,10 +6,10 @@
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 
-            <div fxLayout="row" class="icon-block">
-                <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
-                <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
-                <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
+            <div fxLayout="row" class="icon-block"> 
+                <span *ngIf="!showCopyBtn" (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
+                <span *ngIf="!showCopyBtn" (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
+                <span *ngIf="!showCopyBtn" (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
                 <div class="copy-button-container " *ngIf="showCopyBtn">
                     <span (click)="copyBlockIdToClipboard($event)" class="icons" id="copy-span"><i class="far fa-clone"></i>Copy Reference</span> 
                 </div>

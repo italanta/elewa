@@ -72,14 +72,19 @@ mat-card {
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
 }
-.copy-button-container{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-right: auto;
-  #copy-span{
-	width: 150px;
-	background-color: var(--convs-mgr-color-light-shade);
-	color: var(--convs-mgr-color-medium-shade);
-}
-}
+
+.copy-button-container {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-left: auto; 
+
+	#copy-span {
+		background-color: var(--convs-mgr-color-light-shade);
+		color: var(--convs-mgr-color-medium-shade);
+		padding: 5px 10px; 
+		border-radius: 4px; 
+		cursor: pointer;
+	  }
+  }
+  

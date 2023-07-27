@@ -354,10 +354,7 @@ export class BlockComponent implements OnInit {
   copyBlockIdToClipboard(event: MouseEvent) {
     event.preventDefault(); // Prevent the default context menu from showing up
     const blockId = this.id;
-    navigator.clipboard.writeText(blockId).then(
-      () => console.log('Block ID copied to clipboard: ', blockId),
-      (error) => console.error('Failed to copy block ID: ', error)
-    );
+    navigator.clipboard.writeText(blockId)
   }
   
   showCopyBtn = false;
