@@ -8,16 +8,30 @@ import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
   styleUrls: ['./bulk-actions-modal.component.scss'],
 })
 export class BulkActionsModalComponent {
+  selectedAction: string;
+
   constructor(
     public dialogRef: MatDialogRef<BulkActionsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { selectedUsers: EnrolledEndUser[] }
   ) {}
 
   get selectedUsers() {
-    return this.data.selectedUsers.length;
+    return this.data.selectedUsers;
   }
 
-  onCancel(): void {
+  onCancel() {
+    this.dialogRef.close();
+  }
+
+  onChange(e: any) {
+    this.selectedAction = e.target.value;
+  }
+
+  submitAction() {
+    // perform form submit;
+    // action: this.selectedAction,
+    // users: this.selectedUsers
+    
     this.dialogRef.close();
   }
 }
