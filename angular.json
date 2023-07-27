@@ -927,6 +927,32 @@
       },
       "tags": []
     },
+    "model-convs-mgr-classroom": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/classroom",
+      "sourceRoot": "libs/model/convs-mgr/classroom/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/classroom"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/classroom/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/classroom/**/*.ts",
+              "libs/model/convs-mgr/classroom/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
     "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
     "model-convs-mgr-conversations-assessments": {
