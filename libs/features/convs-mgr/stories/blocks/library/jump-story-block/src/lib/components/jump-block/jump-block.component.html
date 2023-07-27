@@ -4,7 +4,7 @@
       <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
       <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-STORY" | transloco}}</option>
     </select>
-
+    <input type="text" formControlName="blockId" id="blockIdInput" placeholder="Paste Block ID here" />
     <input id="block" formControlName="targetBlockId" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-BLOCK' | transloco" />
 
     <div formArrayName="options" fxFlexFill>
