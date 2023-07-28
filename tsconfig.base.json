@@ -51,9 +51,6 @@
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
       "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
-      "@app/features/monitoring": [
-        "libs/features/monitoring/src/index.ts"
-      ],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
@@ -186,6 +183,7 @@
       "@app/features/convs-mgr/stories/home": [
         "libs/features/convs-mgr/stories/home/src/index.ts"
       ],
+      "@app/features/monitoring": ["libs/features/monitoring/src/index.ts"],
       "@app/functions/analytics/progress/main": [
         "libs/functions/analytics/progress/main/src/index.ts"
       ],
@@ -290,6 +288,7 @@
         "libs/state/convs-mgr/story-editor/src/index.ts"
       ],
       "@app/state/file": ["libs/state/file/store/src/index.ts"],
+      "@app/state/file/whatsapp": ["libs/state/file/whatsapp/src/index.ts"],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],
