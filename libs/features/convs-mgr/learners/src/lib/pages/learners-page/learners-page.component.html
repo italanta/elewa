@@ -82,7 +82,9 @@
         <ng-container matColumnDef="actions">
           <th class="table-header" mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let enrolledUsr">
-            <button mat-raised-button (click)="openManageClassModal($event, enrolledUsr)"> Update Class </button>
+            <button mat-raised-button (click)="openManageClassModal($event, enrolledUsr)"> 
+              {{ getMode(enrolledUsr) }}
+            </button>
           </td>
         </ng-container>
 

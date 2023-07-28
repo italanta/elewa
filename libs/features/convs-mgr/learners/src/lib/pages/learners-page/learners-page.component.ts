@@ -26,7 +26,15 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status', 'actions'];
+  displayedColumns = [
+    'select',
+    'name',
+    'phone',
+    'course',
+    'class',
+    'status',
+    'actions',
+  ];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
@@ -105,6 +113,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  getMode(enrolledUser: EnrolledEndUser) {
+    return enrolledUser.classId ? 'ChangeClass' : 'Add to Class';
+  }
+
   searchTable(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
@@ -149,11 +161,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  openManageClassModal(event: any, enrolledUsr:EnrolledEndUser) {
+  openManageClassModal(event: Event, enrolledUsr: EnrolledEndUser) {
     event.stopPropagation();
+    const mode = this.getMode(enrolledUsr);
 
     this._dialog.open(ManageClassComponent, {
-      data: { enrolledUsr },
+      data: { enrolledUsr, mode },
       height: '300px',
       width: '400px',
     });

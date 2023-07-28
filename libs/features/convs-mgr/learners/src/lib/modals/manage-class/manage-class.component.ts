@@ -14,11 +14,15 @@ export class ManageClassComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ManageClassComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { selectedStudent: EnrolledEndUser }
+    @Inject(MAT_DIALOG_DATA) public data: { enrolledUser: EnrolledEndUser, mode: string }
   ) {}
 
-  get selectedStudent() {
-    return this.data.selectedStudent;
+  get enrolledUser() {
+    return this.data.enrolledUser;
+  }
+
+  get mode() {
+    return this.data.mode;
   }
 
   onCancel() {
