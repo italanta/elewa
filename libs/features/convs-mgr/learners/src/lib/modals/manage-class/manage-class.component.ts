@@ -2,13 +2,13 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-manage-class',
