@@ -1265,6 +1265,32 @@
     },
     "state-convs-mgr-story-editor": "libs/state/convs-mgr/story-editor",
     "state-file": "libs/state/file/store",
+    "state-file-whatsapp": {
+      "projectType": "library",
+      "root": "libs/state/file/whatsapp",
+      "sourceRoot": "libs/state/file/whatsapp/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/file/whatsapp"],
+          "options": {
+            "jestConfig": "libs/state/file/whatsapp/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/file/whatsapp/**/*.ts",
+              "libs/state/file/whatsapp/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-organisation": "libs/state/organisation/main",
     "state-user": "libs/state/user/base",
     "util-iote-bricks": "libs/util/iote/bricks",

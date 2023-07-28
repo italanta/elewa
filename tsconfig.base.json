@@ -299,6 +299,7 @@
         "libs/state/convs-mgr/story-editor/src/index.ts"
       ],
       "@app/state/file": ["libs/state/file/store/src/index.ts"],
+      "@app/state/file/whatsapp": ["libs/state/file/whatsapp/src/index.ts"],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
       "@app/state/user": ["libs/state/user/base/src/index.ts"],
       "@iote/bricks": ["libs/util/iote/bricks/src/index.ts"],

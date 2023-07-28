@@ -5,6 +5,7 @@ import {createReadStream} from 'fs';
 import { tmpdir } from 'os';
 import * as mime from 'mime-types';
 import * as FormData from 'form-data';
+import * as moment from 'moment';
 
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
@@ -33,7 +34,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
   {
     this._tools = tools;
     this.channel = payload as WhatsAppCommunicationChannel;
-    // const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
+    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
 
     this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
 
@@ -48,12 +49,13 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     {
       const fileBlock = blockData.data as FileMessageBlock;
       // Get block updated time
-      // const blockUpdatedTime = __DateFromStorage(block.updatedOn);
+      const blockUpdatedTime = __DateFromStorage(fileBlock.updatedOn);
 
       // Only upload media if the block was updated after the story was published
+      if(!storyPublishedTime) return {status: 400} as RestResult;
 
       // TODO: Uncomment this when the storyPublishedTime is fixed
-      // if(storyPublishedTime && blockUpdatedTime > storyPublishedTime) {
+      if(blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
 
       // Only upload media if the block has a file source
       if(fileBlock.fileSrc)
@@ -75,7 +77,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
           this._tools.Logger.log(()=> `Block ${fileBlock.id} updated with Media ID: ${mediaId}`);
         }
       }
-    // }
+    }
     }
 
     return {status: 200} as RestResult;
@@ -174,5 +176,11 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     const story  = await storyRepo$.getDocumentById(storyId);
 
     return story.publishedOn;
+  }
+
+  private __hasExpired(blockUpdatedTime: moment.Moment) 
+  {
+    // Check if the media has not been updated in the last 29 days
+    return moment().diff(blockUpdatedTime, 'days') > 29;
   }
 }

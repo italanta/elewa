@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
+
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FileStorageService {
+export class FileStorageService
+{
 
   constructor(private _afS$$: AngularFireStorage,
-    private dialog: MatDialog
-    ) { }
+    private dialog: MatDialog,
+    private _whatsappUploadFileService: WhatsappUploadFileService
+  ) { }
 
   async uploadSingleFile(file: File, filePath: string) {
     const customMetadata = { app: 'ele-convs-mgr' };
@@ -35,5 +40,11 @@ export class FileStorageService {
       }
     });
   }
-  
+
+  uploadMediaToPlatform(channel: CommunicationChannel)
+  {
+    // TODO: Add support for other platforms
+    return this._whatsappUploadFileService.uploadMedia(channel);
+  }
+
 }

@@ -1,18 +1,18 @@
 <div class="modal-wrapper">
   <div class="title-section">
     <p class="title">Actions</p>
-    <span>{{ selectedUsers.length }} students selected</span>
+    <span class="selected-users">{{ selectedUsers.length }} students selected</span>
   </div>
 
   <div class="middle-section">
     <div class="one">
       <input type="radio" name="bulk-action" id="invitation" value="send Invitation" (change)="onChange($event)">
-      <label for="invitation">Send Invitation</label>
+      <label for="invitation">Send invitation</label>
     </div>
 
     <div class="two">
       <input type="radio" name="bulk-action" id="reminder" value="send Reminder" (change)="onChange($event)">
-      <label for="reminder">Send Reminder</label>
+      <label for="reminder">Send reminder</label>
     </div>
   </div>
 
