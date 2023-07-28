@@ -40,10 +40,7 @@ export class ProcessInput<T>
 
   variableExists(storyBlockVariable: StoryBlockVariable)
   {
-    if (storyBlockVariable && storyBlockVariable.name !== "") {
-      return true;
-    }
-    return false;
+    return storyBlockVariable && storyBlockVariable.name !== "";
   }
 
 
