@@ -1,13 +1,15 @@
 <div class="modal-wrapper">
   <div class="title-section">
     <p class="title">{{ mode }}</p>
-    <span>{{ enrolledUser.name || 'No Name' }}</span>
+    <span>{{ enrolledUser?.name ?? 'No Name' }}</span>
   </div>
 
-  <div class="middle-section">
-    <div class="class">
-      <input type="radio" name="bulk-action" id="invitation" value="send Invitation" (change)="onChange($event)">
-      <label for="invitation">Send Invitation</label>
+  <div class="middle-section" *ngIf="classrooms$ | async as classrooms">
+    <div class="class" *ngFor="let classroom of classrooms">
+      <input type="radio" name="classroom" id="classroom" [checked]="classroom.id === enrolledUser.classId"
+        [value]="classroom" (change)="onChange($event)"
+      >
+      <label for="classroom">{{ classroom }}</label>
     </div>
   </div>
 
