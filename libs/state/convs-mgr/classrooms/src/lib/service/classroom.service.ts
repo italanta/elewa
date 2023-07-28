@@ -13,6 +13,10 @@ export class ClassroomService {
     return this._classroom$$.get();
   }
 
+  addClassroom(classroom: Classroom) {
+    return this._classroom$$.add(classroom);
+  }
+
   getSpecificClassroom(id: string) {
     return this._classroom$$.getOne(id);
   }
