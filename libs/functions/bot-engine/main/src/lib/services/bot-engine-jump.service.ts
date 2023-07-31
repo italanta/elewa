@@ -35,7 +35,7 @@ export class BotEngineJump extends BotEnginePlay
 
   async jump(storyId: string, orgId: string, endUser: EndUser, currentCursor: Cursor, blockId?: string) 
   {
-    const {storyBlock, newCursor} = await this.__moveChat(storyId, orgId, currentCursor, endUser.id, blockId);
+    const {storyBlock, newCursor} = await this.__moveChat(storyId, orgId, currentCursor, endUser, blockId);
 
     await this.__reply(storyBlock, endUser);
     
@@ -48,7 +48,7 @@ export class BotEngineJump extends BotEnginePlay
     
   }
 
-  private async __moveChat(storyId: string, orgId: string, currentCursor: Cursor, endUserId: string, blockId?: string) 
+  private async __moveChat(storyId: string, orgId: string, currentCursor: Cursor, endUser: EndUser, blockId?: string) 
   {
 
     const connDataService = new ConnectionsDataService(this._activeChannel.channel, this._tools);
@@ -67,7 +67,7 @@ export class BotEngineJump extends BotEnginePlay
       targetBlockId: blockId || null,
     }
 
-   const {storyBlock, newCursor}  =  await jumpBlockService$.handleBlock(jumpBlock, currentCursor, orgId, endUserId);
+   const {storyBlock, newCursor}  =  await jumpBlockService$.handleBlock(jumpBlock, currentCursor, orgId, endUser);
 
    return {storyBlock, newCursor};
 
