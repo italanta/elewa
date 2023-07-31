@@ -22,6 +22,12 @@ import { OrgStore } from '../stores/organisation.store';
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * This service is responsible for all organisation related operations.
+ *  It can be used to create, update, delete and get organisation details e.g.
+ *    update permisions, remove users, add users, etc.
+ */
 export class OrganisationService {
 
   private _sbS = new SubSink();
@@ -35,26 +41,28 @@ export class OrganisationService {
               private _permissionsStore: PermissionsStore
   ){}
 
+  /** Gets the active(current) organisation */
   getActiveOrg() {
     return this._activeOrg$$.get();
   }
 
+  /** Gets the organisation details in which the user belongs to */
   getUserOrgDetails() {
     return combineLatest([this._activeOrg$$.get(), this._orgs$$.get()]);
   }
 
+  /** Get details of the users in an organisation */
   getOrgUsersDetails(): Observable<iTalUser[]> {
     return this._activeOrg$$.get().pipe(switchMap((org) => !!org ? this._user$$.getOrgUsers(org.id!) : []));
   }
 
+  /** Creates an organisation */
   createOrg(org: Organisation) {
     const id = this._db.createId();
     const orgWithId = { 
       ...org, 
       id: id,
       logoUrl: '',
-      vatNo: '',
-      bankAccounts: [],
       email: '',
       phone: '',
      };
@@ -70,6 +78,7 @@ export class OrganisationService {
     this._activeOrg$$.setOrg(org);
   }
 
+  /** Switches the active org to a new one */
   switchOrganisation(activeOrg: string){
     let userData: iTalUser;
     this._sbS.sink = this._user$$.getUser().pipe(take(1)).subscribe(u => {
@@ -88,6 +97,7 @@ export class OrganisationService {
     });
   }
 
+  /** Gets the permissions configured in the active organisation  */
   getOrgPermissions () {
     return this._permissionsStore.get();
   }
