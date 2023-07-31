@@ -8,7 +8,7 @@ export interface EnrolledEndUser extends IObject {
   /**
    * The name of the enrolled learner.
    */
-  name: string;
+  name ?: string;
 
   /**
    * The phone number of the enrolled learner.

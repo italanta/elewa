@@ -7,11 +7,15 @@ import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
 
-import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
+import {
+  EnrolledEndUser,
+  EnrolledEndUserStatus,
+} from '@app/model/convs-mgr/learners';
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
+import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 
 @Component({
   selector: 'app-learners-page',
@@ -23,7 +27,15 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status'];
+  displayedColumns = [
+    'select',
+    'name',
+    'phone',
+    'course',
+    'class',
+    'status',
+    'actions',
+  ];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
@@ -79,6 +91,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  getMode(enrolledUser: EnrolledEndUser) {
+    return enrolledUser.classId ? 'ChangeClass' : 'Add to Class';
+  }
+
   searchTable(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
@@ -118,6 +134,17 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   openBulkActionsDialog(): void {
     this._dialog.open(BulkActionsModalComponent, {
       data: { selectedUsers: this.selection.selected },
+      height: '300px',
+      width: '400px',
+    });
+  }
+
+  openChangeClassModal(event: Event, enrolledUsr: EnrolledEndUser) {
+    event.stopPropagation();
+    const mode = this.getMode(enrolledUsr);
+
+    this._dialog.open(ChangeClassComponent, {
+      data: { enrolledUsr, mode },
       height: '300px',
       width: '400px',
     });

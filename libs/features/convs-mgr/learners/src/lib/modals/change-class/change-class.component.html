@@ -1,0 +1,20 @@
+<div class="modal-wrapper">
+  <div class="title-section">
+    <p class="title">{{ mode }}</p>
+    <span>{{ enrolledUser?.name ?? 'No Name' }}</span>
+  </div>
+
+  <div class="middle-section" *ngIf="classrooms$ | async as classrooms">
+    <div class="class" *ngFor="let classroom of classrooms">
+      <input type="radio" name="classroom" id="classroom" [checked]="classroom.id === enrolledUser.classId"
+        [value]="classroom" (change)="onChange($event)"
+      >
+      <label for="classroom">{{ classroom }}</label>
+    </div>
+  </div>
+
+  <div class="action-btns">
+    <button class="btn" (click)="onCancel()">Cancel</button>
+    <button class="btn" (click)="submitAction()">Continue</button>
+  </div>
+</div>
