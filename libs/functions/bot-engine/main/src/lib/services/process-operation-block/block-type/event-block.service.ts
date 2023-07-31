@@ -25,18 +25,15 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 	sideOperations: Promise<any>[] = [];
 	tools: HandlerTools;
 	blockDataService: BlockDataService;
-	enrolledUserService: EnrolledUserDataService;
 
 	constructor(
 		blockDataService: BlockDataService, 
-		connDataService: ConnectionsDataService, 
-		enrolledUserService: EnrolledUserDataService, 
+		connDataService: ConnectionsDataService,  
 		tools: HandlerTools
 	) {
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
 		this.blockDataService = blockDataService;
-		this.enrolledUserService = enrolledUserService;
 	}
 
 	public async handleBlock(storyBlock: EventBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser, _message:Message)
@@ -66,13 +63,15 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 				// add currentcourse
 				this.tools.Logger.log(()=> `Updating enrolledUser's currentCourse: ${eventDetails.name}`);
 
-				const enrolledUser = await this.enrolledUserService.getOrCreateEnrolledUser(endUser, 'whatsappEndUserId');
+				const enrolledUserService = new EnrolledUserDataService(this.tools, orgId);
+
+				const enrolledUser = await enrolledUserService.getOrCreateEnrolledUser(endUser, 'whatsappEndUserId');
 
 				// update currentcourse
 				enrolledUser.currentCourse = eventDetails.name;
 
 				// update User's current course
-				await this.enrolledUserService.updateEnrolledUser(enrolledUser);
+				await enrolledUserService.updateEnrolledUser(enrolledUser);
 			};
 		};
 
