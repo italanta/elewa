@@ -47,10 +47,9 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
   private _getOrgUsers(user: iTalUser): Query
   {
     let q = new Query();
-    if(user)
-    {
-      q = q.where('users', 'array-contains', user.id);
-    }
+
+    q = q.where('users', 'array-contains', user.id);
+
     return q;
   }
 
