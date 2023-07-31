@@ -149,7 +149,10 @@ export class EngineBotManager
     this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
 
     // Step 2: Get or Create Enrolled User
-    await enrolledUserService.getOrCreateEnrolledUser(this.endUser, 'whatsappUserId');
+    const enrolledUser = enrolledUserService.getOrCreateEnrolledUser(this.endUser, 'whatsappUserId');
+
+    // step 3: batch and resolve later
+    this.addSideOperation(enrolledUser);
   }
 
   async addSideOperation(operation: Promise<any>)
