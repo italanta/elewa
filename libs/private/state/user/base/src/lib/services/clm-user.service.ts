@@ -107,7 +107,7 @@ export class CLMUsersService {
       uid: '',
       email: userData.email,
     };    
-    this._bs.httpsCallable('createNewUser')(user).subscribe();
+    return this._bs.httpsCallable('createNewUser')(user)
   }
 
   createUserRoles(orgRoles: string[], roles: string[], editingUser: boolean) {    
