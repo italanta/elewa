@@ -9,12 +9,12 @@ import { ActiveOrgStore } from './stores/active-org.store';
   providers: []
 })
 
-export class PrivateOrgStateModule
+export class MtOrgStateModule
 {
-  static forRoot(): ModuleWithProviders<PrivateOrgStateModule>
+  static forRoot(): ModuleWithProviders<MtOrgStateModule>
   {
     return {
-      ngModule: PrivateOrgStateModule,
+      ngModule: MtOrgStateModule,
       providers: [
         OrgStore,
         ActiveOrgStore
