@@ -13,7 +13,7 @@ import { LearnersPageComponent } from './pages/learners-page/learners-page.compo
 
 import { LearnersRouterModule } from './learners.router';
 import { BulkActionsModalComponent } from './modals/bulk-actions-modal/bulk-actions-modal.component';
-import { ManageClassComponent } from './modals/manage-class/manage-class.component';
+import { ChangeClassComponent } from './modals/change-class/change-class.component';
 
 @NgModule({
   imports: [
@@ -27,7 +27,7 @@ import { ManageClassComponent } from './modals/manage-class/manage-class.compone
   declarations: [
     LearnersPageComponent,
     BulkActionsModalComponent,
-    ManageClassComponent,
+    ChangeClassComponent,
   ],
 })
 export class ConvsMgrLearnersModule {}

@@ -11,11 +11,11 @@ import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 @Component({
-  selector: 'app-manage-class',
-  templateUrl: './manage-class.component.html',
-  styleUrls: ['./manage-class.component.scss'],
+  selector: 'app-change-class',
+  templateUrl: './change-class.component.html',
+  styleUrls: ['./change-class.component.scss'],
 })
-export class ManageClassComponent implements OnInit, OnDestroy {
+export class ChangeClassComponent implements OnInit, OnDestroy {
   selectedClass: Classroom;
   classrooms$: Observable<Classroom[]>;
 
@@ -24,7 +24,7 @@ export class ManageClassComponent implements OnInit, OnDestroy {
   constructor(
     private _classroom$: ClassroomService,
     private _enrolledUser$: EnrolledLearnersService,
-    public dialogRef: MatDialogRef<ManageClassComponent>,
+    public dialogRef: MatDialogRef<ChangeClassComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { enrolledUser: EnrolledEndUser, mode: string }
   ) {}
   

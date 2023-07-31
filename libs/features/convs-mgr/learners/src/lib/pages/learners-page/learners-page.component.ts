@@ -8,13 +8,16 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SubSink } from 'subsink';
 import { map, switchMap, of, combineLatest } from 'rxjs';
 
-import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
+import {
+  EnrolledEndUser,
+  EnrolledEndUserStatus,
+} from '@app/model/convs-mgr/learners';
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
-import { ManageClassComponent } from '../../modals/manage-class/manage-class.component';
+import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 
 @Component({
   selector: 'app-learners-page',
@@ -161,11 +164,11 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  openManageClassModal(event: Event, enrolledUsr: EnrolledEndUser) {
+  openChangeClassModal(event: Event, enrolledUsr: EnrolledEndUser) {
     event.stopPropagation();
     const mode = this.getMode(enrolledUsr);
 
-    this._dialog.open(ManageClassComponent, {
+    this._dialog.open(ChangeClassComponent, {
       data: { enrolledUsr, mode },
       height: '300px',
       width: '400px',
