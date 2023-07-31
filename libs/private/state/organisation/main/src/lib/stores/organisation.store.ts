@@ -67,16 +67,6 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
     };
   }
 
-  /** Updates organisation information.
-   *  @warning - Do not to be used directly during onboarding and registration phase.
-   *             Only to be used directly for minor data-field related updates.
-   */
-  override update = (prop: Organisation) => super.update(prop);
-
-  /** Create an org
-  *  @warning - Never to be used directly. */
-  override add = (org: Organisation, id?: string) => super.add(org, id);
-
   /**
    * Get an org by id regardless of if logged in user has access.
    *
