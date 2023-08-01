@@ -3,13 +3,10 @@ import { FormGroup } from '@angular/forms';
 
 import { take } from 'rxjs';
 import { SubSink } from 'subsink';
-
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
 import { FileStorageService } from '@app/state/file';
+import { ImageMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-image-block',
@@ -24,18 +21,13 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
   @Input() imageMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  type: StoryBlockTypes;
-  imagetype = StoryBlockTypes.Image;
-  blockFormGroup: FormGroup;
-
-
   file: File;
   imageInputId: string;
   imageInputUpload = '';
-  imageName: string;
   isLoadingImage = false;
   imageLink: string;
   hasImage = false;
+  byPassedLimits: any[] = [];
 
   private _sBs = new SubSink();
 
@@ -54,25 +46,35 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
 
   async processImage(event: any) {   
     const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
+    this.file = event.target.files[0]
 
     if (!allowedFileTypes.includes(event.target.files[0].type)) {
       this._imageUploadService.openErrorModal("Invalid File Type", "Please select an image file (.jpg, .jpeg, .png) only.");
       return;
     }
 
-    if (event.target.files && event.target.files[0]) {
-      this.file = event.target.files[0];
+    // Check if file bypasses size limit.
+    const fileSizeInKB = this.file.size / 1024;
+    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'image');
+
+    if (this.file && !this.byPassedLimits.length) {
       this.isLoadingImage = true;
       this.hasImage = true;
 
       //Step 1 - Create the file path that will be in firebase storage
       const imgFilePath = `images/${this.file.name}`;
-      this.isLoadingImage = true;
 
-      const response = await this._imageUploadService.uploadSingleFile(this.file, imgFilePath)
+      //Step 2 - Upload file to firestore
+      const response = await this._imageUploadService.uploadSingleFile(this.file, imgFilePath);
+
+      //Step 3 - PatchValue to Block
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
     }
   }
+
+  private _checkSizeLimit(size:number, type:string) {
+    return this._imageUploadService.checkFileSizeLimits(size, type);
+  };
 
   private _autofillUrl(url: string) {
     this.imageMessageForm.patchValue({fileSrc: url});
