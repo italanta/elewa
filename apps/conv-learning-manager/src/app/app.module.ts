@@ -29,6 +29,7 @@ import { FirebaseConfigurationModule } from '@app/elements/base/firebase';
 import { UserStateModule } from '@app/state/user';
 import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
+import { LearnersStateModule } from '@app/state/convs-mgr/learners';
 import { EndUsersStateModule } from '@app/state/convs-mgr/end-users';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
@@ -79,6 +80,7 @@ import { environment } from '../environments/environment';
     VariablesConfigStateModule.forRoot(),
     ProgressMonitoringStateModule.forRoot(),
     EndUsersStateModule.forRoot(),
+    LearnersStateModule.forRoot(),
 
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),

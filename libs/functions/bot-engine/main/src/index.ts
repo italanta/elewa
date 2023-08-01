@@ -22,4 +22,5 @@ export * from './lib/services/data-services/data-service-abstract.class';
 export * from './lib/services/data-services/blocks.service';
 export * from './lib/services/data-services/connections.service';
 export * from './lib/services/data-services/channel-info.service';
+export * from './lib/services/data-services/enrolled-user.service';
 export * from './lib/services/variable-injection/mail-merge-variables.service';

@@ -23,12 +23,19 @@
           "ele-convl-manager-7cd0a"
         ]
       }
-    }, 
+    },
     "farmbetter-prod": {
       "hosting": {
         "convl-manager": [
           "farmbetter-prod",
           "farmbetter-review"
+        ]
+      }
+    },
+    "elewa-clm-test": {
+      "hosting": {
+        "convl-manager": [
+          "elewa-clm-test"
         ]
       }
     }
