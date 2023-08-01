@@ -16,7 +16,7 @@
             <input type="text" id="name-input" class="name__input" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-MODAL.VIDEO-NAME' | transloco" formControlName="fileName" />
           </div>
 
-          <div class="media">
+          <div class="media" [ngClass]="byPassedLimits.length ? 'error' : ''">
             <input type="file" accept=".mp4" #inputUpload (change)="onVideoSelected($event)" hidden id="videoUpload">
             <label for="videoUpload">
               <button type="button" (click)="openFileExplorer()" class="upload-button" *ngIf="videoPath">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.UPDATE' | transloco}}</button>
@@ -25,6 +25,10 @@
               </ng-container>
               <video class="upload-video" *ngIf="videoPath" [src]="videoPath" controls></video>
             </label>
+          </div>
+
+          <div class="error-message" *ngIf="byPassedLimits.length">
+            <span>Video is too large, Video exceeds 16MB file Limit.</span><br>
           </div>
         </div>
 

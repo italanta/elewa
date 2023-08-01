@@ -15,6 +15,7 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
   isUploading: boolean;
   selectedFile: File;
+  byPassedLimits: any[] = [];
 
   @ViewChild('inputUpload') input: ElementRef<HTMLInputElement>;
 
@@ -59,7 +60,11 @@ export class VideoUploadModalComponent implements OnInit {
   onVideoSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
 
-    if (this.selectedFile) {
+    // Check if file bypasses size limit.
+    const fileSizeInKB = this.selectedFile.size / 1024;
+    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'image');
+
+    if (this.selectedFile && !this.byPassedLimits.length) {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedFile);
       reader.onload = () => {
@@ -86,6 +91,10 @@ export class VideoUploadModalComponent implements OnInit {
       this.dialogRef.close();
     });
   }
+
+  private _checkSizeLimit(size:number, type:string) {
+    return this._videoUploadService.checkFileSizeLimits(size, type);
+  };
 
   private _autofillVideoUrl(url: string, videoName: string) {
     this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
