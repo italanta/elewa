@@ -3,20 +3,23 @@ import { HandlerTools } from '@iote/cqrs';
 import { isOperationBlock, isOutputBlock, StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { ActiveChannel } from '@app/functions/bot-engine';
+import { AssessmentQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+
+import { ActiveChannel } from '../../model/active-channel.service';
 
 import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
+import { EnrolledUserDataService } from '../data-services/enrolled-user.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
 
 import { BotMediaProcessService } from '../media/process-media-service';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
-import { AssessmentQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+
 
 export class ProcessMessageService
 {
@@ -30,6 +33,7 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
+    private _enrolledUserService: EnrolledUserDataService,
   ) { }
 
   /**
@@ -96,7 +100,7 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Next block: ${JSON.stringify(nextBlock)}`);
 
     while (nextBlock && isOperationBlock(nextBlock.type)) {
-      const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUser.id);
+      const updatedPosition = await this.processOperationBlock(msg, nextBlock, newCursor, orgId, endUser);
 
       nextBlock = updatedPosition.storyBlock;
       newCursor = updatedPosition.newCursor;
@@ -137,11 +141,11 @@ export class ProcessMessageService
     }
   }
 
-  private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUserId: string)
+  private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUser: EndUser)
   {
-    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._enrolledUserService, this._tools).resolve(nextBlock.type);
 
-    const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUserId, msg);
+    const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUser, msg);
 
     const sideOperations = processOperationBlock.sideOperations;
 

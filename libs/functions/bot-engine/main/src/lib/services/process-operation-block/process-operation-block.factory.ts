@@ -17,7 +17,7 @@ import { AssessmentBlockService } from "./block-type/assessment-block.service";
 
 export class OperationBlockFactory
 {
-  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools) { }
+  constructor(private _blockDataService: BlockDataService, private _connDataService: ConnectionsDataService, private tools: HandlerTools) {}
 
   resolve(storyBlockType: StoryBlockTypes): IProcessOperationBlock
   {

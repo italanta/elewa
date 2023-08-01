@@ -46,6 +46,7 @@ export class StoriesStore extends DataStore<Story>
   }
 
   publish(story: Story){
+    story.publishedOn = new Date();
     return this._activeRepo.write(story, story.id!);
   }
 }
