@@ -1,9 +1,11 @@
-import { UploadFileService } from '@app/state/file';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+import { take } from 'rxjs';
+import { SubSink } from 'subsink';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
+import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
@@ -11,41 +13,47 @@ import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   templateUrl: './audio-block.component.html',
   styleUrls: ['./audio-block.component.scss'],
 })
-export class AudioBlockComponent implements OnInit {
-
-
+export class AudioBlockComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() block: VoiceMessageBlock;
   @Input() audioMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  private _sBs = new SubSink();
+
   file: File;
-  audioLink: string = "";
   audioInputId: string;
-  defaultImage: string = ""
   isLoadingAudio: boolean;
 
-
-  constructor(private _audioUploadService: UploadFileService
-  ) { }
+  constructor(private _audioUploadService: FileStorageService) {}
 
   ngOnInit(): void {
-    this.audioInputId = `aud-${this.id}`
+    this.audioInputId = `aud-${this.id}`;
   }
 
   async processAudio(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => this.audioLink = e.target.result;
-      reader.readAsDataURL(event.target.files[0]);
-      this.file = event.target.files[0];
+    this.file = event.target.files[0];
+
+    if (this.file) {
       this.isLoadingAudio = true;
-    } else {
-      this.audioLink = this.defaultImage;
+
+      //Step 1 - Create the file path that will be in firebase storage
+      const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
+      
+      //Step 2 - Upload file to firestore
+      const response = await this._audioUploadService.uploadSingleFile(this.file, audioFilePath);
+      
+      //Step 3 - PatchValue to Block
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
     }
-    this.isLoadingAudio = true;
-    //Step 1 - Create the file path that will be in firebase storage
-    const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
-    (await this._audioUploadService.uploadFile(this.file, this.block, audioFilePath)).subscribe();
+  }
+
+  private _autofillUrl(url: string) {
+    this.audioMessageForm.patchValue({ fileSrc: url });
+    this.isLoadingAudio = false;
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
   }
 }
