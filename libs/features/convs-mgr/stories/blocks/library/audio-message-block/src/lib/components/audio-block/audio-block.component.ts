@@ -24,6 +24,7 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
   file: File;
   audioInputId: string;
   isLoadingAudio: boolean;
+  byPassedLimits: any[] = [];
 
   constructor(private _audioUploadService: FileStorageService) {}
 
@@ -34,7 +35,10 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
   async processAudio(event: any) {
     this.file = event.target.files[0];
 
-    if (this.file) {
+    const fileSizeInKB = this.file.size / 1024;
+    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'audio');
+
+    if (this.file && !this.byPassedLimits.length) {
       this.isLoadingAudio = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -46,6 +50,10 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
       //Step 3 - PatchValue to Block
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
     }
+  }
+
+  private _checkSizeLimit(size:number, type:string) {
+    return this._audioUploadService.checkFileSizeLimits(size, type)
   }
 
   private _autofillUrl(url: string) {

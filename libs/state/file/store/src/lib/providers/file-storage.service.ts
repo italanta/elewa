@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
+
 import { FILE_LIMITS } from '../model/platform-file-size-limits';
 
 @Injectable({
@@ -9,9 +10,10 @@ import { FILE_LIMITS } from '../model/platform-file-size-limits';
 })
 export class FileStorageService {
 
-  constructor(private _afS$$: AngularFireStorage,
+  constructor(
+    private _afS$$: AngularFireStorage,
     private dialog: MatDialog
-    ) { }
+  ) { }
 
   async uploadSingleFile(file: File, filePath: string) {
     const customMetadata = { app: 'ele-convs-mgr' };
@@ -40,18 +42,18 @@ export class FileStorageService {
   checkFileSizeLimits(size: number, type: string) { 
     const filelimits = FILE_LIMITS[type as keyof typeof FILE_LIMITS] as any[];
 
-      const limitsViolated = filelimits.filter((limit: any) => {
-        return size > this.__convertedSize(limit.size, limit.unit);
-      })
+    const limitsViolated = filelimits.filter((limit: any) => {
+      return size > this.__convertedSize(limit.size, limit.unit);
+    })
 
-      return limitsViolated;
+    return limitsViolated;
   }
 
   private __convertedSize(size: number, unit: string) {
-    if(unit === 'KB') {
+    if (unit === 'kB') {
       return size;
     } else {
-      return size * 1000;
+      return size * 1024;
     }
   }
 }

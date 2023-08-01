@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="audioMessageForm">
     <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-        <div [id]="audioInputId" class="audio_bg">
+        <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
             <div *ngIf="this.block.fileSrc && !isLoadingAudio">
                 <audio controls>
@@ -18,6 +18,12 @@
                 <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
             </div>
         </div>
+
+        <div class="error-message" *ngIf="byPassedLimits.length">
+            <span>Audio cannot upload to whatsapp,</span><br>
+            <span>audio exceeds 16MB file Limit.</span>
+        </div>
+
         <input type="text" formControlName="fileSrc"
             [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
             id="audio-link ">
