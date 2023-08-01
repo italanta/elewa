@@ -42,6 +42,8 @@ export class FileStorageService {
   checkFileSizeLimits(size: number, type: string) { 
     const filelimits = FILE_LIMITS[type as keyof typeof FILE_LIMITS] as any[];
 
+    console.log(filelimits);
+
     const limitsViolated = filelimits.filter((limit: any) => {
       return size > this.__convertedSize(limit.size, limit.unit);
     })
@@ -50,7 +52,7 @@ export class FileStorageService {
   }
 
   private __convertedSize(size: number, unit: string) {
-    if (unit === 'kB') {
+    if (unit === 'KB') {
       return size;
     } else {
       return size * 1024;

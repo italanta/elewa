@@ -22,6 +22,7 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
   file: File;
   isLoadingSticker: boolean;
   stickerInputId: string;
+  byPassedLimits: any[] = [];
 
   private _sBs = new SubSink();
 
@@ -33,8 +34,11 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
 
   async processSticker(event: any) {
     this.file = event.target.files[0];
+    
+    const fileSizeInKB = this.file.size / 1024;
+    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'sticker');
 
-    if (this.file) {
+    if (this.file && !this.byPassedLimits.length) {
       this.isLoadingSticker = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -47,6 +51,10 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
     }
   };
+
+  private _checkSizeLimit(size:number, type:string) {
+    return this._stickerUploadService.checkFileSizeLimits(size, type)
+  }
 
   private _autofillUrl(url: string) {
     this.stickerMessageForm.patchValue({ fileSrc: url });
