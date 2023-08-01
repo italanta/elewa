@@ -45,12 +45,12 @@ export class UploadFileService {
   /**
    * Function that does the upload of all files
    */
-  upload(url: string, block: StoryBlock) {
+  upload(url: string, size: number, block: StoryBlock) {
     //Step 1 - create a descriptor and set its values
     const fileBlock: FileUpload = {
       filePath: url,
       fileType: block.type,
-      size: '3MB'
+      size
     };
 
 
@@ -80,11 +80,11 @@ export class UploadFileService {
 
 
   }
-  uploader(url: string, story: Story) {
+  uploader(url: string, size: number, story: Story) {
     //Step 1 - create a descriptor and set its values
     const file: FileUpload = {
       filePath: url,
-      size: '3MB'
+      size
     };
 
     //Step 2 - get the organisation creating the files
@@ -135,7 +135,7 @@ export class UploadFileService {
     //Step 2 - Get the url in firebase storage
     const reference = await uploadTask.getDownloadURL();
     //Step 3 - Call the upload function 
-    return this.upload(reference, block).pipe(take(1));
+    return this.upload(reference, file.size, block).pipe(take(1));
 
   }
 
@@ -151,6 +151,6 @@ export class UploadFileService {
     const reference = await uploadTask.getDownloadURL();
 
     //Step 4 - Call the upload function 
-    return this.uploader(reference, story).pipe(take(1));
+    return this.uploader(reference, file.size, story).pipe(take(1));
   }
 }
