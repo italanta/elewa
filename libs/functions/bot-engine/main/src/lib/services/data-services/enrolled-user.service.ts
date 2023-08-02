@@ -23,11 +23,11 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
     this._docPath = `orgs/${orgId}/enrolled-end-users`;
   }
 
-  async createEnrolledUser(enrolledUser: EnrolledEndUser) {
-    return this.createDocument(enrolledUser, this._docPath);
+  async createEnrolledUser(enrolledUser: EnrolledEndUser, id?:string) {
+    return this.createDocument(enrolledUser, this._docPath, id);
   }
 
-  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string) {
+  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string, id?:string,) {
     const enrolledUsers = await this.getDocumentByField(platformField, endUser.id, this._docPath);
     let currentEnrolledUser = enrolledUsers[0];
 
@@ -41,7 +41,7 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
         status: EnrolledEndUserStatus.inactive
       };
   
-      currentEnrolledUser = await this.createEnrolledUser(enrolledUser);
+      currentEnrolledUser = await this.createEnrolledUser(enrolledUser, id);
     };
 
     return currentEnrolledUser;

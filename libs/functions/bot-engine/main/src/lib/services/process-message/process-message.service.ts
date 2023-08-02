@@ -12,7 +12,6 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
-import { EnrolledUserDataService } from '../data-services/enrolled-user.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
 
@@ -32,7 +31,6 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
-    private _enrolledUserService: EnrolledUserDataService,
   ) { }
 
   /**
@@ -142,7 +140,7 @@ export class ProcessMessageService
 
   private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUser: EndUser)
   {
-    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._enrolledUserService, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
 
     const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUser, msg);
 
