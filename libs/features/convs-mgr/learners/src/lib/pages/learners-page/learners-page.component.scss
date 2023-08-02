@@ -37,13 +37,14 @@
         border:  1px solid black;
         display: flex;
         align-items: center;
-        padding: 1rem;
+        padding: 0.5rem;
       
         &_tooltip {
           color: gray;
           transform: rotate(90deg);
           font-size: 20px;
           font-weight: 500;
+          margin-left: 5px;
         }
       
         &_input {
@@ -63,6 +64,7 @@
 
         select {
           text-align-last: center;
+          font-size: 1rem;
         }
       }
     }

@@ -12,7 +12,7 @@
 
         <div class="search">
           <i class="fas fa-search search_tooltip"></i>
-          <input class="search_input" type="text" name="search table" placeholder="search input by name" id=""
+          <input class="search_input" type="text" name="search table" placeholder="Search input by name" id=""
             (keyup)="searchTable($event)"
           >
         </div>
@@ -20,17 +20,17 @@
         <div class="dropdown">
           <select [(value)]="selectedClass">
             <option [value]="null" selected disabled>Class</option>
-            <option *ngFor="let class of allClasses" [value]="class">{{class}}</option>
+            <option *ngFor="let class of allClasses" [value]="class">{{ class }}</option>
           </select>
 
           <select [(value)]="selectedCourse">
             <option [value]="null" selected disabled>Course</option>
-            <option *ngFor="let course of allCourses" [value]="course">{{course}}</option>
+            <option *ngFor="let course of allCourses" [value]="course">{{ course }}</option>
           </select>
 
           <select [(value)]="selectedPlatform">
             <option [value]="null" selected disabled>Platform</option>
-            <option *ngFor="let platform of allPlatforms" [value]="platform">{{platform}}</option>
+            <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
           </select>
         </div>
       </div>
@@ -60,7 +60,7 @@
         </ng-container>
 
         <ng-container matColumnDef="phone">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">PhoneNumber</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">Phone Number</th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.phoneNumber }}</td>
         </ng-container>
 
