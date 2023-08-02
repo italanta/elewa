@@ -20,8 +20,8 @@
         </div>
 
         <div class="error-message" *ngIf="byPassedLimits.length">
-            <span>Audio cannot upload to whatsapp,</span><br>
-            <span>audio exceeds 16MB file Limit.</span>
+            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
+            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.AUDIO.MESSAGE-TWO' | transloco }}</span>
         </div>
 
         <input type="text" formControlName="fileSrc"

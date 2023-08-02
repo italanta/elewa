@@ -20,8 +20,8 @@
 		</div>
 
 		<div class="error-message" *ngIf="byPassedLimits.length">
-			<span>Image cannot upload to whatsapp,</span><br>
-			<span>image exceeds 5MB file Limit.</span>
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.IMAGE.MESSAGE-ONE' | transloco }}</span><br>
+      <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.IMAGE.MESSAGE-TWO' | transloco }}</span>
 		</div>
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>

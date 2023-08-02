@@ -17,8 +17,8 @@
 		</div>
 
 		<div class="error-message" *ngIf="byPassedLimits.length">
-			<span>Sticker cannot upload to whatsapp,</span><br>
-			<span>sticker exceeds 500kB file Limit.</span>
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.STICKER.MESSAGE-ONE' | transloco }}</span><br>
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.STICKER.MESSAGE-TWO' | transloco }}</span>
 		</div>
 
 		<input formControlName="fileSrc" type="text"
