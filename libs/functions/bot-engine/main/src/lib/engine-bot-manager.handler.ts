@@ -82,7 +82,7 @@ export class EngineBotManager
   
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
       const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService, enrolledUserService);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
 
       const END_USER_ID = endUser.id;
 
