@@ -20,9 +20,10 @@ export class DeleteUserFromOrganisationHandler extends FunctionHandler<iTalUser,
       let orgData: any = await orgsRepo.getDocumentById(org);
       tools.Logger.log(() => `User org is : ${orgData.id}`);
 
-      if (orgData.createdBy === user.id) {
+      if (orgData.users.length === 1) {
         tools.Logger.log(() => `user created org: ${orgData.id}`);
-        await orgsRepo.delete(orgData.id);
+        orgData.archived = true;
+        await orgsRepo.update(orgData);
       } else {
         tools.Logger.log(() => `updating org: ${orgData.id}`);
         orgData.users.splice(orgData.users.indexOf(user.id), 1);
