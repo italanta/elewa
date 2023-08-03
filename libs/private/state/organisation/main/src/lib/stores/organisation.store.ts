@@ -40,6 +40,8 @@ export class OrgStore extends DataStore<Organisation> implements OnDestroy
                                     throttleTime(500, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(properties => {
+      properties = properties.filter((org: Organisation) => !org.archived);
+    
       this.set(properties, 'UPDATE - FROM DB');
     });
   }

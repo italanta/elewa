@@ -30,7 +30,7 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
     this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
                         .subscribe(([orgs, user]) => //route
     {
-      let org: Organisation = orgs.find((orgs) =>  orgs.id == user.activeOrg)!;
+      let org: Organisation = orgs.find((orgs) =>  orgs.id == user.activeOrg && !orgs.archived)!;
 
       if (!user) {
         this._activeOrg = '__noop__';
