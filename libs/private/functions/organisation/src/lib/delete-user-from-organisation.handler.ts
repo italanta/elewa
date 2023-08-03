@@ -3,6 +3,10 @@ import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 import { iTalUser } from '@app/model/user';
 
+/**
+ * This function handler is responsible for removing a user from an 
+ *    organisation's list of users.
+ */
 export class DeleteUserFromOrganisationHandler extends FunctionHandler<iTalUser, any>
 {
 
@@ -20,6 +24,8 @@ export class DeleteUserFromOrganisationHandler extends FunctionHandler<iTalUser,
       let orgData: any = await orgsRepo.getDocumentById(org);
       tools.Logger.log(() => `User org is : ${orgData.id}`);
 
+      // If the user is the only user in the organisation, archive the organisation.
+      //    else remove the user from the organisation list of users.
       if (orgData.users.length === 1) {
         tools.Logger.log(() => `user created org: ${orgData.id}`);
         orgData.archived = true;

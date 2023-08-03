@@ -3,6 +3,9 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { Organisation } from "@app/model/organisation";
 
+/**
+ * This function handler is responsible for removing an organisation from a user's profile.
+ */
 export class DeleteOrganisationFromUserHandler extends FunctionHandler<Organisation, any>
 {
   public async execute(org: Organisation, context: FunctionContext, tools: HandlerTools) 
@@ -10,6 +13,8 @@ export class DeleteOrganisationFromUserHandler extends FunctionHandler<Organisat
     let usersRepo = tools.getRepository(`users`);
     let orgUsers = org.users;
 
+    // Go through all users in the organisation and remove the organisation 
+    //  from the list of organisations they belong to.
     for await (const user of orgUsers) {
       let userData: any = await usersRepo.getDocumentById(user);
 
