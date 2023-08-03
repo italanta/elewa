@@ -4,13 +4,12 @@ import { of } from 'rxjs';
 import { switchMap, tap, filter } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
-
 import { Repository, DataService } from '@ngfi/angular';
+import { Store } from '@iote/state';
+
+import { CLMPermissions } from '@app/model/organisation';
 
 import { ActiveOrgStore } from './active-org.store';
-
-import { Store } from '@iote/state';
-import { CLMPermissions } from '@app/model/organisation';
 
 @Injectable()
 export class PermissionsStore extends Store<CLMPermissions>
@@ -40,7 +39,7 @@ export class PermissionsStore extends Store<CLMPermissions>
   create (permissions: any) {
     if(this._activeRepo){
       permissions.id = 'permissions';
-      return this._activeRepo.update(permissions).subscribe((success) => success);
+      return this._activeRepo.update(permissions);
     }
 
     throw new Error('Permissions state not avaialable.');
