@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { SubSink } from 'subsink';
@@ -8,14 +7,10 @@ import { SubSink } from 'subsink';
 import { combineLatest, Observable } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
-import { EventLogger } from '@iote/bricks-angular';
-
 import { UserStore } from '@app/private/state/user/base';
-
 import { Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';
 
-import { PermissionsStore } from '../stores/permissions.store';
 import { ActiveOrgStore } from '../stores/active-org.store';
 import { OrgStore } from '../stores/organisation.store';
 
@@ -36,9 +31,7 @@ export class OrganisationService {
               private _activeOrg$$: ActiveOrgStore,
               private _user$$: UserStore,
               private _orgs$$: OrgStore,
-              private _analytics: EventLogger,
-              private _db: AngularFirestore,
-              private _permissionsStore: PermissionsStore
+              private _db: AngularFirestore
   ){}
 
   /** Gets the active(current) organisation */
@@ -68,12 +61,10 @@ export class OrganisationService {
      };
     this._sbS.sink = this._orgs$$.add(orgWithId, id)
       .pipe(take(1))
-      .subscribe(o => this._afterCreateOrg(o),
-        (err) => this._analytics.logEvent('generate_lead_error', { errorMsg: err }));
+      .subscribe(o => this._afterCreateOrg(o));
   }
 
   private _afterCreateOrg(org: Organisation) {
-    this._analytics.logEvent('generate_lead', { id: org?.id, name: org?.name });
     this._router$$.navigate(['/home']);
     this._activeOrg$$.setOrg(org);
   }
@@ -95,15 +86,6 @@ export class OrganisationService {
         window.location.reload();
       }
     });
-  }
-
-  /** Gets the permissions configured in the active organisation  */
-  getOrgPermissions () {
-    return this._permissionsStore.get();
-  }
-
-  updateOrgPermissions(permissions: FormGroup) {
-    this._permissionsStore.create(permissions.value);
   }
 
   removeUserFromOrg(user: iTalUser) {
