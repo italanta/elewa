@@ -12,6 +12,12 @@ import { CLMPermissions } from '@app/model/organisation';
 import { ActiveOrgStore } from './active-org.store';
 
 @Injectable()
+
+/**
+ * This store contains the permissions for the active organisation.
+ *    Permissions are stored in the organisation's config repo: 
+ *          orgs/{orgId}/config/permissions
+ */
 export class PermissionsStore extends Store<CLMPermissions>
 {
   protected store = 'permissions-store';
@@ -24,6 +30,7 @@ export class PermissionsStore extends Store<CLMPermissions>
   {
     super(null as any);
 
+    // Permissions are stored in the organisation's config repo: orgs/{orgId}/config/permissions
     const data$
       = _activeOrg$$.get()
             .pipe(tap(o  => this._activeRepo = !!o ? _dataProvider.getRepo<CLMPermissions>(`orgs/${o.id}/config`) : null as any),
@@ -36,7 +43,10 @@ export class PermissionsStore extends Store<CLMPermissions>
 
   override get = () => super.get().pipe(filter((cts, i) => !!cts));
 
-  create (permissions: any) {
+  /**
+   * Updates the permissions for the active organisation.
+   */
+  update (permissions: any) {
     if(this._activeRepo){
       permissions.id = 'permissions';
       return this._activeRepo.update(permissions);

@@ -7,9 +7,8 @@ import { PermissionsStore } from '../stores/permissions.store';
 })
 
 /**
- * This service is responsible for all organisation related operations.
- *  It can be used to create, update, delete and get organisation details e.g.
- *    update permisions, remove users, add users, etc.
+ * This service is responsible for all permission related operations.
+ *  It can be used to get and update the organisation permissions.
  */
 export class PermissionsService {
   
@@ -19,7 +18,8 @@ export class PermissionsService {
     return this._permissionsStore.get();
   }
 
+  /** Updates the permissions for the active organisation */
   updateOrgPermissions(permissions: FormGroup) {
-    return this._permissionsStore.create(permissions.value);
+    return this._permissionsStore.update(permissions.value);
   }
 }
