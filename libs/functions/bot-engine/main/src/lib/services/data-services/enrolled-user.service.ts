@@ -33,6 +33,7 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
     if (!currentEnrolledUser) {
       const enrolledUser: EnrolledEndUser = {
+        id:id || '',
         name: endUser.name || '',
         phoneNumber: endUser.phoneNumber || '',
         classId: '',
