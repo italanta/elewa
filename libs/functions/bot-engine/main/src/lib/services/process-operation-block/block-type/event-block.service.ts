@@ -8,7 +8,7 @@ import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
-import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
+import { EndUserDataService } from "../../data-services/end-user.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
@@ -61,17 +61,15 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 			// update the enrolled User's current course if event is marked as a milestone.
 			if (eventDetails.isMilestone) {
 				// add currentcourse
-				this.tools.Logger.log(()=> `Updating enrolledUser's currentCourse: ${eventDetails.name}`);
+				this.tools.Logger.log(()=> `Updating endUser's currentCourse: ${eventDetails.name}`);
 
-				const enrolledUserService = new EnrolledUserDataService(this.tools, orgId);
-
-				const enrolledUser = await enrolledUserService.getOrCreateEnrolledUser(endUser, 'whatsappEndUserId');
+				const endUserService = new EndUserDataService(this.tools, orgId);
 
 				// update currentcourse
-				enrolledUser.currentCourse = eventDetails.name;
+				endUser.currentStory = eventDetails.name;
 
 				// update User's current course
-				await enrolledUserService.updateEnrolledUser(enrolledUser);
+				await endUserService.updateEndUser(endUser);
 			};
 		};
 
