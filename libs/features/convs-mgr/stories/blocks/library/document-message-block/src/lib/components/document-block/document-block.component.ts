@@ -54,10 +54,10 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
       //Step 2 - Upload file to firestore
       const response = await this._docUploadService.uploadSingleFile(this.file, docFilePath);
 
-      // Check if file bypasses size limit.
+      //Step 3 Check if file bypasses size limit.
       const fileSizeInKB = this.file.size / 1024;
 
-      //Step 3 - PatchValue to Block
+      //Step 4 - PatchValue to Block
       this._sBs.sink = response.subscribe(url => this._autofillDocUrl(url, fileSizeInKB));
     }
   }
