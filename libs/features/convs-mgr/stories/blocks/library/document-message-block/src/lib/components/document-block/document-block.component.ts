@@ -12,8 +12,7 @@ import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messag
   templateUrl: './document-block.component.html',
   styleUrls: ['./document-block.component.scss'],
 })
-export class DocumentBlockComponent implements OnInit, OnDestroy  {
-
+export class DocumentBlockComponent implements OnInit, OnDestroy {
   @Input() id: string;
   @Input() block: DocumentMessageBlock;
   @Input() documentMessageForm: FormGroup;
@@ -26,14 +25,18 @@ export class DocumentBlockComponent implements OnInit, OnDestroy  {
 
   private _sBs = new SubSink();
 
-  constructor(private _docUploadService: FileStorageService){ }
+  constructor(private _docUploadService: FileStorageService) {}
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.docInputId = `docs-${this.id}`;
+    const fileSize = this.documentMessageForm.get('fileSize')?.value
+
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
+    }
   }
 
-  async processDocs(event: any) {   
+  async processDocs(event: any) {
     const allowedFileTypes = ['application/pdf'];
     this.file = event.target.files[0];
 
@@ -42,11 +45,7 @@ export class DocumentBlockComponent implements OnInit, OnDestroy  {
       return;
     };
 
-    // Check if file bypasses size limit.
-    const fileSizeInKB = this.file.size / 1024;
-    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'sticker');
-
-    if (this.file && !this.byPassedLimits.length) {
+    if (this.file) {
       this.isDocLoading = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -55,18 +54,22 @@ export class DocumentBlockComponent implements OnInit, OnDestroy  {
       //Step 2 - Upload file to firestore
       const response = await this._docUploadService.uploadSingleFile(this.file, docFilePath);
 
+      // Check if file bypasses size limit.
+      const fileSizeInKB = this.file.size / 1024;
+
       //Step 3 - PatchValue to Block
-      this._sBs.sink = response.subscribe(url => this._autofillDocUrl(url));
+      this._sBs.sink = response.subscribe(url => this._autofillDocUrl(url, fileSizeInKB));
     }
   }
 
-  private _checkSizeLimit(size:number, type:string) {
-    return this._docUploadService.checkFileSizeLimits(size, type)
+  private _checkSizeLimit(fileSize: number) {
+    this.byPassedLimits = this._docUploadService.checkFileSizeLimits(fileSize, 'document');
   }
 
-  private _autofillDocUrl(url: any) {
-    this.documentMessageForm.patchValue({ fileSrc: url });
+  private _autofillDocUrl(url: string, fileSizeInKB: number) {
+    this.documentMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.isDocLoading = false;
+    this._checkSizeLimit(fileSizeInKB);
   }
 
   ngOnDestroy(): void {
