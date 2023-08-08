@@ -36,20 +36,12 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
-    this.checkIfImageExists();
-    this.checkFileLimits();
-  }
-
-  checkIfImageExists() {
-    this.imageLink = this.imageMessageForm.value.fileSrc;
-    this.hasImage = this.imageLink != '' ? true : false;
-  }
-
-  checkFileLimits() {
-    // Check if file bypasses size limit.
-    if (this.file) {
-      const fileSizeInKB = this.file.size / 1024;
-      this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'image');
+    this._checkIfImageExists();
+  
+    const fileSize = this.imageMessageForm.get('fileSize')?.value;
+  
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
     };
   }
 
@@ -72,19 +64,28 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
       //Step 2 - Upload file to firestore
       const response = await this._imageUploadService.uploadSingleFile(this.file, imgFilePath);
 
-      //Step 3 - PatchValue to Block
-      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
+      //Step 3 Check if file bypasses size limit.
+      const fileSizeInKB = this.file.size / 1024;
+
+      //Step 4 - PatchValue to Block
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   }
 
-  private _checkSizeLimit(size:number, type:string) {
-    return this._imageUploadService.checkFileSizeLimits(size, type);
-  };
+  private _checkSizeLimit(fileSize: number) {
+    this.byPassedLimits = this._imageUploadService.checkFileSizeLimits(fileSize, 'image');
+  }
 
-  private _autofillUrl(url: string) {
-    this.imageMessageForm.patchValue({fileSrc: url});
+  private _checkIfImageExists() {
+    this.imageLink = this.imageMessageForm.value.fileSrc;
+    this.hasImage = this.imageLink != '' ? true : false;
+  }
+
+  private _autofillUrl(url: string, fileSizeInKB: number) {
+    this.imageMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.isLoadingImage = false;
-    this.checkIfImageExists()
+    this._checkIfImageExists();
+    this._checkSizeLimit(fileSizeInKB);
   }
 
   ngOnDestroy(): void {
