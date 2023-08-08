@@ -30,15 +30,17 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.audioInputId = `aud-${this.id}`;
+    const fileSize = this.audioMessageForm.get('fileSize')?.value
+
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
+    }
   }
 
   async processAudio(event: any) {
     this.file = event.target.files[0];
 
-    const fileSizeInKB = this.file.size / 1024;
-    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'audio');
-
-    if (this.file && !this.byPassedLimits.length) {
+    if (this.file) {
       this.isLoadingAudio = true;
 
       //Step 1 - Create the file path that will be in firebase storage
@@ -46,19 +48,23 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
       
       //Step 2 - Upload file to firestore
       const response = await this._audioUploadService.uploadSingleFile(this.file, audioFilePath);
+
+      //Step 3 Check if file bypasses size limit.
+      const fileSizeInKB = this.file.size / 1024;
       
-      //Step 3 - PatchValue to Block
-      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
+      //Step 4 - PatchValue to Block
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   }
 
-  private _checkSizeLimit(size:number, type:string) {
-    return this._audioUploadService.checkFileSizeLimits(size, type)
+  private _checkSizeLimit(fileSize: number) {
+    this.byPassedLimits = this._audioUploadService.checkFileSizeLimits(fileSize, 'audio');
   }
 
-  private _autofillUrl(url: string) {
-    this.audioMessageForm.patchValue({ fileSrc: url });
+  private _autofillUrl(url: string, fileSizeInKB: number) {
+    this.audioMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.isLoadingAudio = false;
+    this._checkSizeLimit(fileSizeInKB);
   }
 
   ngOnDestroy() {
