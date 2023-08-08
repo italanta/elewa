@@ -17,8 +17,8 @@
 		</div>
 
 		<div class="error-message" *ngIf="byPassedLimits.length">
-			<span>Document cannot upload to whatsapp,</span><br>
-			<span>document exceeds 16MB file Limit.</span>
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.DOCUMENT.MESSAGE-ONE' | transloco }}</span><br>
+      <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.DOCUMENT.MESSAGE-TWO' | transloco }}</span>
 		</div>
 
 		<input formControlName="message" type="text"
