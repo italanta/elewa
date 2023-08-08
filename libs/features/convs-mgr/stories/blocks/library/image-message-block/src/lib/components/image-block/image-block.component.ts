@@ -37,11 +37,20 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
     this.imageInputId = `img-${this.id}`;
     this.imageInputUpload = `img-${this.id}-upload`;
     this.checkIfImageExists();
+    this.checkFileLimits();
   }
 
   checkIfImageExists() {
     this.imageLink = this.imageMessageForm.value.fileSrc;
     this.hasImage = this.imageLink != '' ? true : false;
+  }
+
+  checkFileLimits() {
+    // Check if file bypasses size limit.
+    if (this.file) {
+      const fileSizeInKB = this.file.size / 1024;
+      this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'image');
+    };
   }
 
   async processImage(event: any) {   
@@ -53,11 +62,7 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Check if file bypasses size limit.
-    const fileSizeInKB = this.file.size / 1024;
-    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'image');
-
-    if (this.file && !this.byPassedLimits.length) {
+    if (this.file) {
       this.isLoadingImage = true;
       this.hasImage = true;
 
