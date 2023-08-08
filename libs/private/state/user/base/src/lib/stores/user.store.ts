@@ -9,7 +9,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { iTalUser } from '@app/model/user';
 
 /**
- * User Service for the scope of the iTalanta EcoSystem of Apps.
+ * This is a store for all users in the system.
  *
  * @see @ngfi/angular/auth/UserService
  */
@@ -23,8 +23,14 @@ export class UserStore extends UService<iTalUser>
     return user.pipe(map(u => ((u && u.roles.access) ? u : null) as iTalUser));
   }
 
+  /**
+   * Gets all users in the system as long as they have the access 
+   */
   getUsers = () => this.getUsersBase(new Query().where('roles.access', '==', true));
 
+  /**
+   * Gets all users belonging to the active organisation
+   */
   getOrgUsers(activeOrg: string): Observable<iTalUser[]>{
     return this.getUsersBase(new Query().where('profile.orgIds', 'array-contains', activeOrg))
   }
