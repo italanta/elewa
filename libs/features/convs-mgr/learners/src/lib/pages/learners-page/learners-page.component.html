@@ -41,7 +41,7 @@
     <div class="table-wrapper">
       <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class="assessments-table">
         <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
+          <th class="table-header" mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null" color="white" [checked]="selection.hasValue()"
               [indeterminate]="selection.hasValue() && !isAllSelected()">
             </mat-checkbox>
@@ -55,12 +55,12 @@
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">name</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.name }}</td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">phoneNumber</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">PhoneNumber</th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.phoneNumber }}</td>
         </ng-container>
 

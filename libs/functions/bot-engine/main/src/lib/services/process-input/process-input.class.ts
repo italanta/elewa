@@ -26,8 +26,18 @@ export class ProcessInput<T>
 
       endUser.variables = updatedInputs;
 
-      await endUserRepo$.update(endUser);
 
+      await endUserRepo$.update(endUser);
+      
+        return valuesRepo$.create(updatedInputs, 'values');
+      } else {
+        if(this.variableName) {
+        // If the variable tagged already has a value, we create an array and push the new value
+        const updatedInputs = this.__updateInputs(this.savedInputs, inputValue, inputValueType, variableType);
+
+        await valuesRepo$.update(updatedInputs);
+        }
+      }
       return true;
 
     } catch (error) {

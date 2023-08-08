@@ -69,7 +69,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   getAllPlatforms() {
-    this.allPlatforms = ['Whatsapp', 'Facebook'];
+    this.allPlatforms = ['Whatsapp', 'Messenger'];
   }
 
   getStatus(status: number) {
