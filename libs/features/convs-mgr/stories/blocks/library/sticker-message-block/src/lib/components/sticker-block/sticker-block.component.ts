@@ -30,35 +30,42 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.stickerInputId = `stckr-${this.id}`;
+
+    const fileSize = this.stickerMessageForm.get('fileSize')?.value;
+
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
+    }
   }
 
   async processSticker(event: any) {
     this.file = event.target.files[0];
-    
-    const fileSizeInKB = this.file.size / 1024;
-    this.byPassedLimits = this._checkSizeLimit(fileSizeInKB, 'sticker');
 
-    if (this.file && !this.byPassedLimits.length) {
+    if (this.file) {
       this.isLoadingSticker = true;
 
       //Step 1 - Create the file path that will be in firebase storage
-      const stickerFilePath = `stickers/${this.file.name}_${new Date().getTime()}`;
+      const stickerFilePath = `stickers/${this.file.name}`;
 
       //Step 2 - Upload file to firestore
       const response = await this._stickerUploadService.uploadSingleFile(this.file, stickerFilePath);
+      
+      //Step 3 Check if file bypasses size limit.
+      const fileSizeInKB = this.file.size / 1024;
 
-      //Step 3 - PatchValue to Block
-      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url));
+      //Step 4 - PatchValue to Block
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   };
 
-  private _checkSizeLimit(size:number, type:string) {
-    return this._stickerUploadService.checkFileSizeLimits(size, type)
+  private _checkSizeLimit(size:number) {
+    this.byPassedLimits = this._stickerUploadService.checkFileSizeLimits(size, 'sticker');
   }
 
-  private _autofillUrl(url: string) {
+  private _autofillUrl(url: string, fileSizeInKB: number) {
     this.stickerMessageForm.patchValue({ fileSrc: url });
     this.isLoadingSticker = false;
+    this._checkSizeLimit(fileSizeInKB);
   };
 
   ngOnDestroy() {
