@@ -15,6 +15,7 @@ import { StickerMessageBlock } from "@app/model/convs-mgr/stories/blocks/messagi
     defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc! ?? ''],
+    fileSize:[blockData?.fileSize! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Sticker],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
