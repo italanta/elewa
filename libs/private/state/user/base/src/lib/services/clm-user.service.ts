@@ -19,6 +19,10 @@ import { UserStore } from '@app/state/user';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * This service contains methods for managing and retrieving the users of an organisation
+ */
 export class CLMUsersService {
   private _sbS = new SubSink();
 
@@ -35,6 +39,9 @@ export class CLMUsersService {
     this.getOrg();
   }
 
+  /**
+   * Updates the details of the passed in user from the form group
+   */
   updateUserDetails(user: iTalUser, userFormGroup: FormGroup) {
     user.roles  = user.roles as any;
     user.displayName = `${userFormGroup.value.firstName} ${userFormGroup.value.lastName}`;
@@ -42,11 +49,17 @@ export class CLMUsersService {
     this._user$$.updateUser(user).then(() => this._dialog.closeAll());
   }
 
+  /**
+   * Updates the username of the passed in user from the form group
+   */
   updateUserName(user: iTalUser, userFormGroup: FormGroup) {
     user.displayName = `${userFormGroup.value.firstName} ${userFormGroup.value.lastName}`;
     this._user$$.updateUser(user).then(() => this._dialog.closeAll());
   }
 
+  /**
+   * Gets and sets the active organisation
+   */
   getOrg() {
     this._sbS.sink = this._orgsService.getActiveOrg().subscribe((org) => {
       if (org?.id) {
@@ -56,6 +69,9 @@ export class CLMUsersService {
     });
   }
 
+  /**
+   * Gets all the users belonging to a particular organisation
+   */
   getAllOrgUsers(org: string) {
     this._sbS.sink = this._orgsService.getOrgUsersDetails()
       .subscribe((users) => {
@@ -63,6 +79,9 @@ export class CLMUsersService {
       });
   }
 
+  /**
+   * Gets the display names of all users from the user ids
+   */
   getOrgUsers(userIds: string[]): string[] {
     if (this.orgUsers) {
       let users: any = this.orgUsers.filter((users) =>
@@ -74,6 +93,9 @@ export class CLMUsersService {
     return [];
   }
 
+  /**
+   * Resolves the user objects from the users array in the organisation
+   */
   getOrgUsersProperties(userIds: string[]): iTalUser[] {
     if (this.orgUsers) {
       let users = this.orgUsers.filter((users) => userIds.includes(users.id!));
@@ -82,14 +104,23 @@ export class CLMUsersService {
     return [];
   }
 
+  /**
+   * Gets the user object from the user id
+   */
   getOrgUser(userId: string): iTalUser {
     return __find(this.orgUsers, { id: userId })!;
   }
 
+  /**
+   * Checks if the user is assigned the passed in role
+   */
   isUserAssignedRole(role: string, roles: string[]): boolean {
     return roles.includes(role);
   }
 
+  /**
+   * Adds the user to the organisation from the form
+   */
   addUserToOrg(userFormGroup: FormGroup) {
     let userData = userFormGroup.value;
     let user: iTalUser = {
@@ -110,6 +141,9 @@ export class CLMUsersService {
     return this._bs.httpsCallable('createNewUser')(user)
   }
 
+  /**
+   * Initializes the user roles object
+   */
   createUserRoles(orgRoles: string[], roles: string[], editingUser: boolean) {    
     let rolesObj: any = {};
     orgRoles.forEach((orgRole) => {
@@ -124,11 +158,17 @@ export class CLMUsersService {
     return rolesObj;
   }
 
+  /**
+   * Sets the user photo from the uploaded url
+   */
   updateUserPhotoUrl(userData: iTalUser, fileUrl: string) {
     userData.photoUrl = fileUrl;
     this._user$$.updateUser(userData);
   }
 
+  /**
+   * Allows the user to update their password
+   */
   updatePassword(email: string) {
     this._authService.resetPassword(email);
   }
