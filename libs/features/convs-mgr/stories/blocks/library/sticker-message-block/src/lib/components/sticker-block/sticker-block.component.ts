@@ -45,7 +45,7 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
       this.isLoadingSticker = true;
 
       //Step 1 - Create the file path that will be in firebase storage
-      const stickerFilePath = `stickers/${this.file.name}`;
+      const stickerFilePath = `stickers/${this.file.name}_${new Date().getTime()}`;
 
       //Step 2 - Upload file to firestore
       const response = await this._stickerUploadService.uploadSingleFile(this.file, stickerFilePath);
