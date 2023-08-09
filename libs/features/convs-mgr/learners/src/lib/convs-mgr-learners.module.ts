@@ -15,6 +15,7 @@ import { LearnersRouterModule } from './learners.router';
 import { BulkActionsModalComponent } from './modals/bulk-actions-modal/bulk-actions-modal.component';
 import { SingleLearnerPageComponent } from './pages/single-learner-page/single-learner-page.component';
 import { LearnerInformationComponent } from './components/learner-information/learner-information.component';
+import { LearnerEnrolledCoursesComponent } from './components/learner-enrolled-courses/learner-enrolled-courses.component';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { LearnerInformationComponent } from './components/learner-information/le
     BulkActionsModalComponent,
     SingleLearnerPageComponent,
     LearnerInformationComponent,
+    LearnerEnrolledCoursesComponent,
   ],
 })
 export class ConvsMgrLearnersModule {}
