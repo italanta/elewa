@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { User } from '@iote/bricks';
 import { UserService } from '@ngfi/angular';
 
-import { MetabaseService } from '@app/state/convs-mgr/analytics';
+import { MetabaseService } from '@app/private/state/analytics';
 
 @Component({
   selector: 'app-analytics-page',
