@@ -13,6 +13,7 @@ import { IProcessOperationBlock } from "../models/process-operation-block.interf
 
 import { HttpService } from "../../../utils/http-service/http.service";
 import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -38,10 +39,10 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		this.httpService = new HttpService();
 	}
 
-	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUserId: string)
+	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser)
 	{
 
-		const response = await this.makeRequest(storyBlock, orgId, endUserId);
+		const response = await this.makeRequest(storyBlock, orgId, endUser.id);
 
 		if(storyBlock.variablesToSave) {
 
@@ -49,10 +50,10 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 			// Save variable here
 			// Traverse through the unpacked response keys and save each key and its value to variables collection
-			await this.saveToDB(orgId, endUserId, unpackedResponse);
+			await this.saveToDB(orgId, endUser.id, unpackedResponse);
 		}
 
-		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUserId);
+		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id);
 
 		const nextBlock = await this.blockDataService.getBlockById(newCursor.position.blockId, orgId, newCursor.position.storyId);
 
