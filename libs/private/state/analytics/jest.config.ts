@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'features-analytics',
-  preset: '../../../jest.preset.js',
+  displayName: 'private-state-analytics',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,7 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../coverage/libs/features/analytics',
+  coverageDirectory: '../../../../coverage/libs/private/state/analytics',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

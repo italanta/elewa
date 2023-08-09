@@ -7,9 +7,11 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { ReportsPageComponent } from './pages/reports-page/reports-page.component';
 
 import { AnalyticsRouterModule } from './analytics.router.module';
+import { SafePipe } from './pages/safe.pipe';
+import { AnalyticsPageComponent } from './pages/analytics-page/analytics-page.component';
 
 @NgModule({
   imports: [CommonModule, AnalyticsRouterModule, ConvlPageModule],
-  declarations: [DashboardPageComponent, ReportsPageComponent],
+  declarations: [DashboardPageComponent, ReportsPageComponent, AnalyticsPageComponent, SafePipe],
 })
 export class AnalyticsModule {}
