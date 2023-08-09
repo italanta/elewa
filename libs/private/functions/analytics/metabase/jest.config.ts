@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'functions-analytics-metabase',
-  preset: '../../../../jest.preset.js',
+  displayName: 'private-functions-analytics-metabase',
+  preset: '../../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,6 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/functions/analytics/metabase',
+  coverageDirectory:
+    '../../../../../coverage/libs/private/functions/analytics/metabase',
 };

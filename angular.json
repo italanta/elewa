@@ -747,29 +747,6 @@
       },
       "tags": []
     },
-    "functions-analytics-metabase": {
-      "root": "libs/functions/analytics/metabase",
-      "sourceRoot": "libs/functions/analytics/metabase/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": ["libs/functions/analytics/metabase/**/*.ts"]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/functions/analytics/metabase"],
-          "options": {
-            "jestConfig": "libs/functions/analytics/metabase/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "functions-analytics-progress-main": {
       "root": "libs/functions/analytics/progress/main",
       "sourceRoot": "libs/functions/analytics/progress/main/src",
@@ -1090,6 +1067,31 @@
           "outputs": ["coverage/libs/model/user/bot-users"],
           "options": {
             "jestConfig": "libs/model/user/bot-users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-analytics-metabase": {
+      "root": "libs/private/functions/analytics/metabase",
+      "sourceRoot": "libs/private/functions/analytics/metabase/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/analytics/metabase/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/analytics/metabase"],
+          "options": {
+            "jestConfig": "libs/private/functions/analytics/metabase/jest.config.ts",
             "passWithNoTests": true
           }
         }
