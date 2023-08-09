@@ -16,8 +16,6 @@ export class EnrolledLearnersService {
     private _endUsers: EndUserService
   ) {}
 
-  // TODO @LemmyMwaura: We now update the enrolled user's current milestone from the event brick so everything inside the pipe operator is redundant.
-  // TODO: to be removed after incremental adoption of the event brick(as a way to mark entry into a new milestone) on existing prod versions.
   getAllLearners$() {
     return this._enrolledLearners$$.get().pipe(
       switchMap((enrolledUsrs) => {
@@ -27,10 +25,10 @@ export class EnrolledLearnersService {
           if (!user.whatsappUserId) return of(user);
 
           /** Get's the current course for all user's with the WhatsappEndUser Id  */
-          return this._endUsers.getCourse(user.whatsappUserId).pipe(
-            map((eventStack) => {
-              if (eventStack && eventStack[0].isMilestone) {
-                user.currentCourse = eventStack[0].name;
+          return this._endUsers.getSpecificUser(user.whatsappUserId).pipe(
+            map((endUser) => {
+              if (endUser) {
+                user.currentCourse = endUser.currentStory as string;
               }
               return user;
             })

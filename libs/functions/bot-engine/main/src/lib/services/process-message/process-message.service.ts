@@ -12,7 +12,6 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
-import { EnrolledUserDataService } from '../data-services/enrolled-user.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
 
@@ -33,7 +32,6 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
-    private _enrolledUserService: EnrolledUserDataService,
   ) { }
 
   /**
