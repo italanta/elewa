@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './learner-enrolled-courses.component.html',
   styleUrls: ['./learner-enrolled-courses.component.scss'],
 })
-export class LearnerEnrolledCoursesComponent {}
+export class LearnerEnrolledCoursesComponent {
+  isOpen = false;
+
+  toggleCollapsible() {
+    return this.isOpen = !this.isOpen;
+  }
+}
