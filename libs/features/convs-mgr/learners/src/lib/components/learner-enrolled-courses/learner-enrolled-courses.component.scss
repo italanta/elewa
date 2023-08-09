@@ -1,0 +1,59 @@
+// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+
+.page-container{
+    margin-top: 2em;
+    font-family: 'Inter', sans-serif;
+    h2{
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 26px;
+    }
+    .course-item-container{
+        .course-item-title-container{
+            display: flex;
+            justify-content: space-between;
+            padding-right: 2em;
+            .course-item-title{
+                font-size: 20px;
+                line-height: 24px;
+                font-weight: 400;
+                height: 28px;
+                border-left: 4px black solid;
+                padding-left: 1;
+                width: 77px;
+                text-align: end;
+            }
+        }
+        h3{
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        .course-name{
+            display: flex;
+            width: 103px;
+            height: 21px;
+            align-items: center;
+            justify-content: space-evenly;
+            margin-bottom: 3em;
+        }
+        .course-progress-bars{
+            display: flex;
+            flex-direction: row;
+            padding-right: 15em;
+            align-items: center;
+            margin-top: 2em;
+            .course-progress-name{
+                font-size: 18px;
+                line-height: 24px;
+                font-weight: 400;
+                color: rgba(0, 0, 0, 1);
+                width: 500px;
+            }
+        }
+    }
+}
+.mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
