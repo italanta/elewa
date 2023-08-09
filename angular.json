@@ -747,31 +747,6 @@
       },
       "tags": []
     },
-    "functions-analytics-progress-main": {
-      "root": "libs/functions/analytics/progress/main",
-      "sourceRoot": "libs/functions/analytics/progress/main/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/functions/analytics/progress/main/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/functions/analytics/progress/main"],
-          "options": {
-            "jestConfig": "libs/functions/analytics/progress/main/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "functions-base": "libs/functions/base",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-messenger": {
@@ -1092,6 +1067,33 @@
           "outputs": ["coverage/libs/private/functions/analytics/metabase"],
           "options": {
             "jestConfig": "libs/private/functions/analytics/metabase/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-analytics-progress-main": {
+      "root": "libs/private/functions/analytics/progress/main",
+      "sourceRoot": "libs/private/functions/analytics/progress/main/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/analytics/progress/main/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/analytics/progress/main"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/analytics/progress/main/jest.config.ts",
             "passWithNoTests": true
           }
         }

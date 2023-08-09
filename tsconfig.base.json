@@ -262,6 +262,9 @@
       "@app/private/functions/analytics/metabase": [
         "libs/private/functions/analytics/metabase/src/index.ts"
       ],
+      "@app/private/functions/analytics/progress/main": [
+        "libs/private/functions/analytics/progress/main/src/index.ts"
+      ],
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
