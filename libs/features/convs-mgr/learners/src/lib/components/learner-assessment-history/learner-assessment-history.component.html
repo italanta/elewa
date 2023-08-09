@@ -1,1 +1,28 @@
-<p>learner-assessment-history works!</p>
+<h2>Assessment History</h2>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="Assessment Name">
+      <th mat-header-cell *matHeaderCellDef> Assessment Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Score">
+      <th mat-header-cell *matHeaderCellDef> Score Category</th>
+      <td mat-cell *matCellDef="let element"> {{element.score}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Date Taken">
+      <th mat-header-cell *matHeaderCellDef> Date Taken </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Duration Taken">
+      <th mat-header-cell *matHeaderCellDef> Duration Taken </th>
+      <td mat-cell *matCellDef="let element"> {{element.duration}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  
