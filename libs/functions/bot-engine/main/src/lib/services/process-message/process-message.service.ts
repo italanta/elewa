@@ -20,6 +20,7 @@ import { BotMediaProcessService } from '../media/process-media-service';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
 
+
 export class ProcessMessageService
 {
   isInputValid = true;
@@ -71,7 +72,7 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
     // Handle input: validates and saves the input to variable
-    const inputPromise = this.processInput(msg, lastBlock, orgId, endUser.id);
+    const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
 
     this.sideOperations.push(inputPromise);
 
@@ -128,14 +129,14 @@ export class ProcessMessageService
     return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
   }
 
-  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string)
+  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser)
   {
 
     if (!isOutputBlock(lastBlock.type)) {
 
       const processInputFactory = new ProcessInputFactory(this._tools, this._activeChannel, this._processMediaService$);
 
-      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUserId);
+      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUser);
 
     }
   }

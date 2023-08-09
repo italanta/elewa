@@ -23,6 +23,9 @@ export interface EndUser extends IObject
     labels                        ?:string[];
 
     isConversationComplete        ?: number;
+
+    /** The values of the variables that the end user has provided */
+    variables                     ?: {[key:string]:any};
 }
 
 /**
