@@ -50,6 +50,7 @@
       "@app/elements/nav/convl/breadcrumbs": [
         "libs/elements/nav/convl/breadcrumbs/src/index.ts"
       ],
+      "@app/features/analytics": ["libs/features/analytics/src/index.ts"],
       "@app/features/app/auth/login": [
         "libs/features/app/auth/login/src/index.ts"
       ],
@@ -255,6 +256,15 @@
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
+      "@app/private/functions/organisation": [
+        "libs/private/functions/organisation/src/index.ts"
+      ],
+      "@app/private/state/organisation/main": [
+        "libs/private/state/organisation/main/src/index.ts"
+      ],
+      "@app/private/state/user/base": [
+        "libs/private/state/user/base/src/index.ts"
+      ],
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"

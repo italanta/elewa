@@ -1073,6 +1073,81 @@
       },
       "tags": []
     },
+    "private-functions-organisation": {
+      "root": "libs/private/functions/organisation",
+      "sourceRoot": "libs/private/functions/organisation/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/functions/organisation/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/organisation"],
+          "options": {
+            "jestConfig": "libs/private/functions/organisation/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-organisation-main": {
+      "projectType": "library",
+      "root": "libs/private/state/organisation/main",
+      "sourceRoot": "libs/private/state/organisation/main/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/organisation/main"],
+          "options": {
+            "jestConfig": "libs/private/state/organisation/main/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/organisation/main/**/*.ts",
+              "libs/private/state/organisation/main/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-user-base": {
+      "projectType": "library",
+      "root": "libs/private/state/user/base",
+      "sourceRoot": "libs/private/state/user/base/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/user/base"],
+          "options": {
+            "jestConfig": "libs/private/state/user/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/user/base/**/*.ts",
+              "libs/private/state/user/base/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
     "state-convs-mgr-conversations-assessments": {
       "projectType": "library",

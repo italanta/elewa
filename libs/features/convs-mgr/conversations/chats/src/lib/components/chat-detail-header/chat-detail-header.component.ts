@@ -139,7 +139,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   viewDetails() {
     this._dialog.open(ViewDetailsModal, {
-      data: { chat: this.chat, isAdmin: this.user.roles.admin },
+      data: { chat: this.chat, isAdmin: this.user.roles['admin' as keyof typeof this.user.roles]},
       width: '500px',
     });
   }
