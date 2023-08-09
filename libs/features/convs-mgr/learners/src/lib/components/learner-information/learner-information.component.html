@@ -1,1 +1,28 @@
-<p>learner-information works!</p>
+<div class="page-container">
+    <div class="learner-information">
+        <div class="learner-information-details">
+            <div class="learner-avatar">LT
+            </div>
+            <div class="learner-details">
+                <p>{{currentLearner.name}}</p>
+                <p>
+                    <i class="fas fa-phone-alt"></i>
+                    {{currentLearner.phoneNumber}}
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    Nairobi, Kenya
+                </p>
+            </div>
+        </div>
+        <div class="learner-activity">
+            <div class="activity-pill">
+                {{getStatus(currentLearner.status)}}
+            </div>
+            <a class="chat-button" (click)="goToChat(currentLearner)" routerLinkActive="router-link-active">
+                    <span><i class="fab fa-whatsapp"></i></span> 
+                    Go to Chat
+            </a>
+        </div>
+    </div>
+</div>
