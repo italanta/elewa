@@ -56,7 +56,9 @@
 
         <ng-container matColumnDef="name">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
-          <td mat-cell *matCellDef="let endUser">{{ endUser.name }}</td>
+            <td mat-cell *matCellDef="let endUser">
+              <a routerLink="{{endUser.id}}" routerLinkActive="router-link-active">{{ endUser.name }}</a>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
