@@ -1,5 +1,6 @@
 import { RestRegistrar } from "@ngfi/functions";
-import { GetMetabaseUrlHandler } from "@app/functions/analytics/metabase";
+
+import { GetMetabaseUrlHandler } from "@app/private/functions/analytics/metabase";
 
 import { ConvLearnFunction } from "../../conv-learn-func.class";
 

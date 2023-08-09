@@ -1,7 +1,8 @@
 import { RestRegistrar } from "@ngfi/functions";
 
+import { MeasureParticipantGroupProgressHandler } from "@app/private/functions/analytics/progress/main";
+
 import { ConvLearnFunction } from "../../conv-learn-func.class";
-import { MeasureParticipantGroupProgressHandler } from "@app/functions/analytics/progress/main";
 
 const handler = new MeasureParticipantGroupProgressHandler();
 
