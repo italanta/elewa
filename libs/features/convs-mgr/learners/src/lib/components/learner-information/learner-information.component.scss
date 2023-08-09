@@ -1,0 +1,93 @@
+svg{
+  margin-right: 5px;
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color:#00A0C6; 
+  text-decoration:none; 
+  cursor:pointer;  
+}
+.learner-information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px;
+  .learner-information-details{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .learner-avatar {
+      margin-right: 10px;
+      width: 100px;
+      height: 100px;
+      background-color: #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 29.05px;
+    }
+    .learner-details {
+      p {
+        margin: 0;
+        font-weight: lighter;
+        width: 160px;
+          height: 24px;
+        &:nth-child(1) {
+          font-weight: 500;
+          font-size: 22px;
+          color: black;
+          line-height: 26px;
+          padding-left: 8px;
+          margin-bottom: 14px;
+        }
+        &:nth-child(2), &:nth-child(3) {
+          font-weight: 400;
+          font-size: 18px;
+          color: black;
+          line-height: 21px;
+          display: flex;
+          align-items: center;
+          margin: 5px;
+        }
+      }
+    }
+  }
+  .learner-activity{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    height: 100px;
+    padding: 10px;
+    .activity-pill{
+      width: 70px;
+      height: 24px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18.15px;
+      background-color: #D9D9D9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 15px;
+    }
+    .chat-button{
+      width: 187px;
+      height: 40px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: #D9D9D9;
+    }
+    
+  }
+  
+}

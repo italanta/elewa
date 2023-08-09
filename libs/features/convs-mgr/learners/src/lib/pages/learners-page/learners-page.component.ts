@@ -53,6 +53,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     const allLearners$ = this._eLearners.getAllLearners$();
 
     this._sBs.sink = allLearners$.subscribe((alllearners) => {
+      console.log(alllearners);
       this.dataSource.data = alllearners;
       this.dataSource.sort = this.sort;
     });

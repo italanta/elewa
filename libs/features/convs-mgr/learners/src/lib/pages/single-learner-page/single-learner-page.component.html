@@ -1,0 +1,13 @@
+<convl-page title="User Detail Tab">
+    <div class="page-container">
+        <div class="breadcrumb-container">
+            <ul class="breadcrumb">
+                <li><a routerLink="/learners/" routerLinkActive="router-link-active">Learners</a></li>
+                <li>{{ getBreadcrumbTitle()}}</li>
+              </ul> 
+        </div>
+        <app-learner-information [currentLearner] = "currentLearner"></app-learner-information>
+        <app-learner-enrolled-courses></app-learner-enrolled-courses>
+        <app-learner-assessment-history></app-learner-assessment-history>
+    </div>
+</convl-page>

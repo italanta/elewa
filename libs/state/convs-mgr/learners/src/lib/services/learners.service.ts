@@ -42,6 +42,14 @@ export class EnrolledLearnersService {
     );
   }
 
+  getAssessmentStack(id: string) {
+    return this._endUsers.getUserCursor(id).pipe(map(cursor => {
+      if (cursor[0]?.assessmentStack) {
+        return cursor[0].assessmentStack
+      } else return []
+    }));
+  }
+
   getSpecificLearner$(id: string) {
     return this._enrolledLearners$$.getOne(id);
   }
