@@ -1,2 +1,2 @@
 export * from './lib/state-analytics.module';
-export * from './lib/services/metabase.service';
+export * from '../../../../private/state/analytics/src/lib/services/metabase.service';
