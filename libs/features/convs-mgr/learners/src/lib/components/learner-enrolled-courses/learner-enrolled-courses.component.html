@@ -1,1 +1,37 @@
-<p>learner-enrolled-courses works!</p>
+<div class="page-container">
+    <h2>Courses Enrolled</h2>
+    <div class="course-item-container">
+      <div class="course-item-title-container" (click)="toggleCollapsible()">
+        <div class="course-item-title" >Enabel</div>
+  
+          <div *ngIf="!isOpen">
+            <i  class="fas fa-chevron-up"></i>
+          </div>
+          <div *ngIf="isOpen">
+            <i  class="fas fa-chevron-down"></i>
+          </div>
+      </div>
+  
+      <ng-container *ngIf="isOpen">
+        <h3>Enrolled on 20th May 2023</h3>
+        <div class="course-name">
+          <i class="far fa-bookmark"></i>
+          BDOM
+          <i class="fas fa-pen-square"></i>
+        </div>
+        <div class="course-progress-bars">
+          <div class="course-progress-name">CH1_Systeme</div>
+          <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
+        </div>
+        <div class="course-progress-bars">
+          <div class="course-progress-name">Onboarding</div>
+          <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
+        </div>
+        <div class="course-progress-bars">
+          <div class="course-progress-name">PreTest</div>
+          <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
