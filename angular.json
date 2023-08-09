@@ -1123,10 +1123,6 @@
       "projectType": "library",
       "root": "libs/private/state/organisation/main",
       "sourceRoot": "libs/private/state/organisation/main/src",
-    "state-convs-mgr-analytics": {
-      "projectType": "library",
-      "root": "libs/state/convs-mgr/analytics",
-      "sourceRoot": "libs/state/convs-mgr/analytics/src",
       "prefix": "app",
       "targets": {
         "test": {
@@ -1134,9 +1130,6 @@
           "outputs": ["coverage/libs/private/state/organisation/main"],
           "options": {
             "jestConfig": "libs/private/state/organisation/main/jest.config.ts",
-          "outputs": ["coverage/libs/state/convs-mgr/analytics"],
-          "options": {
-            "jestConfig": "libs/state/convs-mgr/analytics/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -1146,6 +1139,31 @@
             "lintFilePatterns": [
               "libs/private/state/organisation/main/**/*.ts",
               "libs/private/state/organisation/main/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-analytics": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/analytics",
+      "sourceRoot": "libs/state/convs-mgr/analytics/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "options": {
+          "jestConfig": "libs/state/convs-mgr/analytics/jest.config.ts",
+          "outputs": ["coverage/libs/state/convs-mgr/analytics"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/analytics/**/*.ts",
+              "libs/state/convs-mgr/analytics/**/*.html"
             ]
           }
         }
@@ -1171,9 +1189,7 @@
           "options": {
             "lintFilePatterns": [
               "libs/private/state/user/base/**/*.ts",
-              "libs/private/state/user/base/**/*.html",
-              "libs/state/convs-mgr/analytics/**/*.ts",
-              "libs/state/convs-mgr/analytics/**/*.html"
+              "libs/private/state/user/base/**/*.html"
             ]
           }
         }
