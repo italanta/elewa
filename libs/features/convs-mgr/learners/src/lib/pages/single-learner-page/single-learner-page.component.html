@@ -6,7 +6,11 @@
                 <li>{{ getBreadcrumbTitle()}}</li>
               </ul> 
         </div>
-        <app-learner-information [currentLearner] = "currentLearner"></app-learner-information>
+
+        <div *ngIf="currentLearner">
+            <app-learner-information [currentLearner] = "currentLearner"></app-learner-information>
+        </div>
+        
         <app-learner-enrolled-courses></app-learner-enrolled-courses>
         <app-learner-assessment-history></app-learner-assessment-history>
     </div>
