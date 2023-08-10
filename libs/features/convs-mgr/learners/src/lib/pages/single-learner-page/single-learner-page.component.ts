@@ -36,7 +36,7 @@ export class SingleLearnerPageComponent implements OnInit, OnDestroy {
   }
 
   getBreadcrumbTitle() {
-    return this.currentLearner.name || this.currentLearner.phoneNumber || this.currentLearner.id
+    return (this.currentLearner) ? this.currentLearner?.name || this.currentLearner?.phoneNumber || this.currentLearner?.id : ''
   }
 
   ngOnDestroy() {
