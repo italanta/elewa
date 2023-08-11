@@ -49,14 +49,15 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
       //Step 2 - Upload file to firestore
       const response = await this._audioUploadService.uploadSingleFile(this.file, audioFilePath);
 
-      //Step 3 Check if file bypasses size limit.
       const fileSizeInKB = this.file.size / 1024;
-      
-      //Step 4 - PatchValue to Block
+
+      //Step 3 - PatchValue to Block
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   }
 
+  
+  /** Step 3 Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
     this.byPassedLimits = this._audioUploadService.checkFileSizeLimits(fileSize, 'audio');
   }

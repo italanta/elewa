@@ -95,6 +95,7 @@ export class VideoUploadModalComponent implements OnInit {
     });
   }
   
+  /** Step 3 Check if file bypasses size limit. */
   private _checkSizeLimit(size:number) {
     this.byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
   };

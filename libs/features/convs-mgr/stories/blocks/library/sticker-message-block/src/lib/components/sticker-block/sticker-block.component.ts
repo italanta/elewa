@@ -50,14 +50,14 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
       //Step 2 - Upload file to firestore
       const response = await this._stickerUploadService.uploadSingleFile(this.file, stickerFilePath);
       
-      //Step 3 Check if file bypasses size limit.
       const fileSizeInKB = this.file.size / 1024;
 
-      //Step 4 - PatchValue to Block
+      //Step 3 - PatchValue to Block
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   };
 
+  /** Check if file bypasses size limit. */
   private _checkSizeLimit(size:number) {
     this.byPassedLimits = this._stickerUploadService.checkFileSizeLimits(size, 'sticker');
   }

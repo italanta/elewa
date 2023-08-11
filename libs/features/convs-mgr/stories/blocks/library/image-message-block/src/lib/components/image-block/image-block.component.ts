@@ -64,14 +64,14 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
       //Step 2 - Upload file to firestore
       const response = await this._imageUploadService.uploadSingleFile(this.file, imgFilePath);
 
-      //Step 3 Check if file bypasses size limit.
       const fileSizeInKB = this.file.size / 1024;
 
-      //Step 4 - PatchValue to Block
+      //Step 3 - PatchValue to Block
       this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   }
 
+  /** Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
     this.byPassedLimits = this._imageUploadService.checkFileSizeLimits(fileSize, 'image');
   }
