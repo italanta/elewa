@@ -4,9 +4,9 @@
     margin-top: 2em;
     font-family: 'Inter', sans-serif;
     h2{
-        font-size: 22px;
+        font-size: 1.375em;
         font-weight: 400;
-        line-height: 26px;
+        line-height: 1.625em;
     }
     .course-item-container{
         .course-item-title-container{
@@ -14,26 +14,26 @@
             justify-content: space-between;
             padding-right: 2em;
             .course-item-title{
-                font-size: 20px;
-                line-height: 24px;
+                font-size: 1.25em;
+                line-height: 1.5em;
                 font-weight: 400;
-                height: 28px;
-                border-left: 4px black solid;
+                height: 1.75em;
+                border-left: 0.25em black solid;
                 padding-left: 1;
-                width: 77px;
+                width: 4.8125em;
                 text-align: end;
             }
         }
         h3{
-            font-size: 16px;
-            line-height: 20px;
+            font-size: 1em;
+            line-height: 1.25em;
             font-weight: 400;
             color: rgba(0, 0, 0, 0.6);
         }
         .course-name{
             display: flex;
-            width: 103px;
-            height: 21px;
+            width: 6.4375em;
+            height: 1.3125em;
             align-items: center;
             justify-content: space-evenly;
             margin-bottom: 3em;
@@ -45,11 +45,11 @@
             align-items: center;
             margin-top: 2em;
             .course-progress-name{
-                font-size: 18px;
-                line-height: 24px;
+                font-size: 1.125em;
+                line-height: 1.5em;
                 font-weight: 400;
                 color: rgba(0, 0, 0, 1);
-                width: 500px;
+                width:  31.25em;
             }
         }
     }
