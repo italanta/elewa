@@ -13,7 +13,9 @@ export class LearnerInformationComponent {
   constructor( private _router: Router){}
 
   @Input() currentLearner: EnrolledEndUser;
-
+  getAvatar() :string{
+    return this.currentLearner.name[0].toUpperCase();
+  }
   getStatus() :string{
     return this.currentLearner.status === EnrolledEndUserStatus.active ? 'Active' : 'Inactive';
   }
