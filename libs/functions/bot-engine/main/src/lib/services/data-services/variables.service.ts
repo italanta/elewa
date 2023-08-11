@@ -8,6 +8,7 @@ import { BotDataService } from './data-service-abstract.class';
 export class VariablesDataService extends BotDataService<any>{
   private _docPath: string;
   tools: HandlerTools;
+  endUserId: string;
 
   constructor(tools: HandlerTools, orgId: string, endUserId: string) 
   {
@@ -18,11 +19,15 @@ export class VariablesDataService extends BotDataService<any>{
 
   protected _init(orgId: string, endUserId:string): void 
   {
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
+    this._docPath = `orgs/${orgId}/end-users`;
+
+    this.endUserId = endUserId;
   }
 
   public async getAllVariables() {
-    return this.getDocumentById('values',this._docPath);
+   const endUser = await this.getDocumentById(this.endUserId,this._docPath);
+
+   return endUser.variables;
   }
 
   public async getSpecificVariable(varName: string) {
