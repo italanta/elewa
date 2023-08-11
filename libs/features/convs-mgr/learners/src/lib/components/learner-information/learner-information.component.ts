@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
 @Component({

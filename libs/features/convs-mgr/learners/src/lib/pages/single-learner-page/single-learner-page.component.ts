@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { SubSink } from 'subsink';
+import { switchMap } from 'rxjs';
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
-import { switchMap } from 'rxjs';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 @Component({
