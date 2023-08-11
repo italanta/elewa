@@ -11,15 +11,15 @@
                 </p>
                 <p>
                     <i class="fas fa-map-marker-alt"></i>
-                    Nairobi, Kenya
+                    {{location}}
                 </p>
             </div>
         </div>
         <div class="learner-activity">
             <div class="activity-pill">
-                {{getStatus(currentLearner.status)}}
+                {{getStatus()}}
             </div>
-            <a class="chat-button" (click)="goToChat(currentLearner)" routerLinkActive="router-link-active">
+            <a class="chat-button" (click)="goToChat()" routerLinkActive="router-link-active">
                     <span><i class="fab fa-whatsapp"></i></span> 
                     Go to Chat
             </a>
