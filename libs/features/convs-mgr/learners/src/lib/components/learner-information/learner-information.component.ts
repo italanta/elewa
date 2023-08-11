@@ -9,15 +9,16 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
   styleUrls: ['./learner-information.component.scss'],
 })
 export class LearnerInformationComponent {
+  location = ""
   constructor( private _router: Router){}
+
   @Input() currentLearner: EnrolledEndUser;
-  getStatus(status: number) {
-    return (
-      EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
-      EnrolledEndUserStatus[status].slice(1)
-    );
+
+  getStatus() :string{
+    return this.currentLearner.status === EnrolledEndUserStatus.active ? 'Active' : 'Inactive';
   }
-  goToChat(user: EnrolledEndUser){
-    this._router.navigate(['chats', user.id])
+  goToChat() :void{
+    //todo: Request assistance on how to retrieve the enduse id
+    this._router.navigate(['chats', this.currentLearner.id])
   }
 }
