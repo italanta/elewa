@@ -30,7 +30,6 @@ export class SingleLearnerPageComponent implements OnInit, OnDestroy {
       )
       .subscribe(learner => {
         this.currentLearner = learner as EnrolledEndUser
-        console.log(this.currentLearner)
         return this.currentLearner
       });
   }
