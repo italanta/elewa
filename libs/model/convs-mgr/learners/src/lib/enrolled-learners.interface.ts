@@ -45,6 +45,6 @@ export interface EnrolledEndUser extends IObject {
  * Enum representing the status of an enrolled learner.
  */
 export enum EnrolledEndUserStatus {
-  ACTIVE = 1,
-  INACTIVE = 2
+  Active = 1,
+  Inactive = 2
 }
