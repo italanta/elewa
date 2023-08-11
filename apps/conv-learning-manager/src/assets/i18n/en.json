@@ -183,24 +183,26 @@
         }
       }, 
       "SIZE-LIMIT-MESSAGE": {
-        "AUDIO": {
-          "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
-          "MESSAGE-TWO": "audio exceeds 16MB file Limit."
-        }, 
-        "VIDEO": {
-          "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
-        },
-        "DOCUMENT": {
-          "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
-          "MESSAGE-TWO": "document exceeds 100MB file Limit."
-        },
-        "STICKER": {
-          "MESSAGE-ONE": "Sticker cannot be sent to whatsapp,",
-          "MESSAGE-TWO": "sticker exceeds 500kB file Limit."
-        },
-        "IMAGE": {
-          "MESSAGE-ONE": "Image cannot be sent to whatsapp,",
-          "MESSAGE-TWO": "image exceeds 5MB file Limit."
+        "WHATSAPP" : {
+          "AUDIO": {
+            "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "audio exceeds 16MB file Limit."
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "document exceeds 100MB file Limit."
+          },
+          "STICKER": {
+            "MESSAGE-ONE": "Sticker cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "sticker exceeds 500kB file Limit."
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "Image cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "image exceeds 5MB file Limit."
+          }
         }
       }
     },
