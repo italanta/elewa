@@ -12,13 +12,13 @@ import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
   styleUrls: ['./single-learner-page.component.scss'],
 })
 export class SingleLearnerPageComponent implements OnInit, OnDestroy {
+  private _sBS = new SubSink();
+  currentLearner!: EnrolledEndUser;
+
   constructor(
     private _route: ActivatedRoute,
     private _elearners: EnrolledLearnersService
   ) {}
-
-  private _sBS = new SubSink();
-  currentLearner!: EnrolledEndUser;
 
   ngOnInit() {
     this._sBS.sink = this._route.paramMap
