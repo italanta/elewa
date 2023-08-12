@@ -12,6 +12,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { TeamsSettingsComponent } from './components/teams-settings/teams-settings.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
+import { BillingSettingsComponent } from './components/billing-settings/billing-settings.component';
 
 import { AdminSettingsRouterModule } from './admin.routing';
 
@@ -28,6 +29,7 @@ import { AdminSettingsRouterModule } from './admin.routing';
     AdminPageComponent,
     TeamsSettingsComponent,
     ProfileSettingsComponent,
+    BillingSettingsComponent,
   ],
 })
 export class AdminSettingsModule {}
