@@ -10,6 +10,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { TeamsSettingsComponent } from './components/teams-settings/teams-settings.component';
 
 import { AdminSettingsRouterModule } from './admin.routing';
 
@@ -22,6 +23,6 @@ import { AdminSettingsRouterModule } from './admin.routing';
     MaterialDesignModule,
     MultiLangModule,
   ],
-  declarations: [AdminPageComponent],
+  declarations: [AdminPageComponent, TeamsSettingsComponent],
 })
 export class AdminSettingsModule {}
