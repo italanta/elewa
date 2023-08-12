@@ -46,7 +46,7 @@ export class OrganisationService {
 
   /** Get details of the users in an organisation */
   getOrgUsersDetails(): Observable<iTalUser[]> {
-    return this._activeOrg$$.get().pipe(switchMap((org) => !!org ? this._user$$.getOrgUsers(org.id!) : []));
+    return this._activeOrg$$.get().pipe(switchMap((org) => org ? this._user$$.getOrgUsers(org.id as string) : []));
   }
 
   /** Creates an organisation */
@@ -91,18 +91,20 @@ export class OrganisationService {
   removeUserFromOrg(user: iTalUser) {
     this._activeOrg$$.get().pipe(take(1)).subscribe((org) => {
       if (org) {
-        org.users.splice(org.users.indexOf(user.id!), 1);
+        org.users.splice(org.users.indexOf(user.id as string), 1);
         this.updateOrgDetails(org);
         this.removeOrgFromUser(user, org);
       }
     })
   }
 
-  removeOrgFromUser(user: iTalUser, org: Organisation) {
-    user.orgs.splice(user.orgs.indexOf(org.id!), 1);
-    let userOrg = user.activeOrg;
-    user.activeOrg = userOrg === org.id ? user.orgs.length > 0 ? user.orgs[0] : '' 
+
+  async removeOrgFromUser(user: iTalUser, org: Organisation) {
+    user.orgs.splice(user.orgs.indexOf(org.id as string), 1);
+
+    const userOrg = user.activeOrg;
+    user.activeOrg = userOrg === org.id ? user.orgs.length > 0 ? user.orgs[0] : ''
                                                 : userOrg;
-    this._user$$.updateUser(user).then(() => {});
+    await this._user$$.updateUser(user);
   }
 }
