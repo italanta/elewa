@@ -1,0 +1,22 @@
+h3,
+p,
+h6 {
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 2rem;
+
+  .table-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .table-title {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
