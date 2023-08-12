@@ -1,0 +1,1 @@
+<p>admin-page works!</p>
