@@ -197,7 +197,8 @@
       "LOG-OUT": "Logout",
       "BOT": "Bots",
       "REPORTS": "Reports",
-      "LEARNERS": "Learners"
+      "LEARNERS": "Learners",
+      "ADMIN_SETTINGS": "Admin Settings"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",

@@ -117,8 +117,8 @@
       [class.active]="rlaAssess.isActive" [class.hov]="!rlaAssess.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
-        <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
-          class="menu-item menu-item--one">
+        <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+          mat-list-item class="menu-item menu-item--one">
           <i class="far fa-clipboard"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
@@ -133,8 +133,8 @@
       [class.active]="rlaLearners.isActive" [class.hov]="!rlaLearners.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
-        <div [routerLink]="['/learners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
-          class="menu-item menu-item--one">
+        <div [routerLink]="['/learners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          mat-list-item class="menu-item menu-item--one">
           <i matListIcon class="fas fa-users menu-item__tooltip"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}
@@ -143,6 +143,16 @@
       </div>
     </div>
     <!-- end Learners -->
+
+    <div [routerLink]="['/admin-settings']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container bottom-container"
+      [class.active]="rlaLearners.isActive" [class.hov]="!rlaLearners.isActive" fxLayout="column">
+      <div class="menu-item">
+        <i matListIcon class="fas fa-cog menu-item__tooltip"></i>
+        <span *ngIf="isExpanded" class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.ADMIN_SETTINGS'| transloco }}
+        </span>
+      </div>
+    </div>
 
   </mat-nav-list>
 </div>

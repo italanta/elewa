@@ -52,6 +52,12 @@ export const APP_ROUTES: Route[] = [
     loadChildren: () => import('@app/features/convs-mgr/conversations/assessments').then(m => m.ConvsMgrAssessmentsModule),
     canActivate: [IsLoggedInGuard]
   },
+
+  {
+    path: 'admin-settings',
+    loadChildren: () => import('@app/private/features/convs-mgr/admin').then(m => m.AdminSettingsModule),
+    canActivate: [IsLoggedInGuard]
+  },
 ];
 
 
