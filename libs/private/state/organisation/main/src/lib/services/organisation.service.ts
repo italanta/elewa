@@ -52,13 +52,15 @@ export class OrganisationService {
   /** Creates an organisation */
   createOrg(org: Organisation) {
     const id = this._db.createId();
+
     const orgWithId = { 
-      ...org, 
+      ...org,
       id: id,
       logoUrl: '',
       email: '',
       phone: '',
-     };
+    };
+
     this._sbS.sink = this._orgs$$.add(orgWithId, id)
       .pipe(take(1))
       .subscribe(o => this._afterCreateOrg(o));
@@ -81,6 +83,7 @@ export class OrganisationService {
 
   updateOrgDetails(org: Organisation, fileUrl?: string) {
     org.logoUrl = fileUrl ?? '';
+
     this._orgs$$.update(org).subscribe((org) => {
       if (org) {
         window.location.reload();

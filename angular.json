@@ -1073,6 +1073,32 @@
       },
       "tags": []
     },
+    "private-features-convs-mgr-admin": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/admin",
+      "sourceRoot": "libs/private/features/convs-mgr/admin/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/features/convs-mgr/admin"],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/admin/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/admin/**/*.ts",
+              "libs/private/features/convs-mgr/admin/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-organisation": {
       "root": "libs/private/functions/organisation",
       "sourceRoot": "libs/private/functions/organisation/src",

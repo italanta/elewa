@@ -24,8 +24,6 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
     super(null as any);
 
     const orgs$ = _orgStore.get();
-    // const route$ = _router.events.pipe(filter((ev: Event) => ev instanceof NavigationEnd),
-    //                                    map(ev => ev as NavigationEnd));
 
     this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
                         .subscribe(([orgs, user]) => //route
