@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+
+import { AddMemberModalComponent } from '../../modals/add-member-modal/add-member-modal.component';
 
 @Component({
   selector: 'app-teams-settings',
@@ -12,7 +15,17 @@ export class TeamsSettingsComponent {
   displayedColumns = ['logo', 'name', 'email', 'status', 'role', 'actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private _dialog: MatDialog
+  ) {}
+
+  openAddMemberDialog() {
+    this._dialog.open(AddMemberModalComponent, {
+      height: '300px',
+      width: '400px',
+    });
+  }
 
   sortData(sortState: Sort) {
     if (sortState.direction) {
