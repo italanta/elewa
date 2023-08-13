@@ -22,8 +22,8 @@ export class TeamsSettingsComponent {
 
   openAddMemberDialog() {
     this._dialog.open(AddMemberModalComponent, {
-      height: '300px',
-      width: '400px',
+      height: 'auto',
+      width: '500px',
     });
   }
 

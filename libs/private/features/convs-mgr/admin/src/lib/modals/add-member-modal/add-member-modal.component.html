@@ -1,1 +1,24 @@
-<p>add-member-modal works!</p>
+<div class="modal-container">
+  <div class="modal-header">
+    <h3 class="title">Add Member</h3>
+    <p>Invite a team member via their email address</p>
+  </div>
+
+  <form [formGroup]="emailForm" class="modal-form" (ngSubmit)="onSubmit()">
+    <input class="modal-input" type="email" required formControlName="email" placeholder="Member email">
+
+    <div class="input-errors" *ngIf="email?.touched && email?.invalid">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>Email is invalid</span>
+    </div>
+
+    <div class="modal-role">
+      <span>Select Role</span>
+      <select formControlName="role">
+        <option value=""></option>
+      </select>
+    </div>
+
+    <button class="modal-btn" type="submit" [disabled]="emailForm.invalid">Invite</button>
+  </form>
+</div>
