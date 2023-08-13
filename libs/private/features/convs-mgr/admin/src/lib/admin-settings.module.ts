@@ -13,6 +13,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { TeamsSettingsComponent } from './components/teams-settings/teams-settings.component';
 import { ProfileSettingsComponent } from './components/profile-settings/profile-settings.component';
 import { BillingSettingsComponent } from './components/billing-settings/billing-settings.component';
+import { AddMemberModalComponent } from './modals/add-member-modal/add-member-modal.component';
 
 import { AdminSettingsRouterModule } from './admin.routing';
 
@@ -30,6 +31,7 @@ import { AdminSettingsRouterModule } from './admin.routing';
     TeamsSettingsComponent,
     ProfileSettingsComponent,
     BillingSettingsComponent,
+    AddMemberModalComponent,
   ],
 })
 export class AdminSettingsModule {}
