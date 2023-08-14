@@ -7,7 +7,7 @@
   <form [formGroup]="emailForm" class="modal-form" (ngSubmit)="onSubmit()">
     <input class="modal-input" type="email" required formControlName="email" placeholder="Member email">
 
-    <div class="input-errors" *ngIf="email?.touched && email?.invalid">
+    <div class="input-errors" *ngIf="email.touched && email.invalid">
       <i class="fas fa-exclamation-triangle"></i>
       <span>Email is invalid</span>
     </div>
@@ -15,7 +15,9 @@
     <div class="modal-role">
       <span>Select Role</span>
       <select formControlName="role">
-        <option value=""></option>
+        <option *ngFor="let role of data.roles" [value]="role">
+          {{ role }}
+        </option>
       </select>
     </div>
 
