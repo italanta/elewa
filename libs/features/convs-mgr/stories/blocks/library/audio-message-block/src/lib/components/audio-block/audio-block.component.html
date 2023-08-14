@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="audioMessageForm">
     <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-        <div [id]="audioInputId" class="audio_bg"  [ngClass]="whatsappLimit || messengerLimit ? 'error' : ''">
+        <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
             <div *ngIf="this.block.fileSrc && !isLoadingAudio">
                 <audio controls>

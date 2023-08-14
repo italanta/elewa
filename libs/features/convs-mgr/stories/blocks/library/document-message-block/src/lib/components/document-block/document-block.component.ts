@@ -21,6 +21,7 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
   file: File;
   docInputId: string;
   isDocLoading = false;
+  byPassedLimits: any[] = []
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
@@ -64,10 +65,10 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
 
   /** Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
-    const byPassedLimits = this._docUploadService.checkFileSizeLimits(fileSize, 'document');
+    this.byPassedLimits = this._docUploadService.checkFileSizeLimits(fileSize, 'document');
 
-    if (byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
-    else if (byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 
   private _autofillDocUrl(url: string, fileSizeInKB: number) {

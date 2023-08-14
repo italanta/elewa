@@ -1,6 +1,6 @@
 <div [id]="id" *ngIf="imageMessageForm">
 	<form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
-		<div [id]="imageInputId" class="image_bg" [ngClass]="whatsappLimit || messengerLimit ? 'error' : ''">
+		<div [id]="imageInputId" class="image_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
 
 			<input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
 

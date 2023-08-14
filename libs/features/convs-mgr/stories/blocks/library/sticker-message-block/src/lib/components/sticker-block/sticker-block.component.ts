@@ -22,6 +22,7 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
   file: File;
   isLoadingSticker: boolean;
   stickerInputId: string;
+  byPassedLimits: any[] = [];
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
@@ -60,10 +61,10 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
 
   /** Check if file bypasses size limit. */
   private _checkSizeLimit(size:number) {
-    const byPassedLimits = this._stickerUploadService.checkFileSizeLimits(size, 'sticker');
+    this.byPassedLimits = this._stickerUploadService.checkFileSizeLimits(size, 'sticker');
 
-    if (byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
-    else if (byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 
   private _autofillUrl(url: string, fileSizeInKB: number) {

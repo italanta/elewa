@@ -16,7 +16,7 @@
             <input type="text" id="name-input" class="name__input" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-MODAL.VIDEO-NAME' | transloco" formControlName="fileName" />
           </div>
 
-          <div class="media" [ngClass]="whatsappLimit || messengerLimit  ? 'error' : ''">
+          <div class="media" [ngClass]="byPassedLimits.length ? 'error' : ''">
             <input type="file" accept=".mp4" #inputUpload (change)="onVideoSelected($event)" hidden id="videoUpload">
             <label for="videoUpload">
               <button type="button" (click)="openFileExplorer()" class="upload-button" *ngIf="videoPath">{{'PAGE-CONTENT.BLOCK.LABELS.VIDEO-MODAL.UPDATE' | transloco}}</button>
