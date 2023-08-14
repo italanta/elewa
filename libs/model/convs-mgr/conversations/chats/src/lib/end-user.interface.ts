@@ -29,6 +29,7 @@ export interface EndUser extends IObject
     /** The values of the variables that the end user has provided */
     variables                     ?: {[key:string]:any};
 
+    /** The results of the assessments that the end user has taken */
     assessmentResults             ?: AssessmentResult[];
 }
 
