@@ -1,5 +1,5 @@
 <div class="page-container">
-    <h2>Courses Enrolled</h2>
+    <h2>{{'LEARNERS.LEARNER-DETAIL-TAB.DETAILS.COURSES-ENROLLED'| transloco }}</h2>
     <div class="course-item-container">
       <div class="course-item-title-container" (click)="toggleCollapsible()">
         <div class="course-item-title" >Enabel</div>
@@ -13,7 +13,7 @@
       </div>
   
       <ng-container *ngIf="isOpen">
-        <h3>Enrolled on 20th May 2023</h3>
+        <h3>{{'LEARNERS.LEARNER-DETAIL-TAB.DETAILS.ENROLLED-ON'| transloco }} 20th May 2023</h3>
         <div class="course-name">
           <i class="far fa-bookmark"></i>
           BDOM
