@@ -397,6 +397,52 @@
       }
     }
   },
+  "LEARNERS":{
+    "TABLE-HEADER": {
+      "NAME": "Name",
+      "PHONENUMBER": "PhoneNumber",
+      "COURSE": "Course",
+      "CLASS": "Class",
+      "STATUS": "Status"
+    },
+    "BUTTONS": {
+      "ADD-TO-CLASS": "Add to Class",
+      "BULK-ACTIONS": "Bulk Actions",
+      "CLASS": "Class",
+      "COURSE": "Course",
+      "PLATFORM": "Platform"
+    },
+    "MODALS": {
+      "ACTIONS": "Actions",
+      "SEND-INVITATION":"Send Invitation",
+      "SEND-REMINDER":"Send Reminder",
+      "CANCEL":"Cancel",
+      "CONTINUE":"Continue"
+    },
+    "PLATFORM": {
+      "WHATSAPP": "Whatsapp",
+      "MESSENGER": "Messenger",
+      "GO-TO-CHAT": "Go to Chat"
+    },
+    "PILLS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "LEARNER-DETAIL-TAB": {
+      "PAGE-TITLE": "Learner Detail Tab",
+      "DETAILS": {
+        "COURSES-ENROLLED": "Courses Enrolled",
+        "ASSESSMENT-HISTORY": "Assessment History",
+        "ENROLLED-ON": "Enrolled On",
+        "ASSESSMENT-HISTORY-TABLE": {
+          "ASSESSMENT-NAME": "Assessment Name",
+          "SCORE-CATEGORY": "Score Category",
+          "DURATION-TAKEN": "Duration Taken",
+          "DATE-TAKEN": "Date Taken"
+        }
+      }
+    }
+  },
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "Edit operation was successful",
