@@ -405,6 +405,9 @@
       "CLASS": "Class",
       "STATUS": "Status"
     },
+    "PLACEHOLDERS":{
+      "SEARCH-PLACEHOLDER": "Search input by name"
+    },
     "BUTTONS": {
       "ADD-TO-CLASS": "Add to Class",
       "BULK-ACTIONS": "Bulk Actions",
