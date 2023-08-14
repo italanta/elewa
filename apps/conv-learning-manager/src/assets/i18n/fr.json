@@ -331,7 +331,8 @@
       "BULK-ACTIONS": "Actions groupées",
       "CLASS": "Classe",
       "COURSE": "Cours",
-      "PLATFORM": "Plateforme"
+      "PLATFORM": "Plateforme",
+      "GO-TO-CHAT": "Aller au chat"
     },
     "MODALS": {
       "ACTIONS": "Actions",
@@ -342,8 +343,8 @@
     },
     "PLATFORM": {
       "WHATSAPP": "WhatsApp",
-      "MESSENGER": "Messenger",
-      "GO-TO-CHAT": "Aller au chat"
+      "MESSENGER": "Messenger"
+      
     },
     "PILLS": {
       "ACTIVE": "Actif",
