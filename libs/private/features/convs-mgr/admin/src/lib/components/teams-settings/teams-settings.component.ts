@@ -5,6 +5,7 @@ import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 import { SubSink } from 'subsink';
+import { switchMap } from 'rxjs';
 
 import { OrganisationService } from '@app/private/state/organisation/main';
 import { iTalUser } from '@app/model/user';
@@ -19,6 +20,7 @@ import { AddMemberModalComponent } from '../../modals/add-member-modal/add-membe
 export class TeamsSettingsComponent implements OnInit, OnDestroy {
   displayedColumns = ['logo', 'name', 'email', 'status', 'role', 'actions'];
   dataSource = new MatTableDataSource<iTalUser>();
+  roles: string[];
 
   private _sBs = new SubSink();
 
@@ -29,21 +31,30 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.getOrgRolesAndUsers();
+  }
+
+  getOrgRolesAndUsers() {
     this._sBs.sink = this._orgsService
-      .getOrgUsersDetails()
-      .subscribe((users) => {
-        this.dataSource.data = users;
-      });
+      .getActiveOrg()
+      .pipe(
+        switchMap((org) => {
+          this.roles = org.roles;
+          return this._orgsService.getOrgUsersDetails();
+        })
+      )
+      .subscribe((users) => (this.dataSource.data = users));
   }
 
   getAvatar(user: iTalUser) {
     const names = user.displayName?.split(' ');
-    const initials = names?.map(name => name.charAt(0).toUpperCase());
+    const initials = names?.map((name) => name.charAt(0).toUpperCase());
     return initials?.join('');
   }
 
   openAddMemberDialog() {
     this._dialog.open(AddMemberModalComponent, {
+      data: { roles: this.roles },
       height: 'auto',
       width: '500px',
     });
