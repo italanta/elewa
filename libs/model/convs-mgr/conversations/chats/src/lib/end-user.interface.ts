@@ -1,5 +1,7 @@
 import { IObject } from "@iote/bricks";
 
+import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
+
 /**
  * The first time a user sends a message to our bot, we generate a unique id {platform_n_endUserPhoneNumber} @see {CommunicationChannel.n}
  *      We then save the end user's information in 'end-users/{end-user-id}'
@@ -26,6 +28,9 @@ export interface EndUser extends IObject
 
     /** The values of the variables that the end user has provided */
     variables                     ?: {[key:string]:any};
+
+    /** The results of the assessments that the end user has taken */
+    assessmentResults             ?: AssessmentResult[];
 }
 
 /**
