@@ -323,6 +323,9 @@
       "CLASS": "Classe",
       "STATUS": "Statut"
     },
+    "PLACEHOLDERS": {
+      "SEARCH-PLACEHOLDER": "Rechercher par nom"
+    },
     "BUTTONS": {
       "ADD-TO-CLASS": "Ajouter à la classe",
       "BULK-ACTIONS": "Actions groupées",
