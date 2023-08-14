@@ -17,6 +17,40 @@ h6 {
     .table-title {
       display: flex;
       justify-content: space-between;
+
+      .team-info {
+        display: flex;
+        gap: 0.4rem;
+
+        .user-count {
+          text-align: center;
+          width: 1.5rem;
+          height: 1.5rem;
+          background-color: grey;
+          border-radius: 50%;
+        }
+      }
+
+      .btn-table-add {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: none;
+        padding: 0.5rem;
+        background-color: grey;
+        cursor: pointer;
+      }
+    }
+
+    .table-wrapper {
+      .table-data {
+        &__logo {
+          width: 0.5rem;
+          height: 0.5rem;
+          background-color: grey;
+          border-radius: 100%;
+        }
+      }
     }
   }
 }
