@@ -24,7 +24,8 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
   file: File;
   audioInputId: string;
   isLoadingAudio: boolean;
-  byPassedLimits: any[] = [];
+  whatsappLimit: boolean;
+  messengerLimit: boolean;
 
   constructor(private _audioUploadService: FileStorageService) {}
 
@@ -59,14 +60,17 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
   
   /** Step 3 Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
-    this.byPassedLimits = this._audioUploadService.checkFileSizeLimits(fileSize, 'audio');
-  }
+    const byPassedLimits = this._audioUploadService.checkFileSizeLimits(fileSize, 'audio');
+
+    if (byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
+  };
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.audioMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.isLoadingAudio = false;
     this._checkSizeLimit(fileSizeInKB);
-  }
+  };
 
   ngOnDestroy() {
     this._sBs.unsubscribe();

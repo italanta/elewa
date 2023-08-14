@@ -15,7 +15,8 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
   isUploading: boolean;
   selectedFile: File;
-  byPassedLimits: any[] = [];
+  whatsappLimit: boolean;
+  messengerLimit: boolean;
 
   @ViewChild('inputUpload') input: ElementRef<HTMLInputElement>;
 
@@ -97,7 +98,10 @@ export class VideoUploadModalComponent implements OnInit {
   
   /** Step 3 Check if file bypasses size limit. */
   private _checkSizeLimit(size:number) {
-    this.byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
+    const byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
+
+    if (byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   };
   
   private _autofillVideoUrl(url: string, videoName: string, fileSize: number) {

@@ -27,7 +27,8 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
   isLoadingImage = false;
   imageLink: string;
   hasImage = false;
-  byPassedLimits: any[] = [];
+  whatsappLimit: boolean;
+  messengerLimit: boolean;
 
   private _sBs = new SubSink();
 
@@ -73,7 +74,11 @@ export class ImageBlockComponent implements OnInit, OnDestroy {
 
   /** Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
-    this.byPassedLimits = this._imageUploadService.checkFileSizeLimits(fileSize, 'image');
+    const byPassedLimits = this._imageUploadService.checkFileSizeLimits(fileSize, 'image');
+    console.log(byPassedLimits)
+
+    if (byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
   }
 
   private _checkIfImageExists() {

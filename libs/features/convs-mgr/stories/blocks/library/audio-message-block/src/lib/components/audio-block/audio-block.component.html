@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="audioMessageForm">
     <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-        <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
+        <div [id]="audioInputId" class="audio_bg"  [ngClass]="whatsappLimit || messengerLimit ? 'error' : ''">
 
             <div *ngIf="this.block.fileSrc && !isLoadingAudio">
                 <audio controls>
@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="error-message" *ngIf="byPassedLimits.length">
+        <div class="error-message" *ngIf="whatsappLimit">
             <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
             <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
         </div>
