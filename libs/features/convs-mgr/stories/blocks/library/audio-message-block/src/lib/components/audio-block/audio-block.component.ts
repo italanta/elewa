@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { take } from 'rxjs';
 import { SubSink } from 'subsink';
+import { take } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
