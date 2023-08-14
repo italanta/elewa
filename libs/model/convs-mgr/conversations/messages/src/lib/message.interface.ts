@@ -93,6 +93,11 @@ export interface VideoMessage extends FileMessage {}
 
 export interface ImageMessage extends FileMessage {}
 
+export interface DocumentMessage extends FileMessage 
+{
+  documentName?      : string;
+}
+
 
 /**
  * Standardized format of a reply to the question block @see {QuestionMessageBlock}
