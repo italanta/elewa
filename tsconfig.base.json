@@ -210,9 +210,6 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-      "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
-        "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
-      ],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
       ],
