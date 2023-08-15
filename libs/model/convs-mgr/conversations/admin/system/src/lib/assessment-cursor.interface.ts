@@ -32,4 +32,8 @@ export interface AssessmentCursor
   /** The id of the block to navigate to if the learner passes the assessment 
    */
   pass?: string;
+
+  /** The time the user finished the assessment */
+  finishedOn?: Date;
+
 }
