@@ -1148,6 +1148,31 @@
       },
       "tags": []
     },
+    "private-model-convs-mgr-micro-apps-cmi5": {
+      "root": "libs/private/model/convs-mgr/micro-apps/cmi5",
+      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/cmi5/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/convs-mgr/micro-apps/cmi5/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/cmi5"],
+          "options": {
+            "jestConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-state-analytics": {
       "projectType": "library",
       "root": "libs/private/state/analytics",
