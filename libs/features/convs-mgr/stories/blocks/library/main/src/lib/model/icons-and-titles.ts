@@ -119,6 +119,10 @@ export const iconsAndTitles: any = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
     icon: 'fas fa-random'
   },
+  34:{
+    title: 'PAGE-CONTENT.BLOCK.TITLES.CMIF5',
+    icon: 'fas fa-file-archive' 
+  },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
     icon: 'fas fa-stop',
