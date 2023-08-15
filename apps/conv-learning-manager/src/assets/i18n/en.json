@@ -103,6 +103,7 @@
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
         "END-BLOCK":"End Block",
+        "CMIF5" :"CMIF5 block",
         "VIDEO-MODAL": {
           "MAIN-TITLE": "Upload Video",
           "MEDIA-TITLE":"Media Encoding"
@@ -224,7 +225,8 @@
       "DOCUMENT-BLOCKS": "Document blocks",
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
-      "MESSAGE-BLOCK": "Message Block"
+      "MESSAGE-BLOCK": "Message Block",
+      "CMI5-BLOCK" :"CMI5 Block"
     },
     "ANALYTICS": {
       "PERIODICALS": {
