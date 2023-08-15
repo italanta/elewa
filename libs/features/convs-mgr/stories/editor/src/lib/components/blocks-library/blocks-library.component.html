@@ -19,6 +19,13 @@
       <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
     </div>
 
+      <!-- cmi5 block -->
+      <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'cmi5-block' as groupedBlocks">
+        <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.CMI5-BLOCKS' | transloco }}</h6>
+        <convl-grouped-blocks [groupedBlocks]="groupedBlocks" [frame]="frame"></convl-grouped-blocks>
+      </div>
+      
+
     <!-- Image block -->
     <div class="block-list" *ngIf="blocks | blockCategoryPipe: 'images-block' as groupedBlocks">
       <h6 *ngIf="groupedBlocks.length">{{ 'PAGE-CONTENT.BLOCK-CATEGORY.IMAGE-BLOCKS' | transloco }}</h6>
