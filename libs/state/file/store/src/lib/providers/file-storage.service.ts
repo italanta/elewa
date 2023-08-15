@@ -6,6 +6,8 @@ import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { WhatsappUploadFileService } from '@app/state/file/whatsapp';
 
+import { FILE_LIMITS } from '../model/platform-file-size-limits';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,6 +41,24 @@ export class FileStorageService
         message
       }
     });
+  }
+
+  checkFileSizeLimits(size: number, type: string) { 
+    const filelimits = FILE_LIMITS[type as keyof typeof FILE_LIMITS] as any[];
+
+    const limitsViolated = filelimits.filter((limit: any) => {
+      return size > this.__convertedSize(limit.size, limit.unit);
+    })
+
+    return limitsViolated;
+  }
+
+  private __convertedSize(size: number, unit: string) {
+    if (unit === 'KB') {
+      return size;
+    } else {
+      return size * 1024;
+    }
   }
 
   uploadMediaToPlatform(channel: CommunicationChannel)

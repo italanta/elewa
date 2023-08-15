@@ -15,6 +15,7 @@ import { ImageMessageBlock } from "@app/model/convs-mgr/stories/blocks/messaging
     defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
     fileSrc:[blockData?.fileSrc],
+    fileSize:[blockData?.fileSize! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Image],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
