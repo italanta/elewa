@@ -1,1 +1,31 @@
-<p>cmi5-block works!</p>
+<div [id]="id" *ngIf="CMI5BlockForm">
+  <form [formGroup]="CMI5BlockForm" fxLayout="column" fxLayoutAlign="start center">
+    <div [id]="courseId" class="audio_bg">
+      <div>
+        <input
+          (change)="processDocs($event)"
+          id="docFile"
+          accept=".zip"
+          #docInput
+          type="file"
+          class="fileSrc"
+        />
+      </div>
+    </div>
+    
+    <!-- Display icons based on file selection -->
+    <div *ngIf="!file && !isDocLoading" class="doc-icon" (click)="docInput.click()">
+      <i class="far fa-file"></i>
+    </div>
+    <div *ngIf="isDocLoading" class="doc-icon">
+      <i class="fas fa-circle-notch fa-spin"></i>
+    </div>
+    <div *ngIf="file && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
+      <i class="fas fa-file-upload"></i>
+    </div>
+    
+    <!-- Other input fields -->
+    <input class="passed" value="passed" formControlName="defaultTarget" type="text" placeholder="Passed" fxFlexFill readonly>
+    <input class="failed" value="failed" formControlName="defaultTarget" type="text" placeholder="Failed" fxFlexFill readonly>
+  </form>
+</div>
