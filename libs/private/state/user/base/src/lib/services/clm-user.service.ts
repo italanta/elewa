@@ -122,30 +122,42 @@ export class CLMUsersService {
    * Adds the user to the organisation from the form
    */
   addUserToOrg(userFormGroup: FormGroup) {
-    let userData = userFormGroup.value;
-    let user: iTalUser = {
-      displayName: `${userData.firstName} ${userData.lastName}`,
-      orgs: [this.org.id!],
-      activeOrg: this.org.id!,
+    const userData = userFormGroup.value;
+    const user: iTalUser = {
+      displayName: this.getUserDisplayName(userData),
+      orgs: [this.org.id as string],
+      activeOrg: this.org.id as string,
       profile: {
         phone: userData?.phone ?? '',
         email: userData?.email ?? '',
       },
       roles: {
-        [this.org.id!] : this.createUserRoles(this.org.roles, userData.roles, false),
+        [this.org.id as string] : this.createUserRoles(this.org.roles, userData.roles, false),
         access: true,
       },
       uid: '',
       email: userData.email,
-    };    
+    }; 
+
+    console.log(user)
     return this._bs.httpsCallable('createNewUser')(user)
+  }
+
+  /** get a User's displayName */
+  getUserDisplayName(userData: any) {
+    if (!userData.firstName || !userData.lastName) {
+      return ''
+    } else {
+      return `${userData?.firstName} ${userData?.lastName}`
+    }
   }
 
   /**
    * Initializes the user roles object
    */
   createUserRoles(orgRoles: string[], roles: string[], editingUser: boolean) {    
-    let rolesObj: any = {};
+    const rolesObj: any = {};
+
     orgRoles.forEach((orgRole) => {
       rolesObj[orgRole] = roles.includes(orgRole) ? true : false;
     })
