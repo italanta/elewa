@@ -54,6 +54,11 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
     return initials?.join('');
   }
 
+  /** remove user from org and vice versa */
+  async removeFromOrg(user: iTalUser) {
+    this._orgsService.removeUserFromOrg(user);
+  }
+
   openAddMemberDialog() {
     this._dialog.open(AddMemberModalComponent, {
       data: { roles: this.roles },

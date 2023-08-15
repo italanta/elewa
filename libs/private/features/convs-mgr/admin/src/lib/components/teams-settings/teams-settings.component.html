@@ -46,7 +46,7 @@
 
         <ng-container matColumnDef="actions">
           <td mat-cell *matCellDef="let orgMember">
-            <button mat-flat-button class="btn-result">
+            <button mat-flat-button class="btn-result" (click)="removeFromOrg(orgMember)">
               <i class="fas fa-trash-alt"></i>
             </button>
           </td>
