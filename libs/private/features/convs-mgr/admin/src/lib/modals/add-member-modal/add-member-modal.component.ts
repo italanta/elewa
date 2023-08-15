@@ -1,6 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { SubSink } from 'subsink';
 
 import { CLMUsersService } from '@app/private/state/user/base';
 
@@ -9,7 +11,9 @@ import { CLMUsersService } from '@app/private/state/user/base';
   templateUrl: './add-member-modal.component.html',
   styleUrls: ['./add-member-modal.component.scss'],
 })
-export class AddMemberModalComponent {
+export class AddMemberModalComponent implements OnDestroy {
+
+  private _sBs = new SubSink();
 
   constructor(
     public dialogRef: MatDialogRef<AddMemberModalComponent>,
@@ -36,9 +40,13 @@ export class AddMemberModalComponent {
   }
 
   onSubmit() {
-    this._CLMUserServ.addUserToOrg(this.emailForm);
+    this._sBs.sink = this._CLMUserServ.addUserToOrg(this.emailForm)
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
+  }
 
-    // TODO: close modal on successful user addition.
-    this.dialogRef.close();
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
   }
 }

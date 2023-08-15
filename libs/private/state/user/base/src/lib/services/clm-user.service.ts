@@ -139,8 +139,7 @@ export class CLMUsersService {
       email: userData.email,
     }; 
 
-    console.log(user)
-    return this._bs.httpsCallable('createNewUser')(user)
+    return this._bs.httpsCallable('createNewUser')(user);
   }
 
   /** get a User's displayName */
