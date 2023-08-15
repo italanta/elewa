@@ -6,6 +6,8 @@ import { switchMap } from 'rxjs';
 
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { EndUserService } from '@app/state/convs-mgr/end-users';
+import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-single-learner-page',
@@ -15,25 +17,42 @@ import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 export class SingleLearnerPageComponent implements OnInit, OnDestroy {
   private _sBS = new SubSink();
   currentLearner!: EnrolledEndUser;
+  endUserAssessments: AssessmentCursor[];
 
   constructor(
     private _route: ActivatedRoute,
-    private _elearners: EnrolledLearnersService
+    private _elearners: EnrolledLearnersService,
+    private _endUserService: EndUserService,
   ) {}
 
   ngOnInit() {
+      this.getCurrentLearner();
+  }
+
+  getCurrentLearner() {
     this._sBS.sink = this._route.paramMap
-      .pipe(
-        switchMap((params) => {
-          const id = params.get('id') as string;
-          return this._elearners.getSpecificLearner$(id);
-        })
-      )
-      .subscribe(learner => {
-        this.currentLearner = learner as EnrolledEndUser
-        console.log(this.currentLearner)
-        return this.currentLearner
+    .pipe(
+      switchMap((params) => {
+        const id = params.get('id') as string;
+        return this._elearners.getSpecificLearner$(id);
+      })
+    )
+    .subscribe(learner => {
+      this.currentLearner = learner as EnrolledEndUser
+      this.getUserAssessments();
+      return this.currentLearner
+    });
+  }
+
+  getUserAssessments() {
+    if(this.currentLearner.whatsappUserId){
+      this._sBS.sink = this._endUserService.getAssessmentStack(this.currentLearner.whatsappUserId).subscribe(ass=> {
+        this.endUserAssessments = ass
       });
+    }
+    else{
+      this.endUserAssessments = [];
+    }
   }
 
   getBreadcrumbTitle() {
