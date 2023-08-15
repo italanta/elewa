@@ -34,6 +34,7 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
     this.getOrgRolesAndUsers();
   }
 
+  /** get the active org's roles and users/team */
   getOrgRolesAndUsers() {
     this._sBs.sink = this._orgsService
       .getActiveOrg()
@@ -46,6 +47,7 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
       .subscribe((users) => (this.dataSource.data = users));
   }
 
+  /** get avatar from a user's names */
   getAvatar(user: iTalUser) {
     const names = user.displayName?.split(' ');
     const initials = names?.map((name) => name.charAt(0).toUpperCase());
