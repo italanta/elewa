@@ -1,20 +1,20 @@
 <section class="container">
 
   <div class="title-section">
-    <h3>Team</h3>
-    <p>Invite and/or manage Team Members within your organization</p>
+    <h3>{{ 'ADMIN-SETTINGS.TEAM-SECTION.TITLE' | transloco }}</h3>
+    <p>{{ 'ADMIN-SETTINGS.TEAM-SECTION.DESCRIPTION' | transloco }}</p>
   </div>
 
   <div class="table-section">
     <div class="table-title">
       <div class="team-info">
-        <span>Team</span>
+        <span>{{ 'ADMIN-SETTINGS.TEAM-SECTION.TITLE' | transloco }}</span>
         <span class="user-count">{{ dataSource.data.length }}</span>
       </div>
 
       <button class="btn btn-table-add" (click)="openAddMemberDialog()">
         <i class="fas fa-plus"></i>
-        <span class="text">Add Member</span>
+        <span class="text">{{ 'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.ADD-MEMBER' | transloco }}</span>
       </button>
     </div>
 
@@ -54,7 +54,7 @@
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
-        [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
+        [ariaLabel]="'ADMIN-SETTINGS.TEAM-SECTION.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
   </div>
 </section>

@@ -1,7 +1,7 @@
 <div class="modal-container">
   <div class="modal-header">
-    <h3 class="title">Add Member</h3>
-    <p>Invite a team member via their email address</p>
+    <h3 class="title">{{ 'ADMIN-SETTINGS.TEAM-SECTION.MODAL.TITLE' | transloco }}</h3>
+    <p>{{ 'ADMIN-SETTINGS.TEAM-SECTION.MODAL.DESC' | transloco }}</p>
   </div>
 
   <form [formGroup]="emailForm" class="modal-form" (ngSubmit)="onSubmit()">
@@ -9,11 +9,11 @@
 
     <div class="input-errors" *ngIf="email.touched && email.invalid">
       <i class="fas fa-exclamation-triangle"></i>
-      <span>Email is invalid</span>
+      <span>{{ 'ADMIN-SETTINGS.TEAM-SECTION.MODAL.EMAIL-ERROR' | transloco }}</span>
     </div>
 
     <div class="modal-role">
-      <span>Select Role</span>
+      <span>{{ 'ADMIN-SETTINGS.TEAM-SECTION.MODAL.SELECT-ROLE' | transloco }}</span>
       <select formControlName="roles">
         <option *ngFor="let role of data.roles" [value]="role">
           {{ role }}
