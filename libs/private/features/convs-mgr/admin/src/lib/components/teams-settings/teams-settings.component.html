@@ -34,7 +34,9 @@
 
         <!-- TODO: Placeholder for OrgMember Status -->
         <ng-container matColumnDef="status">
-          <td mat-cell *matCellDef="let orgMember">{{ orgMember.status || 'Active' }}</td>
+          <td mat-cell *matCellDef="let orgMember">
+            <span class="status-row">{{ orgMember.status || 'Active' }}</span>
+          </td>
         </ng-container>
 
         <!-- TODO: showcase roles differently (can be more than one) -->

@@ -42,4 +42,12 @@ p {
     justify-self: flex-end;
     width: 3rem;
   }
+
+  .close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
 }
