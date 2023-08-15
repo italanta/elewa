@@ -7,8 +7,8 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
 
-import { OrganisationService } from '@app/private/state/organisation/main';
 import { iTalUser } from '@app/model/user';
+import { OrganisationService } from '@app/private/state/organisation/main';
 
 import { AddMemberModalComponent } from '../../modals/add-member-modal/add-member-modal.component';
 

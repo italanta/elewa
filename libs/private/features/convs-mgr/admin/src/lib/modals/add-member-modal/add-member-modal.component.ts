@@ -37,5 +37,8 @@ export class AddMemberModalComponent {
 
   onSubmit() {
     this._CLMUserServ.addUserToOrg(this.emailForm);
+
+    // TODO: close modal on successful user creation.
+    this.dialogRef.close();
   }
 }
