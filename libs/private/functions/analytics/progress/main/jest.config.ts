@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'functions-analytics-progress-main',
-  preset: '../../../../../jest.preset.js',
+  displayName: 'private-functions-analytics-progress-main',
+  preset: '../../../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -13,5 +13,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory:
-    '../../../../../coverage/libs/functions/analytics/progress/main',
+    '../../../../../../coverage/libs/private/functions/analytics/progress/main',
 };

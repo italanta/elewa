@@ -4,6 +4,7 @@ import
   MetaMessagingProducts,
   RecepientType,
   WhatsAppAudioMessage,
+  WhatsAppDocumentMessage,
   WhatsAppImageMessage,
   WhatsAppLocationMessage,
   WhatsAppMessageType,
@@ -13,6 +14,8 @@ import
 
 import { 
   AudioMessage, 
+  DocumentMessage, 
+  FileMessage, 
   ImageMessage, 
   LocationMessage, 
   Message, 
@@ -155,6 +158,32 @@ export class StandardMessageOutgoingMessageParser
     return generatedMessage;
   }
 
+  _getDocumentMessageParserOut(message: DocumentMessage, phone: string)
+  {
+    
+    // Create the text payload which will be sent to api
+    const documentMessage = {
+      type: WhatsAppMessageType.DOCUMENT,
+      document: {
+        filename: message.documentName || "Document",
+        link: message.url,
+      },
+    } as WhatsAppDocumentMessage;
+
+    /**
+     * Add the required fields for the whatsapp api
+     * @see https://developers.facebook.com/docs/whatsapp/cloud-api/guides/send-messages
+     */
+    const generatedMessage: WhatsAppDocumentMessage = {
+      messaging_product: MetaMessagingProducts.WHATSAPP,
+      recepient_type: RecepientType.INDIVIDUAL,
+      to: phone,
+      type: WhatsAppMessageType.DOCUMENT,
+      ...documentMessage,
+    };
+    return generatedMessage;
+  }
+
   parse(message: Message, phone: string): OutgoingMessagePayload
   {
     let parser!: (message: Message, phone: string) => OutgoingMessagePayload;
@@ -165,6 +194,7 @@ export class StandardMessageOutgoingMessageParser
       case MessageTypes.VIDEO:                    parser = this._getVideoMessageParserOut; break;
       case MessageTypes.IMAGE:                    parser = this._getImageMessageParserOut; break;
       case MessageTypes.LOCATION:                 parser = this._getLocationMessageParserOut; break;
+      case MessageTypes.DOCUMENT:                 parser = this._getDocumentMessageParserOut; break;
       default:
         parser = this._getTextMessageParserOut;
     }

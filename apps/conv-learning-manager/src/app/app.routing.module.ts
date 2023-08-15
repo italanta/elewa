@@ -31,7 +31,7 @@ export const APP_ROUTES: Route[] = [
 
   {
     path: 'analytics',
-    loadChildren: () => import('@app/features/convs-mgr/analytics').then(m => m.AnalyticsModule),
+    loadChildren: () => import('@app/private/features/convs-mgr/analytics').then(m => m.AnalyticsModule),
     canActivate: [IsLoggedInGuard]
   },
 
