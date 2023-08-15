@@ -45,7 +45,7 @@ export class CLMUsersService {
   updateUserDetails(user: iTalUser, userFormGroup: FormGroup) {
     user.roles  = user.roles as any;
     user.displayName = `${userFormGroup.value.firstName} ${userFormGroup.value.lastName}`;
-    user.roles[this.org.id! as keyof typeof user.roles] = this.createUserRoles(__keys(user.roles[this.org.id! as keyof typeof user.roles]), userFormGroup.value.roles, true);
+    user.roles[this.org.id as keyof typeof user.roles] = this.createUserRoles(__keys(user.roles[this.org.id as keyof typeof user.roles]), userFormGroup.value.roles, true);
     this._user$$.updateUser(user).then(() => this._dialog.closeAll());
   }
 
@@ -85,7 +85,7 @@ export class CLMUsersService {
   getOrgUsers(userIds: string[]): string[] {
     if (this.orgUsers) {
       let users: any = this.orgUsers.filter((users) =>
-        userIds.includes(users.id!)
+        userIds.includes(users.id as string)
       );
       users = __flatMap(users, 'displayName');
       return users;
@@ -98,7 +98,7 @@ export class CLMUsersService {
    */
   getOrgUsersProperties(userIds: string[]): iTalUser[] {
     if (this.orgUsers) {
-      let users = this.orgUsers.filter((users) => userIds.includes(users.id!));
+      const users = this.orgUsers.filter((users) => userIds.includes(users.id as string));
       return users;
     }
     return [];
@@ -108,7 +108,7 @@ export class CLMUsersService {
    * Gets the user object from the user id
    */
   getOrgUser(userId: string): iTalUser {
-    return __find(this.orgUsers, { id: userId })!;
+    return __find(this.orgUsers, { id: userId }) as iTalUser;
   }
 
   /**
