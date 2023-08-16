@@ -35,7 +35,7 @@ export class LMSService
   private async __createStateDocument(auId: string, orgId: string, endUserId: string, sessionID: string)
   {
 
-    const courseId = auId.split('_')[0];
+    const courseId = auId.split('/')[0];
 
     const auRepo$ = this.tools.getRepository<AssignableUnit>(`orgs/${orgId}/course-packages/${courseId}/assignable-units`);
 
