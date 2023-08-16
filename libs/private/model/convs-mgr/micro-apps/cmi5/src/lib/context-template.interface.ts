@@ -5,12 +5,13 @@ export interface ContextTemplate {
 
 export interface ContextActivities { 
   grouping: Activity[];
+  category?: Activity[];
 }
 
 export interface Activity { 
   id: string;
   objectType: "Activity";
-  definition: Definition;
+  definition?: Definition;
 }
 
 export interface Definition {
