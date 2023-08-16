@@ -4,6 +4,17 @@ import { LaunchMethodTypes, MoveOnTypes } from "./launch-data.interface";
 
 export interface AssignableUnit extends IObject
 {
+  /** 
+   * This is the id that is used to reference the AU in the course structure.
+   * 
+   * Should be generated in the following manner:
+   *    auId = `${courseId}/${randomCode}`
+   * 
+   * This is so that we can identify the AU in the course structure.
+   */
+  id: string;
+
+
   title: string;
   
   description?: string;
