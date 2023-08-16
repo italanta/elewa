@@ -121,7 +121,7 @@ export const iconsAndTitles: any = {
   },
   34:{
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMIF5',
-    icon: 'fas fa-file-archive' 
+    icon: 'fas fa-cube' 
   },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
