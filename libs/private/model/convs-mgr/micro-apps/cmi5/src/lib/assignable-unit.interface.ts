@@ -47,7 +47,7 @@ export interface AUStatus
   status: AUStatusTypes;
   completionDate?: Date;
 
-  result?: AUResult;
+  score?: number;
 }
 
 export interface AUResult 
