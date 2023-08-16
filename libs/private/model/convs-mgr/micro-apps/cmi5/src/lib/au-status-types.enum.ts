@@ -1,5 +1,5 @@
 /** The status of the learner's AU progress through the course */
-export enum AUStatus { 
+export enum AUStatusTypes { 
   /** This verb indicates that the AU was launched by the LMS */
   Launched = "launched", // ---- Set by LMS
 

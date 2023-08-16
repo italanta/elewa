@@ -1,14 +1,15 @@
 import { IObject } from "@iote/bricks";
 
 import { LMSLaunchData } from "./launch-data.interface";
-import { AUStatus } from "./au-status-types.enum";
+import { AUStatus } from "./assignable-unit.interface";
 
 /**
  * This is created by the LMS and is used to track the learner's progress through the course.
  * 
  * It is created before launching the AU
  */
-export interface LearnerSession extends IObject {
+export interface LearnerSession extends IObject
+{
   /** The id of the AU that the learner is currently on */
   currentUnit: string;
 
@@ -24,5 +25,5 @@ export interface LearnerSession extends IObject {
   completionDate?: Date;
 
   /** The status of the learner's AU progress through the course */
-  status: AUStatus;
+  auStatus: AUStatus[];
 }

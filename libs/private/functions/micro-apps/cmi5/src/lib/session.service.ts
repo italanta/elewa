@@ -1,9 +1,8 @@
 import { randomUUID } from "crypto";
 
 import { HandlerTools } from "@iote/cqrs";
-import { Query } from "@ngfi/firestore-qbuilder";
 
-import { AUStatus, LMSLaunchData, LearnerSession } from "@app/private/model/convs-mgr/micro-apps/cmi5";
+import { AUStatusTypes, LMSLaunchData, LearnerSession } from "@app/private/model/convs-mgr/micro-apps/cmi5";
 
 export class LearnerSessionService {
   learnerSession: LearnerSession;
@@ -47,7 +46,10 @@ export class LearnerSessionService {
       courseId: courseId,
 
       // Set status to launched
-      status: AUStatus.Launched
+      auStatus: [{
+        id: auId,
+        status: AUStatusTypes.Launched,
+      }]
     }
 
     return sessionRepo$.create(this.learnerSession);
