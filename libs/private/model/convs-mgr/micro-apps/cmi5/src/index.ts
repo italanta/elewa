@@ -6,3 +6,4 @@ export * from './lib/context-template.interface';
 export * from './lib/actor.interface';
 export * from './lib/xAPI-statement.interface';
 export * from './lib/au-status-types.enum';
+export * from './lib/course-participation.interface';
