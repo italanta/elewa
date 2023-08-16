@@ -17,7 +17,7 @@ export class LearnerInformationComponent {
     return this.currentLearner.name[0].toUpperCase();
   }
   getStatus() :string{
-    return this.currentLearner.status === EnrolledEndUserStatus.active ? 'Active' : 'Inactive';
+    return this.currentLearner.status === EnrolledEndUserStatus.Active ? 'Active' : 'Inactive';
   }
   goToChat() :void{
     //todo: Request assistance on how to retrieve the enduse id
