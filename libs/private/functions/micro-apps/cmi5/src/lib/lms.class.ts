@@ -26,7 +26,7 @@ export class LMSService
 
 
     this.tools.Logger.log(() => '[LMSService].prepareForLaunch - Creating State Document...');
-    this.__createStateDocument(auId, orgId, endUserId, sessionID);
+    await this.__createStateDocument(auId, orgId, endUserId, sessionID);
 
     this.tools.Logger.log(() => '[LMSService].prepareForLaunch - Initializing Session...');
     await sessionService.create(orgId, endUserId, auId, this._state);
