@@ -126,7 +126,7 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
         this.frame.newBlock(StoryBlockTypes.Conditional, coordinates);
         break;
       case StoryBlockTypes.CMI5Block:
-        this.frame.newBlock(StoryBlockTypes.CMI5Block, coordinates)  
+        this.frame.newBlock(StoryBlockTypes.CMI5Block, coordinates);  
     }
   }
 
