@@ -9,23 +9,30 @@
           #docInput
           type="file"
           class="fileSrc"
+          style="display: none;" 
         />
+        <label for="docFile"> <!-- Add a label to act as a trigger for the file input -->
+          <div *ngIf="!file && !isDocLoading" class="doc-icon">
+            <i class="fas fa-file-archive"></i>
+          </div>
+          <div *ngIf="isDocLoading" class="doc-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+          </div>
+          <div *ngIf="file && !isDocLoading" class="doc-icon-uploaded">
+            <i class="fas fa-file-upload"></i>
+          </div>
+        </label>
       </div>
     </div>
-    
-    <!-- Display icons based on file selection -->
-    <div *ngIf="!file && !isDocLoading" class="doc-icon" (click)="docInput.click()">
-      <i class="far fa-file"></i>
+
+    <!-- Rest of the template remains the same -->
+    <div formArrayName="options" fxFlexFill>
+      <div *ngFor="let option of CMI5BlockOptions; let i = index" class="full-width" fxFlexFill>
+        <span [formGroupName]="i" fxFlex>
+          <app-option-input-field [jsPlumb]="jsPlumb" [optionClass]="option.value" [blockFormGroup]="CMI5BlockForm"
+            [formGroupNameInput]="i"></app-option-input-field>
+        </span>
+      </div>
     </div>
-    <div *ngIf="isDocLoading" class="doc-icon">
-      <i class="fas fa-circle-notch fa-spin"></i>
-    </div>
-    <div *ngIf="file && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
-      <i class="fas fa-file-upload"></i>
-    </div>
-    
-    <!-- Other input fields -->
-    <input class="passed" value="passed" formControlName="defaultTarget" type="text" placeholder="Passed" fxFlexFill readonly>
-    <input class="failed" value="failed" formControlName="defaultTarget" type="text" placeholder="Failed" fxFlexFill readonly>
   </form>
 </div>
