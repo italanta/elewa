@@ -1,10 +1,14 @@
 
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { FileStorageService } from '@app/state/file';
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
+import { TranslateService } from '@ngfi/multi-lang';
 
 
 
@@ -13,7 +17,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
   templateUrl: './cmi5-block.component.html',
   styleUrls: ['./cmi5-block.component.scss'],
 })
-export class Cmi5BlockComponent {
+export class Cmi5BlockComponent implements OnInit {
  
   @Input() id: string;
   @Input() block: CMI5Block;
@@ -30,13 +34,54 @@ export class Cmi5BlockComponent {
   type: StoryBlockTypes;
   documentType = StoryBlockTypes.Document;
 
-  // private _sBs = new SubSink();  //SubSink instance
 
-  constructor(private _docUploadService: FileStorageService){ }
+  optionClass: string;
+  CMI5BlockOptions: any[];
+
+  
+  jumpType = StoryBlockTypes.JumpBlock;
+  blockFormGroup: FormGroup;
+
+  constructor(
+    private _docUploadService: FileStorageService,
+    private _fb: FormBuilder,
+     private _translate: TranslateService,){ }
 
   ngOnInit(): void 
   {
     this.courseId = `docs-${this.id}`;
+    this.setCMI5BlockOptions();
+  }
+
+  get options(): FormArray
+  {
+    return this.CMI5BlockForm.controls['options'] as FormArray;
+  }
+
+
+  addCMI5Options(option?: any)
+  {
+    return this._fb.group({
+      id: [option?.id ?? `${this.id}-${this.options.length + 1}`],
+      message: [option?.message ?? ''],
+      value: [option?.value ?? '']
+    });
+  }
+
+  setCMI5BlockOptions()
+  {
+    this.CMI5BlockOptions = [{
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.SUCCESS"),
+      value: "success"
+    },
+    {
+      message: this._translate.translate("PAGE-CONTENT.BLOCK.BUTTONS.JUMP-BLOCK.FAILED"),
+      value: "failed"
+    }
+    ];
+    this.CMI5BlockOptions.forEach((option) => {
+    this.options.push(this.addCMI5Options(option));
+  });
   }
 
   async processDocs(event: any)
@@ -57,19 +102,13 @@ export class Cmi5BlockComponent {
     }
   
     this.isDocLoading= true;
-
-    const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
-    const response = await this._docUploadService.uploadSingleFile(this.file, docFilePath)
-    // this._sBs.sink = response.subscribe(url => this._autofillDocUrl(url))
   }
 
   private _autofillDocUrl(url: any) {
-    // this.documentMessageForm.patchValue({ fileSrc: url });
     this.isDocLoading = false;
   }
 
-  ngOnDestroy(): void {
-    // this._sBs.unsubscribe();
-  }
-
 }
+
+
+
