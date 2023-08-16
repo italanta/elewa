@@ -1,6 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { AssignableUnit, ContextTemplate, LMSLaunchData, LaunchModeTypes } from "@app/private/model/convs-mgr/micro-apps/cmi5";
+import { Actor, AssignableUnit, ContextTemplate, LMSLaunchData, LaunchModeTypes } from "@app/private/model/convs-mgr/micro-apps/cmi5";
 import { EndUserDataService } from "@app/functions/bot-engine";
 
 import { LearnerSessionService } from "./session.service";
@@ -57,9 +57,17 @@ export class LMSService
     this.tools.Logger.log(() => '[LMSService].sendAbandonedStatement - Sending abandoned statement to AU');
   }
 
-  public createLaunchURL()
+  public createLaunchURL(firebaseURL: string, actor: Actor, endUserId: string, auId: string)
   {
     this.tools.Logger.log(() => '[LMSService].createLaunchURL - Creating launch URL for AU');
+
+    // TODO: Move to .env
+    const listenerURL = 'https://europe-west1-elewa-clm-test.cloudfunctions.net/lrslistener/'
+    const fetchTokenURL = 'https://europe-west1-elewa-clm-test.cloudfunctions.net/fetchToken/'
+
+    const launchURL = `${firebaseURL}?endpoint=${listenerURL}&fetch=${fetchTokenURL}&actor=${JSON.stringify(actor)}&registration=${endUserId}&activityId=${auId}`;
+
+    return launchURL;
   }
 
   public getStateDocument()
