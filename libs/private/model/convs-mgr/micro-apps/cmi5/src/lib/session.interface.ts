@@ -19,9 +19,6 @@ export interface LearnerSession extends IObject
 
   learnerId: string;
 
-  /** The id of the course that this session belongs to */
-  courseId: string;
-
   completionDate?: Date;
 
   /** The status of the learner's AU progress through the course */
