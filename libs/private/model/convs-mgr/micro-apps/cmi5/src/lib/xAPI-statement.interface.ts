@@ -1,4 +1,5 @@
 import { Actor } from "./actor.interface";
+import { AUResult } from "./assignable-unit.interface";
 import { ContextActivities } from "./context-template.interface";
 
 export interface xAPIStatement 
@@ -9,8 +10,8 @@ export interface xAPIStatement
     id: string;
     display: {
       [key: string]: string;
-    }
-  }
+    };
+  };
 
   object: {
     id: string;
@@ -19,34 +20,21 @@ export interface xAPIStatement
     definition: {
       name: {
         [key: string]: string;
-        },
-        description: {
-          [key: string]: string;
-          }
-      } 
-  }
-
-  result: { 
-    
-    score: {
-      scaled: number;
-      raw: number;
-      min: number;
-      max: number;
+      },
+      description: {
+        [key: string]: string;
+      };
     };
+  };
 
-    success: boolean;
-    completion: boolean;
-    response: string;
-    duration: string;
-  }
+  result?: AUResult;
 
   context: {
     registration: string;
     contextActivities: ContextActivities;
-  }
+  };
 
   extensions: {
     [key: string]: any;
-  }
+  };
 }
