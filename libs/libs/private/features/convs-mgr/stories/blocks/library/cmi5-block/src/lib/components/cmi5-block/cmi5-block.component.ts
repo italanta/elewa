@@ -1,3 +1,8 @@
+// cmi5 is a “profile” for using the xAPI specification with traditional learning management (LMS) systems.
+
+// "Since the xAPI specification is highly generalized to support many different use cases, a set of “extra rules” (called a “profile”) is needed to ensure interoperability for a given use case. The cmi5 profile ensures plug and play interoperability between learning content and LMS systems."
+
+// and this: @see https://aicc.github.io/CMI-5_Spec_Current/flows/cmi5-overview.html
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
