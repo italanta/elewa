@@ -120,7 +120,7 @@ export const iconsAndTitles: any = {
     icon: 'fas fa-random'
   },
   34:{
-    title: 'PAGE-CONTENT.BLOCK.TITLES.CMIF5',
+    title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
     icon: 'fas fa-cube' 
   },
   9999: {
