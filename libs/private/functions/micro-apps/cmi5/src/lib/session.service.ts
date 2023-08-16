@@ -4,25 +4,28 @@ import { HandlerTools } from "@iote/cqrs";
 
 import { AUStatusTypes, LMSLaunchData, LearnerSession } from "@app/private/model/convs-mgr/micro-apps/cmi5";
 
-export class LearnerSessionService {
+export class LearnerSessionService
+{
   learnerSession: LearnerSession;
 
   constructor(private tools: HandlerTools) { }
 
-  public generateSessionID() { 
+  public generateSessionID()
+  {
     this.learnerSession.id = randomUUID().slice(0, 22);
 
     return this.learnerSession.id;
   }
 
-  public async getSession(orgId: string, auId: string, sessionID: string) { 
+  public async getSession(orgId: string, auId: string, sessionID: string)
+  {
     const courseId = auId.split('/')[0];
 
     const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
 
     const session = await sessionRepo$.getDocumentById(sessionID);
 
-    if (session) { 
+    if (session) {
       return session;
     } else {
       this.tools.Logger.warn(() => `No session found for AU :: ${auId}`);
@@ -31,8 +34,9 @@ export class LearnerSessionService {
     }
   }
 
-  public create(orgId: string, endUserId: string, auId: string, state: LMSLaunchData) {
-    const courseId = auId.split('_')[0];
+  public create(orgId: string, endUserId: string, auId: string, state: LMSLaunchData)
+  {
+    const courseId = auId.split('/')[0];
 
     const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
 
@@ -43,15 +47,23 @@ export class LearnerSessionService {
       stateData: state,
       start: new Date(),
       learnerId: endUserId,
-      courseId: courseId,
 
       // Set status to launched
       auStatus: [{
         id: auId,
         status: AUStatusTypes.Launched,
       }]
-    }
+    };
 
     return sessionRepo$.create(this.learnerSession);
+  }
+
+  public update(session: LearnerSession, orgId: string, auId: string)
+  {
+    const courseId = auId.split('/')[0];
+
+    const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
+
+    return sessionRepo$.update(session);
   }
 }
