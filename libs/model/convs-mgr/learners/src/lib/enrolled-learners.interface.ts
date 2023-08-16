@@ -1,5 +1,6 @@
-import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
 import { IObject } from "@iote/bricks";
+
+import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
 
 
 /**
