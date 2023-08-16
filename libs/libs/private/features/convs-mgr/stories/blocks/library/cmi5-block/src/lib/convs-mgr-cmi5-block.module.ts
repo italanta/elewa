@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Cmi5BlockComponent } from './components/cmi5-block/cmi5-block.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+import { Cmi5BlockComponent } from './components/cmi5-block/cmi5-block.component';
+
+
+
 
 @NgModule({
   imports: [
