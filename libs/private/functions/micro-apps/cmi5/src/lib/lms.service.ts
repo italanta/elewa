@@ -70,11 +70,15 @@ export class LMSService
     return launchURL;
   }
 
-  public getStateDocument()
+  public async getStateDocument(orgId: string, auId: string)
   {
     this.tools.Logger.log(() => '[LMSService].sendStateDocument - Sending state document to AU');
 
-    return this._state;
+    const sessionService$ = new LearnerSessionService(this.tools);
+
+    const session = await sessionService$.getSessionByAU(orgId, auId);
+
+    return session.stateData;
   }
 
   public async getLearnerPreferences(orgId: string, endUserId: string)

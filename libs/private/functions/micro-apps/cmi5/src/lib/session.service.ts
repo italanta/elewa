@@ -1,6 +1,7 @@
 import { randomUUID } from "crypto";
 
 import { HandlerTools } from "@iote/cqrs";
+import { Query } from "@ngfi/firestore-qbuilder";
 
 import { AUStatusTypes, LMSLaunchData, LearnerSession } from "@app/private/model/convs-mgr/micro-apps/cmi5";
 
@@ -33,6 +34,24 @@ export class LearnerSessionService
       return null;
     }
   }
+
+  public async getSessionByAU(orgId: string, auId: string)
+  {
+    const courseId = auId.split('/')[0];
+
+    const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
+
+    const session = await sessionRepo$.getDocuments(new Query().where('currentUnit', '==', auId));
+
+    if (session.length > 0) {
+      return session[0];
+    } else {
+      this.tools.Logger.warn(() => `No session found for AU :: ${auId}`);
+
+      return null;
+    }
+  }
+
 
   public create(orgId: string, endUserId: string, auId: string, state: LMSLaunchData)
   {
