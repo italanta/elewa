@@ -108,5 +108,4 @@ this.docLink = this.defaultLink;
 }
 }
 
-this.isDocLoading = false;
 }
