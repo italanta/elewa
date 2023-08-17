@@ -315,6 +315,56 @@
       }
     }
   },
+  "LEARNERS":{
+    "TABLE-HEADER": {
+      "NAME": "Nom",
+      "PHONENUMBER": "Numéro de téléphone",
+      "COURSE": "Cours",
+      "CLASS": "Classe",
+      "STATUS": "Statut"
+    },
+    "PLACEHOLDERS": {
+      "SEARCH-PLACEHOLDER": "Rechercher par nom"
+    },
+    "BUTTONS": {
+      "ADD-TO-CLASS": "Ajouter à la classe",
+      "BULK-ACTIONS": "Actions groupées",
+      "CLASS": "Classe",
+      "COURSE": "Cours",
+      "PLATFORM": "Plateforme",
+      "GO-TO-CHAT": "Aller au chat"
+    },
+    "MODALS": {
+      "ACTIONS": "Actions",
+      "SEND-INVITATION":"Envoyer une invitation",
+      "SEND-REMINDER":"Envoyer un rappel",
+      "CANCEL":"Annuler",
+      "CONTINUE":"Continuer"
+    },
+    "PLATFORM": {
+      "WHATSAPP": "WhatsApp",
+      "MESSENGER": "Messenger"
+      
+    },
+    "PILLS": {
+      "ACTIVE": "Actif",
+      "INACTIVE": "Inactif"
+    },
+    "LEARNER-DETAIL-TAB": {
+      "PAGE-TITLE": "Onglet des détails de l'apprenant",
+      "DETAILS": {
+        "COURSES-ENROLLED": "Cours inscrits",
+        "ASSESSMENT-HISTORY": "Historique des évaluations",
+        "ENROLLED-ON": "Inscrit le",
+        "ASSESSMENT-HISTORY-TABLE": {
+          "ASSESSMENT-NAME": "Nom de l'évaluation",
+          "SCORE-CATEGORY": "Catégorie de score",
+          "DURATION-TAKEN": "Durée de l'évaluation",
+          "DATE-TAKEN": "Date de l'évaluation"
+        }
+      }
+    }
+  },
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "L'opération de modification a réussi",

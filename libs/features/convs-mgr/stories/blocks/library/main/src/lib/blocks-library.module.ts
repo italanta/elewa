@@ -43,7 +43,7 @@ import { ConvsMgrEventBlockModule } from '@app/features/convs-mgr/stories/blocks
 import { ConvsMgrAssessmentBrickModule } from '@app/features/convs-mgr/stories/blocks/library/assessment-brick';
 import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
 
-import { FileStateModule, UploadFileService } from '@app/state/file';
+import { FileStateModule } from '@app/state/file';
 
 import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
@@ -99,6 +99,6 @@ import { BlockComponent } from './components/block/block.component';
   exports: [BlockComponent],
 
   // Injector which creates all block types within the editor context.
-  providers: [BlockInjectorService, UploadFileService],
+  providers: [BlockInjectorService],
 })
 export class BlocksLibraryModule {}

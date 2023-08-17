@@ -14,7 +14,8 @@ export function _CreateAudioBlockForm(_fb: FormBuilder, blockData: VoiceMessageB
     id: [blockData?.id! ?? ''],
     defaultTarget: [blockData.defaultTarget ?? ''],
     message: [blockData?.message! ?? ''],
-    fileSrc:[blockData?.fileSrc! ?? ''],
+    fileSrc: [blockData?.fileSrc! ?? ''],
+    fileSize: [blockData?.fileSize! ?? ''],
     type: [blockData.type ?? StoryBlockTypes.Audio],
     position: [blockData.position ?? { x: 200, y: 50 }]
   })
