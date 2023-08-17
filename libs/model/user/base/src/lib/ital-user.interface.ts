@@ -6,7 +6,11 @@ import { iTalUserRoles } from './ital-user-roles.interface';
 export interface iTalUser extends User
 {
   profile: iTalUserProfile;
-  roles:   iTalUserRoles;
+
+  /** TODO: @LemmyMwaura - improve typesafety 
+   * roles in any organisation is dynamically generated so leaving this as any for now.
+  */
+  roles:   any;
 
   /**
    * Organisations the user has a role in (if not admin)

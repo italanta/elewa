@@ -210,6 +210,7 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
       ],
