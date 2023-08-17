@@ -92,21 +92,21 @@ export class OrganisationService {
   }
 
   removeUserFromOrg(user: iTalUser) {
-    this._activeOrg$$.get().pipe(take(1)).subscribe((org) => {
+    this._activeOrg$$.get().pipe(take(1)).subscribe( async(org) => {
       if (org) {
         org.users.splice(org.users.indexOf(user.id as string), 1);
         this.updateOrgDetails(org);
-        this.removeOrgFromUser(user, org);
+        await this.removeOrgFromUser(user, org);
       }
     })
   }
 
 
   async removeOrgFromUser(user: iTalUser, org: Organisation) {
-    user.orgs.splice(user.orgs.indexOf(org.id as string), 1);
+    user.orgIds.splice(user.orgIds.indexOf(org.id as string), 1);
 
     const userOrg = user.activeOrg;
-    user.activeOrg = userOrg === org.id ? user.orgs.length > 0 ? user.orgs[0] : ''
+    user.activeOrg = userOrg === org.id ? user.orgIds.length > 0 ? user.orgIds[0] : ''
                                                 : userOrg;
     await this._user$$.updateUser(user);
   }

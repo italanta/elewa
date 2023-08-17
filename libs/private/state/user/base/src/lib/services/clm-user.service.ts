@@ -125,7 +125,7 @@ export class CLMUsersService {
     const userData = userFormGroup.value;
     const user: iTalUser = {
       displayName: this.getUserDisplayName(userData),
-      orgs: [this.org.id as string],
+      orgIds: [this.org.id as string],
       activeOrg: this.org.id as string,
       profile: {
         phone: userData?.phone ?? '',

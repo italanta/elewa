@@ -14,7 +14,7 @@ export interface iTalUser extends User
    * @type {string[]}
    * @memberof EleUser
    */
-  orgs: string[];
+  orgIds: string[];
 
   /** Active Organisation ID. Users can only have one currently active org.
    *    The active org ID is used to determine which screen to route non-admins too when selecting orgs. */
