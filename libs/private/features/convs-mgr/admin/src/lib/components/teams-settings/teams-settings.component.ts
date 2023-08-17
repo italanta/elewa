@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { FormControl } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
@@ -21,6 +22,8 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   displayedColumns = ['logo', 'name', 'email', 'status', 'role', 'actions'];
   dataSource = new MatTableDataSource<iTalUser>();
   roles: string[];
+
+  userRoles = new FormControl('');
 
   private _sBs = new SubSink();
 

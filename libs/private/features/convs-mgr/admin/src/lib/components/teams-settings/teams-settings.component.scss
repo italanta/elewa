@@ -63,6 +63,11 @@ h6 {
           border-radius: 100%;
         }
       }
+
+      .table-actions {
+        display: flex;
+        gap: 1.5rem;
+      }
     }
   }
 }

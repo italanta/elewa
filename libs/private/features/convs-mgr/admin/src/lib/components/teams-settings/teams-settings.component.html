@@ -41,14 +41,27 @@
 
         <!-- TODO: showcase roles differently (can be more than one) -->
         <ng-container matColumnDef="role">
-          <td mat-cell *matCellDef="let orgMember">{{ orgMember.role || 'Roles' }}</td>
+          <td mat-cell *matCellDef="let orgMember">
+            <mat-form-field>
+              <mat-label>Selected Roles</mat-label>
+              <mat-select [formControl]="userRoles" multiple>
+                <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
           <td mat-cell *matCellDef="let orgMember">
-            <button mat-flat-button class="btn-result" (click)="removeFromOrg(orgMember)">
-              <i class="fas fa-trash-alt"></i>
-            </button>
+            <div class="table-actions">
+              <button mat-flat-button class="btn-result" (click)="removeFromOrg(orgMember)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+  
+              <button mat-flat-button class="btn-result">
+                <i class="fas fa-save"></i>
+              </button>
+            </div>
           </td>
         </ng-container>
 
