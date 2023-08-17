@@ -4,6 +4,9 @@ import * as admin from 'firebase-admin';
 
 import { HandlerTools } from '@iote/cqrs';
 
+import { iTalUser } from '@app/model/user';
+import { Organisation } from '@app/model/organisation';
+
 import { genRandomPassword } from './utils/generatePassword.util';
 
 export class CreateNewUserHandler extends FunctionHandler<any, void> {
@@ -25,8 +28,8 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
         const usersRepo = this._tools.getRepository<any>(`users`);
         const existingUser = await usersRepo.getDocumentById(user.uid);
 
-        existingUser.roles[userData.activeOrg] = userData.roles[userData.profile.activeOrg];
-        existingUser.profile.orgIds.push(userData.profile.activeOrg);
+        existingUser.roles[userData.activeOrg] = userData.roles[userData.activeOrg];
+        existingUser.orgIds.push(userData.activeOrg);
 
         usersRepo.update(existingUser);
       })
@@ -60,7 +63,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
   private async _updateUserDetails(user: any | null, password: string, userProfile?: any, roles?: any) {
     try {
       this._tools.Logger.log(() => `Updating user data for ${user.uid}`);
-      const usersRef = this._tools.getRepository<any>(`users`);
+      const usersRef = this._tools.getRepository<iTalUser>(`users`);
 
       const data: any = {}; // Actual Type: User
 
@@ -95,7 +98,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
     try {
       this._tools.Logger.log(() => `Updating ${userId} on ${orgId}`);
 
-      const orgsRepo = this._tools.getRepository<any>(`orgs`);
+      const orgsRepo = this._tools.getRepository<Organisation>(`orgs`);
       const org = await orgsRepo.getDocumentById(orgId);
       const orgUsers: string[] = org.users;
 
@@ -104,9 +107,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
 
       orgsRepo.update(org);
     } catch (error) {
-      this._tools.Logger.log(
-        () => `Could not update user on org due to ${error}`
-      );
+      this._tools.Logger.log(() => `Could not update user on org due to ${error}`);
     }
   }
 
