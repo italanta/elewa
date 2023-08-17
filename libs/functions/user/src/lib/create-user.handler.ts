@@ -1,6 +1,7 @@
 import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
 import * as admin from 'firebase-admin';
+import { UserRecord } from 'firebase-admin/auth';
 
 import { HandlerTools } from '@iote/cqrs';
 
@@ -12,18 +13,18 @@ import { genRandomPassword } from './utils/generatePassword.util';
 export class CreateNewUserHandler extends FunctionHandler<any, void> {
   private _tools: HandlerTools;
 
-  public async execute(userData: any, context: FunctionContext, tools: HandlerTools) {
+  public async execute(userData: iTalUser, context: FunctionContext, tools: HandlerTools) {
     this._tools = tools;
     this._tools.Logger.debug(() => `Beginning Execution, Creating a new User`);
 
     this.userExists(userData.email, userData);
   }
 
-  private async userExists(email: string, userData: any) {
+  private async userExists(email: string, userData: iTalUser) {
     const user = await admin.auth().getUserByEmail(email).then(async (user) => {
         this._tools.Logger.log(() => `Updating an existing user ${user.uid}`);
 
-        this.addUserToOrg(userData.profile.activeOrg, user.uid);
+        this.addUserToOrg(userData.activeOrg, user.uid);
 
         const usersRepo = this._tools.getRepository<any>(`users`);
         const existingUser = await usersRepo.getDocumentById(user.uid);
@@ -50,8 +51,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
               this._updateUserDetails(
                 user,
                 password,
-                userData.profile,
-                userData.roles
+                userData
               );
             });
         } catch (e) {
@@ -60,7 +60,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
       });
   }
 
-  private async _updateUserDetails(user: any | null, password: string, userProfile?: any, roles?: any) {
+  private async _updateUserDetails(user: UserRecord, password: string, userData: iTalUser) {
     try {
       this._tools.Logger.log(() => `Updating user data for ${user.uid}`);
       const usersRef = this._tools.getRepository<iTalUser>(`users`);
@@ -71,12 +71,15 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
       if (user.photoURL) data.photoUrl = user.photoURL;
       if (user.phoneNumber) data.phoneNumber = user.phoneNumber;
 
-      if (user.displayName) data.displayName = user.displayName;
+      if (user.displayName) data.displayName = user.displayName || "Update Your Name";
 
-      data.profile = userProfile ? userProfile : {};
+      data.profile = userData.profile ? userData.profile : {};
+      data.activeOrg = userData.activeOrg;
+      data.orgIds = userData.orgIds;
+
       if (user.email) data.profile.email = user.email;
 
-      data.roles = roles ? roles : { access: true, app: true };
+      data.roles = userData.roles ? userData.roles : { access: true, app: true };
 
       data.uid = user.uid;
       data.id = user.uid;
@@ -87,8 +90,8 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
 
       usersRef.create(data, user.uid);
 
-      this.sendPasswordResetLink(user.email, userProfile.activeOrg, password);
-      this.addUserToOrg(userProfile.activeOrg, user.uid);
+      this.sendPasswordResetLink(user.email as string, userData.activeOrg, password);
+      this.addUserToOrg(userData.activeOrg, user.uid);
     } catch (error) {
       this._tools.Logger.log(() => `Could not update user because ${error}`);
     }
