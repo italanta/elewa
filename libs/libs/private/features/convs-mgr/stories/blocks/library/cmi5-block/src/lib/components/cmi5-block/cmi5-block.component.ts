@@ -7,13 +7,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import { TranslateService } from '@ngfi/multi-lang';
+
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { FileStorageService } from '@app/state/file';
 
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { TranslateService } from '@ngfi/multi-lang';
 
 
 
