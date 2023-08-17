@@ -1,4 +1,3 @@
-import { Storage } from '@google-cloud/storage';
 import * as unzipper from "unzipper";
 
 import { HandlerTools } from "@iote/cqrs";
