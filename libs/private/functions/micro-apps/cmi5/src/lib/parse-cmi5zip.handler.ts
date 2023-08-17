@@ -44,7 +44,6 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
 
         return { status: 500 } as RestResult;
       }
-
       return { status: 200 } as RestResult;
     } catch (error) {
       tools.Logger.log(() => `Error Processing File: ${JSON.stringify(error)}`);
