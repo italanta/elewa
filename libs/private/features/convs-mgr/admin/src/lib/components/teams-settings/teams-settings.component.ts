@@ -55,7 +55,7 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   }
 
   /** remove user from org and vice versa */
-  async removeFromOrg(user: iTalUser) {
+  removeFromOrg(user: iTalUser) {
     this._orgsService.removeUserFromOrg(user);
   }
 
