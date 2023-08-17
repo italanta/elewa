@@ -35,6 +35,7 @@
     "@ngneat/transloco": "^4.1.0",
     "@nrwl/angular": "^14.4.2",
     "@types/googlemaps": "^3.43.3",
+    "@types/unzipper": "^0.10.6",
     "axios": "^0.27.2",
     "chart.js": "^4.2.1",
     "crypto-js": "^4.1.1",
@@ -54,6 +55,7 @@
     "subsink": "^1.0.2",
     "tslib": "^2.3.0",
     "unique-names-generator": "^4.7.1",
+    "unzipper": "^0.10.14",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
