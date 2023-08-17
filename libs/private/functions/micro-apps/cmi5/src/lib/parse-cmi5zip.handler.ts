@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult } from '@ngfi/functions';
 
-import { AssignableUnit, CourseObjective, CoursePackage } from '@app/private/model/convs-mgr/micro-apps/cmi5';
+import { AssignableUnit, CMI5ParserPayload, CourseObjective, CoursePackage } from '@app/private/model/convs-mgr/micro-apps/cmi5';
 
 import { UnzipCourse } from './utils/unzip-course.util';
 import { parseXMLConfig } from './utils/parse-xml-config.util';
@@ -44,7 +44,7 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
 
         return { status: 500 } as RestResult;
       }
-      
+
       return { status: 200 } as RestResult;
     } catch (error) {
       tools.Logger.log(() => `Error Processing File: ${JSON.stringify(error)}`);
@@ -151,12 +151,4 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
       urlPath: au.url
     } as AssignableUnit;
   }
-}
-
-export interface CMI5ParserPayload
-{
-  bucketName: string;
-  courseId: string;
-  orgId: string;
-  fileName: string;
 }
