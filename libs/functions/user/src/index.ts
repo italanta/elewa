@@ -1,1 +1,1 @@
-export * from './lib/functions-user.module';
+export * from './lib/create-user.handler';
