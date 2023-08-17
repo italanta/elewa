@@ -151,6 +151,12 @@
           "APPLY": "Apply"
         }
       },
+      "UPLOAD-WARNING" :{
+        "CMI5-BLOCK":{
+          "INVALID-FILE-TYPE":"invalid file type",
+          "PLEASE-SELECT-ZIP-ONLY":"please select a .zip only"
+        }
+      },
       "CONTENT": {
         "VIDEO-MODAL" : {
           "MEDIA": {
