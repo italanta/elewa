@@ -11,6 +11,9 @@ export interface FileMessageBlock extends StoryBlock
   /** File source of the message block */
   fileSrc?: string;
 
+  /** Size in KB of the currently selected/uploaded file */
+  fileSize?: number;
+
   defaultTarget?: string;
 
   /**

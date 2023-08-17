@@ -1,6 +1,6 @@
 <div [id]="id" *ngIf="documentMessageForm">
 	<form [formGroup]="documentMessageForm" fxLayout="column" fxLayoutALign="start center">
-		<div [id]="docInputId" class="audio_bg">
+		<div [id]="docInputId" class="doc_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
 
 			<div *ngIf="this.block.fileSrc && !isDocLoading" class="doc-icon-uploaded" (click)="docInput.click()">
 				<i class="fas fa-file-upload"></i>
@@ -15,6 +15,12 @@
 				<input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />
 			</div>
 		</div>
+
+		<div class="error-message" *ngIf="whatsappLimit">
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-ONE' | transloco }}</span><br>
+      <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.DOCUMENT.MESSAGE-TWO' | transloco }}</span>
+		</div>
+
 		<input formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.FILE-NAME' | transloco" />
 		<input formControlName="fileSrc" type="text"

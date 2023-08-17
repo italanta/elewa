@@ -1,5 +1,7 @@
 import { IObject } from "@iote/bricks";
 
+import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
+
 /**
  * The first time a user sends a message to our bot, we generate a unique id {platform_n_endUserPhoneNumber} @see {CommunicationChannel.n}
  *      We then save the end user's information in 'end-users/{end-user-id}'
@@ -27,7 +29,6 @@ export interface EndUser extends IObject
     /** The values of the variables that the end user has provided */
     variables                     ?: {[key:string]:any};
 
-
     /** 
      * Learner Preferences required to launch an AU. However The LMS (CLM) MAY choose to ignore or 
      *      override Learner Preference changes requested by the AU by returning a "403 Forbidden" 
@@ -37,6 +38,8 @@ export interface EndUser extends IObject
      * */
     learnerPreferences           ?: LearnerPreferences;
 
+    /** The results of the assessments that the end user has taken */
+    assessmentResults             ?: AssessmentResult[];
 }
 
 

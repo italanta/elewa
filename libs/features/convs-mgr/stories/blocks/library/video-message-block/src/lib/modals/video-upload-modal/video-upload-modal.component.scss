@@ -67,6 +67,21 @@ input {
 
   .media {
     cursor: pointer;
+
+    &.error {
+      border: 3px solid red !important;
+      border-radius: 10px;
+    }
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+    word-wrap: break-word;
+    margin-top: 1rem;
+
+    span {
+      color: red;
+    }
   }
 }
 
