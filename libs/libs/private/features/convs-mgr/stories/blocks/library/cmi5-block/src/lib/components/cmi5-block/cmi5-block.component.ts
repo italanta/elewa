@@ -124,9 +124,8 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
         this.file,
         filePath
       );
-      
+
       this._sBs.sink = cloudResponse.subscribe((url) => this._autofillUrl(url));
-      console.log("here");
       this.uploadedFileName = this.file.name;
       this.isDocLoading = false;
     } else {
