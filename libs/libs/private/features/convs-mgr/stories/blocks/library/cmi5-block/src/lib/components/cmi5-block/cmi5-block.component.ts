@@ -115,10 +115,27 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
       this.file = event.target.files[0];
       this.isDocLoading = true;
 
+      const filePath = `orgs/${this.orgId}/course_packages/${this.courseId}/${this.file.name}`;
 
+      const cloudResponse = await this._cmi5UploadService.parseCMI5Zip(
+        this.courseId,
+        this.orgId,
+        this.file,
+        filePath
+      );
+      this._sBs.sink = cloudResponse.subscribe((url) => this._autofillUrl(url));
     } else {
       this.docLink = this.defaultLink;
     }
   }
+  private _autofillUrl(url: string) {
+    // Extract the file name from the URL
+    this.CMI5BlockForm.patchValue({ fileSrc: url });
 
+    this.isDocLoading = false;
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe();
+  }
 }
