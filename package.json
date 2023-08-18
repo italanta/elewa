@@ -106,6 +106,7 @@
     "firebase-functions",
     "firebase-admin",
     "lodash",
+    "unzipper",
     "axios",
     "moment",
     "crypto-js",
