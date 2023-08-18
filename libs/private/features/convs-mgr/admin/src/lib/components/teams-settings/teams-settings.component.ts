@@ -66,12 +66,14 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
       });
   }
 
+  /** Create the formGroup with a rows FormArray that we will later push to */
   createUserRolesFormGroup() {
     this.userRolesForm = this._fb.group({
       rows: this._fb.array([]),
     });
   }
 
+  /** build the User Roles FormArray */
   buildUserRolesFormArray(users: iTalUser[]) {
     this.rowsArray.clear();
 
