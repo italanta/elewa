@@ -11,10 +11,11 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 // import { SettingsProfileDetailsModule } from '@app/features/settings/user-profile';
-// import { SettingsUsersModule } from '@app/features/settings/users';
-// import { SettingsPermissionsModule } from '@app/features/settings/permissions';
 // import { SettingsOrganisationModule } from '@app/features/settings/organisation-details';
 // import { SettingsConfigModule } from '@app/features/settings/configs';
+
+import { SettingsUsersModule } from '@app/private/features/convs-mgr/settings/users';
+import { PermissionsSettingsModule } from '@app/private/features/convs-mgr/settings/permissions';
 
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
@@ -37,9 +38,10 @@ import { SettingsRouterModule } from './settings.router';
 
     ConvlPageModule,
 
+    SettingsUsersModule,
+    PermissionsSettingsModule,
+    
     // SettingsProfileDetailsModule,
-    // SettingsUsersModule,
-    // SettingsPermissionsModule,
     // SettingsOrganisationModule,
     // SettingsConfigModule,
 
