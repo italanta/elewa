@@ -16,7 +16,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 // import { SettingsOrganisationModule } from '@app/features/settings/organisation-details';
 // import { SettingsConfigModule } from '@app/features/settings/configs';
 
-// import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 import { SettingsRouterModule } from './settings.router';
 
@@ -46,7 +46,7 @@ import { SettingsRouterModule } from './settings.router';
     SettingsRouterModule
   ],
   declarations: [
-    // SettingsPageComponent
+    SettingsPageComponent
   ],
 })
 export class SettingsModule {}

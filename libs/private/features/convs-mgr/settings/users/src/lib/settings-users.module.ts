@@ -7,12 +7,12 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 // import { MatSelectFilterModule } from 'mat-select-filter';
 
-// import { AccessControlModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/elements/access-control';
 
-// import { UsersComponent } from './components/users/users.component';
+import { UsersComponent } from './components/users/users.component';
 
-// import { NewUserDialogComponent } from './modals/new-user-dialog/new-user-dialog.component';
-// import { UpdateUserModalComponent } from './modals/update-user-modal/update-user-modal.component';
+import { NewUserDialogComponent } from './modals/new-user-dialog/new-user-dialog.component';
+import { UpdateUserModalComponent } from './modals/update-user-modal/update-user-modal.component';
 
 @NgModule({
   imports: [
@@ -31,12 +31,12 @@ import { MultiLangModule } from '@ngfi/multi-lang';
     ReactiveFormsModule,
   ],
   declarations: [
-    // UsersComponent,
-    // NewUserDialogComponent,
-    // UpdateUserModalComponent
+    UsersComponent,
+    NewUserDialogComponent,
+    UpdateUserModalComponent
   ],
   exports: [
-    // UsersComponent
+    UsersComponent
   ]
 })
 export class SettingsUsersModule {}

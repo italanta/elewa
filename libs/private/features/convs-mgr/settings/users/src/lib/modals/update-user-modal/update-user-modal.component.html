@@ -1,0 +1,25 @@
+<h1 mat-dialog-title> Update User Details </h1>
+<div class="new-clm-user" [formGroup]="updateUserForm"  mat-dialog-content fxLayout="column">
+  <mat-form-field appearance="outline">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Role</mat-label>
+    <mat-select formControlName="roles" multiple>
+      <mat-option *ngFor="let role of userData.org.roles" [value]="role"> {{role}} </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button class="cancel-btn" mat-button mat-dialog-close="">Cancel</button>
+  <button class="submit-btn" mat-raised-button color="primary" (click)="updateUserDetails()" >Ok</button>
+</div>
