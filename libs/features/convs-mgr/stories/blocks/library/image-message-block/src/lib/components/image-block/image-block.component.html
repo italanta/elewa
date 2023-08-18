@@ -1,6 +1,6 @@
 <div [id]="id" *ngIf="imageMessageForm">
 	<form [formGroup]="imageMessageForm" fxLayout="column" fxLayoutALign="start center">
-		<div [id]="imageInputId">
+		<div [id]="imageInputId" class="image_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
 
 			<input *ngIf="!isLoadingImage" (change)="processImage($event)" type="file" [id]="imageInputUpload" hidden />
 
@@ -17,6 +17,11 @@
 				<i class="fas fa-circle-notch fa-spin fa-3x"></i>
 			</div>
 
+		</div>
+
+		<div class="error-message" *ngIf="whatsappLimit">
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-ONE' | transloco }}</span><br>
+      <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-TWO' | transloco }}</span>
 		</div>
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>

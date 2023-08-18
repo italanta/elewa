@@ -15,6 +15,9 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
   isUploading: boolean;
   selectedFile: File;
+  byPassedLimits: any[] = [];
+  whatsappLimit: boolean;
+  messengerLimit: boolean;
 
   @ViewChild('inputUpload') input: ElementRef<HTMLInputElement>;
 
@@ -42,6 +45,12 @@ export class VideoUploadModalComponent implements OnInit {
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
     this.videoPath = this.videoModalForm.controls['fileSrc'].value;
+
+    const fileSize = this.videoModalForm.get('fileSize')?.value;
+
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
+    };
   }
 
   closeModal() {
@@ -59,6 +68,10 @@ export class VideoUploadModalComponent implements OnInit {
   onVideoSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
 
+    // Check if file bypasses size limit.
+    const fileSizeInKB = this.selectedFile.size / 1024;
+    this._checkSizeLimit(fileSizeInKB);
+
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedFile);
@@ -75,20 +88,26 @@ export class VideoUploadModalComponent implements OnInit {
     const name = this.videoModalForm.controls['fileName'].value;
     const videoName = name ? name : this.selectedFile.name;
 
-    const res = await this._videoUploadService.uploadSingleFile(
-      this.selectedFile,
-      `videos/${videoName}`
-    );
+    const fileSizeInKB = this.selectedFile.size / 1024;
+    const res = await this._videoUploadService.uploadSingleFile(this.selectedFile, `videos/${videoName}`);
 
     res.subscribe((url) => {
-      this._autofillVideoUrl(url, videoName);
-      this.isUploading = false;
+      this._autofillVideoUrl(url, videoName, fileSizeInKB);
       this.dialogRef.close();
     });
   }
+  
+  /** Step 3 Check if file bypasses size limit. */
+  private _checkSizeLimit(size:number) {
+    this.byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
 
-  private _autofillVideoUrl(url: string, videoName: string) {
-    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
+  };
+  
+  private _autofillVideoUrl(url: string, videoName: string, fileSize: number) {
+    this.isUploading = false;
+    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName, fileSize });
     this.videoPath = url;
   }
 }

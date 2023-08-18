@@ -4,15 +4,15 @@
     <!-- top actions and filter container -->
     <div class="top-wrapper">
       <div class="top-actions">
-        <button class="btn add-to-class">Add to Class</button>
-        <button class="btn bulk-actions" (click)="openBulkActionsDialog()">Bulk Actions</button>
+        <button class="btn add-to-class">{{'LEARNERS.BUTTONS.ADD-TO-CLASS'| transloco }}</button>
+        <button class="btn bulk-actions" (click)="openBulkActionsDialog()">{{'LEARNERS.BUTTONS.BULK-ACTIONS'| transloco }}</button>
       </div>
 
       <div class="table-filters">
 
         <div class="search">
           <i class="fas fa-search search_tooltip"></i>
-          <input class="search_input" type="text" name="search table" placeholder="Search input by name" id=""
+          <input class="search_input" type="text" name="search table" placeholder="{{'LEARNERS.PLACEHOLDERS.SEARCH-PLACEHOLDER'| transloco }}" id=""
             (keyup)="searchTable($event)"
           >
         </div>
@@ -55,27 +55,29 @@
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
-          <td mat-cell *matCellDef="let endUser">{{ endUser.name }}</td>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">{{'LEARNERS.TABLE-HEADER.NAME'| transloco }}</th>
+            <td mat-cell *matCellDef="let endUser">
+              <a routerLink="{{endUser.id}}" routerLinkActive="router-link-active">{{ endUser.name }}</a>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">Phone Number</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">{{'LEARNERS.TABLE-HEADER.PHONENUMBER'| transloco }}</th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.phoneNumber }}</td>
         </ng-container>
 
         <ng-container matColumnDef="course">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="course">Course</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="course">{{'LEARNERS.TABLE-HEADER.COURSE'| transloco }}</th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.currentCourse }}</td>
         </ng-container>
 
         <ng-container matColumnDef="class">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">Class</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">{{'LEARNERS.TABLE-HEADER.CLASS'| transloco }}</th>
           <td mat-cell *matCellDef="let endUser">{{ endUser.classId || 'Not Assigned' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="status">Status</th>
+          <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="status">{{'LEARNERS.TABLE-HEADER.STATUS'| transloco }}</th>
           <td mat-cell *matCellDef="let endUser">{{ getStatus(endUser.status) }}</td>
         </ng-container>
 
