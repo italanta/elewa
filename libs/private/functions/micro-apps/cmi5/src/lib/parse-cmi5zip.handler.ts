@@ -1,4 +1,4 @@
-import { Storage } from '@google-cloud/storage';
+import * as admin from 'firebase-admin';
 
 import { randomUUID } from 'crypto';
 
@@ -16,14 +16,13 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
    * Put a break on execution and halt the system to talk to a Human agent. */
   public async execute(req: CMI5ParserPayload, context: FunctionContext, tools: HandlerTools)
   {
-    const BUCKET_NAME = req.bucketName;
     const MANIFEST = 'cmi5.xml';
-    const storage = new Storage({ keyFilename: './elewa-clm-test-key.json' });
+    const BUCKET_NAME = process.env.BUCKET_NAME;
 
     const savedFilePath = `orgs/${req.orgId}/course-packages/${req.courseId}/${req.fileName}`;
     const extractDestPath = `orgs/${req.orgId}/course-packages/${req.courseId}`;
 
-    const srcBucket = storage.bucket(BUCKET_NAME);
+    const srcBucket = admin.storage().bucket(BUCKET_NAME);
 
     try {
       // Unzip the files and wait for the manifest to be extracted
