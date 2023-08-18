@@ -1285,6 +1285,32 @@
       },
       "tags": []
     },
+    "private-model-access-control": {
+      "projectType": "library",
+      "root": "libs/private/model/access-control",
+      "sourceRoot": "libs/private/model/access-control/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/access-control"],
+          "options": {
+            "jestConfig": "libs/private/model/access-control/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/access-control/**/*.ts",
+              "libs/private/model/access-control/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-state-analytics": {
       "projectType": "library",
       "root": "libs/private/state/analytics",

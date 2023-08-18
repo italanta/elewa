@@ -287,6 +287,9 @@
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
+      "@app/private/model/access-control": [
+        "libs/private/model/access-control/src/index.ts"
+      ],
       "@app/private/state/analytics": [
         "libs/private/state/analytics/src/index.ts"
       ],
