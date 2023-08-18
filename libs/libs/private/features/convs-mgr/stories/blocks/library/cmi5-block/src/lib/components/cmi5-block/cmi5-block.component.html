@@ -1,6 +1,6 @@
 <div [id]="id" *ngIf="CMI5BlockForm">
   <form [formGroup]="CMI5BlockForm" fxLayout="column" fxLayoutAlign="start center">
-    <div [id]="courseId" class="audio_bg">
+    <div [id]="courseId" class="mci5_bg">
       <div>
         <input
           (change)="processDocs($event)"
@@ -12,13 +12,13 @@
           style="display: none;" 
         />
         <label for="docFile"> <!-- Add a label to act as a trigger for the file input -->
-          <div *ngIf="!file && !isDocLoading" class="doc-icon">
+          <div *ngIf="!file && !isDocLoading" class="mci5-icon">
             <i class="fas fa-file-archive"></i>
           </div>
-          <div *ngIf="isDocLoading" class="doc-icon">
+          <div *ngIf="isDocLoading" class="mci5-icon">
             <i class="fas fa-circle-notch fa-spin"></i>
           </div>
-          <div *ngIf="file && !isDocLoading" class="doc-icon-uploaded">
+          <div *ngIf="file && !isDocLoading" class="mci5-icon">
             <i class="fas fa-file-upload"></i>
             <p>{{ uploadedFileName }}</p>
           </div>
