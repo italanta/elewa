@@ -10,32 +10,31 @@ import {
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { MatSelectFilterModule } from 'mat-select-filter';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
-// import { AccessControlModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 
-// import { PermissionsComponent } from './components/permissions/permissions.component';
-// import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
-// import { CompanySettingsComponent } from './components/company-settings/company-settings.component';
-// import { ContactSettingsComponent } from './components/contact-settings/contact-settings.component';
-// import { OpportunitiesSettingsComponent } from './components/opportunities-settings/opportunities-settings.component';
-// import { InvoicesSettingsComponent } from './components/invoices-settings/invoices-settings.component';
+import { PermissionsComponent } from './components/permissions/permissions.component';
+import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
+import { ChatsSettingsComponent } from './components/chats-settings/chats-settings.component';
 
-// import { DeleteOrgRoleModalComponent } from './modals/delete-org-role-modal/delete-org-role-modal.component';
-// import { AddNewOrgRoleModalComponent } from './modals/add-new-org-role-modal/add-new-org-role-modal.component';
-// import { PermissionsModelService } from './services/permissions.service';
-// import { PermissionsFormsService } from './services/permissions-forms.service';
-// import { AccountsSettingsComponent } from './components/accounts-settings/accounts-settings.component';
-// import { PaymentsSettingsComponent } from './components/payments-settings/payments-settings.component';
-// import { ExpensesSettingsComponent } from './components/expenses-settings/expenses-settings.component';
-// import { BudgetsSettingsComponent } from './components/budgets-settings/budgets-settings.component';
+import { BotsSettingsComponent } from './components/bots-settings/bots-settings.component';
+import { AssessmentSettingsComponent } from './components/assessment-settings/assessment-settings.component';
+import { AnalyticsSettingsComponent } from './components/analytics-settings/analytics-settings.component';
+import { LearnerSettingsComponent } from './components/learner-settings/learner-settings.component';
+
+import { DeleteOrgRoleModalComponent } from './modals/delete-org-role-modal/delete-org-role-modal.component';
+import { AddNewOrgRoleModalComponent } from './modals/add-new-org-role-modal/add-new-org-role-modal.component';
+
+import { PermissionsModelService } from './services/permissions.service';
+import { PermissionsFormsService } from './services/permissions-forms.service';
 
 @NgModule({
   imports: [
     CommonModule,
     MultiLangModule,
 
-    // MatSelectFilterModule,
+    MatSelectFilterModule,
 
     MaterialDesignModule,
     FlexLayoutModule,
@@ -44,31 +43,29 @@ import { MultiLangModule } from '@ngfi/multi-lang';
     FormsModule,
     ReactiveFormsModule,
 
-    // AccessControlModule,
+    AccessControlModule,
   ],
   declarations: [
-    // PermissionsComponent,
-    // GeneralSettingsComponent,
-    // CompanySettingsComponent,
-    // ContactSettingsComponent,
-    // OpportunitiesSettingsComponent,
-    // InvoicesSettingsComponent,
+    PermissionsComponent,
 
-    // AddNewOrgRoleModalComponent,
-    // DeleteOrgRoleModalComponent,
-    // AccountsSettingsComponent,
-    // PaymentsSettingsComponent,
-    // ExpensesSettingsComponent,
-    // BudgetsSettingsComponent,
+    GeneralSettingsComponent,
+    ChatsSettingsComponent,
+    BotsSettingsComponent,
+    AnalyticsSettingsComponent,
+    AssessmentSettingsComponent,
+    LearnerSettingsComponent,
+
+    AddNewOrgRoleModalComponent,
+    DeleteOrgRoleModalComponent,
   ],
   exports: [
-    // PermissionsComponent,
-    // AddNewOrgRoleModalComponent,
-    // DeleteOrgRoleModalComponent,
+    PermissionsComponent,
+    AddNewOrgRoleModalComponent,
+    DeleteOrgRoleModalComponent,
   ],
   providers: [
-    // PermissionsModelService, 
-    // PermissionsFormsService
+    PermissionsModelService, 
+    PermissionsFormsService
   ],
 })
 export class PermissionsSettingsModule {}

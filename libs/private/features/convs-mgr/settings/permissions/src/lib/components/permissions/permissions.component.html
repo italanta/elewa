@@ -1,0 +1,53 @@
+<div class="permissions">
+  <div fxLayout="row" fxLayoutAlign="space-between start" class="header">
+    <div *ngIf="usersLoaded; else loading" fxLayout="column" fxLayoutAlign="start start" class="info">
+      <p>Edit all the permissions of your <span class="bolder"> {{users.length}} team members.</span></p>
+      <div>You currently have: <span *ngFor="let role of userRoles"> {{role[1] ? role[1] : ''}} {{role[0] ? role[0] : ''}}</span></div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" class="buttons">
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Edit role name</button>
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="deleteRole()" mat-stroked-button> Delete role</button>
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="addRole()" mat-raised-button color="primary" class="white-btn"> Add role</button>
+      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updateRolesPermissions()" mat-raised-button color="primary" class="white-btn">
+        <span *ngIf="!isEditMode; else saveRoles"> Edit Roles</span>
+        <ng-template #saveRoles> <span> Save Roles </span></ng-template>
+      </button>
+    </div>
+  </div>
+
+  <div class="app-domains" *ngIf="permissionsLoaded; else loading">
+
+    <div class="set-accordions" [formGroup]="model.permissionsFormGroup">
+
+      <div>
+        <clm-general-settings [roles]="roles" [generalSettingsFormGroup]="model.permissionsFormGroup"></clm-general-settings>
+      </div>
+  
+      <div>
+        <clm-bots-settings [roles]="roles" [botsSettingsFormGroup]="model.permissionsFormGroup"></clm-bots-settings>
+      </div>
+  
+      <div>
+        <clm-learners-settings [roles]="roles" [learnerSettingsFormGroup]="model.permissionsFormGroup" ></clm-learners-settings>
+      </div>
+  
+      <div>
+        <clm-assessment-settings [roles]="roles" [assessmentSettingsFormGroup]="model.permissionsFormGroup"></clm-assessment-settings>
+      </div>
+  
+      <div>
+        <clm-chats-settings [roles]="roles" [chatsSettingsFormGroup]="model.permissionsFormGroup" ></clm-chats-settings>
+      </div>
+
+      <div>
+        <clm-analytics-settings [roles]="roles" [analyticsSettingsFormGroup]="model.permissionsFormGroup" ></clm-analytics-settings>
+      </div>
+    </div>
+
+  </div>
+
+  <ng-template #loading>
+    <mat-spinner diameter="25"></mat-spinner>
+  </ng-template>
+</div>

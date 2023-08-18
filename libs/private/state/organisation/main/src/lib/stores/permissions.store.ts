@@ -43,16 +43,11 @@ export class PermissionsStore extends Store<CLMPermissions>
 
   override get = () => super.get().pipe(filter((cts) => !!cts));
 
-  /**
-   * Updates the permissions for the active organisation.
-   */
-  update (permissions: CLMPermissions) {
+  create (permissions: CLMPermissions) {
     if(this._activeRepo){
       permissions.id = 'permissions';
       return this._activeRepo.update(permissions);
     }
-
     throw new Error('Permissions state not avaialable.');
-
   }
 }

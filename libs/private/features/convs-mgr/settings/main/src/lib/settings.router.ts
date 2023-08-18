@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 
-// import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 const SETTINGS_ROUTES: Route[] = [
-  // { path: '', component: SettingsPageComponent },
+  { path: '', component: SettingsPageComponent },
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import { DragDropModule} from '@angular/cdk/drag-drop';
 import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// import { MatSelectFilterModule } from 'mat-select-filter';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
@@ -15,6 +15,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 // import { SettingsConfigModule } from '@app/features/settings/configs';
 
 import { SettingsUsersModule } from '@app/private/features/convs-mgr/settings/users';
+
 import { PermissionsSettingsModule } from '@app/private/features/convs-mgr/settings/permissions';
 
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
@@ -26,7 +27,7 @@ import { SettingsRouterModule } from './settings.router';
     CommonModule,
     MultiLangModule,
 
-    // MatSelectFilterModule,
+    MatSelectFilterModule,
 
     MaterialDesignModule,
     FlexLayoutModule,

@@ -4,11 +4,11 @@ export const defaultPermissions =  {
     CanDeleteMember: {admin:true, senior:false, junior:false, intern:false},
     CanEditMember: {admin:true, senior:false, junior:false, intern:false},
   },
-  CompanySettings: {
-    CanViewCompanies: {admin:true, senior:false, junior:false, intern:false},
-    CanCreateCompanies: {admin:true, senior:false, junior:false, intern:false},
-    CanEditCompanies: {admin:true, senior:false, junior:false, intern:false},
-    CanDeleteCompanies: {admin:true, senior:false, junior:false, intern:false},
+  BotSettings: {
+    CanViewBots: {admin:true, senior:false, junior:false, intern:false},
+    CanAddNewBot: {admin:true, senior:false, junior:false, intern:false},
+    CanEditBots: {admin:true, senior:false, junior:false, intern:false},
+    CanDeleteBots: {admin:true, senior:false, junior:false, intern:false},
   },
   LearnerSettings: {
     CanViewLearners: {admin:true, senior:false, junior:false, intern:false},

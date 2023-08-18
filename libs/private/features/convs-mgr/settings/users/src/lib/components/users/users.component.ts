@@ -16,7 +16,8 @@ import { __DateFromStorage } from '@iote/time';
 
 import { iTalUser } from '@app/model/user';
 import { Organisation } from '@app/model/organisation';
-import { AppClaimDomains } from '@app/model/access-control';
+
+import { AppClaimDomains } from '@app/private/model/access-control';
 
 import { UserStore } from '@app/state/user';
 import { OrganisationService } from '@app/private/state/organisation/main';

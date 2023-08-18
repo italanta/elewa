@@ -54,8 +54,8 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
-    path: 'admin-settings',
-    loadChildren: () => import('@app/private/features/convs-mgr/admin').then(m => m.AdminSettingsModule),
+    path: 'settings',
+    loadChildren: () => import('@app/private/features/convs-mgr/settings/main').then(m => m.SettingsModule),
     canActivate: [IsLoggedInGuard]
   },
 ];

@@ -1,5 +1,5 @@
 import { Directive, Inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { AccessRights, AppClaimDomains } from '@app/model/access-control';
+import { AccessRights, AppClaimDomains } from '@app/private/model/access-control';
 
 import { IAccessControlService } from '@app/state/access-control';
 import { filter, take } from 'rxjs/operators';

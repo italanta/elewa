@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
@@ -13,6 +14,7 @@ import { iTalUser } from '@app/model/user';
 
 import { ActiveOrgStore } from '../stores/active-org.store';
 import { OrgStore } from '../stores/organisation.store';
+import { PermissionsStore } from '../stores/permissions.store';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,8 @@ export class OrganisationService {
               private _activeOrg$$: ActiveOrgStore,
               private _user$$: UserStore,
               private _orgs$$: OrgStore,
-              private _db: AngularFirestore
+              private _db: AngularFirestore,
+              private _permissionsStore: PermissionsStore
   ){}
 
   /** Gets the active(current) organisation */
@@ -89,6 +92,14 @@ export class OrganisationService {
         window.location.reload();
       }
     });
+  }
+
+  getOrgPermissions () {
+    return this._permissionsStore.get();
+  }
+
+  updateOrgPermissions(permissions: FormGroup) {
+    return this._permissionsStore.create(permissions.value);
   }
 
   removeUserFromOrg(user: iTalUser) {
