@@ -3,14 +3,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
 
 import { iTalUser } from '@app/model/user';
 import { Organisation } from '@app/model/organisation';
+
 import { OrganisationService } from '@app/private/state/organisation/main';
+import { CLMUsersService } from '@app/private/state/user/base';
 
 import { AddMemberModalComponent } from '../../modals/add-member-modal/add-member-modal.component';
 
@@ -32,6 +34,7 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
 
   constructor(
     private _orgsService: OrganisationService,
+    private _clmUserService: CLMUsersService,
     private _liveAnnouncer: LiveAnnouncer,
     private _dialog: MatDialog,
     private _fb: FormBuilder
@@ -66,7 +69,7 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   createUserRolesFormGroup() {
     this.userRolesForm = this._fb.group({
       rows: this._fb.array([]),
-    })
+    });
   }
 
   buildUserRolesFormArray(users: iTalUser[]) {
@@ -77,13 +80,17 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
       const userRoles = user.roles[this.org.id as string];
 
       // Convert the user roles Object into an array of selected roles
-      const selectedRoles = userRoles ? Object.keys(userRoles).filter(role => userRoles[role]) : [];
+      const selectedRoles = userRoles
+        ? Object.keys(userRoles).filter((role) => userRoles[role])
+        : [];
 
-      this.rowsArray.push(this._fb.group({
-        roles: [selectedRoles]
-      }));
+      this.rowsArray.push(
+        this._fb.group({
+          roles: [selectedRoles],
+        })
+      );
     });
-  };
+  }
 
   /** get avatar from a user's names */
   getAvatar(user: iTalUser) {
@@ -98,8 +105,10 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   }
 
   /** Update a user's roles */
-  updateUserRoles(user: iTalUser) {
-    // console.log(this.userRoles.value);
+  updateUserRoles(userIndex: number, user: iTalUser) {
+    const rolesFormControl = this.rowsArray.at(userIndex)?.get('roles') as FormArray
+    const selectedRoles = rolesFormControl.value;
+    this._clmUserService.updateUserRoles(user, selectedRoles);
   }
 
   openAddMemberDialog() {
