@@ -220,7 +220,8 @@
       "LOG-OUT": "Logout",
       "BOT": "Bots",
       "REPORTS": "Reports",
-      "LEARNERS": "Learners"
+      "LEARNERS": "Learners",
+      "ADMIN_SETTINGS": "Admin Settings"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
@@ -482,5 +483,23 @@
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
+  },
+  "ADMIN-SETTINGS": {
+    "TEAM-SECTION" : {
+      "TITLE": "Team",
+      "DESCRIPTION": "Invite and/or manage Team Members within your organization",
+      "BUTTONS": {
+        "ADD-MEMBER": "Add Member"
+      },
+      "MODAL": {
+        "TITLE": "Add Member",
+        "DESC": "Invite a team member via their email address",
+        "EMAIL-ERROR": "Email is invalid",
+        "SELECT-ROLE": "Select Role"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Select page of team members"
+      }
+    }
   }
 }

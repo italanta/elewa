@@ -210,6 +210,7 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/model/analytics/group-based/progress": [
         "libs/model/analytics/group-based/progress/src/index.ts"
       ],
@@ -259,6 +260,9 @@
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
+      "@app/private/features/convs-mgr/admin": [
+        "libs/private/features/convs-mgr/admin/src/index.ts"
+      ],
       "@app/private/features/convs-mgr/analytics": [
         "libs/private/features/convs-mgr/analytics/src/index.ts"
       ],

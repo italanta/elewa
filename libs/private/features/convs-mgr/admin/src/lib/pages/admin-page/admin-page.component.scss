@@ -1,0 +1,9 @@
+.page-container {
+  padding: 2rem;
+  background-color: white;
+  min-height: calc(100vh - 8.5rem);
+
+  .mat-mdc-tab-labels {
+    gap: 2rem;
+  }
+}

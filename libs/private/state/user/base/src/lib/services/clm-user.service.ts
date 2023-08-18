@@ -45,7 +45,7 @@ export class CLMUsersService {
   updateUserDetails(user: iTalUser, userFormGroup: FormGroup) {
     user.roles  = user.roles as any;
     user.displayName = `${userFormGroup.value.firstName} ${userFormGroup.value.lastName}`;
-    user.roles[this.org.id! as keyof typeof user.roles] = this.createUserRoles(__keys(user.roles[this.org.id! as keyof typeof user.roles]), userFormGroup.value.roles, true);
+    user.roles[this.org.id as keyof typeof user.roles] = this.createUserRoles(__keys(user.roles[this.org.id as keyof typeof user.roles]), userFormGroup.value.roles, true);
     this._user$$.updateUser(user).then(() => this._dialog.closeAll());
   }
 
@@ -85,7 +85,7 @@ export class CLMUsersService {
   getOrgUsers(userIds: string[]): string[] {
     if (this.orgUsers) {
       let users: any = this.orgUsers.filter((users) =>
-        userIds.includes(users.id!)
+        userIds.includes(users.id as string)
       );
       users = __flatMap(users, 'displayName');
       return users;
@@ -98,7 +98,7 @@ export class CLMUsersService {
    */
   getOrgUsersProperties(userIds: string[]): iTalUser[] {
     if (this.orgUsers) {
-      let users = this.orgUsers.filter((users) => userIds.includes(users.id!));
+      const users = this.orgUsers.filter((users) => userIds.includes(users.id as string));
       return users;
     }
     return [];
@@ -108,7 +108,7 @@ export class CLMUsersService {
    * Gets the user object from the user id
    */
   getOrgUser(userId: string): iTalUser {
-    return __find(this.orgUsers, { id: userId })!;
+    return __find(this.orgUsers, { id: userId }) as iTalUser;
   }
 
   /**
@@ -122,30 +122,41 @@ export class CLMUsersService {
    * Adds the user to the organisation from the form
    */
   addUserToOrg(userFormGroup: FormGroup) {
-    let userData = userFormGroup.value;
-    let user: iTalUser = {
-      displayName: `${userData.firstName} ${userData.lastName}`,
-      orgs: [this.org.id!],
-      activeOrg: this.org.id!,
+    const userData = userFormGroup.value;
+    const user: iTalUser = {
+      displayName: this.getUserDisplayName(userData),
+      orgIds: [this.org.id as string],
+      activeOrg: this.org.id as string,
       profile: {
         phone: userData?.phone ?? '',
         email: userData?.email ?? '',
       },
       roles: {
-        [this.org.id!] : this.createUserRoles(this.org.roles, userData.roles, false),
+        [this.org.id as string] : this.createUserRoles(this.org.roles, userData.roles, false),
         access: true,
       },
       uid: '',
       email: userData.email,
-    };    
-    return this._bs.httpsCallable('createNewUser')(user)
+    }; 
+
+    return this._bs.httpsCallable('createNewUser')(user);
+  }
+
+  /** get a User's displayName */
+  getUserDisplayName(userData: any) {
+    if (!userData.firstName || !userData.lastName) {
+      return ''
+    } else {
+      return `${userData?.firstName} ${userData?.lastName}`
+    }
   }
 
   /**
    * Initializes the user roles object
    */
   createUserRoles(orgRoles: string[], roles: string[], editingUser: boolean) {    
-    let rolesObj: any = {};
+    const rolesObj: any = {};
+
     orgRoles.forEach((orgRole) => {
       rolesObj[orgRole] = roles.includes(orgRole) ? true : false;
     })

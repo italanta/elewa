@@ -1,0 +1,53 @@
+h3,
+p {
+  margin: 0;
+}
+
+.modal-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-form {
+    display: grid;
+    grid-template-rows: auto;
+    gap: 1.5rem;
+
+    .modal-input {
+      padding: 0.5rem;
+    }
+
+    .input-errors {
+      margin-top: -1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .modal-role {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      gap: 0.5rem;
+    }
+  }
+
+  .modal-btn {
+    justify-self: flex-end;
+    width: 3rem;
+  }
+
+  .close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+}

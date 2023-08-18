@@ -36,6 +36,7 @@
     "@nrwl/angular": "^14.4.2",
     "@types/googlemaps": "^3.43.3",
     "axios": "^0.27.2",
+    "caniuse-lite": "^1.0.30001519",
     "chart.js": "^4.2.1",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1",

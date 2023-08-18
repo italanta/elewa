@@ -1,0 +1,68 @@
+h3,
+p,
+h6 {
+  margin: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 2rem;
+
+  .table-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .table-title {
+      display: flex;
+      justify-content: space-between;
+
+      .team-info {
+        display: flex;
+        gap: 0.4rem;
+
+        .user-count {
+          text-align: center;
+          width: 1.5rem;
+          height: 1.5rem;
+          background-color: var(--convs-mgr-color-tertiary);
+          border-radius: 50%;
+        }
+      }
+
+      .btn-table-add {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        background-color: var(--convs-mgr-color-tertiary);
+      }
+    }
+
+    .table-wrapper {
+      td {
+        font-weight: 600;
+
+        & > .status-row {
+          height: 1rem;
+          font-size: 0.8rem;
+          border-radius: 1rem;
+          padding: 0.5rem 0.7rem;
+          background-color: hsl(0, 2%, 83%);
+        }
+      }
+
+      .table-data {
+        &__logo {
+          width: 0.5rem;
+          height: 0.5rem;
+          background-color: var(--convs-mgr-color-tertiary);
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+}
