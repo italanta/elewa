@@ -3,12 +3,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
 
 import { iTalUser } from '@app/model/user';
+import { Organisation } from '@app/model/organisation';
 import { OrganisationService } from '@app/private/state/organisation/main';
 
 import { AddMemberModalComponent } from '../../modals/add-member-modal/add-member-modal.component';
@@ -21,20 +22,28 @@ import { AddMemberModalComponent } from '../../modals/add-member-modal/add-membe
 export class TeamsSettingsComponent implements OnInit, OnDestroy {
   displayedColumns = ['logo', 'name', 'email', 'status', 'role', 'actions'];
   dataSource = new MatTableDataSource<iTalUser>();
+  org: Organisation;
   roles: string[];
 
   userRoles = new FormControl('');
+  userRolesForm: FormGroup;
 
   private _sBs = new SubSink();
 
   constructor(
     private _orgsService: OrganisationService,
     private _liveAnnouncer: LiveAnnouncer,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.getOrgRolesAndUsers();
+    this.createUserRolesFormGroup();
+  }
+
+  get rowsArray() {
+    return this.userRolesForm.get('rows') as FormArray;
   }
 
   /** get the active org's roles and users/team */
@@ -43,12 +52,37 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
       .getActiveOrg()
       .pipe(
         switchMap((org) => {
+          this.org = org;
           this.roles = org.roles;
           return this._orgsService.getOrgUsersDetails();
         })
       )
-      .subscribe((users) => (this.dataSource.data = users));
+      .subscribe((users) => {
+        this.dataSource.data = users;
+        this.buildUserRolesFormArray(users);
+      });
   }
+
+  createUserRolesFormGroup() {
+    this.userRolesForm = this._fb.group({
+      rows: this._fb.array([]),
+    })
+  }
+
+  buildUserRolesFormArray(users: iTalUser[]) {
+    this.rowsArray.clear();
+
+    // initialise formArray with the user roles form ActiveOrg
+    users.map((user) => {
+      const userRoles = user.roles[this.org.id as string];
+
+      this.rowsArray.push(this._fb.group({
+        roles: [userRoles]
+      }));
+    });
+
+    console.log(this.rowsArray.value)
+  };
 
   /** get avatar from a user's names */
   getAvatar(user: iTalUser) {
@@ -60,6 +94,11 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   /** remove user from org and vice versa */
   removeFromOrg(user: iTalUser) {
     this._orgsService.removeUserFromOrg(user);
+  }
+
+  /** Update a user's roles */
+  updateUserRoles(user: iTalUser) {
+    console.log(this.userRoles.value);
   }
 
   openAddMemberDialog() {
