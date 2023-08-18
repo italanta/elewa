@@ -22,10 +22,10 @@ import { AddMemberModalComponent } from '../../modals/add-member-modal/add-membe
 export class TeamsSettingsComponent implements OnInit, OnDestroy {
   displayedColumns = ['logo', 'name', 'email', 'status', 'role', 'actions'];
   dataSource = new MatTableDataSource<iTalUser>();
-  org: Organisation;
-  roles: string[];
 
-  userRoles = new FormControl('');
+  org: Organisation;
+  orgRoles: string[];
+
   userRolesForm: FormGroup;
 
   private _sBs = new SubSink();
@@ -53,7 +53,7 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((org) => {
           this.org = org;
-          this.roles = org.roles;
+          this.orgRoles = org.roles;
           return this._orgsService.getOrgUsersDetails();
         })
       )
@@ -72,16 +72,17 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
   buildUserRolesFormArray(users: iTalUser[]) {
     this.rowsArray.clear();
 
-    // initialise formArray with the user roles form ActiveOrg
+    // initialise formArray with the user roles from ActiveOrg
     users.map((user) => {
       const userRoles = user.roles[this.org.id as string];
 
+      // Convert the user roles Object into an array of selected roles
+      const selectedRoles = userRoles ? Object.keys(userRoles).filter(role => userRoles[role]) : [];
+
       this.rowsArray.push(this._fb.group({
-        roles: [userRoles]
+        roles: [selectedRoles]
       }));
     });
-
-    console.log(this.rowsArray.value)
   };
 
   /** get avatar from a user's names */
@@ -98,12 +99,12 @@ export class TeamsSettingsComponent implements OnInit, OnDestroy {
 
   /** Update a user's roles */
   updateUserRoles(user: iTalUser) {
-    console.log(this.userRoles.value);
+    // console.log(this.userRoles.value);
   }
 
   openAddMemberDialog() {
     this._dialog.open(AddMemberModalComponent, {
-      data: { roles: this.roles },
+      data: { roles: this.orgRoles },
       height: 'auto',
       width: '500px',
     });
