@@ -38,6 +38,7 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
   type: StoryBlockTypes;
   documentType = StoryBlockTypes.Document;
   hasDocument = false;
+  uploadedFileName = '';
 
   private _sBs = new SubSink(); //SubSink instance
 
@@ -123,7 +124,11 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
         this.file,
         filePath
       );
+      
       this._sBs.sink = cloudResponse.subscribe((url) => this._autofillUrl(url));
+      console.log("here");
+      this.uploadedFileName = this.file.name;
+      this.isDocLoading = false;
     } else {
       this.docLink = this.defaultLink;
     }
