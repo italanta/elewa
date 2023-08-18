@@ -1048,6 +1048,34 @@
       },
       "tags": []
     },
+    "private-elements-convs-mgr-access-control": {
+      "projectType": "library",
+      "root": "libs/private/elements/convs-mgr/access-control",
+      "sourceRoot": "libs/private/elements/convs-mgr/access-control/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/elements/convs-mgr/access-control"
+          ],
+          "options": {
+            "jestConfig": "libs/private/elements/convs-mgr/access-control/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/elements/convs-mgr/access-control/**/*.ts",
+              "libs/private/elements/convs-mgr/access-control/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-features-convs-mgr-admin": {
       "projectType": "library",
       "root": "libs/private/features/convs-mgr/admin",

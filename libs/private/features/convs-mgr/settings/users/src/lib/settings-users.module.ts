@@ -7,7 +7,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 // import { MatSelectFilterModule } from 'mat-select-filter';
 
-import { AccessControlModule } from '@app/elements/access-control';
+import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 
 import { UsersComponent } from './components/users/users.component';
 
@@ -27,7 +27,7 @@ import { UpdateUserModalComponent } from './modals/update-user-modal/update-user
     MaterialBricksModule,
     FormsModule,
 
-    // AccessControlModule,
+    AccessControlModule,
     ReactiveFormsModule,
   ],
   declarations: [

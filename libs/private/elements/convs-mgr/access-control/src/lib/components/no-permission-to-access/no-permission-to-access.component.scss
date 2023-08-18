@@ -1,0 +1,20 @@
+img {
+  max-width: 60%;
+  max-height: 50%;
+  object-fit: contain;
+}
+
+p {
+  text-align: center;
+}
+
+p:first-of-type {
+  color: var(--convs-mgr-color-primary-yellow);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+p:last-of-type {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
