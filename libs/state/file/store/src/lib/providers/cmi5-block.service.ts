@@ -11,7 +11,6 @@ import { FileStorageService } from './file-storage.service';
 @Injectable({
   providedIn: 'root',
 })
-
 export class CMI5BlockService {
   constructor(
     private _aFF: AngularFireFunctions,
@@ -20,7 +19,29 @@ export class CMI5BlockService {
     private dialog: MatDialog
   ) {}
 
+  openDialog(title: string, message: string) {
+    this.fileStorageService.openErrorModal(title, message);
+  }
 
+  async parseCMI5Zip(
+    courseId: string,
+    orgId: string,
+    file: File,
+    filePath: string
+  ) {
+    const fileName = file.name;
 
- 
+    const downloadUrl = from(
+      this.fileStorageService.uploadSingleFile(file, filePath)
+    );
+    return downloadUrl.pipe(
+      switchMap((url) =>
+        this._aFF.httpsCallable('cmi5ZipParser')({
+          courseId,
+          orgId,
+          fileName,
+        })
+      )
+    );
+  }
 }
