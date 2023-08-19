@@ -3,6 +3,7 @@ export const defaultPermissions =  {
     CanAddNewMember: {admin:true, senior:false, junior:false, intern:false},
     CanDeleteMember: {admin:true, senior:false, junior:false, intern:false},
     CanEditMember: {admin:true, senior:false, junior:false, intern:false},
+    CanViewSettings: {admin:true, senior:false, junior:false, intern:false},
   },
   BotSettings: {
     CanViewBots: {admin:true, senior:false, junior:false, intern:false},

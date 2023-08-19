@@ -51,8 +51,8 @@ export class PermissionsFormsService {
   }
 
   patchRole(permissions: CLMPermissions, domainKey: string, domainGroup: string, permissionsGroup: FormGroup) {
-    let domain = permissions[domainKey as keyof CLMPermissions];
-    let domG = domain[domainGroup];
+    const domain = permissions[domainKey as keyof CLMPermissions]!;
+    const domG = domain[domainGroup];
     
     const keys = Object.keys(domG);
 

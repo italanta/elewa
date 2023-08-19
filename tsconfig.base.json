@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
     "paths": {
       "@app/admin/config/environment-config": [
         "libs/admin/config/environment-config/src/index.ts"
@@ -289,6 +290,9 @@
       ],
       "@app/private/model/access-control": [
         "libs/private/model/access-control/src/index.ts"
+      ],
+      "@app/private/state/access-control": [
+        "libs/private/state/access-control/src/index.ts"
       ],
       "@app/private/state/analytics": [
         "libs/private/state/analytics/src/index.ts"

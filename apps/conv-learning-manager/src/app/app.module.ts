@@ -44,6 +44,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
+import { AccessControlStateModule } from '@app/private/state/access-control';
 
 
 @NgModule({
@@ -85,6 +86,8 @@ import { environment } from '../environments/environment';
     LearnersStateModule.forRoot(),
 
     MtOrgStateModule.forRoot(),
+
+    AccessControlStateModule.forRoot(),
 
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),

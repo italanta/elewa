@@ -11,12 +11,13 @@ export interface CLMPermissions extends IObject
     CanAddNewMember: CLMFeaturePermission,
     CanEditMember: CLMFeaturePermission,
     CanDeleteMember: CLMFeaturePermission,
+    CanViewSettings: CLMFeaturePermission
   },
-  CompanySettings: {
-    CanViewCompanies: CLMFeaturePermission,
-    CanCreateCompanies: CLMFeaturePermission,
-    CanEditCompanies: CLMFeaturePermission,
-    CanDeleteCompanies: CLMFeaturePermission
+  BotsSettings: {
+    CanViewBots: CLMFeaturePermission,
+    CanCreateBots: CLMFeaturePermission,
+    CanEditBots: CLMFeaturePermission,
+    CanDeleteBots: CLMFeaturePermission
   },
   LearnerSettings: {
     CanViewLearners: CLMFeaturePermission,

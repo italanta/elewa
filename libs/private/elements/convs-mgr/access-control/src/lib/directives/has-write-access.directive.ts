@@ -1,10 +1,9 @@
 import { Directive, Inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AccessRights, AppClaimDomains } from '@app/private/model/access-control';
 
-import { IAccessControlService } from '@app/private/state/access-control';
-
 import { filter, take } from 'rxjs/operators';
 
+import { IAccessControlService } from '@app/private/state/access-control';
 
 @Directive({
   selector: '[hasWriteAccess]'
