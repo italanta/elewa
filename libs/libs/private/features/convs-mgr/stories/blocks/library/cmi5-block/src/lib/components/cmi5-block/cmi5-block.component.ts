@@ -98,7 +98,7 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
   }
 
   async processDocs(event: any) {
-    const allowedFileTypes = ['application/zip'];
+    // const allowedFileTypes = ['application/zip'];
 
     // if (!allowedFileTypes.includes(event.target.files[0].type)) {
     //   this._cmi5UploadService.openDialog(
