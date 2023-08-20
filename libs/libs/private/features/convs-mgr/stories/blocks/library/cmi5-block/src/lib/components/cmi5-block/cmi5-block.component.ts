@@ -99,8 +99,18 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
 
   async processDocs(event: any) {
     const allowedFileTypes = ['application/zip'];
+    const allowedFileExtensions = ['.zip'];
 
-    if (!allowedFileTypes.includes(event.target.files[0].type)) {
+    const file = event.target.files[0];
+
+    // Extract the file extension from the file name
+    const fileName = file.name;
+    const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
+
+    if (
+      !allowedFileTypes.includes(file.type) ||
+      !allowedFileExtensions.includes(fileExtension)
+    ) {
       this._cmi5UploadService.openDialog(
         this._translate.translate(
           'PAGE-CONTENT.BLOCK.UPLOAD-WARNING.CMI5-BLOCK.INVALID-FILE-TYPE'
