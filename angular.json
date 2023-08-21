@@ -1154,6 +1154,34 @@
       },
       "tags": []
     },
+    "private-features-convs-mgr-settings-organisation-details": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/organisation-details",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/organisation-details/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/organisation-details"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/organisation-details/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/organisation-details/**/*.ts",
+              "libs/private/features/convs-mgr/settings/organisation-details/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-features-convs-mgr-settings-permissions": {
       "projectType": "library",
       "root": "libs/private/features/convs-mgr/settings/permissions",

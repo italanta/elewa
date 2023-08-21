@@ -1,0 +1,84 @@
+<div *ngIf="activeOrgLoaded" class="company-details">
+  <div fxLayout="row" fxLayoutAlign="space-between start" class="information">
+    <div fxLayout="column" class="company-fields" fxFlex="50%">
+
+
+      <form [formGroup]="orgDataFormGroup"  *ngIf="formIsReady" fxLayout="column">
+
+        <h4>Basic Information</h4>
+
+        <div fxLayout="row" fxLayoutAlign="space-between  center" fxFlex>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>{{"ORGS.FORM.NAME" | transloco}}</mat-label>
+            <input matInput type="text" formControlName="name">
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+          <mat-form-field appearance="outline" fxFlex="48">
+            <mat-label>{{"ORGS.FORM.EMAIL" | transloco}}</mat-label>
+            <input matInput type="email" formControlName="email">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" fxFlex="48">
+            <mat-label>{{"ORGS.FORM.PHONE" | transloco}}</mat-label>
+            <input matInput type="tel" formControlName="phone">
+          </mat-form-field>
+        </div>
+
+        <h4>Address Information</h4>
+
+        <div fxLayout="column" formGroupName="address" fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.STREET" | transloco}}</mat-label>
+              <input matInput type="text" formControlName="streetName">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.CITY" | transloco}}</mat-label>
+              <input matInput type="text" formControlName="city">
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.POSTAL-CODE" | transloco}}</mat-label>
+              <input matInput type="number" formControlName="postalCode">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="48">
+              <mat-label>{{"ORGS.FORM.POSTAL-ADDRESS" | transloco}}</mat-label>
+              <input matInput type="text" formControlName="postalAddress">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
+
+      <div>
+        <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" class="edit-button" (click)="editOrgProfile()"
+          mat-raised-button color="primary">
+          <span *ngIf="!editOrg; else saveProfile">Edit Organization</span>
+          <ng-template #saveProfile>
+            <span>Save Organization</span>
+          </ng-template>
+        </button>
+      </div>
+    </div>
+
+    <div class="company-logo">
+      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
+        <p class="label">Company Logo</p>
+
+        <img [src]="activeOrg.logoUrl" alt="">
+
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start">
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="newCompanyLogo()" mat-stroked-button>
+            Upload</button>
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button (click)="removePhoto()"> Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

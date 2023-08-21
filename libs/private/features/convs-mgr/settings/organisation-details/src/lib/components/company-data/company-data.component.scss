@@ -1,0 +1,47 @@
+.company-details {
+  padding: 30px 20px;
+}
+
+.label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 1rem;
+}
+
+.company-logo img {
+  width: 200px;
+  height: 200px;
+  padding: 20px 0px;
+  object-fit: contain;
+}
+
+.edit-button {
+  margin-bottom: 20px;
+  width: fit-content;
+  color: white;
+}
+
+.add-acc-btn {
+  width: 30%;
+  color: var(--kujali-color-primary-blue)!important;
+  margin-bottom: 30px;
+}
+
+.delete-btn {
+  background-color: #CA0B00!important;
+  color: white;
+}
+
+::ng-deep .company-details .names .mat-form-field,
+.emails-inputs .mat-form-field {
+  width: 100%
+}
+
+::ng-deep .company-details .mat-form-field-infix {
+  border-top-width: 2px !important;
+}
+
+::ng-deep .company-details .mat-form-field-wrapper {
+  padding: 0px 0px 15px 0px;
+}

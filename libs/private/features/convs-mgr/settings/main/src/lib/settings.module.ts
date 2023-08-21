@@ -11,7 +11,7 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
 // import { SettingsProfileDetailsModule } from '@app/features/settings/user-profile';
-// import { SettingsOrganisationModule } from '@app/features/settings/organisation-details';
+import { SettingsOrganisationModule } from '@app/private/features/convs-mgr/settings/organisation-details';
 // import { SettingsConfigModule } from '@app/features/settings/configs';
 
 import { SettingsUsersModule } from '@app/private/features/convs-mgr/settings/users';
@@ -43,7 +43,7 @@ import { SettingsRouterModule } from './settings.router';
     PermissionsSettingsModule,
     
     // SettingsProfileDetailsModule,
-    // SettingsOrganisationModule,
+    SettingsOrganisationModule,
     // SettingsConfigModule,
 
     SettingsRouterModule

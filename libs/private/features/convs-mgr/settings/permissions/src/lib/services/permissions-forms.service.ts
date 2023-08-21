@@ -46,9 +46,6 @@ export class PermissionsFormsService {
 
       Object.keys(roleControls).forEach(perGroup => {
         let permission = domainControls.get(perGroup) as FormGroup;
-
-        debugger
-
         this.patchRole(permissions, domain, perGroup, permission);
       });
     });
@@ -59,7 +56,6 @@ export class PermissionsFormsService {
     const domG = domain[domainGroup];
     
     const keys = Object.keys(domG);
-
     keys.forEach((role, index) => {
       permissionsGroup.addControl(role, new FormControl(domG[role]));
     })

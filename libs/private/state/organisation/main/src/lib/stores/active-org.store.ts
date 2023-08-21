@@ -49,7 +49,7 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
       name: org.name ?? '',
       email: org.email ?? '',
       phone: org.phone ?? '',
-      address: org.address ?? '',
+      address: org.address ?? {},
       roles: org.roles,
       users: org.users,
       permissions: {}
