@@ -2,10 +2,20 @@ img {
   padding: 10px 0;
 }
 
+button {
+  margin: 4px 0 0 0;
+  height: 42px;
+}
+
 .text-button {
-  color: var(--kujali-color-primary-blue);
+  color: var(--convs-mgr-color-primary-yellow);
   font-size: 1rem;
   font-weight: bolder;
+}
+
+.btn {
+  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  color: white!important;
 }
 
 .text-button:hover {
@@ -20,12 +30,12 @@ img {
 .label-blue {
   margin: 10px 0 20px 0;
   font-weight: 600;
-  color: var(--kujali-color-primary-blue);
+  color: var(--convs-mgr-color-primary-yellow);
   font-size: 1rem;
 }
 
 .blue {
-  color: var(--kujali-color-primary-blue);
+  color: var(--convs-mgr-color-primary-yellow);
 }
 
 .underline {
@@ -55,7 +65,7 @@ img {
 .label {
   margin: 0;
   font-weight: 600;
-  color: var(--kujali-color-text-black);
+  color: var(--convs-mgr-color-text-black);
   font-size: 1rem;
 }
 
@@ -107,20 +117,22 @@ img {
   margin-right: 30px;
 }
 
-::ng-deep .profile-details .names .mat-form-field,
-.emails-inputs .mat-form-field {
-  width: 100%
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%!important;
 }
 
-::ng-deep .profile-details .mat-form-field-infix {
-  border-top-width: 2px !important;
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
 }
 
-::ng-deep .profile-details .mat-form-field-wrapper {
-  padding: 0px 0px 15px 0px;
+:host ::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
 }
 
-button {
-  margin: 4px 0 0 0;
-  height: 42px;
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
 }

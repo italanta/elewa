@@ -104,7 +104,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private _getOrgUsers(orgId: string) {
     this._sbS.sink = combineLatest([
-      this._users$$.getOrgUsers(orgId), 
+      this._users$$.getOrgUsers(orgId),
       this.searchFormGroup.controls['role'].valueChanges.pipe(startWith(''))]).subscribe(([users, role]) => {
         this.dataSource.data = users.filter((user) => {
           let userRoles = __keys(__pickBy(user.roles[user.activeOrg]));

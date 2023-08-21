@@ -22,6 +22,11 @@
   color: white;
 }
 
+.btn {
+  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  color: white!important;
+}
+
 .add-acc-btn {
   width: 30%;
   color: var(--kujali-color-primary-blue)!important;
@@ -33,15 +38,15 @@
   color: white;
 }
 
-::ng-deep .company-details .names .mat-form-field,
+:host ::ng-deep .company-details .names .mat-form-field,
 .emails-inputs .mat-form-field {
   width: 100%
 }
 
-::ng-deep .company-details .mat-form-field-infix {
+:host ::ng-deep .company-details .mat-form-field-infix {
   border-top-width: 2px !important;
 }
 
-::ng-deep .company-details .mat-form-field-wrapper {
+:host ::ng-deep .company-details .mat-form-field-wrapper {
   padding: 0px 0px 15px 0px;
 }

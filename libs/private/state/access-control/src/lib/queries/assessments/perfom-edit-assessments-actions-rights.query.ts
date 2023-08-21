@@ -23,7 +23,7 @@ export class PerformEditAssessmentsActionRightsQuery extends AccessQuery {
 
   protected override _hasViewAccess(): Observable<boolean> {
     return _CheckPermission(
-      (p: CLMPermissions) => p.AssessmentSettings.CanEditAssessments,
+      (p: CLMPermissions) => p.AssessmentsSettings.CanEditAssessments,
       this._permissions$$,
       this._user$$
     );

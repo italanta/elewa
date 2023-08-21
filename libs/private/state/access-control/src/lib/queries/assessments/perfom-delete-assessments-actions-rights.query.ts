@@ -23,7 +23,7 @@ export class PerformDeleteAssessmentsActionRightsQuery extends AccessQuery {
 
   protected override _hasViewAccess(): Observable<boolean> {
     return _CheckPermission(
-      (p: CLMPermissions) => p.AssessmentSettings.CanDeleteAssessments,
+      (p: CLMPermissions) => p.AssessmentsSettings.CanDeleteAssessments,
       this._permissions$$,
       this._user$$
     );

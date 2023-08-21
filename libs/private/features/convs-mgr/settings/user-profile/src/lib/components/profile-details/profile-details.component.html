@@ -4,18 +4,21 @@
     <div class="user-data" fxLayout="row" fxLayoutAlign="space-between start">
 
       <div fxLayout="column" fxLayoutAlign="start start" class="user-info" fxFlex="40%">
-        <div fxLayout="column" fxLayoutAlign="start start" class="names">
-          <p class="label">First Name</p>
-          <mat-form-field appearance="outline">
-            <input formControlName="firstName" matInput placeholder="Thomas">
-          </mat-form-field>
-        </div>
 
-        <div fxLayout="column" fxLayoutAlign="start start" class="names">
-          <p class="label"> Last Name</p>
-          <mat-form-field appearance="outline">
-            <input formControlName="lastName" matInput placeholder="Hauwaert">
-          </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" style="width: 100%;" fxFlex>
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label">First Name</p>
+            <mat-form-field appearance="outline"fxFlex>
+              <input formControlName="firstName" matInput placeholder="Jack">
+            </mat-form-field>
+          </div>
+  
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label"> Last Name</p>
+            <mat-form-field appearance="outline" fxFlex>
+              <input formControlName="lastName" matInput placeholder="Sparrow">
+            </mat-form-field>
+          </div>
         </div>
 
         <div fxLayout="column" fxLayoutAlign="start start" class="names role">
@@ -26,7 +29,7 @@
         </div>
 
         <div>
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" class="email-button" (click)="editUserProfile()" mat-raised-button color="primary">
+          <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
             <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
             <ng-template #saveProfile>
               <span>Save Profile</span>
@@ -64,7 +67,7 @@
 
     <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="30px" class="email-fields">
       <div>
-        <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updatePassword()" class="email-button" mat-raised-button color="primary">Get Password Reset Link</button>
+        <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updatePassword()" mat-raised-button>Get Password Reset Link</button>
       </div>
     </div>
 

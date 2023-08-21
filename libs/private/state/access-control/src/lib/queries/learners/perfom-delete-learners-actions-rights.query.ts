@@ -23,7 +23,7 @@ export class PerformDeleteLearnersActionRightsQuery extends AccessQuery {
 
   protected override _hasViewAccess(): Observable<boolean> {
     return _CheckPermission(
-      (p: CLMPermissions) => p.LearnerSettings.CanDeleteLearners,
+      (p: CLMPermissions) => p.LearnersSettings.CanDeleteLearners,
       this._permissions$$,
       this._user$$
     );

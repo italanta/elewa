@@ -23,7 +23,7 @@ export class PerformCreateLearnersActionRightsQuery extends AccessQuery {
 
   protected override _hasWriteAccess(): Observable<boolean> {
     return _CheckPermission(
-      (p: CLMPermissions) => p.LearnerSettings.CanCreateLearners,
+      (p: CLMPermissions) => p.LearnersSettings.CanCreateLearners,
       this._permissions$$,
       this._user$$
     );

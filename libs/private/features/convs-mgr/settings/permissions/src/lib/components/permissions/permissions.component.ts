@@ -110,15 +110,13 @@ export class PermissionsComponent implements OnInit, AfterViewInit, AfterContent
   }
 
   updateRolesPermissions() {
-    // this.isEditMode = !this.isEditMode;
-    // if (this.isEditMode) {
-    //   this.model.permissionsFormGroup.enable();
-    // } else {
-    //   this._orgService.updateOrgPermissions(this.model.permissionsFormGroup);
-    //   this.model.permissionsFormGroup.disable();
-    // }
-
-    this._ts.createInitialDoc();
+    this.isEditMode = !this.isEditMode;
+    if (this.isEditMode) {
+      this.model.permissionsFormGroup.enable();
+    } else {
+      this._orgService.updateOrgPermissions(this.model.permissionsFormGroup);
+      this.model.permissionsFormGroup.disable();
+    }
   }
 
   deleteRole() {

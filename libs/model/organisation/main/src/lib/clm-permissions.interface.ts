@@ -19,13 +19,13 @@ export interface CLMPermissions extends IObject
     CanEditBots: CLMFeaturePermission,
     CanDeleteBots: CLMFeaturePermission
   },
-  LearnerSettings: {
+  LearnersSettings: {
     CanViewLearners: CLMFeaturePermission,
     CanCreateLearners: CLMFeaturePermission,
     CanEditLearners: CLMFeaturePermission,
     CanDeleteLearners: CLMFeaturePermission
   },
-  AssessmentSettings: {
+  AssessmentsSettings: {
     CanViewAssessments: CLMFeaturePermission,
     CanCreateAssessments: CLMFeaturePermission,
     CanEditAssessments: CLMFeaturePermission,

@@ -23,7 +23,7 @@ export class PerformCreateAssessmentsActionRightsQuery extends AccessQuery {
 
   protected override _hasWriteAccess(): Observable<boolean> {
     return _CheckPermission(
-      (p: CLMPermissions) => p.AssessmentSettings.CanCreateAssessments,
+      (p: CLMPermissions) => p.AssessmentsSettings.CanCreateAssessments,
       this._permissions$$,
       this._user$$
     );

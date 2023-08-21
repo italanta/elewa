@@ -35,7 +35,7 @@
     <!-- end Home -->
 
     <!-- Section Active-bots -->
-    <div [routerLink]="['/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_BOTS" [routerLink]="['/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
       fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaBots.isActive">
@@ -63,7 +63,7 @@
     <!-- end Active-bots section -->
 
     <!-- Analytics section -->
-    <div [routerLink]="['/analytics']" routerLinkActive #rlaAnalytics="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_ANALYTICS" [routerLink]="['/analytics']" routerLinkActive #rlaAnalytics="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaAnalytics.isActive" [class.hov]="!rlaAnalytics.isActive" fxLayout="column" >
         <div *ngIf="isExpanded" class="menu-item" [class.active]="rlaAnalytics.isActive">
           <i class="fas fa-chart-bar"></i>
@@ -97,7 +97,7 @@
     <!-- end Analytics -->
 
     <!-- Section Chats -->
-    <div [routerLink]="['/chats']" routerLinkActive #rlaChats="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_CHATS" [routerLink]="['/chats']" routerLinkActive #rlaChats="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaChats.isActive" [class.hov]="!rlaChats.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
@@ -113,7 +113,7 @@
     <!-- end Chats -->
 
     <!-- Section Assessments -->
-    <div [routerLink]="['/assessments']" routerLinkActive #rlaAssess="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_ASSESSMENTS" [routerLink]="['/assessments']" routerLinkActive #rlaAssess="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaAssess.isActive" [class.hov]="!rlaAssess.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
@@ -129,7 +129,7 @@
     <!-- end Assessments -->
 
     <!-- Section Learners -->
-    <div [routerLink]="['/learners']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_LEARNERS" [routerLink]="['/learners']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaLearners.isActive" [class.hov]="!rlaLearners.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
@@ -144,7 +144,7 @@
     </div>
     <!-- end Learners -->
 
-    <div [routerLink]="['/settings']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container bottom-container"
+    <div *hasViewAccess="CAN_ACCESS_SETTINGS" [routerLink]="['/settings']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container bottom-container"
       [class.active]="rlaLearners.isActive" [class.hov]="!rlaLearners.isActive" fxLayout="column">
       <div class="menu-item">
         <i matListIcon class="fas fa-cog menu-item__tooltip"></i>

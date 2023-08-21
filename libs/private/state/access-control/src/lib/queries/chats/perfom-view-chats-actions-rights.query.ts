@@ -21,7 +21,7 @@ export class PerformViewChatsActionRightsQuery extends AccessQuery {
     super();
   }
 
-  protected override _hasWriteAccess(): Observable<boolean> {
+  protected override _hasViewAccess(): Observable<boolean> {
     return _CheckPermission(
       (p: CLMPermissions) => p.ChatsSettings.CanViewChats,
       this._permissions$$,

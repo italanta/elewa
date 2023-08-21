@@ -31,6 +31,6 @@ export enum AppClaimDomains {
 
   CanAddMembers = 'can_add_members',
 
-  Admin = 'cl_admin_',
+  Admin = 'cl_admin',
   superAdmin = 'cl_super_admin'
 }

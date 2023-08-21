@@ -77,7 +77,7 @@ export class AccessControlMainService implements IAccessControlService {
   ) { }
 
   getRights(claim: AppClaimDomains): Observable<AccessRights> {
-
+    
     switch (claim) {
       //clm admin claims
       case AppClaimDomains.superAdmin:

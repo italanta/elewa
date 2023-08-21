@@ -46,7 +46,7 @@ export class CLMUsersService {
     user.roles  = user.roles as any;
     user.displayName = `${userFormGroup.value.firstName} ${userFormGroup.value.lastName}`;
     user.roles[this.org.id as keyof typeof user.roles] = this.createUserRoles(__keys(user.roles[this.org.id as keyof typeof user.roles]), userFormGroup.value.roles, true);
-    this._user$$.updateUser(user).then(() => this._dialog.closeAll());
+    return this._user$$.updateUser(user);
   }
 
   /**
