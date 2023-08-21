@@ -1,6 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { AUStatus, AUStatusTypes, AssignableUnit, CourseParticipation, CourseStatus, LearnerSession, xAPIStatement } from "@app/private/model/convs-mgr/micro-apps/cmi5";
+import { xAPIStatement, AUStatus, CourseParticipation, CourseStatus, AssignableUnit, AUStatusTypes } from "@app/private/model/convs-mgr/micro-apps/base";
 
 import { LearnerSessionService } from "./session.service";
 

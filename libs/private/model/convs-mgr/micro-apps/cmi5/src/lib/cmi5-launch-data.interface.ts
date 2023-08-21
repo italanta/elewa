@@ -1,5 +1,6 @@
-import { ContextTemplate } from "./context-template.interface";
+import { LMSLaunchData } from "@app/private/model/convs-mgr/micro-apps/base";
 
+import { ContextTemplate } from "./context-template.interface";
 /**
  * The LaunchData for the specific AU
  */
