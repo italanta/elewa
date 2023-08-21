@@ -9,7 +9,7 @@
       <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Edit role name</button>
       <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="deleteRole()" mat-stroked-button> Delete role</button>
       <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="addRole()" mat-raised-button color="primary" class="white-btn"> Add role</button>
-      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updateRolesPermissions()" mat-raised-button color="primary" class="white-btn">
+      <button (click)="updateRolesPermissions()" mat-raised-button color="primary" class="white-btn">
         <span *ngIf="!isEditMode; else saveRoles"> Edit Roles</span>
         <ng-template #saveRoles> <span> Save Roles </span></ng-template>
       </button>

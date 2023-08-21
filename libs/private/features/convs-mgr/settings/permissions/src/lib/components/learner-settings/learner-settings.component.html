@@ -9,6 +9,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <div [formGroup]="learnerSettingsFormGroup" fxLayout="column" class="companies">
+      
       <div formGroupName="LearnersSettings">
         <div fxLayout="row" class="titles">
           <p class="main-title" fxFlex="20%"></p>
@@ -39,15 +40,6 @@
 
         <div formGroupName="CanEditLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
           <p class="title" fxFlex="20%"> Can Edit Learners </p>
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
-            </div>
-          </div>
-        </div>
-
-        <div formGroupName="CanEditLearnersActions" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Edit Learners Actions </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>

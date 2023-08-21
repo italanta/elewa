@@ -45,10 +45,14 @@ export class ActiveOrgStore extends Store<Organisation> implements OnDestroy
   setOrg(org: Organisation) {
     this.set({
       id: org.id,
-      name: org?.name,
-      address: org?.address,
-      roles: org?.roles,
-      users: org?.users,
+      logoUrl: org.logoUrl ?? '',
+      name: org.name ?? '',
+      email: org.email ?? '',
+      phone: org.phone ?? '',
+      address: org.address ?? '',
+      roles: org.roles,
+      users: org.users,
+      permissions: {}
     } as Organisation, 'UPDATE - FROM USER');
   }
   

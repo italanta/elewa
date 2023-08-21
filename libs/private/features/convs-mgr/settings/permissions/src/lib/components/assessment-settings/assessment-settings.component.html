@@ -45,6 +45,15 @@
             </div>
           </div>
         </div>
+
+        <div formGroupName="CanDeleteAssessments" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Edit Assessments </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
       </div>
     </div>  </mat-expansion-panel>
 </mat-accordion>

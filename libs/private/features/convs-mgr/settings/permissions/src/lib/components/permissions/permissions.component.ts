@@ -12,7 +12,7 @@ import { Organisation } from '@app/model/organisation';
 import { AppClaimDomains } from '@app/private/model/access-control';
 import { iTalUser } from '@app/model/user';
 
-import { OrganisationService } from '@app/private/state/organisation/main';
+import { OrganisationService, PermissionsStore } from '@app/private/state/organisation/main';
 
 import { PermissionsModel } from '../../models/permissions.model';
 
@@ -50,7 +50,8 @@ export class PermissionsComponent implements OnInit, AfterViewInit, AfterContent
   constructor(private _router$$: Router,
               private _orgService: OrganisationService,
               private _permissionsService: PermissionsModelService,
-              private _permissionsFormService: PermissionsFormsService
+              private _permissionsFormService: PermissionsFormsService,
+              private _ts: PermissionsStore
   ) { }
 
   ngOnInit(): void {
@@ -109,13 +110,15 @@ export class PermissionsComponent implements OnInit, AfterViewInit, AfterContent
   }
 
   updateRolesPermissions() {
-    this.isEditMode = !this.isEditMode;
-    if (this.isEditMode) {
-      this.model.permissionsFormGroup.enable();
-    } else {
-      this._orgService.updateOrgPermissions(this.model.permissionsFormGroup);
-      this.model.permissionsFormGroup.disable();
-    }
+    // this.isEditMode = !this.isEditMode;
+    // if (this.isEditMode) {
+    //   this.model.permissionsFormGroup.enable();
+    // } else {
+    //   this._orgService.updateOrgPermissions(this.model.permissionsFormGroup);
+    //   this.model.permissionsFormGroup.disable();
+    // }
+
+    this._ts.createInitialDoc();
   }
 
   deleteRole() {
