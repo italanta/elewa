@@ -42,6 +42,7 @@ import { ConvsMgrKeywordJumpBlockModule } from '@app/features/convs-mgr/stories/
 import { ConvsMgrEventBlockModule } from '@app/features/convs-mgr/stories/blocks/library/event-block';
 import { ConvsMgrAssessmentBrickModule } from '@app/features/convs-mgr/stories/blocks/library/assessment-brick';
 import { ConvsMgrConditionalBlockModule } from '@app/features/convs-mgr/stories/blocks/library/conditional-block';
+import { ConvsMgrCMI5BlockModule } from '@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block';
 
 import { FileStateModule } from '@app/state/file';
 
@@ -90,6 +91,7 @@ import { BlockComponent } from './components/block/block.component';
     ConvsMgrEventBlockModule,
     ConvsMgrAssessmentBrickModule,
     ConvsMgrConditionalBlockModule,
+    ConvsMgrCMI5BlockModule,
 
     FileStateModule,
   ],

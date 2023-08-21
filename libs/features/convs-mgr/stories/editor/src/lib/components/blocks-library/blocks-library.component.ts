@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, FailBlock,
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock
+  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -68,6 +68,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment), blockCategory: 'bricks' } as AssessmentBrick,
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'questions-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
+    { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block
   ];
   blockTemplate$: Observable<StoryBlock[]> = of(this.blockTemplates);
 

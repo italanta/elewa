@@ -851,17 +851,19 @@
       },
       "tags": []
     },
-    "functions-user": {
+    "libs-private-features-convs-mgr-stories-blocks-library-cmi5-block": {
       "projectType": "library",
-      "root": "libs/functions/user",
-      "sourceRoot": "libs/functions/user/src",
+      "root": "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block",
+      "sourceRoot": "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src",
       "prefix": "app",
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/functions/user"],
+          "outputs": [
+            "coverage/libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block"
+          ],
           "options": {
-            "jestConfig": "libs/functions/user/jest.config.ts",
+            "jestConfig": "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -869,8 +871,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/functions/user/**/*.ts",
-              "libs/functions/user/**/*.html"
+              "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.ts",
+              "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.html"
             ]
           }
         }
