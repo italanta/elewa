@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, RestResult200 } from '@ngfi/functions'
 ;
 import { CMI5LMSService } from './lms.service';
-import { AUService } from './au.service';
+import { CMI5AUService } from './au.service';
 
 export class CMI5Listener extends FunctionHandler<any, { }>
 {
@@ -33,7 +33,7 @@ export class CMI5Listener extends FunctionHandler<any, { }>
       return learnerPreferences;
 
     case '/activities':
-    const auService = new AUService(tools);
+    const auService = new CMI5AUService(tools);
   
     return learnerPreferences;
       default:

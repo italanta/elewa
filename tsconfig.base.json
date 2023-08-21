@@ -268,6 +268,9 @@
       "@app/private/functions/analytics/progress/main": [
         "libs/private/functions/analytics/progress/main/src/index.ts"
       ],
+      "@app/private/functions/micro-apps/base": [
+        "libs/private/functions/micro-apps/base/src/index.ts"
+      ],
       "@app/private/functions/micro-apps/cmi5": [
         "libs/private/functions/micro-apps/cmi5/src/index.ts"
       ],

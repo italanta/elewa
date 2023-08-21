@@ -1100,6 +1100,31 @@
       },
       "tags": []
     },
+    "private-functions-micro-apps-base": {
+      "root": "libs/private/functions/micro-apps/base",
+      "sourceRoot": "libs/private/functions/micro-apps/base/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/micro-apps/base/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/micro-apps/base"],
+          "options": {
+            "jestConfig": "libs/private/functions/micro-apps/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-micro-apps-cmi5": {
       "root": "libs/private/functions/micro-apps/cmi5",
       "sourceRoot": "libs/private/functions/micro-apps/cmi5/src",

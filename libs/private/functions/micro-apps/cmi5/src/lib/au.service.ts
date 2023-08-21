@@ -1,19 +1,12 @@
 import { HandlerTools } from "@iote/cqrs";
 
+import { AUService } from "@app/private/functions/micro-apps/base";
 import { xAPIStatement, AUStatus, CourseParticipation, CourseStatus, AssignableUnit, AUStatusTypes } from "@app/private/model/convs-mgr/micro-apps/base";
+import { LearnerSessionService } from "@app/private/functions/micro-apps/base";
 
-import { LearnerSessionService } from "./session.service";
-
-export class AUService
+export class CMI5AUService extends AUService
 {
-  private isCourseComplete: boolean;
-
-  constructor(private tools: HandlerTools) { }
-
-  private __getVerb(statement: xAPIStatement, lang?: string)
-  {
-    return statement.verb.display[lang || "en-US"];
-  }
+  constructor(private tools: HandlerTools) { super(tools); }
 
   async updateProgress(statement: xAPIStatement, lang?: string)
   {
@@ -47,7 +40,7 @@ export class AUService
         // TODO: Handle the case where the AU is not the last one
         const nextUnit = await this.__auCompleted(orgId, courseId, endUserId, currentSession.auStatus);
 
-        if(this.isCourseComplete) { 
+        if (this.isCourseComplete) {
           // Update the session with the completion date
           currentSession.completionDate = new Date();
         }
@@ -61,13 +54,13 @@ export class AUService
     }
   }
 
-  private async __auCompleted(orgId: string, courseId: string, endUserId: string, auStatus: AUStatus[])
+  protected async __auCompleted(orgId: string, courseId: string, endUserId: string, auStatus: AUStatus[])
   {
     const courseParticipation$ = this.tools.getRepository<CourseParticipation>(`orgs/${orgId}/end-users/${endUserId}/courses`);
-    
+
     // Get current AU Details to check if this is the last AU of the course
     const nextUnit = (await this.__getAUDetails(courseId, orgId, courseId)).nextUnit;
-    
+
     // Check if the course is complete and there are no AUs remaining
     this.isCourseComplete = this.__checkCourseCompletion(auStatus) && !nextUnit;
 
@@ -97,18 +90,6 @@ export class AUService
     }
 
     return nextUnit;
-  }
-
-  private __getAUDetails(auId: string, orgId: string, courseId: string)
-  {
-    const assignableUnit$ = this.tools.getRepository<AssignableUnit>(`orgs/${orgId}/courses/${courseId}/assignable-units`);
-
-    return assignableUnit$.getDocumentById(auId);
-  }
-
-  private __isSuccessful(verb: string): boolean
-  {
-    return verb === AUStatusTypes.Completed || verb === AUStatusTypes.Passed || verb === AUStatusTypes.Failed || verb === AUStatusTypes.Completed;
   }
 
   private __checkCourseCompletion(auStatus: AUStatus[])

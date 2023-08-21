@@ -1,21 +1,14 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { Actor, AssignableUnit, ContextTemplate, LMSLaunchData, LaunchModeTypes } from "@app/private/model/convs-mgr/micro-apps/cmi5";
 import { EndUserDataService } from "@app/functions/bot-engine";
+import { Actor, AssignableUnit } from "@app/private/model/convs-mgr/micro-apps/base";
+import { CMI5LaunchData, LaunchModeTypes, ContextTemplate } from "@app/private/model/convs-mgr/micro-apps/cmi5";
+import { LMSService, LearnerSessionService } from "@app/private/functions/micro-apps/base";
 
-import { LearnerSessionService } from "./session.service";
-
-export class LMSService
+export class CMI5LMSService extends LMSService<CMI5LaunchData>
 {
 
-  private _state: LMSLaunchData;
-
-  constructor(private tools: HandlerTools) { }
-
-  public setState(state: LMSLaunchData)
-  {
-    this._state = state;
-  }
+  constructor(private tools: HandlerTools) { super(); }
 
   async prepareForLaunch(orgId: string, endUserId: string, auId: string)
   {
@@ -29,10 +22,10 @@ export class LMSService
     await this.__createStateDocument(auId, orgId, endUserId, sessionID);
 
     this.tools.Logger.log(() => '[LMSService].prepareForLaunch - Initializing Session...');
-    await sessionService.create(orgId, endUserId, auId, this._state);
+    await sessionService.create(orgId, endUserId, auId, this.state);
   }
 
-  private async __createStateDocument(auId: string, orgId: string, endUserId: string, sessionID: string)
+  protected async __createStateDocument(auId: string, orgId: string, endUserId: string, sessionID: string)
   {
 
     const courseId = auId.split('/')[0];
@@ -41,7 +34,7 @@ export class LMSService
 
     const au = await auRepo$.getDocumentById(auId);
 
-    this._state = {
+    this.state = {
       launchMode: LaunchModeTypes.Normal,
       moveOn: au.moveOn,
       masteryScore: au.masteryScore,
@@ -49,21 +42,20 @@ export class LMSService
 
       // The URL that the learner will be redirected to once the course is complete. This can be a deeplink or the whatsapp user url
       returnURL: this.__getReturnURL(endUserId)
-    } as LMSLaunchData;
+    } as CMI5LaunchData;
   }
 
-  public sendAbandonedStatement()
+  public setAbandonedStatement()
   {
-    this.tools.Logger.log(() => '[LMSService].sendAbandonedStatement - Sending abandoned statement to AU');
+    this.tools.Logger.log(() => '[LMSService].sendAbandonedStatement - Setting abandoned statement...');
   }
 
   public createLaunchURL(firebaseURL: string, actor: Actor, endUserId: string, auId: string)
   {
     this.tools.Logger.log(() => '[LMSService].createLaunchURL - Creating launch URL for AU');
 
-    // TODO: Move to .env
-    const listenerURL = 'https://europe-west1-elewa-clm-test.cloudfunctions.net/lrslistener/'
-    const fetchTokenURL = 'https://europe-west1-elewa-clm-test.cloudfunctions.net/fetchToken/'
+    const listenerURL = process.env.LISTENER_URL;
+    const fetchTokenURL = process.env.FETCH_TOKEN_URL;
 
     const launchURL = `${firebaseURL}?endpoint=${listenerURL}&fetch=${fetchTokenURL}&actor=${JSON.stringify(actor)}&registration=${endUserId}&activityId=${auId}`;
 
@@ -92,7 +84,7 @@ export class LMSService
     return endUser.learnerPreferences;
   }
 
-  private __createContextTemplate(au: AssignableUnit, sessionID: string, lang?: string): ContextTemplate
+  protected __createContextTemplate(au: AssignableUnit, sessionID: string, lang?: string): ContextTemplate
   {
 
     return {

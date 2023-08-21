@@ -7,5 +7,5 @@
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "src/lib/cmi5-listener.handler.ts", "../base/src/session.service.ts", "../base/src/lib/lms-abstract.class.ts"]
+  "include": ["**/*.ts", "../cmi5/src/lib/cmi5-listener.handler.ts"]
 }

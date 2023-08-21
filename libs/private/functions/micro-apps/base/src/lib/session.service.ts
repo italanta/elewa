@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { HandlerTools } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 
-import { AUStatusTypes, LMSLaunchData, LearnerSession } from "@app/private/model/convs-mgr/micro-apps/cmi5";
+import { LearnerSession, LMSLaunchData, AUStatusTypes } from "@app/private/model/convs-mgr/micro-apps/base";
 
 export class LearnerSessionService
 {
