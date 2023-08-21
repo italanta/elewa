@@ -98,20 +98,6 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
   }
 
   async processDocs(event: any) {
-    // const allowedFileTypes = ['application/zip'];
-
-    // if (!allowedFileTypes.includes(event.target.files[0].type)) {
-    //   this._cmi5UploadService.openDialog(
-    //     this._translate.translate(
-    //       'PAGE-CONTENT.BLOCK.UPLOAD-WARNING.CMI5-BLOCK.INVALID-FILE-TYPE'
-    //     ),
-    //     this._translate.translate(
-    //       'PAGE-CONTENT.BLOCK.UPLOAD-WARNING.CMI5-BLOCK.PLEASE-SELECT-ZIP-ONLY'
-    //     )
-    //   );
-    //   return;
-    // }
-
     if (event.target.files[0]) {
       this.file = event.target.files[0];
       this.isDocLoading = true;
