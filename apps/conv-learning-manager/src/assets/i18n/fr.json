@@ -117,6 +117,12 @@
           "FAILED": "Échoué"
         }
       },
+      "UPLOAD-WARNING" :{
+        "CMI5-BLOCK":{
+          "INVALID-FILE-TYPE":"Type de fichier invalide",
+          "PLEASE-SELECT-ZIP-ONLY":"Veuillez sélectionner un fichier .zip uniquement."
+        }
+      },
       "LABELS": {
         "TRACK-MILESTONE": "Suivre comme un jalon",
         "ASSESSMENTS-NAME": "Nom de l'évaluation",
