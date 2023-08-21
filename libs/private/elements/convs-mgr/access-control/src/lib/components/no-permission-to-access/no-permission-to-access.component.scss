@@ -18,3 +18,12 @@ p:last-of-type {
   font-size: 1.2rem;
   font-weight: 400;
 }
+
+button {
+  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  color: var(--convs-mgr-color-primary-yellow);
+}
+
+.page {
+  background-color: white!important;
+}
