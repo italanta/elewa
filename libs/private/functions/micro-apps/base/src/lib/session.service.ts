@@ -68,7 +68,7 @@ export class LearnerSessionService
       learnerId: endUserId,
 
       // Set status to launched
-      auStatus: [{
+      activityStatus: [{
         id: auId,
         status: AUStatusTypes.Launched,
       }]

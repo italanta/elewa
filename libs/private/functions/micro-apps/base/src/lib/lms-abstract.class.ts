@@ -1,8 +1,9 @@
 import { LearnerPreferences } from "@app/model/convs-mgr/conversations/chats";
 
-import { Actor, AssignableUnit } from "@app/private/model/convs-mgr/micro-apps/base";
-import { ContextTemplate } from "@app/private/model/convs-mgr/micro-apps/cmi5";
+import { Actor, AssignableUnit, ContextTemplate } from "@app/private/model/convs-mgr/micro-apps/base";
 
+
+/** Defines the methods for managing the LMS side of the xAPI specification  */
 export abstract class LMSService<T> {
   protected state: T;
   constructor() { }
