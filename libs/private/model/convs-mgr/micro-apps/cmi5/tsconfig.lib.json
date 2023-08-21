@@ -7,5 +7,5 @@
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../base/src/lib/xAPI-statement.interface.ts", "../base/src/lib/session.interface.ts", "../base/src/lib/course-participation.interface.ts", "../base/src/lib/actor.interface.ts", "../base/src/lib/au-status-types.enum.ts", "../base/src/lib/assignable-unit.interface.ts"]
 }

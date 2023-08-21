@@ -3,7 +3,8 @@ import { ContextTemplate } from "./context-template.interface";
 /**
  * The LaunchData for the specific AU
  */
-export interface CMI5LaunchData {
+export interface CMI5LaunchData extends LMSLaunchData
+{
   /** Set by LMS */
   launchMode: LaunchModeTypes;
 
@@ -24,13 +25,15 @@ export interface CMI5LaunchData {
   masteryScore?: number;
 }
 
-export enum LaunchModeTypes {
+export enum LaunchModeTypes
+{
   Normal = 'normal',
   Review = 'review',
   Browse = 'browse'
 }
 
-export enum MoveOnTypes {
+export enum MoveOnTypes
+{
   Completed = 'completed',
   CompletedAndPassed = 'completedAndPassed',
   CompletedOrPassed = 'completedOrPassed',
@@ -38,7 +41,8 @@ export enum MoveOnTypes {
   Passed = 'passed',
 }
 
-export enum LaunchMethodTypes {
+export enum LaunchMethodTypes
+{
   OwnWindow = 'ownWindow',
   AnyWindow = 'anyWindow'
 }

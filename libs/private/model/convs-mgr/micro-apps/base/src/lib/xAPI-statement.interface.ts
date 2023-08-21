@@ -1,6 +1,6 @@
 import { Actor } from "./actor.interface";
 import { AUResult } from "./assignable-unit.interface";
-import { ContextActivities } from "./context-template.interface";
+import { ContextActivities } from "../../../cmi5/src/lib/context-template.interface";
 
 export interface xAPIStatement 
 {

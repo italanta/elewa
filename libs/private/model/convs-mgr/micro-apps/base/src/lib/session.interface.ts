@@ -1,7 +1,7 @@
 import { IObject } from "@iote/bricks";
 
-import { LMSLaunchData } from "./launch-data.interface";
-import { AUStatus } from "./assignable-unit.interface";
+import { LMSLaunchData } from "./lms-launch-data.interface";
+import { AUStatus  } from "./assignable-unit.interface";
 
 /**
  * This is created by the LMS and is used to track the learner's progress through the course.

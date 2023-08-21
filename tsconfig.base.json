@@ -274,6 +274,9 @@
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
+      "@app/private/model/convs-mgr/micro-apps/base": [
+        "libs/private/model/convs-mgr/micro-apps/base/src/index.ts"
+      ],
       "@app/private/model/convs-mgr/micro-apps/cmi5": [
         "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
       ],

@@ -1,6 +1,6 @@
 import { IObject } from "@iote/bricks";
 
-import { LaunchMethodTypes, MoveOnTypes } from "./launch-data.interface";
+import { LaunchMethodTypes, MoveOnTypes } from "../../../cmi5/src/lib/cmi5-launch-data.interface";
 import { AUStatusTypes } from "./au-status-types.enum";
 
 export interface AssignableUnit extends IObject
