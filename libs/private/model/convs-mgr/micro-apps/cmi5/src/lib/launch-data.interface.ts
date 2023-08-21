@@ -3,7 +3,7 @@ import { ContextTemplate } from "./context-template.interface";
 /**
  * The LaunchData for the specific AU
  */
-export interface LMSLaunchData {
+export interface CMI5LaunchData {
   /** Set by LMS */
   launchMode: LaunchModeTypes;
 

@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { FunctionHandler, RestResult200 } from '@ngfi/functions'
 ;
-import { LMSService } from './lms.service';
+import { CMI5LMSService } from './lms.service';
 import { AUService } from './au.service';
 
 export class CMI5Listener extends FunctionHandler<any, { }>
@@ -17,7 +17,7 @@ export class CMI5Listener extends FunctionHandler<any, { }>
     const endUserId = queryData.agent.account.endUserId;
 
     
-    const lms = new LMSService(tools);
+    const lms = new CMI5LMSService(tools);
     
     switch (path) {
       case '/activities/state':
