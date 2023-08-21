@@ -279,6 +279,9 @@
       "@app/private/features/convs-mgr/settings/permissions": [
         "libs/private/features/convs-mgr/settings/permissions/src/index.ts"
       ],
+      "@app/private/features/convs-mgr/settings/user-profile": [
+        "libs/private/features/convs-mgr/settings/user-profile/src/index.ts"
+      ],
       "@app/private/features/convs-mgr/settings/users": [
         "libs/private/features/convs-mgr/settings/users/src/index.ts"
       ],

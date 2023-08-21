@@ -1,0 +1,126 @@
+img {
+  padding: 10px 0;
+}
+
+.text-button {
+  color: var(--kujali-color-primary-blue);
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+.text-button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.label-blue {
+  margin: 10px 0 20px 0;
+  font-weight: 600;
+  color: var(--kujali-color-primary-blue);
+  font-size: 1rem;
+}
+
+.blue {
+  color: var(--kujali-color-primary-blue);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+// .user-profile-picture {
+//   position: absolute;
+//   right: 5%;
+// }
+.user-profile-picture img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.profile-details {
+  padding: 30px 20px;
+  height: 100vh;
+}
+
+.names {
+  width: 100%;
+}
+
+.label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--kujali-color-text-black);
+  font-size: 1rem;
+}
+
+.section-one {
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+  border-bottom: solid #C7CDD7 1px;
+}
+
+.section-two {
+  padding-top: 20px;
+  border-bottom: solid #C7CDD7 1px;
+}
+
+.section-two > div {
+  margin-bottom: 20px;
+}
+
+.your-email {
+  padding: 20px 0 0 0;
+}
+
+.emails-inputs {
+  width: 20%;
+}
+
+.email-button {
+  margin-bottom: 20px;
+  width: fit-content;
+  color: white;
+}
+
+.toolbar {
+  padding: 30px 10px 0 10px;
+  width: 100%;
+}
+
+.spinner {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner p {
+  margin-right: 30px;
+}
+
+::ng-deep .profile-details .names .mat-form-field,
+.emails-inputs .mat-form-field {
+  width: 100%
+}
+
+::ng-deep .profile-details .mat-form-field-infix {
+  border-top-width: 2px !important;
+}
+
+::ng-deep .profile-details .mat-form-field-wrapper {
+  padding: 0px 0px 15px 0px;
+}
+
+button {
+  margin: 4px 0 0 0;
+  height: 42px;
+}
