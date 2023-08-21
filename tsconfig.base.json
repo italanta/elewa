@@ -264,9 +264,6 @@
       "@app/private/elements/convs-mgr/access-control": [
         "libs/private/elements/convs-mgr/access-control/src/index.ts"
       ],
-      "@app/private/features/convs-mgr/admin": [
-        "libs/private/features/convs-mgr/admin/src/index.ts"
-      ],
       "@app/private/features/convs-mgr/analytics": [
         "libs/private/features/convs-mgr/analytics/src/index.ts"
       ],
