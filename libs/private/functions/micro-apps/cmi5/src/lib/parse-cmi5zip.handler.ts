@@ -5,7 +5,8 @@ import { randomUUID } from 'crypto';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult } from '@ngfi/functions';
 
-import { AssignableUnit, CMI5ParserPayload, CourseObjective, CoursePackage } from '@app/private/model/convs-mgr/micro-apps/cmi5';
+import { AssignableUnit, CourseObjective, CoursePackage } from '@app/private/model/convs-mgr/micro-apps/base';
+import { CMI5ParserPayload } from '@app/private/model/convs-mgr/micro-apps/cmi5';
 
 import { UnzipCourse } from './utils/unzip-course.util';
 import { parseXMLConfig } from './utils/parse-xml-config.util';
