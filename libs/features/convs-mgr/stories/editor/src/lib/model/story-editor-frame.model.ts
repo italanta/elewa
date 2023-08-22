@@ -1,4 +1,4 @@
-import { ViewContainerRef } from '@angular/core';
+import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -38,7 +38,8 @@ export class StoryEditorFrame {
     private _jsPlumb: BrowserJsPlumbInstance,
     private _blocksInjector: BlockInjectorService,
     private _viewport: ViewContainerRef,
-    private _connectionsService: BlockConnectionsService
+    private _connectionsService: BlockConnectionsService,
+    private _edf: ElementRef<HTMLElement>
   ) {
     this.loaded = true;
   }
