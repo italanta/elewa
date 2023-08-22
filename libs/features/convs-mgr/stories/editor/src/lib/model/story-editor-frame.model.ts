@@ -1,4 +1,4 @@
-import { ViewContainerRef } from '@angular/core';
+import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -38,7 +38,8 @@ export class StoryEditorFrame {
     private _jsPlumb: BrowserJsPlumbInstance,
     private _blocksInjector: BlockInjectorService,
     private _viewport: ViewContainerRef,
-    private _connectionsService: BlockConnectionsService
+    private _connectionsService: BlockConnectionsService,
+    private _edf: ElementRef<HTMLElement>
   ) {
     this.loaded = true;
   }
@@ -70,6 +71,13 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
+
+    //scroll to the middle of the screen after  the frame and connections have been drawn  
+    this.scroll(this._edf.nativeElement)
+  }
+  //scroll function 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
   }
 
   get jsPlumbInstance(): BrowserJsPlumbInstance {
@@ -101,9 +109,14 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
+    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
+    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
+
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
+    startAnchor.location.nativeElement.style = `position: absolute; left: ${editorWidth}px; top: ${editorHeight}px;`;
+
   }
 
   /**
@@ -215,12 +228,14 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+    const  pageheight = this._edf.nativeElement.offsetHeight/2;
+    const  pagewidth = this._edf.nativeElement.offsetWidth/2;
     const block = {
       id: `${this._cnt}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
-      position: coordinates || { x: 200, y: 50 },
+      position: coordinates || { x: pageheight+(this._cnt*80), y: pagewidth+(this._cnt*40)},
     } as StoryBlock;
 
     this._cnt++;

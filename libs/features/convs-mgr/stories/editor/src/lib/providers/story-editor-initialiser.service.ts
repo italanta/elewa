@@ -31,6 +31,6 @@ export class StoryEditorInitialiserService {
 
     _jsplumb.addClass(container, "jsplumb_instance")
 
-    return new StoryEditorFrame(this._fb, _jsplumb, this._blocksInjector, viewport, this._connectionsService);
+    return new StoryEditorFrame(this._fb, _jsplumb, this._blocksInjector, viewport, this._connectionsService, editorContainer);
   }
 }
