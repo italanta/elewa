@@ -32,6 +32,6 @@ export class UserStore extends UService<iTalUser>
    * Gets all users belonging to the active organisation
    */
   getOrgUsers(activeOrg: string): Observable<iTalUser[]>{
-    return this.getUsersBase(new Query().where('profile.orgIds', 'array-contains', activeOrg))
+    return this.getUsersBase(new Query().where('orgIds', 'array-contains', activeOrg));
   }
 }

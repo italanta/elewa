@@ -35,7 +35,7 @@
     <!-- end Home -->
 
     <!-- Section Active-bots -->
-    <div [routerLink]="['/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_BOTS" [routerLink]="['/stories']" routerLinkActive #rlaBots="routerLinkActive" mat-list-item class="container"
       fxLayout="column">
 
       <div class="menu-item" [class.active]="rlaBots.isActive">
@@ -63,7 +63,7 @@
     <!-- end Active-bots section -->
 
     <!-- Analytics section -->
-    <div [routerLink]="['/analytics']" routerLinkActive #rlaAnalytics="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_ANALYTICS" [routerLink]="['/analytics']" routerLinkActive #rlaAnalytics="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaAnalytics.isActive" [class.hov]="!rlaAnalytics.isActive" fxLayout="column" >
         <div *ngIf="isExpanded" class="menu-item" [class.active]="rlaAnalytics.isActive">
           <i class="fas fa-chart-bar"></i>
@@ -97,7 +97,7 @@
     <!-- end Analytics -->
 
     <!-- Section Chats -->
-    <div [routerLink]="['/chats']" routerLinkActive #rlaChats="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_CHATS" [routerLink]="['/chats']" routerLinkActive #rlaChats="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaChats.isActive" [class.hov]="!rlaChats.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
@@ -113,12 +113,12 @@
     <!-- end Chats -->
 
     <!-- Section Assessments -->
-    <div [routerLink]="['/assessments']" routerLinkActive #rlaAssess="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_ASSESSMENTS" [routerLink]="['/assessments']" routerLinkActive #rlaAssess="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaAssess.isActive" [class.hov]="!rlaAssess.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
-        <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
-          class="menu-item menu-item--one">
+        <div [routerLink]="['/assessments']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+          mat-list-item class="menu-item menu-item--one">
           <i class="far fa-clipboard"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
@@ -129,12 +129,12 @@
     <!-- end Assessments -->
 
     <!-- Section Learners -->
-    <div [routerLink]="['/learners']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container"
+    <div *hasViewAccess="CAN_ACCESS_LEARNERS" [routerLink]="['/learners']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container"
       [class.active]="rlaLearners.isActive" [class.hov]="!rlaLearners.isActive" fxLayout="column">
 
       <div *ngIf="rlaHome.isActive">
-        <div [routerLink]="['/learners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" mat-list-item
-          class="menu-item menu-item--one">
+        <div [routerLink]="['/learners']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          mat-list-item class="menu-item menu-item--one">
           <i matListIcon class="fas fa-users menu-item__tooltip"></i>
           <span *ngIf="isExpanded" class="menu-item__word">
             {{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}
@@ -143,6 +143,16 @@
       </div>
     </div>
     <!-- end Learners -->
+
+    <div *hasViewAccess="CAN_ACCESS_SETTINGS" [routerLink]="['/settings']" routerLinkActive #rlaLearners="routerLinkActive" mat-list-item class="container bottom-container"
+      [class.active]="rlaLearners.isActive" [class.hov]="!rlaLearners.isActive" fxLayout="column">
+      <div class="menu-item">
+        <i matListIcon class="fas fa-cog menu-item__tooltip"></i>
+        <span *ngIf="isExpanded" class="menu-item__word">
+          {{'PAGE-CONTENT.SIDE-MENU.ADMIN_SETTINGS'| transloco }}
+        </span>
+      </div>
+    </div>
 
   </mat-nav-list>
 </div>

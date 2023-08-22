@@ -3,20 +3,21 @@ export const defaultPermissions =  {
     CanAddNewMember: {admin:true, senior:false, junior:false, intern:false},
     CanDeleteMember: {admin:true, senior:false, junior:false, intern:false},
     CanEditMember: {admin:true, senior:false, junior:false, intern:false},
+    CanViewSettings: {admin:true, senior:false, junior:false, intern:false},
   },
-  CompanySettings: {
-    CanViewCompanies: {admin:true, senior:false, junior:false, intern:false},
-    CanCreateCompanies: {admin:true, senior:false, junior:false, intern:false},
-    CanEditCompanies: {admin:true, senior:false, junior:false, intern:false},
-    CanDeleteCompanies: {admin:true, senior:false, junior:false, intern:false},
+  BotsSettings: {
+    CanViewBots: {admin:true, senior:false, junior:false, intern:false},
+    CanCreateBots: {admin:true, senior:false, junior:false, intern:false},
+    CanEditBots: {admin:true, senior:false, junior:false, intern:false},
+    CanDeleteBots: {admin:true, senior:false, junior:false, intern:false},
   },
-  LearnerSettings: {
+  LearnersSettings: {
     CanViewLearners: {admin:true, senior:false, junior:false, intern:false},
     CanCreateLearners: {admin:true, senior:false, junior:false, intern:false},
     CanEditLearners: {admin:true, senior:false, junior:false, intern:false},
     CanDeleteLearners: {admin:true, senior:false, junior:false, intern:false},
   },
-  AssessmentSettings: {
+  AssessmentsSettings: {
     CanViewAssessments: {admin:true, senior:false, junior:false, intern:false},
     CanCreateAssessments: {admin:true, senior:false, junior:false, intern:false},
     CanEditAssessments: {admin:true, senior:false, junior:false, intern:false},
