@@ -71,6 +71,12 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
+
+    //scroll to the middle of the screen when connections are done drawing
+    this.scroll(this._edf.nativeElement)
+  }
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
   }
 
   get jsPlumbInstance(): BrowserJsPlumbInstance {
