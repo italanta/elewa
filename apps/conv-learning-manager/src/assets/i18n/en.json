@@ -103,6 +103,7 @@
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
         "END-BLOCK":"End Block",
+        "CMI5" :"CMI5 Learning package",
         "VIDEO-MODAL": {
           "MAIN-TITLE": "Upload Video",
           "MEDIA-TITLE":"Media Encoding"
@@ -148,6 +149,12 @@
         },
         "VIDEO-MODAL": {
           "APPLY": "Apply"
+        }
+      },
+      "UPLOAD-WARNING" :{
+        "CMI5-BLOCK":{
+          "INVALID-FILE-TYPE":"invalid file type",
+          "PLEASE-SELECT-ZIP-ONLY":"please select a .zip only"
         }
       },
       "CONTENT": {
@@ -221,7 +228,7 @@
       "BOT": "Bots",
       "REPORTS": "Reports",
       "LEARNERS": "Learners",
-      "ADMIN_SETTINGS": "Admin Settings"
+      "ADMIN_SETTINGS": "Settings"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
@@ -248,7 +255,8 @@
       "DOCUMENT-BLOCKS": "Document blocks",
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
-      "MESSAGE-BLOCK": "Message Block"
+      "MESSAGE-BLOCK": "Message Block",
+      "CMI5-BLOCK" :"CMI5 Block"
     },
     "ANALYTICS": {
       "PERIODICALS": {

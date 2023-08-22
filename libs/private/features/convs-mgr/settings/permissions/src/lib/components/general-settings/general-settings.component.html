@@ -1,0 +1,45 @@
+
+
+<mat-accordion>
+  <mat-expansion-panel (opened)="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <p class="main-title">General Settings</p>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div [formGroup]="generalSettingsFormGroup" fxLayout="column" class="general">
+      <div formGroupName="GeneralSettings">
+        <div fxLayout="row" class="titles">
+          <p class="main-title" fxFlex="20%"></p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let role of roles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <p class="title"  fxFlex="20%">{{role}}</p>
+            </div>
+          </div>
+        </div>
+    
+        <div formGroupName="CanAddNewMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Add New Member </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+    
+        <div formGroupName="CanDeleteMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">Can Delete Member</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
