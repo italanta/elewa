@@ -108,7 +108,13 @@ export class CMI5Service extends LMSService<CMI5LaunchData>
     return session.stateData;
   }
 
-  /**  */
+  /** Gets the audio and language preferences of the learner if they have been configured 
+   * 
+   * The documentation allows us to send 403 forbidden if the preferences do not exist and the 
+   *  AU will still continue.
+   * 
+   * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#xapi_agent_profile
+  */
   public async getLearnerPreferences(orgId: string, endUserId: string)
   {
     this.tools.Logger.log(() => '[LMSService].sendLearnerPreferences - Sending learner preferences to AU');
