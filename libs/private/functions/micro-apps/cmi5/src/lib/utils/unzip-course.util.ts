@@ -2,6 +2,12 @@ import * as unzipper from "unzipper";
 
 import { HandlerTools } from "@iote/cqrs";
 
+/**
+ * Unzips the course package and saves the contents to firebase storage.
+ * 
+ * Resolves the promise as soon as the manifest is extracted so that we 
+ *  can parse and process it as the extraction continues.
+ */
 export function UnzipCourse(extractDest: string, srcBucket: any, savedFilePath: string, tools: HandlerTools): Promise<boolean>
 {
   const zippedCMI5 = srcBucket.file(savedFilePath);
