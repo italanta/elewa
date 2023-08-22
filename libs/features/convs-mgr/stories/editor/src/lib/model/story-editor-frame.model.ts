@@ -108,9 +108,14 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
+    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
+    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
+
+    //position the start anchor to center of viewport
+    startAnchor.location.nativeElement.style = `position: absolute; left: ${editorWidth}px; top: ${editorHeight}px;`;
   }
 
   /**
