@@ -227,12 +227,15 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+    const  pageheight = this._edf.nativeElement.offsetHeight/2;
+    const  pagewidth = this._edf.nativeElement.offsetWidth/2;
     const block = {
       id: `${this._cnt}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
-      position: coordinates || { x: 200, y: 50 },
+      // position: coordinates || { x: 200, y: 50 },
+      position: coordinates || { x: pageheight+(this._cnt*80), y: pagewidth+(this._cnt*40)},
     } as StoryBlock;
 
     this._cnt++;
