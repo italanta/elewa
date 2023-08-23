@@ -265,6 +265,9 @@
       "@app/private/features/convs-mgr/analytics": [
         "libs/private/features/convs-mgr/analytics/src/index.ts"
       ],
+      "@app/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
+        "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
+      ],
       "@app/private/functions/analytics/metabase": [
         "libs/private/functions/analytics/metabase/src/index.ts"
       ],

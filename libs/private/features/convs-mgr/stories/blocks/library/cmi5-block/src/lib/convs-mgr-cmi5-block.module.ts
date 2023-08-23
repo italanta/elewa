@@ -16,7 +16,7 @@ import { Cmi5BlockComponent } from './components/cmi5-block/cmi5-block.component
 
 @NgModule({
   imports: [
-        CommonModule,
+    CommonModule,
     MultiLangModule,
     MaterialDesignModule,
     FlexLayoutModule,
