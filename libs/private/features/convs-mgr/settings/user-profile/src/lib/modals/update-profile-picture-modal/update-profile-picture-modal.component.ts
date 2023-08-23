@@ -4,12 +4,13 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { SubSink } from 'subsink';
 
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { ToastService } from '@iote/bricks-angular';
 
 import { TranslateService } from '@ngfi/multi-lang';
-// import { FileStorageService } from '@ngfi/files';
+
+import { FileStorageService } from '@app/state/file';
 
 import { iTalUser } from '@app/model/user';
 
@@ -37,7 +38,7 @@ export class UpdateProfilePictureModalComponent implements OnInit {
 
   constructor(private _dialogRef: MatDialogRef<UpdateProfilePictureModalComponent>,
               @Inject(MAT_DIALOG_DATA) public userData: iTalUser,
-              // private _fileStorage: FileStorageService,
+              private _fileStorage: FileStorageService,
               private _toastService: ToastService,
               private _trl: TranslateService,
               private fireStorage: AngularFireStorage,
@@ -51,13 +52,14 @@ export class UpdateProfilePictureModalComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0].name;
+    const file = event.target.files[0];
+    const fileName =file.name;
 
-    const fileExtension = file.split('.').pop();
+    const fileExtension = fileName.split('.').pop();
 
     if (this.checkFileExtension(fileExtension)) {
       this.disableBtn = false;
-      return this.sendPhoto(event);
+      return this.sendPhoto(file, fileName);
     } else {
       this.disableBtn = true;
       this._toastService.doSimpleToast(
@@ -67,28 +69,17 @@ export class UpdateProfilePictureModalComponent implements OnInit {
     }
   }
 
-  sendPhoto(event: any) {
-    // this._sbS.sink = this._fileStorage
-    //   .uploadSingleFile(event, this.n)
-    //   .subscribe({
-    //     complete: () => {
-    //       this.downloadURL = this.fileRef.getDownloadURL();
-    //       this.downloadURL.subscribe((url) => {
-    //         if (url) {
-    //           this.fileUrl = url;
-    //           this.updatePhotoUrl();
-    //         }
-    //       });
-    //     },
-    //   });
+  async sendPhoto(file: any, fileName: string) {
+    let url =  await this._fileStorage.uploadSingleFile(file, `orgs/${this.userData.activeOrg}/profileImages/${fileName}`);
+    this._sbS.sink = url.pipe(take(1)).subscribe((url) => this.updatePhotoUrl(url));
   }
 
   onUploadProfilePic() {
     this.exitModal();
   }
 
-  updatePhotoUrl() {
-    this._userService.updateUserPhotoUrl(this.userData, this.fileUrl);
+  updatePhotoUrl(url: string) {
+    this._userService.updateUserPhotoUrl(this.userData, url);
   }
 
   exitModal = () => this._dialogRef.close();

@@ -53,7 +53,7 @@ export class PermissionsStore extends Store<CLMPermissions>
   }
 
   createInitialDoc() {
-    let repo =  this._dataProvider.getRepo<CLMPermissions>(`orgs/YK1npH7ucyZv1cOBIvhnz4XLaz93/config`);
+    let repo =  this._dataProvider.getRepo<CLMPermissions>(`orgs/mGwoKfi1aLNcvax6vrZwPUEHPO93/config`);
 
     repo.write(defaultPermissions as any, 'permissions').subscribe();
   }

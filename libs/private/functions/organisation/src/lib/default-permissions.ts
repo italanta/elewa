@@ -1,34 +1,34 @@
-export const defaultPermissions =  {
+export const defaultPermissions = {
   GeneralSettings: {
-    CanAddNewMember: {admin:true, senior:false, junior:false, intern:false},
-    CanDeleteMember: {admin:true, senior:false, junior:false, intern:false},
-    CanEditMember: {admin:true, senior:false, junior:false, intern:false},
-    CanViewSettings: {admin:true, senior:false, junior:false, intern:false},
+    CanAddNewMember: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanDeleteMember: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanEditMember: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanViewSettings: { Admin: true, Viewer: false, ContentDeveloper: false },
   },
   BotsSettings: {
-    CanViewBots: {admin:true, senior:false, junior:false, intern:false},
-    CanCreateBots: {admin:true, senior:false, junior:false, intern:false},
-    CanEditBots: {admin:true, senior:false, junior:false, intern:false},
-    CanDeleteBots: {admin:true, senior:false, junior:false, intern:false},
+    CanViewBots: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanCreateBots: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanEditBots: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanDeleteBots: { Admin: true, Viewer: false, ContentDeveloper: false },
   },
   LearnersSettings: {
-    CanViewLearners: {admin:true, senior:false, junior:false, intern:false},
-    CanCreateLearners: {admin:true, senior:false, junior:false, intern:false},
-    CanEditLearners: {admin:true, senior:false, junior:false, intern:false},
-    CanDeleteLearners: {admin:true, senior:false, junior:false, intern:false},
+    CanViewLearners: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanCreateLearners: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanEditLearners: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanDeleteLearners: { Admin: true, Viewer: false, ContentDeveloper: false },
   },
   AssessmentsSettings: {
-    CanViewAssessments: {admin:true, senior:false, junior:false, intern:false},
-    CanCreateAssessments: {admin:true, senior:false, junior:false, intern:false},
-    CanEditAssessments: {admin:true, senior:false, junior:false, intern:false},
-    CanDeleteAssessments: {admin:true, senior:false, junior:false, intern:false},
+    CanViewAssessments: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanCreateAssessments: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanEditAssessments: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanDeleteAssessments: { Admin: true, Viewer: false, ContentDeveloper: false },
   },
   ChatsSettings: {
-    CanViewChats: {admin:true, senior:false, junior:false, intern:false},
-    CanManageChats: {admin:true, senior:false, junior:false, intern:false},
+    CanViewChats: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanManageChats: { Admin: true, Viewer: false, ContentDeveloper: false },
   },
   AnalyticsSettings: {
-    CanViewAnalytics: {admin:true, senior:false, junior:false, intern:false},
-    CanManageAnalytics: {admin:true, senior:false, junior:false, intern:false},
+    CanViewAnalytics: { Admin: true, Viewer: false, ContentDeveloper: false },
+    CanManageAnalytics: { Admin: true, Viewer: false, ContentDeveloper: false },
   }
 }
