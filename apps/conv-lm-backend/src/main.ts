@@ -17,3 +17,4 @@ export * from './app/analytics//get-metabase-url.function';
 export * from './app/bot/messenger/messenger-receive-message.function';
 
 export * from './app/user/create-new-user.function';
+export * from './app/user/organisation-assign.function';
