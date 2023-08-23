@@ -722,6 +722,7 @@
       "tags": []
     },
     "functions-base": "libs/functions/base",
+    "functions-user": "libs/functions/user",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-messenger": {
       "root": "libs/functions/bot-engine/messenger",
