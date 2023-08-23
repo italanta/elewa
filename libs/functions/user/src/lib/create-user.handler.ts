@@ -17,7 +17,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
     this._tools = tools;
     this._tools.Logger.debug(() => `Beginning Execution, Creating a new User`);
 
-    this.userExists(userData.email, userData);
+    return this.userExists(userData.email, userData);
   }
 
   private async userExists(email: string, userData: iTalUser) {
