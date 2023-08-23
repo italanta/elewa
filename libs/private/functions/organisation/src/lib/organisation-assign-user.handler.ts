@@ -55,11 +55,11 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
         adminUser.roles[org.id!] = adminRight;
         adminUser.activeOrg = org.id!;
 
-        if (!adminUser.orgs) {
-          adminUser.orgs = [];
+        if (!adminUser.orgIds) {
+          adminUser.orgIds = [];
         }
         
-        adminUser.orgs.push(org.id!);
+        adminUser.orgIds.push(org.id!);
 
         // Update the user object
         userRepo.write(adminUser, org.createdBy)
