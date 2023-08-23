@@ -32,7 +32,7 @@ export class CMI5BlockService {
     const fileName = file.name;
 
     const downloadUrl = from(
-      this.fileStorageService.uploadSingleFile(file, filePath)
+      await this.fileStorageService.uploadSingleFile(file, filePath)
     );
     return downloadUrl.pipe(
       switchMap((url) =>
