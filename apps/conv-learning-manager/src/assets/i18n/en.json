@@ -10,7 +10,7 @@
     "CREATE-ACCOUNT": "Create account",
     "LOGIN-FORM": {
       "SUBMIT": "Login",
-      "PROCEED": "PROCEED",
+      "PROCEED": "Log In",
       "PLACEHOLDER": {
         "EMAIL": "Email is required",
         "PASSWORD": "************",
@@ -22,6 +22,15 @@
       "LABELS" : {
         "EMAIL": "Enter Email",
         "PASSWORD": "Enter Password"
+      },
+      "MESSAGE" : {
+        "WELCOME": "Welcome Back",
+        "LOGIN-TO-CONTINUE": "Enter your credentials to access your account",
+        "WITH-GOOGLE": "Log In with Google",
+        "WITH-MICROSOFT": "Log In with Microsoft",
+        "WITH-FACEBOOK": "Log In with Facebook",
+        "NO-ACCOUNT": "Don't have an account?",
+        "HAVE-ACCOUNT": "Already have an account?"
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
