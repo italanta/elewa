@@ -16,6 +16,7 @@ import { MessagesDataService } from '../services/data-services/messages.service'
 import { ProcessMessageService } from '../services/process-message/process-message.service';
 import { BotMediaProcessService } from '../services/media/process-media-service';
 import { BotEngineJump } from '../services/bot-engine-jump.service';
+import { EnrolledUserDataService } from '../services/data-services/enrolled-user.service';
 
 export class MoveChatHandler extends FunctionHandler<{ storyId: string, orgId: string, endUserId: string, blockId?: string}, RestResult>
 {

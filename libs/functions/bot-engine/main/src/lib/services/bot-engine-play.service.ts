@@ -80,9 +80,9 @@ export class BotEnginePlay implements IBotEnginePlay
 
     // If the last block sent was media, we wait for 500ms 
     //  before replying as media processing can take a while
-    if(this.blockSent && isMediaBlock(this.blockSent.type) && !isMediaBlock(nextBlock.type)) {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-    } 
+    // if(this.blockSent && isMediaBlock(this.blockSent.type) && !isMediaBlock(nextBlock.type)) {
+    //   await new Promise(resolve => setTimeout(resolve, 1500));
+    // } 
 
     await this.__reply(nextBlock, endUser, message);
 
@@ -130,7 +130,7 @@ export class BotEnginePlay implements IBotEnginePlay
       const currentStory  = endUserPosition.position.storyId;
 
       // If the end user exists, then we continue the story by returning the next block.
-      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser.id, this.orgId, currentStory, this._tools);
+      return this._processMessageService$.resolveNextBlock(message, endUserPosition, endUser, this.orgId, currentStory, this._tools);
     }
   }
 

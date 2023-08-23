@@ -1,19 +1,40 @@
-
 <div *ngIf="user$ | async as user" class="user-component">
 
-  <img *ngIf="user.photoUrl; else avatar" class="user-photo" [src]="user.photoUrl" alt="">
-  <ng-template #avatar>
-    <i class="far fa-user-circle user-photo"></i> 
-  </ng-template>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
 
-  <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
-    {{ user.displayName }}
-    <i class="fas fa-caret-down"></i>
-  </button>
+    <div class="switchOrg" *ngIf="userOrgs">
+      <div *ngIf="userOrgs.length == 1; else multipleOrgs">
+        <p class="orgNameOne"> {{userOrgs[0].name}}</p>
+      </div>
+      <ng-template #multipleOrgs>
+        <mat-form-field appearance="outline">
+          <mat-select [value]="organisation" (selectionChange)="switchOrg($event.value)" [compareWith]="compareFn">
+            <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
+              (filteredReturn)="filteredOrgs =$event"></mat-select-filter>
+            <mat-option *ngFor="let org of filteredOrgs" [value]="org">
+              {{org.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-template>
+    </div>
 
-  <mat-menu #userMenu="matMenu" xPosition="before">
-    <button mat-menu-item>My profile</button>
-    <button mat-menu-item (click)="logout()">Log out</button>
-  </mat-menu>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <img *ngIf="user.photoUrl; else avatar" class="user-photo" [src]="user.photoUrl" alt="">
+      <ng-template #avatar>
+        <i class="far fa-user-circle user-photo"></i>
+      </ng-template>
+
+      <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
+        {{ user.displayName }}
+        <i class="fas fa-caret-down"></i>
+      </button>
+
+      <mat-menu #userMenu="matMenu" xPosition="before">
+        <button mat-menu-item>My profile</button>
+        <button mat-menu-item (click)="logout()">Log out</button>
+      </mat-menu>
+    </div>
+  </div>
 
 </div>

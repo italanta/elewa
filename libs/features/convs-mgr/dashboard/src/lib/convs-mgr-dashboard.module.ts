@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { GroupBasedProgressModule } from '@app/features/analytics/group-based/progress';
+import { GroupBasedProgressModule } from '@app/features/monitoring';
 
 import { DashboardPage } from './pages/dashboard/dashboard.page';
 

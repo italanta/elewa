@@ -2,7 +2,7 @@
   <div [formGroup]="questionFormGroup">
         <div formArrayName="options">
           <div *ngFor="let choice of choicesList.controls; let i = index">
-            <app-assessment-answer [assessmentMode]="assessmentMode" [questionFormGroup]="questionFormGroup" [answerFormGroupName]="i"></app-assessment-answer>
+            <app-assessment-answer (deleteChoice)="deleteChoice($event)" [questionFormGroup]="questionFormGroup" [answerFormGroupName]="i"></app-assessment-answer>
           </div>
       </div>
   </div>

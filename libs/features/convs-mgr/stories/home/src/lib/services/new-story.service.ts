@@ -127,10 +127,13 @@ export class NewStoryService implements OnDestroy {
   }
 
   createStoryEndBlock(orgId: string, storyId: string) {
+    //TODO: offset using element Ref
+    const fakeOffsetX = (20000/2 + 800)
+    const fakeOffsetY = (20000/2)
     const endBlock: EndStoryAnchorBlock = {
       id: 'story-end-anchor',
       type: StoryBlockTypes.EndStoryAnchorBlock,
-      position: { x: 200, y: 100 },
+      position: { x: fakeOffsetX, y: fakeOffsetY},
       deleted: false,
       blockTitle: 'End here',
       blockIcon: '',

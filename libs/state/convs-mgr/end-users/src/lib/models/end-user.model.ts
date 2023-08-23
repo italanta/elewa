@@ -7,7 +7,7 @@ export interface EndUserDetails {
   user: EndUser;
 
   /** The user's name.*/
-  name: any;
+  name: string;
 
   /** The user's list of cursors. */
   cursor: Cursor[];
@@ -21,4 +21,10 @@ export interface EndUserDetails {
    * This is important for optimisations when visualising data(results table and result graph)
   */
   selectedAssessmentCursor?: AssessmentCursor
+
+  /**
+   * Additional properties that can be accessed using a string index - (for the matDataSource sortingDataAccessor).
+   * @type {any}
+  */
+  [key: string]: any; 
 }

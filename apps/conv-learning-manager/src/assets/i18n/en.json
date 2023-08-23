@@ -103,6 +103,7 @@
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
         "END-BLOCK":"End Block",
+        "CMI5" :"CMI5 Learning package",
         "VIDEO-MODAL": {
           "MAIN-TITLE": "Upload Video",
           "MEDIA-TITLE":"Media Encoding"
@@ -150,6 +151,12 @@
           "APPLY": "Apply"
         }
       },
+      "UPLOAD-WARNING" :{
+        "CMI5-BLOCK":{
+          "INVALID-FILE-TYPE":"invalid file type",
+          "PLEASE-SELECT-ZIP-ONLY":"please select a .zip only"
+        }
+      },
       "CONTENT": {
         "VIDEO-MODAL" : {
           "MEDIA": {
@@ -178,7 +185,31 @@
           "CHECKBOX": "Custom Variable"
         },
         "VIDEO-MODAL": {
-          "NAME": "Give This media Item a Name"
+          "NAME": "Give This media Item a Name",
+          "UPDATE": "Update Video"
+        }
+      }, 
+      "SIZE-LIMIT-MESSAGE": {
+        "WHATSAPP" : {
+          "AUDIO": {
+            "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "audio exceeds 16MB file Limit."
+          }, 
+          "VIDEO": {
+            "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
+          },
+          "DOCUMENT": {
+            "MESSAGE-ONE": "Document cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "document exceeds 100MB file Limit."
+          },
+          "STICKER": {
+            "MESSAGE-ONE": "Sticker cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "sticker exceeds 500kB file Limit."
+          },
+          "IMAGE": {
+            "MESSAGE-ONE": "Image cannot be sent to whatsapp,",
+            "MESSAGE-TWO": "image exceeds 5MB file Limit."
+          }
         }
       }
     },
@@ -193,7 +224,11 @@
       "ANALYTICS": "Analytics",
       "CHATS": "Chats",
       "ASSESSMENTS": "Assessments",
-      "LOG-OUT": "Logout"
+      "LOG-OUT": "Logout",
+      "BOT": "Bots",
+      "REPORTS": "Reports",
+      "LEARNERS": "Learners",
+      "ADMIN_SETTINGS": "Settings"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
@@ -220,7 +255,8 @@
       "DOCUMENT-BLOCKS": "Document blocks",
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
-      "MESSAGE-BLOCK": "Message Block"
+      "MESSAGE-BLOCK": "Message Block",
+      "CMI5-BLOCK" :"CMI5 Block"
     },
     "ANALYTICS": {
       "PERIODICALS": {
@@ -393,6 +429,56 @@
       }
     }
   },
+  "LEARNERS":{
+    "TABLE-HEADER": {
+      "NAME": "Name",
+      "PHONENUMBER": "PhoneNumber",
+      "COURSE": "Course",
+      "CLASS": "Class",
+      "STATUS": "Status"
+    },
+    "PLACEHOLDERS":{
+      "SEARCH-PLACEHOLDER": "Search input by name"
+    },
+    "BUTTONS": {
+      "ADD-TO-CLASS": "Add to Class",
+      "BULK-ACTIONS": "Bulk Actions",
+      "CLASS": "Class",
+      "COURSE": "Course",
+      "PLATFORM": "Platform",
+      "GO-TO-CHAT": "Go to Chat"
+    },
+    "MODALS": {
+      "ACTIONS": "Actions",
+      "SEND-INVITATION":"Send Invitation",
+      "SEND-REMINDER":"Send Reminder",
+      "CANCEL":"Cancel",
+      "CONTINUE":"Continue"
+    },
+    "PLATFORM": {
+      "WHATSAPP": "Whatsapp",
+      "MESSENGER": "Messenger"
+      
+    },
+    "PILLS": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
+    "LEARNER-DETAIL-TAB": {
+      "PAGE-TITLE": "Learner Detail Tab",
+      "DETAILS": {
+        "COURSES-ENROLLED": "Courses Enrolled",
+        "ASSESSMENT-HISTORY": "Assessment History",
+        "ENROLLED-ON": "Enrolled On",
+        "ASSESSMENT-HISTORY-TABLE": {
+          "ASSESSMENT-NAME": "Assessment Name",
+          "SCORE-CATEGORY": "Score Category",
+          "DURATION-TAKEN": "Duration Taken",
+          "DATE-TAKEN": "Date Taken"
+        }
+      }
+    }
+  },
   "TOAST": {
     "EDIT-BOT": {
       "SUCCESSFUL": "Edit operation was successful",
@@ -405,5 +491,23 @@
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
+  },
+  "ADMIN-SETTINGS": {
+    "TEAM-SECTION" : {
+      "TITLE": "Team",
+      "DESCRIPTION": "Invite and/or manage Team Members within your organization",
+      "BUTTONS": {
+        "ADD-MEMBER": "Add Member"
+      },
+      "MODAL": {
+        "TITLE": "Add Member",
+        "DESC": "Invite a team member via their email address",
+        "EMAIL-ERROR": "Email is invalid",
+        "SELECT-ROLE": "Select Role"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Select page of team members"
+      }
+    }
   }
 }

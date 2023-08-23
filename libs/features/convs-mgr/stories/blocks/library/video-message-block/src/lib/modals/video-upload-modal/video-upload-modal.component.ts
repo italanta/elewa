@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -15,6 +15,11 @@ export class VideoUploadModalComponent implements OnInit {
   videoPath: string;
   isUploading: boolean;
   selectedFile: File;
+  byPassedLimits: any[] = [];
+  whatsappLimit: boolean;
+  messengerLimit: boolean;
+
+  @ViewChild('inputUpload') input: ElementRef<HTMLInputElement>;
 
   readonly defaultSize = "Don't Encode Media";
 
@@ -35,11 +40,17 @@ export class VideoUploadModalComponent implements OnInit {
     private dialogRef: MatDialogRef<VideoUploadModalComponent>,
     private _videoUploadService: FileStorageService,
     @Inject(MAT_DIALOG_DATA) public data: { videoMessageForm: FormGroup }
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.videoModalForm = this.data.videoMessageForm;
     this.videoPath = this.videoModalForm.controls['fileSrc'].value;
+
+    const fileSize = this.videoModalForm.get('fileSize')?.value;
+
+    if (fileSize) {
+      this._checkSizeLimit(fileSize);
+    };
   }
 
   closeModal() {
@@ -50,8 +61,16 @@ export class VideoUploadModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  openFileExplorer() {
+    this.input?.nativeElement.click();
+  }
+
   onVideoSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
+
+    // Check if file bypasses size limit.
+    const fileSizeInKB = this.selectedFile.size / 1024;
+    this._checkSizeLimit(fileSizeInKB);
 
     if (this.selectedFile) {
       const reader = new FileReader();
@@ -69,20 +88,27 @@ export class VideoUploadModalComponent implements OnInit {
     const name = this.videoModalForm.controls['fileName'].value;
     const videoName = name ? name : this.selectedFile.name;
 
-    const res = await this._videoUploadService.uploadSingleFile(
-      this.selectedFile,
-      videoName
-    );
+    const fileSizeInKB = this.selectedFile.size / 1024;
+    const res = await this._videoUploadService.uploadSingleFile(this.selectedFile, `videos/${videoName}`);
 
     res.subscribe((url) => {
-      this._autofillVideoUrl(url, videoName);
-      this.isUploading = false;
+      this._autofillVideoUrl(url, videoName, fileSizeInKB);
       this.dialogRef.close();
     });
   }
+  
+  /** Step 3 Check if file bypasses size limit. */
+  private _checkSizeLimit(size:number) {
+    this.byPassedLimits = this._videoUploadService.checkFileSizeLimits(size, 'video');
 
-  private _autofillVideoUrl(url: string, videoName: string) {
-    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName });
+    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
+    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
+  };
+  
+  private _autofillVideoUrl(url: string, videoName: string, fileSize: number) {
+    this.isUploading = false;
+    this.videoModalForm.patchValue({ fileSrc: url, fileName: videoName, fileSize });
     this.videoPath = url;
   }
 }
+

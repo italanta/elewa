@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="stickerMessageForm">
 	<form [formGroup]="stickerMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-		<div [id]="stickerInputId" class="audio_bg">
+		<div [id]="stickerInputId" class="sticker_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
 			<div (click)="stickerInput.click()" class="sticker-icon" *ngIf="!this.block.fileSrc && !isLoadingSticker">
 				<i class="fas fa-plus"></i>
 			</div>
@@ -14,6 +14,11 @@
 			<div>
 				<input #stickerInput type="file" class="fileSrc" accept=".svg, .gif, .webp" (change)="processSticker($event)">
 			</div>
+		</div>
+
+		<div class="error-message" *ngIf="whatsappLimit">
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.STICKER.MESSAGE-ONE' | transloco }}</span><br>
+			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.STICKER.MESSAGE-TWO' | transloco }}</span>
 		</div>
 
 		<input formControlName="fileSrc" type="text"

@@ -1,0 +1,90 @@
+.users {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px;
+}
+
+button {
+  margin: 4px 0 0 0;
+  height: 42px;
+}
+
+table {
+  width: 100%;
+}
+
+.btn {
+  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  color: white!important;
+}
+
+.table-container {
+  margin-top: 30px;
+  position: relative;
+  min-height: 200px;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.mdc-data-table__header-cell {
+  color: var(--convs-mgr-color-primary-yellow) !important;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+  border-bottom: 1px solid var(--convs-mgr-color-primary-black);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.menu-button {
+  color: black!important;
+}
+
+.mat-menu-item {
+  color: black!important;
+}
+
+.new-clm-user {
+  padding: 30px 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: var(--convs-mgr-color-primary-yellow);
+}
+
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%!important;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
+}
+
+:host ::ng-deep .mat-elevation-z8, .mat-mdc-elevation-specific.mat-elevation-z8 {
+  box-shadow: none!important;
+}

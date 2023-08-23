@@ -49,6 +49,7 @@ environment.ts
 environment.prod.ts
 apps/conv-lm-backend/src/environments/environment.ts
 apps/conv-lm-backend/src/environments/environment.prod.ts
+.env
 
 *.icloud
 package-lock.json
