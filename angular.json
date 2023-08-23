@@ -852,34 +852,6 @@
       },
       "tags": []
     },
-    "libs-private-features-convs-mgr-stories-blocks-library-cmi5-block": {
-      "projectType": "library",
-      "root": "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block",
-      "sourceRoot": "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block"
-          ],
-          "options": {
-            "jestConfig": "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.ts",
-              "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
       "sourceRoot": "libs/model/analytics/group-based/progress/src",
@@ -1237,6 +1209,34 @@
             "lintFilePatterns": [
               "libs/private/features/convs-mgr/settings/users/**/*.ts",
               "libs/private/features/convs-mgr/settings/users/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-stories-blocks-library-cmi5-block": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block",
+      "sourceRoot": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.ts",
+              "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.html"
             ]
           }
         }
