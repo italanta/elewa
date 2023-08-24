@@ -4,6 +4,23 @@
       "SWITCH-LANG": "Switch language"
     }
   },
+  "ORGS": {
+    "FORM" : {
+      "TITLE": "Create Organisation",
+      "NAME": "Name",
+      "VAT": "VAT Number",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "ADDRESS": "Address",
+      "COUNTRY": "Country",
+      "CITY": "City",
+      "POSTAL-CODE": "Postal Code",
+      "STREET": "Street Name",
+      "POSTAL-ADDRESS": "Postal Address",
+      "WAIT": "Please wait",
+      "CREATE-ORG": "Submit"
+    }
+  },
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "or",

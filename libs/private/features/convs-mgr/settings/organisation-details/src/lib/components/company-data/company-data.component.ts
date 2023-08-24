@@ -77,7 +77,7 @@ export class CompanyDataComponent implements OnInit {
 
   updateOrg() {
     let orgFormData = this.orgDataFormGroup.value;
-    this._orgService$$.updateOrgDetails(orgFormData);
+    this._orgService$$.updateOrgDetails(orgFormData, orgFormData.logoUrl);
   }
 
   newCompanyLogo() {

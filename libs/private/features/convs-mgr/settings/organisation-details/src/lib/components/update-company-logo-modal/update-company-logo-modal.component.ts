@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { ToastService } from '@iote/bricks-angular';
 
@@ -12,7 +12,8 @@ import { TranslateService } from '@ngfi/multi-lang';
 import { Organisation } from '@app/model/organisation';
 
 import { OrganisationService } from '@app/private/state/organisation/main';
-// import { FileStorageService } from '@app/features/files';
+
+import { FileStorageService } from '@app/state/file';
 
 @Component({
   selector: 'update-company-logo-modal',
@@ -28,7 +29,7 @@ export class UpdateCompanyLogoModalComponent implements OnInit {
 
   constructor(private _dialogRef: MatDialogRef<UpdateCompanyLogoModalComponent>,
               @Inject(MAT_DIALOG_DATA) public org: Organisation,
-              // private _fileStorageService$$: FileStorageService,
+              private _fileStorageService$$: FileStorageService,
               private _toastService: ToastService,
               private _trl: TranslateService,
               private _orgService: OrganisationService
@@ -58,10 +59,9 @@ export class UpdateCompanyLogoModalComponent implements OnInit {
 
   private async getPhotoUrl (file: File, fileName: string) {
     let uploadPath = `orgs/${this.org.id}/logo/${fileName}`;
-    // let ref = await this._fileStorageService$$.uploadSingleFile(uploadPath, file);
-    // let photoUrl =  await ref.getDownloadURL();
+    let ref = await this._fileStorageService$$.uploadSingleFile(file, uploadPath);
 
-    // this.updatePhotoUrl(photoUrl);
+    this._sbS.sink = ref.pipe(take(1)).subscribe((url) => this.updatePhotoUrl(url));
   }
 
   onUploadProfilePic() {

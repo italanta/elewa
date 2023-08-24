@@ -42,7 +42,7 @@
       <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
         <p class="label">Your Photo</p>
 
-        <img [src]="user.photoUrl" alt="">
+        <img style="border-radius: 20px;" [src]="user.photoUrl" alt="">
 
         <div fxLayout="row" fxLayoutAlign="space-between start">
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" style="margin-right: 10px;" (click)="newProfileImg()" mat-stroked-button> Upload</button>

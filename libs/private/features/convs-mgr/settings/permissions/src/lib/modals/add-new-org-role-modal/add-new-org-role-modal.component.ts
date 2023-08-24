@@ -37,10 +37,11 @@ export class AddNewOrgRoleModalComponent implements OnInit {
   saveNewRole() {
     if (this.org) {
       this.creatingNewRole = true;
-      this.updateRoleOnObjects(this.data, this.role.value);
+      const role = this.camelize(this.role.value)
+      this.updateRoleOnObjects(this.data, role);
 
       let orgRoles = this.org.roles;
-      orgRoles.push(this.role.value);
+      orgRoles.push(role);
       this.org.roles = orgRoles;
 
       this._orgService$$.updateOrgDetails(this.org);
@@ -63,5 +64,15 @@ export class AddNewOrgRoleModalComponent implements OnInit {
       this.creatingNewRole = false; 
       this.dialogRef.close();
     });
+  }
+
+  camelize(str: string) {
+    let camelCase = str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+      if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+      return index === 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+    
+    camelCase = camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+    return camelCase;
   }
 }

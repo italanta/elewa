@@ -13,8 +13,8 @@
         <div fxLayout="row" class="titles">
           <p class="main-title" fxFlex="20%"></p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-            <div *ngFor="let role of roles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <p class="title"  fxFlex="20%">{{role}}</p>
+            <div *ngFor="let role of viewRoles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <p class="title"  style="text-align: center;">{{role}}</p>
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
           <p class="title" fxFlex="20%">Can View Chats</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
           <p class="title" fxFlex="20%"> Can Manage Chats</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" fxFlex="20%"></mat-slide-toggle>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
             </div>
           </div>
         </div>
