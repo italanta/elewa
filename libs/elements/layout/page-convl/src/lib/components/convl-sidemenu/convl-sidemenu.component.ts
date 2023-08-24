@@ -1,7 +1,11 @@
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
+
+import { AppClaimDomains } from '@app/private/model/access-control';
+
 import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
+import { PermissionsStore } from '@app/private/state/organisation/main';
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -23,10 +27,17 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
 
   isExpanded:boolean;
 
+  readonly CAN_ACCESS_BOTS = AppClaimDomains.BotsView;
+  readonly CAN_ACCESS_ANALYTICS = AppClaimDomains.AnalyticsView;
+  readonly CAN_ACCESS_CHATS = AppClaimDomains.ChatsView;
+  readonly CAN_ACCESS_LEARNERS = AppClaimDomains.LearnersView;
+  readonly CAN_ACCESS_ASSESSMENTS = AppClaimDomains.AssessmentsView;
+  readonly CAN_ACCESS_SETTINGS = AppClaimDomains.SettingsView;
 
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
               private sideMenu:SidemenuToggleService,
+              private _ps: PermissionsStore,
               @Inject('ENVIRONMENT') private _env: any)
   {
     this._sbS.sink = this.sideMenu.menuStatus$.subscribe(
@@ -45,6 +56,10 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
   toggleMenu () {
     this.sideMenu.toggleExpand(!this.isExpanded)
     
+  }
+
+  addPers() {
+    this._ps.createInitialDoc();
   }
 
   ngOnDestroy()

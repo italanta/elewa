@@ -31,7 +31,7 @@ export class ActiveOrgStore extends Store<Organisation>
     this._sbS.sink = combineLatest([orgs$, _user$$.getUser()]) // route$])
                         .subscribe(([orgs, user]) => //route
     {
-      const orgId = (user as iTalUser).activeOrg || (user as User).id as string;
+      const orgId = (user as User).id as string;
 
       const org = orgs.find(o => o.id === orgId);
       

@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import {  FormArray, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import { AssessmentOptionValue, AssessmentQuestionOptions } from '@app/model/convs-mgr/conversations/assessments';
+import { AssessmentOptionValue } from '@app/model/convs-mgr/conversations/assessments';
 
 @Component({
   selector: 'app-assessment-answer',
@@ -9,18 +9,22 @@ import { AssessmentOptionValue, AssessmentQuestionOptions } from '@app/model/con
   styleUrls: ['./assessment-answer.component.scss'],
 })
 export class AssessmentAnswerComponent  {
-  @Input() answer: AssessmentQuestionOptions = {} as AssessmentQuestionOptions;
-  @Input() assessmentMode: number;
-
   @Input() questionFormGroup: FormGroup;
-  @Input() answerFormGroupName: number | string;
+  @Input() answerFormGroupName: number;
+
+  @Output() deleteChoice = new EventEmitter<number>();
+
+  showFeedback = false;
 
   correct = AssessmentOptionValue.Correct;
   wrong = AssessmentOptionValue.Wrong;
   fiftyFifty = AssessmentOptionValue.FiftyFifty;
 
-  get answerFormGroup(){
-    const answerForms = this.questionFormGroup.get('options') as FormArray;
-    return answerForms.controls[this.answerFormGroupName as number] as FormGroup;
+  setFeedback() {
+    this.showFeedback = !this.showFeedback;
+  }
+
+  delete() {
+    this.deleteChoice.emit(this.answerFormGroupName);
   }
 }

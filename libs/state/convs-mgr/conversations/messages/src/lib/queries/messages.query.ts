@@ -20,6 +20,7 @@ export class MessagesQuery
 {
   protected _qRepo: Repository<Message>;
   private _activeChat: Chat;
+  private orgId?: string;
 
   constructor(
                 private _activeOrg: ActiveOrgStore,
@@ -27,18 +28,16 @@ export class MessagesQuery
                private _dataService: DataService,
                protected _logger: Logger)
   {
-    // _activeChat$.get()
-    //             .subscribe(chat => this._activeChat = chat);
+    _activeOrg.get().subscribe(org => this.orgId = org.id);
   }
 
   getPaginator(chat: Chat)
   {
-    const orgId = this._activeOrg._activeOrg; 
     
     this._activeChat = chat;
     
     return new PaginatedScroll<Message>
-                  ({ path: [`orgs/${orgId}/end-users`, this._activeChat.id, 'messages'],
+                  ({ path: [`orgs/${this.orgId}/end-users`, this._activeChat.id, 'messages'],
                      limit: 20,
                      orderByField: 'createdOn',
                      orderByFn: (date: Date) => __DateFromStorage(date).unix,
@@ -48,9 +47,8 @@ export class MessagesQuery
   }
 
   getLatestMessageDate(chatId: string) {
-    const orgId = this._activeOrg._activeOrg;
     
-    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${orgId}/end-users/${chatId}/messages`);
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${this.orgId}/messages`);
 
     const messages = messagesRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));  
 
@@ -58,9 +56,8 @@ export class MessagesQuery
   }
 
   addMessage(message: Message) {
-    const orgId = this._activeOrg._activeOrg;
 
-    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${orgId}/end-users/${this._activeChat.id}/messages`);
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${this._activeChat.id}/messages`);
 
     return messagesRepo$.create(message, Date.now().toString());
   }

@@ -1,0 +1,61 @@
+<mat-accordion>
+  <mat-expansion-panel (opened)="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <p class="main-title">Learners Settings</p>
+      </mat-panel-title>
+      <mat-panel-description>
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div [formGroup]="learnerSettingsFormGroup" fxLayout="column" class="companies">
+      
+      <div formGroupName="LearnersSettings">
+        <div fxLayout="row" class="titles">
+          <p class="main-title" fxFlex="20%"></p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let role of viewRoles" color="primary" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <p class="title"  style="text-align: center;">{{role}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanViewLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%">Can View Learners</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanCreateLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Create Learners</p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanEditLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Edit Learners </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="CanDeleteLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
+          <p class="title" fxFlex="20%"> Can Delete Learners </p>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+            <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,20 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog'
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 import { SubSink } from 'subsink';
 
-import { combineLatest, filter, map } from 'rxjs';
+import { combineLatest, concatMap, filter, map } from 'rxjs';
 
 import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 
-import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { ActiveStoryStore, StoriesStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/state/organisation';
+import { FileStorageService } from '@app/state/file';
 
 import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { TelegramCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { ManageChannelStoryLinkService } from '../../providers/manage-channel-story-link.service';
 
@@ -40,7 +41,7 @@ import { ManageChannelStoryLinkService } from '../../providers/manage-channel-st
 export class AddBotToChannelModal implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
-  private _activeStoryId: string;
+  private _activeStory: Story;
   private _orgId: string;
 
   addToChannelForm: FormGroup;
@@ -59,7 +60,10 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _manageStoryLinkService: ManageChannelStoryLinkService,
     private _activeStoryStore$$: ActiveStoryStore,
-    private _activeOrgStore$$: ActiveOrgStore) {
+    private _activeOrgStore$$: ActiveOrgStore,
+    private _storyStore: StoriesStore,
+    private _fileStorageService: FileStorageService,
+    ) {
     this.addToChannelForm = this._fb.group({
       channel: this.channels,
       businessPhoneNumberId: [null, [Validators.required]],
@@ -75,7 +79,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       combineLatest([this._activeStoryStore$$.get(), this._activeOrgStore$$.get()])
         .pipe(filter(([story, org]) => !!story && !!org))
         .subscribe(([activeStory, activeOrg]) => {
-          this._activeStoryId = activeStory.id as string;
+          this._activeStory = activeStory
           this._orgId = activeOrg.id as string;
         });
   }
@@ -93,7 +97,7 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
       id: phoneNumberId,
       name: businessName,
       orgId: this._orgId,
-      defaultStory: this._activeStoryId,
+      defaultStory: this._activeStory.id,
       n: 1,
       accessToken: authKey,
       type: PlatformType.WhatsApp
@@ -112,6 +116,11 @@ export class AddBotToChannelModal implements OnInit, OnDestroy {
         return;
       }
     })).subscribe(() => {
+      // Publish the story with updated publishedOn date
+      this._storyStore.publish(this._activeStory)
+              .pipe(concatMap(()=> this._fileStorageService.uploadMediaToPlatform(channelToSubmit)))
+                  .subscribe();
+
       this.isSaving = false;
       this.closeDialog();
     });

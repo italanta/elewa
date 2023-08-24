@@ -7,7 +7,7 @@
           <i id="icon" class="fas fa-play-circle"></i>
         </div>
         <ng-template #inputHasVideo>
-          <video (load)="isLoadingVideo = true" *ngIf="!isLoadingVideo && videoUrl" class="upload-video" alt="" controls
+          <video id="video" #video (load)="isLoadingVideo = true" *ngIf="!isLoadingVideo && videoUrl" class="upload-video" alt="" controls
             autoplay>
             <source [src]="videoUrl" type="video/mp4">
           </video>

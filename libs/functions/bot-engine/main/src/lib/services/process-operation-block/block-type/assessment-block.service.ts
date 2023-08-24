@@ -4,6 +4,7 @@ import { AssessmentBrick } from "@app/model/convs-mgr/stories/blocks/messaging";
 
 import { AssessmentCursor, Cursor, EndUserPosition, RoutedCursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
@@ -31,7 +32,7 @@ export class AssessmentBlockService implements IProcessOperationBlock
   { }
 
 
-  public async handleBlock(storyBlock: AssessmentBrick, updatedCursor: Cursor, orgId: string, endUserId: string)
+  public async handleBlock(storyBlock: AssessmentBrick, updatedCursor: Cursor, orgId: string, endUser: EndUser)
   {
 
     const currentStory = updatedCursor.position.storyId;
@@ -81,7 +82,7 @@ export class AssessmentBlockService implements IProcessOperationBlock
       blockId: nextBlock.id
     };
 
-    let newCursor = updatedCursor;
+    const newCursor = updatedCursor;
 
     // 3. Create new stack if it does not exist or 
     //  push the new routed cursor to the top existing stack

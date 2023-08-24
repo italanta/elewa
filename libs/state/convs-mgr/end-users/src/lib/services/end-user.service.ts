@@ -19,6 +19,18 @@ export class EndUserService {
     return this._endUser$$.getCurrentCursor(id);
   }
 
+  getSpecificUser(id: string) {
+    return this._endUser$$.getOne(id)
+  }
+
+  getAssessmentStack(id:string) {
+    return this.getUserCursor(id).pipe(map((cursor => {
+      const assessmentstack = cursor[0].assessmentStack;
+      
+      return assessmentstack ?  assessmentstack : []
+    })))
+  }
+
   /**
    * gets the endUser, their name and list of cursor's
    */
@@ -27,6 +39,7 @@ export class EndUserService {
       switchMap((endUsers) => {
         const userObservables = endUsers.map((user) =>
           combineLatest([
+            // TODO: add a User's name to their individual properties from the bot engine.
             this._endUser$$.getUserName(user.id as string),
             this._endUser$$.getCurrentCursor(user.id as string),
           ]).pipe(

@@ -70,6 +70,17 @@ export abstract class BotDataService<T> {
       }
    }
 
+   async writeDocument(doc: T, path: string, id: string)
+   {
+      try {
+         this.repo$ = this._tools.getRepository<T>(path);
+
+         return this.repo$.write(doc, id);
+      } catch (error) {
+         this._tools.Logger.error(() => `[DataService].update - Error updating document: ${error}`);
+         this._tools.Logger.error(() => `[DataService].update - Document: ${JSON.stringify(doc)}`);
+      }
+   }
 
    async getLatestDocument(path: string)
    {

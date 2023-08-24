@@ -34,26 +34,6 @@
                             </div>
                             
                             <app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup" [assessmentMode]="assessmentMode"></app-assessment-answers>
-
-                            <div class="feedback-wrapper" formGroupName="feedback">
-                                <mat-form-field appearance="outline" class="full-field">
-                                    <mat-label class="feedback">
-                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}
-                                    </mat-label>
-                                    <input type="text" matInput formControlName="message">
-                                </mat-form-field>
-
-                                <mat-form-field appearance="outline" class="full-field">
-                                    <mat-label class="feedback">
-                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.CONDITION' | transloco}}
-                                    </mat-label>
-                                    <mat-select formControlName="condition">
-                                      <mat-option *ngFor="let condition of feedBackConditions" [value]="condition">
-                                        {{condition}}
-                                      </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
                         </div>
                     </div>
                 </div>

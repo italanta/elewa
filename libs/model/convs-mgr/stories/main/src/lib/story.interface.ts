@@ -15,7 +15,7 @@ export interface Story extends IObject
   orgId: string;
 
   /* Name of the story */
-  name: string;
+  name?: string;
 
   /* image of the story */
   imageField?: string;
@@ -31,4 +31,7 @@ export interface Story extends IObject
 
   /* type of the story */
   isAssessment?: boolean
+
+  /* time of publishing */
+  publishedOn?: Date;
 }

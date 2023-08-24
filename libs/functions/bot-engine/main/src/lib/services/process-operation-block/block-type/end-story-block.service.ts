@@ -1,13 +1,15 @@
 import { HandlerTools } from "@iote/cqrs";
 
 import { EndStoryAnchorBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
-import { AssessmentCursor, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
+import { AssessmentCursor, AssessmentResult, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
-import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { EndUserDataService } from "../../data-services/end-user.service";
 
 /**
  * When an end user gets to the end of the story we can either end the conversation(return null) or 
@@ -27,7 +29,7 @@ export class EndStoryBlockService implements IProcessOperationBlock
    *  3. Update the cursor
    *  4. Resolve and return the success block
    */
-  async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, endUserId: string)
+  async handleBlock(storyBlock: EndStoryAnchorBlock, currentCursor: Cursor, orgId: string, endUser: EndUser)
   {
     const cursor = currentCursor;
     let nextBlock: StoryBlock;
@@ -56,10 +58,31 @@ export class EndStoryBlockService implements IProcessOperationBlock
 
         // Get the next block after the assessment depending on the score
         const currentAssessment = currentCursor.assessmentStack[0];
-  
-        // Set the finishedOn date
-        currentAssessment.finishedOn = new Date();
-  
+
+        const totalScore = currentAssessment.score;
+
+        const endUserService = new EndUserDataService(this.tools, orgId);
+
+        // Get percetage score of the end user in the assessment
+        const finalPercentage = (currentAssessment.maxScore == 0 ? 0 : (totalScore/currentAssessment.maxScore)) * 100;
+
+        // Get the assessment result and write it to the end user object
+        const assessmentResult: AssessmentResult = {
+          assessmentId: currentAssessment.assessmentId,
+          percentage: finalPercentage,
+          totalScore: totalScore,
+          startedOn: currentAssessment.startedOn,
+          finishedOn: new Date(),
+        }
+
+        if (endUser.assessmentResults) {
+          endUser.assessmentResults.push(assessmentResult);
+        } else {
+          endUser.assessmentResults = [assessmentResult];
+        }
+
+        await endUserService.updateEndUser(endUser);
+
         nextBlockId = await this.getNextBlockIdByScore(currentAssessment);
         
         newCursor.assessmentStack[0] = currentAssessment;
@@ -91,7 +114,7 @@ export class EndStoryBlockService implements IProcessOperationBlock
       const finalScore = assessmentCursor.score;
 
       // Get the percentage of the final score
-      let finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
+      const finalPercentage = (assessmentCursor.maxScore == 0 ? 0 : (finalScore/assessmentCursor.maxScore)) * 100;
 
       this.tools.Logger.log(() => `Final score: ${finalScore} - Final percentage: ${finalPercentage}%`);
 
