@@ -46,7 +46,7 @@ export class UpdateUserModalComponent implements OnInit {
 
   updateUserDetails() {
     this.updatingUserDetails = true;
-    this._userService.updateUserDetails(this.userData.user, this.updateUserForm).then(() => this.completeOperations());;
+    this._userService.updateUserDetails(this.userData.user, this.userData.org, this.updateUserForm).then(() => this.completeOperations());;
   }
 
   completeOperations() {

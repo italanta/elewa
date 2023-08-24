@@ -24,7 +24,7 @@ export class PerformAdminActionRightsQuery extends AccessQuery
   protected override _hasViewAccess() : Observable<boolean>
   {
     return this._userService.getUser().pipe(
-      map((user)=> !!user && user.roles[user.activeOrg].admin!)
+      map((user)=> !!user && (user.roles[user.activeOrg].Admin || user.roles[user.activeOrg].admin)!)
     );
   }
 

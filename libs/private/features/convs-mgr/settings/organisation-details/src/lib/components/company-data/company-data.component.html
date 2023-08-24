@@ -71,7 +71,7 @@
       <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
         <p class="label">Company Logo</p>
 
-        <img [src]="activeOrg.logoUrl" alt="">
+        <img style="border-radius: 20px;" [src]="activeOrg.logoUrl" alt="">
 
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start">
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="newCompanyLogo()" mat-stroked-button>

@@ -1,18 +1,11 @@
-<div id="modal">
-  <div fxLayout="column">
-    <div fxLayout="row">
-      <h2 class="mat-title modal-title"> Change Company Logo</h2>
-      <div style="flex: 1;"></div>
-      <div style="text-align: right"><span (click)="exitModal()" class="close-modal-btn"><i class="fas fa-times-circle"></i></span></div>
-    </div>
-    <div class="top-subtitle"></div>
-  </div>
-
+<h1 mat-dialog-title>Change Company Logo</h1>
+<div mat-dialog-content>
   <div>
     <input type="file" [accept]="acceptedFileTypes" (change)="onFileSelected($event)"/>
-    <button [disabled]='disableBtn' type="button" (click)="onUploadProfilePic()">{{"UPLOAD.CHANGE-IMAGE" |transloco}}</button>
+    <button [disabled]='disableBtn' type="button" (click)="onUploadProfilePic()"> Upload </button>
   </div>
-  <h3 class="mat-title title-warn">{{"ALLOWED.IMAGE.FORMATS" |transloco}}</h3>
-
-  <ng-template #loading><app-spinner></app-spinner></ng-template>
+  <h4>  Allowed image formats png, jpeg or jpg</h4>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
 </div>

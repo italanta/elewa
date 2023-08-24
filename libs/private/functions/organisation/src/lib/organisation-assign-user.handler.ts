@@ -31,7 +31,7 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
           name: org.name,
           users: [org.createdBy],
           address: org.address,
-          roles: ['admin', 'junior', 'senior', 'intern'],
+          roles: ['Admin', 'ContentDeveloper', 'Viewer'],
           permissions: {}
         } as Organisation;
 
@@ -45,21 +45,20 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
         let adminUser: iTalUser = await userRepo.getDocumentById(org.createdBy);
 
         let adminRight = {
-          admin: true,
-          junior: false,
-          senior: false,
-          intern: false
+          Admin: true,
+          ContentDeveloper: false,
+          Viewer: false,
         };
 
         // Assign admin role to the user who created the organisation
         adminUser.roles[org.id!] = adminRight;
         adminUser.activeOrg = org.id!;
 
-        if (!adminUser.orgs) {
-          adminUser.orgs = [];
+        if (!adminUser.orgIds) {
+          adminUser.orgIds = [];
         }
         
-        adminUser.orgs.push(org.id!);
+        adminUser.orgIds.push(org.id!);
 
         // Update the user object
         userRepo.write(adminUser, org.createdBy)

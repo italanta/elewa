@@ -11,9 +11,12 @@ export class GeneralSettingsComponent implements OnInit {
   @Input() generalSettingsFormGroup: FormGroup;
   @Input() roles: string[];
   
-  constructor() { }
+  viewRoles: string[] = [];
+
+  constructor() {}
 
   ngOnInit(): void {
+    if (this.roles)
+      this.viewRoles = this.roles.map((role) => role.replace(/([a-z])([A-Z])/g, '$1 $2'));
   }
-
 }

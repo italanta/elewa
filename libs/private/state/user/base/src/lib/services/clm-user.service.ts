@@ -5,7 +5,7 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { SubSink } from 'subsink';
 
-import { flatMap as __flatMap, find as __find, keys as __keys } from 'lodash';
+import { flatMap as __flatMap, find as __find, keys as __keys, uniq } from 'lodash';
 
 import { AuthService } from '@ngfi/angular';
 
@@ -42,10 +42,13 @@ export class CLMUsersService {
   /**
    * Updates the details of the passed in user from the form group
    */
-  updateUserDetails(user: iTalUser, userFormGroup: FormGroup) {
+  updateUserDetails(user: iTalUser, org: Organisation, userFormGroup: FormGroup) {
     user.roles  = user.roles as any;
     user.displayName = `${userFormGroup.value.firstName} ${userFormGroup.value.lastName}`;
-    user.roles[this.org.id as keyof typeof user.roles] = this.createUserRoles(__keys(user.roles[this.org.id as keyof typeof user.roles]), userFormGroup.value.roles, true);
+
+    const userOrgRoles = __keys(user.roles[this.org.id as keyof typeof user.roles]).concat(org.roles);
+    user.roles[this.org.id as keyof typeof user.roles] = this.createUserRoles(uniq(userOrgRoles), userFormGroup.value.roles, true);
+
     return this._user$$.updateUser(user);
   }
 
