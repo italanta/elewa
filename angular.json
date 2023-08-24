@@ -722,7 +722,6 @@
       "tags": []
     },
     "functions-base": "libs/functions/base",
-    "functions-user": "libs/functions/user",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-messenger": {
       "root": "libs/functions/bot-engine/messenger",
@@ -852,6 +851,34 @@
       },
       "tags": []
     },
+    "functions-convs-mgr-story-editor-create-story": {
+      "root": "libs/functions/convs-mgr/story-editor/create-story",
+      "sourceRoot": "libs/functions/convs-mgr/story-editor/create-story/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/functions/convs-mgr/story-editor/create-story/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/functions/convs-mgr/story-editor/create-story"
+          ],
+          "options": {
+            "jestConfig": "libs/functions/convs-mgr/story-editor/create-story/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "functions-user": "libs/functions/user",
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
       "sourceRoot": "libs/model/analytics/group-based/progress/src",
