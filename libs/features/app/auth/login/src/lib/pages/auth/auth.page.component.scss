@@ -34,6 +34,10 @@
 	color: var(--convs-mgr-color-text-black);
 }
 
+.action-desc {
+	margin-top: 20px;
+}
+
 .action-buttons {
 	button {
 		padding: 20px!important;
@@ -113,19 +117,3 @@
 :host ::ng-deep .mat-mdc-form-field {
   width: 100%!important;
 }
-
-// :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
-// .mat-mdc-form-field-infix {
-//   padding-top: 15px!important;
-//   padding-bottom: 0px!important;
-// }
-
-// :host ::ng-deep .mat-mdc-form-field-infix {
-//   min-height: 50px!important;
-//   max-height: 50px!important;
-// }
-
-// :host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
-//   height: 50px!important;
-//   padding: 15px!important;
-// }
