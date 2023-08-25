@@ -76,9 +76,9 @@ export class StoryEditorFrame {
     this.scroll(this._edf.nativeElement)
   }
   scroll(el: HTMLElement) {
-    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
-    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
-    el.scrollTo({top:editorHeight,left:editorWidth});
+    el.style.left = '50%'
+    el.style.top = '50%'
+    el.style.transform = 'translate(-50%, -50%)'
     // el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
   }
 
