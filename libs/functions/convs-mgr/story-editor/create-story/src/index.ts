@@ -1,1 +1,1 @@
-export * from './lib/functions-convs-mgr-story-editor-create-story';
+export * from './lib/save-story.handler';
