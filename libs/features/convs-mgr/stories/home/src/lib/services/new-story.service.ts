@@ -45,13 +45,15 @@ export class NewStoryService implements OnDestroy {
   async saveStory(story: Story, storyImage?: File, storyImagePath?: string) {
     // first Upload and patch image src value if it was provided.
     if (storyImage && storyImagePath) {
-      const res = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath);
+      const res = await this._fileStorageService$$.uploadSingleFile(
+        storyImage,
+        storyImagePath
+      );
 
-      this._sbS.sink = res.pipe(take(1)).subscribe(url  => {
-        story.imageField = url
+      this._sbS.sink = res.pipe(take(1)).subscribe((url) => {
+        story.imageField = url;
         this.addStoryToDb(story);
       });
-
     } else {
       this.addStoryToDb(story);
     }
@@ -59,38 +61,45 @@ export class NewStoryService implements OnDestroy {
 
   // 2. Add the story to DB with all values
   addStoryToDb(story: Story) {
-    this._org$$.get().pipe(take(1)).subscribe((org) => {
-      if (org) {
-        story.orgId = org.id as string;
-        this._sbS.sink = this._stories$$.add(story).subscribe((story) => {
-          if (story) {
-            this._dialog.closeAll();
-            this._router.navigate(['/stories', story.id])
-            this.createStoryEndBlock(story.orgId, story.id as string);
-          }
-        });
-      }
-    });
+    this._org$$
+      .get()
+      .pipe(take(1))
+      .subscribe((org) => {
+        if (org) {
+          story.orgId = org.id as string;
+          this._sbS.sink = this._stories$$.add(story).subscribe((story) => {
+            if (story) {
+              this._dialog.closeAll();
+              this._router.navigate(['/stories', story.id]);
+              this.createStoryEndBlock(story.orgId, story.id as string);
+            }
+          });
+        }
+      });
   }
 
-   /** Update a stories values */
+  /** Update a stories values */
   async updateStory(story: Story, storyImage?: File, storyImagePath?: string) {
     // first Upload and patch image src values if it was provided.
     if (storyImage && storyImagePath) {
       //delete the image if any
       if (story.imageField && story.imageField != '') {
-        this._fileStorageService$$.deleteSingleFile(story.imageField).subscribe(() => story.imageField = '');
+        this._fileStorageService$$
+          .deleteSingleFile(story.imageField)
+          .subscribe(() => (story.imageField = ''));
       }
 
-      const res = await this._fileStorageService$$.uploadSingleFile(storyImage, storyImagePath);
+      const res = await this._fileStorageService$$.uploadSingleFile(
+        storyImage,
+        storyImagePath
+      );
 
-      this._sbS.sink = res.pipe(take(1)).subscribe(url => {
+      this._sbS.sink = res.pipe(take(1)).subscribe((url) => {
         story.imageField = url;
         this.updateStoryDetails(story);
       });
-
     } else {
-      this.updateStoryDetails(story)
+      this.updateStoryDetails(story);
     }
   }
 
@@ -128,24 +137,28 @@ export class NewStoryService implements OnDestroy {
 
   createStoryEndBlock(orgId: string, storyId: string) {
     //TODO: offset using element Ref
-    const fakeOffsetX = (20000/2 + 800)
-    const fakeOffsetY = (20000/2)
+    const fakeOffsetX = 20000 / 2 + 800;
+    const fakeOffsetY = 20000 / 2;
 
     const endBlock: EndStoryAnchorBlock = {
       id: 'story-end-anchor',
       type: StoryBlockTypes.EndStoryAnchorBlock,
-      position: { x: fakeOffsetX, y: fakeOffsetY},
+      position: { x: fakeOffsetX, y: fakeOffsetY },
       deleted: false,
       blockTitle: 'End here',
       blockIcon: '',
-      blockCategory:''
-    }
+      blockCategory: '',
+    };
 
-    this._sbS.sink = this._blocksStore$$.createEndBlock(orgId, storyId, endBlock).subscribe();
+    this._sbS.sink = this._blocksStore$$
+      .createEndBlock(orgId, storyId, endBlock)
+      .subscribe();
   }
 
   generateName() {
-    const defaultName = uniqueNamesGenerator({dictionaries: [adjectives, colors, animals],});
+    const defaultName = uniqueNamesGenerator({
+      dictionaries: [adjectives, colors, animals],
+    });
     return defaultName;
   }
 
