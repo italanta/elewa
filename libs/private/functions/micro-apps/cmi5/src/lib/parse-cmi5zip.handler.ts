@@ -1,6 +1,8 @@
 import * as admin from 'firebase-admin';
 
 import { randomUUID } from 'crypto';
+import { tmpdir } from 'os';
+import * as path from 'path';
 
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler, RestResult } from '@ngfi/functions';
@@ -30,6 +32,8 @@ import { parseXMLConfig } from './utils/parse-xml-config.util';
  */
 export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult>
 {
+  private firstAUId: string;
+
   public async execute(req: CMI5ParserPayload, context: FunctionContext, tools: HandlerTools)
   {
     // Set the manifest name and bucket name
@@ -51,12 +55,17 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
       const manifestExtracted = await UnzipCourse(extractDestPath, srcBucket, savedFilePath, tools);
 
       if (manifestExtracted) {
+
+        const tempFilePath = path.join(tmpdir(), (MANIFEST));
+
         // Download the extracted manifest file
-        await srcBucket.file(extractDestPath + '/' + MANIFEST).download({ destination: MANIFEST });
+        const response = await srcBucket.file(extractDestPath + '/' + MANIFEST).download({ destination: tempFilePath });
+
+        response;
 
         // Extract the configuration from the xml manifest file
         // The xml parser returns an object in the structure of the xml file
-        const config = parseXMLConfig(MANIFEST);
+        const config = parseXMLConfig(tempFilePath);
 
         // Save the configuration to the database
         await this.__saveConfiguration(config, req.orgId, req.courseId, tools);
@@ -67,7 +76,7 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
       }
       return { status: 200 } as RestResult;
     } catch (error) {
-      tools.Logger.log(() => `Error Processing File: ${JSON.stringify(error)}`);
+      tools.Logger.log(() => `Error Processing File: ${error}`);
 
       return { status: 500 } as RestResult;
     }
@@ -83,39 +92,38 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
   private async __saveConfiguration(config: any, orgId: string, courseId: string, tools: HandlerTools)
   {
     let assignableUnit = config.au;
-    
-    await this.__saveAUs(assignableUnit, courseId, orgId, tools);
+
+    this.firstAUId = await this.__saveAUs(assignableUnit, courseId, orgId, tools);
 
     await this.__saveCoursePackage(config, orgId, courseId, tools);
   }
-  
+
   /**
    * Specifically saves the course configuration from the configuration object extracted by the xml parser
    */
-  private async __saveCoursePackage(config: any, orgId: string, courseId: string, tools: HandlerTools) {
+  private async __saveCoursePackage(config: any, orgId: string, courseId: string, tools: HandlerTools)
+  {
     const coursePackageRepo$ = tools.getRepository<CoursePackage>(`orgs/${orgId}/course-packages`);
 
     // Get the course and course objectvies from the config
     const course = config.course;
-    const configObjectives = config.objectives;
-
-    // Pass and save all the AUs in the manifest, and returns the first Id
-    const firstAUId = await this.__saveAUs(course.au, courseId, orgId, tools);
+    const courseObjectives = config.objectives;
 
     // Extract the objectives and map them into an Array
-    const objectives = this.__getObjectives(configObjectives);
+    const objectives = this.__getObjectives(courseObjectives);
 
     // Create the course package
     const newCoursePackage: CoursePackage = {
       id: courseId,
-      title: course.title.langstring,
-      externalId: course.Id,
+      title: course.title.langstring["#text"],
+      externalId: course.id,
       objectives: objectives,
-      firstAU: firstAUId
-    }
+      firstAU: this.firstAUId,
+      lang: course.title.langstring.lang
+    };
 
-    await coursePackageRepo$.create(newCoursePackage);
-    
+    await coursePackageRepo$.write(newCoursePackage, courseId);
+
   }
 
   /**
@@ -124,21 +132,23 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
    * Course objectives are not trackable therefore it is wise to use
    *  a platform that places them into Assignable Units. 
    */
-  private __getObjectives(configObjectives): CourseObjective[] {
+  private __getObjectives(configObjectives): CourseObjective[]
+  {
 
-    if(Array.isArray(configObjectives)) { 
-      return configObjectives.map((obj) => {
+    if (Array.isArray(configObjectives.objective)) {
+      return configObjectives.objective.map((obj) =>
+      {
         return {
           id: obj.id,
-          title: obj.title.langstring,
-          description: obj.description.langstring,
+          title: obj.title.langstring["#text"],
+          description: obj.description.langstring["#text"],
         } as CourseObjective;
       });
     } else {
       return [{
-        id: configObjectives.id,
-        title: configObjectives.title.langstring,
-        description: configObjectives.description.langstring,
+        id: configObjectives.objective.id,
+        title: configObjectives.objective.title.langstring["#text"],
+        description: configObjectives.objective.description.langstring["#text"],
       } as CourseObjective];
     }
   }
@@ -154,30 +164,11 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
 
     let firstAUId: string;
 
-    // If it is an array of AUs, then we loop through each
-    //  and save them to the database.
-    // The first AU, in the xml file will be the first unit of our course
-    if (Array.isArray(assignableUnit)) {
-      assignableUnit.forEach(async (au, i) =>
-      {
-        // Maps the configuration into our own
-        //  defined interface
-        let newAU = this.__createAUObject(au, courseId);
+    const newAU = this.__createAUObject(assignableUnit, courseId);
 
-        if(i === 0) { 
-          firstAUId = newAU.id;
-        }
-        
-        await auRepo$.create(newAU);
-      });
+    firstAUId = newAU.id;
 
-    } else {
-      const newAU = this.__createAUObject(assignableUnit, courseId);
-
-      firstAUId = newAU.id;
-
-      await auRepo$.create(newAU);
-    }
+    await auRepo$.create(newAU);
 
     return firstAUId;
   }
@@ -193,9 +184,9 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
 
     return {
       id: auId,
-      title: au.title.langstring,
-      description: au.description.langstring,
-      externalId: au.Id,
+      title: au.title.langstring["#text"],
+      description: au.description.langstring["#text"],
+      externalId: au.id,
       moveOn: au.moveOn,
       masteryScore: au.masteryScore,
       launchMethod: au.launchMethod,
