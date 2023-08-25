@@ -29,6 +29,9 @@ export interface CoursePackage extends IObject
 
   /**  The first learning activity that we should send to the user on launching the course */
   firstAU: string;
+
+  /** Language of the course as configured by the course designer */
+  lang?: string;
 }
 
 /** A listing of objectives referenced by this block as defined by the 
