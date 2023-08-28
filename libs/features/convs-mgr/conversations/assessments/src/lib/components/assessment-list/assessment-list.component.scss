@@ -3,10 +3,6 @@
 	color: white!important;
 }
 
-.view-not-active {
-
-}
-
 .btn-result.mdc-button {
 	background-color: var(--convs-mgr-color-primary-purple);
 	color: var(--convs-mgr-color-primary-white);
@@ -88,32 +84,11 @@
 	object-fit: contain;
 }
 
-.mdc-data-table__header-cell {
-	color: #7C7C7C;
-	font-weight: 300;
-	font-size: 1.1rem;
-}
-
-.mat-mdc-row {
-	color: #101010;
-	font-size: 1rem;
-	font-weight: 400;
-	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25);
-}
-
-.mat-mdc-row:hover .mat-mdc-cell {
-	background-color: #eee;
-	cursor: pointer;
-}
-
-
 select {
-	/* Reset Select */
 	appearance: none;
 	outline: 10px red;
 	border: 0;
 	box-shadow: none;
-	/* Personalize */
 	flex: 1;
 	padding: 0 1em;
 	color: black!important;
@@ -122,16 +97,14 @@ select {
 	cursor: pointer;
 }
 
-/* Remove IE arrow */
 select::-ms-expand {
 	display: none;
 }
 
-/* Custom Select wrapper */
 .select {
 	position: relative;
 	display: flex;
-	width: 10em;
+	width: 12em;
 	height: 35px;
 	border-radius: .25em;
 	overflow: hidden;
