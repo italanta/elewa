@@ -26,6 +26,8 @@ import { AssessmentMetricsService } from '../../services/assessment-metrics.serv
   styleUrls: ['./assessment-list.component.scss'],
 })
 export class AssessmentListComponent implements OnInit, OnDestroy {
+  private _sBs = new SubSink();
+
   assessments$: Observable<Assessment[]>;
 
   assessmentsColumns = ['num', 'title', 'createdOn', 'inProgress', 'responses', 'actions'];
@@ -33,8 +35,7 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
   dataSource: AssessmentDataSource;
 
   dataFound = true;
-
-  private _sBs = new SubSink();
+  viewInListView = true;
 
   @ViewChild(MatSort) set matSort(sort: MatSort){
     this.dataSource.sort = sort;
@@ -44,14 +45,13 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = paginator;
   }
 
-  constructor(
-    private _aMetrics: AssessmentMetricsService,
-    private _assessments: AssessmentService,
-    private _endUserService: EndUserService,
-    private _dialog: MatDialog,
-    private _liveAnnounce: LiveAnnouncer,
-    private _translate: TranslateService,
-    private _router: Router
+  constructor(private _aMetrics: AssessmentMetricsService,
+              private _assessments: AssessmentService,
+              private _endUserService: EndUserService,
+              private _dialog: MatDialog,
+              private _liveAnnounce: LiveAnnouncer,
+              private _translate: TranslateService,
+              private _router: Router
   ){}
 
   ngOnInit(): void {
