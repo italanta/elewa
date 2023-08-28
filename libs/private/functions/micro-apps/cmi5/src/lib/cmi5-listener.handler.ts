@@ -23,7 +23,7 @@ import { CMI5AUService } from './au.service';
  * 
  * The CLM is referred to as the LMS here.
  */
-export class CMI5Listener extends FunctionHandler<any, { }>
+export class CMI5Listener extends FunctionHandler<any, any>
 {
   /**
    * The AU assumes the endpoint(this functions's URL) represents a base url for all the 
@@ -36,11 +36,24 @@ export class CMI5Listener extends FunctionHandler<any, { }>
    */
   public async execute(req: any, context: any, tools: HandlerTools)
   {
+    let orgId: string;
+    let endUserId: string;
+
+    context = context.eventContext;
+
     // Get the request data and the URL path
     const path = context.request.path;
+    tools.Logger.log(()=> `[CMI5Listener].execute - Request path: ${path}`);
+
     const queryData = context.request.query;
-    const orgId = queryData.agent.account.organisation;
-    const endUserId = queryData.agent.account.endUserId;
+    tools.Logger.log(()=> `[CMI5Listener].execute - Request query: ${JSON.stringify(queryData)}`);
+
+    // If the agent object is included in the quesry, get the orgId and endUserid
+    if(queryData.agent) {
+      orgId = queryData.agent.account.organisation;
+
+      endUserId = queryData.agent.account.endUserId;
+    }
 
     // Initialize the CMI5 Service.
     //
@@ -55,7 +68,7 @@ export class CMI5Listener extends FunctionHandler<any, { }>
         // Gets the state document
         const stateDocument = await lms.getStateDocument(orgId ,queryData.activityId);
         
-        return stateDocument;
+        return stateDocument as any;
       case '/agents/profile':
       // Get the learner preferences document
       const learnerPreferences = await lms.getLearnerPreferences(orgId, endUserId);
