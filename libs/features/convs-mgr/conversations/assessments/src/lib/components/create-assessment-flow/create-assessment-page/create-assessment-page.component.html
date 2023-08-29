@@ -1,0 +1,23 @@
+<convl-page>
+  <div class="create-assessment" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+
+    <div class="create-assessment-header-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex="10">
+      <button mat-raised-button>
+        Save
+      </button>
+      <button color="primary" mat-raised-button>
+        Publish
+      </button>
+    </div>
+  
+    <div class="create-body" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" fitInkBarToContent>
+        <mat-tab label="Create">
+          <app-assessment-view></app-assessment-view>
+        </mat-tab>
+        <mat-tab label="Settings">  </mat-tab>
+        <mat-tab label="Preview">  </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</convl-page>

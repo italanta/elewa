@@ -1,0 +1,32 @@
+.create-assessment {
+  position: relative;
+}
+
+.create-assessment-header-actions {
+  position: absolute;
+  right: 5%;
+  top: 10px;
+}
+
+
+:host ::ng-deep .mat-mdc-tab.mdc-tab {
+  background-color: white !important;
+
+  &.mdc-tab--active {
+    color: white !important;
+    background-color: black !important;
+  }
+}
+
+:host ::ng-deep .mat-mdc-tab.mdc-tab:first-child {
+  border-radius: 20px 0px 0px 20px;
+}
+
+:host ::ng-deep .mat-mdc-tab.mdc-tab:last-child {
+  border-radius: 0px 20px 20px 0px;
+}
+
+:host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+  color: white!important;
+}
