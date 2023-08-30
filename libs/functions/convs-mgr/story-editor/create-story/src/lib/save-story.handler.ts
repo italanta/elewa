@@ -1,28 +1,27 @@
 import { FunctionContext, FunctionHandler } from '@ngfi/functions'; // Import the necessary modules here
 import { HandlerTools } from '@iote/cqrs';
 
-import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
-import { BlockDataService, ConnectionsDataService } from '@app/functions/bot-engine';
+import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
+
 
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
+
+
+import { BlockDataService } from './services/block.service';
 
 
 
 
 
-// Create a class for the CreateNewStoryHandler
 export class SaveStoryHandler extends FunctionHandler<any, { success: boolean }> {
 
   private _tools: HandlerTools;
-    private _blocksDataService: BlockDataService;
-    private _connDataService : ConnectionsDataService
-    private _storyEditorStateService : StoryEditorStateService
+  
 
   public execute(data: StoryEditorState, context: FunctionContext, tools: HandlerTools): Promise<{ success: boolean }> {
       this._tools = tools;
       this._tools.Logger.debug(() => `Beginning Execution, Creating a new Story`)
-
+      
       return this.storySaved(data);
   }
   
@@ -31,13 +30,12 @@ export class SaveStoryHandler extends FunctionHandler<any, { success: boolean }>
 
       const { blocks,story } = data;
         
-      const blocksRef = admin
-    .firestore()
-    .collection(`orgs/${story.orgId}/stories/${story.id}/blocks`);
+          // Create an instance of BlockDataService
+      const blockDataService = new BlockDataService();
 
-    for (const block of blocks) {
-      await blocksRef.doc(block.id).set(block);
-    }
+      // Call the method on the instance
+      await blockDataService.saveBlocks(story.orgId, story.id, blocks);
+
 
       return { success: true }; // Return success here
     } catch (error) {
