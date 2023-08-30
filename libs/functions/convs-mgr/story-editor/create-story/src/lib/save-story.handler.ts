@@ -1,47 +1,52 @@
-import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
 import { FunctionContext, FunctionHandler } from '@ngfi/functions'; // Import the necessary modules here
 import { HandlerTools } from '@iote/cqrs';
 
-// Initialize the Firebase SDK
-admin.initializeApp();
+import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { BlockDataService, ConnectionsDataService } from '@app/functions/bot-engine';
+
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+
+
+
+
 
 // Create a class for the CreateNewStoryHandler
 export class SaveStoryHandler extends FunctionHandler<any, { success: boolean }> {
 
   private _tools: HandlerTools;
+    private _blocksDataService: BlockDataService;
+    private _connDataService : ConnectionsDataService
+    private _storyEditorStateService : StoryEditorStateService
 
-  public execute(data: any, context: FunctionContext, tools: HandlerTools): Promise<{ success: boolean }> {
+  public execute(data: StoryEditorState, context: FunctionContext, tools: HandlerTools): Promise<{ success: boolean }> {
       this._tools = tools;
       this._tools.Logger.debug(() => `Beginning Execution, Creating a new Story`)
 
       return this.storySaved(data);
   }
   
-  private async storySaved(data: { orgId: any; storyId: any; }): Promise<{ success: boolean }> {
+  private async storySaved(data: StoryEditorState): Promise<{ success: boolean }> {
        try {
-      const { orgId, storyId } = data;
 
-      const fakeOffsetX = 20000 / 2 + 800;
-      const fakeOffsetY = 20000 / 2;
+      const { blocks,story } = data;
+        
+      const blocksRef = admin
+    .firestore()
+    .collection(`orgs/${story.orgId}/stories/${story.id}/blocks`);
 
-      const endBlock = {
-        id: 'story-end-anchor',
-        type: 'EndStoryAnchorBlock',
-        position: { x: fakeOffsetX, y: fakeOffsetY },
-        deleted: false,
-        blockTitle: 'End here',
-        blockIcon: '',
-        blockCategory: '',
-      };
-
-      const blocksRef = admin.firestore().collection(`orgs/${orgId}/stories/${storyId}/blocks`);
-      await blocksRef.doc(endBlock.id).set(endBlock);
+    for (const block of blocks) {
+      await blocksRef.doc(block.id).set(block);
+    }
 
       return { success: true }; // Return success here
     } catch (error) {
       console.error('Error creating story end block:', error);
-      throw new functions.https.HttpsError('internal', 'Error creating story end block', error);
+      throw new functions.https.HttpsError(
+        'internal',
+        'Error creating story end block',
+        error
+      );
     }
   }
 }
