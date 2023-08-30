@@ -187,7 +187,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     // remove duplicate jsplumb connections
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
-    this._editorStateService.persist(this.state)
+    this._editorStateService.callSaveBackendFunction(this.state)
         .subscribe((success) => {
           if (success) {
             this.stateSaved = true;
