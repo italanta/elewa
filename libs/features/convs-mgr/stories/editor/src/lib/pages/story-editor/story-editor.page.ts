@@ -65,7 +65,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
-    .pipe(take(1))
+    .pipe(take(2))
     .subscribe((state: StoryEditorState) => {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
         this._logger.log(() => state);
