@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable, take } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -65,7 +65,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
-      .subscribe((state: StoryEditorState) => {
+    .pipe(take(1))
+    .subscribe((state: StoryEditorState) => {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
         this._logger.log(() => state);
 
