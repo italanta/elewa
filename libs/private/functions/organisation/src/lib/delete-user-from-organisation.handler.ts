@@ -16,7 +16,7 @@ export class DeleteUserFromOrganisationHandler extends FunctionHandler<iTalUser,
     tools.Logger.log(() => `deleting user with id: ${user.id}`);
 
     let orgsRepo = tools.getRepository(`orgs`);
-    let userOrgs = user.orgs;
+    let userOrgs = user.orgIds;
 
     tools.Logger.log(() => `user orgs are : ${userOrgs.length}`);
 

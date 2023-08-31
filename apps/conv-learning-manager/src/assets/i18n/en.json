@@ -4,13 +4,30 @@
       "SWITCH-LANG": "Switch language"
     }
   },
+  "ORGS": {
+    "FORM" : {
+      "TITLE": "Create Organisation",
+      "NAME": "Name",
+      "VAT": "VAT Number",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "ADDRESS": "Address",
+      "COUNTRY": "Country",
+      "CITY": "City",
+      "POSTAL-CODE": "Postal Code",
+      "STREET": "Street Name",
+      "POSTAL-ADDRESS": "Postal Address",
+      "WAIT": "Please wait",
+      "CREATE-ORG": "Submit"
+    }
+  },
   "LOGIN": {
     "LOGIN": "Login",
     "OR": "or",
     "CREATE-ACCOUNT": "Create account",
     "LOGIN-FORM": {
       "SUBMIT": "Login",
-      "PROCEED": "PROCEED",
+      "PROCEED": "Log In",
       "PLACEHOLDER": {
         "EMAIL": "Email is required",
         "PASSWORD": "************",
@@ -22,6 +39,15 @@
       "LABELS" : {
         "EMAIL": "Enter Email",
         "PASSWORD": "Enter Password"
+      },
+      "MESSAGE" : {
+        "WELCOME": "Welcome Back",
+        "LOGIN-TO-CONTINUE": "Enter your credentials to access your account",
+        "WITH-GOOGLE": "Log In with Google",
+        "WITH-MICROSOFT": "Log In with Microsoft",
+        "WITH-FACEBOOK": "Log In with Facebook",
+        "NO-ACCOUNT": "Don't have an account?",
+        "HAVE-ACCOUNT": "Already have an account?"
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
@@ -103,6 +129,7 @@
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
         "END-BLOCK":"End Block",
+        "CMI5" :"CMI5 Learning package",
         "VIDEO-MODAL": {
           "MAIN-TITLE": "Upload Video",
           "MEDIA-TITLE":"Media Encoding"
@@ -148,6 +175,12 @@
         },
         "VIDEO-MODAL": {
           "APPLY": "Apply"
+        }
+      },
+      "UPLOAD-WARNING" :{
+        "CMI5-BLOCK":{
+          "INVALID-FILE-TYPE":"invalid file type",
+          "PLEASE-SELECT-ZIP-ONLY":"please select a .zip only"
         }
       },
       "CONTENT": {
@@ -220,7 +253,8 @@
       "LOG-OUT": "Logout",
       "BOT": "Bots",
       "REPORTS": "Reports",
-      "LEARNERS": "Learners"
+      "LEARNERS": "Learners",
+      "ADMIN_SETTINGS": "Settings"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
@@ -247,7 +281,8 @@
       "DOCUMENT-BLOCKS": "Document blocks",
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
-      "MESSAGE-BLOCK": "Message Block"
+      "MESSAGE-BLOCK": "Message Block",
+      "CMI5-BLOCK" :"CMI5 Block"
     },
     "ANALYTICS": {
       "PERIODICALS": {
@@ -482,5 +517,23 @@
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
+  },
+  "ADMIN-SETTINGS": {
+    "TEAM-SECTION" : {
+      "TITLE": "Team",
+      "DESCRIPTION": "Invite and/or manage Team Members within your organization",
+      "BUTTONS": {
+        "ADD-MEMBER": "Add Member"
+      },
+      "MODAL": {
+        "TITLE": "Add Member",
+        "DESC": "Invite a team member via their email address",
+        "EMAIL-ERROR": "Email is invalid",
+        "SELECT-ROLE": "Select Role"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Select page of team members"
+      }
+    }
   }
 }

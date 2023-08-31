@@ -144,6 +144,8 @@ export enum StoryBlockTypes {
   /** The block that represents a single assessment question */
   AssessmentQuestionBlock = 33,
 
+  CMI5Block = 34,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -161,6 +163,8 @@ export function isOutputBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.Document:
       return true;
+      case StoryBlockTypes.CMI5Block:
+        return true;    
     default:
       return false;
   }
@@ -208,6 +212,8 @@ export function isMediaBlock(blockType: StoryBlockTypes): boolean {
       return true;
     case StoryBlockTypes.Document:
       return true;
+    case StoryBlockTypes.CMI5Block:
+      return true;  
     default:
       return false
   }

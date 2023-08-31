@@ -1,122 +1,119 @@
-$primary-icon-color: #919698;
-$primary-color: #ffc200;
-$secondary-elements-color: white;
-#ele-logo-sub {
-  max-width: 220px;
+.auth-page,
+.auth-card {
+	min-width: 100%;
+	height: 100%;
+	background-color: white;
 }
 
-.auth-page {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	min-height: 100vh;
-  background-color: $secondary-elements-color;
+.auth-images {
+	position: relative;
+}
 
-	@media screen and (max-width: 920px) {
-    grid-template-columns: 1fr;
+.table-login {
+	max-width: 70%;
+	height: auto;
+	object-fit: contain;
+}
+
+.table-login-rel {
+	max-width: 70%;
+	height: auto;
+	object-fit: contain;
+
+	position: absolute;
+	top: 70%;
+	left: 20%;
+}
+
+.actions {
+	padding: 0px 0px 40px 0px;
+}
+
+.action-title {
+	font-size: 2.5rem;
+	color: var(--convs-mgr-color-text-black);
+}
+
+.action-desc {
+	margin-top: 20px;
+}
+
+.action-buttons {
+	button {
+		padding: 20px!important;
+		border: solid 1px #747474;
+		border-radius: 20px;
+
+		display: flex!important;
+		align-items: center!important;
+		justify-content: center!important;
+
+		margin-bottom: 10px;
+
+		img {
+			width: 20px;
+			height: 20px;
+			object-fit: contain;
+			margin-right: 10px;
+		}
+	}
+}
+
+.logo {
+	width: 200px;
+	height: auto;
+	object-fit: contain;
+}
+
+.login-page-info {
+  position: relative;
+  color: white;
+  padding: 30px;
+  height: 100%;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 30px;
   }
 }
 
-button {
-  background-color: $secondary-elements-color;
-  width: 50%;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--convs-mgr-color-light-shade);
-  border-bottom: 1px solid var(--convs-mgr-color-light-shade);
-}
-
-.button-area {
-  background-color: $secondary-elements-color;
-  cursor: pointer;
-  text-align: center;
-  margin-bottom: 1.5rem;
-
-  .toggle-btn {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  @media screen and (max-width: 768px) {
-    border-bottom-right-radius: 8px;
-    max-width: 100%;
-  }
-
-  @media screen and (max-width: 320px) {
-    border-bottom-right-radius: 8px;
-  }
-}
-
-.bottom-content {
-  color: $secondary-elements-color;
-  font-size: 18px;
-  text-transform: uppercase;
-}
-
-.forms {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-button {
-  border-bottom: 3px solid $primary-color;
-  border-width: 50%;
-  font-weight: 600;
-  color: black;
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 10%;
+  left: 6%;
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 2;
+	color: white;
+	font-size: 2rem;
+	font-family: var(--kujali-segoe-ui-bold);
 }
 
-.description {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 2;
-}
-.hyperlink {
-  font-size: 600;
-}
-.image {
-  height: 80px;
+.sub-title {
+	color: white;
+	font-family: var(--kujali-segoe-ui);
 }
 
-.logo-wrapper {
+.login-form {
+	height: 100%;
+  width: 100%;
+  padding: 20px 30px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 5rem;
 }
 
-.elewa-info {
-	display: flex;
-	flex-direction: column;
-  text-align: left;
-  color: $secondary-elements-color;
-  padding: 6rem 2rem;
-  font-weight: 400;
-  background: linear-gradient(180deg, rgba(255, 177, 0, 1) 17%, #9f74d5 100%);
-
-  .info-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    margin-top: 20vh;
-  }
-
-  @media screen and (max-width: 920px) {
-    display: none;
-  }
+.fin-img {
+	clip-path: circle();
+	width: 400px;
+	height: auto;
+	object-fit: contain;
 }
 
-.logoImg {
-  width: 200px;
-}
-
-::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
-  display: flex;
-  justify-content: center;
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%!important;
 }

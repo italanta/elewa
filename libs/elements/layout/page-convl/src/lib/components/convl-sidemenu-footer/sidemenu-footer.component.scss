@@ -1,4 +1,4 @@
-@use '@angular/material' as mat; 
+@use '@angular/material' as mat;
 
 #sidemenu-footer {
   text-align: center;
@@ -15,21 +15,44 @@
 .language-holder {
   padding: 15px;
 }
-  .lang {
-    font-size: 0.9em;
-    padding: 8px;
-    margin: 0 10px;
-    color: #eee;
-    background-color: var(--convs-mgr-color-dark-blue);
-  }
-    .lang:hover {
-      background-color: var(--convs-mgr-color-primary-pink);
-      cursor: pointer;
-    }
 
-  .lang.active {
-    background-color: var(--convs-mgr-color-primary-pink);
-  }
-    .lang.active:hover {
-      background-color: var(--convs-mgr-color-primary-pink);
-    }
+.lang {
+  font-size: 0.9em;
+  padding: 8px;
+  margin: 0 10px;
+  color: #eee;
+  background-color: var(--convs-mgr-color-dark-blue);
+}
+
+.lang:hover {
+  background-color: var(--convs-mgr-color-primary-pink);
+  cursor: pointer;
+}
+
+.lang.active {
+  background-color: var(--convs-mgr-color-primary-pink);
+}
+
+.lang.active:hover {
+  background-color: var(--convs-mgr-color-primary-pink);
+}
+
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%!important;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
+}

@@ -1,0 +1,100 @@
+<div class="users" *ngIf="orgLoaded; else loadingUSers" [formGroup]="searchFormGroup">
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="toolbar">
+    <div class="search" fxFlex="50%">
+      <mat-form-field appearance="outline" fxFlex>
+        <input (keyup)="applyFilter($event)" matInput placeholder="Search by name, email or role" #input>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
+      <mat-form-field appearance="outline" fxFlex="50%">
+        <mat-select formControlName="role" multiple>
+          <mat-option *ngFor="let role of orgRoles" [value]="role"> {{role}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" mat-raised-button fxFlex> Invite Member</button>
+    </div>
+  </div>
+
+  <div class="user-table">
+    <div class="table-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+        <!-- Full Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let user">
+            <div *ngIf="user.roles; else dash">{{user.displayName}} </div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <td mat-cell *matCellDef="let user">
+            <div *ngIf="user.email; else dash">{{(user.email)}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- Roles column -->
+        <ng-container matColumnDef="roles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+          <td mat-cell *matCellDef="let user">
+            <div *ngIf="user.roles; else dash">
+              <span class="badge" *ngFor="let role of getRoles(user.roles[org.id!])">
+                {{ role }}
+              </span>
+            </div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- activity Column -->
+        <ng-container matColumnDef="activity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated </th>
+          <td mat-cell *matCellDef="let user">
+            <div *ngIf="user.updatedOn; else dash">{{(getDate(user.updatedOn))}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- STATUS Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let user">
+            <div *ngIf="user.status; else dash">{{(user.status)}}</div>
+            <ng-template #dash> - </ng-template>
+          </td>
+        </ng-container>
+
+        <!-- ACTIONS Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-stroked-button [matMenuTriggerFor]="menu">
+              <span>More</span>
+            </button>
+            <mat-menu #menu="matMenu">
+              <!-- <button class="mat-menu-item" mat-menu-item>Approve</button> -->
+              <button  class="mat-menu-item" mat-menu-item (click)="updateUserDetails(user)"> Edit </button>
+              <button  class="mat-menu-item" mat-menu-item> De-activate</button>
+              <button class="mat-menu-item" mat-menu-item (click)="removerUser(user)"> Remove </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div>
+  <ng-template #loadingUSers>
+    <mat-spinner diameter="30">Loading Users</mat-spinner>
+  </ng-template>
+</div>
