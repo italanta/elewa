@@ -2,12 +2,12 @@ import { FunctionContext, FunctionHandler } from '@ngfi/functions'; // Import th
 import { HandlerTools } from '@iote/cqrs';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 
 import * as functions from 'firebase-functions';
 
 
-import { BlockDataService } from './services/block.service';
 
 
 /**
@@ -41,14 +41,15 @@ export class SaveStoryHandler extends FunctionHandler<any, { success: boolean }>
 
       const { blocks,story } = data;
         
-        // Create an instance of BlockDataService
-      const blockDataService = new BlockDataService();
+  
+      // save blocks ops
 
-      // Call the method on the instance
-      await blockDataService.saveBlocks(story.orgId, story.id, blocks);
+      const blocksRepo = this._tools.getRepository<StoryBlock>(`orgs/${story.orgId}/stories/${story.id}/blocks`);
+      const saveBlocks$ = blocks.map((block) => blocksRepo.write(block, block.id));
+      await Promise.all(saveBlocks$);
 
-
-      return { success: true }; // Return success here
+     
+      return {success : true }
     } catch (error) {
       console.error('Error creating story end block:', error);
       throw new functions.https.HttpsError(
