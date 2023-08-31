@@ -168,7 +168,7 @@ export class CMI5ZipParser extends FunctionHandler<CMI5ParserPayload, RestResult
 
     firstAUId = newAU.id;
 
-    await auRepo$.create(newAU);
+    await auRepo$.write(newAU, newAU.id);
 
     return firstAUId;
   }
