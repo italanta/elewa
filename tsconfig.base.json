@@ -308,6 +308,7 @@
       ],
       "@app/private/model/convs-mgr/micro-apps/cmi5": [
         "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
+      ],
       "@app/private/model/access-control": [
         "libs/private/model/access-control/src/index.ts"
       ],
