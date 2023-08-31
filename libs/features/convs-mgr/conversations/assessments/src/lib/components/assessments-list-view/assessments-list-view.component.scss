@@ -1,0 +1,17 @@
+.mdc-data-table__header-cell {
+	color: #7C7C7C;
+	font-weight: 300;
+	font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+	color: #101010;
+	font-size: 1rem;
+	font-weight: 400;
+	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+	background-color: #eee;
+	cursor: pointer;
+}

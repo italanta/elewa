@@ -1,0 +1,47 @@
+<h1 mat-dialog-title> Update User Details </h1>
+<div class="new-clm-user" [formGroup]="updateUserForm" mat-dialog-content fxLayout="column">
+
+  <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" fxFlex>
+
+    <div fxLayout="column" fxLayoutAlign="start">
+      <span class="custom-label"> First Name </span>
+      <mat-form-field appearance="outline" fxFlex>
+        <input matInput formControlName="firstName">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start">
+      <span class="custom-label"> Last Name </span>
+      <mat-form-field appearance="outline" fxFlex>
+        <input matInput formControlName="lastName">
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" fxFlex>
+
+    <div fxLayout="column" fxLayoutAlign="start">
+      <span class="custom-label">Email</span>
+      <mat-form-field appearance="outline" fxFlex>
+        <input matInput type="email" formControlName="email">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start">
+      <span class="custom-label">Role</span>
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-select formControlName="roles" multiple>
+          <mat-option *ngFor="let role of userData.org.roles" [value]="role"> {{role}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button [disabled]="updatingUserDetails" class="cancel-btn" mat-button mat-dialog-close="">Cancel</button>
+  <button [disabled]="updatingUserDetails" class="btn" mat-raised-button (click)="updateUserDetails()">
+    <span *ngIf="!updatingUserDetails"> Update </span>
+    <mat-spinner *ngIf="updatingUserDetails" diameter="20" strokeWidth="3"></mat-spinner>
+  </button>
+</div>

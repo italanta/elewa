@@ -44,6 +44,7 @@ import { _KeywordJumpBlockDecoratePlumb } from './keyword-jump-block.jsplumb';
 import { _EventBlockDecoratePlumb } from './event-block.jsplumb';
 import { _AssessmentBrickDecoratePlumb } from './assessment-brick.jsplumb';
 import { _ConditionalBlockDecoratePlumb } from './conditional-block.jsplumb';
+import { _CMI5BlockDecoratePlumb } from './cmi5-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -133,6 +134,9 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       return _AssessmentBrickDecoratePlumb(block as AssessmentBrick, comp, jsPlumb);
     case StoryBlockTypes.Conditional:
       return _ConditionalBlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
+    case StoryBlockTypes.CMI5Block:
+      return _CMI5BlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
+
   }
 
   return comp;

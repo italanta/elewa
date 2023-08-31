@@ -35,8 +35,7 @@ export class RegisterComponent
   private _initForm()
   {
     this.registerForm = this._fb.group({
-      firstName:[{value: '', disabled: false}, Validators.required],
-      lastName:[{value: '', disabled: false}, Validators.required],
+      name:[{value: '', disabled: false}, Validators.required],
       email:[{value: '', disabled: false}, [Validators.required,Validators.email]],
       password:[{value: '', disabled: false}, Validators.required],
       confirmPassword:[{value: '', disabled: false}, Validators.required],
@@ -56,8 +55,7 @@ export class RegisterComponent
       this.isLoading = true;
 
       const frm = this.registerForm.value;
-      const firstName = frm.firstName;
-      const lastName = frm.lastName;
+      const name = frm.name;
 
       this.registerForm.disable()
 
@@ -70,7 +68,7 @@ export class RegisterComponent
           buildings: {}
         },
 
-        displayName: `${firstName} ${lastName}`,
+        displayName: `${name}`,
         roles: {
           access: true,
           active: true
@@ -78,7 +76,7 @@ export class RegisterComponent
       };
 
       this._authService.createUserWithEmailAndPassword(
-                 `${firstName} ${lastName}`,
+                 `${name}`,
                   user.email,
                   frm.password,
                   user.profile,

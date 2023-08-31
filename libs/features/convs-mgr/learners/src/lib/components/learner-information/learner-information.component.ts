@@ -21,6 +21,6 @@ export class LearnerInformationComponent {
   }
   goToChat() :void{
     //todo: Request assistance on how to retrieve the enduse id
-    this._router.navigate(['chats', this.currentLearner.id])
+    this._router.navigate(['chats', this.currentLearner.whatsappUserId])
   }
 }

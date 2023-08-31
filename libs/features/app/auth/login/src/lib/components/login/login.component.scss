@@ -16,12 +16,10 @@ $secondary-elements-color: white;
 }
 
 #loginBtn {
-  background-color: rgba(255, 177, 0, 1);
+  background-color: #111441;
   color: $secondary-elements-color;
-  width: 400px;
-  height: 50px;
-  font-weight: 600;
-  font-size: large;
+  border-radius: 20px;
+  padding: 20px;
 }
 
 #googleBtn {
@@ -65,8 +63,7 @@ $secondary-elements-color: white;
 }
 
 #forgot-btn {
-  padding-left: 0;
-  color: purple;
+  padding: 20px 0px;
   font-weight: 600;
 }
 
@@ -104,7 +101,6 @@ $secondary-elements-color: white;
 }
 
 .login-title {
-  font-family: var(--kujali-segoe-ui-bold);
   color: var(--convs-mgr-color-primary-black);
   font-size: 2rem;
 }
@@ -135,4 +131,8 @@ $secondary-elements-color: white;
 input {
   border: none;
   width: 100%;
+}
+
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white!important;
 }
