@@ -1,0 +1,32 @@
+<div class="interesting-events" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
+
+  <div class="events-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <span fxFlex>
+      Intersting Events
+    </span>
+
+    <div class="search" fxFlex="50">
+      <input class="input-field" placeholder="Find an event" type="text">
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+      <button mat-flat-button>
+        <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="events-list" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="10px" fxFlex>
+    <div *ngFor="let event of events" class="event" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+      <span class="event-name">
+        {{ event.name }}
+      </span>
+      <span class="event-desc">
+        {{ event.desc }}
+      </span>
+      <span class="event-date">
+        {{ event.date }}
+      </span>
+    </div>
+  </div>
+</div>
