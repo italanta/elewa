@@ -65,7 +65,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
-    .pipe(take(2))
+    .pipe(take(2)) //take 2 to reduce subscriptions. first subscription fetches blocks, second subscription fetches connectors. Reduces load time when saving and fetching blocks and connectots
     .subscribe((state: StoryEditorState) => {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
         this._logger.log(() => state);
