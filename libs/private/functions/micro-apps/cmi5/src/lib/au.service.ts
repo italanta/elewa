@@ -27,7 +27,7 @@ export class CMI5AUService extends AUService
     const sessionID = statement.extensions['https://w3id.org/xapi/cmi5/context/extensions/sessionid'];
 
     // Gets the organisation ID the learner belongs to
-    const orgId = statement.actor.account.organisation;
+    const orgId = statement.actor.account.homePage;
 
     // Gets the learner registration id which is the end user id in our case
     const endUserId = statement.context.registration;
@@ -36,7 +36,7 @@ export class CMI5AUService extends AUService
     const auId = statement.object.id;
 
     // Gets the course ID from the AU ID
-    const courseId = auId.split("/")[0];
+    const courseId = auId.split("_")[0];
 
     const sessionService = new LearnerSessionService(this.tools);
 
