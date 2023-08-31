@@ -51,12 +51,14 @@ export class CMI5Service extends LMSService<CMI5LaunchData>
   protected async __createStateDocument(auId: string, orgId: string, endUserId: string, sessionID: string)
   { 
     // Get course Id from the AU Id
-    const courseId = auId.split('/')[0];
+    const courseId = auId.split('_')[0];
 
     const auRepo$ = this.tools.getRepository<AssignableUnit>(`orgs/${orgId}/course-packages/${courseId}/assignable-units`);
 
     // Gets the current au configuration
     const au = await auRepo$.getDocumentById(auId);
+
+    this.tools.Logger.log(()=> `Creating state document for AU: ${au.id} - ${au.title}`)
 
     // Uses the current AU config to create the state (Launch Data)
     this.state = {
