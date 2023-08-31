@@ -29,10 +29,35 @@ export interface EndUser extends IObject
     /** The values of the variables that the end user has provided */
     variables                     ?: {[key:string]:any};
 
+    /** 
+     * Learner Preferences required to launch an AU. However The LMS (CLM) MAY choose to ignore or 
+     *      override Learner Preference changes requested by the AU by returning a "403 Forbidden" 
+     *          response as defined in the xAPI specification.
+     * 
+     * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#xapi_agent_profile
+     * */
+    learnerPreferences           ?: LearnerPreferences;
+
     /** The results of the assessments that the end user has taken */
     assessmentResults             ?: AssessmentResult[];
 }
 
+
+/** 
+ * Learner Preferences required to launch an AU. However The LMS (CLM) MAY choose to ignore or 
+ *      override Learner Preference changes requested by the AU by returning a "403 Forbidden" 
+ *          response as defined in the xAPI specification.
+ * 
+ * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#xapi_agent_profile
+ * */
+export interface LearnerPreferences {
+    /** In the list, languages MUST be specified in order of user preference 
+     * e.g. "en-US,fr-FR,fr-BE" */
+    languagePreference            ?: string;
+
+    /** The audioPreference value indicates whether the audio SHOULD be "on" or "off" */
+    audioPreference               ?: string;
+}
 /**
  * The current status of the ongoing chat between the end user and our chatbot
  * 

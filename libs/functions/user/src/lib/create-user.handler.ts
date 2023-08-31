@@ -17,14 +17,14 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
     this._tools = tools;
     this._tools.Logger.debug(() => `Beginning Execution, Creating a new User`);
 
-    this.userExists(userData.email, userData);
+    return this.userExists(userData.email, userData);
   }
 
   private async userExists(email: string, userData: iTalUser) {
     const user = await admin.auth().getUserByEmail(email).then(async (user) => {
         this._tools.Logger.log(() => `Updating an existing user ${user.uid}`);
 
-        this.addUserToOrg(userData.activeOrg, user.uid);
+        await this.addUserToOrg(userData.activeOrg, user.uid);
 
         const usersRepo = this._tools.getRepository<any>(`users`);
         const existingUser = await usersRepo.getDocumentById(user.uid);
@@ -32,7 +32,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
         existingUser.roles[userData.activeOrg] = userData.roles[userData.activeOrg];
         existingUser.orgIds.push(userData.activeOrg);
 
-        usersRepo.update(existingUser);
+        await usersRepo.update(existingUser);
       })
       .catch(async () => {
         try {
@@ -47,8 +47,8 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
               password: password,
               displayName: userData.displayName,
             })
-            .then((user) => {
-              this._updateUserDetails(
+            .then(async (user) => {
+              await this._updateUserDetails(
                 user,
                 password,
                 userData
@@ -88,10 +88,10 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
       data.createdBy = 'AuthService';
       data.isNew = true;
 
-      usersRef.create(data, user.uid);
+      await usersRef.create(data, user.uid);
 
-      this.sendPasswordResetLink(user.email as string, userData.activeOrg, password);
-      this.addUserToOrg(userData.activeOrg, user.uid);
+      await this.sendPasswordResetLink(user.email as string, userData.activeOrg, password);
+      await this.addUserToOrg(userData.activeOrg, user.uid);
     } catch (error) {
       this._tools.Logger.log(() => `Could not update user because ${error}`);
     }
@@ -108,7 +108,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
       orgUsers.push(userId);
       org.users = orgUsers;
 
-      orgsRepo.update(org);
+      await orgsRepo.update(org);
     } catch (error) {
       this._tools.Logger.log(() => `Could not update user on org due to ${error}`);
     }
@@ -119,7 +119,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
       await admin
         .auth()
         .generatePasswordResetLink(email)
-        .then((link) => {
+        .then(async (link) => {
           this._tools.Logger.log(() => `Creating email template for password reset`);
 
           const mailRepo = this._tools.getRepository<any>(`orgs/${orgId}/mails`);
@@ -133,7 +133,7 @@ export class CreateNewUserHandler extends FunctionHandler<any, void> {
             },
           };
 
-          mailRepo.create(mail);
+          await mailRepo.create(mail);
         });
     } catch (error) {
       this._tools.Logger.log(() => `Could not send email due to ${error}`);

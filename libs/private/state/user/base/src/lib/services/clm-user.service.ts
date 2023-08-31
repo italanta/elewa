@@ -60,6 +60,12 @@ export class CLMUsersService {
     this._user$$.updateUser(user).then(() => this._dialog.closeAll());
   }
 
+
+  updateUserRoles(user: iTalUser, roles:string[]) {
+    user.roles[this.org.id as string] = this.createUserRoles(this.org.roles, roles, true)
+    this._user$$.updateUser(user).then(() => this._dialog.closeAll());
+  }
+
   /**
    * Gets and sets the active organisation
    */
