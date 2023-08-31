@@ -1,8 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName:
-    'libs-private-features-convs-mgr-stories-blocks-library-cmi5-block',
-  preset: '../../../../../../../../../jest.preset.js',
+  displayName: 'private-features-convs-mgr-stories-blocks-library-cmi5-block',
+  preset: '../../../../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -11,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../../../../../coverage/libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block',
+    '../../../../../../../../coverage/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
