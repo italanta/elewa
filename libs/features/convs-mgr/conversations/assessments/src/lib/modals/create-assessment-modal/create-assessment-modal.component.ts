@@ -10,7 +10,6 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
-
 @Component({
   selector: 'app-create-assessment-modal',
   templateUrl: './create-assessment-modal.component.html',
@@ -25,10 +24,11 @@ export class CreateAssessmentModalComponent implements OnInit, OnDestroy {
 
   isSavingAssessment = false;
 
-  constructor(private _assessment: AssessmentService,
+  constructor(private _route: Router,
+              private _dialog: MatDialog,
               private _formBuilder: FormBuilder,
-              private _route: Router,
-              private _dialog: MatDialog){}
+              private _assessment: AssessmentService,
+  ) {}
 
   ngOnInit(): void {
     this.createFormGroup();

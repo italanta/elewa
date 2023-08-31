@@ -1,82 +1,59 @@
 <div>
-    <div *ngIf="assessments$ | async as assessments">
-        <div *ngIf="assessments.length > 0; else noAssessments">
-            <div class="header-wrapper" fxLayout="column" fxLayoutAlign="space-between end" fxLayoutGap="1rem">
-                <button mat-flat-button class="btn-add" (click)="openCreateAssessmentDialog()">
-                    <i class="fas fa-plus"></i><span>{{'ASSESSMENTS.BUTTON.ADD' | transloco}}</span>
-                </button>
-            
-                <div class="search">
-                    <i class="fas fa-search search_tooltip"></i>
-                    <input class="search_input" type="text" name="" placeholder="Search for assessments" (keyup)="searchTable($event)" />
-                  </div>
-            </div>
+	<div *ngIf="assessments$ | async as assessments">
+		<div *ngIf="assessments.length > 0; else noAssessments">
+			<div class="header-wrapper" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="1rem">
+				<app-assessments-header></app-assessments-header>
 
-            <div *ngIf="!dataFound">
-                <ng-container *ngTemplateOutlet="noAssessments"></ng-container>
-            </div>
-            
-            <div *ngIf="dataFound">
-                <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)">
-                    <ng-container matColumnDef="num">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="number" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-NUMBER' | transloco}}">#</th>
-                        <td mat-cell *matCellDef="let assessment; let i = index">{{i+1}}</td>
-                    </ng-container>
+				<div class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+					<div class="search" fxFlex="60">
+						<i class="fas fa-search search_tooltip"></i>
+						<input class="search_input" type="text" name="" placeholder="Search for assessments"
+							(keyup)="searchTable($event)" />
+					</div>
 
-                    <ng-container matColumnDef="title" >
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="title" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-TITLE' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.TITLE' | transloco}}</th>
-                        <td class="title-desc" (click)="openAssessment(assessment.id)" mat-cell *matCellDef="let assessment">{{assessment.title}}</td>
-                    </ng-container>
+					<div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+						<div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
 
-                    <ng-container matColumnDef="createdOn">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="createdOn" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">{{getFormattedDate(assessment.createdOn)}}</td>
-                    </ng-container>
-                
-                    <ng-container matColumnDef="inProgress">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="inProgress" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.IN-PROGRESS' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">{{ assessment?.metrics?.inProgress }}</td>
-                    </ng-container>
-                
-                    <ng-container matColumnDef="responses">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="responses" sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">{{'ASSESSMENTS.TABLE-HEADER.RESPONSES' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">{{ assessment?.metrics?.completedRes }}</td>
-                    </ng-container>
-                
-                    <ng-container matColumnDef="actions">
-                        <th class="table-header" mat-header-cell *matHeaderCellDef>{{'ASSESSMENTS.TABLE-HEADER.ACTIONS' | transloco}}</th>
-                        <td mat-cell *matCellDef="let assessment">
-                            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5%">
-                                
-                                <button mat-flat-button class="btn-result" (click)="openAssessmentResults(assessment.id)">
-                                    {{'ASSESSMENTS.BUTTON.RESULTS' | transloco}}
-                                </button>
+							<div class="select">
+								<select [value]="sortAssessmentsBy" (change)="sortBy($event)">
+									<option value=""></option>
+									<option value="newest">Date Created (Newest)</option>
+									<option value="oldest">Date Created (Oldest)</option>
+								</select>
+							</div>
 
-                                <button mat-flat-button class="btn-delete" (click)="openDeleteModal(assessment)">
-                                    {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
-                                </button>
-                            </div>
-                        </td>
-                    </ng-container>
-                
-                    <tr mat-header-row *matHeaderRowDef="assessmentsColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: assessmentsColumns"></tr>
-            
-                </table>
-        
-                <mat-paginator #tablePaginator [length]="assessments.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" [ariaLabel]="'ASSESSMENTS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
-                </mat-paginator>
-            </div>
-        </div>
-    </div>
-    
-    <ng-template #noAssessments>
-        <div class="create-assessments" fxLayout="row" fxLayout="center center" (click)="openCreateAssessmentDialog()">
-            <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-              <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-              <p>{{'ASSESSMENTS.BUTTON.ADD-ASSESSMENT' | transloco}}</p>
-            </div>
-          </div>
-    </ng-template>
-    
+							<button [ngClass]="viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+								<i class="fa-solid fa-list-ul"></i>
+								<span style="margin-left: 10px;"> List </span>
+							</button>
+
+							<button [ngClass]="!viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+								<i class="fa-solid fa-border-all"></i>
+								<span style="margin-left: 10px;"> Grid </span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf="!dataFound">
+				<ng-container *ngTemplateOutlet="noAssessments"></ng-container>
+			</div>
+
+			<div *ngIf="dataFound">
+				<app-assessments-list-view *ngIf="viewInListView" [dataSource]="dataSource" [assessments]="assessments"></app-assessments-list-view>
+				<app-assessments-grid-view *ngIf="!viewInListView" [dataSource]="dataSource" [assessments]="assessments"></app-assessments-grid-view>
+			</div>
+		</div>
+	</div>
+
+	<ng-template #noAssessments>
+		<div class="create-assessments" fxLayout="row" fxLayout="center center" (click)="openCreateAssessmentDialog()">
+			<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+				<i class="fa fa-plus fa-5x" aria-hidden="true"></i>
+				<p>{{'ASSESSMENTS.BUTTON.ADD-ASSESSMENT' | transloco}}</p>
+			</div>
+		</div>
+	</ng-template>
+
 </div>
