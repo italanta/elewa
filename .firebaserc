@@ -38,6 +38,13 @@
           "elewa-clm-test"
         ]
       }
+    },
+    "ele-convl-manager": {
+      "hosting": {
+        "convl-manager": [
+          "ele-convl-manager"
+        ]
+      }
     }
   },
   "etags": {}

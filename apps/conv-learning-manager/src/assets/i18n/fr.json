@@ -117,6 +117,12 @@
           "FAILED": "Échoué"
         }
       },
+      "UPLOAD-WARNING" :{
+        "CMI5-BLOCK":{
+          "INVALID-FILE-TYPE":"Type de fichier invalide",
+          "PLEASE-SELECT-ZIP-ONLY":"Veuillez sélectionner un fichier .zip uniquement."
+        }
+      },
       "LABELS": {
         "TRACK-MILESTONE": "Suivre comme un jalon",
         "ASSESSMENTS-NAME": "Nom de l'évaluation",
@@ -377,5 +383,23 @@
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum de caractères atteint"
+  },
+  "ADMIN-SETTINGS": {
+    "TEAM-SECTION" : {
+      "TITLE": "Équipe",
+      "DESCRIPTION": "Inviter et/ou gérer les membres de l'équipe au sein de votre organisation",
+      "BUTTONS": {
+        "ADD-MEMBER": "Ajouter un membre"
+      },
+      "MODAL": {
+        "TITLE": "Ajouter un membre",
+        "DESC": "Inviter un membre de l'équipe via son adresse e-mail",
+        "EMAIL-ERROR": "Le courriel est invalide",
+        "SELECT-ROLE": "Sélectionnez un rôle"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
+      }
+    }
   }
 }

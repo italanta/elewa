@@ -11,5 +11,4 @@ export class SideMenuFooterComponent
   @Input() user: User;
 
   lang : string;
-
 }

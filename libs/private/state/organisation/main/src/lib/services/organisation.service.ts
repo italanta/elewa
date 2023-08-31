@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
@@ -13,6 +14,7 @@ import { iTalUser } from '@app/model/user';
 
 import { ActiveOrgStore } from '../stores/active-org.store';
 import { OrgStore } from '../stores/organisation.store';
+import { PermissionsStore } from '../stores/permissions.store';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,8 @@ export class OrganisationService {
               private _activeOrg$$: ActiveOrgStore,
               private _user$$: UserStore,
               private _orgs$$: OrgStore,
-              private _db: AngularFirestore
+              private _db: AngularFirestore,
+              private _permissionsStore: PermissionsStore
   ){}
 
   /** Gets the active(current) organisation */
@@ -46,19 +49,21 @@ export class OrganisationService {
 
   /** Get details of the users in an organisation */
   getOrgUsersDetails(): Observable<iTalUser[]> {
-    return this._activeOrg$$.get().pipe(switchMap((org) => !!org ? this._user$$.getOrgUsers(org.id!) : []));
+    return this._activeOrg$$.get().pipe(switchMap((org) => org ? this._user$$.getOrgUsers(org.id as string) : []));
   }
 
   /** Creates an organisation */
   createOrg(org: Organisation) {
     const id = this._db.createId();
+
     const orgWithId = { 
-      ...org, 
+      ...org,
       id: id,
       logoUrl: '',
       email: '',
       phone: '',
-     };
+    };
+
     this._sbS.sink = this._orgs$$.add(orgWithId, id)
       .pipe(take(1))
       .subscribe(o => this._afterCreateOrg(o));
@@ -81,6 +86,7 @@ export class OrganisationService {
 
   updateOrgDetails(org: Organisation, fileUrl?: string) {
     org.logoUrl = fileUrl ?? '';
+
     this._orgs$$.update(org).subscribe((org) => {
       if (org) {
         window.location.reload();
@@ -88,21 +94,31 @@ export class OrganisationService {
     });
   }
 
+  getOrgPermissions () {
+    return this._permissionsStore.get();
+  }
+
+  updateOrgPermissions(permissions: FormGroup) {
+    return this._permissionsStore.create(permissions.value);
+  }
+
   removeUserFromOrg(user: iTalUser) {
-    this._activeOrg$$.get().pipe(take(1)).subscribe((org) => {
+    this._activeOrg$$.get().pipe(take(1)).subscribe( async(org) => {
       if (org) {
-        org.users.splice(org.users.indexOf(user.id!), 1);
+        org.users.splice(org.users.indexOf(user.id as string), 1);
         this.updateOrgDetails(org);
-        this.removeOrgFromUser(user, org);
+        await this.removeOrgFromUser(user, org);
       }
     })
   }
 
-  removeOrgFromUser(user: iTalUser, org: Organisation) {
-    user.orgs.splice(user.orgs.indexOf(org.id!), 1);
-    let userOrg = user.activeOrg;
-    user.activeOrg = userOrg === org.id ? user.orgs.length > 0 ? user.orgs[0] : '' 
+
+  async removeOrgFromUser(user: iTalUser, org: Organisation) {
+    user.orgIds.splice(user.orgIds.indexOf(org.id as string), 1);
+
+    const userOrg = user.activeOrg;
+    user.activeOrg = userOrg === org.id ? user.orgIds.length > 0 ? user.orgIds[0] : ''
                                                 : userOrg;
-    this._user$$.updateUser(user).then(() => {});
+    await this._user$$.updateUser(user);
   }
 }

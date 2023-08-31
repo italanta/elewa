@@ -11,8 +11,7 @@ export interface Actor
 
   /** Additional information to identify the learner */
   account: {
-    endUserId: string;
-    organisation: string;
-    class: string;
+    homePage: string;
+    name: string;
   };
 }

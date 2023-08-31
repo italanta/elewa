@@ -15,21 +15,22 @@ import { LearnerSession, LMSLaunchData, AUStatusTypes } from "@app/private/model
 export class LearnerSessionService
 {
   learnerSession: LearnerSession;
+  learnerSessionId: string;
 
   constructor(private tools: HandlerTools) { }
 
   /** Generates a random id to be used to referrence the current session */
   public generateSessionID()
   {
-    this.learnerSession.id = randomUUID().slice(0, 22);
+    this.learnerSessionId = randomUUID().slice(0, 22);
 
-    return this.learnerSession.id;
+    return this.learnerSessionId;
   }
 
   /** Gets the current session specified in the xAPI statement */
   public async getSession(orgId: string, auId: string, sessionID: string)
   {
-    const courseId = auId.split('/')[0];
+    const courseId = auId.split('_')[0];
 
     const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
 
@@ -47,7 +48,7 @@ export class LearnerSessionService
   /** Gets the current session from the AU id */
   public async getSessionByAU(orgId: string, auId: string)
   {
-    const courseId = auId.split('/')[0];
+    const courseId = auId.split('_')[0];
 
     const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
 
@@ -66,7 +67,7 @@ export class LearnerSessionService
   /** Initializes a new session from an AU and the LaunchData @see LMSLaunchData  */
   public create(orgId: string, endUserId: string, auId: string, state: LMSLaunchData)
   {
-    const courseId = auId.split('/')[0];
+    const courseId = auId.split('_')[0];
 
     const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
 
@@ -85,13 +86,13 @@ export class LearnerSessionService
       }]
     };
 
-    return sessionRepo$.create(this.learnerSession);
+    return sessionRepo$.write(this.learnerSession, this.learnerSessionId);
   }
 
   /** Updates the current session with new details set by the LMS */
   public update(session: LearnerSession, orgId: string, auId: string)
   {
-    const courseId = auId.split('/')[0];
+    const courseId = auId.split('_')[0];
 
     const sessionRepo$ = this.tools.getRepository<LearnerSession>(`orgs/${orgId}/course-packages/${courseId}/sessions`);
 

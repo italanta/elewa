@@ -11,7 +11,7 @@ import { Logger } from '@iote/bricks-angular';
 import { Organisation } from '@app/model/organisation';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable()
 export class AssessmentsStore extends DataStore<Assessment>
