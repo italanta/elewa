@@ -1,22 +1,18 @@
 <div *ngIf="user$ | async as user" class="user-component">
 
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+  <div *ngIf="userOrgs" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
 
-    <div class="switchOrg" *ngIf="userOrgs">
-      <div *ngIf="userOrgs.length == 1; else multipleOrgs">
-        <p class="orgNameOne"> {{userOrgs[0].name}}</p>
-      </div>
-      <ng-template #multipleOrgs>
-        <mat-form-field appearance="outline">
-          <mat-select [value]="organisation" (selectionChange)="switchOrg($event.value)" [compareWith]="compareFn">
-            <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
-              (filteredReturn)="filteredOrgs =$event"></mat-select-filter>
-            <mat-option *ngFor="let org of filteredOrgs" [value]="org">
-              {{org.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </ng-template>
+    <div class="switchOrg" style="max-width: 90%;">
+      <mat-form-field appearance="outline" fxFlex>
+        <mat-select [disabled]="userOrgs.length == 1" [value]="organisation" (selectionChange)="switchOrg($event.value)"
+          [compareWith]="compareFn">
+          <mat-select-filter [placeholder]="'Filter'" [displayMember]="'name'" [array]="userOrgs"
+            (filteredReturn)="filteredOrgs =$event"></mat-select-filter>
+          <mat-option *ngFor="let org of filteredOrgs" [value]="org">
+            {{org.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -25,10 +21,16 @@
         <i class="far fa-user-circle user-photo"></i>
       </ng-template>
 
-      <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
-        {{ user.displayName }}
-        <i class="fas fa-caret-down"></i>
-      </button>
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <button class="user-btn" mat-button [matMenuTriggerFor]="userMenu">
+          {{ user.displayName }}
+          <i class="fas fa-caret-down"></i>
+        </button>
+
+        <span class="role">
+          {{ getUserRoles(user) }}
+        </span>
+      </div>
 
       <mat-menu #userMenu="matMenu" xPosition="before">
         <button mat-menu-item>My profile</button>

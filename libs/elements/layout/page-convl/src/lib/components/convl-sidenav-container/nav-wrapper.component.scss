@@ -17,3 +17,8 @@ mat-sidenav {
 mat-sidenav, mat-sidenav-container, .page-content-wrapper, mat-sidenav-content {
   height: 100%;
 }
+
+:host ::ng-deep .mat-elevation-z4, .mat-mdc-elevation-specific.mat-elevation-z4 {
+  box-shadow: none;
+  border-right: solid rgba($color: #707070, $alpha: 0.25) 1px;
+}
