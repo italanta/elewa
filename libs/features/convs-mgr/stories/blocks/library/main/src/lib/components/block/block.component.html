@@ -124,5 +124,10 @@
             <app-conditional-block [id]="id" [block]="block" [conditionalBlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
             </app-conditional-block>
         </div>
+
+        <div *ngSwitchCase="CMI5BlockType">
+            <app-cmi5-block [id]="id" [block]="block" [CMI5BlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
+            </app-cmi5-block>
+        </div>
     </div>
 </mat-card>

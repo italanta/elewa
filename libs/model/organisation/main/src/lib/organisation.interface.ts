@@ -14,6 +14,9 @@ export interface Organisation extends IObject
   roles: string[];
   permissions: {};
 
+  email?: string;
+  phone?: string;
+
   /** 
    * The archived flag is used to indicate that the organisation is no longer active.
    *  We archive organisations after the last user has left the organisation.

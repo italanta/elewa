@@ -1,0 +1,30 @@
+.main-title {
+  color: var(--convs-mgr-color-text-black);
+  font-weight: 600;
+  // font-size: 1.1rem;
+  margin-bottom: 0px;
+}
+
+.title {
+  color: var(--convs-mgr-color-text-black);
+  margin-bottom: 0px!important;
+  width: 100%;
+  text-align: center;
+}
+
+.titles {
+  padding: 20px 10px;
+}
+
+.titles:nth-child(even) {
+  background-color: #F7F7F7;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center-toogle {
+  display: block;
+  margin: auto;
+}

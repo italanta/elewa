@@ -51,12 +51,14 @@ export class CMI5Service extends LMSService<CMI5LaunchData>
   protected async __createStateDocument(auId: string, orgId: string, endUserId: string, sessionID: string)
   { 
     // Get course Id from the AU Id
-    const courseId = auId.split('/')[0];
+    const courseId = auId.split('_')[0];
 
     const auRepo$ = this.tools.getRepository<AssignableUnit>(`orgs/${orgId}/course-packages/${courseId}/assignable-units`);
 
     // Gets the current au configuration
     const au = await auRepo$.getDocumentById(auId);
+
+    this.tools.Logger.log(()=> `Creating state document for AU: ${au.id} - ${au.title}`)
 
     // Uses the current AU config to create the state (Launch Data)
     this.state = {
@@ -108,7 +110,13 @@ export class CMI5Service extends LMSService<CMI5LaunchData>
     return session.stateData;
   }
 
-  /**  */
+  /** Gets the audio and language preferences of the learner if they have been configured 
+   * 
+   * The documentation allows us to send 403 forbidden if the preferences do not exist and the 
+   *  AU will still continue.
+   * 
+   * @see https://github.com/AICC/CMI-5_Spec_Current/blob/quartz/cmi5_spec.md#xapi_agent_profile
+  */
   public async getLearnerPreferences(orgId: string, endUserId: string)
   {
     this.tools.Logger.log(() => '[LMSService].sendLearnerPreferences - Sending learner preferences to AU');

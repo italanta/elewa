@@ -1,7 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { FunctionHandler, RestResult200 } from '@ngfi/functions'
-;
+import { FunctionHandler, RestResult, RestResult200 } from '@ngfi/functions';
+
 import { CMI5Service } from './lms.service';
 import { CMI5AUService } from './au.service';
 
@@ -42,48 +42,68 @@ export class CMI5Listener extends FunctionHandler<any, any>
     context = context.eventContext;
 
     // Get the request data and the URL path
-    const path = context.request.path;
-    tools.Logger.log(()=> `[CMI5Listener].execute - Request path: ${path}`);
-
+    const path = context.request.path as string;
+    const body = context.request.body;
     const queryData = context.request.query;
-    tools.Logger.log(()=> `[CMI5Listener].execute - Request query: ${JSON.stringify(queryData)}`);
+
+    tools.Logger.log(() => `[CMI5Listener].execute - Request path: ${path}`);
+
+    tools.Logger.log(() => `[CMI5Listener].execute - Request body: ${JSON.stringify(body)}`);
+
+    tools.Logger.log(() => `[CMI5Listener].execute - Request query: ${JSON.stringify(queryData)}`);
+
+    const lms = new CMI5Service(tools);
 
     // If the agent object is included in the quesry, get the orgId and endUserid
-    if(queryData.agent) {
-      orgId = queryData.agent.account.organisation;
+    if (queryData.agent) {
+      queryData.agent = JSON.parse(queryData.agent);
 
-      endUserId = queryData.agent.account.endUserId;
+      orgId = queryData.agent.account.homePage;
+
+      endUserId = queryData.agent.account.name;
+
+      if (path == '/activities/state') {
+
+        await lms.prepareForLaunch(orgId, endUserId, queryData.activityId);
+      }
     }
 
     // Initialize the CMI5 Service.
     //
     //  Defines the processes of the CMI5 specification as
     // defined in the concept overview
-    const lms = new CMI5Service(tools);
-    
+
+
     // Change the process to do depending on the url endpoint path
     switch (path) {
       case '/activities/state':
-        
+
         // Gets the state document
-        const stateDocument = await lms.getStateDocument(orgId ,queryData.activityId);
-        
-        return stateDocument as any;
+        const stateDocument = await lms.getStateDocument(orgId, queryData.activityId);
+
+        tools.Logger.log(() => `[CMI5Listener].execute - State document: ${JSON.stringify(stateDocument)}`);
+
+        return stateDocument;
+
       case '/agents/profile':
-      // Get the learner preferences document
-      const learnerPreferences = await lms.getLearnerPreferences(orgId, endUserId);
-      
-      return learnerPreferences;
+        // Temporarily send default learning preferences.
+        // TODO: fetch actual learner preferences
+        return {
+          "languagePreference": "en-US",
+          "audioPreference": "on"
+        };
 
-    case '/activities':
-    const auService = new CMI5AUService(tools);
-  
-    return learnerPreferences;
+      case '/activities':
+        const auService = new CMI5AUService(tools);
+
+      case '/statements':
+        tools.Logger.log(() => `[CMI5Listener].execute - API statement received`);
+        return { status: 200 } as RestResult;
+
+      // return body as any;
       default:
-        break;
+        return { success: true } as RestResult200;
     }
-
-    return {success: true} as RestResult200;
   }
 
 }

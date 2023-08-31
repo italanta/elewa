@@ -39,7 +39,7 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
         classId: '',
         currentCourse: '',
         whatsappUserId: endUser.id,
-        status: EnrolledEndUserStatus.inactive
+        status: EnrolledEndUserStatus.Active
       };
   
       currentEnrolledUser = await this.createEnrolledUser(enrolledUser, id);

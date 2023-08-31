@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 
 import { OrgStore }       from './stores/organisation.store';
 import { ActiveOrgStore } from './stores/active-org.store';
+import { PermissionsStore } from './stores/permissions.store';
+import { PermissionsStateService } from './services/permisssions.service';
 
 @NgModule({
   imports: [RouterModule],
@@ -17,7 +19,9 @@ export class MtOrgStateModule
       ngModule: MtOrgStateModule,
       providers: [
         OrgStore,
-        ActiveOrgStore
+        ActiveOrgStore,
+        PermissionsStore,
+        PermissionsStateService
       ]
     };
   }
