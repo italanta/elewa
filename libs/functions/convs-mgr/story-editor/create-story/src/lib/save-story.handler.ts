@@ -22,10 +22,10 @@ export class SaveStoryHandler extends FunctionHandler<any, { success: boolean }>
       this._tools = tools;
       this._tools.Logger.debug(() => `Beginning Execution, Creating a new Story`)
       
-      return this.storySaved(data);
+      return this.saveStory(data);
   }
   
-  private async storySaved(data: StoryEditorState): Promise<{ success: boolean }> {
+  private async saveStory(data: StoryEditorState): Promise<{ success: boolean }> {
        try {
 
       const { blocks,story } = data;
