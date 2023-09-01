@@ -1,5 +1,18 @@
 <convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
-    <div class="wrapper">
-        <app-dashboard-page></app-dashboard-page>
-    </div>
+	<div class="home-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+
+		<!-- (TODO) Use dynamic tabs because classrooms are dynamic -->
+		<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+			<mat-tab label="Clasroom">
+				<italanta-apps-home-analysis-content></italanta-apps-home-analysis-content>
+			</mat-tab>
+			<mat-tab label="Classroom A">
+				<italanta-apps-home-analysis-content></italanta-apps-home-analysis-content>
+			</mat-tab>
+			<mat-tab label="Classroom B">
+				<italanta-apps-home-analysis-content></italanta-apps-home-analysis-content>
+			</mat-tab>
+		</mat-tab-group>
+
+	</div>
 </convl-page>
