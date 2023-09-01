@@ -9,3 +9,4 @@ export * from './lib/move-on-types.enum';
 export * from './lib/launch-method-types.enum';
 export * from './lib/au-status.interface';
 export * from './lib/assignable-unit.interface';
+export * from './lib/course-package.interface';

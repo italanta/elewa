@@ -36,6 +36,7 @@
     "@nrwl/angular": "^14.4.2",
     "@popperjs/core": "^2.11.8",
     "@types/googlemaps": "^3.43.3",
+    "@types/unzipper": "^0.10.6",
     "axios": "^0.27.2",
     "caniuse-lite": "^1.0.30001519",
     "chart.js": "^4.2.1",
@@ -57,6 +58,7 @@
     "subsink": "^1.0.2",
     "tslib": "^2.3.0",
     "unique-names-generator": "^4.7.1",
+    "unzipper": "^0.10.14",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
@@ -107,6 +109,7 @@
     "firebase-functions",
     "firebase-admin",
     "lodash",
+    "unzipper",
     "axios",
     "moment",
     "crypto-js",
