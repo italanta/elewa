@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { flatten as ___flatten, cloneDeep as ___cloneDeep } from 'lodash';
 import { combineLatest, Observable, of } from 'rxjs';
@@ -17,7 +18,7 @@ import { StoryEditorState } from '../model/story-editor-state.model';
 
 /** 
  * Service responsible for persisting the state of stories from the editor.
- *  
+ *
  *  This includes saving their blocks and story updates
  */
 @Injectable()
@@ -35,6 +36,7 @@ export class StoryEditorStateService {
     private _blocks$$: StoryBlocksStore,
     private _connections$$: StoryConnectionsStore,
     private _blockConnectionsService: BlockConnectionsService,
+    private _aFF: AngularFireFunctions,
     private _logger: Logger
   ) {}
 
@@ -82,16 +84,64 @@ export class StoryEditorStateService {
     const actions$ = blockActions$.concat([updateStory$ as any, addNewConnections$]);
 
     // Persist the story and all the blocks
-    return combineLatest(actions$)
-      .pipe(tap(() => this._lastLoadedState = ___cloneDeep(state)),
-            tap(() => this._isSaving = false),
-            catchError(err => {
-              this._logger.log(() => `Error saving story editor state, ${err}`);
-              alert('Error saving story, please try again. If the problem persists, contact support.');
-              this._isSaving = false;
-              return of(err);
-            }));
+    return combineLatest(actions$).pipe(
+      tap(() => (this._lastLoadedState = ___cloneDeep(state))),
+      tap(() => (this._isSaving = false)),
+      catchError((err) => {
+        this._logger.log(() => `Error saving story editor state, ${err}`);
+        alert(
+          'Error saving story, please try again. If the problem persists, contact support.'
+        );
+        this._isSaving = false;
+        return of(err);
+      })
+    );
   }
+
+  callSaveBackendFunction(state: StoryEditorState): Observable<any> {
+    if (this._isSaving) {
+      throw new Error(
+        'Story editor already saving. Wait for earlier save to be done.'
+      );
+    }
+  
+    this._isSaving = true;
+  
+    const connections = this._determineConnections(state.connections);
+  
+    const updateStory$ = this._story$$.update(state.story);
+  
+    const addNewConnections$ = connections.length > 0
+      ? this._blockConnectionsService.addNewConnections(connections)
+      : of(false);
+  
+    const blockActions$ = this._determineBlockActions(state.blocks);
+    const actions$ = blockActions$.concat([updateStory$ as any, addNewConnections$]);
+  
+    const cleanedState = { ...state, connections };
+
+    // Firebase Cloud Function is named 'saveStory'
+    const saveStoryFunction = this._aFF.httpsCallable<StoryEditorState>('saveStory');
+  
+    return combineLatest(actions$).pipe(
+      switchMap(() => saveStoryFunction(cleanedState)),
+      tap(() => {
+        this._lastLoadedState = ___cloneDeep(state);
+        this._isSaving = false;
+      }),
+      catchError((err) => {
+        this._logger.log(() => `Error saving story editor state, ${err}`);
+        alert(
+          'Error saving story, please try again. If the problem persists, contact support.'
+        );
+        this._isSaving = false;
+        return of(err);
+      })
+    );
+  }
+
+  
+  
 
   /**
    * Determines which persist actions to take to update from a previous to a current state.
