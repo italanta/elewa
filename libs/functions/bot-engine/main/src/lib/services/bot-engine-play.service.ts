@@ -8,6 +8,7 @@ import { isFileMessage, MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { CursorDataService } from "./data-services/cursor.service";
 import { MessagesDataService } from "./data-services/messages.service";
+import { VariablesDataService } from "./data-services/variables.service";
 
 import { MailMergeVariables } from "./variable-injection/mail-merge-variables.service";
 import { ProcessMessageService } from "./process-message/process-message.service";
@@ -136,8 +137,12 @@ export class BotEnginePlay implements IBotEnginePlay
 
   async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
+    const varDataService = new VariablesDataService(this._tools, this.orgId, endUser.id);
+
+		const allVariables =  varDataService.getAllVariables(endUser);
+    
     // Inject Variables to the block
-    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, endUser.variables);
+    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, allVariables);
 
     this._tools.Logger.log(() => `Block to be sent: ${JSON.stringify(mailMergedBlock)}`)
 

@@ -4,6 +4,7 @@ import { Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 
 import { WebhookBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { HttpMethodTypes } from "@app/model/convs-mgr/stories/blocks/main";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
 import { BlockDataService } from "../../data-services/blocks.service";
@@ -13,7 +14,7 @@ import { IProcessOperationBlock } from "../models/process-operation-block.interf
 
 import { HttpService } from "../../../utils/http-service/http.service";
 import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
-import { EndUser } from "@app/model/convs-mgr/conversations/chats";
+import { VariablesDataService } from "../../data-services/variables.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -42,7 +43,11 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser)
 	{
 
-		const response = await this.makeRequest(storyBlock, orgId, endUser.variables);
+		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id);
+
+		const allVariables =  varDataService.getAllVariables(endUser);
+
+		const response = await this.makeRequest(storyBlock, orgId, allVariables);
 
 		if(storyBlock.variablesToSave) {
 
