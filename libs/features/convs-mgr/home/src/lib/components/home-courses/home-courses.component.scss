@@ -26,9 +26,17 @@
   color: black;
   background-color: #DADADA;
 
-  &.active {
+  &.whatsapp {
     background-color: #C3FA6C;
   }
+
+  &.telegram {
+    background-color: #6CD4FA;
+  }
+}
+
+.card-header span {
+  text-transform: uppercase;
 }
 
 .cards .assessment-card .card-body span {

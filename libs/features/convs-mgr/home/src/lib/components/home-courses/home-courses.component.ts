@@ -7,14 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeCoursesComponent implements OnInit {
 
-  courses = [{
-    id: "1",
-    name: " Course 1 ",
-    isPublished: true
-  }]
-  constructor() {}
+  courses = [
+    {
+      id: "1",
+      name: " Course 1 ",
+      isPublished: false,
+      platform: 'whatsapp'
+    },
+    {
+      id: "2",
+      name: " Introduction to scouting ",
+      isPublished: true,
+      platform: 'telegram'
+    },
+    {
+      id: "3",
+      name: " Introduction to scouting ",
+      isPublished: true,
+      platform: 'whatsapp'
+    },
+  ]
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   openCourse(courseId: string) {
 

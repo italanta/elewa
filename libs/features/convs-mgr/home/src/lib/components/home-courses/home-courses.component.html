@@ -3,8 +3,8 @@
     fxFlex="24">
 
     <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-      <span [ngClass]="course.isPublished ? ['badge' , 'active'] : 'badge'">
-        {{ course.isPublished ? "Active" : "Draft" }}
+      <span [ngClass]="course.isPublished ? ['badge' , course.platform] : 'badge'">
+        {{ course.isPublished ? course.platform : "Draft" }}
       </span>
     </div>
 
