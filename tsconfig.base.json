@@ -211,6 +211,9 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
+      "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
+        "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
+      ],
       "@app/functions/convs-mgr/story-editor/create-story": [
         "libs/functions/convs-mgr/story-editor/create-story/src/index.ts"
       ],
@@ -306,14 +309,14 @@
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
+      "@app/private/model/access-control": [
+        "libs/private/model/access-control/src/index.ts"
+      ],
       "@app/private/model/convs-mgr/micro-apps/base": [
         "libs/private/model/convs-mgr/micro-apps/base/src/index.ts"
       ],
       "@app/private/model/convs-mgr/micro-apps/cmi5": [
         "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
-      ],
-      "@app/private/model/access-control": [
-        "libs/private/model/access-control/src/index.ts"
       ],
       "@app/private/state/access-control": [
         "libs/private/state/access-control/src/index.ts"
