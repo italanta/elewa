@@ -34,6 +34,14 @@
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
+    "FORGOT-PASSWORD-MODAL" : {
+      "TITLE": "Forgot password?",
+      "MESSAGE": "Enter your email address and we will send you a link to reset your password.",
+      "FLD-EMAIL": "Enter email",
+      "FLD-EMAIL-ERR":"Please provide a valid email address",
+      "RESET": "Reset",
+      "ERROR" : "Please check your email and try again"
+    },
     "CREATE-ACC-FORM": {
       "FLD-FNAME": "First name",
       "FLD-LNAME": "Last name",
