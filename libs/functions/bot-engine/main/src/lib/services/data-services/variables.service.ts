@@ -31,4 +31,14 @@ export class VariablesDataService extends BotDataService<any>{
       ...endUser.variables
     }
   }
+
+  public async getSpecificVariable(endUserId: string, variable: string) {
+    const endUserRepo$ = this.tools.getRepository<EndUser>(this._docPath);
+
+    const endUser = await endUserRepo$.getDocumentById(endUserId);
+
+    const allVariables = this.getAllVariables(endUser);
+
+    return allVariables[variable];
+  }
 }
