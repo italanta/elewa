@@ -15,6 +15,7 @@ import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { BlockConnectionsService, StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
+import { EditorFrameLoadingService } from 'libs/features/convs-mgr/stories/editor/src/lib/providers/editor-frame-spinner.service';
 
 /** 
  * Service responsible for persisting the state of stories from the editor.
@@ -37,7 +38,8 @@ export class StoryEditorStateService {
     private _connections$$: StoryConnectionsStore,
     private _blockConnectionsService: BlockConnectionsService,
     private _aFF: AngularFireFunctions,
-    private _logger: Logger
+    private _logger: Logger,
+    private _showEditorSpinner: EditorFrameLoadingService
   ) {}
 
   /**
@@ -131,6 +133,7 @@ export class StoryEditorStateService {
       }),
       catchError((err) => {
         this._logger.log(() => `Error saving story editor state, ${err}`);
+        this._showEditorSpinner.changeLoadingState(false);
         alert(
           'Error saving story, please try again. If the problem persists, contact support.'
         );
