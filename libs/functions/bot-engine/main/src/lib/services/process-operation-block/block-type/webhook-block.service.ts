@@ -42,7 +42,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	public async handleBlock(storyBlock: WebhookBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser)
 	{
 
-		const response = await this.makeRequest(storyBlock, orgId, endUser.id);
+		const response = await this.makeRequest(storyBlock, orgId, endUser.variables);
 
 		if(storyBlock.variablesToSave) {
 
@@ -66,13 +66,11 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 	/**
 	 * This function is the one that makes the request to the webhook
 	 */
-	private async makeRequest(storyBlock: WebhookBlock, orgId: string, endUserId: string)
+	private async makeRequest(storyBlock: WebhookBlock, orgId: string, savedVariables: {[key:string]:any})
 	{
 		const variablesToPost = storyBlock.variablesToPost;
 
-		const savedVariables = await this.savedVariables(orgId, endUserId);
-
-		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, endUserId);
+		const URL = await this.mergeVariables(storyBlock.httpUrl, orgId, savedVariables);
 
 		// Write a function that creates an object from the variablesToPost and the saved variables
 		const payload = this.createPayload(variablesToPost, savedVariables);
@@ -85,15 +83,6 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 			default:
 				return this.httpService.post(URL, payload, this.tools);
 		}
-	}
-
-	private async savedVariables(orgId: string, endUserId: string) 
-	{
-		const variableRepo = this.tools.getRepository<any>(`orgs/${orgId}/end-users/${endUserId}/variables`);
-
-		const variableValues = await variableRepo.getDocumentById(`values`);
-
-		return variableValues;
 	}
 
 	private unpackResponse(webhookBlock: WebhookBlock, response: any)
@@ -118,10 +107,10 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 		return result;
 	}
 
-	private async mergeVariables(url: string, orgId: string, endUserId: string){
+	private async mergeVariables(url: string, orgId: string, variables: {[key:string]:any}){
 		const mailMergeVariables = new MailMergeVariables(this.tools);
 
-		return mailMergeVariables.merge(url, orgId, endUserId);
+		return mailMergeVariables.merge(url, orgId, variables);
 
 	}
 
