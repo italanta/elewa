@@ -24,11 +24,19 @@
   vertical-align: baseline;
   border-radius: 0.25rem;
   color: black;
-  background-color: #C3FA6C;
+  background-color: #DADADA;
 
-  &.active {
+  &.whatsapp {
     background-color: #C3FA6C;
   }
+
+  &.telegram {
+    background-color: #6CD4FA;
+  }
+}
+
+.card-header span {
+  text-transform: uppercase;
 }
 
 .cards .assessment-card .card-body span {
