@@ -1,9 +1,23 @@
-// #editor-frame {
-//   min-height: 20000px!important;
-//   min-width: 20000px!important;
-//   // overflow-x: scroll!important;
-//   // overflow-x: scroll!important;
-// }
+#editor-frame {
+  min-height: 20000px!important;
+  min-width: 20000px!important;
+  overflow-x: scroll!important;
+  overflow-x: scroll!important;
+}
+.spinner{
+  background-color: white;
+  min-height: 20000px!important;
+  min-width: 20000px!important;
+  position: sticky!important;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+}
+mat-spinner {
+  position: sticky!important;
+  top: 30%;
+  left: 30%;
+}
 
 #editor-frame .block {
   position: absolute;
@@ -30,5 +44,8 @@ app-message-block {
   background-repeat: no-repeat;
   overflow: scroll;
   position: fixed;
-  //border: 9px solid red;
 }
+// .editor-container{
+//   min-width: 100vw;
+//   min-height: 100vh;
+// }

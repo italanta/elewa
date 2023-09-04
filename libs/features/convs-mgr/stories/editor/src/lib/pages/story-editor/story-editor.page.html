@@ -31,10 +31,7 @@
       </div>
 
       <!-- Convl page subbar -->
-      <ng-container *ngIf="!stateSaved; else Loading"
-      >LOadingg ..
-    </ng-container>
-      <ng-template #Loading>
+
         <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
           <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
             <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseFrameZoom()">
@@ -67,7 +64,6 @@
         </div>
         <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
         </convl-story-editor-frame>
-      </ng-template>
       
 
 
