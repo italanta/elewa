@@ -13,7 +13,8 @@ import { FailBlockService } from "./block-type/fail-story-block.service";
 import { ConditionalBlockService } from "./block-type/conditional-block.service";
 import { EventBlockService } from "./block-type/event-block.service";
 import { AssessmentBlockService } from "./block-type/assessment-block.service";
-import { CMI5BlockService } from "./block-type/cmi5-block.service";
+import { CMI5BackendBlockService } from "./block-type/cmi5-block.service";
+
 
 
 export class OperationBlockFactory
@@ -38,7 +39,7 @@ export class OperationBlockFactory
       case StoryBlockTypes.Event:
         return new EventBlockService(this._blockDataService, this._connDataService, this.tools);
       case StoryBlockTypes.CMI5Block:
-        return new CMI5BlockService(this._blockDataService, this._connDataService, this.tools);  
+        return new CMI5BackendBlockService(this._blockDataService, this._connDataService, this.tools);  
       default:
         break;
     }
