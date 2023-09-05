@@ -29,6 +29,7 @@ export class StoryEditorFrame {
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
+  private _newestBlock: StoryBlock;
   private _connections: StoryBlockConnection[];
 
   blocksArray: FormArray;
@@ -56,6 +57,10 @@ export class StoryEditorFrame {
     this._story = state.story;
     this._blocks = state.blocks;
     this._connections = state.connections;
+
+    this._newestBlock = state.blocks.reduce((prev, current) => {
+      return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
+    });
 
     this.blocksArray = this._fb.array([]);
 
@@ -230,19 +235,23 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+
+    const x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
+    const y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+
     const  pageheight = this._edf.nativeElement.offsetHeight/2;
     const  pagewidth = this._edf.nativeElement.offsetWidth/2;
+
     const block = {
       id: `${this._cnt}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
       // position: coordinates || { x: 200, y: 50 },
-      position: coordinates || { x: pageheight+(this._cnt*80), y: pagewidth+(this._cnt*40)},
+      position: coordinates || { x: x, y: y},
     } as StoryBlock;
 
     this._cnt++;
-
     this._blocks.push(block);
     return this._injectBlockToFrame(block);
   }
