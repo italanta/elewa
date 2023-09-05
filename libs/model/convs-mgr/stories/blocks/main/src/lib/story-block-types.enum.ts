@@ -146,7 +146,6 @@ export enum StoryBlockTypes {
 
   CMI5Block = 34,
 
-  CMI5LaunchBlock = 35,
 
   EndStoryAnchorBlock = 9999,
 }
@@ -196,9 +195,7 @@ export function isOperationBlock(blockType: StoryBlockTypes)
     case StoryBlockTypes.Conditional:
       return true;
       case StoryBlockTypes.CMI5Block:
-        return true;    
-    case StoryBlockTypes.CMI5LaunchBlock:
-      return true;  
+        return true;     
     default:
       return false;
   }
@@ -217,8 +214,6 @@ export function isMediaBlock(blockType: StoryBlockTypes): boolean {
     case StoryBlockTypes.Document:
       return true;
     case StoryBlockTypes.CMI5Block:
-      return true;  
-    case StoryBlockTypes.CMI5LaunchBlock:
       return true;    
     default:
       return false
