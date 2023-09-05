@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
+
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, filter, Observable, take } from 'rxjs';
@@ -22,6 +24,7 @@ import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
+import { FlowError } from '@app/model/convs-mgr/stories/main';
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
@@ -56,12 +59,14 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   frameZoom = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
+
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
               _router: Router,
+              private _aFF: AngularFireFunctions,
               private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
@@ -174,6 +179,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
       });
       return
    }
+   // Firebase Cloud Function is named 'saveStory'
+   const checkStoryForFlowErrors = this._aFF.httpsCallable('checkStoryErrors');
+   const errors = checkStoryForFlowErrors({orgId: this.state.story.id, storyId: this.state.story.id})
+   console.log('Errors are'+ errors)
+   
 
     this.stateSaved = false;
 
