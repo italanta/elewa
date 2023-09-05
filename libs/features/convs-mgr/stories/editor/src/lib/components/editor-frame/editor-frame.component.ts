@@ -26,7 +26,6 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
   ngAfterViewInit() {
     this._sb.sink = this._editorLoading.loaded$.subscribe((loading) => {
       this.showEditorSpinner = loading;
-      console.log("The state is "+ loading)
     });
     const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
 
