@@ -1270,34 +1270,6 @@
       },
       "tags": []
     },
-    "private-features-convs-mgr-stories-blocks-library-cmi5-launch-block": {
-      "projectType": "library",
-      "root": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block",
-      "sourceRoot": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block"
-          ],
-          "options": {
-            "jestConfig": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block/**/*.ts",
-              "libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "private-functions-analytics-metabase": {
       "root": "libs/private/functions/analytics/metabase",
       "sourceRoot": "libs/private/functions/analytics/metabase/src",
