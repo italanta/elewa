@@ -23,6 +23,7 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { EditorFrameLoadingService } from '../../providers/editor-frame-spinner.service';
+
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',

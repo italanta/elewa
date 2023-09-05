@@ -1,6 +1,7 @@
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
+import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -16,7 +17,6 @@ import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-conn
 import { Coordinate } from './coordinates.interface';
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { EditorFrameLoadingService } from '../providers/editor-frame-spinner.service';
-import { Logger } from '@iote/bricks-angular';
 
 /**
  * Model which holds the state of a story-editor.
