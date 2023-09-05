@@ -11,12 +11,12 @@ import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
+import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
-import { Coordinate } from './coordinates.interface';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { EditorFrameLoadingService } from '../providers/editor-frame-spinner.service';
+import { Coordinate } from './coordinates.interface';
 
 /**
  * Model which holds the state of a story-editor.

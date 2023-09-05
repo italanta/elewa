@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';  
 
-import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
 import { SubSink } from 'subsink';
+
+import { StoryEditorFrame } from '../../model/story-editor-frame.model';  
+import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
 import { EditorFrameLoadingService } from '../../providers/editor-frame-spinner.service';
 
 @Component({
