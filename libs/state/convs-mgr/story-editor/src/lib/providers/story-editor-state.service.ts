@@ -13,10 +13,10 @@ import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/b
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { BlockConnectionsService, StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
+import { EditorFrameLoadingService } from '@app/features/convs-mgr/stories/editor';
+
 
 import { StoryEditorState } from '../model/story-editor-state.model';
-import { EditorFrameLoadingService } from 'libs/features/convs-mgr/stories/editor/src/lib/providers/editor-frame-spinner.service';
-
 /** 
  * Service responsible for persisting the state of stories from the editor.
  *
