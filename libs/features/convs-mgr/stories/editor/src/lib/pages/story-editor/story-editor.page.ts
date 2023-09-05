@@ -14,13 +14,13 @@ import { Breadcrumb, Logger } from '@iote/bricks-angular';
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 
 import { BlockPortalService } from '../../providers/block-portal.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
-import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { EditorFrameLoadingService } from '../../providers/editor-frame-spinner.service';
 
