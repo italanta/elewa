@@ -89,7 +89,7 @@ export class StoryEditorFrame {
     this._frameLoading.changeLoadingState(false);
 
     //scroll to the middle of the screen when connections are done drawing
-    this.scroll(this._edf.nativeElement)
+    // this.scroll(this._edf.nativeElement)
   }
   scroll(el: HTMLElement) {
     const editorWidth = this._edf.nativeElement.offsetWidth / 2;
@@ -131,8 +131,8 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
-    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
-    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
+    const editorWidth = 100;
+    const editorHeight = 100;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
