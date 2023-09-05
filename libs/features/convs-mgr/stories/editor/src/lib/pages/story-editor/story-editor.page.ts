@@ -89,7 +89,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     ngOnInit() {
       this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => {
         this.isSideScreenOpen = isOpen
-        console.log("The sidescren status is "+ isOpen)
       });
 
       this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
