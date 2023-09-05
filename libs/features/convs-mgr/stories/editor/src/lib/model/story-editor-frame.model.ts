@@ -43,7 +43,6 @@ export class StoryEditorFrame {
     private _connectionsService: BlockConnectionsService,
     private _edf: ElementRef<HTMLElement>,
     private _frameLoading: EditorFrameLoadingService,
-    private _logger: Logger
   ) {
     this.loaded = true;
   }
@@ -57,7 +56,9 @@ export class StoryEditorFrame {
    */
   async init(state: StoryEditorState) {
 
-    this._logger.log(()=>'show spinner')
+    const logger = new Logger()
+    logger.log(() => 'The frame is being initialised')
+
     this._frameLoading.changeLoadingState(true)
 
     this._state = state;
@@ -79,7 +80,7 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
-    this._logger.log(() => 'frame initialised')
+    
     this._frameLoading.changeLoadingState(false);
 
     //scroll to the middle of the screen when connections are done drawing
