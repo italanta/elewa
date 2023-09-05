@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef } from '@angular/core';
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';  
 
+import { SubSink } from 'subsink';
+
+import { StoryEditorFrame } from '../../model/story-editor-frame.model';  
 import { StoryEditorInitialiserService } from '../../providers/story-editor-initialiser.service';
+import { EditorFrameLoadingService } from '../../providers/editor-frame-spinner.service';
 
 @Component({
   selector: 'convl-story-editor-frame',
@@ -15,11 +18,16 @@ export class StoryEditorFrameComponent implements AfterViewInit //implements OnD
 
   @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
   @Output()pinchZoom = new EventEmitter<number>()
+  private _sb = new SubSink();
+  showEditorSpinner: boolean
 
-  constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
+  constructor(private _frameInitialiser: StoryEditorInitialiserService, private _editorLoading: EditorFrameLoadingService) { }
 
 
   ngAfterViewInit() {
+    this._sb.sink = this._editorLoading.loaded$.subscribe((loading) => {
+      this.showEditorSpinner = loading;
+    });
     const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
 
     this.frameLoaded.emit(frame);

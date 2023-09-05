@@ -8,6 +8,7 @@ import { isFileMessage, MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { CursorDataService } from "./data-services/cursor.service";
 import { MessagesDataService } from "./data-services/messages.service";
+import { VariablesDataService } from "./data-services/variables.service";
 
 import { MailMergeVariables } from "./variable-injection/mail-merge-variables.service";
 import { ProcessMessageService } from "./process-message/process-message.service";
@@ -136,9 +137,12 @@ export class BotEnginePlay implements IBotEnginePlay
 
   async __reply(nextBlock: StoryBlock, endUser: EndUser, message?: Message)
   {
+    const varDataService = new VariablesDataService(this._tools, this.orgId, endUser.id);
 
+		const allVariables =  varDataService.getAllVariables(endUser);
+    
     // Inject Variables to the block
-    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, endUser.id);
+    const mailMergedBlock = await this.__mailMergeVariables(nextBlock, allVariables);
 
     this._tools.Logger.log(() => `Block to be sent: ${JSON.stringify(mailMergedBlock)}`)
 
@@ -149,14 +153,14 @@ export class BotEnginePlay implements IBotEnginePlay
     await this._sendBlockMessage(mailMergedBlock, endUser);
   }
 
-  private async __mailMergeVariables(storyBlock: StoryBlock, endUserId: string) 
+  private async __mailMergeVariables(storyBlock: StoryBlock, variables: {[key:string]:any}) 
   {
     const newBlock = storyBlock;
     // Initialize the variable injector service
     const mailMergeVariables = new MailMergeVariables(this._tools);
 
     // Find and replace any variables included in the block message
-    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message, this.orgId, endUserId);
+    if(newBlock.message) newBlock.message = await mailMergeVariables.merge(storyBlock.message, this.orgId, variables);
 
     return newBlock;
   }

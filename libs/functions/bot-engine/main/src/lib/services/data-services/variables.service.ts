@@ -1,5 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
 
 /**
@@ -24,16 +25,20 @@ export class VariablesDataService extends BotDataService<any>{
     this.endUserId = endUserId;
   }
 
-  public async getAllVariables() {
-   const endUser = await this.getDocumentById(this.endUserId,this._docPath);
-
-   return endUser.variables;
+  public getAllVariables(endUser: EndUser) {
+    return {
+      ...endUser,
+      ...endUser.variables
+    }
   }
 
-  public async getSpecificVariable(varName: string) {
-    const allVariables = await this.getAllVariables()
+  public async getSpecificVariable(endUserId: string, variable: string) {
+    const endUserRepo$ = this.tools.getRepository<EndUser>(this._docPath);
 
-    if (allVariables) return allVariables[varName]
-    else return null
+    const endUser = await endUserRepo$.getDocumentById(endUserId);
+
+    const allVariables = this.getAllVariables(endUser);
+
+    return allVariables[variable];
   }
 }
