@@ -7,13 +7,15 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable, take } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, take } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
@@ -26,6 +28,7 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { FlowError } from '@app/model/convs-mgr/stories/main';
 import { EditorFrameLoadingService } from '../../providers/editor-frame-spinner.service';
+import { Organisation } from '@app/model/organisation';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -38,6 +41,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   activeComponent: ComponentPortal<any>
   activeBlockForm: FormGroup
   activeBlockTitle: string
+
+  activeOrg: Organisation
 
   opened: boolean;
   showEditorSpinner: boolean;
@@ -74,7 +79,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               _router: Router,
               private _aFF: AngularFireFunctions,
               private sideScreen: SideScreenToggleService,
-              private _loadingFrame: EditorFrameLoadingService
+              private _loadingFrame: EditorFrameLoadingService,
+              private _activeOrg: ActiveOrgStore
   ) {
     this._editorStateService.get()
     .subscribe((state: StoryEditorState) => {
@@ -178,20 +184,28 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     // Trigger the spinner for editor
     // Get all the text area elements
     const textAreas = document.querySelectorAll('textarea');
+    this._activeOrg.get().subscribe( org => this.activeOrg = org)
     
     // Check if any of the text area elements are empty
-    const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
+  //   const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
     
-    if (hasEmptyFields) {
-      this._dialog.open(ErrorPromptModalComponent, {
-        data: { title: "Error", message: "Please fill in ALL text fields before saving."}
-      });
-      return
-   }
+  //   if (hasEmptyFields) {
+  //     this._dialog.open(ErrorPromptModalComponent, {
+  //       data: { title: "Error", message: "Please fill in ALL text fields before saving."}
+  //     });
+  //     return
+  //  }
    // Firebase Cloud Function is named 'saveStory'
    const checkStoryForFlowErrors = this._aFF.httpsCallable('checkStoryErrors');
-   const errors = checkStoryForFlowErrors({orgId: this.state.story.id, storyId: this.state.story.id})
-   console.log('Errors are'+ errors)
+   const errors = checkStoryForFlowErrors({orgId: this.activeOrg.id, storyId: this.state.story.id})
+   console.log('active org'+ this.activeOrg.id)
+   errors.subscribe(error => {
+    error.forEach((err: FlowError) => {
+      console.log("err"+ err.blockId)
+    }
+    )
+   })
+
    
 
     
