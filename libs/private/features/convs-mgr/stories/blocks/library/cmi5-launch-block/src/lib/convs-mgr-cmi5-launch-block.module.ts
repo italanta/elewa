@@ -4,4 +4,4 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [CommonModule],
 })
-export class PrivateFeaturesConvsMgrStoriesBlocksLibraryCmi5LaunchBlockModule {}
+export class ConvsMgrCmi5LaunchBlockModule {}
