@@ -16,6 +16,7 @@ import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-conn
 import { Coordinate } from './coordinates.interface';
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { EditorFrameLoadingService } from '../providers/editor-frame-spinner.service';
+import { Logger } from '@iote/bricks-angular';
 
 /**
  * Model which holds the state of a story-editor.
@@ -41,7 +42,8 @@ export class StoryEditorFrame {
     private _viewport: ViewContainerRef,
     private _connectionsService: BlockConnectionsService,
     private _edf: ElementRef<HTMLElement>,
-    private _frameLoading: EditorFrameLoadingService
+    private _frameLoading: EditorFrameLoadingService,
+    private _logger: Logger
   ) {
     this.loaded = true;
   }
@@ -55,7 +57,7 @@ export class StoryEditorFrame {
    */
   async init(state: StoryEditorState) {
 
-    console.log('show pinner')
+    this._logger.log(()=>'show spinner')
     this._frameLoading.changeLoadingState(true)
 
     this._state = state;
@@ -77,7 +79,7 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
-    console.log('frame initialised')
+    this._logger.log(() => 'frame initialised')
     this._frameLoading.changeLoadingState(false);
 
     //scroll to the middle of the screen when connections are done drawing
