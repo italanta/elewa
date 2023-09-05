@@ -31,39 +31,45 @@
       </div>
 
       <!-- Convl page subbar -->
-      <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseFrameZoom()">
-            <mat-icon>zoom_out</mat-icon>
-          </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)"
-            type="number">
-
-          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
-            <mat-icon>zoom_in</mat-icon>
-          </button>
+        <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseFrameZoom()">
+              <mat-icon>zoom_out</mat-icon>
+            </button>
+  
+            <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)"
+              type="number">
+  
+            <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
+              <mat-icon>zoom_in</mat-icon>
+            </button>
+          </div>
+  
+          <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
+              <span *ngIf="stateSaved; else saving"> Save </span>
+              <ng-template #saving>
+                <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                  <span> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
+                  <mat-spinner diameter="20"></mat-spinner>
+                </span>
+              </ng-template>
+            </button>
+  
+            <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
+              <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
+            </button>
+          </div>
         </div>
+        <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
+        </convl-story-editor-frame>
+      
 
-        <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
-            <span *ngIf="stateSaved; else saving"> Save </span>
-            <ng-template #saving>
-              <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                <span> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
-                <mat-spinner diameter="20"></mat-spinner>
-              </span>
-            </ng-template>
-          </button>
 
-          <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
-            <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
-          </button>
-        </div>
-      </div>
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
-      </convl-story-editor-frame>
+
     </div>
+
 
   </div>
 </convl-page>

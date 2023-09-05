@@ -14,14 +14,16 @@ import { Breadcrumb, Logger } from '@iote/bricks-angular';
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 
 import { BlockPortalService } from '../../providers/block-portal.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
-import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
+import { EditorFrameLoadingService } from '../../providers/editor-frame-spinner.service';
+
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
@@ -35,6 +37,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
   activeBlockTitle: string
 
   opened: boolean;
+  showEditorSpinner: boolean;
+
 
   pageName: string;
   isSideScreenOpen:boolean;
@@ -44,6 +48,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   loading = new BehaviorSubject<boolean>(true);
   frame: StoryEditorFrame;
+
+  showSpinner$: Observable<boolean>
 
   stateSaved = true;
 
@@ -63,6 +69,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private _blockPortalService: BlockPortalService,
               _router: Router,
               private sideScreen: SideScreenToggleService,
+              private _loadingFrame: EditorFrameLoadingService
   ) {
     this._editorStateService.get()
     .pipe(take(2)) //take 2 to reduce subscriptions. first subscription fetches blocks, second subscription fetches connectors. Reduces load time when saving and fetching blocks and connectots
@@ -81,7 +88,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => {
+        this.isSideScreenOpen = isOpen
+      });
+
       this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
         if (blockDetails.form) {
           const comp = getActiveBlock(blockDetails.form.value.type);
@@ -161,20 +171,21 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
 
   /** Save the changes made in the data model. */
   save() {
-
+    // Trigger the spinner for editor
     // Get all the text area elements
     const textAreas = document.querySelectorAll('textarea');
-
+    
     // Check if any of the text area elements are empty
     const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
-
+    
     if (hasEmptyFields) {
       this._dialog.open(ErrorPromptModalComponent, {
         data: { title: "Error", message: "Please fill in ALL text fields before saving."}
       });
       return
-   }
-
+    }
+    
+    this._loadingFrame.changeLoadingState(true)
     this.stateSaved = false;
 
     const updatedState = this.state;
@@ -194,8 +205,10 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
             this.stateSaved = true;
             this.opened = false;
             this.storyHasBeenSaved = true;
+            this._loadingFrame.changeLoadingState(false)
           }
         });
+    
   }
 
   addToChannel() {
