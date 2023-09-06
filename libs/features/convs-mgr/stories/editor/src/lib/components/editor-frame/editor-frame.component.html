@@ -9,17 +9,22 @@
   (pinch$)="onPinch($event)"
   
 >
-  <div 
-  infinite-scroll 
-  [scrollWindow]="true" 
-  [horizontal]="true" 
-  [infiniteScrollContainer]="editorVC" 
-  [fromRoot]="false" 
-  convlTrackCursor
-  [infiniteScrollDistance]="9"
-    [infiniteScrollThrottle]="150" 
-    (scrolled)="onScroll()"
-     #editor id="editor-frame" style="position: relative" fxFlex="95">
-    <ng-template id="viewport" #viewport></ng-template>
+<div class="editor-container">
+  <div class="spinner" *ngIf="showEditorSpinner">
+   <mat-spinner></mat-spinner>
   </div>
+   <div 
+   infinite-scroll 
+   [scrollWindow]="true" 
+   [horizontal]="true" 
+   [infiniteScrollContainer]="editorVC" 
+   [fromRoot]="false" 
+   convlTrackCursor
+   [infiniteScrollDistance]="9"
+     [infiniteScrollThrottle]="150" 
+     (scrolled)="onScroll()"
+      #editor id="editor-frame" style="position: relative" fxFlex="95">
+     <ng-template id="viewport" #viewport></ng-template>
+   </div>
+</div>
 </div>
