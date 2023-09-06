@@ -13,11 +13,11 @@ import { BlockDataService } from '../../data-services/blocks.service';
 import { ConnectionsDataService } from '../../data-services/connections.service';
 import { IProcessOperationBlock } from '../models/process-operation-block.interface';
 
-export class CMI5BackendBlockService implements IProcessOperationBlock {
+export class CMI5BlockService implements IProcessOperationBlock {
   // Operations service(firstblock.id)
   private cmi5Service: CMI5Service; // Create an instance of the CMI5Service
   /**
-   * Creates an instance of CMI5BackendBlockService.
+   * Creates an instance of CMI5BlockService.
    * @param _blockDataService The data service for handling blocks.
    * @param _connDataService The data service for handling connections.
    * @param tools The handler tools for performing operations.
