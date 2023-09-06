@@ -26,6 +26,7 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
     const connectionIds = new Set();
 
     // Retrieve connections for the given orgId and storyId.
+    // TODO: implement promise all to get both connections and blocks concurrently
     const connectionRepo = tools.getRepository<Connection>(`orgs/${req.orgId}/stories/${req.storyId}/connections`);
     const connections = await connectionRepo.getDocuments(new Query());
 
