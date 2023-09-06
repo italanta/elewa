@@ -7,6 +7,21 @@ mat-sidenav {
   height: 400px;
 }
 
+
+/* styles.css or your component's CSS */
+::ng-deep .success-snackbar {
+  background-color: green!important; /* Green color for success */
+  color: white;
+  margin-top: 10em!important;
+}
+
+
+::ng-deep .error-snackbar {
+  background-color: red; /* Red color for error */
+  color: white;
+  margin-top: 10em!important;
+}
+
 .story-editor {
   overflow-y: hidden;
   display: flex;

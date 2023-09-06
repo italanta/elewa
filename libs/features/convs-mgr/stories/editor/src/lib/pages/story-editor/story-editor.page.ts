@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
@@ -69,7 +70,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private _blockPortalService: BlockPortalService,
               _router: Router,
               private sideScreen: SideScreenToggleService,
-              private _loadingFrame: EditorFrameLoadingService
+              private _loadingFrame: EditorFrameLoadingService,
+              private snackBar: MatSnackBar
   ) {
     this._editorStateService.get()
     .subscribe((state: StoryEditorState) => {
@@ -201,13 +203,26 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     this._editorStateService.callSaveBackendFunction(this.state)
         .subscribe((success) => {
           if (success) {
+            this.showSnackbar('save successful', 'success-snackbar');
             this.stateSaved = true;
             this.opened = false;
             this.storyHasBeenSaved = true;
             this._loadingFrame.changeLoadingState(false)
           }
+          else{
+            this.showSnackbar('saving failed', 'error-snackbar');
+          }
         });
     
+  }
+  // Function to show the Snackbar
+  private showSnackbar(message: string, panelClass: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 5000, 
+      horizontalPosition: 'end', 
+      verticalPosition: 'top',
+      panelClass: [panelClass,],
+    });
   }
 
   addToChannel() {
