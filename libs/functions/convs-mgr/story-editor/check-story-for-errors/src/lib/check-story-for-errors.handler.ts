@@ -47,7 +47,7 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
         if (!block.message || block.message.trim() == '') {
           errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id });
         }
-        // Check if the blockIdToCheck is not in the targetIds array.
+        // Check if the blockIdToCheck is not in the targetIds array
         if (!connectionIds.includes(block.id)) {
           errors.push({
             type: FlowErrorType.MissingConnection,
