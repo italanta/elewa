@@ -12,7 +12,7 @@ import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { CMI5Service } from '@app/private/functions/micro-apps/cmi5'; 
-import { CMI5LaunchBlockBlock as CMI5LaunchBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { CMI5LaunchBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BlockDataService } from '../../data-services/blocks.service';
 import { ConnectionsDataService } from '../../data-services/connections.service';
