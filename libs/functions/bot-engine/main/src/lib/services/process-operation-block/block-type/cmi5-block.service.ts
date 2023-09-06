@@ -59,13 +59,13 @@ export class CMI5BlockService implements IProcessOperationBlock {
       const firstAUId = firstAU.id;
       // Prepare the AU for launch
       await this.cmi5Service.prepareForLaunch(orgId, endUser.id, firstAUId);
-      // Define the actor properties here
+      // Create Actor "actor" is the end user or learner who will be engaging with the course module.
       const actor: Actor = {
         objectType: 'Agent',
         name: endUser.name,
         account: {
-          homePage: endUser.id,
-          name: endUser.name,
+          homePage: orgId,
+          name: endUser.id,
         },
       };
       // Generate the launch link using the AU details and actor properties
