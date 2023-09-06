@@ -1,3 +1,8 @@
+/**
+ * This service class handles CMI5 blocks and prepares them for launch. It interacts with data services
+ * to fetch information about assignable units, prepares the block for launch using the CMI5Service,
+ * and generates launch links.
+ */
 import { HandlerTools } from '@iote/cqrs';
 import { Query } from '@ngfi/firestore-qbuilder';
 
