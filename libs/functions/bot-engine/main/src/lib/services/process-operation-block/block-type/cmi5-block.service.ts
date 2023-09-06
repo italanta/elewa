@@ -78,11 +78,10 @@ export class CMI5BlockService implements IProcessOperationBlock {
       const launchBlock : CMI5LaunchBlock = {
         link: launchLink,   
       }
-      const response = {
+      return {
         storyBlock: launchBlock,
         newCursor: updatedCursor,
       };
-      return response;
     } catch (error) {
       this.tools.Logger.error(error); 
     }
