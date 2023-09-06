@@ -75,7 +75,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
         endUser.id,
         firstAUId
       );
-      const launchBlock : CMI5LaunchBlock = {
+      const launchBlock : CMI5LaunchBlock = {   //launchBlock is to encapsulate the launch link, which is a URL or link that allows an end user to access and launch a specific CMI5 course module
         link: launchLink,   
       }
       return {
