@@ -9,7 +9,7 @@ const checkStoryForErrorsHandler = new FindFlowErrorsHandler();
 
 /**
  * @Description : When an end user saves a story , this function is triggered, 
- *      checks the errors in the blocks and connections
+ *      then it checks the errors in the blocks and connections
  * 
  */
 
