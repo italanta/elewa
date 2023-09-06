@@ -23,18 +23,16 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
 
   public async execute(req: { orgId: string, storyId: string }, context: FunctionContext, tools: HandlerTools): Promise<FlowError[]> {
     const errors: FlowError[] = [];
-    const connectionIds = []
+    const connectionIds = new Set();
 
     // Retrieve connections for the given orgId and storyId.
     const connectionRepo = tools.getRepository<Connection>(`orgs/${req.orgId}/stories/${req.storyId}/connections`);
     const connections = await connectionRepo.getDocuments(new Query());
 
     // Iterate through connections and collect their targetIds.
-    connections.forEach(
-      (connection) => {
-        connectionIds.push(connection.targetId)
-      }
-    )
+    connections.forEach((connection) => {
+      connectionIds.add(connection.targetId);
+    });
 
     // Retrieve blocks for the given orgId and storyId.
     const blocksRepo = tools.getRepository<StoryBlock>(`orgs/${req.orgId}/stories/${req.storyId}/blocks`);
@@ -48,7 +46,7 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
           errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id });
         }
         // Check if the blockIdToCheck is not in the targetIds array
-        if (!connectionIds.includes(block.id)) {
+        if (!connectionIds.has(block.id)) {
           errors.push({
             type: FlowErrorType.MissingConnection,
             blockId: block.id
