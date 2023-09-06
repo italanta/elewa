@@ -52,7 +52,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
   ) {
     try {
       // Fetch the details of the first AU
-      const firstAUs = await this.getAssignableUnits(orgId, storyBlock.id);
+      const firstAUs = await this.getAssignableUnits(orgId, storyBlock.courseId);
       const firstAU = firstAUs[0];
       // Assuming you want the first item in the array
       const firstAULocationURL = firstAU.urlPath;
