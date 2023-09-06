@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable, take } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, filter, Observable, take } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -64,7 +64,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               _router: Router,
               private sideScreen: SideScreenToggleService,
   ) {
-    this._editorStateService.get()
+    this._sb.sink = this._editorStateService.get()
     .subscribe((state: StoryEditorState) => {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
         this._logger.log(() => state);
@@ -187,7 +187,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     // remove duplicate jsplumb connections
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
-    this._editorStateService.callSaveBackendFunction(this.state)
+    this._sb.sink = this._editorStateService.callSaveBackendFunction(this.state)
         .subscribe((success) => {
           if (success) {
             this.stateSaved = true;
