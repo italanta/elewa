@@ -8,7 +8,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 
 import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Actor, AssignableUnit } from '@app/private/model/convs-mgr/micro-apps/base';
-import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor, EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { CMI5Service } from '@app/private/functions/micro-apps/cmi5'; 
@@ -78,6 +78,15 @@ export class CMI5BlockService implements IProcessOperationBlock {
       const launchBlock : CMI5LaunchBlock = {   //launchBlock is to encapsulate the launch link, which is a URL or link that allows an end user to access and launch a specific CMI5 course module
         link: launchLink,   
       }
+      // Assuming storyBlock.id is a string
+      const endUserPosition: EndUserPosition = {
+         storyId: storyBlock.id,  // Assign storyBlock.id to storyId
+         blockId: storyBlock.id,  // You can modify this as needed
+      };
+
+      // Then assign endUserPosition to updatedCursor.position
+      updatedCursor.position = endUserPosition;
+
       return {
         storyBlock: launchBlock,
         newCursor: updatedCursor,
