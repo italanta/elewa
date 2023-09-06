@@ -4,10 +4,9 @@
  * and generates launch links.
  */
 import { HandlerTools } from '@iote/cqrs';
-import { Query } from '@ngfi/firestore-qbuilder';
 
 import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { Actor, AssignableUnit } from '@app/private/model/convs-mgr/micro-apps/base';
+import { Actor, AssignableUnit, CoursePackage } from '@app/private/model/convs-mgr/micro-apps/base';
 import { Cursor, EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -51,72 +50,100 @@ export class CMI5BlockService implements IProcessOperationBlock {
     endUser: EndUser
   ) {
     try {
-      // Fetch the details of the first AU
-      const firstAUs = await this.getAssignableUnits(orgId, storyBlock.courseId);
-      const firstAU = firstAUs[0];
-      // Assuming you want the first item in the array
-      const firstAULocationURL = "";
-      const firstAUId = firstAU.id;
-      // Prepare the AU for launch
-      await this.cmi5Service.prepareForLaunch(orgId, endUser.id, firstAUId);
-      // Create Actor "actor" is the end user or learner who will be engaging with the course module.
-      const actor: Actor = {
-        objectType: 'Agent',
-        name: endUser.name,
-        account: {
-          homePage: orgId,
-          name: endUser.id,
-        },
-      };
-      // Generate the launch link using the AU details and actor properties
-      const launchLink = this.cmi5Service.createLaunchURL(
-        firstAULocationURL, // Use firstAULocationURL
-        actor,
-        endUser.id,
-        firstAUId
-      );
-      const launchBlock : CMI5LaunchBlock = {   //launchBlock is to encapsulate the launch link, which is a URL or link that allows an end user to access and launch a specific CMI5 course module
-        link: launchLink,   
+      // Fetch the details of the first AU from the CoursePackage
+      const coursePackage = await this.getCoursePackage(orgId, storyBlock.courseId);
+      
+      if (coursePackage) {
+        const firstAUID = coursePackage.firstAU; // Get the ID of the first AU
+        
+        // Fetch the first AU by ID
+        const firstAU = await this.getAssignableUnit(orgId, firstAUID);
+        
+        if (firstAU) {
+          // Now you have the first AssignableUnit (AU) and can work with it
+          const firstAULocationURL = "";
+          const firstAUId = firstAU.id;
+          
+          // Prepare the AU for launch using CMI5Service
+          await this.cmi5Service.prepareForLaunch(orgId, endUser.id, firstAUId);
+          
+          // Create Actor "actor" is the end user or learner who will be engaging with the course module.
+          const actor: Actor = {
+            objectType: 'Agent',
+            name: endUser.name,
+            account: {
+              homePage: orgId,
+              name: endUser.id,
+            },
+          };
+          
+          // Generate the launch link using the AU details and actor properties
+          const launchLink = this.cmi5Service.createLaunchURL(
+            firstAULocationURL, // Use firstAULocationURL
+            actor,
+            endUser.id,
+            firstAUId
+          );
+          
+          const launchBlock : CMI5LaunchBlock = {
+            link: launchLink,   
+          }
+          
+          // Assuming storyBlock.id is a string
+          const endUserPosition: EndUserPosition = {
+            storyId: storyBlock.id,
+            blockId: storyBlock.id,
+          };
+          
+          // Then assign endUserPosition to updatedCursor.position
+          updatedCursor.position = endUserPosition;
+          
+          return {
+            storyBlock: launchBlock,
+            newCursor: updatedCursor,
+          };
+        }
       }
-      // Assuming storyBlock.id is a string
-      const endUserPosition: EndUserPosition = {
-         storyId: storyBlock.id,  // Assign storyBlock.id to storyId
-         blockId: storyBlock.id,  // You can modify this as needed
-      };
-
-      // Then assign endUserPosition to updatedCursor.position
-      updatedCursor.position = endUserPosition;
-
-      return {
-        storyBlock: launchBlock,
-        newCursor: updatedCursor,
-      };
     } catch (error) {
-      this.tools.Logger.error(error); 
+      this.tools.Logger.error(error);
     }
   }
-   /**
-   * Retrieves a list of assignable units for a given organization and course ID.
+  /**
+   * Retrieves the CoursePackage for the given organization and course ID.
    * @param orgId The organization ID.
    * @param courseId The course ID.
-   * @returns A Promise that resolves to an array of AssignableUnit objects.
+   * @returns A Promise that resolves to a CoursePackage object.
    */
-    private async getAssignableUnits(
-      orgId: string,
-      courseId: string
-    ): Promise<AssignableUnit[]> {
-      try {
-        // Use the Repository to get the assignable units
-        const repository = this.tools.getRepository<AssignableUnit>(
-          `orgs/${orgId}/course-packages/${courseId}/assignable-units`
-        );
-        const assignableUnit = await repository.getDocuments(new Query().orderBy("createdOn", "desc").limit(1));
-        return assignableUnit;
-      } catch (error) {
-        this.tools.Logger.error(error);
-        return [];
-      }
+  private async getCoursePackage(orgId: string, courseId: string): Promise<CoursePackage | null> {
+    try {
+      // Fetch the CoursePackage based on orgId and courseId
+      const repository = this.tools.getRepository<CoursePackage>(
+        `orgs/${orgId}/course-packages/${courseId}`
+      );
+      const coursePackage = await repository.getDocumentById(courseId);
+      return coursePackage || null;
+    } catch (error) {
+      this.tools.Logger.error(error);
+      return null;
     }
+  }
+  /**
+   * Retrieves an AssignableUnit by its ID.
+   * @param orgId The organization ID.
+   * @param auId The AssignableUnit ID.
+   * @returns A Promise that resolves to an AssignableUnit object.
+   */
+  private async getAssignableUnit(orgId: string, auId: string): Promise<AssignableUnit | null> {
+    try {
+      // Fetch the AssignableUnit based on orgId and auId
+      const repository = this.tools.getRepository<AssignableUnit>(
+        `orgs/${orgId}/assignable-units/${auId}`
+      );
+      const au = await repository.getDocumentById(auId);
+      return au || null;
+    } catch (error) {
+      this.tools.Logger.error(error);
+      return null;
+    }
+  }
 }
-
-
