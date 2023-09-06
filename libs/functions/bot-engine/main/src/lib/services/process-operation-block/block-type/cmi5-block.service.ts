@@ -53,10 +53,6 @@ export class CMI5BlockService implements IProcessOperationBlock {
     try {
       // Fetch the details of the first AU
       const firstAUs = await this.getAssignableUnits(orgId, storyBlock.id);
-      if (firstAUs.length === 0) {
-        console.error('No assignable units found.');
-        return;
-      }
       const firstAU = firstAUs[0];
       // Assuming you want the first item in the array
       const firstAULocationURL = firstAU.urlPath;
@@ -88,7 +84,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
       };
       return response;
     } catch (error) {
-      console.error('Error handling CMI5 block:', error);
+      this.tools.Logger.error(error); 
     }
   }
    /**
@@ -109,7 +105,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
         const assignableUnit = await repository.getDocuments(new Query().orderBy("createdOn", "desc").limit(1));
         return assignableUnit;
       } catch (error) {
-        console.error('Error fetching Assignable Units:', error);
+        this.tools.Logger.error(error);
         return [];
       }
     }
