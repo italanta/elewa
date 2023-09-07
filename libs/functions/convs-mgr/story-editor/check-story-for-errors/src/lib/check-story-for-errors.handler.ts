@@ -5,7 +5,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 
 import { FlowError, FlowErrorType } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ListMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Connection } from '@app/model/convs-mgr/conversations/chats';
 
 /**
@@ -25,14 +25,36 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
     const errors: FlowError[] = [];
     const connectionIds = new Set();
 
+    // Type guard function to check if a block ha soptions (ListMessageBlock or QuestionMessageBlock)
+    // TODO: Paul - Ask if there othe blocks with options 
+    function blockHasOptions(block: StoryBlock): block is ListMessageBlock | QuestionMessageBlock {
+      return 'options' in block;
+    }
+
+    // Function to check if a block's message is empty
+    function isMessageEmpty(message: string | undefined): boolean {
+      return !message || message.trim() === '';
+    }
+
+    // Extract block ids from the sourceId
+    function extractBlockId(sourceId: string) {
+      const parts = sourceId.split("-");
+      if (parts.length === 2) {
+        const blockId = parts[1];
+        return blockId;
+      } else {
+        return 'startBlock'; 
+      }
+    }
+
     // Retrieve connections for the given orgId and storyId.
     // TODO: implement promise all to get both connections and blocks concurrently
     const connectionRepo = tools.getRepository<Connection>(`orgs/${req.orgId}/stories/${req.storyId}/connections`);
     const connections = await connectionRepo.getDocuments(new Query());
 
-    // Iterate through connections and collect their targetIds.
+    // Iterate through connections and collect their sourceIds.
     connections.forEach((connection) => {
-      connectionIds.add(connection.targetId);
+      connectionIds.add(extractBlockId(connection.sourceId));
     });
 
     // Retrieve blocks for the given orgId and storyId.
@@ -43,25 +65,29 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
     blocks.forEach((block) => {
       // Errors are not applicable to the endblock
       if( block.id != 'story-end-anchor'){  
-        if (!block.message || block.message.trim() == '') {
+        if (isMessageEmpty(block.message)) {
           errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id });
         }
-        // Check if the blockIdToCheck is not in the targetIds array
+        // Check if the blockIdToCheck is not in the sourceIds array
         if (!connectionIds.has(block.id)) {
           errors.push({
             type: FlowErrorType.MissingConnection,
             blockId: block.id
           })
         }
-        const listBlock = block as ListMessageBlock;
 
-        if (listBlock?.options) {
-          listBlock.options.forEach(button => {
-            if (button.message || button.message.trim() == '') {
-              errors.push({ type: FlowErrorType.EmptyTextField, blockId: listBlock.id })
-            }
-          })
-        }
+        if (blockHasOptions(block)) {
+          // It's either a ListMessageBlock or a QuestionMessageBlock or Another block with opption
+          const options = block.options;
+          if (options) {
+            // Check for empty message in block options
+            options.forEach(button => {
+              if (isMessageEmpty(block.message)) {
+                errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id })
+              }
+            });
+          }
+        } 
       }
     })
 
