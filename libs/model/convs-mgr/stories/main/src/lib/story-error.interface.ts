@@ -13,7 +13,13 @@ export interface FlowError
   blockId: string,
 }
 
+/**
+ * Enumeration representing different types of errors that can occur in a flow or story.
+ */
 export enum FlowErrorType {
+  // Indicates a missing connection error.
   MissingConnection = 10,
-  EmptyTextField = 20
+   
+  // Indicates an error related to an empty text field.
+  EmptyTextField = 20     
 }
