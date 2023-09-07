@@ -81,8 +81,8 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
           const options = block.options;
           if (options) {
             // Check for empty message in block options
-            options.forEach(button => {
-              if (isMessageEmpty(block.message)) {
+            options.forEach(option => {
+              if (isMessageEmpty(option.message)) {
                 errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id })
               }
             });
