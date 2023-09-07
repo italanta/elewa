@@ -43,7 +43,7 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
         const blockId = parts[1];
         return blockId;
       } else {
-        return 'startBlock'; 
+        return sourceId; 
       }
     }
 
@@ -69,7 +69,7 @@ export class FindFlowErrorsHandler extends FunctionHandler<any, FlowError[]> {
           errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id });
         }
         // Check if the blockIdToCheck is not in the sourceIds array
-        if (!connectionIds.has(block.id)) {
+        if (!connectionIds.has(block.id) || !connectionIds.has(req.storyId)) {
           errors.push({
             type: FlowErrorType.MissingConnection,
             blockId: block.id
