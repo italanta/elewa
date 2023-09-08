@@ -25,17 +25,6 @@ export class FindStoryErrorHandler extends FunctionHandler<any, FlowError[]> {
     const errors: FlowError[] = [];
     const connectionIds = new Set();
 
-    // Type guard function to check if a block ha soptions (ListMessageBlock or QuestionMessageBlock)
-    // TODO: Paul - Ask if there othe blocks with options 
-    function blockHasOptions(block: StoryBlock): block is ListMessageBlock | QuestionMessageBlock {
-      return 'options' in block;
-    }
-
-    // Function to check if a block's message is empty
-    function isMessageEmpty(message: string | undefined): boolean {
-      return !message || message.trim() === '';
-    }
-
     // Extract block ids from the sourceId
     function extractBlockId(sourceId: string) {
       const parts = sourceId.split("-");
@@ -65,7 +54,7 @@ export class FindStoryErrorHandler extends FunctionHandler<any, FlowError[]> {
     blocks.forEach((block) => {
       // Errors are not applicable to the endblock
       if( block.id != 'story-end-anchor'){  
-        if (isMessageEmpty(block.message)) {
+        if (this.isMessageEmpty(block.message)) {
           errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id });
         }
         // Check if the blockIdToCheck is not in the sourceIds array
@@ -76,13 +65,13 @@ export class FindStoryErrorHandler extends FunctionHandler<any, FlowError[]> {
           })
         }
 
-        if (blockHasOptions(block)) {
+        if (this.blockHasOptions(block)) {
           // It's either a ListMessageBlock or a QuestionMessageBlock or Another block with opption
           const options = block.options;
           if (options) {
             // Check for empty message in block options
             options.forEach(option => {
-              if (isMessageEmpty(option.message)) {
+              if (this.isMessageEmpty(option.message)) {
                 errors.push({ type: FlowErrorType.EmptyTextField, blockId: block.id })
               }
             });
@@ -93,5 +82,16 @@ export class FindStoryErrorHandler extends FunctionHandler<any, FlowError[]> {
 
     // Return the array of detected flow errors.
     return errors;
+  }
+  
+  // Type guard function to check if a block ha soptions (ListMessageBlock or QuestionMessageBlock)
+  // TODO: Paul - Ask if there othe blocks with options 
+  private blockHasOptions(block: StoryBlock): block is ListMessageBlock | QuestionMessageBlock {
+    return 'options' in block;
+  }
+
+  // Function to check if a block's message is empty
+  private isMessageEmpty(message: string | undefined): boolean {
+    return !message || message.trim() === '';
   }
 }
