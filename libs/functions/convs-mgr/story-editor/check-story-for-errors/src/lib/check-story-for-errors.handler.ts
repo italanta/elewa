@@ -70,7 +70,6 @@ export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
         } 
         // Check if the blockIdToCheck is not in the sourceIds array
         else if (!connectionIds.has(`defo-${block.id}`)) {
-          console.log(block.id+ " is" + connectionIds.has(`defo-${block.id}`))
           errors.push({
             type: StoryErrorType.MissingConnection,
             blockId: block.id
