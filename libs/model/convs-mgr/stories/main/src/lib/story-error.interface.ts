@@ -1,10 +1,10 @@
 /**
  * Interface for the story errors
  */
-export interface FlowError 
+export interface StoryError 
 {
 /** The type of the error as defined above */
-  type: FlowErrorType,
+  type: StoryErrorType,
   
   /** The id of the block affected by the error
   * If the type of the error is a missing connection, this will be the block
@@ -19,7 +19,7 @@ export interface FlowError
 /**
  * Enumeration representing different types of errors that can occur in a flow or story.
  */
-export enum FlowErrorType {
+export enum StoryErrorType {
   // Indicates a missing connection error.
   MissingConnection = 10,
    
