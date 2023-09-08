@@ -11,6 +11,9 @@ export interface FlowError
   * that the connection is supposed to originate from
   **/
   blockId: string,
+
+  // The id of the option that is missing a connection in the case of multiple input options
+  optionsId?: string,
 }
 
 /**
