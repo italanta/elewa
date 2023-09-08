@@ -25,17 +25,6 @@ export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
     const errors: StoryError[] = [];
     const connectionIds = new Set();
 
-    // // Extract block ids from the sourceId
-    // function extractBlockId(sourceId: string) {
-    //   const parts = sourceId.split("-");
-    //   if (parts.length === 2) {
-    //     const blockId = parts[1];
-    //     return blockId;
-    //   } else {
-    //     return sourceId; 
-    //   }
-    // }
-
     // Retrieve connections for the given orgId and storyId.
     // TODO: implement promise all to get both connections and blocks concurrently
     const connectionRepo = tools.getRepository<Connection>(`orgs/${req.orgId}/stories/${req.storyId}/connections`);
@@ -54,16 +43,22 @@ export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
     blocks.forEach((block) => {
       // Errors are not applicable to the endblock
       if( block.id != 'story-end-anchor'){  
+        
+        if (this.isMessageEmpty(block.message )&& block.type !=34) {
+          errors.push({ type: StoryErrorType.EmptyTextField, blockId: block.id });
+        }
+        
+
         // It's either a ListMessageBlock or a QuestionMessageBlock or Another block with opption
         if (this.blockHasOptions(block)) {
           const options = block.options;
           if (options) {
             // Check for empty message in block options
             options.forEach(option => {
-              if (this.isMessageEmpty(option.message)) {
+              if (this.isMessageEmpty(option.message) && block.type !=34) {
                 errors.push({ type: StoryErrorType.EmptyTextField, blockId: block.id, optionsId: option.id })
               }
-              if (!connectionIds.has(option.id)){
+              if (!connectionIds.has(`i-${option.id}-${block.id}`)){
                 errors.push({
                   type: StoryErrorType.MissingConnection,
                   blockId: block.id,
@@ -73,11 +68,9 @@ export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
             });
           }
         } 
-        if (this.isMessageEmpty(block.message)) {
-          errors.push({ type: StoryErrorType.EmptyTextField, blockId: block.id });
-        }
         // Check if the blockIdToCheck is not in the sourceIds array
-        if (!connectionIds.has(block.id) || !connectionIds.has(req.storyId)) {
+        else if (!connectionIds.has(`defo-${block.id}`)) {
+          console.log(block.id+ " is" + connectionIds.has(`defo-${block.id}`))
           errors.push({
             type: StoryErrorType.MissingConnection,
             blockId: block.id
@@ -87,7 +80,6 @@ export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
         
       }
     })
-
     // Return the array of detected flow errors.
     return errors;
   }
@@ -100,6 +92,6 @@ export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
 
   // Function to check if a block's message is empty
   private isMessageEmpty(message: string | undefined): boolean {
-    return !message || message.trim() === '';
+    return message.trim() === '';
   }
 }

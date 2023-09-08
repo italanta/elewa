@@ -1,10 +1,10 @@
 import { RestRegistrar } from "@ngfi/functions";
 
-import { FindFlowErrorsHandler } from "@app/functions/convs-mgr/story-editor//check-story-for-errors";
+import { FindStoryErrorHandler } from "@app/functions/convs-mgr/story-editor//check-story-for-errors";
 
 import { ConvLearnFunction } from "../../conv-learn-func.class";
 
-const checkStoryForErrorsHandler = new FindFlowErrorsHandler();
+const checkStoryForErrorsHandler = new FindStoryErrorHandler();
 
 
 /**
