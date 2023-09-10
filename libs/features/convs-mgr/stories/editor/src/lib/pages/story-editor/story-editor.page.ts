@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable, take } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -65,7 +65,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
+<<<<<<< HEAD
     .subscribe((state: StoryEditorState) => {
+=======
+      .subscribe((state: StoryEditorState) => {
+>>>>>>> parent of 1cce2241 (Merge pull request #587 from italanta/CLM-73-Saving-a-story-takes-too-long)
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
         this._logger.log(() => state);
 
@@ -187,7 +191,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
     // remove duplicate jsplumb connections
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
-    this._editorStateService.callSaveBackendFunction(this.state)
+    this._editorStateService.persist(this.state)
         .subscribe((success) => {
           if (success) {
             this.stateSaved = true;
