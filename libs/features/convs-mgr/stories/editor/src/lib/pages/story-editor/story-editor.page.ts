@@ -65,11 +65,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private sideScreen: SideScreenToggleService,
   ) {
     this._editorStateService.get()
-<<<<<<< HEAD
-    .subscribe((state: StoryEditorState) => {
-=======
-      .subscribe((state: StoryEditorState) => {
->>>>>>> parent of 1cce2241 (Merge pull request #587 from italanta/CLM-73-Saving-a-story-takes-too-long)
+      .subscribe((state: StoryEditorState) =>
+      {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
         this._logger.log(() => state);
 
@@ -79,13 +76,18 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
         const story = state.story;
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
-      }
-      );
+      });
     }
 
-    ngOnInit() {
-      this._sb.sink = this.sideScreen.sideScreen$.subscribe((isOpen) => this.isSideScreenOpen = isOpen);
-      this._sb.sink = this._blockPortalService.portal$.subscribe((blockDetails) => {
+    ngOnInit()
+    {
+      this._sb.sink 
+        = this.sideScreen.sideScreen$
+            .subscribe((isOpen) => this.isSideScreenOpen = isOpen);
+
+      this._sb.sink 
+        = this._blockPortalService.portal$.subscribe((blockDetails) => 
+      {
         if (blockDetails.form) {
           const comp = getActiveBlock(blockDetails.form.value.type);
           this.activeBlockForm = blockDetails.form
