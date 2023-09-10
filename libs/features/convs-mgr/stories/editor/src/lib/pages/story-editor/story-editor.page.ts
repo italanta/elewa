@@ -13,21 +13,25 @@ import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
+import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
-import { BlockPortalService } from '../../providers/block-portal.service';
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
+
+import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
+import { BlockPortalService } from '../../providers/block-portal.service';
+import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
-import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
-import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
-import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
+
 @Component({
   selector: 'convl-story-editor-page',
   templateUrl: './story-editor.page.html',
   styleUrls: ['./story-editor.page.scss']
 })
-export class StoryEditorPageComponent implements OnInit, OnDestroy {
+export class StoryEditorPageComponent implements OnInit, OnDestroy 
+{
   private _sb = new SubSink();
   portal$: Observable<TemplatePortal>;
   activeComponent: ComponentPortal<any>
@@ -62,8 +66,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy {
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
               _router: Router,
-              private sideScreen: SideScreenToggleService,
-  ) {
+              private sideScreen: SideScreenToggleService) 
+  {
+    
     this._editorStateService.get()
       .subscribe((state: StoryEditorState) =>
       {
