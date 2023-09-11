@@ -1,4 +1,4 @@
-import { ViewContainerRef } from '@angular/core';
+import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -29,6 +29,7 @@ export class StoryEditorFrame {
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
+  private _newestBlock: StoryBlock;
   private _connections: StoryBlockConnection[];
 
   blocksArray: FormArray;
@@ -38,7 +39,8 @@ export class StoryEditorFrame {
     private _jsPlumb: BrowserJsPlumbInstance,
     private _blocksInjector: BlockInjectorService,
     private _viewport: ViewContainerRef,
-    private _connectionsService: BlockConnectionsService
+    private _connectionsService: BlockConnectionsService,
+    private _edf: ElementRef<HTMLElement>
   ) {
     this.loaded = true;
   }
@@ -56,6 +58,10 @@ export class StoryEditorFrame {
     this._blocks = state.blocks;
     this._connections = state.connections;
 
+    this._newestBlock = state.blocks.reduce((prev, current) => {
+      return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
+    });
+
     this.blocksArray = this._fb.array([]);
 
     // Clear any previously drawn items.
@@ -70,6 +76,15 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
+
+    //scroll to the middle of the screen when connections are done drawing
+    // this.scroll(this._edf.nativeElement)
+  }
+  scroll(el: HTMLElement) {
+    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
+    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
+    el.scrollTo({top:editorHeight,left:editorWidth});
+    // el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
   }
 
   get jsPlumbInstance(): BrowserJsPlumbInstance {
@@ -101,9 +116,14 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
+    const editorWidth = 100;
+    const editorHeight = 100;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
+
+    //position the start anchor to center of viewport
+    startAnchor.location.nativeElement.style = `position: absolute; left: ${editorWidth}px; top: ${editorHeight}px;`;
   }
 
   /**
@@ -215,16 +235,23 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+
+    const x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
+    const y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+
+    const  pageheight = this._edf.nativeElement.offsetHeight/2;
+    const  pagewidth = this._edf.nativeElement.offsetWidth/2;
+
     const block = {
       id: `${this._cnt}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
-      position: coordinates || { x: 200, y: 50 },
+      // position: coordinates || { x: 200, y: 50 },
+      position: coordinates || { x: x, y: y},
     } as StoryBlock;
 
     this._cnt++;
-
     this._blocks.push(block);
     return this._injectBlockToFrame(block);
   }

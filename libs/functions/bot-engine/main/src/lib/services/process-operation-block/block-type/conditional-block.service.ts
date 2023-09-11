@@ -42,7 +42,9 @@ export class ConditionalBlockService extends MultipleOptionsMessageService imple
 		// get variable value from DB
 		const varDataService = new VariablesDataService(this.tools, orgId, endUser.id);
 
-		const variableValue = await varDataService.getSpecificVariable(variableToCheck);
+		const allVariables = varDataService.getAllVariables(endUser);
+
+		const variableValue = allVariables[variableToCheck];
 
 		// if variable stored in the db is undefined or null return an empty string (prevents bot from crushing ahead)
 		const message = variableValue ? variableValue : ''

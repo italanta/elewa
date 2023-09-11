@@ -1,0 +1,87 @@
+.cards .assessment-card, .cards .new-course {
+  height: 250px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.cards .new-course {
+  height: 250px;
+  padding: 20px;
+  background-color:#F6F6F6;
+  border-radius: 10px;
+  border: solid #707070 0.25px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: .9em;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: black;
+  background-color: #DADADA;
+
+  &.whatsapp {
+    background-color: #C3FA6C;
+  }
+
+  &.telegram {
+    background-color: #6CD4FA;
+  }
+}
+
+.card-header span {
+  text-transform: uppercase;
+}
+
+.cards .assessment-card .card-body span {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.cards .assessment-card .card-footer span {
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+.cards .assessment-card .card-footer button {
+  color: white!important;
+}
+
+.card-footer button {
+  background-color: #B8AFDA!important;
+  color: white!important;
+}
+
+.card-footer .new-course-text {
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+
+.circle {
+  margin: 30px;
+  clip-path: circle();
+  background-color: rgba($color: #fff, $alpha: .5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  button {
+    margin: 15px;
+  }
+}
+
+.btn-add {
+  background-color: white !important;
+  color: black !important;
+}

@@ -75,6 +75,7 @@ export class MessengerActiveChannel implements ActiveChannel
     const n = this.channel.n;
     const orgId = this.channel.orgId;
     const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+    const endUser = this.endUserService.getEndUser(endUserId);
 
     const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
 
@@ -92,7 +93,7 @@ export class MessengerActiveChannel implements ActiveChannel
         if (templateConfig) {
           let params = message.params || templateConfig.params || null;
 
-          if(params) params = await this.__resolveParamVariables(params, orgId, endUserId);
+          if(params) params = await this.__resolveParamVariables(params, orgId, endUser);
 
           // Get the message template
           return this.parseOutMessageTemplate(templateConfig, params, phone, message);
@@ -104,17 +105,11 @@ export class MessengerActiveChannel implements ActiveChannel
     }
   }
 
-  private __getValueFromVariable(orgId: string, endUserId: string, variable: string) {
-    const variablesService = new MailMergeVariables(this._tools);
-
-    return variablesService.getSingleVariableValue(orgId, endUserId, variable)
-  }
-
-  private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, endUserId: string) { 
+  private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
     const resolvedParams = params.map(async (param) => {
 
       if(param.value === '_var_') {
-        const value = await this.__getValueFromVariable(orgId, endUserId, param.name);
+        const value = variables[param.name];
 
         return { 
           name: param.name,

@@ -35,7 +35,8 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     // Get User's Name
     const varService = new VariablesDataService(tools, orgId, participant.id);
-    const userName = await varService.getSpecificVariable('name');
+
+    const userName = await varService.getSpecificVariable(participant.id, 'name');
 
     // guard clause to filter user's with no cursor history when calculating past data
     if (!latestCursor) return

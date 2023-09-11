@@ -5,6 +5,8 @@ import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { isFileMessage } from '@app/model/convs-mgr/functions';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -20,8 +22,6 @@ import { generateEnrolledUserId } from './utils/generateEnrolledUserId';
 import { ProcessMessageService } from './services/process-message/process-message.service';
 import { createTextMessage } from './utils/createTextMessage.util';
 import { BotMediaProcessService } from './services/media/process-media-service';
-import { isFileMessage } from '@app/model/convs-mgr/functions';
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 
 /**

@@ -25,7 +25,7 @@ export class ProcessInput<T>
       const updatedInputs = this.__updateInputs(this.savedInputs, inputValue, inputValueType, variableType);
 
       endUser.variables = updatedInputs;
-
+      endUser.variables.userId = endUser.id;
 
       await endUserRepo$.update(endUser);
       
