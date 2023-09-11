@@ -79,7 +79,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
             endUser.id,
             firstAUId
           );
-          
+          // This code is creating an instance of a CMI5LaunchBlock  which represents the point from which a learner starts a specific educational module or activity.
           const launchBlock : CMI5LaunchBlock = {
             link: launchLink,   
           }
