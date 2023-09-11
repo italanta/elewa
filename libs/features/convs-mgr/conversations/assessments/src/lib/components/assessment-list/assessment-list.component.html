@@ -1,6 +1,6 @@
 <div>
 	<div *ngIf="assessments$ | async as assessments">
-		<div *ngIf="assessments.length > 0; else noAssessments">
+		<div>
 			<div class="header-wrapper" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="1rem">
 				<app-assessments-header></app-assessments-header>
 
