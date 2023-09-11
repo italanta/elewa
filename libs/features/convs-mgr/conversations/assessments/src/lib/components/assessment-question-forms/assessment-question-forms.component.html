@@ -1,19 +1,32 @@
-<div class="question-form-list">
-  <form [formGroup]="assessmentFormGroup">
-    <div formArrayName="questions">
-      <div *ngFor="let question of questionsList.controls; let i = index">
-        <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [index]="i" [questions]="questions" [questionFormGroupName]="i"
-          [questionNo]="i+1" [assessmentMode]="assessmentMode"></app-assessment-question-form>
+<div *ngIf="formDataIsReady" [formGroup]="assessmentFormGroup" class="question-form-list" fxLayout="column" fxLayoutAlign="start" fxFlex>
+
+  <div class="card-area" fxLayout="row" fxLayoutAlign="start">
+    <div class="card">
+      <div fxLayout="column" fxLayoutAlign="start">
+        <p> Assessment Title </p>
+        <mat-form-field appearance="fill" fxFlex="60">
+          <input type="text" matInput formControlName="title">
+        </mat-form-field>
       </div>
     </div>
-  </form>
- 
-  <div class="question-button" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-flat-button class="btn-add" (click)="addQuestion()">
-      <i class="fas fa-plus"></i>
-      <span class="label">
-        {{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}}
-      </span>
-    </button>
+    <button [disabled]="true" mat-mini-fab></button>
   </div>
+
+  <div *ngIf="questionsList.controls.length > 0; else noQuestions" formArrayName="questions" fxLayout="column" fxLayoutAlign="start">
+    <div *ngFor="let question of questionsList.controls; let i = index" fxFlex>
+      <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [index]="i" [questions]="questions"
+        [questionFormGroupName]="i" [questionNo]="i+1" [isLastQuestion]="i + 1 === questionsList.controls.length"
+        [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion()" fxFlex>
+      </app-assessment-question-form>
+    </div>
+  </div>
+
+  <ng-template #noQuestions>
+    <div fxLayout="row" fxLayoutAlign="center" fxFlex>
+      <button mat-stroked-button class="btn-add" (click)="addQuestion()">
+        <i class="fas fas-add"></i>
+        New Question
+      </button>
+    </div>
+  </ng-template>
 </div>
