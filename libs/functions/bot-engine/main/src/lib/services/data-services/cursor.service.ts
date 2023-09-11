@@ -101,4 +101,26 @@ export class CursorDataService extends BotDataService<Cursor> {
       return false;
     }
   }
+
+  //created a new function to get the current cursor position since update cursor returns a boolean value
+
+  async getStoryIdAndBlockId(endUserId: string, orgId: string): Promise<Cursor>
+  {
+    // Set the firestore document path
+    this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
+  
+    // Get the latest document which is the latest cursor = the current position of the end user
+    const currentCursor = await this.getLatestDocument(this._docPath);
+  
+    // If it exists we return it, otherwise return 'null'
+    if (currentCursor.length > 0) {
+      this._currentCursor = currentCursor[0];
+  
+      return this._currentCursor;
+    } else {
+      return null; // You can return null or throw an error here if you prefer
+    }
+  }
+  
+  
 }
