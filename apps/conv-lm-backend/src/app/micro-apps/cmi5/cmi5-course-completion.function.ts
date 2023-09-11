@@ -6,7 +6,7 @@ import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
 const handler = new CMICourseCompletionHandler();
 
-export const cmi5Listener= new ConvLearnFunction('cmi5CourseCompletion', 
+export const cmi5CourseCompletion = new ConvLearnFunction('cmi5CourseCompletion', 
                                                   new EndpointRegistrar(), 
                                                   [], 
                                                   handler)
