@@ -51,7 +51,6 @@ export class ConnectionsDataService extends BotDataService<Connection>
 
     return conn[0];
   }
-
   /** 
    * Each connection we store has the sourceId which contains the block the connection comes from
    * 
@@ -99,4 +98,39 @@ export class ConnectionsDataService extends BotDataService<Connection>
   
       return conn[0];
     }
+
+  
+    /**
+   * Gets a connection by its sourceId.
+   * @param sourceId The sourceId to search for.
+   * @param orgId The organization ID.
+   * @param currentStory The current story ID.
+   * @returns The connection with the specified sourceId and targetId, or null if not found.
+   */
+  async getCMI5ConnByOption(value: string,orgId: string,currentStory: string): Promise<{ sourceId: string; targetId: string } | null> {
+    this._docPath = `orgs/${orgId}/stories/${currentStory}/connections`;
+
+    const conn = await this.getDocumentByField('sourceId', value, this._docPath);
+
+    if (conn.length === 0) {
+      return null;
+    }
+  
+    const firstConnection = conn[0];
+
+    return {
+      sourceId: firstConnection.sourceId,
+      targetId: firstConnection.targetId,
+    };
+  }
 }
+
+
+
+
+
+
+
+
+
+
