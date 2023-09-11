@@ -1,4 +1,5 @@
-<div *ngIf="formDataIsReady" [formGroup]="assessmentFormGroup" class="question-form-list" fxLayout="column" fxLayoutAlign="start" fxFlex>
+<div *ngIf="formDataIsReady" [formGroup]="assessmentFormGroup" class="question-form-list" fxLayout="column"
+  fxLayoutAlign="start" fxFlex>
 
   <div class="card-area" fxLayout="row" fxLayoutAlign="start">
     <div class="card">
@@ -12,11 +13,16 @@
     <button [disabled]="true" mat-mini-fab></button>
   </div>
 
-  <div *ngIf="questionsList.controls.length > 0; else noQuestions" formArrayName="questions" fxLayout="column" fxLayoutAlign="start">
-    <div *ngFor="let question of questionsList.controls; let i = index" fxFlex>
-      <app-assessment-question-form [assessmentFormGroup]="assessmentFormGroup" [index]="i" [questions]="questions"
-        [questionFormGroupName]="i" [questionNo]="i+1" [isLastQuestion]="i + 1 === questionsList.controls.length"
-        [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion()" fxFlex>
+  <div *ngIf="questionsList.controls.length > 0; else noQuestions" formArrayName="questions" fxLayout="column"
+    fxLayoutAlign="start">
+    <div id="questions" *ngFor="let question of questionsList.controls; let i = index" fxFlex>
+      <app-assessment-question-form class="card-list" [assessmentFormGroup]="assessmentFormGroup" 
+                                    [index]="i" [questions]="questions"
+                                    [questionFormGroupName]="i" [questionNo]="i+1" 
+                                    [isLastQuestion]="i + 1 === questionsList.controls.length"
+                                    [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion()" 
+                                    [activeCard$]="activeCard$.asObservable()"
+                                    (activeQuestionChanged)="activeQuestionChanged($event)" fxFlex>
       </app-assessment-question-form>
     </div>
   </div>

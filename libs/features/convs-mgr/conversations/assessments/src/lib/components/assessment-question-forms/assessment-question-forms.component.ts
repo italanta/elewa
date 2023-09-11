@@ -2,6 +2,8 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/cor
 import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { Subject } from 'rxjs';
+
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
@@ -21,6 +23,8 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
 
   count: number;
   formDataIsReady: boolean = false;
+
+  activeCard$ = new Subject<number>();
 
   constructor(private _router$$: Router,
               private _assessmentForm: AssessmentFormService
@@ -75,6 +79,10 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
 
     questionForm.patchValue({ id: `${this.count}` });
     this.questionsList.push(questionForm);
+  }
+
+  activeQuestionChanged(index: number) {
+    this.activeCard$.next(index);
   }
 
   ngOnDestroy(): void {
