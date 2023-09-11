@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+
 import { __DateFromStorage } from '@iote/time';
 import { Logger } from '@iote/bricks-angular';
 import { DataService, Repository } from '@ngfi/angular';
 import { PaginatedScroll } from '@ngfi/infinite-scroll';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
-import { ActiveOrgStore } from '@app/state/organisation';
-import { Query } from '@ngfi/firestore-qbuilder';
-import { map } from 'rxjs/operators';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable({
   providedIn: 'root'

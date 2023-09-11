@@ -9,12 +9,13 @@ import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { VariablesDataService } from "../../data-services/variables.service";
+import { EndUserDataService } from "../../data-services/end-user.service";
+import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
 
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { HttpService } from "../../../utils/http-service/http.service";
-import { MailMergeVariables } from "../../variable-injection/mail-merge-variables.service";
-import { VariablesDataService } from "../../data-services/variables.service";
 
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
@@ -55,7 +56,7 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 			// Save variable here
 			// Traverse through the unpacked response keys and save each key and its value to variables collection
-			await this.saveToDB(orgId, endUser.id, unpackedResponse);
+			await this.saveToDB(orgId, endUser, unpackedResponse);
 		}
 
 		const newCursor = await this.getNextBlock(null, updatedCursor, storyBlock, orgId, updatedCursor.position.storyId, endUser.id);
@@ -119,24 +120,15 @@ export class WebhookBlockService extends DefaultOptionMessageService implements 
 
 	}
 
-	private async saveToDB(orgId: string, endUserId: string, responseData: any) {
-		const docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
+	private saveToDB(orgId: string, endUser: EndUser, responseData: any) {
+		const endUserService = new EndUserDataService(this.tools, orgId);
 
-    const valuesRepo$ = this.tools.getRepository<any>(docPath);
-
-		const savedInputs = await valuesRepo$.getDocumentById('values');
-
-		if (!savedInputs) {
-
-			return valuesRepo$.create(responseData, 'values');
-		} else {
-			// If the variable tagged already has a value, we create an array and push the new value
-			const newSavedInputs = {
-				...savedInputs,
-				...responseData
-			}
-			return valuesRepo$.update(newSavedInputs);
+		endUser.variables = {
+			...endUser.variables,
+			...responseData
 		}
+
+		return endUserService.updateEndUser(endUser)
 	}
 
 }
