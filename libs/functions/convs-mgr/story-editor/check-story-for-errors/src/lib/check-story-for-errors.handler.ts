@@ -11,7 +11,7 @@ import { Connection } from '@app/model/convs-mgr/conversations/chats';
 /**
  * Handler to find flow errors in story connections and blocks.
  */
-export class FindStoryErrorHandler extends FunctionHandler<any, StoryError[]> {
+export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, storyId: string}, StoryError[]> {
 
   /**
    * Execute the function to find flow errors.
