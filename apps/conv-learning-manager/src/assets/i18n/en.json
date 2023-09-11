@@ -432,9 +432,9 @@
       "NOT-FOUND": "Assessment not found"
     },
    "QUESTIONS": {
-      "QUESTION": "Question",
+      "QUESTION": "New Question",
       "QUESTIONS": "Questions",
-      "ANSWER": "Answer",
+      "ANSWER": "New Answer",
       "FIELDS":{
         "CONFIGURATION": "Configuration",
         "FEEDBACK": "Feedback",
