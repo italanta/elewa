@@ -79,16 +79,8 @@ export class CreateAssessmentPageComponent implements OnInit {
         this.questions = questions;
         this.assessmentForm = this._assessmentForm.createAssessmentDetailForm(this.assessment);
         this.formHasLoaded = true;
-        debugger
       })
     ).subscribe()
-
-    // this._sbS.sink = combineLatest([this.assessment$, ]).pipe(
-    //   tap(
-    //   ([_assessment, questions]) =>
-    //   {
-    //   })
-    // ).subscribe();
   }
 
   onSave()
