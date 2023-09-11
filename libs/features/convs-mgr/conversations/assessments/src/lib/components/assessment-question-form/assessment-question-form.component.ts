@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
@@ -6,16 +6,16 @@ import { SubSink } from 'subsink';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
-import { AssessToggleStateService } from '../../services/assessment-toggle-state.service';
-
 @Component({
   selector: 'app-assessment-question-form',
   templateUrl: './assessment-question-form.component.html',
   styleUrls: ['./assessment-question-form.component.scss'],
 })
 export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
+
   @Input() questions: AssessmentQuestion[];
   @Input() questionNo: number;
+  @Input() isLastQuestion: boolean;
 
   @Input() index: number;
 
@@ -24,9 +24,11 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
 
+  @Output() addNewQuestion = new EventEmitter();
+  
   private _sBs = new SubSink();
 
-  constructor(private _assToggle: AssessToggleStateService) {}
+  constructor() {}
 
   feedBackConditions = [
     FeedbackCondition[1],
@@ -35,9 +37,8 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    this._sBs.sink = this.assessmentFormGroup.valueChanges.subscribe(() => {
-      this._assToggle.hidePublish()
-    })
+    let x = this.assessmentFormGroup
+    debugger
   }
 
   get questionsList() {
