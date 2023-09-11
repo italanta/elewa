@@ -18,7 +18,7 @@ const ASSESSMENTS_ROUTERS: Route[] = [
   },
   {
     path: ':id',
-    component: AssessmentViewComponent,
+    component: CreateAssessmentPageComponent,
   },
   {
     path: ':id/results',
