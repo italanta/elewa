@@ -13,7 +13,11 @@
 		color: black!important;
 		padding: 15px;
 		border-radius: 10px;
-		border: solid #B8AFDA 2px;
+		// border: solid #B8AFDA 2px;
+	}
+
+	.active-card {
+		border: solid #B8AFDA 2px!important;
 	}
 }
 

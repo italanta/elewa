@@ -1,5 +1,5 @@
 <div class="question-form">
-	<div class="card">
+	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']" (click)="activeQuestionChanged.emit(index)">
 		<div class="card-content">
 			<div *ngIf="assessmentFormGroup">
 				<div [formGroup]="assessmentFormGroup">

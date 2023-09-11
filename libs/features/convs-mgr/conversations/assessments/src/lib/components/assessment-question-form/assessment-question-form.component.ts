@@ -3,6 +3,8 @@ import { FormArray, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
+import { Observable, tap } from 'rxjs';
+
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
@@ -12,6 +14,8 @@ import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessment
   styleUrls: ['./assessment-question-form.component.scss'],
 })
 export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
+
+  private _sBs = new SubSink();
 
   @Input() questions: AssessmentQuestion[];
   @Input() questionNo: number;
@@ -23,10 +27,12 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
+  @Input() activeCard$: Observable<number>;
 
   @Output() addNewQuestion = new EventEmitter();
+  @Output() activeQuestionChanged = new EventEmitter();
   
-  private _sBs = new SubSink();
+  activeCard: number;
 
   constructor() {}
 
@@ -37,8 +43,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    let x = this.assessmentFormGroup
-    debugger
+    this.activeCard$.pipe(tap((activeId) => {
+      this.activeCard = activeId;
+    })).subscribe();
   }
 
   get questionsList() {
