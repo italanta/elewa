@@ -1,14 +1,16 @@
+import { Injectable } from "@angular/core";
 import { DataStore } from "@ngfi/state";
 import { DataService, Repository } from "@ngfi/angular";
 
+import { map, of, switchMap, tap, throttleTime } from "rxjs";
+
 import { Logger } from "@iote/bricks-angular";
 import { Query } from '@ngfi/firestore-qbuilder';
-import { of, switchMap, tap, throttleTime } from "rxjs";
 
 import { Assessment, AssessmentQuestion } from "@app/model/convs-mgr/conversations/assessments";
+import { ActiveOrgStore } from "@app/private/state/organisation/main";
 
 import { ActiveAssessmentStore } from "./active-assessment.store";
-import { Injectable } from "@angular/core";
 
 @Injectable()
 export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
@@ -17,7 +19,8 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
 
   protected _activeAssessment: Assessment;
 
-  constructor(private _assessment$$: ActiveAssessmentStore,
+  constructor(private _org$$: ActiveOrgStore,
+              private _assessment$$: ActiveAssessmentStore,
               private _repoFac: DataService,
               _logger: Logger)
   {
@@ -41,5 +44,11 @@ export class AssessmentQuestionStore extends DataStore<AssessmentQuestion> {
   {
     const repo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${this._activeAssessment.orgId}/assessments/${assessmentId}/questions`);
     return repo.getDocuments();
+  }
+
+  createAssessmentQuestion(assessmentId: string, question: AssessmentQuestion, questionId: string) {
+    return this._org$$.get().pipe(map((org) => {return {...question, orgId: org.id}}),
+                                  tap((question) => {this._activeRepo = this._repoFac.getRepo<AssessmentQuestion>(`orgs/${question.orgId}/assessments/${assessmentId}/questions`)}),
+                                  switchMap((question) => this._activeRepo.write(question, questionId))).subscribe();
   }
 }
