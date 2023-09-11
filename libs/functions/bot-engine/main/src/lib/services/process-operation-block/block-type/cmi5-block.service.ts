@@ -90,7 +90,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
             blockId: storyBlock.id,
           };
           
-          // Then assign endUserPosition to updatedCursor.position
+          //  Update end user position with the cmi5 block
           updatedCursor.position = endUserPosition;
           
           return {
