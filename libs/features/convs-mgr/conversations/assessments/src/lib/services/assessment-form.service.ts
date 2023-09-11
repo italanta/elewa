@@ -30,7 +30,9 @@ export class AssessmentFormService {
       questionType: AssessmentQuestionType.SingleSelectOptions,
       marks: [question?.marks ?? ''],
       message: [question?.message ?? ''],
-      options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([]),
+      options: question?.options ? this._prefillOptions(question?.options) : this._formBuilder.array([
+        this.createDefaultChoice()
+      ]),
       nextQuestionId: [question?.nextQuestionId ?? null],
       prevQuestionId: [question?.prevQuestionId ?? null],
     });
@@ -39,6 +41,15 @@ export class AssessmentFormService {
   createChoiceForm(questionId: string, options: FormArray) {
     return this._formBuilder.group({
       id: [`${questionId} - ${options.length + 1}`],
+      text: [''],
+      accuracy: [''],
+      feedback: ['']
+    });
+  }
+
+  createDefaultChoice() {
+    return this._formBuilder.group({
+      id: [`0-1`],
       text: [''],
       accuracy: [''],
       feedback: ['']

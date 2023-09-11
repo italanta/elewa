@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AssessmentFormService } from '../../services/assessment-form.service';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class AssessmentAnswersComponent implements OnInit {
     const action = this._router$$.url.split('/')[2];
 
     if (action === 'create') {
-      this.generateAnswerForm();
+      this.generateAnswerForm(0);
     }
   }
 
@@ -32,8 +32,11 @@ export class AssessmentAnswersComponent implements OnInit {
     return this.questionFormGroup.controls['options'] as FormArray;
   }
 
-  generateAnswerForm() {
-    this.choicesList.push(this._assessmentForm.createChoiceForm(this.questionId, this.choicesList));
+  generateAnswerForm(index: number) {
+    const totalAnswers = this.choicesList.controls.length;    
+    if (index == totalAnswers - 1 || totalAnswers == 0) {
+      this.choicesList.push(this._assessmentForm.createChoiceForm(this.questionId, this.choicesList));
+    }
   }
 
   deleteChoice(i: any) {

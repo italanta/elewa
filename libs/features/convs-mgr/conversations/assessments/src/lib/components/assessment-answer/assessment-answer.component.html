@@ -1,6 +1,6 @@
 <div [formGroup]="questionFormGroup" class="answer-container">
   <div formArrayName="options">
-    <div [formGroupName]="answerFormGroupName">
+    <div [formGroupName]="answerFormGroupName" (click)="answerClicked.emit(answerFormGroupName)">
 
       <!-- first row -->
       <div fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="start center" fxFlexFill>
@@ -9,9 +9,6 @@
         </div>
 
         <mat-form-field appearance="fill" class="full-field">
-          <!-- <mat-label class="answer">
-            {{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}
-          </mat-label> -->
           <input type="text" placeholder="{{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}" matInput formControlName="text">
         </mat-form-field>
   

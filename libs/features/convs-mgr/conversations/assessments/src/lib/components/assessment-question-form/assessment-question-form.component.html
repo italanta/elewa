@@ -1,5 +1,6 @@
 <div class="question-form">
-	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']" (click)="activeQuestionChanged.emit(index)">
+	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
+		(click)="activeQuestionChanged.emit(index)">
 		<div class="card-content">
 			<div *ngIf="assessmentFormGroup">
 				<div [formGroup]="assessmentFormGroup">
@@ -36,7 +37,8 @@
 			</div>
 		</div>
 	</div>
-	<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'" (click)="addNewQuestion.emit()">
+	<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
+		(click)="addNewQuestion.emit()">
 		<i class="fas fa-plus"></i>
 	</button>
 </div>
