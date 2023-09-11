@@ -1,24 +1,18 @@
-import { BlockDataService, ChannelDataService, ConnectionsDataService, CursorDataService, MessagesDataService } from "@app/functions/bot-engine";
+import { BlockDataService, ChannelDataService, ConnectionsDataService, CursorDataService, MessagesDataService, ProcessMessageService, BotMediaProcessService, BotEngineJump } from "@app/functions/bot-engine";
 import { ActiveChannelFactory } from "@app/functions/bot-engine/utils";
 import { CommunicationChannel, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
+
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler, RestResult, RestResult200 } from "@ngfi/functions";
-import { BotEngineJump } from '@app/functions/bot-engine';
-import { BotMediaProcessService } from '@app/functions/bot-engine';
-import { ProcessMessageService } from '@app/functions/bot-engine';
-
-
-
 
 
 
 // Define the CMICourseCompletionHandler class
-export class CMICourseCompletionHandler extends FunctionHandler<{ orgId: string, endUserId: string, result: string }, RestResult> {
+export class CMI5CourseCompletionHandler extends FunctionHandler<{ orgId: string, endUserId: string, result: string }, RestResult> {
   
   // Execute method to handle the main functionality
-  public async execute(req: { orgId: string, endUserId: string }, context: FunctionContext, tools: HandlerTools) {
-    
+  public async execute(req: { orgId: string, endUserId: string, result: string }, context: FunctionContext, tools: HandlerTools) {
     try {
       // Split the endUserId to extract relevant information
       const splitEndUserId = req.endUserId.split('_');
@@ -51,9 +45,6 @@ export class CMICourseCompletionHandler extends FunctionHandler<{ orgId: string,
       // Retrieve the currentCursor based on the endUserId and orgId
       const currentCursor = await cursorDataService.getLatestCursor(req.endUserId, req.orgId);
 
-      // Get the storyId and blockId from the currentCursor
-      const storyIdAndBlockId = await cursorDataService.getStoryIdAndBlockId(req.endUserId, req.orgId);
-
       // Log the currentCursor information
       tools.Logger.log(() => `[CMICourseCompletionHandler].execute: Current Cursor: ${JSON.stringify(currentCursor)}`);
 
@@ -68,16 +59,27 @@ export class CMICourseCompletionHandler extends FunctionHandler<{ orgId: string,
       // Create an instance of BotEngineJump to handle bot jumping logic
       const bot = new BotEngineJump(processMessageService, cursorDataService, msgDataService, processMediaService, activeChannel, tools);
 
-      // Access the story ID and block ID from the current cursor
-      const storyId = storyIdAndBlockId.position.storyId;
-      const blockId = storyIdAndBlockId.position.blockId;
+    // Access the story ID and block ID from the current cursor
+        const storyId = (currentCursor as Cursor)?.position?.storyId || ''; 
+        const blockId = (currentCursor as Cursor)?.position?.blockId || ''; 
+    
+        // Define the path variable based on the result
+        const sourceId = req.result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
 
-      // Perform bot jump to the specified story and block
-      await bot.jump(storyId, req.orgId, endUser, currentCursor as Cursor, blockId);
-
+        // Call the getCMI5ConnByOption method to get the connection information
+        const connection = await connDataService.getCMI5ConnByOption(sourceId, req.orgId, storyId);
+  
+        if (connection) {
+          // If a connection is found, you can use it as needed
+          const targetId = connection.targetId;
+  
+          // Perform further actions with sourceId and targetId
+          await bot.jump(storyId, req.orgId, endUser, currentCursor as Cursor, targetId);
+        } 
+     
       // Return a success response
       return { success: true } as RestResult200;
-     
+      
     } catch (error) {
       // Handle errors and log them
       tools.Logger.log(() => `[CMICourseCompletionHandler].execute: Error: ${error}`);
