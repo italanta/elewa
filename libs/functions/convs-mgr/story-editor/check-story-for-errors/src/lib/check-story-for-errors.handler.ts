@@ -24,9 +24,7 @@ export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, story
   private errors: StoryError[];
   private connectionIds = new Set();
 
-
   public async execute(req: { orgId: string, storyId: string }, context: FunctionContext, tools: HandlerTools): Promise<StoryError[]> {
-    
     this.errors = [];
 
     // Retrieve connections for the given orgId and storyId.
