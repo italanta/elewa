@@ -73,8 +73,13 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
         const blockId = cursorPosition.blockId || '';
 
     
-        // Define the path variable based on the result
-        const sourceId = req.result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
+       //check if the result exists
+       const result = req.result
+        if(!result){
+          return { status: 500 } as RestResult;
+        }
+         // Define the path variable based on the result
+        const sourceId = result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
 
         // Call the getConnBySourceId method to get the connection information
         const connection = await connDataService.getConnBySourceId(sourceId, this.orgId, storyId);
