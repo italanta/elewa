@@ -44,15 +44,14 @@ export class CMI5BlockService implements IProcessOperationBlock {
       const coursePackage = await this.getCoursePackage(orgId, storyBlock.courseId);
       
       if (coursePackage) {
-        const firstAUCourse = coursePackage.firstAU; 
+        const firstAUId = coursePackage.firstAU; 
         
         // Fetch the first AU by ID
-        const firstAU = await this.getAssignableUnit(orgId, firstAUCourse);
+        const firstAU = await this.getAssignableUnit(orgId, firstAUId);
         
         if (firstAU) {
           // Now you have the first AssignableUnit (AU) and can work with it
           const firstAULocationURL = "";
-          const firstAUId = firstAU.id;
           
           // Prepare the AU for launch using CMI5Service
           await this.cmi5Service.prepareForLaunch(orgId, endUser.id, firstAUId);
