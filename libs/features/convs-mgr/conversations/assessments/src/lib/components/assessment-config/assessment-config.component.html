@@ -1,19 +1,21 @@
 <div class="assessment-config">
     <h4>{{'ASSESSMENTS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}}</h4>
     <div [formGroup]="assessmentFormGroup">
-        <div formGroupName="configs" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2%">
-            <mat-form-field appearance="outline" class="full-field">
-                <mat-label>
-                    {{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}
-                </mat-label>
-                <mat-select formControlName="feedback">
-                    <mat-option [value]="immediateFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.IMMEDIATELY' | transloco}}</mat-option>
-                    <mat-option [value]="onEndFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.ON-END' | transloco}}</mat-option>
-                    <mat-option [value]="noFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.NEVER' | transloco}}</mat-option>
-                </mat-select>    
-            </mat-form-field>
-    
-            <mat-form-field appearance="outline" class="full-field">
+        <div formGroupName="configs" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="2%">
+
+            <span> {{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
+
+            <mat-radio-group formControlName="feedback" fxLayout="column" fxLayoutAlign="start">
+                <mat-radio-button [value]="immediateFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.IMMEDIATELY' |
+                    transloco}}</mat-radio-button>
+                <mat-radio-button [value]="onEndFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.ON-END' |
+                    transloco}}</mat-radio-button>
+                <mat-radio-button [value]="noFeedback">{{'ASSESSMENTS.QUESTIONS.SELECT.NEVER' |
+                    transloco}}</mat-radio-button>
+            </mat-radio-group>
+
+
+            <mat-form-field appearance="fill" class="full-field">
                 <mat-label>
                     {{'ASSESSMENTS.QUESTIONS.FIELDS.USER-ATTEMPTS' | transloco}}
                 </mat-label>

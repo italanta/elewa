@@ -10,11 +10,11 @@ import { Logger } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
 import { Story } from '@app/model/convs-mgr/stories/main';
-
-import { ActiveOrgStore } from '@app/state/organisation';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+
 import { StoriesStore } from '@app/state/convs-mgr/stories';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable({
   providedIn: 'root'

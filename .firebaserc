@@ -45,6 +45,13 @@
           "ele-convl-manager"
         ]
       }
+    },
+    "farmbetter-review": {
+      "hosting": {
+        "convl-manager": [
+          "farmbetter-review"
+        ]
+      }
     }
   },
   "etags": {}

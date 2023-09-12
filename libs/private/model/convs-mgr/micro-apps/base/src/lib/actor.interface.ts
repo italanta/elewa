@@ -11,7 +11,10 @@ export interface Actor
 
   /** Additional information to identify the learner */
   account: {
+    /** The organisation ID */
     homePage: string;
+
+    /** The end user id */
     name: string;
   };
 }

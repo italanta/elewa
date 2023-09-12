@@ -4,7 +4,6 @@ import { FormGroup,FormControl, FormBuilder, Validators } from '@angular/forms';
 import { User }                from '@iote/bricks';
 import { Logger, EventLogger } from '@iote/bricks-angular';
 import { AuthService }         from '@ngfi/angular';
-
 import { TranslateService } from '@ngfi/multi-lang';
 
 @Component({

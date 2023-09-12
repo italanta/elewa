@@ -74,3 +74,7 @@ label {
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: white !important;
 }
+
+:host ::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+  font-weight: 400;
+}
