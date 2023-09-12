@@ -23,9 +23,6 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
       // Get the communication channel information based on the connection number (n)
       const communicationChannel: CommunicationChannel = await _channelService$.getChannelByConnection(n) as CommunicationChannel;
   
-      // Update the orgId in the request with the organization ID from the communication channel
-      req.orgId = communicationChannel.orgId;
-  
       // Create instances of necessary data services and tools
       const connDataService = new ConnectionsDataService(communicationChannel, tools);
       const blockDataService = new BlockDataService(communicationChannel, connDataService, tools);
@@ -64,7 +61,7 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
         // Define the path variable based on the result
         const sourceId = req.result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
 
-        // Call the getCMI5ConnByOption method to get the connection information
+        // Call the getConnBySourceId method to get the connection information
         const connection = await connDataService.getConnBySourceId(sourceId, req.orgId, storyId);
   
         if (connection) {
