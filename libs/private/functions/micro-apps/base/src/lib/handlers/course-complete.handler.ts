@@ -8,12 +8,19 @@ import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 // Define the CMICourseCompletionHandler class
 export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endUserId: string, result: string }, RestResult> {
+  private orgId: string;
+  private endUserId: string;
   
   // Execute method to handle the main functionality
   public async execute(req: { orgId: string, endUserId: string, result: string }, context: FunctionContext, tools: HandlerTools) {
     try {
+
+      // Store orgId and endUserId as private properties
+      this.orgId = req.orgId;
+      this.endUserId = req.endUserId;
+
       // Split the endUserId to extract relevant information
-      const splitEndUserId = req.endUserId.split('_');
+      const splitEndUserId = this.endUserId.split('_');
       const n = parseInt(splitEndUserId[1]);
       const phoneNumber = splitEndUserId[2];
      
@@ -32,13 +39,13 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
 
       // Define the endUser object with relevant user information
       const endUser: EndUser = {
-        id: req.endUserId,
+        id: this.endUserId,
         phoneNumber,
         status: ChatStatus.Running
       }
      
       // Retrieve the currentCursor based on the endUserId and orgId
-      const currentCursor = await cursorDataService.getLatestCursor(req.endUserId, req.orgId);
+      const currentCursor = await cursorDataService.getLatestCursor(this.endUserId, this.orgId);
 
       // Log the currentCursor information
       tools.Logger.log(() => `[CMICourseCompletionHandler].execute: Current Cursor: ${JSON.stringify(currentCursor)}`);
@@ -62,14 +69,14 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
         const sourceId = req.result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
 
         // Call the getConnBySourceId method to get the connection information
-        const connection = await connDataService.getConnBySourceId(sourceId, req.orgId, storyId);
+        const connection = await connDataService.getConnBySourceId(sourceId, this.orgId, storyId);
   
         if (connection) {
           // If a connection is found, you can use it as needed
           const targetId = connection.targetId;
   
           // Perform further actions with sourceId and targetId
-          await bot.jump(storyId, req.orgId, endUser, currentCursor as Cursor, targetId);
+          await bot.jump(storyId, this.orgId, endUser, currentCursor as Cursor, targetId);
         } 
      
       // Return a success response
