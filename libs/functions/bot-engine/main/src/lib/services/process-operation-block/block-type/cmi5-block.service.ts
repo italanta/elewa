@@ -38,12 +38,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
    * @param endUser The end user for whom the block is being handled.
    * @returns An object containing the launch link and the new cursor.
    */
-  async handleBlock(
-    storyBlock: CMI5Block,
-    updatedCursor: Cursor,
-    orgId: string,
-    endUser: EndUser
-  ) {
+  async handleBlock( storyBlock: CMI5Block, updatedCursor: Cursor,orgId: string, endUser: EndUser) {
     try {
       // Fetch the details of the first AU from the CoursePackage
       const coursePackage = await this.getCoursePackage(orgId, storyBlock.courseId);
