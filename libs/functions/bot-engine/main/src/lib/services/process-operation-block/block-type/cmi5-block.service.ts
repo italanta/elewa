@@ -83,10 +83,13 @@ export class CMI5BlockService implements IProcessOperationBlock {
           const launchBlock : CMI5LaunchBlock = {
             link: launchLink,   
           }
+
+          // Extract the storyId from the updatedCursor
+          const storyId = updatedCursor.position.storyId;
           
           // Assuming storyBlock.id is a string
           const endUserPosition: EndUserPosition = {
-            storyId: storyBlock.id,
+            storyId: storyId,
             blockId: storyBlock.id,
           };
           
