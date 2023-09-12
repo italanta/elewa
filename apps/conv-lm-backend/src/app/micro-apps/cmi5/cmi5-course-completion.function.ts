@@ -1,12 +1,12 @@
 import { EndpointRegistrar } from "@ngfi/functions";
 
-import { CMI5CourseCompletionHandler } from "@app/private/functions/micro-apps/base"; 
+import { CourseCompleteHandler } from "@app/private/functions/micro-apps/base"; 
 
 import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
-const handler = new CMI5CourseCompletionHandler();
+const handler = new CourseCompleteHandler();
 
-export const cmi5CourseCompletion = new ConvLearnFunction('cmi5CourseCompletion', 
+export const courseComplete = new ConvLearnFunction('courseComplete', 
                                                   new EndpointRegistrar(), 
                                                   [], 
                                                   handler)
