@@ -4,14 +4,15 @@
       <img src="assets/images/sidebar-bg.jpg" alt="sidebar background" />
     </div>
     <div class="sidebar-layout">
-      <div class="sidebar-header">
+      <div class="sidebar-header" [ngClass]="!isExpanded ? 'make-col' : ''">
         <div class="pro-sidebar-logo">
-          <div style="margin-top: 30px; margin-bottom: 30px;">G</div>
-          <h5 *ngIf="isExpanded">oomza</h5>
+          <img class="logo-icon" *ngIf="!isExpanded" src="assets/icons/goomza-icon-transparent.png" alt="">
+          <img class="logo" *ngIf="isExpanded" src="assets/icons/goomza-logo-colored-transparent.png" alt="">
         </div>
         <div class="nav-toggle">
-          <img *ngIf="!isExpanded" (click)="toggleMenu()" src="assets/icons/chevron-right-stroked.svg" alt="">
-          <img *ngIf="isExpanded" (click)="toggleMenu()" src="assets/icons/chevron-left-stroked.svg" alt="">
+          <span (click)="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+          </span>
         </div>
       </div>
 
