@@ -4,7 +4,7 @@ import { FunctionHandler, FunctionContext, RestResult } from '@ngfi/functions';
 import { Query } from '@ngfi/firestore-qbuilder';
 
 import { StoryError, StoryErrorType } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, isOptionBlock, isInputOptionBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock, isOptionBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { KeywordMessageBlock, ListMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Connection } from '@app/model/convs-mgr/conversations/chats';
 
@@ -21,71 +21,83 @@ export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, story
    * @returns Promise<StoryError[]> - Array of detected flow errors.
    */
 
+  private errors: StoryError[];
+  private connectionIds = new Set();
+
+
   public async execute(req: { orgId: string, storyId: string }, context: FunctionContext, tools: HandlerTools): Promise<StoryError[]> {
-    const errors: StoryError[] = [];
-    const connectionIds = new Set();
+    
+    this.errors = [];
 
     // Retrieve connections for the given orgId and storyId.
-    // TODO: implement promise all to get both connections and blocks concurrently
-    const connectionRepo = tools.getRepository<Connection>(`orgs/${req.orgId}/stories/${req.storyId}/connections`);
-    const connections = await connectionRepo.getDocuments(new Query());
+    await this.retrieveConnections(req.orgId, req.storyId, tools);
 
-    // Iterate through connections and collect their sourceIds.
-    connections.forEach((connection) => {
-      connectionIds.add(connection.sourceId);
-    });
+    // Check if start anchor is connected to a block
+    this.checkStartAnchorConnection(req.storyId);
 
-    // Retrieve blocks for the given orgId and storyId.
-    const blocksRepo = tools.getRepository<StoryBlock>(`orgs/${req.orgId}/stories/${req.storyId}/blocks`);
-    const blocks = await blocksRepo.getDocuments(new Query());
+    // Retrieve blocks for the given orgId and storyId and check for errors
+    await this.retrieveBlocks(req.orgId, req.storyId, tools);
 
-    // The following checks if the start anchor is connected to anything
-    if (!connectionIds.has(req.storyId)){
-      errors.push({
-        type: StoryErrorType.MissingConnection,
-        blockId: req.storyId
-      })
-    }
-
-    // Iterate through blocks to find flow errors.
-    blocks.forEach((block) => {
-      // Errors are not applicable to the endblock
-      if ( block.id == 'story-end-anchor') return
-      // If block is deleted don't check for errors
-      if (block.deleted) return 
-        // Check if message is empty for the block supplied
-        if (this.isMessageEmpty(block.message)) {
-          errors.push({ type: StoryErrorType.EmptyTextField, blockId: block.id });
-        }
-        // It's either a ListMessageBlock or a QuestionMessageBlock or Another block with opption
-        if (isOptionBlock(block.type)) {
-          const optionBlock = block as ListMessageBlock | QuestionMessageBlock | KeywordMessageBlock;
-          optionBlock.options.forEach((option, index) => {
-            if(this.isMessageEmpty(option.message)){
-              errors.push({ type: StoryErrorType.EmptyTextField, blockId: block.id, optionsId: option.id })
-            }
-            if (!connectionIds.has(`i-${(index)}-${block.id}`)){
-              errors.push({
-                type: StoryErrorType.MissingConnection,
-                blockId: block.id,
-                optionsId: option.id
-              })
-            }
-          });
-        }
-        // Check if the blockIdToCheck is not in the sourceIds array
-        else {
-          if (!connectionIds.has(`defo-${block.id}`)) {
-          errors.push({
-            type: StoryErrorType.MissingConnection,
-            blockId: block.id
-          })
-        }}
-    })
-    return errors;
+    return this.errors;
   }
-  // Function to check if a block's message is empty
-  private isMessageEmpty(message: string | undefined): boolean {
-    return message?.trim() === '';
+
+  // Get connections and save sourceIds to the ConnectionIds array
+  private async retrieveConnections(orgId: string, storyId: string, tools: HandlerTools): Promise<void> {
+    const connectionRepo = tools.getRepository<Connection>(`orgs/${orgId}/stories/${storyId}/connections`);
+    const connections = await connectionRepo.getDocuments(new Query());
+  
+    connections.forEach((connection) => {
+      this.connectionIds.add(connection.sourceId);
+    });
+  }
+
+  private checkStartAnchorConnection(storyId: string): void {
+    this.checkMissingConnection(storyId, storyId);
+  }
+
+  // Retriede blocks and  check for the errors
+  private async retrieveBlocks(orgId: string, storyId: string, tools: HandlerTools): Promise<void> {
+    const blocksRepo = tools.getRepository<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
+    const blocks = await blocksRepo.getDocuments(new Query());
+  
+    blocks.forEach((block) => {
+      if (block.id === 'story-end-anchor' || block.deleted) {
+        return; // Skip checking for errors for end anchor and deleted blocks
+      }
+  
+      this.checkEmptyTextField(block.message, block.id);
+  
+      if (isOptionBlock(block.type)) {
+        const optionBlock = block as ListMessageBlock | QuestionMessageBlock | KeywordMessageBlock;
+        optionBlock.options.forEach((option, index) => {
+          this.checkEmptyTextField(option.message, block.id, option.id);
+          this.checkMissingConnection(`i-${index}-${block.id}`, block.id, option.id);
+        });
+      } else {
+        this.checkMissingConnection(`defo-${block.id}`, block.id);
+      }
+    });
+  }
+
+  // Reusable method for checking missing connections
+  private checkMissingConnection(sourceId: string, blockId?: string, optionId?: string): void {
+    if (!this.connectionIds.has(sourceId)) {
+      this.errors.push({
+        type: StoryErrorType.MissingConnection,
+        blockId: blockId,
+        optionsId: optionId,
+      });
+    }
+  }
+
+  // Reusable method for checking empty text fields
+  private checkEmptyTextField(message: string | undefined, blockId: string, optionId?: string): void {
+    if (message?.trim() === '') {
+      this.errors.push({
+        type: StoryErrorType.EmptyTextField,
+        blockId: blockId,
+        optionsId: optionId,
+      });
+    }
   }
 }
