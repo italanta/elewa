@@ -6,10 +6,6 @@ import { ActiveChannelFactory } from "@app/functions/bot-engine/utils";
 import { CommunicationChannel, Cursor } from "@app/model/convs-mgr/conversations/admin/system";
 import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
 
-
-
-
-
 // Define the CMICourseCompletionHandler class
 export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endUserId: string, result: string }, RestResult> {
   
