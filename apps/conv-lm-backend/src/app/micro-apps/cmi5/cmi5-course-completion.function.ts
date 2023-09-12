@@ -1,6 +1,6 @@
 import { EndpointRegistrar } from "@ngfi/functions";
 
-import { CMI5CourseCompletionHandler } from "@app/private/functions/micro-apps/cmi5-course-completion"; 
+import { CMI5CourseCompletionHandler } from "@app/private/functions/micro-apps/base"; 
 
 import { ConvLearnFunction } from "../../../conv-learn-func.class";
 
