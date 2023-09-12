@@ -11,7 +11,6 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from '../../modals/delete-assessment-modal/delete-assessment-modal.component';
 
 @Component({
@@ -55,10 +54,6 @@ export class AssessmentsListViewComponent implements OnInit {
 
   openAssessmentResults(assessmentId: string) {
     this._router.navigate(['/assessments', assessmentId, 'results']);
-  }
-
-  openCreateAssessmentDialog(){
-    this._dialog.open(CreateAssessmentModalComponent);
   }
 
   getFormattedDate(date: Date){

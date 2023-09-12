@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-
-import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assessments-header',
@@ -10,11 +8,11 @@ import { CreateAssessmentModalComponent } from '../../modals/create-assessment-m
 })
 export class AssessmentsHeaderComponent implements OnInit {
 
-  constructor(private _dialog: MatDialog) {}
+  constructor(private _router$$: Router) {}
 
   ngOnInit(): void {}
 
-  openCreateAssessmentDialog(){
-    this._dialog.open(CreateAssessmentModalComponent);
+  createAssessment(){
+   this._router$$.navigate(['assessments', 'create']);
   }
 }
