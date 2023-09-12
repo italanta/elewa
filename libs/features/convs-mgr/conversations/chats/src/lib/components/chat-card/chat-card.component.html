@@ -1,8 +1,10 @@
-<div class="card" [class.selected]="currentChat.id === chat.id"
-     fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
-  <div class="avatar" [class]="getClass()" [class.new-msg]="chat.awaitingResponse">
-    <i class="fas fa-user-circle fa-2x"></i>
-    <!-- <img src="assets/images/avatar-image.png"> -->
+<div class="card" [class.selected]="currentChat.id === chat.id" fxLayout="row" fxLayoutAlign="start center"
+  fxLayoutGap="16px">
+  <div class="avatar" [ngStyle]="{'background-color':chat.name ? chatAvatarColor : 'black'}" [class.new-msg]="chat.awaitingResponse">
+    <div *ngIf="!chat.name">
+      <i class="fas fa-user-circle fa-2x"></i>
+    </div>
+    <span class="user-char" *ngIf="chat.name">{{getUserName(chat.name)}}</span>
   </div>
   <div class="text-section" fxLayout="column" fxFlex>
     <div class="top-section" fxLayout="row" fxLayoutAlign="space-between center">
@@ -17,13 +19,13 @@
           {{ '+' + chat.class }}
         </div> -->
       </div>
-      <div class="date-section" fxFlex="30">
-        {{ lastMessageDate }}
+      <div class="date-section" fxLayout="row" fxLayoutAlign="center center" fxFlex="30">
+        <span>{{ lastMessageDate }}</span>
       </div>
     </div>
     <div class="bottom-section" fxLayout="row" fxLayoutAlign="end">
       <div *ngIf="chat.lastMsg" class="bottom-txt" fxFlex>
-        {{ chat.lastMsg.message }}
+        {{ chat.lastMsg.message }} message here
       </div>
       <div fxFlexAlign="end">
         <i *ngIf="chat.awaitingResponse" class="fas fa-comment-alt new-msg"></i>
@@ -33,17 +35,3 @@
   </div>
 
 </div>
-<!-- <mat-card>
-  <mat-card-header>
-    <div fxLayout="row" fxLayoutAlign="space-between start">
-      <div fxLayout="column" class="title-sect">
-        <img mat-card-avatar src="assets/images/avatar-image.png">
-        <mat-card-title>Esther Bidali(Status)</mat-card-title>
-        <mat-card-subtitle>Hey I'm on whatsapp!</mat-card-subtitle>
-      </div>
-      <div class="date-sect">
-        Date 22/03/09
-      </div>
-    </div>
-  </mat-card-header>
-</mat-card> -->
