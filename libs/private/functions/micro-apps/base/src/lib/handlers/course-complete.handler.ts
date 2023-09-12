@@ -47,6 +47,11 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
       // Retrieve the currentCursor based on the endUserId and orgId
       const currentCursor = await cursorDataService.getLatestCursor(this.endUserId, this.orgId);
 
+      if (!currentCursor) {
+        // Handle the case where currentCursor is not found (return an error)
+        return { status: 500 } as RestResult;
+      }
+
       // Log the currentCursor information
       tools.Logger.log(() => `[CMICourseCompletionHandler].execute: Current Cursor: ${JSON.stringify(currentCursor)}`);
 
@@ -61,16 +66,19 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
       // Create an instance of BotEngineJump to handle bot jumping logic
       const bot = new BotEngineJump(processMessageService, cursorDataService, msgDataService, processMediaService, activeChannel, tools);
 
-    // Access the story ID and block ID from the current cursor
-        const storyId = (currentCursor as Cursor)?.position?.storyId || ''; 
-        const blockId = (currentCursor as Cursor)?.position?.blockId || ''; 
+    
+        // Access the story ID and block ID from the current cursor
+        const cursorPosition = (currentCursor as Cursor).position || { storyId: '', blockId: '' };
+        const storyId = cursorPosition.storyId || '';
+        const blockId = cursorPosition.blockId || '';
+
     
         // Define the path variable based on the result
         const sourceId = req.result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
 
         // Call the getConnBySourceId method to get the connection information
         const connection = await connDataService.getConnBySourceId(sourceId, this.orgId, storyId);
-  
+        CourseCompleteHandler
         if (connection) {
           // If a connection is found, you can use it as needed
           const targetId = connection.targetId;
