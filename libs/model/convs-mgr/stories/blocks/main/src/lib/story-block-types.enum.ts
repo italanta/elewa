@@ -241,20 +241,6 @@ export function isOptionBlock(blockType: StoryBlockTypes) {
   }
 }
 
-// Return Blocks with options that have input
-export function isInputOptionBlock(blockType: StoryBlockTypes) {
-  switch (blockType) {
-    case StoryBlockTypes.ListBlock:
-      return true;
-    case StoryBlockTypes.keyword:
-      return true;
-    case StoryBlockTypes.QuestionBlock:
-      return true
-    default:
-      return false
-  }
-}
-
 
 
 

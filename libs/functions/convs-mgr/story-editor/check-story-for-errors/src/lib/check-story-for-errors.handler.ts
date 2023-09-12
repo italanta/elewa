@@ -61,7 +61,7 @@ export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, story
         if (isOptionBlock(block.type)) {
           const optionBlock = block as ListMessageBlock | QuestionMessageBlock | KeywordMessageBlock;
           optionBlock.options.forEach((option, index) => {
-            if( isInputOptionBlock(block.type) && this.isMessageEmpty(option.message)){
+            if(this.isMessageEmpty(option.message)){
               errors.push({ type: StoryErrorType.EmptyTextField, blockId: block.id, optionsId: option.id })
             }
             if (!connectionIds.has(`i-${(index)}-${block.id}`)){
