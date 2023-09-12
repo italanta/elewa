@@ -11,7 +11,7 @@ import { ChatStatus, EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 
 // Define the CMICourseCompletionHandler class
-export class CMI5CourseCompletionHandler extends FunctionHandler<{ orgId: string, endUserId: string, result: string }, RestResult> {
+export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endUserId: string, result: string }, RestResult> {
   
   // Execute method to handle the main functionality
   public async execute(req: { orgId: string, endUserId: string, result: string }, context: FunctionContext, tools: HandlerTools) {
