@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
 
   forgotPass() {
     this._dialog.open(ForgotPasswordModalComponent, {
-      width: '500px',
+      width: '400px',
     });
   }
 
