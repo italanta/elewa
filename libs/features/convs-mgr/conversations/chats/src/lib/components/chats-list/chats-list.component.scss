@@ -14,8 +14,7 @@
 
 .search-bar{
   font-size: 16px;
-  margin-top: -25px;
-  margin-bottom: -10px;
+  margin: 20px 0;
 }
 
 .filter {
@@ -31,6 +30,82 @@
   overflow-y: auto;
 }
 
+.search {
+	height: 5px;
+	width: 100%;
+	background-color: var(--convs-mgr-color-primary-white);
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	padding: 20px;
+  border: solid #DADADA 1px;
+
+	&_tooltip {
+		color: gray;
+		transform: rotate(90deg);
+		font-size: 20px;
+		font-weight: 500;
+	}
+
+	&_input {
+		width: 90%;
+		height: 30px;
+		border: none;
+		outline: none;
+		font-size: 15px;
+		padding-left: 6px;
+	}
+}
+
+select {
+	appearance: none;
+	outline: 10px red;
+	border: 0;
+  border-radius: 20px;
+	box-shadow: none;
+	flex: 1;
+  height: 42px;
+	padding: 0 1em;
+  margin-left: -40px;
+	color: white!important;
+	background-color: #3E788A;
+	background-image: none;
+	cursor: pointer;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+.select {
+	position: relative;
+	display: flex;
+	width: 100%;
+	height: 42px;
+	border-radius: .25em;
+	overflow: hidden;
+}
+
+/* Arrow */
+.select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: .4rem;
+  height: 42px;
+  border-radius: 20px;
+	background-color: #3E788A;
+	color: white!important;
+	transition: .25s all ease;
+	pointer-events: none;
+}
+
+/* Transition */
+.select:hover::after {
+	color: black;
+}
+
 mat-paginator{
   @media screen and (min-width: 1000px) {
     margin-left: -8px;
@@ -39,4 +114,20 @@ mat-paginator{
 
 app-chat-card{
   outline: none;
+}
+
+:host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
+.mat-mdc-form-field-infix {
+  padding-top: 8px!important;
+  padding-bottom: 0px!important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px!important;
+  max-height: 40px!important;
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+  height: 40px!important;
+  padding: 7px!important;
 }
