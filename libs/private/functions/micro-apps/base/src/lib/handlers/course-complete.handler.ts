@@ -69,7 +69,7 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
         const sourceId = req.result === "success" ? `i-0-${blockId}` : `i-1-${blockId}`; 
 
         // Call the getCMI5ConnByOption method to get the connection information
-        const connection = await connDataService.getCMI5ConnByOption(sourceId, req.orgId, storyId);
+        const connection = await connDataService.getConnBySourceId(sourceId, req.orgId, storyId);
   
         if (connection) {
           // If a connection is found, you can use it as needed
