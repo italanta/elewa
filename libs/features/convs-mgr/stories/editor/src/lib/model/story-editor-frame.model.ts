@@ -1,7 +1,6 @@
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
-import { Logger } from '@iote/bricks-angular';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -11,12 +10,11 @@ import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
-import { EditorFrameLoadingService } from '../providers/editor-frame-spinner.service';
+import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
+import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -42,8 +40,7 @@ export class StoryEditorFrame {
     private _blocksInjector: BlockInjectorService,
     private _viewport: ViewContainerRef,
     private _connectionsService: BlockConnectionsService,
-    private _edf: ElementRef<HTMLElement>,
-    private _frameLoading: EditorFrameLoadingService,
+    private _edf: ElementRef<HTMLElement>
   ) {
     this.loaded = true;
   }
@@ -56,12 +53,6 @@ export class StoryEditorFrame {
    * @param blocks  - Blocks to render on the story
    */
   async init(state: StoryEditorState) {
-
-    const logger = new Logger()
-    logger.log(() => 'The frame is being initialised')
-
-    this._frameLoading.changeLoadingState(true)
-
     this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
@@ -85,8 +76,6 @@ export class StoryEditorFrame {
     await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
 
     this.drawConnections();
-    
-    this._frameLoading.changeLoadingState(false);
 
     //scroll to the middle of the screen when connections are done drawing
     // this.scroll(this._edf.nativeElement)
@@ -94,12 +83,8 @@ export class StoryEditorFrame {
   scroll(el: HTMLElement) {
     const editorWidth = this._edf.nativeElement.offsetWidth / 2;
     const editorHeight = this._edf.nativeElement.offsetHeight / 2;
-
-    // el.scrollTo({top:editorHeight,left:editorWidth});
+    el.scrollTo({top:editorHeight,left:editorWidth});
     // el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
-    el.style.top = editorHeight.toString()
-    el.style.left = editorWidth.toString()
-    el.style.transform = "translate(-50%, -50%)"
   }
 
   get jsPlumbInstance(): BrowserJsPlumbInstance {

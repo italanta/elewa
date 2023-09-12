@@ -13,7 +13,6 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
-import { CreateAssessmentModalComponent } from '../../modals/create-assessment-modal/create-assessment-modal.component';
 import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
 import { ActionSortingOptions } from '../../utils/sorting-options.enum';
 
@@ -82,10 +81,6 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
     const searchValue = (event.target as HTMLInputElement).value as ActionSortingOptions;
     this.sortAssessmentsBy = searchValue;
     this.sorting$$.next(searchValue);
-  }
-
-  openCreateAssessmentDialog(){
-    this._dialog.open(CreateAssessmentModalComponent);
   }
 
   ngOnDestroy(): void {

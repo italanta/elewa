@@ -1,43 +1,44 @@
 <div class="question-form">
-    <mat-card>
-        <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-card-title>
-              <h5 class="question-title">{{'ASSESSMENTS.QUESTIONS.QUESTION' | transloco}} {{questionNo}}</h5>
-            </mat-card-title>
-						<button mat-icon-button class="btn-delete" (click)="deleteQuestion()">
-							<i class="fas fa-trash"></i>
-						</button>
-        </mat-card-header>
+	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
+		(click)="activeQuestionChanged.emit(index)">
+		<div class="card-content">
+			<div *ngIf="assessmentFormGroup">
+				<div [formGroup]="assessmentFormGroup">
+					<div formArrayName="questions">
+						<div [formGroup]="questionFormGroup">
 
-        <mat-card-content>
-            <div *ngIf="assessmentFormGroup">
-                <div [formGroup]="assessmentFormGroup">
-                    <div formArrayName="questions">
-                        <div [formGroup]="questionFormGroup">
-                            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
-                                <h4 class="marks-label">{{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS' | transloco}}: </h4>
-                                <mat-form-field appearance="outline">
-                                    <mat-label class="question">
-                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.MARKS-PLACEHOLDER' | transloco}}
-                                    </mat-label>
-                                    <input type="number" matInput formControlName="marks">
-                                </mat-form-field>
-                            </div>
-            
-                            <div>
-                                <mat-form-field appearance="outline" class="full-field">
-                                    <mat-label class="question">
-                                        {{'ASSESSMENTS.QUESTIONS.FIELDS.QUESTION' | transloco}}
-                                    </mat-label>
-                                    <input type="text" matInput formControlName="message">
-                                </mat-form-field>
-                            </div>
-                            
-                            <app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup" [assessmentMode]="assessmentMode"></app-assessment-answers>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </mat-card-content>
-    </mat-card>
+							<div fxLayout="row" fxLayoutAlign="space-between center">
+								<mat-form-field appearance="fill" fxFlex="60">
+									<input type="text" matInput formControlName="message" placeholder="Type your question">
+								</mat-form-field>
+
+								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+									<button mat-flat-button>
+										<img src="assets/icons/duplicate-item.svg" alt="">
+									</button>
+									<button mat-flat-button (click)="deleteQuestion()">
+										<img src="assets/icons/delete-item.svg" alt="">
+									</button>
+								</div>
+							</div>
+
+							<app-assessment-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup"
+								[assessmentMode]="assessmentMode"></app-assessment-answers>
+
+							<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+								<mat-form-field appearance="fill">
+									<mat-label> Marks </mat-label>
+									<input type="number" matInput formControlName="marks">
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
+		(click)="addNewQuestion.emit()">
+		<i class="fas fa-plus"></i>
+	</button>
 </div>

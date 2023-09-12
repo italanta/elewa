@@ -8,14 +8,12 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { StoryEditorFrame } from '../model/story-editor-frame.model';
-import { EditorFrameLoadingService } from './editor-frame-spinner.service';
 
 @Injectable()
 export class StoryEditorInitialiserService {
   constructor(private _fb: FormBuilder,
     private _blocksInjector: BlockInjectorService,
-    private _connectionsService: BlockConnectionsService,
-    private _showEditorSpinner: EditorFrameLoadingService
+    private _connectionsService: BlockConnectionsService
   ) { }
 
   initialiseEditor(editorContainer: ElementRef<HTMLElement>,
@@ -33,6 +31,6 @@ export class StoryEditorInitialiserService {
 
     _jsplumb.addClass(container, "jsplumb_instance")
 
-    return new StoryEditorFrame(this._fb, _jsplumb, this._blocksInjector, viewport, this._connectionsService, editorContainer, this._showEditorSpinner);
+    return new StoryEditorFrame(this._fb, _jsplumb, this._blocksInjector, viewport, this._connectionsService, editorContainer);
   }
 }

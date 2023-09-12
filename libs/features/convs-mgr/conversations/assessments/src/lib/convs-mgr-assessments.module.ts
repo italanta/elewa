@@ -28,7 +28,6 @@ import { AssessmentsHomeComponent } from './pages/assessments-home/assessments-h
 import { AssessmentViewComponent } from './pages/assessment-view/assessment-view.component';
 import { AssessmentResultsComponent } from './pages/assessment-results/assessment-results.component';
 
-import { CreateAssessmentModalComponent } from './modals/create-assessment-modal/create-assessment-modal.component';
 import { DeleteAssessmentModalComponent } from './modals/delete-assessment-modal/delete-assessment-modal.component';
 
 import { AssessmentListComponent } from './components/assessment-list/assessment-list.component';
@@ -42,6 +41,7 @@ import { AssessmentConfigComponent } from './components/assessment-config/assess
 import { AssessmentsHeaderComponent } from './components/assessments-header/assessments-header.component';
 import { AssessmentsGridViewComponent } from './components/assessments-grid-view/assessments-grid-view.component';
 import { AssessmentsListViewComponent } from './components/assessments-list-view/assessments-list-view.component';
+import { CreateAssessmentPageComponent } from './components/create-assessment-flow/create-assessment-page/create-assessment-page.component';
 
 import { AssessmentFormService } from './services/assessment-form.service';
 
@@ -72,11 +72,12 @@ import { AssessmentFormService } from './services/assessment-form.service';
     AssessmentAnswerComponent,
     AssessmentConfigComponent,
     AssessmentResultsComponent,
-    CreateAssessmentModalComponent,
     DeleteAssessmentModalComponent,
     AssessmentsHeaderComponent,
     AssessmentsGridViewComponent,
-    AssessmentsListViewComponent
+    AssessmentsListViewComponent,
+
+    CreateAssessmentPageComponent
   ],
   providers: [
     AssessmentService,

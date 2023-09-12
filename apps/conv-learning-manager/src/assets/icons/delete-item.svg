@@ -1,0 +1,36 @@
+<svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Delete icon" opacity="0.5">
+<g id="Group 160">
+<g id="Clip path group">
+<mask id="mask0_119_146" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="19">
+<g id="clip-path-4">
+<path id="Rectangle 69" d="M17.196 0.852051H0.990967V18.8941H17.196V0.852051Z" fill="white"/>
+</g>
+</mask>
+<g mask="url(#mask0_119_146)">
+<g id="Group 159">
+<path id="Path 152" d="M15.69 4.49707V18.5641H2.48999V4.49707" stroke="#101010" stroke-width="0.75" stroke-miterlimit="10"/>
+</g>
+</g>
+</g>
+</g>
+<path id="Line 34" d="M5.89197 7.16895V15.8639" stroke="#101010" stroke-width="0.75" stroke-miterlimit="10"/>
+<path id="Line 35" d="M9.09302 7.16895V15.8639" stroke="#101010" stroke-width="0.75" stroke-miterlimit="10"/>
+<path id="Line 36" d="M12.2949 7.16895V15.8639" stroke="#101010" stroke-width="0.75" stroke-miterlimit="10"/>
+<g id="Group 162">
+<g id="Clip path group_2">
+<mask id="mask1_119_146" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="18" height="19">
+<g id="clip-path-4_2">
+<path id="Rectangle 69_2" d="M17.196 0.852051H0.990967V18.8941H17.196V0.852051Z" fill="white"/>
+</g>
+</mask>
+<g mask="url(#mask1_119_146)">
+<g id="Group 161">
+<path id="Line 37" d="M17.196 2.99414H0.990967" stroke="#101010" stroke-width="0.75" stroke-miterlimit="10"/>
+<path id="Rectangle 70" d="M11.723 1.18311H6.46399V2.99611H11.723V1.18311Z" stroke="#101010" stroke-width="0.75" stroke-miterlimit="10"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>

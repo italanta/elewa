@@ -1,8 +1,8 @@
 <div *ngIf="user$ | async as user" class="user-component">
 
-  <div *ngIf="userOrgs" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
+  <div class="user" *ngIf="userOrgs" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
 
-    <div class="switchOrg" style="max-width: 90%;">
+    <div class="switchOrg" style="max-width: 70%;">
       <mat-form-field appearance="outline" fxFlex>
         <mat-select [disabled]="userOrgs.length == 1" [value]="organisation" (selectionChange)="switchOrg($event.value)"
           [compareWith]="compareFn">
@@ -27,9 +27,9 @@
           <i class="fas fa-caret-down"></i>
         </button>
 
-        <span class="role">
+        <!-- <span class="role">
           {{ getUserRoles(user) }}
-        </span>
+        </span> -->
       </div>
 
       <mat-menu #userMenu="matMenu" xPosition="before">

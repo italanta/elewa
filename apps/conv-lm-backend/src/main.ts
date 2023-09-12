@@ -21,6 +21,3 @@ export * from './app/micro-apps/cmi5/cmi5-zip-parser.function';
 export * from './app/micro-apps/cmi5/cmi-listener.function';
 export * from './app/user/create-new-user.function';
 export * from './app/user/organisation-assign.function';
-export * from './app/micro-apps/cmi5/cmi5-course-completion.function';
-
-export * from './app/story/create-Story.function';

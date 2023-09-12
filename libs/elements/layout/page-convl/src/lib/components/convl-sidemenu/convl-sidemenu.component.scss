@@ -35,6 +35,22 @@ $sidebar-footer-height: 230px;
   cursor: pointer!important;
 }
 
+.logo {
+  width: 90%;
+  height: auto;
+  margin: 20px 0px;
+  padding: 10px 20px;
+  object-fit: contain;
+}
+
+.logo-icon {
+  width: 60px;
+  height: auto;
+  margin: 20px 0px;
+  padding: 10px 20px;
+  object-fit: contain;
+}
+
 .layout {
   z-index: 1;
   height: 100%;
@@ -57,7 +73,6 @@ $sidebar-footer-height: 230px;
     padding: 20px;
   }
 }
-
 
 .sidebar {
   color: $text-color;
@@ -115,6 +130,11 @@ $sidebar-footer-height: 230px;
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
+
+      &.make-col {
+        flex-direction: column;
+      }
+      
       > span {
         overflow: hidden;
         white-space: nowrap;
@@ -186,7 +206,7 @@ $sidebar-footer-height: 230px;
         a {
           display: flex;
           align-items: center;
-          height: 50px;
+          height: 35px;
           padding: 0 20px;
           color: $text-color;
           margin-bottom: 20px;
