@@ -1,6 +1,3 @@
-import { StoryBlock } from "./story-block.interface";
-import { ListMessageBlock, QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-
 /**
  * Different types and roles a block can play
  */
