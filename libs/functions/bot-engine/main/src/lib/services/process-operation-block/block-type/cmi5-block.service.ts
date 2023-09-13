@@ -52,7 +52,9 @@ export class CMI5BlockService implements IProcessOperationBlock {
         // Fetch the first AU by ID
         const firstAU = await this.getAssignableUnit(orgId, firstAUId);
         
-        if (firstAU) {
+        if (!firstAU) {
+          return this.tools.Logger.error(() => 'first assignable unit not found');
+        }
           // Now you have the first AssignableUnit (AU) and can work with it
           const firstAULocationURL = "";
           
@@ -97,7 +99,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
             storyBlock: launchBlock,
             newCursor: updatedCursor,
           };
-        }
+    
     } catch (error) {
       this.tools.Logger.error(error);
     }
