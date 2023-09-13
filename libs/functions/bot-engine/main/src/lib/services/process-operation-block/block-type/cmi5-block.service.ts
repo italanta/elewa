@@ -4,7 +4,6 @@ import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Actor, AssignableUnit, CoursePackage } from '@app/private/model/convs-mgr/micro-apps/base';
 import { Cursor, EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { CMI5Service } from '@app/private/functions/micro-apps/cmi5'; 
 import { CMI5LaunchBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
