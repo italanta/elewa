@@ -34,7 +34,8 @@ export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, story
     this.checkStartAnchorConnection(req.storyId);
 
     // Retrieve blocks for the given orgId and storyId and check for errors
-    await this.retrieveBlocks(req.orgId, req.storyId, tools);
+    const blocks = await this.retrieveBlocks(req.orgId, req.storyId, tools);
+    this.checkBlocksForErrors(blocks);
 
     return this.errors;
   }
@@ -49,15 +50,21 @@ export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, story
     });
   }
 
+  // Check if start anchor is connected
   private checkStartAnchorConnection(storyId: string): void {
     this.checkMissingConnection(storyId, storyId);
   }
 
-  // Retriede blocks and  check for the errors
-  private async retrieveBlocks(orgId: string, storyId: string, tools: HandlerTools): Promise<void> {
+  // Retrieve blocks and  check for the errors
+  private async retrieveBlocks(orgId: string, storyId: string, tools: HandlerTools): Promise<StoryBlock[]> {
     const blocksRepo = tools.getRepository<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
     const blocks = await blocksRepo.getDocuments(new Query());
-  
+
+    return blocks
+  }
+
+  // Check block for errors
+  private checkBlocksForErrors(blocks: StoryBlock[]): void{
     blocks.forEach((block) => {
       if (block.id === 'story-end-anchor' || block.deleted) {
         return; // Skip checking for errors for end anchor and deleted blocks
