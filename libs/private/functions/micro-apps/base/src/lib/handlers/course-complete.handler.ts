@@ -83,7 +83,7 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
 
         // Call the getConnBySourceId method to get the connection information
         const connection = await connDataService.getConnBySourceId(sourceId, this.orgId, storyId);
-        CourseCompleteHandler
+        
         if (connection) {
           // If a connection is found, you can use it as needed
           const targetId = connection.targetId;
