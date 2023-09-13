@@ -44,7 +44,8 @@ export class CMI5BlockService implements IProcessOperationBlock {
       
       if (!coursePackage) {
         // Pass a function that returns the error message
-        return this.tools.Logger.error(() => 'course package not found');
+         this.tools.Logger.error(() => 'course package not found');
+         return null;
       }      
       const firstAUId = coursePackage.firstAU; 
         
@@ -52,7 +53,8 @@ export class CMI5BlockService implements IProcessOperationBlock {
         const firstAU = await this.getAssignableUnit(orgId, firstAUId);
         
         if (!firstAU) {
-          return this.tools.Logger.error(() => 'first assignable unit not found');
+           this.tools.Logger.error(() => 'first assignable unit not found');
+           return null;
         }
           // Now you have the first AssignableUnit (AU) and can work with it
           const firstAULocationURL = "";
