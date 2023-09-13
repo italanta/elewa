@@ -43,8 +43,11 @@ export class CMI5BlockService implements IProcessOperationBlock {
       // Fetch the details of the first AU from the CoursePackage
       const coursePackage = await this.getCoursePackage(orgId, storyBlock.courseId);
       
-      if (coursePackage) {
-        const firstAUId = coursePackage.firstAU; 
+      if (!coursePackage) {
+        // Pass a function that returns the error message
+        return this.tools.Logger.error(() => 'course package not found');
+      }      
+      const firstAUId = coursePackage.firstAU; 
         
         // Fetch the first AU by ID
         const firstAU = await this.getAssignableUnit(orgId, firstAUId);
@@ -95,7 +98,6 @@ export class CMI5BlockService implements IProcessOperationBlock {
             newCursor: updatedCursor,
           };
         }
-      }
     } catch (error) {
       this.tools.Logger.error(error);
     }
