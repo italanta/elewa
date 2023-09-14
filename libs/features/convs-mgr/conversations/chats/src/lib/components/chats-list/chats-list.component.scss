@@ -66,7 +66,6 @@ select {
 	flex: 1;
   height: 42px;
 	padding: 0 1em;
-  margin-left: -40px;
 	color: white!important;
 	background-color: #3E788A;
 	background-image: none;
@@ -81,8 +80,8 @@ select::-ms-expand {
 	position: relative;
 	display: flex;
 	width: 100%;
+	border-radius: 20px;
 	height: 42px;
-	border-radius: .25em;
 	overflow: hidden;
 }
 
@@ -90,7 +89,7 @@ select::-ms-expand {
 .select::after {
 	content: '\25BC';
 	position: absolute;
-	top: 0;
+	top: 5px;
 	right: 0;
 	padding: .4rem;
   height: 42px;

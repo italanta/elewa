@@ -26,28 +26,17 @@
       </div>
     </div> -->
 
-    <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-      <!-- <mat-form-field appearance="outline" fxFlex="80" class="filter">
-        <i matPrefix class="fas fa-search" style="margin-right: 10px;"></i>
-        <input matInput type="text" placeholder="search">
-      </mat-form-field> -->
-      <div class="search">
+    <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+      <div class="search" fxFlex="70">
         <i class="fas fa-search search_tooltip"></i>
         <input [formControl]="search" class="search_input" type="text" name="" placeholder="Search for assessments"/>
       </div>
-      <!-- <div class="select" fxFlex>
-        <select (change)="updateList('', '')">
-          <option value=""></option>
-          <option value="updateList('all', 'All')">All</option>
-          <option value="updateList('blocked', 'Help Requests')">Help Requests</option>
+      <div class="select" fxFlex>
+        <select (change)="updateList($event)">
+          <option [value]="['all', 'All']">All</option>
+          <option [value]="['blocked', 'Help Requests']">Help Requests</option>
         </select>
-      </div> -->
-      <!-- <mat-form-field appearance="outline">
-        <select matNativeControl>
-          <option value="updateList('all', 'All')">All</option>
-          <option value="updateList('blocked', 'Help Requests')">Help Requests</option>
-        </select>
-      </mat-form-field> -->
+      </div>
     </div>
   </div>
 

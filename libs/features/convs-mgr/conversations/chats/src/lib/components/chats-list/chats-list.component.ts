@@ -52,7 +52,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
-
+  
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
   constructor(private _chats$: ChatsStore,
@@ -174,11 +174,12 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
     }
   }
 
-  updateList(filter: string, title: string)
+  updateList(values: any)
   {
+    const options = values.target.value.split(',');
     this.isLoading = true;
-    this.filter = filter;
-    this.selected = title;
+    this.filter = options[0];
+    this.selected = options[1];
     this.filterByCategory();
   }
 
