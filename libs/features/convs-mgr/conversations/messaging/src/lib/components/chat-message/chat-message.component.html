@@ -1,21 +1,28 @@
-<div class="message"
-    [class.message-agent]="agentMessage"
-    [class.message-mine]="!messageIsNotMine"
-    [class.message-other]="messageIsNotMine">
+<div class="message" 
+  [class.message-agent]="agentMessage" 
+  [class.message-mine]="!messageIsNotMine"
+  [class.message-other]="messageIsNotMine">
 
-    <div [ngSwitch]="message.type">
-     <div *ngSwitchCase="'text'" [ngClass]="message.direction === 5 ? ['message-content', 'green'] : ['message-content', 'grey']"><span [innerHtml]=" textMessage(message)"></span></div>
+  <div [ngSwitch]="message.type">
+    <div *ngSwitchCase="'text'"
+      [ngClass]="message.direction === 5 || message.direction === 25 ? ['message-content', 'grey'] : ['message-content', 'green']">
+      <span [innerHtml]=" textMessage(message)"></span>
+      </div>
 
-     <!-- Button Options -->
-     <app-button-message   *ngSwitchCase="'question'" [message]="message" [messageIsNotMine]="messageIsNotMine" [agentMessage]="agentMessage"></app-button-message>
+    <!-- Button Options -->
+    <app-button-message *ngSwitchCase="'question'" [message]="message" [messageIsNotMine]="messageIsNotMine"
+      [agentMessage]="agentMessage">
+    </app-button-message>
 
-     <!-- Button Press -->
-     <div *ngSwitchCase="'button'" [ngClass]="message.direction === 5 ? ['message-content', 'green'] : ['message-content', 'grey']"><span [innerHtml]=" textMessage(message)"></span></div>
+    <!-- Button Press -->
+    <div *ngSwitchCase="'button'"
+      [ngClass]="message.direction === 5 ? ['message-content', 'green'] : ['message-content', 'grey']"><span
+        [innerHtml]=" textMessage(message)"></span>
+      </div>
 
-     <app-resource-message *ngSwitchCase="'image'"  [message]="message"></app-resource-message>
-     <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
-   </div>
+    <app-resource-message *ngSwitchCase="'image'" [message]="message"></app-resource-message>
+    <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
+  </div>
 
   <span class="message-timestamp">{{ timestamp }}</span>
 </div>
-
