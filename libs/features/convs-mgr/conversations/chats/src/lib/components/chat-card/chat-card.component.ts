@@ -12,13 +12,14 @@ import { ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
 import { TIME_AGO } from '../../providers/duration-from-date';
+import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
 
 @Component({
   selector: 'app-chat-card',
   templateUrl: './chat-card.component.html',
   styleUrls:  ['./chat-card.component.scss']
 })
-export class ChatCardComponent implements OnChanges, AfterViewInit, OnInit, OnDestroy
+export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
 {
   private _sbs = new SubSink()
   @Input() chat: Chat;
@@ -28,11 +29,9 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnInit, OnDe
 
   chatAvatarColor: string;
 
-  constructor(private _chats$: ChatsStore, private _msgsQuery$: MessagesQuery) {}
-
-  ngOnInit() {
-
-  }
+  constructor(private _chats$: ChatsStore, 
+              private _msgsQuery$: MessagesQuery
+  ) {}
 
   ngAfterViewInit(): void {
     if (this.chat) {
@@ -53,7 +52,7 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnInit, OnDe
                                     this._msgsQuery$.getLatestMessageDate(this.chat.id)])
                           .pipe(tap(([variables, date]) => {
                                   this.chat.name = variables?.name ?? '';
-                                  this.chatAvatarColor = this.getAvatarColor();
+                                  this.chatAvatarColor = GET_RANDOM_COLOR();
                                   this.lastMessageDate = TIME_AGO(date.seconds);
                                 }))
                           .subscribe();
@@ -74,18 +73,7 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnInit, OnDe
     }
   }
 
-  getAvatarColor = () => `#${Math.floor(Math.random()*16777215).toString(16)}`;
-
-  getUserName(name: string) {
-    if (!name) return '';
-
-    const splitName = name.split(' ');
-    if (splitName.length > 1) {
-      return `${splitName[0]?.charAt(0).toUpperCase()} ${splitName[1]?.charAt(0).toUpperCase()}`;
-    }
-      
-    return `${name.charAt(0).toUpperCase()} ${name.charAt(1).toUpperCase()}`;
-  }
+  getUserName = (name: string) => GET_USER_AVATAR(name);
 
   ngOnDestroy() {
     this._sbs.unsubscribe();
