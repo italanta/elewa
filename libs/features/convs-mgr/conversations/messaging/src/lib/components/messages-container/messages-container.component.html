@@ -4,24 +4,24 @@
     <mat-spinner></mat-spinner>
   </div>
 
-  <mat-list *ngIf="isLoaded; else loading">
-    <mat-list-item *ngFor="let message of messages; let i = index">
+  <div *ngIf="isLoaded; else loading">
+    <div *ngFor="let message of messages; let i = index">
       <!-- <div *ngIf="isNewDate(messages[i])" class="hr-with-text" fxLayout="row" fxLayoutAlign="center">
         {{ lastDate | date }}
       </div> -->
       <div class="message-block">
-        <span [ngClass]="message.direction === 5 ? ['right'] : ['left']">
+        <span>
           <app-chat-message [message]="message"></app-chat-message>
         </span>
       </div>
-    </mat-list-item>
-  </mat-list>
+    </div>
+  </div>
 
 </div>
 
-<div class="btn-new-msg" fxLayout="row" fxLayoutAlign="center">
-  <button *ngIf="newMessages" (click)="scrollToBottom()" class="new-msg-btn" mat-raised-button>
-    New messages..
+<div class="btn-new-msg" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+  <button *ngIf="newMessages" (click)="scrollToBottom()"  mat-mini-fab>
+    <i class="fas fa-chevron-down"></i>
   </button>
 </div>
 
