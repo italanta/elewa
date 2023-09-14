@@ -1,8 +1,8 @@
 <div class="card" [class.selected]="currentChat.id === chat.id" fxLayout="row" fxLayoutAlign="start center"
   fxLayoutGap="16px">
-  <div class="avatar" [ngStyle]="{'background-color':chat.name ? chatAvatarColor : 'black'}" [class.new-msg]="chat.awaitingResponse">
+  <div class="avatar" [ngStyle]="{'background-color':chat.name ? chatAvatarColor : '#3E788A'}" [class.new-msg]="chat.awaitingResponse">
     <div *ngIf="!chat.name">
-      <i class="fas fa-user-circle fa-2x"></i>
+     <span style="color: white;">UU</span>
     </div>
     <span class="user-char" *ngIf="chat.name">{{getUserName(chat.name)}}</span>
   </div>
