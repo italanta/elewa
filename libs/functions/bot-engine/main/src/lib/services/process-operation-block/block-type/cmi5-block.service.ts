@@ -115,7 +115,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
     try {
       // Fetch the CoursePackage based on orgId and courseId
       const repository = this.tools.getRepository<CoursePackage>(
-        `orgs/${orgId}/course-packages/${courseId}`
+        `orgs/${orgId}/course-packages`
       );
       const coursePackage = await repository.getDocumentById(courseId);
       return coursePackage || null;
