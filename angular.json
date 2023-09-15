@@ -851,6 +851,33 @@
       },
       "tags": []
     },
+    "functions-convs-mgr-story-editor--check-story-for-errors": {
+      "root": "libs/functions/convs-mgr/story-editor/check-story-for-errors",
+      "sourceRoot": "libs/functions/convs-mgr/story-editor/check-story-for-errors/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/functions/convs-mgr/story-editor/check-story-for-errors/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/functions/convs-mgr/story-editor/check-story-for-errors"
+          ],
+          "options": {
+            "jestConfig": "libs/functions/convs-mgr/story-editor/check-story-for-errors/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-user": "libs/functions/user",
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
