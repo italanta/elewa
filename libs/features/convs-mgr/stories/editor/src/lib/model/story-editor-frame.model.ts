@@ -124,7 +124,6 @@ export class StoryEditorFrame {
 
     //position the start anchor to center of viewport
     startAnchor.location.nativeElement.style = `position: absolute; left: ${this._anchorPosition.y}px; top: ${this._anchorPosition.x}px;`;
-    debugger
   }
 
   /**
