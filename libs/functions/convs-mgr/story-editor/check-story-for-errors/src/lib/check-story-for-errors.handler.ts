@@ -12,7 +12,7 @@ export class FindStoryErrorHandler extends FunctionHandler<{blocks: StoryBlock[]
 
   /**
    * Execute the function to find flow errors.
-   * @param req - Request parameters including blocks and connections.
+   * @param req - Request parameters including story id, blocks and connections.
    * @param context - FunctionContext containing information about the function execution.
    * @returns Promise<StoryError[]> - Array of detected flow errors.
    */
