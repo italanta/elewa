@@ -146,7 +146,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
         `orgs/${orgId}/assignable-units`
       );
       const au = await repository.getDocumentById(auId);
-      return au || null;
+      return au;
     } catch (error) {
       this.tools.Logger.error(error);
       return null;
