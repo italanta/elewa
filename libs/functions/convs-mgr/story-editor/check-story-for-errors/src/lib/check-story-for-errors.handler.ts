@@ -1,7 +1,4 @@
-import { HandlerTools } from '@iote/cqrs';
-
-import { FunctionHandler, FunctionContext, RestResult } from '@ngfi/functions';
-import { Query } from '@ngfi/firestore-qbuilder';
+import { FunctionHandler, } from '@ngfi/functions';
 
 import { StoryError, StoryErrorType } from '@app/model/convs-mgr/stories/main';
 import { StoryBlock, isOptionBlock } from '@app/model/convs-mgr/stories/blocks/main';
