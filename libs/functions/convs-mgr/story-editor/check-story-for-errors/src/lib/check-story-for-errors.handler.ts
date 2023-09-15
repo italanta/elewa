@@ -11,40 +11,35 @@ import { Connection } from '@app/model/convs-mgr/conversations/chats';
 /**
  * Handler to find flow errors in story connections and blocks.
  */
-export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, storyId: string}, StoryError[]> {
+export class FindStoryErrorHandler extends FunctionHandler<{blocks: StoryBlock[], connections: Connection[], storyId: string}, StoryError[]> {
 
   /**
    * Execute the function to find flow errors.
-   * @param req - Request parameters including orgId and storyId.
+   * @param req - Request parameters including blocks and connections.
    * @param context - FunctionContext containing information about the function execution.
-   * @param tools - HandlerTools for logging and other utilities.
    * @returns Promise<StoryError[]> - Array of detected flow errors.
    */
 
   private errors: StoryError[];
   private connectionIds = new Set();
 
-  public async execute(req: { orgId: string, storyId: string }, context: FunctionContext, tools: HandlerTools): Promise<StoryError[]> {
+  public async execute(req: { blocks: StoryBlock[], connections: Connection[], storyId: string }): Promise<StoryError[]> {
     this.errors = [];
 
-    // Retrieve connections for the given orgId and storyId.
-    await this.retrieveConnections(req.orgId, req.storyId, tools);
+    // Retrieve connections and extract the source Ids.
+    this.getConnectionSourceIds(req.connections);
 
     // Check if start anchor is connected to a block
     this.checkStartAnchorConnection(req.storyId);
 
     // Retrieve blocks for the given orgId and storyId and check for errors
-    const blocks = await this.retrieveBlocks(req.orgId, req.storyId, tools);
-    this.checkBlocksForErrors(blocks);
+    this.checkBlocksForErrors(req.blocks);
 
     return this.errors;
   }
 
   // Get connections and save sourceIds to the ConnectionIds array
-  private async retrieveConnections(orgId: string, storyId: string, tools: HandlerTools): Promise<void> {
-    const connectionRepo = tools.getRepository<Connection>(`orgs/${orgId}/stories/${storyId}/connections`);
-    const connections = await connectionRepo.getDocuments(new Query());
-  
+  private getConnectionSourceIds(connections: Connection[]): void {
     connections.forEach((connection) => {
       this.connectionIds.add(connection.sourceId);
     });
@@ -53,14 +48,6 @@ export class FindStoryErrorHandler extends FunctionHandler<{orgId: string, story
   // Check if start anchor is connected
   private checkStartAnchorConnection(storyId: string): void {
     this.checkMissingConnection(storyId, storyId);
-  }
-
-  // Retrieve blocks and  check for the errors
-  private async retrieveBlocks(orgId: string, storyId: string, tools: HandlerTools): Promise<StoryBlock[]> {
-    const blocksRepo = tools.getRepository<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
-    const blocks = await blocksRepo.getDocuments(new Query());
-
-    return blocks
   }
 
   // Check block for errors
