@@ -120,14 +120,14 @@ export class CMI5BlockService implements IProcessOperationBlock {
    * @param courseId The course ID.
    * @returns A Promise that resolves to a CoursePackage object.
    */
-  private async getCoursePackage(orgId: string, courseId: string): Promise<CoursePackage | null> {
+  private async getCoursePackage(orgId: string, courseId: string): Promise<CoursePackage> {
     try {
       // Fetch the CoursePackage based on orgId and courseId
       const repository = this.tools.getRepository<CoursePackage>(
         `orgs/${orgId}/course-packages`
       );
       const coursePackage = await repository.getDocumentById(courseId);
-      return coursePackage || null;
+      return coursePackage;
     } catch (error) {
       this.tools.Logger.error(error);
       return null;
@@ -139,7 +139,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
    * @param auId The AssignableUnit ID.
    * @returns A Promise that resolves to an AssignableUnit object.
    */
-  private async getAssignableUnit(orgId: string, auId: string): Promise<AssignableUnit | null> {
+  private async getAssignableUnit(orgId: string, auId: string): Promise<AssignableUnit> {
     try {
       // Fetch the AssignableUnit based on orgId and auId
       const repository = this.tools.getRepository<AssignableUnit>(
