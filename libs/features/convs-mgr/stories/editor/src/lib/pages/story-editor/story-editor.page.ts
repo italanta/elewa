@@ -23,6 +23,7 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { CheckStoryErrorsService } from '../../services/check-story-errors.service';
 
 
 @Component({
@@ -66,7 +67,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
               _router: Router,
-              private sideScreen: SideScreenToggleService) 
+              private sideScreen: SideScreenToggleService,
+              private _storyErrorCheck: CheckStoryErrorsService
+              ) 
   {
     
     this._editorStateService.get()
@@ -218,6 +221,12 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   toggleSidenav() {
     this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
     this.onClose()
+  }
+
+  checkStoryErrors() {
+    const orgId = ''
+    const storyId = ''
+    this._storyErrorCheck.fetchFlowErrors(orgId, storyId).subscribe(console.log)
   }
 
   ngOnDestroy() {
