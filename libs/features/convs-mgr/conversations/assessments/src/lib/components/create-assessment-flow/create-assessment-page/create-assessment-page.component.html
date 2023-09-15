@@ -1,0 +1,35 @@
+<convl-page>
+  <div *ngIf="formHasLoaded" class="create-assessment" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+
+    <div class="create-assessment-header-title" fxLayout="row" fxLayoutAlign="start center" fxFlex="10">
+      <span>Assessments</span>
+    </div>
+
+    <div class="create-assessment-header-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex="10">
+      <button mat-raised-button [disabled]="isSaving" class="save-btn" (click)="onSave()">
+        <span *ngIf="!isSaving"> Save </span>
+        <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
+      </button>
+      <button mat-raised-button [disabled]="isPublishing" color="primary" class="publish-btn" (click)="onPublish()">
+        <span *ngIf="!isPublishing"> Publish </span>
+        <mat-spinner diameter="25" *ngIf="isPublishing"></mat-spinner>
+      </button>
+    </div>
+  
+    <div class="create-body" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" fitInkBarToContent>
+        <mat-tab label="Create">
+          <app-assessment-question-forms [previewMode]="false" [questions]="questions" [assessmentFormGroup]="assessmentForm">
+          </app-assessment-question-forms>
+        </mat-tab>
+        <mat-tab label="Settings">
+          <app-assessment-config [previewMode]="false" [assessmentFormGroup]="assessmentForm"></app-assessment-config>
+        </mat-tab>
+        <mat-tab label="Preview">
+          <!-- use the view component to create the form preview -->
+          <!-- <app-assessment-view [previewMode]="true" [assessmentForm]="assessmentForm"></app-assessment-view> -->
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</convl-page>

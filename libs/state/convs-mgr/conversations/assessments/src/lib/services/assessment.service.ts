@@ -28,7 +28,7 @@ export class AssessmentService {
   }
 
   addAssessment$(assessment: Assessment) {
-    return this._assessments$$.add(assessment);
+    return this._assessments$$.createAssessment(assessment);
   }
 
   updateAssessment$(assessment: Assessment) {

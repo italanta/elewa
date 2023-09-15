@@ -14,37 +14,34 @@ $black-87-opacity: rgba(var(--convs-mgr-color-primary-black), 0.87);
 $white-87-opacity: rgba(var(--convs-mgr-color-primary-white), 0.87);
 
 $mat-ele: (
-  50: var(--convs-mgr-color-50),
-  100: var(--convs-mgr-color-100),
-  200: var(--convs-mgr-color-200),
-  300: var(--convs-mgr-color-300),
-  400: var(--convs-mgr-color-400),
-  500: var(--convs-mgr-color-500),
-  600: var(--convs-mgr-color-600),
-  700: var(--convs-mgr-color-700),
-  800: var(--convs-mgr-color-800),
-  900: var(--convs-mgr-color-900),
-  A100: var(--convs-mgr-color-A100),
-  A200: var(--convs-mgr-color-A200),
-  A400: var(--convs-mgr-color-A400),
-  A700: var(--convs-mgr-color-A700),
-  A800: var(--convs-mgr-color-A800),
-  A900: var(--convs-mgr-color-A900),
-  contrast: (
-    50: var(--convs-mgr-color-primary-grey),
-    100: var(--convs-mgr-color-primary-grey),
-    200: var(--convs-mgr-color-primary-grey),
-    300: var(--convs-mgr-color-primary-grey),
-    400: $white-87-opacity,
-    500: var(--convs-mgr-color-primary-white),
-    600: $white-87-opacity,
-    700: $white-87-opacity,
-    800: $white-87-opacity,
-    900: var(--convs-mgr-color-primary-white),
-    A100: $black-87-opacity,
-    A200: var(--convs-mgr-color-primary-black),
-    A400: var(--convs-mgr-color-primary-white),
-    A700: var(--convs-mgr-color-primary-white),
+  50 : #e8eff1,
+  100 : #c5d7dc,
+  200 : #9fbcc5,
+  300 : #78a1ad,
+  400 : #5b8c9c,
+  500 : #3e788a,
+  600 : #387082,
+  700 : #306577,
+  800 : #285b6d,
+  900 : #1b485a,
+  A100 : #98e0ff,
+  A200 : #65d0ff,
+  A400 : #32c0ff,
+  A700 : #19b9ff,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
   )
 );
 
@@ -63,21 +60,52 @@ $mat-purple: (
   A200 : #b39aff,
   A400 : #8d67ff,
   A700 : #7a4dff,
-  contrast: (
-      50 : #000000,
-      100 : #000000,
-      200 : #000000,
-      300 : #ffffff,
-      400 : #ffffff,
-      500 : #ffffff,
-      600 : #ffffff,
-      700 : #ffffff,
-      800 : #ffffff,
-      900 : #ffffff,
-      A100 : #000000,
-      A200 : #000000,
-      A400 : #000000,
-      A700 : #ffffff,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #ffffff,
+  )
+);
+
+$mat-warn: (
+  50 : #f9e0e0,
+  100 : #f0b3b3,
+  200 : #e68080,
+  300 : #db4d4d,
+  400 : #d42626,
+  500 : #cc0000,
+  600 : #c70000,
+  700 : #c00000,
+  800 : #b90000,
+  900 : #ad0000,
+  A100 : #ffd7d7,
+  A200 : #ffa4a4,
+  A400 : #ff7171,
+  A700 : #ff5858,
+  contrast: (50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #ffffff,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
   )
 );
 
@@ -90,42 +118,40 @@ $mat-purple: (
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$primary:  mat.define-palette($mat-ele);
-$accent:   mat.define-palette($mat-ele);
+$primary: mat.define-palette($mat-ele);
+$accent: mat.define-palette($mat-ele);
 $primary-purple: mat.define-palette($mat-purple);
+$warn: mat.define-palette($mat-warn);
 
 // The warn palette is optional (defaults to red).
-$warn:   mat.define-palette(mat.$red-palette);
+$warn: mat.define-palette(mat.$red-palette);
 
 // Typography: https://medium.com/razroo/angular-material-typography-a63dbd0c1ed4
 
-$custom-typography:  mat.define-typography-config(
-  $headline-4:  mat.define-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
-  $headline-3:  mat.define-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
-  $headline-2:  mat.define-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
-  $headline-1:  mat.define-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
+$custom-typography: mat.define-typography-config($headline-4: mat.define-typography-level(112px, 112px, 300, 'Varela Round, sans-serif', $letter-spacing: -0.05em),
+    $headline-3: mat.define-typography-level(56px, 56px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.02em),
+    $headline-2: mat.define-typography-level(45px, 48px, 400, 'Varela Round, sans-serif', $letter-spacing: -0.005em),
+    $headline-1: mat.define-typography-level(34px, 40px, 400, 'Varela Round, sans-serif'),
 
-  $headline-5:       mat.define-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
-  $subtitle-2:   mat.define-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
-  $subtitle-1:   mat.define-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
+    $headline-5: mat.define-typography-level(24px, 32px, 600, 'Varela Round, sans-serif'),
+    $subtitle-2: mat.define-typography-level(16px, 28px, 400, 'Varela Round, sans-serif'),
+    $subtitle-1: mat.define-typography-level(15px, 24px, 400, 'Varela Round, sans-serif'),
 
-  $body-2:  mat.define-typography-level(14px, 24px, 500),
-  $body-1:  mat.define-typography-level(14px, 20px, 500),
-  $caption: mat.define-typography-level(12px, 20px, 400),
-  $button:  mat.define-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
-);
+    $body-2: mat.define-typography-level(14px, 24px, 500),
+    $body-1: mat.define-typography-level(14px, 20px, 500),
+    $caption: mat.define-typography-level(12px, 20px, 400),
+    $button: mat.define-typography-level(14px, 14px, 400, 'Varela Round, sans-serif'),
+  );
 
 // Create the theme object (a Sass map containing all of the palettes).
 // $theme: mat.define-light-theme($primary, $accent, $warn);
-$theme: mat.define-light-theme(
-  (
-  color: (
-    primary: $primary,
-    accent: $accent,
-    warn: $primary-purple,
- ),
- typography: $custom-typography,
-));
+$theme: mat.define-light-theme((color: (
+        primary: $primary,
+        accent: $accent,
+        warn: $warn,
+      ),
+      typography: $custom-typography,
+    ));
 
 
 // Include theme styles for core and each component used in your app.
@@ -138,7 +164,7 @@ $theme: mat.define-light-theme(
 //
 
 .mat-toolbar.mat-primary {
-  background:var(--convs-mgr-color-primary-white);
+  background: var(--convs-mgr-color-primary-white);
   color: $black-87-opacity;
   font-family: "Varela Round", "Open Sans", "Segoe UI", Tahoma, sans-serif;
 }
@@ -148,15 +174,31 @@ $theme: mat.define-light-theme(
 //
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: "Lato", sans-serif; background-color: var(--convs-mgr-color-light)}
+html,
+body {
+  height: 100%;
+}
 
-button:focus {outline:0;}
-a:focus {outline:0;}
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  background-color: var(--convs-mgr-color-light)
+}
 
-.container { padding: 16px; }
+button:focus {
+  outline: 0;
+}
 
-.flex-spacer, .fill-remaining {
+a:focus {
+  outline: 0;
+}
+
+.container {
+  padding: 16px;
+}
+
+.flex-spacer,
+.fill-remaining {
   flex-grow: 1;
 }
 
@@ -181,7 +223,8 @@ a:focus {outline:0;}
   min-width: 600px;
 }
 
-.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
   background: var(--convs-mgr-color-dark-shade);
 }
 
@@ -207,10 +250,10 @@ a:focus {outline:0;}
   margin: 10px inherit;
 }
 
-  .form-field-label {
-    margin-right: 15px;
-    margin-bottom: 5px;
-  }
+.form-field-label {
+  margin-right: 15px;
+  margin-bottom: 5px;
+}
 
 .breadcrumbs-container {
   background: #fff;
@@ -230,7 +273,7 @@ a:focus {outline:0;}
   bottom: 4px;
 }
 
-.section-container{
+.section-container {
   margin-bottom: 20px;
   background-color: var(--convs-mgr-color-primary-white);
 }
@@ -243,7 +286,7 @@ a:focus {outline:0;}
   padding: 0 16px;
 }
 
-.header-area{
+.header-area {
   min-height: 50px;
 }
 
@@ -259,33 +302,30 @@ a:focus {outline:0;}
 /*
  *  Scrollbar styling
  */
- ::-webkit-scrollbar-track
- {
-   box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
-   -webkit-box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
-   background-color: var(--convs-mgr-color-light-tint);
-   border-radius: 2px;
- }
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+  background-color: var(--convs-mgr-color-light-tint);
+  border-radius: 2px;
+}
 
- ::-webkit-scrollbar
- {
- width: 10px;
- height: 5px;
- background-color: var(--convs-mgr-color-light-tint);
- }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+  background-color: var(--convs-mgr-color-light-tint);
+}
 
 
- ::-webkit-scrollbar-thumb
- {
-   background-color: var(--convs-mgr-color-light);
-   border: 10px solid var(--convs-mgr-color-medium);
-   border-radius: 3px;
+::-webkit-scrollbar-thumb {
+  background-color: var(--convs-mgr-color-light);
+  border: 10px solid var(--convs-mgr-color-medium);
+  border-radius: 3px;
 
- }
+}
 
- ::-webkit-scrollbar:hover {
-   width: 10px;
- }
+::-webkit-scrollbar:hover {
+  width: 10px;
+}
 
 /** Responsive tables **/
 // Note ***: Table has to include the '.mobile-label'
@@ -302,11 +342,13 @@ a:focus {outline:0;}
     margin-right: 5px;
   }
 
-  mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type{
+  mat-cell:first-of-type,
+  mat-header-cell:first-of-type,
+  mat-footer-cell:first-of-type {
     margin-left: -24px !important;
   }
 
-  mat-cell{
+  mat-cell {
     max-width: 100% !important;
     align-items: start !important;
   }
@@ -321,4 +363,3 @@ a:focus {outline:0;}
     padding: 20px 5px;
   }
 }
-

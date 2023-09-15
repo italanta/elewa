@@ -722,7 +722,6 @@
       "tags": []
     },
     "functions-base": "libs/functions/base",
-    "functions-user": "libs/functions/user",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-messenger": {
       "root": "libs/functions/bot-engine/messenger",
@@ -873,33 +872,6 @@
           ],
           "options": {
             "jestConfig": "libs/functions/convs-mgr/story-editor/check-story-for-errors/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
-    "functions-convs-mgr-story-editor-create-story": {
-      "root": "libs/functions/convs-mgr/story-editor/create-story",
-      "sourceRoot": "libs/functions/convs-mgr/story-editor/create-story/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/functions/convs-mgr/story-editor/create-story/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/functions/convs-mgr/story-editor/create-story"
-          ],
-          "options": {
-            "jestConfig": "libs/functions/convs-mgr/story-editor/create-story/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -1126,6 +1098,32 @@
             "lintFilePatterns": [
               "libs/private/features/convs-mgr/analytics/**/*.ts",
               "libs/private/features/convs-mgr/analytics/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-orgs": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/orgs",
+      "sourceRoot": "libs/private/features/convs-mgr/orgs/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/features/convs-mgr/orgs"],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/orgs/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/orgs/**/*.ts",
+              "libs/private/features/convs-mgr/orgs/**/*.html"
             ]
           }
         }
