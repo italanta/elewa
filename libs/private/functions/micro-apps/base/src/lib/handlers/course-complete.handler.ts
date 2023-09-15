@@ -68,9 +68,9 @@ export class CourseCompleteHandler extends FunctionHandler<{ orgId: string, endU
 
     
         // Access the story ID and block ID from the current cursor
-        const cursorPosition = (currentCursor as Cursor).position || { storyId: '', blockId: '' };
-        const storyId = cursorPosition.storyId || '';
-        const blockId = cursorPosition.blockId || '';
+        const cursorPosition = (currentCursor as Cursor).position;
+        const storyId = cursorPosition.storyId;
+        const blockId = cursorPosition.blockId;
 
     
        //check if the result exists
