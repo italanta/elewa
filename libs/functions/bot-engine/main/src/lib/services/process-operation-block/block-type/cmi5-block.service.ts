@@ -58,9 +58,15 @@ export class CMI5BlockService implements IProcessOperationBlock {
         }
           // Now you have the first AssignableUnit (AU) and can work with it
           const firstAULocationURL = "";
+
+          //declare endUserId to be reused
+          const endUserId = endUser.id;
+
+          //declare storyBlockId to be reused
+          const storyBlockId = storyBlock.id;
           
           // Prepare the AU for launch using CMI5Service
-          await this.cmi5Service.prepareForLaunch(orgId, endUser.id, firstAUId);
+          await this.cmi5Service.prepareForLaunch(orgId, endUserId, firstAUId);
           
           // Create Actor "actor" is the end user or learner who will be engaging with the course module.
           const actor: Actor = {
@@ -68,7 +74,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
             name: endUser.name,
             account: {
               homePage: orgId,
-              name: endUser.id,
+              name: endUserId,
             },
           };
           
@@ -76,7 +82,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
           const launchLink = this.cmi5Service.createLaunchURL(
             firstAULocationURL, // Use firstAULocationURL
             actor,
-            endUser.id,
+            endUserId,
             firstAUId
           );
           // This code is creating an instance of a CMI5LaunchBlock  which  sends the course link to the end user.
@@ -90,7 +96,7 @@ export class CMI5BlockService implements IProcessOperationBlock {
           // Assuming storyBlock.id is a string
           const endUserPosition: EndUserPosition = {
             storyId: storyId,
-            blockId: storyBlock.id,
+            blockId: storyBlockId
           };
           
           //  Update end user position with the cmi5 block
