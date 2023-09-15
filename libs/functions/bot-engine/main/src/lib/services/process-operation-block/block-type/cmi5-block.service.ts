@@ -39,8 +39,11 @@ export class CMI5BlockService implements IProcessOperationBlock {
    */
   async handleBlock( storyBlock: CMI5Block, updatedCursor: Cursor,orgId: string, endUser: EndUser) {
     try {
+      //declared storyBlock courseId
+      const storyBlockCouseId = storyBlock.courseId;
+
       // Fetch the details of the first AU from the CoursePackage
-      const coursePackage = await this.getCoursePackage(orgId, storyBlock.courseId);
+      const coursePackage = await this.getCoursePackage(orgId, storyBlockCouseId);
       
       if (!coursePackage) {
         // Pass a function that returns the error message
