@@ -14,7 +14,6 @@ import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/lib
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -31,6 +30,7 @@ export class StoryEditorFrame {
   private _blocks: StoryBlock[] = [];
   private _latestBlock: StoryBlock;
   private _connections: StoryBlockConnection[];
+  private _anchorPosition = {x:100, y: 100};
 
   blocksArray: FormArray;
 
@@ -118,14 +118,13 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
-    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
-    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
 
     //position the start anchor to center of viewport
-    startAnchor.location.nativeElement.style = `position: absolute; left: ${editorWidth}px; top: ${editorHeight}px;`;
+    startAnchor.location.nativeElement.style = `position: absolute; left: ${this._anchorPosition.y}px; top: ${this._anchorPosition.x}px;`;
+    debugger
   }
 
   /**
@@ -240,15 +239,12 @@ export class StoryEditorFrame {
     const blockPosition = {x: 0, y: 0};
     // If the story has other blocks, position the new block close to the last one
     if(this._latestBlock) {
-      blockPosition.x = this._latestBlock.position.x + Math.floor(Math.random() * (300 - 20 + 1) + 50);
+      blockPosition.x = this._latestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 50);
       blockPosition.y = this._latestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
     } else {
       // If it's a new story place the first block right after the start block
-      const  pageheight = this._edf.nativeElement.offsetHeight/2;
-      const  pagewidth = this._edf.nativeElement.offsetWidth/2;
-
-      blockPosition.x = pagewidth + (this._cnt*100);
-      blockPosition.y = pageheight;
+      blockPosition.x = this._anchorPosition.x + (this._cnt*100);
+      blockPosition.y = this._anchorPosition.y;
     }
 
     const block = {
