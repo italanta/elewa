@@ -72,7 +72,19 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
     this.chats$ = this._chats$.get();
-    this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
+    this._sbs.sink = this.chats$.pipe(
+      map(chatList => chatList.sort((a, b) => {
+        const timestampA = a.updatedOn ? new Date(a.updatedOn) : null;
+        const timestampB = b.updatedOn ? new Date(b.updatedOn) : null;
+    
+        if (!timestampA && !timestampB) return 0;
+        if (!timestampA) return 1;
+        if (!timestampB) return -1;
+    
+        return timestampB.getTime() - timestampA.getTime();
+      }))
+    ).subscribe(chatList => this.getChats(chatList));
+    
   }
 
   
