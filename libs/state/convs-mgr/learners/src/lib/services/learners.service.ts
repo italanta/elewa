@@ -23,10 +23,13 @@ export class EnrolledLearnersService {
 
         const endUsers = enrolledUsrs.map((user) => {
           if (!user.whatsappUserId) return of(user);
-
+          
           /** Get's the current course for all user's with the WhatsappEndUser Id  */
           return this._endUsers.getSpecificUser(user.whatsappUserId).pipe(
             map((endUser) => {
+              if(endUser?.variables) {
+                user.name = endUser.variables['name'];
+              }
               if (endUser) {
                 user.currentCourse = endUser.currentStory as string;
               }
