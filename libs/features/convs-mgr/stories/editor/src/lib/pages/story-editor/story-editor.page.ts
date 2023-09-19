@@ -1,20 +1,22 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable, Subscription } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
-import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } from '@app/state/convs-mgr/story-editor';
 
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
+
+import { StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -23,7 +25,6 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-import { CheckStoryErrorsService } from '../../services/check-story-errors.service';
 
 
 @Component({
@@ -38,6 +39,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   activeComponent: ComponentPortal<any>
   activeBlockForm: FormGroup
   activeBlockTitle: string
+
+  errors: StoryError[] = [];
+  shownErrors: StoryError[] = [];
 
   opened: boolean;
 
@@ -61,6 +65,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   frameZoom = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
+  private snackbarQueueSubscription: Subscription;
+
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
@@ -68,9 +74,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
               private _blockPortalService: BlockPortalService,
               _router: Router,
               private sideScreen: SideScreenToggleService,
-              private _storyErrorCheck: CheckStoryErrorsService
+              private _storyErrorCheck: CheckStoryErrorsService,
+              private renderer: Renderer2
               ) 
   {
+
     
     this._editorStateService.get()
       .subscribe((state: StoryEditorState) =>
@@ -175,18 +183,21 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   /** Save the changes made in the data model. */
   save() {
 
-    // Get all the text area elements
-    const textAreas = document.querySelectorAll('textarea');
+  // TODO: Ask if this is needed anymore
+  //   // Get all the text area elements
+  //   const textAreas = document.querySelectorAll('textarea');
 
-    // Check if any of the text area elements are empty
-    const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
+  //   // Check if any of the text area elements are empty
+  //   const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
 
-    if (hasEmptyFields) {
-      this._dialog.open(ErrorPromptModalComponent, {
-        data: { title: "Error", message: "Please fill in ALL text fields before saving."}
-      });
-      return
-   }
+  //   if (hasEmptyFields) {
+  //     this._dialog.open(ErrorPromptModalComponent, {
+  //       data: { title: "Error", message: "Please fill in ALL text fields before saving."}
+  //     });
+  //     return
+  //  }
+    this.checkStoryErrors();
+    
 
     this.stateSaved = false;
 
@@ -224,13 +235,45 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   checkStoryErrors() {
-    const orgId = ''
-    const storyId = ''
-    this._storyErrorCheck.fetchFlowErrors(orgId, storyId).subscribe(console.log)
+    const storyId = this.state.story.id as string
+    this._storyErrorCheck.fetchFlowErrors(this.state.connections, this.state.blocks, storyId).subscribe(
+      errors => {
+        this.errors = errors
+        this.shownErrors = this.errors.slice(0,2)
+        this._logger.log(() => `Loaded errors for story ${this.state.story.id}. Logging Errors.`)
+        this._logger.log(() => this.errors);
+        }
+      )
   }
+
+  closeErrorToast(error: StoryError){
+    this.errors = this.errors.filter(
+      (item: StoryError) => {
+        return item.blockId !== error.blockId
+      }
+    )
+    this.shownErrors = this.errors.slice(0,2)
+  }
+
+  scrollTo(error: StoryError){
+    const block = this.state.blocks.find(obj => obj.id === error.blockId)
+    if(block){
+      const targetSection = document.getElementById(`${block.id}`)
+      if(targetSection)
+      targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", });
+      this.renderer.setStyle(targetSection, "border", "2px red solid")
+
+      setTimeout(() => {
+        this.renderer.removeStyle(targetSection, 'border');
+      }, 5000); 
+    }
+  }
+
+
 
   ngOnDestroy() {
     this._editorStateService.flush();
+    this.snackbarQueueSubscription.unsubscribe();
     this._sb.unsubscribe();
   }
 }
