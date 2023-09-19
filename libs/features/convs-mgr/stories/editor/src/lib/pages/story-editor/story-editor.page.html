@@ -1,7 +1,22 @@
 <convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
-
   <!-- Main body page -->
+
   <div class="story-editor" fxFlexFill>
+
+    <div *ngIf="errors" class="toaster">
+      
+      <app-toast 
+          *ngFor="let error of shownErrors" 
+          [error]="error" 
+          [messageType]="'error'" 
+          [color]="'rgba(217, 25, 25, 0.70)'" 
+          [iconClass]="'fas fa-exclamation-circle'" 
+          (closed)="closeTooltip(error)" 
+          (scrollTo)="scrollTo(error)"
+        >
+      </app-toast>
+    </div>
+
     <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
@@ -61,6 +76,9 @@
           </button>
         </div>
       </div>
+      <p class="error-count" *ngIf="errors.length>0">There are <span class="error-count-length">{{errors.length}}</span> errors</p>
+
+
       <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>
     </div>
