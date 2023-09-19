@@ -5,5 +5,6 @@ import { ToastComponent } from './components/toast/toast.component';
 @NgModule({
   imports: [CommonModule],
   declarations: [ToastComponent],
+  exports:[ToastComponent]
 })
 export class ToastModule {}
