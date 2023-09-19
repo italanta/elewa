@@ -19,6 +19,7 @@ import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
 import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-chats-list',
@@ -52,10 +53,13 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
+
+  newDate : any[] = [];
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
   constructor(private _chats$: ChatsStore,
+    private _msgsQuery$:MessagesQuery,
     private _activeChat$: ActiveChatConnectedStore,
     private cd: ChangeDetectorRef,
     _dS: DataService,
@@ -92,21 +96,45 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     });
   }
 
-  getChats(chatList: Chat[])
-  {
+  getChats(chatList: Chat[]) {
     this.dataSource = new MatTableDataSource<any>();
     this.chats$ = this.dataSource.connect();
-
+    const lastMessageTimestamps: Date[] = []; // Use Date objects instead of numbers
+  
+    chatList.forEach(chat => {
+      this.newDate.push(chat.createdOn);
+      this._msgsQuery$.getLatestMessageDate(chat.id).subscribe(date => {
+        chat.lastMsg = date; // Assign the latest message date to the chat object
+  
+        // Combine seconds and nanoseconds into milliseconds
+        const timestampMilliseconds = date.seconds * 1000 + date.nanoseconds / 1e6;
+        
+        // Create a Date object using the combined timestamp
+        const dateObject = new Date(timestampMilliseconds);
+        
+        lastMessageTimestamps.push(dateObject); // Store the Date object in the array
+        this.applySorting(chatList, lastMessageTimestamps);
+      });
+    });
+  }
+  
+  applySorting(chatList: Chat[], lastMessageTimestamps: Date[]) {
+    // Sort chatList based on lastMessageTimestamps
+    chatList.sort((a, b) => {
+      const timestampA = lastMessageTimestamps[chatList.indexOf(a)];
+      const timestampB = lastMessageTimestamps[chatList.indexOf(b)];
+      return timestampB.getTime() - timestampA.getTime();
+    });
+  
     this.chats = chatList;
     this.initializeLists();
-    //Set into categories
-    chatList.forEach(chat => this.categorize(chat));
-
+  
     if (!this.filtrString) this.filtrString = '';
     this.applyFilter();
     this.dataSource.paginator = this.paginator?.first;
     this.isLoading = false;
   }
+  
 
   initializeLists()
   {
