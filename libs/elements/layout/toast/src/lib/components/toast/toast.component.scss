@@ -1,0 +1,46 @@
+.custom-snackbar {
+  width: 19.3125rem;
+  color: #FFFFFF;
+  padding: 1em;
+  border-radius: .7em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  margin-bottom: 1em;
+  transition: all 2s ease-in-out;
+
+  // Typography
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  .error-type {
+    text-decoration: underline;
+  }
+  
+  .mid {
+    flex-grow: 2;
+    padding-left: 1.2em;
+  }
+  
+  .prefix {
+    font-size: 1.5rem;
+  }
+  
+  .suffix {
+    font-size: 0.9375rem;
+  }
+  
+  .button {
+    border: none;
+    cursor: pointer;
+    
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
