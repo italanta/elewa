@@ -3,8 +3,7 @@
 
   <div class="story-editor" fxFlexFill>
 
-    <div *ngIf="errors" class="toaster">
-      
+    <div *ngIf="errors" class="error-toast">
       <app-toast 
           *ngFor="let error of shownErrors" 
           [error]="error" 
