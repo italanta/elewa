@@ -25,7 +25,6 @@ export class ChatCardComponent implements OnChanges, OnInit, OnDestroy
   {}
 
   ngOnInit() {
-    this.getChatName();
     this.setLastMessageDate();
   }
 
@@ -34,14 +33,6 @@ export class ChatCardComponent implements OnChanges, OnInit, OnDestroy
     if(changes['currentChat'])
     {
       this.currentChat = changes['currentChat'].currentValue;
-    }
-  }
-
-  getChatName() {
-    const variableValues = this._chats$.getChatUserName(this.chat.id);
-
-    if(variableValues) {
-      this._sbs.sink = variableValues.subscribe((values)=> this.chat.name = values.name);
     }
   }
 
