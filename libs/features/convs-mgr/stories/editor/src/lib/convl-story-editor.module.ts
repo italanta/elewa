@@ -41,7 +41,7 @@ import { ToastComponent } from 'libs/elements/layout/toast/src/lib/components/to
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
-    ConvlStoryEditorRouterModule, MatStepperModule,
+    ConvlStoryEditorRouterModule, MatStepperModule
   ],
 
   declarations: [

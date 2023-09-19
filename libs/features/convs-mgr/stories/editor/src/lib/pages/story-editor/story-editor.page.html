@@ -75,12 +75,12 @@
           </button>
         </div>
       </div>
-      <p class="error-count" *ngIf="errors.length>0">There are <span class="error-count-length">{{errors.length}}</span> errors</p>
 
+      <p class="error-count" *ngIf="errors.length>0">There are <span class="error-count-length">{{errors.length}}</span> errors</p>
 
       <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>
+      
     </div>
-
   </div>
 </convl-page>
