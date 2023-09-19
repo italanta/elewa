@@ -1,0 +1,22 @@
+<div class="custom-snackbar" [style.background-color]="color">
+  
+  <i [class]="iconClass" class="prefix"></i>
+
+  <div class="mid" (click)="scrollToClick()">
+    <ng-container *ngIf="messageType === 'error'; else successTemplate">
+      Error
+      <br>
+      <span class="error-type">{{ errorType }}</span>
+    </ng-container>
+    <ng-template #successTemplate>
+      {{ text }}
+    </ng-template>
+  </div> 
+
+  <div class="button" (click)="dismissSnackbar()">
+    <i class="fas fa-times suffix"></i>
+  </div>
+
+</div>
+
+  
