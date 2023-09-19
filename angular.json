@@ -1040,6 +1040,32 @@
       },
       "tags": []
     },
+    "model-layout-toast": {
+      "projectType": "library",
+      "root": "libs/model/layout/toast",
+      "sourceRoot": "libs/model/layout/toast/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/layout/toast"],
+          "options": {
+            "jestConfig": "libs/model/layout/toast/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/layout/toast/**/*.ts",
+              "libs/model/layout/toast/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-organisation": "libs/model/organisation/main",
     "model-user": "libs/model/user/base",
     "model-user-bot-users": {
