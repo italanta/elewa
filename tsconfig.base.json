@@ -45,6 +45,7 @@
       "@app/elements/layout/page-convl": [
         "libs/elements/layout/page-convl/src/index.ts"
       ],
+      "@app/elements/layout/toast": ["libs/elements/layout/toast/src/index.ts"],
       "@app/elements/layout/user-menu": [
         "libs/elements/layout/user-menu/src/index.ts"
       ],
@@ -211,11 +212,9 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-
       "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
-      
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
