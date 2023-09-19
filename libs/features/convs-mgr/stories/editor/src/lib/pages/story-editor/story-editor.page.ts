@@ -16,6 +16,7 @@ import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } fr
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
+import { ToastMessageType, ToastStatus } from '@app/model/layout/toast';
 import { StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -25,7 +26,6 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-import { ToastMessageType, ToastStatus } from '@app/model/layout/toast';
 
 
 @Component({
