@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 
 import { StoryError, StoryErrorType } from '@app/model/convs-mgr/stories/main';
+import { ToastMessageType, ToastStatus } from '@app/model/layout/toast';
 
 @Component({
   selector: 'app-toast',
@@ -10,7 +11,7 @@ import { StoryError, StoryErrorType } from '@app/model/convs-mgr/stories/main';
 export class ToastComponent implements OnInit{
 
   @Input() error?: StoryError;
-  @Input() messageType: ToastMessageType = 'success';
+  @Input() messageType: ToastStatus = { type: ToastMessageType.Success};
 
   @Input() color: string;
   @Input() iconClass: string;
@@ -20,9 +21,10 @@ export class ToastComponent implements OnInit{
   @Output() scrollTo = new EventEmitter<void>();
 
   errorType: string;
+  errorToast: ToastStatus = {type: ToastMessageType.Error}
 
   ngOnInit(): void {
-    if (this.messageType === 'error' && this.error) {
+    if (this.messageType.type === 'error' && this.error) {
       this.errorType = this.calculateErrorType();
     }
   }
@@ -47,4 +49,3 @@ export class ToastComponent implements OnInit{
   }
 }
 
-export type ToastMessageType = 'error' | 'success';
