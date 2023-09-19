@@ -65,7 +65,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   frameZoom = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
-  private snackbarQueueSubscription: Subscription;
 
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
@@ -260,7 +259,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     if(block){
       const targetSection = document.getElementById(`${block.id}`)
       if(targetSection)
-      targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", });
+      targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", inline: "center" });
       this.renderer.setStyle(targetSection, "border", "2px red solid")
 
       setTimeout(() => {
@@ -273,7 +272,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   ngOnDestroy() {
     this._editorStateService.flush();
-    this.snackbarQueueSubscription.unsubscribe();
     this._sb.unsubscribe();
   }
 }
