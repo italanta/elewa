@@ -25,6 +25,7 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { ToastMessageType, ToastStatus } from '@app/model/layout/toast';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   errors: StoryError[] = [];
   shownErrors: StoryError[] = [];
+  toastType: ToastStatus = {type: ToastMessageType.Error};
 
   opened: boolean;
 
