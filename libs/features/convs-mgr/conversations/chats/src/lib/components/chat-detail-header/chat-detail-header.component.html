@@ -5,7 +5,7 @@
       <i class="user-tooltip fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      <span *ngIf="chat.name" class="name"> {{ chat.name.toLowerCase() }} </span>
+      <span *ngIf="chat.variables?.['name']" class="name"> {{ chat.variables?.['name'] }} </span>
       <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
