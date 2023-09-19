@@ -8,5 +8,5 @@
     "types": []
   },
   "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "src/lib/providers/manage-jsPlumb-connections.function.ts"]
+  "include": ["**/*.ts", "src/lib/providers/manage-jsPlumb-connections.function.ts", "../../../../state/convs-mgr/story-editor/src/lib/providers/check-story-errors.service.ts"]
 }
