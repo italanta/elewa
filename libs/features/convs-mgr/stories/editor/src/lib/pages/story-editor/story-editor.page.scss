@@ -2,9 +2,32 @@ app-blocks-library {
   width: 200px;
 }
 
+.toaster{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+    top: 6.3em;
+    z-index: 2000;
+    right: 1em;
+}
 mat-sidenav {
   width: 400px;
   height: 400px;
+}
+.error-count{
+  color: #707070;
+  text-align: right;
+  padding-right: 17em;
+
+  /* Reg 14 */
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.error-count-length{
+  color: #E25C5C;
 }
 
 .story-editor {
