@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CheckStoryErrorsService } from './check-story-errors.service';
+import { CheckStoryErrorsService } from '../../../../../../../state/convs-mgr/story-editor/src/lib/providers/check-story-errors.service';
 
 describe('CheckStoryErrorsService', () => {
   let service: CheckStoryErrorsService;
