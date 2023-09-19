@@ -59,7 +59,7 @@ export class AssessmentPublishService
         type: StoryBlockTypes.AssessmentQuestionBlock,
         message: question.message,
         marks: question.marks,
-        feedback: question.feedback,
+        feedback: question.feedback || "",
         options: this.__questionOptionsToBlockOptions(question.options as AssessmentQuestionOptions[])
       } as AssessmentQuestionBlock;
     })
