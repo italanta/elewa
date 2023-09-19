@@ -31,6 +31,7 @@ import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
 
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
+import { ToastComponent } from 'libs/elements/layout/toast/src/lib/components/toast/toast.component';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
-    ConvlStoryEditorRouterModule, MatStepperModule
+    ConvlStoryEditorRouterModule, MatStepperModule,
   ],
 
   declarations: [
@@ -52,6 +53,7 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     PinchZoomDirective,
     TrackCursorDirective,
     BlockCategoryPipe,
+    ToastComponent
   ],
 
   providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],
