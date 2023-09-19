@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
@@ -267,8 +267,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       }, 5000); 
     }
   }
-
-
 
   ngOnDestroy() {
     this._editorStateService.flush();
