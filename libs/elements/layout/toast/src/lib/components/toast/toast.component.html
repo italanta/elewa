@@ -3,7 +3,7 @@
   <i [class]="iconClass" class="prefix"></i>
 
   <div class="mid" (click)="scrollToClick()">
-    <ng-container *ngIf="messageType === 'error'; else successTemplate">
+    <ng-container *ngIf="messageType is errorToast; else successTemplate">
       Error
       <br>
       <span class="error-type">{{ errorType }}</span>
