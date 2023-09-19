@@ -7,7 +7,7 @@ import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { Organisation } from '@app/model/organisation';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
