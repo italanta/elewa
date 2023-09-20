@@ -101,6 +101,4 @@ export class CursorDataService extends BotDataService<Cursor> {
       return false;
     }
   }
-
-  
 }

@@ -53,6 +53,16 @@ export class ChatsStore extends DataStore<Chat>
     });
   }
 
+
+  getChatUserName(id: string) {
+
+    const namesRepo = this._repoFac.getRepo<any>(`orgs/${this._activeOrg.id}/end-users/${id}/variables`);
+
+    const valuesDoc$ = namesRepo.getDocumentById('values');
+
+    return valuesDoc$;
+  }  
+  
   getCurrentCursor(id: string) {
     const cursorRepo = this._repoFac.getRepo<Cursor>(`orgs/${this._activeOrg.id}/end-users/${id}/cursor`);
 

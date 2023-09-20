@@ -55,8 +55,6 @@ export interface Chat extends IObject
   lastMsg?: any;
 
   isConversationComplete?: number;
-
-  variables?: {[key:string]:any};
 }
 
 export interface ChatUserInfo {

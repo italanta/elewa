@@ -10,9 +10,9 @@
     <div class="top-section" fxLayout="row" fxLayoutAlign="space-between center">
       <div class="name-section">
         <div class="name-section">
-          {{ chat.variables?.['name'] || '+' + chat.phoneNumber }}
+          {{ chat.name || '+' + chat.phoneNumber }}
         </div>
-        <div *ngIf="chat.phoneNumber" class="name-section number">
+        <div *ngIf="chat.phoneNumber && chat.name" class="name-section number">
           {{ '+' + chat.phoneNumber }}
         </div>
         <!-- <div *ngIf="chat.class" class="name-section">

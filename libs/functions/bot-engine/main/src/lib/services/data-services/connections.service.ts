@@ -51,6 +51,7 @@ export class ConnectionsDataService extends BotDataService<Connection>
 
     return conn[0];
   }
+
   /** 
    * Each connection we store has the sourceId which contains the block the connection comes from
    * 

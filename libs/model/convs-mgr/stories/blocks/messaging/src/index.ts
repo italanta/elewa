@@ -26,4 +26,3 @@ export * from './lib/assessment-brick.interface';
 export * from './lib/conditional-block.interface';
 export * from './lib/assessment-question-block.interface';
 export * from './lib/CMI5-block.interface';
-export * from './lib/CMI5-launch-block.interface';

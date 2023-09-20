@@ -34,7 +34,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
   {
     this._tools = tools;
     this.channel = payload as WhatsAppCommunicationChannel;
-    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.defaultStory, this.channel.orgId));
+    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
 
     this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
 
