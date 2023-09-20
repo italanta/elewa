@@ -78,12 +78,20 @@ export class WhatsappActiveChannel implements ActiveChannel
 
     const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
 
+    let latestMessageTime;
+    let limitPassed
+
     if (latestMessage) {
       // Get the date in milliseconds
-      const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
+      latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
+    }
+      if (latestMessageTime) { 
 
-      if ((Date.now() - latestMessageTime.unix() * 1000) > 864000) {
+        limitPassed = ((Date.now() - latestMessageTime.unix() * 1000) > 864000)
 
+      }
+
+      if (limitPassed || !latestMessage) {
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${phone}`);
 
@@ -101,7 +109,7 @@ export class WhatsappActiveChannel implements ActiveChannel
           return null;
         }
       }
-    }
+
   }
 
   private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
