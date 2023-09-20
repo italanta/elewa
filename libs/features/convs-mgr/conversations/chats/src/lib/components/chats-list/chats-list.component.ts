@@ -123,7 +123,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     chatList.sort((a, b) => {
       const timestampA = lastMessageTimestamps[chatList.indexOf(a)];
       const timestampB = lastMessageTimestamps[chatList.indexOf(b)];
-      return timestampB.getTime() - timestampA.getTime();
+      return timestampB.getTime() - timestampA.getTime();// Compare timestamps and return the comparison result.
     });
   
     this.chats = chatList;
