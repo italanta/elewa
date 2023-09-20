@@ -10,8 +10,17 @@
 
     <div class="chat-title-txt">
       <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
-      <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
+      <span *ngIf="!chat.name" title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
+      <span class="chat-clasroom">TBD | POST TEST | 
+        <ng-container *ngIf="!chatIsPaused() && !hasCompleted(); else pausedBlock">
+          PLAYING
+        </ng-container>
+        <ng-template #pausedBlock>
+          PAUSED
+        </ng-template>
+      </span>
     </div>
+   
   </div>
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
