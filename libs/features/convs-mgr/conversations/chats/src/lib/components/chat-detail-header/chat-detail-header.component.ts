@@ -47,6 +47,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   private _sbs = new SubSink();
 
   extractedLearnerId: any;// This variable will be used to store the ID of a learner extracted from enrolled learners.
+  learnerClass: string;
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
@@ -87,8 +88,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
       learners.forEach((learner) => {
         if (this.chat.id == learner.whatsappUserId) {
           this.extractedLearnerId = learner.id;
+          this.learnerClass = learner.classId;
         }
-        console.log(learner)
       });
     });
   }
