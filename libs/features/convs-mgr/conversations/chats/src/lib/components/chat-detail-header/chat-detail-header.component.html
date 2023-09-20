@@ -9,11 +9,12 @@
     </div>
 
     <div class="chat-title-txt">
-      <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
+      <a [routerLink]="['/learners/', extractedLearnerId ]"> 
+        <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
+      </a>  
       <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
-
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
     <div *ngIf="userClass" class="header__item">
