@@ -35,6 +35,10 @@
   display: grid;
   gap: 5px;
   grid-template-rows: 2;
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .inactive {
