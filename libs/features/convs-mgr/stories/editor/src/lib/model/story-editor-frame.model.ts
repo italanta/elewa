@@ -29,8 +29,9 @@ export class StoryEditorFrame {
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
-  private _newestBlock: StoryBlock;
+  private _latestBlock: StoryBlock;
   private _connections: StoryBlockConnection[];
+  private _anchorPosition = {x:100, y: 100};
 
   blocksArray: FormArray;
 
@@ -57,10 +58,12 @@ export class StoryEditorFrame {
     this._story = state.story;
     this._blocks = state.blocks;
     this._connections = state.connections;
+    if(state.blocks.length > 1) {
+      this._latestBlock = state.blocks.reduce((prev, current) => {
+        return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
+      });
 
-    this._newestBlock = state.blocks.reduce((prev, current) => {
-      return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
-    });
+    }
 
     this.blocksArray = this._fb.array([]);
 
@@ -116,14 +119,12 @@ export class StoryEditorFrame {
   }
 
   createStartAnchor() {
-    const editorWidth = 100;
-    const editorHeight = 100;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
 
     //position the start anchor to center of viewport
-    startAnchor.location.nativeElement.style = `position: absolute; left: ${editorWidth}px; top: ${editorHeight}px;`;
+    startAnchor.location.nativeElement.style = `position: absolute; left: ${this._anchorPosition.y}px; top: ${this._anchorPosition.x}px;`;
   }
 
   /**
@@ -235,12 +236,16 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
-
-    const x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
-    const y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
-
-    const  pageheight = this._edf.nativeElement.offsetHeight/2;
-    const  pagewidth = this._edf.nativeElement.offsetWidth/2;
+    const blockPosition = {x: 0, y: 0};
+    // If the story has other blocks, position the new block close to the last one
+    if(this._latestBlock) {
+      blockPosition.x = this._latestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 50);
+      blockPosition.y = this._latestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+    } else {
+      // If it's a new story place the first block right after the start block
+      blockPosition.x = this._anchorPosition.x + (this._cnt*100);
+      blockPosition.y = this._anchorPosition.y;
+    }
 
     const block = {
       id: `${this._cnt}`,
@@ -248,7 +253,7 @@ export class StoryEditorFrame {
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
       // position: coordinates || { x: 200, y: 50 },
-      position: coordinates || { x: x, y: y},
+      position: coordinates || { x: blockPosition.x, y: blockPosition.y},
     } as StoryBlock;
 
     this._cnt++;

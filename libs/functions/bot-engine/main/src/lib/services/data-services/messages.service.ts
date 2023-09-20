@@ -55,11 +55,15 @@ export class MessagesDataService extends BotDataService<Message> {
        (msg.direction === MessageDirection.FROM_ENDUSER_TO_AGENT ||
         msg.direction === MessageDirection.FROM_END_USER_TO_CHATBOT));
 
-    // Return the latest message using createdOn timestamp
-    const latestUserMessage = userMessages.reduce((prev, current) => {
-      return (prev.createdOn > current.createdOn) ? prev : current
-    });
-
-    return latestUserMessage;
+    if(userMessages) {
+      // Return the latest message using createdOn timestamp
+      const latestUserMessage = userMessages.reduce((prev, current) => {
+        return (prev.createdOn > current.createdOn) ? prev : current
+      });
+  
+      return latestUserMessage;
+    } else {
+      return null;
+    }
   }
 }
