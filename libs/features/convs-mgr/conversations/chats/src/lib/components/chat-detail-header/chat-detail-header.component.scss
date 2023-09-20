@@ -39,6 +39,10 @@
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .user-tooltip {
