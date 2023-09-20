@@ -5,7 +5,9 @@
       <i class="user-tooltip fas fa-user-circle"></i>
     </div>
     <div class="chat-title-txt">
-      <span *ngIf="chat.variables?.['name']" class="name"> {{ chat.variables?.['name'] }} </span>
+      <a [routerLink]="['/learners/', extractedLearnerId ]"> 
+        <span *ngIf="chat.variables?.['name']" class="name"> {{ chat.variables?.['name'] }} </span>
+      </a>
       <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
