@@ -78,6 +78,15 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.moveChatDialogRef = null as any;
       }
     }
+
+    // Subscribe to the getAllLearners$ Observable from _enrolledLearners service
+    this._enrolledLearners.getAllLearners$().subscribe((learners) => {
+      learners.forEach((learner) => {
+        if (this.chat.id == learner.whatsappUserId) {
+          this.extractedLearnerId = learner.id;
+        }
+      });
+    });
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
