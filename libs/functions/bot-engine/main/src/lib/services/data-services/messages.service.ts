@@ -45,7 +45,7 @@ export class MessagesDataService extends BotDataService<Message> {
     return latestMessage[0];
   }
 
-  async getLatestUserMessage(endUserId: string, orgId: string): Promise<Message> {
+  async getLatestUserMessage(endUserId: string, orgId: string): Promise<Message>  {
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/messages`
 
     const latestMessage = await this.getDocuments(this._docPath);
@@ -55,8 +55,7 @@ export class MessagesDataService extends BotDataService<Message> {
        (msg.direction === MessageDirection.FROM_ENDUSER_TO_AGENT ||
         msg.direction === MessageDirection.FROM_END_USER_TO_CHATBOT));
 
-    if(userMessages.length < 1) {
-
+    if(userMessages.length > 0) {
       // Return the latest message using createdOn timestamp
       const latestUserMessage = userMessages.reduce((prev, current) => {
         return (prev.createdOn > current.createdOn) ? prev : current
