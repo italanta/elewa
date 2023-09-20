@@ -29,6 +29,7 @@ import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.comp
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
+import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 @Component({
   selector: 'app-chat-detail-header',
@@ -43,6 +44,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   @Input() currentPosition: EndUserPosition;
 
   private _sbs = new SubSink();
+  extractedLearnerId: any;
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
@@ -59,6 +61,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     private _afsF: AngularFireFunctions,
     private _dialog: MatDialog,
     private _spinner: SpinnerService,
+    private _enrolledLearners: EnrolledLearnersService,
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
   }
@@ -75,6 +78,14 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.moveChatDialogRef = null as any;
       }
     }
+  
+    this._enrolledLearners.getAllLearners$().subscribe((learners) => {
+      learners.forEach((learner) =>{
+        if(this.chat.id ==  learner.whatsappUserId){
+          this.extractedLearnerId = learner.id
+        }
+      })
+    });
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
