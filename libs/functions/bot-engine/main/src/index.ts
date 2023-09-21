@@ -25,6 +25,3 @@ export * from './lib/services/data-services/connections.service';
 export * from './lib/services/data-services/channel-info.service';
 export * from './lib/services/data-services/enrolled-user.service';
 export * from './lib/services/variable-injection/mail-merge-variables.service';
-export * from './lib/services/process-message/process-message.service';
-export * from './lib/services/media/process-media-service';
-export * from './lib/services/bot-engine-jump.service';
