@@ -91,8 +91,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
       .pipe(first())
       .subscribe((learners: EnrolledEndUser[]) => {
         if (learners.length > 0) {
-          const learner = learners[0]; // Assuming you want the first learner
-          console.log("Learner ID:", learner.id);
+          const learner = learners[0]; // getting the first learner
           this.extractedLearnerId = learner.id
         }
       });
