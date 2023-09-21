@@ -37,7 +37,7 @@ export class NewUserDialogComponent implements OnInit {
   inviteNewUser() {
     if (!!this.newUserFormGroup.valid) {
       this.creatingUser = true;
-      this._usersService.addUserToOrg(this.newUserFormGroup).subscribe((data) => {
+      this._usersService.addUserToOrg(this.newUserFormGroup).subscribe(() => {
         this.dialogRef.close();
         this.creatingUser = false;
       });
