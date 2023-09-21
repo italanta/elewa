@@ -11,7 +11,7 @@
     <div class="chat-title-txt">
       <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
       <span *ngIf="!chat.name" title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
-      <span class="chat-clasroom">{{ learnerClass ? learnerClass : 'No class assigned' }} | {{ currentStory.name ? currentStory.name.toUpperCase() : '' }} | 
+      <span class="chat-clasroom"><a class="currentClasslink" title="class" routerLink="/class/{{ learnerClass }}">{{ learnerClass ? learnerClass : 'No class assigned' }}</a> | <a class="currentStorylink" title="course" routerLink="/stories/{{ currentStory.id }}">{{ currentStory.name ? currentStory.name.toUpperCase() : '' }}</a> | 
         <ng-container *ngIf="!chatIsPaused() && !hasCompleted(); else pausedBlock">
           PLAYING
         </ng-container>
