@@ -84,13 +84,16 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     }
 
     // Subscribe to the getAllLearners$ Observable from _enrolledLearners service
-    this._enrolledLearners.getAllLearners$().subscribe((learners) => {
-      learners.forEach((learner) => {
-        if (this.chat.id == learner.whatsappUserId) {
-          this.extractedLearnerId = learner.id;
+    this._enrolledLearners
+      .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
+      .pipe(first())
+      .subscribe((learners: EnrolledEndUser[]) => {
+        if (learners.length > 0) {
+          const learner = learners[0]; // Assuming you want the first learner
+          console.log("Learner ID:", learner.id);
+          this.extractedLearnerId = learner.id
         }
       });
-    });
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
