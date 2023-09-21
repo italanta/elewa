@@ -84,43 +84,20 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.moveChatDialogRef = null as any;
       }
     }
-    console.log("chat",this.chat.id)
-    console.log("platform",PlatformType.WhatsApp)
-
-    console.log('Before calling getLearnerId$');
 
     this._enrolledLearners
       .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
-      .pipe(
-        catchError((error) => {
-          console.error('Error fetching enrolled learners:', error);
-          return [];
-        }),
-        first()
-      )
       .subscribe(
         (learners: EnrolledEndUser[]) => {
-          console.log('Inside subscribe'); // Log when subscribe is called
+          console.log({learners}); // Log when subscribe is called
           if (learners.length > 0) {
             const learner = learners[0];
             this.extractedLearnerId = learner.id;
-            console.log('Extracted learner ID:', this.extractedLearnerId);
           } else {
             console.log('No learners emitted');
           }
         },
-        (error) => {
-          console.error('Error in subscribe:', error);
-        },
-        () => {
-          console.log('Observable completed');
-        }
       );
-    
-    console.log('After calling getLearnerId$');
-    
-
-
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
