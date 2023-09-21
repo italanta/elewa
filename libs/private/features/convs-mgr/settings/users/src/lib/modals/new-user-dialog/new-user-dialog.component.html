@@ -21,5 +21,15 @@
 </div>
 <div mat-dialog-actions>
   <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
-  <button class="submit-btn" [disabled]="creatingUser" mat-raised-button color="primary" (click)="inviteNewUser()" > Add New Member</button>
+  <!-- <button class="submit-btn" [disabled]="creatingUser" mat-raised-button color="primary" (click)="inviteNewUser()" > </button> -->
+
+  <button [disabled]="creatingUser" (click)="inviteNewUser()" mat-raised-button color="primary" class="submit-btn">
+    <span *ngIf="!creatingUser; else saving"> Add New Member </span>
+    <ng-template #saving>
+      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <span> Adding </span>
+        <mat-spinner diameter="20"></mat-spinner>
+      </span>
+    </ng-template>
+  </button>
 </div>

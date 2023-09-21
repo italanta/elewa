@@ -30,14 +30,14 @@ export class NewUserDialogComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       roles:[[]],
-      email: ['', Validators.required, Validators.email]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
   inviteNewUser() {
     if (!!this.newUserFormGroup.valid) {
       this.creatingUser = true;
-      this._usersService.addUserToOrg(this.newUserFormGroup).subscribe(() => {
+      this._usersService.addUserToOrg(this.newUserFormGroup).subscribe((data) => {
         this.dialogRef.close();
         this.creatingUser = false;
       });
