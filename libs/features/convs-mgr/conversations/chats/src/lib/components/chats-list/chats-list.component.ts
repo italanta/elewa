@@ -54,7 +54,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   stashed: Chat[];
   blocked: Chat[];
 
-  newDate : any[] = [];
+  newDate : Date[] = [];
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
