@@ -10,7 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { first, from, tap } from 'rxjs';
+import { catchError, first, from, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { BackendService, UserService } from '@ngfi/angular';
@@ -84,17 +84,43 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.moveChatDialogRef = null as any;
       }
     }
+    console.log("chat",this.chat.id)
+    console.log("platform",PlatformType.WhatsApp)
 
-    // Subscribe to the getAllLearners$ Observable from _enrolledLearners service
+    console.log('Before calling getLearnerId$');
+
     this._enrolledLearners
       .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
-      .pipe(first())
-      .subscribe((learners: EnrolledEndUser[]) => {
-        if (learners.length > 0) {
-          const learner = learners[0]; // getting the first learner
-          this.extractedLearnerId = learner.id
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching enrolled learners:', error);
+          return [];
+        }),
+        first()
+      )
+      .subscribe(
+        (learners: EnrolledEndUser[]) => {
+          console.log('Inside subscribe'); // Log when subscribe is called
+          if (learners.length > 0) {
+            const learner = learners[0];
+            this.extractedLearnerId = learner.id;
+            console.log('Extracted learner ID:', this.extractedLearnerId);
+          } else {
+            console.log('No learners emitted');
+          }
+        },
+        (error) => {
+          console.error('Error in subscribe:', error);
+        },
+        () => {
+          console.log('Observable completed');
         }
-      });
+      );
+    
+    console.log('After calling getLearnerId$');
+    
+
+
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
