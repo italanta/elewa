@@ -31,6 +31,7 @@ import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.c
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 @Component({
   selector: 'app-chat-detail-header',
