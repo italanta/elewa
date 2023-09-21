@@ -192,6 +192,7 @@
         "libs/functions/analytics/progress/main/src/index.ts"
       ],
       "@app/functions/base": ["libs/functions/base/src/index.ts"],
+      "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/functions/bot-engine": [
         "libs/functions/bot-engine/main/src/index.ts"
       ],
@@ -211,12 +212,6 @@
         "libs/functions/bot-process-handler/src/index.ts"
       ],
       "@app/functions/bot-users": ["libs/functions/bot-users/src/index.ts"],
-
-      "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
-        "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
-      ],
-      
-      "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
       ],
@@ -275,9 +270,6 @@
       "@app/private/features/convs-mgr/analytics": [
         "libs/private/features/convs-mgr/analytics/src/index.ts"
       ],
-      "@app/private/features/convs-mgr/orgs": [
-        "libs/private/features/convs-mgr/orgs/src/index.ts"
-      ],
       "@app/private/features/convs-mgr/settings/main": [
         "libs/private/features/convs-mgr/settings/main/src/index.ts"
       ],
@@ -296,9 +288,6 @@
       "@app/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
       ],
-      "@app/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block": [
-        "libs/private/features/convs-mgr/stories/blocks/library/cmi5-launch-block/src/index.ts"
-      ],
       "@app/private/functions/analytics/metabase": [
         "libs/private/functions/analytics/metabase/src/index.ts"
       ],
@@ -314,14 +303,14 @@
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
-      "@app/private/model/access-control": [
-        "libs/private/model/access-control/src/index.ts"
-      ],
       "@app/private/model/convs-mgr/micro-apps/base": [
         "libs/private/model/convs-mgr/micro-apps/base/src/index.ts"
       ],
       "@app/private/model/convs-mgr/micro-apps/cmi5": [
         "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
+      ],
+      "@app/private/model/access-control": [
+        "libs/private/model/access-control/src/index.ts"
       ],
       "@app/private/state/access-control": [
         "libs/private/state/access-control/src/index.ts"

@@ -1,12 +1,16 @@
-<div id="chat-detail-header" *ngIf="chat; else loading" fxLayout="row" fxLayoutAlign="space-between center" class="">
+<div id="chat-detail-header" *ngIf="chat; else loading" fxLayout="row" fxLayoutAlign="space-between center">
 
   <div fxLayout="row" class="chat-title">
-    <div id="statusIndicator" class="{{getClass()}}">
-      <i class="user-tooltip fas fa-user-circle"></i>
+    <div class="avatar" [ngStyle]="{'background-color':chat.name ? avatarBgColor : '#3E788A'}" [class.new-msg]="chat.awaitingResponse">
+      <div *ngIf="!chat.name">
+        <span style="color: white;">UU</span>
+      </div>
+      <span class="user-char" *ngIf="chat.name">{{getUserName(chat.name)}}</span>
     </div>
+
     <div class="chat-title-txt">
-      <span *ngIf="chat.variables?.['name']" class="name"> {{ chat.variables?.['name'] }} </span>
-      <span title="phoneNumber" class="number"> +{{ chat.phoneNumber }} </span>
+      <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
+      <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>
 
@@ -38,19 +42,19 @@
       </ng-template>
     </div>
 
-    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-icon-button
+    <button *ngIf="!chatIsPaused() && !hasCompleted() else resumeBtn" class="icon-button" mat-mini-fab
       matTooltip="Pause Chat" (click)="pauseChat()">
-      <i class="fas fa-pause-circle"></i>
+      <i class="fas fa-pause"></i>
     </button>
 
     <ng-template #resumeBtn>
-      <button class="icon-button" mat-icon-button matTooltip="Resume Chat" (click)="openModal('resume')">
-        <i class="fas fa-play-circle"></i>
+      <button class="icon-button" mat-mini-fab matTooltip="Resume Chat" (click)="openModal('resume')">
+        <i class="fas fa-play"></i>
       </button>
     </ng-template>
 
-    <button class="icon-button" mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Menu">
-      <i class="fas fa-bars"></i>
+    <button mat-flat-button [matMenuTriggerFor]="menu" matTooltip="Menu">
+      <i class="fas fa-ellipsis-h"></i>
     </button>
 
     <mat-menu #menu="matMenu">

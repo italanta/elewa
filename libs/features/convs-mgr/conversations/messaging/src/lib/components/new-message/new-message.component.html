@@ -1,12 +1,8 @@
-<div fxLayout="row" fxLayoutAlign="start end" fxFlex class="input-row">
-  <textarea class="text-area" type="text" placeholder="Type a message (Enter is send)"
-          [(ngModel)]="message" (keyup)="onInputKeyup($event)"
-          [disabled]="disabled"></textarea>
+<div class="input-row" fxFlex>
+  <input class="text-area" type="text" placeholder="Type a message (Enter is send)" [(ngModel)]="message"
+    (keyup)="onInputKeyup($event)" [disabled]="disabled">
 
-  <button (click)="emitMessage()"
-          [disabled]="disabled"
-          color="accent" mat-raised-button>
-    <i class="fas fa-paper-plane"></i>&nbsp;Send
+  <button mat-mini-fab (click)="emitMessage()" [disabled]="disabled" color="accent">
+    <i class="fas fa-paper-plane"></i>
   </button>
-
 </div>
