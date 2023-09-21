@@ -56,7 +56,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   avatarBgColor: string;
 
-  extractedLearnerId: any;// This variable will be used to store the ID of a learner extracted from enrolled learners.
+
 
   constructor(private _snackBar: MatSnackBar,
               private userService: UserService<iTalUser>,
