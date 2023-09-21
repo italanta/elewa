@@ -45,6 +45,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   @Input() currentPosition: EndUserPosition;
 
   private _sbs = new SubSink();
+  extractedLearnerId: string | undefined;// This variable will be used to store the ID of a learner extracted from enrolled learners.
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
