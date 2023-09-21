@@ -75,7 +75,9 @@ export class ChatsListComponent implements AfterViewInit, OnInit
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$ = this._chats$.get();
+    // this.chats$ = this._chats$.get();
+    // this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
+    this.chats$  = this._msgsQuery$.getChats();
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 
@@ -96,39 +98,16 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     });
   }
 
-  getChats(chatList: Chat[]) {
+  getChats(chatList: Chat[])
+  {
     this.dataSource = new MatTableDataSource<any>();
     this.chats$ = this.dataSource.connect();
-    const lastMessageTimestamps: Date[] = []; // Use Date objects instead of numbers
-  
-    chatList.forEach(chat => {
-      this.newDate.push(chat.createdOn);
-      this._msgsQuery$.getLatestMessageDate(chat.id).subscribe(date => {
-        chat.lastMsg = date; // Assign the latest message date to the chat object
-  
-        // Combine seconds and nanoseconds into milliseconds
-        const timestampMilliseconds = date.seconds * 1000 + date.nanoseconds / 1e6;
-        
-        // Create a Date object using the combined timestamp
-        const dateObject = new Date(timestampMilliseconds);
-        
-        lastMessageTimestamps.push(dateObject); // Store the Date object in the array
-        this.applySorting(chatList, lastMessageTimestamps);
-      });
-    });
-  }
-  
-  applySorting(chatList: Chat[], lastMessageTimestamps: Date[]) {
-    // Sort chatList based on lastMessageTimestamps
-    chatList.sort((a, b) => {
-      const timestampA = lastMessageTimestamps[chatList.indexOf(a)];
-      const timestampB = lastMessageTimestamps[chatList.indexOf(b)];
-      return timestampB.getTime() - timestampA.getTime();// Compare timestamps and return the comparison result.
-    });
-  
+
     this.chats = chatList;
     this.initializeLists();
-  
+    //Set into categories
+    chatList.forEach(chat => this.categorize(chat));
+
     if (!this.filtrString) this.filtrString = '';
     this.applyFilter();
     this.dataSource.paginator = this.paginator?.first;

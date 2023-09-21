@@ -11,8 +11,10 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
-import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
+import { ActiveChatStore, ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
+import { Observable, of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,7 @@ export class MessagesQuery
                 private _activeOrg: ActiveOrgStore,
                 _activeChat$: ActiveChatStore,
                private _dataService: DataService,
+               private _chatStore : ChatsStore,
                protected _logger: Logger)
   {
     _activeOrg.get().subscribe(org => this.orgId = org.id);
@@ -63,10 +66,39 @@ export class MessagesQuery
     return messagesRepo$.create(message, Date.now().toString());
   }
 
-  // get(index: number, n: number): Observable<ChatMessage[]>
-  // {
-
-  //   return this._qRepo.getDocuments(new Query().orderBy('date', 'desc')
-  //                                              .skipTake(index, n))
-  // }
+  getChats() {
+    if (!this.orgId) {
+      throw new Error('Organization ID is not set. Call setOrgId(orgId) first.');
+    }
+    const chatsList = this._chatStore.get();
+  
+    // Create an array to store the dates
+    const datesArray: any[] = [];
+  
+    chatsList.subscribe((chats) => {
+      chats.forEach((chat) => {
+        console.log('Chat ID:', chat.id);
+        this.getLatestMessageDate(chat.id).subscribe((date) => {
+          console.log(date);
+  
+          // Push the date into the array
+          datesArray.push(date);
+  
+          // Check if all dates have been collected
+          if (datesArray.length === chats.length) {
+            // Sort the dates in descending order
+            datesArray.sort((a, b) => b.seconds - a.seconds || b.nanoseconds - a.nanoseconds);
+  
+            // Now, datesArray contains the dates sorted from most recent to least recent
+            console.log('Sorted Dates:', datesArray);
+          }
+        });
+      });
+    });
+  
+    // You can use the provided chats array here or fetch them as needed
+    return chatsList; // Assuming you have imported 'of' from 'rxjs'
+  }
+  
+  
 }
