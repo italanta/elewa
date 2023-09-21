@@ -6,6 +6,7 @@ import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 
 import { LearnersStore } from '../store/learners.store';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Injectable({
   providedIn: 'root',
@@ -54,5 +55,8 @@ export class EnrolledLearnersService {
 
   updateLearner$(learner: EnrolledEndUser) {
     return this._enrolledLearners$$.update(learner);
+  }
+  getLearnerId$(platform: PlatformType, id: string ){
+    return this._enrolledLearners$$.getLearnerByPlatfromId(platform, id)
   }
 }
