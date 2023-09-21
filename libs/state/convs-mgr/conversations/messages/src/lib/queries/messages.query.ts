@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import {  map, mergeMap } from 'rxjs/operators';
+import {  combineLatest} from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 import { Logger } from '@iote/bricks-angular';
@@ -13,7 +14,7 @@ import { Message } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChatStore, ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
-import { Observable, of } from 'rxjs';
+
 
 
 @Injectable({
@@ -66,39 +67,41 @@ export class MessagesQuery
     return messagesRepo$.create(message, Date.now().toString());
   }
 
-  getChats() {
-    if (!this.orgId) {
-      throw new Error('Organization ID is not set. Call setOrgId(orgId) first.');
-    }
-    const chatsList = this._chatStore.get();
-  
-    // Create an array to store the dates
-    const datesArray: any[] = [];
-  
-    chatsList.subscribe((chats) => {
-      chats.forEach((chat) => {
-        console.log('Chat ID:', chat.id);
-        this.getLatestMessageDate(chat.id).subscribe((date) => {
-          console.log(date);
-  
-          // Push the date into the array
-          datesArray.push(date);
-  
-          // Check if all dates have been collected
-          if (datesArray.length === chats.length) {
-            // Sort the dates in descending order
-            datesArray.sort((a, b) => b.seconds - a.seconds || b.nanoseconds - a.nanoseconds);
-  
-            // Now, datesArray contains the dates sorted from most recent to least recent
-            console.log('Sorted Dates:', datesArray);
-          }
-        });
-      });
-    });
-  
-    // You can use the provided chats array here or fetch them as needed
-    return chatsList; // Assuming you have imported 'of' from 'rxjs'
+
+getChats() {
+  if (!this.orgId) {
+    throw new Error('Organization ID is not set. Call setOrgId(orgId) first.');
   }
-  
-  
+  const chatsList = this._chatStore.get();
+
+  return chatsList.pipe(
+    // Use mergeMap to map each chat to an observable of its latest message date
+    mergeMap((chats) => {
+      // Create an array of promises to fetch the latest message date for each chat
+      const datePromises = chats.map((chat) => {
+        return this.getLatestMessageDate(chat.id).pipe(
+        );
+      });
+
+      // Use forkJoin to wait for all date promises to resolve
+      return combineLatest(datePromises).pipe(
+        map((dates) => {
+          // Assign the retrieved dates to chats
+          chats.forEach((chat, index) => {
+            chat.lastMsg = dates[index];
+          });
+          // Sort the chats based on the last message date in descending order
+          chats.sort((a, b) => {
+            // Ensure that null dates (error cases) are placed at the end
+            if (a.lastMsg === null) return 1;
+            if (b.lastMsg === null) return -1;
+            return b.lastMsg - a.lastMsg;
+          });
+          return chats;
+        })
+      );
+    })
+  );
+  }
 }
+
