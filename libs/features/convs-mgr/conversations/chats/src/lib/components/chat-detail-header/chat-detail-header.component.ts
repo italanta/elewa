@@ -10,7 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { from, tap } from 'rxjs';
+import { first, from, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { BackendService, UserService } from '@ngfi/angular';
@@ -22,7 +22,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
-import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { EndUserPosition, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
@@ -30,6 +30,9 @@ import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.comp
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
+import { LearnersStore } from 'libs/state/convs-mgr/learners/src/lib/store/learners.store';
+import { WhatsAppMessageType } from '@app/model/convs-mgr/functions';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 
 @Component({
@@ -45,7 +48,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   @Input() currentPosition: EndUserPosition;
 
   private _sbs = new SubSink();
-  extractedLearnerId: any;// This variable will be used to store the ID of a learner extracted from enrolled learners.
+  extractedLearnerId: string | undefined;// This variable will be used to store the ID of a learner extracted from enrolled learners.
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
@@ -63,6 +66,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     private _dialog: MatDialog,
     private _spinner: SpinnerService,
     private _enrolledLearners: EnrolledLearnersService,
+    private _learnersStore : LearnersStore
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
   }
@@ -80,16 +84,22 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
       }
     }
   
-   // Subscribe to the getAllLearners$ Observable from _enrolledLearners service
-    this._enrolledLearners.getAllLearners$().subscribe((learners) => {
-      learners.forEach((learner) => {
-        if (this.chat.id == learner.whatsappUserId) {
-          this.extractedLearnerId = learner.id;
-        }
-      });
-    });
-  }
 
+    
+  this._enrolledLearners
+  .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
+  .pipe(first())
+  .subscribe((learners: EnrolledEndUser[]) => {
+    if (learners.length > 0) {
+      const learner = learners[0]; // Assuming you want the first learner
+      console.log("Learner ID:", learner.id);
+      this.extractedLearnerId = learner.id
+    }
+  });
+
+    
+  }
+  
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
 
   testPayment = () =>
