@@ -46,6 +46,14 @@ export interface Message extends IObject
 
   url?                : string;
 
+  /**
+   * For all message templates we can pass variables to further
+   *  customize the message. The variables will be injected directly to the
+   *   template by whatsapp/messenger starting from the first one in the array.
+   * 
+   * Only set the params if the message template actually has variables, otherwise the message
+   *  may fail to reach the end user.
+   */
   params?             : TemplateMessageParams[];
 }
 
