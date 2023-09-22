@@ -31,6 +31,7 @@ import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.c
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 @Component({
   selector: 'app-chat-detail-header',
@@ -84,9 +85,16 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
       }
     }
      // Subscribe to the getAllLearners$ Observable from _enrolledLearners service
-    this._enrolledLearners.getLearnerClass$(this.chat.id).subscribe((learnerClass) => {
-      this.learnerClass = learnerClass
-    });
+     this._enrolledLearners
+     .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
+     .subscribe(
+       (learners: EnrolledEndUser[]) => {
+           const learner = learners[0];
+           this.extractedLearnerId = learner.id;
+           this.learnerClass = learner.classId
+         
+       },
+     );
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
