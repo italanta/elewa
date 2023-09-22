@@ -49,4 +49,11 @@ export class LearnersStore extends DataStore<EnrolledEndUser>
       this.set(properties, 'UPDATE - FROM DB');
     });
   }
+  getLearnerByPlatfromId(platform: PlatformType, id: string): Observable<EnrolledEndUser[]> {
+    if (platform === PlatformType.WhatsApp) {
+      return this._activeRepo.getDocuments(new Query().where('whatsappUserId', '==', id));
+    } else {
+      return this._activeRepo.getDocuments(new Query().where('messengerUserId', '==', id));
+    }
+  }
 }
