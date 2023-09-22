@@ -56,20 +56,7 @@ export class EnrolledLearnersService {
     return this._enrolledLearners$$.update(learner);
   }
 
-  getLearnerClass$(whatsappUserId: string) {
-    // Use switchMap to transform the observable of learners
-    return this.getAllLearners$().pipe(
-      map((learners) => {
-        // Iterate through learners to find the one with matching whatsappUserId
-        console.log(learners)
-        for (const learner of learners) {
-          if (learner.whatsappUserId === whatsappUserId) {
-            return learner.classId;
-
-          }
-        }
-        return null; // Return null if no matching learner is found
-      })
-    );
+  getLearnerId$(platform: PlatformType, id: string ){
+    return this._enrolledLearners$$.getLearnerByPlatfromId(platform, id)
   }
 }
