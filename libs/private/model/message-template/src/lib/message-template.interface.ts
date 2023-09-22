@@ -2,7 +2,7 @@
  * Represents a message template model.
  * This interface defines the structure of a message template.
  */
-export interface ModelMessageTemplate {
+export interface MessageTemplate {
   /**
    * The title of the message template.
    */
