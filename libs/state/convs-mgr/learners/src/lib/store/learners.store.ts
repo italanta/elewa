@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { Observable, of } from 'rxjs'
 import { tap, throttleTime, switchMap } from 'rxjs/operators';
@@ -12,7 +14,6 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { Organisation } from '@app/model/organisation';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { Query } from '@ngfi/firestore-qbuilder';
 
 @Injectable()
 export class LearnersStore extends DataStore<EnrolledEndUser>

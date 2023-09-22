@@ -4,9 +4,10 @@ import { map, switchMap, of, combineLatest } from 'rxjs';
 
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { LearnersStore } from '../store/learners.store';
-import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+
 
 @Injectable({
   providedIn: 'root',
