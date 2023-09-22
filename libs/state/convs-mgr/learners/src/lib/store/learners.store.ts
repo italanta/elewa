@@ -4,7 +4,6 @@ import { DataStore }  from '@ngfi/state';
 import { Query } from '@ngfi/firestore-qbuilder';
 
 import { Observable, of } from 'rxjs'
-import { of } from 'rxjs'
 import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
