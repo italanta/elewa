@@ -22,7 +22,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
-import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
+import { EndUserPosition, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
