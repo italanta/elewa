@@ -11,7 +11,7 @@ export interface ModelMessageTemplate {
   /**
    * The header content of the message template.
    */
-  header: string;
+  header?: string;
 
   /**
    * The body content of the message template.
@@ -21,6 +21,6 @@ export interface ModelMessageTemplate {
   /**
    * The footer content of the message template.
    */
-  footer: string;
+  footer?: string;
 }
 
