@@ -18,8 +18,8 @@ export class MessageTemplatesService {
     return this.callFunction('create', { payload });
   }
 
-  deleteTemplate(templateId: string): Observable<any> {
-    return this.callFunction('delete', { templateId });
+  deleteTemplate(payload: MessageTemplate): Observable<any> {
+    return this.callFunction('delete', { payload });
   }
 
   updateTemplate(payload: MessageTemplate): Observable<any> {
