@@ -1,8 +1,10 @@
+import { IObject } from "@iote/bricks";
+
 /**
  * Represents a message template model.
  * This interface defines the structure of a message template.
  */
-export interface MessageTemplate {
+export interface MessageTemplate extends IObject {
   /**
    * The title of the message template.
    */
