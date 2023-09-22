@@ -1444,6 +1444,29 @@
       },
       "tags": []
     },
+    "private-model-message-template": {
+      "root": "libs/private/model/message-template",
+      "sourceRoot": "libs/private/model/message-template/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/model/message-template/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/message-template"],
+          "options": {
+            "jestConfig": "libs/private/model/message-template/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-state-access-control": {
       "projectType": "library",
       "root": "libs/private/state/access-control",
