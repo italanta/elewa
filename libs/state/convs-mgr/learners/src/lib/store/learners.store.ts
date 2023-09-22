@@ -11,6 +11,7 @@ import { ActiveOrgStore } from '@app/state/organisation';
 
 import { Organisation } from '@app/model/organisation';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Injectable()
 export class LearnersStore extends DataStore<EnrolledEndUser>
