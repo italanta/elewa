@@ -1,1 +1,1 @@
-export * from './lib/private-features-convs-mgr-message-template.module';
+export * from './lib/message-template.module';
