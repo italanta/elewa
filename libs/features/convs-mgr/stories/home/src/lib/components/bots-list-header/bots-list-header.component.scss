@@ -1,0 +1,56 @@
+.header {
+  position: relative;
+  height: 200px;
+  width: 100%;
+
+  img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .header-text span:first-of-type {
+    font-size: 2.5rem;
+    font-weight: 400;
+    padding: 0px 30px;
+  }
+
+  .header-text span:last-of-type {
+    font-size: 1.1rem;
+    font-weight: 300;
+    padding: 0px 30px;
+  }
+}
+
+.circle {
+  margin: 30px;
+  clip-path: circle();
+  background-color: rgba($color: #fff, $alpha: .3);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  button {
+    margin: 15px;
+  }
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  margin: auto 0;
+  padding-left: 20px;
+
+  height: fit-content;
+  width: fit-content;
+}
+
+.btn-add {
+  background-color: white !important;
+  color: black !important;
+}
