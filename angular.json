@@ -67,32 +67,6 @@
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
-    "features-analytics": {
-      "projectType": "library",
-      "root": "libs/features/convs-mgr/analytics",
-      "sourceRoot": "libs/features/analytics/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/features/analytics"],
-          "options": {
-            "jestConfig": "libs/features/analytics/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/features/analytics/**/*.ts",
-              "libs/features/analytics/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "features-app-auth-login": "libs/features/app/auth/login",
     "features-convs-mgr-conversations-assessments": {
       "projectType": "library",
@@ -747,32 +721,8 @@
       },
       "tags": []
     },
-    "functions-analytics-progress-main": {
-      "root": "libs/functions/analytics/progress/main",
-      "sourceRoot": "libs/functions/analytics/progress/main/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/functions/analytics/progress/main/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/functions/analytics/progress/main"],
-          "options": {
-            "jestConfig": "libs/functions/analytics/progress/main/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "functions-base": "libs/functions/base",
+    "functions-user": "libs/functions/user",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-messenger": {
       "root": "libs/functions/bot-engine/messenger",
@@ -1094,6 +1044,533 @@
           "options": {
             "jestConfig": "libs/model/user/bot-users/jest.config.ts",
             "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-elements-convs-mgr-access-control": {
+      "projectType": "library",
+      "root": "libs/private/elements/convs-mgr/access-control",
+      "sourceRoot": "libs/private/elements/convs-mgr/access-control/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/elements/convs-mgr/access-control"
+          ],
+          "options": {
+            "jestConfig": "libs/private/elements/convs-mgr/access-control/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/elements/convs-mgr/access-control/**/*.ts",
+              "libs/private/elements/convs-mgr/access-control/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-analytics": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/analytics",
+      "sourceRoot": "libs/private/features/convs-mgr/analytics/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/features/convs-mgr/analytics"],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/analytics/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/analytics/**/*.ts",
+              "libs/private/features/convs-mgr/analytics/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-settings-main": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/main",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/main/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/features/convs-mgr/settings/main"],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/main/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/main/**/*.ts",
+              "libs/private/features/convs-mgr/settings/main/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-settings-organisation-details": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/organisation-details",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/organisation-details/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/organisation-details"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/organisation-details/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/organisation-details/**/*.ts",
+              "libs/private/features/convs-mgr/settings/organisation-details/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-settings-permissions": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/permissions",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/permissions/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/permissions"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/permissions/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/permissions/**/*.ts",
+              "libs/private/features/convs-mgr/settings/permissions/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-settings-user-profile": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/user-profile",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/user-profile/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/user-profile"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/user-profile/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/user-profile/**/*.ts",
+              "libs/private/features/convs-mgr/settings/user-profile/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-settings-users": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/users",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/users/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/users"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/users/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/users/**/*.ts",
+              "libs/private/features/convs-mgr/settings/users/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-stories-blocks-library-cmi5-block": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block",
+      "sourceRoot": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.ts",
+              "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-analytics-metabase": {
+      "root": "libs/private/functions/analytics/metabase",
+      "sourceRoot": "libs/private/functions/analytics/metabase/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/analytics/metabase/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/analytics/metabase"],
+          "options": {
+            "jestConfig": "libs/private/functions/analytics/metabase/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-analytics-progress-main": {
+      "root": "libs/private/functions/analytics/progress/main",
+      "sourceRoot": "libs/private/functions/analytics/progress/main/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/analytics/progress/main/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/analytics/progress/main"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/analytics/progress/main/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-micro-apps-base": {
+      "root": "libs/private/functions/micro-apps/base",
+      "sourceRoot": "libs/private/functions/micro-apps/base/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/micro-apps/base/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/micro-apps/base"],
+          "options": {
+            "jestConfig": "libs/private/functions/micro-apps/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-micro-apps-cmi5": {
+      "root": "libs/private/functions/micro-apps/cmi5",
+      "sourceRoot": "libs/private/functions/micro-apps/cmi5/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/micro-apps/cmi5/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/micro-apps/cmi5"],
+          "options": {
+            "jestConfig": "libs/private/functions/micro-apps/cmi5/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-organisation": {
+      "root": "libs/private/functions/organisation",
+      "sourceRoot": "libs/private/functions/organisation/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/functions/organisation/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/organisation"],
+          "options": {
+            "jestConfig": "libs/private/functions/organisation/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+
+    "private-model-convs-mgr-micro-apps-base": {
+      "root": "libs/private/model/convs-mgr/micro-apps/base",
+      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/base/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/convs-mgr/micro-apps/base/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/base"],
+          "options": {
+            "jestConfig": "libs/private/model/convs-mgr/micro-apps/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-model-access-control": {
+      "projectType": "library",
+      "root": "libs/private/model/access-control",
+      "sourceRoot": "libs/private/model/access-control/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/access-control"],
+          "options": {
+            "jestConfig": "libs/private/model/access-control/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/access-control/**/*.ts",
+              "libs/private/model/access-control/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+
+    "private-model-convs-mgr-micro-apps-cmi5": {
+      "root": "libs/private/model/convs-mgr/micro-apps/cmi5",
+      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/cmi5/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/convs-mgr/micro-apps/cmi5/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/cmi5"],
+          "options": {
+            "jestConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-access-control": {
+      "projectType": "library",
+      "root": "libs/private/state/access-control",
+      "sourceRoot": "libs/private/state/access-control/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/access-control"],
+          "options": {
+            "jestConfig": "libs/private/state/access-control/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/access-control/**/*.ts",
+              "libs/private/state/access-control/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-analytics": {
+      "projectType": "library",
+      "root": "libs/private/state/analytics",
+      "sourceRoot": "libs/private/state/analytics/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/analytics"],
+          "options": {
+            "jestConfig": "libs/private/state/analytics/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/analytics/**/*.ts",
+              "libs/private/state/analytics/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-organisation-main": {
+      "projectType": "library",
+      "root": "libs/private/state/organisation/main",
+      "sourceRoot": "libs/private/state/organisation/main/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/organisation/main"],
+          "options": {
+            "jestConfig": "libs/private/state/organisation/main/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/organisation/main/**/*.ts",
+              "libs/private/state/organisation/main/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-user-base": {
+      "projectType": "library",
+      "root": "libs/private/state/user/base",
+      "sourceRoot": "libs/private/state/user/base/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/user/base"],
+          "options": {
+            "jestConfig": "libs/private/state/user/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/user/base/**/*.ts",
+              "libs/private/state/user/base/**/*.html"
+            ]
           }
         }
       },

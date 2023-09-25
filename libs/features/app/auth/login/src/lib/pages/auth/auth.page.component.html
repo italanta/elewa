@@ -1,38 +1,98 @@
 <div *ngIf="user$ | async; else showLogin">
-  <app-navbar [backButton]="false"></app-navbar>
   <app-spinner></app-spinner>
 </div>
 
 <ng-template #showLogin>
   <div class="auth-page">
-    <div class="forms">
-      <div class="login-form">
-        <div class="logo-wrapper"><img class="image" src="assets/images/elewa-logo.png" /></div>
-        <div class="button-area" fxLayout="column">
-          <div class="toggle-btn">
-            <button (click)="toggleModeLogin()" [ngClass]="isLogin ? 'login-button' : ''"> {{ 'LOGIN.LOGIN' | transloco }}</button>
-            <button (click)="toggleMode()" [ngClass]="!isLogin ? 'login-button' : ''">Signup</button>
-          </div>
+    <div class="auth-card" fxLayout="row" fxLayoutAlign="start start">
+
+      <div class="login-page-info" fxFlex="65">
+        <img src="assets/images/elewa-log-in-ng.jpg">
+
+        <div class="top-left">
+          <img class="clm-logo" src="assets/icons/goomza-icon-transparent.png">
         </div>
 
-        <div class="form">
-          <span *ngIf="isLogin"><app-login></app-login></span>
-          <span *ngIf="!isLogin"><app-register></app-register></span>
-          <!-- <router-outlet fxFlex="100 "></router-outlet> -->
+        <div class="bottom-left">
+          <p class="title">
+            Creating Courses and engaging students has <br> never been easier. Elewa makes it effortless and effective
+          </p>
+
+          <p class="sub-title">
+            Our user-friendly interface makes it easy to track your chat bots and engage your audience in real-time.
+          </p>
         </div>
       </div>
-    </div>
 
-    <div class="elewa-info">
-      <div class="info-wrapper">
-        <p class="title">{{ 'LOGIN.HERO.TITLE' | transloco }}</p>
-        <p class="description">{{ 'LOGIN.HERO.DESCRIPTION' | transloco }}</p>
-        <p class="hyperlink">
-          {{ 'LOGIN.HERO.LEARN-MORE' | transloco }}
-          <a [href]="'LOGIN.HERO.LEARN-MORE-LINK' | transloco">{{
-            'LOGIN.HERO.LEARN-MORE-LINK' | transloco
-          }}</a>
-        </p>
+      <div class="login-form" fxFlex="35">
+        <div fxLayout="column" fxLayoutAlign="start" fxFlex>
+
+          <img class="clm-logo" src="assets/icons/goomza-logo-colored-transparent.png">
+
+          <div class="actions" fxLayout="column" fxLayoutAlign="start">
+            <span *ngIf="!isLogin" class="action-title"> Create an Account </span>
+            <span *ngIf="!isLogin" class="action-desc"> Start Your 7 Day Trial Today and Unlock a World of Engaging
+              Learning
+              Experiences
+            </span>
+
+            <span *ngIf="isLogin" class="action-title"> Log In </span>
+            <span *ngIf="isLogin" class="action-desc"> Welcome back! Please enter your details </span>
+          </div>
+
+          <div fxFlex>
+            <div label="Log In">
+              <span *ngIf="isLogin; else registerPage" fxFlex>
+                <app-login (createAccount)="createAccount()" fxFlex></app-login>
+              </span>
+            </div>
+            <div label="Create Account">
+              <ng-template #registerPage>
+                <span fxFlex>
+                  <app-register></app-register>
+                </span>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="action-buttons" fxLayout="column" fxLayoutAlign="start">
+            <button mat-stroked-button color="primary" (click)="logInWithGoogle()">
+              <mat-icon>
+                <img src="assets/images/google-logo.png">
+              </mat-icon>
+              <span *ngIf="isLogin"> Login With Google </span>
+              <span *ngIf="!isLogin"> Sign Up With Google </span>
+            </button>
+            <button mat-stroked-button color="primary" (click)="logInWithFaceBook()">
+              <mat-icon>
+                <img src="assets/images/facebook-logo.png">
+              </mat-icon>
+              <span *ngIf="isLogin">Login with Facebook </span>
+              <span *ngIf="!isLogin">Sign Up with Facebook </span>
+            </button>
+          </div>
+
+          <div style="margin-top: 20px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
+            fxFlex>
+            <span>
+              Don't have an account?
+            </span>
+            <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleMode()">
+              <span style="text-decoration: underline;"> Create an Account</span>
+            </button>
+          </div>
+
+          <ng-template #registerNav>
+            <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+              <span>
+                Already have an account?
+              </span>
+              <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleModeLogin()">
+                <span style="text-decoration: underline;">Log In</span>
+              </button>
+            </div>
+          </ng-template>
+        </div>
       </div>
     </div>
   </div>

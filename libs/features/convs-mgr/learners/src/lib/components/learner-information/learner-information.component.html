@@ -1,0 +1,28 @@
+<div class="page-container">
+    <div class="learner-information">
+        <div class="learner-information-details">
+            <div class="learner-avatar">{{getAvatar()}}
+            </div>
+            <div class="learner-details">
+                <p>{{currentLearner.name}}</p>
+                <p>
+                    <i class="fas fa-phone-alt"></i>
+                    {{currentLearner.phoneNumber}}
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{location}}
+                </p>
+            </div>
+        </div>
+        <div class="learner-activity">
+            <div class="activity-pill">
+                {{getStatus()}}
+            </div>
+            <a class="chat-button" (click)="goToChat()" routerLinkActive="router-link-active">
+                    <span><i class="fab fa-whatsapp"></i></span> 
+                    {{'LEARNERS.BUTTONS.GO-TO-CHAT'| transloco }}
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { HandlerTools } from '@iote/cqrs';
 
+import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { BotDataService } from './data-service-abstract.class';
 
 /**
@@ -8,6 +9,7 @@ import { BotDataService } from './data-service-abstract.class';
 export class VariablesDataService extends BotDataService<any>{
   private _docPath: string;
   tools: HandlerTools;
+  endUserId: string;
 
   constructor(tools: HandlerTools, orgId: string, endUserId: string) 
   {
@@ -18,17 +20,25 @@ export class VariablesDataService extends BotDataService<any>{
 
   protected _init(orgId: string, endUserId:string): void 
   {
-    this._docPath = `orgs/${orgId}/end-users/${endUserId}/variables`;
+    this._docPath = `orgs/${orgId}/end-users`;
+
+    this.endUserId = endUserId;
   }
 
-  public async getAllVariables() {
-    return this.getDocumentById('values',this._docPath);
+  public getAllVariables(endUser: EndUser) {
+    return {
+      ...endUser,
+      ...endUser.variables
+    }
   }
 
-  public async getSpecificVariable(varName: string) {
-    const allVariables = await this.getAllVariables()
+  public async getSpecificVariable(endUserId: string, variable: string) {
+    const endUserRepo$ = this.tools.getRepository<EndUser>(this._docPath);
 
-    if (allVariables) return allVariables[varName]
-    else return null
+    const endUser = await endUserRepo$.getDocumentById(endUserId);
+
+    const allVariables = this.getAllVariables(endUser);
+
+    return allVariables[variable];
   }
 }

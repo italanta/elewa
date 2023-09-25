@@ -1,72 +1,49 @@
 $primary-icon-color: #919698;
 $primary-color: #ffc200;
 $secondary-elements-color: white;
+
 .uppercase-txt {
   font-weight: bold;
 }
 
 #msBtn {
-    background-color: #29487D;
-    color: $secondary-elements-color;
+  background-color: #29487D;
+  color: $secondary-elements-color;
 }
 
-
-.special-input ::ng-deep .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
-  margin-top: .3rem;
-}
-
-
-.special-input ::ng-deep .mdc-text-field--filled:not(.mat-form-field-disabled) {
-  background-color: white;
-}
-.special-input ::ng-deep .mdc-line-ripple {
-  background-color: white;
-}
-
-.special-input ::ng-deep .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background: white;
-}
-.special-input ::ng-deep .mdc-text-field {
-  padding: 0;
-}
-
-.special-input ::ng-deep .mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay {
-  opacity: 0;
-}
-
-label{
+label {
   margin-bottom: 1rem;
 }
 
 .small-txt {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .hr-with-text {
-    color: $primary-icon-color;
-    opacity: 0.8;
-    font-size: 14px;
-    margin-bottom: 10px;
+  color: $primary-icon-color;
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .hr-with-text::before,
 .hr-with-text::after {
-    content: '';
-    width: 20px;
-    flex: 1;
-    border-bottom: 1px solid $primary-icon-color;
-    margin: 0 3px 8px 3px;
-    opacity: 0.6;
+  content: '';
+  width: 20px;
+  flex: 1;
+  border-bottom: 1px solid $primary-icon-color;
+  margin: 0 3px 8px 3px;
+  opacity: 0.6;
 }
 
 #forgot-btn {
-    padding-right: 0;
+  padding-right: 0;
 }
-.spinner{
+
+.spinner {
   position: relative;
-  .spinner-box{
+
+  .spinner-box {
     position: absolute;
     left: 6%;
     z-index: 9999;
@@ -75,45 +52,29 @@ label{
   }
 }
 
-  .special-input ::ng-deep .mat-mdc-unelevated-button>.mat-icon, .mat-mdc-raised-button>.mat-icon, .mat-mdc-outlined-button>.mat-icon {
-    height: 1.2rem;
-}
-.special-input {
-    min-height: 40px;
-}
-
-input {
-    background-color: $secondary-elements-color;
-    border: none;
-    width: 100%!important;
-}
-
 #register-button {
-  width: 400px;
-  background-color: $primary-color;
-  font-size: large;
-  font-weight: 600;
-  height: 50px;
-  color: white;
-  text-transform: uppercase;
+  color: $secondary-elements-color;
+  background-color: #111441;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 10px;
 }
 
 #register-button:hover {
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
 }
 
-.googleBtn{
-  height: 50px;
+.googleBtn {
   color: $secondary-elements-color;
-  font-size: large;
-  font-weight: 600;
-  background-color: #de5246;
-  text-transform: uppercase;
+  background-color: #111441;
+  border-radius: 20px;
+  padding: 20px;
+}
 
-  .googleBtnTxt {
-    padding-left: 35px;
-    padding-right: 60px;
-    font-weight: 600;
-    font-size: 1.125rem;
-  }
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white !important;
+}
+
+:host ::ng-deep .mat-mdc-form-field-input-control.mat-mdc-form-field-input-control {
+  font-weight: 400;
 }

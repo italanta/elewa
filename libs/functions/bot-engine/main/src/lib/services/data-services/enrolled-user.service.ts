@@ -23,25 +23,26 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
     this._docPath = `orgs/${orgId}/enrolled-end-users`;
   }
 
-  async createEnrolledUser(enrolledUser: EnrolledEndUser) {
-    return this.createDocument(enrolledUser, this._docPath);
+  async createEnrolledUser(enrolledUser: EnrolledEndUser, id?:string) {
+    return this.createDocument(enrolledUser, this._docPath, id);
   }
 
-  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string) {
+  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string, id?:string,) {
     const enrolledUsers = await this.getDocumentByField(platformField, endUser.id, this._docPath);
     let currentEnrolledUser = enrolledUsers[0];
 
     if (!currentEnrolledUser) {
       const enrolledUser: EnrolledEndUser = {
+        id:id || '',
         name: endUser.name || '',
         phoneNumber: endUser.phoneNumber || '',
         classId: '',
         currentCourse: '',
         whatsappUserId: endUser.id,
-        status: EnrolledEndUserStatus.inactive
+        status: EnrolledEndUserStatus.Active
       };
   
-      currentEnrolledUser = await this.createEnrolledUser(enrolledUser);
+      currentEnrolledUser = await this.createEnrolledUser(enrolledUser, id);
     };
 
     return currentEnrolledUser;
@@ -53,6 +54,6 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
   async updateEnrolledUser(enrolledUser: EnrolledEndUser) {
     // the initial enrolledUser document might not have an id so we write the document instead.
-    return this.writeDocument(enrolledUser, this._docPath, enrolledUser.id);
+    return this.updateDocument(enrolledUser, this._docPath, enrolledUser.id);
   }
 }

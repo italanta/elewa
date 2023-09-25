@@ -36,6 +36,8 @@ import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
 import { ProgressMonitoringStateModule } from '@app/state/convs-mgr/monitoring';
+import { MtOrgStateModule } from '@app/private/state/organisation/main';
+import { AccessControlStateModule } from '@app/private/state/access-control';
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 
@@ -43,7 +45,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -83,6 +84,10 @@ import { environment } from '../environments/environment';
     ProgressMonitoringStateModule.forRoot(),
     EndUsersStateModule.forRoot(),
     LearnersStateModule.forRoot(),
+
+    MtOrgStateModule.forRoot(),
+
+    AccessControlStateModule.forRoot(),
 
     // FlowsStateModule.forRoot(),
     // ChatsStateModule.forRoot(),

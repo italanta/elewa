@@ -12,13 +12,13 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
-import { EnrolledUserDataService } from '../data-services/enrolled-user.service';
 import { BlockDataService } from '../data-services/blocks.service';
 import { ProcessInputFactory } from '../process-input/process-input.factory';
 
 import { BotMediaProcessService } from '../media/process-media-service';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
+
 
 export class ProcessMessageService
 {
@@ -32,7 +32,6 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
-    private _enrolledUserService: EnrolledUserDataService,
   ) { }
 
   /**
@@ -71,7 +70,7 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
     // Handle input: validates and saves the input to variable
-    const inputPromise = this.processInput(msg, lastBlock, orgId, endUser.id);
+    const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
 
     this.sideOperations.push(inputPromise);
 
@@ -128,21 +127,21 @@ export class ProcessMessageService
     return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
   }
 
-  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUserId: string)
+  private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser)
   {
 
     if (!isOutputBlock(lastBlock.type)) {
 
       const processInputFactory = new ProcessInputFactory(this._tools, this._activeChannel, this._processMediaService$);
 
-      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUserId);
+      this.isInputValid = await processInputFactory.processInput(msg, lastBlock, orgId, endUser);
 
     }
   }
 
   private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUser: EndUser)
   {
-    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._enrolledUserService, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
 
     const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUser, msg);
 

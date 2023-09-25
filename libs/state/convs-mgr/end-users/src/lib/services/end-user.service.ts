@@ -19,10 +19,16 @@ export class EndUserService {
     return this._endUser$$.getCurrentCursor(id);
   }
 
-  getCourse(id: string) {
-    return this.getUserCursor(id).pipe(map(latestCursor => {
-      return latestCursor[0].eventsStack
-    }))
+  getSpecificUser(id: string) {
+    return this._endUser$$.getOne(id)
+  }
+
+  getAssessmentStack(id:string) {
+    return this.getUserCursor(id).pipe(map((cursor => {
+      const assessmentstack = cursor[0].assessmentStack;
+      
+      return assessmentstack ?  assessmentstack : []
+    })))
   }
 
   /**

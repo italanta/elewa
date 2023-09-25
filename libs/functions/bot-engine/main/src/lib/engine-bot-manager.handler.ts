@@ -5,6 +5,8 @@ import { RestResult200 } from '@ngfi/functions';
 
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { isFileMessage } from '@app/model/convs-mgr/functions';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -16,12 +18,10 @@ import { EnrolledUserDataService } from './services/data-services/enrolled-user.
 
 import { ActiveChannel } from './model/active-channel.service';
 
-import { generateEndUserId } from './utils/generateUserId';
+import { generateEnrolledUserId } from './utils/generateEnrolledUserId';
 import { ProcessMessageService } from './services/process-message/process-message.service';
 import { createTextMessage } from './utils/createTextMessage.util';
 import { BotMediaProcessService } from './services/media/process-media-service';
-import { isFileMessage } from '@app/model/convs-mgr/functions';
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 
 /**
@@ -82,7 +82,7 @@ export class EngineBotManager
   
       this._endUserService$ = new EndUserDataService(this._tools, this.orgId);
       const enrolledUserService = new EnrolledUserDataService(this._tools, this.orgId);
-      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService, enrolledUserService);
+      const processMessageService = new ProcessMessageService(cursorDataService, connDataService, blockDataService, this._tools, this._activeChannel, processMediaService);
 
       const END_USER_ID = endUser.id;
 
@@ -149,7 +149,8 @@ export class EngineBotManager
     this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
 
     // Step 2: Get or Create Enrolled User
-    const enrolledUser = enrolledUserService.getOrCreateEnrolledUser(this.endUser, 'whatsappUserId');
+    const userId = generateEnrolledUserId();
+    const enrolledUser = enrolledUserService.getOrCreateEnrolledUser(this.endUser, 'whatsappUserId', userId);
 
     // step 3: batch and resolve later
     this.addSideOperation(enrolledUser);

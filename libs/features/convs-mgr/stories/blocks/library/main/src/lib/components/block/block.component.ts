@@ -31,6 +31,7 @@ import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form
 import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
 import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
 import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.model';
+import { _CreateCmi5BlockForm } from '../../model/cmi5-block-form.model';
 
 import { iconsAndTitles } from '../../model/icons-and-titles';
 import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
@@ -96,6 +97,7 @@ export class BlockComponent implements OnInit {
   eventType = StoryBlockTypes.Event;
   assessmentBrickType= StoryBlockTypes.Assessment;
   conditionalBlockType = StoryBlockTypes.Conditional;
+  CMI5BlockType = StoryBlockTypes.CMI5Block;
 
   blockFormGroup: FormGroup;
 
@@ -265,6 +267,11 @@ export class BlockComponent implements OnInit {
 
         case StoryBlockTypes.Conditional:
           this.blockFormGroup = _CreateConditionalBlockForm(this._fb, this.block);
+          this.blocksGroup.push(this.blockFormGroup);
+          break;
+        
+        case StoryBlockTypes.CMI5Block:
+          this.blockFormGroup = _CreateCmi5BlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
   

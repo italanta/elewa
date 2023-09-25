@@ -1,5 +1,7 @@
 import { IObject } from "@iote/bricks";
 
+import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
+
 
 /**
  * Represents an enrolled learner.
@@ -39,12 +41,18 @@ export interface EnrolledEndUser extends IObject {
    * The status of the enrolled learner.
    */
   status: EnrolledEndUserStatus;
+
+  // ToDO: Backend Implementation
+  /**
+     * The results of the assessments that the end user has taken.
+     */
+  assessmentResults             ?: AssessmentResult[];
 }
 
 /**
  * Enum representing the status of an enrolled learner.
  */
 export enum EnrolledEndUserStatus {
-  active = 1,
-  inactive = 2
+  Active = 1,
+  Inactive = 2
 }

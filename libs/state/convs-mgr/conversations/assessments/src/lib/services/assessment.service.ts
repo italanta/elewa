@@ -4,7 +4,7 @@ import { map, take } from 'rxjs';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { AssessmentsStore } from '../stores/assessments.store';
 import { ActiveAssessmentStore } from '../stores/active-assessment.store';
@@ -28,7 +28,7 @@ export class AssessmentService {
   }
 
   addAssessment$(assessment: Assessment) {
-    return this._assessments$$.add(assessment);
+    return this._assessments$$.createAssessment(assessment);
   }
 
   updateAssessment$(assessment: Assessment) {

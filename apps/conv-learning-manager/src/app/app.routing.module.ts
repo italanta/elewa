@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route, PreloadAllModules }    from '@angular/router';
 
-import { IsLoggedInGuard } from '@app/elements/base/authorisation';
+import { CanAccessAnalyticsGuard, CanAccessAssessmentsGuard, CanAccessBotsGuard, 
+         CanAccessChatsGuard, CanAccessLearnersGuard, IsLoggedInGuard } from '@app/elements/base/authorisation';
+
+import { NoPermissionToAccessComponent } from '@app/private/elements/convs-mgr/access-control';
 
 export const APP_ROUTES: Route[] = [
 
@@ -26,32 +29,46 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'stories',
     loadChildren: () => import('@app/features/convs-mgr/stories/home').then(m => m.ConvsMgrStoriesHomeModule),
-    canActivate: [IsLoggedInGuard]
+    canActivate: [IsLoggedInGuard, CanAccessBotsGuard]
   },
 
   {
     path: 'analytics',
-    loadChildren: () => import('@app/features/convs-mgr/analytics').then(m => m.AnalyticsModule),
-    canActivate: [IsLoggedInGuard]
+    loadChildren: () => import('@app/private/features/convs-mgr/analytics').then(m => m.AnalyticsModule),
+    canActivate: [IsLoggedInGuard, CanAccessAnalyticsGuard]
   },
 
   {
     path: 'learners',
     loadChildren: () => import('@app/features/convs-mgr/learners').then(m => m.ConvsMgrLearnersModule),
-    canActivate: [IsLoggedInGuard]
+    canActivate: [IsLoggedInGuard, CanAccessLearnersGuard]
   },
 
   {
     path: 'chats',
     loadChildren: () => import('@app/features/convs-mgr/conversations/chats').then(m => m.ConvsMgrConversationsChatsModule),
-    canActivate: [IsLoggedInGuard]
+    canActivate: [IsLoggedInGuard, CanAccessChatsGuard]
   },
 
   {
     path: 'assessments',
     loadChildren: () => import('@app/features/convs-mgr/conversations/assessments').then(m => m.ConvsMgrAssessmentsModule),
+    canActivate: [IsLoggedInGuard, CanAccessAssessmentsGuard]
+  },
+
+  {
+    path: 'settings',
+    loadChildren: () => import('@app/private/features/convs-mgr/settings/main').then(m => m.SettingsModule),
     canActivate: [IsLoggedInGuard]
   },
+
+  {
+    path: 'access-denied',
+    component: NoPermissionToAccessComponent,
+    data: { title: 'Access Denied' },
+    canActivate: [IsLoggedInGuard]
+  },
+
 ];
 
 

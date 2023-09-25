@@ -13,6 +13,8 @@ export class AssessmentConfigComponent {
   @Input() assessmentMode: number
   @Input() assessmentFormGroup: FormGroup;
 
+  @Input() previewMode: boolean;
+
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;

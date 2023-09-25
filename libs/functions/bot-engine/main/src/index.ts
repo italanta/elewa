@@ -12,6 +12,7 @@ export * from './lib/io/incoming-message-parsers/image-message-parser.class';
 export * from './lib/io/incoming-message-parsers/location-message-parser.class';
 export * from './lib/io/incoming-message-parsers/interactive-message-parser.class';
 export * from './lib/services/data-services/end-user.service';
+export * from './lib/utils/generateEnrolledUserId';
 export * from './lib/utils/generateUserId';
 export * from './lib/io/incoming-message-parsers/models/incoming-message-parser.interface';
 export * from './lib/handlers/talk-to-operator.handler';

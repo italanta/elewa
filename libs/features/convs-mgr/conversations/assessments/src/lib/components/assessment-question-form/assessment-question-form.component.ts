@@ -1,12 +1,12 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
+import { Observable, tap } from 'rxjs';
+
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
-
-import { AssessToggleStateService } from '../../services/assessment-toggle-state.service';
 
 @Component({
   selector: 'app-assessment-question-form',
@@ -14,8 +14,12 @@ import { AssessToggleStateService } from '../../services/assessment-toggle-state
   styleUrls: ['./assessment-question-form.component.scss'],
 })
 export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
+
+  private _sBs = new SubSink();
+
   @Input() questions: AssessmentQuestion[];
   @Input() questionNo: number;
+  @Input() isLastQuestion: boolean;
 
   @Input() index: number;
 
@@ -23,10 +27,14 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   
   @Input() assessmentFormGroup: FormGroup;
   @Input() questionFormGroupName: number | string;
+  @Input() activeCard$: Observable<number>;
 
-  private _sBs = new SubSink();
+  @Output() addNewQuestion = new EventEmitter();
+  @Output() activeQuestionChanged = new EventEmitter();
+  
+  activeCard: number;
 
-  constructor(private _assToggle: AssessToggleStateService) {}
+  constructor() {}
 
   feedBackConditions = [
     FeedbackCondition[1],
@@ -35,9 +43,9 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   ];
 
   ngOnInit(): void {
-    this._sBs.sink = this.assessmentFormGroup.valueChanges.subscribe(() => {
-      this._assToggle.hidePublish()
-    })
+    this.activeCard$.pipe(tap((activeId) => {
+      this.activeCard = activeId;
+    })).subscribe();
   }
 
   get questionsList() {

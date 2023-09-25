@@ -4,11 +4,12 @@
  align-items: center;
 
  min-height: 100%;
+//  padding: 10px 25px;
 }
 
 .user-photo {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   clip-path: circle();
 }
@@ -17,6 +18,7 @@
   padding: 10px;
 }
 
-.user-btn .fa-caret-down {
-  color: var(--convs-mgr-color-secondary-shade);
+.role {
+  font-size: .8rem;
+  color: #707070;
 }

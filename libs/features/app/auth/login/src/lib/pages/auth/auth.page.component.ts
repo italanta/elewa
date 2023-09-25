@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 import { User } from '@iote/bricks';
+import { AuthService } from '@ngfi/angular';
+
 import { UserStore } from '@app/state/user';
 import { TranslateService } from '@ngfi/multi-lang';
 
@@ -21,9 +23,10 @@ export class AuthPageComponent implements OnInit, OnDestroy
   private _userSubscr : Subscription;
 
   constructor(userService: UserStore,
-               private _translateService: TranslateService,
-              private _router: Router)
-  {
+              private _authService: AuthService,
+              private _translateService: TranslateService,
+              private _router: Router
+  ) {
     this.user$ = userService.getUser();
   }
 
@@ -40,6 +43,18 @@ export class AuthPageComponent implements OnInit, OnDestroy
 
       this.isLoading = false
     });
+  }
+
+  logInWithGoogle() {
+    return this._authService.loadGoogleLogin();
+  }
+
+  logInWithFaceBook() {
+    return this._authService.loadFacebookLogin();
+  }
+
+  createAccount() {
+    
   }
 
   ngOnDestroy()
