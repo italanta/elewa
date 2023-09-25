@@ -6,6 +6,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 import { OptionInputFieldComponent } from '../../../../../block-options/src/lib/components/option-input-field/option-input-field.component';
+import { CursorFocusService } from '../../../../../main/src/lib/providers/cursor-focus.service';
 
 @Component({
   selector: 'app-list-block',
@@ -25,7 +26,7 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   readonly listOptionInputLimit = 24;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private cursorFocusService: CursorFocusService) { }
 
   ngOnInit(): void { }
 
