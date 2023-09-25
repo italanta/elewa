@@ -28,7 +28,7 @@
       <div *ngFor="let option of options.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
           <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
-          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i"
+          <app-option-input-field #optionInputFields [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i"
             class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
         </div>
       </div>
