@@ -1,0 +1,47 @@
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 2rem;
+
+  .title-section {
+    border-bottom: 1px solid gray;
+
+    .title {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .selected-users {
+      color: gray;
+    }
+  }
+
+  .middle-section {
+    display: grid;
+    gap: 0.4rem;
+    font-size: 1.3rem;
+
+    .one,
+    .two {
+      display: flex;
+      gap: 0.3rem;
+      align-items: center;
+    }
+
+    label {
+      font-weight: 600;
+    }
+  }
+
+  .action-btns {
+    display: flex;
+    justify-content: space-between;
+    justify-self: flex-end;
+
+    .btn {
+      outline: none;
+      padding: 0.5rem 0.9rem;
+    }
+  }
+}

@@ -23,7 +23,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status'];
+  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status', 'actions'];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
@@ -116,6 +116,22 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   openBulkActionsDialog(): void {
+    this._dialog.open(BulkActionsModalComponent, {
+      data: { selectedUsers: this.selection.selected },
+      height: '300px',
+      width: '400px',
+    });
+  }
+
+  openUpdateUserClassDialog() {
+    this._dialog.open(BulkActionsModalComponent, {
+      data: { selectedUsers: this.selection.selected },
+      height: '300px',
+      width: '400px',
+    });
+  }
+
+  openCreateClassDialog(): void {
     this._dialog.open(BulkActionsModalComponent, {
       data: { selectedUsers: this.selection.selected },
       height: '300px',
