@@ -68,40 +68,41 @@ export class MessagesQuery
   }
 
 
-getChats() {
-  if (!this.orgId) {
-    throw new Error('Organization ID is not set. Call setOrgId(orgId) first.');
-  }
-  const chatsList = this._chatStore.get();
-
-  return chatsList.pipe(
-    // Use mergeMap to map each chat to an observable of its latest message date
-    mergeMap((chats) => {
-      // Create an array of promises to fetch the latest message date for each chat
-      const datePromises = chats.map((chat) => {
-        return this.getLatestMessageDate(chat.id).pipe(
+  getChats() {
+    if (!this.orgId) {
+      throw new Error('Organization ID is not set. Call setOrgId(orgId) first.');
+    }
+    const chatsList = this._chatStore.get();
+  
+    return chatsList.pipe(
+      // Use mergeMap to map each chat to an observable of its latest message date
+      mergeMap((chats) => {
+        // Create an array of observables to fetch the latest message date for each chat
+        const dateObservables = chats.map((chat) => {
+          return this.getLatestMessageDate(chat.id).pipe(
+            map((date) => ({
+              ...chat,
+              lastMsg: date,
+            }))
+          );
+        });
+  
+        // Use forkJoin to wait for all date observables to complete
+        return combineLatest(dateObservables).pipe(
+          map((chatsWithDates) => {
+            // Sort the chats based on the last message date in descending order
+            chatsWithDates.sort((a, b) => {
+              // Ensure that null dates (error cases) are placed at the end
+              if (a.lastMsg === null) return 1;
+              if (b.lastMsg === null) return -1;
+              return b.lastMsg - a.lastMsg;
+            });
+            return chatsWithDates;
+          })
         );
-      });
-
-      // Use forkJoin to wait for all date promises to resolve
-      return combineLatest(datePromises).pipe(
-        map((dates) => {
-          // Assign the retrieved dates to chats
-          chats.forEach((chat, index) => {
-            chat.lastMsg = dates[index];
-          });
-          // Sort the chats based on the last message date in descending order
-          chats.sort((a, b) => {
-            // Ensure that null dates (error cases) are placed at the end
-            if (a.lastMsg === null) return 1;
-            if (b.lastMsg === null) return -1;
-            return b.lastMsg - a.lastMsg;
-          });
-          return chats;
-        })
-      );
-    })
-  );
+      })
+    );
   }
+  
 }
 
