@@ -9,7 +9,6 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ChatsRouterModule } from '@app/features/convs-mgr/conversations/chats';
 
 import { LabelsComponent } from './components/labels/labels.component';
-import { StoryListComponent } from './components/story-list/story-list.component';
 import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
 import { BotsListHeaderComponent } from './components/bots-list-header/bots-list-header.component';
 import { BotsListAllCoursesComponent } from './components/bots-list-all-courses/bots-list-all-courses.component';
@@ -38,7 +37,6 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
   declarations: [
     StoriesDashboardComponent,
     StoryListItemComponent,
-    StoryListComponent,
     CreateBotModalComponent,
     DeleteBotModalComponent,
     StoriesDashboardComponent,
