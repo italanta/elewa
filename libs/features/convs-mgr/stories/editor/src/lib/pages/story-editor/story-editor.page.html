@@ -10,8 +10,8 @@
           [messageType]="toastType"
           color="rgba(217, 25, 25, 0.70)" 
           iconClass="fas fa-exclamation-circle" 
-          (closed)="closeErrorToast(error)" 
-          (scrollTo)="scrollTo(error)"
+          (closeToast)="closeErrorToast(error)" 
+          (scrollToError)="scrollTo(error)"
         >
       </app-toast>
     </div>
