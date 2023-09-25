@@ -1,2 +1,1 @@
-export * from './lib/model-layout-toast.module';
-export * from './lib/toast/toast-status.interface'
+export * from './lib/toast-status.interface'
