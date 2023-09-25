@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
@@ -9,6 +9,7 @@ import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { OptionInputFieldComponent } from '../../../../../block-options/src/lib/components/option-input-field/option-input-field.component';
 
 @Component({
   selector: 'app-conditional-block',
@@ -20,6 +21,10 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   @Input() block: ConditionalBlock;
   @Input() conditionalBlockForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+
+  @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
+
+  private currentIndex = 0; 
 
   vars$: Observable<string[]>;
 
@@ -84,10 +89,32 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
     if (this.options.length < this.listOptionsArrayLimit) {
       this.options.push(this.addExistingOptions());
     }
+    setTimeout(() => {
+      this.setFocusOnNextInput();
+    });
   }
 
   deleteInput(i: number) {
     this.options.removeAt(i);
+  }
+
+  setFocusOnNextInput() {
+    const inputs = this.optionInputFields.toArray();
+  
+    if (this.currentIndex !== -1) {
+      const nextIndex = this.currentIndex + 1;
+  
+      // If there is a next input, focus on it; otherwise, focus on the first input
+      if (nextIndex < inputs.length) {
+        const nextInput = inputs[nextIndex];
+        nextInput.setFocus();
+        this.currentIndex = nextIndex; // Update the current index
+      } else {
+        const firstInput = inputs[0];
+        firstInput.setFocus();
+        this.currentIndex = 0; // Reset the current index to 0
+      }
+    }
   }
 
   ngOnDestroy() {
