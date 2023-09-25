@@ -16,7 +16,7 @@ import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } fr
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
-import { ToastMessageType, ToastStatus } from '@app/model/layout/toast';
+import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
 import { StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -43,7 +43,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   errors: StoryError[] = [];
   shownErrors: StoryError[] = [];
-  toastType: ToastStatus = {type: ToastMessageType.Error};
+  toastType: ToastStatus = {type: ToastMessageTypeEnum.Error};
 
   opened: boolean;
 
