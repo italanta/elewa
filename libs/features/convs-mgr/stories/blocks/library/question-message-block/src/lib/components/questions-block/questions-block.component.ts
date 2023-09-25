@@ -6,7 +6,9 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+
 import { OptionInputFieldComponent } from '../../../../../block-options/src/lib/components/option-input-field/option-input-field.component';
+import { CursorFocusService } from '../../../../../main/src/lib/providers/cursor-focus.service';
 
 const questionOptionInputLimit: number = 20;
 const questionOptionsArrayLimit: number = 3;
@@ -35,7 +37,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
 
   readonly questionOptionInputLimit = questionOptionInputLimit;
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private cursorFocusService: CursorFocusService) { }
 
   ngOnInit(): void {
     this.block.options?.forEach((option) => {
@@ -68,21 +70,9 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   }
 
   setFocusOnNextInput() {
-    const inputs = this.optionInputFields.toArray();
-  
-    if (this.currentIndex !== -1) {
-      const nextIndex = this.currentIndex + 1;
-  
-      // If there is a next input, focus on it; otherwise, focus on the first input
-      if (nextIndex < inputs.length) {
-        const nextInput = inputs[nextIndex];
-        nextInput.setFocus();
-        this.currentIndex = nextIndex; // Update the current index
-      } else {
-        const firstInput = inputs[0];
-        firstInput.setFocus();
-        this.currentIndex = 0; // Reset the current index to 0
-      }
-    }
+    this.currentIndex = this.cursorFocusService.focusOnNextInput(
+      this.currentIndex,
+      this.optionInputFields
+    );
   }
 }
