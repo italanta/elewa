@@ -8,8 +8,12 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ChatsRouterModule } from '@app/features/convs-mgr/conversations/chats';
 
-import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
+import { LabelsComponent } from './components/labels/labels.component';
 import { StoryListComponent } from './components/story-list/story-list.component';
+import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
+import { BotsListHeaderComponent } from './components/bots-list-header/bots-list-header.component';
+import { BotsListAllCoursesComponent } from './components/bots-list-all-courses/bots-list-all-courses.component';
+import { BotsListLatestCoursesComponent } from './components/bots-list-latest-courses/bots-list-latest-courses.component';
 
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
 
@@ -19,7 +23,6 @@ import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-mo
 import { NewStoryService } from './services/new-story.service';
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
-import { LabelsComponent } from './components/labels/labels.component';
 
 @NgModule({
   imports: [
@@ -40,6 +43,9 @@ import { LabelsComponent } from './components/labels/labels.component';
     DeleteBotModalComponent,
     StoriesDashboardComponent,
     LabelsComponent,
+    BotsListHeaderComponent,
+    BotsListLatestCoursesComponent,
+    BotsListAllCoursesComponent
   ],
 
   providers: [NewStoryService],
