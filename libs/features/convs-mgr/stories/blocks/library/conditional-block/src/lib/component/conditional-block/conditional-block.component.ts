@@ -9,7 +9,9 @@ import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+
 import { OptionInputFieldComponent } from '../../../../../block-options/src/lib/components/option-input-field/option-input-field.component';
+import { CursorFocusService } from '../../../../../main/src/lib/providers/cursor-focus.service';
 
 @Component({
   selector: 'app-conditional-block',
@@ -32,7 +34,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, private variables: VariablesService) {
+  constructor(private _fb: FormBuilder, private variables: VariablesService, private cursorFocusService: CursorFocusService) {
     this.vars$ = this.variables.getAllVariables();
   }
 
@@ -99,22 +101,10 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   setFocusOnNextInput() {
-    const inputs = this.optionInputFields.toArray();
-  
-    if (this.currentIndex !== -1) {
-      const nextIndex = this.currentIndex + 1;
-  
-      // If there is a next input, focus on it; otherwise, focus on the first input
-      if (nextIndex < inputs.length) {
-        const nextInput = inputs[nextIndex];
-        nextInput.setFocus();
-        this.currentIndex = nextIndex; // Update the current index
-      } else {
-        const firstInput = inputs[0];
-        firstInput.setFocus();
-        this.currentIndex = 0; // Reset the current index to 0
-      }
-    }
+    this.currentIndex = this.cursorFocusService.focusOnNextInput(
+      this.currentIndex,
+      this.optionInputFields
+    );
   }
 
   ngOnDestroy() {
