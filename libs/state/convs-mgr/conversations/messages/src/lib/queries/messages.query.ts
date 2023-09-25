@@ -69,9 +69,6 @@ export class MessagesQuery
 
 
   getChats() {
-    if (!this.orgId) {
-      throw new Error('Organization ID is not set. Call setOrgId(orgId) first.');
-    }
     const chatsList = this._chatStore.get();
   
     return chatsList.pipe(
