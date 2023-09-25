@@ -25,21 +25,27 @@ export class ToastComponent implements OnInit{
 
   ngOnInit(): void {
     if (this.messageType.type === 'error' && this.error) {
-      this.errorType = this.calculateErrorType();
+      this.errorType = this.getErrorType();
     }
   }
 
-  calculateErrorType(): string {
+  getErrorType(): string {
     if (!this.error) {
       return '';
     }
   
-    return this.error.type === StoryErrorType.MissingConnection
-      ? 'Missing Connection'
-      : this.error.type === StoryErrorType.EmptyTextField
-      ? 'Missing Message'
-      : '';
+    switch (this.error.type) {
+      case StoryErrorType.MissingConnection:
+        return 'Missing Connection';
+      
+      case StoryErrorType.EmptyTextField:
+        return 'Missing Message';
+      
+      default:
+        return '';
+    }
   }
+  
 
   dismissSnackbar(): void {
     this.closed.emit();
