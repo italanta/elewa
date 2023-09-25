@@ -1,28 +1,16 @@
-.wrapper {
-  padding: 20px;
-}
+.bots-page {
+  padding: 30px 50px;
 
-button {
-  background-color: var(--convs-mgr-color-secondary);
-	color: white;
-  box-sizing: border-box;
-  position: relative;
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  display: inline-block;
-  white-space: nowrap;
-  text-decoration: none;
-  vertical-align: baseline;
-  text-align: center;
-  margin: 0;
-  min-width: 64px;
-  line-height: 36px;
-  padding: 0 20px;
-  border-radius: 4px;
-  overflow: visible;
-  transform: translate3d(0, 0, 0);
+  .bots {
+    font-size: 3rem;
+    font-weight: 400;
+    padding: 20px 0px;
+  }
+
+  .sub-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding: 20px 0px;
+    margin: 20px 0;
+  }
 }

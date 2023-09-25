@@ -35,6 +35,7 @@ export class StoriesDashboardComponent implements OnInit {
   org$: Observable<Organisation>;
 
   loading = true;
+  showAllCourses: boolean = false;
 
   constructor(private _org$$: ActiveOrgStore,
               private _stories$$: StoriesStore,
