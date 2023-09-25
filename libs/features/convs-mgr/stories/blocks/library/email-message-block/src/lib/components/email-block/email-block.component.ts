@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -22,7 +22,19 @@ export class EmailBlockComponent implements OnInit {
   type: StoryBlockTypes;
   emailtype = StoryBlockTypes.Email;
 
+  constructor(private el: ElementRef) { }
+
   ngOnInit(): void {
     this.emailInputId = `email-${this.id}`;
+    this.setFocusOnInput(); 
+  }
+  private setFocusOnInput() {
+    // Use a timeout to ensure that the element is available in the DOM
+    setTimeout(() => {
+      const inputElement = this.el.nativeElement.querySelector(`input[id="${this.emailInputId}"]`);
+      if (inputElement) {
+        inputElement.focus();
+      }
+    });
   }
 }
