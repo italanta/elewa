@@ -241,8 +241,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       errors => {
         this.errors = errors
         this.shownErrors = this.errors.slice(0,2)
-        this._logger.log(() => `Loaded errors for story ${this.state.story.id}. Logging Errors.`)
-        this._logger.log(() => this.errors);
         }
       )
   }
