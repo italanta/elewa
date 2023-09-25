@@ -722,7 +722,6 @@
       "tags": []
     },
     "functions-base": "libs/functions/base",
-    "functions-user": "libs/functions/user",
     "functions-bot-engine-main": "libs/functions/bot-engine/main",
     "functions-bot-engine-messenger": {
       "root": "libs/functions/bot-engine/messenger",
@@ -852,6 +851,7 @@
       },
       "tags": []
     },
+    "functions-user": "libs/functions/user",
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
       "sourceRoot": "libs/model/analytics/group-based/progress/src",
@@ -1368,32 +1368,6 @@
       },
       "tags": []
     },
-
-    "private-model-convs-mgr-micro-apps-base": {
-      "root": "libs/private/model/convs-mgr/micro-apps/base",
-      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/base/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/private/model/convs-mgr/micro-apps/base/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/base"],
-          "options": {
-            "jestConfig": "libs/private/model/convs-mgr/micro-apps/base/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "private-model-access-control": {
       "projectType": "library",
       "root": "libs/private/model/access-control",
@@ -1420,7 +1394,31 @@
       },
       "tags": []
     },
-
+    "private-model-convs-mgr-micro-apps-base": {
+      "root": "libs/private/model/convs-mgr/micro-apps/base",
+      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/base/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/convs-mgr/micro-apps/base/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/base"],
+          "options": {
+            "jestConfig": "libs/private/model/convs-mgr/micro-apps/base/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-model-convs-mgr-micro-apps-cmi5": {
       "root": "libs/private/model/convs-mgr/micro-apps/cmi5",
       "sourceRoot": "libs/private/model/convs-mgr/micro-apps/cmi5/src",
