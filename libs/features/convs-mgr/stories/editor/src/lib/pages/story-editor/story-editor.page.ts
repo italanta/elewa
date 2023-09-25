@@ -184,19 +184,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   /** Save the changes made in the data model. */
   save() {
 
-  // TODO: Ask if this is needed anymore
-  //   // Get all the text area elements
-  //   const textAreas = document.querySelectorAll('textarea');
-
-  //   // Check if any of the text area elements are empty
-  //   const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
-
-  //   if (hasEmptyFields) {
-  //     this._dialog.open(ErrorPromptModalComponent, {
-  //       data: { title: "Error", message: "Please fill in ALL text fields before saving."}
-  //     });
-  //     return
-  //  }
     this.checkStoryErrors();
     
 
