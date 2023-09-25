@@ -1,0 +1,120 @@
+.message-template-form{
+    p {
+        color: #101010;
+        font-family: Roboto;
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+.mt-form{
+    border-radius: 1.5625rem;
+    background: #FFF;
+    padding: 2rem 2.25rem;
+    form {
+        .form-group {
+            
+          p:first-child {
+            span {
+                color: #1F7A8C;
+            }
+            color: #000; 
+            font-family: Roboto;
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            
+          }
+          
+          p:nth-child(2), p:nth-child(3), p:nth-child(4) {
+            color: #707070;
+            font-family: Roboto;
+            font-size: 1.125rem;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+            display: flex;
+            justify-content: space-between;
+          }
+          
+          mat-form-field > input {
+            border-radius: 0.9375rem;
+            background-color: transparent;
+            border: 1px solid #707070;
+            width: 100%;
+          }
+        }
+      }
+      
+}
+
+
+button {
+    border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+  }
+.cancel-btn {
+    color: #1F7A8C!important;
+    border: 1px #1F7A8C solid!important;
+    box-shadow: none!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+.save-btn{
+    background-color: #1F7A8C!important;
+    color: white!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 1rem;
+}
+.form-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p{
+        color: #000;
+        font-family: Roboto;
+        font-size: 1.375rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}
+mat-form-field{
+    background-color: transparent!important;
+    width: 100%;
+}
+.spec{
+    color: #1F7A8C;
+    font-family: Roboto;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-right: 1.31rem;
+    i{
+        color: black;
+    }
+}
+
+.body{
+    ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 9.8125rem!important; 
+}
+}
+.head{
+    ::ng-deep .mat-mdc-text-field-wrapper {
+    height: 5.0625rem!important; 
+}
+}
+
+
