@@ -17,8 +17,8 @@ export class ToastComponent implements OnInit{
   @Input() iconClass: string;
   @Input() text: string;
   
-  @Output() closed = new EventEmitter<void>();
-  @Output() scrollTo = new EventEmitter<void>();
+  @Output() closeToast = new EventEmitter<void>();
+  @Output() scrollToError = new EventEmitter<void>();
 
   errorType: string;
   errorToast: ToastStatus = {type: ToastMessageType.Error}
@@ -48,10 +48,10 @@ export class ToastComponent implements OnInit{
   
 
   dismissSnackbar(): void {
-    this.closed.emit();
+    this.closeToast.emit();
   }
   scrollToClick() :void{
-    this.scrollTo.emit();
+    this.scrollToError.emit();
   }
 }
 
