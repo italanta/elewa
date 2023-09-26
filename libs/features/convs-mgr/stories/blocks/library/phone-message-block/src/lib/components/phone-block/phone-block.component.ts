@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -11,7 +11,7 @@ import { PhoneMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   templateUrl: './phone-block.component.html',
   styleUrls: ['./phone-block.component.scss'],
 })
-export class PhoneBlockComponent implements OnInit {
+export class PhoneBlockComponent implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() block: PhoneMessageBlock;
@@ -25,15 +25,15 @@ export class PhoneBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.phoneInputId = `phone-${this.id}`;
+  }
+
+  ngAfterViewInit(): void {
     this.setFocusOnInput();
   }
   private setFocusOnInput() {
-    // Use a timeout to ensure that the element is available in the DOM
-    setTimeout(() => {
       const inputElement = this.el.nativeElement.querySelector(`input[id="${this.phoneInputId}"]`);
       if (inputElement) {
         inputElement.focus();
       }
-    });
   }
 }
