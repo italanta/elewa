@@ -3,6 +3,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
@@ -13,6 +14,10 @@ import { __DateFromStorage } from '@iote/time';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
+import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
+import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
+
+import { ActionSortingOptions } from '../../model/sorting.enum';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
@@ -41,20 +46,18 @@ export class BotsListAllCoursesComponent implements OnInit {
 
   sortCoursesBy = 'newest';
 
-  constructor(private _router$$: Router) { }
+  constructor(private _dialog: MatDialog,
+              private _router$$: Router) { }
 
   ngOnInit(): void {
     this._sbS.sink = combineLatest(([this.stories$, this.sorting$$.asObservable()]))
-    .pipe(
-      map(([stories, sort]) => 
+    .pipe(map(([stories, sort]) => 
             __orderBy(stories,(a) => __DateFromStorage(a.createdOn!).unix(),
-            sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
-          )),
+            sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
           map((stories) =>
-          stories.map((s) => { 
-            return { ...s, lastEdited: TIME_AGO(this.parseDate(s.updatedOn! ? s.updatedOn : s.createdOn!)) } 
-          })),
-      tap((stories) => this.dataSource.data = !this.showAllCourses ? stories.slice(0, 3) : stories)).subscribe();
+            stories.map((s) => { 
+              return { ...s, lastEdited: TIME_AGO(this.parseDate(s.updatedOn! ? s.updatedOn : s.createdOn!)) }})),
+          tap((stories) => this.dataSource.data = !this.showAllCourses ? stories.slice(0, 3) : stories)).subscribe();
   }
 
   ngAfterViewInit() {
@@ -64,6 +67,16 @@ export class BotsListAllCoursesComponent implements OnInit {
 
   openBot(id: string) {
     this._router$$.navigate(['stories', id]);
+  }
+
+  editBot(story: Story) {
+    this._dialog.open(CreateBotModalComponent, 
+      {minWidth: '600px', data: {isEditMode: true, story: story}}).afterClosed();
+  }
+
+  deleteBot(story: Story) {
+    this._dialog.open(DeleteBotModalComponent, 
+      {minWidth: 'fit-content', data: {isEditMode: true, story: story}}).afterClosed();
   }
 
   applyFilter(event: Event) {
@@ -89,9 +102,4 @@ export class BotsListAllCoursesComponent implements OnInit {
     }
     return 0;
   }
-}
-
-export enum ActionSortingOptions {
-  Oldest = 'oldest',
-  Newest = 'newest'
 }
