@@ -1,1 +1,1 @@
-export * from './lib/surveys.module';
+export * from './lib/convs-mgr-surveys.module';
