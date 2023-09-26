@@ -91,9 +91,9 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     .subscribe(
       (learners: EnrolledEndUser[]) => {
         const learner = learners[0];
-        // Check if learner.id is defined before converting it to a string
+        // Check if learner.id is defined before passing it a string since learner.id is nullable
         if (learner.id !== undefined && learner.id !== null) {
-          this.extractedLearnerId = learner.id.toString(); // Convert to string
+          this.extractedLearnerId = learner.id; // Convert to string
         } else {
           this.extractedLearnerId = ''; // Set to an empty string or null,
         }
