@@ -11,6 +11,7 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 import { MessageTemplateCreateComponent } from './pages/message-template-create/message-template-create.component';
+import { MessageTemplateViewComponent } from './pages/message-template-view/message-template-view.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { MessageTemplateCreateComponent } from './pages/message-template-create/
     MessageTemplateListComponent,
     MessageTemplateHeaderComponent,
     MessageTemplateCreateComponent,
+    MessageTemplateViewComponent,
   ],
 })
 export class MessageTemplateModule {}
