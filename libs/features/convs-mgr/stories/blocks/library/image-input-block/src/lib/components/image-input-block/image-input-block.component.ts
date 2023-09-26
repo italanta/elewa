@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -13,7 +13,7 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
   templateUrl: './image-input-block.component.html',
   styleUrls: ['./image-input-block.component.scss'],
 })
-export class ImageInputBlockComponent implements OnInit {
+export class ImageInputBlockComponent implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() block: ImageInputBlock;
   @Input() imageInputForm: FormGroup;
@@ -29,15 +29,14 @@ export class ImageInputBlockComponent implements OnInit {
 
   ngOnInit(): void {
     this.imageInputId = `image-${this.id}`
-    this.setFocusOnInput()
+  }
+  ngAfterViewInit(): void {
+    this.setFocusOnInput() 
   }
   private setFocusOnInput() {
-    // Use a timeout to ensure that the element is available in the DOM
-    setTimeout(() => {
       const inputElement = this.el.nativeElement.querySelector(`input[id="${this.imageInputId}"]`);
       if (inputElement) {
         inputElement.focus();
       }
-    });
   }
 }
