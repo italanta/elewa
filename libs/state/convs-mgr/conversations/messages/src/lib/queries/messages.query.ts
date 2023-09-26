@@ -84,7 +84,7 @@ export class MessagesQuery
           );
         });
   
-        // Use forkJoin to wait for all date observables to complete
+        // Use combine latest to wait for all date observables to complete
         return combineLatest(dateObservables).pipe(
           map((chatsWithDates) => {
             // Sort the chats based on the last message date in descending order
