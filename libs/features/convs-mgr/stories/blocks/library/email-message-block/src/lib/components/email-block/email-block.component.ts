@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -11,7 +11,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
   templateUrl: './email-block.component.html',
   styleUrls: ['./email-block.component.scss'],
 })
-export class EmailBlockComponent implements OnInit {
+export class EmailBlockComponent implements  AfterViewInit {
   @Input() id: string;
   @Input() block: EmailMessageBlock;
   @Input() emailMessageForm: FormGroup;
@@ -24,17 +24,14 @@ export class EmailBlockComponent implements OnInit {
 
   constructor(private el: ElementRef) { }
 
-  ngOnInit(): void {
-    this.emailInputId = `email-${this.id}`;
-    this.setFocusOnInput(); 
+
+  ngAfterViewInit(): void{
+    this.setFocusOnInput();
   }
   private setFocusOnInput() {
-    // Use a timeout to ensure that the element is available in the DOM
-    setTimeout(() => {
       const inputElement = this.el.nativeElement.querySelector(`input[id="${this.emailInputId}"]`);
       if (inputElement) {
         inputElement.focus();
       }
-    });
   }
 }
