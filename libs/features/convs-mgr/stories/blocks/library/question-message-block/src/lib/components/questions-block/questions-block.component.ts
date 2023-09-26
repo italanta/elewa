@@ -6,9 +6,12 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { CursorFocusService } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-import { OptionInputFieldComponent } from '../../../../../block-options/src/lib/components/option-input-field/option-input-field.component';
-import { CursorFocusService } from '../../../../../main/src/lib/providers/cursor-focus.service';
+
+
+
 
 const questionOptionInputLimit: number = 20;
 const questionOptionsArrayLimit: number = 3;
