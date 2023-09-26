@@ -25,13 +25,14 @@ import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { EndUserPosition, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+
 
 @Component({
   selector: 'app-chat-detail-header',
