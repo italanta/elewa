@@ -5,9 +5,10 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { CursorFocusService } from '@app/features/convs-mgr/stories/blocks/library/main';
 
-import { OptionInputFieldComponent } from '../../../../../block-options/src/lib/components/option-input-field/option-input-field.component';
-import { CursorFocusService } from '../../../../../main/src/lib/providers/cursor-focus.service';
+
 
 @Component({
   selector: 'app-list-block',
