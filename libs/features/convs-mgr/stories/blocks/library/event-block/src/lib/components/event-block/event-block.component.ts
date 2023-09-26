@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -12,7 +12,7 @@ import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
   templateUrl: './event-block.component.html',
   styleUrls: ['./event-block.component.scss'],
 })
-export class EventBlockComponent implements OnInit
+export class EventBlockComponent implements  AfterViewInit
 {
  
   @Input() id: string;
@@ -29,16 +29,13 @@ export class EventBlockComponent implements OnInit
 
   constructor(private el: ElementRef) { }
 
-  ngOnInit(): void {
-    this.setFocusOnInput();
+  ngAfterViewInit(): void {
+      this.setFocusOnInput();
   }
   private setFocusOnInput() {
-    // Use a timeout to ensure that the element is available in the DOM
-    setTimeout(() => {
       const inputElement = this.el.nativeElement.querySelector(`input[id="${this.id}"]`);
       if (inputElement) {
         inputElement.focus();
       }
-    });
   }
 }
