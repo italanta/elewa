@@ -1,33 +1,32 @@
-<h1 mat-dialog-title> Invite a new member </h1>
+<h1 mat-dialog-title> {{'ADMIN-SETTINGS.TEAM-SECTION.MODAL.DESC' | transloco}} </h1>
 <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
   <mat-form-field appearance="outline">
-    <mat-label>First Name</mat-label>
+    <mat-label>{{'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco}}</mat-label>
     <input matInput formControlName="firstName">
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Last Name</mat-label>
+    <mat-label>{{'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco}}</mat-label>
     <input matInput formControlName="lastName">
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
+    <mat-label>{{'LOGIN.CREATE-ACC-FORM.FLD-EMAIL' | transloco}}</mat-label>
     <input matInput type="email" formControlName="email">
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>Role</mat-label>
+    <mat-label>{{'ADMIN-SETTINGS.TEAM-SECTION.MODAL.ROLE' | transloco}}</mat-label>
     <mat-select formControlName="roles" multiple>
       <mat-option *ngFor="let role of org.roles" [value]="role"> {{role}} </mat-option>
     </mat-select>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
-  <!-- <button class="submit-btn" [disabled]="creatingUser" mat-raised-button color="primary" (click)="inviteNewUser()" > </button> -->
-
+  <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">{{'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.NO-THANKS' | transloco}}</button>
+  
   <button [disabled]="creatingUser" (click)="inviteNewUser()" mat-raised-button color="primary" class="submit-btn">
-    <span *ngIf="!creatingUser; else saving"> Add New Member </span>
+    <span *ngIf="!creatingUser; else saving"> {{'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.ADD-MEMBER' | transloco}} </span>
     <ng-template #saving>
       <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-        <span> Adding </span>
+        <span> {{'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.ADDING' | transloco}} </span>
         <mat-spinner diameter="20"></mat-spinner>
       </span>
     </ng-template>
