@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-conversations-surveys.module';
+export * from './lib/surveys.module';
