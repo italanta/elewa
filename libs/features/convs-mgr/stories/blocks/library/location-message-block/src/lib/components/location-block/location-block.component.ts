@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { GoogleMap } from '@angular/google-maps';
 
@@ -43,7 +43,7 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
   markerPositions: google.maps.LatLng;
   markerOptions: google.maps.MarkerOptions = { draggable: false };
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit(): void {
     if (this.locationMessageForm) {
@@ -54,9 +54,17 @@ export class LocationBlockComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.setFocusOnInput();
     this.findAdress();
     if (this.locationMessageForm) {
       this.checkIfAddressExists();
+    } 
+  }
+
+  private setFocusOnInput() {
+    const inputElement = this.el.nativeElement.querySelector(`input[formControlName="name"]`);
+    if (inputElement) {
+      this.renderer.selectRootElement(inputElement).focus();
     }
   }
 
