@@ -48,8 +48,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   private _sbs = new SubSink();
 
-  extractedLearnerId: string | undefined;// This variable will be used to store the ID of a learner extracted from enrolled learners.
-  learnerClass: string | null;
+  extractedLearnerId: string ;// This variable will be used to store the ID of a learner extracted from enrolled learners.
+  learnerClass: string ;
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
@@ -85,17 +85,26 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.moveChatDialogRef = null as any;
       }
     }
-     // Subscribe to the getAllLearners$ Observable from _enrolledLearners service
-     this._enrolledLearners
-     .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
-     .subscribe(
-       (learners: EnrolledEndUser[]) => {
-           const learner = learners[0];
-           this.extractedLearnerId = learner.id;
-           this.learnerClass = learner.classId
-         
-       },
-     );
+  
+    this._enrolledLearners
+    .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
+    .subscribe(
+      (learners: EnrolledEndUser[]) => {
+        const learner = learners[0];
+        // Check if learner.id is defined before converting it to a string
+        if (learner.id !== undefined && learner.id !== null) {
+          this.extractedLearnerId = learner.id.toString(); // Convert to string
+        } else {
+          this.extractedLearnerId = ''; // Set to an empty string or null,
+        }
+        // Check if learner.classId exists and set learnerClass accordingly
+        if (learner.classId !== undefined && learner.classId !== null) {
+          this.learnerClass = learner.classId.toString(); // Convert to string
+        } else {
+          this.learnerClass = ''; // Set to null
+        }
+      },
+    );
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
