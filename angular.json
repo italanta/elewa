@@ -935,6 +935,32 @@
     },
     "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
     "model-convs-mgr-conversations-messages": "libs/model/convs-mgr/conversations/messages",
+    "model-convs-mgr-conversations-surveys": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/conversations/surveys",
+      "sourceRoot": "libs/model/convs-mgr/conversations/surveys/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/conversations/surveys"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/conversations/surveys/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/conversations/surveys/**/*.ts",
+              "libs/model/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-functions": "libs/model/convs-mgr/functions",
     "model-convs-mgr-learners": {
       "projectType": "library",
@@ -1605,6 +1631,32 @@
     },
     "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
     "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
+    "state-convs-mgr-conversations-surveys": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/conversations/surveys",
+      "sourceRoot": "libs/state/convs-mgr/conversations/surveys/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/conversations/surveys"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/conversations/surveys/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/conversations/surveys/**/*.ts",
+              "libs/state/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-end-users": {
       "projectType": "library",
       "root": "libs/state/convs-mgr/end-users",

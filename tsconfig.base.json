@@ -239,6 +239,9 @@
       "@app/model/convs-mgr/conversations/messages": [
         "libs/model/convs-mgr/conversations/messages/src/index.ts"
       ],
+      "@app/model/convs-mgr/conversations/surveys": [
+        "libs/model/convs-mgr/conversations/surveys/src/index.ts"
+      ],
       "@app/model/convs-mgr/functions": [
         "libs/model/convs-mgr/functions/src/index.ts"
       ],
@@ -342,6 +345,9 @@
       ],
       "@app/state/convs-mgr/conversations/messages": [
         "libs/state/convs-mgr/conversations/messages/src/index.ts"
+      ],
+      "@app/state/convs-mgr/conversations/surveys": [
+        "libs/state/convs-mgr/conversations/surveys/src/index.ts"
       ],
       "@app/state/convs-mgr/end-users": [
         "libs/state/convs-mgr/end-users/src/index.ts"
