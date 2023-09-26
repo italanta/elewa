@@ -30,8 +30,8 @@
           <img class="clm-logo" src="assets/icons/goomza-logo-colored-transparent.png">
 
           <div class="actions" fxLayout="column" fxLayoutAlign="start">
-            <span *ngIf="!isLogin" class="action-title"> Create an Account </span>
-            <span *ngIf="!isLogin" class="action-desc"> Start Your 7 Day Trial Today and Unlock a World of Engaging
+            <span *ngIf="!isLogin" class="action-title" style="text-align: center"> Create an Account </span>
+            <span *ngIf="!isLogin" class="action-desc" style="text-align: center"> Start Your 7 Day Trial Today and Unlock a World of Engaging
               Learning
               Experiences
             </span>
@@ -83,12 +83,12 @@
           </div>
 
           <ng-template #registerNav>
-            <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
-              <span>
+            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+              <span style="font-size: 14px">
                 Already have an account?
               </span>
-              <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleModeLogin()">
-                <span style="text-decoration: underline;">Log In</span>
+              <button mat-button color="primary" (click)="toggleModeLogin()">
+                <span style="text-decoration: underline; font-size: 14px;">Log In</span>
               </button>
             </div>
           </ng-template>
