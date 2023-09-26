@@ -1,11 +1,23 @@
 <div *ngIf="userDetailsLoaded; else loading" class="profile-details">
 
   <div class="section-one" [formGroup]="userFormGroup">
-    <div class="user-data" fxLayout="row" fxLayoutAlign="space-between start">
+    <div class="user-data" fxLayout="row" fxLayoutAlign="start start">
+
+      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
+        <!-- <p class="label">Your Photo</p> -->
+
+        <!-- <img [src]="user.photoUrl" alt=""> -->
+        <img  alt="">
+
+        <!-- <div fxLayout="row" fxLayoutAlign="space-between start">
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" style="margin-right: 10px;" (click)="newProfileImg()" mat-stroked-button> Upload</button>
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Remove</button>
+        </div> -->
+      </div>
 
       <div fxLayout="column" fxLayoutAlign="start start" class="user-info" fxFlex="40%">
 
-        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px" style="width: 100%;" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="84px" style="width: 100%;" fxFlex>
           <div fxLayout="column" fxLayoutAlign="start start" class="names">
             <p class="label">First Name</p>
             <mat-form-field appearance="outline"fxFlex>
@@ -21,57 +33,54 @@
           </div>
         </div>
 
-        <div fxLayout="column" fxLayoutAlign="start start" class="names role">
-          <p class="label"> Role </p>
-          <mat-form-field appearance="outline">
-            <input disabled="true" matInput [placeholder]="roles">
-          </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="84px" style="width: 100%;" fxFlex>
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label">Role</p>
+            <mat-form-field appearance="outline"fxFlex>
+              <input disabled="true" matInput [placeholder]="roles">
+            </mat-form-field>
+          </div>
+  
+          <div fxLayout="column" fxLayoutAlign="start start" class="names">
+            <p class="label"> Email</p>
+            <mat-form-field appearance="outline" fxFlex>
+              <input formControlName="email" matInput placeholder="johndoe@gmail.com">
+            </mat-form-field>
+          </div>
         </div>
 
+  
+
         <div>
-          <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
+          <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
             <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
             <ng-template #saveProfile>
               <span>Save Profile</span>
             </ng-template>
           </button>
         </div>
+        
 
       </div>                  
 
-      <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
-        <p class="label">Your Photo</p>
-
-        <img style="border-radius: 20px;" [src]="user.photoUrl" alt="">
-
-        <div fxLayout="row" fxLayoutAlign="space-between start">
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" style="margin-right: 10px;" (click)="newProfileImg()" mat-stroked-button> Upload</button>
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Remove</button>
-        </div>
-      </div>
+      
     </div>
   </div>
 
   <div fxLayout="column" class="section-two">
-
-    <p class="label"> Password</p>
-
+    <p class="label">Change password</p>
+  
     <div fxLayout="row" fxLayoutAlign="space-between start" class="email-details">
       <p class="your-email">
-        It is advised to change your password every 2-4 months. Choose a password with: 8 characters, A
-        capital letter and a number.
+        It is advised to change your password every 2-4 months. 
       </p>
-
-      <p class="text-button"> Hide </p>
+  
+      <!-- Move the button inside the email-details div -->
+      <button class="btn password-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updatePassword()" mat-raised-button>Get Password Reset Link</button>
     </div>
-
-    <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="30px" class="email-fields">
-      <div>
-        <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updatePassword()" mat-raised-button>Get Password Reset Link</button>
-      </div>
-    </div>
-
+  
   </div>
+  
 
   <div class="section-two">
     <div fxLayout="column" fxLayoutAlign="start start" class="delete-profile">
@@ -79,7 +88,7 @@
       <p>
         You will receive an email to confirm your decision. This will not end your subscription or payments
         and you will continue to be charged.
-        You can cancel your subscription, or switch payment methods to keep the team active.
+        You can cancel your <br>subscription, or switch payment methods to keep the team active.
       </p>
     </div>
   </div>

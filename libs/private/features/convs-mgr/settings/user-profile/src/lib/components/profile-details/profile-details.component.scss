@@ -1,7 +1,13 @@
-img {
-  padding: 10px 0;
-}
 
+img {
+  width:210px;
+  height: 210px;
+  border-radius: 9999px !important;
+  padding: 10px 0;
+  border: 1px #707070 solid;
+  object-fit: contain !important; 
+  margin : 63px 212px 0 53px;
+}
 button {
   margin: 4px 0 0 0;
   height: 42px;
@@ -14,8 +20,17 @@ button {
 }
 
 .btn {
-  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  background-color: var(--convs-mgr-button-color)!important;
   color: white!important;
+}
+
+
+.password-button{
+  margin-right: 73px;
+  margin-top: 47.25px;
+  width: 212px;
+  height: 45px;
+  border-radius: 25px;
 }
 
 .text-button:hover {
@@ -30,7 +45,7 @@ button {
 .label-blue {
   margin: 10px 0 20px 0;
   font-weight: 600;
-  color: var(--convs-mgr-color-primary-yellow);
+  color: #3E788A;
   font-size: 1rem;
 }
 
@@ -46,15 +61,15 @@ button {
 //   position: absolute;
 //   right: 5%;
 // }
-.user-profile-picture img {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
-  border-radius: 10px;
-}
+// .user-profile-picture img {
+//   width: 200px;
+//   height: 200px;
+//   object-fit: contain;
+//   border-radius: 10px;
+// }
 
 .profile-details {
-  padding: 30px 20px;
+  padding: 60px 50px;
   height: 100vh;
 }
 
@@ -62,33 +77,124 @@ button {
   width: 100%;
 }
 
-.label {
-  margin: 0;
-  font-weight: 600;
-  color: var(--convs-mgr-color-text-black);
-  font-size: 1rem;
+
+div{
+  .section-one {
+    width: 100%;
+    height: fit-content;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: solid #C7CDD7 1px;
+    .user-data{
+      div{
+        button{
+          margin-right: 73px;
+          position: absolute;
+          right: 50px; 
+          top: 430px;
+          border-radius: 25px;
+          height: 45px;
+          width: 142px;
+         }
+      }
+      
+      .user-info{
+        margin-left: 73px;
+        div{
+          .label{
+             color: #101010;
+             font-size: 18px; 
+             font-family: Roboto; 
+             font-weight: 300; 
+             word-wrap: break-word;
+             margin-top: 63px;
+          }
+          .names{
+            mat-form-field{
+              width: 400px !important;
+              height: 51px !important;
+              background: #F6F6F6;
+              input{
+                color: #101010;
+                font-size: 18px;
+                font-family: Roboto;
+                font-weight: 300;
+                word-wrap: break-word
+              }
+            }
+          }
+          
+        }
+      }
+    }
+  }
+  .section-two{
+    padding-top: 20px;
+    border-bottom: solid #C7CDD7 1px;
+    .label{
+      color: #101010;
+      font-size: 18px;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
+    }
+    .email-details{
+      .your-email{
+        color: black;
+        font-size: 18px;
+        font-family: Roboto;
+        font-weight: 300;
+        word-wrap: break-word;
+        margin: 15.25px 0 43px 0;
+      }
+    }
+    div{
+      margin-bottom: 20px;
+    }
+    .delete-profile{
+      .underline{
+        color: #3E788A;
+        font-size: 18px;
+        font-family: Roboto;
+        font-weight: 400;
+        text-decoration: underline;
+        word-wrap: break-word
+      }
+      p{
+        color: black;
+        font-size: 18px;
+        font-family: Roboto;
+        font-weight: 300;
+        line-height: 26px;
+        word-wrap: break-word
+      }
+      
+    }
+  }
 }
 
-.section-one {
-  width: 100%;
-  height: fit-content;
-  padding-bottom: 30px;
-  margin-bottom: 20px;
-  border-bottom: solid #C7CDD7 1px;
-}
+// div.section-one .user-info div .edit-btn {
+//   border-radius: 25px;
+//   background: #1F7A8C;
+//   margin-left: auto; /* Push the button to the end */
+//   margin-right: 73px; /* Add a 73px margin from the end */
+//   margin-top: 46px;
+//   width: 142px;
+//   height: 45px;
+// }
 
-.section-two {
-  padding-top: 20px;
-  border-bottom: solid #C7CDD7 1px;
-}
+// .section-two {
+//   padding-top: 20px;
+//   border-bottom: solid #C7CDD7 1px;
+// }
 
-.section-two > div {
-  margin-bottom: 20px;
-}
+// .section-two > div {
+//   margin-bottom: 20px;
+// }
 
-.your-email {
-  padding: 20px 0 0 0;
-}
+// .your-email {
+//   padding: 20px 0 0 0;
+// }
 
 .emails-inputs {
   width: 20%;
@@ -136,3 +242,15 @@ button {
   height: 40px!important;
   padding: 7px!important;
 }
+
+
+
+/* Target the input boxes */
+.mat-form-field input.mat-input {
+  /* Your styles here */
+  // For example, let's change the background color and text color
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+

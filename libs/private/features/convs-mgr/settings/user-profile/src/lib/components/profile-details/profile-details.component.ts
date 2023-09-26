@@ -77,6 +77,10 @@ export class ProfileDetailsComponent implements OnInit {
     }
   }
 
+  cancelEdit() {
+    this.editProfile = false;
+  }
+
   updateUserName() {
     this._userService.updateUserName(this.user, this.userFormGroup);
   }
