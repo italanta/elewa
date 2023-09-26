@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { QueryList } from '@angular/core';
-import { OptionInputFieldComponent } from '../../../../block-options/src/lib/components/option-input-field/option-input-field.component'; 
+import { OptionInputFieldComponent } from '../../../../block-options/src';
+
+
 
 @Injectable({
   providedIn: 'root',
