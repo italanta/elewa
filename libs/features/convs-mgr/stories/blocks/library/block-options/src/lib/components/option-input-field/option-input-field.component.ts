@@ -44,7 +44,6 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   }
   
   setFocus() {
-    console.log('setFocus called'); // Add this line for debugging
     const input = document.getElementById(this.inputUniqueId) as HTMLInputElement;
     if (input) {
       input.focus();
