@@ -75,8 +75,6 @@ export class ChatsListComponent implements AfterViewInit, OnInit
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    // this.chats$ = this._chats$.get();
-    // this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
     this.chats$  = this._msgsQuery$.getChats();
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
@@ -93,7 +91,6 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     {
       if (this.paginator.length && this.dataSource) {
         this.dataSource.paginator = this.paginator?.first;
-        // this.cd.detectChanges();
       }
     });
   }
