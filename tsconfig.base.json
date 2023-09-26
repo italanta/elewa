@@ -67,6 +67,9 @@
       "@app/features/convs-mgr/conversations/messaging": [
         "libs/features/convs-mgr/conversations/messaging/src/index.ts"
       ],
+      "@app/features/convs-mgr/conversations/surveys": [
+        "libs/features/convs-mgr/conversations/surveys/src/index.ts"
+      ],
       "@app/features/convs-mgr/dashboard": [
         "libs/features/convs-mgr/dashboard/src/index.ts"
       ],

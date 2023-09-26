@@ -150,6 +150,32 @@
       },
       "tags": []
     },
+    "features-convs-mgr-conversations-surveys": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/conversations/surveys",
+      "sourceRoot": "libs/features/convs-mgr/conversations/surveys/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/conversations/surveys"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/conversations/surveys/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/conversations/surveys/**/*.ts",
+              "libs/features/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-dashboard": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/dashboard",
@@ -824,6 +850,7 @@
       "tags": []
     },
     "functions-user": "libs/functions/user",
+    "functions-user": "libs/functions/user",
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
       "sourceRoot": "libs/model/analytics/group-based/progress/src",
@@ -1465,6 +1492,31 @@
               "libs/private/model/access-control/**/*.ts",
               "libs/private/model/access-control/**/*.html"
             ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-model-convs-mgr-micro-apps-base": {
+      "root": "libs/private/model/convs-mgr/micro-apps/base",
+      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/base/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/convs-mgr/micro-apps/base/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/base"],
+          "options": {
+            "jestConfig": "libs/private/model/convs-mgr/micro-apps/base/jest.config.ts",
+            "passWithNoTests": true
           }
         }
       },
