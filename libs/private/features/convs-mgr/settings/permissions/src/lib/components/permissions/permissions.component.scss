@@ -3,21 +3,26 @@
   min-height: 100vh;
 }
 
+
 .app-domains {
   padding-bottom: 100px;
 }
+
 
 .app-domains .set-accordions > div {
   margin-bottom: 30px;
 }
 
 .btn {
-  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  background: #1F7A8C!important;
   color: white!important;
 }
 
 .white-btn {
   color: white!important;
+  background: #1F7A8C;
+   border-radius: 25px;
+   margin-right: 35px;
 }
 
 .main-title {
