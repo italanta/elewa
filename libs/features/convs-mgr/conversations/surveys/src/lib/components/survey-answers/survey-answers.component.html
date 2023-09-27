@@ -1,1 +1,13 @@
-<p>survey-answers works!</p>
+<div *ngIf="questionFormGroup">
+    <div [formGroup]="questionFormGroup">
+      <div formArrayName="options">
+        <div *ngFor="let choice of choicesList.controls; let i = index">
+          <app-survey-answer (deleteChoice)="deleteChoice($event)" 
+                                (answerClicked)="generateAnswerForm($event)"
+                                 [questionFormGroup]="questionFormGroup"
+                                 [answerFormGroupName]="i">
+          </app-survey-answer>
+        </div>
+      </div>
+    </div>
+  </div>

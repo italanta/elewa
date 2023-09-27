@@ -1,1 +1,26 @@
-<p>survey-config works!</p>
+<div class="survey-config">
+    <h4>{{'SURVEYS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}}</h4>
+    <div [formGroup]="surveyFormGroup">
+        <div formGroupName="configs" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="2%">
+
+            <span> {{'SURVEYS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
+
+            <mat-radio-group formControlName="feedback" fxLayout="column" fxLayoutAlign="start">
+                <mat-radio-button [value]="immediateFeedback">{{'SURVEYS.QUESTIONS.SELECT.IMMEDIATELY' |
+                    transloco}}</mat-radio-button>
+                <mat-radio-button [value]="onEndFeedback">{{'SURVEYS.QUESTIONS.SELECT.ON-END' |
+                    transloco}}</mat-radio-button>
+                <mat-radio-button [value]="noFeedback">{{'SURVEYS.QUESTIONS.SELECT.NEVER' |
+                    transloco}}</mat-radio-button>
+            </mat-radio-group>
+
+
+            <mat-form-field appearance="fill" class="full-field">
+                <mat-label>
+                    {{'SURVEYS.QUESTIONS.FIELDS.USER-ATTEMPTS' | transloco}}
+                </mat-label>
+                <input type="number" formControlName="userAttempts" matInput>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

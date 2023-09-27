@@ -1,1 +1,45 @@
-<p>survey-question-form works!</p>
+<div class="question-form">
+	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
+		(click)="activeQuestionChanged.emit(index)">
+		<h1>hart</h1>
+		<div class="card-content">
+			<div *ngIf="surveyFormGroup">
+				<div [formGroup]="surveyFormGroup">
+					<div formArrayName="questions">
+						<div [formGroup]="questionFormGroup">
+
+							<div fxLayout="row" fxLayoutAlign="space-between center">
+								<mat-form-field appearance="fill" fxFlex="60">
+									<input type="text" matInput formControlName="message" placeholder="Type your question">
+								</mat-form-field>
+
+								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+									<button mat-flat-button>
+										<img src="assets/icons/duplicate-item.svg" alt="">
+									</button>
+									<button mat-flat-button (click)="deleteQuestion()">
+										<img src="assets/icons/delete-item.svg" alt="">
+									</button>
+								</div>
+							</div>
+
+							<app-survey-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup"
+								[surveyMode]="surveyMode"></app-survey-answers>
+
+							<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+								<mat-form-field appearance="fill">
+									<mat-label> Marks </mat-label>
+									<input type="number" matInput formControlName="marks">
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
+		(click)="addNewQuestion.emit()">
+		<i class="fas fa-plus"></i>
+	</button>
+</div>

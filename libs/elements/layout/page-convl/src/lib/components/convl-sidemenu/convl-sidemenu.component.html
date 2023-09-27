@@ -31,7 +31,7 @@
             </li>
 
             <!-- Section Bots -->
-            <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/stories" routerLinkActive="active" class="menu-item">
+            <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/stories" routerLinkActive="active" class="menu-item" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.BOT'| transloco }}">
               <a>
                 <span class="menu-icon">
                   <img src="assets/icons/bots-stroked.svg" alt="">
@@ -73,6 +73,19 @@
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
+                </span>
+              </a>
+            </li>
+
+            <!-- Asssessments sections -->
+            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys"
+              routerLinkActive="active">
+              <a>
+                <span class="menu-icon">
+                  <img src="assets/icons/list-icon.svg" alt="">
+                </span>
+                <span *ngIf="isExpanded" class="menu-title">
+                  Surveys
                 </span>
               </a>
             </li>

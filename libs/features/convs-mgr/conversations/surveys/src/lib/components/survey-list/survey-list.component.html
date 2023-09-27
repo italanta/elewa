@@ -1,1 +1,59 @@
-<p>survey-list works!</p>
+<div>
+	<div *ngIf="surveys$ | async as surveys">
+		<div>
+			<div class="header-wrapper" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="1rem">
+				<app-survey-header></app-survey-header>
+
+				<div class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+					<div class="search" fxFlex="60">
+						<i class="fas fa-search search_tooltip"></i>
+						<input class="search_input" type="text" name="" placeholder="Search for surveys"
+							(keyup)="searchTable($event)" />
+					</div>
+
+					<div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+						<div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
+
+							<div class="select">
+								<select [value]="sortSurveysBy" (change)="sortBy($event)">
+									<option value=""></option>
+									<option value="newest">Date Created (Newest)</option>
+									<option value="oldest">Date Created (Oldest)</option>
+								</select>
+							</div>
+
+							<button [ngClass]="viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+								<i class="fa-solid fa-list-ul"></i>
+								<span style="margin-left: 10px;"> List </span>
+							</button>
+
+							<button [ngClass]="!viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
+								<i class="fa-solid fa-border-all"></i>
+								<span style="margin-left: 10px;"> Grid </span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf="!dataFound">
+				<ng-container *ngTemplateOutlet="noSurveys"></ng-container>
+			</div>
+
+			<div *ngIf="dataFound">
+				<app-survey-list-view *ngIf="viewInListView" [dataSource]="dataSource" [surveys]="surveys"></app-survey-list-view>
+				<app-survey-grid-view *ngIf="!viewInListView" [dataSource]="dataSource" [surveys]="surveys"></app-survey-grid-view>
+			</div>
+		</div>
+	</div>
+
+	<ng-template #noSurveys>
+		<div class="create-surveys" fxLayout="row" fxLayout="center center">
+			<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+				<i class="fa fa-plus fa-5x" aria-hidden="true"></i>
+				<p>{{'SURVEYS.BUTTON.ADD-ASSESSMENT' | transloco}}</p>
+			</div>
+		</div>
+	</ng-template>
+
+</div>

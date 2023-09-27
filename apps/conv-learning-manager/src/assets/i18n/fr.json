@@ -321,6 +321,74 @@
       }
     }
   },
+  "SURVEYS": {
+    "BUTTON": {
+      "VIEW": "Voir",
+      "RESULTS": "Résultats",
+      "ADD": "Créer un sondage",
+      "EDIT": "Modifier",
+      "SAVE": "Enregistrer",
+      "DELETE": "Supprimer",
+      "SEARCH-SURVEY": "Rechercher un sondage",
+      "ADD-SURVEY": "Créer un sondage",
+      "EDIT-SURVEY": "Modifier un sondage",
+      "PUBLISH": "Publier",
+      "SEARCH-QUESTIONS": "Rechercher une question"
+    },
+    "ACCESSIBILITY": {
+       "SELECT-SURVEY-PAGE": "Sélectionner la page du sondage",
+       "SORT-BY-TITLE": "Trier par titre du sondage",
+       "SORT-BY-IN-PROGRESS": "Trier par nombre de sondages en cours",
+       "SORT-BY-RESPONSES": "Trier par nombre de réponses au sondage",
+       "SORTED-ASC": "Trié par ordre croissant",
+       "SORTED-DESC": "Trié par ordre décroissant"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Créer un sondage",
+      "FIELDS": {
+         "TITLE": "Titre",
+         "TITLE-PLACEHOLDER": "Nom du sondage",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Description du sondage"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Créer un sondage",
+        "CANCEL": "Annuler"
+      }
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le sondage",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le sondage",
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce sondage ?"
+    },
+   "ALERT": {
+      "NOT-FOUND": "Sondage non trouvé"
+    },
+   "QUESTIONS": {
+      "QUESTION": "Nouvelle question",
+      "QUESTIONS": "Questions",
+      "ANSWER": "Nouvelle réponse",
+      "FIELDS":{
+        "CONFIGURATION": "Configuration",
+        "FEEDBACK": "Commentaire",
+        "CONDITION": "Condition",
+        "USER-ATTEMPTS": "Essais de l'utilisateur",
+        "MARKS": "Points",
+        "MARKS-PLACEHOLDER": "Entrez les points",
+        "QUESTION": "Tapez une question que vous souhaitez poser",
+        "ANSWER": "Tapez une réponse possible"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immédiatement",
+        "ON-END": "À la fin",
+        "NEVER": "Jamais",
+        "CORRECT": "Correct",
+        "WRONG": "Faux",
+        "50-50": "50/50"
+      }
+    }
+  },
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Nom",

@@ -463,6 +463,121 @@
       }
     }
   },
+  "SURVEYS": {
+    "TABLE-HEADER": {
+      "TITLE": "Survey Title",
+      "CREATED-ON": "Created On",
+      "IN-PROGRESS": "In Progress",
+      "RESPONSES": "Completed Responses",
+      "ACTIONS": "Actions"
+    },
+    "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Go Back",
+        "EDIT SURVEY": "Edit survey"
+      },
+      "TEXT":{
+        "SURVEY RESULTS": "Survey Results",
+        "ALL-CLASSES":"All classes"
+      },
+      "TABLE-HEADER": {
+        "NAME": "Name",
+        "PHONE-NO": "PhoneNumber",
+        "STARTED-ON": "Started On",
+        "FINISHED-ON": "Finished On",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Score Category"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Select Results Page",
+        "SORT-BY-CREATED": "Sort by survey created date",
+        "SORT-BY-No": "Sort by survey number",
+        "SORT-BY-NAME": "Sort by survey results name",
+        "SORT-BY-PHONE-NO": "Sort by survey results phone number",
+        "SORT-BY-STARTED-ON": "Sort by survey results started on",
+        "SORT-BY-FINISHED-ON": "Sort by survey results finished on",
+        "SORT-BY-SCORE": "Sort by survey results score",
+        "SORT-BY-SCORE-CATEGORY": "Sort by survey results score category",
+        "SORTED-ASC": "Sorted in ascending order",
+        "SORTED-DESC": "Sorted in descending order"
+      },
+      "LABELS": {
+        "GROUPS": "Groups"
+      },
+      "METRICS": {
+        "LOWEST": "Lowest Score",
+        "HIGHEST": "Highest Score",
+        "AVERAGE": "Average Score",
+        "TOTAL-QUESTIONS":"Total Questions"
+      }
+    },
+    "BUTTON": {
+      "VIEW": "View", 
+      "RESULTS": "Results",
+      "ADD": "Create survey",
+      "EDIT": "Edit",
+      "SAVE": "Save",
+      "DELETE": "Delete",
+      "SEARCH-SURVEY": "Search survey",
+      "ADD-SURVEY": "Create an survey",
+      "EDIT-SURVEY": "Edit survey",
+      "PUBLISH": "Publish",
+      "SEARCH-QUESTIONS": "Search questions"
+    },
+    "ACCESSIBILITY": {
+       "SELECT-SURVEY-PAGE": "Select page of survey",
+       "SORT-BY-TITLE": "Sort by survey title",
+       "SORT-BY-IN-PROGRESS": "Sort by survey in-progress count",
+       "SORT-BY-RESPONSES": "Sort by survey responses",
+       "SORTED-ASC": "Sorted in ascending order",
+       "SORTED-DESC": "Sorted in descending order"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a survey",
+      "FIELDS": {
+         "TITLE": "Title",
+         "TITLE-PLACEHOLDER": "Survey name",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Survey description"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Create survey",
+        "CANCEL": "Cancel"
+      }
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Delete Survey",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Delete Survey",
+      "MESSAGE": "Are you sure you want to delete this Survey?"
+    },
+   "ALERT": {
+      "NOT-FOUND": "Survey not found"
+    },
+   "QUESTIONS": {
+      "QUESTION": "New Question",
+      "QUESTIONS": "Questions",
+      "ANSWER": "New Answer",
+      "FIELDS":{
+        "CONFIGURATION": "Configuration",
+        "FEEDBACK": "Feedback",
+        "CONDITION": "Condition",
+        "USER-ATTEMPTS": "User attempts",
+        "MARKS": "Marks",
+        "MARKS-PLACEHOLDER": "Enter marks",
+        "QUESTION": "Type a question you would like to ask",
+        "ANSWER": "Type a possible answer"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immediately",
+        "ON-END": "On end",
+        "NEVER": "Never",
+        "CORRECT": "Correct",
+        "WRONG": "Wrong",
+        "50-50": "50/50"
+      }
+    }
+  },
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Name",
