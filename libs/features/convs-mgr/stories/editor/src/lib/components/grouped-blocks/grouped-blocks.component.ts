@@ -110,6 +110,9 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
       case StoryBlockTypes.OpenEndedQuestion:
         this.frame.newBlock(StoryBlockTypes.OpenEndedQuestion, coordinates);
         break;
+      case StoryBlockTypes.MultiContentInput:
+        this.frame.newBlock(StoryBlockTypes.MultiContentInput, coordinates);
+        break;
       case StoryBlockTypes.keyword:
         this.frame.newBlock(StoryBlockTypes.keyword, coordinates);
         break;

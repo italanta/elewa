@@ -10,6 +10,7 @@ import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMes
           VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, 
           JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, 
           AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock, KeywordMessageBlock, 
+          MultiContentInputBlock,
           EventBlock,
           AssessmentBrick,
           ConditionalBlock
@@ -38,6 +39,7 @@ import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
 import { _VideoInputBlockDecoratePlumb } from './video-input-block.jsplumb';
 import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
 import { _OpenEndedQuestionBlockDecoratePlumb } from './open-ended-question-block.jsplumb';
+import { _MultiContentInputBlockDecoratePlumb } from './multi-content-input-block.jsplumb';
 import { _KeywordJumpBlockDecoratePlumb } from './keyword-jump-block.jsplumb';
 import { _EventBlockDecoratePlumb } from './event-block.jsplumb';
 import { _AssessmentBrickDecoratePlumb } from './assessment-brick.jsplumb';
@@ -119,7 +121,10 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
       break;
     case StoryBlockTypes.OpenEndedQuestion:
       return _OpenEndedQuestionBlockDecoratePlumb(block as OpenEndedQuestionBlock, comp, jsPlumb);
-      break; 
+      break;
+    case StoryBlockTypes.MultiContentInput:
+      return _MultiContentInputBlockDecoratePlumb(block as MultiContentInputBlock, comp, jsPlumb);
+      break;  
     case StoryBlockTypes.keyword:
       return _KeywordJumpBlockDecoratePlumb(block as KeywordMessageBlock, comp, jsPlumb);
       break;
