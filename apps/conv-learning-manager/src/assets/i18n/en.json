@@ -664,12 +664,12 @@
       "STATUS": "Status"
     },
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search input by name"
+      "SEARCH-PLACEHOLDER": "Search for a learner"
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
-      "BULK-ACTIONS": "Bulk Actions",
+      "BULK-ACTIONS": "Send Message",
       "CLASS": "Class",
       "COURSE": "Course",
       "PLATFORM": "Platform",
