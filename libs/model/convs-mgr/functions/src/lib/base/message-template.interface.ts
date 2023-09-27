@@ -6,7 +6,7 @@ import { IObject } from "@iote/bricks";
  */
 export interface MessageTemplate extends IObject {
   name          : string;
-  category      : CategoryTypes;
+  category      : TemplateCategoryTypes;
 
   /**
    * The langauge of the template as per the below list
@@ -19,7 +19,10 @@ export interface MessageTemplate extends IObject {
   /** Once the template has been created, Meta provides a unique identifier
    *  for the template. This identifier can be used to update the template
    */
-  templateId    : string;
+  templateId?   : string;
+
+  /** Number of messages sent using this template */
+  sent?         : number;
 } 
 
 /**
@@ -165,8 +168,16 @@ export enum TemplateHeaderTypes {
   Location  = 5
 }
 
-export enum CategoryTypes {
+export enum TemplateCategoryTypes {
   Utility         = "UTILITY",
   Marketing       = "MARKETING",
   Authentication  = "AUTHENTICATION"
+}
+
+/** The review status of the template */
+export enum TemplateStatusTypes
+{
+  Approved = "APPROVED",
+  Pending  = "PENDING",
+  Rejected = "REJECTED"
 }
