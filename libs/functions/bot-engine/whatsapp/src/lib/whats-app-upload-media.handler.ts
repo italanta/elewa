@@ -55,7 +55,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       if(!storyPublishedTime) return {status: 400} as RestResult;
 
       // TODO: Uncomment this when the storyPublishedTime is fixed
-      if(blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
+      if(!fileBlock.whatsappMediaId || blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
 
       // Only upload media if the block has a file source
       if(fileBlock.fileSrc)
