@@ -1,8 +1,10 @@
+import { IObject } from "@iote/bricks";
+
 /**
  * This interface defines the structure of the template payload passed so that
  *  it can be updated, created or deleted
  */
-export interface MessageTemplate {
+export interface MessageTemplate extends IObject {
   name          : string;
   category      : CategoryTypes;
 
@@ -13,6 +15,11 @@ export interface MessageTemplate {
    */
   language      : string;
   content       : TemplateComponents;
+
+  /** Once the template has been created, Meta provides a unique identifier
+   *  for the template. This identifier can be used to update the template
+   */
+  templateId    : string;
 } 
 
 /**
@@ -159,7 +166,7 @@ export enum TemplateHeaderTypes {
 }
 
 export enum CategoryTypes {
-  Utility         = 5,
-  Marketing       = 10,
-  Authentication  = 15
+  Utility         = "UTILITY",
+  Marketing       = "MARKETING",
+  Authentication  = "AUTHENTICATION"
 }
