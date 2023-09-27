@@ -83,7 +83,7 @@ export class CMI5Listener extends FunctionHandler<any, any>
 
         tools.Logger.log(() => `[CMI5Listener].execute - State document: ${JSON.stringify(stateDocument)}`);
 
-        return stateDocument;
+        return stateDocument as any;
 
       case '/agents/profile':
         // Temporarily send default learning preferences.

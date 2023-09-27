@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
-import { MessageTemplate } from '@app/private/model/message-template';
+
 import { Observable } from 'rxjs';
 import { MessageTemplateStore } from '../store/message-template.store';
 
