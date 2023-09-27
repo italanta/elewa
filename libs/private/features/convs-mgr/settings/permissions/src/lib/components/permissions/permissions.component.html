@@ -1,13 +1,23 @@
 <div class="permissions">
   <div fxLayout="row" fxLayoutAlign="space-between start" class="header">
-    <div *ngIf="usersLoaded; else loading" fxLayout="column" fxLayoutAlign="start start" class="info">
+    <!-- <div *ngIf="usersLoaded; else loading" fxLayout="column" fxLayoutAlign="start start" class="info">
       <p>Edit all the permissions of your <span class="bolder"> {{users.length}} team members.</span></p>
       <div>You currently have: <span *ngFor="let role of userRoles"> {{role[1] ? role[1] : ''}} {{role[0] ? role[0] : ''}}</span></div>
-    </div>
+    </div> -->
+
+     <!-- Use a spacer to push the Save Roles button to the right -->
+     <div fxFlex></div>
 
     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" class="buttons">
-      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="deleteRole()" mat-stroked-button> Delete role</button>
-      <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="addRole()" mat-raised-button class="btn white-btn"> Add role</button>
+      <!-- <ng-container *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS">
+        <button (click)="deleteRole()" mat-stroked-button *ngIf="isEditMode">
+          Delete role
+        </button>
+        <button (click)="addRole()" mat-raised-button class="btn white-btn" *ngIf="isEditMode">
+          Add role
+        </button>
+      </ng-container> -->
+      
       <button (click)="updateRolesPermissions()" mat-raised-button class="btn white-btn">
         <span *ngIf="!isEditMode; else saveRoles"> Edit Roles</span>
         <ng-template #saveRoles> <span> Save Roles </span></ng-template>
