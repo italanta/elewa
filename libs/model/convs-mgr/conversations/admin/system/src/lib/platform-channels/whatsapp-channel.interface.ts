@@ -8,4 +8,7 @@ export interface WhatsAppCommunicationChannel extends CommunicationChannel
      *  We pass the access token in the Authorization header when sending a http request 
      * */
     accessToken?: string;
+
+    /** Phone number of the whatsapp bot that end users are chatting with */
+    phoneNumber?: string;
 }
