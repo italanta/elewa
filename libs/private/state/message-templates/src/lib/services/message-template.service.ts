@@ -4,6 +4,8 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Observable } from 'rxjs';
 import { MessageTemplateStore } from '../store/message-template.store';
 
+import { MessageTemplate } from '@app/model/convs-mgr/functions'
+
 @Injectable({
   providedIn: 'root',
 })

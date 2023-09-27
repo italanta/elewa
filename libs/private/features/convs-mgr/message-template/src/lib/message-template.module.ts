@@ -12,6 +12,7 @@ import {
 } from '@iote/bricks-angular';
 import { MessageTemplateCreateComponent } from './pages/message-template-create/message-template-create.component';
 import { MessageTemplateViewComponent } from './pages/message-template-view/message-template-view.component';
+import { MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
 
 @NgModule({
   imports: [
@@ -29,5 +30,9 @@ import { MessageTemplateViewComponent } from './pages/message-template-view/mess
     MessageTemplateCreateComponent,
     MessageTemplateViewComponent,
   ],
+  providers: [
+    MessageTemplatesService,
+    MessageTemplateStore
+  ]
 })
 export class MessageTemplateModule {}

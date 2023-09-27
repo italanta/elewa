@@ -58,6 +58,28 @@
                 </div>
 
 
+                <div class="form-group">
+                    <label>Buttons</label>
+                    <!-- Use ngFor to loop through the buttons and add button fields -->
+                    <div formArrayName="buttons">
+                      <div>
+                        <div class="button-group">
+                          <input type="text" formControlName="text" placeholder="Button Text" />
+                          <select formControlName="type">
+                            <option value="PhoneNumber">Phone Number</option>
+                            <option value="URL">URL</option>
+                            <option value="QuickReply">Quick Reply</option>
+                            <option value="CopyCode">Copy Code</option>
+                          </select>
+                          <input type="text" formControlName="phoneNumber" placeholder="Phone Number" />
+                          <input type="text" formControlName="url" placeholder="URL" />
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" (click)="addButton()">Add Button</button>
+                  </div>
+
+
             </form>
         </div>
     </div>
