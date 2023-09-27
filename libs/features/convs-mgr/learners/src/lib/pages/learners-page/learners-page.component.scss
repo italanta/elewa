@@ -27,6 +27,7 @@
         outline: none;
         padding: 20px;
         border-radius: 20px;
+        margin-left: 20px;
       }
 
       .bulk-actions {
@@ -37,8 +38,9 @@
 
     .table-filters {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 1fr 2fr;
       gap: 3rem;
+      margin-bottom: 30px;
 
       & * {
         border-radius: 0.5rem;
@@ -46,7 +48,7 @@
 
       .search {
         height: 5px;
-        width: 100%;
+        width: 90%;
         background-color: var(--convs-mgr-color-primary-white);
         border-radius: 20px;
         display: flex;
@@ -74,7 +76,7 @@
       .dropdown {
         display: grid;
         gap: 0.3rem;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
 
         select {
           appearance: none;
@@ -110,7 +112,7 @@
           position: absolute;
           top: 7px;
           right: 5px;
-          padding: .4rem;
+          padding: .5rem;
           height: 42px;
           border-radius: 20px;
           background-color: white;
@@ -137,4 +139,27 @@ a:hover {
   color: #00A0C6;
   text-decoration: none;
   cursor: pointer;
+}
+
+.mdc-data-table__header-cell {
+	color: #7C7C7C;
+	font-weight: 300;
+	font-size: 1.1rem;
+  background-color: #F6F6F6!important;
+}
+
+.mat-mdc-row {
+	color: #101010;
+	font-size: 1rem;
+  background-color: #F6F6F6!important;
+	font-weight: 400;
+	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25)!important;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+	cursor: pointer;
+}
+
+.mat-mdc-paginator {
+  background-color: #F6F6F6!important;
 }

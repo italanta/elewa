@@ -52,10 +52,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
   allCourses: string[] = [];
+  allStatus: string[] = [];
 
-  selectedClass: any = 'Class';
-  selectedCourse: any = 'Course';
-  selectedPlatform: any = 'Platform';
+  selectedClass = 'All Classes';
+  selectedCourse = 'All Courses';
+  selectedStatus = 'All Courses';
+  selectedPlatform = 'All Platforms';
 
   templateId: string;
   selectedTime: Date;

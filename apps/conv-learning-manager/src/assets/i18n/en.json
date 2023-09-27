@@ -656,6 +656,7 @@
     }
   },
   "LEARNERS":{
+    "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
       "PHONE-NUMBER": "PhoneNumber",
