@@ -47,19 +47,30 @@
               <input formControlName="email" matInput placeholder="johndoe@gmail.com">
             </mat-form-field>
           </div>
-        </div>
+        </div> 
+         
+        <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
+          <div>
+            <button  mat-raised-button>
+            
+              <ng-template>
+                <span>cancel</span>
+              </ng-template>
+            </button>
+          </div>  
 
-  
-
-        <div>
-          <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
-            <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
-            <ng-template #saveProfile>
-              <span>Save Profile</span>
-            </ng-template>
-          </button>
+          <div>
+            <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
+              <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
+              <ng-template #saveProfile>
+                <span>Save Profile</span>
+              </ng-template>
+            </button>
+          </div>  
         </div>
-        
+          
+          
+
 
       </div>                  
 
