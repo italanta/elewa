@@ -1,1 +1,14 @@
-<p>survey-questions works!</p>
+<div class="search-question">
+    <mat-form-field appearance="outline" class="search">
+      <mat-label>
+        <i class="fas fa-search"></i>
+        <span class="label">{{'SURVEYS.BUTTON.SEARCH-QUESTIONS' | transloco}}</span>
+      </mat-label>
+      <input type="search" matInput (keyup)="filterQuestions($event)">
+    </mat-form-field>
+  </div>
+  
+  <div *ngFor="let question of (questions$ | async); let i = index">
+    <app-survey-question [question]="question" [questionNo]="i+1"></app-survey-question>
+  </div>
+  

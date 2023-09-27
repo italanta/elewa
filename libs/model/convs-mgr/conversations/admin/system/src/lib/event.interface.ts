@@ -2,6 +2,7 @@ import { IObject } from '@iote/bricks';
 
 import { RoutedCursor } from './routed-cursor.interface';
 import { AssessmentCursor } from './assessment-cursor.interface';
+import { SurveyCursor } from './survey-cursor.interface';
 
 import { EventsStack } from './events-stack.interface';
 import { EventCategoryTypes } from './event-category-types.enum';
@@ -61,8 +62,9 @@ export interface Cursor extends IObject
   /** When a learner is doing the assessments, we track the assessment details here */
   assessmentStack?: AssessmentCursor[];
 
-  /** Used to track surveys, the learner has done */
+  /** When a learner is doing the assessments, we track the assessment details here */
   surveyStack?: SurveyCursor[];
+
   /**
    * Events, Milestones and Objectives achieved by the user.
    */

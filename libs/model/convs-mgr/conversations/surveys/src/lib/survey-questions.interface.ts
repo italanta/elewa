@@ -2,7 +2,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 export interface SurveyQuestion extends StoryBlock {
   questionType: SurveyQuestionType;
-  marks: number;
+  marks?: number;
   feedback?: SurveyFeedBack;
   options?: SurveyQuestionOptions[];
   prevQuestionId?: string;

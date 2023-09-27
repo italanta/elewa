@@ -1,1 +1,17 @@
-<p>delete-survey-modal works!</p>
+<div class="delete-survey__wrapper">
+    <h2 class="delete-survey__header">
+      {{ 'ASSESSMENTS.DELETE-MODAL.TITLE' | transloco }}
+    </h2>
+    <p class="delete-survey__message">
+      {{ 'ASSESSMENTS.DELETE-MODAL.MESSAGE' | transloco }}
+    </p>
+    <div class="delete-survey__btns">
+      <button mat-button mat-dialog-close class="delete-survey__btn--cancel">
+        {{ 'ASSESSMENTS.DELETE-MODAL.CANCEL' | transloco }}
+      </button>
+      <button mat-raised-button class="delete-survey__btn--delete" (click)="delete()">
+        {{ 'ASSESSMENTS.DELETE-MODAL.SUBMIT' | transloco }}
+      </button>
+    </div>
+  </div>
+  

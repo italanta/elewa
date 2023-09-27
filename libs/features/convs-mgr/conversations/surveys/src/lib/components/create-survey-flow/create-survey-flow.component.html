@@ -1,1 +1,35 @@
-<p>survey-assessment-flow works!</p>
+<convl-page>
+    <div *ngIf="formHasLoaded" class="create-survey" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+  
+      <div class="create-survey-header-title" fxLayout="row" fxLayoutAlign="start center" fxFlex="10">
+        <span>Surveys</span>
+      </div>
+  
+      <div class="create-survey-header-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex="10">
+        <button mat-raised-button [disabled]="isSaving" class="save-btn" (click)="onSave()">
+          <span *ngIf="!isSaving"> {{'SURVEYS.BUTTON.SAVE' | transloco }} </span>
+          <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
+        </button>
+        <button mat-raised-button [disabled]="isPublishing" color="primary" class="publish-btn" (click)="onPublish()">
+          <span *ngIf="!isPublishing"> {{'SURVEYS.BUTTON.PUBLISH' | transloco }} </span>
+          <mat-spinner diameter="25" *ngIf="isPublishing"></mat-spinner>
+        </button>
+      </div>
+    
+      <div class="create-body" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" fitInkBarToContent>
+          <mat-tab label="Create">
+            <app-survey-question-forms [previewMode]="false" [questions]="questions" [surveyFormGroup]="surveyForm">
+            </app-survey-question-forms>
+          </mat-tab>
+          <mat-tab label="Settings">
+            <app-survey-config [previewMode]="false" [surveyFormGroup]="surveyForm"></app-survey-config>
+          </mat-tab>
+          <mat-tab label="Preview">
+            <!-- use the view component to create the form preview -->
+            <!-- <app-survey-view [previewMode]="true" [surveyForm]="surveyForm"></app-survey-view> -->
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </convl-page>

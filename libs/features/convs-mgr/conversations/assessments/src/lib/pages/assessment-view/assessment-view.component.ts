@@ -18,7 +18,9 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.warn("freoeo", this.assessmentForm)
+  }
 
   ngOnDestroy(): void {}
 }

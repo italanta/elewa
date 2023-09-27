@@ -1,1 +1,40 @@
-<p>survey-grid-view works!</p>
+<div class="grid" fxFlexFill>
+    <div class="cards" fxLayout="row-wrap" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
+      <div *ngFor="let survey of dataSource.data" class="survey-card" fxLayout="column"
+        fxLayoutAlign="start" fxLayoutGap="16px" fxFlex="24">
+  
+        <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+          <span [ngClass]="survey.isPublished ? ['badge' , 'active'] : 'badge'">
+            {{ survey.isPublished ? "Active" : "Not Active" }}
+          </span>
+  
+          <button mat-button [matMenuTriggerFor]="menu">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openSurvey(survey.id!)" > Edit </button>
+            <button mat-menu-item (click)="openSurveyResults(survey.id!)"> {{'SURVEYS.BUTTON.RESULTS' |
+              transloco}} </button>
+            <button mat-menu-item (click)="openDeleteModal(survey)"> {{'SURVEYS.BUTTON.DELETE' | transloco}}
+            </button>
+          </mat-menu>
+        </div>
+  
+        <div class="card-body">
+          <span>
+            {{ survey.title }}
+          </span>
+        </div>
+  
+        <div class="card-footer" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+          <span>
+            OPEN SURVEY
+          </span>
+  
+          <button mat-fab color="primary">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,1 +1,65 @@
-<p>survey-list-view works!</p>
+<div fxFlex>
+    <table mat-table [dataSource]="dataSource" matSort class="surveys-table" (matSortChange)="onSortChange($event)"
+      fxFlex>
+      <ng-container matColumnDef="num">
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="number"
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-NUMBER' | transloco}}">#</th>
+        <td mat-cell *matCellDef="let survey; let i = index">{{i+1}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="title">
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="title"
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-TITLE' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.TITLE' | transloco}}</th>
+        <td class="title-desc" (click)="openSurvey(survey.id)" mat-cell *matCellDef="let survey">
+          {{survey.title}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="createdOn">
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="createdOn"
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
+        <td mat-cell *matCellDef="let survey">{{getFormattedDate(survey.createdOn)}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="inProgress">
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="inProgress"
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-IN-PROGRESS' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.IN-PROGRESS' | transloco}}</th>
+        <td mat-cell *matCellDef="let survey">{{ survey?.metrics?.inProgress }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="responses">
+        <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="responses"
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-RESPONSES' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.RESPONSES' | transloco}}</th>
+        <td mat-cell *matCellDef="let survey">{{ survey?.metrics?.completedRes }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th class="table-header" mat-header-cell *matHeaderCellDef>
+          {{'SURVEYS.TABLE-HEADER.ACTIONS' | transloco}}
+        </th>
+        <td mat-cell *matCellDef="let survey">
+          <button mat-button [matMenuTriggerFor]="menu">
+            <i class="fas fa-ellipsis-h"></i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openSurvey(survey.id)" > Edit </button>
+            <button mat-menu-item (click)="openSurveyResults(survey.id)"> {{'SURVEYS.BUTTON.RESULTS' |
+              transloco}} </button>
+            <button mat-menu-item (click)="openDeleteModal(survey)"> {{'SURVEYS.BUTTON.DELETE' | transloco}}
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="surveysColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: surveysColumns"></tr>
+  
+    </table>
+  
+    <mat-paginator #tablePaginator [length]="surveys.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+      [ariaLabel]="'SURVEYS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
+    </mat-paginator>
+  </div>

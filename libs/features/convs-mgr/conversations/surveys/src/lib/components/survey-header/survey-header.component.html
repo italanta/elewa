@@ -1,1 +1,15 @@
-<p>survey-header works!</p>
+<div class="header">
+    <img src="assets/images/assessments-header-bg.jpg">
+  
+    <div class="bottom-left" fxLayout="row" fxLayoutAlign="start center">
+  
+      <span class="circle">
+        <button mat-fab class="btn-add" (click)="createSurvey()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </span>
+  
+      <span>{{'SURVEYS.BUTTON.ADD' | transloco}}</span>
+  
+    </div>
+  </div>
