@@ -482,6 +482,7 @@
     }
   },
   "LEARNERS":{
+    "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
       "PHONENUMBER": "PhoneNumber",

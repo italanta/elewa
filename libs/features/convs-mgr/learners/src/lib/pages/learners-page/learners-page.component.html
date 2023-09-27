@@ -4,7 +4,7 @@
     <!-- top actions and filter container -->
     <div class="top-wrapper">
       <div class="top-actions">
-        <span class="learners-title"> Learners </span>
+        <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
         <div>
           <button mat-raised-button color="primary" class="btn add-to-class">
             {{'LEARNERS.BUTTONS.ADD-TO-CLASS'| transloco }}
@@ -25,40 +25,32 @@
 
         <div class="dropdown">
           <div class="select">
-            <select [(value)]="selectedClass">
-              <option [value]="null" selected disabled>Class</option>
+            <select>
+              <option [value]="null" selected>All Classes</option>
               <option *ngFor="let class of allClasses" [value]="class">{{ class }}</option>
             </select>
           </div>
 
           <div class="select">
-            <select [(value)]="selectedCourse">
-              <option [value]="null" selected disabled>Course</option>
+            <select>
+              <option [value]="null" selected>All Courses</option>
               <option *ngFor="let course of allCourses" [value]="course">{{ course }}</option>
             </select>
           </div>
 
           <div class="select">
-            <select [(value)]="selectedPlatform">
-              <option [value]="null" selected disabled>Platform</option>
+            <select>
+              <option [value]="null" selected> All Status </option>
               <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
             </select>
           </div>
 
-          <!-- <select [(value)]="selectedClass">
-            <option [value]="null" selected disabled>Class</option>
-            <option *ngFor="let class of allClasses" [value]="class">{{ class }}</option>
-          </select>
-
-          <select [(value)]="selectedCourse">
-            <option [value]="null" selected disabled>Course</option>
-            <option *ngFor="let course of allCourses" [value]="course">{{ course }}</option>
-          </select>
-
-          <select [(value)]="selectedPlatform">
-            <option [value]="null" selected disabled>Platform</option>
-            <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
-          </select> -->
+          <div class="select">
+            <select>
+              <option [value]="null" selected>All Platforms</option>
+              <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

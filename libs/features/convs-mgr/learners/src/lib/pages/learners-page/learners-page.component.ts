@@ -31,10 +31,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   allClasses: string[] = [];
   allPlatforms: string[] = [];
   allCourses: string[] = [];
+  allStatus: string[] = [];
 
-  selectedClass: any = 'Class';
-  selectedCourse: any = 'Course';
-  selectedPlatform: any = 'Platform';
+  selectedClass = 'All Classes';
+  selectedCourse = 'All Courses';
+  selectedStatus = 'All Courses';
+  selectedPlatform = 'All Platforms';
 
   constructor(
     private _eLearners: EnrolledLearnersService,
