@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="start" fxFlex>
   <div *ngIf="showAllCourses" class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
 
-    <span class="courses-title" fxFlex> All Courses </span>
+    <span class="courses-title" fxFlex> {{ "BOTS.BOTS-PAGE.ALl-COURSES" | transloco }} </span>
 
     <div class="search" fxFlex="50">
       <i class="fas fa-search search_tooltip"></i>
@@ -15,13 +15,13 @@
         <div class="select">
           <select [value]="sortCoursesBy" (change)="sortBy($event)">
             <option value=""></option>
-            <option value="newest">Date Created (Newest)</option>
-            <option value="oldest">Date Created (Oldest)</option>
+            <option value="newest"> {{ "BOTS.BOTS-PAGE.DATE-NEWEST" | transloco }} </option>
+            <option value="oldest"> {{ "BOTS.BOTS-PAGE.DATE-OLDEST" | transloco }} </option>
           </select>
         </div>
   
         <button mat-stroked-button>
-          <span (click)="collapseAllCourses.emit()"> Back </span>
+          <span (click)="collapseAllCourses.emit()"> {{ "BOTS.BOTS-PAGE.BACK" | transloco }} </span>
         </button>
       </div>
     </div>
@@ -31,25 +31,25 @@
   
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "BOTS.BOTS-PAGE.NAME" | transloco }} </th>
       <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{element.name}} </td>
     </ng-container>
   
     <!-- Type Column -->
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Type </th>
-      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> Beginner </td>
+      <th mat-header-cell *matHeaderCellDef> {{ "BOTS.BOTS-PAGE.TYPE" | transloco }} </th>
+      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{ "BOTS.BOTS-PAGE.BEGINNER" | transloco }} </td>
     </ng-container>
   
     <!-- Last Edited Column -->
     <ng-container matColumnDef="lastEdited">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Edited </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "BOTS.BOTS-PAGE.LAST" | transloco }} </th>
       <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{element.lastEdited}} </td>
     </ng-container>
   
     <!-- Channel Column -->
     <ng-container matColumnDef="channel">
-      <th mat-header-cell *matHeaderCellDef> Channel </th>
+      <th mat-header-cell *matHeaderCellDef> {{ "BOTS.BOTS-PAGE.CHANNEL" | transloco }} </th>
       <td mat-cell *matCellDef="let element" (click)="openBot(element.id)">
         <span class="channel-badge">
           Whatsapp
@@ -59,17 +59,17 @@
   
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>  Actions </th>
+      <th mat-header-cell *matHeaderCellDef>  {{ "BOTS.BOTS-PAGE.ACTIONS" | transloco }} </th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button [matMenuTriggerFor]="menu">
           <i class="fa-solid fa-ellipsis"></i>
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="editBot(element)">
-            <span> Edit </span>
+            <span> {{ "BOTS.BOTS-PAGE.EDIT" | transloco }} </span>
           </button>
           <button mat-menu-item (click)="deleteBot(element)">
-            <span> Delete </span>
+            <span> {{ "BOTS.BOTS-PAGE.DELETE" | transloco }} </span>
           </button>
         </mat-menu>
       </td>

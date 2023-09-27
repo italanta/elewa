@@ -1,22 +1,22 @@
 <convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
   <div *ngIf="!showAllCourses else allCourses"  class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
-    <span class="bots"> Bots </span>
+    <span class="bots"> {{ "BOTS.BOTS-PAGE.BOTS" | transloco }} </span>
 
     <div class="bots-header" fxFlex>
       <italanta-apps-bots-list-header></italanta-apps-bots-list-header>
     </div>
 
-    <span class="sub-title"> My Latest Courses </span>
+    <span class="sub-title"> {{ "BOTS.BOTS-PAGE.LATEST-COURSES" | transloco }} </span>
 
     <div class="latest-courses" fxFlex>
       <italanta-apps-bots-list-latest-courses [stories$]="stories$"></italanta-apps-bots-list-latest-courses>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <span class="sub-title"> All My Courses </span>
+      <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span>
 
       <button mat-flat-button (click)="showAllCourses = !showAllCourses">
-        View All
+        {{ "BOTS.BOTS-PAGE.VIEW-ALL" | transloco }}
       </button>
     </div>
 
