@@ -351,10 +351,13 @@
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "TITLE": "Assessment Title",
-      "CREATED-ON": "Created On",
+      "STATUS" : "Status",
+      "QUESTIONS" : "Questions",
+      "DUPLICATE" : "Duplicate",
+      "CREATED-ON": "Updated On",
       "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Completed Responses",
-      "ACTIONS": "Actions"
+      "RESPONSES": "Completion",
+      "ACTIONS": "Edit"
     },
     "RESULTS": {
       "BUTTONS": {
