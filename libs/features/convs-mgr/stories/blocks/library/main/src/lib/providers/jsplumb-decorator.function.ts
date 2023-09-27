@@ -10,7 +10,6 @@ import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMes
           VideoMessageBlock, VoiceMessageBlock, StickerMessageBlock, ReplyMessageBlock, 
           JumpBlock, MultipleInputMessageBlock,FailBlock, ImageInputBlock, LocationInputBlock, 
           AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock, KeywordMessageBlock, 
-          MultiContentInputBlock,
           EventBlock,
           AssessmentBrick,
           ConditionalBlock
