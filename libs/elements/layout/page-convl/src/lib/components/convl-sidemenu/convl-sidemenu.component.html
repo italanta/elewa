@@ -22,7 +22,7 @@
             <!-- Section Dashboard -->
             <li routerLink="/home" routerLinkActive="active" class="menu-item">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon" matToolTip="home">
                   <img src="assets/icons/home-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
@@ -33,7 +33,7 @@
             <!-- Section Bots -->
             <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/stories" routerLinkActive="active" class="menu-item">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon" >
                   <img src="assets/icons/bots-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
