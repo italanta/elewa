@@ -25,3 +25,4 @@ export * from './lib/messenger/messenger-button-types.enum';
 export * from './lib/messenger/messsenger-list-message-out.interface';
 export * from './lib/messenger/messenger-template-types.enum';
 export * from './lib/messenger/messenger-attachment-types.enum';
+export * from './lib/base/message-template.interface';
