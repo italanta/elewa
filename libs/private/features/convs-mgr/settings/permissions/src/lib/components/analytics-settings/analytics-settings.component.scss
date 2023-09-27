@@ -1,3 +1,18 @@
+.mat-expansion-panel {
+  margin: 35px;
+  background: #F6F6F6;
+  box-shadow: 1px 3px 4px 3px rgba(0, 0, 0, 0.15); 
+  border-radius: 8px;
+
+}
+mat-expansion-panel {
+  mat-expansion-panel-header {
+    height:85px; 
+    background: #F6F6F6;
+    box-shadow: 1px 3px 4px 3px rgba(0, 0, 0, 0.15); 
+  }
+}
+
 .main-title {
   color: var(--convs-mgr-color-text-black);
   font-weight: 600;
