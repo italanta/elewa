@@ -346,6 +346,24 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Delete Bot",
       "MESSAGE": " Are you sure you want to delete this bot?"
+    },
+    "BOTS-PAGE" : {
+      "BOTS" : "Bots",
+      "ALL-COURSES" : "All Courses",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Courses",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-BOT" : "Open Bot",
+      "VIEW-ALL" : "View All"
     }
   },
   "ASSESSMENTS": {

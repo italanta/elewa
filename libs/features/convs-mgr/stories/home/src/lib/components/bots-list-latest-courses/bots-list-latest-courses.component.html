@@ -4,7 +4,7 @@
     fxLayoutAlign="start" [fxFlex]="screenWidth < 1500 ? 32 : 25">
 
     <span class="card-badge">
-      Beginner
+      {{ "BOTS.BOTS-PAGE.BEGINNER" | transloco }}
     </span>
 
     <span class="card-title" fxFlex>
@@ -15,7 +15,7 @@
       <img [src]="story.imageField ? story.imageField : defaultImageUrl">
 
       <div class="open-bot-content" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-        <span> Open Bot</span>
+        <span> {{ "BOTS.BOTS-PAGE.OPEN-BOT" | transloco }} </span>
 
         <button mat-fab class="btn-add" (click)="openBot(story.id!)">
           <i class="fa-solid fa-arrow-right"></i>
