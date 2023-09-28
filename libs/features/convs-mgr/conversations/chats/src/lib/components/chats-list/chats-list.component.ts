@@ -19,7 +19,7 @@ import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
 import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
-import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
+
 
 @Component({
   selector: 'app-chats-list',
@@ -59,7 +59,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
   constructor(private _chats$: ChatsStore,
-    private _msgsQuery$:MessagesQuery,
+    private _chatStore$:ChatsStore,
     private _activeChat$: ActiveChatConnectedStore,
     private cd: ChangeDetectorRef,
     _dS: DataService,
@@ -75,7 +75,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$  = this._msgsQuery$.getChats();
+    this.chats$  = this._chatStore$.getChatsWithLatestMessageDate();
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 
