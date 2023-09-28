@@ -6,15 +6,15 @@ import { EditPaymentDialogComponent } from '../../modals/edit-payment-dialog/edi
 
 export interface PeriodicElement {
   name: string;
-  position: number;
+  position: any;
   weight: number;
   symbol: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'Download'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'Download'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Download'},
+  {position: "23 August 2023", name: 'Plan 1', weight: 1200, symbol: 'Download'},
+  {position: "23 July 2023", name: 'Plan 1', weight: 1200, symbol: 'Download'},
+  {position: "23 July 2023", name: 'plan 1', weight: 1200, symbol: 'Download'},
  
 ];
 
