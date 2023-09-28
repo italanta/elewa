@@ -1,7 +1,7 @@
 <div class="modal-wrapper">
   <div class="title-section">
     <p class="title">{{ mode }}</p>
-    <span>{{ enrolledUser?.name ?? 'No Name' }}</span>
+    <span>{{ enrolledUser.name || 'No Name' }}</span>
   </div>
 
   <div class="middle-section" *ngIf="classrooms$ | async as classrooms">
