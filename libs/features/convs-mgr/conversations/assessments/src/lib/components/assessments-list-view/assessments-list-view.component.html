@@ -31,7 +31,7 @@
         sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.QUESTIONS'| transloco}}">
         {{'ASSESSMENTS.TABLE-HEADER.QUESTIONS' | transloco}}</th>
       <td class="title-desc" (click)="openAssessment(assessment.id)" mat-cell *matCellDef="let assessment">
-        -
+        {{ assessment.questionsOrder ? assessment.questionsOrder.length : '-' }}
       </td>
     </ng-container>
 
