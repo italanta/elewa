@@ -379,7 +379,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
-    }
+    },
+    "ERROR": "Erreur",
+    "ERROR-COUNT": "Il y a",
+    "ERRORS": "erreurs"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum de caractères atteint"

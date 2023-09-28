@@ -521,7 +521,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
-    }
+    },
+    "ERROR":" Error",
+    "ERROR-COUNT": "There are ",
+    "ERRORS": "errors"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
