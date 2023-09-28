@@ -20,7 +20,7 @@ export class ManageTemplateService
     this._orgId = communicationChannel.id;
   }
 
-  public async createTemplate(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse> 
+  public async create(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse> 
   {
     // Only for whatsapp
     const whatsappCommChannel = this._communicationChannel as WhatsAppCommunicationChannel;
