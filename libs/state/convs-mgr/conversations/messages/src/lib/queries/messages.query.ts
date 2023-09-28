@@ -90,8 +90,8 @@ export class MessagesQuery
             // Sort the chats based on the last message date in descending order
             chatsWithDates.sort((a, b) => {
               // Ensure that null dates (error cases) are placed at the end
-              if (a.lastMsg === null) return 1;
-              if (b.lastMsg === null) return -1;
+              if (!a.lastMsg) return 1;
+              if (!b.lastMsg) return -1;
               return b.lastMsg - a.lastMsg;
             });
             return chatsWithDates;
