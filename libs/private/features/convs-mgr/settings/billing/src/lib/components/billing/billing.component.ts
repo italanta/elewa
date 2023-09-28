@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPaymentDialogComponent } from '../../modals/add-payment-dialog/add-payment-dialog.component';
+import { EditPaymentDialogComponent } from '../../modals/edit-payment-dialog/edit-payment-dialog.component';
 
 
 export interface PeriodicElement {
@@ -11,9 +12,9 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'Download'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'Download'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Download'},
  
 ];
 
@@ -35,6 +36,14 @@ export class BillingComponent {
 
   addPaymentMethod() {
     const dialogRef = this.dialog.open(AddPaymentDialogComponent, {
+      minWidth: '500px',
+      minHeight: '200px',
+      data: this.org
+    });
+  }
+
+  editPaymentMethod() {
+    const dialogRef = this.dialog.open(EditPaymentDialogComponent, {
       minWidth: '500px',
       minHeight: '200px',
       data: this.org
