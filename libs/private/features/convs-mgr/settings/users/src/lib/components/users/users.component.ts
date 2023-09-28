@@ -25,6 +25,7 @@ import { CLMUsersService } from '@app/private/state/user/base';
 
 import { NewUserDialogComponent } from '../../modals/new-user-dialog/new-user-dialog.component';
 import { UpdateUserModalComponent } from '../../modals/update-user-modal/update-user-modal.component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 const DATA: iTalUser[] = []
 
@@ -41,7 +42,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['name', 'email', 'roles', 'activity', 'status', 'actions'];
+  displayedColumns: string[] = ['select', 'name', 'email', 'activity', 'roles', 'actions'];
 
   dataSource = new MatTableDataSource(DATA);
 
@@ -52,6 +53,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   orgRoles: string[];
   
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
+  selection = new SelectionModel<iTalUser>(true, []);
 
   constructor(private _fb: FormBuilder,
               private dialog: MatDialog,
@@ -151,6 +153,30 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
         user: user
       }
     });
+  }
+
+  
+
+  toggleAll(event: any) {
+    if (event.checked) {
+      this.selection.select(...this.dataSource.data);
+    } else {
+      this.selection.clear();
+    }
+  }
+
+  toggleSelection(event: any, user: iTalUser) {
+    event.checked ? this.selection.select(user) : this.selection.deselect(user);
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  isSelected(user: iTalUser) {
+    return this.selection.isSelected(user);
   }
 
   removerUser(user: iTalUser) {

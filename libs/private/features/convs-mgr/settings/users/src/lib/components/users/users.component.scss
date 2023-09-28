@@ -13,10 +13,6 @@ table {
   width: 100%;
 }
 
-.btn {
-  background-color: var(--convs-mgr-color-primary-yellow)!important;
-  color: white!important;
-}
 
 .table-container {
   margin-top: 30px;
@@ -27,9 +23,12 @@ table {
 }
 
 .mdc-data-table__header-cell {
-  color: var(--convs-mgr-color-primary-yellow) !important;
-  font-weight: 700;
-  font-size: 1.1rem;
+ // Email
+  color: #707070;
+  font-size: 18px;
+  font-family: Roboto;
+  font-weight: 300;
+  word-wrap: break-word
 }
 
 .mat-mdc-row {
@@ -62,8 +61,67 @@ table {
   vertical-align: baseline;
   border-radius: 0.25rem;
   color: #fff;
-  background-color: var(--convs-mgr-color-primary-yellow);
+  // background-color: var(--convs-mgr-color-primary-yellow);
 }
+
+
+.users{
+  margin-top: 64px;
+  .toolbar{
+    .search{
+      width: 100%; 
+      height: 100%; 
+      background: white;
+      // Search member
+      color: #101010;
+      font-size: 16px;
+      font-family: Roboto;
+      font-weight: 300;
+      word-wrap: break-word
+    }
+    .buttons{
+      mat-form-field{
+        width: 100%; 
+        height: 100%; 
+        background: white; 
+        border-radius: 25px !important;
+        color: black;
+        font-size: 16px;
+        font-family: Roboto;
+        font-weight: 300;
+        word-wrap: break-word;
+      }
+      
+    }
+    .role {
+      border-radius: 25px !important; /* Add this line */
+    }
+  }
+  .buttons{
+    button{
+      height: 45px;
+      width: 142px;
+      background: #1F7A8C; 
+      border-radius: 25px;
+      color: white;
+      font-size: 16px;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
+    }
+  }
+  .role {
+    border-radius: 25px; /* Add this line */
+  }
+  // .user-table{
+  //   .table-container{
+  //     table{
+
+  //     }
+  //   }
+  // }
+}
+
 
 :host ::ng-deep .mat-mdc-form-field {
   width: 100%!important;
