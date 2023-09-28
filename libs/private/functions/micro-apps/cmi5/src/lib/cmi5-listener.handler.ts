@@ -95,7 +95,6 @@ export class CMI5Listener extends FunctionHandler<any, any>
 
       case '/activities':
         const auService = new CMI5AUService(tools);
-        break;
 
       case '/statements':
         tools.Logger.log(() => `[CMI5Listener].execute - API statement received`);

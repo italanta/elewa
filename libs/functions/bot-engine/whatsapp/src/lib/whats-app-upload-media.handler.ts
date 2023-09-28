@@ -34,7 +34,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
   {
     this._tools = tools;
     this.channel = payload as WhatsAppCommunicationChannel;
-    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
+    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.defaultStory, this.channel.orgId));
 
     this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
 
@@ -55,7 +55,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       if(!storyPublishedTime) return {status: 400} as RestResult;
 
       // TODO: Uncomment this when the storyPublishedTime is fixed
-      if(blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
+      if(!fileBlock.whatsappMediaId || blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
 
       // Only upload media if the block has a file source
       if(fileBlock.fileSrc)
