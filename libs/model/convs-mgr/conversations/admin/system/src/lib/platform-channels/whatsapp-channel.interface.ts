@@ -8,4 +8,11 @@ export interface WhatsAppCommunicationChannel extends CommunicationChannel
      *  We pass the access token in the Authorization header when sending a http request 
      * */
     accessToken?: string;
+
+    /**
+     * The ID of the whatsapp business account that the phone number is linked to.
+     * 
+     * Please note that this is not the same as the phoneNumber id
+     */
+    businessAccountId?: string;
 }
