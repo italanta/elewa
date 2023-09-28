@@ -18,7 +18,7 @@ const SURVEY_ROUTERS: Route[] = [
   },
   {
     path: ':id',
-    component: SurveyViewComponent,
+    component: CreateSurveyFlowComponent,
   },
   {
     path: ':id/results',
