@@ -16,11 +16,12 @@ import {
 import { ToastService } from '@iote/bricks-angular';
 import { TranslateService } from '@ngfi/multi-lang';
 
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
+
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { ActiveOrgStore } from '@app/state/organisation';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { FileStorageService } from '@app/state/file';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
