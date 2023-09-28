@@ -1,0 +1,138 @@
+.container{
+    margin: 50px;
+    div{
+        div{
+            .subscription{
+                // Subscription
+                color: #1F7A8C;
+                font-size: 18px;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word
+            }
+            .msgTokens{
+                // Message Tokens
+                color: #101010;
+                font-size: 18px;
+                font-family: Roboto;
+                font-weight: 300;
+                word-wrap: break-word
+            }
+            .section-one{
+                .card-parent{
+                    padding-left: 17px;
+                }
+                div{
+                    div{
+                        .cards{
+                           width: 488px; 
+                           height: 185px; 
+                           border-radius: 15px; 
+                           border: 1px #1F7A8C solid;
+                           .card-title{
+                            margin-top: 17px;
+                           }
+                           .card-contents{
+                            margin-left: 25px;
+                            div{
+                                .plan{
+                                    // Plan 1
+                                    color: #101010;
+                                    font-size: 24px;
+                                    font-family: Roboto;
+                                    font-weight: 300;
+                                    word-wrap: break-word;
+                                    margin-top: 23px;
+                                }
+                                .user{
+                                    // 5 of 8 users
+                                    color: #101010;
+                                    font-size: 18px;
+                                    font-family: Roboto;
+                                    font-weight: 300;
+                                    word-wrap: break-word;
+                                    margin-top: 8px;
+                                }
+                                .amount{
+                                    // KSH 1,200.00
+                                    color: #101010;
+                                    font-size: 24px;
+                                    font-family: Roboto;
+                                    font-weight: 400;
+                                    word-wrap: break-word
+                                }
+                                .plan-change{
+                                    // Change plan
+                                    color: #1F7A8C;
+                                    font-size: 16px;
+                                    font-family: Roboto;
+                                    font-weight: 400;
+                                    text-decoration: underline;
+                                    word-wrap: break-word
+                                }
+                                .card-details{
+                                    // Change plan
+                                    color: #1F7A8C;
+                                    font-size: 16px;
+                                    font-family: Roboto;
+                                    font-weight: 400;
+                                    text-decoration: underline;
+                                    word-wrap: break-word
+                                }
+                            }
+                           }
+                          
+                        }
+                        .payment-cards{
+                            width: 1058px; 
+                            height: 78px; 
+                            background: white; 
+                            border-radius: 8px;
+                            border: none ;
+                            margin-top: 24px;
+
+                        }
+                        div{
+                            .card-title{
+                                // Payment methods
+                                // Current plan
+                                color: #1F7A8C;
+                                font-size: 18px;
+                                font-family: Roboto;
+                                font-weight: 300;
+                                word-wrap: break-word;
+                                margin-top: 17px;
+                                margin-left: 17px;
+                            }  
+                            button{
+                                margin-top: 47px;
+                                width: 225px;
+                                 height: 45px; 
+                                 background: #1F7A8C;
+                                border-radius: 25px;
+                                color: white;
+                                font-size: 16px;
+                                font-family: Roboto;
+                                font-weight: 400;
+                                word-wrap: break-word;
+                                border: none;
+                            }
+                        }
+                                             
+                    }
+                }
+                .invoices{
+                    // Invoices
+                    color: black;
+                    font-size: 18px;
+                    font-family: Roboto;
+                    font-weight: 400;
+                    word-wrap: break-word;
+                    margin-top: 47px;        
+                }
+            }
+        }
+    }
+}
+
+
