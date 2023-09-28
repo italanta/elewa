@@ -4,7 +4,7 @@
 
   <div class="mid" (click)="scrollToClick()">
     <ng-container *ngIf="messageType is errorToast; else successTemplate">
-      Error
+      {{'TOAST.ERROR' | transloco}}
       <br>
       <span class="error-type">{{ errorType }}</span>
     </ng-container>
