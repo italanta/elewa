@@ -4,16 +4,22 @@ import { HandlerTools } from "@iote/cqrs";
 
 export class HttpService
 {
-  public async post(URL: string, dataPayload: any, tools: HandlerTools)
+  public async post(URL: string, dataPayload: any, tools: HandlerTools, accessToken?: string)
   {
     const payload = { data: dataPayload || {} };
 
     tools.Logger.log(() => `[HttpService].post - Attempting to post: ${JSON.stringify(payload)}`);
 
+    const headers = {
+      'ContentType': 'application/json'
+    }
+
+    if(accessToken) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
     const resp = await axios.post(URL, payload, {
-      headers: {
-        'ContentType': 'application/json'
-      }
+      headers: headers
     });
 
     if (resp.status < 300) {
@@ -27,15 +33,21 @@ export class HttpService
     }
   }
 
-  public async get(URL: string, tools: HandlerTools)
+  public async get(URL: string, tools: HandlerTools, accessToken?: string)
   {
 
     tools.Logger.log(() => `[HttpService].get - Attempting to fetch Data`);
 
+    const headers = {
+      'ContentType': 'application/json'
+    }
+
+    if(accessToken) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
     const resp = await axios.get(URL, {
-      headers: {
-        'ContentType': 'application/json'
-      }
+      headers: headers
     });
 
     if (resp.status < 300) {
@@ -48,6 +60,37 @@ export class HttpService
       tools.Logger.log(() => `[HttpService].get - Response: ${JSON.stringify(resp.status)}`);
       tools.Logger.error(() =>
         `[HttpService].get - Error while fecthing data: ${JSON.stringify(resp.data)}`);
+    }
+
+  }
+
+  public async delete(URL: string, tools: HandlerTools, accessToken?: string)
+  {
+
+    tools.Logger.log(() => `[HttpService].get - Attempting to fetch Data`);
+
+    const headers = {
+      'ContentType': 'application/json'
+    }
+
+    if(accessToken) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+
+    const resp = await axios.delete(URL, {
+      headers: headers
+    });
+
+    if (resp.status < 300) {
+
+      tools.Logger.log(() => `[HttpService].get - Response: ${JSON.stringify(resp.status)}`);
+      tools.Logger.log(() => `[HttpService].get - Delete data Success: ${JSON.stringify(resp.status)}`);
+
+      return resp.data;
+    } else {
+      tools.Logger.log(() => `[HttpService].get - Response: ${JSON.stringify(resp.status)}`);
+      tools.Logger.error(() =>
+        `[HttpService].get - Error while deleting data: ${JSON.stringify(resp.data)}`);
     }
 
   }
