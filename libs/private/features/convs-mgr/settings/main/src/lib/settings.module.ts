@@ -17,13 +17,10 @@ import { SettingsOrganisationModule } from '@app/private/features/convs-mgr/sett
 import { SettingsUsersModule } from '@app/private/features/convs-mgr/settings/users';
 
 import { PermissionsSettingsModule } from '@app/private/features/convs-mgr/settings/permissions';
-import { BillingModule } from '@app/private/features/convs-mgr/settings/billing';
 
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 
 import { SettingsRouterModule } from './settings.router';
-
-
 
 @NgModule({
   imports: [
@@ -45,10 +42,8 @@ import { SettingsRouterModule } from './settings.router';
     SettingsUsersModule,
     PermissionsSettingsModule,
     
-    
     SettingsProfileDetailsModule,
     SettingsOrganisationModule,
-    BillingModule,
     // SettingsConfigModule,
 
     SettingsRouterModule
