@@ -1,1 +1,1 @@
-export * from './lib/private-features-convs-mgr-settings-billing.module';
+export * from './lib/billing.module';
