@@ -38,7 +38,8 @@ export interface TemplateComponents {
    *   multi-media and location in the header, the header will have 
    *    it's own type that support this.
    * 
-   * NOTE: Variables can be included in the text using curly braces - {{name}}
+   * NOTE: Variables can be included in the text using curly braces - {{name}}.
+   *        Header supports 1 variable
    */
   header?: TemplateHeader;
 
@@ -47,12 +48,10 @@ export interface TemplateComponents {
    * 
    * NOTE: Variables can be included in the text using curly braces - {{name}}
    */
-  body: string;
+  body: TemplateBody;
 
   /**
    * The text that will appear in the footer section of the template
-   * 
-   * NOTE: Variables can be included in the text using curly braces - {{name}}
    */
   footer?: string;
 
@@ -67,6 +66,11 @@ export interface TemplateComponents {
 export interface TemplateButton {
   type: TemplateButtonType;
   text: string;
+}
+
+export interface TemplateBody {
+  text: string;
+  examples?: string[];
 }
 
 /**
@@ -127,9 +131,15 @@ export enum TemplateButtonType {
 
 export interface TemplateHeader {
   type: TemplateHeaderTypes;
+  /** If using variables in the header text or media, you have to provide an example of the variables value or
+   * an asset(media) that might be used.
+   */
+  examples?: string[];
 }
 
 export interface TextHeader extends TemplateHeader {
+
+  /** Text to appear in template header when sent. Supports 1 variable. */
   text: string;
 }
 
@@ -161,11 +171,24 @@ export interface LocationHeader extends TemplateHeader {
 }
 
 export enum TemplateHeaderTypes {
-  Text      = 1,
-  Image     = 2,
-  Video     = 3,
-  Document  = 4,
-  Location  = 5
+  TEXT = 'TEXT',
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO',
+  DOCUMENT = 'DOCUMENT',
+  LOCATION = 'LOCATION'
+}
+
+export const isMediaHeader = (templateHeaderTypes: TemplateHeaderTypes) => {
+  switch (templateHeaderTypes) {
+    case TemplateHeaderTypes.IMAGE:
+      return true;
+    case TemplateHeaderTypes.IMAGE:
+      return true;
+    case TemplateHeaderTypes.IMAGE:
+      return true;
+    default:
+      return false;
+  }
 }
 
 export enum TemplateCategoryTypes {
