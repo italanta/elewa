@@ -1,42 +1,75 @@
-.company-details {
-  padding: 30px 20px;
+.company-details{
+  margin: 76px 53px;
+  .company-logo{
+    img{
+      width: 210px;
+      height: 210px;
+      padding: 20px 0px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 1px #707070 solid;
+    }
+    .user-profile-picture{
+      div{
+        button{
+          width: 142px; 
+          height: 45px; 
+          background: #1F7A8C; 
+          border-radius: 25px;
+          color: white;
+          font-size: 16px;
+          font-family: Roboto;
+          font-weight: 400;
+          word-wrap: break-word;
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+  .information{
+   
+    .company-fields{
+      form{
+        h4{
+          // Basic Information
+          color: #101010;
+          font-size: 18px;
+          font-family: Roboto;
+          font-weight: 400;
+          word-wrap: break-word
+        }
+        .input{
+          mat-form-field{
+            input{
+              width: 884px;
+              height: 51px; 
+              border-radius: 8px; 
+              border: 1px #707070 solid;
+              display: none;
+              background: #F6F6F6;
+              margin-bottom: 100px;
+            }
+          }
+          
+        }
+      }
+      div{
+        button{
+          width: 225px; 
+          height: 45px; 
+          background: #1F7A8C; 
+          border-radius: 25px;
+          color: white;
+          font-size: 16px;
+          font-family: Roboto;
+          font-weight: 400;
+          word-wrap: break-word
+        }
+      }
+    }
+  }
 }
 
-.label {
-  margin: 0;
-  font-weight: 600;
-  color: var(--kujali-color-text-black);
-  font-size: 1rem;
-}
-
-.company-logo img {
-  width: 200px;
-  height: 200px;
-  padding: 20px 0px;
-  object-fit: contain;
-}
-
-.edit-button {
-  margin-bottom: 20px;
-  width: fit-content;
-  color: white;
-}
-
-.btn {
-  background-color: var(--convs-mgr-color-primary-yellow)!important;
-  color: white!important;
-}
-
-.add-acc-btn {
-  width: 30%;
-  color: var(--kujali-color-primary-blue)!important;
-  margin-bottom: 30px;
-}
-
-.delete-btn {
-  background-color: #CA0B00!important;
-  color: white;
-}
 
 :host ::ng-deep .company-details .names .mat-form-field,
 .emails-inputs .mat-form-field {
