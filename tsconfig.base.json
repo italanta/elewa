@@ -273,6 +273,9 @@
       "@app/private/features/convs-mgr/orgs": [
         "libs/private/features/convs-mgr/orgs/src/index.ts"
       ],
+      "@app/private/features/convs-mgr/settings/billing": [
+        "libs/private/features/convs-mgr/settings/billing/src/index.ts"
+      ],
       "@app/private/features/convs-mgr/settings/main": [
         "libs/private/features/convs-mgr/settings/main/src/index.ts"
       ],

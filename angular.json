@@ -1103,6 +1103,34 @@
       },
       "tags": []
     },
+    "private-features-convs-mgr-settings-billing": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/billing",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/billing/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/billing"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/billing/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/billing/**/*.ts",
+              "libs/private/features/convs-mgr/settings/billing/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-features-convs-mgr-settings-main": {
       "projectType": "library",
       "root": "libs/private/features/convs-mgr/settings/main",
