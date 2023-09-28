@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 
@@ -14,7 +15,8 @@ export class MessageTemplateFormComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private messageTemplatesService: MessageTemplatesService
+    private messageTemplatesService: MessageTemplatesService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -46,7 +48,7 @@ export class MessageTemplateFormComponent implements OnInit{
   }
   
   cancel() {
-    console.log('canceling');
+    this._router.navigate(['/messaging'])
   }
   save() {
     console.log('saving');
