@@ -7,6 +7,9 @@ admin.initializeApp(conf);
 
 export * from './app/bot/whatsapp-channel/whatsapp-receive-incoming-message.function';
 export * from './app/bot/whatsapp-channel/whatsapp-upload-media.function';
+export * from './app/bot/whatsapp-channel/whatsapp-templates-api.function';
+export * from './app/bot/whatsapp-channel/whatsapp-get-templates.function';
+export * from './app/bot/whatsapp-channel/whatsapp-upload-media.function';
 
 export * from './app/bot/main/send-outgoing-message.function';
 export * from './app/bot/main/talk-to-human.function';

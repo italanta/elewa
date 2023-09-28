@@ -4,3 +4,5 @@ export * from './lib/models/whatsapp-active-channel.model';
 export * from './lib/whats-app-upload-media.handler';
 export * from './lib/models/manage-template-response.interface';
 export * from './lib/models/manage-templates-request.interface';
+export * from './lib/whatsapp-get-templates.handler';
+export * from './lib/whatsapp-manage-templates.handler';
