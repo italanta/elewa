@@ -61,7 +61,7 @@
 
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
           <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
-            <span *ngIf="stateSaved; else saving"> Save </span>
+            <span *ngIf="stateSaved; else saving"> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
             <ng-template #saving>
               <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                 <span> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
@@ -76,7 +76,7 @@
         </div>
       </div>
 
-      <p class="error-count" *ngIf="errors.length>0">There are <span class="error-count-length">{{errors.length}}</span> errors</p>
+      <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
 
       <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>

@@ -183,9 +183,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
-
     this.checkStoryErrors();
-    
 
     this.stateSaved = false;
 
@@ -211,6 +209,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   addToChannel() {
+    this.checkStoryErrors();
     this._dialog.open(AddBotToChannelModal, {
       width: '550px'
     })
