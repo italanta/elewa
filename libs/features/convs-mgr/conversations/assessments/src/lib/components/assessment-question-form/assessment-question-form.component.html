@@ -1,6 +1,9 @@
 <div class="question-form">
 	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
+
+		<i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
+
 		<div class="card-content">
 			<div *ngIf="assessmentFormGroup">
 				<div [formGroup]="assessmentFormGroup">
