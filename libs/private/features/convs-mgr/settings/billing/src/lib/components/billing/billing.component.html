@@ -2,8 +2,8 @@
     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px" >
         <!-- left section -->
         <div fxLayout ="column">
-            <p class="subscription">Subscription</p>
-            <p class="mesgTokens">Message Tokens</p>
+            <p class="subscription" [ngClass]="{ 'selected': selectedOption === 'subscription' }">Subscription</p>
+            <p class="mesgTokens" [ngClass]="{ 'selected': selectedOption === 'messageTokens' }">Message Tokens</p>
         </div>
         <!-- <div fxLayout = "column">
             line
@@ -31,9 +31,11 @@
                     <div fxLayout ="column">
                         <div class="payment-methods cards">
                            <p class="card-title">Payment method</p>
-                           <div fxLayout="row" fxLayoutAlign="start start"  >
+                           <div fxLayout="row" fxLayoutAlign="space-betweenstart" fxLayoutGap="56px" >
                             <div fxLayout ="column">
-                                image
+                                <div class="image">
+                                    image
+                                </div>
                             </div>
                             <div fxLayout ="column" class="card-details">
                                <p>**** **** **** 2332</p>
@@ -52,7 +54,7 @@
                                 <p>Payments methods</p>
                             </div>
                             <div fxLayout ="column">
-                                <button  class="btn white-btn" >
+                                <button  class="btn white-btn" (click)="addPaymentMethod()">
                                     Add payment method
                                   </button>
                             </div>
@@ -110,7 +112,7 @@
                       
                 </div>
 
-                <!-- <div class="mat-elevation-z8">
+                <div class="mat-elevation-z8">
                     <table mat-table [dataSource]="dataSource">
                   
                     
@@ -140,9 +142,7 @@
                       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                  
-                   
-                  </div> -->
+                </div>
             </div>
         </div>
     </div>
