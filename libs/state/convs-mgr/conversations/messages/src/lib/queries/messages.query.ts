@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {  map, mergeMap } from 'rxjs/operators';
-import {  combineLatest} from 'rxjs';
+import {  map } from 'rxjs/operators';
 
 import { __DateFromStorage } from '@iote/time';
 import { Logger } from '@iote/bricks-angular';
@@ -12,7 +11,6 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
-import { ActiveChatStore, ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 
@@ -26,12 +24,9 @@ export class MessagesQuery
   private _activeChat: Chat;
   private orgId?: string;
 
-  constructor(
-                private _activeOrg: ActiveOrgStore,
-                _activeChat$: ActiveChatStore,
-               private _dataService: DataService,
-               private _chatStore : ChatsStore,
-               protected _logger: Logger)
+  constructor(private _activeOrg: ActiveOrgStore,
+              private _dataService: DataService,
+              protected _logger: Logger)
   {
     _activeOrg.get().subscribe(org => this.orgId = org.id);
   }
@@ -67,39 +62,12 @@ export class MessagesQuery
     return messagesRepo$.create(message, Date.now().toString());
   }
 
+  // get(index: number, n: number): Observable<ChatMessage[]>
+  // {
 
-  getChats() {
-    const chatsList = this._chatStore.get();
-  
-    return chatsList.pipe(
-      // Use mergeMap to map each chat to an observable of its latest message date
-      mergeMap((chats) => {
-        // Create an array of observables to fetch the latest message date for each chat
-        const dateObservables = chats.map((chat) => {
-          return this.getLatestMessageDate(chat.id).pipe(
-            map((date) => ({
-              ...chat,
-              lastMsg: date,
-            }))
-          );
-        });
-  
-        // Use combine latest to wait for all date observables to complete
-        return combineLatest(dateObservables).pipe(
-          map((chatsWithDates) => {
-            // Sort the chats based on the last message date in descending order
-            chatsWithDates.sort((a, b) => {
-              // Ensure that null dates (error cases) are placed at the end
-              if (!a.lastMsg) return 1;
-              if (!b.lastMsg) return -1;
-              return b.lastMsg - a.lastMsg;
-            });
-            return chatsWithDates;
-          })
-        );
-      })
-    );
-  }
-  
+  //   return this._qRepo.getDocuments(new Query().orderBy('date', 'desc')
+  //                                              .skipTake(index, n))
+  // }
+ 
 }
 
