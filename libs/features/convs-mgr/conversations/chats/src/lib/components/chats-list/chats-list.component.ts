@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { AfterViewInit, ChangeDetectorRef, Component, QueryList, ViewChildren, OnInit, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -5,9 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormControl } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-
-import * as _ from 'lodash';
-
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -19,6 +18,7 @@ import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
 import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+
 
 @Component({
   selector: 'app-chats-list',
@@ -52,7 +52,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
-  
+
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
   constructor(private _chats$: ChatsStore,
@@ -174,12 +174,11 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     }
   }
 
-  updateList(values: any)
+  updateList(filter: string, title: string)
   {
-    const options = values.target.value.split(',');
     this.isLoading = true;
-    this.filter = options[0];
-    this.selected = options[1];
+    this.filter = filter;
+    this.selected = title;
     this.filterByCategory();
   }
 
