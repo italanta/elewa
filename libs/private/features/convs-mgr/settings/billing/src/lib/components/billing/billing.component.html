@@ -31,7 +31,7 @@
                     <div fxLayout ="column">
                         <div class="payment-methods cards">
                            <p class="card-title">Payment method</p>
-                           <div fxLayout="row" fxLayoutAlign="space-betweenstart" fxLayoutGap="56px" >
+                           <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="56px" >
                             <div fxLayout ="column">
                                 <div class="image">
                                     image
@@ -64,16 +64,31 @@
                        <mat-card class="payment-cards" mat-elevation="5">
                         <mat-card-content>
                             <div fxLayout="row" fxLayoutAlign="space-between" >
-                                <div fxLayout ="column">
-                                    visa
+                                <div fxLayout="row" fxLayoutAlign="space-between" >
+                                    <div fxLayout ="column">
+                                        <img src="" alt="">
+                                    </div>
+                                    <div fxLayout ="column">
+                                        <p>**** **** **** 2332</p>
+                                    </div>
                                 </div>
 
                                 <div fxLayout ="column">
-                                    Expires
+                                    <p>Expires 02/24</p>
                                 </div>
 
                                 <div fxLayout ="column">
-                                    Default
+                                    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+                                        <div fxLayout ="column">
+                                            <p >Default</p>
+                                        </div>
+                                        <div fxLayout ="column">
+                                            <p (click)="editPaymentMethod()">Edit</p>
+                                        </div>
+                                        <div fxLayout ="column">
+                                            <p>Delete</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </mat-card-content>
@@ -83,15 +98,32 @@
                             <mat-card-content>
                                 <div fxLayout="row" fxLayoutAlign="space-between" >
                                     <div fxLayout ="column">
-                                        visa
+                                        <div fxLayout="row" fxLayoutAlign="space-between" >
+                                            <div fxLayout ="column">
+                                                <img src="" alt="">
+                                            </div>
+                                            <div fxLayout ="column">
+                                                <p>**** **** **** 2332</p>
+                                            </div>
+                                        </div>
                                     </div>
     
                                     <div fxLayout ="column">
-                                        Expires
+                                        <p>Expires 06/27</p>
                                     </div>
     
                                     <div fxLayout ="column">
-                                        Default
+                                       <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+                                            <div fxLayout ="column">
+                                                <p>Make default</p>
+                                            </div>
+                                            <div fxLayout ="column">
+                                                <p (click)="editPaymentMethod()">Edit</p>
+                                            </div>
+                                            <div fxLayout ="column">
+                                                <p>Delete</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </mat-card-content>
@@ -117,25 +149,25 @@
                   
                     
                       <ng-container matColumnDef="position">
-                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <th mat-header-cell *matHeaderCellDef> Date </th>
                         <td mat-cell *matCellDef="let element"> {{element.position}} </td>
                       </ng-container>
                   
                     
                       <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <th mat-header-cell *matHeaderCellDef> Description </th>
                         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                       </ng-container>
                   
                     
                       <ng-container matColumnDef="weight">
-                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <th mat-header-cell *matHeaderCellDef> Amount </th>
                         <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
                       </ng-container>
                   
                    
                       <ng-container matColumnDef="symbol">
-                        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                        <th mat-header-cell *matHeaderCellDef>  </th>
                         <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
                       </ng-container>
                   
