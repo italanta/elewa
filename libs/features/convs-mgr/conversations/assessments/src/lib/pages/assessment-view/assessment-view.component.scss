@@ -1,52 +1,39 @@
-.btn-publish.mdc-button {
-  min-height: 3.375rem;
-  margin-bottom: 1.375rem;
-  background-color: var(--convs-mgr-color-primary-yellow);
-  color: var(--convs-mgr-color-primary-white);
-}
+	.preview {
+    width: 100%;
+    margin: 30px auto;
 
-.header-wrapper {
-  padding: 1rem 0;
-}
 
-h2.title {
-  font-weight: 600;
-}
+    .card {
+      width: 60%!important;
+      margin: auto;
+      background-color: white;
+      color: black!important;
+      padding: 20px;
+      border-radius: 10px;
+      // border: solid #B8AFDA 2px;
 
-.save-button {
-  display: flex;
-  gap: 1rem;
-}
+      .card-title {
+        font-size: 2rem;
+        font-weight: 400;
+      }
+    }
 
-.btn-publish {
-  &:disabled {
-    background-color: red;
+    .questions-cards {
+      .question-card {
+        .question-message {
+          font-size: 1rem;
+          font-weight: 400;
+          color: #101010;
+        }
+
+        .question-options {
+          .option-name  span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #101010;
+          }
+        }
+      }
+    }
+
   }
-}
-
-.loading-container {
-  position: absolute;
-  display: grid;
-  place-content: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  z-index: 200;
-
-  mat-spinner::ng-deep circle {
-    stroke: var(--convs-mgr-color-primary-yellow) !important;
-  }
-}
-
-
-.mat-mdc-snack-bar-container .mdc-snackbar__label {
-  background-color: white !important;
-  color: black !important;
-}
-
-.mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
-  color: var(--convs-mgr-color-primary-yellow) !important;
-}
