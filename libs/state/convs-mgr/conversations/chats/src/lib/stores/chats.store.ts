@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
-import { of } from 'rxjs'
+import { combineLatest, of } from 'rxjs'
 import { tap, throttleTime, switchMap, map, mergeMap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
@@ -16,6 +16,10 @@ import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
+
+import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,6 +30,7 @@ export class ChatsStore extends DataStore<Chat>
 
   private _activeOrg: Organisation;
   
+  
   // Question to dev's reviewing:
   //   Will this always get all the organisations?
   //     i.e. Even if no organisations need to be loaded for a specific piece of functionaly e.g. invites, do we still load all organisations?
@@ -34,6 +39,7 @@ export class ChatsStore extends DataStore<Chat>
   constructor(_org$$: ActiveOrgStore,
               private _repoFac: DataService,
               private _StoryStore$$: StoriesStore, 
+              private messagesQuery :MessagesQuery,
               _logger: Logger)
   {
     super("always", _logger);
@@ -93,5 +99,31 @@ export class ChatsStore extends DataStore<Chat>
       }
       return chatsRepo.update(chat)
     }));
+  }
+
+  getChatsWithLatestMessageDate() {
+    return this.get().pipe(
+      mergeMap((chats) => {
+        const dateObservables = chats.map((chat) => {
+          return this.messagesQuery.getLatestMessageDate(chat.id).pipe(
+            map((date) => ({
+              ...chat,
+              lastMsg: date
+            }))
+          );
+        });
+
+        return combineLatest(dateObservables).pipe(
+          map((chatsWithDates) => {
+            chatsWithDates.sort((a, b) => {
+              if (!a.lastMsg) return 1;
+              if (!b.lastMsg) return -1;
+              return b.lastMsg - a.lastMsg;
+            });
+            return chatsWithDates;
+          })
+        );
+      })
+    );
   }
 }
