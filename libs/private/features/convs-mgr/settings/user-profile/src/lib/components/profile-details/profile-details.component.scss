@@ -89,12 +89,14 @@ div{
     margin-bottom: 20px;
     border-bottom: solid #C7CDD7 1px;
     .user-data{
+      .user-profile-picture{
+        .top-butons{
+          margin-top: 10px;
+        }
+      }
       div{
         button{
           margin-right: 73px;
-          position: absolute;
-          right: 50px; 
-          top: 430px;
           border-radius: 25px;
           height: 45px;
           width: 142px;
@@ -113,20 +115,23 @@ div{
              margin-top: 63px;
           }
           .names{
-            mat-form-field{
-              width: 400px !important;
-              height: 51px !important;
-              background: #F6F6F6;
-              input{
-                color: #101010;
-                font-size: 18px;
-                font-family: Roboto;
-                font-weight: 300;
-                word-wrap: break-word
-              }
+            
+            input{
+              width: 400px; 
+              height: 51px; 
+              border-radius: 8px; 
+              border: 1px #707070 solid;
+              // Lemmy
+              color: #101010;
+              font-size: 18px;
+              font-family: Roboto;
+              font-weight: 300;
+              word-wrap: break-word
             }
           }
-          
+        }
+        .bottons-div{
+          margin-top: 46px;
         }
       }
     }

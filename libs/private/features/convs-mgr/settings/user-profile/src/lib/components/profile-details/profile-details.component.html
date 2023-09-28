@@ -6,13 +6,13 @@
       <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
         <!-- <p class="label">Your Photo</p> -->
 
-        <!-- <img [src]="user.photoUrl" alt=""> -->
-        <img  alt="">
+        <img [src]="user.photoUrl" alt="">
+        <!-- <img  alt=""> -->
 
-        <!-- <div fxLayout="row" fxLayoutAlign="space-between start">
+        <div fxLayout="row" fxLayoutAlign="space-between start" class="top-butons" *ngIf="editProfile">
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" style="margin-right: 10px;" (click)="newProfileImg()" mat-stroked-button> Upload</button>
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Remove</button>
-        </div> -->
+        </div>
       </div>
 
       <div fxLayout="column" fxLayoutAlign="start start" class="user-info" fxFlex="40%">
@@ -20,58 +20,55 @@
         <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="84px" style="width: 100%;" fxFlex>
           <div fxLayout="column" fxLayoutAlign="start start" class="names">
             <p class="label">First Name</p>
-            <mat-form-field appearance="outline"fxFlex>
+            
               <input formControlName="firstName" matInput placeholder="Jack">
-            </mat-form-field>
+           
           </div>
   
           <div fxLayout="column" fxLayoutAlign="start start" class="names">
             <p class="label"> Last Name</p>
-            <mat-form-field appearance="outline" fxFlex>
+            
               <input formControlName="lastName" matInput placeholder="Sparrow">
-            </mat-form-field>
+            
           </div>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="84px" style="width: 100%;" fxFlex>
           <div fxLayout="column" fxLayoutAlign="start start" class="names">
             <p class="label">Role</p>
-            <mat-form-field appearance="outline"fxFlex>
+           
               <input disabled="true" matInput [placeholder]="roles">
-            </mat-form-field>
+            
           </div>
   
           <div fxLayout="column" fxLayoutAlign="start start" class="names">
             <p class="label"> Email</p>
-            <mat-form-field appearance="outline" fxFlex>
+            
               <input formControlName="email" matInput placeholder="johndoe@gmail.com">
-            </mat-form-field>
+            
           </div>
         </div> 
          
-        <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
-          <div>
-            <button  mat-raised-button>
-            
-              <ng-template>
-                <span>cancel</span>
-              </ng-template>
-            </button>
-          </div>  
-
-          <div>
-            <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
-              <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
-              <ng-template #saveProfile>
-                <span>Save Profile</span>
-              </ng-template>
-            </button>
-          </div>  
+        <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="bottons-div" fxFlex="40%">
+          <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="bottons-div" fxFlex="40%" *ngIf="editProfile">
+            <div fxLayout="column" class="cancel">
+              <button mat-raised-button>
+                Cancel
+              </button>
+            </div>
+          </div>
+        
+          <div fxLayout="column"  class="names">
+              <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
+                <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
+                <ng-template #saveProfile>
+                  <span>Save Profile</span>
+                </ng-template>
+              </button>
+          </div>
         </div>
-          
-          
-
-
+        
+        
       </div>                  
 
       
