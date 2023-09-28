@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import {
   MaterialBricksModule,
@@ -57,7 +58,8 @@ import { AssessmentFormService } from './services/assessment-form.service';
     ReactiveFormsModule,
     ConvlPageModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DragDropModule
   ],
   declarations: [
     AssessmentsHomeComponent,
