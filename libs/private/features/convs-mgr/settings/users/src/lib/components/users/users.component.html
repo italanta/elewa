@@ -1,17 +1,24 @@
 <div class="users" *ngIf="orgLoaded; else loadingUSers" [formGroup]="searchFormGroup">
   <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="toolbar">
-    <div class="search" fxFlex="50%">
+    <!-- <div class="search" fxFlex="50%">
       <mat-form-field appearance="outline" fxFlex>
         <input (keyup)="applyFilter($event)" matInput placeholder="Search by name, email or role" #input>
       </mat-form-field>
+    </div> -->
+
+    <div class="search">
+      <i class="fas fa-search search_tooltip"></i>
+      <input class="search_input" type="text" name="search table" (keyup)="applyFilter($event)" placeholder="Search by name, email or role" #input>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
-      <mat-form-field appearance="outline" fxFlex="50%" class="role">
-        <mat-select formControlName="role" multiple>
-          <mat-option *ngFor="let role of orgRoles" [value]="role"> {{role}} </mat-option>
-        </mat-select>
-      </mat-form-field>
+    
+
+      <div class="select" fxFlex>
+        <select >
+          <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
+        </select>
+      </div>
 
       <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" mat-raised-button fxFlex> Invite Member</button>
     </div>
