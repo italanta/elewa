@@ -12,6 +12,7 @@ import { MessageTemplatesService } from '@app/private/state/message-templates';
 export class MessageTemplateFormComponent implements OnInit{
   templateForm: FormGroup;
   template: MessageTemplate;
+  content: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -20,37 +21,27 @@ export class MessageTemplateFormComponent implements OnInit{
   ) {}
 
   ngOnInit() {
+    this.content = this.fb.group({
+      header: [''],
+      body: ['', Validators.required],
+      footer: [''],
+    });
+
     this.templateForm = this.fb.group({
       name: ['', Validators.required],
       category: ['UTILITY'], // Set a default category or modify as needed
-      language: ['', Validators.required],
-      content: this.fb.group({
-        header: [''],
-        body: ['', Validators.required],
-        footer: [''],
-      }),
+      language: ['en', Validators.required],
+      content: this.content,
       buttons: this.fb.array([]), // Initialize an empty array for buttons
     });
 
     this.template = this.templateForm.value;
-  }
-
-  addButton() {
-    // const buttons = this.templateForm.get('buttons') as FormArray;
-    // buttons.push(
-    //   this.fb.group({
-    //     text: [''],
-    //     type: ['PhoneNumber'],
-    //     phoneNumber: [''],
-    //     url: [''],
-    //   })
-    // );
   }
   
   cancel() {
     this._router.navigate(['/messaging'])
   }
   save() {
-    console.log('saving');
+    console.log('saving', this.templateForm.value);
   }
 }

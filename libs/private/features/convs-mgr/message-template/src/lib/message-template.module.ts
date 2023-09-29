@@ -17,6 +17,7 @@ import {
   MessageTemplatesService,
 } from '@app/private/state/message-templates';
 import { SingleMesageTemplateComponent } from './components/single-mesage-template/single-mesage-template.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -25,6 +26,8 @@ import { SingleMesageTemplateComponent } from './components/single-mesage-templa
     MessageTemplateRouterModule,
     MaterialBricksModule,
     MaterialDesignModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     MessageTemplateHomeComponent,
