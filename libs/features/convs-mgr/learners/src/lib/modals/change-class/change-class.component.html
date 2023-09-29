@@ -14,12 +14,12 @@
   </div>
 
   <div class="action-btns">
-    <button class="btn" (click)="onCancel()">Cancel</button>
+    <button class="btn" (click)="onCancel()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
     <button class="btn" (click)="submitAction()">
       <span *ngIf="isUpdatingClass; else notCreating">
         <i class="spin_tooltip fas fa-circle-notch fa-spin"></i>
       </span>
-      <ng-template #notCreating>Continue</ng-template>
+      <ng-template #notCreating>{{'CLASSESS.MODALS.ACTION-BUTTONS.CONTINUE' | transloco }}</ng-template>
     </button>
   </div>
 </div>
