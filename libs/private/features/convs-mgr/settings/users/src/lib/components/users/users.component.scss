@@ -56,8 +56,7 @@ table {
   margin-top: 64px;
   .toolbar{
     select {
-      appearance: none;
-      outline: 10px red;
+    
       border: 0;
       border-radius: 25px;
       box-shadow: none;
@@ -74,8 +73,6 @@ table {
       font-weight: 300;
       word-wrap: break-word;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      
-      
     }
     .search {
       height: 5px;
