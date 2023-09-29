@@ -8,10 +8,8 @@
       <span class="user-char" *ngIf="chat.name">{{getUserName(chat.name)}}</span>
     </div>
 
-    <div class="chat-title-txt">
-      <a [routerLink]="['/learners/', extractedLearnerId ]"> 
+    <div class="chat-title-txt" (click)="navigateToLearner()">
         <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
-      </a>  
       <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>

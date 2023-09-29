@@ -275,6 +275,10 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   getUserName = (name: string) => GET_USER_AVATAR(name);
   randomColor = () => GET_RANDOM_COLOR();
 
+  navigateToLearner(){
+    this._router.navigate([`/learners/${this.extractedLearnerId }`]);
+  }
+
   ngOnDestroy() {
     this._sbs.unsubscribe();
   }
