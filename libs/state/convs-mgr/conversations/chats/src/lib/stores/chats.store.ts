@@ -105,6 +105,7 @@ export class ChatsStore extends DataStore<Chat>
     return this.get().pipe(
       mergeMap((chats) => {
         const dateObservables = chats.map((chat) => {
+          // Retrieve the latest message date for each chat
           return this.messagesQuery.getLatestMessageDate(chat.id).pipe(
             map((date) => ({
               ...chat,
@@ -114,10 +115,13 @@ export class ChatsStore extends DataStore<Chat>
         });
 
         return combineLatest(dateObservables).pipe(
+          // Sort chats based on the date of the latest message
           map((chatsWithDates) => {
             chatsWithDates.sort((a, b) => {
+              // If there's no lastMsg, place the chat at the end
               if (!a.lastMsg) return 1;
               if (!b.lastMsg) return -1;
+              // Sort based on the date of the latest message (more recent comes first)
               return b.lastMsg - a.lastMsg;
             });
             return chatsWithDates;
@@ -126,4 +130,5 @@ export class ChatsStore extends DataStore<Chat>
       })
     );
   }
+  
 }
