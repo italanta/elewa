@@ -40,8 +40,25 @@
                         <p><span>*</span> Body</p>
                         <p>Add content of the message to be sent</p>
                         <mat-form-field appearance="outline">
-                            <input type="textarea" matInput formControlName="body" height="300px">
+                            <input #textAreaElement type="textarea" matInput formControlName="body" height="300px" >
                         </mat-form-field>
+                        <form [formGroup]="referenceForm">
+                            <div formArrayName="references" *ngFor="let reference of (referenceForm.get('references')?.['controls'] || []); let i = index">
+                                <div [formGroupName]="i">
+                                  <span>
+                                    {{ reference.get('placeholder')?.value }}
+                                    <a [href]="reference.get('link')?.value" target="_blank">{{ reference.get('link')?.value }}</a>
+                                    <button (click)="removeReference(i)">Remove</button>
+                                  </span>
+                                </div>
+                              </div>
+                              
+                            <div>
+                              <input type="text" formControlName="newVariable" placeholder="Variable name">
+                              <input type="text" formControlName="newPlaceholder" placeholder="Enter placeholder">
+                              <button (click)="addReference()">Add Variable</button>
+                            </div>
+                          </form>
                     </div>
     
                     <div class="form-group">
