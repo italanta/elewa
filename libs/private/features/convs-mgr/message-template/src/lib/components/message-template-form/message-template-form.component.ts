@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
 
 @Component({
   selector: 'app-message-template-form',
@@ -23,30 +23,38 @@ export class MessageTemplateFormComponent implements OnInit{
   constructor(
     private fb: FormBuilder,
     private messageTemplatesService: MessageTemplatesService,
+    private messageTemplateStore: MessageTemplateStore,
     private _router: Router
   ) {}
 
   ngOnInit() {
-    this.content = this.fb.group({
-      header: [''],
-      body: [''],
-      footer: [''],
-    });
-
     this.templateForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['UTILITY'], // Set a default category or modify as needed
-      language: ['en', Validators.required],
-      content: this.content,
+      category: ['MARKETING'], // Set a default category or modify as needed
+      language: ['en'],
+      content: this.fb.group({
+        header: [''],
+        body: this.fb.group({
+          text: ['', Validators.required],
+          newVariable: ['',Validators.required],
+          newPlaceholder: ['', Validators.required],
+          examples: this.fb.array([]),
+        }),
+        footer: [''],
+        templateId: [''],
+        sent: [''],
+      }),
       buttons: this.fb.array([]), // Initialize an empty array for buttons
     });
-    this.referenceForm = this.fb.group({
-      newVariable: ['',Validators.required],
-      newPlaceholder: ['', Validators.required],
-      references: this.fb.array([]),
-    });
+    // this.referenceForm = this.fb.group({
+    //   newVariable: ['',Validators.required],
+    //   newPlaceholder: ['', Validators.required],
+    //   references: this.fb.array([]),
+    // });
     // Subscribe to changes in the content.body control
-    const bodyControl = this.content.get('body') as FormControl;
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formBody = formContent.get('body') as FormGroup;
+    const bodyControl = formBody.get('text') as FormControl;
     bodyControl.valueChanges.subscribe((updatedBody) => {
       this.updateReferencesFromBody(updatedBody);
     });
@@ -55,9 +63,13 @@ export class MessageTemplateFormComponent implements OnInit{
   }
 
   addReference() {
-    const referencesArray = this.referenceForm.get('references') as FormArray;
-    const newVariable = this.referenceForm.get('newVariable')?.value;
-    const newPlaceholder = this.referenceForm.get('newPlaceholder')?.value;
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formBody = formContent.get('body') as FormGroup;
+
+    const newVariable = formBody.get('newVariable')?.value;
+    const newPlaceholder = formBody.get('newPlaceholder')?.value;
+    const referencesArray = formBody.get('examples') as FormArray;
+    
     const referenceId = this.nextReferenceId++;
   
     const referenceGroup = this.fb.group({
@@ -69,7 +81,7 @@ export class MessageTemplateFormComponent implements OnInit{
     referencesArray.push(referenceGroup);
   
     // Surround the newVariable with {{}} and append it to the current content.body
-    const bodyControl = this.content.get('body') as FormControl;
+    const bodyControl = formBody.get('text') as FormControl;
     const updatedBody = `${bodyControl.value}{{${newVariable}}}`;
     bodyControl.setValue(updatedBody);
   
@@ -77,14 +89,17 @@ export class MessageTemplateFormComponent implements OnInit{
     this.newVariables.push(newVariable);
   
     // Clear the input fields
-    this.referenceForm.get('newVariable')?.reset();
-    this.referenceForm.get('newPlaceholder')?.reset();
+    formBody.get('newVariable')?.reset();
+    formBody.get('newPlaceholder')?.reset();
   }
   
 
   removeReference(index: number) {
-    const referencesArray = this.referenceForm.get('references') as FormArray;
-    const bodyControl = this.content.get('body') as FormControl;
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formBody = formContent.get('body') as FormGroup;
+
+    const referencesArray = formBody.get('examples') as FormArray;
+    const bodyControl = formBody.get('text') as FormControl;
     const placeholder = referencesArray.at(index).get('placeholder')?.value;
 
     // Remove the reference from the body
@@ -106,7 +121,10 @@ export class MessageTemplateFormComponent implements OnInit{
   }
   // Method to update references when body content changes
   updateReferencesFromBody(updatedBody: string) {
-    const referencesArray = this.referenceForm.get('references') as FormArray;
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formBody = formContent.get('body') as FormGroup;
+
+    const referencesArray = formBody.get('examples') as FormArray;
 
     // Iterate over the references and check if their placeholders exist in the updatedBody
     for (let i = referencesArray.length - 1; i >= 0; i--) {
@@ -129,7 +147,14 @@ export class MessageTemplateFormComponent implements OnInit{
     this._router.navigate(['/messaging'])
   }
   save() {
-    console.log('saving', this.templateForm.value);
+    console.log('saving',this.template);
+    this.messageTemplateStore.createMessageTemplate(this.templateForm.value).subscribe((response) => {
+      console.log('Template sent to firebase', response);
+    })
+    // this.messageTemplatesService.createTemplate(this.template).subscribe((response) => {
+    //   // Handle the response, e.g., show a success message or navigate to a different page.
+    //   console.log('Template created:', response);
+    // });
   }
 
   

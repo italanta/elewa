@@ -1,25 +1,48 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { MessageTemplate } from '@app/private/model/message-template';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
+import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-message-template-list',
   templateUrl: './message-template-list.component.html',
   styleUrls: ['./message-template-list.component.scss'],
 })
-export class MessageTemplateListComponent {
+export class MessageTemplateListComponent implements OnInit, OnDestroy{
+  private _sBS = new SubSink();
 
+  messageTemplates$: Observable<MessageTemplate[]>;
+
+  dataFound = true;
+  
   isSaving: boolean;
   messageTemplateColumns = ['name', 'sentMessages', 'lastUpdated', 'actions'];
-  @Input() dataSource: MatTableDataSource<MessageTemplate>;
+  dataSource = new MatTableDataSource<MessageTemplate>();
   // @Input() assessments: MessageTemplate[];
-  constructor(private _router: Router) {}
-  
+  constructor(
+    private _messageTemplates: MessageTemplatesService,
+    private _router: Router
+  ) {}
+
+
+  ngOnInit(): void {
+    this.messageTemplates$ = this._messageTemplates.getMessageTemplates$();
+    this._sBS.sink = this.messageTemplates$.subscribe((assessments)=> {
+      this.dataSource.data = assessments;
+      console.warn('here dey s', this.dataSource.data);
+    })
+  }
+
   onCreate() {
     throw new Error('Method not implemented.');
   }
   createTemplate() :void{
     this._router.navigate(['/messaging/create'])
+  }
+  ngOnDestroy(): void {
+      this._sBS.unsubscribe();
   }
 }

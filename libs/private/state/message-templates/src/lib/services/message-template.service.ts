@@ -10,7 +10,10 @@ import { MessageTemplate } from '@app/model/convs-mgr/functions'
   providedIn: 'root',
 })
 export class MessageTemplatesService {
-  constructor(private _aff:  AngularFireFunctions, private _messageTemplateStore: MessageTemplateStore) {}
+  constructor(
+    private _aff:  AngularFireFunctions, 
+    private _messageTemplateStore: MessageTemplateStore
+  ) {}
 
   getMessageTemplates$() {
     return this._messageTemplateStore.get();
@@ -30,6 +33,7 @@ export class MessageTemplatesService {
 
   private callFunction(action: string, data: any): Observable<any> {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
+    console.log("sending", templateRef);
     return templateRef({ action, ...data });
   }
 }

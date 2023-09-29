@@ -33,6 +33,7 @@
         width: 140px!important;
         height: 48px!important;
       }
+      
     .create-btn {
         background-color: #3E788A!important;
         color: white!important;
@@ -90,4 +91,25 @@ table{
 }
 .mdc-data-table__cell, .mdc-data-table__header-cell{
   border: none;
+}
+.send-btn{
+  border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+    background-color: #1F7A8C!important;
+    color: white!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 1rem;
+}
+td{
+  color: #101010;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
 }

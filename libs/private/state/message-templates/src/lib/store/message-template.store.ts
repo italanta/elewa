@@ -9,9 +9,9 @@ import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
-import { MessageTemplate } from '@app/private/model/message-template';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
 
 @Injectable()
 export class MessageTemplateStore extends DataStore<MessageTemplate> {
@@ -54,6 +54,7 @@ export class MessageTemplateStore extends DataStore<MessageTemplate> {
     return this._org$$
       .get()
       .pipe(
+        tap((res)=>console.log("Hlloe worlls", res)),
         map((org) => ({ ...template, orgId: org.id })),
         tap((template) => {
           this._activeRepo = this._repoFac.getRepo<MessageTemplate>(
