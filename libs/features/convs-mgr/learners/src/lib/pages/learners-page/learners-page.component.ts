@@ -7,12 +7,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
 
-import {
-  EnrolledEndUser,
-  EnrolledEndUserStatus,
-} from '@app/model/convs-mgr/learners';
+import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
+import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
-import { ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
@@ -41,7 +39,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
-  allClasses: string[] = [];
+  allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
   allCourses: string[] = [];
 
@@ -51,6 +49,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private _eLearners: EnrolledLearnersService,
+    private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
     private _dialog: MatDialog
   ) {}
@@ -71,9 +70,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  // TODO: get all classes
   getAllClasses() {
-    this.allClasses = [];
+    this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
+      this.allClasses = allClasses
+    });
   }
 
   //TODO: get all courses
@@ -83,6 +83,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   getAllPlatforms() {
     this.allPlatforms = ['Whatsapp', 'Messenger'];
+  }
+
+  getClassName(id: string) {
+    return this.allClasses.find((classroom => classroom.id === id))?.className
   }
 
   getStatus(status: number) {
