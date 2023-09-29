@@ -26,6 +26,7 @@ import { CLMUsersService } from '@app/private/state/user/base';
 import { NewUserDialogComponent } from '../../modals/new-user-dialog/new-user-dialog.component';
 import { UpdateUserModalComponent } from '../../modals/update-user-modal/update-user-modal.component';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TIME_AGO } from 'libs/features/convs-mgr/conversations/chats/src/lib/providers/duration-from-date';
 
 const DATA: iTalUser[] = []
 
@@ -133,7 +134,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getDate(date: any): string {
-    return __DateFromStorage(date).format('DD/MM/YYYY');
+    return TIME_AGO(date.seconds);
   }
 
   inviteMember() {
