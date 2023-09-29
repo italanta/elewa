@@ -11,16 +11,22 @@
       <input class="search_input" type="text" name="search table" (keyup)="applyFilter($event)" placeholder="Search by name, email or role" #input>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
+    <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="buttons" fxFlex="40%">
     
 
-      <div class="select" >
-        <select >
-          <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
-        </select>
+      <div fxLayout="column">
+        <div class="select" >
+          <select >
+            <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
+          </select>
+        </div>
+      </div>
+    
+      <div fxLayout="column">
+        <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" > Invite Member</button>
       </div>
 
-      <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" > Invite Member</button>
+      
     </div>
   </div>
 
