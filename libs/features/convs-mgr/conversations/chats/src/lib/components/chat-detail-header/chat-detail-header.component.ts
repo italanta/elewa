@@ -68,6 +68,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
               private _dialog: MatDialog,
               private _spinner: SpinnerService,
               private _enrolledLearners: EnrolledLearnersService,
+              private _router$$: Router,
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
     this.avatarBgColor = this.randomColor();
@@ -277,6 +278,15 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   getUserName = (name: string) => GET_USER_AVATAR(name);
   randomColor = () => GET_RANDOM_COLOR();
+
+  navigateToClass(){
+    this._router.navigate([`/class/${this.learnerClass}`]);
+  }
+
+  navigateToStory(){
+    this._router.navigate([`/stories/${this.currentStory.id}`]);
+  }
+ 
 
   ngOnDestroy() {
     this._sbs.unsubscribe();
