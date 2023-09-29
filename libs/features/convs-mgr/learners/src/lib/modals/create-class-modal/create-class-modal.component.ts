@@ -13,6 +13,7 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 })
 export class CreateClassModalComponent implements OnInit, OnDestroy {
   createClassForm: FormGroup;
+  isCreatingClass: boolean;
 
   private _sBs = new SubSink();
 
@@ -39,9 +40,11 @@ export class CreateClassModalComponent implements OnInit, OnDestroy {
   }
 
   submitAction() {
+    this.isCreatingClass = true;
     this._sBs.sink = this._classroomServ$
       .addClassroom(this.createClassForm.value)
       .subscribe(() => {
+        this.isCreatingClass = false;
         this.dialogRef.close();
       });
   }

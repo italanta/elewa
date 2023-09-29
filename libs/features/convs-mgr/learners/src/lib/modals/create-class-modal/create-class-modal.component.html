@@ -16,7 +16,12 @@
 
     <div class="action-btns">
       <button class="btn" (click)="onCancel()">Cancel</button>
-      <button class="btn" [disabled]="!createClassForm.valid" (click)="submitAction()">Continue</button>
+      <button class="btn" [disabled]="!createClassForm.valid" (click)="submitAction()">
+        <span *ngIf="isCreatingClass; else notCreating">
+          <i class="spin_tooltip fas fa-circle-notch fa-spin"></i>
+        </span>
+        <ng-template #notCreating>Continue</ng-template>
+      </button>
     </div>
   </form>
 </div>
