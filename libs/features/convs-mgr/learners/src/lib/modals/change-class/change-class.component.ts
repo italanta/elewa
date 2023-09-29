@@ -4,10 +4,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { SubSink } from 'subsink';
 
-import { ClassroomService } from '@app/state/convs-mgr/classrooms';
-
-import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { Classroom } from '@app/model/convs-mgr/classroom';
+
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 @Component({
@@ -25,15 +25,15 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
     private _classroom$: ClassroomService,
     private _enrolledUser$: EnrolledLearnersService,
     public dialogRef: MatDialogRef<ChangeClassComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { enrolledUser: EnrolledEndUser, mode: string }
+    @Inject(MAT_DIALOG_DATA) public data: { enrolledUsr: EnrolledEndUser; mode: string }
   ) {}
-  
+
   ngOnInit() {
     this.classrooms$ = this._classroom$.getAllClassrooms();
   }
 
   get enrolledUser() {
-    return this.data.enrolledUser;
+    return this.data.enrolledUsr;
   }
 
   get mode() {
@@ -52,9 +52,11 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
     if (this.selectedClass.id) {
       this.enrolledUser.classId = this.selectedClass.id;
 
-      this._sBs.sink = this._enrolledUser$.updateLearner$(this.enrolledUser).subscribe(() => {
-        this.dialogRef.close();
-      });
+      this._sBs.sink = this._enrolledUser$
+        .updateLearner$(this.enrolledUser)
+        .subscribe(() => {
+          this.dialogRef.close();
+        });
     }
   }
 

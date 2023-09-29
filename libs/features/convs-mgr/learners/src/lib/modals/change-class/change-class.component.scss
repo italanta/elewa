@@ -1,3 +1,8 @@
+h3,
+p {
+  margin: 0;
+}
+
 .modal-wrapper {
   display: flex;
   flex-direction: column;
@@ -5,10 +10,28 @@
   gap: 1rem;
 
   .title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
     .title {
       font-size: 1.5rem;
       border-bottom: 1px solid gray;
-      margin-bottom: 15px;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+
+      .input {
+        height: 2rem;
+      }
     }
   }
 
