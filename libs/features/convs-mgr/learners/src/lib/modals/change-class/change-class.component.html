@@ -8,8 +8,8 @@
   <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
     <div class="class" *ngFor="let classroom of classrooms">
       <input type="radio" name="classroom" id="classroom" [checked]="classroom.id === enrolledUser.classId"
-        [value]="classroom" (change)="onChange($event)">
-      <label for="classroom">{{ classroom }}</label>
+        [value]="classroom.id" (change)="onChange($event)">
+      <label for="classroom">{{ classroom.className }}</label>
     </div>
   </div>
 

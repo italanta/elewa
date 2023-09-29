@@ -16,7 +16,7 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
   styleUrls: ['./change-class.component.scss'],
 })
 export class ChangeClassComponent implements OnInit, OnDestroy {
-  selectedClass: Classroom;
+  selectedClass: string;
   classrooms$: Observable<Classroom[]>;
 
   private _sBs = new SubSink();
@@ -49,15 +49,14 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   }
 
   submitAction() {
-    if (this.selectedClass.id) {
-      this.enrolledUser.classId = this.selectedClass.id;
+    if (!this.selectedClass) return;
 
-      this._sBs.sink = this._enrolledUser$
-        .updateLearner$(this.enrolledUser)
-        .subscribe(() => {
-          this.dialogRef.close();
-        });
-    }
+    this.enrolledUser.classId = this.selectedClass;
+    this._sBs.sink = this._enrolledUser$
+      .updateLearner$(this.enrolledUser)
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
   }
 
   ngOnDestroy() {
