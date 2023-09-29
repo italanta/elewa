@@ -75,7 +75,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$  = this._chatStore$.getChatsWithLatestMessageDate();
+    this.chats$  = this._chatStore$.getOrderedChats();
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 

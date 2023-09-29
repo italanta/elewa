@@ -101,7 +101,7 @@ export class ChatsStore extends DataStore<Chat>
     }));
   }
 
-  getChatsWithLatestMessageDate() {
+  getOrderedChats() {
     return this.get().pipe(
       mergeMap((chats) => {
         const dateObservables = chats.map((chat) => {
