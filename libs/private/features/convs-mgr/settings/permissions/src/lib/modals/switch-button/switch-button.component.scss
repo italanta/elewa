@@ -1,0 +1,103 @@
+//button 
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 98px;
+    height: 35px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border: 1px #3E788A solid;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #3E788A;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #3E788A;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  
+  /* Change the color to white when checked */
+  input:checked + .slider:before {
+    background-color: #fff;
+    -webkit-transform: translateX(63px);
+    -ms-transform: translateX(63px);
+    transform: translateX(63px);
+    
+  }
+  
+  /* Add "ON" text to the left */
+  .slider:after {
+    content: "ON";
+    line-height: 26px;
+    text-align: center;
+    top: 4px; /* Adjust as needed to align with "OFF" text */
+    margin: 0 17px;
+    color: white;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+  
+  
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  /* Add styles for the "OFF" text */
+  /* Add styles for the "OFF" text */
+  .off-text {
+    position: absolute;
+    line-height: 35px; /* Adjust as needed */
+    text-align: center;
+    right: 6px;
+    color: #3E788A; /* Adjust the color as needed */
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 400;
+    word-wrap: break-word;
+    opacity: 1; /* Initially visible */
+    transition: opacity 0.4s; /* Add transition for smooth visibility changes */
+  }
+  
+  /* Hide the "OFF" text when the slider is checked (on the right) */
+  input:checked + .slider + .off-text {
+    opacity: 0;
+    pointer-events: none; /* Disable pointer events to make it unclickable */
+  }
+  
