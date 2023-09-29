@@ -29,7 +29,7 @@
     </div>
 
     <p class="bot-description" maxlength="140">
-      {{ truncateDesc(story.description!) }}
+      {{ truncateDesc(story.description ?? '') }}
     </p>
   </mat-card-content>
   <mat-card-actions>

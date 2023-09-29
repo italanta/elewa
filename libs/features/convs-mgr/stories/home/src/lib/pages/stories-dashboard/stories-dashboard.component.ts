@@ -11,13 +11,13 @@ import { Breadcrumb } from '@iote/bricks-angular';
 import { Organisation } from '@app/model/organisation';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
-// import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
+
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
-import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Component({
   selector: 'italanta-apps-stories-dashboard',
