@@ -11,8 +11,8 @@ import {
   EnrolledEndUser,
   EnrolledEndUserStatus,
 } from '@app/model/convs-mgr/learners';
-
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+import { ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
@@ -92,7 +92,9 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   getMode(enrolledUser: EnrolledEndUser) {
-    return enrolledUser.classId ? 'ChangeClass' : 'Add to Class';
+    return enrolledUser.classId
+      ? ClassroomUpdateEnum.ChangeClass
+      : ClassroomUpdateEnum.AddToClass;
   }
 
   searchTable(event: Event) {
@@ -145,7 +147,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
     this._dialog.open(ChangeClassComponent, {
       data: { enrolledUsr, mode },
-      height: '300px',
       width: '400px',
     });
   }
