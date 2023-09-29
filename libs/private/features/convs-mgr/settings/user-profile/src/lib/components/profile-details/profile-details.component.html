@@ -49,24 +49,23 @@
           </div>
         </div> 
          
-        <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="bottons-div" fxFlex="40%">
-          <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="bottons-div" fxFlex="40%" *ngIf="editProfile">
-            <div fxLayout="column" class="cancel">
-              <button mat-raised-button>
-                Cancel
-              </button>
-            </div>
+       
+        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="19px" fxFlex class="bottons-div">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <button class="cancel" mat-raised-button *ngIf="editProfile">
+              Cancel
+            </button>
           </div>
-        
-          <div fxLayout="column"  class="names">
-              <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
-                <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
-                <ng-template #saveProfile>
-                  <span>Save Profile</span>
-                </ng-template>
-              </button>
+  
+          <div fxLayout="column" fxLayoutAlign="end end" >     
+            <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
+              <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
+              <ng-template #saveProfile>
+                <span>Save Profile</span>
+              </ng-template>
+            </button>
           </div>
-        </div>
+        </div> 
         
         
       </div>                  
