@@ -7,10 +7,6 @@ img {
   object-fit: contain !important; 
   margin : 63px 212px 0 53px;
 }
-// button {
-//   margin: 4px 0 0 0;
-//   height: 42px;
-// }
 
 .text-button {
   color: var(--convs-mgr-color-primary-yellow);
@@ -60,16 +56,6 @@ img {
   text-decoration: underline;
 }
 
-// .user-profile-picture {
-//   position: absolute;
-//   right: 5%;
-// }
-// .user-profile-picture img {
-//   width: 200px;
-//   height: 200px;
-//   object-fit: contain;
-//   border-radius: 10px;
-// }
 
 .profile-details {
   padding: 60px 50px;
@@ -85,7 +71,7 @@ div{
   .section-one {
     width: 100%;
     height: fit-content;
-    padding-bottom: 30px;
+    padding-bottom: 110px;
     margin-bottom: 20px;
     border-bottom: solid #C7CDD7 1px;
     .user-data{
@@ -131,7 +117,9 @@ div{
           }
         }
         .bottons-div{
-          margin-top: 46px;
+          margin-top: 346px;
+          right: 46px;
+          position: absolute;
         }
       }
     }
@@ -181,28 +169,7 @@ div{
   }
 }
 
-// div.section-one .user-info div .edit-btn {
-//   border-radius: 25px;
-//   background: #1F7A8C;
-//   margin-left: auto; /* Push the button to the end */
-//   margin-right: 73px; /* Add a 73px margin from the end */
-//   margin-top: 46px;
-//   width: 142px;
-//   height: 45px;
-// }
 
-// .section-two {
-//   padding-top: 20px;
-//   border-bottom: solid #C7CDD7 1px;
-// }
-
-// .section-two > div {
-//   margin-bottom: 20px;
-// }
-
-// .your-email {
-//   padding: 20px 0 0 0;
-// }
 
 .emails-inputs {
   width: 20%;
