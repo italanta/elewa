@@ -14,13 +14,13 @@
     <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="buttons" fxFlex="40%">
     
 
-      <div class="select" fxFlex>
+      <div class="select" >
         <select >
           <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
         </select>
       </div>
 
-      <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" mat-raised-button fxFlex> Invite Member</button>
+      <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" > Invite Member</button>
     </div>
   </div>
 
@@ -66,13 +66,18 @@
         </ng-container>
 
         <!-- Roles column -->
-        <ng-container matColumnDef="roles">
+        <ng-container matColumnDef="roles" class="select-table">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-          <td mat-cell *matCellDef="let user">
-            <div *ngIf="user.roles; else dash">
+          <td mat-cell *matCellDef="let user" class="user-td">
+            <!-- <div *ngIf="user.roles; else dash">
               <span class="badge" *ngFor="let role of getRoles(user.roles[org.id!])">
                 {{ role }}
               </span>
+            </div> -->
+            <div class="select">
+              <select >
+                <option *ngFor="let role of getRoles(user.roles[org.id!])">{{role}}</option>
+              </select>
             </div>
             <ng-template #dash> - </ng-template>
           </td>
