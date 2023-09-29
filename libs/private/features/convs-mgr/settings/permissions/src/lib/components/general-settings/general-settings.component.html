@@ -27,11 +27,7 @@
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-                <span class="off-text">OFF</span>
-              </label>
+              <app-switch-button></app-switch-button>
             </div>
           </div>
         </div>
@@ -40,12 +36,8 @@
           <p class="title" fxFlex="20%">Can Delete Member</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>   -->
-              <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-                <span class="off-text">OFF</span>
-              </label>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>  
+              <app-switch-button [formControlName]="control"></app-switch-button>
             </div>
           </div>
         </div>
