@@ -116,7 +116,7 @@ input:checked + .slider:before {
 /* Add "ON" text to the left */
 .slider:after {
   content: "ON";
-  line-height: 26px;
+  line-height: 35px; /* Adjust as needed */
   text-align: center;
   top: 4px; /* Adjust as needed to align with "OFF" text */
   margin: 0 17px;
@@ -128,7 +128,6 @@ input:checked + .slider:before {
 }
 
 
-
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;
@@ -138,12 +137,11 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 /* Add styles for the "OFF" text */
-/* Add styles for the "OFF" text */
 .off-text {
   position: absolute;
   line-height: 35px; /* Adjust as needed */
   text-align: center;
-  right: 6px;
+  right: 15px;
   color: #3E788A; /* Adjust the color as needed */
   font-size: 18px;
   font-family: Roboto;
