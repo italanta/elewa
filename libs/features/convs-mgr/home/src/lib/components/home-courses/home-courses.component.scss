@@ -8,21 +8,29 @@
 .cards .new-course {
   height: 250px;
   padding: 20px;
-  background-color:#F6F6F6;
+  background-color:#FFF;
   border-radius: 10px;
   border: solid #707070 0.25px;
 }
 
+.cards .card-header {
+  margin-top: -45px;
+}
+
+.cards .card-footer {
+  margin-bottom: -30px;
+}
+
 .badge {
   display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: .9em;
+  padding: 0.295rem 0.69rem;
+  font-size: .7em;
   font-weight: 400;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: 0.25rem;
+  border-radius: 3.125rem;
   color: black;
   background-color: #DADADA;
 
@@ -30,7 +38,7 @@
     background-color: #C3FA6C;
   }
 
-  &.telegram {
+  &.messenger {
     background-color: #6CD4FA;
   }
 }
@@ -47,7 +55,7 @@
 }
 
 .cards .assessment-card .card-footer span {
-  font-size: .9rem;
+  font-size: .68rem;
   font-weight: 400;
 }
 
@@ -58,6 +66,7 @@
 .card-footer button {
   background-color: #B8AFDA!important;
   color: white!important;
+  box-shadow: none;
 }
 
 .card-footer .new-course-text {
