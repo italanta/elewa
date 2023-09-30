@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+	min-width: 250.37px;
 }
 
 .block {
@@ -16,15 +16,18 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
-	color: var(--convs-mgr-color-primary-purple)
+	// color: var(--convs-mgr-color-primary-purple);
+	font-size: 1.2rem;
 }
 
 .block-title {
-	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-weight: 400;
+	font-size: large;	
+	margin: 0 0 0 .75rem;
 	color: var(--convs-mgr-color-text-black);
 }
 
@@ -71,4 +74,13 @@ mat-card {
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+hr{
+	margin-top: 0px;
+	padding-top: 0px;
+	color: #DADADA;
+	width: calc(100% + 20px);
+	transform: translateX(-10px);
+	opacity: 50%;
 }
