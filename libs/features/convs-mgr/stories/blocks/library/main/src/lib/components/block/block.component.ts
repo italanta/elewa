@@ -67,6 +67,9 @@ export class BlockComponent implements OnInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
 
+  //Toggle variable of the more icon
+  displayIconBlock: boolean = false;
+  
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
@@ -127,7 +130,7 @@ export class BlockComponent implements OnInit {
 
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
-
+ 
     if (this.blocksGroup) {
       switch (this.type) {
         case StoryBlockTypes.TextMessage:
@@ -321,7 +324,11 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-
+  
+  viewIconBlock(){
+    this.displayIconBlock = !this.displayIconBlock;
+  }
+  
   editBlock() { 
     
     if (this.type === this.videoType) {
