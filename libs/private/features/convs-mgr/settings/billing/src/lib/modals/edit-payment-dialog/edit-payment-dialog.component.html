@@ -1,42 +1,52 @@
 <div mat-dialog-container class="container">
-    <p mat-dialog-title>Add payment method</p>
-    <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" mat-dialog-content>
-      <mat-form-field appearance="outline">
-        <mat-label>Cardholder name</mat-label>
-        <input matInput formControlName="firstName" />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Card number</mat-label>
-        <input matInput formControlName="lastName" />
-      </mat-form-field>
-      <div fxLayout="row" fxLayoutAlign="space-between start"  >
-          <div fxLayout ="column">
-              <mat-form-field appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input matInput type="email" formControlName="email" />
-                </mat-form-field>
-          </div>
-          <div fxLayout ="column">
-              <mat-form-field appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input matInput type="email" formControlName="email" />
-                </mat-form-field>
-          </div>
+  <p mat-dialog-title>Edit payment method</p>
+  <div  fxLayout="column" fxLayoutAlign="start" mat-dialog-content>
+
+    
+        <p class="static-label">Cardholder Name</p>
+        <div>
+          <input matInput type="email" formControlName="email">
+        </div>
+      
+      
+      <div fxLayout="column"  fxFlex>
+         <p class="static-label">Cardholder Number</p>
+      <div>
+        <input matInput type="tel" formControlName="phone">
+      </div>
+      </div>
+    
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="84px" class="payment">
+      <div fxLayout="column"  fxFlex>
+        <p class="static-label">Expirity Date</p>
+        <div>
+          <input matInput type="email" formControlName="email">
+        </div>
       </div>
       
-      <div fxLayout="row" fxLayoutAlign="space-between start"  >
-          <div fxLayout ="column">
-              <button  class="btn white-btn">
-                  Cancel 
-                </button>
-          </div>
-          <div fxLayout ="column">
-              <button  class="btn white-btn" >
-                  Add 
-                </button>
-          </div>
+      <div fxLayout="column"  fxFlex>
+         <p class="static-label">CVV</p>
+      <div>
+        <input matInput type="tel" formControlName="phone">
       </div>
-     
+      </div>
     </div>
+    
+   
+    
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="buttons" >
+        <div fxLayout ="column">
+            <button  class="btn cancel-btn">
+                Cancel 
+              </button>
+        </div>
+        <div fxLayout ="column">
+            <button  class="btn add-btn" >
+                Add 
+              </button>
+        </div>
+    </div>
+   
   </div>
-  
+</div>
