@@ -37,7 +37,7 @@ export const iconsAndTitles: any = {
   },
   10: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.NAME',
-    icon: 'fas fa-user-alt',
+    icon: 'fa-regular fa-user',
   },
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
