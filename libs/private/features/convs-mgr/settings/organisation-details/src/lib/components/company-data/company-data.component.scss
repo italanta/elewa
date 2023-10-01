@@ -6,15 +6,17 @@
       height: 210px;
       padding: 20px 0px;
       object-fit: contain;
-      border-radius: 50%;
+      border-radius: 9999px;
       border: 1px #707070 solid;
     }
-    .user-profile-picture{
-      div{
-        button{
-          width: 142px; 
-          height: 45px; 
-          background: #1F7A8C; 
+    .user-profile-picture {
+      div {
+        position: relative; 
+
+        button {
+          width: 142px;
+          height: 45px;
+          background: #1F7A8C;
           border-radius: 25px;
           color: white;
           font-size: 16px;
@@ -22,10 +24,12 @@
           font-weight: 400;
           word-wrap: break-word;
           margin-top: 30px;
+
         }
       }
     }
   }
+  
   .information{
    
     .company-fields{
@@ -70,6 +74,14 @@
   }
 }
 
+@media (min-width: 600px) {
+  // Adjust styles for screens wider than 600px if needed
+}
+
+@media (min-width: 900px) {
+  // Adjust styles for screens wider than 900px if needed
+}
+
 
 :host ::ng-deep .company-details .names .mat-form-field,
 .emails-inputs .mat-form-field {
@@ -83,3 +95,5 @@
 :host ::ng-deep .company-details .mat-form-field-wrapper {
   padding: 0px 0px 15px 0px;
 }
+
+

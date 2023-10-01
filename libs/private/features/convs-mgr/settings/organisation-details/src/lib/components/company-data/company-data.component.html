@@ -20,7 +20,6 @@
 
     <div fxLayout="column" class="company-fields" fxFlex="50%">
 
-
       <form [formGroup]="orgDataFormGroup"  *ngIf="formIsReady" fxLayout="column">
 
         <h4>Basic Information</h4>
@@ -92,7 +91,7 @@
       <div>
 
         <div fxLayout="row" fxLayoutAlign="end center">
-          <button class="btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" class="edit-button" (click)="editOrgProfile()" mat-raised-button>
+          <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile()" mat-raised-button>
             <span *ngIf="!editOrg; else saveProfile">Edit company information</span>
             <ng-template #saveProfile>
               <span>Save Organization</span>
