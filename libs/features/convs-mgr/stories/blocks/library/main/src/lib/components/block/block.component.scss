@@ -1,5 +1,6 @@
 mat-card {
 	min-width: 200px;
+	border-radius: 0.1rem;
 }
 
 .block {
@@ -19,12 +20,13 @@ mat-card {
 }
 
 .icon-color {
-	color: var(--convs-mgr-color-primary-purple)
+	color: var(--convs-mgr-color-primary-black);
 }
 
 .block-title {
 	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-size: small;
+	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
@@ -47,24 +49,40 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
+.icons {
+	position: relative;
+	cursor: pointer;
+
+}
+
 .icon-block {
+	min-width: 6rem;
+	position: absolute;
+	top: -0.9rem;
+	right: 1.5rem;
+	z-index: 1;
 	display: flex;
-	align-items: center;
+	justify-content: space-evenly;
+	padding: 0.5em;
+	border: 2px solid black;
+	border-radius: 0.5rem;
+	background-color: white;
 	gap: 10px;
 
 	.icons {
 		cursor: pointer;
-	
+
 		* {
 			color: var(--convs-mgr-color-medium-shade);
-			
+
 			&:hover {
 				color: var(--convs-mgr-color-primary-purple);
 			}
 		}
 	}
 }
-.hide-block {
+
+.hide-block>span {
 	display: none;
 }
 

@@ -6,10 +6,22 @@
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 
-            <div fxLayout="row" class="icon-block">
-                <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
-                <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
-                <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
+            <div>
+                <div (click) = "viewIconBlock()">
+                    <span class="icons" >
+                        <i class='fas fa-ellipsis-v'></i>
+                    </span>
+                </div>
+                
+                <div fxLayout="row" [ngClass]="{'icon-block': displayIconBlock==true, 'hide-block': displayIconBlock==false}">
+
+                    <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
+                    
+                    <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
+                    
+                    <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
+                </div>
+                
             </div>
         </div>
 
