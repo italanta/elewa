@@ -22,7 +22,17 @@ export function _PhoneBlockDecoratePlumb(block: PhoneMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0,0.3,0,1],
+    maxConnections: -1
+  });
+
+  // Adding the second static jsPlumb connector
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    target: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1, 0.8,0,1],
     maxConnections: -1
   });
 
