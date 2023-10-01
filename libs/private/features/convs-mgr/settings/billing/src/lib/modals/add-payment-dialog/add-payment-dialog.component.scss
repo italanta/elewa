@@ -1,23 +1,26 @@
+.custom-dialog-container {
+  border-radius: 25px !important; // Adjust the value as needed
+}
+
 .container {
-    background: white;
-    border-radius: 25px !important;
-    padding: 20px; /* Add padding to create space inside the card */
-    
-    p {
-      color: #101010;
-      font-size: 18px;
-      font-family: Roboto;
-      font-weight: 300;
-      word-wrap: break-word;
-    }
-  
-    div {
-      mat-form-field {
-        input {
-          border-radius: 8px;
-          border: 0.70px #707070 solid;
-        }
+  background: white;
+  border-radius: 25px; /* Apply border-radius without !important */
+  padding: 20px; /* Add padding to create space inside the card */
+
+  p {
+    color: #101010;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 300;
+    word-wrap: break-word;
+  }
+
+  div {
+    mat-form-field {
+      input {
+        border-radius: 8px;
+        border: 0.70px #707070 solid;
       }
     }
   }
-  
+}

@@ -65,6 +65,7 @@
                                     font-weight: 300;
                                     word-wrap: break-word;
                                     margin-top: 23px;
+                                   
                                 }
                                 .user{
                                     // 5 of 8 users
@@ -100,12 +101,7 @@
                                     font-weight: 400;
                                     text-decoration: underline;
                                     word-wrap: break-word
-                                }
-                                div {
-                                    .image {
-                                        margin-right: 56px !important;
-                                    }
-                                }
+                                }    
                             }
                             
                            }
@@ -116,9 +112,9 @@
                             height: 78px; 
                             background: white; 
                             border-radius: 8px;
-                            border: none !important;
+                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                             margin-top: 24px;
-
+                            
                         }
                         div{
                             .card-title{
