@@ -36,8 +36,8 @@ export class BillingComponent {
 
   addPaymentMethod() {
     const dialogRef = this.dialog.open(AddPaymentDialogComponent, {
-      minWidth: '500px',
-      minHeight: '200px',
+      minWidth: '410px',
+      minHeight: '338px',
       data: this.org,
     });
   }
