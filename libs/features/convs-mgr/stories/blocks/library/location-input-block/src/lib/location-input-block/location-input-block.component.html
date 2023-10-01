@@ -1,4 +1,5 @@
 <div [id]="id" *ngIf="locationInputForm">
+	<hr class="form-border"> 
 	<form [formGroup]="locationInputForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="locationInputId" formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.LOCATION-INPUT' | transloco" />

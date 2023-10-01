@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+	min-width: 200px; 
 }
 
 .block {
@@ -16,6 +16,7 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
@@ -24,17 +25,15 @@ mat-card {
 
 .block-title {
 	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-size: 0.9rem;	
+	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
 	display: flex;
 	align-items: center;
-	gap: 15px;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
 
 	&:hover {
 		cursor: move;
@@ -64,6 +63,7 @@ mat-card {
 		}
 	}
 }
+
 .hide-block {
 	display: none;
 }

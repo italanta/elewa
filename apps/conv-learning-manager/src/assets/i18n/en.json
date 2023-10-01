@@ -128,7 +128,7 @@
         "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
-        "LOCATION-INPUT": "Location Input",
+        "LOCATION-INPUT": "Location input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
