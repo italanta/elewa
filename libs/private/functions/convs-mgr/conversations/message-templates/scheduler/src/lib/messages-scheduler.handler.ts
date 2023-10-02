@@ -57,6 +57,15 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       return enrolledEndUsers.map((user)=> getReceipientID(user, platform));
     }
 
+    // Get the receive ID of only the end users specified
+    if(usersFilters.endUsersId) {
+      const filteredEndUsers = enrolledEndUsers
+                                  .filter((user)=> usersFilters.endUsersId.includes(user.id))
+                                      .map((user)=> getReceipientID(user, platform)) || [];
+
+      endUsers = [...endUsers, ...filteredEndUsers];
+    }
+
     if(usersFilters.class) {
       const filteredByClass = enrolledEndUsers
                   // TODO: Filter the array of classes
@@ -66,9 +75,6 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       endUsers = [...endUsers, ...filteredByClass];
     } 
 
-    if(usersFilters.endUsersId) {
-      endUsers = [...endUsers, ...usersFilters.endUsersId];
-    }
 
     if(usersFilters.module) {
       const filteredByModule = enrolledEndUsers
