@@ -10,7 +10,7 @@ import { ScheduleMessagesReq } from "./model/schedule-message-req";
 import { ScheduleMessage } from "./utils/schedule-job.util";
 import { getReceipientID } from "./utils/get-receive-id.util";
 
-export class ScheduleMessagesHandler extends FunctionHandler<ScheduleMessagesReq, any>
+export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMessagesReq, any>
 {
   async execute(cmd: ScheduleMessagesReq, context: FunctionContext, tools: HandlerTools) 
   {
