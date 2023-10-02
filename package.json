@@ -37,6 +37,7 @@
     "@popperjs/core": "^2.11.8",
     "@types/googlemaps": "^3.43.3",
     "@types/unzipper": "^0.10.6",
+    "@types/uuid": "^9.0.4",
     "axios": "^0.27.2",
     "caniuse-lite": "^1.0.30001519",
     "chart.js": "^4.2.1",
@@ -59,6 +60,7 @@
     "tslib": "^2.3.0",
     "unique-names-generator": "^4.7.1",
     "unzipper": "^0.10.14",
+    "uuid": "^9.0.1",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
