@@ -24,14 +24,16 @@
 
         <h4>Basic Information</h4>
 
-        <div fxLayout="row" class="input" fxLayoutAlign="space-between  center" fxFlex>
-          <!-- <mat-label></mat-label> -->
+        
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex >
           <div fxLayout="column"  fxFlex>
             <p class="static-label">{{"ORGS.FORM.NAME" | transloco}}</p>
-            <mat-form-field fxFlex appearance="outline" class="custom-form-field">
-              <input matInput type="text" formControlName="name">
+            <mat-form-field appearance="outline" fxFlex="48">
+              <!-- <mat-label>{{"ORGS.FORM.EMAIL" | transloco}}</mat-label> -->
+              <input matInput type="email" formControlName="name">
             </mat-form-field>
-          </div>  
+          </div>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="84px">
