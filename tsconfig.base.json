@@ -347,6 +347,9 @@
       "@app/state/convs-mgr/learners": [
         "libs/state/convs-mgr/learners/src/index.ts"
       ],
+      "@app/state/convs-mgr/modules": [
+        "libs/state/convs-mgr/modules/src/index.ts"
+      ],
       "@app/state/convs-mgr/monitoring": [
         "libs/state/convs-mgr/monitoring/src/index.ts"
       ],
