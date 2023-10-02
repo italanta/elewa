@@ -74,32 +74,36 @@ table {
       word-wrap: break-word;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
-    .search {
-      height: 5px;
-      width: 100%;
-      background-color: var(--convs-mgr-color-primary-white);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      padding: 20px;
-      border: solid #DADADA 1px;
-    
-      &_tooltip {
-        color: gray;
-        transform: rotate(90deg);
-        font-size: 20px;
-        font-weight: 500;
+    .search{
+      .search {
+        height: 5px;
+        width: 100%;
+        background-color: var(--convs-mgr-color-primary-white);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border: solid #DADADA 1px;
+      
+        &_tooltip {
+          color: gray;
+          transform: rotate(90deg);
+          font-size: 20px;
+          font-weight: 500;
+        }
+      
+        &_input {
+          width: 440px;
+          height: 30px;
+          border: none;
+          outline: none;
+          font-size: 15px;
+          padding-left: 6px;
+        }
       }
-    
-      &_input {
-        width: 50%;
-        height: 30px;
-        border: none;
-        outline: none;
-        font-size: 15px;
-        padding-left: 6px;
-      }
+
     }
+   
     .buttons{
     
       mat-form-field{
@@ -115,9 +119,7 @@ table {
       }
       
     }
-    .role {
-      border-radius: 25px !important; /* Add this line */
-    }
+   
   }
   .buttons{
     button{
@@ -146,13 +148,7 @@ table {
       
       .mat-elevation-z8{
         .select-table{
-          display: none !important;
-          .user-td{
-            display: none !important;
-            .select{
-              display: none !important;
-            }
-          }
+          display: none ;
         }
       }
     }

@@ -1,33 +1,35 @@
 <div class="users" *ngIf="orgLoaded; else loadingUSers" [formGroup]="searchFormGroup">
-  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="toolbar">
+  <div fxLayout="row" fxLayoutAlign="space-between center start" fxLayoutGap="20px" class="toolbar">
     <!-- <div class="search" fxFlex="50%">
       <mat-form-field appearance="outline" fxFlex>
         <input (keyup)="applyFilter($event)" matInput placeholder="Search by name, email or role" #input>
       </mat-form-field>
     </div> -->
-
-    <div class="search">
-      <i class="fas fa-search search_tooltip"></i>
-      <input class="search_input" type="text" name="search table" (keyup)="applyFilter($event)" placeholder="Search by name, email or role" #input>
+    <div fxLayout="column" class="search">
+      <div class="search">
+        <i class="fas fa-search search_tooltip"></i>
+        <input class="search_input" type="text" name="search table" (keyup)="applyFilter($event)" placeholder="Search by name, email or role" #input>
+      </div>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="buttons" fxFlex="40%">
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="buttons" fxFlex="40%">
     
 
-      <div fxLayout="column">
-        <div class="select" >
-          <select >
-            <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
-          </select>
+        <div fxLayout="column">
+          <div class="select" >
+            <select >
+              <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
+            </select>
+          </div>
         </div>
-      </div>
-    
-      <div fxLayout="column">
-        <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" > Invite Member</button>
-      </div>
-
       
-    </div>
+        <div fxLayout="column">
+          <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" > Invite Member</button>
+        </div>
+  
+      </div>
+    </div>    
   </div>
 
   <div class="user-table">
@@ -72,16 +74,11 @@
         </ng-container>
 
         <!-- Roles column -->
-        <ng-container matColumnDef="roles" class="select-table">
+        <ng-container matColumnDef="roles" class="roles-section">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
           <td mat-cell *matCellDef="let user" class="user-td">
-            <!-- <div *ngIf="user.roles; else dash">
-              <span class="badge" *ngFor="let role of getRoles(user.roles[org.id!])">
-                {{ role }}
-              </span>
-            </div> -->
             <div class="select">
-              <select >
+              <select style="border: none; background-color: white;">
                 <option *ngFor="let role of getRoles(user.roles[org.id!])">{{role}}</option>
               </select>
             </div>
