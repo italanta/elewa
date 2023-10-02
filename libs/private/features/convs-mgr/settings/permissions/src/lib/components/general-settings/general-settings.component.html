@@ -27,7 +27,11 @@
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
+                                  [formGroupNameGeneralValue]="'GeneralSettings'"
+                                  [formGroupNameValue]="'CanAddNewMember'" 
+                                  [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -37,7 +41,12 @@
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>   -->
-              <app-switch-button ></app-switch-button>
+            <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
+                                [formGroupNameGeneralValue]="'GeneralSettings'"
+                                [formGroupNameValue]="'CanDeleteMember'" 
+                                [formControlNameValue]="control">
+            </app-switch-button>
+
             </div>
           </div>
         </div>

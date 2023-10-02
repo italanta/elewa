@@ -1,5 +1,12 @@
-<label class="switch">
-    <input type="checkbox" [formControl]="formControlName">
-    <span class="slider round"></span>
-    <span class="off-text">OFF</span>
-</label>
+<!-- app-switch-button.component.html -->
+<div *ngIf="generalSettingsFormGroup && formControlNameValue && formGroupNameValue" [formGroup]="generalSettingsFormGroup">
+    <div [formGroupName]="formGroupNameGeneralValue">
+        <div [formGroupName]="formGroupNameValue">
+            <label class="switch">
+                <input type="checkbox" [formControlName]="formControlNameValue" >
+                <span class="slider round"></span>
+                <span class="off-text">OFF</span>
+              </label>
+        </div>
+    </div>
+</div>

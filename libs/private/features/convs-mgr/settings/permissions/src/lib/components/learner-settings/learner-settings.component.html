@@ -24,8 +24,11 @@
           <p class="title" fxFlex="20%">Can View Learners</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanViewLearners'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -34,8 +37,11 @@
           <p class="title" fxFlex="20%"> Can Create Learners</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanCreateLearners'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -44,8 +50,11 @@
           <p class="title" fxFlex="20%"> Can Edit Learners </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanEditLearners'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -54,8 +63,11 @@
           <p class="title" fxFlex="20%"> Can Delete Learners </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanDeleteLearners'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>

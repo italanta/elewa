@@ -23,8 +23,11 @@
           <p class="title" fxFlex="20%"> Can View Assessments</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'AssessmentsSettings'"
+              [formGroupNameValue]="'CanViewAssessments'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -33,8 +36,11 @@
           <p class="title" fxFlex="20%"> Can Create Assessments</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'AssessmentsSettings'"
+              [formGroupNameValue]="'CanCreateAssessments'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -43,8 +49,11 @@
           <p class="title" fxFlex="20%"> Can Edit Assessments </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'AssessmentsSettings'"
+              [formGroupNameValue]="'CanEditAssessments'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -53,8 +62,11 @@
           <p class="title" fxFlex="20%"> Can Edit Assessments </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'AssessmentsSettings'"
+              [formGroupNameValue]="'CanDeleteAssessments'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
