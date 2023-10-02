@@ -1,1 +1,56 @@
-<p>create-module-modal works!</p>
+<div class="modal">
+  <h2 class="create-bot-header">
+    <span *ngIf="!modalMode; else showEditTitle">
+      {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
+    </span>
+    <ng-template #showEditTitle>
+      {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
+    </ng-template>
+  </h2>
+
+  <form [formGroup]="moduleForm">
+    <div fxLayout="column" fxLayoutAlign="start">
+      <h4 class="label"> {{ 'BOTS.FIELDS.NAME' | transloco }} </h4>
+      <mat-form-field appearance="outline">
+        <input type="text" matInput formControlName="botName"
+          [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" />
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start">
+      <h4 class="label">{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
+
+      <mat-form-field appearance="outline">
+        <textarea matInput formControlName="botDesc"
+          [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <h4 class="label">Course Name</h4>
+
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="accuracy">
+          <mat-option value="correct">module.name</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="bot-buttons">
+      <div>
+        <button mat-stroked-button mat-dialog-close class="cancel-btn">
+          {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
+        </button>
+      </div>
+
+      <div>
+        <button [disabled]="!moduleForm.valid" mat-raised-button class="add-btn" color="primary" (click)="submitForm()">
+          <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
+          <ng-template #isEdit>
+            <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+          </ng-template>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
