@@ -221,6 +221,9 @@
       "@app/model/bot/blocks/default-block": [
         "libs/model/bot/blocks/default-block/src/index.ts"
       ],
+      "@app/model/convs-mgr/bot-modules": [
+        "libs/model/convs-mgr/bot-modules/src/index.ts"
+      ],
       "@app/model/convs-mgr/bots": ["libs/model/convs-mgr/bots/src/index.ts"],
       "@app/model/convs-mgr/conversations/admin/system": [
         "libs/model/convs-mgr/conversations/admin/system/src/index.ts"
