@@ -1,1 +1,11 @@
-<p>bot-create-flow-modal works!</p>
+<mat-stepper #stepper>
+  <mat-step label="Create Bot" errorMessage="Create Bot first">
+    <convl-italanta-apps-create-bot-modal></convl-italanta-apps-create-bot-modal>
+  </mat-step>
+  <mat-step label="Create Module">
+    <italanta-apps-create-module-modal></italanta-apps-create-module-modal>
+  </mat-step>
+  <mat-step label="Create Lesson">
+    <italanta-apps-create-lesson-modal></italanta-apps-create-lesson-modal>
+  </mat-step>
+</mat-stepper>
