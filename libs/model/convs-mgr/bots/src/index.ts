@@ -1,1 +1,1 @@
-export * from './lib/model-convs-mgr-bots.module';
+export * from './lib/bots.interface';
