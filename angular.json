@@ -1760,17 +1760,17 @@
       },
       "tags": []
     },
-    "state-convs-mgr-classrooms": {
+    "state-convs-mgr-bots": {
       "projectType": "library",
-      "root": "libs/state/convs-mgr/classrooms",
-      "sourceRoot": "libs/state/convs-mgr/classrooms/src",
+      "root": "libs/state/convs-mgr/bots",
+      "sourceRoot": "libs/state/convs-mgr/bots/src",
       "prefix": "app",
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/state/convs-mgr/classrooms"],
+          "outputs": ["coverage/libs/state/convs-mgr/bots"],
           "options": {
-            "jestConfig": "libs/state/convs-mgr/classrooms/jest.config.ts",
+            "jestConfig": "libs/state/convs-mgr/bots/jest.config.ts",
             "passWithNoTests": true
           }
         },
@@ -1778,8 +1778,8 @@
           "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/state/convs-mgr/classrooms/**/*.ts",
-              "libs/state/convs-mgr/classrooms/**/*.html"
+              "libs/state/convs-mgr/bots/**/*.ts",
+              "libs/state/convs-mgr/bots/**/*.html"
             ]
           }
         }
