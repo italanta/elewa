@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
@@ -22,6 +23,7 @@ import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-mo
 import { NewStoryService } from './services/new-story.service';
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
+import { BotCreateFlowModalComponent } from './modals/bot-create-flow-modal/bot-create-flow-modal.component';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     MultiLangModule,
     ConvsMgrStoriesRouterModule,
     ChatsRouterModule,
+    MatStepperModule,
   ],
   declarations: [
     StoriesDashboardComponent,
@@ -43,7 +46,8 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     LabelsComponent,
     BotsListHeaderComponent,
     BotsListLatestCoursesComponent,
-    BotsListAllCoursesComponent
+    BotsListAllCoursesComponent,
+    BotCreateFlowModalComponent,
   ],
 
   providers: [NewStoryService],
