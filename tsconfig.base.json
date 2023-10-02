@@ -328,6 +328,7 @@
       "@app/state/convs-mgr/analytics": [
         "libs/state/convs-mgr/analytics/src/index.ts"
       ],
+      "@app/state/convs-mgr/bots": ["libs/state/convs-mgr/bots/src/index.ts"],
       "@app/state/convs-mgr/conversations/analytics/traffic-by-day": [
         "libs/state/convs-mgr/conversations/analytics/traffic-by-day/src/index.ts"
       ],
