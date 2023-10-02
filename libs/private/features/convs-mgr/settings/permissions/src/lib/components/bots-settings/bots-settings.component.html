@@ -23,8 +23,11 @@
           <p class="title" fxFlex="20%">Can View Bots</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanViewBots'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -33,8 +36,11 @@
           <p class="title" fxFlex="20%"> Can Create Bots</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanCreateBots'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -43,8 +49,11 @@
           <p class="title" fxFlex="20%"> Can Edit Bots </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanEditBots'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>
@@ -54,8 +63,11 @@
           <p class="title" fxFlex="20%"> Can Delete Bots </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
-              <app-switch-button></app-switch-button>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanDeleteBots'" 
+              [formControlNameValue]="control">
+              </app-switch-button>
             </div>
           </div>
         </div>

@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-switch-button',
@@ -7,5 +9,12 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./switch-button.component.scss'],
 })
 export class SwitchButtonComponent {
-  @Input() formControlName: FormControl;
+  @Input() generalSettingsFormGroup: FormGroup;
+  @Input() formGroupNameGeneralValue: string;
+  @Input() formGroupNameValue: string;
+  @Input() formControlNameValue: string;
+
+  isFormActive = false;
+
+
 }
