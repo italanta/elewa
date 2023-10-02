@@ -6,7 +6,7 @@ import { IObject } from '@iote/bricks';
 /**
  * Interface representing a bot's module.
  */
-export interface BotModules extends IObject {
+export interface BotModule extends IObject {
   /** The name of the module.*/
   name: string;
 

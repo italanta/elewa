@@ -1,1 +1,1 @@
-export * from './lib/state-convs-mgr-modules.module';
+export * from './lib/bot-modules-state.module';
