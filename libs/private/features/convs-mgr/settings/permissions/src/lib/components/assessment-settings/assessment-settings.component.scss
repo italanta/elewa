@@ -19,12 +19,23 @@ mat-expansion-panel {
 }
 
 .title {
-  color: var(--convs-mgr-color-text-black);
   margin-bottom: 0px!important;
+  width: 100%;
+  text-align: center;
+  color: #101010;
+  font-size: 18px;
+  font-family: Roboto;
+  font-weight: 300;
+  word-wrap: break-word
 }
 
 .titles {
   padding: 20px 10px;
+  color: #101010;
+  font-size: 18px;
+  font-family: Roboto;
+  font-weight: 300;
+  word-wrap: break-word
 }
 
 .titles:nth-child(even) {
