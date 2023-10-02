@@ -33,6 +33,8 @@
   --conv-mgr-color-sidemenu-background: #7619FF26;
   --textarea-outline-color: #989898;
   --convs-mgr-question-header-color: #F0EFF3;
+  --convs-mgr-border-color: #DADADA;
+  --convs-mgr-placeholder-color: #F3F3F3;
 
   /** secondary **/
   --convs-mgr-color-secondary: #ffa225;
@@ -114,6 +116,7 @@
   --connector-color: #ffab2d;
   --endpoint-outline: #fff;
   --endpoint-color: #ffab2d;
+  --connector-color-blue:  #3E788A;
 
   convs-mgr-tab-button.tab-selected {
     convs-mgr-icon, convs-mgr-label {

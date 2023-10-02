@@ -9,12 +9,11 @@ input {
 	border-radius: 0.6rem;
 	resize: none;
 	padding: 10px;
-	background-color: var(--convs-mgr-color-primary-background);
+	background-color: var(--convs-mgr-placeholder-color);
 }
 
 .form-border {
-	border-top: 1px solid var(--convs-mgr-field-border-color); 
-	margin-top: 10px; 
+	border-top: 0.5px solid var(--convs-mgr-border-color);
+	margin-top: 0.625rem;
 	width: 100%;
 }
-
