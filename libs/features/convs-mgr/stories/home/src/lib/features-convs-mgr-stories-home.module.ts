@@ -24,6 +24,8 @@ import { NewStoryService } from './services/new-story.service';
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
 import { BotCreateFlowModalComponent } from './modals/bot-create-flow-modal/bot-create-flow-modal.component';
+import { CreateModuleModalComponent } from './modals/create-module-modal/create-module-modal.component';
+import { CreateLessonModalComponent } from './modals/create-lesson-modal/create-lesson-modal.component';
 
 @NgModule({
   imports: [
@@ -48,6 +50,8 @@ import { BotCreateFlowModalComponent } from './modals/bot-create-flow-modal/bot-
     BotsListLatestCoursesComponent,
     BotsListAllCoursesComponent,
     BotCreateFlowModalComponent,
+    CreateModuleModalComponent,
+    CreateLessonModalComponent,
   ],
 
   providers: [NewStoryService],
