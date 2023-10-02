@@ -1,7 +1,11 @@
 textarea {
   margin: 5px 0;
-  border-radius: 6px;
-  border: 2px solid #6418c3;
+  border-radius: 0.6rem;
+  background-color: #f3f3f3;
   padding: 20px;
   text-align: left;
+  width: 85%;
+  border: none;
+  outline: none;
+  resize: none;
 }
