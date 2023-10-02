@@ -51,6 +51,12 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     const enrolledEndUsers = await enrolledUserService.getAllEnrolledUsers();
 
+    // If there are no filters, send the message to all end users under that
+    //  organisation
+    if(!usersFilters) {
+      return enrolledEndUsers.map((user)=> getReceipientID(user, platform));
+    }
+
     if(usersFilters.class) {
       const filteredByClass = enrolledEndUsers
                   // TODO: Filter the array of classes
