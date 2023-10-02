@@ -21,7 +21,7 @@ export const iconsAndTitles: any = {
   },
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
-    icon: 'fas fa-question-circle',
+    icon: 'far fa-circle-question',
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
@@ -97,7 +97,7 @@ export const iconsAndTitles: any = {
   },
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
-    icon: 'fas fa-question-circle',
+    icon: 'far fa-question-circle',
   },
   28: {
 		title: 'PAGE-CONTENT.BLOCK.TITLES.MULTI-CONTENT-INPUT',
