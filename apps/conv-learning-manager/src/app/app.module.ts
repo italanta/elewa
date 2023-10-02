@@ -36,6 +36,7 @@ import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/b
 import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
 import { ProgressMonitoringStateModule } from '@app/state/convs-mgr/monitoring';
 import { MtOrgStateModule } from '@app/private/state/organisation/main';
+import { BotsStateModule } from '@app/state/convs-mgr/bots';
 import { AccessControlStateModule } from '@app/private/state/access-control';
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
@@ -82,6 +83,7 @@ import { environment } from '../environments/environment';
     ProgressMonitoringStateModule.forRoot(),
     EndUsersStateModule.forRoot(),
     LearnersStateModule.forRoot(),
+    BotsStateModule.forRoot(),
 
     MtOrgStateModule.forRoot(),
 
