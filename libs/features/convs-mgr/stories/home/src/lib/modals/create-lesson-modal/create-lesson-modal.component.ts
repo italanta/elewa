@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
+import { Observable } from 'rxjs';
+
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryStateService } from '@app/state/convs-mgr/stories';
+import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
-import {
-  uniqueNamesGenerator,
-  adjectives,
-  colors,
-  animals,
-} from 'unique-names-generator';
+import { CREATE_EMPTY_STORY } from '../../providers/forms/story-form.provider';
+import { NewStoryService } from '../../services/new-story.service';
 
 @Component({
   selector: 'italanta-apps-create-lesson-modal',
@@ -23,51 +22,41 @@ export class CreateLessonModalComponent implements OnInit {
   story: Story;
   isSavingStory = false;
 
+  botModules$: Observable<BotModule[]>;
+
   constructor(
-    private _stateStoryServ$: StoryStateService,
+    private _stateStoryServ$: NewStoryService,
+    private _botModulesServ$: BotModulesStateService,
     private _formBuilder: FormBuilder
   ) {}
 
-  ngOnInit () {
+  ngOnInit() {
     this.createFormGroup();
-  }
-
-  generateName() {
-    const defaultName = uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals] });
-    return defaultName;
+    this.botModules$ = this._botModulesServ$.getBotModules();
   }
 
   createFormGroup() {
-    this.lessonForm = this._formBuilder.group({
-      botName: [this.generateName()],
-      botDesc: [''],
-      module: ['', Validators.required],
-    });
+    this.lessonForm = CREATE_EMPTY_STORY(this._formBuilder);
   }
 
-  add() {
-    const newStory: Story = {
-      name: this.lessonForm.value.botName,
-      description: this.lessonForm.value.botDesc,
-      orgId: '',
-    };
-
-    this._stateStoryServ$.createStory(newStory).subscribe(() => {
-      // send output event to move to next step
-    });
+  add(story: Story, parentModule: BotModule) {
+    this._stateStoryServ$.saveStory(story, parentModule);
   }
 
-  update() {
-    this.story.name = this.lessonForm.value.botName;
-    this.story.description = this.lessonForm.value.botDesc;
-
-    this._stateStoryServ$.updateStory(this.story).subscribe(() => {
-      // send output event to close dialog
-    });
+  update(story: Story, parentModule: BotModule) {
+    this._stateStoryServ$.updateStory(story, parentModule);
   }
 
   submitForm() {
+    const story: Story = {
+      name : this.lessonForm.value.storyName,
+      description : this.lessonForm.value.storyDesc,
+      orgId: ''
+    };
+
+    const parentModule = this.lessonForm.value.parentModule as BotModule;
+    
     this.isSavingStory = true;
-    this.modalMode ? this.update() : this.add();
+    this.modalMode ? this.update(story, parentModule) : this.add(story, parentModule);
   }
 }

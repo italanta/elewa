@@ -12,7 +12,7 @@
     <div fxLayout="column" fxLayoutAlign="start">
       <h4 class="label"> {{ 'BOTS.FIELDS.NAME' | transloco }} </h4>
       <mat-form-field appearance="outline">
-        <input type="text" matInput formControlName="botName"
+        <input type="text" matInput formControlName="storyName"
           [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" />
       </mat-form-field>
     </div>
@@ -21,7 +21,7 @@
       <h4 class="label">{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
 
       <mat-form-field appearance="outline">
-        <textarea matInput formControlName="botDesc"
+        <textarea matInput formControlName="storyDesc"
           [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco"></textarea>
       </mat-form-field>
     </div>
@@ -30,8 +30,10 @@
       <h4 class="label">Module Name</h4>
 
       <mat-form-field appearance="fill">
-        <mat-select formControlName="accuracy">
-          <mat-option value="correct">module.name</mat-option>
+        <mat-select formControlName="parentModule">
+          <ng-container *ngFor="let module of (botModules$ | async)">
+            <mat-option [value]="module">{{ module.name }}</mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
     </div>
@@ -46,9 +48,15 @@
       <div>
         <button [disabled]="lessonForm.invalid" mat-raised-button class="add-btn" color="primary"
           (click)="submitForm()">
-          <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
-          <ng-template #isEdit>
-            <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+          <span *ngIf="isSavingStory; else notUploading">
+            <mat-spinner diameter="25" strokeWidth="3" color="primary"></mat-spinner>
+          </span>
+
+          <ng-template #notUploading>
+            <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
+            <ng-template #isEdit>
+              <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+            </ng-template>
           </ng-template>
         </button>
       </div>

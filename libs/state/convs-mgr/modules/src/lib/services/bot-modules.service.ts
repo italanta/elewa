@@ -15,6 +15,10 @@ export class BotModulesStateService {
     return this._botModuleStore$$.get();
   }
 
+  getBotModuleById(id: string): Observable<BotModule | undefined> {
+    return this._botModuleStore$$.getOne(id);
+  }
+
   createBotModules(botModule: BotModule): Observable<BotModule> {
     return this._botModuleStore$$.add(botModule);
   }
