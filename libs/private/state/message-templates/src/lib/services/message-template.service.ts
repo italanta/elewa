@@ -17,6 +17,8 @@ export class MessageTemplatesService {
     private _activeTemplate: ActiveMessageTemplateStore
   ) {}
 
+  
+
   getActiveTemplate$() {
     return this._activeTemplate.get();
   }
@@ -26,20 +28,46 @@ export class MessageTemplatesService {
   }
   // Adjust data types once I know what the functions return
   createTemplate(payload: MessageTemplate): Observable<any> {
-    return this.callFunction('create', { payload });
+    return this.templateCallFunction('create', { payload });
   }
 
   deleteTemplate(payload: MessageTemplate): Observable<any> {
-    return this.callFunction('delete', { payload });
+    return this.templateCallFunction('delete', { payload });
   }
 
   updateTemplate(payload: MessageTemplate): Observable<any> {
-    return this.callFunction('update', { payload });
+    return this.templateCallFunction('update', { payload });
   }
 
-  private callFunction(action: string, data: any): Observable<any> {
+  private templateCallFunction(action: string, data: any): Observable<any> {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
     console.log("sending", templateRef);
     return templateRef({ action, ...data });
   }
+  private statusCallFunction(data: MessageStatusReq): Observable<any> {
+    const templateRef = this._aff.httpsCallable('channelWhatsappGetTemplates');
+    console.log("sending", templateRef);
+    const dataObject = {
+      data
+    }
+    return templateRef(data);
+  }
+  getTemplateStatus() :Observable<MessageStatusRes[]>{
+    const messageStatusReq: MessageStatusReq = {
+      fields: ["name", "status", "category"],
+      limit: 20,
+      channelId: "100465209511767"
+    }
+    return this.statusCallFunction(messageStatusReq);
+  }
+}
+
+export interface MessageStatusRes {
+  name: string;
+  status: string;
+}
+export interface MessageStatusReq {
+  fields: string[];
+  limit: number;
+  channelId: string;
 }
