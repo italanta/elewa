@@ -25,7 +25,7 @@
     <div fxLayout="column" fxLayoutAlign="start start" class="names">
       <p class="label">Roles</p>
       <select name="roles" >
-        <option *ngFor="let role of org.roles" [value]="role">{{ role }}</option>
+        <option *ngFor="let role of reversedRoles" [value]="role">{{ role }}</option>
       </select>
     </div>
 
