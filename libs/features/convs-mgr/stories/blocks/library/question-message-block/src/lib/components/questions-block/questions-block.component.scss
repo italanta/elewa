@@ -39,3 +39,18 @@ textarea:focus-visible {
   color: var(--convs-mgr-color-primary-purple);
   padding-right: 5px;
 }
+
+form{
+  border-top: 1px solid var(--convs-mgr-border-color);
+  padding-top: 0.3125rem;
+}
+
+.option-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  
+  .option-input {
+    margin-bottom: 10px;
+  }
+}

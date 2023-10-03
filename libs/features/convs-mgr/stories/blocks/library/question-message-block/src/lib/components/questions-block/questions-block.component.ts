@@ -53,10 +53,22 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
     })
   }
 
+  /**ensure the option input field automatically updates */
+  setOptionMessages() {
+    this.options.controls.forEach((option, index) => {
+      option.get('message')?.setValue(`Option ${index + 1}`);
+    });
+  }  
+
   addNewOption() {
-    if (this.options.length < questionOptionsArrayLimit) this.options.push(this.addQuestionOptions());
+    if (this.options.length < questionOptionsArrayLimit) {
+      this.options.push(this.addQuestionOptions());
+      this.setOptionMessages(); /** set option messages after adding */
+    }
   }
+
   deleteInput(i: number) {
     this.options.removeAt(i);
+    this.setOptionMessages(); /** set option messages after deleting */ 
   }
 }
