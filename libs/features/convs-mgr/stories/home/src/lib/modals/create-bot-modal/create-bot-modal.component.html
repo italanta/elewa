@@ -1,6 +1,6 @@
 <div class="modal">
   <h2 class="create-bot-header">
-    <span *ngIf="!modalMode; else showEditTitle">
+    <span *ngIf="isCreateMode; else showEditTitle">
       {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
     </span>
     <ng-template #showEditTitle>
@@ -74,7 +74,7 @@
 
           <!-- image is not uploading -->
           <ng-template #notUploading>
-            <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
+            <span *ngIf="isCreateMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
             <ng-template #isEdit>
               <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
             </ng-template>

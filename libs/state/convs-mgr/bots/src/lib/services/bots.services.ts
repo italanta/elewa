@@ -15,6 +15,10 @@ export class BotsStateService {
     return this._botsStore$$.get();
   }
 
+  getBotById(id: string): Observable<Bot | undefined> {
+    return this._botsStore$$.getOne(id);
+  }
+
   createBot(bot: Bot): Observable<Bot> {
     return this._botsStore$$.add(bot);
   }
