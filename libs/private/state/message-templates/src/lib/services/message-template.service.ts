@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { MessageTemplateStore } from '../store/message-template.store';
 
 import { MessageTemplate } from '@app/model/convs-mgr/functions'
+import { ActiveMessageTemplateStore } from '../store/active-message-template.store';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,13 @@ import { MessageTemplate } from '@app/model/convs-mgr/functions'
 export class MessageTemplatesService {
   constructor(
     private _aff:  AngularFireFunctions, 
-    private _messageTemplateStore: MessageTemplateStore
+    private _messageTemplateStore: MessageTemplateStore,
+    private _activeTemplate: ActiveMessageTemplateStore
   ) {}
+
+  getActiveTemplate$() {
+    return this._activeTemplate.get();
+  }
 
   getMessageTemplates$() {
     return this._messageTemplateStore.get();
