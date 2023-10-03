@@ -15,9 +15,15 @@ import { MessageTemplateViewComponent } from './pages/message-template-view/mess
 import {
   MessageTemplateStore,
   MessageTemplatesService,
+  ActiveMessageTemplateStore,
 } from '@app/private/state/message-templates';
 import { SingleMesageTemplateComponent } from './components/single-mesage-template/single-mesage-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SingleMesageTemplateSettingsComponent } from './components/single-mesage-template-settings/single-mesage-template-settings.component';
+import { MilestoneReachedComponent } from './modals/milestone-reached/milestone-reached.component';
+import { SpecificTimeComponent } from './modals/specific-time/specific-time.component';
+import { AfterInactivityComponent } from './modals/after-inactivity/after-inactivity.component';
+import { TemplateFormDropdownComponent } from './components/template-form-dropdown/template-form-dropdown.component';
 
 @NgModule({
   imports: [
@@ -27,7 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialBricksModule,
     MaterialDesignModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     MessageTemplateHomeComponent,
@@ -37,7 +43,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MessageTemplateCreateComponent,
     MessageTemplateViewComponent,
     SingleMesageTemplateComponent,
+    SingleMesageTemplateSettingsComponent,
+    MilestoneReachedComponent,
+    SpecificTimeComponent,
+    AfterInactivityComponent,
+    TemplateFormDropdownComponent,
   ],
-  providers: [MessageTemplatesService, MessageTemplateStore],
+  providers: [
+    MessageTemplatesService,
+    MessageTemplateStore,
+    ActiveMessageTemplateStore,
+  ],
 })
 export class MessageTemplateModule {}

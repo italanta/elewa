@@ -6,7 +6,6 @@ import { MessageTemplateCreateComponent } from './pages/message-template-create/
 import { MessageTemplateViewComponent } from './pages/message-template-view/message-template-view.component';
 
 const MESSAGING_ROUTES: Route[] = [
-  { path: '', redirectTo: 'messaging', pathMatch: 'full' },
   {
     path: '',
     component: MessageTemplateHomeComponent,
@@ -16,8 +15,8 @@ const MESSAGING_ROUTES: Route[] = [
     component: MessageTemplateCreateComponent,
   },
   {
-    path: 'id', 
-    component: MessageTemplateViewComponent, 
+    path: ':id', 
+    component: MessageTemplateCreateComponent, 
   },
 
 ];
