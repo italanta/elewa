@@ -1,22 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AfterInactivityComponent } from '../../modals/after-inactivity/after-inactivity.component';
 import { MilestoneReachedComponent } from '../../modals/milestone-reached/milestone-reached.component';
 import { SpecificTimeComponent } from '../../modals/specific-time/specific-time.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MessageTemplateStore, ScheduleMessageService } from '@app/private/state/message-templates';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-single-mesage-template-settings',
   templateUrl: './single-mesage-template-settings.component.html',
   styleUrls: ['./single-mesage-template-settings.component.scss'],
 })
-export class SingleMesageTemplateSettingsComponent {
+export class SingleMesageTemplateSettingsComponent implements OnInit{
   selectedOption: string;
+  selectedTime: string;
   messageTemplateFrequency = [
     { value: 'milestone', viewValue: 'Milestone reached' },
     { value: 'specific-time', viewValue: 'Send message at specific time' },
     { value: 'inactivity', viewValue: 'After inactivity' },
   ];
+  action: string;
+  canBeScheduled = false;
   
-  constructor(private _dialog: MatDialog){}
+  constructor(
+    private _dialog: MatDialog, 
+    private _messageTemplateStore: MessageTemplateStore,
+    private _scheduleMessageService: ScheduleMessageService,
+    private _route$$: Router,
+
+    ){}
+
+    ngOnInit(): void {
+      this.action = this._route$$.url.split('/')[2];
+
+      if (this.action !== 'create') {
+
+        console.log(this.action)
+      } 
+    }
+
   openModal() {
     switch (this.selectedOption) {
       case 'milestone':
@@ -37,6 +58,7 @@ export class SingleMesageTemplateSettingsComponent {
   
         dialogRef.componentInstance?.dateTimeSelected.subscribe((selectedDateTime: any) => {
           console.log(selectedDateTime)
+          this.selectedTime = selectedDateTime.date.toLocaleString();
           const formattedDateTime = `Send message at ${selectedDateTime.time} ${selectedDateTime.date.toLocaleString()}`;
           // Update the 'specific-time' option viewValue
           const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'specific-time');
@@ -62,6 +84,18 @@ export class SingleMesageTemplateSettingsComponent {
       default:
         break;
     }
+  }
+
+  saveSchedule(){
+    const scheduleRequest = {
+      messageId: this.action,
+      channelId: '',
+      dispatchTime: this.selectedTime,
+    };
+    // this._messageTemplateStore.createScheduledMessage(scheduleRequest)
+    this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((response) => {
+      console.log(response)
+    });
   }
   
 }

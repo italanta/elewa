@@ -6,6 +6,19 @@
     margin-top: 1.75rem;
     padding: 1.75rem 1.56rem;
 }
+.disabled-button {
+  background-color: #f0f0f0; /* Change to your desired background color */
+  color: #999; /* Change to your desired text color */
+  cursor: not-allowed;
+  pointer-events: none;
+  border: 1px solid #ccc; /* Add a border if needed */
+}
+
+/* Style the button on hover (optional) */
+.disabled-button:hover {
+  background-color: #f0f0f0; /* Change to your desired background color on hover */
+  color: #999; /* Change to your desired text color on hover */
+}
 .send-btn{
     border-radius: 1.5625rem;
     width: 4.875rem;

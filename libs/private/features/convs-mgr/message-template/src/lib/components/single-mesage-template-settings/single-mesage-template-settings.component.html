@@ -1,13 +1,13 @@
 <div class="message-template-settings">
     
     <div class="btn-cont">
-        <button mat-raised-button  class="send-btn">
+        <button mat-raised-button  [disabled]="!canBeScheduled" class="send-btn" (click)="saveSchedule()">
             <span > save </span>
         </button>
     </div>
     <div class="form-group head">
         <p>Message Conditions</p>
-        <div class="info"><i class="fas fa-info-circle"></i> You can only set message conditions when your message template is approved</div>
+        <div class="info" [hidden]="canBeScheduled"><i class="fas fa-info-circle"></i> You can only set message conditions when your message template is approved</div>
         <p>Set up conditions for your message to be sent </p>
         <mat-form-field appearance="outline" class="frequency-select">
             <mat-label>Message conditions</mat-label>

@@ -11,11 +11,12 @@ import {
   MaterialDesignModule,
 } from '@iote/bricks-angular';
 import { MessageTemplateCreateComponent } from './pages/message-template-create/message-template-create.component';
-import { MessageTemplateViewComponent } from './pages/message-template-view/message-template-view.component';
+import { MessageTemplateViewComponent } from './pages/message-template-help/message-template-view.component';
 import {
   MessageTemplateStore,
   MessageTemplatesService,
   ActiveMessageTemplateStore,
+  ScheduleMessageService,
 } from '@app/private/state/message-templates';
 import { SingleMesageTemplateComponent } from './components/single-mesage-template/single-mesage-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -53,6 +54,7 @@ import { TemplateFormDropdownComponent } from './components/template-form-dropdo
     MessageTemplatesService,
     MessageTemplateStore,
     ActiveMessageTemplateStore,
+    ScheduleMessageService
   ],
 })
 export class MessageTemplateModule {}
