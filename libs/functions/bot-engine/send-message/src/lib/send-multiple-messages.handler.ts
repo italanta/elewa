@@ -25,7 +25,7 @@ export class SendMultipleMessagesHandler extends FunctionHandler<ScheduledMessag
     for (let receieveID of msgToSend.endUsers) {
       if (msgToSend.plaform === PlatformType.WhatsApp) {
 
-        message.phoneNumber = receieveID;
+        message.endUserPhoneNumber = receieveID;
         await sendMessage.execute(message, null, tools);
 
       } else if (msgToSend.plaform === PlatformType.Messenger) {
