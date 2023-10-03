@@ -1,12 +1,9 @@
-.custom-dialog-container {
-  border-radius: 25px !important; // Adjust the value as needed
-}
+
 
 .container {
   background: white;
-  border-radius: 25px; /* Apply border-radius without !important */
   padding: 20px; /* Add padding to create space inside the card */
-
+  border-radius: 25px !important;
   p {
    // Add payment method
     color: #101010;
