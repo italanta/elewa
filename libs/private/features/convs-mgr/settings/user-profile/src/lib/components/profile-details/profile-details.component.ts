@@ -62,7 +62,8 @@ export class ProfileDetailsComponent implements OnInit {
     let name: string[] = user.displayName!.split(' ');
     this.userFormGroup = this._fb.group({
       firstName: [name[0]],
-      lastName: [name[1]]
+      lastName: [name[1]],
+      email: [user.email],
     })
     this.userFormGroup.disable();
   }

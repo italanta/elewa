@@ -4,15 +4,11 @@
     <div class="user-data" fxLayout="row" fxLayoutAlign="start start">
 
       <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
-        <!-- <p class="label">Your Photo</p> -->
+       
 
-        <img [src]="user.photoUrl" alt="">
-        <!-- <img  alt=""> -->
+        <img [src]="user.photoUrl" alt="" (click)="newProfileImg()">
+        
 
-        <div fxLayout="row" fxLayoutAlign="space-between start" class="top-butons" *ngIf="editProfile">
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" style="margin-right: 10px;" (click)="newProfileImg()" mat-stroked-button> Upload</button>
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button> Remove</button>
-        </div>
       </div>
 
       <div fxLayout="column" fxLayoutAlign="start start" class="user-info" fxFlex="40%">
@@ -44,7 +40,7 @@
           <div fxLayout="column" fxLayoutAlign="start start" class="names">
             <p class="label"> Email</p>
             
-              <input formControlName="email" matInput placeholder="johndoe@gmail.com">
+            <input formControlName="email" matInput [value]="user.email">
             
           </div>
         </div> 
