@@ -13,6 +13,8 @@
       </div>
     </div>
   </form>
+  <!-- Line element that will appear above the button when options are visible -->
+  <div class="line" [class.active]="options.length > 0"></div>
   <button (click)="addNewOption()" mat-flat-button class="add-button">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
   </button>
