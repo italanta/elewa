@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { AddPaymentDialogComponent } from '../../modals/add-payment-dialog/add-payment-dialog.component';
 import { EditPaymentDialogComponent } from '../../modals/edit-payment-dialog/edit-payment-dialog.component';
 
@@ -28,8 +29,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./billing.component.scss'],
 })
 export class BillingComponent {
-  org: any;
-  selectedOption: string = 'subscription'; // Initialize with the default selected option
+  
+  org: string;
+  selectedOption = 'subscription'; 
 
   // Define ELEMENT_CARD as a property of the class
   ELEMENT_CARD: PaymentData[] = [

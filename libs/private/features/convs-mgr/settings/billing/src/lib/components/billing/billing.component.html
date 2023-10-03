@@ -5,9 +5,7 @@
             <p class="subscription" [ngClass]="{ 'selected': selectedOption === 'subscription' }">Subscription</p>
             <p class="mesgTokens" [ngClass]="{ 'selected': selectedOption === 'messageTokens' }">Message Tokens</p>
         </div>
-        <!-- <div fxLayout = "column">
-            line
-        </div> -->
+       
         <!-- right section -->
         <div fxLayout ="column">
             <div class="section-one">
@@ -85,9 +83,15 @@
                                     <div fxLayout="column">
                                       <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
                                         <img src="assets/icons/edit-item.svg" alt="" class="icon" (click)="editPaymentMethod()">
-                                        <p >Delete</p>
+                                        <p >Edit</p>
                                       </div>
                                     </div>
+                                    <div fxLayout="column">
+                                        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
+                                          <img src="assets/icons/delete-item.svg" alt="" class="icon" >
+                                          <p >Delete</p>
+                                        </div>
+                                      </div>
                                   </div>
                                 </div>
                               </div>
