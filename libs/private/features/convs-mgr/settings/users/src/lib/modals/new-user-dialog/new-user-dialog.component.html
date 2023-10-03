@@ -1,33 +1,15 @@
 <h1 mat-dialog-title> Invite a new member </h1>
 <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
-  <!-- <mat-form-field appearance="outline">
-    <mat-label>First Name</mat-label>
-    <input matInput formControlName="firstName">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Last Name</mat-label>
-    <input matInput formControlName="lastName">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput type="email" formControlName="email">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Role</mat-label>
-    <mat-select formControlName="roles" multiple>
-      <mat-option *ngFor="let role of org.roles" [value]="role"> {{role}} </mat-option>
-    </mat-select>
-  </mat-form-field> -->
-
+ 
     <div fxLayout="column" fxLayoutAlign="start start" class="names">
-      <p class="label">Role</p>
+      <p class="label">First Name</p>
      
         <input matInput formControlName="firstName">
       
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start start" class="names">
-      <p class="label">Role</p>
+      <p class="label">Last Name</p>
      
         <input matInput formControlName="lastName">
       
@@ -35,14 +17,29 @@
     
 
     <div fxLayout="column" fxLayoutAlign="start start" class="names">
-      <p class="label"> Email</p>
+      <p class="label">*Email</p>
       
       <input matInput type="email" formControlName="email">
       
     </div>
- 
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label">Roles</p>
+      <select name="roles" >
+        <option *ngFor="let role of org.roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+
+
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between start" class="buttons">
+      <div fxLayout="column">
+        <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
+      </div>
+      <div fxLayout="column">
+        <button class="submit-btn" [disabled]="creatingUser" mat-raised-button color="primary" (click)="inviteNewUser()">Add New Member</button>
+      </div>
+    </div>
+    
 </div>
-<div mat-dialog-actions>
-  <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
-  <button class="submit-btn" [disabled]="creatingUser" mat-raised-button color="primary" (click)="inviteNewUser()" > Add New Member</button>
-</div>
+
+  
+   
