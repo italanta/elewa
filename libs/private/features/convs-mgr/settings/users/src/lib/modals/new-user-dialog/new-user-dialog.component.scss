@@ -7,10 +7,41 @@
 }
 
 .cancel-btn {
-  border: solid var(--convs-mgr-color-primary-yellow) 1px;
-  color: var(--convs-mgr-color-primary-blue);
+  // Cancel
+  color: #3E788A;
+  font-size: 16px;
+  font-family: Roboto;
+  font-weight: 400;
+  word-wrap: break-word;
+  border-radius: 30px;
+  border: 1px #3E788A solid;
 }
 
 .submit-btn {
   color: white;
+  background: #3E788A; 
+  border-radius: 30px;;
+}
+
+.new-clm-user{
+  .names{
+    p{
+      // *Email
+      color: #3E788A;
+      font-size: 18px;
+      font-family: Roboto;
+      font-weight: 300;
+      word-wrap: break-word
+    }
+    select,
+    input{
+      width: 100%; 
+      height: 53px; 
+      border-radius: 10px; 
+      border: 1px #707070 solid;
+    }
+  }
+  .buttons{
+    margin-top: 28px;
+  }
 }
