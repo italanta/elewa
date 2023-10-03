@@ -44,7 +44,8 @@
       </div>
 
       <div>
-        <button [disabled]="!moduleForm.valid" mat-raised-button class="add-btn" color="primary" (click)="submitForm()">
+        <button [disabled]="moduleForm.invalid" mat-raised-button class="add-btn" color="primary"
+          (click)="submitForm()">
           <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
           <ng-template #isEdit>
             <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
