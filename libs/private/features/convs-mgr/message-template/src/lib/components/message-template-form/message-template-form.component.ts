@@ -49,8 +49,8 @@ export class MessageTemplateFormComponent implements OnInit{
     private fb: FormBuilder,
     private messageTemplatesService: MessageTemplatesService,
     private messageTemplateStore: MessageTemplateStore,
-    private _route$$: Router,
     private _route:ActivatedRoute,
+    private _route$$: Router,
   ) {}
 
   ngOnInit() {
@@ -219,8 +219,8 @@ removeVariable(index: number) {
     //   this.isSaving  = false;
     //   console.log('Template sent to firebase', response);
     // })
-    this.messageTemplatesService.createTemplate(this.templateForm.value).subscribe((response) => {
-      // Handle the response, e.g., show a success message or navigate to a different page.
+    this.template = this.templateForm.value
+    this.messageTemplatesService.createTemplate(this.template).subscribe((response) => {
       console.log('Template created:', response);
     });
     this.isSaving = false;
