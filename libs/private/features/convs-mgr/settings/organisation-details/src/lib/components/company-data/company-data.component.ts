@@ -67,15 +67,6 @@ export class CompanyDataComponent implements OnInit {
     this.orgDataFormGroup.disable();
   }
 
-  // editOrgProfile() {
-  //   this.editOrg = !this.editOrg;
-  //   if (this.editOrg) {
-  //     this.orgDataFormGroup.enable();
-  //   } else {
-  //     this.updateOrg();
-  //     this.orgDataFormGroup.disable();
-  //   }
-  // }
   editOrgProfile() {
     this.editOrg = !this.editOrg;
     this.showButtons = this.editOrg; // Show buttons only when editing

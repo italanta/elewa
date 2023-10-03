@@ -8,10 +8,13 @@
       object-fit: contain;
       border-radius: 50%;
       border: 1px #707070 solid;
+      margin-left: 20px;
     }
+    position: relative;
     .user-profile-picture {
       div {
-        position: relative; 
+        position: absolute;
+        margin-top: 260px;
 
         button {
           width: 142px;
@@ -24,7 +27,6 @@
           font-weight: 400;
           word-wrap: break-word;
           margin-top: 30px;
-
         }
       }
     }
@@ -74,13 +76,6 @@
   }
 }
 
-@media (min-width: 600px) {
-  // Adjust styles for screens wider than 600px if needed
-}
-
-@media (min-width: 900px) {
-  // Adjust styles for screens wider than 900px if needed
-}
 
 
 :host ::ng-deep .company-details .names .mat-form-field,
