@@ -65,6 +65,12 @@
   text-decoration: underline;
 }
 
+.user-profile-picture img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+}
 
 .profile-details {
   padding: 3vh 3vh;
