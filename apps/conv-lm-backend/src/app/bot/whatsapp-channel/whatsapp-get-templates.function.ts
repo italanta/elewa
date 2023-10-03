@@ -1,4 +1,4 @@
-import { EndpointRegistrar } from "@ngfi/functions";
+import { RestRegistrar } from "@ngfi/functions";
 
 import { WhatsappGetTemplatesHandler } from "@app/functions/bot-engine/whatsapp";
 
@@ -18,7 +18,7 @@ const handler = new WhatsappGetTemplatesHandler();
  * 
  */
 export const channelWhatsappGetTemplates = new ConvLearnFunction('channelWhatsappGetTemplates', 
-                                                  new EndpointRegistrar(), 
+                                                  new RestRegistrar(), 
                                                   [], 
                                                   handler)
                                .build();
