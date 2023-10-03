@@ -16,9 +16,13 @@ textarea:focus-visible {
 }
 
 .add-button {
-  width: 100%;
-  background-color: var(--convs-mgr-color-primary-purple);
-  color: white;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center; 
+  width: 90%;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--convs-mgr-input-color);
+  border-radius: 0.7rem;
 }
 
 .listgone {
@@ -35,8 +39,9 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
 }
+
 .fa-xmark {
-  color: var(--convs-mgr-color-primary-purple);
+  color: #101010;
   padding-right: 5px;
 }
 
@@ -48,15 +53,15 @@ form{
 .option-input-container {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 0.625rem;
   
   .option-input {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
   }
 }
 
 .line {
-  height: 1px;
+  height: 0.063rem;
   background-color: transparent;
   transition: background-color 0.3s ease-in-out;
 }
