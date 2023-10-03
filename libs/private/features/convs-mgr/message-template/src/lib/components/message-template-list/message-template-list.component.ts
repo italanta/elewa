@@ -42,6 +42,10 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   createTemplate() :void{
     this._router.navigate(['/messaging/create'])
   }
+  openTemplate(templateId:string){
+    this._router.navigate(['/messaging', templateId]);
+
+  }
   ngOnDestroy(): void {
       this._sBS.unsubscribe();
   }

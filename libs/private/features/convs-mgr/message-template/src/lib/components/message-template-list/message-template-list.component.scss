@@ -104,6 +104,7 @@ table{
     font-weight: 400;
     line-height: normal;
     margin-left: 1rem;
+    margin-right: 1rem;
 }
 td{
   color: #101010;
@@ -112,4 +113,20 @@ td{
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+}
+.span-ls{
+  width: 7rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  border-radius: 1.5625rem;
+  border: 1px solid #111441;
+  color: #111441;
+  text-align: center;
+  font-family: Roboto;
+  font-size: .7rem!important;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  padding: 0.3rem .7rem;
+  margin-left: 2em;
 }

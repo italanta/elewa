@@ -24,15 +24,16 @@
           fxFlex>
           <ng-container matColumnDef="name">
             <th class="table-header" mat-header-cell *matHeaderCellDef
-              >Template name</th>
-              <td mat-cell *matCellDef="let template"> {{template.name}} </td>
+              >Template name
+            </th>
+              <td mat-cell *matCellDef="let template" (click)="openTemplate(template.id)"> {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
           </ng-container>
       
           <ng-container matColumnDef="sentMessages">
             <th class="table-header" mat-header-cell *matHeaderCellDef 
               >
               Messages sent</th>
-              <td mat-cell *matCellDef="let template"> {{template.category}} </td>
+              <td mat-cell *matCellDef="let template"> 12 </td>
           </ng-container>
       
           <ng-container matColumnDef="lastUpdated">
@@ -50,9 +51,19 @@
               <button mat-raised-button  class="send-btn">
                     <span > send </span>
                 </button>
+
+                
+                <button mat-button [matMenuTriggerFor]="menu">
+                  <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item  > Duplicate </button>
+                  <button mat-menu-item > Archive </button>
+                  <button mat-menu-item > Delete
+                  </button>
+                </mat-menu>
                </td>
           </ng-container>
-      
           <tr mat-header-row *matHeaderRowDef="messageTemplateColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: messageTemplateColumns"></tr>
       
