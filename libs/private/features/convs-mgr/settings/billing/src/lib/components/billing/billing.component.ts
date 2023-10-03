@@ -6,7 +6,7 @@ import { EditPaymentDialogComponent } from '../../modals/edit-payment-dialog/edi
 
 export interface PeriodicElement {
   name: string;
-  position: any;
+  position: string;
   weight: number;
   symbol: string;
 }
