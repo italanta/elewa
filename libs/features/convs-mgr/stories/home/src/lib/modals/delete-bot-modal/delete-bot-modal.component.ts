@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
+
 import { NewStoryService } from '../../services/new-story.service';
 
 @Component({
@@ -11,14 +13,19 @@ import { NewStoryService } from '../../services/new-story.service';
 })
 export class DeleteBotModalComponent {
   story!: Story;
+  parentModule!: BotModule;
 
   constructor(
     private _addStory$: NewStoryService,
-    @Inject(MAT_DIALOG_DATA) public data: { payload : Story },
-  ) { this.story = this.data.payload }
-
+    @Inject(MAT_DIALOG_DATA) public data: { story: Story; parentModule: BotModule }
+  ) {
+    this.story = this.data.story
+    this.parentModule = this.data.parentModule
+  }
 
   delete() {
-    this._addStory$.removeStory(this.story);
+    if (this.story && this.parentModule) {
+      this._addStory$.removeStory(this.story, this.parentModule);
+    }
   }
 }
