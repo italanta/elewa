@@ -306,6 +306,9 @@
       "@app/private/functions/micro-apps/cmi5": [
         "libs/private/functions/micro-apps/cmi5/src/index.ts"
       ],
+      "@app/private/functions/micro-apps/surveys": [
+        "libs/private/functions/micro-apps/surveys/src/index.ts"
+      ],
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
