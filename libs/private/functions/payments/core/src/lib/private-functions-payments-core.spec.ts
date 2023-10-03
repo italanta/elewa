@@ -1,4 +1,4 @@
-import { privateFunctionsPaymentsCore } from './private-functions-payments-core';
+import { privateFunctionsPaymentsCore } from './receive-payments.enum';
 
 describe('privateFunctionsPaymentsCore', () => {
   it('should work', () => {

@@ -1,1 +1,2 @@
-export * from './lib/private-functions-payments-core';
+export * from './lib/receive-payments.enum';
+export * from './lib/commands/receive-payment.command'
