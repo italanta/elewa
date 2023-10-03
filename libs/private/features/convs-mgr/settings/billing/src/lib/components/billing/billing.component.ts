@@ -3,24 +3,15 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { AddPaymentDialogComponent } from '../../modals/add-payment-dialog/add-payment-dialog.component';
 import { EditPaymentDialogComponent } from '../../modals/edit-payment-dialog/edit-payment-dialog.component';
+import { PaymentData } from '../../interfaces/PaymentData';
+import { CardElement } from '../../interfaces/CardElement';
 
-export interface PeriodicElement {
-  name: string;
-  position: string;
-  weight: number;
-  symbol: string;
-}
 
-export interface PaymentData {
-  id: number;
-  cardNumber: number;
-  expiry: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: "23 August 2023", name: 'Plan 1', weight: 1200, symbol: 'Download' },
-  { position: "23 July 2023", name: 'Plan 1', weight: 1200, symbol: 'Download' },
-  { position: "23 July 2023", name: 'plan 1', weight: 1200, symbol: 'Download' },
+const ELEMENT_DATA: CardElement[] = [
+  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'Download' },
+  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'Download' },
+  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'Download' },
 ];
 
 @Component({
@@ -47,7 +38,7 @@ export class BillingComponent {
   dataSource = ELEMENT_DATA;
 
   addPaymentMethod() {
-    const dialogRef = this.dialog.open(AddPaymentDialogComponent, {
+    this.dialog.open(AddPaymentDialogComponent, {
       minWidth: '410px',
       minHeight: '338px',
       data: this.org,
@@ -55,7 +46,7 @@ export class BillingComponent {
   }
 
   editPaymentMethod() {
-    const dialogRef = this.dialog.open(EditPaymentDialogComponent, {
+    this.dialog.open(EditPaymentDialogComponent, {
       minWidth: '500px',
       minHeight: '200px',
       data: this.org,
