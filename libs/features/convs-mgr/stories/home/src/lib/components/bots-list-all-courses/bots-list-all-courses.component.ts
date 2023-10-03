@@ -18,17 +18,18 @@ import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bo
 import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
 
 import { ActionSortingOptions } from '../../model/sorting.enum';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
   templateUrl: './bots-list-all-courses.component.html',
   styleUrls: ['./bots-list-all-courses.component.scss'],
 })
-export class BotsListAllCoursesComponent implements OnInit {
+export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
 
   private _sbS = new SubSink();
 
-  @Input() stories$: Observable<Story[]>
+  @Input() bots$: Observable<Bot[]>
   @Input() showAllCourses: boolean;
 
   @Output() collapseAllCourses = new EventEmitter();
@@ -50,14 +51,14 @@ export class BotsListAllCoursesComponent implements OnInit {
               private _router$$: Router) { }
 
   ngOnInit(): void {
-    this._sbS.sink = combineLatest(([this.stories$, this.sorting$$.asObservable()]))
-    .pipe(map(([stories, sort]) => 
-            __orderBy(stories,(a) => __DateFromStorage(a.createdOn!).unix(),
+    this._sbS.sink = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
+    .pipe(map(([bots, sort]) => 
+            __orderBy(bots,(a) => __DateFromStorage(a.createdOn as Date).unix(),
             sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
-          map((stories) =>
-            stories.map((s) => { 
-              return { ...s, lastEdited: TIME_AGO(this.parseDate(s.updatedOn! ? s.updatedOn : s.createdOn!)) }})),
-          tap((stories) => this.dataSource.data = !this.showAllCourses ? stories.slice(0, 3) : stories)).subscribe();
+          map((bots) =>
+            bots.map((b) => { 
+              return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
+          tap((bots) => this.dataSource.data = !this.showAllCourses ? bots.slice(0, 3) : bots)).subscribe();
   }
 
   ngAfterViewInit() {
