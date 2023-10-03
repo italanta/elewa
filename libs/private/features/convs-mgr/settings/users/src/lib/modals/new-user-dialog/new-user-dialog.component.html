@@ -1,6 +1,6 @@
 <h1 mat-dialog-title> Invite a new member </h1>
 <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
-  <mat-form-field appearance="outline">
+  <!-- <mat-form-field appearance="outline">
     <mat-label>First Name</mat-label>
     <input matInput formControlName="firstName">
   </mat-form-field>
@@ -17,7 +17,30 @@
     <mat-select formControlName="roles" multiple>
       <mat-option *ngFor="let role of org.roles" [value]="role"> {{role}} </mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
+
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label">Role</p>
+     
+        <input matInput formControlName="firstName">
+      
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label">Role</p>
+     
+        <input matInput formControlName="lastName">
+      
+    </div>
+    
+
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label"> Email</p>
+      
+      <input matInput type="email" formControlName="email">
+      
+    </div>
+ 
 </div>
 <div mat-dialog-actions>
   <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
