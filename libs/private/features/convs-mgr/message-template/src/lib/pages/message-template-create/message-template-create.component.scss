@@ -2,3 +2,16 @@
     padding: 2.19rem 4rem;
     background-color:#F6F6F6;
 }
+:host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
+	font-family: Roboto;
+    font-size: 24px!important;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: center;
+}
+:host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+    font-weight: 400!important;
+}
