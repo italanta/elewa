@@ -1,10 +1,5 @@
 <div class="users" *ngIf="orgLoaded; else loadingUSers" [formGroup]="searchFormGroup">
   <div fxLayout="row" fxLayoutAlign="space-between center start" fxLayoutGap="20px" class="toolbar">
-    <!-- <div class="search" fxFlex="50%">
-      <mat-form-field appearance="outline" fxFlex>
-        <input (keyup)="applyFilter($event)" matInput placeholder="Search by name, email or role" #input>
-      </mat-form-field>
-    </div> -->
     <div fxLayout="column" class="search">
       <div class="search">
         <i class="fas fa-search search_tooltip"></i>
@@ -25,7 +20,7 @@
         </div>
       
         <div fxLayout="column">
-          <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()" > Invite Member</button>
+          <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()"> Invite Member</button>
         </div>
   
       </div>
