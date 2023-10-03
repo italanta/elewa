@@ -304,6 +304,9 @@
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
       ],
+      "@app/private/functions/payments/core": [
+        "libs/private/functions/payments/core/src/index.ts"
+      ],
       "@app/private/model/access-control": [
         "libs/private/model/access-control/src/index.ts"
       ],

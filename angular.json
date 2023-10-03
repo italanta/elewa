@@ -1392,6 +1392,29 @@
       },
       "tags": []
     },
+    "private-functions-payments-core": {
+      "root": "libs/private/functions/payments/core",
+      "sourceRoot": "libs/private/functions/payments/core/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/functions/payments/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/payments/core"],
+          "options": {
+            "jestConfig": "libs/private/functions/payments/core/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-model-access-control": {
       "projectType": "library",
       "root": "libs/private/model/access-control",
