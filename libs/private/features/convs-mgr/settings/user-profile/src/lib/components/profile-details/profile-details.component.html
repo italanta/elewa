@@ -48,7 +48,7 @@
        
         <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="19px" fxFlex class="bottons-div">
           <div fxLayout="column" fxLayoutAlign="start start">
-            <button class="cancel" mat-raised-button *ngIf="editProfile">
+            <button class="cancel" mat-raised-button *ngIf="editProfile" (click)="editUserProfile()">
               Cancel
             </button>
           </div>
@@ -62,29 +62,27 @@
             </button>
           </div>
         </div> 
-        
-        
       </div>                  
-
-      
     </div>
   </div>
 
-  <div fxLayout="column" class="section-two">
-    <p class="label">Change password</p>
+  <div fxLayout="row" fxLayoutAlign="space-between" class="section-two">
+    <div fxLayout="column">
+      <p class="label">Change password</p>
   
-    <div fxLayout="row" fxLayoutAlign="space-between start" class="email-details">
-      <p class="your-email">
-        It is advised to change your password every 2-4 months. 
-      </p>
-  
-      <!-- Move the button inside the email-details div -->
+      <div fxLayout="row" fxLayoutAlign="space-between start" class="email-details">
+        <p class="your-email">
+          It is advised to change your password every 2-4 months. 
+        </p>
+      </div>
+    </div>
+    
+    <div fxLayout="column">
       <button class="btn password-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="updatePassword()" mat-raised-button>Get Password Reset Link</button>
     </div>
-  
   </div>
   
-
+  
   <div class="section-two">
     <div fxLayout="column" fxLayoutAlign="start start" class="delete-profile">
       <p class="label-blue underline"> Delete Profile</p>
