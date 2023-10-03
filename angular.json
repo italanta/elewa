@@ -995,6 +995,32 @@
       },
       "tags": []
     },
+    "payments-models": {
+      "projectType": "library",
+      "root": "libs/payments-models",
+      "sourceRoot": "libs/payments-models/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/payments-models"],
+          "options": {
+            "jestConfig": "libs/payments-models/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/payments-models/**/*.ts",
+              "libs/payments-models/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-elements-convs-mgr-access-control": {
       "projectType": "library",
       "root": "libs/private/elements/convs-mgr/access-control",
