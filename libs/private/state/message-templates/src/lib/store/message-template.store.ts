@@ -65,6 +65,20 @@ export class MessageTemplateStore extends DataStore<MessageTemplate> {
       );
   }
 
+  createScheduledMessage(message: any) {
+    return this._org$$
+      .get()
+      .pipe(
+        map((org) => ({ ...message, orgId: org.id })),
+        tap((template) => {
+          this._activeRepo = this._repoFac.getRepo<MessageTemplate>(
+            `orgs/${template.orgId}/scheduled-messages`
+          );
+        }),
+        switchMap((template) => this._activeRepo.create(template))
+      );
+  }
+
   updateMessageTemplate(template: MessageTemplate) {
     return this._activeRepo.update(template); 
   }
