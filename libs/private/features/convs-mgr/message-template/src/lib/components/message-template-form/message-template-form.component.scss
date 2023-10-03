@@ -1,4 +1,8 @@
 .message-template-form{
+  border-radius: 1.5625rem;
+  background: #FFF;
+  margin-top: 1.75rem;
+  padding: 1.75rem 1.56rem;
     p {
         color: #101010;
         font-family: Roboto;
@@ -8,10 +12,11 @@
         line-height: normal;
     }
 }
+.fff{
+  width: 100%;
+  display: flex;
+}
 .mt-form{
-    border-radius: 1.5625rem;
-    background: #FFF;
-    padding: 2rem 2.25rem;
     form {
         .form-group {
             
@@ -53,7 +58,6 @@
 
 button {
     border-radius: 1.5625rem;
-    width: 4.875rem;
     height: 2.0625rem;
   }
 .cancel-btn {
@@ -89,6 +93,39 @@ button {
         line-height: normal;
     }
 }
+.eveinputs{
+  border-radius: 0.9375rem;
+border: 1px solid #707070;
+height: 2rem;
+margin: 0 1rem;
+padding-left: .5rem;
+}
+.pees {
+  color: #000; 
+  font-family: Roboto;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  
+}
+.variables{
+  height: 11.125rem;
+  border-radius: 0.9375rem;
+  border: 1px solid #1F7A8C;
+  
+  
+  .np{
+    color: #707070;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    display: flex;
+    justify-content: space-between;
+  }
+}
 mat-form-field{
     background-color: transparent!important;
     width: 100%;
@@ -116,5 +153,42 @@ mat-form-field{
     height: 5.0625rem!important; 
 }
 }
+.titles > p:first-child {
+  /* Add your styles here */
+  color: #000;
+font-family: Roboto;
+font-size: 1.25rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
 
+/* Select the second <p> element within the .titles div */
+.titles > p:last-child {
+  /* Add your styles here */
+  color: #707070;
+font-family: Roboto;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+}
 
+.dd-holder{
+  display: flex;
+}
+/* CSS for 50% width form groups */
+.dd-holder>.form-group {
+  width: 50%;
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+/* Adjust the margins or spacing between form groups as needed */
+.dd-holder .form-group + .form-group {
+  margin-left: 10px; /* You can adjust the margin as needed */
+}
+
+/* Apply styles to the <p> elements inside form groups */
+.form-group p {
+  margin: .6rem; /* Remove any default margins */
+}
