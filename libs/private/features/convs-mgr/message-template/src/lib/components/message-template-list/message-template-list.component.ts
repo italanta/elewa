@@ -2,8 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { MessageTemplatesService } from '@app/private/state/message-templates';
-import { Observable } from 'rxjs';
+import { MessageTemplateStore, MessageTemplatesService, MessageStatusRes } from '@app/private/state/message-templates';
+import { Observable, combineLatest, map } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -15,25 +15,35 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   private _sBS = new SubSink();
 
   messageTemplates$: Observable<MessageTemplate[]>;
+  templateStatus$: Observable<MessageStatusRes[]>;
 
   dataFound = true;
   
   isSaving: boolean;
   messageTemplateColumns = ['name', 'sentMessages', 'lastUpdated', 'actions'];
-  dataSource = new MatTableDataSource<MessageTemplate>();
+  dataSource = new MatTableDataSource<any>();
   // @Input() assessments: MessageTemplate[];
   constructor(
     private _messageTemplates: MessageTemplatesService,
+    private messageTemplateStore: MessageTemplateStore,
     private _router: Router
   ) {}
 
 
   ngOnInit(): void {
     this.messageTemplates$ = this._messageTemplates.getMessageTemplates$();
-    this._sBS.sink = this.messageTemplates$.subscribe((assessments)=> {
-      this.dataSource.data = assessments;
-      console.warn('here dey s', this.dataSource.data);
-    })
+    this.templateStatus$ = this._messageTemplates.getTemplateStatus();
+    this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
+      map(([templates, statusData]) => {
+        // Merge templates with status based on a common identifier (e.g., name)
+        return templates.map((template) => ({
+          ...template,
+          status: statusData.find((status) => status.name === template.name)?.status || 'N/A'
+        }));
+      })
+    ).subscribe((mergedData) => {
+      this.dataSource.data = mergedData;
+    });
   }
 
   onCreate() {
@@ -45,6 +55,21 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   openTemplate(templateId:string){
     this._router.navigate(['/messaging', templateId]);
 
+  }
+  duplicateTemplate(template: MessageTemplate){
+    const duplicatedTemplate: MessageTemplate = {...template};
+    duplicatedTemplate.name += ' Copy';
+
+    // reset the template stats
+    duplicatedTemplate.id = '';
+    duplicatedTemplate.templateId = '';
+    duplicatedTemplate.sent = 0;
+    this.messageTemplateStore.createMessageTemplate(duplicatedTemplate).subscribe(
+      (response) => console.log(response)
+    )
+  }
+  deleteTemplate(template: MessageTemplate){
+    this.messageTemplateStore.deleteMessageTemplate(template);
   }
   ngOnDestroy(): void {
       this._sBS.unsubscribe();
