@@ -1,0 +1,78 @@
+.message-template-settings{
+    height: 35.75rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    background: #FFF;
+    margin-top: 1.75rem;
+    padding: 1.75rem 1.56rem;
+}
+.send-btn{
+    border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+    flex-shrink: 0;
+    background-color: #1F7A8C!important;
+    color: white!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .btn-cont{
+    display: flex;
+    justify-content: end;
+  }
+  .form-group {
+            
+    p:first-child {
+      span {
+          color: #1F7A8C;
+      }
+      color: #000; 
+      font-family: Roboto;
+      font-size: 1.25rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      
+    }
+    
+    p:nth-child(2), p:nth-child(3), p:nth-child(4) {
+      color: #707070;
+      font-family: Roboto;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    mat-form-field > mat-select {
+      border-radius: 0.9375rem;
+      background-color: transparent;
+      border: 1px solid #707070;
+      width: 100%;
+      width: 76.3125remt;
+        height: 3.3125rem;
+        flex-shrink: 0;
+    }
+  }
+
+
+  .frequency-select{
+    width: 100%;
+    height: 3.3125rem;
+    flex-shrink: 0;
+  }
+
+  .info{
+    color: #1F7A8C!important;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400!important;
+  line-height: normal;
+  }

@@ -1,0 +1,90 @@
+.dropdown{
+height: 6.625rem;
+flex-shrink: 0;
+border-radius: 1.5625rem;
+border: 1px solid #FFF;
+box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.18);
+}
+
+/* Select the first <p> element within the .titles div */
+.titles > p:first-child {
+    /* Add your styles here */
+    color: #000;
+font-family: Roboto;
+font-size: 1.25rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+  }
+  
+  /* Select the second <p> element within the .titles div */
+  .titles > p:last-child {
+    /* Add your styles here */
+    color: #707070;
+font-family: Roboto;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+  }
+
+  .dd-text{
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 1.69rem;
+    align-items: center;
+  }
+
+  .dropdown-content{
+    width: 100%;
+height: 29.4375rem;
+background-color: #FFF;
+position: absolute;
+z-index: 200000;
+margin-right: 2rem;
+display: flex;
+justify-content: center;
+align-items: center;
+  }
+  .dd-holder{
+    display: flex;
+  }
+
+
+.selecs{
+    flex-grow: 1!important;
+}
+
+  .form-group {
+    margin-right: 5rem;
+    p:first-child {
+      span {
+          color: #1F7A8C;
+      }
+      color: #000; 
+      font-family: Roboto;
+      font-size: 1.25rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      
+    }
+    
+    p:nth-child(2), p:nth-child(3), p:nth-child(4) {
+      color: #707070;
+      font-family: Roboto;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    mat-form-field > input {
+      border-radius: 0.9375rem;
+      background-color: transparent;
+      border: 1px solid #707070;
+      width: 100%;
+    }
+  }

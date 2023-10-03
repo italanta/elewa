@@ -1,0 +1,50 @@
+<div class="dropdown" >
+    <!-- <button class="dropdown-toggle" (click)="toggleDropdown()">Open Dropdown</button> -->
+    <div class="dd-text" (click)="toggleDropdown()">
+        <div class="titles">
+            <p>Template Settings</p>
+            <p>Category, channel, language</p>
+        </div>
+        <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="dropdown-content" *ngIf="isDropdownOpen">
+        <div class="dd-holder">
+            <div class="form-group">
+                <p>Category</p>
+                <p>Select category of the template</p>
+                
+    
+                  <mat-form-field appearance="outline" class="selec">
+                    <mat-select [(ngModel)]="selectedOptions.category" class="mat-outline">
+                        <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+            </div>
+            
+              <div class="form-group">
+                <p>Language</p>
+                <p>Select template language</p>
+                <mat-form-field appearance="outline" class="selec">
+                    <mat-select [(ngModel)]="selectedOptions.language" class="mat-outline">
+                        <mat-option *ngFor="let language of languages" [value]="language">{{ language }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+    
+            </div>
+    
+              
+                <div class="form-group selecs">
+                    <p>Channel</p>
+                    <p>Select chanel to send to </p>
+                    <mat-form-field appearance="outline" class="">
+                        <mat-select [(ngModel)]="selectedOptions.channel" class="mat-outline">
+                            <mat-option *ngFor="let channel of channels" [value]="channel">{{ channel }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+        </div>
+        
+      </div>
+      
+  </div>
+  
