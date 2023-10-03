@@ -32,7 +32,7 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
     if (!this.isNotEndpoint) {
       this.inputUniqueId = `i-${this.formGroupNameInput}-${this.blockFormGroup.value.id}`;
     }
-    /**Determine the option index and add 1 to make it 1-based instead of 0-based */
+    /**Determine the option index and add 1 to make it 1-based instead of 0-based*/
     this.optionIndex = +this.formGroupNameInput + 1;
   }
 
