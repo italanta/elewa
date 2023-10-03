@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -10,8 +10,7 @@ import { FileStorageService } from '@app/state/file';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
-import { generateName } from '../../providers/generate-name';
-
+import { CREATE_EMPTY_BOT } from '../../providers/forms/bot-form.provider';
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -21,8 +20,10 @@ import { generateName } from '../../providers/generate-name';
 export class CreateBotModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
+  @Output() nextStepEvent = new EventEmitter<void>();
+
   botForm: FormGroup;
-  modalMode: BotMutationEnum;
+  isCreateMode: boolean;
   bot: Bot;
   imagePath: string;
   defaultImage = 'assets/images/lib/block-builder/image-block-placeholder.jpg';
@@ -41,25 +42,16 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: { botMode: BotMutationEnum; bot?: Bot }
   ) {
-    this.modalMode = data.botMode;
     this.bot = data.bot as Bot;
+    this.isCreateMode = data.botMode === BotMutationEnum.CreateMode;
   }
 
   ngOnInit(): void {
-    this.createFormGroup();
+    this.botForm = CREATE_EMPTY_BOT(this._formBuilder);
 
-    if (this.modalMode === BotMutationEnum.EditMode) {
+    if (!this.isCreateMode) {
       this.updateFormGroup();
     }
-  }
-
-  createFormGroup() {
-    this.botForm = this._formBuilder.group({
-      botName: [generateName()],
-      botDesc: [''],
-      botImage: [''],
-      modules: [[]],
-    });
   }
 
   updateFormGroup() {
@@ -67,7 +59,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
       botName: this.bot.name,
       botDesc: this.bot.description,
       botImage: this.bot.imageField,
-      modules: this.bot.modules
+      modules: this.bot.modules,
     });
 
     if (this.bot.imageField && this.bot.imageField != '') {
@@ -118,7 +110,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
     const imgFilePath = `images/${this.botImageFile.name}`;
 
     //1. if editMode and previous image exists, delete previous image
-    if (this.modalMode === BotMutationEnum.EditMode && bot.imageField) {
+    if (!this.isCreateMode && bot.imageField) {
       this._botImageUploadServ$.deleteSingleFile(bot.imageField).subscribe(() => {
         bot.imageField = ''
       })
@@ -143,22 +135,22 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
       switchMap((org) => {
         bot.orgId = org.id as string;
 
-        if (this.modalMode === BotMutationEnum.EditMode) {
-          return this._botStateServ$.updateBot(bot);
-        } else {
+        if (this.isCreateMode) {
           return this._botStateServ$.createBot(bot);
+        } else {
+          return this._botStateServ$.updateBot(bot);
         }
       })
     )
     .subscribe(() => {
-      this.isSavingStory = false
-      // move to next step
-    });
+        this.isSavingStory = false;
+        this.nextStepEvent.emit();
+      });
   }
 
   submitForm() {
     this.isSavingStory = true;
-    this.mutateBot()
+    this.mutateBot();
   }
 
   ngOnDestroy(): void {
