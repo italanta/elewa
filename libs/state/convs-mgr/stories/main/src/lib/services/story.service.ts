@@ -15,7 +15,7 @@ export class StoryStateService {
     return this._StoriesStore$$.get();
   }
 
-  getStoryById(id: string): Observable<Story> {
+  getStoryById(id: string): Observable<Story | undefined> {
     return this._StoriesStore$$.getOne(id);
   }
 
