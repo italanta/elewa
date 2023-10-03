@@ -61,48 +61,40 @@
                         </div>
                             
 
-                       <mat-card class="payment-cards" >
-                        <mat-card-content>
-                            <div fxLayout="row" fxLayoutAlign="space-between" >
-                                <div fxLayout="row" fxLayoutAlign="space-between" >
-                                    <div fxLayout ="column">
-                                        <img src="assets/icons/visa-icon.svg" alt="">
-                                    </div>
-                                    <div fxLayout ="column">
-                                        <p>**** **** **** 2332</p>
-                                    </div>
+                        <mat-card *ngFor="let card of ELEMENT_CARD" class="payment-cards">
+                            <mat-card-content>
+                              <div fxLayout="row" fxLayoutAlign="space-between">
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+                                  <div fxLayout="column">
+                                    <img src="assets/icons/visa-icon.svg" alt="">
+                                  </div>
+                                  <div fxLayout="column">
+                                    <p>{{ card.cardNumber }}</p>
+                                  </div>
                                 </div>
-
-                                <div fxLayout ="column">
-                                    <p>Expires 02/24</p>
+                      
+                                <div fxLayout="column">
+                                  <p>Expires {{ card.expiry }}</p>
                                 </div>
-
-                                <div fxLayout ="column">
-                                    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
-                                        <div fxLayout ="column">
-                                            <p>Default</p>
-                                        </div>
-                                        <div fxLayout ="column">
-                                            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
-                                                <img src="assets/icons/edit-item.svg" alt="" class="icon">
-                                                <p (click)="editPaymentMethod()">Edit</p>
-
-                                            </div>
-                                        </div>
-                                        <div fxLayout ="column">
-                                            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
-                                                <img src="assets/icons/delete-item.svg" alt="" class="icon">
-                                                <p>Delete</p>
-                                            </div>
-                                            
-                                        </div>
+                      
+                                <div fxLayout="column">
+                                  <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+                                    <div fxLayout="column">
+                                      <p>Default</p>
                                     </div>
+                                    <div fxLayout="column">
+                                      <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
+                                        <img src="assets/icons/edit-item.svg" alt="" class="icon" (click)="editPaymentMethod()">
+                                        <p >Delete</p>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                            </div>
-                        </mat-card-content>
-                        </mat-card>
+                              </div>
+                            </mat-card-content>
+                          </mat-card>
 
-                        <mat-card class="payment-cards">
+                        <!-- <mat-card class="payment-cards">
                             <mat-card-content>
                                 <div fxLayout="row" fxLayoutAlign="space-between" >
                                     <div fxLayout ="column">
@@ -143,7 +135,7 @@
                                     </div>
                                 </div>
                             </mat-card-content>
-                            </mat-card>
+                            </mat-card> -->
                       
                     </div>
                     <div fxLayout ="column">
