@@ -12,6 +12,7 @@ import { CLMUsersService } from '@app/private/state/user/base';
 export class NewUserDialogComponent implements OnInit {
 
   newUserFormGroup: FormGroup;
+  reversedRoles: string[]; 
 
   creatingUser: boolean = false;
 
@@ -22,7 +23,8 @@ export class NewUserDialogComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.buildNewUserFormGroup();    
+    this.buildNewUserFormGroup();  
+    this.reversedRoles = this.org.roles.slice().reverse();   
   }
 
   buildNewUserFormGroup() {
