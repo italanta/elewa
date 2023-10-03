@@ -1,0 +1,55 @@
+.milestone{
+    width: 51.4375rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    background: #FFF;
+    padding: 0.94rem 2.34rem;
+    }
+.milestone-title{
+    color: #101010;
+font-family: Roboto;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-bottom: 0.44rem;
+display: flex;
+justify-content: space-between;
+}
+.milestone-sub{
+    color: #707070;
+font-family: Roboto;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+}
+.m-radio{
+    display: flex;
+    flex-direction: column;
+    
+}
+.mdc-form-field{
+    color: #101010;
+font-family: Roboto;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 300!important;
+line-height: normal;
+}
+
+
+.send-btn{
+    border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+    flex-shrink: 0;
+    background-color: #1F7A8C!important;
+    color: white!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-self: flex-end;
+  }

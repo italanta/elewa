@@ -1,0 +1,18 @@
+<div class="inactive-message">
+  <p>Send message after inactivity</p>
+  <div class="im-select">
+      <mat-form-field appearance="outline">
+          <input matInput [(ngModel)]="selectedTimeInDays">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-select [(ngModel)]="selectedTimeUnit">
+            <mat-option value="days">days</mat-option>
+            <mat-option value="hours">hours</mat-option>
+          </mat-select>
+      </mat-form-field>
+  </div>
+  <button mat-raised-button class="send-btn" (click)="onSaveClick()">
+      <span> save </span>
+  </button>
+</div>

@@ -1,0 +1,35 @@
+.inactive-message{
+    width: 21.8125rem;
+height: 11.6875rem;
+flex-shrink: 0;
+border-radius: 1.5625rem;
+background: #FFF;
+color: #101010;
+font-family: Roboto;
+font-size: 1.125rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+padding: 0.94rem 1.62rem;
+display: flex;
+flex-direction: column;
+}
+
+.send-btn{
+    border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+    flex-shrink: 0;
+    background-color: #1F7A8C!important;
+    color: white!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-self: flex-end;
+  }
+
+  .im-select{
+    display: flex;
+  }
