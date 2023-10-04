@@ -59,7 +59,7 @@ export class SurveyPublishService
         type: StoryBlockTypes.SurveyQuestionBlock,
         message: question.message,
         marks: question.marks,
-        feedback: question.feedback,
+        feedback: question.feedback || '',
         options: this.__questionOptionsToBlockOptions(question.options as SurveyQuestionOptions[])
       } as SurveyQuestionBlock;
     })
