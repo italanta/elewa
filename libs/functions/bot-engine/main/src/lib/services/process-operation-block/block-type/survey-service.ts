@@ -89,8 +89,8 @@ export class SurveyService implements IProcessOperationBlock
     currentCursor.surveyStack[0] = currentSurvey;
 
     return {
-      storyBlock: nextBlock,
-      currentCursor
+      nextBlock,
+      newCursor: currentCursor
     };
   }
 
