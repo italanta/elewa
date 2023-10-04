@@ -7,6 +7,8 @@ export function CREATE_EMPTY_SURVEY_FORM(_fb: FormBuilder) {
     title: [''],
     description: [''],
 
+    questionsOrder: [[]],
+
     // configs
     configs: _fb.group({
       feedback: [''],
