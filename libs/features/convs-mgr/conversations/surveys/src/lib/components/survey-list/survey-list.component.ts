@@ -1,16 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, map, switchMap, tap } from 'rxjs';
-import { SubSink } from 'subsink';
-import { ActionSortingOptions } from '../../utils/sorting-options.enum';
-import { Survey } from '@app/model/convs-mgr/conversations/surveys';
-import { SurveyMetricsService } from '../../services/survey-metrics.service';
-import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
-import { EndUserService } from '@app/state/convs-mgr/end-users';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { orderBy as __orderBy } from 'lodash';
+import { MatDialog } from '@angular/material/dialog';
 
 import { __DateFromStorage } from '@iote/time';
+import { orderBy as __orderBy } from 'lodash';
+
+import { BehaviorSubject, Observable, combineLatest, map, switchMap, tap } from 'rxjs';
+import { SubSink } from 'subsink';
+
+import { Survey } from '@app/model/convs-mgr/conversations/surveys';
+import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
+import { EndUserService } from '@app/state/convs-mgr/end-users';
+
+import { ActionSortingOptions } from '../../utils/sorting-options.enum';
+import { SurveyMetricsService } from '../../services/survey-metrics.service';
+
 
 @Component({
   selector: 'app-survey-list',
