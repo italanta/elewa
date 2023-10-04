@@ -16,19 +16,35 @@
 	cursor: pointer;
 	
 }
+.mat-menu{
+	color: #101010;
+	font-family: Roboto;
+	font-size: 1rem!important;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+}
 .badge {
 	display: inline-block;
-	padding: 0.25em 0.4em;
-	font-size: .9em;
+	padding: 0.25rem 0.69rem;
+	font-size: .6rem;
 	font-weight: 400;
 	line-height: 1;
 	text-align: center;
 	white-space: nowrap;
 	vertical-align: baseline;
-	border-radius: 0.25rem;
-	color: black;
+	border-radius: 0.55rem;
 	background-color: #DAE0F0;
   
 	&.active {
 	  background-color: #3E788A;
-	}}
+	  color: #FFF;
+	}
+	&.draft{
+		background-color: #DAE0F0;
+		color: black;
+	}
+}
+table{
+	background-color: #F6F6F6;
+}

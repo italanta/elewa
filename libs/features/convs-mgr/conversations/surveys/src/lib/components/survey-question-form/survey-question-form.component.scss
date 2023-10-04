@@ -9,9 +9,9 @@
 	.card {
 		width: 60%!important;
 		margin-right: 5px;
-		background-color: white;
+		background-color: #FFF;
 		color: black!important;
-		padding: 15px;
+		padding: 2rem 1.69rem;
 		border-radius: 10px;
 		// border: solid #B8AFDA 2px;
 	}
@@ -20,6 +20,16 @@
 	.active-card {
 		border: solid #B8AFDA 2px!important;
 	}
+}
+.quest{
+	color: #101010;
+
+	/* Reg 16 */
+	font-family: Roboto;
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
 
 .btn-add {
