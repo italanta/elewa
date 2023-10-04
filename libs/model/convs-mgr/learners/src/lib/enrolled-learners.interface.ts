@@ -2,6 +2,7 @@ import { IObject } from "@iote/bricks";
 
 import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
 
+import { SurveyResults } from "./survey-results.interface";
 
 /**
  * Represents an enrolled learner.
@@ -64,7 +65,9 @@ export interface EnrolledEndUser extends IObject {
   /**
      * The results of the assessments that the end user has taken.
      */
-  assessmentResults             ?: AssessmentResult[];
+  assessmentResults?: AssessmentResult[];
+
+  surveyResults?: SurveyResults[];
 }
 
 /**
