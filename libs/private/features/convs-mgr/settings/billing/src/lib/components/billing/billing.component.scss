@@ -95,7 +95,7 @@
                                 }
                                 .card-details{
                                     // Change plan
-                                    color: (--convs-mgr-color-button);
+                                    color: var(--convs-mgr-color-button);;
                                     font-size: 16px;
                                     font-family: Roboto;
                                     font-weight: 400;
@@ -120,7 +120,7 @@
                             .card-title{
                                 // Payment methods
                                 // Current plan
-                                color: (--convs-mgr-color-button);
+                                color: var(--convs-mgr-color-button);;
                                 font-size: 18px;
                                 font-family: Roboto;
                                 font-weight: 300;
@@ -131,7 +131,7 @@
                                 margin-top: 47px;
                                 width: 225px;
                                  height: 45px; 
-                                 background: (--convs-mgr-color-button);
+                                 background: var(--convs-mgr-color-button);;
                                 border-radius: 25px;
                                 color: white;
                                 font-size: 16px;

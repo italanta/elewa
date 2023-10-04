@@ -6,7 +6,7 @@
   border-radius: 25px !important;
   p {
    // Add payment method
-    color: #101010;
+    color: var(--convs-mgr-color-101010);
     font-size: 18px;
     font-family: Roboto;
     font-weight: 300;
@@ -15,7 +15,7 @@
 
   .static-label{
     // Cardholder name
-    color: #101010;
+    color: var(--convs-mgr-color-101010);
     font-size: 13px;
     font-family: Roboto;
     font-weight: 300;
@@ -25,7 +25,7 @@
     div {
       input {
         border-radius: 8px;
-        border: 0.70px #707070 solid;
+        border: 0.70px var(--convs-mgr-color-button) solid;
         height: 29px;
         width: 100%;
       }
@@ -33,7 +33,7 @@
     .payment{
       input {
         border-radius: 8px;
-        border: 0.70px #707070 solid;
+        border: 0.70px var(--convs-mgr-color-button) solid;
         height: 29px;
         width: 149px;
       }
@@ -54,11 +54,11 @@
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word;
-          background: #1F7A8C; 
+          background: var(--convs-mgr-color-button); 
         }
         .cancel-btn{
           // Cancel
-          border: 1px #1F7A8C solid;
+          border: 1px var(--convs-mgr-color-button) solid;
           color: #1F7A8C;
           font-size: 16px;
           font-family: Roboto;
