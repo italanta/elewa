@@ -26,17 +26,16 @@ export class ActiveSurveyStore extends Store<Survey> {
       map((_event) => _event as NavigationEnd)
     );
 
-    this._sbS.sink = combineLatest([surveys$, route$]).pipe(
-      tap(([surveys, route]) => {
+    this._sbS.sink = combineLatest([surveys$, route$]).subscribe(
+      ([surveys, route]) => {
         const surveyId = this._getActiveSurveyId(route);
         const survey = surveys.find(_survey => _survey.id === surveyId);
           
-        if(surveyId !== '__noop__' && survey && this._activeSurvey !== surveyId){
+        if(survey){
           this._activeSurvey = surveyId;
           this.set(survey, 'UPDATE - FROM DB || ROUTE');
         }
-      })
-    ).subscribe();
+      });
   }
 
   private _getUrlSegments(route: NavigationEnd){
