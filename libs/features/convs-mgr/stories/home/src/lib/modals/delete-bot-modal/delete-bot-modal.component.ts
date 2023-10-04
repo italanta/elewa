@@ -13,7 +13,7 @@ import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
 import { NewStoryService } from '../../services/new-story.service';
 import { DeleteElementsEnum } from '../../model/delete-element.enum';
-import { BotElementType } from '../../model/delete-element.enum';
+import { BotElementType } from '../../model/all-elements.type';
 
 @Component({
   selector: 'convl-italanta-apps-delete-bot-modal',
