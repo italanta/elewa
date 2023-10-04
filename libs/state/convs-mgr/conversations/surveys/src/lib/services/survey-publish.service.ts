@@ -5,14 +5,15 @@ import { combineLatest, map, switchMap, tap } from 'rxjs';
 import { Logger } from '@iote/bricks-angular';
 
 import { Survey, SurveyQuestionOptions } from '@app/model/convs-mgr/conversations/surveys';
-
-import { SurveyQuestionService } from './survey-question.service';
 import { StoryBlockConnection, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { SurveyQuestionBlock, Button, EndStoryAnchorBlock, TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+
+import { SurveyQuestionService } from './survey-question.service';
 
 @Injectable({
   providedIn: 'root'

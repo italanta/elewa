@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
+import { Logger } from '@iote/bricks-angular';
 
 import { of } from 'rxjs'
 import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 
-import { Logger } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';

@@ -4,10 +4,9 @@ import { NavigationEnd, Router } from "@angular/router";
 import { Store } from "@iote/state";
 import { combineLatest, filter, map, tap } from "rxjs";
 
-import { Survey } from "@app/model/convs-mgr/conversations/surveys";
 import { SurveysStore } from "./surveys.store";
 
-
+import { Survey } from "@app/model/convs-mgr/conversations/surveys";
 
 @Injectable()
 export class ActiveSurveyStore extends Store<Survey> {
