@@ -1,26 +1,28 @@
 <div class="survey-config">
-    <h4>{{'SURVEYS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}}</h4>
+    <h4>{{'SURVEYS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}} 123 learners</h4>
     <div [formGroup]="surveyFormGroup">
         <div formGroupName="configs" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="2%">
 
-            <span> {{'SURVEYS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
+            
+            <p class="response-stats"><span> Received responses: 97</span> <a>View responses</a></p>
+            <p class="response-stats"><span> Yet to respond: 97</span> <a>Send reminder</a></p>
 
-            <mat-radio-group formControlName="feedback" fxLayout="column" fxLayoutAlign="start">
+            <!-- <mat-radio-group formControlName="feedback" fxLayout="column" fxLayoutAlign="start">
                 <mat-radio-button [value]="immediateFeedback">{{'SURVEYS.QUESTIONS.SELECT.IMMEDIATELY' |
                     transloco}}</mat-radio-button>
                 <mat-radio-button [value]="onEndFeedback">{{'SURVEYS.QUESTIONS.SELECT.ON-END' |
                     transloco}}</mat-radio-button>
                 <mat-radio-button [value]="noFeedback">{{'SURVEYS.QUESTIONS.SELECT.NEVER' |
                     transloco}}</mat-radio-button>
-            </mat-radio-group>
+            </mat-radio-group> -->
 
 
-            <mat-form-field appearance="fill" class="full-field">
+            <!-- <mat-form-field appearance="fill" class="full-field">
                 <mat-label>
                     {{'SURVEYS.QUESTIONS.FIELDS.USER-ATTEMPTS' | transloco}}
                 </mat-label>
                 <input type="number" formControlName="userAttempts" matInput>
-            </mat-form-field>
+            </mat-form-field> -->
         </div>
     </div>
 </div>

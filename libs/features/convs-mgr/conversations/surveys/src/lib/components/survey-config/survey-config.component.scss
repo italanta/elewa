@@ -13,6 +13,29 @@
 		font-size: 1rem;
 		font-weight: 400;
 	}
+	p{
+		padding: 0;
+	}
+	.response-stats{
+		color: #101010;
+		font-family: Roboto;
+		font-size: 1.125rem;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+		display: flex;
+		justify-content: space-between;
+		a{
+			color: #1F7A8C;
+			font-family: Roboto;
+			font-size: 1.125rem;
+			font-style: normal;
+			font-weight: 300;
+			line-height: normal;
+			text-decoration-line: underline;
+			padding-right: 22.37rem;
+		}
+	}
 }
 
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
