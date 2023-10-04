@@ -5,7 +5,7 @@
             
             .subscription,
             .mesgTokens {
-              color: #101010;
+              color: var(--convs-mgr-color-101010);
               font-size: 18px;
               font-family: Roboto;
               font-weight: 300;
@@ -22,14 +22,14 @@
               transform: translateY(-50%);
               width: 1px;
               height: 20px;
-              background-color: #1f7a8c;
+              background-color: var(--convs-mgr-color-button);
               border-radius: 2px;
               display: none;
             }
       
             .subscription.selected,
             .mesgTokens.selected {
-              color: #1F7A8C;
+              color: var(--convs-mgr-color-button);
               font-size: 18px;
               font-family: Roboto;
               font-weight: 400;
@@ -50,7 +50,7 @@
                            width: 488px; 
                            height: 185px; 
                            border-radius: 15px; 
-                           border: 1px #1F7A8C solid;
+                           border: 1px var(--convs-mgr-color-button) solid;
                            .card-title{
                             margin-top: 17px;
                            }
@@ -69,7 +69,7 @@
                                 }
                                 .user{
                                     // 5 of 8 users
-                                    color: #101010;
+                                    color: var(--convs-mgr-color-101010);
                                     font-size: 18px;
                                     font-family: Roboto;
                                     font-weight: 300;
@@ -78,7 +78,7 @@
                                 }
                                 .amount{
                                     // KSH 1,200.00
-                                    color: #101010;
+                                    color: var(--convs-mgr-color-101010);
                                     font-size: 24px;
                                     font-family: Roboto;
                                     font-weight: 400;
@@ -95,7 +95,7 @@
                                 }
                                 .card-details{
                                     // Change plan
-                                    color: #1F7A8C;
+                                    color: (--convs-mgr-color-button);
                                     font-size: 16px;
                                     font-family: Roboto;
                                     font-weight: 400;
@@ -120,7 +120,7 @@
                             .card-title{
                                 // Payment methods
                                 // Current plan
-                                color: #1F7A8C;
+                                color: (--convs-mgr-color-button);
                                 font-size: 18px;
                                 font-family: Roboto;
                                 font-weight: 300;
@@ -131,7 +131,7 @@
                                 margin-top: 47px;
                                 width: 225px;
                                  height: 45px; 
-                                 background: #1F7A8C;
+                                 background: (--convs-mgr-color-button);
                                 border-radius: 25px;
                                 color: white;
                                 font-size: 16px;
