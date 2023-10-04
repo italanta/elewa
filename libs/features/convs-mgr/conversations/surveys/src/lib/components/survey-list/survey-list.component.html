@@ -5,7 +5,7 @@
 				<app-survey-header></app-survey-header>
 
 				<div class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-					<div class="search" fxFlex="60">
+					<div class="search">
 						<i class="fas fa-search search_tooltip"></i>
 						<input class="search_input" type="text" name="" placeholder="Search for surveys"
 							(keyup)="searchTable($event)" />
@@ -17,19 +17,19 @@
 							<div class="select">
 								<select [value]="sortSurveysBy" (change)="sortBy($event)">
 									<option value=""></option>
-									<option value="newest">Date Created (Newest)</option>
-									<option value="oldest">Date Created (Oldest)</option>
+									<option value="newest">{{'SURVEYS.SORTING.N-DATE' | transloco}}</option>
+									<option value="oldest">{{'SURVEYS.SORTING.O-DATE' | transloco}}</option>
 								</select>
 							</div>
 
 							<button [ngClass]="viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
 								<i class="fa-solid fa-list-ul"></i>
-								<span style="margin-left: 10px;"> List </span>
+								<span style="margin-left: 10px;"> {{'SURVEYS.TABLE-HEADER.LIST' | transloco}} </span>
 							</button>
 
 							<button [ngClass]="!viewInListView ? 'view-active' : ''" mat-stroked-button (click)="viewInListView = !viewInListView">
 								<i class="fa-solid fa-border-all"></i>
-								<span style="margin-left: 10px;"> Grid </span>
+								<span style="margin-left: 10px;"> {{'SURVEYS.TABLE-HEADER.GRID' | transloco}} </span>
 							</button>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 		<div class="create-surveys" fxLayout="row" fxLayout="center center">
 			<div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
 				<i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-				<p>{{'SURVEYS.BUTTON.ADD-ASSESSMENT' | transloco}}</p>
+				<p>{{'SURVEYS.BUTTON.ADD-SURVEY' | transloco}}</p>
 			</div>
 		</div>
 	</ng-template>

@@ -17,19 +17,19 @@
   
       <ng-container matColumnDef="status">
         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="status"
-          sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.STATUS' | transloco}}">
-          {{'ASSESSMENTS.TABLE-HEADER.STATUS' | transloco}}</th>
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.STATUS' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.STATUS' | transloco}}</th>
         <td class="title-desc" (click)="openSurvey(survey.id)" mat-cell *matCellDef="let survey">
-          <span [ngClass]="survey.isPublished ? ['badge' , 'active'] : ['badge']">
-            {{survey.isPublished ? 'Published' : 'Draft'}}
+          <span [ngClass]="survey.isPublished ? ['badge' , 'active'] : ['badge', 'draft']">
+            {{survey.isPublished ? 'PUBLISHED' : 'DRAFT'}}
           </span>
         </td>
       </ng-container>
   
       <ng-container matColumnDef="questions">
         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="questions"
-          sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.QUESTIONS'| transloco}}">
-          {{'ASSESSMENTS.TABLE-HEADER.QUESTIONS' | transloco}}</th>
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.QUESTIONS'| transloco}}">
+          {{'SURVEYS.TABLE-HEADER.QUESTIONS' | transloco}}</th>
         <td class="title-desc" (click)="openSurvey(survey.id)" mat-cell *matCellDef="let survey">
           -
         </td>
@@ -51,8 +51,8 @@
 
       <ng-container matColumnDef="updatedOn">
         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="updatedOn"
-          sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">
-          {{'ASSESSMENTS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.CREATED-ON' | transloco}}</th>
         <td mat-cell *matCellDef="let survey">
           {{survey.updatedOn ? getFormattedDate(survey.updatedOn) : '-' }}
         </td>
@@ -60,8 +60,8 @@
   
       <ng-container matColumnDef="duplicate">
         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="duplicate"
-          sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">
-          {{'ASSESSMENTS.TABLE-HEADER.DUPLICATE' | transloco}}</th>
+          sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">
+          {{'SURVEYS.TABLE-HEADER.DUPLICATE' | transloco}}</th>
         <td mat-cell *matCellDef="let survey">
           <button mat-flat-button>
             <i class="fas fa-copy" style="color: #000000;"></i>
@@ -77,9 +77,9 @@
           <button mat-button [matMenuTriggerFor]="menu">
             <i class="fas fa-ellipsis-h"></i>
           </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openSurvey(survey.id)" > Edit </button>
-            <button mat-menu-item (click)="openSurveyResults(survey.id)"> {{'SURVEYS.BUTTON.RESULTS' |
+          <mat-menu #menu="matMenu" class="mat-menu">
+            <button mat-menu-item (click)="openSurvey(survey.id)" > {{'SURVEYS.BUTTON.EDIT' | transloco}} </button>
+            <button mat-menu-item (click)="archiveSurvey(survey.id)"> {{'SURVEYS.BUTTON.ARCHIVE' |
               transloco}} </button>
             <button mat-menu-item (click)="openDeleteModal(survey)"> {{'SURVEYS.BUTTON.DELETE' | transloco}}
             </button>
@@ -93,6 +93,6 @@
     </table>
   
     <mat-paginator #tablePaginator [length]="surveys.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-      [ariaLabel]="'SURVEYS.ACCESSIBILITY.SELECT-ASSESSMENT-PAGE' | transloco">
+      [ariaLabel]="'SURVEYS.ACCESSIBILITY.SELECT-SURVEY-PAGE' | transloco">
     </mat-paginator>
   </div>
