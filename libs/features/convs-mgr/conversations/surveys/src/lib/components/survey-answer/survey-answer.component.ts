@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SurveyOptionValue } from '@app/model/convs-mgr/conversations/surveys';
 
 @Component({
   selector: 'app-survey-answer',
@@ -15,14 +14,6 @@ export class SurveyAnswerComponent {
   @Output() answerClicked = new EventEmitter();
 
   showFeedback = false;
-
-  correct = SurveyOptionValue.Correct;
-  wrong = SurveyOptionValue.Wrong;
-  fiftyFifty = SurveyOptionValue.FiftyFifty;
-
-  setFeedback() {
-    this.showFeedback = !this.showFeedback;
-  }
 
   delete() {
     this.deleteChoice.emit(this.answerFormGroupName);

@@ -1,4 +1,4 @@
-<div *ngIf="questionFormGroup">
+<div *ngIf="questionFormGroup" class="parent">
     <div [formGroup]="questionFormGroup">
       <div formArrayName="options">
         <div *ngFor="let choice of choicesList.controls; let i = index">
