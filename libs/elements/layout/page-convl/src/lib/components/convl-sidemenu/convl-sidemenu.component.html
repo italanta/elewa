@@ -77,15 +77,15 @@
               </a>
             </li>
 
-            <!-- Asssessments sections -->
+            <!-- Surveys sections -->
             <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys"
               routerLinkActive="active">
               <a>
                 <span class="menu-icon">
-                  <img src="assets/icons/list-icon.svg" alt="">
+                  <img src="assets/icons/survey.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
-                  Surveys
+                  {{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}
                 </span>
               </a>
             </li>

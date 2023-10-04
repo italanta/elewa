@@ -1,8 +1,8 @@
 import { MatTableDataSource } from "@angular/material/table";
-import { Survey } from "@app/model/convs-mgr/conversations/surveys";
 
 import { Observable, Subscription } from "rxjs";
 
+import { Survey } from "@app/model/convs-mgr/conversations/surveys";
 
 export class SurveyDataSource extends MatTableDataSource<Survey>{
     private _surveys$: Subscription;
