@@ -1,8 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName:
-    'features-convs-mgr-stories-blocks-library-multi-content-input-block',
-  preset: '../../../../../../../jest.preset.js',
+  displayName: 'private-features-convs-mgr-orgs',
+  preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -11,7 +10,7 @@ export default {
     },
   },
   coverageDirectory:
-    '../../../../../../../coverage/libs/features/convs-mgr/stories/blocks/library/multi-content-input-block',
+    '../../../../../coverage/libs/private/features/convs-mgr/orgs',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

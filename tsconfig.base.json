@@ -133,9 +133,6 @@
       "@app/features/convs-mgr/stories/blocks/library/main": [
         "libs/features/convs-mgr/stories/blocks/library/main/src/index.ts"
       ],
-      "@app/features/convs-mgr/stories/blocks/library/multi-content-input-block": [
-        "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/src/index.ts"
-      ],
       "@app/features/convs-mgr/stories/blocks/library/multiple-input-message-block": [
         "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src/index.ts"
       ],
@@ -273,6 +270,9 @@
       ],
       "@app/private/features/convs-mgr/analytics": [
         "libs/private/features/convs-mgr/analytics/src/index.ts"
+      ],
+      "@app/private/features/convs-mgr/orgs": [
+        "libs/private/features/convs-mgr/orgs/src/index.ts"
       ],
       "@app/private/features/convs-mgr/settings/main": [
         "libs/private/features/convs-mgr/settings/main/src/index.ts"
