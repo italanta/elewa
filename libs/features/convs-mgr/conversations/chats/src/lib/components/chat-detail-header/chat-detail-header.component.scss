@@ -45,11 +45,14 @@
   }
 }
 
+
+
 .user-tooltip {
   font-size: 32px !important;
 }
 
 .chat-title-txt{
+  cursor: pointer;
   display: grid;
   gap: 5px;
   grid-template-rows: 2;
@@ -58,12 +61,16 @@
     font-size: 1.1rem;
     font-weight: 400;
   }
+  .chat-name:hover{
+    color: #3E788A;
+  }
   
   .chat-number {
     color: #707070;
     font-weight: 400;
     font-size: .8rem;
   }
+  
 }
 
 .inactive {
