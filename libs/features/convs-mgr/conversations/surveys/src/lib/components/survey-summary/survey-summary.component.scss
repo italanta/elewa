@@ -1,0 +1,30 @@
+.summary{
+    padding-top: 4.94rem;
+    .card{
+        background-color: #FFF;
+        height: 24rem;
+        border-radius: 1.5rem;
+        padding: 2.5rem 1.92rem;
+        margin-bottom: 2.31rem;
+        p{
+            color: #101010;
+            /* Reg 16 */
+            font-family: Roboto;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            display: flex;
+            justify-content: space-between;
+        }
+        span{
+            color: #7C7C7C;
+            font-family: Roboto;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+    }
+}
