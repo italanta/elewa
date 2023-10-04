@@ -6,6 +6,7 @@ export interface Survey extends Story {
     orgId: string,
     configs?: SurveyConfiguration,
     scoreCategories?: ScoreCategory[],
+    questionsOrder? : string[],
 
     /** Differentiate between published assessment and non published ones */
     isPublished?: boolean
