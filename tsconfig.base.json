@@ -321,6 +321,9 @@
       "@app/private/model/convs-mgr/micro-apps/cmi5": [
         "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
       ],
+      "@app/private/model/convs-mgr/micro-apps/surveys": [
+        "libs/private/model/convs-mgr/micro-apps/surveys/src/index.ts"
+      ],
       "@app/private/state/access-control": [
         "libs/private/state/access-control/src/index.ts"
       ],
