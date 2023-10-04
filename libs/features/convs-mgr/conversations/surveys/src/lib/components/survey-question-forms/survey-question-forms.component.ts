@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/cor
 import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Subject } from 'rxjs';
 import { SurveyFormService } from '../../services/survey-form.service';
@@ -18,7 +19,7 @@ export class SurveyQuestionFormsComponent implements AfterViewInit, OnDestroy, O
 
   @Input() surveyFormGroup: FormGroup;
 
-  count: number;
+  count: number = 0;
   formDataIsReady = false;
 
   activeCard$ = new Subject<number>();
@@ -76,6 +77,17 @@ export class SurveyQuestionFormsComponent implements AfterViewInit, OnDestroy, O
 
     questionForm.patchValue({ id: `${this.count}` });
     this.questionsList.push(questionForm);
+  }
+
+  drop(event: any) {
+    moveItemInArray(this.questionsList.controls, event.previousIndex, event.currentIndex);
+
+    let newFormOrder = this.surveyFormGroup.value.questions;
+    let movedQuestion = newFormOrder[event.currentIndex];
+    newFormOrder[event.currentIndex] = newFormOrder[event.previousIndex];
+    newFormOrder[event.previousIndex] = movedQuestion;
+
+    this.surveyFormGroup.value.questions = newFormOrder;
   }
 
   activeQuestionChanged(index: number) {

@@ -1,15 +1,15 @@
 <div class="question-form">
 	<div [ngClass]="activeCard === index ? ['card' , 'active-card'] : ['card']"
 		(click)="activeQuestionChanged.emit(index)">
-		<h1>hart</h1>
 		<div class="card-content">
+			<i style="width: 100%; margin: auto; color: #B2B2B2;" class="fas fa-grip-horizontal"></i>
 			<div *ngIf="surveyFormGroup">
 				<div [formGroup]="surveyFormGroup">
 					<div formArrayName="questions">
 						<div [formGroup]="questionFormGroup">
 
 							<div fxLayout="row" fxLayoutAlign="space-between center">
-								<mat-form-field appearance="fill" fxFlex="60">
+								<mat-form-field appearance="fill" fxFlex="60" >
 									<input type="text" matInput formControlName="message" placeholder="Type your question">
 								</mat-form-field>
 
