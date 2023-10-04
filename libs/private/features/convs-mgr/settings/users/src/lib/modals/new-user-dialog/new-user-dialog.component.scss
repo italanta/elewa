@@ -14,12 +14,12 @@
   font-weight: 400;
   word-wrap: break-word;
   border-radius: 30px;
-  border: 1px #3E788A solid;
+  border: 1px var(--convs-mgr-color-3E788A)solid;
 }
 
 .submit-btn {
   color: white;
-  background: #3E788A; 
+  background: var(--convs-mgr-color-3E788A); 
   border-radius: 30px;;
 }
 
@@ -27,7 +27,7 @@
   .names{
     p{
       // *Email
-      color: #3E788A;
+      color: var(--convs-mgr-color-3E788A);
       font-size: 18px;
       font-family: Roboto;
       font-weight: 300;
@@ -38,7 +38,7 @@
       width: 100%; 
       height: 53px; 
       border-radius: 10px; 
-      border: 1px #707070 solid;
+      border: 1px var(--convs-mgr-color-707070) solid;
     }
   }
   .buttons{
