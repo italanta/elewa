@@ -10,17 +10,17 @@
           
             <mat-table [dataSource]="dataSource" class="student-table">
               <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'SURVEYS.TABLE-HEADER.NAME' | transloco}}</mat-header-cell>
                 <mat-cell *matCellDef="let student">{{ student.name }}</mat-cell>
               </ng-container>
           
               <ng-container matColumnDef="phoneNumber">
-                <mat-header-cell *matHeaderCellDef>Phone Number</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'SURVEYS.TABLE-HEADER.PHONE-NO' | transloco}}</mat-header-cell>
                 <mat-cell *matCellDef="let student">{{ student.phoneNumber }}</mat-cell>
               </ng-container>
           
               <ng-container matColumnDef="course">
-                <mat-header-cell *matHeaderCellDef>Course</mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{'SURVEYS.TABLE-HEADER.COURSE' | transloco}}</mat-header-cell>
                 <mat-cell *matCellDef="let student">{{ student.course }}</mat-cell>
               </ng-container>
           
@@ -32,7 +32,7 @@
 
     <div class="card">
         <div class="search-results">
-            <div *ngIf="searchResults.length === 0">No results found.</div>
+            <div *ngIf="searchResults.length === 0">{{'SURVEYS.RESULTS.TEXT.NO-RESULTS' | transloco}}.</div>
             <ng-container *ngFor="let student of searchResults; let i = index">
               <div *ngIf="selectedStudent && student.id === selectedStudent.id">
                 <!-- Show details of the selected student -->
@@ -59,6 +59,7 @@
 
     <div class="card">
         <div class="student-details">
+          <!-- Placeholder data so no need for multilang atm -->
             <h3>Student Details</h3>
             <ng-container *ngIf="selectedStudent">
               <p>Name: {{ selectedStudent.name }}</p>
