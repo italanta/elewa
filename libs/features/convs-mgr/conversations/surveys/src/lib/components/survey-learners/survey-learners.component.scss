@@ -1,0 +1,62 @@
+/* Add this to your student-list.component.css */
+
+.search-container {
+    margin-bottom: 16px;
+  }
+  
+  
+  /* Style the search results div as desired */
+ .card{
+    background-color: #FFF;
+        // height: 54rem;
+        border-radius: 1.5rem;
+        padding: 2.5rem 1.92rem;
+        margin-top: 1.94rem;
+ } 
+
+ .search-input{
+    width: 17.375rem;
+    height: 1.75rem;
+    border-radius: 2.1875rem;
+    border: 1px solid #D8D8D8;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+ }
+ .control-cont{
+    display: flex;
+    align-items: center;
+ }
+ .result-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #101010;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    .hide{
+        color: #1F7A8C;
+        font-weight: 300;
+        font-size: 1.125rem;
+        text-decoration-line: underline;
+    }
+ }
+ mat-header-cell{
+    color: #707070;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+ }
+ mat-cell{
+    color: #000;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+ }
