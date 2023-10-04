@@ -322,26 +322,80 @@
     }
   },
   "SURVEYS": {
+    "TABLE-HEADER": {
+      "TITLE": "Titre de l'enquête",
+      "CREATED-ON": "Créé le",
+      "IN-PROGRESS": "En cours",
+      "RESPONSES": "Réponses terminées",
+      "ACTIONS": "Actions",
+      "DUPLICATE": "Dupliquer",
+      "QUESTIONS": "Questions",
+      "STATUS": "Statut",
+      "NAME": "Nom",
+      "PHONE-NO": "Numéro de téléphone",
+      "COURSE": "Cours",
+      "LIST": "Liste",
+      "GRID": "Grille"
+    },
+    "SORTING": {
+      "N-DATE": "Date de création (la plus récente)",
+      "O-DATE": "Date de création (la plus ancienne)"
+    },
+    "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Retour",
+        "EDIT SURVEY": "Modifier l'enquête"
+      },
+      "TEXT": {
+        "SURVEY RESULTS": "Résultats de l'enquête",
+        "ALL-CLASSES": "Toutes les classes",
+        "NO-RESULTS": "Aucun résultat trouvé"
+      },
+      "TABLE-HEADER": {
+        "NAME": "Nom",
+        "PHONE-NO": "Numéro de téléphone",
+        "STARTED-ON": "Démarré le",
+        "FINISHED-ON": "Terminé le",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Catégorie de score"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Sélectionner la page de résultats",
+        "SORT-BY-CREATED": "Trier par date de création de l'enquête",
+        "SORT-BY-No": "Trier par numéro d'enquête",
+        "SORT-BY-NAME": "Trier par nom de résultat d'enquête",
+        "SORT-BY-PHONE-NO": "Trier par numéro de téléphone des résultats de l'enquête",
+        "SORT-BY-STARTED-ON": "Trier par date de début des résultats de l'enquête",
+        "SORT-BY-FINISHED-ON": "Trier par date de fin des résultats de l'enquête",
+        "SORT-BY-SCORE": "Trier par score des résultats de l'enquête",
+        "SORT-BY-SCORE-CATEGORY": "Trier par catégorie de score des résultats de l'enquête",
+        "SORTED-ASC": "Trié par ordre croissant",
+        "SORTED-DESC": "Trié par ordre décroissant"
+      },
+      "LABELS": {
+        "GROUPS": "Groupes"
+      },
+      "METRICS": {
+        "LOWEST": "Score le plus bas",
+        "HIGHEST": "Score le plus élevé",
+        "AVERAGE": "Score moyen",
+        "TOTAL-QUESTIONS": "Nombre total de questions"
+      }
+    },
     "BUTTON": {
       "VIEW": "Voir",
       "RESULTS": "Résultats",
-      "ADD": "Créer un sondage",
+      "ADD": "Créer une enquête",
       "EDIT": "Modifier",
-      "SAVE": "Enregistrer",
+      "SAVE": "Sauvegarder",
       "DELETE": "Supprimer",
-      "SEARCH-SURVEY": "Rechercher un sondage",
-      "ADD-SURVEY": "Créer un sondage",
-      "EDIT-SURVEY": "Modifier un sondage",
+      "ARCHIVE": "Archiver",
+      "SEARCH-SURVEY": "Rechercher une enquête",
+      "ADD-SURVEY": "Créer une enquête",
+      "EDIT-SURVEY": "Modifier l'enquête",
       "PUBLISH": "Publier",
-      "SEARCH-QUESTIONS": "Rechercher une question"
-    },
-    "ACCESSIBILITY": {
-       "SELECT-SURVEY-PAGE": "Sélectionner la page du sondage",
-       "SORT-BY-TITLE": "Trier par titre du sondage",
-       "SORT-BY-IN-PROGRESS": "Trier par nombre de sondages en cours",
-       "SORT-BY-RESPONSES": "Trier par nombre de réponses au sondage",
-       "SORTED-ASC": "Trié par ordre croissant",
-       "SORTED-DESC": "Trié par ordre décroissant"
+      "SEARCH-QUESTIONS": "Rechercher des questions",
+      "OPEN-SURVEY": "OUVRIR L'ENQUÊTE"
     },
     "CREATE-MODAL": {
       "TITLE": "Créer un sondage",
@@ -370,7 +424,7 @@
       "QUESTIONS": "Questions",
       "ANSWER": "Nouvelle réponse",
       "FIELDS":{
-        "CONFIGURATION": "Configuration",
+        "CONFIGURATION": "Cette enquête a été envoyée à",
         "FEEDBACK": "Commentaire",
         "CONDITION": "Condition",
         "USER-ATTEMPTS": "Essais de l'utilisateur",

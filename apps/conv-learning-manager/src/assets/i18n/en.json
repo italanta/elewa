@@ -258,6 +258,7 @@
       "ANALYTICS": "Analytics",
       "CHATS": "Chats",
       "ASSESSMENTS": "Assessments",
+      "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",
       "BOT": "Bots",
       "REPORTS": "Reports",
@@ -469,7 +470,19 @@
       "CREATED-ON": "Created On",
       "IN-PROGRESS": "In Progress",
       "RESPONSES": "Completed Responses",
-      "ACTIONS": "Actions"
+      "ACTIONS": "Actions",
+      "DUPLICATE": "Duplicate",
+      "QUESTIONS": "Questions",
+      "STATUS":"Status",
+      "NAME": "Name",
+      "PHONE-NO":"PhoneNumber",
+      "COURSE":"Course",
+      "LIST": "List",
+      "GRID": "Grid"
+    },
+    "SORTING":{
+        "N-DATE": "Date Created (Newest)",
+        "O-DATE": "Date Created (Oldest)"
     },
     "RESULTS": {
       "BUTTONS": {
@@ -478,7 +491,8 @@
       },
       "TEXT":{
         "SURVEY RESULTS": "Survey Results",
-        "ALL-CLASSES":"All classes"
+        "ALL-CLASSES":"All classes",
+        "NO-RESULTS": "No results found"
       },
       "TABLE-HEADER": {
         "NAME": "Name",
@@ -518,11 +532,13 @@
       "EDIT": "Edit",
       "SAVE": "Save",
       "DELETE": "Delete",
+      "ARCHIVE": "Archive",
       "SEARCH-SURVEY": "Search survey",
-      "ADD-SURVEY": "Create an survey",
+      "ADD-SURVEY": "Create a survey",
       "EDIT-SURVEY": "Edit survey",
       "PUBLISH": "Publish",
-      "SEARCH-QUESTIONS": "Search questions"
+      "SEARCH-QUESTIONS": "Search questions",
+      "OPEN-SURVEY": "OPEN SURVEY"
     },
     "ACCESSIBILITY": {
        "SELECT-SURVEY-PAGE": "Select page of survey",
@@ -559,7 +575,7 @@
       "QUESTIONS": "Questions",
       "ANSWER": "New Answer",
       "FIELDS":{
-        "CONFIGURATION": "Configuration",
+        "CONFIGURATION": "This Survey has been sent to ",
         "FEEDBACK": "Feedback",
         "CONDITION": "Condition",
         "USER-ATTEMPTS": "User attempts",
@@ -575,6 +591,15 @@
         "CORRECT": "Correct",
         "WRONG": "Wrong",
         "50-50": "50/50"
+      },
+      "SURVEY-RESPONSES": {
+        "RECEIVED": "Received responses",
+        "VIEW": "View responses",
+        "NON-RESPONSES": "Yet to response",
+        "REMINDER": "Send Reminder",
+        "LEARNERS": "Learners",
+        "FIRST-QUESTION": "Your first survey question",
+        "RESPONSES": "responses"
       }
     }
   },
