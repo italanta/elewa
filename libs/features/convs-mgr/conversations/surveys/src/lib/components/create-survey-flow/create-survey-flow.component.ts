@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Observable, concatMap, combineLatest, from, tap, timer, startWith, switchMap, finalize, take, takeLast } from 'rxjs';
+import { Observable, tap,switchMap,take } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 import { Survey, SurveyMode, SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
 import { SurveyPublishService, SurveyQuestionService, SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 import { SurveyFormService } from '../../services/survey-form.service';
 import { CREATE_EMPTY_SURVEY_FORM, DEFAULT_SURVEY } from '../../provider/create-empty-survey-form.provider';
+import { SurveysFormsModel } from '../../model/question-form.model';
 
 @Component({
   selector: 'app-create-survey-flow',
@@ -17,6 +18,9 @@ import { CREATE_EMPTY_SURVEY_FORM, DEFAULT_SURVEY } from '../../provider/create-
   styleUrls: ['./create-survey-flow.component.scss'],
 })
 export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
+  private _sbS = new SubSink();
+
+  surveyFormModel: SurveysFormsModel;
   survey$: Observable<Survey>;
   questions$: Observable<SurveyQuestion[]>;
   pageTitle: string;
@@ -28,7 +32,6 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
 
   survey: Survey = DEFAULT_SURVEY();
 
-  private _sbS = new SubSink();
   isPublishing = false;
   showPublishBtn:Observable<boolean>;
   isSaving = false;
@@ -39,13 +42,14 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
 
   constructor(private _fb: FormBuilder,
               private _route$$: Router,
-              private _route:ActivatedRoute,
               private _snackBar: MatSnackBar,
               private _surveyService: SurveyService,
               private _surveyForm: SurveyFormService,
               private _publishSurvey: SurveyPublishService,
               private _surveyQuestion: SurveyQuestionService        
-  ) {}
+  ) {
+    this.surveyFormModel = new SurveysFormsModel(this._fb, _surveyForm)
+  }
 
   ngOnInit(): void
   {
@@ -59,7 +63,6 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
   }
 
   initializeEmptySurveyForm() {
-    this.surveyForm = CREATE_EMPTY_SURVEY_FORM(this._fb);
     this.formHasLoaded = true;
   }
 
@@ -75,7 +78,18 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
       take(1),
       tap((questions) => { 
         this.questions = questions;
-        this.surveyForm = this._surveyForm.createSurveyDetailForm(this.survey);
+        if (this.survey?.questionsOrder) {
+          var questionOrdering = {},
+          sortOrder = this.survey.questionsOrder;
+          for (var i=0; i< sortOrder!.length; i++)
+            questionOrdering[sortOrder![i]] = i;
+
+          this.questions.sort( function(a, b) {
+              return (questionOrdering[a.id!] - questionOrdering[b.id!]) || a.id!.localeCompare(b.id!);
+          });
+        }
+
+        this.surveyFormModel.surveysFormGroup = this._surveyForm.createSurveyDetailForm(this.survey);
         this.formHasLoaded = true;
       })
     ).subscribe()
@@ -135,19 +149,26 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
   insertSurveyConfig$()
   {
     this.survey['configs'] = {
-      feedback: this.surveyForm.value.configs.feedback,
-      userAttempts: this.surveyForm.value.configs.userAttempts
+      feedback: this.surveyFormModel.surveysFormGroup.value.configs.feedback,
+      userAttempts: this.surveyFormModel.surveysFormGroup.value.configs.userAttempts
     };
+
+    let questionsOrder = this.surveyFormModel.surveysFormGroup.value.questionsOrder;
+
+    if (this.surveyFormModel.surveysFormGroup.value.questions)
+      questionsOrder = this.surveyFormModel.surveysFormGroup.value.questions.map((q: SurveyQuestion) => q.id);
+
+    this.surveyFormModel.surveysFormGroup.value['questionsOrder'] = questionsOrder;
     
     if (this.action === 'create')
-      return this._surveyService.addSurvey$(this.surveyForm.value as Survey);
+      return this._surveyService.addSurvey$(this.surveyFormModel.surveysFormGroup.value as Survey);
 
-    return this._surveyService.updateSurvey$(this.surveyForm.value as Survey);
+    return this._surveyService.updateSurvey$(this.surveyFormModel.surveysFormGroup.value as Survey);
   }
 
   persistSurveyQuestions$(surveyId: string)
   {
-    const surveyQuestions: SurveyQuestion[] = this.surveyForm.value.questions;
+    const surveyQuestions: SurveyQuestion[] = this.surveyFormModel.surveysFormGroup.value.questions;
     return this._determineAssesActions(surveyQuestions, surveyId);
   }
 
@@ -193,6 +214,7 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void
   {
+    this.survey = {} as any;
     this.questions = [];
     this._sbS.unsubscribe();
   }
