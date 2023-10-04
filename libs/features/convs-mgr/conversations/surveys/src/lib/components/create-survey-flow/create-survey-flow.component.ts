@@ -6,10 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, tap,switchMap,take } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
+
 import { Survey, SurveyMode, SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
 import { SurveyPublishService, SurveyQuestionService, SurveyService } from '@app/state/convs-mgr/conversations/surveys';
+
 import { SurveyFormService } from '../../services/survey-form.service';
-import { CREATE_EMPTY_SURVEY_FORM, DEFAULT_SURVEY } from '../../provider/create-empty-survey-form.provider';
+import { DEFAULT_SURVEY } from '../../provider/create-empty-survey-form.provider';
 import { SurveysFormsModel } from '../../model/question-form.model';
 
 @Component({
@@ -100,7 +102,6 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
     this.isSaving = true;
 
     // since some observables complete before we call combinelatest, we initialise our stream with an empty string
-    // const surveyQstns$ = 
 
     // we spread the `surveyQstns$()` since it's an array of Observables.
     let savedSurveyId = '';
@@ -179,37 +180,14 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
   */
   private _determineAssesActions(surveyQuestions: SurveyQuestion[], surveyId: string)
   {
-    // get's the latest questions from the state().
-    // this.preloadQuestions();
-
     const oldQuestions = this.questions ?? [];
-
-    // Surveys which are newly created and newly configured
-    // const newQstns = surveyQuestions.filter(question => !oldQuestions.find(oldQ => oldQ.id === question.id));
-
-    // // Surveys which were updated.
-    // const updQstns = surveyQuestions.filter(question => !newQstns.find(newQ => newQ.id === question.id));
 
     const delQstns = oldQuestions.filter(oldQ => !surveyQuestions.find(question => question.id === oldQ.id));
 
     delQstns.map(question => this._surveyQuestion.deleteQuestion$(question));
 
-    // we set a delay here so we can maintain a consistent order on our questions
-    // TODO: replace with drag and drop feature
-
-    // const newQstns$ = from(newQstns).pipe(
-    //   concatMap((question, index) =>
-    //   {
-    //     const delay = 10 * index; // Delay in milliseconds (0.01 second per question)
-    //     return timer(delay).pipe(
-    //       concatMap(() => this._surveyQuestion.addQuestion$(surveyId, question, question.id as string))
-    //     );
-    //   })
-    // );
-
     return surveyQuestions.map(question => this._surveyQuestion.addQuestion$(surveyId, question, question.id!));
 
-    // return __flatten([newQstns$, updQstns$, delQstns$]);
   }
 
   ngOnDestroy(): void
