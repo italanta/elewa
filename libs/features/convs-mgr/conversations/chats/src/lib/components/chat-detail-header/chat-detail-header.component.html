@@ -9,7 +9,11 @@
     </div>
 
     <div class="chat-title-txt" (click)="navigateToLearner()">
-        <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
+        <span *ngIf="chat.name" class="chat-name" 
+        [style.color]="chatNameColor" 
+        (mouseenter)="updateChatNameColor()"
+        (mouseleave)="resetChatNameColor()"
+        > {{ chat.name.toLowerCase() }} </span>
       <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
     </div>
   </div>

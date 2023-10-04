@@ -57,6 +57,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   avatarBgColor: string;
 
+  chatNameColor = '#000000'; 
+
 
 
   constructor(private _snackBar: MatSnackBar,
@@ -96,6 +98,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         },
       );
   }
+  
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
 
@@ -277,6 +280,15 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   navigateToLearner(){
     this._router.navigate([`/learners/${this.extractedLearnerId }`]);
+  }
+
+  updateChatNameColor() {
+    // Update chatNameColor based on avatarBgColor or any other logic you need
+    this.chatNameColor = this.avatarBgColor;
+  }
+  resetChatNameColor() {
+    // Reset chatNameColor to the original color when not hovering
+    this.chatNameColor= '#000000'
   }
 
   ngOnDestroy() {

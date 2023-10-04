@@ -52,7 +52,7 @@
 }
 
 .chat-title-txt{
-  cursor: pointer;
+  cursor: pointer !important;
   display: grid;
   gap: 5px;
   grid-template-rows: 2;
@@ -61,9 +61,7 @@
     font-size: 1.1rem;
     font-weight: 400;
   }
-  .chat-name:hover{
-    color: #3E788A;
-  }
+ 
   
   .chat-number {
     color: #707070;
