@@ -1,8 +1,10 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+
+import { SubSink } from 'subsink';
+
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
 import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-delete-survey-modal',

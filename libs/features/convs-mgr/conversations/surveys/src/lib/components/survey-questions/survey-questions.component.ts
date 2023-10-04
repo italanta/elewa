@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
 
 import { Observable } from 'rxjs';
+
+import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
+
 @Component({
   selector: 'app-survey-questions',
   templateUrl: './survey-questions.component.html',

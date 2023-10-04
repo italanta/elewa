@@ -2,9 +2,10 @@ import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angu
 import { FormArray, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-
 import { Observable, tap } from 'rxjs';
+
 import { FeedbackCondition, SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
+
 @Component({
   selector: 'app-survey-question-form',
   templateUrl: './survey-question-form.component.html',

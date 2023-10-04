@@ -1,10 +1,12 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Subject } from 'rxjs';
+
+import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
+
 import { SurveyFormService } from '../../services/survey-form.service';
 
 @Component({

@@ -8,7 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { TranslateService } from '@ngfi/multi-lang';
 import { __DateFromStorage } from '@iote/time';
+
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
+
 import { DeleteSurveyModalComponent } from '../../modals/delete-survey-modal/delete-survey-modal.component';
 
 
@@ -51,8 +53,8 @@ export class SurveyListViewComponent implements OnInit{
     this._router.navigate(['/surveys', surveyId]);
   }
 
-  openSurveyResults(surveyId: string) {
-    this._router.navigate(['/surveys', surveyId, 'results']);
+  archiveSurvey(surveyId: string) {
+    this._router.navigate(['/surveys', surveyId]);
   }
 
   getFormattedDate(date: Date){

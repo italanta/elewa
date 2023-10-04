@@ -1,5 +1,28 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import {
+  FlexLayoutModule,
+  MaterialBricksModule,
+  MaterialDesignModule,
+} from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
+
+import {
+  ActiveSurveyStore,
+  SurveyPublishService,
+  SurveyQuestionService,
+  SurveyQuestionStore,
+  SurveyService,
+  SurveysStore,
+} from '@app/state/convs-mgr/conversations/surveys';
+import { ConvlPageModule } from '@app/elements/layout/page-convl';
+
+
 import { SurveyQuestionComponent } from './components/survey-question/survey-question.component';
 import { SurveyQuestionFormComponent } from './components/survey-question-form/survey-question-form.component';
 import { SurveyAnswerComponent } from './components/survey-answer/survey-answer.component';
@@ -16,28 +39,8 @@ import { SurveyViewComponent } from './pages/survey-view/survey-view.component';
 import { SurveyHomeComponent } from './pages/survey-home/survey-home.component';
 import { DeleteSurveyModalComponent } from './modals/delete-survey-modal/delete-survey-modal.component';
 import { SurveyFormService } from './services/survey-form.service';
-
-import {
-  ActiveSurveyStore,
-  SurveyPublishService,
-  SurveyQuestionService,
-  SurveyQuestionStore,
-  SurveyService,
-  SurveysStore,
-} from '@app/state/convs-mgr/conversations/surveys';
-import { CreateSurveyFlowComponent } from './components/create-survey-flow/create-survey-flow.component';
 import { SurveysRouterModule } from './surveys.router.module';
-import {
-  FlexLayoutModule,
-  MaterialBricksModule,
-  MaterialDesignModule,
-} from '@iote/bricks-angular';
-import { MultiLangModule } from '@ngfi/multi-lang';
-import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CreateSurveyFlowComponent } from './components/create-survey-flow/create-survey-flow.component';
 import { SurveyResponsesComponent } from './pages/survey-responses/survey-responses.component';
 import { SurveyLearnersComponent } from './components/survey-learners/survey-learners.component';
 import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
