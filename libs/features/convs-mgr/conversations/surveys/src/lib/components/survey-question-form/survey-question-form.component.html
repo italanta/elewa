@@ -10,7 +10,7 @@
 
 							<div fxLayout="row" fxLayoutAlign="space-between center">
 								<mat-form-field appearance="fill" fxFlex="60" >
-									<input type="text" matInput formControlName="message" placeholder="Type your question">
+									<input type="text" matInput formControlName="message" placeholder="Type your question" class="quest">
 								</mat-form-field>
 
 								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
@@ -26,12 +26,12 @@
 							<app-survey-answers [questionId]="questionFormGroup.value.id" [questionFormGroup]="questionFormGroup"
 								[surveyMode]="surveyMode"></app-survey-answers>
 
-							<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
+							<!-- <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1%">
 								<mat-form-field appearance="fill">
 									<mat-label> Marks </mat-label>
 									<input type="number" matInput formControlName="marks">
 								</mat-form-field>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
