@@ -12,14 +12,6 @@
             <input type="text" placeholder="{{'SURVEYS.QUESTIONS.FIELDS.ANSWER' | transloco}}" matInput formControlName="text">
           </mat-form-field>
     
-          <mat-form-field appearance="fill">
-            <mat-select formControlName="accuracy" [value]="correct">
-              <mat-option [value]="correct">{{'SURVEYS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
-              <mat-option [value]="wrong">{{'SURVEYS.QUESTIONS.SELECT.WRONG' | transloco}}</mat-option>
-              <mat-option [value]="fiftyFifty">{{'SURVEYS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-    
           <button mat-flat-button class="btn-delete" (click)="delete()">
             <img src="assets/icons/delete-x.svg" alt="">
           </button>
@@ -30,19 +22,6 @@
         <div class="feedback">
           <div class="circle-wrapper">
             <div class="circle none"></div>
-          </div>
-  
-          <div class="feedback-item" fxLayout="column">
-            <div class="feedback-checkbox">
-              <span class="title" *ngIf="true">{{'SURVEYS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
-              <input type="checkbox" name="showFeedback" [checked]="showFeedback" (click)="setFeedback()">
-            </div>
-  
-            <div *ngIf="showFeedback" fxFlex="60">
-              <mat-form-field appearance="fill" class="full-field">
-                <input type="text" matInput formControlName="feedback">
-              </mat-form-field>
-            </div>
           </div>
         </div>
         <!-- end second row -->
