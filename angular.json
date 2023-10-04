@@ -518,34 +518,6 @@
     },
     "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
     "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
-    "features-convs-mgr-stories-blocks-library-multi-content-input-block": {
-      "projectType": "library",
-      "root": "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block",
-      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/features/convs-mgr/stories/blocks/library/multi-content-input-block"
-          ],
-          "options": {
-            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/**/*.ts",
-              "libs/features/convs-mgr/stories/blocks/library/multi-content-input-block/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "features-convs-mgr-stories-blocks-library-multiple-input-message-block": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block",
@@ -877,6 +849,58 @@
       },
       "tags": []
     },
+    "model-convs-mgr-bot-modules": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/bot-modules",
+      "sourceRoot": "libs/model/convs-mgr/bot-modules/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/bot-modules"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/bot-modules/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/bot-modules/**/*.ts",
+              "libs/model/convs-mgr/bot-modules/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-convs-mgr-bots": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/bots",
+      "sourceRoot": "libs/model/convs-mgr/bots/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/bots"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/bots/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/bots/**/*.ts",
+              "libs/model/convs-mgr/bots/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
     "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
     "model-convs-mgr-conversations-assessments": {
@@ -1071,6 +1095,32 @@
             "lintFilePatterns": [
               "libs/private/features/convs-mgr/analytics/**/*.ts",
               "libs/private/features/convs-mgr/analytics/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-orgs": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/orgs",
+      "sourceRoot": "libs/private/features/convs-mgr/orgs/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/features/convs-mgr/orgs"],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/orgs/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/orgs/**/*.ts",
+              "libs/private/features/convs-mgr/orgs/**/*.html"
             ]
           }
         }
@@ -1548,6 +1598,32 @@
       },
       "tags": []
     },
+    "state-convs-mgr-bots": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/bots",
+      "sourceRoot": "libs/state/convs-mgr/bots/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/bots"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/bots/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/bots/**/*.ts",
+              "libs/state/convs-mgr/bots/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-conversations-analytics-traffic-by-day": "libs/state/convs-mgr/conversations/analytics/traffic-by-day",
     "state-convs-mgr-conversations-assessments": {
       "projectType": "library",
@@ -1625,6 +1701,32 @@
             "lintFilePatterns": [
               "libs/state/convs-mgr/learners/**/*.ts",
               "libs/state/convs-mgr/learners/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-modules": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/modules",
+      "sourceRoot": "libs/state/convs-mgr/modules/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/modules"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/modules/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/modules/**/*.ts",
+              "libs/state/convs-mgr/modules/**/*.html"
             ]
           }
         }

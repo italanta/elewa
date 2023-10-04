@@ -9,7 +9,7 @@
     <span class="sub-title"> {{ "BOTS.BOTS-PAGE.LATEST-COURSES" | transloco }} </span>
 
     <div class="latest-courses" fxFlex>
-      <italanta-apps-bots-list-latest-courses [stories$]="stories$"></italanta-apps-bots-list-latest-courses>
+      <italanta-apps-bots-list-latest-courses [bots$]="bots$"></italanta-apps-bots-list-latest-courses>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -21,14 +21,14 @@
     </div>
 
     <div class="my-courses" fxFlex>
-      <italanta-apps-bots-list-all-courses [stories$]="stories$"></italanta-apps-bots-list-all-courses>
+      <italanta-apps-bots-list-all-courses [bots$]="bots$"></italanta-apps-bots-list-all-courses>
     </div>
   </div>
 
   <ng-template #allCourses>
     <div class="bots-page">
       <italanta-apps-bots-list-all-courses [showAllCourses]="showAllCourses" 
-                                            [stories$]="stories$"
+                                            [bots$]="bots$"
                                             (collapseAllCourses)="showAllCourses = !showAllCourses">
       </italanta-apps-bots-list-all-courses>
     </div>

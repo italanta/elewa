@@ -23,9 +23,6 @@ export interface Story extends IObject
   /* description of the story */
   description?: string;
 
-  /* Labels of the story */
-  labels?: string[];
-
   /* chapter of the story */
   chapter?: string;
 
