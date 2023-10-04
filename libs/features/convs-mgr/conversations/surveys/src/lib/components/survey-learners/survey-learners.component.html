@@ -1,0 +1,81 @@
+<div class="learners">
+    <div class="card">
+        <div class="container">
+              <input
+                class="search-input"
+                matInput
+                [formControl]="searchControl"
+                placeholder="Search by Name"
+              />
+          
+            <mat-table [dataSource]="dataSource" class="student-table">
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+                <mat-cell *matCellDef="let student">{{ student.name }}</mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="phoneNumber">
+                <mat-header-cell *matHeaderCellDef>Phone Number</mat-header-cell>
+                <mat-cell *matCellDef="let student">{{ student.phoneNumber }}</mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="course">
+                <mat-header-cell *matHeaderCellDef>Course</mat-header-cell>
+                <mat-cell *matCellDef="let student">{{ student.course }}</mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+          </div>
+    </div>
+
+    <div class="card">
+        <div class="search-results">
+            <div *ngIf="searchResults.length === 0">No results found.</div>
+            <ng-container *ngFor="let student of searchResults; let i = index">
+              <div *ngIf="selectedStudent && student.id === selectedStudent.id">
+                <!-- Show details of the selected student -->
+                <div class="result-cont">
+                    <div class="control-cont">
+                        <button mat-icon-button (click)="showPreviousStudent()" *ngIf="i > 0">
+                            <mat-icon>keyboard_arrow_left</mat-icon>
+                        </button>
+
+                        <span>{{ i + 1 }} of {{ searchResults.length }}</span>
+                        
+                        <button mat-icon-button (click)="showNextStudent()" *ngIf="i < searchResults.length - 1">
+                            <mat-icon>keyboard_arrow_right</mat-icon>
+                        </button>
+                    </div>
+                    <p>{{ student.name }}</p>
+                    <button mat-button (click)="showSurveyResponses(student)"><span class="hide">Hide</span> </button>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+    </div>
+
+
+    <div class="card">
+        <div class="student-details">
+            <h3>Student Details</h3>
+            <ng-container *ngIf="selectedStudent">
+              <p>Name: {{ selectedStudent.name }}</p>
+              <p>Phone Number: {{ selectedStudent.phoneNumber }}</p>
+              <p>Course: {{ selectedStudent.course }}</p>
+              <h4>Survey Responses</h4>
+              <ul>
+                <li *ngFor="let response of selectedStudent.surveyResponses">
+                  Question: {{ response.question }} - Answer: {{ response.answer }}
+                </li>
+              </ul>
+            </ng-container>
+          </div>
+        
+          <div class="navigation-buttons">
+            <button mat-button (click)="showPreviousStudent()">Previous</button>
+            <button mat-button (click)="showNextStudent()">Next</button>
+          </div>
+    </div>
+</div>
