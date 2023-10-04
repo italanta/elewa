@@ -1,0 +1,65 @@
+.preview {
+    width: 100%;
+    margin: 30px auto;
+  
+  
+    .card {
+      width: 60%!important;
+      margin: auto;
+      background-color: white;
+      color: black!important;
+      padding: 1.62rem 1.93rem;
+      border-top-right-radius: 1.5rem;
+      border-top-left-radius: 1.5rem;
+      // border: solid #B8AFDA 2px;
+  
+      .card-title {
+        color: #101010;
+        font-family: Roboto;
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 2.94rem;
+      }
+    }
+  
+  }
+
+  :host ::ng-deep .mat-mdc-tab.mdc-tab {
+    background-color: white !important;
+    color: #101010;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  
+    &.mdc-tab--active {
+      color: #1F7A8C !important;
+      background-color: white !important;
+    }
+  }
+  
+  :host ::ng-deep .mat-mdc-tab.mdc-tab:first-child {
+    border-radius: 0px 0px 0px 1.5rem;
+  }
+  
+  :host ::ng-deep .mat-mdc-tab.mdc-tab:last-child {
+    border-radius: 0px 0px 1.5rem 0px;
+  }
+  
+  :host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+  .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+    color: #101010!important;
+    color: #101010;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .tabs{
+    width: 63.8%!important;
+    margin: 0 auto;
+  }
