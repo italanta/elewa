@@ -12,7 +12,7 @@
             <i class="fas fa-ellipsis-h"></i>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="openSurvey(survey.id!)" > Edit </button>
+            <button mat-menu-item (click)="openSurvey(survey.id!)" > {{'SURVEYS.BUTTON.EDIT' | transloco}} </button>
             <button mat-menu-item (click)="openSurveyResults(survey.id!)"> {{'SURVEYS.BUTTON.RESULTS' |
               transloco}} </button>
             <button mat-menu-item (click)="openDeleteModal(survey)"> {{'SURVEYS.BUTTON.DELETE' | transloco}}
@@ -28,7 +28,7 @@
   
         <div class="card-footer" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
           <span>
-            OPEN SURVEY
+            {{'SURVEYS.BUTTON.OPEN-SURVEY' | transloco}}
           </span>
   
           <button mat-fab color="primary">
