@@ -1,7 +1,7 @@
 
 .mdc-data-table__header-cell {
  // Email
-  color: #707070;
+  color: var(--convs-mgr-color-707070);
   font-size: 18px;
   font-family: Roboto;
   font-weight: 300;
@@ -13,7 +13,7 @@
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-  background-color: #eee;
+  background-color: var(--convs-mgr-color-tablebg);
   cursor: pointer;
 }
 
@@ -43,7 +43,7 @@
       height: 42px;
       width: 142px;
       padding: 0 1em;
-      background-color: #FFFFFF;
+      background-color: var(--convs-mgr-color-FFFFFF);
       background-image: none;
       cursor: pointer;
       // All roles
@@ -105,7 +105,7 @@
     button{
       height: 45px;
       width: 142px;
-      background: #1F7A8C; 
+      background: var(--convs-mgr-color-button); 
       border-radius: 25px;
       color: white;
       font-size: 16px;
@@ -127,11 +127,11 @@
       overflow: auto;
       table{
         width: 100%;
-        background-color: #F6F6F6;
+        background-color: var(--convs-mgr-color-F6F6F6);
         
           th{
             // Name
-            color: #707070;
+            color: var(--convs-mgr-color-707070);
             font-size: 18px;
             font-family: Roboto;
             font-weight: 300;
@@ -140,7 +140,7 @@
 
           td{
             // Name
-            color: #101010;
+            color: var(--convs-mgr-color-101010);
             font-size: 18px;
             font-family: Roboto;
             font-weight: 300;
