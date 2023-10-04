@@ -7,7 +7,7 @@
       padding: 20px 0px;
       object-fit: contain;
       border-radius: 50%;
-      border: 1px #707070 solid;
+      border: 1px var(----convs-mgr-color-707070) solid;
       margin-left: 20px;
     }
     position: relative;
@@ -19,7 +19,7 @@
         button {
           width: 142px;
           height: 45px;
-          background: #1F7A8C;
+          background: var(--convs-mgr-color-button);
           border-radius: 25px;
           color: white;
           font-size: 16px;
@@ -38,7 +38,7 @@
       form{
         h4{
           // Basic Information
-          color: #101010;
+          color: var(--convs-mgr-color-101010);
           font-size: 18px;
           font-family: Roboto;
           font-weight: 400;
@@ -51,9 +51,9 @@
               width: 400px; 
               height: 51px; 
               border-radius: 8px; 
-              border: 1px #707070 solid;
+              border: 1px var(----convs-mgr-color-707070) solid;
               // Street Name
-              color: #C3C3C3;
+              color: var(--convs-mgr-color-C3C3C3);
               font-size: 18px;
               font-family: Roboto;
               font-weight: 300;
@@ -73,7 +73,7 @@
         button{
           width: 225px; 
           height: 45px; 
-          background: #1F7A8C; 
+          background: var(--convs-mgr-color-button); 
           border-radius: 25px;
           color: white;
           font-size: 16px;
