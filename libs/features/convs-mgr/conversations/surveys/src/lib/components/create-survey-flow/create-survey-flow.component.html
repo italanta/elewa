@@ -6,7 +6,7 @@
       </div>
   
       <div class="create-survey-header-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex="10">
-        <button mat-raised-button [disabled]="isSaving" class="save-btn" (click)="onSave()">
+        <button mat-raised-button [disabled]="isSaving" color="primary" class="save-btn" (click)="onSave()">
           <span *ngIf="!isSaving"> {{'SURVEYS.BUTTON.SAVE' | transloco }} </span>
           <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
         </button>
@@ -19,15 +19,17 @@
       <div class="create-body" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" fitInkBarToContent>
           <mat-tab label="Create">
-            <app-survey-question-forms [previewMode]="false" [questions]="questions" [surveyFormGroup]="surveyForm">
+            <app-survey-question-forms [previewMode]="false" [questions]="questions" [surveyFormGroup]="surveyFormModel.surveysFormGroup">
             </app-survey-question-forms>
           </mat-tab>
           <mat-tab label="Settings">
-            <app-survey-config [previewMode]="false" [surveyFormGroup]="surveyForm"></app-survey-config>
+            <app-survey-config [previewMode]="false" [surveyFormGroup]="surveyFormModel.surveysFormGroup"></app-survey-config>
           </mat-tab>
-          <mat-tab label="Preview">
-            <!-- use the view component to create the form preview -->
-            <!-- <app-survey-view [previewMode]="true" [surveyForm]="surveyForm"></app-survey-view> -->
+          <!-- <mat-tab label="Responses">
+            <app-survey-view [surveyForm]="surveyFormModel.surveysFormGroup"></app-survey-view>
+          </mat-tab> -->
+          <mat-tab label="Responses">
+            <app-survey-responses></app-survey-responses>
           </mat-tab>
         </mat-tab-group>
       </div>
