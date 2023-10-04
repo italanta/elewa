@@ -60,4 +60,16 @@
   
   :host ::ng-deep .mdc-text-field--filled .mdc-text-field--underline {
     background-color: white!important;
+    stroke-width: 1px!important;
+    stroke: #707070!important;
+    opacity: 0.5;
   }
+  .full-field{
+    color: #101010;
+    /* Reg 16 */
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+      }

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { Chart } from 'chart.js';
 
 @Component({
