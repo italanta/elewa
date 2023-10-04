@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
+
 import { startWith, tap } from 'rxjs';
+
+import { SurveyQuestion } from '@app/model/convs-mgr/conversations/surveys';
 
 @Component({
   selector: 'app-survey-view',
@@ -16,7 +18,6 @@ export class SurveyViewComponent implements OnInit, OnDestroy, AfterViewInit{
   surveyPreviewData: any = {};
 
   constructor() {}
-
 
   ngOnInit(): void {}
 
