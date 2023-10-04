@@ -13,6 +13,7 @@ export class SurveyFormService {
     return this._formBuilder.group({
       id: [survey.id ?? ''],
       title: [survey?.title ?? ''],
+      questionsOrder: [survey?.questionsOrder ?? []],
       configs: this._formBuilder.group({
         feedback: [survey?.configs?.feedback ?? ''],
         userAttempts: [survey?.configs?.userAttempts ?? '']
