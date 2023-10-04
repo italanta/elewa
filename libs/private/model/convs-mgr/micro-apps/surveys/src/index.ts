@@ -1,1 +1,2 @@
-export * from './lib/private-model-convs-mgr-micro-apps-surveys';
+export * from './lib/start-survey-req.interface';
+export * from './lib/start-survey-resp.interface';
