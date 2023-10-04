@@ -14,13 +14,13 @@
 }
 
 .btn {
-  background: #1F7A8C!important;
+  background: var(--convs-mgr-color-button)!important;
   color: white!important;
 }
 
 .white-btn {
   color: white!important;
-  background: #1F7A8C;
+  background: var(--convs-mgr-color-button);
    border-radius: 25px;
    margin-right: 35px;
 }
@@ -42,7 +42,7 @@
 }
 
 .highlight {
-  background-color: #F7F7F7;
+  background-color: var(--convs-mgr-color-F7F7F7 );
 }
 
 .general, .accounts, .orders {
