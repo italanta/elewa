@@ -17,23 +17,32 @@ import { SurveyHomeComponent } from './pages/survey-home/survey-home.component';
 import { DeleteSurveyModalComponent } from './modals/delete-survey-modal/delete-survey-modal.component';
 import { SurveyFormService } from './services/survey-form.service';
 
-import { 
+import {
   ActiveSurveyStore,
   SurveyPublishService,
   SurveyQuestionService,
   SurveyQuestionStore,
   SurveyService,
-  SurveysStore
-  } from '@app/state/convs-mgr/conversations/surveys'
+  SurveysStore,
+} from '@app/state/convs-mgr/conversations/surveys';
 import { CreateSurveyFlowComponent } from './components/create-survey-flow/create-survey-flow.component';
 import { SurveysRouterModule } from './surveys.router.module';
-import { FlexLayoutModule, MaterialBricksModule, MaterialDesignModule } from '@iote/bricks-angular';
+import {
+  FlexLayoutModule,
+  MaterialBricksModule,
+  MaterialDesignModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SurveyResponsesComponent } from './pages/survey-responses/survey-responses.component';
+import { SurveyLearnersComponent } from './components/survey-learners/survey-learners.component';
+import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
+import { HorizontalBarComponent } from './components/graphs/horizontal-bar/horizontal-bar.component';
+import { PieComponent } from './components/graphs/pie/pie.component';
 
 @NgModule({
   imports: [
@@ -47,7 +56,8 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
     ReactiveFormsModule,
     ConvlPageModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DragDropModule,
   ],
   declarations: [
     SurveyQuestionComponent,
@@ -66,6 +76,11 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
     SurveyViewComponent,
     SurveyHomeComponent,
     DeleteSurveyModalComponent,
+    SurveyResponsesComponent,
+    SurveyLearnersComponent,
+    SurveySummaryComponent,
+    HorizontalBarComponent,
+    PieComponent,
   ],
   providers: [
     SurveyFormService,
@@ -74,7 +89,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
     SurveysStore,
     ActiveSurveyStore,
     SurveyQuestionStore,
-    SurveyPublishService
-  ]
+    SurveyPublishService,
+  ],
 })
 export class ConvsMgrSurveysModule {}
