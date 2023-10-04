@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { BotCreateFlowModalComponent } from '../../modals/bot-create-flow-modal/bot-create-flow-modal.component';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
+import { BotCreateFlowModalComponent } from '../../modals/bot-create-flow-modal/bot-create-flow-modal.component';
 @Component({
   selector: 'italanta-apps-bots-list-header',
   templateUrl: './bots-list-header.component.html',
@@ -15,7 +15,7 @@ export class BotsListHeaderComponent {
   createBot() {
     const dialogData = {
       botMode: BotMutationEnum.CreateMode,
-      story: '',
+      bot: '',
     };
 
     this._dialog.open(BotCreateFlowModalComponent, {

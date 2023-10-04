@@ -11,14 +11,14 @@ import { orderBy as __orderBy } from 'lodash';
 
 import { __DateFromStorage } from '@iote/time';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
 
 import { ActionSortingOptions } from '../../model/sorting.enum';
-import { Bot } from '@app/model/convs-mgr/bots';
+import { DeleteElementsEnum } from '../../model/delete-element.enum';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
@@ -40,7 +40,7 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['name', 'type', 'lastEdited', 'channel', 'actions'];
 
-  dataSource: MatTableDataSource<Story> = new MatTableDataSource();
+  dataSource: MatTableDataSource<Bot> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -67,17 +67,25 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
   }
 
   openBot(id: string) {
-    this._router$$.navigate(['stories', id]);
+    this._router$$.navigate(['bots', id]);
   }
 
-  editBot(story: Story) {
-    this._dialog.open(CreateBotModalComponent, 
-      {minWidth: '600px', data: {isEditMode: true, story: story}}).afterClosed();
+  editBot(bot: Bot) {
+    this._dialog.open(CreateBotModalComponent, {
+      minWidth: '600px', 
+      data: { 
+        botMode: BotMutationEnum.EditMode, bot: bot
+      }
+    }).afterClosed();
   }
 
-  deleteBot(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, 
-      {minWidth: 'fit-content', data: {isEditMode: true, story: story}}).afterClosed();
+  deleteBot(bot: Bot) {
+    this._dialog.open(DeleteBotModalComponent, {
+      minWidth: 'fit-content', 
+      data: { 
+        mode: DeleteElementsEnum.Bot, element: bot,
+      }
+    }).afterClosed();
   }
 
   applyFilter(event: Event) {
