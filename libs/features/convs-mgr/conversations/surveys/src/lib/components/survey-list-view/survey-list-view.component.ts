@@ -27,7 +27,7 @@ export class SurveyListViewComponent implements OnInit{
     this.dataSource.paginator = paginator;
   }
 
-  surveysColumns = ['num', 'title', 'createdOn', 'inProgress', 'responses', 'actions'];
+  surveysColumns = ['num', 'title', 'status', 'questions', 'inProgress', 'responses', 'updatedOn', 'duplicate', 'actions'];
 
   @Input() dataSource: MatTableDataSource<Survey>;
   @Input() surveys: Survey[];
