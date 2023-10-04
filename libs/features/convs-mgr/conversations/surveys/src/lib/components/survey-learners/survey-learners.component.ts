@@ -68,7 +68,7 @@ export class SurveyLearnersComponent {
 
   searchControl = new FormControl();
   searchResults: Student[] = [];
-  selectedStudent: Student | null = null; // Specify the type as Student | null
+  selectedStudent: Student | null = null; 
   selectedIndex: number = -1;
 
   constructor() {
