@@ -1,6 +1,27 @@
-<div fxFlex>
-    <div>
-      <app-survey-question-forms [previewMode]="previewMode" [questions]="questions" [surveyFormGroup]="surveyForm">
-      </app-survey-question-forms>
+<div class="preview" *ngIf="surveyPreviewData" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+  <div class="card">
+    <span class="card-title">
+      {{ surveyPreviewData.title }}
+    </span>
+  </div>
+
+  <div class="questions-cards" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px">
+    <div *ngFor="let question of surveyPreviewData.questions" class="card question-card" fxLayout="column"
+      fxLayoutAlign="start" fxLayoutGap="20px">
+      <span class="question-message">
+        {{ question.message }}
+      </span>
+
+      <div class="question-options">
+        <div style="margin-bottom: 20px;" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" *ngFor="let option of question.options">
+          <span *ngIf="option.text && option.text != ''" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="option-name">
+            <i class="fa-regular fa-circle" style="color: #707070;"></i>
+            <span>
+              {{ option.text }}
+            </span>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
+</div>
