@@ -33,8 +33,6 @@ export class NewStoryService implements OnDestroy {
 
   /** Save story for the first time */
   saveStory(story: Story, parentModule: BotModule) {
-    console.log(story);
-
     this._sbS.sink = this._org$$.get().pipe(take(1), switchMap((org) => {
       if (org) {
         story.orgId = org.id as string;
@@ -87,7 +85,7 @@ export class NewStoryService implements OnDestroy {
 
   /** delete story from DB */
   removeStory(story: Story, parentModule:BotModule) {
-    this._sbS.sink = this._storyServ$.deleteStory(story).pipe(
+    return this._storyServ$.deleteStory(story).pipe(
       take(1),
       switchMap((oldStory) => {
         return this._botModulesServ$.getBotModuleById(parentModule.id as string).pipe(
@@ -97,14 +95,14 @@ export class NewStoryService implements OnDestroy {
   
             // delete from parentModule stories list 
             botModule.stories = botModule.stories.filter((storyId) => storyId !== oldStory.id);
-    
+
             return this._botModulesServ$.updateBotModules(botModule as BotModule).pipe(
               tap(() => this._dialog.closeAll())
             );
           })
         )
       }),
-    ).subscribe();
+    )
   }
 
   openStory(story: Story) {
