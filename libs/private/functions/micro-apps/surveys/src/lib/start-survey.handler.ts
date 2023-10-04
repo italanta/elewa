@@ -6,11 +6,10 @@ import { StartSurveyReq, StartSurveyResponse } from '@app/private/model/convs-mg
 import { BlockDataService, ChannelDataService, ConnectionsDataService, CursorDataService, EnrolledUserDataService } from '@app/functions/bot-engine';
 import { CommunicationChannel, Cursor, EndUserPosition, PlatformType, SurveyCursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { SendOutgoingMsgHandler } from '@app/functions/bot-engine/send-message';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { BlockToStandardMessage } from 'libs/functions/bot-engine/main/src/lib/io/block-to-message-parser.class';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
-export class StartSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurveyResponse>
+export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurveyResponse>
 {
   public async execute(req: StartSurveyReq, context: FunctionContext, tools: HandlerTools)
   {
