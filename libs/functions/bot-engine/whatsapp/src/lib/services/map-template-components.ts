@@ -12,7 +12,8 @@ import { MessageTemplate,
          TemplateHeaderTypes, 
          WhatsappMediaTemplateComponent, 
          WhatsappTextHeaderTemplateComponent, 
-         isMediaHeader } from "@app/model/convs-mgr/functions";
+         isMediaHeader, 
+         TextHeader} from "@app/model/convs-mgr/functions";
 
 export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTools) 
 {
@@ -54,7 +55,12 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
           format: rawHeader.type,
           type: WhatsappTemplateComponentTypes.Header,
         };
-        headerComponent = addExampleToHeader(headerComponent, rawHeader.examples[0], tools);
+
+        headerComponent = mapHeaders(headerComponent, rawHeader);
+        
+        if(rawHeader.examples) {
+          headerComponent = addExampleToHeader(headerComponent, rawHeader.examples[0], tools);
+        }
         return headerComponent;
       }
 
@@ -74,6 +80,15 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
   });
 
   return templateComponents;
+}
+
+function mapHeaders(header: WhatsappHeaderTemplateComponent, template: TemplateHeader) {
+  // TODO -- Add other header types
+  if(template.type == TemplateHeaderTypes.TEXT) {
+    const textTemplate = template as TextHeader;
+    header.text = textTemplate.text;
+  }
+  return header;
 }
 
 function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExample: string, tools: HandlerTools) 
