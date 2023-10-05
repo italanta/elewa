@@ -7,6 +7,7 @@ mat-card {
 	position: relative;
 	cursor: move;
 }
+
 .svgIcon{
 	width: 1.5rem;
 }
@@ -50,7 +51,7 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icon-block{
+.icon-block {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -67,7 +68,7 @@ mat-card {
 		}
 	}
 }
-.hide-block > span {
+.hide-block {
 	display: none;
 }
 
