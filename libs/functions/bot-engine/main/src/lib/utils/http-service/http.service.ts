@@ -33,6 +33,36 @@ export class HttpService
     }
   }
 
+  /**
+   * Doesn't place the payload in a data object
+   */
+  async httpPost(URL: string, payload: any, accessToken: string, tools: HandlerTools) {
+
+    tools.Logger.log(() => `[HttpService].post - Attempting to post: ${JSON.stringify(payload)}`);
+  
+    const headers = {
+      'ContentType': 'application/json'
+    }
+  
+    if(accessToken) {
+      headers['Authorization'] = `Bearer ${accessToken}`
+    }
+  
+    const resp = await axios.post(URL, payload, {
+      headers: headers
+    });
+  
+    if (resp.status < 300) {
+      tools.Logger.log(() => `[HttpService].post - Response: ${JSON.stringify(resp.status)}`);
+      tools.Logger.log(() => `[HttpService].post - Post data Success: ${JSON.stringify(resp.data)}`);
+      return resp.data;
+    } else {
+      tools.Logger.log(() => `[HttpService].post - Response: ${JSON.stringify(resp.status)}`);
+      tools.Logger.error(() =>
+        `[BotEngine].httpPostRequest - Error while posting data: ${JSON.stringify(resp.data)}`);
+    }
+  }
+
   public async get(URL: string, tools: HandlerTools, accessToken?: string)
   {
 
