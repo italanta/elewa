@@ -1,0 +1,23 @@
+<convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
+  <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+    <span class="bots"> {{ "BOTS.BOTS-PAGE.BOTS" | transloco }} </span>
+
+    <div class="bots-header" fxFlex>
+      <app-stories-list-header></app-stories-list-header>
+    </div>
+
+    <span class="sub-title"> {{ "BOTS.BOTS-PAGE.LATEST-COURSES" | transloco }} </span>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span>
+
+      <button mat-flat-button (click)="showAllCourses = !showAllCourses">
+        {{ "BOTS.BOTS-PAGE.VIEW-ALL" | transloco }}
+      </button>
+    </div>
+
+    <div class="my-courses" fxFlex>
+      <app-stories-list-all-courses [bots$]="bots$"></app-stories-list-all-courses>
+    </div>
+  </div>
+</convl-page>
