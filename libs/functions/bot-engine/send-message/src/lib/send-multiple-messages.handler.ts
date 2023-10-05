@@ -1,8 +1,9 @@
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
-import { ScheduledMessage, SendMessageTemplate } from "@app/model/convs-mgr/functions";
+import { MessageTypes, ScheduledMessage, SendMessageTemplate } from "@app/model/convs-mgr/functions";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
+import { MessageDirection, TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { SendOutgoingMsgHandler } from "./send-outgoing-message.handler";
 
@@ -15,9 +16,11 @@ export class SendMultipleMessagesHandler extends FunctionHandler<ScheduledMessag
 
   private async _sendMessages(msgToSend: SendMessageTemplate, tools: HandlerTools)
   {
-    const message: any = {
+    const message: TemplateMessage = {
       ...msgToSend.message,
-      n: msgToSend.n
+      n: msgToSend.n,
+      type: MessageTypes.TEMPLATE,
+      direction: MessageDirection.FROM_AGENT_TO_END_USER
     };
 
     const sendMessage = new SendOutgoingMsgHandler();
