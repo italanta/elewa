@@ -1,10 +1,12 @@
 .name-input {
 	max-width: 100%;
 	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
+	border: none;
 	border-radius: 5px;
 	resize: none;
 	padding: 10px;
+	background-color: #F3F3F3;
+	color: #707070;
 }
 
 .name-input:focus-visible {
