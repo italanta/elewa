@@ -22,7 +22,7 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
   {
     switch (comp) {
       case "body": {
-        let rawBody = messageTemplate[comp] as TemplateBody;
+        let rawBody = messageTemplate.content[comp] as TemplateBody;
         const parsedText = parseVariables(rawBody.text);
 
         let bodyComponent: WhatsappBodyTemplateComponent = {
@@ -43,13 +43,13 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
       case "footer": {
         let footerComponent: WhatsappBodyTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Footer,
-          text: messageTemplate[comp],
+          text: messageTemplate.content[comp],
         };
         return footerComponent;
       }
 
       case "header": {
-        let rawHeader = messageTemplate[comp] as TemplateHeader;
+        let rawHeader = messageTemplate.content[comp] as TemplateHeader;
         let headerComponent: WhatsappHeaderTemplateComponent = {
           format: rawHeader.type,
           type: WhatsappTemplateComponentTypes.Header,
@@ -59,7 +59,7 @@ export function mapComponents(messageTemplate: MessageTemplate, tools: HandlerTo
       }
 
       case "buttons": {
-        let rawButtons = messageTemplate[comp] as WhatsappTemplateButtons[];
+        let rawButtons = messageTemplate.content[comp] as WhatsappTemplateButtons[];
         let buttonsComponent: WhatsappButtonsTemplateComponent = {
           type: WhatsappTemplateComponentTypes.Buttons,
           buttons: rawButtons,
