@@ -1,24 +1,13 @@
+h3,
+p {
+  margin: 0;
+}
 
 .modal-wrapper {
   display: flex;
   flex-direction: column;
   padding: 2rem;
   gap: 1rem;
-
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  
-    .form-item {
-      display: flex;
-      flex-direction: column;
-  
-      .input {
-        height: 2rem;
-      }
-    }
-  }
 
   .title-section {
     display: flex;
@@ -42,3 +31,4 @@
     }
   }
 }
+
