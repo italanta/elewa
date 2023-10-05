@@ -46,6 +46,7 @@ export const iconsAndTitles: any = {
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
     icon: 'fas fa-phone-alt',
+    svgIcon: 'assets/svgs/blocks/ph_phone-thin.svg',
   },
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
@@ -118,6 +119,7 @@ export const iconsAndTitles: any = {
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
     icon: 'fas fa-random'
+    
   },
   34:{
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
