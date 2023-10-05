@@ -745,23 +745,18 @@
       }
     }
   },
-  "BILLINGS":{
-    "SUBSCRIPTION":"Subscription",
-    "MESSAGE-TOKENS":"Message Tokens",
-    "CURRENT-PLAN":"Current plan",
-    "INVOICES" :"Invoices",
-    "CHANGE-PLAN":"change plan",
-    "PAYMENT-METHOd":"Payment method",
-    "PAYMENT-METHODS":"Payments methods",
-    "EXPIRES":"Expires",
-    "DEFAULT":"Default",
-    "EDIT" :"Edit",
-    "DELETE":"Delete",
-    "DATE":"Date",
-    "DESCRIPTION":"Description",
-    "AMOUNT":"Amount",
-    "BUTTON":{
-      "ADD-PAYMENT-METHOD":"Add payment method"
-    }
+  "MEMBERS":{
+      "SEARCH":"search table",
+      "INVITE-BUTTON":"Invite Member",
+      "TABLE":{
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "LAST-UPDATED":"Last Updated",
+        "ROLE":"Role",
+        "EDIT":"Edit",
+        "REMOVE":"Remove",
+        "DEACTIVATE":"De-activate",
+        "LOADING-USERS":"Loading Users"
+      }
   }
 }
