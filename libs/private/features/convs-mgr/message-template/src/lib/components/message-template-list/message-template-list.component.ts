@@ -24,26 +24,30 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   dataSource = new MatTableDataSource<any>();
   // @Input() assessments: MessageTemplate[];
   constructor(
-    private _messageTemplates: MessageTemplatesService,
-    private messageTemplateStore: MessageTemplateStore,
+    private _messageTemplateService: MessageTemplatesService,
     private _router: Router
   ) {}
 
 
   ngOnInit(): void {
-    this.messageTemplates$ = this._messageTemplates.getMessageTemplates$();
-    this.templateStatus$ = this._messageTemplates.getTemplateStatus();
-    this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
-      map(([templates, statusData]) => {
-        // Merge templates with status based on a common identifier (e.g., name)
-        return templates.map((template) => ({
-          ...template,
-          status: statusData.find((status) => status.name === template.name)?.status || 'N/A'
-        }));
-      })
-    ).subscribe((mergedData) => {
-      this.dataSource.data = mergedData;
+    this.messageTemplates$ = this._messageTemplateService.getMessageTemplates$();
+    this.templateStatus$ = this._messageTemplateService.getTemplateStatus();
+    // this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
+    //   map(([templates, statusData]) => {
+    //     // Merge templates with status based on a common identifier (e.g., name)
+    //     return templates.map((template) => ({
+    //       ...template,
+    //       status: statusData.find((status) => status.name === template.name)?.status || 'N/A'
+    //     }));
+    //   })
+    // ).subscribe((mergedData) => {
+    //   this.dataSource.data = mergedData;
+    // });
+    this._sBS.sink = this.messageTemplates$.subscribe((assessments)=> {
+      this.dataSource.data = assessments;
+      console.warn('here dey s', this.dataSource.data);
     });
+    
   }
 
   onCreate() {
@@ -64,12 +68,12 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     duplicatedTemplate.id = '';
     duplicatedTemplate.templateId = '';
     duplicatedTemplate.sent = 0;
-    this.messageTemplateStore.createMessageTemplate(duplicatedTemplate).subscribe(
+    this._messageTemplateService.addMessageTemplate(duplicatedTemplate).subscribe(
       (response) => console.log(response)
     )
   }
   deleteTemplate(template: MessageTemplate){
-    this.messageTemplateStore.deleteMessageTemplate(template);
+    this._messageTemplateService.removeTemplate(template);
   }
   ngOnDestroy(): void {
       this._sBS.unsubscribe();

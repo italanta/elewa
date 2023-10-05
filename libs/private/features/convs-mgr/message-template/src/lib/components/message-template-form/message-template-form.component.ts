@@ -2,9 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
+import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { Observable, switchMap, take, tap } from 'rxjs';
 import { SubSink } from 'subsink';
+import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 
 @Component({
   selector: 'app-message-template-form',
@@ -47,8 +48,7 @@ export class MessageTemplateFormComponent implements OnInit{
 
   constructor(
     private fb: FormBuilder,
-    private messageTemplatesService: MessageTemplatesService,
-    private messageTemplateStore: MessageTemplateStore,
+    private _messageTemplatesService: MessageTemplatesService,
     private _route:ActivatedRoute,
     private _route$$: Router,
   ) {}
@@ -57,49 +57,24 @@ export class MessageTemplateFormComponent implements OnInit{
     this.action = this._route$$.url.split('/')[2];
 
     if (this.action === 'create') {
-      this.initializeEmptyTemplate();
+      this.templateForm = createEmptyTemplateForm(this.fb);
     } else {
       this.initPage();
     }
     // Subscribe to changes in the content.body control
-    const formContent = this.templateForm.get('content') as FormGroup;
-    const formBody = formContent.get('body') as FormGroup;
-    const bodyControl = formBody.get('text') as FormControl;
-    bodyControl.valueChanges.subscribe((updatedBody) => {
-      this.updateReferencesFromBody(updatedBody);
-    });
-
+    this.subscribeToBodyControlChanges();
+    
   }
 
-  initializeEmptyTemplate() {
-    this.templateForm = this.fb.group({
-      name: ['', Validators.required],
-      category: ['', Validators.required], // Set a default category or modify as needed
-      language: ['', Validators.required],
-      content: this.fb.group({
-        header: [''],
-        body: this.fb.group({
-          text: ['', Validators.required],
-          newVariable: ['', Validators.required],
-          newPlaceholder: ['', Validators.required],
-          examples: this.fb.array([]),
-        }),
-        footer: [''],
-        templateId: [''],
-        sent: [''],
-      }),
-      buttons: this.fb.array([]), // Initialize an empty array for buttons
-    });
-  }
   initPage()
   {
-    this.template$ = this.messageTemplatesService.getActiveTemplate$();
+    this.template$ = this._messageTemplatesService.getActiveTemplate$();
 
     this._sbS.sink = this.template$.subscribe((template) => {
       if (template) {
         this.templateForm = this.fb.group({
           name: [template.name, Validators.required],
-          category: ['MARKETING'], // Set a default category or modify as needed
+          category: ['MARKETING'], 
           language: ['en'],
           content: this.fb.group({
             header: [`${template.content.header}`],
@@ -113,23 +88,28 @@ export class MessageTemplateFormComponent implements OnInit{
             templateId: [template.id],
             sent: [''],
           }),
-          buttons: this.fb.array([]), // Initialize an empty array for buttons
+          buttons: this.fb.array([]), 
         });
       }
     });
 
   }
+  subscribeToBodyControlChanges() {
+    const bodyControl = this.templateForm.get('content.body.text') as FormControl;
+    bodyControl.valueChanges.subscribe((updatedBody) => {
+      this.updateReferencesFromBody(updatedBody);
+    });
+  }
 
-  // Change "addReference" to "addVariable"
 addVariable() {
   const formContent = this.templateForm.get('content') as FormGroup;
   const formBody = formContent.get('body') as FormGroup;
 
   const newVariable = formBody.get('newVariable')?.value;
   const newPlaceholder = formBody.get('newPlaceholder')?.value;
-  const variablesArray = formBody.get('examples') as FormArray; // Change "referencesArray" to "variablesArray"
+  const variablesArray = formBody.get('examples') as FormArray; 
 
-  const variableId = this.nextVariableId++; // Change "referenceId" to "variableId"
+  const variableId = this.nextVariableId++; 
 
   const variableGroup = this.fb.group({
     id: variableId,
@@ -152,7 +132,6 @@ addVariable() {
   formBody.get('newPlaceholder')?.reset();
 }
 
-// Change "removeReference" to "removeVariable"
 removeVariable(index: number) {
   const formContent = this.templateForm.get('content') as FormGroup;
   const formBody = formContent.get('body') as FormGroup;
@@ -178,7 +157,6 @@ removeVariable(index: number) {
 
   variablesArray.removeAt(index);
 }
-  // Method to update references when body content changes
   updateReferencesFromBody(updatedBody: string) {
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
@@ -215,14 +193,14 @@ removeVariable(index: number) {
   save() {
     this.isSaving = true
     console.log('saving',this.templateForm.value);
-    // this.messageTemplateStore.createMessageTemplate(this.templateForm.value).subscribe((response) => {
-    //   this.isSaving  = false;
-    //   console.log('Template sent to firebase', response);
-    // })
-    this.template = this.templateForm.value
-    this.messageTemplatesService.createTemplate(this.template).subscribe((response) => {
-      console.log('Template created:', response);
-    });
+    this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response) => {
+      this.isSaving  = false;
+      console.log('Template sent to firebase', response);
+    })
+    // this.template = this.templateForm.value
+    // this.messageTemplatesService.createTemplate(this.template).subscribe((response) => {
+    //   console.log('Template created:', response);
+    // });
     this.isSaving = false;
 
   }
