@@ -7,9 +7,20 @@
             </div>
 
             <div fxLayout="row" class="icon-block">
-                <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
-                <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
-                <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editBlock()">
+                        <i class="far fa-edit"></i> Edit
+                    </button>
+                    <button mat-menu-item (click)="copyblock(block)">
+                        <i class="far fa-clone"></i> Copy
+                    </button>
+                    <button mat-menu-item (click)="deleteBlock()">
+                        <i class="far fa-trash-alt"></i> Delete
+                    </button>
+                </mat-menu>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button> 
             </div>
         </div>
 
