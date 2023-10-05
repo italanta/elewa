@@ -1,6 +1,7 @@
 import { IObject } from "@iote/bricks";
 
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
+import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
 export interface SendMessageTemplate extends IObject
 {
@@ -8,7 +9,7 @@ export interface SendMessageTemplate extends IObject
 
   plaform: PlatformType;
 
-  message: any,
+  message: TemplateMessage,
 
   /**
    * This can be an array of phone numbers if it's on whatsapp or an array of
