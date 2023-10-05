@@ -14,26 +14,33 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 {
   async execute(cmd: ScheduleMessagesReq, context: FunctionContext, tools: HandlerTools) 
   {
+    tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Schedule Request: ${JSON.stringify(cmd)}`);
 
-    const channelService = new ChannelDataService(tools);
+    try {
+      const channelService = new ChannelDataService(tools);
 
-    const communicationChannel = await channelService.getChannelInfo(cmd.channelId);
+      const communicationChannel = await channelService.getChannelInfo(cmd.channelId);
 
-    const endUsers = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
+      const endUsers = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
 
-    const scheduledMessage: ScheduledMessage = {
-      ...cmd,
-      n: communicationChannel.n,
-      plaform: communicationChannel.type,
-      endUsers:endUsers,
-      dispatchTime: cmd.dispatchTime
-    };
+      const scheduledMessage: ScheduledMessage = {
+        ...cmd,
+        n: communicationChannel.n,
+        plaform: communicationChannel.type,
+        endUsers: endUsers,
+        dispatchTime: new Date(cmd.dispatchTime)
+      };
 
-    // Create job
-    await ScheduleMessage(scheduledMessage, tools);
-
-    // Save scheduled message
-    await this._saveScheduledMessage(scheduledMessage, communicationChannel.orgId, tools);
+      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Scheduled Message: ${JSON.stringify(scheduledMessage)}`);
+      
+      // Create job
+      await ScheduleMessage(scheduledMessage, tools);
+      
+      // Save scheduled message
+      await this._saveScheduledMessage(scheduledMessage, communicationChannel.orgId, tools);
+    } catch (error) {
+      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Error Scheduling Message: ${error}`);
+    }
   }
 
   private _saveScheduledMessage(schedule: ScheduledMessage, orgId: string, tools: HandlerTools)
@@ -53,43 +60,43 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     // If there are no filters, send the message to all end users under that
     //  organisation
-    if(!usersFilters) {
-      return enrolledEndUsers.map((user)=> getReceipientID(user, platform));
+    if (!usersFilters) {
+      return enrolledEndUsers.map((user) => getReceipientID(user, platform));
     }
 
     // Get the receive ID of only the end users specified
-    if(usersFilters.endUsersId) {
+    if (usersFilters.endUsersId) {
       const filteredEndUsers = enrolledEndUsers
-                                  .filter((user)=> usersFilters.endUsersId.includes(user.id))
-                                      .map((user)=> getReceipientID(user, platform)) || [];
+        .filter((user) => usersFilters.endUsersId.includes(user.id))
+        .map((user) => getReceipientID(user, platform)) || [];
 
       endUsers = [...endUsers, ...filteredEndUsers];
     }
 
-    if(usersFilters.class) {
+    if (usersFilters.class) {
       const filteredByClass = enrolledEndUsers
-                  // TODO: Filter the array of classes
-                  .filter((user)=> usersFilters.class.includes(user.classId))
-                      .map((user)=> getReceipientID(user, platform)) || [];
+        // TODO: Filter the array of classes
+        .filter((user) => usersFilters.class.includes(user.classId))
+        .map((user) => getReceipientID(user, platform)) || [];
 
       endUsers = [...endUsers, ...filteredByClass];
-    } 
+    }
 
 
-    if(usersFilters.module) {
+    if (usersFilters.module) {
       const filteredByModule = enrolledEndUsers
-                  // TODO: Filter the array of classes
-                  .filter((user)=> user.modules[0] == usersFilters.module)
-                      .map((user)=> getReceipientID(user, platform)) || [];
+        // TODO: Filter the array of classes
+        .filter((user) => user.modules[0] == usersFilters.module)
+        .map((user) => getReceipientID(user, platform)) || [];
 
       endUsers = [...endUsers, ...filteredByModule];
     }
-    
-    if(usersFilters.story) {
+
+    if (usersFilters.story) {
       const filteredByStory = enrolledEndUsers
-                  // TODO: Filter the array of classes
-                  .filter((user)=> user.lessons[0] == usersFilters.story)
-                      .map((user)=> getReceipientID(user, platform)) || [];
+        // TODO: Filter the array of classes
+        .filter((user) => user.lessons[0] == usersFilters.story)
+        .map((user) => getReceipientID(user, platform)) || [];
 
       endUsers = [...endUsers, ...filteredByStory];
     }
