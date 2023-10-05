@@ -31,9 +31,8 @@ export class RequestPaymentHandler extends FunctionHandler<Invoice, any>
 
     return 
   }
-
   //Find a way of getting subscriptions from an org 
-  calculateInvoiceAmount(subscription: Subscription){
-    return subscription.amount.value
-  }
+  // calculateInvoiceAmount(subscription: Subscription){
+  //   return subscription.amount.value
+  // }
 }
