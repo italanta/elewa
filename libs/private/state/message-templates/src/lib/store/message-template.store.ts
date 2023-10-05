@@ -49,45 +49,4 @@ export class MessageTemplateStore extends DataStore<MessageTemplate> {
       this.set(properties, 'UPDATE - FROM DB');
     });
   }
-
-  createMessageTemplate(template: MessageTemplate) {
-    return this._org$$
-      .get()
-      .pipe(
-        tap((res)=>console.log("Hlloe worlls", res)),
-        map((org) => ({ ...template, orgId: org.id })),
-        tap((template) => {
-          this._activeRepo = this._repoFac.getRepo<MessageTemplate>(
-            `orgs/${template.orgId}/message-templates`
-          );
-        }),
-        switchMap((template) => this._activeRepo.create(template))
-      );
-  }
-
-  createScheduledMessage(message: ScheduledMessage) {
-    return this._org$$
-      .get()
-      .pipe(
-        map((org) => ({ ...message, orgId: org.id })),
-        tap((template) => {
-          this._activeRepo = this._repoFac.getRepo<MessageTemplate>(
-            `orgs/${template.orgId}/scheduled-messages`
-          );
-        }),
-        switchMap((template) => this._activeRepo.create(template))
-      );
-  }
-
-  updateMessageTemplate(template: MessageTemplate) {
-    return this._activeRepo.update(template); 
-  }
-
-  deleteMessageTemplate(template: MessageTemplate) {
-    return this._activeRepo.delete(template); 
-  }
-
-  getMessageTemplateById(templateId: string) {
-    return this._activeRepo.getDocumentById(templateId);
-  }
 }
