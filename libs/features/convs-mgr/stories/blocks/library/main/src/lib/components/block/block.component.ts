@@ -66,9 +66,6 @@ export class BlockComponent implements OnInit {
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
-
-  //Toggle variable of the more icon
-  displayIconBlock: boolean = false;
   
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
@@ -106,6 +103,7 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  svgIcon= ''
   videoMessageForm: FormGroup
   
 
@@ -130,6 +128,7 @@ export class BlockComponent implements OnInit {
 
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
+    this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
  
     if (this.blocksGroup) {
       switch (this.type) {
@@ -323,10 +322,6 @@ export class BlockComponent implements OnInit {
       return !isNaN(val) ? val : false;
     }
     return false;
-  }
-  
-  viewIconBlock(){
-    this.displayIconBlock = !this.displayIconBlock;
   }
   
   editBlock() { 

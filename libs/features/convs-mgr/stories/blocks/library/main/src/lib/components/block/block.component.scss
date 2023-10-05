@@ -7,6 +7,9 @@ mat-card {
 	position: relative;
 	cursor: move;
 }
+.svgIcon{
+	width: 1.5rem;
+}
 
 .avatar-img {
 	border-radius: 50%;
@@ -17,6 +20,7 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
@@ -24,18 +28,16 @@ mat-card {
 }
 
 .block-title {
-	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-weight: 450;
+	font-size: 1rem;
+	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
 	display: flex;
 	align-items: center;
-	gap: 15px;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
 
 	&:hover {
 		cursor: move;
@@ -48,24 +50,9 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icons{
-	position: relative;
-	cursor: pointer;
-	
-}
-
 .icon-block{
-	min-width: 6rem;
-	position: absolute;
-	top: -0.9rem;
-	right: 1.5rem;
-	z-index: 1;
 	display: flex;
-	justify-content: space-evenly;
-	padding: 0.5em;
-	border: 2px solid black;
-	border-radius: 0.5rem;
-	background-color: white;
+	align-items: center;
 	gap: 10px;
 
 	.icons {
