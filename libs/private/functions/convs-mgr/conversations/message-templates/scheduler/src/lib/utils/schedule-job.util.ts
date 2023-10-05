@@ -23,7 +23,7 @@ export async function ScheduleMessage(msgToSend: ScheduledMessage, tools: Handle
   const LOCATION_ID = 'europe-west1';
   const cloudTask = new CloudTasksClient();
 
-  const endpoint = `https://${LOCATION_ID}-${PROJECT_ID}.cloudfunctions.net/sendScheduledMessages`
+  const endpoint = `https://${LOCATION_ID}-${PROJECT_ID}.cloudfunctions.net/sendMultipleMessages`
 
   const parent = cloudTask.queuePath(PROJECT_ID, LOCATION_ID, 'scheduled-messages');
 
@@ -47,7 +47,7 @@ export async function ScheduleMessage(msgToSend: ScheduledMessage, tools: Handle
 
     const payload = JSON.stringify(msgToSend);
 
-    const taskId =  `${msgToSend.message.name}_${msgToSend.dispatchTime.getTime()}`;
+    const taskId =  `${msgToSend.message.name}_${msgToSend.dispatchTime.getTime()}_${Date.now()}`;
 
     const task: GcpTask = {
       name: path + taskId,
