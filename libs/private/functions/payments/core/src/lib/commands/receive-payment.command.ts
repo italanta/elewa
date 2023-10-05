@@ -5,7 +5,7 @@ import { SequenceType } from "../../../../../../model/payments-models/src/lib/se
  * Create a new command for handling the payments webhook
  * @see https://docs.mollie.com/reference/v2/payments-api/create-payment
 */
-export interface RcvPaymentCommand extends Payment
+export interface RcvPaymentCommand 
 { 
     amount: Amount; 
     description: string;
