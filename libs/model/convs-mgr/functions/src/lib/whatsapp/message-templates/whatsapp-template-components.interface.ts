@@ -10,7 +10,7 @@ export interface WhatsappNewTemplateComponent
 export interface WhatsappBodyTemplateComponent extends WhatsappNewTemplateComponent 
 {
   example?: {
-    body_text: string[];
+    body_text: any[];
   };
 }
 
