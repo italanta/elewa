@@ -1,11 +1,27 @@
 <div class="modal-wrapper">
   <div class="title-section">
-    <p class="title">Actions</p>
-    <span class="selected-users">{{ selectedClass }} students selected</span>
+    <p class="title">{{ 'CLASSESS.MODALS.CREATE-CLASS' | transloco }}</p>
   </div>
 
-  <div class="action-btns">
-    <button class="btn" (click)="onCancel()">Cancel</button>
-    <button class="btn" (click)="submitAction()">Continue</button>
-  </div>
+  <form class="form" [formGroup]="createClassForm">
+    <div class="form-item">
+      <label for="className">{{'CLASSESS.MODALS.CLASSNAME' | transloco }}</label>
+      <input class="input" id="className" type="text" name="className" formControlName="className" id="">
+    </div>
+
+    <div class="form-item">
+      <label for="description">{{'CLASSESS.MODALS.DESCRIPTION' | transloco }}</label>
+      <input class="input" id="description" type="text" name="description" formControlName="description" id="">
+    </div>
+
+    <div class="action-btns">
+      <button class="btn" (click)="onCancel()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
+      <button class="btn" [disabled]="!createClassForm.valid" (click)="submitAction()">
+        <span *ngIf="isCreatingClass; else notCreating">
+          <i class="spin_tooltip fas fa-circle-notch fa-spin"></i>
+        </span>
+        <ng-template #notCreating>{{'CLASSESS.MODALS.ACTION-BUTTONS.CONTINUE' | transloco }}</ng-template>
+      </button>
+    </div>
+  </form>
 </div>
