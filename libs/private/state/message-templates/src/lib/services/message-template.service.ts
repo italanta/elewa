@@ -13,31 +13,9 @@ import { ActiveMessageTemplateStore } from '../store/active-message-template.sto
 export class MessageTemplatesService {
   constructor(
     private _aff:  AngularFireFunctions, 
-    private _messageTemplateStore: MessageTemplateStore,
-    private _activeTemplate: ActiveMessageTemplateStore
+    private _messageTemplateStore$$: MessageTemplateStore,
+    private _activeTemplate$$: ActiveMessageTemplateStore
   ) {}
-
-  
-
-  getActiveTemplate$() {
-    return this._activeTemplate.get();
-  }
-
-  getMessageTemplates$() {
-    return this._messageTemplateStore.get();
-  }
-  // Adjust data types once I know what the functions return
-  createTemplate(payload: MessageTemplate): Observable<any> {
-    return this.templateCallFunction('create', { payload });
-  }
-
-  deleteTemplate(payload: MessageTemplate): Observable<any> {
-    return this.templateCallFunction('delete', { payload });
-  }
-
-  updateTemplate(payload: MessageTemplate): Observable<any> {
-    return this.templateCallFunction('update', { payload });
-  }
 
   private templateCallFunction(action: string, data: any): Observable<any> {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
@@ -47,11 +25,42 @@ export class MessageTemplatesService {
   private statusCallFunction(data: MessageStatusReq): Observable<any> {
     const templateRef = this._aff.httpsCallable('channelWhatsappGetTemplates');
     console.log("sending", templateRef);
-    const dataObject = {
-      data
-    }
     return templateRef(data);
   }
+
+  addMessageTemplate(template: MessageTemplate){
+    return this._messageTemplateStore$$.add(template);
+  }
+
+  removeTemplate(template: MessageTemplate){
+    return this._messageTemplateStore$$.remove(template);
+  }
+  updateTemplate(template: MessageTemplate){
+    return this._messageTemplateStore$$.update(template);
+  }
+  
+
+  getActiveTemplate$() {
+    return this._activeTemplate$$.get();
+  }
+
+  getMessageTemplates$() {
+    return this._messageTemplateStore$$.get();
+  }
+  // Adjust data types once I know what the functions return
+  createTemplateMeta(payload: MessageTemplate): Observable<any> {
+    return this.templateCallFunction('create', { payload });
+  }
+
+  deleteTemplateMeta(payload: MessageTemplate): Observable<any> {
+    return this.templateCallFunction('delete', { payload });
+  }
+
+  updateTemplateMeta(payload: MessageTemplate): Observable<any> {
+    return this.templateCallFunction('update', { payload });
+  }
+
+  
   getTemplateStatus() :Observable<MessageStatusRes[]>{
     const messageStatusReq: MessageStatusReq = {
       fields: ["name", "status", "category"],
