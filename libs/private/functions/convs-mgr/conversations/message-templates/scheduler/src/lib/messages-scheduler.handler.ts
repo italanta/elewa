@@ -31,15 +31,17 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
         dispatchTime: new Date(cmd.dispatchTime)
       };
 
-      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Scheduled Message: ${JSON.stringify(scheduledMessage)}`);
       
       // Create job
-      await ScheduleMessage(scheduledMessage, tools);
+      const task = await ScheduleMessage(scheduledMessage, tools);
       
       // Save scheduled message
       await this._saveScheduledMessage(scheduledMessage, communicationChannel.orgId, tools);
+      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Scheduled Message: ${JSON.stringify(scheduledMessage)}`);
+      return { success: true, task } as any;
     } catch (error) {
       tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Error Scheduling Message: ${error}`);
+      return { success: false, error } as any;
     }
   }
 
