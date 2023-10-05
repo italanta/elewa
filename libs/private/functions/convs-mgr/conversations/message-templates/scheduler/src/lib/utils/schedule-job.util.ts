@@ -1,14 +1,14 @@
 // This file interacts with the GCP Cloud Scheduler to schedule, update or delete timed jobs.
 //  Ref. https://googleapis.dev/nodejs/scheduler/1.1.1/index.html
 //
-import { CloudSchedulerClient } from '@google-cloud/scheduler';
+import { CloudTasksClient } from '@google-cloud/tasks';
 import { Timestamp } from '@firebase/firestore-types';
 
 import { HandlerTools } from '@iote/cqrs';
 
 import { ScheduledMessage } from '@app/model/convs-mgr/functions';
 
-import { GcpJob, HttpMethodTypes } from '../model/gcp/gcp-job.interface';
+import { GcpTask } from '../model/gcp/gcp-job.interface';
 
 /**
  * Schedules the message to be sent on google cloud scheduler 
@@ -20,43 +20,41 @@ import { GcpJob, HttpMethodTypes } from '../model/gcp/gcp-job.interface';
 export async function ScheduleMessage(msgToSend: ScheduledMessage, tools: HandlerTools)
 {
   const PROJECT_ID = process.env.GCLOUD_PROJECT;
-  const LOCATION_ID = JSON.parse(process.env.FIREBASE_CONFIG).locationId
+  const LOCATION_ID = 'europe-west1';
+  const cloudTask = new CloudTasksClient();
 
   const endpoint = `https://${LOCATION_ID}-${PROJECT_ID}.cloudfunctions.net/sendScheduledMessages`
 
-  const parent = getParent(PROJECT_ID, LOCATION_ID);
-  const job = createJob(msgToSend, endpoint);
+  const parent = cloudTask.queuePath(PROJECT_ID, LOCATION_ID, 'scheduled-messages');
 
-  const response = await callCreateJob(parent, job);
+  const taskPath = `projects/${PROJECT_ID}/locations/${LOCATION_ID}/queues/scheduled-messages/tasks/`
+
+  const task = generateTask(msgToSend, endpoint, taskPath);
+
+  const request = { parent, task };
+
+  const [response] = await cloudTask.createTask(request);
 
   tools.Logger.log(()=> `[ScheduleMessage]- ${JSON.stringify(response)}`);
 
   return response;
   }
 
-  function callCreateJob(parent: string, job: GcpJob)
-  {
-    const schedulerClient = new CloudSchedulerClient();
-    // Construct request
-    const request = {
-      parent,
-      job
-    };
-  
-    // Run request
-    return schedulerClient.createJob(request as any);
-  }
-
-  function createJob(msgToSend: ScheduledMessage, endpoint: string): GcpJob {
+  /**
+   * @see https://cloud.google.com/scheduler/docs/reference/rpc/google.cloud.scheduler.v1#google.cloud.scheduler.v1.Job
+   */
+  function generateTask(msgToSend: ScheduledMessage, endpoint: string, path: string): GcpTask {
 
     const payload = JSON.stringify(msgToSend);
 
-    const job: GcpJob = {
-      name: `${msgToSend.message.name}_${Date.now()}_${msgToSend.dispatchTime.getTime()}`,
-      httpTarget: {
-        uri: endpoint,
-        body: payload,
-        httpMethod: HttpMethodTypes.POST,
+    const taskId =  `${msgToSend.message.name}_${msgToSend.dispatchTime.getTime()}`;
+
+    const task: GcpTask = {
+      name: path + taskId,
+      httpRequest: {
+        url: endpoint,
+        body: Buffer.from(payload).toString("base64"),
+        httpMethod: 1,
         headers: { 'Content-Type': 'application/json' },
       },
 
@@ -67,7 +65,7 @@ export async function ScheduleMessage(msgToSend: ScheduledMessage, tools: Handle
       } as Timestamp
     }
 
-    return job;
+    return task;
   }
 
-  const getParent = (projectId: string, locationId: string) => `projects/${projectId}/locations/${locationId}`;
+  // const getParent = (projectId: string, locationId: string) => `projects/${projectId}/locations/${locationId}`;

@@ -30,6 +30,7 @@
     "@angular/service-worker": "^15.0.0",
     "@firebase/firestore-types": "^2.5.0",
     "@google-cloud/scheduler": "^4.0.1",
+    "@google-cloud/tasks": "^4.0.1",
     "@jsplumb/browser-ui": "^5.9.4",
     "@jsplumb/connector-bezier": "^5.9.4",
     "@jsplumb/connector-flowchart": "^5.9.4",
@@ -118,6 +119,6 @@
     "mime-types",
     "jsonwebtoken",
     "dotenv",
-    "@google-cloud/scheduler"
+    "@google-cloud/tasks"
   ]
 }
