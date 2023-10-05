@@ -1,23 +1,42 @@
-input {
+input{
     border: none;
-    padding: 5px 10px;
-    width: 70px;
+    padding-right: 50px;
+    padding-left: -100px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 120px;
+    font-size: 20px;
+    color: gray;
+}
+
+form{
+    padding: 15px;
 }
 
 .input-score-min {
     text-align: center;
 }
 
+#assessment-name{
+    border-radius: 50px;
+}
+
 .input-score-max {
     text-align: end;
 }
 
+#scores{
+    border-bottom: 1px solid rgb(202, 202, 202);
+    color: gray;
+}
+
 .option {
-    border: solid 1px grey;
     display: flex;
     justify-content: space-between;
 }
 
 #dash {
     text-align: end;
+    margin-top: 10px;
+    color: gray;
 }
