@@ -2,7 +2,7 @@
 	max-width: 100%;
 	margin: 5px 0;
 	border: none;
-	border-radius: 5px;
+	border-radius: 0.635rem;
 	resize: none;
 	padding: 10px;
 	background-color: #F3F3F3;
@@ -16,4 +16,12 @@
 
 input[type='checkbox']:checked:after {
     color: white !important;
+}
+
+.checkbox{
+	color: #7c7c7c;
+}
+
+.label-styling{
+	color: #707070;
 }
