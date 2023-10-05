@@ -22,14 +22,16 @@ export class ManageTemplateService
 
   public async create(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse> 
   {
+    this._tools.Logger.log(()=> `[ManageTemplateService].create - Creating template: ${JSON.stringify(messageTemplate)}`);
+    
     // Only for whatsapp
     const whatsappCommChannel = this._communicationChannel as WhatsAppCommunicationChannel;
 
-    const createURL = this.baseURL + `${this._communicationChannel.id}/message_templates`;
+    const createURL = this.baseURL + `${whatsappCommChannel.businessAccountId}/message_templates`;
 
     const templatePayload = this._createTemplatePayload(messageTemplate);
 
-    const response = await this.httpService.post(createURL, templatePayload, this._tools, whatsappCommChannel.accessToken);
+    const response = await this.httpService.httpPost(createURL, templatePayload, whatsappCommChannel.accessToken, this._tools)
 
     if (response) {
 
@@ -50,6 +52,8 @@ export class ManageTemplateService
 
   public async update(messageTemplate: MessageTemplate): Promise<ManageTemplateResponse>  
   {
+    const whatsappCommChannel = this._communicationChannel as WhatsAppCommunicationChannel;
+
     const updateURL = this.baseURL + `${messageTemplate.templateId}`;
 
     const components = mapComponents(messageTemplate, this._tools);
@@ -59,7 +63,7 @@ export class ManageTemplateService
       components
     };
 
-    const response = await this.httpService.post(updateURL, updatePayload, this._tools);
+    const response = await this.httpService.httpPost(updateURL, updatePayload, whatsappCommChannel.accessToken, this._tools);
 
     if (response) {
       return { success: true };

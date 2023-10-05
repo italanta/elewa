@@ -12,7 +12,8 @@ export class WhatsappManageTemplatesAPI extends FunctionHandler<ManageTemplateRe
 {
   public async execute(req: ManageTemplateRequest, context: any, tools: HandlerTools) 
   {
-    // Get channel
+    try {
+          // Get channel
     const channelService = new ChannelDataService(tools);
 
     const communicationChannel = await channelService.getChannelInfo(req.channelId);
@@ -28,6 +29,10 @@ export class WhatsappManageTemplatesAPI extends FunctionHandler<ManageTemplateRe
         return manageTemplateService.delete(req.template.name);
       default:
         return manageTemplateService.update(req.template);
+    }
+    } catch (error) { 
+      tools.Logger.log(()=> `[WhatsappManageTemplatesAPI].execute - Encoutered error: ${error}`)
+      return { success: false, message: error } as ManageTemplateResponse;
     }
   }
 }
