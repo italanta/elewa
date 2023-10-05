@@ -3,13 +3,13 @@
     <div fxLayout="column" class="search">
       <div class="search">
         <i class="fas fa-search search_tooltip"></i>
-        <input class="search_input" type="text" name="search table" (keyup)="applyFilter($event)" placeholder="Search by name, email or role" #input>
+        <input class="search_input" type="text" name="{{ 'MEMBERS.SEARCH' | transloco }}" (keyup)="applyFilter($event)" placeholder="Search by name, email or role" #input>
       </div>
     </div>
 
     <div fxLayout="column">
       <div fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px" class="buttons" fxFlex="40%">
-    
+     <!-- <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.LABELS.EMAIL' | transloco }}</mat-label> -->
 
         <div fxLayout="column">
           <div class="select" >
@@ -20,7 +20,7 @@
         </div>
       
         <div fxLayout="column">
-          <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()"> Invite Member</button>
+          <button  *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="inviteMember()">{{ 'MEMBERS.INVITE-BUTTON' | transloco }}</button>
         </div>
   
       </div>
@@ -43,7 +43,7 @@
       </ng-container>
         <!-- Full Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.NAME' | transloco }} </th>
           <td mat-cell *matCellDef="let user" class="names">
             <div *ngIf="user.roles; else dash">{{user.displayName}} </div>
             <ng-template #dash> - </ng-template>
@@ -52,7 +52,7 @@
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.EMAIL' | transloco }} </th>
           <td mat-cell *matCellDef="let user" >
             <div *ngIf="user.email; else dash">{{(user.email)}}</div>
             <ng-template #dash> - </ng-template>
@@ -61,7 +61,7 @@
 
         <!-- activity Column -->
         <ng-container matColumnDef="activity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Updated </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.LAST-UPDATED' | transloco }} </th>
           <td mat-cell *matCellDef="let user">
             <div *ngIf="user.updatedOn; else dash">{{(getDate(user.updatedOn))}}</div>
             <ng-template #dash> - </ng-template>
@@ -70,7 +70,7 @@
 
         <!-- Roles column -->
         <ng-container matColumnDef="roles" class="roles-section">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.ROLE' | transloco }} </th>
           <td mat-cell *matCellDef="let user" class="user-td">
             <div class="select">
               <select style="border: none; background-color: #F6F6F6;">
@@ -91,9 +91,9 @@
         
             <mat-menu #menu="matMenu">
             
-              <button  class="mat-menu-item" mat-menu-item (click)="updateUserDetails(user)"> Edit </button>
-              <button  class="mat-menu-item" mat-menu-item> De-activate</button>
-              <button class="mat-menu-item" mat-menu-item (click)="removerUser(user)"> Remove </button>
+              <button  class="mat-menu-item" mat-menu-item (click)="updateUserDetails(user)"> {{ 'MEMBERS.TABLE.EDIT' | transloco }} </button>
+              <button  class="mat-menu-item" mat-menu-item> {{ 'MEMBERS.TABLE.DEACTIVATE' | transloco }}</button>
+              <button class="mat-menu-item" mat-menu-item (click)="removerUser(user)"> {{ 'MEMBERS.TABLE.REMOVE' | transloco }} </button>
             </mat-menu>
           </td>
         </ng-container>
@@ -107,6 +107,6 @@
 
 <div>
   <ng-template #loadingUSers>
-    <mat-spinner diameter="30">Loading Users</mat-spinner>
+    <mat-spinner diameter="30">{{ 'MEMBERS.TABLE.LOADING-USERS' | transloco }}</mat-spinner>
   </ng-template>
 </div>

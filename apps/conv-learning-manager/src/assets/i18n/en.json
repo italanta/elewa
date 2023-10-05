@@ -543,5 +543,19 @@
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
+  },
+  "MEMBERS":{
+      "SEARCH":"search table",
+      "INVITE-BUTTON":"Invite Member",
+      "TABLE":{
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "LAST-UPDATED":"Last Updated",
+        "ROLE":"Role",
+        "EDIT":"Edit",
+        "REMOVE":"Remove",
+        "DEACTIVATE":"De-activate",
+        "LOADING-USERS":"Loading Users"
+      }
   }
 }

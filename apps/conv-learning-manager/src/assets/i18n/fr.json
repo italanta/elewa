@@ -401,5 +401,19 @@
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
       }
     }
-  }
+  },
+  "MEMBERS":{
+    "SEARCH":"table de recherche",
+    "INVITE-BUTTON":"Inviter un membre",
+    "TABLE":{
+      "NAME":"Nom",
+      "EMAIL":"Courriel",
+      "LAST-UPDATED":"Dernière mise à jour",
+      "ROLE":"Rôle",
+      "EDIT":"Éditer",
+      "REMOVE":"Supprimer",
+      "DEACTIVATE":"Désactiver",
+      "LOADING-USERS":"Chargement des utilisateurs"
+    }
+}
 }
