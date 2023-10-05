@@ -264,6 +264,7 @@
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
+      "@app/payments-models": ["libs/payments-models/src/index.ts"],
       "@app/private/elements/convs-mgr/access-control": [
         "libs/private/elements/convs-mgr/access-control/src/index.ts"
       ],
@@ -305,6 +306,9 @@
       ],
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
+      ],
+      "@app/private/functions/payments/core": [
+        "libs/private/functions/payments/core/src/index.ts"
       ],
       "@app/private/model/access-control": [
         "libs/private/model/access-control/src/index.ts"

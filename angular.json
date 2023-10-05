@@ -1021,6 +1021,32 @@
       },
       "tags": []
     },
+    "payments-models": {
+      "projectType": "library",
+      "root": "libs/payments-models",
+      "sourceRoot": "libs/payments-models/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/payments-models"],
+          "options": {
+            "jestConfig": "libs/payments-models/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/payments-models/**/*.ts",
+              "libs/payments-models/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-elements-convs-mgr-access-control": {
       "projectType": "library",
       "root": "libs/private/elements/convs-mgr/access-control",
@@ -1386,6 +1412,29 @@
           "outputs": ["coverage/libs/private/functions/organisation"],
           "options": {
             "jestConfig": "libs/private/functions/organisation/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-payments-core": {
+      "root": "libs/private/functions/payments/core",
+      "sourceRoot": "libs/private/functions/payments/core/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/functions/payments/core/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/payments/core"],
+          "options": {
+            "jestConfig": "libs/private/functions/payments/core/jest.config.ts",
             "passWithNoTests": true
           }
         }
