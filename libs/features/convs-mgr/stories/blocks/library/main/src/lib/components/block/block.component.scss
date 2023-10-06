@@ -1,10 +1,15 @@
 mat-card {
 	min-width: 200px;
+	border-radius: 0.01rem;
 }
 
 .block {
 	position: relative;
 	cursor: move;
+}
+
+.svgIcon {
+	width: 1.5rem;
 }
 
 .avatar-img {
@@ -16,25 +21,24 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
-	color: var(--convs-mgr-color-primary-purple)
+	color: var(--convs-mgr-color-primary-black);
 }
 
 .block-title {
-	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-weight: 450;
+	font-size: 1rem;
+	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
 	display: flex;
 	align-items: center;
-	gap: 15px;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
 
 	&:hover {
 		cursor: move;
@@ -54,16 +58,17 @@ mat-card {
 
 	.icons {
 		cursor: pointer;
-	
+
 		* {
 			color: var(--convs-mgr-color-medium-shade);
-			
+
 			&:hover {
 				color: var(--convs-mgr-color-primary-purple);
 			}
 		}
 	}
 }
+
 .hide-block {
 	display: none;
 }
