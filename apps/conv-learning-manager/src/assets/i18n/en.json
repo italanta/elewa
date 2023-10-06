@@ -543,5 +543,65 @@
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
+  },
+  "PERMISSIONS" :{
+    "BUTTON":{
+      "EDIT-ROLES":"Edit roles",
+      "SAVE-ROLES":"Save roles"
+    },
+    "ANALYTICS":{
+      "SETTINGS":"Analytics Settings",
+      "VIEW-ANALYTICS":"Can View Analytics",
+      "MANAGE-ANALYTICS":"Can Manage Analytics"
+    },
+    "ASSESMENTS" :{
+      "SETTINGS":"Asessments-settings",
+      "VIEW":"Can View Assessments",
+      "CREATE":"Can Create Assessments",
+      "EDIT":"Can Edit Assessments"
+  
+    },
+    "BOT-SETTINGS":{
+      "SETTINGS":"Bots Settings",
+      "VIEW":"Can View Bots",
+      "CREATE":"Can Create Bots",
+      "EDIT" :"Can Edit Bots",
+      "DELETE":"Can Delete Bots"
+  
+    },
+    "CHAT-SETTINGS":{
+      "SETTINGS":"Chats Settings",
+      "VIEW":"Can View Chats",
+      "MANAGE":"Can Manage Chats"
+    },
+    "GENERAL-SETTINGS":{
+      "SETTINGS":"General Settings",
+      "ADD":"Can Add New Member",
+      "DELETE":"Can Delete Member"
+  
+    },
+    "LEARNER-SETTINGS":{
+      "SETTINGS":"Learners Settings",
+      "VIEW":"Can View Learners",
+      "CREATE":"Can Create Learners",
+      "EDIT":"Can Edit Learners",
+      "DELETE":"Can Delete Learners"
+    },
+    "MODALS":{
+      "ADD":{
+        "NEWROLE":"Create New Role",
+        "ENTER-ROLE-NAME":"Enter role name",
+        "CANCEL":"Cancel",
+        "CREATE-ROLE":"Create Role"
+      },
+      "DELETE":{
+        "TITLE":"Delete Role",
+        "SELECT":"Select a role to delete",
+        "CANCEL":"Cancel",
+        "DELETE-ROLE":"Delete Role"
+      }   
+    }
+
   }
+  
 }

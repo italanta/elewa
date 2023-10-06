@@ -2,7 +2,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <p class="main-title">Bots Settings</p>
+        <p class="main-title">{{ 'PERMISSIONS.BOT-SETTINGS.SETTINGS' | transloco }}</p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div formGroupName="CanViewBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">Can View Bots</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.BOT-SETTINGS.VIEW' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
@@ -33,7 +33,7 @@
         </div>
 
         <div formGroupName="CanCreateBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Create Bots</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.BOT-SETTINGS.CREATE' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
@@ -46,7 +46,7 @@
         </div>
 
         <div formGroupName="CanEditBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Edit Bots </p>
+          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.BOT-SETTINGS.EDIT' | transloco }} </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
@@ -60,7 +60,7 @@
 
 
         <div formGroupName="CanDeleteBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Delete Bots </p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.BOT-SETTINGS.DELETE' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 

@@ -1,15 +1,15 @@
-<h1 mat-dialog-title>Create New Role</h1>
+<h1 mat-dialog-title>{{ 'PERMISSIONS.MODALS.ADD.NEWROLE' | transloco }}</h1>
 <div mat-dialog-content>
   <mat-form-field appearance="fill">
-    <mat-label>Enter role name </mat-label>
+    <mat-label>{{ 'PERMISSIONS.MODALS.ADD.ENTER-ROLE-NAME' | transloco }} </mat-label>
     <input matInput [formControl]="role">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-dialog-close="true" mat-flat-button>Cancel</button>
+  <button mat-dialog-close="true" mat-flat-button>{{ 'PERMISSIONS.MODALS.ADD.CANCEL' | transloco }}</button>
   <button [disabled]="creatingNewRole" mat-raised-button color="primary" class="submit-button" (click)="saveNewRole()"
     cdkFocusInitial>
-    <span *ngIf="!creatingNewRole; else loading">Create Role</span>
+    <span *ngIf="!creatingNewRole; else loading">{{ 'PERMISSIONS.MODALS.ADD.CREATE-ROLE' | transloco }}</span>
     <ng-template #loading>
       <mat-spinner diameter="25"></mat-spinner>
     </ng-template>

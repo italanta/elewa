@@ -2,7 +2,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header class="custom-header">
       <mat-panel-title>
-        <p class="main-title">Analytics Settings</p>
+        <p class="main-title">{{ 'PERMISSIONS.ANALYTICS.SETTINGS' | transloco }}</p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div formGroupName="CanViewAnalytics" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">Can View Analytics</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.ANALYTICS.VIEW-ANALYTICS' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="analyticsSettingsFormGroup" 
@@ -33,7 +33,7 @@
         </div>
 
         <div formGroupName="CanManageAnalytics" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Manage Analytics</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.ANALYTICS.MANAGE-ANALYTICS' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="analyticsSettingsFormGroup" 

@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Delete Role</h1>
+<h1 mat-dialog-title>{{ 'PERMISSIONS.MODALS.DELETE.TITLE' | transloco }}</h1>
 
 <div *ngIf="org$ | async as org">
   <div mat-dialog-content>
     <div >
       <mat-form-field appearance="fill">
-        <mat-label>Selct a role to delete</mat-label>
+        <mat-label>{{ 'PERMISSIONS.MODALS.DELETE.SELECT' | transloco }}</mat-label>
         <mat-select [formControl]="role" >
           <mat-option *ngFor="let role of org.roles" [value]="role">{{role}}</mat-option>
         </mat-select>
@@ -15,7 +15,7 @@
   <div mat-dialog-actions>
     <button mat-dialog-close="true" mat-flat-button>Cancel</button>
     <button mat-raised-button color="primary" class="submit-button" (click)="deleteRole(org)" cdkFocusInitial>
-        <span *ngIf="!deletingRole; else loading">Delete Role</span>
+        <span *ngIf="!deletingRole; else loading">{{ 'PERMISSIONS.MODALS.DELETE.DELETE-ROLE' | transloco }}</span>
         <ng-template #loading>
           <mat-spinner diameter="25"></mat-spinner>
         </ng-template>

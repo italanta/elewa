@@ -20,8 +20,8 @@
       </ng-container> -->
       
       <button (click)="updateRolesPermissions()" mat-raised-button class="btn white-btn">
-        <span *ngIf="!isEditMode; else saveRoles"> Edit Roles</span>
-        <ng-template #saveRoles> <span> Save Roles </span></ng-template>
+        <span *ngIf="!isEditMode; else saveRoles"> {{ 'PERMISSIONS.BUTTON.EDIT-ROLES' | transloco }}</span>
+        <ng-template #saveRoles> <span> {{ 'PERMISSIONS.BUTTON.SAVE-ROLES' | transloco }} </span></ng-template>
       </button>
     </div>
   </div>

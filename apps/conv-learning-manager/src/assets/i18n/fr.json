@@ -401,5 +401,69 @@
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
       }
     }
+  },
+  "PERMISSIONS" :{
+    "BUTTON":{
+      "EDIT-ROLES":"Modifier les rôles",
+      "SAVE-ROLES":"Enregistrer les rôles"
+    },
+    "ANALYTICS":{
+      "SETTINGS":"Paramètres d'analyse",
+      "VIEW-ANALYTICS":"Peut afficher les analyses",
+      "MANAGE-ANALYTICS":"Peut gérer les analyses"
+    },
+    "ASSESMENTS" :{
+      "SETTINGS":"Paramètres des évaluations",
+      "VIEW":"Can View Assessments",
+      "CREATE":"Peut afficher les évaluations",
+      "EDIT":"Peut modifier les évaluations"
+  
+    },
+    "BOT-SETTINGS":{
+      "SETTINGS":"Paramètres des robots",
+      "VIEW":"Peut afficher les robots",
+      "CREATE":"Peut créer des robots",
+      "EDIT" :"Peut modifier les robots",
+      "DELETE":"Peut supprimer des robots"
+  
+    },
+    "CHAT-SETTINGS":{
+      "SETTINGS":"Paramètres de discussion",
+      "VIEW":"Peut afficher les discussions",
+      "MANAGE":"Peut gérer les discussions"
+    },
+    "GENERAL-SETTINGS":{
+      "SETTINGS":"réglages généraux",
+      "ADD":"Peut ajouter un nouveau membre",
+      "DELETE":"Peut supprimer un membre"
+  
+    },
+    "LEARNER-SETTINGS":{
+      "SETTINGS":"Paramètres des apprenants",
+      "VIEW":"Peut voir les apprenants",
+      "CREATE":"Peut créer des apprenants",
+      "EDIT":"Peut modifier les apprenants",
+      "DELETE":"Peut supprimer des apprenants"
+    },
+    "MODALS":{
+      "ADD":{
+        "NEWROLE":"Créer un nouveau rôle",
+        "ENTER-ROLE-NAME":"Entrez le nom du rôle",
+        "CANCEL":"Annuler",
+        "CREATE-ROLE":"Créer un rôle"
+      },
+      "DELETE":{
+        "TITLE":"Supprimer le rôle",
+        "SELECT":"Sélectionnez un rôle à supprimer",
+        "CANCEL":"Annuler",
+        "DELETE-ROLE":"Supprimer le rôle"
+      },
+      "SWITCH":{
+        "OFF":"DÉSACTIVÉ",
+        "ON":"SUR"
+      }
+     
+    }
+
   }
 }
