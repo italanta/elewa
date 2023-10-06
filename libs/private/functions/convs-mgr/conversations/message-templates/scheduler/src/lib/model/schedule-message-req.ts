@@ -1,10 +1,11 @@
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Message, TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 import { UsersFilters } from "@app/model/convs-mgr/functions";
 
 export interface ScheduleMessagesReq
 {
   /** The message to be sent */
-  message: Message;
+  message: TemplateMessage;
+  
   channelId: string;
   /** The time scheduled for the message to be sent */
   dispatchTime: Date;

@@ -1319,6 +1319,33 @@
       },
       "tags": []
     },
+    "private-functions-convs-mgr-conversations-message-templates-scheduler": {
+      "root": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler",
+      "sourceRoot": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/convs-mgr/conversations/message-templates/scheduler"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-micro-apps-base": {
       "root": "libs/private/functions/micro-apps/base",
       "sourceRoot": "libs/private/functions/micro-apps/base/src",
