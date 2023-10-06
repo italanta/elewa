@@ -68,8 +68,9 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     // Get the receive ID of only the end users specified
     if (usersFilters.endUsersId) {
-      const filteredEndUsers = usersFilters.endUsersId
-        .map((endUserId) => endUserId.split('_')[2]) || [];
+      const filteredEndUsers = enrolledEndUsers
+          .filter((user) => usersFilters.endUsersId.includes(user.id))
+          .map((user) => getReceipientID(user, platform)) || [];
 
       endUsers = [...endUsers, ...filteredEndUsers];
     }
