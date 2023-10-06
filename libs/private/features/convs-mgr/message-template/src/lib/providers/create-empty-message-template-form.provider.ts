@@ -6,11 +6,13 @@ export function createEmptyTemplateForm(fb: FormBuilder): FormGroup {
     category: ['', Validators.required],
     language: ['', Validators.required],
     content: fb.group({
-      header: [''],
+      header: fb.group({
+        type: "TEXT",
+        text: ['',  Validators.required],
+        examples: fb.array([]),
+      }),
       body: fb.group({
         text: ['', Validators.required],
-        newVariable: ['', Validators.required],
-        newPlaceholder: ['', Validators.required],
         examples: fb.array([]),
       }),
       footer: [''],
