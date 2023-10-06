@@ -1,11 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
+import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { Observable, switchMap, take, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-message-template-form',
@@ -18,7 +20,7 @@ export class MessageTemplateFormComponent implements OnInit{
   template$: Observable<MessageTemplate>;
 
   templateForm: FormGroup;
-  template: MessageTemplate;
+  template: any;
   content: FormGroup;
 
   action: string;
@@ -36,21 +38,16 @@ export class MessageTemplateFormComponent implements OnInit{
   
   referenceForm: FormGroup;
   nextVariableId: number;
-  newVariables: string[] = [];
+  newVariables: any = [];
+  newVariableForm: FormGroup;
   private _sbS = new SubSink();
-
-  selectedOptions: DropdownOptions = {
-    channel: '',
-    category: '',
-    language: ''
-  };
-
 
   constructor(
     private fb: FormBuilder,
     private _messageTemplatesService: MessageTemplatesService,
     private _route:ActivatedRoute,
     private _route$$: Router,
+    private _snackbar: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -61,6 +58,11 @@ export class MessageTemplateFormComponent implements OnInit{
     } else {
       this.initPage();
     }
+
+    this.newVariableForm = this.fb.group({
+      newVariable: ['',Validators.required],
+      newPlaceholder: ['',Validators.required],
+    });
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
     
@@ -74,18 +76,20 @@ export class MessageTemplateFormComponent implements OnInit{
       if (template) {
         this.templateForm = this.fb.group({
           name: [template.name, Validators.required],
-          category: ['MARKETING'], 
-          language: ['en'],
+          category: [template.category], 
+          language: [template.language],
           content: this.fb.group({
-            header: [`${template.content.header}`],
+            header: this.fb.group({
+              type: "TEXT",
+              text: [(template.content.header as TextHeader).text,  Validators.required],
+              examples: this.fb.array([]),
+            }),
             body: this.fb.group({
-              text: [template.content.body.text, Validators.required],
-              newVariable: ['', Validators.required],
-              newPlaceholder: ['', Validators.required],
+              text: [template.content.body.text,  Validators.required],
               examples: this.fb.array([]),
             }),
             footer: [template.content.footer],
-            templateId: [template.id],
+            templateId: [''],
             sent: [''],
           }),
           buttons: this.fb.array([]), 
@@ -101,62 +105,49 @@ export class MessageTemplateFormComponent implements OnInit{
     });
   }
 
-addVariable() {
-  const formContent = this.templateForm.get('content') as FormGroup;
-  const formBody = formContent.get('body') as FormGroup;
+  addVariable() {
+    // Get values from the newVariableForm
+    const newVariable = this.newVariableForm.get('newVariable')?.value;
+    const newPlaceholder = this.newVariableForm.get('newPlaceholder')?.value;
 
-  const newVariable = formBody.get('newVariable')?.value;
-  const newPlaceholder = formBody.get('newPlaceholder')?.value;
-  const variablesArray = formBody.get('examples') as FormArray; 
+    // Surround the newVariable with {{}} and append it to the current content.body
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formBody = formContent.get('body') as FormGroup;
+    const bodyControl = formBody.get('text') as FormControl;
+    const updatedBody = `${bodyControl.value}{{${newPlaceholder}}}`;
+    bodyControl.setValue(updatedBody);
 
-  const variableId = this.nextVariableId++; 
+    // Track new variables as strings
+    this.newVariables.push({
+      "variable": newVariable,
+      "placeholder": newPlaceholder
+      });
 
-  const variableGroup = this.fb.group({
-    id: variableId,
-    variable: newPlaceholder,
-    placeholder: newVariable,
-  });
+    console.log(this.newVariables)
 
-  variablesArray.push(variableGroup);
 
-  // Surround the newVariable with {{}} and append it to the current content.body
-  const bodyControl = formBody.get('text') as FormControl;
-  const updatedBody = `${bodyControl.value}{{${newVariable}}}`;
-  bodyControl.setValue(updatedBody);
-
-  // Track new variables
-  this.newVariables.push(newVariable);
-
-  // Clear the input fields
-  formBody.get('newVariable')?.reset();
-  formBody.get('newPlaceholder')?.reset();
-}
-
-removeVariable(index: number) {
-  const formContent = this.templateForm.get('content') as FormGroup;
-  const formBody = formContent.get('body') as FormGroup;
-
-  const variablesArray = formBody.get('examples') as FormArray;
-  const bodyControl = formBody.get('text') as FormControl;
-  const placeholder = variablesArray.at(index).get('placeholder')?.value;
-
-  // Remove the variable from the body
-  let updatedText = bodyControl.value;
-  const variableTag = `{{${placeholder}}}`;
-
-  updatedText = updatedText.replace(new RegExp(variableTag, 'g'), '');
-
-  // Remove the new variable if it exists in the body
-  const variableIndex = this.newVariables.indexOf(placeholder);
-  if (variableIndex !== -1) {
-    const newVariable = this.newVariables.splice(variableIndex, 1)[0];
-    updatedText = updatedText.replace(newVariable, '');
+    // Clear the input fields in the newVariableForm
+    this.newVariableForm.get('newVariable')?.reset();
+    this.newVariableForm.get('newPlaceholder')?.reset();
   }
 
-  bodyControl.setValue(updatedText);
+  removeVariable(index: number) {
+    // Get the placeholder to be removed
+    const placeholder = this.newVariables[index];
 
-  variablesArray.removeAt(index);
-}
+    // Remove the variable from the body
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formBody = formContent.get('body') as FormGroup;
+    const bodyControl = formBody.get('text') as FormControl;
+    let updatedText = bodyControl.value;
+    const variableTag = `{{${placeholder}}}`;
+    updatedText = updatedText.replace(new RegExp(variableTag, 'g'), '');
+
+    bodyControl.setValue(updatedText);
+
+    // Remove the placeholder from the newVariables array
+    this.newVariables.splice(index, 1);
+  }
   updateReferencesFromBody(updatedBody: string) {
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
@@ -179,36 +170,84 @@ removeVariable(index: number) {
       }
     }
   }
-
-
-  onSelectedOptionsChange(selectedOptions: DropdownOptions) {
-    // Handle the selected options received from the child component
-    this.selectedOptions = selectedOptions;
-    console.log('Selected Options in Parent:', this.selectedOptions);
-  }
     
   cancel() {
     this._route$$.navigate(['/messaging'])
   }
   save() {
     this.isSaving = true
-    console.log('saving',this.templateForm.value);
-    this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response) => {
-      this.isSaving  = false;
-      console.log('Template sent to firebase', response);
-    })
-    // this.template = this.templateForm.value
-    // this.messageTemplatesService.createTemplate(this.template).subscribe((response) => {
-    //   console.log('Template created:', response);
-    // });
+    if (this.templateForm.value.id){
+      console.log('updating',this.templateForm.value);
+      this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response) => {
+        this.isSaving  = false;
+        console.log('Template sent to firebase', response);
+      })
+      
+      this.template = {
+        name: this.templateForm.value.name,
+        category: this.templateForm.value.category,
+        language: this.templateForm.value.language,
+        content: {
+          header: {
+            type: TemplateHeaderTypes.TEXT,
+            text: this.templateForm.value.content.header.text,
+          },
+          body: {
+            text: this.templateForm.value.content.body.text,
+            examples: this.newVariables,
+          },
+          footer: this.templateForm.value.content.footer,
+        },
+      };
+      this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
+        console.log('Template created:', response);
+        if (response.success){
+          this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
+            this.isSaving  = false;
+            console.log('Template sent to firebase', response);
+          });
+        }
+      });
+    }
+    else{
+      
+      this.template = {
+        "name": this.templateForm.value.name,
+        "category": this.templateForm.value.category,
+        "language": this.templateForm.value.language,
+        "content": {
+          "header": {
+            "type": TemplateHeaderTypes.TEXT,
+            "text": this.templateForm.value.content.header.text,
+          },
+          "body": {
+            "text": this.templateForm.value.content.body.text,
+            "examples": [],
+          },
+          "footer": this.templateForm.value.content.footer,
+        },
+      };
+      if(this.templateForm.valid){
+        this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
+          console.log('Template created:', response);
+          if (response.success){
+            this.templateForm.value.content.templateId = response.data.id;
+            this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
+              this.isSaving  = false;
+              console.log('Template sent to firebase', response);
+              this._snackbar.showSuccess("Template created successfully");
+            });
+          }
+        });
+      }else{
+        this._snackbar.showError("Please fill out all fields");
+      }
+      
+    }
+    
     this.isSaving = false;
 
   }
 
   
-}
-export interface DropdownOptions {
-  channel: string;
-  category: string;
-  language: string;
 }

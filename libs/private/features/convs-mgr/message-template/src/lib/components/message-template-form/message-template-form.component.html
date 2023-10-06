@@ -35,11 +35,10 @@
                         </mat-panel-title>
                       </mat-expansion-panel-header>
                       <div class="dd-holder">
+
                         <div class="form-group">
                             <p>Category</p>
                             <p>Select category of the template</p>
-                            
-                
                               <mat-form-field appearance="outline" class="selec">
                                 <mat-select  formControlName="category">
                                     <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
@@ -47,16 +46,14 @@
                               </mat-form-field>
                         </div>
                         
-                          <div class="form-group">
+                        <div class="form-group">
                             <p>Language</p>
                             <p>Select template language</p>
                             <mat-form-field appearance="outline" class="selec" >
                                 <mat-select formControlName="language">
-                                  <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
+                                    <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
                                 </mat-select>
-                              </mat-form-field>
-                              
-                
+                                </mat-form-field>
                         </div>
                       </div>
                       <div class="form-group">
@@ -80,15 +77,14 @@
 
                 </div>
                 <div class="conte" formGroupName="content">
-                    <div class="form-group head">
+                    <div class="form-group head" formGroupName="header">
                         <p>Header</p>
-                            <p>Add a header of either text or image <span > <span class="spec">T</span> <i class="far fa-image"></i></span></p>
-    
+                        <p>Add a header of either text or image <span> <span class="spec">T</span> <i class="far fa-image"></i></span></p>
+          
                         <mat-form-field appearance="outline">
-                            <input type="text" matInput formControlName="header">
+                          <input type="text" matInput formControlName="text">
                         </mat-form-field>
-    
-                    </div>
+                      </div>
                     
                     <div class="form-group body" formGroupName="body">
                         <p><span>*</span> Body</p>
@@ -100,22 +96,12 @@
                             <p class="pees">Samples for body content</p>
                             <p class="np">To help META review your message template, please add an example for each variable in your body text. Do not use real customer information</p>
                             <p class="pees">Body</p>
-                            <div class="variables" formArrayName="examples" *ngFor="let variable of (templateForm.get('content')?.get('body')?.get('examples')?.['controls'] || []); let i = index">
                             
-                                <div [formGroupName]="i">
-                                  <!-- <span>
-                                    {{ variable.get('placeholder')?.value }}
-                                    {{ variable.get('variable')?.value }}
-                                    <button (click)="removeVariable(i)">Remove</button>
-                                  </span> -->
-                                </div>
-                              </div>
-                              
-                              <div>
+                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                              <div [formGroup] = "newVariableForm">
                                   <input type="text" formControlName="newPlaceholder" placeholder="Variable name" class="eveinputs">
                                 <input type="text" formControlName="newVariable" placeholder="placeholder " class="eveinputs">
-                                <button (click)="addVariable()">Add Variable</button>
-                              </div>
+                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button>                              </div>
                               
                         </div>
                         </div>

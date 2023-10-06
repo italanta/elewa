@@ -110,9 +110,9 @@ padding-left: .5rem;
   
 }
 .variables{
-  height: 11.125rem;
   border-radius: 0.9375rem;
   border: 1px solid #1F7A8C;
+  padding: 1rem .5rem;
   
   
   .np{
@@ -191,4 +191,20 @@ line-height: normal;
 /* Apply styles to the <p> elements inside form groups */
 .form-group p {
   margin: .6rem; /* Remove any default margins */
+}
+
+
+.vars{
+  color: #000; 
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  height: 1rem;
+  margin: 1rem;
+  span{
+    color: #1F7A8C;
+  font-style: 300;
+
+  }
 }
