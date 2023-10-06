@@ -21,7 +21,7 @@ export class ActiveMessageTemplateStore extends Store<MessageTemplate> {
     
     const templates$ = this._templates$$.get();
 
-    const route$ = this._route.events.pipe(
+    const route$ = this._route.events.pipe( 
       filter((_event) => _event instanceof NavigationEnd),
       map((_event) => _event as NavigationEnd)
     );

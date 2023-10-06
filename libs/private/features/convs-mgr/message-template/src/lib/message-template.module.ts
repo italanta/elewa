@@ -17,6 +17,7 @@ import {
   MessageTemplatesService,
   ActiveMessageTemplateStore,
   ScheduleMessageService,
+  ScheduledMessageStore,
 } from '@app/private/state/message-templates';
 import { SingleMesageTemplateComponent } from './components/single-mesage-template/single-mesage-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -54,7 +55,8 @@ import { TemplateFormDropdownComponent } from './components/template-form-dropdo
     MessageTemplatesService,
     MessageTemplateStore,
     ActiveMessageTemplateStore,
-    ScheduleMessageService
+    ScheduleMessageService,
+    ScheduledMessageStore
   ],
 })
 export class MessageTemplateModule {}

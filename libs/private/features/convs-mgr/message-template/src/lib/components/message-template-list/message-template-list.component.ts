@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { MessageTemplateStore, MessageTemplatesService, MessageStatusRes } from '@app/private/state/message-templates';
+import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
+import { MessageTemplatesService, MessageStatusRes, MessageTemplateStore, ActiveMessageTemplateStore } from '@app/private/state/message-templates';
 import { Observable, combineLatest, map } from 'rxjs';
 import { SubSink } from 'subsink';
 
@@ -17,37 +18,54 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   messageTemplates$: Observable<MessageTemplate[]>;
   templateStatus$: Observable<MessageStatusRes[]>;
 
+  template:any;
+
   dataFound = true;
   
   isSaving: boolean;
   messageTemplateColumns = ['name', 'sentMessages', 'lastUpdated', 'actions'];
   dataSource = new MatTableDataSource<any>();
-  // @Input() assessments: MessageTemplate[];
+  searchForm: FormGroup;
+
+  
   constructor(
     private _messageTemplateService: MessageTemplatesService,
-    private _router: Router
-  ) {}
+    private fb: FormBuilder,
+    private _router: Router,
+  ) {
+    this.searchForm = this.fb.group({
+      searchInput: [''], 
+    });
+  }
 
 
   ngOnInit(): void {
     this.messageTemplates$ = this._messageTemplateService.getMessageTemplates$();
     this.templateStatus$ = this._messageTemplateService.getTemplateStatus();
-    // this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
-    //   map(([templates, statusData]) => {
-    //     // Merge templates with status based on a common identifier (e.g., name)
-    //     return templates.map((template) => ({
-    //       ...template,
-    //       status: statusData.find((status) => status.name === template.name)?.status || 'N/A'
-    //     }));
-    //   })
-    // ).subscribe((mergedData) => {
-    //   this.dataSource.data = mergedData;
+    this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
+      map(([templates, statusData]) => {
+        // Merge templates with status based on a common identifier (e.g., name)
+        return templates.map((template) => ({
+          ...template,
+          status: statusData['templates'].find((status: any) => status.name === template.name)?.status || 'N/A'
+        }));
+      })
+    ).subscribe((mergedData) => {
+      this.dataSource.data = mergedData;
+    });
+    // this._sBS.sink = this.templateStatus$.subscribe((assessments)=> {
+    //   this.dataSource.data = assessments;
+    //   console.warn('here dey s', assessments);
     // });
-    this._sBS.sink = this.messageTemplates$.subscribe((assessments)=> {
-      this.dataSource.data = assessments;
-      console.warn('here dey s', this.dataSource.data);
+
+    this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
+      this.applyFilter(searchText);
     });
     
+  }
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
   onCreate() {
@@ -60,20 +78,55 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     this._router.navigate(['/messaging', templateId]);
 
   }
+
+  sendButtonClicked(template: MessageTemplate){
+
+    // this._messageTemplateService.setActiveMessageTemplateId(template.id);
+    // this._messageTemplateService.setActiveMessageTemplateId(template.name);
+    this._router.navigate(['/learners'], {queryParams: {templateId: template.id}});
+  }
+
   duplicateTemplate(template: MessageTemplate){
-    const duplicatedTemplate: MessageTemplate = {...template};
-    duplicatedTemplate.name += ' Copy';
+    // const duplicatedTemplate: MessageTemplate = {...template};
 
     // reset the template stats
-    duplicatedTemplate.id = '';
-    duplicatedTemplate.templateId = '';
-    duplicatedTemplate.sent = 0;
-    this._messageTemplateService.addMessageTemplate(duplicatedTemplate).subscribe(
-      (response) => console.log(response)
+    this.template = {
+      "name": `${template.name}_copy`,
+      "category": template.category,
+      "language": template.language,
+      "content": {
+        "header": {
+          "type": TemplateHeaderTypes.TEXT,
+          "text": (template.content.header as TextHeader).text,
+        },
+        "body": {
+          "text": template.content.body.text,
+          "examples": [],
+        },
+        "footer": template.content.footer,
+      },
+    };
+    this._messageTemplateService.createTemplateMeta(this.template).subscribe(
+      (response) => {
+        if( response.success){
+          this._messageTemplateService.addMessageTemplate(this.template).subscribe(
+            (response) => console.log(response)
+          );
+        }
+      }
     )
+    
   }
   deleteTemplate(template: MessageTemplate){
-    this._messageTemplateService.removeTemplate(template);
+    this._messageTemplateService.deleteTemplateMeta(template).subscribe(
+      (response) => {
+        if(response.success){
+          console.log("deleting both");
+          this._messageTemplateService.removeTemplate(template);
+        }
+      }
+    )
+    
   }
   ngOnDestroy(): void {
       this._sBS.unsubscribe();
