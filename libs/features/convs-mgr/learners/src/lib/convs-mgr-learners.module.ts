@@ -17,6 +17,7 @@ import { SingleLearnerPageComponent } from './pages/single-learner-page/single-l
 import { LearnerInformationComponent } from './components/learner-information/learner-information.component';
 import { LearnerEnrolledCoursesComponent } from './components/learner-enrolled-courses/learner-enrolled-courses.component';
 import { LearnerAssessmentHistoryComponent } from './components/learner-assessment-history/learner-assessment-history.component';
+import { ActiveMessageTemplateStore, MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
 
 @NgModule({
   imports: [
@@ -35,5 +36,10 @@ import { LearnerAssessmentHistoryComponent } from './components/learner-assessme
     LearnerEnrolledCoursesComponent,
     LearnerAssessmentHistoryComponent,
   ],
+  providers: [
+    MessageTemplateStore,
+    MessageTemplatesService,
+    ActiveMessageTemplateStore
+  ]
 })
 export class ConvsMgrLearnersModule {}

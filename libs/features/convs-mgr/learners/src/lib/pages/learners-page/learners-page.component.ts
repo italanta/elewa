@@ -12,6 +12,9 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
+import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-learners-page',
@@ -31,22 +34,29 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   allClasses: string[] = [];
   allPlatforms: string[] = [];
   allCourses: string[] = [];
+  activeMessageId: string;
 
   selectedClass: any = 'Class';
   selectedCourse: any = 'Course';
   selectedPlatform: any = 'Platform';
+  templateId: string;
 
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _liveAnnouncer: LiveAnnouncer,
-    private _dialog: MatDialog
-  ) {}
+    private _dialog: MatDialog,
+    private _messageService: MessageTemplatesService,
+    private _route: ActivatedRoute
+  ) {
+    
+  }
 
   ngOnInit() {
     this.getLearners();
     this.getAllClasses();
     this.getAllCourses();
     this.getAllPlatforms();
+    this.getActiveMessageTemplate();
   }
 
   getLearners() {
@@ -56,6 +66,17 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       this.dataSource.data = alllearners;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  getActiveMessageTemplate(){
+    this.activeMessageId = this._route.snapshot.queryParamMap.get('templateId') ?? '';
+    debugger;
+  }
+  // TODO: Connect to send message service
+  sendMessageButtonClicked(){
+    const learners = this.selection;
+    const template = this.activeMessageId;
+    this._messageService.sendMessageTemplate({learners, template});
   }
 
   // TODO: get all classes

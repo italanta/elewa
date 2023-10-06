@@ -4,6 +4,7 @@
     <!-- top actions and filter container -->
     <div class="top-wrapper">
       <div class="top-actions">
+        <button [hidden]="!activeMessageId" class="btn" (click)="sendMessageButtonClicked()">send message</button>
         <button class="btn add-to-class">{{'LEARNERS.BUTTONS.ADD-TO-CLASS'| transloco }}</button>
         <button class="btn bulk-actions" (click)="openBulkActionsDialog()">{{'LEARNERS.BUTTONS.BULK-ACTIONS'| transloco }}</button>
       </div>
@@ -89,6 +90,5 @@
         [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
     <!-- end mat-table -->
-
   </div>
 </convl-page>
