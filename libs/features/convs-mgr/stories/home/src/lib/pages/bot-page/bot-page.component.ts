@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
@@ -14,11 +14,11 @@ import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 @Component({
-  selector: 'app-modules-dashboard',
-  templateUrl: './modules-dashboard.component.html',
-  styleUrls: ['./modules-dashboard.component.scss'],
+  selector: 'italanta-apps-bot-page',
+  templateUrl: './bot-page.component.html',
+  styleUrls: ['./bot-page.component.scss'],
 })
-export class ModulesDashboardComponent implements OnInit {
+export class BotPageComponent implements OnInit {
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 
@@ -31,6 +31,7 @@ export class ModulesDashboardComponent implements OnInit {
   constructor(
     private _org$$: ActiveOrgStore,
     private _botModServ$$: BotModulesStateService,
+    private _route$: ActivatedRoute,
     private _router$$: Router
   ) {
     this.breadcrumbs = [HOME_CRUMB(_router$$, true)];
@@ -38,6 +39,16 @@ export class ModulesDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.org$ = this._org$$.get();
-    this.botModules$ = this._botModServ$$.getBotModules();
+  
+    this.botModules$ = this._route$.paramMap.pipe(
+      switchMap((params) => {
+        const id = params.get('id') as string;
+        return this._botModServ$$.getBotModulesFromParentBot(id) as Observable<BotModule[]>;
+      })
+    );
+  }
+
+  openModule() {
+    this._router$$.navigate([''])
   }
 }
