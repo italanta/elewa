@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "nx",
     "emulators:start": "firebase emulators:start --import=emulator-data --export-on-exit",
+    "functions:serve": "nx build conv-lm-backend --skip-nx-cache --prod && node tools/scripts/build-gc-functions-package.js && firebase emulators:start --import=emulator-data --export-on-exit --only functions,firestore",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "build": "nx build",
