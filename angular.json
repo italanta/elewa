@@ -849,6 +849,32 @@
       },
       "tags": []
     },
+    "model-convs-mgr-classroom": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/classroom",
+      "sourceRoot": "libs/model/convs-mgr/classroom/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/classroom"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/classroom/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/classroom/**/*.ts",
+              "libs/model/convs-mgr/classroom/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-conversations-admin-system": "libs/model/convs-mgr/conversations/admin/system",
     "model-convs-mgr-conversations-analytics-units": "libs/model/convs-mgr/conversations/analytics/units",
     "model-convs-mgr-conversations-assessments": {
@@ -1321,6 +1347,33 @@
       },
       "tags": []
     },
+    "private-functions-convs-mgr-conversations-message-templates-scheduler": {
+      "root": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler",
+      "sourceRoot": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/convs-mgr/conversations/message-templates/scheduler"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-micro-apps-base": {
       "root": "libs/private/functions/micro-apps/base",
       "sourceRoot": "libs/private/functions/micro-apps/base/src",
@@ -1617,6 +1670,32 @@
             "lintFilePatterns": [
               "libs/private/state/user/base/**/*.ts",
               "libs/private/state/user/base/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-classrooms": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/classrooms",
+      "sourceRoot": "libs/state/convs-mgr/classrooms/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/classrooms"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/classrooms/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/classrooms/**/*.ts",
+              "libs/state/convs-mgr/classrooms/**/*.html"
             ]
           }
         }

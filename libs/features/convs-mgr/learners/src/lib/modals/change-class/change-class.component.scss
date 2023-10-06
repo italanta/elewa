@@ -1,0 +1,34 @@
+h3,
+p {
+  margin: 0;
+}
+
+.modal-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+
+  .title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .title {
+      font-size: 1.5rem;
+      border-bottom: 1px solid gray;
+    }
+  }
+
+  .action-btns {
+    display: flex;
+    justify-content: space-between;
+    justify-self: flex-end;
+
+    .btn {
+      outline: none;
+      padding: 0.5rem 0.9rem;
+    }
+  }
+}
+
