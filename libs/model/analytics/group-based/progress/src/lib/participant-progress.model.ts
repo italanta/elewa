@@ -15,6 +15,9 @@ export interface ParticipantProgressMilestone
 
   /** Milestone the user has reached */
   milestone: string; 
+  
+  /** Course that the user is in */
+  course: string;
 
   /** Story ID of the milestone the user has reached */
   storyId: string;

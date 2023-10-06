@@ -23,21 +23,27 @@ export interface GroupedParticipants {
   [key: string]: ParticipantProgressMilestone[];
 }
 
-/** Progress of a group at a single moment in time. */
-export interface UsersProgressMilestone
-{
+export interface GroupedProgressMilestone {
+  /** Name of course the user has reached */
+  name: string;
+
+  /** Milestones for users in that class */
+  measurements: CourseProgressMilestone[];
+}
+
+/** Course visualisation  */
+export interface CourseProgressMilestone {
+  /** Name of group / class the user has reached */
+  name: string;
+
+  /** Milestones for users in that class */
+  measurements: UsersProgressMilestone[];
+}
+
+export interface UsersProgressMilestone {
   /** Name of Milestone the user has reached */
-  name: string; 
+  name: string;
 
   /** Users */
   participants: ParticipantProgressMilestone[];
-}
-
-export interface GroupedProgressMilestone
-{
-  /** Name of group / class */
-  name: string; 
-
-  /** milestones for users in  that class*/
-  measurements: UsersProgressMilestone[];
 }
