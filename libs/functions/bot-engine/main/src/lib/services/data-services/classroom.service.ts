@@ -44,6 +44,10 @@ export class ClassroomDataService extends BotDataService<Classroom> {
     return this.getDocumentById(classroomId, this._docPath);
   }
 
+  async getClassrooms() {
+    return this.getDocuments(this._docPath);
+  }
+
   async updateClassroom(classroom: Classroom) {
     return this.updateDocument(classroom, this._docPath, classroom.id);
   }
