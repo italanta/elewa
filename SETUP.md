@@ -286,7 +286,7 @@ This command connects your local machine to Firebase and grants you access to yo
 ```
 
 ```bash
-  npm install
+  npm install --legacy-peer-deps
 ```
 
 The project is now succesfuly installed on your machine.
