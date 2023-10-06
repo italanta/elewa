@@ -1,0 +1,13 @@
+<convl-page title="Modules" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
+  <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+    <span class="bots">{{ (parentModule$ | async)?.name }} {{ "LESSONS.LESSONS-PAGE.LESSONS" | transloco }} </span>
+
+    <div class="bots-header" fxFlex>
+      <app-stories-list-header></app-stories-list-header>
+    </div>
+
+    <div class="latest-courses" fxFlex>
+      <app-stories-list-all-courses [stories$]="stories$"></app-stories-list-all-courses>
+    </div>
+  </div>
+</convl-page>

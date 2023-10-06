@@ -341,10 +341,118 @@
       "TITLE": "Edit Bot"
     },
     "DELETE-MODAL": {
-      "TITLE": "Delete Bot",
+      "TITLE": "Delete Element",
       "CANCEL": "Cancel",
-      "SUBMIT": "Delete Bot",
-      "MESSAGE": " Are you sure you want to delete this bot?"
+      "SUBMIT": "Delete",
+      "MESSAGE": " Are you sure you want to delete this element?"
+    },
+    "BOTS-PAGE" : {
+      "BOTS" : "Bots",
+      "ALL-COURSES" : "All Courses",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Courses",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-BOT" : "Open Bot",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "MODULES": {
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a module",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Module name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Module description",
+        "COPY": "Copy",
+        "DELETE": "Delete",
+        "COURSE":"Course"
+      },
+      "CREATE": "Create Module",
+      "UPDATE": "Update Module",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create module"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Module"
+    },
+    "MODULES-PAGE": {
+      "MODULES" : "Modules",
+      "ALL-COURSES" : "All Modules",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Modules",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-MODULE" : "Open Module",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "LESSONS": {
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a lesson",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Lesson name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Lesson description",
+        "COPY": "Copy",
+        "DELETE": "Delete",
+        "MODULE":"Module"
+      },
+      "CREATE": "Create Lesson",
+      "UPDATE": "Update Lesson",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create lesson"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Lesson"
+    },
+    "LESSONS-PAGE": {
+      "LESSONS" : "Lessons",
+      "ALL-COURSES" : "All Lessons",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Lessons",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-LESSON" : "Open lesson",
+      "VIEW-ALL" : "View All"
     }
   },
   "CLASSESS": {

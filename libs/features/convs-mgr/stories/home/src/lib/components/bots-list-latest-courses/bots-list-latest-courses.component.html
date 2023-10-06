@@ -1,0 +1,27 @@
+<div *ngIf="bots" class="cards" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px"
+  fxFlex>
+  <div *ngFor="let bot of bots | slice: 0 : screenWidth < 1500 ? 3 : 4; let i = index" class="card" fxLayout="column" fxLayoutGap="20px"
+    fxLayoutAlign="start" [fxFlex]="screenWidth < 1500 ? 32 : 25">
+
+    <span class="card-badge">
+      {{ "BOTS.BOTS-PAGE.BEGINNER" | transloco }}
+    </span>
+
+    <span class="card-title" fxFlex>
+      {{ bot.name }}
+    </span>
+
+    <div class="open-bot" fxFlex="50">
+      <img [src]="bot.imageField ? bot.imageField : defaultImageUrl">
+
+      <div class="open-bot-content" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+        <span> {{ "BOTS.BOTS-PAGE.OPEN-BOT" | transloco }} </span>
+
+        <button mat-fab class="btn-add" (click)="openBot(bot.id!)">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

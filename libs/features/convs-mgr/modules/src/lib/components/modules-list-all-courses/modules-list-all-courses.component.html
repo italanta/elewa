@@ -1,0 +1,83 @@
+<div fxLayout="column" fxLayoutAlign="start" fxFlex>
+  <div *ngIf="showAllCourses" class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+
+    <span class="courses-title" fxFlex> {{ "MODULES.MODULES-PAGE.ALl-COURSES" | transloco }} </span>
+
+    <div class="search" fxFlex="50">
+      <i class="fas fa-search search_tooltip"></i>
+      <input class="search_input" type="text" placeholder="Search for a course"
+      (keyup)="applyFilter($event)" #input/>
+    </div>
+  
+    <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+      <div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
+  
+        <div class="select">
+          <select [value]="sortCoursesBy" (change)="sortBy($event)">
+            <option value=""></option>
+            <option value="newest"> {{ "MODULES.MODULES-PAGE.DATE-NEWEST" | transloco }} </option>
+            <option value="oldest"> {{ "MODULES.MODULES-PAGE.DATE-OLDEST" | transloco }} </option>
+          </select>
+        </div>
+  
+        <button mat-stroked-button>
+          <span (click)="collapseAllCourses.emit()"> {{ "MODULES.MODULES-PAGE.BACK" | transloco }} </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <table mat-table [dataSource]="dataSource" matSort>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "MODULES.MODULES-PAGE.NAME" | transloco }} </th>
+      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{element.name}} </td>
+    </ng-container>
+  
+    <!-- Type Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> {{ "MODULES.MODULES-PAGE.TYPE" | transloco }} </th>
+      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{ "MODULES.MODULES-PAGE.BEGINNER" | transloco }} </td>
+    </ng-container>
+  
+    <!-- Last Edited Column -->
+    <ng-container matColumnDef="lastEdited">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "MODULES.MODULES-PAGE.LAST" | transloco }} </th>
+      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{element.lastEdited}} </td>
+    </ng-container>
+  
+    <!-- Channel Column -->
+    <ng-container matColumnDef="channel">
+      <th mat-header-cell *matHeaderCellDef> {{ "MODULES.MODULES-PAGE.CHANNEL" | transloco }} </th>
+      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)">
+        <span class="channel-badge">
+          Whatsapp
+        </span>
+      </td>
+    </ng-container>
+  
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>  {{ "MODULES.MODULES-PAGE.ACTIONS" | transloco }} </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button [matMenuTriggerFor]="menu">
+          <i class="fa-solid fa-ellipsis"></i>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editBot(element)">
+            <span> {{ "MODULES.MODULES-PAGE.EDIT" | transloco }} </span>
+          </button>
+          <button mat-menu-item (click)="deleteBot(element)">
+            <span> {{ "MODULES.MODULES-PAGE.DELETE" | transloco }} </span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <mat-paginator *ngIf="showAllCourses" [pageSizeOptions]="showAllCourses ? [10, 25, 100] : [5, 10]" aria-label="Select page of courses"></mat-paginator>
+</div>
