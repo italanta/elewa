@@ -3,11 +3,10 @@ import { FunctionHandler, FunctionContext } from '@ngfi/functions';
 import { Query } from '@ngfi/firestore-qbuilder';
 
 import { StartSurveyReq, StartSurveyResponse } from '@app/private/model/convs-mgr/micro-apps/surveys';
-import { BlockDataService, ChannelDataService, ConnectionsDataService, CursorDataService, EnrolledUserDataService } from '@app/functions/bot-engine';
+import { BlockDataService, BlockToStandardMessage, ChannelDataService, ConnectionsDataService, CursorDataService, EnrolledUserDataService } from '@app/functions/bot-engine';
 import { CommunicationChannel, Cursor, EndUserPosition, PlatformType, SurveyCursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { SendOutgoingMsgHandler } from '@app/functions/bot-engine/send-message';
-import { BlockToStandardMessage } from 'libs/functions/bot-engine/main/src/lib/io/block-to-message-parser.class';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurveyResponse>
 {
@@ -62,7 +61,7 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
             position: newUserPosition
           } as Cursor;
   
-          if (!newCursor.surveyStack && newCursor.surveyStack.length < 1) {
+          if (!newCursor.surveyStack) {
             newCursor.surveyStack = [surveyCursor];
           } else {
             newCursor.surveyStack.unshift(surveyCursor);
@@ -87,6 +86,7 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
   
         // Send the template message to the users
         messageToSend.n = commChannel.n;
+        messageToSend.direction = MessageDirection.FROM_AGENT_TO_END_USER;
         messageToSend = this._setReceiveID(commChannel.type, receiveID, messageToSend);
   
         await sendMessage.execute(messageToSend, null, tools);
