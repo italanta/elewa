@@ -16,7 +16,6 @@ import { ChangeClassComponent } from './modals/change-class/change-class.compone
 import { BulkActionsModalComponent } from './modals/bulk-actions-modal/bulk-actions-modal.component';
 import { CreateClassModalComponent } from './modals/create-class-modal/create-class-modal.component';
 import { SingleLearnerPageComponent } from './pages/single-learner-page/single-learner-page.component';
-
 import { UpdateUserClassModalComponent } from './modals/update-user-class-modal/update-user-class-modal.component';
 
 import { LearnerInformationComponent } from './components/learner-information/learner-information.component';
