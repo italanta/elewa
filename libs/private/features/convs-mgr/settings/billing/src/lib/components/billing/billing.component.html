@@ -1,18 +1,19 @@
 <div class="container">
-    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px" >
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px">
+
         <!-- left section -->
         <div fxLayout ="column">
-            <p class="subscription" [ngClass]="{ 'selected': selectedOption === 'subscription' }">Subscription</p>
-            <p class="mesgTokens" [ngClass]="{ 'selected': selectedOption === 'messageTokens' }">Message Tokens</p>
+            <p class="subscription" [ngClass]="{ 'selected': selectedOption === 'subscription' }">{{ 'BILLINGS.SUBSCRIPTION' | transloco }}</p>
+            <p class="mesgTokens" [ngClass]="{ 'selected': selectedOption === 'messageTokens' }">{{ 'BILLINGS.MESSAGE-TOKENS' | transloco }}</p>
         </div>
        
         <!-- right section -->
         <div fxLayout ="column">
             <div class="section-one">
-                <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px" >
+                <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px">
                     <div fxLayout ="column">
                         <div class="current-plan cards">
-                            <p class="card-title">Current plan</p>
+                            <p class="card-title">Current plan </p>
                             <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="200px" class="card-contents" >
                                 <div fxLayout ="column">
                                     <p class="plan">Plan 1</p>
@@ -20,7 +21,7 @@
                                 </div>
                                 <div fxLayout ="column">
                                     <p class="amount">Ksh 1200</p>
-                                    <p class="plan-change">change plan</p>
+                                    <p class="plan-change">{{ 'BILLINGS.CHANGE-PLAN' | transloco }}</p>
                                 </div>
                             </div>
 
@@ -44,7 +45,9 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- payments methods -->
+
                 <div fxLayout="row" class="card-parent">
                     <div fxLayout ="column">
                         <div fxLayout="row" fxLayoutAlign="space-between start"  >
@@ -54,6 +57,7 @@
                             <div fxLayout ="column">
                                 <button  class="btn white-btn" (click)="addPaymentMethod()">
                                     Add payment method
+                                    {{ 'BILLINGS.BUTTONS.ADD-PAYMENT-METHOD' | transloco }}
                                   </button>
                             </div>
                         </div>
@@ -83,13 +87,13 @@
                                     <div fxLayout="column" >
                                       <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px" (click)="editPaymentMethod()">
                                         <img src="assets/icons/edit-item.svg" alt="edit icon" class="icon" >
-                                        <p >Edit</p>
+                                        <p >{{ 'BILLINGS.EDIT' | transloco }}</p>
                                       </div>
                                     </div>
                                     <div fxLayout="column">
                                         <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
                                           <img src="assets/icons/delete-item.svg" alt="delete icon" class="icon" >
-                                          <p >Delete</p>
+                                          <p >{{ 'BILLINGS.DELETE' | transloco }}</p>
                                         </div>
                                       </div>
                                   </div>
@@ -107,10 +111,8 @@
                 </div>
                 <!-- invoices -->
                 <div fxLayout="row" class="invoices" >
-                    <p>Invoices</p>
-
-                 
-                      
+                    <p>{{ 'BILLINGS.INVOICES' | transloco }}</p>
+  
                 </div>
 
                 <div>
