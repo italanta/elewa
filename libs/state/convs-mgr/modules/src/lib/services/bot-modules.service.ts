@@ -15,9 +15,9 @@ export class BotModulesStateService {
     return this._botModuleStore$$.get();
   }
 
-  getBotModulesFromParentBot(botId: string): Observable<BotModule[] | undefined> {
+  getBotModulesFromParentBot(botId: string): Observable<BotModule[]> {
     return this._botModuleStore$$.get().pipe(
-      map(mods => mods.filter(mod => mod.id === botId))
+      map(mods => mods.filter(mod => mod.parentBot === botId))
     );
   }
 

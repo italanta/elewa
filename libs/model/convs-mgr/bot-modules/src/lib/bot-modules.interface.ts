@@ -13,6 +13,9 @@ export interface BotModule extends IObject {
   /** A brief description of the module. */
   description?: string;
 
+  /** id of the parent bot */
+  parentBot: string
+
   /** An array of story id's associated with the bot.*/
   stories: string[];
 }

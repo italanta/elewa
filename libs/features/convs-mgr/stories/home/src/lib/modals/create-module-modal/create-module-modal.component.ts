@@ -47,10 +47,10 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
       name: this.moduleForm.value.moduleName,
       description: this.moduleForm.value.moduleDesc,
       stories: this.moduleForm.value.stories,
+      parentBot : this.moduleForm.value.parentBot.id
     };
 
-    const parentBot = this.moduleForm.value.parentBot as Bot;
-    this.saveModuleState(botModule, parentBot);
+    this.saveModuleState(botModule, this.moduleForm.value.parentBot);
   }
 
   /** Save the module and add the module's id to parent Bot's module list */
