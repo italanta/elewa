@@ -32,6 +32,7 @@
     "@jsplumb/connector-bezier": "^5.9.4",
     "@jsplumb/connector-flowchart": "^5.9.4",
     "@jsplumb/util": "^5.9.4",
+    "@mollie/api-client": "^3.7.0",
     "@ngneat/transloco": "^4.1.0",
     "@nrwl/angular": "^14.4.2",
     "@popperjs/core": "^2.11.8",
@@ -115,6 +116,7 @@
     "crypto-js",
     "mime-types",
     "jsonwebtoken",
-    "dotenv"
+    "dotenv",
+    "@mollie/api-client"
   ]
 }
