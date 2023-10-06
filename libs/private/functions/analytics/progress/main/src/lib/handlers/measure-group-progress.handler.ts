@@ -133,32 +133,39 @@ function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]
 
 
 /**
- * Groups users by group, then by milestone in their progress.
+ * Groups users by course then by classroom, then by milestone in their progress.
  * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
- * @returns {GroupedProgressMilestone[]} An array of participants grouped by group, then by milestone.
+ * @returns {GroupedProgressMilestone[]} An array of participants grouped by course, class then by milestone.
  */
 function _groupUsersByGroupThenMilestone(allUsersProgress: ParticipantProgressMilestone[]): GroupedProgressMilestone[] {
   const groupedByGroupAndMilestone = Object.values(allUsersProgress.reduce((acc, participant) => {
       //guard clause to filter user's with no history when calculating past data
       if (!participant) return acc;
 
-      const { classroom, milestone, participant: user } = participant;
+      const { classroom, milestone, course, participant: user } = participant;
 
-      if (!acc[classroom.className]) {
-        acc[classroom.className] = {
+      if (!acc[course]) {
+        acc[course] = {
+          name: course,
+          measurements: {},
+        };
+      }
+
+      if (!acc[course].classrooms[classroom.className]) {
+        acc[course].classrooms[classroom.className] = {
           name: classroom.className,
           measurements: {},
         };
       }
 
-      if (!acc[classroom.className].measurements[milestone]) {
-        acc[classroom.className].measurements[milestone] = {
+      if (!acc[course].classrooms[classroom.className].measurements[milestone]) {
+        acc[course].classrooms[classroom.className].measurements[milestone] = {
           name: milestone,
           participants: [],
         };
       }
 
-      acc[classroom.className].measurements[milestone].participants.push(user);
+      acc[course].classrooms[classroom.className].measurements[milestone].participants.push(user);
       return acc;
     }, {})
   ).map((group: GroupedProgressMilestone) => {

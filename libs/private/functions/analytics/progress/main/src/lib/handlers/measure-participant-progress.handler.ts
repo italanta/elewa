@@ -4,6 +4,7 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
 import { CursorDataService, VariablesDataService } from '@app/functions/bot-engine';
 
@@ -33,6 +34,8 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
 
+    const modulesRepo = tools.getRepository<BotModule>(`orgs/${orgId}/modules`);
+
     // Get User's Name
     const varService = new VariablesDataService(tools, orgId, participant.endUser.id);
 
@@ -45,6 +48,8 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const story = await storyRepo.getDocumentById(storyId);
 
+    const parentModule = await modulesRepo.getDocumentById(story.parentModule);
+
     return {
       participant: {
         id: participant.endUser.id,
@@ -53,6 +58,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
       },
       classroom: participant.classroom,
       milestone: story.parentModule,
+      course: parentModule.parentBot,
       storyId: story.id,
     }
   }
