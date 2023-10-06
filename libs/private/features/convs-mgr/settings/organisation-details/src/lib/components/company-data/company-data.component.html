@@ -10,9 +10,11 @@
 
         <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons">
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="newCompanyLogo()" mat-stroked-button>
-            Upload
+            {{"COMPANY-INFORMATION.BUTTON.UPLOAD" | transloco}}
           </button>
-          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button (click)="removePhoto()"> Remove</button>
+          <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button (click)="removePhoto()">
+             {{"COMPANY-INFORMATION.BUTTON.REMOVE" | transloco}} 
+            </button>
         </div>
       </div>
     </div>
@@ -22,9 +24,7 @@
 
       <form [formGroup]="orgDataFormGroup"  *ngIf="formIsReady" fxLayout="column">
 
-        <h4>Basic Information</h4>
-
-        
+        <h4>{{"COMPANY-INFORMATION.BASIC-INFO" | transloco}}</h4>
 
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex >
           <div fxLayout="column"  fxFlex>
@@ -52,7 +52,7 @@
          
         </div>
 
-        <h4>Address Information</h4>
+        <h4>{{"COMPANY-INFORMATION.ADDRESS-INFO" | transloco}}</h4>
 
         <div fxLayout="column" formGroupName="address" fxFlex>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="84px">
@@ -85,9 +85,9 @@
 
           <div>
               <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile()" mat-raised-button>
-                <span *ngIf="!editOrg; else saveProfile">Edit company information</span>
+                <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
                 <ng-template #saveProfile>
-                  <span>Save Organization</span>
+                  <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
                 </ng-template>
               </button>
           </div>
