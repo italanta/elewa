@@ -543,5 +543,21 @@
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
+  },
+  "PROFILE-DETAILS":{
+    "FIRST-NAME":"First Name",
+    "LAST-NAME":"Last Name",
+    "ROLE":"Role",
+    "EMAIL":"Email",
+    "CANCEL":"Cancel",
+    "SAVE-PROFILE":"Save Profile",
+    "CHANGE-PASSWORD":"Change password",
+    "PASSWORD-INFO":"It is advised to change your password every 2-4 months",
+    "DELETE-PROFILE":"Delete Profile",
+    "DELETE-TEXT":"You will receive an email to confirm your decision. This will not end your subscription or payments and you will continue to be charged.You can cancel your subscription, or switch payment methods to keep the team active",
+    "FETCH-USER-DATA":"Fetching user data",
+    "BUTTON":{
+      "PASSWORD-RESET":"Get Password Reset Link"
+    }    
   }
 }

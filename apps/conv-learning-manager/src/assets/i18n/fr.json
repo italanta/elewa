@@ -401,5 +401,21 @@
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
       }
     }
+  },
+  "PROFILE-DETAILS":{
+    "FIRST-NAME":"Prénom",
+    "LAST-NAME":"Nom de famille",
+    "ROLE":"Rôle",
+    "EMAIL":"E-mail",
+    "CANCEL":"Annuler",
+    "SAVE-PROFILE":"Enregistrer le profil",
+    "CHANGE-PASSWORD":"Changer le mot de passe",
+    "PASSWORD-INFO":"It is advised to change your password every 2-4 months",
+    "DELETE-PROFILE":"Supprimer le profil",
+    "DELETE-TEXT":"Vous recevrez un e-mail pour confirmer votre décision. Cela ne mettra pas fin à votre abonnement ou à vos paiements et vous continuerez à être facturé. Vous pouvez annuler votre abonnement ou changer de mode de paiement pour garder l'équipe active.",
+    "FETCH-USER-DATA":"Récupération des données utilisateur",
+    "BUTTON":{
+      "PASSWORD-RESET":"Obtenir le lien de réinitialisation du mot de passe"
+    }    
   }
 }
