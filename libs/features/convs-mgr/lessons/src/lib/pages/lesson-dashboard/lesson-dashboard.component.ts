@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
-import { Bot } from '@app/model/convs-mgr/bots';
+import { Story } from '@app/model/convs-mgr/stories/main';
 import { Organisation } from '@app/model/organisation';
 
 import { ActiveOrgStore } from '@app/state/organisation';
-import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { StoryStateService } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
@@ -23,7 +23,7 @@ export class LessonDashboardComponent implements OnInit {
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 
-  bots$: Observable<Bot[]>;
+  stories$: Observable<Story[]>;
   org$: Observable<Organisation>;
 
   loading = true;
@@ -31,7 +31,7 @@ export class LessonDashboardComponent implements OnInit {
 
   constructor(
     private _org$$: ActiveOrgStore,
-    private _botsServ$$: BotsStateService,
+    private _storyServ$$: StoryStateService,
     private _router$$: Router
   ) {
     this.breadcrumbs = [HOME_CRUMB(_router$$, true)];
@@ -39,6 +39,6 @@ export class LessonDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.org$ = this._org$$.get();
-    this.bots$ = this._botsServ$$.getBots();
+    this.stories$ = this._storyServ$$.getStories();
   }
 }

@@ -1,72 +1,125 @@
-.cards {
+.courses-title {
+	font-size: 1.2rem;
+	font-weight: 400;
+}
 
-  .card {
-    height: 400px;
-    background-color: #111441;
-    color: white;
-    border-radius: 10px;
+table {
+	width: 100%;
+}
 
-    .card-badge {
-      width: fit-content;
-      display: inline-block;
-      padding: 0.25em 0.4em;
-      margin: 20px;
-      font-size: .9rem;
-      font-weight: 400;
-      line-height: 1;
-      text-align: center;
-      white-space: nowrap;
-      vertical-align: baseline;
-      border-radius: 0.25rem;
-      color: #fff;
-      border: solid white 1px;
-    }
+.mdc-data-table__header-cell {
+	color: #7C7C7C;
+	font-weight: 300;
+	font-size: 1.1rem;
+}
 
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 400;
-      max-width: 90%;
-      line-height: normal;
-      word-wrap: break-word;
-      padding: 0px 20px;
-    }
+.mat-mdc-row {
+	color: #101010;
+	font-size: 1rem;
+	font-weight: 400;
+	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25);
+}
 
-    .open-bot {
-      position: relative;
-      height: 200px;
-      width: 100%;
+.mat-mdc-row:hover .mat-mdc-cell {
+	background-color: #eee;
+	cursor: pointer;
+}
 
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-      }
+.channel-badge {
+	display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: .7rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: black;
+  background-color: #C3FA6C;
+}
 
-      .open-bot-content {
-        position: absolute;
-        bottom: 0;
-        padding: 20px;
-        height: fit-content;
-        width: 100%;
+.search {
+	height: 5px;
+	width: 80%;
+	background-color: var(--convs-mgr-color-primary-white);
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	padding: 20px;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
-        button {
-          background-color: white;
-          color: black;
-        }
-      }
-    }
-  }
+	&_tooltip {
+		color: gray;
+		transform: rotate(90deg);
+		font-size: 20px;
+		font-weight: 500;
+	}
 
-  .card:nth-of-type(2) {
-    background-color: #481B4C;
-  }
+	&_input {
+		width: 90%;
+		height: 30px;
+		border: none;
+		outline: none;
+		font-size: 15px;
+		padding-left: 6px;
+	}
+}
 
-  .card:nth-of-type(3) {
-    background-color: #111441;
-  }
+.title-desc {
+	cursor: pointer;
+}
 
-  .card:nth-of-type(4) {
-    background-color: #3E788A;
-  }
+.actions {
+	padding: 30px 0px;
+}
+
+.grid-list button img {
+	height: 12px;
+	width: auto;
+	object-fit: contain;
+}
+
+select {
+	appearance: none;
+	outline: 10px red;
+	border: 0;
+	box-shadow: none;
+	flex: 1;
+	padding: 0 1em;
+	color: black !important;
+	background-color: white;
+	background-image: none;
+	cursor: pointer;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+.select {
+	position: relative;
+	display: flex;
+	width: 12em;
+	height: 35px;
+	border-radius: .25em;
+	overflow: hidden;
+}
+
+/* Arrow */
+.select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: .4rem;
+	background-color: #fff;
+	color: black !important;
+	transition: .25s all ease;
+	pointer-events: none;
+}
+
+/* Transition */
+.select:hover::after {
+	color: black;
 }

@@ -11,7 +11,7 @@ import { StoriesStore } from '../stores/stories.store';
 export class StoryStateService {
   constructor(private _StoriesStore$$: StoriesStore) {}
 
-  getStory(): Observable<Story[]> {
+  getStories(): Observable<Story[]> {
     return this._StoriesStore$$.get();
   }
 
