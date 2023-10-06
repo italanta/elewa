@@ -18,9 +18,9 @@ body {
 //Block Connectors
 //endpoint
 .block_endpoint circle {
-  fill: var(--endpoint-color);
+  fill: var(--connector-color-blue);
   stroke-width: 1px;
-  stroke: var(--endpoint-outline);
+  stroke: var(--connector-outline-color-blue);
 }
 
 //connector

@@ -2,7 +2,7 @@
 	<form [formGroup]="eventBlockForm" fxLayout="column" fxLayoutALign="start center">
         <input class="name-input" [id]="id" formControlName="eventName" type="text"
         [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.EVENT-NAME' | transloco" />
-        <div>
+        <div class="checkbox-area">
             <mat-checkbox formControlName="isMilestone" class="checkbox" color="warn" type="checkbox"></mat-checkbox>
             <label for="checkbox" class="label-styling"> {{ 'PAGE-CONTENT.BLOCK.LABELS.TRACK-MILESTONE' | transloco }} </label>
         </div>

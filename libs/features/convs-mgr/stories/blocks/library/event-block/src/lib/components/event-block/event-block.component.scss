@@ -18,10 +18,15 @@ input[type='checkbox']:checked:after {
     color: white !important;
 }
 
+.checkbox-area{
+	margin-left: -0.625rem;
+}
+
 .checkbox{
 	color: #7c7c7c;
 }
 
 .label-styling{
 	color: #707070;
+	margin-left: -0.625rem;
 }

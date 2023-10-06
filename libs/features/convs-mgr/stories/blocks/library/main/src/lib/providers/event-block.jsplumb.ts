@@ -21,8 +21,16 @@ export function _EventBlockDecoratePlumb(block: EventBlock, comp: ComponentRef<B
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass: 'block_endpoint',
-    endpoint: 'Rectangle',
-    anchor: "Left",
+    endpoint: 'Dot',
+    anchor: [0, 0.2, 0, 1],
+    maxConnections: -1
+  });
+
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    source: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1, 0.75, 0, 1],
     maxConnections: -1
   });
   
