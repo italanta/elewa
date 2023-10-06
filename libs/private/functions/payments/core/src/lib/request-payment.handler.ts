@@ -1,38 +1,92 @@
-import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
-//import { RcvPaymentCommand } from "./commands/receive-payment.command"; Commented out because this is the same as a payment object 
+import { HandlerTools } from "@iote/cqrs";
+import { IObject } from "@iote/bricks";
+
 import { PaymentCoreService } from "./services/payment-core.service";
-import { Invoice } from './models/invoice'
-import { Payment } from "./models/payment";
-import { SequenceType } from "./models/sequence-type";
-import { Subscription } from "./models/subscription";
+import { Invoice } from './models/invoice';
 
 export class RequestPaymentHandler extends FunctionHandler<Invoice, any>
 {
-
+  /**
+   * function to request a payment from a one time user, returns a url that when clicked checksout to Mollie's payments page
+   */
   private _paymentService: PaymentCoreService;
   public async execute(data: Invoice, context: FunctionContext, tools: HandlerTools): Promise<any> {
-    // Request Payment from Organization
-   // const invoiceAmount = this.calculateInvoiceAmount(subscription);
-    const payment: Payment = {
+    try {
+      const payment = {
         description: data.description,
-        redirectUrl: "http://localhost:4200/settings",
+        redirectUrl: "http://localhost:4200/setting",
         cancelUrl: "http://localhost:4200/home",
         amount: {
-            currency: "EUR",
-            value: "35.00"
+          currency: data.amount.currency,
+          value: data.amount.value
         },
-        sequenceType: SequenceType.Recurring
-    };
-    this._paymentService = new PaymentCoreService("", payment, "https://api.mollie.com/v2/payments")
-    const paymentReponse = await this._paymentService.requestPayment();
-    const paymentRepo = await tools.getRepository('payments');
-    paymentRepo.create(paymentReponse);
+        method: ['creditcard']
+      };
 
-    return 
+      tools.Logger.log(() => `execute: Payment Obj => ${JSON.stringify(payment)}`)
+
+      this._paymentService = new PaymentCoreService("test_RTxqmDAhRdfWncsEuHRW6pgbAW6yNs", payment, "https://api.mollie.com/v2/payments", tools)
+
+      const paymentResponse = await this._paymentService.requestPayment();
+
+      const responseBody = JSON.parse(JSON.stringify(paymentResponse));
+
+      const paymentUrl = responseBody['_links']['checkout']['href'];
+
+      const paymentRepo = tools.getRepository<PaymentData>('payments');
+
+      await paymentRepo.write(responseBody as unknown as PaymentData, responseBody.id);
+
+      // Log the checkout URL
+      tools.Logger.log(() => `execute: Payment URL: ${paymentUrl}`);
+
+      // Return the response body from mollie
+      return responseBody;
+
+    } catch (e) {
+      tools.Logger.log(() => e)
+    }
   }
-  //Find a way of getting subscriptions from an org 
-  // calculateInvoiceAmount(subscription: Subscription){
-  //   return subscription.amount.value
-  // }
+
 }
+
+interface PaymentData extends IObject {
+  resource: string;
+  id: string;
+  mode: string;
+  createdAt: string;
+  amount: {
+    value: string;
+    currency: string;
+  };
+  description: string;
+  method: string;
+  metadata: null | any; // You can replace 'any' with a more specific type if needed
+  status: string;
+  isCancelable: boolean;
+  expiresAt: string;
+  profileId: string;
+  sequenceType: string;
+  redirectUrl: string;
+  cancelUrl: string;
+  _links: {
+    self: {
+      href: string;
+      type: string;
+    };
+    checkout: {
+      href: string;
+      type: string;
+    };
+    dashboard: {
+      href: string;
+      type: string;
+    };
+    documentation: {
+      href: string;
+      type: string;
+    };
+  };
+}
+

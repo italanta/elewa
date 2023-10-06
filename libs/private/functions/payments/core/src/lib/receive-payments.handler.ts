@@ -6,7 +6,8 @@ import { RcvPaymentCommand } from "./commands/receive-payment.command";
 export class ReceivePaymentHandler extends FunctionHandler<RcvPaymentCommand, any>
 {
   public async execute(data: RcvPaymentCommand, context: FunctionContext, tools: HandlerTools): Promise<any> {
-    const { amount, description, redirectUrl  } = data
+    const { amount, description, redirectUrl  } = data;
+    tools.Logger.log(() => data);
     // const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
 
     // const molliePayment = await mollieClient.payments.create({
@@ -32,5 +33,8 @@ export class ReceivePaymentHandler extends FunctionHandler<RcvPaymentCommand, an
 
     return ;
   }
+  processResponse(){
+    // tools.Logger.log(() => `Payment Object ${JSON.stringify(payment)}`);
 
+  }
  }
