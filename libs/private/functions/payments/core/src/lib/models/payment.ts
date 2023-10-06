@@ -10,6 +10,7 @@ export interface Payment {
     cancelUrl: string;
     webhookUrl?: string;
     sequenceType?: SequenceType;
+    method : string  
 }
 
 /**

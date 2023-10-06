@@ -1,5 +1,5 @@
-import { Payment, Amount } from "../../../../../../model/payments-models/src/lib/payment";
-import { SequenceType } from "../../../../../../model/payments-models/src/lib/sequence-type";
+import { Amount } from "../models/payment";
+import { SequenceType } from "../models/sequence-type";
 
 /**
  * Create a new command for handling the payments webhook

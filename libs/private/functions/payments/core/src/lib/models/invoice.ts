@@ -1,7 +1,9 @@
 import { IObject } from "@iote/bricks";
+import { Amount } from "./payment";
 
-export interface Invoice extends IObject{
+export interface Invoice extends IObject {
     date: Date;
     description: string;
-    amount: number
+    amount: Amount;
+    orgId: string;
 }
