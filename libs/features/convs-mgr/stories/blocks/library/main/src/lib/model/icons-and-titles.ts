@@ -90,6 +90,7 @@ export const iconsAndTitles: any = {
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
     icon: 'fas fa-video',
+    svgIcon: 'assets/svgs/blocks/system-uicons_video.svg'
   },
   25: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
