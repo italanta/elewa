@@ -1,10 +1,12 @@
 import { HandlerTools } from '@iote/cqrs';
-
-import { Query } from '@ngfi/firestore-qbuilder';
 import { FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
-import { EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { ChannelDataService } from '@app/functions/bot-engine';
+import {
+  ChannelDataService,
+  ClassroomDataService,
+  EndUserDataService,
+  EnrolledUserDataService,
+} from '@app/functions/bot-engine';
 
 import {
   MeasureGroupProgressCommand,
@@ -14,6 +16,7 @@ import {
   UsersProgressMilestone,
   GroupedProgressMilestone,
 } from '@app/model/analytics/group-based/progress';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
@@ -39,18 +42,33 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
 
       const orgId = channels.orgId;
 
-      // 2. Get all end users of org
-      const userRepo = tools.getRepository<EndUser>(`orgs/${orgId}/end-users`);
+      const classroomDataService = new ClassroomDataService(tools, orgId);
 
-      // TODO: @LemmyMwaura - pull groups from DB after user grouping feature is implemented.
-      const endUsers = await userRepo.getDocuments(
-        new Query().where('labels', 'array-contains-any', ['class_TBD','class_BDOM','class_HGRSJ',])
+      const endUserDataService = new EndUserDataService(tools, orgId);
+
+      const enrUserDataService = new EnrolledUserDataService(tools, orgId);
+
+      const classrooms = await classroomDataService.getClassrooms();
+
+      // 2. Get all enrolled users of org
+      const enrolledUsers = await enrUserDataService.getEnrolledUsers();
+
+      // 3. Get all end users of an org, map end user to enrolled user's class
+      const endUsers = await Promise.all(
+        enrolledUsers
+          .filter((user) => user.whatsappUserId).map(async (user) => {
+            return {
+              endUser: await endUserDataService.getEndUser(user.whatsappUserId),
+              classroom: classrooms.find((classroom) => classroom.id === user.classId) as Classroom,
+            };
+          })
       );
 
       const engine = new MeasureParticipantProgressHandler();
+
       const monitoringAndEvalDataService = new MonitoringAndEvaluationService(tools, orgId);
 
-      //3. get all users progress
+      //4. get all users progress
       const allUsersProgress = await Promise.all(
         endUsers?.map((user) =>
           engine.execute({ orgId, participant: user, interval }, context, tools)
@@ -98,8 +116,8 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]): UsersProgressMilestone[] {
   const groupedByMilestone = allUsersProgress.reduce((acc, participant) => {
     //guard clause to filter user's with no history when calculating past data
-    if (!participant) return acc
-  
+    if (!participant) return acc;
+
     const { milestone } = participant;
 
     if (!acc[milestone]) {
@@ -121,33 +139,34 @@ function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]
  */
 function _groupUsersByGroupThenMilestone(allUsersProgress: ParticipantProgressMilestone[]): GroupedProgressMilestone[] {
   const groupedByGroupAndMilestone = Object.values(allUsersProgress.reduce((acc, participant) => {
-    //guard clause to filter user's with no history when calculating past data
-    if (!participant) return acc
+      //guard clause to filter user's with no history when calculating past data
+      if (!participant) return acc;
 
-    const { group, milestone, participant: user } = participant;
-  
-    if (!acc[group]) {
-      acc[group] = {
-        name: group,
-        measurements: {},
-      };
-    }
-  
-    if (!acc[group].measurements[milestone]) {
-      acc[group].measurements[milestone] = {
-        name: milestone,
-        participants: [],
-      };
-    }
-  
-    acc[group].measurements[milestone].participants.push(user);
-    return acc;
-  }, {})).map((group: GroupedProgressMilestone)=> {
+      const { classroom, milestone, participant: user } = participant;
+
+      if (!acc[classroom.className]) {
+        acc[classroom.className] = {
+          name: classroom.className,
+          measurements: {},
+        };
+      }
+
+      if (!acc[classroom.className].measurements[milestone]) {
+        acc[classroom.className].measurements[milestone] = {
+          name: milestone,
+          participants: [],
+        };
+      }
+
+      acc[classroom.className].measurements[milestone].participants.push(user);
+      return acc;
+    }, {})
+  ).map((group: GroupedProgressMilestone) => {
     group.measurements = Object.values(group.measurements);
     return group;
   });
 
-  return groupedByGroupAndMilestone
+  return groupedByGroupAndMilestone;
 }
 
 /**
