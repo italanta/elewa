@@ -365,6 +365,46 @@
       "VIEW-ALL" : "View All"
     }
   },
+  "MODULES": {
+    "MODULES-PAGE": {
+      "MODULES" : "Modules",
+      "ALL-COURSES" : "All Modules",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Modules",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-MODULE" : "Open Module",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "LESSONS": {
+    "LESSONS-PAGE": {
+      "LESSONS" : "Lessons",
+      "ALL-COURSES" : "All Lessons",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Lessons",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-LESSON" : "Open lesson",
+      "VIEW-ALL" : "View All"
+    }
+  },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "TITLE": "Assessment Title",
