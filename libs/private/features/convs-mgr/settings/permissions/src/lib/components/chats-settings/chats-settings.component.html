@@ -2,7 +2,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <p class="main-title">Chats Settings</p>
+        <p class="main-title">{{ 'PERMISSIONS.CHAT-SETTINGS.SETTINGS' | transloco }}</p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -20,7 +20,7 @@
         </div>
 
         <div formGroupName="CanViewChats" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">Can View Chats</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.CHAT-SETTINGS.VIEW' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="chatsSettingsFormGroup" 
@@ -33,7 +33,7 @@
         </div>
 
         <div formGroupName="CanManageChats" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Manage Chats</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.CHAT-SETTINGS.MANAGE' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="chatsSettingsFormGroup" 

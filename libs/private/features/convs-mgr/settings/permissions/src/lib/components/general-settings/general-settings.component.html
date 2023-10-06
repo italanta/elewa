@@ -4,7 +4,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <p class="main-title">General Settings</p>
+        <p class="main-title">{{ 'PERMISSIONS.GENERAL-SETTINGS.SETTINGS' | transloco }} </p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -23,7 +23,7 @@
         </div>
     
         <div formGroupName="CanAddNewMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Add New Member </p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.ADD' | transloco }}  </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
@@ -37,7 +37,7 @@
         </div>
     
         <div formGroupName="CanDeleteMember" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">Can Delete Member</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.DELETE' | transloco }} </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>   -->
