@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -6,6 +7,7 @@ import { Observable } from 'rxjs';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { CREATE_EMPTY_STORY } from '../../providers/forms/story-form.provider';
 import { NewStoryService } from '../../services/new-story.service';
@@ -17,7 +19,7 @@ import { NewStoryService } from '../../services/new-story.service';
 })
 export class CreateLessonModalComponent implements OnInit {
   lessonForm: FormGroup;
-  modalMode = false;
+  isCreateMode: boolean;
 
   story: Story;
   isSavingStory = false;
@@ -27,16 +29,34 @@ export class CreateLessonModalComponent implements OnInit {
   constructor(
     private _stateStoryServ$: NewStoryService,
     private _botModulesServ$: BotModulesStateService,
-    private _formBuilder: FormBuilder
-  ) {}
+    private _formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA)
+    public data: { botMode: BotMutationEnum; story?: Story }
+  ) {
+    this.isCreateMode = data.botMode === BotMutationEnum.CreateMode;
+    this.data.story ? this.story = this.data.story : ''
+  }
 
   ngOnInit() {
     this.createFormGroup();
+
+    if (!this.isCreateMode) {
+      this.updateFormGroup();
+    }
+
     this.botModules$ = this._botModulesServ$.getBotModules();
   }
 
   createFormGroup() {
     this.lessonForm = CREATE_EMPTY_STORY(this._formBuilder);
+  }
+
+  updateFormGroup() {
+    this.lessonForm.patchValue({
+      storyName: this.story.name,
+      storyDesc: this.story.description,
+      parentModule: this.story.parentModule,
+    });
   }
 
   add(story: Story, parentModule: BotModule) {
@@ -49,15 +69,17 @@ export class CreateLessonModalComponent implements OnInit {
 
   submitForm() {
     const story: Story = {
-      name : this.lessonForm.value.storyName,
-      description : this.lessonForm.value.storyDesc,
-      parentModule: this.lessonForm.value.parentModule,
+      name: this.lessonForm.value.storyName,
+      description: this.lessonForm.value.storyDesc,
+      parentModule: this.lessonForm.value.parentModule.id,
       orgId: '',
     };
 
     const parentModule = this.lessonForm.value.parentModule as BotModule;
-    
+
     this.isSavingStory = true;
-    this.modalMode ? this.update(story, parentModule) : this.add(story, parentModule);
+    this.isCreateMode
+      ? this.add(story, parentModule)
+      : this.update(story, parentModule);
   }
 }

@@ -21,8 +21,6 @@ import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-das
 import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
 import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-modal.component';
 
-import { NewStoryService } from './services/new-story.service';
-
 import { BotCreateFlowModalComponent } from './modals/bot-create-flow-modal/bot-create-flow-modal.component';
 import { CreateModuleModalComponent } from './modals/create-module-modal/create-module-modal.component';
 import { CreateLessonModalComponent } from './modals/create-lesson-modal/create-lesson-modal.component';
@@ -55,8 +53,6 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     CreateModuleModalComponent,
     CreateLessonModalComponent,
     BotPageComponent,
-  ],
-
-  providers: [NewStoryService],
+  ]
 })
 export class ConvsMgrStoriesHomeModule {}

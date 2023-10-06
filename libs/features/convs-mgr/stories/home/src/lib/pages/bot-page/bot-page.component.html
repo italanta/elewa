@@ -1,9 +1,9 @@
 <convl-page title="Modules" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
   <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
-    <span class="bots"> {{ "MODULES.MODULES-PAGE.MODULES" | transloco }} </span>
+    <span class="bots" >{{ (parentBot$ | async)?.name }} {{ "MODULES.MODULES-PAGE.MODULES" | transloco }} </span>
 
     <div class="bots-header" fxFlex>
-      <app-modules-list-header></app-modules-list-header>
+      <app-modules-list-header> </app-modules-list-header>
     </div>
 
     <div class="latest-courses" fxFlex >

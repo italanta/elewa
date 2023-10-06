@@ -18,10 +18,10 @@ import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 // TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
 import { 
-  CreateBotModalComponent, 
   DeleteBotModalComponent, 
   ActionSortingOptions, 
-  DeleteElementsEnum 
+  DeleteElementsEnum, 
+  CreateModuleModalComponent
 } from '@app/features/convs-mgr/stories/home';
 
 
@@ -71,23 +71,23 @@ export class ModulesListAllCoursesComponent implements OnInit, AfterViewInit {
   }
 
   openBot(id: string) {
-    this._router$$.navigate(['stories', id]);
+    this._router$$.navigate(['modules', id]);
   }
 
-  editBot(bot: BotModule) {
-    this._dialog.open(CreateBotModalComponent, {
+  editBot(botModule: BotModule) {
+    this._dialog.open(CreateModuleModalComponent, {
       minWidth: '600px', 
       data: { 
-        botMode: BotMutationEnum.EditMode, bot: bot
+        botMode: BotMutationEnum.EditMode, botModule: botModule
       }
     }).afterClosed();
   }
 
-  deleteBot(bot: BotModule) {
+  deleteBot(botModule: BotModule) {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.BotModule, element: bot,
+        mode: DeleteElementsEnum.BotModule, element: botModule,
       }
     }).afterClosed();
   }

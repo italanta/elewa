@@ -1,33 +1,33 @@
 <div class="modal">
   <h2 class="create-bot-header">
-    <span *ngIf="!modalMode; else showEditTitle">
-      {{ 'BOTS.CREATE-MODAL.TITLE' | transloco }}
+    <span *ngIf="isCreateMode; else showEditTitle">
+      {{ 'MODULES.CREATE-MODAL.TITLE' | transloco }}
     </span>
     <ng-template #showEditTitle>
-      {{ 'BOTS.EDIT-MODAL.TITLE' | transloco }}
+      {{ 'MODULES.EDIT-MODAL.TITLE' | transloco }}
     </ng-template>
   </h2>
 
   <form [formGroup]="moduleForm">
     <div fxLayout="column" fxLayoutAlign="start">
-      <h4 class="label"> {{ 'BOTS.FIELDS.NAME' | transloco }} </h4>
+      <h4 class="label"> {{ 'MODULES.FIELDS.NAME' | transloco }} </h4>
       <mat-form-field appearance="outline">
         <input type="text" matInput formControlName="moduleName"
-          [placeholder]="'BOTS.FIELDS.NAME-PLACEHOLDER' | transloco" />
+          [placeholder]="'MODULES.FIELDS.NAME-PLACEHOLDER' | transloco" />
       </mat-form-field>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start">
-      <h4 class="label">{{ 'BOTS.FIELDS.DESC' | transloco }}</h4>
+      <h4 class="label">{{ 'MODULES.FIELDS.DESC' | transloco }}</h4>
 
       <mat-form-field appearance="outline">
         <textarea matInput formControlName="moduleDesc"
-          [placeholder]="'BOTS.FIELDS.DESC-PLACEHOLDER' | transloco"></textarea>
+          [placeholder]="'MODULES.FIELDS.DESC-PLACEHOLDER' | transloco"></textarea>
       </mat-form-field>
     </div>
 
     <div>
-      <h4 class="label">Course Name</h4>
+      <h4 class="label">{{ 'MODULES.CREATE-MODAL.FIELDS.COURSE' | transloco }}</h4>
 
       <mat-form-field appearance="fill">
         <mat-select formControlName="parentBot">
@@ -41,7 +41,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" class="bot-buttons">
       <div>
         <button mat-stroked-button mat-dialog-close class="cancel-btn">
-          {{ 'BOTS.CREATE-MODAL.CANCEL' | transloco }}
+          {{ 'MODULES.CREATE-MODAL.CANCEL' | transloco }}
         </button>
       </div>
 
@@ -52,9 +52,9 @@
           </span>
 
           <ng-template #notUploading>
-            <span *ngIf="!modalMode else isEdit">{{ 'BOTS.CREATE-MODAL.CREATE' | transloco }}</span>
+            <span *ngIf="isCreateMode else isEdit">{{ 'MODULES.CREATE-MODAL.CREATE' | transloco }}</span>
             <ng-template #isEdit>
-              <span> {{ 'BOTS.CREATE-MODAL.UPDATE' | transloco }} </span>
+              <span> {{ 'MODULES.CREATE-MODAL.UPDATE' | transloco }} </span>
             </ng-template>
           </ng-template>
         </button>

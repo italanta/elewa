@@ -12,6 +12,8 @@ import { ActiveOrgStore } from '@app/state/organisation';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
 @Component({
   selector: 'app-module-page',
@@ -22,6 +24,7 @@ export class ModulePageComponent implements OnInit {
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 
+  parentModule$: Observable<BotModule>;
   stories$: Observable<Story[]>;
   org$: Observable<Organisation>;
 
@@ -31,6 +34,7 @@ export class ModulePageComponent implements OnInit {
   constructor(
     private _org$$: ActiveOrgStore,
     private _storiesServ$$: StoryStateService,
+    private _botModServ$$: BotModulesStateService,
     private _route$: ActivatedRoute,
     private _router$$: Router
   ) {
@@ -43,6 +47,7 @@ export class ModulePageComponent implements OnInit {
     this.stories$ = this._route$.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') as string;
+        this.parentModule$ = this._botModServ$$.getBotModuleById(id) as Observable<BotModule>;
         return this._storiesServ$$.getStoriesFromParentModule(id)
       })
     );

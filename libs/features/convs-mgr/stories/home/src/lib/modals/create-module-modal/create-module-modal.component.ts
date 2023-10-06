@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
 import { Observable, of, switchMap, take } from 'rxjs';
@@ -8,7 +9,7 @@ import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Bot } from '@app/model/convs-mgr/bots';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { CREATE_EMPTY_BOT_MODULE } from '../../providers/forms/bot-module-form.provider';
 
@@ -23,23 +24,45 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   @Output() nextStepEvent = new EventEmitter<void>();
 
   moduleForm: FormGroup;
-  modalMode = false;
-  bots$: Observable<Bot[]>;
+
+  botModule: BotModule;
+  isCreateMode: boolean;
   isSavingModule: boolean;
+
+  bots$: Observable<Bot[]>;
 
   constructor(
     private _botModulesServ: BotModulesStateService,
     private _botsServ$: BotsStateService,
-    private _formBuilder: FormBuilder
-  ) {}
+    private _formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA)
+    public data: { botMode: BotMutationEnum; botModule?: BotModule }
+  ) {
+    this.isCreateMode = data.botMode === BotMutationEnum.CreateMode;
+    this.data.botModule ? this.botModule = this.data.botModule : ''
+  }
 
   ngOnInit() {
     this.createFormGroup();
+
+    if (!this.isCreateMode) {
+      this.updateFormGroup();
+    }
+
     this.bots$ = this._botsServ$.getBots();
   }
 
   createFormGroup() {
     this.moduleForm = CREATE_EMPTY_BOT_MODULE(this._formBuilder);
+  }
+
+  updateFormGroup() {
+    this.moduleForm.patchValue({
+      moduleName: this.botModule.name,
+      moduleDesc: this.botModule.description,
+      parentBot: this.botModule.parentBot,
+      stories: this.botModule.stories
+    });
   }
 
   submitForm() {

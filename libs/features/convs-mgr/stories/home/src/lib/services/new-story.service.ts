@@ -18,7 +18,7 @@ import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
 /** Service which can create new stories. */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class NewStoryService implements OnDestroy {
   private _sbS = new SubSink();
 

@@ -12,6 +12,8 @@ import { ActiveOrgStore } from '@app/state/organisation';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
+import { Bot } from '@app/model/convs-mgr/bots';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 @Component({
   selector: 'italanta-apps-bot-page',
@@ -22,6 +24,7 @@ export class BotPageComponent implements OnInit {
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 
+  parentBot$: Observable<Bot>
   botModules$: Observable<BotModule[]>;
   org$: Observable<Organisation>;
 
@@ -30,6 +33,7 @@ export class BotPageComponent implements OnInit {
 
   constructor(
     private _org$$: ActiveOrgStore,
+    private _botServ$$: BotsStateService,
     private _botModServ$$: BotModulesStateService,
     private _route$: ActivatedRoute,
     private _router$$: Router
@@ -43,6 +47,7 @@ export class BotPageComponent implements OnInit {
     this.botModules$ = this._route$.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') as string;
+        this.parentBot$ = this._botServ$$.getBotById(id) as Observable<Bot>;
         return this._botModServ$$.getBotModulesFromParentBot(id);
       })
     );

@@ -17,11 +17,11 @@ import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 // TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
-import { 
-  CreateBotModalComponent, 
+import {
   DeleteBotModalComponent, 
   ActionSortingOptions, 
-  DeleteElementsEnum 
+  DeleteElementsEnum, 
+  CreateLessonModalComponent
 } from '@app/features/convs-mgr/stories/home';
 
 @Component({
@@ -74,20 +74,20 @@ export class StoriesListAllCoursesComponent implements OnInit, AfterViewInit {
     this._router$$.navigate(['stories', id]);
   }
 
-  editBot(bot: Story) {
-    this._dialog.open(CreateBotModalComponent, {
+  editBot(story: Story) {
+    this._dialog.open(CreateLessonModalComponent, {
       minWidth: '600px', 
-      data: { 
-        botMode: BotMutationEnum.EditMode, bot: bot
+      data: {
+        botMode: BotMutationEnum.EditMode, story: story
       }
     }).afterClosed();
   }
 
-  deleteBot(bot: Story) {
+  deleteBot(story: Story) {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: bot,
+        mode: DeleteElementsEnum.Story, element: story,
       }
     }).afterClosed();
   }
