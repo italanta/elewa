@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
@@ -9,17 +9,16 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { Organisation } from '@app/model/organisation';
 
 import { ActiveOrgStore } from '@app/state/organisation';
-import { StoryStateService } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
-
+import { StoryStateService } from '@app/state/convs-mgr/stories';
 
 @Component({
-  selector: 'app-lesson-dashboard',
-  templateUrl: './lesson-dashboard.component.html',
-  styleUrls: ['./lesson-dashboard.component.scss'],
+  selector: 'app-module-page',
+  templateUrl: './module-page.component.html',
+  styleUrls: ['./module-page.component.scss'],
 })
-export class LessonDashboardComponent implements OnInit {
+export class ModulePageComponent implements OnInit {
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 
@@ -31,7 +30,8 @@ export class LessonDashboardComponent implements OnInit {
 
   constructor(
     private _org$$: ActiveOrgStore,
-    private _storyServ$$: StoryStateService,
+    private _storiesServ$$: StoryStateService,
+    private _route$: ActivatedRoute,
     private _router$$: Router
   ) {
     this.breadcrumbs = [HOME_CRUMB(_router$$, true)];
@@ -39,6 +39,12 @@ export class LessonDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.org$ = this._org$$.get();
-    this.stories$ = this._storyServ$$.getStories();
+  
+    this.stories$ = this._route$.paramMap.pipe(
+      switchMap((params) => {
+        const id = params.get('id') as string;
+        return this._storiesServ$$.getStoriesFromParentModule(id)
+      })
+    );
   }
 }

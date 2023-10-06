@@ -51,7 +51,8 @@ export class CreateLessonModalComponent implements OnInit {
     const story: Story = {
       name : this.lessonForm.value.storyName,
       description : this.lessonForm.value.storyDesc,
-      orgId: ''
+      parentModule: this.lessonForm.value.parentModule,
+      orgId: '',
     };
 
     const parentModule = this.lessonForm.value.parentModule as BotModule;

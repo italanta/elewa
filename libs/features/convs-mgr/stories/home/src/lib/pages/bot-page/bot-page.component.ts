@@ -43,7 +43,7 @@ export class BotPageComponent implements OnInit {
     this.botModules$ = this._route$.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') as string;
-        return this._botModServ$$.getBotModulesFromParentBot(id) as Observable<BotModule[]>;
+        return this._botModServ$$.getBotModulesFromParentBot(id);
       })
     );
   }

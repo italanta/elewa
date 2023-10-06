@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+
+import { Observable, map } from 'rxjs';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 
@@ -13,6 +14,12 @@ export class StoryStateService {
 
   getStories(): Observable<Story[]> {
     return this._StoriesStore$$.get();
+  }
+
+  getStoriesFromParentModule(moduleId: string): Observable<Story[]> {
+    return this._StoriesStore$$.get().pipe(
+      map(stories => stories.filter(story => story.parentModule === moduleId))
+    );
   }
 
   getStoryById(id: string): Observable<Story | undefined> {
