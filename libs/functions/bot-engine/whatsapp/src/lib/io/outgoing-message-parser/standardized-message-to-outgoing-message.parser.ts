@@ -8,8 +8,11 @@ import
   WhatsAppImageMessage,
   WhatsAppLocationMessage,
   WhatsAppMessageType,
+  WhatsAppTemplateMessage,
+  WhatsappTemplateComponent,
   WhatsAppTextMessage,
   WhatsAppVideoMessage,
+  WhatsappTemplateParameter,
 } from '@app/model/convs-mgr/functions';
 
 import { 
@@ -20,9 +23,11 @@ import {
   LocationMessage, 
   Message, 
   OutgoingMessagePayload, 
+  TemplateMessage, 
   TextMessage, 
   VideoMessage 
 } from '@app/model/convs-mgr/conversations/messages';
+import { WhatsappTemplateMessageParser } from './standardized-message-to-message-template.parser';
 
 /**
  * Interprets our standardized messages @see {Message} to a whatsapp message
@@ -59,6 +64,18 @@ export class StandardMessageOutgoingMessageParser
     return generatedMessage;
   }
 
+  /**
+   * @Description Used to interpret standard template messages into a format 
+   *  whatsapp can understand
+   * 
+   * @see WhatsappTemplateMessageParser
+   */
+  private _getTemplateMessageParserOut(message: TemplateMessage, phone: string): any
+  {
+    // Creates the template payload depending on the type of template
+    //   which will be sent to api
+    return new WhatsappTemplateMessageParser().parse(message, phone)
+  }
 
   private _getImageMessageParserOut(message: ImageMessage, phone: string)
   {
@@ -195,6 +212,7 @@ export class StandardMessageOutgoingMessageParser
       case MessageTypes.IMAGE:                    parser = this._getImageMessageParserOut; break;
       case MessageTypes.LOCATION:                 parser = this._getLocationMessageParserOut; break;
       case MessageTypes.DOCUMENT:                 parser = this._getDocumentMessageParserOut; break;
+      case MessageTypes.TEMPLATE:                 parser = this._getTemplateMessageParserOut; break;
       default:
         parser = this._getTextMessageParserOut;
     }

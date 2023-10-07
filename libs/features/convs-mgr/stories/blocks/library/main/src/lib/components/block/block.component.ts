@@ -41,7 +41,6 @@ import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.m
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
-import { _CreateMultiContentInputForm } from '../../model/multi-content-input-block-form.model';
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model';
 import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
 import { _CreateEventBlockForm } from '../../model/event-block-form.model';
@@ -91,7 +90,6 @@ export class BlockComponent implements OnInit {
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
-  multiContentInputType = StoryBlockTypes.MultiContentInput;
   keywordJumpType = StoryBlockTypes.keyword;
   eventType = StoryBlockTypes.Event;
   assessmentBrickType= StoryBlockTypes.Assessment;
@@ -238,11 +236,6 @@ export class BlockComponent implements OnInit {
 
         case StoryBlockTypes.OpenEndedQuestion:
           this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.MultiContentInput:
-          this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
           break;
 
