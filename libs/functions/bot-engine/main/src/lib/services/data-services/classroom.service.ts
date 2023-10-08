@@ -5,7 +5,7 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 import { BotDataService } from './data-service-abstract.class';
 
 /**
- * Contains all the required database flow methods for the chat-status collection
+ * Contains all the required database flow methods for the classes collection
  */
 export class ClassroomDataService extends BotDataService<Classroom> {
   private _docPath: string;
@@ -26,16 +26,15 @@ export class ClassroomDataService extends BotDataService<Classroom> {
   }
 
   async getOrCreateClassroom(classroom: Classroom, classroomId?: string) {
-    let currentClassroom;
+    let currentClassroom: Classroom;
+
     if (!classroomId) {
-      currentClassroom = await this.getDocumentById(
-        classroomId || classroom.id,
-        this._docPath
-      );
+      currentClassroom = await this.getDocumentById(classroomId || classroom.id, this._docPath);
     }
 
-    if (!currentClassroom)
+    if (!currentClassroom) {
       currentClassroom = await this.createClassroom(classroom);
+    }
 
     return currentClassroom;
   }

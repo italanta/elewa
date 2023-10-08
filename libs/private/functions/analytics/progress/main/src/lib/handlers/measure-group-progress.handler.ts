@@ -16,7 +16,6 @@ import {
   UsersProgressMilestone,
   GroupedProgressMilestone,
 } from '@app/model/analytics/group-based/progress';
-import { Classroom } from '@app/model/convs-mgr/classroom';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
@@ -54,12 +53,12 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
       const enrolledUsers = await enrUserDataService.getEnrolledUsers();
 
       // 3. Get all end users of an org, map end user to enrolled user's class
-      const endUsers = await Promise.all(
+      const endUsersWithClassroom = await Promise.all(
         enrolledUsers
           .filter((user) => user.whatsappUserId).map(async (user) => {
             return {
               endUser: await endUserDataService.getEndUser(user.whatsappUserId),
-              classroom: classrooms.find((classroom) => classroom.id === user.classId) as Classroom,
+              classroom: classrooms.find((classroom) => classroom.id === user.classId),
             };
           })
       );
@@ -70,7 +69,7 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
 
       //4. get all users progress
       const allUsersProgress = await Promise.all(
-        endUsers?.map((user) =>
+        endUsersWithClassroom?.map((user) =>
           engine.execute({ orgId, participant: user, interval }, context, tools)
         )
       );
@@ -93,10 +92,10 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
  */
 async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], monitoringDataServ: MonitoringAndEvaluationService, timeInUnix:number) {
   //1. group users by milestones
-  const measurements = _groupUsersByMilestone(allUsersProgress);
+  const measurements = _parseAllUserProgressData(allUsersProgress);
 
-  //2. group users by milestones and group
-  const groupedMeasurements = _groupUsersByGroupThenMilestone(allUsersProgress);
+  //2. group users by milestones and classroom
+  const groupedMeasurements = _parseGroupedProgressData(allUsersProgress);
 
   const date = new Date(timeInUnix * 1000);
 
@@ -109,11 +108,11 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 }
 
 /**
- * Groups users by milestone in their progress.
+ * Groups users by milestone(current Module) in their progress.
  * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
  * @returns {UsersProgressMilestone[]} An array of participants grouped by milestone.
  */
-function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]): UsersProgressMilestone[] {
+function _parseAllUserProgressData(allUsersProgress: ParticipantProgressMilestone[]): UsersProgressMilestone[] {
   const groupedByMilestone = allUsersProgress.reduce((acc, participant) => {
     //guard clause to filter user's with no history when calculating past data
     if (!participant) return acc;
@@ -133,11 +132,11 @@ function _groupUsersByMilestone(allUsersProgress: ParticipantProgressMilestone[]
 
 
 /**
- * Groups users by course then by classroom, then by milestone in their progress.
+ * Groups users by course then by classroom, then by milestone(current module) in their progress.
  * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
  * @returns {GroupedProgressMilestone[]} An array of participants grouped by course, class then by milestone.
  */
-function _groupUsersByGroupThenMilestone(allUsersProgress: ParticipantProgressMilestone[]): GroupedProgressMilestone[] {
+function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMilestone[]): GroupedProgressMilestone[] {
   const groupedByGroupAndMilestone = Object.values(allUsersProgress.reduce((acc, participant) => {
       //guard clause to filter user's with no history when calculating past data
       if (!participant) return acc;
