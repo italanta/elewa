@@ -4,9 +4,8 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
-import { CursorDataService, VariablesDataService } from '@app/functions/bot-engine';
+import { CursorDataService, VariablesDataService, BotModuleDataService } from '@app/functions/bot-engine';
 
 import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress'
 
@@ -25,7 +24,9 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
     const { orgId , participant, interval } = cmd;
 
     const cursorDataService = new CursorDataService(tools)
-    
+
+    const botModDataService = new BotModuleDataService(tools, orgId);
+
     // 1.1. Get the user cursor at the measurement point.
     const latestCursor = interval
       ? (await cursorDataService.getUserCursorAtSetTime(interval, orgId, participant.endUser.id))?.cursor
@@ -33,8 +34,6 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
       : ((await cursorDataService.getLatestCursor(participant.endUser.id, orgId)) as Cursor);
 
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
-
-    const modulesRepo = tools.getRepository<BotModule>(`orgs/${orgId}/modules`);
 
     // Get User's Name
     const varService = new VariablesDataService(tools, orgId, participant.endUser.id);
@@ -48,7 +47,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const story = await storyRepo.getDocumentById(storyId);
 
-    const parentModule = await modulesRepo.getDocumentById(story.parentModule);
+    const parentModule = await botModDataService.getBotModule(story.parentModule);
 
     return {
       participant: {
