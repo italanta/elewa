@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-template-form-dropdown',
@@ -20,7 +20,6 @@ export class TemplateFormDropdownComponent implements OnChanges{
   @Output() selectedOptionsChange = new EventEmitter<DropdownOptions>();
 
   toggleDropdown() {
-    console.log('hello worlds')
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
@@ -28,7 +27,6 @@ export class TemplateFormDropdownComponent implements OnChanges{
     this.selectedOptionsChange.emit(this.selectedOptions);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('hello')
     if (changes['selectedOptions']) {
       this.emitSelectedOptions();
     }

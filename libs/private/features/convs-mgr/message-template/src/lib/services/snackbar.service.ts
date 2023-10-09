@@ -9,8 +9,8 @@ export class SnackbarService {
 
   showSuccess(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 3000, // Snackbar duration in milliseconds
-      panelClass: ['success-snackbar'], // You can define custom CSS classes for styling
+      duration: 3000, 
+      panelClass: ['success-snackbar'], 
     });
   }
 

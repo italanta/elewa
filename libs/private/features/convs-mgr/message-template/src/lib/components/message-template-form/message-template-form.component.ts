@@ -124,9 +124,6 @@ export class MessageTemplateFormComponent implements OnInit{
       "placeholder": newPlaceholder
       });
 
-    console.log(this.newVariables)
-
-
     // Clear the input fields in the newVariableForm
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
@@ -178,10 +175,8 @@ export class MessageTemplateFormComponent implements OnInit{
   save() {
     this.isSaving = true
     if (this.templateForm.value.id){
-      console.log('updating',this.templateForm.value);
       this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response) => {
         this.isSaving  = false;
-        console.log('Template sent to firebase', response);
       })
       
       this.template = {
@@ -201,11 +196,9 @@ export class MessageTemplateFormComponent implements OnInit{
         },
       };
       this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
-        console.log('Template created:', response);
         if (response.success){
           this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
             this.isSaving  = false;
-            console.log('Template sent to firebase', response);
           });
         }
       });
@@ -230,12 +223,10 @@ export class MessageTemplateFormComponent implements OnInit{
       };
       if(this.templateForm.valid){
         this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
-          console.log('Template created:', response);
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
             this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
               this.isSaving  = false;
-              console.log('Template sent to firebase', response);
               this._snackbar.showSuccess("Template created successfully");
             });
           }

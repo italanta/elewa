@@ -33,11 +33,6 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
 
     ngOnInit(): void {
       this.action = this._route$$.url.split('/')[2];
-
-      if (this.action !== 'create') {
-
-        console.log(this.action)
-      } 
     }
 
   openModal() {
@@ -47,7 +42,6 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
 
         dialogRef1.componentInstance?.milestoneSelected.subscribe(
           (selectedData: any) => {
-            console.log('Selected Milestone Data:', selectedData);
             const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'milestone');
             if (specificTimeOption) {
               specificTimeOption.viewValue = `${selectedData.milestoneType} ${selectedData.selectedMilestone} - ${selectedData.selectedStory.name}`;
@@ -59,7 +53,6 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
         const dialogRef = this._dialog.open(SpecificTimeComponent);
   
         dialogRef.componentInstance?.dateTimeSelected.subscribe((selectedDateTime: any) => {
-          console.log(selectedDateTime)
           this.selectedTime = selectedDateTime.date;
           const formattedDateTime = `Send message at ${selectedDateTime.time} ${selectedDateTime.date.toLocaleString()}`;
           // Update the 'specific-time' option viewValue
@@ -74,7 +67,6 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
 
         inactivityDialogRef.componentInstance?.timeInHoursSelected.subscribe(
           (selectedTime: number) => {
-            console.log(`Selected time in hours: ${selectedTime}`);
             // Process the selected time in hours as needed
             const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
             if (specificTimeOption) {
@@ -88,9 +80,6 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
     }
   }
   sendButtonClicked(template: MessageTemplate, selectedDate: Date){
-
-    // this._messageTemplateService.setActiveMessageTemplateId(template.id);
-    // this._messageTemplateService.setActiveMessageTemplateId(template.name);
     this._route$$.navigate(['/learners'], {queryParams: {templateId: template.id, dispatchDate: selectedDate}});
   }
 
