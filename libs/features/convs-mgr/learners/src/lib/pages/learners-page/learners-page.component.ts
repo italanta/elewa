@@ -13,7 +13,7 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
-import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
@@ -51,6 +51,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedCourse: any = 'Course';
   selectedPlatform: any = 'Platform';
   templateId: string;
+  selectedTime: Date;
 
   constructor(
     private _eLearners: EnrolledLearnersService,
@@ -58,7 +59,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _liveAnnouncer: LiveAnnouncer,
     private _dialog: MatDialog,
     private _messageService: MessageTemplatesService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _scheduleMessageService: ScheduleMessageService
   ) {
     
   }
@@ -82,13 +84,37 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   getActiveMessageTemplate(){
     this.activeMessageId = this._route.snapshot.queryParamMap.get('templateId') ?? '';
-    debugger;
-  }
+    const dispatchDateQueryParam = this._route.snapshot.queryParamMap.get('dispatchDate');
+
+    if (dispatchDateQueryParam) {
+      this.selectedTime = new Date(dispatchDateQueryParam);
+    }
+   }
   // TODO: Connect to send message service
   sendMessageButtonClicked(){
-    const learners = this.selection;
-    const template = this.activeMessageId;
-    this._messageService.sendMessageTemplate({learners, template});
+    const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber);
+    this._messageService.getTemplateById(this.activeMessageId).subscribe(
+      (template) => {
+          if(this.selectedTime){
+            const scheduleRequest = {
+              name: template?.name,
+              dispatchTime: this.selectedTime,
+              endUsers: selectedPhoneNumbers
+            };
+            this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((response) => {
+              console.log(response);
+            });
+          }
+          else{
+            this._messageService.sendMessageTemplate({endUsers: selectedPhoneNumbers, name: template?.name}).subscribe(
+              (response) => {
+                console.log(response, template?.name)
+              });
+          }
+           
+      }
+    );
+    
   }
 
   // TODO: get all classes
