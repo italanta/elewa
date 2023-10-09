@@ -25,7 +25,8 @@
 
 
 <div class="table">
-    <div fxFlex>
+    <mat-spinner *ngIf="isSaving"></mat-spinner>
+    <div fxFlex *ngIf="!isSaving">
         <table mat-table [dataSource]="dataSource"  class="assessments-table" 
           fxFlex>
           <ng-container matColumnDef="name">

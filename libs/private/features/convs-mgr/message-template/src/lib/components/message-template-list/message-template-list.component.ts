@@ -18,7 +18,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   messageTemplates$: Observable<MessageTemplate[]>;
   templateStatus$: Observable<MessageStatusRes[]>;
 
-  template:any;
+  template:MessageTemplate;
 
   dataFound = true;
   
@@ -40,6 +40,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
+    this.isSaving = true;
     this.messageTemplates$ = this._messageTemplateService.getMessageTemplates$();
     this.templateStatus$ = this._messageTemplateService.getTemplateStatus();
     this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
@@ -52,6 +53,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
       })
     ).subscribe((mergedData) => {
       this.dataSource.data = mergedData;
+      this.isSaving = false;
     });
     // this._sBS.sink = this.templateStatus$.subscribe((assessments)=> {
     //   this.dataSource.data = assessments;
@@ -80,9 +82,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   }
 
   sendButtonClicked(template: MessageTemplate){
-
-    // this._messageTemplateService.setActiveMessageTemplateId(template.id);
-    // this._messageTemplateService.setActiveMessageTemplateId(template.name);
     this._router.navigate(['/learners'], {queryParams: {templateId: template.id}});
   }
 
