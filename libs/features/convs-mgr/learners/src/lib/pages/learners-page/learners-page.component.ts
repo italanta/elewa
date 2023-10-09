@@ -1,19 +1,19 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { SelectionModel } from '@angular/cdk/collections';
+import { ActivatedRoute } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
+import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
-import { ActivatedRoute } from '@angular/router';
-import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 
 @Component({
   selector: 'app-learners-page',
@@ -53,6 +53,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllClasses();
     this.getAllCourses();
     this.getAllPlatforms();
+    this.getSurveyId();
+  }
+  
+  getSurveyId(){
     this.surveyId= this._route.snapshot.queryParamMap.get('surveyId') || '';
   }
 
@@ -111,7 +115,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   sendSurvey() {
-    this._surveyService.sendSurvey({surveyId: this.surveyId}).subscribe(console.log);
+    const selectedPhoneNumbers = this.selection.selected.map((user) => user.id);
+    this._surveyService.sendSurvey({surveyId: this.surveyId, enrolledUserIds:selectedPhoneNumbers }).subscribe();
   }
 
   isSomeSelected() {
