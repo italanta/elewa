@@ -52,8 +52,28 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  parseOutStandardMessage(message: Message, phone: string)
+  async parseOutStandardMessage(message: Message, phone: string)
   {
+    const n = this.channel.n;
+    const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+    const endUser = await this.endUserService.getEndUser(endUserId)
+
+    if(message.params) {
+      const variables = {
+        ...endUser,
+        ...endUser.variables
+      }
+
+      const newParams = message.params.map((param)=> {
+        if(param.value == '_var_'){
+          param.value = variables[param.name] || 'undefined';
+        }
+        return param;
+      })
+  
+      message.params = newParams;
+    }
+
     const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(message, phone);
 
     return outgoingMessagePayload;

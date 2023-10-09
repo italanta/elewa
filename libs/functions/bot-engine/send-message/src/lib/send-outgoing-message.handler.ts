@@ -68,9 +68,9 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
       let outgoingMessagePayload;
       // STEP 4: Get the outgoing message in whatsapp format
       if(activeChannel.channel.type == PlatformType.WhatsApp) {
-        outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+        outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
       } else if(activeChannel.channel.type == PlatformType.Messenger) {
-        outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.receipientId);
+        outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.receipientId);
       }
 
       // STEP 5: Send the message
