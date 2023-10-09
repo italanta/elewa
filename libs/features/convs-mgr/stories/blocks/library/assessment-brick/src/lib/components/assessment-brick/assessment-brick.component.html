@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="assessmentBrickForm">
   <form [formGroup]="assessmentBrickForm" fxLayout="column" fxLayoutALign="start center">
     <div fxLayout="row">
-      <mat-form-field>
+      <mat-form-field id="name">
         <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</mat-label>
         <mat-select formControlName="assessmentId" required>
           <mat-option>--</mat-option>
