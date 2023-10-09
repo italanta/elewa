@@ -1,19 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MaterialDesignModule, MaterialBricksModule } from '@iote/bricks-angular';
+import {
+  MaterialDesignModule,
+  MaterialBricksModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { GroupBasedProgressChartComponent } from './components/group-based-progress-chart/group-based-progress-chart.component';
+import { AssessmentProgressChartComponent } from './components/assessment-progress-chart/assessment-progress-chart.component';
 
 @NgModule({
-  declarations: [GroupBasedProgressChartComponent],
-  exports: [GroupBasedProgressChartComponent],
+  declarations: [
+    GroupBasedProgressChartComponent,
+    AssessmentProgressChartComponent,
+  ],
   imports: [
     CommonModule,
     MaterialBricksModule,
     MaterialDesignModule,
     MultiLangModule,
   ],
+  exports: [GroupBasedProgressChartComponent, AssessmentProgressChartComponent],
 })
 export class GroupBasedProgressModule {}
