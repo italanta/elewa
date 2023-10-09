@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { map, take } from 'rxjs';
 
@@ -8,7 +9,6 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { SurveysStore } from '../stores/surveys.store';
 import { ActiveSurveyStore } from '../stores/active-survey.store';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Injectable({
   providedIn: 'root',
@@ -46,13 +46,12 @@ export class SurveyService {
   getSurvey$(surveyId: string) {
     return this._surveys$$.getOne(surveyId);
   }
-  // Adjust data types once I know what the functions return
   sendSurvey(payload: any){
     const surveyReq = {
       channelId: "123034824233910",
-      enrolledUserIds: ["dd698779-ecd0-4f90-957"],
-      surveyId: payload.surveyId,
-      // messageTemplateName:"hello_world"
+      messageTemplateName:"hello_world",
+      enrolledUserIds: payload.enrolledUserIds,
+      surveyId: payload.surveyId
     }
     return this.sendCallFunction( surveyReq );
   }
