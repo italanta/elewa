@@ -2,7 +2,8 @@
   <ng-container *ngFor="let block of groupedBlocks">
     <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
       <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
-        <i class="{{ block.blockIcon }}" id="icons"></i>
+        <i *ngIf="block.message !== 'Image Input'" class="{{ block.blockIcon }}" id="icons"></i>
+        <img *ngIf="block.message === 'Image Input'" [src]="block.blockIcon" />
       </div>
       <p class="block-messages">
         {{ block.message }}
