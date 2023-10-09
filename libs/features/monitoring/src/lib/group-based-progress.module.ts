@@ -9,7 +9,6 @@ import { GroupBasedProgressChartComponent } from './components/group-based-progr
 @NgModule({
   declarations: [GroupBasedProgressChartComponent],
   exports: [GroupBasedProgressChartComponent],
-
   imports: [
     CommonModule,
     MaterialBricksModule,
