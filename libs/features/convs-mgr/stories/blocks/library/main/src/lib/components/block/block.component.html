@@ -2,7 +2,9 @@
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container">
-                <img [src]="iconClass" class="icon-color"/>
+                <i *ngIf="type != 50" [class]="iconClass" class="icon-color"></i>
+                <img *ngIf="type == 50" [src]="iconClass" class="icon-color"/>
+
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 
