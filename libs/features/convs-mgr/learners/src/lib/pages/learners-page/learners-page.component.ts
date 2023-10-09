@@ -3,6 +3,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
@@ -12,12 +13,11 @@ import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
-import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
+import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 
 @Component({
   selector: 'app-learners-page',

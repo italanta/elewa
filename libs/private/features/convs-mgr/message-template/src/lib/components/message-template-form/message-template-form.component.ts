@@ -97,7 +97,6 @@ export class MessageTemplateFormComponent implements OnInit{
         });
       }
     });
-
   }
   subscribeToBodyControlChanges() {
     const bodyControl = this.templateForm.get('content.body.text') as FormControl;

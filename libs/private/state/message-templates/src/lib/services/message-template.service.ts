@@ -23,7 +23,7 @@ export class MessageTemplatesService {
     private _activeTemplate$$: ActiveMessageTemplateStore
   ) {}
 
-  private templateCallFunction(action: string, data: MessageTemplate): Observable<any> {
+  private templateCallFunction(action: string, data: MessageTemplate){
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
 
     return templateRef({ 
@@ -32,17 +32,16 @@ export class MessageTemplatesService {
       template: data
     });
   }
-  private statusCallFunction(data: MessageStatusReq): Observable<any> {
+  private statusCallFunction(data: MessageStatusReq){
     const templateRef = this._aff.httpsCallable('channelWhatsappGetTemplates');
     return templateRef(data);
   }
-  private sendMessagesCallFunction(data: SendMessageTemplate): Observable<any> {
+  private sendMessagesCallFunction(data: SendMessageTemplate){
     const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
     return scheduleRef(data);
   }
 
-  // Adjust data types once I know what the functions return
-  sendMessageTemplate(payload: any): Observable<any> {
+  sendMessageTemplate(payload: any){
     const sendMessageReq: SendMessageTemplate = {
       n:2,
       plaform: PlatformType.WhatsApp,
@@ -78,16 +77,15 @@ export class MessageTemplatesService {
   getMessageTemplates$() {
     return this._messageTemplateStore$$.get();
   }
-  // Adjust data types once I know what the functions return
-  createTemplateMeta(payload: MessageTemplate): Observable<any> {
+  createTemplateMeta(payload: MessageTemplate){
     return this.templateCallFunction('create', payload );
   }
 
-  deleteTemplateMeta(payload: MessageTemplate): Observable<any> {
+  deleteTemplateMeta(payload: MessageTemplate){
     return this.templateCallFunction('delete', payload);
   }
 
-  updateTemplateMeta(payload: MessageTemplate): Observable<any> {
+  updateTemplateMeta(payload: MessageTemplate){
     return this.templateCallFunction('update', payload );
   }
 
@@ -96,7 +94,7 @@ export class MessageTemplatesService {
     const messageStatusReq: MessageStatusReq = {
       fields: ["name", "status", "category"],
       limit: 20,
-      channelId: "123034824233910"
+      channelId: this.channel
     }
     return this.statusCallFunction(messageStatusReq);
   }

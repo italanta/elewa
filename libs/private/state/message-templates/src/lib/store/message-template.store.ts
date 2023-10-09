@@ -1,16 +1,16 @@
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore } from '@ngfi/state';
 
 
-import { of } from 'rxjs';
-import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
+import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import { Organisation } from '@app/model/organisation';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 
 @Injectable()
