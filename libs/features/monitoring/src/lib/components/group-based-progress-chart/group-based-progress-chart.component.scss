@@ -2,7 +2,8 @@
   padding: 1rem;
   background-color: white;
   border-radius: 5px;
-  height: 100%;
+  height: 400px;
+  width: 50vw;
 
   .chart {
     position: relative;
@@ -17,24 +18,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    
     // left side
+    .left_menu {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
     .groups {
       display: flex;
       gap: 0.5rem;
 
-      .group {
-        padding: 0.3rem;
-  
-        &__btn {
-          border: none;
-          padding: 0.5rem;
-          border-radius: 5px;
-          cursor: pointer;
-  
-          &:active {
-            transform: scale(0.95);
-          }
+      button {
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #f0f0f0;
+
+        &:active {
+          transform: scale(0.95);
         }
       }
     }
