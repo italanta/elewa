@@ -65,8 +65,6 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
 
       const engine = new MeasureParticipantProgressHandler();
 
-      const monitoringAndEvalDataService = new MonitoringAndEvaluationService(tools, orgId);
-
       //4. get all users progress
       const allUsersProgress = await Promise.all(
         endUsersWithClassroom?.map((user) =>
@@ -78,7 +76,7 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
       const timeInUnix = interval ? interval : _getCurrentDateInUnix();
 
       // 4. Combine the progress of each user into a group progress model
-      return _groupProgress(allUsersProgress, monitoringAndEvalDataService, timeInUnix);
+      return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
     } catch (error) {
       tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
       return { error: error.message, status: 500 } as RestResult;
@@ -90,18 +88,29 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
  * Groups participant progress by milestone and group.
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
-async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], monitoringDataServ: MonitoringAndEvaluationService, timeInUnix:number) {
+async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], timeInUnix:number, tools: HandlerTools, orgId: string) {
+  const monitoringDataServ = new MonitoringAndEvaluationService(tools, orgId);
+
+  const enrolledUserDataServ = new EnrolledUserDataService(tools, orgId);
+
   //1. group users by milestones
   const measurements = _parseAllUserProgressData(allUsersProgress);
 
   //2. group users by milestones and classroom
   const groupedMeasurements = _parseGroupedProgressData(allUsersProgress);
 
+  //3. get newly Enrolled User Count
+  const enrolledUserCount = (await enrolledUserDataServ.getTodaysUsers(orgId)).length
+
   const date = new Date(timeInUnix * 1000);
 
-  //3. Add To Database
+  //4. Add To Database
   const savedMilestone = await monitoringDataServ.createNewMilestone(
-    timeInUnix, measurements, groupedMeasurements, `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+    timeInUnix,
+    measurements,
+    groupedMeasurements,
+    enrolledUserCount,
+   `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
   );
 
   return savedMilestone;
