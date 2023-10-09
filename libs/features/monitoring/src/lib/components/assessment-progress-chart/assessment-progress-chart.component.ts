@@ -9,10 +9,8 @@ import { AssessmentMetricsService } from '@app/features/convs-mgr/conversations/
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
-interface AssessmentScore {
-  assessment: Assessment;
-  scores: number[];
-}
+import { AssessmentScore } from '../../models/assessment-score.interface';
+
 
 @Component({
   selector: 'app-assessment-progress-chart',
