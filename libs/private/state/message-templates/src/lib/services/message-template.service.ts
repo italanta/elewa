@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { MessageTemplateStore } from '../store/message-template.store';
 
 import { MessageTemplate, MessageTypes, SendMessageTemplate } from '@app/model/convs-mgr/functions'
@@ -26,7 +26,6 @@ export class MessageTemplatesService {
   private templateCallFunction(action: string, data: MessageTemplate): Observable<any> {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
 
-    console.log(data);
     return templateRef({ 
       action: action,
       channelId: this.channel, 
@@ -35,20 +34,10 @@ export class MessageTemplatesService {
   }
   private statusCallFunction(data: MessageStatusReq): Observable<any> {
     const templateRef = this._aff.httpsCallable('channelWhatsappGetTemplates');
-    console.log("sending", templateRef);
     return templateRef(data);
   }
-
-  // private sendCallFunction(data: MessageStatusReq): Observable<any> {
-  //   const templateRef = this._aff.httpsCallable('channelWhatsappGetTemplates');
-  //   console.log("sending", templateRef);
-  //   return templateRef(data);
-  // }
-
-
   private sendMessagesCallFunction(data: SendMessageTemplate): Observable<any> {
     const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
-    console.log("sending", data);
     return scheduleRef(data);
   }
 
