@@ -53,7 +53,7 @@ export class MessengerActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  parseOutStandardMessage(message: Message, phone: string)
+  async parseOutStandardMessage(message: Message, phone: string)
   {
     const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(message, phone);
 

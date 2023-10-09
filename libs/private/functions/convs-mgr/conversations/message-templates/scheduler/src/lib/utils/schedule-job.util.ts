@@ -45,7 +45,7 @@ export async function ScheduleMessage(msgToSend: ScheduledMessage, tools: Handle
    */
   function generateTask(msgToSend: ScheduledMessage, endpoint: string, path: string): GcpTask {
 
-    const payload = JSON.stringify(msgToSend);
+    const payload = JSON.stringify({data: {msgToSend}});
 
     const taskId =  `${msgToSend.message.name}_${msgToSend.dispatchTime.getTime()}_${Date.now()}`;
 
