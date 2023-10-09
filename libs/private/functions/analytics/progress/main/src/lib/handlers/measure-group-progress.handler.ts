@@ -155,7 +155,7 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
       if (!acc[course]) {
         acc[course] = {
           name: course,
-          measurements: {},
+          classrooms: {},
         };
       }
 
@@ -177,7 +177,11 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
       return acc;
     }, {})
   ).map((group: GroupedProgressMilestone) => {
-    group.measurements = Object.values(group.measurements);
+    group.classrooms = Object.values(group.classrooms).map((classroom) => {
+      classroom.measurements = Object.values(classroom.measurements);
+      return classroom;
+    });
+
     return group;
   });
 

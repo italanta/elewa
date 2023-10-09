@@ -165,7 +165,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         (item) =>
           item.groupedMeasurements
             .find((group) => group.name.includes(this.activeGroup))
-            ?.measurements.find((m) => m.name === milestone)?.participants
+            ?.classrooms.find((m) => m.name === milestone)?.measurements
             .length ?? 0
       );
     }
