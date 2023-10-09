@@ -22,7 +22,17 @@ export function _DocumentBlockDecoratePlumb(block: DocumentMessageBlock, comp: C
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0, 0.11 , 0, 1],
+    maxConnections: -1
+  });
+
+  // Adding the second static jsPlumb connector
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    source: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1, 0.65, 0 , 1],
     maxConnections: -1
   });
 
