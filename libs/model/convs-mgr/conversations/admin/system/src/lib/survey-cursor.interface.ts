@@ -1,21 +1,19 @@
+import { EndUserPosition } from "./event.interface";
 
-/**
- * When an end user is navigating through a @see Story and hits a jump block, we
- *  go into a child story. And when the child story completes we will need to know
- *   if it was successful or it failed so that we can continue the flow of the parent story
- *    appropriately.   
- * 
- * We store this information in @type {RoutedCursor}
- */ 
-export interface SurveyCursor 
+export interface SurveyCursor
 {
   /** The id of the survey */
   surveyId: string;
 
-  /** The time the user started the survey  */
+  /** The time the user started the assessment  */
   startedOn?: Date;
 
-  /** The time the user finished the survey */
+  /** The time the user finished the assessment */
   finishedOn?: Date;
 
+  /** The position the user was before they started the survey. */
+  savedUserPosition?: EndUserPosition;
 }
+
+/** Checks if the survey is ongoing */
+export const isDoingSurvey = (survey: SurveyCursor[]) => survey && !survey[0].finishedOn;

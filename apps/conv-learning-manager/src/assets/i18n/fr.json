@@ -5,42 +5,42 @@
     }
   },
   "LOGIN": {
-  "LOGIN": {
-    "LOGIN": "Connexion",
-    "OR": "ou",
-    "CREATE-ACCOUNT": "Créer un compte",
-    "LOGIN-FORM": {
-      "FLD-EMAIL": "Email",
-      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "Mot de passe",
-      "FLD-REMEMBER-ME": "Se souvenir de moi",
-      "SUBMIT": "Connexion",
-      "PLACEHOLDER": {
-        "EMAIL": "name@example.com",
-        "PASSWORD": "************",
-        "LOGIN-FAILED": "Mot de passe incorrect ou email invalide",
-        "INVALID-DETAILS": "Le formulaire est invalide",
-        "PASSWORD-ERROR": "Mot de passe requis",
-        "EMAIL-ERROR": "Format d'email invalide"
+    "LOGIN": {
+      "LOGIN": "Connexion",
+      "OR": "ou",
+      "CREATE-ACCOUNT": "Créer un compte",
+      "LOGIN-FORM": {
+        "FLD-EMAIL": "Email",
+        "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+        "FLD-PASSWD": "Mot de passe",
+        "FLD-REMEMBER-ME": "Se souvenir de moi",
+        "SUBMIT": "Connexion",
+        "PLACEHOLDER": {
+          "EMAIL": "name@example.com",
+          "PASSWORD": "************",
+          "LOGIN-FAILED": "Mot de passe incorrect ou email invalide",
+          "INVALID-DETAILS": "Le formulaire est invalide",
+          "PASSWORD-ERROR": "Mot de passe requis",
+          "EMAIL-ERROR": "Format d'email invalide"
+        },
+        "LABELS": {
+          "EMAIL": "E-mail",
+          "PASSWORD": "Mot de passe"
+        }
       },
-      "LABELS" : {
-        "EMAIL": "E-mail",
-        "PASSWORD": "Mot de passe"
+      "FORGOT-PASSWD": "Mot de passe oublié ?",
+      "CREATE-ACC-FORM": {
+        "FLD-FNAME": "Prénom",
+        "FLD-LNAME": "Nom de famille",
+        "FLD-NAME-REQ": "Le nom est obligatoire",
+        "FLD-EMAIL": "Email",
+        "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+        "FLD-PASSWD": "Mot de passe",
+        "FLD-CONF-PASSWD": "Confirmer le mot de passe",
+        "FLD-CONF-PASSWD-ERR": "Le mot de passe doit être identique",
+        "SUBMIT": "Créer un compte"
       }
     },
-    "FORGOT-PASSWD": "Mot de passe oublié ?",
-    "CREATE-ACC-FORM": {
-      "FLD-FNAME": "Prénom",
-      "FLD-LNAME": "Nom de famille",
-      "FLD-NAME-REQ": "Le nom est obligatoire",
-      "FLD-EMAIL": "Email",
-      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "Mot de passe",
-      "FLD-CONF-PASSWD": "Confirmer le mot de passe",
-      "FLD-CONF-PASSWD-ERR": "Le mot de passe doit être identique",
-      "SUBMIT": "Créer un compte"
-    }
-  },
     "TOS": {
       "P1": "En m'inscrivant, j'accepte",
       "P2-LINK": "les conditions d'utilisation du service",
@@ -80,13 +80,13 @@
         "DOCUMENT": "Document Bloquer",
         "WEBHOOK": "webhook Bloquer",
         "IMAGE-INPUT": "Entrée d'images",
-        "VIDEO-INPUT":"entrée vidéo",
-        "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position",
+        "VIDEO-INPUT": "entrée vidéo",
+        "AUDIO-INPUT": "entrée audio",
+        "LOCATION-INPUT": "saisie de position",
         "KEYWORD-JUMP": "saut de mots-clés",
         "EVENT": "Événement",
         "ASSESSMENT": "Évaluation",
-        "JUMP":"saut"
+        "JUMP": "saut"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
@@ -94,17 +94,17 @@
         "NAME": "Nom",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
-        "AUDIO-LINK":"Lien audio",
+        "AUDIO-LINK": "Lien audio",
         "WEBHOOK": "Un webhook",
         "IMAGE-INPUT": "Entrée d'images",
-        "VIDEO-INPUT":"entrée vidéo",
-        "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position",
+        "VIDEO-INPUT": "entrée vidéo",
+        "AUDIO-INPUT": "entrée audio",
+        "LOCATION-INPUT": "saisie de position",
         "EVENT-NAME": "Nom de l'événement",
         "0PTIONAL-PAYLOAD": "Facultatif - Charge utile",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable de type",
-          "SELECT-VARIABLE":"Sélectionnez Variable"
+          "SELECT-VARIABLE": "Sélectionnez Variable"
         },
         "JUMP": {
           "SELECT_STORY": "sélectionner l'histoire",
@@ -117,10 +117,10 @@
           "FAILED": "Échoué"
         }
       },
-      "UPLOAD-WARNING" :{
-        "CMI5-BLOCK":{
-          "INVALID-FILE-TYPE":"Type de fichier invalide",
-          "PLEASE-SELECT-ZIP-ONLY":"Veuillez sélectionner un fichier .zip uniquement."
+      "UPLOAD-WARNING": {
+        "CMI5-BLOCK": {
+          "INVALID-FILE-TYPE": "Type de fichier invalide",
+          "PLEASE-SELECT-ZIP-ONLY": "Veuillez sélectionner un fichier .zip uniquement."
         }
       },
       "LABELS": {
@@ -128,7 +128,7 @@
         "ASSESSMENTS-NAME": "Nom de l'évaluation",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
-          "SELECT-VARIABLE":"Sélectionnez Variable",
+          "SELECT-VARIABLE": "Sélectionnez Variable",
           "CHECKBOX": "variable personnalisée"
         }
       }
@@ -142,7 +142,7 @@
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal",
-      "MENU-ITEMS" : {
+      "MENU-ITEMS": {
         "CHATS": {
           "ITEM-NAME": "Chats",
           "CHILD-ITEMS": {
@@ -188,26 +188,37 @@
       },
       "CANCEL": "Annuler",
       "SUBMIT": "Créer un robot",
-    "ACTIONS": {
-      "OPEN-BOT": "Ouvert un robot",
-      "LBL-NEW-BOT": "Créer un nouveau robot",
-      "EDIT-BOT":"Edit",
-      "DELETE-BOT": "Effacer",
-      "ADD-OPTION": "Ajouter une option",
-      "NEW-LIST": "Nouvelle liste"
-    },
-    "EDIT-MODAL": {
-      "TITLE": "Modifier un robot",
-      "SUBMIT": "Mettre à jour un robot"
-    },
-    "DELETE-MODAL": {
-      "TITLE": "Supprimer le robot",
-      "CANCEL": "Annuler",
-      "SUBMIT": "Supprimer le robot",
-      "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
+      "ACTIONS": {
+        "OPEN-BOT": "Ouvert un robot",
+        "LBL-NEW-BOT": "Créer un nouveau robot",
+        "EDIT-BOT": "Edit",
+        "DELETE-BOT": "Effacer",
+        "ADD-OPTION": "Ajouter une option",
+        "NEW-LIST": "Nouvelle liste"
+      },
+      "EDIT-MODAL": {
+        "TITLE": "Modifier un robot",
+        "SUBMIT": "Mettre à jour un robot"
+      },
+      "DELETE-MODAL": {
+        "TITLE": "Supprimer le robot",
+        "CANCEL": "Annuler",
+        "SUBMIT": "Supprimer le robot",
+        "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
+      }
     }
-  }
-},
+  },
+  "CLASSESS": {
+    "MODALS": {
+      "CREATE-CLASS": "Créer une classe",
+      "CLASSNAME": "Nom du cours",
+      "DESCRIPTION": "Description",
+      "ACTION-BUTTONS": {
+        "CANCEL": "Annuler",
+        "CONTINUE": "Continuer"
+      }
+    }
+  },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "NAME": "Nom",
@@ -251,11 +262,11 @@
         "LOWEST": "Note la plus basse",
         "HIGHEST": "Le score le plus élevé",
         "AVERAGE": "Score moyen",
-        "TOTAL-QUESTIONS":"Nombre total de questions"
+        "TOTAL-QUESTIONS": "Nombre total de questions"
       }
     },
     "BUTTON": {
-      "VIEW": "Voir", 
+      "VIEW": "Voir",
       "RESULTS": "Résultats",
       "ADD": "Créer",
       "EDIT": "Modifier",
@@ -267,21 +278,21 @@
       "SEARCH-QUESTIONS": "Rechercher des questions"
     },
     "ACCESSIBILITY": {
-       "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
-       "SORT-BY-NO": "Trier par numéro d'évaluation",
-       "SORT-BY-NAME": "Trier par nom d'évaluation",
-       "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
-       "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
-       "SORTED-ASC": "Trié par ordre croissant",
-       "SORTED-DESC": "Trié par ordre décroissant"
+      "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
+      "SORT-BY-NO": "Trier par numéro d'évaluation",
+      "SORT-BY-NAME": "Trier par nom d'évaluation",
+      "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
+      "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
+      "SORTED-ASC": "Trié par ordre croissant",
+      "SORTED-DESC": "Trié par ordre décroissant"
     },
     "CREATE-MODAL": {
       "TITLE": "Créer une évaluation",
       "FIELDS": {
-         "NAME": "Nom",
-         "NAME-PLACEHOLDER": "Nom de l'évaluation",
-         "DESC": "Description",
-         "DESC-PLACEHOLDER": "Description de l'évaluation"
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom de l'évaluation",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description de l'évaluation"
       },
       "BUTTONS": {
         "SUBMIT": "Créer une évaluation",
@@ -294,10 +305,10 @@
       "SUBMIT": "Supprimer l'évaluation",
       "MESSAGE": "Voulez-vous vraiment supprimer cette évaluation ?"
     },
-   "ALERT": {
+    "ALERT": {
       "NOT-FOUND": "Évaluation introuvable"
     },
-   "QUESTIONS": {
+    "QUESTIONS": {
       "QUESTION": "Une question",
       "QUESTIONS": "Les questions",
       "ANSWER": "Une réponse",
@@ -446,7 +457,7 @@
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Nom",
-      "PHONENUMBER": "Numéro de téléphone",
+      "PHONE-NUMBER": "Numéro de téléphone",
       "COURSE": "Cours",
       "CLASS": "Classe",
       "STATUS": "Statut"
@@ -460,19 +471,20 @@
       "CLASS": "Classe",
       "COURSE": "Cours",
       "PLATFORM": "Plateforme",
-      "GO-TO-CHAT": "Aller au chat"
+      "GO-TO-CHAT": "Aller au chat",
+      "SEND-SURVEY": "envoyer un sondage"
+
     },
     "MODALS": {
       "ACTIONS": "Actions",
-      "SEND-INVITATION":"Envoyer une invitation",
-      "SEND-REMINDER":"Envoyer un rappel",
-      "CANCEL":"Annuler",
-      "CONTINUE":"Continuer"
+      "SEND-INVITATION": "Envoyer une invitation",
+      "SEND-REMINDER": "Envoyer un rappel",
+      "CANCEL": "Annuler",
+      "CONTINUE": "Continuer"
     },
     "PLATFORM": {
       "WHATSAPP": "WhatsApp",
       "MESSENGER": "Messenger"
-      
     },
     "PILLS": {
       "ACTIVE": "Actif",
@@ -507,7 +519,7 @@
     "MAX-CHARACTERS": "maximum de caractères atteint"
   },
   "ADMIN-SETTINGS": {
-    "TEAM-SECTION" : {
+    "TEAM-SECTION": {
       "TITLE": "Équipe",
       "DESCRIPTION": "Inviter et/ou gérer les membres de l'équipe au sein de votre organisation",
       "BUTTONS": {

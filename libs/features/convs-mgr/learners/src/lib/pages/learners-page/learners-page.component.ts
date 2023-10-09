@@ -11,9 +11,13 @@ import { SubSink } from 'subsink';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
 import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
+import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
+import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
+import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
 
 @Component({
   selector: 'app-learners-page',
@@ -25,12 +29,20 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  displayedColumns = ['select', 'name', 'phone', 'course', 'class', 'status'];
+  displayedColumns = [
+    'select',
+    'name',
+    'phone',
+    'course',
+    'class',
+    'status',
+    'actions',
+  ];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
-  allClasses: string[] = [];
+  allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
   allCourses: string[] = [];
 
@@ -42,6 +54,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private _eLearners: EnrolledLearnersService,
+    private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
     private _dialog: MatDialog,
     private _route: ActivatedRoute,
@@ -69,9 +82,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  // TODO: get all classes
   getAllClasses() {
-    this.allClasses = [];
+    this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
+      this.allClasses = allClasses
+    });
   }
 
   //TODO: get all courses
@@ -83,11 +97,21 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.allPlatforms = ['Whatsapp', 'Messenger'];
   }
 
+  getClassName(id: string) {
+    return this.allClasses.find((classroom => classroom.id === id))?.className
+  }
+
   getStatus(status: number) {
     return (
       EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
       EnrolledEndUserStatus[status].slice(1)
     );
+  }
+
+  getMode(enrolledUser: EnrolledEndUser) {
+    return enrolledUser.classId
+      ? ClassroomUpdateEnum.ChangeClass
+      : ClassroomUpdateEnum.AddToClass;
   }
 
   searchTable(event: Event) {
@@ -135,6 +159,22 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this._dialog.open(BulkActionsModalComponent, {
       data: { selectedUsers: this.selection.selected },
       height: '300px',
+      width: '400px',
+    });
+  }
+
+  openChangeClassModal(event: Event, enrolledUsr: EnrolledEndUser) {
+    event.stopPropagation();
+    const mode = this.getMode(enrolledUsr);
+
+    this._dialog.open(ChangeClassComponent, {
+      data: { enrolledUsr, mode },
+      width: '400px',
+    });
+  }
+
+  openCreateClassModal() {
+    this._dialog.open(CreateClassModalComponent, {
       width: '400px',
     });
   }
