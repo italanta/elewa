@@ -3,9 +3,9 @@ import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { Query } from "@ngfi/firestore-qbuilder";
 
-import { RcvPaymentCommand } from "./commands/receive-payment.command";
-import { Subscription } from "./models/subscription";
-import { Invoice } from "./models/invoice";
+import { RcvPaymentCommand } from "../commands/receive-payment.command";
+import { Subscription } from "../models/subscription";
+import { Invoice } from "../models/invoice";
 
 export class SubscriptionCheckerHandler extends FunctionHandler<any, Promise<void>> {
   public async execute(data: RcvPaymentCommand, context: FunctionContext, tools: HandlerTools): Promise<any> {

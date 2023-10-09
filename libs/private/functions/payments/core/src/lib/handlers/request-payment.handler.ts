@@ -2,8 +2,8 @@ import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { HandlerTools } from "@iote/cqrs";
 import { IObject } from "@iote/bricks";
 
-import { PaymentCoreService } from "./services/payment-core.service";
-import { Invoice } from './models/invoice';
+import { PaymentCoreService } from "../services/payment-core.service";
+import { Invoice } from '../models/invoice';
 
 export class RequestPaymentHandler extends FunctionHandler<Invoice, any>
 {
@@ -36,13 +36,15 @@ export class RequestPaymentHandler extends FunctionHandler<Invoice, any>
 
       const paymentRepo = tools.getRepository<PaymentData>('payments');
 
+      const paymentMethod = responseBody.method;
+
       await paymentRepo.write(responseBody as unknown as PaymentData, responseBody.id);
 
       // Log the checkout URL
       tools.Logger.log(() => `execute: Payment URL: ${paymentUrl}`);
 
       // Return the response body from mollie
-      return responseBody;
+      return { paymentData: responseBody, paymentMethod: paymentMethod }; 
 
     } catch (e) {
       tools.Logger.log(() => e)
@@ -62,7 +64,7 @@ interface PaymentData extends IObject {
   };
   description: string;
   method: string;
-  metadata: null | any; // You can replace 'any' with a more specific type if needed
+  metadata: null | any;
   status: string;
   isCancelable: boolean;
   expiresAt: string;

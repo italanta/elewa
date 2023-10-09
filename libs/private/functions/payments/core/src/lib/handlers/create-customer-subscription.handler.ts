@@ -1,18 +1,20 @@
+import { FunctionContext, FunctionHandler } from "@ngfi/functions";
+import createMollieClient from "@mollie/api-client";
+
 import { HandlerTools } from "@iote/cqrs";
 import { IObject } from "@iote/bricks";
-import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 
-import { Subscription } from "./models/subscription";
-import { SubscriptionService } from "./services/subscription-core.service";
-import createMollieClient from "@mollie/api-client";
+import { Subscription } from "../models/subscription";
+
+import { SubscriptionService } from "../services/subscription-core.service";
+import { MollieCustomerService } from "../services/customer-core-service";
+
 
 export class CreateSubscriptionsHandler extends FunctionHandler<Subscription, any>
 {
   /**
    * function that creates subscriptions using the mollie createSubscription suite
    */
-  private _subService: SubscriptionService;
-  
   public async execute(data: Subscription, context: FunctionContext, tools: HandlerTools): Promise<any> {
     
     try {
@@ -34,7 +36,7 @@ export class CreateSubscriptionsHandler extends FunctionHandler<Subscription, an
       tools.Logger.log(() => `execute: Got here`)
 
       // this._subService = new SubscriptionService(subscription, "test_RTxqmDAhRdfWncsEuHRW6pgbAW6yNs", tools)
-
+     // const customerResponse = await createMollieClient(tools);
 
       const paymentResponse = await createCustomerSubscription(tools);
 
@@ -63,9 +65,16 @@ export class CreateSubscriptionsHandler extends FunctionHandler<Subscription, an
 
 }
 
+/**
+ * 
+ * @param tools iote interface for logger tools and repos
+ * @returns createMollieCustomer a customer created by the mollie api
+ * @returns createCustomerSubscription a subscription created when we have a customer and a mandate
+ */
+//Find a way of passing the created customer here
+
 async function createCustomerSubscription(tools: HandlerTools) {
   tools.Logger.log(() => `execute: Got here createCustomerSubscription`)
-
   const mollieClient = createMollieClient({ apiKey: 'test_RTxqmDAhRdfWncsEuHRW6pgbAW6yNs' });
   return await mollieClient.customerSubscriptions.create(this.sub);
 }

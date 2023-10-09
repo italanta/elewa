@@ -1,6 +1,6 @@
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
-import { RcvPaymentCommand } from "./commands/receive-payment.command";
+import { RcvPaymentCommand } from "../commands/receive-payment.command";
 // import createMollieClient from '@mollie/api-client';
 
 export class ReceivePaymentHandler extends FunctionHandler<RcvPaymentCommand, any>
