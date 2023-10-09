@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <div class="title">
+    <span>Average Assessment Title</span>
+  </div>
+
+  <div class="assessment-select">
+    <div class="container">
+      <mat-select (selectionChange)="switchAssessment($event.value)">
+        <mat-option *ngFor="let assessment of assessments" [value]="assessment">
+          {{ assessment.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+  </div>
+
+  <div class="score">
+    {{ averageScore || '0%' }}
+  </div>
+
+  <div class="assessment-scores">
+    <div class="highscore">
+      <i class="fa-solid fa-arrow-up tooltip"></i>
+      <span> Highest Score: {{ highestScore }}</span>
+    </div>
+
+    <div class="lowscore">
+      <i class="fa-solid fa-arrow-down tooltip"></i>
+      <span> Lowest Score: {{ lowestScore }}</span>
+    </div>
+  </div>
+</div>

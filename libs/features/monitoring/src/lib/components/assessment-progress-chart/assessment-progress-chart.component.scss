@@ -1,0 +1,52 @@
+.wrapper {
+  padding: 1rem;
+  background-color: white;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .title {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .assessment-select {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .container {
+      width: 50%;
+    }
+  }
+
+  .score {
+    height: 30%;
+    font-size: 4.5rem;
+    text-align: center;
+    color: teal;
+  }
+
+  .assessment-scores {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-rows: 1fr 1fr;
+    place-content: center;
+
+    .highscore, .lowscore {
+      display: flex;
+      gap: 0.3rem;
+      text-align: center;
+
+      .tooltip {
+        color: teal;
+      }
+    }
+  }
+}
+
+::host ::ng-deep .mat-mdc-select-value {
+  text-align: center;
+}
