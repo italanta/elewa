@@ -63,13 +63,13 @@
               <span *ngIf="isLogin"> Login With Google </span>
               <span *ngIf="!isLogin"> Sign Up With Google </span>
             </button>
-            <button mat-stroked-button color="primary" (click)="logInWithFaceBook()">
+            <!-- <button mat-stroked-button color="primary" (click)="logInWithFaceBook()">
               <mat-icon>
                 <img src="assets/images/facebook-logo.png">
               </mat-icon>
               <span *ngIf="isLogin">Login with Facebook </span>
               <span *ngIf="!isLogin">Sign Up with Facebook </span>
-            </button>
+            </button> -->
           </div>
 
           <div style="margin-top: 20px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
