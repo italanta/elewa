@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 
 @Component({
@@ -9,16 +10,15 @@ import { MessageTemplatesService } from '@app/private/state/message-templates';
   styleUrls: ['./specific-time.component.scss'],
 })
 export class SpecificTimeComponent implements OnInit{
+  @Output() dateTimeSelected = new EventEmitter<{ date: Date, time: string }>();
+
   selectedDate: Date;
   selectedTime: string;
   action: string;
 
-  @Output() dateTimeSelected = new EventEmitter<{ date: Date, time: string }>();
-
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeComponent>, 
     private _route$$: Router,
-    private _messageTemplateService: MessageTemplatesService
     ) {}
 
   ngOnInit(): void {
@@ -35,9 +35,6 @@ export class SpecificTimeComponent implements OnInit{
       const timeParts = this.selectedTime.split(':');
       selectedDateTime.setHours(Number(timeParts[0]));
       selectedDateTime.setMinutes(Number(timeParts[1]));
-      console.log(selectedDateTime,this.action );
-      
-
       
       this.dateTimeSelected.emit({ date: selectedDateTime, time: this.selectedTime });
 

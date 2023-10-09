@@ -1,12 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
-import { MessageTemplatesService } from '@app/private/state/message-templates';
+
 import { Observable, switchMap, take, tap } from 'rxjs';
 import { SubSink } from 'subsink';
+
+import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
+import { MessageTemplatesService } from '@app/private/state/message-templates';
+
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
@@ -20,7 +22,7 @@ export class MessageTemplateFormComponent implements OnInit{
   template$: Observable<MessageTemplate>;
 
   templateForm: FormGroup;
-  template: any;
+  template: MessageTemplate;
   content: FormGroup;
 
   action: string;

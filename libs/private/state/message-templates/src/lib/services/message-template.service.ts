@@ -59,7 +59,7 @@ export class MessageTemplatesService {
       plaform: PlatformType.WhatsApp,
       message: {
         type:MessageTypes.TEXT,
-        name: "hello_world",
+        name: payload.name,
         language: "en_US",
         templateType: TemplateMessageTypes.Text
       },

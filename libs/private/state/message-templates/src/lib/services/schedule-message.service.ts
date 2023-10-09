@@ -31,25 +31,26 @@ export class ScheduleMessageService {
 
   // Adjust data types once I know what the functions return
   scheduleMessage(payload: any): Observable<any> {
-    const scheduledMessageReq: ScheduledMessage = {
-      n:5,
-      plaform: PlatformType.WhatsApp,
+    const scheduledMessageReq = {
+      channelId: "123034824233910",
       message: {
         type:MessageTypes.TEXT,
-        name: payload.name,
-        language: "en",
+        name: "hello_world",
+        language: "en_US",
         templateType: TemplateMessageTypes.Text
       },
-      endUsers: payload.endUsers,
+      usersFilters: {
+        endUsersId: ["dd698779-ecd0-4f90-957"]
+      },
       dispatchTime: payload.dispatchTime
     }
     console.log(scheduledMessageReq);
     return this.scheduleCallFunction( scheduledMessageReq );
   }
 
-  private scheduleCallFunction(data: ScheduledMessage): Observable<any> {
+  private scheduleCallFunction(data: any): Observable<any> {
     const scheduleRef = this._aff.httpsCallable('scheduleMessageTemplates');
-    console.log("sending", scheduleRef);
+    console.log("sending", data);
     return scheduleRef(data);
   }
   

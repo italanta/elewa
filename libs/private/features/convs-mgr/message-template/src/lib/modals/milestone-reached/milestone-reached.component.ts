@@ -1,13 +1,16 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { Story } from '@app/model/convs-mgr/stories/main';
-import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { Dialog } from '@angular/cdk/dialog';
-import { Observable, map } from 'rxjs';
-import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
-import { StoriesStore } from '@app/state/convs-mgr/stories';
-import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
-import { SubSink } from 'subsink';
 import { Router } from '@angular/router';
+
+import { Observable, map } from 'rxjs';
+import { SubSink } from 'subsink';
+
+import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
+import { Story } from '@app/model/convs-mgr/stories/main';
+
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
+import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 @Component({
   selector: 'app-milestone-reached',
@@ -58,15 +61,11 @@ export class MilestoneReachedComponent implements OnInit, OnDestroy{
     const selectedStory = this.story;
     const selectedMilestone = this.selectedMilestone;
 
-    console.log(this._route$$);
-
-    // Emit the selected options to the parent component
     this.milestoneSelected.emit({
       milestoneType,
       selectedStory,
       selectedMilestone,
     });
-    console.log("here")
     this._dialog.closeAll(); // Close the modal
   }
   closeModal(){
