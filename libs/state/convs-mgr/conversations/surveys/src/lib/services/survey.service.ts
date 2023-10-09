@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { map, take } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
+import { StartSurveyReq, StartSurveyResponse } from '@app/private/model/convs-mgr/micro-apps/surveys'
 
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
@@ -14,6 +15,7 @@ import { ActiveSurveyStore } from '../stores/active-survey.store';
   providedIn: 'root',
 })
 export class SurveyService {
+  private channelId = "123034824233910";
   constructor(
     private _surveys$$: SurveysStore,
     private _orgId$$: ActiveOrgStore,
@@ -47,16 +49,16 @@ export class SurveyService {
     return this._surveys$$.getOne(surveyId);
   }
   sendSurvey(payload: any){
-    const surveyReq = {
-      channelId: "123034824233910",
-      messageTemplateName:"hello_world",
+    const surveyReq: StartSurveyReq = {
+      channelId: this.channelId,
+      // messageTemplateName:"hello_world",
       enrolledUserIds: payload.enrolledUserIds,
       surveyId: payload.surveyId
     }
     return this.sendCallFunction( surveyReq );
   }
 
-  private sendCallFunction(data: any){
+  private sendCallFunction(data: StartSurveyReq): Observable<StartSurveyResponse>{
     const scheduleRef = this._aff.httpsCallable('sendSurvey');
     return scheduleRef(data);
   }
