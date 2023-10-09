@@ -631,7 +631,9 @@
       "CLASS": "Class",
       "COURSE": "Course",
       "PLATFORM": "Platform",
-      "GO-TO-CHAT": "Go to Chat"
+      "GO-TO-CHAT": "Go to Chat",
+      "SEND-SURVEY": "Send survey"
+      
     },
     "MODALS": {
       "ACTIONS": "Actions",
