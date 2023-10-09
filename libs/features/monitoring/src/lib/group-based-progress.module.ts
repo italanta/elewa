@@ -9,11 +9,13 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { GroupBasedProgressChartComponent } from './components/group-based-progress-chart/group-based-progress-chart.component';
 import { AssessmentProgressChartComponent } from './components/assessment-progress-chart/assessment-progress-chart.component';
+import { EnrolledUserProgressChartComponent } from './components/enrolled-user-progress-chart/enrolled-user-progress-chart.component';
 
 @NgModule({
   declarations: [
     GroupBasedProgressChartComponent,
     AssessmentProgressChartComponent,
+    EnrolledUserProgressChartComponent,
   ],
   imports: [
     CommonModule,
@@ -21,6 +23,10 @@ import { AssessmentProgressChartComponent } from './components/assessment-progre
     MaterialDesignModule,
     MultiLangModule,
   ],
-  exports: [GroupBasedProgressChartComponent, AssessmentProgressChartComponent],
+  exports: [
+    GroupBasedProgressChartComponent,
+    AssessmentProgressChartComponent,
+    EnrolledUserProgressChartComponent,
+  ],
 })
 export class GroupBasedProgressModule {}
