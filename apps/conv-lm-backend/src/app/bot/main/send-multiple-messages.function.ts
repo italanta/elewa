@@ -1,4 +1,4 @@
-import { EndpointRegistrar } from "@ngfi/functions";
+import { RestRegistrar } from "@ngfi/functions";
 
 import { SendMultipleMessagesHandler } from "@app/functions/bot-engine/send-message";
 
@@ -16,7 +16,7 @@ const handler = new SendMultipleMessagesHandler();
  * 
  */
 export const sendMultipleMessages = new ConvLearnFunction('sendMultipleMessages', 
-                                                  new EndpointRegistrar(), 
+                                                  new RestRegistrar(), 
                                                   [], 
                                                   handler)
                                .build();
