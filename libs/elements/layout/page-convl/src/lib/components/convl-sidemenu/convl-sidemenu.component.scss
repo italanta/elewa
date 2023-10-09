@@ -223,6 +223,7 @@ $sidebar-footer-height: 230px;
             margin-right: 10px;
             border-radius: 2px;
             transition: color 0.3s;
+            cursor: pointer;
             i {
               display: inline-block;
             }
@@ -244,6 +245,7 @@ $sidebar-footer-height: 230px;
             transition: opacity 0.3s;
           }
           &:hover {
+            cursor: pointer!important;
             .menu-title {
               color: $secondary-text-color;
             }
