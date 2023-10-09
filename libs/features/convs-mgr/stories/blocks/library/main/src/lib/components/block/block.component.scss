@@ -23,9 +23,13 @@ mat-card {
 }
 
 .block-title {
-	font-weight: 600;
 	font-size: small;	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
+	font-family: Roboto;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
 
 .outer {
@@ -70,4 +74,8 @@ mat-card {
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+.block-menu-container{
+	cursor: pointer;
 }
