@@ -556,6 +556,9 @@
     "DEFAULT":"Default",
     "EDIT" :"Edit",
     "DELETE":"Delete",
+    "DATE":"Date",
+    "DESCRIPTION":"Description",
+    "AMOUNT":"Amount",
     "BUTTON":{
       "ADD-PAYMENT-METHOD":"Add payment method"
     }

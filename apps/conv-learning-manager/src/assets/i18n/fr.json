@@ -401,5 +401,24 @@
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
       }
     }
+  },
+  "BILLINGS":{
+    "SUBSCRIPTION":"Abonnement",
+    "MESSAGE-TOKENS":"Jetons de messages",
+    "CURRENT-PLAN":"Plan actuel",
+    "INVOICES" :"Factures",
+    "CHANGE-PLAN":"changer de plan",
+    "PAYMENT-METHOd":"Mode de paiement",
+    "PAYMENT-METHODS":"Modes de paiement",
+    "EXPIRES":"Expire",
+    "DEFAULT":"Défaut",
+    "EDIT" :"Modifier",
+    "DELETE":"Supprimer",
+    "DATE":"Date",
+    "DESCRIPTION":"Description",
+    "AMOUNT":"Montante",
+    "BUTTON":{
+      "ADD-PAYMENT-METHOD":"Ajouter un mode de paiement"
+    }
   }
 }
