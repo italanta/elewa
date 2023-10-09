@@ -4,8 +4,10 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MessageTemplateStore } from '../store/message-template.store';
 
-import { MessageTemplate } from '@app/model/convs-mgr/functions'
+import { MessageTemplate, MessageTypes, SendMessageTemplate } from '@app/model/convs-mgr/functions'
 import { ActiveMessageTemplateStore } from '../store/active-message-template.store';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 
 @Injectable({
   providedIn: 'root',
@@ -43,8 +45,27 @@ export class MessageTemplatesService {
   //   return templateRef(data);
   // }
 
-  sendMessageTemplate(data: any){
-    console.log(data)
+
+  private sendMessagesCallFunction(data: SendMessageTemplate): Observable<any> {
+    const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
+    console.log("sending", data);
+    return scheduleRef(data);
+  }
+
+  // Adjust data types once I know what the functions return
+  sendMessageTemplate(payload: any): Observable<any> {
+    const sendMessageReq: SendMessageTemplate = {
+      n:2,
+      plaform: PlatformType.WhatsApp,
+      message: {
+        type:MessageTypes.TEXT,
+        name: "hello_world",
+        language: "en_US",
+        templateType: TemplateMessageTypes.Text
+      },
+      endUsers: payload.endUsers,
+    }
+    return this.sendMessagesCallFunction( sendMessageReq );
   }
 
   addMessageTemplate(template: MessageTemplate){
@@ -56,6 +77,9 @@ export class MessageTemplatesService {
   }
   updateTemplate(template: MessageTemplate){
     return this._messageTemplateStore$$.update(template);
+  }
+  getTemplateById(templateId: string) {
+    return this._messageTemplateStore$$.getOne(templateId);
   }
   
   getActiveTemplate$() {
