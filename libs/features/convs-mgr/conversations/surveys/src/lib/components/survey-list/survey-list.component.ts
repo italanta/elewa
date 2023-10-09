@@ -2,8 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 
-import { __DateFromStorage } from '@iote/time';
 import { orderBy as __orderBy } from 'lodash';
+
+import { __DateFromStorage } from '@iote/time';
 
 import { BehaviorSubject, Observable, combineLatest, map, switchMap, tap } from 'rxjs';
 import { SubSink } from 'subsink';
@@ -51,25 +52,7 @@ export class SurveyListComponent implements OnInit, OnDestroy{
             sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
           )),
           tap((surveys) => { this.dataSource.data = surveys})).subscribe()
-    // this.getMetrics();
   }
-
-  // getMetrics() {
-  //   this._sBs.sink = this._endUserService
-  //     .getUserDetailsAndTheirCursor()
-  //     .pipe(
-  //       switchMap((endUsers) => {
-  //         return this._surveys.getSurveys$().pipe(
-  //           map((surveys) => {
-  //             return surveys.map((survey) => {
-  //               return (survey.metrics = this._aMetrics.computeMetrics(endUsers,survey).surveyMetrics);
-  //             });
-  //           })
-  //         );
-  //       })
-  //     )
-  //     .subscribe();
-  // }
 
   searchTable(event: Event){
     const searchValue = (event.target as HTMLInputElement).value;

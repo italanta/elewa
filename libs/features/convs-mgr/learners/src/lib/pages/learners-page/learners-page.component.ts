@@ -15,6 +15,8 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
+import { ActivatedRoute } from '@angular/router';
+import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 
 @Component({
   selector: 'app-learners-page',
@@ -47,11 +49,15 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedCourse: any = 'Course';
   selectedPlatform: any = 'Platform';
 
+  surveyId: string;
+
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _route: ActivatedRoute,
+    private _surveyService: SurveyService
   ) {}
 
   ngOnInit() {
@@ -59,6 +65,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllClasses();
     this.getAllCourses();
     this.getAllPlatforms();
+    this.surveyId= this._route.snapshot.queryParamMap.get('surveyId') || '';
   }
 
   getLearners() {
@@ -124,6 +131,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
         ? this.selection.clear()
         : this.dataSource.data.map((row) => this.selection.select(row));
     }
+  }
+
+  sendSurvey() {
+    this._surveyService.sendSurvey({surveyId: this.surveyId}).subscribe(console.log);
   }
 
   isSomeSelected() {
