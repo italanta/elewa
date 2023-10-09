@@ -68,6 +68,15 @@ export interface EnrolledEndUser extends IObject {
   assessmentResults?: AssessmentResult[];
 
   surveyResults?: SurveyResults[];
+
+  /** TODO: Implement after PR#610 
+   * 
+   * Will represent the platform specific details of the end user e.g.
+   * 
+   * Their user ID changes according to the platform
+  */
+  platform?: {[key:string]:{ endUserId: string}};
+
 }
 
 /**

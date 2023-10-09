@@ -1,6 +1,9 @@
 /** Response returned after starting the survey */
 export interface StartSurveyResponse
 {
-  messagesSent?: number;
+  attempted?: number;
+  usersSent?: string[];
+  usersFailed?: string[];
   success: boolean;
+  message?: any;
 }

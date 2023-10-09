@@ -43,6 +43,8 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
       }
   
       let count = 0;
+      let successfulUsers: string[] = [];
+      let failedUsers: string[] = [];
   
       // Update the cursor
       for (let id of req.enrolledUserIds) {
@@ -92,15 +94,26 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
         messageToSend.direction = MessageDirection.FROM_AGENT_TO_END_USER;
         messageToSend = this._setReceiveID(commChannel.type, receiveID, messageToSend);
   
-        await sendMessage.execute(messageToSend, null, tools);
-        
+        const resp = await sendMessage.execute(messageToSend, null, tools);
+
+        if(resp.success) {
+          successfulUsers.push(receiveID);
+        } else {
+          failedUsers.push(receiveID);
+        }
+
         count++;
       }
   
-      return {messagesSent: count, success: true } as StartSurveyResponse;
+      return { 
+        messagesSent: count, 
+        success: true, 
+        message: "Survey sent successfully", 
+        usersFailed: failedUsers, 
+        usersSent: successfulUsers } as StartSurveyResponse;
     } catch (error) {
       tools.Logger.log(()=> `[StartSurveyHandler].execute - Error sending survey: ${error}`)
-      return {success: false} as StartSurveyResponse;
+      return {success: false, message: error} as StartSurveyResponse;
     }
   }
 
