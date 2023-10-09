@@ -12,6 +12,10 @@ input {
 	padding: 10px;
 }
 
+form {
+	padding: 0.313rem;
+}
+
 input:focus-visible {
 	border: 1px solid var(--convs-mgr-color-primary-black);
 	outline-color: var(--convs-mgr-color-primary-black);
