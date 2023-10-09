@@ -7,6 +7,7 @@ import { BlockDataService, BlockToStandardMessage, ChannelDataService, Connectio
 import { CommunicationChannel, Cursor, EndUserPosition, PlatformType, SurveyCursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { SendOutgoingMsgHandler } from '@app/functions/bot-engine/send-message';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTypes } from '@app/model/convs-mgr/functions';
 
 export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurveyResponse>
 {
@@ -30,6 +31,8 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
         const templatesRepo$ = tools.getRepository<any>(`orgs/${commChannel.orgId}/message-templates`);
   
         messageToSend = (await templatesRepo$.getDocuments(new Query().where('name', '==', req.messageTemplateName)))[0];
+
+        messageToSend.type = MessageTypes.TEMPLATE;
       } else {
         // If no template is defined we just send the first question in the survey to the user
         //   However this may fail to reach some users due to the 24 hour limit
