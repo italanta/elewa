@@ -122,6 +122,10 @@ export class BlockComponent implements OnInit {
 
   ) { }
 
+  /**
+ * Method toggles to display or not display the menu items.
+ */
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
