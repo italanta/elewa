@@ -9,10 +9,10 @@ import { MatTableModule } from '@angular/material/table';
 
 import { MultiLangModule } from '@ngfi/multi-lang';
 
+import { BillingComponent } from './components/billing/billing.component';
 
 import { AddPaymentDialogComponent } from './modals/add-payment-dialog/add-payment-dialog.component';
 import { EditPaymentDialogComponent } from './modals/edit-payment-dialog/edit-payment-dialog.component';
-import { BillingComponent } from './components/billing/billing.component';
 
 
 @NgModule({
