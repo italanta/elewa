@@ -24,7 +24,7 @@ export function _AssessmentBrickDecoratePlumb(
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: 'Left',
+    anchor: [0, 0.13, -1, 0],
     maxConnections: -1,
   });
 
