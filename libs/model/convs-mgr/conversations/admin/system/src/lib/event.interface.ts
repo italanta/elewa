@@ -2,7 +2,6 @@ import { IObject } from '@iote/bricks';
 
 import { RoutedCursor } from './routed-cursor.interface';
 import { AssessmentCursor } from './assessment-cursor.interface';
-import { SurveyCursor } from './survey-cursor.interface';
 
 import { EventsStack } from './events-stack.interface';
 import { EventCategoryTypes } from './event-category-types.enum';
