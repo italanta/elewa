@@ -5,6 +5,7 @@
   "scripts": {
     "ng": "nx",
     "emulators:start": "firebase emulators:start --import=emulator-data --export-on-exit",
+    "functions:serve": "nx build conv-lm-backend --skip-nx-cache --prod && node tools/scripts/build-gc-functions-package.js && firebase emulators:start --import=emulator-data --export-on-exit --only functions,firestore",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
     "build": "nx build",
@@ -28,6 +29,8 @@
     "@angular/router": "^15.0.0",
     "@angular/service-worker": "^15.0.0",
     "@firebase/firestore-types": "^2.5.0",
+    "@google-cloud/scheduler": "^4.0.1",
+    "@google-cloud/tasks": "^4.0.1",
     "@jsplumb/browser-ui": "^5.9.4",
     "@jsplumb/connector-bezier": "^5.9.4",
     "@jsplumb/connector-flowchart": "^5.9.4",
@@ -115,6 +118,7 @@
     "crypto-js",
     "mime-types",
     "jsonwebtoken",
-    "dotenv"
+    "dotenv",
+    "@google-cloud/tasks"
   ]
 }

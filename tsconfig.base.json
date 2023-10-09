@@ -297,6 +297,9 @@
       "@app/private/functions/analytics/progress/main": [
         "libs/private/functions/analytics/progress/main/src/index.ts"
       ],
+      "@app/private/functions/convs-mgr/conversations/message-templates/scheduler": [
+        "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/index.ts"
+      ],
       "@app/private/functions/micro-apps/base": [
         "libs/private/functions/micro-apps/base/src/index.ts"
       ],

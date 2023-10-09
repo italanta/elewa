@@ -4,7 +4,7 @@ import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/
 
 import { ChannelDataService} from '@app/functions/bot-engine';
 
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChannelFactory } from '@app/functions/bot-engine/utils';
@@ -65,8 +65,13 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
 
       const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools)
 
+      let outgoingMessagePayload;
       // STEP 4: Get the outgoing message in whatsapp format
-      const outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      if(activeChannel.channel.type == PlatformType.WhatsApp) {
+        outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      } else if(activeChannel.channel.type == PlatformType.Messenger) {
+        outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.receipientId);
+      }
 
       // STEP 5: Send the message
       await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);

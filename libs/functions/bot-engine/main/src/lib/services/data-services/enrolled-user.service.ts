@@ -52,6 +52,10 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
     return this.getDocumentById(enrolledUserId, this._docPath);
   }
 
+  getAllEnrolledUsers() {
+    return this.getDocuments(this._docPath);
+  }
+
   async updateEnrolledUser(enrolledUser: EnrolledEndUser) {
     // the initial enrolledUser document might not have an id so we write the document instead.
     return this.updateDocument(enrolledUser, this._docPath, enrolledUser.id);
