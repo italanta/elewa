@@ -1,4 +1,4 @@
-import { EndpointRegistrar } from "@ngfi/functions";
+import { RestRegistrar } from "@ngfi/functions";
 
 import { ScheduleMessageTemplatesHandler } from "@app/private/functions/convs-mgr/conversations/message-templates/scheduler";
 
@@ -16,7 +16,7 @@ const handler = new ScheduleMessageTemplatesHandler
  * 
  */
 export const scheduleMessageTemplates = new ConvLearnFunction('scheduleMessageTemplates', 
-                                                  new EndpointRegistrar(), 
+                                                  new RestRegistrar(), 
                                                   [], 
                                                   handler)
                                .build();
