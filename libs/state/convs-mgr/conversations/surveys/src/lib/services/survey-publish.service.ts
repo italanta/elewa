@@ -59,8 +59,6 @@ export class SurveyPublishService
         id: question.id,
         type: StoryBlockTypes.SurveyQuestionBlock,
         message: question.message,
-        marks: question.marks,
-        feedback: question.feedback || '',
         options: this.__questionOptionsToBlockOptions(question.options as SurveyQuestionOptions[])
       } as SurveyQuestionBlock;
     })
@@ -121,7 +119,7 @@ export class SurveyPublishService
       return {
         id: option.id,
         message: option.text,
-        value: option.accuracy as any || ""
+        value: option.text as any || ""
       } as ButtonsBlockButton<Button>;
     });
   }

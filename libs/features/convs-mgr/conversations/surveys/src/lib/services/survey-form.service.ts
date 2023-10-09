@@ -62,8 +62,6 @@ export class SurveyFormService {
       const group = this._formBuilder.group({
         id: [option?.id],
         text: [option?.text],
-        accuracy: [option?.accuracy],
-        feedback: [option?.feedback]
       })
 
       formArray.push(group);

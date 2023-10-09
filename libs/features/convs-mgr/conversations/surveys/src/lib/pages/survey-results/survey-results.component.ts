@@ -5,13 +5,16 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { Timestamp } from 'firebase-admin/firestore';
+
 import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
 import { map, switchMap } from 'rxjs';
-import { Timestamp } from 'firebase-admin/firestore';
+
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
 import { EndUserDetails, EndUserService } from '@app/state/convs-mgr/end-users';
 import { ActiveSurveyStore, SurveyQuestionService } from '@app/state/convs-mgr/conversations/surveys';
+
 import { SurveyMetricsService } from '../../services/survey-metrics.service';
 import { pieChartOptions } from '../../utils/chart.utils';
 
@@ -52,29 +55,7 @@ export class SurveyResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._sBs.sink = this._surveyQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
-    // this.getMetrics();
   };
-
-  // getMetrics() {
-  //   this._sBs.sink = this._activeSurvey$$.get()
-  //     .pipe(
-  //       switchMap((survey) => {
-  //         this.survey = survey
-  //         this.pageTitle = `Surveys / ${survey.title} / results`;
-
-  //         return this._endUserService.getUserDetailsAndTheirCursor().pipe(
-  //           map((endUsers) => {
-  //             const { data, chartData, scores } = this._aMetrics.computeMetrics(endUsers,survey);
-  //             this.itemsLength = data.length;
-  //             this.initDataSource(data);
-  //             this.computeScores(scores);
-  //             this._loadChart(chartData);
-  //           })
-  //         );
-  //       })
-  //     )
-  //     .subscribe();
-  // };
 
   private initDataSource(data:EndUserDetails[]) {
     this.dataSource = new MatTableDataSource(data);

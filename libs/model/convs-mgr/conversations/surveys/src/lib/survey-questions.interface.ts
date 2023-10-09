@@ -12,8 +12,6 @@ export interface SurveyQuestion extends StoryBlock {
 export interface SurveyQuestionOptions {
   id: string;
   text: string;
-  accuracy: SurveyOptionValue;
-  feedback: string;
 }
 
 export interface SurveyFeedBack {

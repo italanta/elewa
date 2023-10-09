@@ -1,8 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { flatten as __flatten } from 'lodash';
+
+import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
+
 
 @Component({
   selector: 'app-assessment-view',
@@ -19,7 +21,6 @@ export class AssessmentViewComponent implements OnInit, OnDestroy
   constructor() {}
 
   ngOnInit(): void {
-    console.warn("freoeo", this.assessmentForm)
   }
 
   ngOnDestroy(): void {}

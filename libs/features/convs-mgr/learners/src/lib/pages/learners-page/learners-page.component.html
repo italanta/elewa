@@ -4,6 +4,7 @@
     <!-- top actions and filter container -->
     <div class="top-wrapper">
       <div class="top-actions">
+        <button class="btn add-to-class" *ngIf="surveyId" (click)="sendSurvey()">send survey</button>
         <button class="btn add-to-class">{{'LEARNERS.BUTTONS.ADD-TO-CLASS'| transloco }}</button>
         <button class="btn bulk-actions" (click)="openBulkActionsDialog()">{{'LEARNERS.BUTTONS.BULK-ACTIONS'| transloco }}</button>
       </div>

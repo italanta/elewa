@@ -131,6 +131,11 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
       .subscribe((published) => {
         if (published) {
           this.isPublishing = false;
+          this._route$$.navigate(['/learners'], {
+            queryParams: {
+              surveyId: this.survey.id,
+            }
+          });
           this._sbS.unsubscribe();
           this.surveyMode = SurveyMode.View;
           this.openSnackBar('Survey was successfully published', 'Publish');
