@@ -11,7 +11,7 @@ import { Logger } from '@iote/bricks-angular';
 import { Organisation } from '@app/model/organisation';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
-import { MessageTemplate, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
 
 @Injectable()
 export class MessageTemplateStore extends DataStore<MessageTemplate> {

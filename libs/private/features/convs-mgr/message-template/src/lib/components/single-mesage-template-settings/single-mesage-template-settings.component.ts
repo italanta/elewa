@@ -3,8 +3,10 @@ import { AfterInactivityComponent } from '../../modals/after-inactivity/after-in
 import { MilestoneReachedComponent } from '../../modals/milestone-reached/milestone-reached.component';
 import { SpecificTimeComponent } from '../../modals/specific-time/specific-time.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageTemplateStore, ScheduleMessageService } from '@app/private/state/message-templates';
+import { MessageTemplateStore, MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { Router } from '@angular/router';
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
 @Component({
   selector: 'app-single-mesage-template-settings',
   templateUrl: './single-mesage-template-settings.component.html',
@@ -12,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class SingleMesageTemplateSettingsComponent implements OnInit{
   selectedOption: string;
-  selectedTime: string;
+  selectedTime: Date;
   messageTemplateFrequency = [
     { value: 'milestone', viewValue: 'Milestone reached' },
     { value: 'specific-time', viewValue: 'Send message at specific time' },
@@ -23,9 +25,9 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
   
   constructor(
     private _dialog: MatDialog, 
-    private _messageTemplateStore: MessageTemplateStore,
     private _scheduleMessageService: ScheduleMessageService,
     private _route$$: Router,
+    private _messageService: MessageTemplatesService
 
     ){}
 
@@ -58,7 +60,7 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
   
         dialogRef.componentInstance?.dateTimeSelected.subscribe((selectedDateTime: any) => {
           console.log(selectedDateTime)
-          this.selectedTime = selectedDateTime.date.toLocaleString();
+          this.selectedTime = selectedDateTime.date;
           const formattedDateTime = `Send message at ${selectedDateTime.time} ${selectedDateTime.date.toLocaleString()}`;
           // Update the 'specific-time' option viewValue
           const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'specific-time');
@@ -85,17 +87,29 @@ export class SingleMesageTemplateSettingsComponent implements OnInit{
         break;
     }
   }
+  sendButtonClicked(template: MessageTemplate, selectedDate: Date){
+
+    // this._messageTemplateService.setActiveMessageTemplateId(template.id);
+    // this._messageTemplateService.setActiveMessageTemplateId(template.name);
+    this._route$$.navigate(['/learners'], {queryParams: {templateId: template.id, dispatchDate: selectedDate}});
+  }
 
   saveSchedule(){
-    const scheduleRequest = {
-      messageId: this.action,
-      channelId: '',
-      dispatchTime: this.selectedTime,
-    };
-    // this._messageTemplateStore.createScheduledMessage(scheduleRequest)
-    this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((response) => {
-      console.log(response)
-    });
+
+    if (this.selectedTime){
+      let templateMessage: MessageTemplate;
+      this._messageService.getTemplateById(this.action).subscribe((template: any) => {
+        templateMessage = template;
+      
+        if (templateMessage) {
+          
+        this.sendButtonClicked(templateMessage, this.selectedTime);
+         
+        }
+      });
+    }
+    
+;    
   }
   
 }

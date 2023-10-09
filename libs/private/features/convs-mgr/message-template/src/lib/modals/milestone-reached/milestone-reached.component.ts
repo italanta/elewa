@@ -7,6 +7,7 @@ import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { SubSink } from 'subsink';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-milestone-reached',
@@ -24,6 +25,7 @@ export class MilestoneReachedComponent implements OnInit, OnDestroy{
   story: Story;
   blocks$: Observable<StoryBlock[]>;
   _sBS: SubSink;
+  action: string;
 
   selectedMilestoneType: string; // Variable to hold the selected milestone type
   selectedMilestone: EventBlock; // Variable to hold the selected milestone
@@ -31,13 +33,14 @@ export class MilestoneReachedComponent implements OnInit, OnDestroy{
   constructor(
     private _stories$$: StoriesStore,
     private _dialog: Dialog,
-    private _storyBlockStore: StoryBlocksStore
+    private _storyBlockStore: StoryBlocksStore,
+    private _route$$: Router
   ) {
     this.stories$ = this._stories$$.get();
   }
 
   ngOnInit(): void {
-      
+    this.action = this._route$$.url.split('/')[2];
   }
 
   selectedBot() {
@@ -54,6 +57,8 @@ export class MilestoneReachedComponent implements OnInit, OnDestroy{
     const milestoneType = this.selectedMilestoneType;
     const selectedStory = this.story;
     const selectedMilestone = this.selectedMilestone;
+
+    console.log(this._route$$);
 
     // Emit the selected options to the parent component
     this.milestoneSelected.emit({

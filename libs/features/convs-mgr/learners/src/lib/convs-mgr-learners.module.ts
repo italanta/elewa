@@ -19,7 +19,7 @@ import { SingleLearnerPageComponent } from './pages/single-learner-page/single-l
 import { LearnerInformationComponent } from './components/learner-information/learner-information.component';
 import { LearnerEnrolledCoursesComponent } from './components/learner-enrolled-courses/learner-enrolled-courses.component';
 import { LearnerAssessmentHistoryComponent } from './components/learner-assessment-history/learner-assessment-history.component';
-import { ActiveMessageTemplateStore, MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
+import { ActiveMessageTemplateStore, MessageTemplateStore, MessageTemplatesService, ScheduleMessageService, ScheduledMessageStore } from '@app/private/state/message-templates';
 
 import { LearnersRouterModule } from './learners.router';
 
@@ -46,7 +46,9 @@ import { LearnersRouterModule } from './learners.router';
   providers: [
     MessageTemplateStore,
     MessageTemplatesService,
-    ActiveMessageTemplateStore
+    ActiveMessageTemplateStore,
+    ScheduleMessageService,
+    ScheduledMessageStore
   ]
 })
 export class ConvsMgrLearnersModule {}
