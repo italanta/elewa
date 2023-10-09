@@ -66,6 +66,8 @@ export class BlockComponent implements OnInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
 
+  isMenuOpen = false;
+
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
@@ -119,6 +121,10 @@ export class BlockComponent implements OnInit {
               private matdialog: MatDialog
 
   ) { }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
   ngOnInit(): void {
     this.type = this.block.type;
