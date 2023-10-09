@@ -52,12 +52,11 @@ export class MessageTemplateFormComponent implements OnInit{
 
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
+    this.templateForm = createEmptyTemplateForm(this.fb);
 
-    if (this.action === 'create') {
-      this.templateForm = createEmptyTemplateForm(this.fb);
-    } else {
+    if (this.action !== 'create') {
       this.initPage();
-    }
+    } 
 
     this.newVariableForm = this.fb.group({
       newVariable: ['',Validators.required],
