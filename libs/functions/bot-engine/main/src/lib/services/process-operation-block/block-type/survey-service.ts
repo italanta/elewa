@@ -10,6 +10,7 @@ import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 
 export class SurveyService implements IProcessOperationBlock
@@ -36,7 +37,9 @@ export class SurveyService implements IProcessOperationBlock
     }
 
     // Update the question response
-    currentSurvey = this.__updateResults(currentSurvey as SurveyResults, currentCursor.position.blockId, message);
+    if(message.type == MessageTypes.QUESTION) {
+      currentSurvey = this.__updateResults(currentSurvey as SurveyResults, currentCursor.position.blockId, message);
+    }
 
     if(!currentCursor.position.blockId) {
       // Get the first block
