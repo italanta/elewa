@@ -21,7 +21,7 @@ export function _VideoInputBlockDecoratePlumb(block: VideoInputBlock, comp: Comp
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0,0.3,0,1],
+    anchor: [0, 0.27, 0, 1],
     maxConnections: -1
   });
 
@@ -31,7 +31,7 @@ export function _VideoInputBlockDecoratePlumb(block: VideoInputBlock, comp: Comp
     source: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [1, 0.9,0,1],
+    anchor: [1, 0.87, 0, 1],
     maxConnections: -1
   });
   
