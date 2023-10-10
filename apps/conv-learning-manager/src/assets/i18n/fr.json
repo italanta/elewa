@@ -349,7 +349,9 @@
       "CLASS": "Classe",
       "COURSE": "Cours",
       "PLATFORM": "Plateforme",
-      "GO-TO-CHAT": "Aller au chat"
+      "GO-TO-CHAT": "Aller au chat",
+      "SEND-MESSAGE": "Envoyer un message."
+
     },
     "MODALS": {
       "ACTIONS": "Actions",
