@@ -1075,6 +1075,34 @@
       },
       "tags": []
     },
+    "private-features-convs-mgr-message-templates": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/message-templates",
+      "sourceRoot": "libs/private/features/convs-mgr/message-templates/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/message-templates"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/message-templates/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/message-templates/**/*.ts",
+              "libs/private/features/convs-mgr/message-templates/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-features-convs-mgr-orgs": {
       "projectType": "library",
       "root": "libs/private/features/convs-mgr/orgs",
@@ -1593,6 +1621,32 @@
             "lintFilePatterns": [
               "libs/private/state/analytics/**/*.ts",
               "libs/private/state/analytics/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-state-message-templates": {
+      "projectType": "library",
+      "root": "libs/private/state/message-templates",
+      "sourceRoot": "libs/private/state/message-templates/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/message-templates"],
+          "options": {
+            "jestConfig": "libs/private/state/message-templates/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/message-templates/**/*.ts",
+              "libs/private/state/message-templates/**/*.html"
             ]
           }
         }
