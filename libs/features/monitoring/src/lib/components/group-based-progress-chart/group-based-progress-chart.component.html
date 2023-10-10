@@ -1,37 +1,4 @@
 <div class="chart-container">
-  <div class="menu">
-    <div class="menu__wrapper">
-      <div class="left_menu">
-        <div class="groups">
-          <button class="group__btn" mat-button [matMenuTriggerFor]="coursesMenu">Courses</button>
-          <mat-menu #coursesMenu="matMenu">
-            <div *ngFor="let course of courses" class="group">
-                <button mat-menu-item (click)="selectActiveCourse(course)">{{ course }}</button>
-              </div>
-          </mat-menu>
-        </div>
-  
-        <div class="groups">
-          <button mat-button [matMenuTriggerFor]="classMenu">Classrooms</button>
-          <mat-menu #classMenu="matMenu">
-              <div *ngFor="let classroom of classrooms" class="group">
-                <button mat-menu-item (click)="selectActiveClassroom(classroom)">{{ classroom }}</button>
-              </div>
-          </mat-menu>
-        </div>
-      </div>
-
-      <div *ngIf="dataIsFetched" class="sort_by">
-        <button mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical }} {{'PAGE-CONTENT.ANALYTICS.PROGRESSION' | transloco }}</button>
-        <mat-menu #periodicalMenu="matMenu">
-          <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.MONTH' | transloco }}</button>
-          <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.WEEK' | transloco }}</button>
-          <button mat-menu-item (click)=" selectProgressTracking('Daily')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.DAY' | transloco }}</button>
-        </mat-menu>
-      </div>
-    </div>
-  </div>
-
   <div class="chart">
     <canvas id="chart-ctx">{{ chart }}</canvas>
   </div>

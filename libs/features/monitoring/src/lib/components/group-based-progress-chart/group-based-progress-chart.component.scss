@@ -2,7 +2,7 @@
   padding: 1rem;
   background-color: white;
   border-radius: 5px;
-  height: 350px;
+  height: 300px;
   width: 50vw;
 
   .chart {
@@ -10,56 +10,5 @@
     margin: auto;
     height: 90%; // This value has to be less than 100% for the chart to be dynamically responsive
     width: 95%; // same here
-  }
-}
-
-.menu {
-  .menu__wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    // left side
-    .left_menu {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .groups {
-      display: flex;
-      gap: 0.5rem;
-
-      button {
-        border: none;
-        padding: 0.5rem;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #f0f0f0;
-
-        &:active {
-          transform: scale(0.95);
-        }
-      }
-    }
-
-    // right side
-    .sort_by {
-      button {
-        border: none;
-        padding: 0.5rem;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #f0f0f0;
-
-        &:active {
-          transform: scale(0.95);
-        }
-      }
-    }
-  }
-
-  span {
-    color: white;
   }
 }
