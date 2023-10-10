@@ -1,11 +1,11 @@
 <div class="message-template-list-container">
     <div class="list-title">
-        <span class="list-title-message">Message templates</span>
+        <span class="list-title-message">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE.LIST-TITLE-MESSAGE'| transloco }}</span>
         <!-- <span class="list-title-sub">2 learners selected</span> -->
     </div>
     <div class="list-title-button">
         <button mat-raised-button [disabled]="isSaving" class="create-btn" (click)="createTemplate()">
-            <span *ngIf="!isSaving"> Create template </span>
+            <span *ngIf="!isSaving"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE-BUTTON.CREATE-BUTTON.CREATE-TEMPLATE'| transloco }} </span>
             <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
           </button>
     </div>
@@ -31,7 +31,7 @@
           fxFlex>
           <ng-container matColumnDef="name">
             <th class="table-header" mat-header-cell *matHeaderCellDef
-              >Template name
+              >{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.TEMPLATE-NAME'| transloco }}
             </th>
               <td mat-cell *matCellDef="let template" (click)="openTemplate(template.id)"> {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
           </ng-container>
@@ -39,25 +39,25 @@
           <ng-container matColumnDef="sentMessages">
             <th class="table-header" mat-header-cell *matHeaderCellDef 
               >
-              Messages sent</th>
+              {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.MESSAGES-SENT'| transloco }}</th>
               <td mat-cell *matCellDef="let template"> 12 </td>
           </ng-container>
       
           <ng-container matColumnDef="lastUpdated">
             <th class="table-header" mat-header-cell *matHeaderCellDef 
               >
-              Last Updated</th>
+              {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.LAST-UPDATED'| transloco }}</th>
               <td mat-cell *matCellDef="let template"> {{template.createdOn.toDate() | date: 'medium'}} </td>
           </ng-container>
       
           <ng-container matColumnDef="actions">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
-              Actions
+              {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.ACTIONS'| transloco }}
             </th>
             <td mat-cell *matCellDef="let template"> 
               {{template.status}}
               <button mat-raised-button  class="send-btn" (click)="sendButtonClicked(template)">
-                    <span > send </span>
+                    <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.SEND-BUTTON'| transloco }} </span>
                 </button>
 
                 
@@ -65,9 +65,9 @@
                   <i class="fas fa-ellipsis-h"></i>
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item  (click)="duplicateTemplate(template)"> Duplicate </button>
-                  <button mat-menu-item > Archive </button>
-                  <button mat-menu-item (click)="deleteTemplate(template)"> Delete
+                  <button mat-menu-item  (click)="duplicateTemplate(template)"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.DUPLICATE-BUTTON'| transloco }} </button>
+                  <button mat-menu-item > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.ARCHIVE-BUTTON'| transloco }} </button>
+                  <button mat-menu-item (click)="deleteTemplate(template)"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.DELETE-BUTTON'| transloco }}
                   </button>
                 </mat-menu>
                </td>

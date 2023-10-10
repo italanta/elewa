@@ -1,5 +1,5 @@
 <div class="inactive-message">
-    <p>Send message after inactivity</p>
+    <p>{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.INACTIVITY'| transloco }} </p>
     <div class="im-select">
         <mat-form-field appearance="outline">
             <input matInput [(ngModel)]="selectedTimeInDays">
@@ -7,12 +7,12 @@
   
         <mat-form-field appearance="outline">
             <mat-select [(ngModel)]="selectedTimeUnit">
-              <mat-option value="days">days</mat-option>
-              <mat-option value="hours">hours</mat-option>
+              <mat-option value="days">{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.IM-SELECT.SELECT-TIME-UNIT.DAYS'| transloco }} </mat-option>
+              <mat-option value="hours">{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.IM-SELECT.SELECT-TIME-UNIT.HOURS'| transloco }} </mat-option>
             </mat-select>
         </mat-form-field>
     </div>
     <button mat-raised-button class="send-btn" (click)="onSaveClick()">
-        <span> save </span>
+        <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }}  </span>
     </button>
   </div>
