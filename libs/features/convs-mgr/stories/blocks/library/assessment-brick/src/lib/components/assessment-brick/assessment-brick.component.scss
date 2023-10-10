@@ -7,10 +7,22 @@ input {
 
 .input-score-min {
     text-align: start;
+    color: var(--assessment-brick-input-color);
+    font-family: Roboto;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
 
 .input-score-max {
     text-align: end;
+    color: var(--assessment-brick-input-color);
+    font-family: Roboto;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
 
 .option {
@@ -18,14 +30,20 @@ input {
     margin-top: 5px;
     width: 100%;
     padding: 4px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--assessment-brick-input-color);
     display: flex;
-    align-items: center;
+
     
 }
 
 #dash {
     text-align: center;
+    color: var(--assessment-brick-input-color);
+    font-family: Roboto;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
 
 .assess-select-wrapper {
@@ -39,6 +57,12 @@ input {
     border-radius: 10px;
     width:100%;
     appearance: none;
+    color: var(--assessment-brick-label-color);
+    font-family: Roboto;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 
 }
 
@@ -51,7 +75,7 @@ input {
     height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid #000;
+    border-top: 5px solid var(--convs-mgr-color-primary-black);
     pointer-events: none;
 }
 
