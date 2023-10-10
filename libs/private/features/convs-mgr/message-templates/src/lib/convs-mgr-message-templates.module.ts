@@ -10,6 +10,8 @@ import {
 import {
   MessageTemplateStore,
   MessageTemplatesService,
+  ScheduleMessageService,
+  ScheduledMessageStore,
 } from '@app/private/state/message-templates';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
@@ -49,6 +51,12 @@ import { MessageTemplateRouterModule } from './message-template.router';
     AfterInactivityModalComponent,
     MilestoneReachedModalComponent,
   ],
-  providers: [MessageTemplatesService, MessageTemplateStore],
+  providers: [
+    MessageTemplatesService, 
+    MessageTemplateStore,
+    ScheduleMessageService,
+    ScheduledMessageStore
+  ],
+
 })
 export class ConvsMgrMessageTemplatesModule {}
