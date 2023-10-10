@@ -1,15 +1,67 @@
-.container{
-  margin:0px;
-  overflow:hidden;
+.container {
+  margin: 0px;
+  overflow: hidden;
   padding: 1rem;
 
   .title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 500;
+    margin: 0;
+    margin-bottom: 1rem;
   }
 
-  .top {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+  .menu-items {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+    .items {
+      display: flex;
+      gap: 0.5rem;
+
+      .item_btn {
+        display: flex;
+        gap: 0.2rem;
+
+        .btn {
+          background-color: #f0f0f0;
+        }
+
+        .active {
+          text-align: center;
+          background-color: teal;
+        }
+      }
+    }
+  }
+
+  .charts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .top {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .bottom {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+}
+
+// buttons
+button {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.95);
   }
 }

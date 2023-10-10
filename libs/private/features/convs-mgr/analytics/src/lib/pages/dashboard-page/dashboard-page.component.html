@@ -1,10 +1,60 @@
-<convl-page title="Analytics">
+<convl-page>
   <div class="container">
-    <p class="title">Insights</p>
+    <div>
+      <p class="title">Insights</p>
+    </div>
 
-    <div class="top">
-      <app-group-based-progress-chart></app-group-based-progress-chart>
-      <app-assessment-progress-chart></app-assessment-progress-chart>
+    <div class="menu-items">
+      <!-- courses -->
+      <div class="items">
+        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse }} Course(s)</button>
+        <mat-menu #coursesMenu="matMenu">
+          <button mat-menu-item (click)="selectActiveCourse('All')">All</button>
+          <div *ngFor="let course of (courses$ | async)">
+              <button mat-menu-item (click)="selectActiveCourse(course.name)">{{ course.name }}</button>
+            </div>
+        </mat-menu>
+      </div>
+
+      <!-- classrooms -->
+      <div class="items">
+        <button mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom }} Classroom(s)</button>
+        <mat-menu #classMenu="matMenu">
+          <button mat-menu-item (click)="selectActiveClassroom('All')">All</button>
+            <div *ngFor="let classroom of (classrooms$ | async)">
+              <button mat-menu-item (click)="selectActiveClassroom(classroom.className)">{{ classroom.className }}</button>
+            </div>
+        </mat-menu>
+      </div>
+
+      <!-- periodical -->
+      <div class="sort_by">
+        <button mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical }} {{'PAGE-CONTENT.ANALYTICS.PROGRESSION' | transloco }}</button>
+        <mat-menu #periodicalMenu="matMenu">
+          <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.MONTH' | transloco }}</button>
+          <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.WEEK' | transloco }}</button>
+          <button mat-menu-item (click)=" selectProgressTracking('Daily')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.DAY' | transloco }}</button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="top">
+        <app-group-based-progress-chart 
+          [activeCourse]="activeCourse" 
+          [activeClassroom]="activeClassroom"
+          [setPeriodical]="periodical"
+        ></app-group-based-progress-chart>
+        <app-assessment-progress-chart></app-assessment-progress-chart>
+      </div>
+  
+      <div class="bottom">
+        <app-enrolled-user-progress-chart
+          [activeCourse]="activeCourse" 
+          [activeClassroom]="activeClassroom"
+          [setPeriodical]="periodical"
+        ></app-enrolled-user-progress-chart>
+      </div>
     </div>
   </div>
 </convl-page>
