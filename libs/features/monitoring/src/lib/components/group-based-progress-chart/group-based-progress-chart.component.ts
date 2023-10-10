@@ -15,7 +15,13 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 import { periodicals } from '../../models/periodicals.interface';
-import { formatDate, getColor, getDailyProgress, getWeeklyProgress, getMonthlyProgress } from '../../providers/helper-fns.util';
+import { 
+  formatDate, 
+  getColor, 
+  getDailyProgress, 
+  getWeeklyProgress,
+  getMonthlyProgress 
+} from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-group-based-progress-chart',
@@ -27,10 +33,14 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  courses: Bot[] = [];
-  classrooms: Classroom[] = [];
-
+  courses: Bot[];
+  classrooms: Classroom[];
   botModules: BotModule[];
+
+  activeCourse: string;
+  activeClassroom: string;
+  selectedPeriodical: periodicals;
+
   dataIsFetched = false;
 
   dailyProgress: GroupProgressModel[]; 
@@ -39,11 +49,21 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   @Input()
   set setPeriodical(value: periodicals) {
+    this.selectedPeriodical = value;
     this.selectProgressTracking(value);
   }
 
-  @Input() activeCourse: string;
-  @Input() activeClassroom: string;
+  @Input()
+  set setActiveCourse(value: string) {
+    this.activeCourse = value
+    this.selectProgressTracking(this.selectedPeriodical);
+  }
+
+  @Input()
+  set setActiveClassroom(value: string) {
+    this.activeClassroom = value
+    this.selectProgressTracking(this.selectedPeriodical);
+  }
 
   constructor (
     private _progressService: ProgressMonitoringService,
@@ -121,11 +141,13 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   private getDatasets(model: GroupProgressModel[]) {
     const bot = this.courses.find(course => course.name === this.activeCourse) as Bot;
 
-    return bot?.modules.map((botMod, idx) => this.unpackLabel(
-      (this.botModules.find(mod => mod.id === botMod) as BotModule)?.name,
-      idx, 
-      model
-    ));
+    return bot?.modules.map((botMod, idx) => 
+      this.unpackLabel(
+        (this.botModules.find(mod => mod.id === botMod) as BotModule)?.name,
+        idx, 
+        model
+      )
+    );
   }
 
   private unpackLabel(milestone: string, idx: number, model: GroupProgressModel[]) {
@@ -156,7 +178,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
             ?.participants.length ?? 0
       );
     }
-  }  
+  }
 
   ngOnDestroy() {
     if (this.chart) {

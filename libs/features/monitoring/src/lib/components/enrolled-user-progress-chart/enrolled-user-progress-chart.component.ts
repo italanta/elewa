@@ -6,7 +6,13 @@ import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 
 import { periodicals } from '../../models/periodicals.interface';
-import { formatDate, getColor, getDailyProgress, getMonthlyProgress, getWeeklyProgress } from '../../providers/helper-fns.util';
+import {
+  formatDate,
+  getColor,
+  getDailyProgress,
+  getMonthlyProgress,
+  getWeeklyProgress,
+} from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-enrolled-user-progress-chart',
@@ -16,38 +22,40 @@ import { formatDate, getColor, getDailyProgress, getMonthlyProgress, getWeeklyPr
 export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   chart: Chart;
 
+  activeCourse: string;
+  activeClassroom: string;
+  selectedPeriodical: periodicals;
+
   allProgress: GroupProgressModel[];
-  dailyProgress: GroupProgressModel[]; 
+  dailyProgress: GroupProgressModel[];
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
-  
+
   @Input()
   set setPeriodical(value: periodicals) {
+    this.selectedPeriodical = value;
     this.selectProgressTracking(value);
   }
 
-  @Input() activeCourse: string;
-  @Input() activeClassroom: string;
-
-  constructor(private _progressService: ProgressMonitoringService){}
+  constructor(private _progressService: ProgressMonitoringService) {}
 
   ngOnInit(): void {
     this.getProgressData();
   }
 
   getProgressData() {
-    this._progressService.getMilestones().subscribe(model => {
+    this._progressService.getMilestones().subscribe((model) => {
       this.chart = this._loadChart(model);
       this.dailyProgress = getDailyProgress(model);
       this.weeklyProgress = getWeeklyProgress(model);
       this.monthlyProgress = getMonthlyProgress(model);
 
       this.chart = this._loadChart(this.weeklyProgress);
-    })
+    });
   }
 
   selectProgressTracking(periodical: periodicals) {
-    if (this.dailyProgress === null) return
+    if (this.dailyProgress === null) return;
 
     if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
@@ -58,7 +66,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _loadChart(model: GroupProgressModel[]){
+  private _loadChart(models: GroupProgressModel[]) {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -66,14 +74,15 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('user-chart', {
       type: 'bar',
       data: {
-        labels: [10, 20, 30, 40, 50, 85],
-        datasets:  [{
-          label: `Enrolled User's`,
-          // data: models.map(mod => mod.todaysEnrolledUsersCount),
-          data: [10, 20, 30, 40, 50, 85],
-          backgroundColor: getColor(1),
-          borderRadius: 10
-        }]
+        labels: models.map((day) => formatDate(day.time)),
+        datasets: [
+          {
+            label: `Enrolled User's`,
+            data: this.getData(models),
+            backgroundColor: getColor(1),
+            borderRadius: 10,
+          },
+        ],
       },
       options: {
         maintainAspectRatio: false,
@@ -90,16 +99,20 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
           y: { stacked: true },
         },
       },
-    })
+    });
   }
 
-  private unpackLabel(idx:number, models: GroupProgressModel[]) {
-    return {
-      label: `Enrolled User's`,
-      data: models.map(mod => mod.todaysEnrolledUsersCount),
-      backgroundColor: getColor(idx),
-      borderRadius: 10
-    };
+  private getData(models: GroupProgressModel[]): number[] {
+    if (this.selectedPeriodical === 'Daily') {
+      // compute daily data
+      return models.map((mod) => mod.todaysEnrolledUsersCount);
+    } else if (this.selectedPeriodical === 'Weekly') {
+      // compute weekly data
+      return models.map((mod) => mod.todaysEnrolledUsersCount);
+    } else {
+      // compute monthly data
+      return models.map((mod) => mod.todaysEnrolledUsersCount);
+    }
   }
 
   ngOnDestroy() {
