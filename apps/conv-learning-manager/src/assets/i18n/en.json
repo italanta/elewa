@@ -554,5 +554,59 @@
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
+  },
+  "MESSAGE-TEMPLATES": {
+    "MESSAGE-TEMPLATE-FORM": {
+      "MT-FORM": {
+        "FORM-HEADER": {
+          "EDIT-TEMPLATE": "Edit template",
+          "FORM-HEADER-BUTTONS": {
+            "CANCEL-BUTTON": "Cancel",
+            "SAVE-BUTTON": {
+              "SAVE": "Save",
+              "SAVING": "Saving"
+            }
+          }
+        },
+        "FORM-BODY": {
+          "TEMPLATE-SETTINGS": {
+            "TITLE": "Template Settings",
+            "CATEGORY": "Category",
+            "CATEGORY-DESCRIPTION": "Select category of the template",
+            "LANGUAGE": "Language",
+            "LANGUAGE-DESCRIPTION": "Select template language",
+            "CHANNEL": "Channel",
+            "CHANNEL-DESCRIPTION": "Select channel to send to"
+          },
+          "TITLE": "Title",
+          "TITLE-DESCRIPTION": "Add title for your template",
+          "CONTENT": {
+            "HEADER": {
+              "HEADER": "Header",
+              "HEADER-DESCRIPTION": "Add a header of either text or image",
+              "TEXT": "Text"
+            },
+            "BODY": {
+              "BODY": "Body",
+              "BODY-DESCRIPTION": "Add content of the message to be sent",
+              "SAMPLES": {
+                "SAMPLES": "Samples for body content",
+                "NOTICE": "To help META review your message template, please add an example for each variable in your body text. Do not use real customer information"
+              },
+              "FOOTER": {
+                "FOOTER": "Footer",
+                "FOOTER-DESCRIPTION": "Add a short line of text to your message content to be shown at the bottom"
+              }
+            }
+          },
+          "ADD-RESPONSES": {
+            "ADD-RESPONSES": "Add responses",
+            "ADD-RESPONSES-DESCRIPTION": "Add buttons or a list that let learners respond to your message",
+            "ADD-BUTTONS": "Add buttons +",
+            "ADD-LIST": "Add list +"
+          }
+        }
+      }
+    }
   }
 }
