@@ -270,6 +270,9 @@
       "@app/private/features/convs-mgr/analytics": [
         "libs/private/features/convs-mgr/analytics/src/index.ts"
       ],
+      "@app/private/features/convs-mgr/message-templates": [
+        "libs/private/features/convs-mgr/message-templates/src/index.ts"
+      ],
       "@app/private/features/convs-mgr/orgs": [
         "libs/private/features/convs-mgr/orgs/src/index.ts"
       ],
@@ -329,6 +332,9 @@
       ],
       "@app/private/state/analytics": [
         "libs/private/state/analytics/src/index.ts"
+      ],
+      "@app/private/state/message-templates": [
+        "libs/private/state/message-templates/src/index.ts"
       ],
       "@app/private/state/organisation/main": [
         "libs/private/state/organisation/main/src/index.ts"
