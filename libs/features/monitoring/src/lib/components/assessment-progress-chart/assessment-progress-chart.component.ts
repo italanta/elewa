@@ -11,7 +11,6 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentScore } from '../../models/assessment-score.interface';
 
-
 @Component({
   selector: 'app-assessment-progress-chart',
   templateUrl: './assessment-progress-chart.component.html',
@@ -28,6 +27,7 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
   assessmentScores: AssessmentScore[];
 
   selectedAssessment: Assessment;
+  scoresComputed = false;
 
   constructor(
     private _assessmentServ$: AssessmentService,
@@ -41,32 +41,29 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
 
   getMetrics() {
     this._sBs.sink = this._assessmentServ$
-      .getAssessments$()
-      .pipe(
-        switchMap((assessments) => {
+      .getAssessments$().pipe(switchMap((assessments) => {
           this.assessments = assessments;
-
+  
           return this._endUserService.getUserDetailsAndTheirCursor().pipe(
             map((endUsers) => {
-              this.assessmentScores = assessments.map((assessment) => {
-                const { scores } = this._aMetrics.computeMetrics(
-                  endUsers,
-                  assessments[0]
-                );
-
+              return this.assessmentScores = assessments.map((assessment) => {
+                const { scores } = this._aMetrics.computeMetrics(endUsers, assessment);
                 return { assessment, scores } as AssessmentScore;
               });
-
-              console.log(this.assessmentScores);
             })
           );
         })
       )
-      .subscribe();
+      .subscribe((scores) => {
+        this.assessmentScores = scores
+        this.scoresComputed = true
+      });
   }
 
-  switchAssessment(assessment: Assessment) {
-    const assessmentScore = this.assessmentScores.find((assess) => assess.assessment.id === assessment.id) as AssessmentScore;
+  switchAssessmentScores() {
+    const assessmentScore = this.assessmentScores.find(
+      (assess) => assess.assessment.id === this.selectedAssessment.id
+    ) as AssessmentScore;
 
     const scores = assessmentScore.scores;
 

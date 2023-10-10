@@ -25,7 +25,7 @@ import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conve
   templateUrl: './chats-list.component.html',
   styleUrls: ['./chats-list.component.scss']
 })
-export class ChatsListComponent implements AfterViewInit, OnInit
+export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
 {
   private _sbs = new SubSink()
   currentChat: Chat;

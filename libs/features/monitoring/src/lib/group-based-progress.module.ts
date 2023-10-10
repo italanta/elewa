@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import {
   MaterialDesignModule,
@@ -22,6 +23,7 @@ import { EnrolledUserProgressChartComponent } from './components/enrolled-user-p
     MaterialBricksModule,
     MaterialDesignModule,
     MultiLangModule,
+    FormsModule
   ],
   exports: [
     GroupBasedProgressChartComponent,
