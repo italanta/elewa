@@ -1,26 +1,26 @@
 mat-card {
-  min-width: 12.5rem; /* 200px / 16px (assuming a base font size of 16px) */
+  min-width: 12.5rem; 
 }
 
 mat-card-title {
-  font-size: 0.75rem !important; /* 1.2rem / 1.6 (assuming a base font size of 16px) */
+  font-size: 0.75rem !important; 
   color: var(--convs-mgr-color-primary-purple);
 }
 
 input {
   max-width: 100%;
   height: fit-content !important;
-  padding: 0.625rem; /* 10px / 16px (assuming a base font size of 16px) */
-  margin: 0.3125rem 0; /* 5px / 16px (assuming a base font size of 16px) */
-  border-radius: 0.3125rem; /* 5px / 16px (assuming a base font size of 16px) */
+  padding: 0.625rem; 
+  margin: 0.3125rem 0; 
+  border-radius: 0.3125rem; 
   caret-color: var(--convs-mgr-color-text-black);
   color: var(--convs-mgr-color-text-black);
   outline: none;
-  border: 0.0625rem solid var(--convs-mgr-color-primary-purple); /* 1px / 16px (assuming a base font size of 16px) */
+  border: 0.0625rem solid var(--convs-mgr-color-primary-purple); 
 }
 
 input:focus-visible {
-  border: 0.0625rem solid var(--convs-mgr-color-primary-purple); /* 1px / 16px (assuming a base font size of 16px) */
+  border: 0.0625rem solid var(--convs-mgr-color-primary-purple); 
   outline-color: var(--convs-mgr-color-primary-purple);
 }
 
@@ -53,12 +53,12 @@ font-size: 0.8125rem;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
-margin: 0 0 0 0.025rem; /* 0.4em / 16px (assuming a base font size of 16px) */
+margin: 0 0 0 0.025rem; 
 color: var(--convs-mgr-color-text-black);
 }
 
 .block-card {
-  border-radius: 0.625rem; /* 10px / 16px (assuming a base font size of 16px) */
+  border-radius: 0.625rem; 
   padding: 0%;
 }
 
@@ -67,7 +67,7 @@ color: var(--convs-mgr-color-text-black);
 }
 
 .fa-clone {
-  padding-right: 0.625rem; /* 10px / 16px (assuming a base font size of 16px) */
+  padding-right: 0.625rem; 
 }
 
 .fa-clone,
