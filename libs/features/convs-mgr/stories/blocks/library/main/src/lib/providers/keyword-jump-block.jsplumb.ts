@@ -24,8 +24,17 @@ export function _KeywordJumpBlockDecoratePlumb(
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: 'Left',
+    anchor: [0, 0.5 , 0, 1],
     maxConnections: -1,
+  });
+
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    target: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1, 0.5, 0 , 1],
+    maxConnections: -1
   });
 
   return comp;
