@@ -1,0 +1,32 @@
+<div class="milestone">
+    <p class="milestone-title">Send message after milestone reached 
+        <span (click)="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+    </p>
+    <p class="milestone-sub">Select milestone</p>
+    <mat-radio-group aria-label="Select an option" class="m-radio" [(ngModel)]="selectedMilestoneType">
+        <mat-radio-button value="before">Before</mat-radio-button>
+        <mat-radio-button value="after">After</mat-radio-button>
+    </mat-radio-group>
+      
+    <div class="bot-list" *ngIf="stories$ | async as stories">
+        <p class="milestone-sub">Select Bot</p>
+        <mat-form-field class="">
+            <mat-select [(ngModel)]="story" (selectionChange)="selectedBot()">
+              <mat-option *ngFor="let bot of stories" [value]="bot">
+                {{ bot.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="bot-milestone" *ngIf="blocks$ | async as milestones">
+        <p class="milestone-sub">Select milestone</p>
+        <mat-radio-group aria-label="Select an option" class="m-radio" [(ngModel)]="selectedMilestone">
+            <mat-radio-button *ngFor="let milestone of milestones; let i = index" [value]="milestone">
+                Milestone {{ i + 1 }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <button mat-raised-button class="send-btn" (click)="onSaveClick()">
+        <span> save </span>
+    </button>
+</div>
