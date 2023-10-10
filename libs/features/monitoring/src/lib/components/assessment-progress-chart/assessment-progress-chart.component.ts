@@ -74,8 +74,6 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
   }
 
   computeScores(scores: number[]) {
-    console.log({ scores });
-
     if (!scores.length) return;
 
     this.highestScore = Math.max(...scores);
