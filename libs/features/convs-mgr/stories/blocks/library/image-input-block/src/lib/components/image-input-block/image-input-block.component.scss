@@ -5,12 +5,12 @@ mat-card {
 input {
 	max-width: 100%;
 	margin: 5px 0;
-	border: 1px solid #F3F3F3;
+	border: 1px solid var(--convs-mgr-input-image-white-backgroud-color);
 	border-radius: 10px;
 	resize: none;
 	padding: 10px;
-	color: #707070;
-	background-color: #F3F3F3;
+	color: var(--convs-mgr-input-image-grey-color);
+	background-color: var(--convs-mgr-input-image-white-backgroud-color);
 }
 
 input:focus-visible {
@@ -19,7 +19,7 @@ input:focus-visible {
 }
 
 .horizontal-line {
-	background-color: #F3F3F3;
+	background-color: var(--convs-mgr-input-image-white-backgroud-color);
 	height: 2px;
 	width: 100%;
 }
