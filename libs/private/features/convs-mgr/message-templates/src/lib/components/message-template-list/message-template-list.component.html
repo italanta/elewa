@@ -1,0 +1,84 @@
+<div class="message-template-list-container">
+    <div class="list-title">
+        <span class="list-title-message">Message templates</span>
+        <!-- <span class="list-title-sub">2 learners selected</span> -->
+    </div>
+    <div class="list-title-button">
+        <button mat-raised-button [disabled]="isSaving" class="create-btn" (click)="createTemplate()">
+            <span *ngIf="!isSaving"> Create template </span>
+            <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
+          </button>
+    </div>
+</div>
+<!-- <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+    <div class="search" fxFlex="70">
+      <i class="fas fa-search search_tooltip"></i>
+      <input  class="search_input" type="text" name="" placeholder="Search template" />
+    </div>
+  </div> -->
+  <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+    <form [formGroup]="searchForm" class="search">
+      <i class="fas fa-search search_tooltip"></i>
+      <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="Search template" />
+    </form>
+  </div>
+
+
+<div class="table">
+    <mat-spinner *ngIf="isSaving"></mat-spinner>
+    <div fxFlex *ngIf="!isSaving">
+        <table mat-table [dataSource]="dataSource"  class="assessments-table" 
+          fxFlex>
+          <ng-container matColumnDef="name">
+            <th class="table-header" mat-header-cell *matHeaderCellDef
+              >Template name
+            </th>
+              <td mat-cell *matCellDef="let template" (click)="openTemplate(template.id)"> {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
+          </ng-container>
+      
+          <ng-container matColumnDef="sentMessages">
+            <th class="table-header" mat-header-cell *matHeaderCellDef 
+              >
+              Messages sent</th>
+              <td mat-cell *matCellDef="let template"> 12 </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="lastUpdated">
+            <th class="table-header" mat-header-cell *matHeaderCellDef 
+              >
+              Last Updated</th>
+              <td mat-cell *matCellDef="let template"> {{template.createdOn.toDate() | date: 'medium'}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="actions">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Actions
+            </th>
+            <td mat-cell *matCellDef="let template"> 
+              {{template.status}}
+              <button mat-raised-button  class="send-btn" (click)="sendButtonClicked(template)">
+                    <span > send </span>
+                </button>
+
+                
+                <button mat-button [matMenuTriggerFor]="menu">
+                  <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item  (click)="duplicateTemplate(template)"> Duplicate </button>
+                  <button mat-menu-item > Archive </button>
+                  <button mat-menu-item (click)="deleteTemplate(template)"> Delete
+                  </button>
+                </mat-menu>
+               </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="messageTemplateColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: messageTemplateColumns"></tr>
+      
+        </table>
+      
+        <!-- <mat-paginator #tablePaginator [length]="assessments.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+          >
+        </mat-paginator> -->
+      </div>
+</div>
