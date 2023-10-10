@@ -35,6 +35,26 @@ export class MessageTemplatesService {
     return templateRef(data);
   }
 
+  private sendMessagesCallFunction(data: SendMessageTemplate){
+    const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
+    return scheduleRef(data);
+  }
+
+  sendMessageTemplate(payload: any){
+    const sendMessageReq: SendMessageTemplate = {
+      n:2,
+      plaform: PlatformType.WhatsApp,
+      message: {
+        type:MessageTypes.TEXT,
+        name: payload.name,
+        language: "en_US",
+        templateType: TemplateMessageTypes.Text
+      },
+      endUsers: payload.endUsers,
+    }
+    return this.sendMessagesCallFunction( sendMessageReq );
+  }
+
   addMessageTemplate(template: MessageTemplate){
     return this._messageTemplateStore$$.add(template);
   }
