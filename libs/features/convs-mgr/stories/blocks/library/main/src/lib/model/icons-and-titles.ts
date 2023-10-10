@@ -110,7 +110,7 @@ export const iconsAndTitles: any = {
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
-    icon: 'fas fa-chart-bar'
+    icon: '/assets/icons/assessments-stroked.svg',
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
