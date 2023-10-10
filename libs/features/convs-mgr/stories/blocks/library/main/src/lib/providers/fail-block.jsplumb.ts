@@ -21,8 +21,18 @@ export function _FailBlockDecoratePlumb(block: FailBlock, comp: ComponentRef<Blo
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass: 'block_endpoint',
-    endpoint: 'Rectangle',
-    anchor: "Left",
+    endpoint: 'Dot',
+    anchor: [0, 0.2, 0, 1],
+    maxConnections: -1
+  });
+
+  // Adding the second static jsPlumb connector
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    // Whether the anchor is target (Other Block -> This Block)
+    source: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1, 0.87, 0, 1],
     maxConnections: -1
   });
   
