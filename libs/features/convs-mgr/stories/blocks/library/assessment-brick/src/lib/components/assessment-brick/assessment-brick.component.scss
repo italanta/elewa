@@ -1,11 +1,12 @@
 input {
     border: none;
     padding: 5px 10px;
-    width: 70px;
+    width: 20px;
+    border-radius:  10px;
 }
 
 .input-score-min {
-    text-align: center;
+    text-align: start;
 }
 
 .input-score-max {
@@ -13,11 +14,49 @@ input {
 }
 
 .option {
-    border: solid 1px grey;
+    
+    margin-top: 5px;
+    width: 100%;
+    padding: 4px;
+    border-bottom: 1px solid grey;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    
 }
 
 #dash {
-    text-align: end;
+    text-align: center;
+}
+
+.assess-select-wrapper {
+    position: relative;
+    width: 100%;  
+}
+
+.assess-select{
+
+    padding: 8px;
+    border-radius: 10px;
+    width:100%;
+    appearance: none;
+
+}
+
+.custom-dropdown-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000;
+    pointer-events: none;
+}
+
+.form-group {
+
+    width:100%;
+
 }
