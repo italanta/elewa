@@ -2,19 +2,20 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
-import { Bot } from '@app/model/convs-mgr/bots';
+import { switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+
+import { Bot } from '@app/model/convs-mgr/bots';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { Classroom } from '@app/model/convs-mgr/classroom';
+import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 import { periodicals } from '../../models/periodicals.interface';
-import { ClassroomService } from '@app/state/convs-mgr/classrooms';
-import { Classroom } from '@app/model/convs-mgr/classroom';
-import { switchMap } from 'rxjs';
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { formatDate, getColor, getDailyProgress, getWeeklyProgress, getMonthlyProgress } from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-group-based-progress-chart',
@@ -26,21 +27,23 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  courses: string[] = [];
-  classrooms: string[] = [];
+  courses: Bot[] = [];
+  classrooms: Classroom[] = [];
 
-  bots: Bot[];
   botModules: BotModule[];
   dataIsFetched = false;
 
-  allProgress: GroupProgressModel[];
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
 
-  periodical: periodicals = 'Weekly';
-  activeCourse = 'All';
-  activeClassroom = 'All';
+  @Input()
+  set setPeriodical(value: periodicals) {
+    this.selectProgressTracking(value);
+  }
+
+  @Input() activeCourse: string;
+  @Input() activeClassroom: string;
 
   constructor (
     private _progressService: ProgressMonitoringService,
@@ -50,94 +53,40 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.initStateDataLayer();
+    this.initDataLayer();
     this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
-      console.log(models)
-
       // 1. save all progress
-      this.allProgress = models;
-
-      // 3. get daily progress
-      this.getDailyProgress();
-
-      // 4. get weekly progress 
-      this.getWeeklyProgress();
-
-      // 5. get Monthly Progress
-      this.getMonthlyProgress();
-
-      // 6. show periodical toggle menu after data is fetched
+      this.dailyProgress = getDailyProgress(models);
+      this.weeklyProgress = getWeeklyProgress(models);
+      this.monthlyProgress = getMonthlyProgress(models);
       this.dataIsFetched = true;
 
-      // start the chart with the weekly Progressions
       this.chart = this._loadChart(this.weeklyProgress);
     });
   }
 
-  initStateDataLayer() {
+  initDataLayer() {
     this._sBs.sink = this._botServ$.getBots().pipe(
       switchMap(bots => {
-        this.bots = bots
-        bots.map(bot => this.courses.push(bot.name))
-        this.courses?.unshift('All');
-  
+        this.courses = bots
         return this._clasroomServ$.getAllClassrooms().pipe(switchMap(clsrooms => {
-          clsrooms.map(cl => this.classrooms.push(cl.className))
-          this.classrooms?.unshift('All');
-
+          this.classrooms = clsrooms
           return this._botModServ$.getBotModules()
         }))
       })
     ).subscribe(botModules => this.botModules = botModules);
   }
 
-  selectActiveCourse(course: string) {
-    this.activeCourse = course;
-    this.selectProgressTracking(this.periodical);
-  }
+  selectProgressTracking(periodical: periodicals) {
+    if (this.dailyProgress === null) return
 
-  selectActiveClassroom(classroom: string) {
-    this.activeClassroom = classroom;
-    this.selectProgressTracking(this.periodical);
-  }
-
-  selectProgressTracking(trackBy: periodicals) {
-    this.periodical = trackBy;
-  
-    if (this.periodical === 'Daily') {
+    if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
-    } else if (this.periodical === 'Weekly') {
+    } else if (periodical === 'Weekly') {
       this.chart = this._loadChart(this.weeklyProgress);
     } else {
       this.chart = this._loadChart(this.monthlyProgress);
     }
-  }
-
-  /** Retrieves daily milestones of all users */
-  private getDailyProgress() {
-    this.dailyProgress = this.allProgress;
-  }
-
-  /** Retrieves weekly milestones of all users */
-  private getWeeklyProgress() {
-    this.weeklyProgress = this.allProgress.filter(model => {
-      const timeInDate = new Date((model.time * 1000))
-      const dayOfWeek = timeInDate.getDay();
-
-      if (dayOfWeek === 6) return true
-      else return false
-    });
-  }
-
-  /** Retrieves weekly milestones of all users */
-  private getMonthlyProgress() {
-    this.monthlyProgress = this.allProgress.filter(model => {
-      const timeInDate = new Date((model.time * 1000))
-      const dayOfWeek = timeInDate.getDate();
-
-      if (dayOfWeek === 1) return true
-      else return false
-    });
   }
 
   private _loadChart(model: GroupProgressModel[]): Chart {
@@ -148,7 +97,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => this.formatDate(day.time)),
+        labels: model.map((day) => formatDate(day.time)),
         datasets: this.getDatasets(model)
       },
       options: {
@@ -170,7 +119,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
   private getDatasets(model: GroupProgressModel[]) {
-    const bot = this.bots.find(bot => bot.name === this.activeCourse) as Bot;
+    const bot = this.courses.find(course => course.name === this.activeCourse) as Bot;
 
     return bot?.modules.map((botMod, idx) => this.unpackLabel(
       (this.botModules.find(mod => mod.id === botMod) as BotModule)?.name,
@@ -183,7 +132,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return {
       label: milestone,
       data: this.getData(milestone, model),
-      backgroundColor: this.getColor(idx),
+      backgroundColor: getColor(idx),
       borderRadius: 10
     };
   }
@@ -207,15 +156,6 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
             ?.participants.length ?? 0
       );
     }
-  }
-
-  private formatDate(time: number): string {
-    const date = new Date(time * 1000);
-    return date.getDate() + '/' + (date.getMonth() + 1);
-  }
-
-  private getColor(idx: number) {
-    return [ '#e3342f', '#f6993f', '#f66d9b', '#ffed4a', '#4dc0b5', '#3490dc', '#6574cd', '#9561e2', '#38c172' ][idx];
   }  
 
   ngOnDestroy() {
