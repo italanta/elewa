@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
+import { ActivatedRoute } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
@@ -11,6 +12,7 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
 import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
@@ -47,11 +49,18 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedCourse: any = 'Course';
   selectedPlatform: any = 'Platform';
 
+  templateId: string;
+  selectedTime: Date;
+  activeMessageId: string;
+
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _messageService: MessageTemplatesService,
+    private _route: ActivatedRoute,
+    private _scheduleMessageService: ScheduleMessageService
   ) {}
 
   ngOnInit() {
@@ -59,6 +68,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllClasses();
     this.getAllCourses();
     this.getAllPlatforms();
+    this.getActiveMessageTemplate();
   }
 
   getLearners() {
@@ -160,6 +170,36 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this._dialog.open(CreateClassModalComponent, {
       width: '400px',
     });
+  }
+
+  getActiveMessageTemplate(){
+    this.activeMessageId = this._route.snapshot.queryParamMap.get('templateId') ?? '';
+    const dispatchDateQueryParam = this._route.snapshot.queryParamMap.get('dispatchDate');
+
+    if (dispatchDateQueryParam) {
+      this.selectedTime = new Date(dispatchDateQueryParam);
+    }
+   }
+  // TODO: Connect to send message service
+  sendMessageButtonClicked(){
+    const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber);
+    this._messageService.getTemplateById(this.activeMessageId).subscribe(
+      (template) => {
+          if(this.selectedTime){
+            const scheduleRequest = {
+              name: template?.name,
+              dispatchTime: this.selectedTime,
+              endUsers: selectedPhoneNumbers
+            };
+            this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
+          }
+          else{
+            this._messageService.sendMessageTemplate({endUsers: selectedPhoneNumbers, name: template?.name}).subscribe();
+          }
+           
+      }
+    );
+    
   }
 
   ngOnDestroy() {
