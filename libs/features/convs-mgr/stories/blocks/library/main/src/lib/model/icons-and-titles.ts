@@ -54,6 +54,7 @@ export const iconsAndTitles: any = {
   15: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STICKER',
     icon: 'fas fa-sticky-note',
+    svgIcon: 'assets/svgs/blocks/ph_sticker-light.svg',
   },
   16: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LIST',
