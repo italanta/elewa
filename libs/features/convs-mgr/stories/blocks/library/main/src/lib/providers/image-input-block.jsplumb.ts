@@ -30,7 +30,7 @@ export function _ImageInputBlockDecoratePlumb(block: ImageInputBlock, comp: Comp
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [1, 0.7, 0 , 1],
+    anchor: [1, 0.80, 0 , 1],
     maxConnections: -1
   });
 
