@@ -2,8 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { MessageTemplatesService } from '@app/private/state/message-templates';
-
 @Component({
   selector: 'app-specific-time-modal',
   templateUrl: './specific-time-modal.component.html',

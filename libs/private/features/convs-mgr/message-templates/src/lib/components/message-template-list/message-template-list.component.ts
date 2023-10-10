@@ -104,7 +104,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
       (response) => {
         if( response.success){
           this._messageTemplateService.addMessageTemplate(this.template).subscribe(
-            (response) => console.log(response)
+            
           );
         }
       }
@@ -115,7 +115,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     this._messageTemplateService.deleteTemplateMeta(template).subscribe(
       (response) => {
         if(response.success){
-          console.log("deleting both");
           this._messageTemplateService.removeTemplate(template);
         }
       }
