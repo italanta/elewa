@@ -1,0 +1,130 @@
+<div class="message-template-form">
+    <div class="mt-form" >
+        <div class="form-header">
+            <p>Edit template</p>
+            <div class="form-header-buttons">
+                <button mat-raised-button  class="cancel-btn" (click)="cancel()">
+                    <span > Cancel </span>
+                </button>
+                <button mat-raised-button  class="save-btn" (click)="save()">
+                    <span *ngIf="!isSaving; else saving"> Save </span>
+                    <ng-template #saving>
+                    <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <span> saving </span>
+                        <mat-spinner diameter="1"></mat-spinner>
+                    </span>
+                    </ng-template>
+                </button>
+            </div>
+        </div>
+        <div class="form-body">
+            <form [formGroup]="templateForm" >
+                <!-- <div class="form-group">
+                    <app-template-form-dropdown 
+                    (selectedOptionsChange)="onSelectedOptionsChange($event)"></app-template-form-dropdown>
+                </div> -->
+                <mat-accordion class="multi-drop">
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                         (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <div class="titles">
+                                <p>Template Settings</p>
+                                <!-- <p>Category, channel, language</p> -->
+                            </div>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="dd-holder">
+
+                        <div class="form-group">
+                            <p>Category</p>
+                            <p>Select category of the template</p>
+                              <mat-form-field appearance="outline" class="selec">
+                                <mat-select  formControlName="category">
+                                    <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                        </div>
+                        
+                        <div class="form-group">
+                            <p>Language</p>
+                            <p>Select template language</p>
+                            <mat-form-field appearance="outline" class="selec" >
+                                <mat-select formControlName="language">
+                                    <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <p>Channel</p>
+                        <p>Select chanel to send to </p>
+                        <mat-form-field appearance="outline" class="">
+                            <mat-select class="mat-outline">
+                                <mat-option *ngFor="let channel of channels" [value]="channel">{{ channel }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                  
+                <div class="form-group">
+                    <p><span>*</span> Title</p>
+                    <p>Add title for your template</p>
+                    <mat-form-field appearance="outline">
+                        <input type="text" matInput formControlName="name">
+                    </mat-form-field>
+
+                </div>
+                <div class="conte" formGroupName="content">
+                    <div class="form-group head" formGroupName="header">
+                        <p>Header</p>
+                        <p>Add a header of either text or image <span> <span class="spec">T</span> <i class="far fa-image"></i></span></p>
+          
+                        <mat-form-field appearance="outline">
+                          <input type="text" matInput formControlName="text">
+                        </mat-form-field>
+                      </div>
+                    
+                    <div class="form-group body" formGroupName="body">
+                        <p><span>*</span> Body</p>
+                        <p>Add content of the message to be sent</p>
+                        <mat-form-field appearance="outline">
+                            <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
+                        </mat-form-field>
+                        <div class="variables">
+                            <p class="pees">Samples for body content</p>
+                            <p class="np">To help META review your message template, please add an example for each variable in your body text. Do not use real customer information</p>
+                            <p class="pees">Body</p>
+                            
+                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                              <div [formGroup] = "newVariableForm">
+                                  <input type="text" formControlName="newPlaceholder" placeholder="Variable name" class="eveinputs">
+                                <input type="text" formControlName="newVariable" placeholder="placeholder " class="eveinputs">
+                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button>                              </div>
+                              
+                        </div>
+                        </div>
+                        
+    
+                    <div class="form-group">
+                        <p> Footer</p>
+                        <p>Add a short line of text to your message content to be shown at the bottom</p>
+                        <mat-form-field appearance="outline">
+                            <input type="textarea" matInput formControlName="footer">
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+
+                <div class="form-group">
+                    <p> Add responses</p>
+                    <p>Add buttons or list that let learners respond to your message</p>
+                    <p>Add buttons +</p>
+                    <p>Add list +</p>
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
