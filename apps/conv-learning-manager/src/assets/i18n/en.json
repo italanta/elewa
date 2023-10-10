@@ -556,6 +556,91 @@
     }
   },
   "MESSAGE-TEMPLATES": {
+    "INACTIVE-MESSAGE": {
+      "INACTIVITY": "Send message after inactivity",
+      "IM-SELECT": {
+        "INPUT-PLACEHOLDER": "Enter a value",
+        "SELECT-TIME-UNIT": {
+          "DAYS": "days",
+          "HOURS": "hours"
+        }
+      }
+    },
+    "MILESTONE": {
+      "MILESTONE-TITLE": "Send message after milestone reached",
+      "CLOSE-MODAL": "Close",
+      "SELECT-MILESTONE": "Select milestone",
+      "MILESTONE-TYPES": {
+        "BEFORE": "Before",
+        "AFTER": "After"
+      },
+      "SELECT-BOT": "Select Bot",
+      "SELECT-MILESTONE-INDEX": "Select milestone",
+      "MILESTONE-NUMBER": "Milestone"
+    },
+    "SAVE-BUTTON": {
+      "SAVE": "Save"
+    },
+    "SPECIFIC-TIME": {
+      "SEND-MESSAGE-AT-SPECIFIC-TIME": "Send message at a specific time",
+      "CHOOSE-DATE": "Choose a date and time",
+      "DATE-PLACEHOLDER": "Date and Time",
+      "TIME-PLACEHOLDER": "Time",
+      "SAVE-BUTTON": {
+        "SAVE": "Save"
+      }
+    },
+    "MESSAGE-TEMPLATE-SETTINGS": {
+      "BTN-CONT": {
+        "SAVE-BUTTON": {
+          "SAVE": "Save"
+        }
+      },
+      "FORM-GROUP": {
+        "HEAD": {
+          "MESSAGE-CONDITIONS": "Message Conditions",
+          "INFO": "You can only set message conditions when your message template is approved",
+          "SET-UP-CONDITIONS": "Set up conditions for your message to be sent",
+          "MESSAGE-CONDITIONS-LABEL": "Message conditions"
+        }
+      }
+    },
+    "MESSAGE-TEMPLATE-LIST-CONTAINER": {
+      "LIST-TITLE": {
+        "LIST-TITLE-MESSAGE": "Message templates"
+      },
+      "LIST-TITLE-BUTTON": {
+        "CREATE-BUTTON": {
+          "CREATE-TEMPLATE": "Create template",
+          "SAVING": "Creating..."
+        }
+      },
+      "SEARCH-BAR": {
+        "SEARCH": {
+          "SEARCH-TOOLTIP": "Search",
+          "SEARCH-INPUT-PLACEHOLDER": "Search template"
+        }
+      },
+      "TABLE": {
+        "SPINNER": "Loading...",
+        "TABLE-HEADER": {
+          "TEMPLATE-NAME": "Template name",
+          "MESSAGES-SENT": "Messages sent",
+          "LAST-UPDATED": "Last Updated",
+          "ACTIONS": "Actions"
+        },
+        "SEND-BUTTON": "Send",
+        "DUPLICATE-BUTTON": "Duplicate",
+        "ARCHIVE-BUTTON": "Archive",
+        "DELETE-BUTTON": "Delete"
+      }
+    },
+    "HEADER": {
+      "MESSAGE-TEMPLATE-HEADER-TITLE": {
+        "MESSAGES": "Messages",
+        "HELP": "Help"
+      }
+    },
     "MESSAGE-TEMPLATE-FORM": {
       "MT-FORM": {
         "FORM-HEADER": {

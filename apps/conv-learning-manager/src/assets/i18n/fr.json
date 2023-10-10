@@ -411,5 +411,144 @@
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
       }
     }
+  },
+  "MESSAGE-TEMPLATES": {
+    "INACTIVE-MESSAGE": {
+      "INACTIVITY": "Envoyer un message après une période d'inactivité",
+      "IM-SELECT": {
+        "INPUT-PLACEHOLDER": "Entrez une valeur",
+        "SELECT-TIME-UNIT": {
+          "DAYS": "jours",
+          "HOURS": "heures"
+        }
+      }
+    },
+    "MILESTONE": {
+      "MILESTONE-TITLE": "Envoyer un message après avoir atteint une étape",
+      "CLOSE-MODAL": "Fermer",
+      "SELECT-MILESTONE": "Sélectionnez une étape",
+      "MILESTONE-TYPES": {
+        "BEFORE": "Avant",
+        "AFTER": "Après"
+      },
+      "SELECT-BOT": "Sélectionnez un Bot",
+      "SELECT-MILESTONE-INDEX": "Sélectionnez une étape",
+      "MILESTONE-NUMBER": "Étape"
+    },
+    "SAVE-BUTTON": {
+      "SAVE": "Enregistrer"
+    },
+    "SPECIFIC-TIME": {
+      "SEND-MESSAGE-AT-SPECIFIC-TIME": "Envoyer un message à une heure spécifique",
+      "CHOOSE-DATE": "Choisissez une date et une heure",
+      "DATE-PLACEHOLDER": "Date et heure",
+      "TIME-PLACEHOLDER": "Heure",
+      "SAVE-BUTTON": {
+        "SAVE": "Enregistrer"
+      }
+    },
+    "MESSAGE-TEMPLATE-SETTINGS": {
+      "BTN-CONT": {
+        "SAVE-BUTTON": {
+          "SAVE": "Enregistrer"
+        }
+      },
+      "FORM-GROUP": {
+        "HEAD": {
+          "MESSAGE-CONDITIONS": "Conditions du message",
+          "INFO": "Vous ne pouvez définir des conditions de message que lorsque votre modèle de message est approuvé",
+          "SET-UP-CONDITIONS": "Configurer les conditions pour l'envoi de votre message",
+          "MESSAGE-CONDITIONS-LABEL": "Conditions du message"
+        }
+      }
+    },
+    "MESSAGE-TEMPLATE-LIST-CONTAINER": {
+      "LIST-TITLE": {
+        "LIST-TITLE-MESSAGE": "Modèles de messages"
+      },
+      "LIST-TITLE-BUTTON": {
+        "CREATE-BUTTON": {
+          "CREATE-TEMPLATE": "Créer un modèle",
+          "SAVING": "En cours de création..."
+        }
+      },
+      "SEARCH-BAR": {
+        "SEARCH": {
+          "SEARCH-TOOLTIP": "Rechercher",
+          "SEARCH-INPUT-PLACEHOLDER": "Rechercher un modèle"
+        }
+      },
+      "TABLE": {
+        "SPINNER": "Chargement...",
+        "TABLE-HEADER": {
+          "TEMPLATE-NAME": "Nom du modèle",
+          "MESSAGES-SENT": "Messages envoyés",
+          "LAST-UPDATED": "Dernière mise à jour",
+          "ACTIONS": "Actions"
+        },
+        "SEND-BUTTON": "Envoyer",
+        "DUPLICATE-BUTTON": "Dupliquer",
+        "ARCHIVE-BUTTON": "Archiver",
+        "DELETE-BUTTON": "Supprimer"
+      }
+    },
+    "HEADER": {
+      "MESSAGE-TEMPLATE-HEADER-TITLE": {
+        "MESSAGES": "Messages",
+        "HELP": "Aide"
+      }
+    },
+    "MESSAGE-TEMPLATE-FORM": {
+      "MT-FORM": {
+        "FORM-HEADER": {
+          "EDIT-TEMPLATE": "Modifier le modèle",
+          "FORM-HEADER-BUTTONS": {
+            "CANCEL-BUTTON": "Annuler",
+            "SAVE-BUTTON": {
+              "SAVE": "Enregistrer",
+              "SAVING": "Enregistrement en cours"
+            }
+          }
+        },
+        "FORM-BODY": {
+          "TEMPLATE-SETTINGS": {
+            "TITLE": "Paramètres du modèle",
+            "CATEGORY": "Catégorie",
+            "CATEGORY-DESCRIPTION": "Sélectionnez la catégorie du modèle",
+            "LANGUAGE": "Langue",
+            "LANGUAGE-DESCRIPTION": "Sélectionnez la langue du modèle",
+            "CHANNEL": "Canal",
+            "CHANNEL-DESCRIPTION": "Sélectionnez le canal d'envoi"
+          },
+          "TITLE": "Titre",
+          "TITLE-DESCRIPTION": "Ajoutez un titre à votre modèle",
+          "CONTENT": {
+            "HEADER": {
+              "HEADER": "En-tête",
+              "HEADER-DESCRIPTION": "Ajoutez un en-tête sous forme de texte ou d'image",
+              "TEXT": "Texte"
+            },
+            "BODY": {
+              "BODY": "Corps",
+              "BODY-DESCRIPTION": "Ajoutez le contenu du message à envoyer",
+              "SAMPLES": {
+                "SAMPLES": "Exemples de contenu du corps",
+                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client"
+              },
+              "FOOTER": {
+                "FOOTER": "Pied de page",
+                "FOOTER-DESCRIPTION": "Ajoutez une courte ligne de texte au contenu du message à afficher en bas"
+              }
+            }
+          },
+          "ADD-RESPONSES": {
+            "ADD-RESPONSES": "Ajouter des réponses",
+            "ADD-RESPONSES-DESCRIPTION": "Ajoutez des boutons ou une liste permettant aux apprenants de répondre à votre message",
+            "ADD-BUTTONS": "Ajouter des boutons +",
+            "ADD-LIST": "Ajouter une liste +"
+          }
+        }
+      }
+    }
   }
 }
