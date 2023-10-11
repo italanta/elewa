@@ -41,7 +41,7 @@
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY-DESCRIPTION'| transloco }}</p>
                               <mat-form-field appearance="outline" class="selec">
                                 <mat-select  formControlName="category">
-                                    <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+                                    <mat-option *ngFor="let category of categories" [value]="category.value">{{ category.display }}</mat-option>
                                   </mat-select>
                               </mat-form-field>
                         </div>
