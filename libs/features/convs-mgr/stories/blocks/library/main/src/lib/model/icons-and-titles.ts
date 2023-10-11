@@ -13,7 +13,7 @@ export const iconsAndTitles: any = {
   },
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
-    icon: 'fas fa-map-marker-alt',
+    icon: '/assets/icons/location.svg',
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
