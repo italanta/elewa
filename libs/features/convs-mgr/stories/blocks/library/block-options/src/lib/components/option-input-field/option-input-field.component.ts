@@ -22,8 +22,6 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
 
   inputUniqueId: string;
   optionValue: string = "";
-  /**Adding this index to keep track ot the Option's index */
-  optionIndex: number;
 
   constructor() { }
 
@@ -32,8 +30,6 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
     if (!this.isNotEndpoint) {
       this.inputUniqueId = `i-${this.formGroupNameInput}-${this.blockFormGroup.value.id}`;
     }
-    /**Determine the option index and add 1 to make it 1-based instead of 0-based*/
-    this.optionIndex = +this.formGroupNameInput + 1;
   }
 
   ngAfterViewInit(): void {
