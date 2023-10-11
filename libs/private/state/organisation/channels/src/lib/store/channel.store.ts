@@ -3,7 +3,7 @@ import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
 import { of } from 'rxjs'
-import { tap, throttleTime, switchMap } from 'rxjs/operators';
+import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -48,5 +48,15 @@ export class ChannelsStore extends DataStore<CommunicationChannel>
     this._sbS.sink = data$.subscribe(properties => {
       this.set(properties, 'UPDATE - FROM DB');
     });
+  }
+
+  getChannelsByOrg() {
+    return this._org$$.get().pipe(
+      switchMap(_activeOrg => {
+        return this.get().pipe(
+          map(channels => channels.filter(channel => channel.orgId === _activeOrg.id))
+        );
+      })
+    );
   }
 }
