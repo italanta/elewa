@@ -58,6 +58,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
 
   updateFormGroup() {
     this.moduleForm.patchValue({
+      id: this.botModule.id,
       moduleName: this.botModule.name,
       moduleDesc: this.botModule.description,
       parentBot: this.botModule.parentBot,
@@ -67,6 +68,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
 
   submitForm() {
     const botModule: BotModule = {
+      id: this.moduleForm.value.id,
       name: this.moduleForm.value.moduleName,
       description: this.moduleForm.value.moduleDesc,
       stories: this.moduleForm.value.stories,

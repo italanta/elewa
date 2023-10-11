@@ -56,6 +56,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
 
   updateFormGroup() {
     this.botForm.patchValue({
+      id: this.bot.id,
       botName: this.bot.name,
       botDesc: this.bot.description,
       botImage: this.bot.imageField,
@@ -92,6 +93,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
 
   mutateBot() {
     const bot: Bot = {
+      id: this.botForm.value.id,
       name: this.botForm.value.botName,
       description: this.botForm.value.botDesc,
       modules: this.botForm.value.modules,
