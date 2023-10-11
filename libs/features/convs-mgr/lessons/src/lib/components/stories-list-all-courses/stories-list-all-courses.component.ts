@@ -87,7 +87,7 @@ export class StoriesListAllCoursesComponent implements OnInit, AfterViewInit {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: story,
+        mode: DeleteElementsEnum.Story, element: story
       }
     }).afterClosed();
   }

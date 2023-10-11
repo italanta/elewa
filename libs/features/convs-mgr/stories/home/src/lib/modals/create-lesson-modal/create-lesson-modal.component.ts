@@ -65,7 +65,7 @@ export class CreateLessonModalComponent implements OnInit {
   }
 
   update(story: Story, parentModule: BotModule) {
-    this._stateStoryServ$.updateStory(story, parentModule);
+    this._stateStoryServ$.updateStory(story, parentModule, this.data.story?.parentModule as string);
   }
 
   submitForm() {
