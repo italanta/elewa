@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { map, switchMap } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
@@ -27,7 +27,7 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
   assessmentScores: AssessmentScore[];
 
   selectedAssessment: Assessment;
-  scoresComputed = false;
+  scoresComputed = true;
 
   constructor(
     private _assessmentServ$: AssessmentService,
@@ -43,6 +43,8 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
     this._sBs.sink = this._assessmentServ$
       .getAssessments$().pipe(switchMap((assessments) => {
           this.assessments = assessments;
+
+          if(assessments.length) this.scoresComputed = false
   
           return this._endUserService.getUserDetailsAndTheirCursor().pipe(
             map((endUsers) => {
@@ -77,7 +79,7 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
 
     const sum = scores.reduce((prev, next) => prev + next, 0);
 
-    this.averageScore = sum ? (sum / scores.length).toFixed(2) : '0';
+    this.averageScore = sum ? (sum / scores.length).toFixed(2) : '0%';
   }
 
   ngOnDestroy() {
