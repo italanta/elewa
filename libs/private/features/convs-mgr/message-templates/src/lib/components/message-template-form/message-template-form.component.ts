@@ -12,6 +12,8 @@ import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
+import { ChannelService } from '@app/private/state/organisation/channels';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-message-template-form',
@@ -22,6 +24,7 @@ export class MessageTemplateFormComponent implements OnInit{
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
   
   template$: Observable<any>;
+  channels$: Observable<CommunicationChannel[]>;
 
   templateForm: FormGroup;
   template: MessageTemplate;
@@ -31,8 +34,6 @@ export class MessageTemplateFormComponent implements OnInit{
   panelOpenState: boolean;
   isSaving: boolean;
 
-
-  channels: string[] = ['WhatsApp', 'Messenger'];
   categories: { display: string; value: string }[] = categoryOptions;
   languages: { display: string; value: string }[] = languageOptions;
   
@@ -47,13 +48,15 @@ export class MessageTemplateFormComponent implements OnInit{
     private _messageTemplatesService: MessageTemplatesService,
     private _route:ActivatedRoute,
     private _route$$: Router,
-    private _snackbar: SnackbarService
+    private _snackbar: SnackbarService,
+    private _channelService: ChannelService
   ) {}
 
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
     this.templateForm = createEmptyTemplateForm(this.fb);
-
+    this.channels$ = this._channelService.getOrgChannels();
+    
     if (this.action !== 'create') {
       this.initPage();
     } 
