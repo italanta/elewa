@@ -7,6 +7,7 @@ import { MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 
 import { ScheduledMessageStore } from '../store/scheduled-message.store';
+import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/lib/model/schedule-message-req';
 
 
 @Injectable({
@@ -14,6 +15,7 @@ import { ScheduledMessageStore } from '../store/scheduled-message.store';
 })
 export class ScheduleMessageService {
   private channel = "123034824233910";
+
   constructor(
     private _aff:  AngularFireFunctions, 
     private _scheduledMessageStore$$: ScheduledMessageStore
@@ -33,14 +35,9 @@ export class ScheduleMessageService {
   }
 
   scheduleMessage(payload: any){
-    const scheduledMessageReq = {
+    const scheduledMessageReq: ScheduleMessagesReq = {
       channelId: this.channel,
-      message: {
-        type:MessageTypes.TEXT,
-        name: payload.name,
-        language: "en_US",
-        templateType: TemplateMessageTypes.Text
-      },
+      message: payload.message,
       usersFilters: {
         endUsersId: payload.endUsers
       },
@@ -49,7 +46,7 @@ export class ScheduleMessageService {
     return this.scheduleCallFunction( scheduledMessageReq );
   }
 
-  private scheduleCallFunction(data: any){
+  private scheduleCallFunction(data: ScheduleMessagesReq){
     const scheduleRef = this._aff.httpsCallable('scheduleMessageTemplates');
     return scheduleRef(data);
   }

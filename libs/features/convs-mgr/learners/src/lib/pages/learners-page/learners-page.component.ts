@@ -17,6 +17,9 @@ import { MessageTemplatesService, ScheduleMessageService } from '@app/private/st
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
+import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTypes, ScheduledMessage, SendMessageTemplate } from '@app/model/convs-mgr/functions';
+import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/lib/model/schedule-message-req';
 
 @Component({
   selector: 'app-learners-page',
@@ -180,14 +183,21 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       this.selectedTime = new Date(dispatchDateQueryParam);
     }
    }
-  // TODO: Connect to send message service
+
   sendMessageButtonClicked(){
     const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber);
     this._messageService.getTemplateById(this.activeMessageId).subscribe(
       (template) => {
           if(this.selectedTime){
             const scheduleRequest = {
-              name: template?.name,
+              message: {
+                // : Message types
+                type:MessageTypes.TEXT,
+                name: template?.name,
+                language: template?.language,
+                // : Template types
+                templateType: TemplateMessageTypes.Text
+              },
               dispatchTime: this.selectedTime,
               endUsers: selectedPhoneNumbers
             };
