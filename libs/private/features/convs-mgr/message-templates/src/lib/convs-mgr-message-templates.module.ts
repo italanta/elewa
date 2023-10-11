@@ -28,6 +28,7 @@ import { SpecificTimeModalComponent } from './modals/specific-time-modal/specifi
 import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/after-inactivity-modal.component';
 import { MilestoneReachedModalComponent } from './modals/milestone-reached-modal/milestone-reached-modal.component';
 import { MessageTemplateRouterModule } from './message-template.router';
+import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 @NgModule({
   imports: [
@@ -57,7 +58,9 @@ import { MessageTemplateRouterModule } from './message-template.router';
     MessageTemplatesService, 
     MessageTemplateStore,
     ScheduleMessageService,
-    ScheduledMessageStore
+    ScheduledMessageStore,
+    ChannelService,
+    ChannelsStore
   ],
 
 })
