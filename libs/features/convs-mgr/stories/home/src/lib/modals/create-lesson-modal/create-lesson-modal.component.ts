@@ -53,6 +53,7 @@ export class CreateLessonModalComponent implements OnInit {
 
   updateFormGroup() {
     this.lessonForm.patchValue({
+      id: this.story.id,
       storyName: this.story.name,
       storyDesc: this.story.description,
       parentModule: this.story.parentModule,
@@ -64,11 +65,12 @@ export class CreateLessonModalComponent implements OnInit {
   }
 
   update(story: Story, parentModule: BotModule) {
-    this._stateStoryServ$.updateStory(story, parentModule);
+    this._stateStoryServ$.updateStory(story, parentModule, this.data.story?.parentModule as string);
   }
 
   submitForm() {
     const story: Story = {
+      id: this.lessonForm.value.id,
       name: this.lessonForm.value.storyName,
       description: this.lessonForm.value.storyDesc,
       parentModule: this.lessonForm.value.parentModule.id,

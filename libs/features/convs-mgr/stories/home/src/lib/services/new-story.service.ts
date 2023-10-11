@@ -62,29 +62,24 @@ export class NewStoryService implements OnDestroy {
     })).subscribe();
   }
 
-  // 2. Update the story details in the Db.
-  updateStory(story: Story, parentModule: BotModule) {
+  /** 2. Update the story details in the Db. */
+  updateStory(story: Story, parentModule: BotModule, oldParentModule: string) {
     this._sbS.sink = this._storyServ$.updateStory(story).pipe(
       take(1),
       switchMap((newStory) => {
-        return this._botModulesServ$.getBotModuleById(parentModule.id as string).pipe(
-          take(1),
-          switchMap((botModule) => {
-            if (!botModule) return of(null); // Handle the case where module is null (should never happen);
+        if (story.parentModule !== oldParentModule) {
+          this.deleteFromOldParent(story, oldParentModule)
+        }
 
-            botModule.stories.push(newStory.id as string);
-
-            return this._botModulesServ$.updateBotModules(botModule as BotModule).pipe(
-              tap(() => this.openStory(story)) // open story after the botmodule update operation is done
-            );
-          })
-        )
+        return this.addNewParent(newStory, parentModule)
       }),
     ).subscribe();
   }
 
   /** delete story from DB */
   removeStory(story: Story, parentModule:BotModule) {
+    console.log(parentModule)
+
     return this._storyServ$.deleteStory(story).pipe(
       take(1),
       switchMap((oldStory) => {
@@ -102,6 +97,37 @@ export class NewStoryService implements OnDestroy {
           })
         )
       }),
+    )
+  }
+
+  /** delete story from old parentBotModule */
+  deleteFromOldParent(story: Story, oldParentModuleId: string) {
+    this._sbS.sink = this._botModulesServ$.getBotModuleById(oldParentModuleId).pipe(
+      take(1),
+      switchMap((botMod) => {
+        if (botMod) {
+          botMod.stories.filter((modId) => modId !== story.id)
+          return this._botModulesServ$.updateBotModules(botMod as BotModule);
+        }
+
+        return of(null);
+      })
+    ).subscribe(() => this._dialog.closeAll())
+  }
+
+  /** add parentModule to story */
+  addNewParent(newStory: Story, parentModule: BotModule) {
+    return this._botModulesServ$.getBotModuleById(parentModule.id as string).pipe(
+      take(1),
+      switchMap((botModule) => {
+        if (!botModule) return of(null); // Handle the case where module is null (should never happen);
+
+        botModule.stories.push(newStory.id as string);
+
+        return this._botModulesServ$.updateBotModules(botModule as BotModule).pipe(
+          tap(() => this.openStory(newStory)) // open story after the botmodule update operation is done
+        );
+      })
     )
   }
 
