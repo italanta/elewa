@@ -2,10 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+
+import { SubSink } from 'subsink';
+import { Observable, combineLatest, map } from 'rxjs';
+
 import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes } from '@app/private/state/message-templates';
-import { Observable, combineLatest, map } from 'rxjs';
-import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-message-template-list',
