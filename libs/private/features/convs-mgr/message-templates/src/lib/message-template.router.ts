@@ -15,14 +15,13 @@ const MESSAGING_ROUTES: Route[] = [
     component: MessageTemplateCreateComponent,
   },
   {
-    path: ':id', 
-    component: MessageTemplateCreateComponent, 
-  },
-  {
     path: 'help', 
     component: MessageTemplateHelpComponent, 
   },
-
+  {
+    path: ':id', 
+    component: MessageTemplateCreateComponent, 
+  },
 ];
 
 @NgModule({
