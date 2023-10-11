@@ -336,6 +336,9 @@
       "@app/private/state/message-templates": [
         "libs/private/state/message-templates/src/index.ts"
       ],
+      "@app/private/state/organisation/channels": [
+        "libs/private/state/organisation/channels/src/index.ts"
+      ],
       "@app/private/state/organisation/main": [
         "libs/private/state/organisation/main/src/index.ts"
       ],
