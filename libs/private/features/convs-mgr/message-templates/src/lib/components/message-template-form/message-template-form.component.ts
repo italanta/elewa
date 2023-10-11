@@ -11,6 +11,7 @@ import { MessageTemplatesService } from '@app/private/state/message-templates';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
+import { categoryOptions, languageOptions } from '../../utils/constants';
 
 @Component({
   selector: 'app-message-template-form',
@@ -27,17 +28,13 @@ export class MessageTemplateFormComponent implements OnInit{
   content: FormGroup;
 
   action: string;
-  panelOpenState = false;
-  isSaving = false;
+  panelOpenState: boolean;
+  isSaving: boolean;
 
 
   channels: string[] = ['WhatsApp', 'Messenger'];
-  categories: string[] = ['AUTHENTICATION', 'MARKETING', 'UTILITY'];
-  languages: { display: string; value: string }[] = [
-    { display: 'English', value: 'en' },
-    { display: 'Spanish', value: 'es' },
-    { display: 'Swahili', value: 'sw' }
-  ];
+  categories: { display: string; value: string }[] = categoryOptions;
+  languages: { display: string; value: string }[] = languageOptions;
   
   referenceForm: FormGroup;
   nextVariableId: number;

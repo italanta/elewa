@@ -6,6 +6,7 @@ import {
   MaterialBricksModule,
   MaterialDesignModule,
 } from '@iote/bricks-angular';
+import { MultiLangModule } from '@ngfi/multi-lang';
 
 import {
   MessageTemplateStore,
@@ -34,6 +35,7 @@ import { MessageTemplateRouterModule } from './message-template.router';
     ConvlPageModule,
     MessageTemplateRouterModule,
     MaterialBricksModule,
+    MultiLangModule,
     MaterialDesignModule,
     ReactiveFormsModule,
     FormsModule,

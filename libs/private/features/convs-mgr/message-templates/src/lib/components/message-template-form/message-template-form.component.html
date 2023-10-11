@@ -1,16 +1,16 @@
 <div class="message-template-form">
     <div class="mt-form" >
         <div class="form-header">
-            <p>Edit template</p>
+            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.EDIT-TEMPLATE'| transloco }}</p>
             <div class="form-header-buttons">
                 <button mat-raised-button  class="cancel-btn" (click)="cancel()">
-                    <span > Cancel </span>
+                    <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
                 </button>
                 <button mat-raised-button  class="save-btn" (click)="save()">
-                    <span *ngIf="!isSaving; else saving"> Save </span>
+                    <span *ngIf="!isSaving; else saving"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVE'| transloco }} </span>
                     <ng-template #saving>
                     <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-                        <span> saving </span>
+                        <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVING'| transloco }} </span>
                         <mat-spinner diameter="1"></mat-spinner>
                     </span>
                     </ng-template>
@@ -29,7 +29,7 @@
                       <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="titles">
-                                <p>Template Settings</p>
+                                <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.TITLE'| transloco }}</p>
                                 <!-- <p>Category, channel, language</p> -->
                             </div>
                         </mat-panel-title>
@@ -37,18 +37,18 @@
                       <div class="dd-holder">
 
                         <div class="form-group">
-                            <p>Category</p>
-                            <p>Select category of the template</p>
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY'| transloco }}</p>
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY-DESCRIPTION'| transloco }}</p>
                               <mat-form-field appearance="outline" class="selec">
                                 <mat-select  formControlName="category">
-                                    <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+                                    <mat-option *ngFor="let category of categories" [value]="category.value">{{ category.display }}</mat-option>
                                   </mat-select>
                               </mat-form-field>
                         </div>
                         
                         <div class="form-group">
-                            <p>Language</p>
-                            <p>Select template language</p>
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE'| transloco }}</p>
+                            <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE-DESCRIPTION'| transloco }}</p>
                             <mat-form-field appearance="outline" class="selec" >
                                 <mat-select formControlName="language">
                                     <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
@@ -57,8 +57,8 @@
                         </div>
                       </div>
                       <div class="form-group">
-                        <p>Channel</p>
-                        <p>Select chanel to send to </p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL'| transloco }}</p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL-DESCRIPTION'| transloco }} </p>
                         <mat-form-field appearance="outline" class="">
                             <mat-select class="mat-outline">
                                 <mat-option *ngFor="let channel of channels" [value]="channel">{{ channel }}</mat-option>
@@ -69,8 +69,8 @@
                   </mat-accordion>
                   
                 <div class="form-group">
-                    <p><span>*</span> Title</p>
-                    <p>Add title for your template</p>
+                    <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}</p>
+                    <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}</p>
                     <mat-form-field appearance="outline">
                         <input type="text" matInput formControlName="name">
                     </mat-form-field>
@@ -78,8 +78,8 @@
                 </div>
                 <div class="conte" formGroupName="content">
                     <div class="form-group head" formGroupName="header">
-                        <p>Header</p>
-                        <p>Add a header of either text or image <span> <span class="spec">T</span> <i class="far fa-image"></i></span></p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER'| transloco }}</p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }} <span> <span class="spec">T</span> <i class="far fa-image"></i></span></p>
           
                         <mat-form-field appearance="outline">
                           <input type="text" matInput formControlName="text">
@@ -87,15 +87,15 @@
                       </div>
                     
                     <div class="form-group body" formGroupName="body">
-                        <p><span>*</span> Body</p>
-                        <p>Add content of the message to be sent</p>
+                        <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
                         <mat-form-field appearance="outline">
                             <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
                         </mat-form-field>
                         <div class="variables">
-                            <p class="pees">Samples for body content</p>
-                            <p class="np">To help META review your message template, please add an example for each variable in your body text. Do not use real customer information</p>
-                            <p class="pees">Body</p>
+                            <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
+                            <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
+                            <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
                             <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
                               <div [formGroup] = "newVariableForm">
@@ -108,8 +108,8 @@
                         
     
                     <div class="form-group">
-                        <p> Footer</p>
-                        <p>Add a short line of text to your message content to be shown at the bottom</p>
+                        <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER'| transloco }}</p>
+                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER-DESCRIPTION'| transloco }}</p>
                         <mat-form-field appearance="outline">
                             <input type="textarea" matInput formControlName="footer">
                         </mat-form-field>
@@ -117,13 +117,13 @@
                 </div>
                 
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <p> Add responses</p>
                     <p>Add buttons or list that let learners respond to your message</p>
                     <p>Add buttons +</p>
                     <p>Add list +</p>
                     
-                </div>
+                </div> -->
             </form>
         </div>
     </div>

@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore } from '@ngfi/state';
 
-
 import { Logger } from '@iote/bricks-angular';
+
 import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
