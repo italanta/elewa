@@ -193,7 +193,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   sendMessageButtonClicked(){
     const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber);
-    this._messageService.getTemplateById(this.activeMessageId).subscribe(
+    this._sBs.sink = this._messageService.getTemplateById(this.activeMessageId).subscribe(
       (template) => {
           if(this.selectedTime){
             const scheduleRequest = {
@@ -208,10 +208,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
               dispatchTime: this.selectedTime,
               endUsers: selectedPhoneNumbers
             };
-            this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
+            this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
           }
           else{
-            this._messageService.sendMessageTemplate({endUsers: selectedPhoneNumbers, name: template?.name}).subscribe();
+            this._sBs.sink = this._messageService.sendMessageTemplate({endUsers: selectedPhoneNumbers, name: template?.name}).subscribe();
           }
            
       }
