@@ -85,7 +85,7 @@ export const iconsAndTitles: any = {
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
-    icon: 'fas fa-map-marker-alt',
+    icon: '/assets/icons/map-pin.svg',
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
