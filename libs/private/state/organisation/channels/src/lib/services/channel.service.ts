@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ChannelsStore } from '../store/channel.store';
+
 @Injectable({
   providedIn: 'root',
 })
