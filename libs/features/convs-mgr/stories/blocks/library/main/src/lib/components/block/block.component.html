@@ -8,13 +8,13 @@
 
             <mat-menu #menu="matMenu">
                 <span mat-menu-item (click)="editBlock()">
-                    <i class="far fa-edit icon-space"></i> {{ 'Edit' | transloco }}
+                    <i class="far fa-edit icon-space"></i> {{ 'PAGE-CONTENT.MENU.EDIT' | transloco }}
                 </span>
                 <span mat-menu-item (click)="copyblock(block)">
-                    <i class="far fa-clone icon-space"></i> {{ 'Copy' | transloco }}
+                    <i class="far fa-clone icon-space"></i> {{ 'PAGE-CONTENT.MENU.COPY' | transloco }}
                 </span>
                 <span mat-menu-item (click)="deleteBlock()">
-                    <i class="far fa-trash-alt icon-space"></i> {{ 'Delete' | transloco }}
+                    <i class="far fa-trash-alt icon-space"></i> {{ 'PAGE-CONTENT.MENU.DELETE' | transloco }}
                 </span>
             </mat-menu>
             <button mat-icon-button [matMenuTriggerFor]="menu">

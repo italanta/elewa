@@ -107,6 +107,11 @@
         "LIST": "List"
       }
     },
+    "MENU": {
+      "EDIT": "Edit",
+      "COPY": "Copy",
+      "DELETE": "Delete"
+    },
     "BLOCK": {
       "BLOCK_ID": "Block ID",
       "TITLES": {
