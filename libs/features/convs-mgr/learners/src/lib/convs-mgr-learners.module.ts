@@ -9,6 +9,7 @@ import {
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { MessageTemplateStore, MessageTemplatesService, ScheduleMessageService, ScheduledMessageStore } from '@app/private/state/message-templates';
 
 import { LearnersPageComponent } from './pages/learners-page/learners-page.component';
 
@@ -43,10 +44,11 @@ import { LearnersRouterModule } from './learners.router';
     LearnerEnrolledCoursesComponent,
     LearnerAssessmentHistoryComponent,
   ],
-  providers: [
-    SurveyService,
-    SurveysStore,
-    ActiveSurveyStore
+  providers:[
+    MessageTemplateStore,
+    MessageTemplatesService,
+    ScheduledMessageStore,
+    ScheduleMessageService
   ]
 })
 export class ConvsMgrLearnersModule {}

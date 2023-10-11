@@ -56,7 +56,7 @@ export class MessageTemplateFormComponent implements OnInit{
     this.action = this._route$$.url.split('/')[2];
     this.templateForm = createEmptyTemplateForm(this.fb);
     this.channels$ = this._channelService.getOrgChannels();
-    
+
     if (this.action !== 'create') {
       this.initPage();
     } 
@@ -80,6 +80,7 @@ export class MessageTemplateFormComponent implements OnInit{
       if (template) {
         this.templateForm = this.fb.group({
           name: [template.name, Validators.required],
+          channelId: [template.channelId, Validators.required],
           category: [template.category], 
           language: [template.language],
           content: this.fb.group({
@@ -184,6 +185,7 @@ export class MessageTemplateFormComponent implements OnInit{
       this.template = {
         name: this.templateForm.value.name,
         category: this.templateForm.value.category,
+        channelId: this.templateForm.value.channelId,
         language: this.templateForm.value.language,
         content: {
           header: {
@@ -211,6 +213,7 @@ export class MessageTemplateFormComponent implements OnInit{
         "name": this.templateForm.value.name,
         "category": this.templateForm.value.category,
         "language": this.templateForm.value.language,
+        "channelId": this.templateForm.value.channelId,
         "content": {
           "header": {
             "type": TemplateHeaderTypes.TEXT,

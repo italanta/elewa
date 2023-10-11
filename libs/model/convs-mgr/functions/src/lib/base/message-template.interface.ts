@@ -7,6 +7,7 @@ import { IObject } from "@iote/bricks";
 export interface MessageTemplate extends IObject {
   name          : string;
   category      : TemplateCategoryTypes;
+  channelId?     : string;
 
   /**
    * The langauge of the template as per the below list
