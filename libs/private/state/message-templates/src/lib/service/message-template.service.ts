@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { Observable } from 'rxjs';
-import { MessageTemplateStore } from '../store/message-template.store';
 
 import { MessageTemplate, MessageTypes, SendMessageTemplate } from '@app/model/convs-mgr/functions'
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+
+import { MessageTemplateStore } from '../store/message-template.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MessageTemplatesService {
 
-  // private channel = "103758545758463";
-  private channel = "123034824233910";
+  private channel = "103758545758463";
+  // private channel = "123034824233910";
 
   constructor(
     private _aff:  AngularFireFunctions, 
