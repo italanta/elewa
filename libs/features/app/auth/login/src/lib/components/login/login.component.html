@@ -1,48 +1,90 @@
 <div fxLayout="column" fxLayoutAlign="start center" fxFlex>
-  <div [formGroup]="loginForm" fxLayout="column" class="form-body" fxLayoutGap="5px" fxLayoutAlign="center none">
-
+  <div
+    [formGroup]="loginForm"
+    fxLayout="column"
+    class="form-body"
+    fxLayoutGap="5px"
+    fxLayoutAlign="center none"
+  >
     <div fxLayout="column" fxLayoutAlign="start" class="space">
       <!-- <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.LABELS.EMAIL' | transloco }}</mat-label> -->
-      <mat-form-field id="email-input" fxFlex floatLabel="always" appearance="fill">
-        <input matInput formControlName="email" type="email" placeholder="Email">
-        <mat-error *ngIf="email.invalid && email.hasError('required')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL' |
-          transloco }}</mat-error>
-        <mat-error *ngIf="email.invalid && email.hasError('email')">{{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL-ERROR' |
-          transloco }}</mat-error>
+      <mat-form-field
+        id="email-input"
+        fxFlex
+        floatLabel="always"
+        appearance="fill"
+      >
+        <input
+          matInput
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+        />
+        <mat-error *ngIf="email.invalid && email.hasError('required')">{{
+          'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL' | transloco
+        }}</mat-error>
+        <mat-error *ngIf="email.invalid && email.hasError('email')">{{
+          'LOGIN.LOGIN-FORM.PLACEHOLDER.EMAIL-ERROR' | transloco
+        }}</mat-error>
       </mat-form-field>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="start" class="space">
       <!-- <mat-label class="form-label">{{ 'LOGIN.LOGIN-FORM.LABELS.PASSWORD' | transloco }}</mat-label> -->
-      <mat-form-field id="password-input" fxFlex floatLabel="always" appearance="fill">
-        <input class="pass-input" matInput formControlName="password" [type]="passwordVisible ? 'text' : 'password'"
-          placeholder="Password">
+      <mat-form-field
+        id="password-input"
+        fxFlex
+        floatLabel="always"
+        appearance="fill"
+      >
+        <input
+          class="pass-input"
+          matInput
+          formControlName="password"
+          [type]="passwordVisible ? 'text' : 'password'"
+          placeholder="Password"
+        />
         <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-          <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+          <mat-icon>{{
+            passwordVisible ? 'visibility' : 'visibility_off'
+          }}</mat-icon>
         </button>
         <mat-error *ngIf="password.invalid && password.hasError('required')">{{
-          'LOGIN.LOGIN-FORM.PLACEHOLDER.PASSWORD-ERROR' | transloco }}</mat-error>
+          'LOGIN.LOGIN-FORM.PLACEHOLDER.PASSWORD-ERROR' | transloco
+        }}</mat-error>
       </mat-form-field>
     </div>
 
-    <div *ngIf="loginForm.hasError('invalid_email')" class="login-failed-message">
+    <div
+      *ngIf="loginForm.hasError('invalid_email')"
+      class="login-failed-message"
+    >
       {{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.LOGIN-FAILED' | transloco }}
     </div>
 
     <!-- TODO replace with toast service - should be fixed first -->
-    <div *ngIf="loginForm.hasError('invalid_details')" class="login-failed-message">
+    <div
+      *ngIf="loginForm.hasError('invalid_details')"
+      class="login-failed-message"
+    >
       {{ 'LOGIN.LOGIN-FORM.PLACEHOLDER.INVALID-DETAILS' | transloco }}
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start stretch">
-      <button mat-raised-button id="loginBtn" class="" (click)="loginUser()" fxFlex>
+      <button
+        mat-raised-button
+        id="loginBtn"
+        class=""
+        (click)="loginUser()"
+        fxFlex
+      >
         {{ 'LOGIN.LOGIN-FORM.PROCEED' | transloco }}
       </button>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="end" id="forgot-btn">
       <button id="forgot-btn" mat-button color="primary" (click)="forgotPass()">
-        <u> {{"LOGIN.FORGOT-PASSWD" |transloco}}</u>
+        <u> {{ 'LOGIN.FORGOT-PASSWD' | transloco }}</u>
       </button>
     </div>
   </div>
