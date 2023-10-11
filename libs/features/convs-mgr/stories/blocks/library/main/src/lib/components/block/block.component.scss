@@ -45,27 +45,14 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icon-block {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-
-	.icons {
-		cursor: pointer;
-	
-		* {
-			color: var(--convs-mgr-color-medium-shade);
-			
-			&:hover {
-				color: var(--convs-mgr-color-primary-purple);
-			}
-		}
-	}
-}
 .hide-block {
 	display: none;
 }
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+.icon-space {
+	margin-right: 5px; 
 }
