@@ -4,9 +4,9 @@
         <!-- <span class="list-title-sub">2 learners selected</span> -->
     </div>
     <div class="list-title-button">
-        <button mat-raised-button [disabled]="isSaving" class="create-btn" (click)="createTemplate()">
-            <span *ngIf="!isSaving"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE-BUTTON.CREATE-BUTTON.CREATE-TEMPLATE'| transloco }} </span>
-            <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
+        <button mat-raised-button class="create-btn" (click)="createTemplate()">
+            <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE-BUTTON.CREATE-BUTTON.CREATE-TEMPLATE'| transloco }} </span>
+            <!-- <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner> -->
           </button>
     </div>
 </div>
@@ -49,18 +49,28 @@
               {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.LAST-UPDATED'| transloco }}</th>
               <td mat-cell *matCellDef="let template"> {{template.createdOn.toDate() | date: 'medium'}} </td>
           </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+              
+            </th>
+              <td mat-cell *matCellDef="let template"> {{template.status}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="send">
+            <th class="table-header" mat-header-cell *matHeaderCellDef>
+            </th>
+            <td mat-cell *matCellDef="let template">
+              <button mat-raised-button  class="send-btn" (click)="sendButtonClicked(template)">
+                <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.SEND-BUTTON'| transloco }} </span>
+              </button>
+            </td>
+          </ng-container>
       
           <ng-container matColumnDef="actions">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
-              {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.ACTIONS'| transloco }}
             </th>
             <td mat-cell *matCellDef="let template"> 
-              {{template.status}}
-              <button mat-raised-button  class="send-btn" (click)="sendButtonClicked(template)">
-                    <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.SEND-BUTTON'| transloco }} </span>
-                </button>
-
-                
                 <button mat-button [matMenuTriggerFor]="menu">
                   <i class="fas fa-ellipsis-h"></i>
                 </button>
@@ -77,8 +87,8 @@
       
         </table>
       
-        <!-- <mat-paginator #tablePaginator [length]="assessments.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+        <mat-paginator #tablePaginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
           >
-        </mat-paginator> -->
+        </mat-paginator>
       </div>
 </div>
