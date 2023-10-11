@@ -7,6 +7,12 @@ mat-card {
 	cursor: move;
 }
 
+.icon-color{
+	height: 25px;
+	width: 25px;
+	padding-left: 1rem;
+}
+
 .avatar-img {
 	border-radius: 50%;
 	width: 30px;
@@ -15,26 +21,20 @@ mat-card {
 
 .block-title-container {
 	display: flex;
-	align-items: center;
-}
-
-.icon-color {
-	color: var(--convs-mgr-color-primary-purple)
+	//align-items: center;
 }
 
 .block-title {
-	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-weight: 450;
+	font-size: 1.1rem;	
+	margin: .1em .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .outer {
 	display: flex;
 	align-items: center;
-	gap: 15px;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
 
 	&:hover {
 		cursor: move;
