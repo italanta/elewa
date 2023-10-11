@@ -10,7 +10,7 @@ import { Logger } from '@iote/bricks-angular';
 import { ActiveOrgStore } from '@app/state/organisation';
 
 import { Organisation } from '@app/model/organisation';
-import { CommunicationChannel, Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Injectable()
 export class ChannelsStore extends DataStore<CommunicationChannel>
