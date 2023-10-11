@@ -27,8 +27,8 @@ export class MessageTemplateFormComponent implements OnInit{
   content: FormGroup;
 
   action: string;
-  panelOpenState = false;
-  isSaving = false;
+  panelOpenState: boolean;
+  isSaving: boolean;
 
 
   channels: string[] = ['WhatsApp', 'Messenger'];
