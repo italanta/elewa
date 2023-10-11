@@ -28,6 +28,9 @@ export class ScheduleMessageService {
   removeScheduledMesssage(message: ScheduledMessage) {
     return this._scheduledMessageStore$$.remove(message);
   }
+  getScheduledMessages$() {
+    return this._scheduledMessageStore$$.get();
+  }
 
   scheduleMessage(payload: any){
     const scheduledMessageReq = {
