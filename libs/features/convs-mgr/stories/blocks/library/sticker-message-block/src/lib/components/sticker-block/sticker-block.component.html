@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="stickerMessageForm">
 	<form [formGroup]="stickerMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-		<div [id]="stickerInputId" class="sticker_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
+		<div  [id]="stickerInputId" class="sticker_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
 			<div (click)="stickerInput.click()" class="sticker-icon" *ngIf="!this.block.fileSrc && !isLoadingSticker">
 				<img src="assets/svgs/blocks/ph_sticker-light.svg" alt="Sticker Icon" class="image2"/>
 			</div>
@@ -21,7 +21,7 @@
 			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.STICKER.MESSAGE-TWO' | transloco }}</span>
 		</div>
 
-		<input formControlName="fileSrc" type="text"
+		<input class="sicker_link" formControlName="fileSrc" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.STICKER-LINK' | transloco" />
 
 	</form>

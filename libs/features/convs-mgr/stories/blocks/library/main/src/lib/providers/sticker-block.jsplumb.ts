@@ -22,7 +22,7 @@ export function _StickerBlockDecoratePlumb(block: StickerMessageBlock, comp: Com
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0, 0.2, 1, 0],
     maxConnections: -1
   });
 
@@ -31,7 +31,7 @@ export function _StickerBlockDecoratePlumb(block: StickerMessageBlock, comp: Com
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Right",
+    anchor: [1, 0.7, 1, 0],
     maxConnections: -1
   });
 

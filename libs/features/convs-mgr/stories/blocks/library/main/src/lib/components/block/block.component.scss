@@ -22,9 +22,14 @@ mat-card {
 	color: var(--convs-mgr-color-primary-purple)
 }
 
+img{
+	width: 25px;
+	margin-top: 3px;
+}
+
 .block-title {
 	font-weight: 600;
-	font-size: small;	margin: 0 0 0 .4em;
+	margin-left: 10px;
 	color: var(--convs-mgr-color-text-black);
 }
 
