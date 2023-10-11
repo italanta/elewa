@@ -22,7 +22,7 @@ export class ChannelService {
    * @returns all the channels owned by an  organisation.
    */
   getOrgChannels() {
-    return this._channels$$.getCurrentOrgChannels();
+    return this._channels$$.getChannelsByOrg();
   }
   
 }
