@@ -56,11 +56,18 @@ div {
   height: fit-content!important;
   padding: 5px 10px;
 	margin-bottom: 5px;
-  border-radius: 3px;
+  border-radius: 7px;
+  background: var(--convs-mgr-image-input-message-background-color);
   caret-color: var(--convs-mgr-color-text-black);
-  color: var(--convs-mgr-color-text-black);
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
+  border: 1px solid var(--convs-mgr-image-input-message-background-color);
+  color: var(--convs-mgr-image-input-message-color);
+
+	/* Block option */
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
 }
 
 #imageFile {
