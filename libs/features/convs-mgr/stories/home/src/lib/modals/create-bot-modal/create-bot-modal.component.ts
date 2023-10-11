@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { switchMap, take } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
@@ -40,6 +40,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
     private _activeOrg$$: ActiveOrgStore,
     private _botImageUploadServ$: FileStorageService,
     private _formBuilder: FormBuilder,
+    private _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { botMode: BotMutationEnum; bot?: Bot }
   ) {
     this.bot = data.bot as Bot;
@@ -140,7 +141,9 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
         if (this.isCreateMode) {
           return this._botStateServ$.createBot(bot);
         } else {
-          return this._botStateServ$.updateBot(bot);
+          return this._botStateServ$.updateBot(bot).pipe(
+            tap(() => this._dialog.closeAll())
+          );
         }
       })
     )
