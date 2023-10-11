@@ -55,7 +55,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   }
 
   selectProgressTracking(periodical: periodicals) {
-    if (this.dailyProgress === null) return;
+    if (!this.dailyProgress) return
 
     if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);

@@ -71,13 +71,13 @@ export class AssessmentProgressChartComponent implements OnInit, OnDestroy {
   }
 
   computeScores(scores: number[]) {
-    if (!scores.length) return;
+    this.highestScore =  scores.length ? Math.max(...scores) : 0;
 
-    this.highestScore = Math.max(...scores);
-    this.lowestScore = Math.min(...scores);
+    this.lowestScore = scores.length ? Math.min(...scores) : 0;
 
-    const sum = scores.reduce((prev, next) => prev + next);
-    this.averageScore = (sum / scores.length).toFixed(2);
+    const sum = scores.reduce((prev, next) => prev + next, 0);
+
+    this.averageScore = sum ? (sum / scores.length).toFixed(2) : '0';
   }
 
   ngOnDestroy() {

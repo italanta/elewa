@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { switchMap } from 'rxjs';
+import { startWith, switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -74,7 +74,10 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initDataLayer();
+
     this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
+      if(!models) return;
+
       // 1. save all progress
       this.dailyProgress = getDailyProgress(models);
       this.weeklyProgress = getWeeklyProgress(models);
@@ -89,7 +92,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     this._sBs.sink = this._botServ$.getBots().pipe(
       switchMap(bots => {
         this.courses = bots
-        return this._clasroomServ$.getAllClassrooms().pipe(switchMap(clsrooms => {
+        return this._clasroomServ$.getAllClassrooms().pipe(
+          switchMap(clsrooms => {
           this.classrooms = clsrooms
           return this._botModServ$.getBotModules()
         }))
@@ -98,7 +102,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
   selectProgressTracking(periodical: periodicals) {
-    if (this.dailyProgress === null) return
+    if (!this.dailyProgress) return
 
     if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
