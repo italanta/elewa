@@ -137,12 +137,29 @@ button {
   width: 100%!important;
 }
 
-.overlay {
+.image-container {
+	position: relative;
+	width: 100%;
+	padding-top: 75%; /* Adjust the aspect ratio (e.g., 4:3 = 75%) */
+  
+	img {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  object-fit: cover; 
+	}
+  }
+  
+  .overlay {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0, 0, 0, 0.3);
-	z-index: 1;
+	background-color: rgba(0, 0, 0, 0.5);
+	pointer-events: none; 
+	border-radius: 25px; 
   }
+  
