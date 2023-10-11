@@ -3,6 +3,7 @@ import { generateName } from '../util/generate-name';
 
 export function CREATE_EMPTY_BOT_MODULE(_fb: FormBuilder) {
   return _fb.group({
+    id: [''],
     moduleName: [generateName(), Validators.required],
     moduleDesc: [''],
     parentBot: ['', Validators.required],
