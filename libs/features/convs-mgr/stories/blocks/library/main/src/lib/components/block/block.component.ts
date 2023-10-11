@@ -101,6 +101,7 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  isMenuOpen = false;
   videoMessageForm: FormGroup
   
 
@@ -119,6 +120,14 @@ export class BlockComponent implements OnInit {
               private matdialog: MatDialog
 
   ) { }
+
+  /**
+  * toggles between isMenuOpen or closed
+  */
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
   ngOnInit(): void {
     this.type = this.block.type;
