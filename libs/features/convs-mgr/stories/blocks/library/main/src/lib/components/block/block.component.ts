@@ -315,7 +315,6 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-  
   editBlock() { 
     
     if (this.type === this.videoType) {

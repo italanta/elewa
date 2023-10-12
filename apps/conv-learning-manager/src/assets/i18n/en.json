@@ -5,7 +5,7 @@
     }
   },
   "ORGS": {
-    "FORM" : {
+    "FORM": {
       "TITLE": "Create Organisation",
       "NAME": "Name",
       "VAT": "VAT Number",
@@ -35,12 +35,12 @@
         "INVALID-DETAILS": "Form is invalid",
         "EMAIL-ERROR": "Invalid email format",
         "PASSWORD-ERROR": "Password Required"
-      }, 
-      "LABELS" : {
+      },
+      "LABELS": {
         "EMAIL": "Enter Email",
         "PASSWORD": "Enter Password"
       },
-      "MESSAGE" : {
+      "MESSAGE": {
         "WELCOME": "Welcome Back",
         "LOGIN-TO-CONTINUE": "Enter your credentials to access your account",
         "WITH-GOOGLE": "Log In with Google",
@@ -51,13 +51,13 @@
       }
     },
     "FORGOT-PASSWD": "Forgot password?",
-    "FORGOT-PASSWORD-MODAL" : {
+    "FORGOT-PASSWORD-MODAL": {
       "TITLE": "Forgot password?",
       "MESSAGE": "Enter your email address and we will send you a link to reset your password.",
       "FLD-EMAIL": "Enter email",
-      "FLD-EMAIL-ERR":"Please provide a valid email address",
+      "FLD-EMAIL-ERR": "Please provide a valid email address",
       "RESET": "Reset",
-      "ERROR" : "Please check your email and try again"
+      "ERROR": "Please check your email and try again"
     },
     "CREATE-ACC-FORM": {
       "FLD-FNAME": "First name",
@@ -114,11 +114,6 @@
         "DELETE": "Delete"
       },
       "BLOCK_ID": "Block ID",
-      "MENU": {
-        "EDIT": "Edit",
-        "COPY": "Copy",
-        "DELETE": "Delete"
-      },
       "TITLES": {
         "IMAGE": "Image",
         "LOCATION": "Location",
@@ -299,7 +294,7 @@
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block",
-      "CMI5-BLOCK" :"CMI5 Block"
+      "CMI5-BLOCK": "CMI5 Block"
     },
     "ANALYTICS": {
       "PERIODICALS": {
@@ -381,9 +376,9 @@
         "GO-BACK": "Go Back",
         "EDIT ASSESSMENT": "Edit assessment"
       },
-      "TEXT":{
+      "TEXT": {
         "ASSESSMENTS RESULTS": "Assessment Results",
-        "ALL-CLASSES":"All classes"
+        "ALL-CLASSES": "All classes"
       },
       "TABLE-HEADER": {
         "NAME": "Name",
@@ -413,11 +408,11 @@
         "LOWEST": "Lowest Score",
         "HIGHEST": "Highest Score",
         "AVERAGE": "Average Score",
-        "TOTAL-QUESTIONS":"Total Questions"
+        "TOTAL-QUESTIONS": "Total Questions"
       }
     },
     "BUTTON": {
-      "VIEW": "View", 
+      "VIEW": "View",
       "RESULTS": "Results",
       "ADD": "Create assessment",
       "EDIT": "Edit",
@@ -430,20 +425,20 @@
       "SEARCH-QUESTIONS": "Search questions"
     },
     "ACCESSIBILITY": {
-       "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
-       "SORT-BY-TITLE": "Sort by assessment title",
-       "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
-       "SORT-BY-RESPONSES": "Sort by assessment responses",
-       "SORTED-ASC": "Sorted in ascending order",
-       "SORTED-DESC": "Sorted in descending order"
+      "SELECT-ASSESSMENT-PAGE": "Select page of assessments",
+      "SORT-BY-TITLE": "Sort by assessment title",
+      "SORT-BY-IN-PROGRESS": "Sort by assessment in-progress count",
+      "SORT-BY-RESPONSES": "Sort by assessment responses",
+      "SORTED-ASC": "Sorted in ascending order",
+      "SORTED-DESC": "Sorted in descending order"
     },
     "CREATE-MODAL": {
       "TITLE": "Create an assessment",
       "FIELDS": {
-         "TITLE": "Title",
-         "TITLE-PLACEHOLDER": "Assessment name",
-         "DESC": "Description",
-         "DESC-PLACEHOLDER": "Assessment description"
+        "TITLE": "Title",
+        "TITLE-PLACEHOLDER": "Assessment name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Assessment description"
       },
       "BUTTONS": {
         "SUBMIT": "Create assessment",
@@ -456,14 +451,14 @@
       "SUBMIT": "Delete Assessment",
       "MESSAGE": "Are you sure you want to delete this Assessment?"
     },
-   "ALERT": {
+    "ALERT": {
       "NOT-FOUND": "Assessment not found"
     },
-   "QUESTIONS": {
+    "QUESTIONS": {
       "QUESTION": "New Question",
       "QUESTIONS": "Questions",
       "ANSWER": "New Answer",
-      "FIELDS":{
+      "FIELDS": {
         "CONFIGURATION": "Configuration",
         "FEEDBACK": "Feedback",
         "CONDITION": "Condition",
@@ -483,7 +478,7 @@
       }
     }
   },
-  "LEARNERS":{
+  "LEARNERS": {
     "TABLE-HEADER": {
       "NAME": "Name",
       "PHONE-NUMBER": "PhoneNumber",
@@ -491,11 +486,11 @@
       "CLASS": "Class",
       "STATUS": "Status"
     },
-    "PLACEHOLDERS":{
+    "PLACEHOLDERS": {
       "SEARCH-PLACEHOLDER": "Search input by name"
     },
     "BUTTONS": {
-      "CREATE-CLASS":"Create Class",
+      "CREATE-CLASS": "Create Class",
       "ADD-TO-CLASS": "Add to Class",
       "BULK-ACTIONS": "Bulk Actions",
       "CLASS": "Class",
@@ -505,15 +500,14 @@
     },
     "MODALS": {
       "ACTIONS": "Actions",
-      "SEND-INVITATION":"Send Invitation",
-      "SEND-REMINDER":"Send Reminder",
-      "CANCEL":"Cancel",
-      "CONTINUE":"Continue"
+      "SEND-INVITATION": "Send Invitation",
+      "SEND-REMINDER": "Send Reminder",
+      "CANCEL": "Cancel",
+      "CONTINUE": "Continue"
     },
     "PLATFORM": {
       "WHATSAPP": "Whatsapp",
       "MESSENGER": "Messenger"
-      
     },
     "PILLS": {
       "ACTIVE": "Active",
@@ -548,7 +542,7 @@
     "MAX-CHARACTERS": "maximum characters reached"
   },
   "ADMIN-SETTINGS": {
-    "TEAM-SECTION" : {
+    "TEAM-SECTION": {
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
       "BUTTONS": {
