@@ -1,43 +1,6 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-
-            <div class="block-title-container">
-
-                <div *ngIf="svgIcon; else showIcon">
-                    <img [src]="svgIcon" class="svgIcon">
-                </div>
-                <ng-template #showIcon>
-                    <i [class]="iconClass" class="icon-color"></i>
-                </ng-template>                
-
-                <h1 class="block-title"> {{ blockTitle | transloco }} </h1>
-            </div>
-    
-            <div fxLayout="row" class="icon-block">
-               <mat-menu #menu="matMenu">
-
-                    <button mat-menu-item (click)="editBlock()">
-                        <i class="far fa-edit"></i> Edit
-                    </button>
-
-                    <button mat-menu-item (click)="copyblock(block)">
-                        <i class="far fa-clone"></i> Copy
-                    </button>
-
-                    <button mat-menu-item (click)="deleteBlock()">
-                        <i class="far fa-trash-alt"></i> Delete
-                    </button>
-
-                </mat-menu>
-
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <i class="fas fa-ellipsis-v"></i>
-                </button>
-
-            </div>
-
-        </div>
             <div class="block-title-container"> 
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
@@ -179,4 +142,5 @@
             <app-cmi5-block [id]="id" [block]="block" [CMI5BlockForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">     
             </app-cmi5-block>
         </div>
+    </div>
 </mat-card>

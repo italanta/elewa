@@ -106,6 +106,7 @@ export class BlockComponent implements OnInit {
 
   @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
+svgIcon: any;
 
   constructor(private _el: ElementRef,
               private _cd:ChangeDetectorRef,
