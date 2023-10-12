@@ -18,15 +18,15 @@
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editBlock()">
                     <i class="far fa-edit"></i>
-                    <span class="icons">EDIT</span>
+                    <span class="icons-span">{{'PAGE-CONTENT.BLOCK.MENU.EDIT' | transloco}}</span>
                 </button>
                 <button mat-menu-item disabled (click)="copyblock(block)">
                     <i class="far fa-clone"></i>
-                    <span class="icons">COPY</span>
+                    <span class="icons-span">{{'PAGE-CONTENT.BLOCK.MENU.COPY' | transloco}}</span>
                 </button>
                 <button mat-menu-item (click)="deleteBlock()">
                     <i class="far fa-trash-alt"></i>
-                    <span class="icons">DELETE</span>
+                    <span class="icons-span">{{'PAGE-CONTENT.BLOCK.MENU.DELETE' | transloco}}</span>
                 </button>
               </mat-menu>
               
