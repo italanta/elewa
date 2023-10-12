@@ -1,4 +1,3 @@
-import { SequenceType } from "./sequence-type";
 /**
  * The payment object expected by Mollie API. 
  * Amount, description, redirect url, are compulsory. 
@@ -9,7 +8,7 @@ export interface Payment {
     redirectUrl: string;
     cancelUrl: string;
     webhookUrl?: string;
-    sequenceType?: SequenceType;
+    sequenceType?: string;
     method : string  
 }
 

@@ -23,4 +23,8 @@ export interface iTalUser extends User
   /** Active Organisation ID. Users can only have one currently active org.
    *    The active org ID is used to determine which screen to route non-admins too when selecting orgs. */
   activeOrg: string;
+
+  mollieCustomerId?: string;
+
+//  mandates?: Mandate[];
 }

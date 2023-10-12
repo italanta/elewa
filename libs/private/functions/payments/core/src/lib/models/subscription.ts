@@ -6,13 +6,16 @@ import { Amount } from "./payment";
  * @see https://docs.mollie.com/payments/recurring on how to handle recurring payments
  */
 export interface Subscription extends IObject{
-    status: string;
+    status:        string;
     amount:        Amount;
     interval:      string;
     times?:        number;
     description:   string;
     orgId:         string;
     startDate:     string;
-    method:        string | string[]
+    method:        string;
+    webhookUrl:       string
+    sequenceType:  string;
+    customerId: string;
 }
  
