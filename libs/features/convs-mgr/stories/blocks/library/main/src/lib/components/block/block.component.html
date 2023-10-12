@@ -1,37 +1,35 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-            <div class="block-title-container">
-                <div *ngIf="svgIcon; else showIcon">
+            <div class="block-title-container"> 
+                <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
-                </div>
+                </ng-container>
                 <ng-template #showIcon>
                     <i [class]="iconClass" class="icon-color"></i>
-                </ng-template>   
+                </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 
-            <div fxLayout="row" class="icon-block">
-                <mat-menu #menu="matMenu">
-
-                    <button mat-menu-item (click)="editBlock()">
-                        <i class="far fa-edit"></i> Edit
-                    </button>
-                    <button mat-menu-item (click)="copyblock(block)">
-                        <i class="far fa-clone"></i> Copy
-                    </button>
-                    <button mat-menu-item (click)="deleteBlock()">
-                        <i class="far fa-trash-alt"></i> Delete
-                    </button>
-                </mat-menu>
-
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <i class="fas fa-ellipsis-v"></i>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editBlock()">
+                    <i class="far fa-edit"></i>
+                    <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.EDIT' | transloco }}</span>
                 </button>
-
-            </div>
+                <button mat-menu-item (click)="copyblock(block)">
+                    <i class="far fa-clone"></i>
+                    <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.COPY' | transloco }}</span>
+                </button>
+                <button mat-menu-item (click)="deleteBlock()">
+                    <i class="far fa-trash-alt"></i>
+                    <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.DELETE' | transloco }}</span>
+                </button>
+            </mat-menu>            
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
         </div>
-
+        
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
             </app-message-block>

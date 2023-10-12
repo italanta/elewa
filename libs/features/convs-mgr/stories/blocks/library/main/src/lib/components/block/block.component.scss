@@ -8,7 +8,7 @@ mat-card {
 	cursor: move;
 }
 
-.svgIcon{
+.svgIcon {
 	width: 1.5rem;
 }
 
@@ -30,7 +30,7 @@ mat-card {
 
 .block-title {
 	font-weight: 450;
-	font-size: 1rem;
+	font-size: 1rem;	
 	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
@@ -52,27 +52,14 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icon-block {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-
-	.icons {
-		cursor: pointer;
-	
-		* {
-			color: var(--convs-mgr-color-medium-shade);
-			
-			&:hover {
-				color: var(--convs-mgr-color-primary-purple);
-			}
-		}
-	}
-}
 .hide-block {
 	display: none;
 }
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+.icon-with-text{
+	margin-left: 0.3125rem;
 }
