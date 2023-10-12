@@ -415,6 +415,16 @@
     }
   },
   "MESSAGE-TEMPLATES": {
+    "MESSAGE-TEMPLATE-HISTORY": {
+      "TITLE": "Historique des modèles",
+      "DATE": "Date d'envoi",
+      "TIME": "Heure d'envoi",
+      "LEARNERS": "Nombre d'apprenants",
+      "STATUS": "Statut",
+      "PENDING": "En attente",
+      "SENT": "Envoyé",
+      "APPROVED": "Approuvé"
+    },    
     "INACTIVE-MESSAGE": {
       "INACTIVITY": "Envoyer un message après une période d'inactivité",
       "IM-SELECT": {

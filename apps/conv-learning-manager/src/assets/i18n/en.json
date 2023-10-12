@@ -558,6 +558,17 @@
     }
   },
   "MESSAGE-TEMPLATES": {
+    "MESSAGE-TEMPLATE-HISTORY": {
+      "TITLE": "Template history",
+      "DATE": "Date Sent",
+      "TIME": "Time sent",
+      "LEARNERS": "Number of learners",
+      "STATUS": "status",
+      "PENDING": "Pending",
+      "SENT": "Sent",
+      "APPROVED": "Approved"
+
+    },
     "INACTIVE-MESSAGE": {
       "INACTIVITY": "Send message after inactivity",
       "IM-SELECT": {
