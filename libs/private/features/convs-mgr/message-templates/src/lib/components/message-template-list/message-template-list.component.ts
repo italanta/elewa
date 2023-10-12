@@ -94,15 +94,16 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     // const duplicatedTemplate: MessageTemplate = {...template};
 
     // reset the template stats
+    const header: TextHeader = {
+      "type": TemplateHeaderTypes.TEXT,
+      "text": (template.content.header as TextHeader).text,
+    }
     this.template = {
       "name": `${template.name}_copy`,
       "category": template.category,
       "language": template.language,
       "content": {
-        "header": {
-          "type": TemplateHeaderTypes.TEXT,
-          "text": (template.content.header as TextHeader).text,
-        },
+        "header": header,
         "body": {
           "text": template.content.body.text,
           "examples": [],
