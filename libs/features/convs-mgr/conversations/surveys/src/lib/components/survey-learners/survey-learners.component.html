@@ -14,7 +14,7 @@
                 <mat-cell *matCellDef="let student">{{ student.name }}</mat-cell>
               </ng-container>
           
-              <ng-container matColumnDef="phoneNumber">
+              <ng-container matColumnDef="phone number">
                 <mat-header-cell *matHeaderCellDef>{{'SURVEYS.TABLE-HEADER.PHONE-NO' | transloco}}</mat-header-cell>
                 <mat-cell *matCellDef="let student">{{ student.phoneNumber }}</mat-cell>
               </ng-container>
@@ -50,7 +50,7 @@
                     </div>
                     <p>{{ student.name }}</p>
                     <button mat-button (click)="showSurveyResponses(student)"><span class="hide">Hide</span> </button>
-                </div>
+                </div>false
               </div>
             </ng-container>
           </div>
