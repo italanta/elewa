@@ -1,8 +1,13 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-            <div class="block-title-container">
-                <i [class]="iconClass" class="icon-color"></i>
+            <div class="block-title-container"> 
+                <ng-container *ngIf="svgIcon; else showIcon">
+                    <img [src]="svgIcon" class="svgIcon">
+                </ng-container>
+                <ng-template #showIcon>
+                    <i [class]="iconClass" class="icon-color"></i>
+                </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 

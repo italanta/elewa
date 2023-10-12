@@ -46,6 +46,7 @@ export const iconsAndTitles: any = {
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
     icon: 'fas fa-phone-alt',
+    svgIcon: 'assets/svgs/blocks/ph_phone-thin.svg',
   },
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
