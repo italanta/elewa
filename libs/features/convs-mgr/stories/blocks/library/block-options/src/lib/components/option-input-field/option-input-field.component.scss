@@ -6,17 +6,17 @@
 }
 
 input {
-  width: 93% !important;
+  width: 90% !important;
   height: fit-content!important;
   min-width: auto !important;
   min-height: fit-content!important;
-  padding: 5px 10px;
+  padding: 10px 10px;
   margin: 5px 0;
   border-radius: 3px;
   caret-color: var(--convs-mgr-color-text-black);
   color: var(--convs-mgr-color-text-black);
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
+  border: none;
 }
 
 .readonly {
@@ -25,13 +25,18 @@ input {
 }
 
 .success {
-  background-color: green;
+  margin-top: 1.25rem;
+  background-color: #19B016;
   color: white;
+  font-weight: 300;
+  border-radius: 0.625rem;
 }
 
 .failed {
-  background-color: firebrick;
+  background-color: #D11717;
   color: white;
+  font-weight: 300;
+  border-radius: 0.625rem;
 }
 
 .length-error {

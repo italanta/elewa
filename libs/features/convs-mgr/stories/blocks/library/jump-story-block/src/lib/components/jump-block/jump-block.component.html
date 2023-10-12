@@ -1,4 +1,5 @@
 <div [id]="id" *ngIf="jumpBlockForm">
+  <hr class="hr-line">
   <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
     <select id="story" name="story" formControlName="targetStoryId" (change)='getBlocks()'>
       <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
