@@ -65,6 +65,9 @@
     },
     "BLOCK": {
       "BLOCK_ID": "ID de bloc",
+      "EDIT": "Edit",
+      "COPY": "Copie",
+      "DELETE": "Supprimer",
       "TITLES": {
         "IMAGE": "Image Bloquer",
         "LOCATION": "Emplacemant Bloquer",
