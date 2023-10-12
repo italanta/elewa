@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { Observable } from 'rxjs';
-
-import { MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { ScheduledMessage } from '@app/model/convs-mgr/functions';
 
 import { ScheduledMessageStore } from '../store/scheduled-message.store';
 import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/lib/model/schedule-message-req';
@@ -14,8 +11,6 @@ import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversati
   providedIn: 'root',
 })
 export class ScheduleMessageService {
-  private channel = "123034824233910";
-
   constructor(
     private _aff:  AngularFireFunctions, 
     private _scheduledMessageStore$$: ScheduledMessageStore
@@ -36,7 +31,7 @@ export class ScheduleMessageService {
 
   scheduleMessage(payload: any){
     const scheduledMessageReq: ScheduleMessagesReq = {
-      channelId: this.channel,
+      channelId: payload.channelId,
       message: payload.message,
       usersFilters: {
         endUsersId: payload.endUsers
