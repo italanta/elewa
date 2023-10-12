@@ -63,7 +63,7 @@ export class SurveyLearnersComponent {
   ];
   
 
-  displayedColumns: string[] = ['name', 'phoneNumber', 'course'];
+  displayedColumns: string[] = ['name', 'phone number', 'course'];
   dataSource: MatTableDataSource<Student>;
 
   searchControl = new FormControl();
