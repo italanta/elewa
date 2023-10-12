@@ -406,7 +406,8 @@
       "EDIT-SURVEY": "Modifier l'enquête",
       "PUBLISH": "Publier",
       "SEARCH-QUESTIONS": "Rechercher des questions",
-      "OPEN-SURVEY": "OUVRIR L'ENQUÊTE"
+      "OPEN-SURVEY": "OUVRIR L'ENQUÊTE",
+      "SEND": "Envoyer"
     },
     "CREATE-MODAL": {
       "TITLE": "Créer un sondage",

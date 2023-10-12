@@ -548,7 +548,9 @@
       "EDIT-SURVEY": "Edit survey",
       "PUBLISH": "Publish",
       "SEARCH-QUESTIONS": "Search questions",
-      "OPEN-SURVEY": "OPEN SURVEY"
+      "OPEN-SURVEY": "OPEN SURVEY",
+      "SEND": "Send"
+      
     },
     "ACCESSIBILITY": {
        "SELECT-SURVEY-PAGE": "Select page of survey",
