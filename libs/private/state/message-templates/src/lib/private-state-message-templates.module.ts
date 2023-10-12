@@ -4,6 +4,7 @@ import { MessageTemplateStore } from './store/message-template.store';
 import { MessageTemplatesService } from './service/message-template.service';
 import { ScheduleMessageService } from './service/schedule-message.service';
 import { ScheduledMessageStore } from './store/scheduled-message.store';
+import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 @NgModule({
   imports: [CommonModule],
@@ -11,7 +12,9 @@ import { ScheduledMessageStore } from './store/scheduled-message.store';
     MessageTemplateStore,
     MessageTemplatesService,
     ScheduleMessageService,
-    ScheduledMessageStore
+    ScheduledMessageStore,
+    ChannelService,
+    ChannelsStore
   ]
 })
 export class PrivateStateMessageTemplatesModule {}
