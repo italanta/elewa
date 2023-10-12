@@ -21,19 +21,9 @@ export function _VideoInputBlockDecoratePlumb(block: VideoInputBlock, comp: Comp
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.27, 0, 1],
+    anchor: [0, 0.23, 0, 1],
     maxConnections: -1
   });
 
-  // Adding the second static jsPlumb connector
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
-    source: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [1, 0.87, 0, 1],
-    maxConnections: -1
-  });
-  
   return comp;
 }
