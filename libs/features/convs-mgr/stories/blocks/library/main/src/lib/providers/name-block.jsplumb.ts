@@ -22,16 +22,7 @@ export function _NameBlockDecoratePlumb(block: NameMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.3, 0, 1],
-    maxConnections: -1
-  });
-
-  // Adding the second static jsPlumb connector
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    source: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [1, 0.8, 0, 1],
+    anchor: [0, 0.23, 0, 1],
     maxConnections: -1
   });
 
