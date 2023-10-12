@@ -114,6 +114,11 @@
         "DELETE": "Delete"
       },
       "BLOCK_ID": "Block ID",
+      "MENU": {
+        "EDIT": "Edit",
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      },
       "TITLES": {
         "IMAGE": "Image",
         "LOCATION": "Location",
@@ -140,11 +145,11 @@
         "EVENT": "Event",
         "ASSESSMENT": "Assessment",
         "CONDITIONAL": "Conditional",
-        "END-BLOCK":"End Block",
-        "CMI5" :"CMI5 Learning package",
+        "END-BLOCK": "End Block",
+        "CMI5": "CMI5 Learning package",
         "VIDEO-MODAL": {
           "MAIN-TITLE": "Upload Video",
-          "MEDIA-TITLE":"Media Encoding"
+          "MEDIA-TITLE": "Media Encoding"
         }
       },
       "PLACEHOLDER": {
@@ -189,14 +194,14 @@
           "APPLY": "Apply"
         }
       },
-      "UPLOAD-WARNING" :{
-        "CMI5-BLOCK":{
-          "INVALID-FILE-TYPE":"invalid file type",
-          "PLEASE-SELECT-ZIP-ONLY":"please select a .zip only"
+      "UPLOAD-WARNING": {
+        "CMI5-BLOCK": {
+          "INVALID-FILE-TYPE": "invalid file type",
+          "PLEASE-SELECT-ZIP-ONLY": "please select a .zip only"
         }
       },
       "CONTENT": {
-        "VIDEO-MODAL" : {
+        "VIDEO-MODAL": {
           "MEDIA": {
             "DESC-1": "Please select the size you want to encode the video.",
             "DESC-2": "The larger the video the longer it will take to load and play"
@@ -226,13 +231,13 @@
           "NAME": "Give This media Item a Name",
           "UPDATE": "Update Video"
         }
-      }, 
+      },
       "SIZE-LIMIT-MESSAGE": {
-        "WHATSAPP" : {
+        "WHATSAPP": {
           "AUDIO": {
             "MESSAGE-ONE": "Audio cannot be sent to whatsapp,",
             "MESSAGE-TWO": "audio exceeds 16MB file Limit."
-          }, 
+          },
           "VIDEO": {
             "MESSAGE-ONE": "Video cannot be sent to whatsapp, Video exceeds 16MB file Limit."
           },
