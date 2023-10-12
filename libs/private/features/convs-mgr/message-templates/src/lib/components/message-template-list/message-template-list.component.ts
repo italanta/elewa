@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
 
-import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
-import { MessageTemplatesService, MessageStatusRes } from '@app/private/state/message-templates';
+import { MessageTemplate, ScheduledMessage, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
+import { MessageTemplatesService, MessageStatusRes, ScheduleMessageService } from '@app/private/state/message-templates';
 
 @Component({
   selector: 'app-message-template-list',
@@ -19,6 +19,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
 
   messageTemplates$: Observable<MessageTemplate[]>;
   templateStatus$: Observable<MessageStatusRes[]>;
+  scheduledMessages$: Observable<ScheduledMessage[]>;
 
   template:MessageTemplate;
 
@@ -34,6 +35,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     private _messageTemplateService: MessageTemplatesService,
     private fb: FormBuilder,
     private _router: Router,
+    private _scheduleMessageService: ScheduleMessageService
   ) {
     this.searchForm = this.fb.group({
       searchInput: [''], 
@@ -52,15 +54,26 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
         }
         const firstTemplate = templates[0];
         const channelId = firstTemplate ? firstTemplate.channelId : '';
-
+    
         this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
-
-        return combineLatest([of(templates), this.templateStatus$]).pipe(
-          map(([templates, statusData]) => {
-            return templates.map((template) => ({
-              ...template,
-              status: (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A',
-            }));            
+        this.scheduledMessages$ = this._scheduleMessageService.getScheduledMessages$();
+    
+        return combineLatest([of(templates), this.templateStatus$, this.scheduledMessages$]).pipe(
+          map(([templates, statusData, scheduledMessages]) => {
+            const templateNames = templates.map(template => template.name);
+    
+            const mergedData = templates.map((template) => {
+              const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
+              const isScheduled = scheduledMessages.some(message => message.message.name === template.name);
+              
+              return {
+                ...template,
+                status,
+                isScheduled, 
+              };
+            });
+    
+            return mergedData;
           })
         );
       })
@@ -68,6 +81,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
       this.dataSource.data = mergedData;
       this.isSaving = false;
     });
+    
 
     this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
       this.applyFilter(searchText);
