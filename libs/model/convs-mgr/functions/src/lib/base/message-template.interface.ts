@@ -41,7 +41,7 @@ export interface TemplateComponents {
    * NOTE: Variables can be included in the text using curly braces - {{name}}.
    *        Header supports 1 variable
    */
-  header?: TemplateHeader | TextHeader;
+  header?: TemplateHeader;
 
   /**
    * The text that will appear in the body section of the template.

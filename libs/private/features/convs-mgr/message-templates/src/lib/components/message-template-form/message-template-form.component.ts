@@ -81,7 +81,7 @@ export class MessageTemplateFormComponent implements OnInit{
           content: this.fb.group({
             header: this.fb.group({
               type: "TEXT",
-              text: [(template.content.header as TextHeader).text,  Validators.required],
+              text: [template.content.header.text,  Validators.required],
               examples: this.fb.array([]),
             }),
             body: this.fb.group({
@@ -185,7 +185,7 @@ export class MessageTemplateFormComponent implements OnInit{
           header: {
             type: TemplateHeaderTypes.TEXT,
             text: this.templateForm.value.content.header.text,
-          },
+          } as TextHeader,
           body: {
             text: this.templateForm.value.content.body.text,
             examples: this.newVariables,
@@ -211,7 +211,7 @@ export class MessageTemplateFormComponent implements OnInit{
           "header": {
             "type": TemplateHeaderTypes.TEXT,
             "text": this.templateForm.value.content.header.text,
-          },
+          } as TextHeader,
           "body": {
             "text": this.templateForm.value.content.body.text,
             "examples": [],
