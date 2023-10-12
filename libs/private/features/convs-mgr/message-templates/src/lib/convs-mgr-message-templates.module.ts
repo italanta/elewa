@@ -15,6 +15,7 @@ import {
   ScheduledMessageStore,
 } from '@app/private/state/message-templates';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 import { MessageTemplateHomeComponent } from './pages/message-template-home/message-template-home.component';
 import { MessageTemplateHelpComponent } from './pages/message-template-help/message-template-help.component';
@@ -57,7 +58,9 @@ import { MessageTemplateRouterModule } from './message-template.router';
     MessageTemplatesService, 
     MessageTemplateStore,
     ScheduleMessageService,
-    ScheduledMessageStore
+    ScheduledMessageStore,
+    ChannelService,
+    ChannelsStore
   ],
 
 })

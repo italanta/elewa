@@ -4,6 +4,7 @@ export function createEmptyTemplateForm(fb: FormBuilder): FormGroup {
   return fb.group({
     name: ['', Validators.required],
     category: ['', Validators.required],
+    channelId: ['', Validators.required],
     language: ['', Validators.required],
     content: fb.group({
       header: fb.group({

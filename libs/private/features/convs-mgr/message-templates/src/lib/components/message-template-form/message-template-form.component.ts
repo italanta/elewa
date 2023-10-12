@@ -8,6 +8,8 @@ import { Observable, switchMap, take, tap } from 'rxjs';
 
 import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChannelService } from '@app/private/state/organisation/channels';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
@@ -22,6 +24,7 @@ export class MessageTemplateFormComponent implements OnInit{
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
   
   template$: Observable<any>;
+  channels$: Observable<CommunicationChannel[]>;
 
   templateForm: FormGroup;
   template: MessageTemplate;
@@ -32,7 +35,6 @@ export class MessageTemplateFormComponent implements OnInit{
   isSaving: boolean;
 
 
-  channels: string[] = ['WhatsApp', 'Messenger'];
   categories: { display: string; value: string }[] = categoryOptions;
   languages: { display: string; value: string }[] = languageOptions;
   
@@ -47,12 +49,14 @@ export class MessageTemplateFormComponent implements OnInit{
     private _messageTemplatesService: MessageTemplatesService,
     private _route:ActivatedRoute,
     private _route$$: Router,
-    private _snackbar: SnackbarService
+    private _snackbar: SnackbarService,
+    private _channelService: ChannelService
   ) {}
 
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
     this.templateForm = createEmptyTemplateForm(this.fb);
+    this.channels$ = this._channelService.getChannelByOrg();
 
     if (this.action !== 'create') {
       this.initPage();
@@ -77,6 +81,7 @@ export class MessageTemplateFormComponent implements OnInit{
       if (template) {
         this.templateForm = this.fb.group({
           name: [template.name, Validators.required],
+          channelId: [template.channelId, Validators.required],
           category: [template.category], 
           language: [template.language],
           content: this.fb.group({
@@ -171,16 +176,18 @@ export class MessageTemplateFormComponent implements OnInit{
   cancel() {
     this._route$$.navigate(['/messaging'])
   }
+
+  openTemplate(templateId:string){
+    this._route$$.navigate(['/messaging', templateId]);
+
+  }
+
   save() {
-    this.isSaving = true
     if (this.templateForm.value.id){
-      this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response) => {
-        this.isSaving  = false;
-      })
-      
       this.template = {
         name: this.templateForm.value.name,
         category: this.templateForm.value.category,
+        channelId: this.templateForm.value.channelId,
         language: this.templateForm.value.language,
         content: {
           header: {
@@ -194,9 +201,12 @@ export class MessageTemplateFormComponent implements OnInit{
           footer: this.templateForm.value.content.footer,
         },
       };
+
+      this.isSaving = true
       this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
         if (response.success){
           this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
+            this._snackbar.showSuccess("Template updated successfully");
             this.isSaving  = false;
           });
         }
@@ -208,6 +218,7 @@ export class MessageTemplateFormComponent implements OnInit{
         "name": this.templateForm.value.name,
         "category": this.templateForm.value.category,
         "language": this.templateForm.value.language,
+        "channelId": this.templateForm.value.channelId,
         "content": {
           "header": {
             "type": TemplateHeaderTypes.TEXT,
@@ -224,9 +235,13 @@ export class MessageTemplateFormComponent implements OnInit{
         this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
+            this.isSaving = true
             this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
               this.isSaving  = false;
-              this._snackbar.showSuccess("Template created successfully");
+              if(response.id) {
+                this._snackbar.showSuccess("Template created successfully");
+                this.openTemplate(response.id);
+              }
             });
           }
         });
@@ -235,8 +250,5 @@ export class MessageTemplateFormComponent implements OnInit{
       }
       
     }
-    
-    this.isSaving = false;
-
   }  
 }

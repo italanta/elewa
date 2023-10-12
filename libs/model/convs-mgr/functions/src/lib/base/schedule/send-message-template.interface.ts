@@ -7,6 +7,8 @@ export interface SendMessageTemplate extends IObject
 {
   n: number,
 
+
+  // TODO: Correct spelling
   plaform: PlatformType;
 
   message: TemplateMessage,

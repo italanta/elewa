@@ -8,17 +8,21 @@ import { ActivatedRoute } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
+import { first } from 'rxjs';
+
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChannelService } from '@app/private/state/organisation/channels';
+import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
+import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
-import { MessageTypes, ScheduledMessage, SendMessageTemplate } from '@app/model/convs-mgr/functions';
 import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/lib/model/schedule-message-req';
 
 @Component({
@@ -63,7 +67,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _dialog: MatDialog,
     private _messageService: MessageTemplatesService,
     private _route: ActivatedRoute,
-    private _scheduleMessageService: ScheduleMessageService
+    private _scheduleMessageService: ScheduleMessageService,
+    private _channelService: ChannelService
   ) {}
 
   ngOnInit() {
@@ -184,32 +189,48 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     }
    }
 
-  sendMessageButtonClicked(){
-    const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber);
-    this._sBs.sink = this._messageService.getTemplateById(this.activeMessageId).subscribe(
-      (template) => {
-          if(this.selectedTime){
-            const scheduleRequest = {
-              message: {
-                // : Message types
-                type:MessageTypes.TEXT,
-                name: template?.name,
-                language: template?.language,
-                // : Template types
-                templateType: TemplateMessageTypes.Text
-              },
-              dispatchTime: this.selectedTime,
-              endUsers: selectedPhoneNumbers
-            };
-            this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
-          }
-          else{
-            this._sBs.sink = this._messageService.sendMessageTemplate({endUsers: selectedPhoneNumbers, name: template?.name}).subscribe();
-          }
-           
+   sendMessageButtonClicked() {
+    const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber) as string[];
+    const endUserIds = this.selection.selected.map((user) => user.id) as string[];
+  
+    this._sBs.sink = this._messageService.getTemplateById(this.activeMessageId).subscribe((template) => {
+      if (template) {
+        if (this.selectedTime) {
+          this.scheduleMessage(template, endUserIds);
+        } else {
+          this.sendMessageWithChannel(template, selectedPhoneNumbers);
+        }
       }
-    );
-    
+    });
+  }
+  
+  
+  scheduleMessage(template: MessageTemplate, endUserIds: string[]) {
+    const scheduleRequest = {
+      message: {
+        type: MessageTypes.TEXT,
+        name: template?.name,
+        language: template?.language,
+        templateType: TemplateMessageTypes.Text,
+      },
+      channelId: template?.channelId,
+      dispatchTime: this.selectedTime,
+      endUsers: endUserIds,
+    };
+  
+    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
+  }
+  
+  sendMessageWithChannel(template: MessageTemplate, selectedPhoneNumbers: string[]) {
+    const channelId = template?.channelId || '';
+  
+    this._messageService.sendMessageTemplate({
+      endUsers: selectedPhoneNumbers,
+      template: template,
+      type: MessageTypes.TEXT,
+      templateType: TemplateMessageTypes.Text
+    }, channelId)
+    .subscribe();
   }
 
   ngOnDestroy() {
