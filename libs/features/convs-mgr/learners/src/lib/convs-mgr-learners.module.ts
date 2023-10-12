@@ -10,6 +10,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { MessageTemplateStore, MessageTemplatesService, ScheduleMessageService, ScheduledMessageStore } from '@app/private/state/message-templates';
+import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 import { LearnersPageComponent } from './pages/learners-page/learners-page.component';
 
@@ -47,7 +48,9 @@ import { LearnersRouterModule } from './learners.router';
     MessageTemplateStore,
     MessageTemplatesService,
     ScheduledMessageStore,
-    ScheduleMessageService
+    ScheduleMessageService,
+    ChannelService,
+    ChannelsStore
   ]
 })
 export class ConvsMgrLearnersModule {}
