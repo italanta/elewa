@@ -25,12 +25,12 @@ mat-card {
 }
 
 .icon-color {
-	color: var(--convs-mgr-color-primary-black);
+	color: var(--convs-mgr-color-primary-black)
 }
 
 .block-title {
 	font-weight: 450;
-	font-size: 1rem;
+	font-size: 1rem;	
 	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
@@ -39,7 +39,6 @@ mat-card {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-bottom: 1px solid var(--convs-mgr-light-border-color);
 
 	&:hover {
 		cursor: move;
@@ -52,28 +51,14 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icon-block {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-
-	.icons {
-		cursor: pointer;
-
-		* {
-			color: var(--convs-mgr-color-medium-shade);
-
-			&:hover {
-				color: var(--convs-mgr-color-primary-purple);
-			}
-		}
-	}
-}
-
 .hide-block {
 	display: none;
 }
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+.icon-with-text{
+	margin-left: 0.3125rem;
 }
