@@ -48,6 +48,11 @@ export class HorizontalBarComponent implements OnInit{
           },
         },
         indexAxis: 'y',
+        plugins: {
+          legend: {
+            display: false
+          }
+        }
       },
     });
   }
