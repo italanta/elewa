@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { Observable, combineLatest, map } from 'rxjs';
+import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
 
 import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes } from '@app/private/state/message-templates';
@@ -44,13 +44,25 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.isSaving = true;
     this.messageTemplates$ = this._messageTemplateService.getMessageTemplates$();
-    this.templateStatus$ = this._messageTemplateService.getTemplateStatus();
-    this._sBS.sink = combineLatest([this.messageTemplates$, this.templateStatus$]).pipe(
-      map(([templates, statusData]) => {
-        return templates.map((template) => ({
-          ...template,
-          status: statusData['templates'].find((status: any) => status.name === template.name)?.status || 'N/A'
-        }));
+
+    this._sBS.sink = this.messageTemplates$.pipe(
+      switchMap((templates) => {
+        if (!templates || templates.length === 0) {
+          return [];
+        }
+        const firstTemplate = templates[0];
+        const channelId = firstTemplate ? firstTemplate.channelId : '';
+
+        this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
+
+        return combineLatest([of(templates), this.templateStatus$]).pipe(
+          map(([templates, statusData]) => {
+            return templates.map((template) => ({
+              ...template,
+              status: (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A',
+            }));            
+          })
+        );
       })
     ).subscribe((mergedData) => {
       this.dataSource.data = mergedData;
@@ -60,7 +72,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
       this.applyFilter(searchText);
     });
-    
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim().toLowerCase();
