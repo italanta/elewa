@@ -108,7 +108,7 @@
       }
     },
     "BLOCK": {
-      "MENU" : {
+      "MENU": {
         "EDIT": "Edit",
         "COPY": "Copy",
         "DELETE": "Delete"

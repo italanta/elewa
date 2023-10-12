@@ -21,7 +21,7 @@ export const iconsAndTitles: any = {
   },
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
-    icon: 'fas fa-question-circle',
+    icon: 'far fa-circle-question',
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
