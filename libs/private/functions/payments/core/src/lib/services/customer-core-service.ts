@@ -7,19 +7,23 @@ import { HandlerTools } from '@iote/cqrs';
 import { iTalUser } from '@app/model/user';
 
 import { Customer } from '../models/customer'
-import { Payment } from '../models/payment'
-import { Subscription } from '../models/subscription'
 
 export class MollieCustomerService {
-  private mollieClient = createMollieClient({ apiKey: this._apiKey });
+ private mollieClient; 
+ public updateUser(user: iTalUser) {
+  return this._updateUser(user);
+}
+public getUser(user: iTalUser){
+  return this._getUser(user.id)
+}
 
   constructor(
     public customer: Customer,
     private _apiKey: string,
     private tools: HandlerTools,
-    private subdeets: Subscription,
-    private cxPayment: Payment
-  ) {}
+  ) {
+    this.mollieClient = createMollieClient({ apiKey: this._apiKey });
+  }
 
   async createMollieCustomer(userId: string) {
     this.tools.Logger.log(() => `CustomerService: createMollieCustomer`);

@@ -1,9 +1,8 @@
-//import { Payment } from ;
-import { Payment } from "../models/payment";
-import axios, { AxiosRequestHeaders } from 'axios';
-import { Subscription } from "../models/subscription";
+import { Payment } from "../models/payment"
+import { Subscription } from "../models/subscription"
 import { HandlerTools } from "@iote/cqrs";
 import { createMollieClient } from '@mollie/api-client';
+import { MollieCustomerService } from "./customer-core-service";
 
 const SUBSCRIPTIONS_COLLECTION = 'subscriptions'
 
@@ -13,24 +12,49 @@ export class SubscriptionService {
   private _handlerTools: HandlerTools;
   private _subscriptionsRepo;
 
-  private sub: any;
+  mollieClient;
 
-  mollieClient = createMollieClient({ apiKey: this._apiKey });
-
-  constructor(public subscription: Subscription, private _apiKey: string, private tools: HandlerTools) {
-    this._subscription = subscription;
-    this._subscriptionsRepo = this._handlerTools.getRepository<Subscription>('subscriptions')
+  constructor(private _apiKey: string, private tools: HandlerTools, private mollieClientService: MollieCustomerService) {
+    this._subscriptionsRepo = this._handlerTools.getRepository<Subscription>('subscriptions');
+    this.mollieClient = createMollieClient({ apiKey: this._apiKey });
   }
 
-  async createCustomerSubscription() {
-    this.tools.Logger.log(() => `SubscriptionService : createCustomerSubscription`);
-    this.sub = this.subscription;
-    return await this.mollieClient.customerSubscriptions.create(this.sub);
+  async createFirstPayment(molUserId: string) {
+    const firstPayment = {
+      amount: {
+        currency: "USD",
+        value: "0.01"
+      },
+      customerId: molUserId,
+      sequenceType: "first",
+      description: "First payment",
+      redirectUrl: "https://app.goomza.co/",
+      webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
+      method: 'creditcard',
+    };
+    const payment = await this.mollieClient.customerPayments.create(firstPayment);
+    
+    return payment;
   }
 
-  public async createSubscription() {
-    const subscriptionDocument = await this._subscriptionsRepo.create(this.subscription);
-    return subscriptionDocument;
+  async createRecurringPayment(molUserId: string, validMandateId: string, amount: number, interval: string) {  
+    if (!validMandateId) {
+      throw new Error('No valid mandate found for user');
+    }
+    
+    const recurringPayment = {
+      amount: {amount: amount.toString(), currency: "USD"},
+      customerId: molUserId,
+      sequenceType: "recurring",
+      description: "Recurring payment",
+      webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
+      mandateId: validMandateId,
+      interval: interval
+    };
+    
+    const recurringPayentCreated = await this.mollieClient.customerSubscriptions.create(recurringPayment);
+    
+    return recurringPayentCreated;
   }
 
   async cancelSubscription() {
