@@ -12,11 +12,24 @@
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 
-            <div fxLayout="row" class="icon-block">
-                <span (click)="editBlock()" class="icons"><i class="far fa-edit"></i></span>
-                <span (click)="copyblock(block)" class="icons"><i class="far fa-clone"></i></span>
-                <span (click)="deleteBlock()" class="icons"><i class="far fa-trash-alt"></i></span>
-            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editBlock()">
+                    <i class="far fa-edit"></i>
+                    <span class="icons">EDIT</span>
+                </button>
+                <button mat-menu-item disabled (click)="copyblock(block)">
+                    <i class="far fa-clone"></i>
+                    <span class="icons">COPY</span>
+                </button>
+                <button mat-menu-item (click)="deleteBlock()">
+                    <i class="far fa-trash-alt"></i>
+                    <span class="icons">DELETE</span>
+                </button>
+              </mat-menu>
+              
         </div>
 
         <div *ngSwitchCase="messagetype">
