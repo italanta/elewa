@@ -19,10 +19,10 @@ export class ChannelService {
   }
 
   /**
-   * fn: getOrgChannels
+   * fn: getChannelByOrg
    * @returns all the channels owned by an  organisation.
    */
-  getOrgChannels() {
+  getChannelByOrg() {
     return this._channels$$.getChannelsByOrg();
   }
   

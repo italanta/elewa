@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ActiveOrgStore } from '@app/state/organisation';
+
 import { ChannelsStore } from './store/channel.store';
 import { ChannelService } from './services/channel.service';
-import { ActiveOrgStore } from '@app/state/organisation';
 
 @NgModule({
   imports: [CommonModule],
