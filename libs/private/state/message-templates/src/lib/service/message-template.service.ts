@@ -104,14 +104,25 @@ export class MessageTemplatesService {
   }
 
   
-  getTemplateStatus() :Observable<MessageStatusRes[]>{
-    const messageStatusReq: MessageStatusReq = {
-      fields: ["name", "status", "category"],
-      limit: 20,
-      channelId: this.channel.id || ''
-    }
-    return this.statusCallFunction(messageStatusReq);
+  getTemplateStatus(channelId: any): Observable<MessageStatusRes[]> {
+    return this._channels$$.getChannelById(channelId).pipe(
+      first(),
+      switchMap((channel) => {
+        if (channel && channel.id) {
+          this.channel = channel;
+          const messageStatusReq: MessageStatusReq = {
+            fields: ["name", "status", "category"],
+            limit: 20,
+            channelId: this.channel.id || ''
+          };
+          return this.statusCallFunction(messageStatusReq);
+        } else {
+          return this.handleInvalidChannelError();
+        }
+      })
+    );
   }
+  
 }
 export interface MessageStatusRes {
     name: string;
