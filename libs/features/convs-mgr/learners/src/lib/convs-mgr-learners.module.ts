@@ -41,7 +41,6 @@ import { LearnersRouterModule } from './learners.router';
     LearnerInformationComponent,
     LearnerEnrolledCoursesComponent,
     LearnerAssessmentHistoryComponent,
-    CreateClassModalComponent,
   ],
 })
 export class ConvsMgrLearnersModule {}
