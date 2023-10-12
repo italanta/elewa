@@ -28,6 +28,12 @@ mat-card {
 	color: var(--convs-mgr-color-primary-black);
 }
 
+.button-icons {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
 .block-title {
 	font-weight: 450;
 	font-size: 1rem;

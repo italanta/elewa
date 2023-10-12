@@ -1,31 +1,38 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-            <div class="block-title-container">
-                
-                <div *ngIf="svgIcon; else showIcon">
-                    <img [src]="svgIcon" class="svgIcon">
-                </div>
-                <ng-template #showIcon>
+            <div class="block-title-container"> 
+                    <ng-container *ngIf="svgIcon; else showIcon">
+                        <img [src]="svgIcon" class="svgIcon">
+                    </ng-container>
+                    <ng-template #showIcon>
                     <i [class]="iconClass" class="icon-color"></i>
-                </ng-template>                
-                
+                    </ng-template> 
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
     
             <div fxLayout="row" class="icon-block">
                <mat-menu #menu="matMenu">
                     
-                    <button mat-menu-item (click)="editBlock()">
-                        <i class="far fa-edit"></i> Edit
+                    <button mat-menu-item (click)="editBlock()" class="button-icons">
+                        <i class="far fa-edit"></i>
+                        <span>
+                            {{'PAGE-CONTENT.BLOCK.MENU.EDIT'| transloco }}
+                        </span>
                     </button>
 
-                    <button mat-menu-item (click)="copyblock(block)">
-                        <i class="far fa-clone"></i> Copy
+                    <button mat-menu-item (click)="copyblock(block)" class="button-icons">
+                        <i class="far fa-clone"></i>
+                        <span>
+                            {{'PAGE-CONTENT.BLOCK.MENU.COPY'| transloco }}
+                        </span>
                     </button>
 
-                    <button mat-menu-item (click)="deleteBlock()">
-                        <i class="far fa-trash-alt"></i> Delete
+                    <button mat-menu-item (click)="deleteBlock()" class="button-icons">
+                        <i class="far fa-trash-alt icons"></i>
+                        <span>
+                            {{'PAGE-CONTENT.BLOCK.MENU.DELETE'| transloco }}
+                        </span>
                     </button>
 
                 </mat-menu>
