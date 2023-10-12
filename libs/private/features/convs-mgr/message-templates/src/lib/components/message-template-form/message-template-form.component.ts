@@ -8,12 +8,12 @@ import { Observable, switchMap, take, tap } from 'rxjs';
 
 import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { ChannelService } from '@app/private/state/organisation/channels';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
-import { ChannelService } from '@app/private/state/organisation/channels';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-message-template-form',
@@ -33,6 +33,7 @@ export class MessageTemplateFormComponent implements OnInit{
   action: string;
   panelOpenState: boolean;
   isSaving: boolean;
+
 
   categories: { display: string; value: string }[] = categoryOptions;
   languages: { display: string; value: string }[] = languageOptions;
@@ -55,7 +56,7 @@ export class MessageTemplateFormComponent implements OnInit{
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
     this.templateForm = createEmptyTemplateForm(this.fb);
-    this.channels$ = this._channelService.getOrgChannels();
+    this.channels$ = this._channelService.getChannelByOrg();
 
     if (this.action !== 'create') {
       this.initPage();
@@ -175,13 +176,14 @@ export class MessageTemplateFormComponent implements OnInit{
   cancel() {
     this._route$$.navigate(['/messaging'])
   }
+
+  openTemplate(templateId:string){
+    this._route$$.navigate(['/messaging', templateId]);
+
+  }
+
   save() {
-    this.isSaving = true
     if (this.templateForm.value.id){
-      this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response) => {
-        this.isSaving  = false;
-      })
-      
       this.template = {
         name: this.templateForm.value.name,
         category: this.templateForm.value.category,
@@ -199,9 +201,12 @@ export class MessageTemplateFormComponent implements OnInit{
           footer: this.templateForm.value.content.footer,
         },
       };
+
+      this.isSaving = true
       this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
         if (response.success){
           this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
+            this._snackbar.showSuccess("Template updated successfully");
             this.isSaving  = false;
           });
         }
@@ -230,9 +235,13 @@ export class MessageTemplateFormComponent implements OnInit{
         this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
+            this.isSaving = true
             this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
               this.isSaving  = false;
-              this._snackbar.showSuccess("Template created successfully");
+              if(response.id) {
+                this._snackbar.showSuccess("Template created successfully");
+                this.openTemplate(response.id);
+              }
             });
           }
         });
@@ -241,8 +250,5 @@ export class MessageTemplateFormComponent implements OnInit{
       }
       
     }
-    
-    this.isSaving = false;
-
   }  
 }

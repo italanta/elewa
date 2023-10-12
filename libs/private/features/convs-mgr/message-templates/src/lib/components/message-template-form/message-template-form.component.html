@@ -7,12 +7,12 @@
                     <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
                 </button>
                 <button mat-raised-button  class="save-btn" (click)="save()">
-                    <span *ngIf="!isSaving; else saving"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVE'| transloco }} </span>
-                    <ng-template #saving>
-                    <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <span *ngIf="isSaving; else saving" class="loading">
                         <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVING'| transloco }} </span>
-                        <mat-spinner diameter="1"></mat-spinner>
+                        <mat-spinner diameter="20"></mat-spinner>
                     </span>
+                    <ng-template #saving>
+                        <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVE'| transloco }} </span>
                     </ng-template>
                 </button>
             </div>
