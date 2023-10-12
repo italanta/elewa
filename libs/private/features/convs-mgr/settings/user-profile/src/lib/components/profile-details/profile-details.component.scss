@@ -1,11 +1,20 @@
-img {
-  width:210px;
-  height: 210px;
-  border-radius: 9999px !important;
+
+.user-profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* or "contain" depending on your preference */
+  border: 1px #707070 solid;
+  object-fit: cover; 
+}
+
+.user-profile-picture {
+  width: 200px; /* Adjust as needed */
+  height: 200px; /* Adjust as needed */
+  border-radius: 50%;
   padding: 10px 0;
   border: 1px #707070 solid;
-  object-fit: contain !important; 
-  margin : 63px 212px 0 53px;
+  overflow: hidden; /* Clip the image to the circular border */
+  margin: 63px 212px 0 53px;
 }
 
 .text-button {
@@ -22,7 +31,7 @@ img {
 
 
 .password-button{
-  margin-right: 30px;
+  margin-right: 5vh;
   margin-top: 47.25px;
   width: 212px;
   height: 45px;
@@ -60,6 +69,7 @@ img {
 .profile-details {
   padding: 3vh 3vh;
   height: 100vh;
+  max-width: 100%;
 }
 
 .names {
@@ -82,7 +92,7 @@ div{
       }
       div{
         button{
-          margin-right: 73px;
+          margin-right: 10vh;
           border-radius: 25px;
           height: 45px;
           width: 142px;
@@ -90,7 +100,7 @@ div{
       }
       
       .user-info{
-        margin-left: 7vh;
+        margin-right: 10vh;    
         div{
           .label{
              color: #101010;
@@ -103,7 +113,7 @@ div{
           .names{
             
             input{
-              width: 30vh; 
+              width: 100%; 
               height: 51px; 
               border-radius: 8px; 
               border: 1px #707070 solid;
@@ -112,9 +122,7 @@ div{
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
-              padding-left: 20px;
-              
-
+              padding-left: 20px;  
             }
           }
         }
@@ -173,9 +181,6 @@ div{
 
 
 
-.emails-inputs {
-  width: 20%;
-}
 
 .email-button {
   margin-bottom: 20px;
