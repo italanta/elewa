@@ -25,6 +25,11 @@ export class ScheduleMessageService {
   removeScheduledMesssage(message: ScheduledMessage) {
     return this._scheduledMessageStore$$.remove(message);
   }
+
+  getScheduledMessageById$(id: string) {
+    return this._scheduledMessageStore$$.getOne(id);
+  }
+
   getScheduledMessages$() {
     return this._scheduledMessageStore$$.get();
   }
