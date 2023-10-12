@@ -25,5 +25,13 @@ export class ChannelService {
   getChannelByOrg() {
     return this._channels$$.getChannelsByOrg();
   }
+
+  /**
+   * fn: getChannelById
+   * @returns the channel for the provided id.
+   */
+  getChannelById(id: string) {
+    return this._channels$$.getOne(id);
+  }
   
 }
