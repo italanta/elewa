@@ -64,6 +64,11 @@
       }
     },
     "BLOCK": {
+      "MENU": {
+        "EDIT": "Edit",
+        "COPY": "Copie",
+        "DELETE": "Supprimer"
+      },
       "BLOCK_ID": "ID de bloc",
       "MENU": {
         "EDIT": "Edit",

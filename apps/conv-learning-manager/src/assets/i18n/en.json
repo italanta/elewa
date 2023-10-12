@@ -108,6 +108,11 @@
       }
     },
     "BLOCK": {
+      "MENU": {
+        "EDIT": "Edit",
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      },
       "BLOCK_ID": "Block ID",
       "MENU": {
         "EDIT": "Edit",
