@@ -1,40 +1,19 @@
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
-import { RcvPaymentCommand } from "../commands/receive-payment.command";
+import { PaymentCoreService } from "../services/payment-core.service";
 // import createMollieClient from '@mollie/api-client';
 
-export class ReceivePaymentHandler extends FunctionHandler<RcvPaymentCommand, any>
+export class ReceivePaymentHandler extends FunctionHandler<any, any>
 {
-  public async execute(data: RcvPaymentCommand, context: FunctionContext, tools: HandlerTools): Promise<any> {
-    const { amount, description, redirectUrl  } = data;
-    tools.Logger.log(() => data);
-    // const mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+  private _paymentService: PaymentCoreService;
+  private tools: HandlerTools;
 
-    // const molliePayment = await mollieClient.payments.create({
-    //   amount: {
-    //     value: '25.00',
-    //     currency: 'EUR'
-    //   },
-    //   description: 'CLM test payment',
-    //   redirectUrl: 'https://www.facebook.com/'
-    // })
-
-     // Map the Mollie payment response to your RcvPaymentCommand object
-    // const payment: RcvPaymentCommand = {
-    //   amount: molliePayment.amount,
-    //   description: molliePayment.description,
-    //   redirectUrl: molliePayment.redirectUrl || '',
-    //   //cancelUrl: molliePayment.cancelUrl,
-    //   webhookUrl: molliePayment.webhookUrl,
-    //   cancelUrl: ''
-    // };
-
-    // tools.Logger.log(() => `Payment Object ${JSON.stringify(payment)}`);
-
-    return ;
+  public async execute(data: any, context: FunctionContext, tools: HandlerTools): Promise<any> {
+    /**
+     * The webhook that is sent to mollie so as to update on payment status.
+     */
+    
+    tools.Logger.log(() => `Payment Object ${JSON.stringify(data)}`);
   }
-  processResponse(){
-    // tools.Logger.log(() => `Payment Object ${JSON.stringify(payment)}`);
 
-  }
  }
