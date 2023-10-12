@@ -1,5 +1,5 @@
 .message-template-settings{
-    height: 35.75rem;
+    height: 17rem;
     flex-shrink: 0;
     border-radius: 1.5625rem;
     background: #FFF;
@@ -89,3 +89,43 @@
   font-weight: 400!important;
   line-height: normal;
   }
+
+  .message-template-history{
+    height: 17rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    background: #FFF;
+    margin-top: 1.75rem;
+    padding: 2.08rem 2.12rem;
+    h1{
+      color: #101010;
+      font-family: Roboto;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 2.1rem;
+    }
+  }
+
+  mat-header-cell{
+    color: #707070;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    border-bottom: none;
+ }
+ mat-cell{
+    color: #000;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+ }
+
+ mat-icon{
+  color: #1F7A8C;
+ }
