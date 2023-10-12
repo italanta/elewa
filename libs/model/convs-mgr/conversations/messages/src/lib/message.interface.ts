@@ -34,6 +34,9 @@ export interface Message extends IObject
   /** The phone number used by the end user to send a message to  our chatbot */
   endUserPhoneNumber? : string;
 
+  /** End user receipient ID provided by messenger */
+  receipientId?       : string
+
   n?                  : number;
 
   /** 

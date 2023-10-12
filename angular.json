@@ -1319,6 +1319,33 @@
       },
       "tags": []
     },
+    "private-functions-convs-mgr-conversations-message-templates-scheduler": {
+      "root": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler",
+      "sourceRoot": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/functions/convs-mgr/conversations/message-templates/scheduler"
+          ],
+          "options": {
+            "jestConfig": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-micro-apps-base": {
       "root": "libs/private/functions/micro-apps/base",
       "sourceRoot": "libs/private/functions/micro-apps/base/src",
@@ -1363,6 +1390,31 @@
           "outputs": ["coverage/libs/private/functions/micro-apps/cmi5"],
           "options": {
             "jestConfig": "libs/private/functions/micro-apps/cmi5/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-micro-apps-surveys": {
+      "root": "libs/private/functions/micro-apps/surveys",
+      "sourceRoot": "libs/private/functions/micro-apps/surveys/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/micro-apps/surveys/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/micro-apps/surveys"],
+          "options": {
+            "jestConfig": "libs/private/functions/micro-apps/surveys/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -1462,6 +1514,33 @@
           "outputs": ["coverage/libs/private/model/convs-mgr/micro-apps/cmi5"],
           "options": {
             "jestConfig": "libs/private/model/convs-mgr/micro-apps/cmi5/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-model-convs-mgr-micro-apps-surveys": {
+      "root": "libs/private/model/convs-mgr/micro-apps/surveys",
+      "sourceRoot": "libs/private/model/convs-mgr/micro-apps/surveys/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/model/convs-mgr/micro-apps/surveys/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/model/convs-mgr/micro-apps/surveys"
+          ],
+          "options": {
+            "jestConfig": "libs/private/model/convs-mgr/micro-apps/surveys/jest.config.ts",
             "passWithNoTests": true
           }
         }
