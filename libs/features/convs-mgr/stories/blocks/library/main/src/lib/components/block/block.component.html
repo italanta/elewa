@@ -2,8 +2,13 @@
     <div [ngSwitch]="type">
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container">
-                <img [src]="iconClass" class="icon-color"/>
-                <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
+                <div *ngIf="svgIcon">
+                    <img [src]="svgIcon" class="svg-icon" />
+                </div>
+                <div *ngIf="!svgIcon">
+                    <i [class]="iconClass" class="icon-color"></i>
+                </div>
+                <h4 class="block-title">{{ blockTitle | transloco }}</h4>
             </div>
 
             <div fxLayout="row" class="icon-block">
@@ -20,7 +25,7 @@
                 </mat-menu>
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <span class="icons" >
-                        <i class="fas fa-ellipsis-v"></i>
+                        <img [src]="'/assets/icons/ellipsis.svg'"/>
                     </span>
                 </button>                
             </div>

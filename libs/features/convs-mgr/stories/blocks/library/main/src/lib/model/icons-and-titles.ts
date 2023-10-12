@@ -85,7 +85,7 @@ export const iconsAndTitles: any = {
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
-    icon: '/assets/icons/map-pin.svg',
+    svgIcon: '/assets/icons/map-pin.svg',
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
