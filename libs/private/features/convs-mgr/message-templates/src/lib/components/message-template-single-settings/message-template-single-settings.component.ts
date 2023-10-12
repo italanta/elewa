@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { MessageTemplatesService } from '@app/private/state/message-templates';
+import { SubSink } from 'subsink';
+
+import { MessageTemplate, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 
 import { AfterInactivityModalComponent } from '../../modals/after-inactivity-modal/after-inactivity-modal.component';
 import { SpecificTimeModalComponent } from '../../modals/specific-time-modal/specific-time-modal.component';
@@ -18,6 +21,8 @@ import { frequencyOptions } from '../../utils/constants';
 export class MessageTemplateSingleSettingsComponent implements OnInit{
   selectedTime: Date;
 
+  _sBS = new SubSink();
+
   selectedOption: string;
   action: string;
 
@@ -25,15 +30,40 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   messageTemplateFrequency = frequencyOptions;
   
+  displayedColumns: string[] = ['Date sent', 'Time sent', 'Number of learners', 'status', 'meta'];
+  dataSource: MatTableDataSource<ScheduledMessage>;
+  
   constructor(
     private _dialog: MatDialog, 
     private _route$$: Router,
-    private _messageService: MessageTemplatesService
+    private _messageService: MessageTemplatesService,
+    private _scheduleMessageService: ScheduleMessageService
 
     ){}
 
     ngOnInit(): void {
       this.action = this._route$$.url.split('/')[2];
+      this.fetchTemplateAndScheduledMessages();
+    }
+
+    fetchTemplateAndScheduledMessages() {
+      this._messageService.getTemplateById(this.action).subscribe((template) => {
+        if (template) {
+          const templateName = template.name;
+          this.filterMatchingScheduledMessages(templateName);
+        }
+      });
+    }
+
+    filterMatchingScheduledMessages(templateName: string) {
+      this._scheduleMessageService.getScheduledMessages$().subscribe((scheduledMessages) => {
+        const matchingScheduledMessages = scheduledMessages.filter((message) => message.message.name === templateName);
+        this.dataSource = new MatTableDataSource<ScheduledMessage>(matchingScheduledMessages);
+      });
+    }
+
+    isTimePast(time: Date){
+      return time > new Date() ? 'Pending' : 'Sent';
     }
 
   openMilestoneModal() {
