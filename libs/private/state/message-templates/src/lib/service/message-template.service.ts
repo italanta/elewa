@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { Observable } from 'rxjs';
+import { Observable, first, switchMap, throwError } from 'rxjs';
 
 import { MessageTemplate, MessageTypes, SendMessageTemplate } from '@app/model/convs-mgr/functions'
-import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { ChannelService } from '@app/private/state/organisation/channels';
 
 import { MessageTemplateStore } from '../store/message-template.store';
 
@@ -13,47 +14,64 @@ import { MessageTemplateStore } from '../store/message-template.store';
   providedIn: 'root',
 })
 export class MessageTemplatesService {
-
-  private channel = "103758545758463";
-  // private channel = "123034824233910";
+  channel: CommunicationChannel;
 
   constructor(
     private _aff:  AngularFireFunctions, 
-    private _messageTemplateStore$$: MessageTemplateStore
+    private _messageTemplateStore$$: MessageTemplateStore,
+    private _channels$$: ChannelService
   ) {}
 
-  private templateCallFunction(action: string, data: MessageTemplate){
+  private templateCallFunction(action: string, data: MessageTemplate) {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
-
-    return templateRef({ 
+    return templateRef({
       action: action,
-      channelId: this.channel, 
-      template: data
+      channelId: this.channel.id,
+      template: data,
     });
   }
-  private statusCallFunction(data: MessageStatusReq){
+
+  private statusCallFunction(data: MessageStatusReq) {
     const templateRef = this._aff.httpsCallable('channelWhatsappGetTemplates');
     return templateRef(data);
   }
 
-  private sendMessagesCallFunction(data: SendMessageTemplate){
+  private sendMessagesCallFunction(data: SendMessageTemplate) {
     const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
     return scheduleRef(data);
   }
 
-  sendMessageTemplate(payload: any){
-    const sendMessageReq: SendMessageTemplate = {
-      n:2,
-      plaform: PlatformType.WhatsApp,
+  private constructSendMessageReq(payload: any, channel: CommunicationChannel): SendMessageTemplate {
+    return {
+      n: channel.n || 0,
+      plaform: channel.type as PlatformType,
       message: {
-        type:MessageTypes.TEXT,
-        name: payload.name,
-        language: "en_US",
-        templateType: TemplateMessageTypes.Text
+        type: payload.type,
+        name: payload.template.name,
+        language: payload.template.language,
+        templateType: payload.templateType,
       },
       endUsers: payload.endUsers,
-    }
-    return this.sendMessagesCallFunction( sendMessageReq );
+    };
+  }
+
+  private handleInvalidChannelError(): Observable<never> {
+    return throwError('Invalid channel or channel type.');
+  }
+
+  sendMessageTemplate(payload: any, channelId: string): Observable<any> {
+    return this._channels$$.getChannelById(channelId).pipe(
+      first(),
+      switchMap((channel) => {
+        if (channel && channel.type) {
+          this.channel = channel;
+          const sendMessageReq = this.constructSendMessageReq(payload, channel);
+          return this.sendMessagesCallFunction(sendMessageReq);
+        } else {
+          return this.handleInvalidChannelError();
+        }
+      })
+    );
   }
 
   addMessageTemplate(template: MessageTemplate){
@@ -90,7 +108,7 @@ export class MessageTemplatesService {
     const messageStatusReq: MessageStatusReq = {
       fields: ["name", "status", "category"],
       limit: 20,
-      channelId: this.channel
+      channelId: this.channel.id || ''
     }
     return this.statusCallFunction(messageStatusReq);
   }
