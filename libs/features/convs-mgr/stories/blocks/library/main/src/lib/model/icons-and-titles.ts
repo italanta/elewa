@@ -99,10 +99,7 @@ export const iconsAndTitles: any = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
     icon: 'far fa-question-circle',
   },
-  28: {
-		title: 'PAGE-CONTENT.BLOCK.TITLES.MULTI-CONTENT-INPUT',
-		icon: 'fas fa-palette'
-	},
+
   29: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.KEYWORD-JUMP',
     icon: 'fas fa-bullseye',
