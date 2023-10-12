@@ -19,3 +19,50 @@
           </mat-form-field>
     </div>
 </div>
+
+
+<div class="message-template-history">
+    <h1>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.TITLE'| transloco }}</h1>
+  <div class="table">
+    <mat-table [dataSource]="dataSource" class="student-table">
+      <ng-container matColumnDef="Date sent">
+        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.DATE'| transloco }}</mat-header-cell>
+        <mat-cell *matCellDef="let message">{{ message.dispatchTime.toDate() | date: 'dd/MM/yyyy' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Time sent">
+        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.TIME'| transloco }}</mat-header-cell>
+        <mat-cell *matCellDef="let message">{{ message.dispatchTime.toDate() | date: 'h:mm a' }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Number of learners">
+        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.LEARNERS'| transloco }}</mat-header-cell>
+        <mat-cell *matCellDef="let message">
+          {{message.sent}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.STATUS'| transloco }}</mat-header-cell>
+        <mat-cell *matCellDef="let message">
+          <span *ngIf="isTimePast(message.dispatchTime.toDate()) === 'Pending'">
+            <mat-icon>schedule</mat-icon> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.PENDING'| transloco }}
+          </span>
+          <span *ngIf="isTimePast(message.dispatchTime.toDate()) === 'Sent'">
+            <mat-icon>done</mat-icon> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.SENT'| transloco }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="meta">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let message">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.APPROVED'| transloco }}</mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+  </div>
+  
+</div>
