@@ -8,7 +8,7 @@ mat-card {
 	cursor: move;
 }
 
-.svgIcon{
+.svgIcon {
 	width: 1.5rem;
 }
 
@@ -26,6 +26,12 @@ mat-card {
 
 .icon-color {
 	color: var(--convs-mgr-color-primary-black);
+}
+
+.button-icons {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 .block-title {
