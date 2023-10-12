@@ -5,13 +5,13 @@ mat-card {
 input {
 	max-width: 100%;
 	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	border-radius: 5px;
+	border: none;
+	border-radius: 15px;
 	resize: none;
-	padding: 10px;
+	padding: 1rem;
+	background-color: #F3F3F3;
 }
 
 input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+	outline: none;
 }
