@@ -15,6 +15,7 @@ import {
   ScheduledMessageStore,
 } from '@app/private/state/message-templates';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 import { MessageTemplateHomeComponent } from './pages/message-template-home/message-template-home.component';
 import { MessageTemplateHelpComponent } from './pages/message-template-help/message-template-help.component';
@@ -28,7 +29,6 @@ import { SpecificTimeModalComponent } from './modals/specific-time-modal/specifi
 import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/after-inactivity-modal.component';
 import { MilestoneReachedModalComponent } from './modals/milestone-reached-modal/milestone-reached-modal.component';
 import { MessageTemplateRouterModule } from './message-template.router';
-import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 @NgModule({
   imports: [
