@@ -27,6 +27,8 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
 
   lastMessageDate: string;
 
+  lastMessage:string;
+
   chatAvatarColor: string;
 
   constructor(private _chats$: ChatsStore, 
@@ -36,6 +38,7 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
   ngAfterViewInit(): void {
     if (this.chat) {
       this.getChatName();
+      this.getLastChat();
     }
   }
 
@@ -57,6 +60,20 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
                                 }))
                           .subscribe();
   }
+
+  getLastChat() {
+    this._sbs.sink = this._msgsQuery$.getLatestMessage(this.chat.id).pipe(
+      tap(latestMessage => {
+        // Assuming you have a property like 'text' in your Message model
+        this.lastMessage = latestMessage?.text ?? '';
+
+        // console.log("message",this.lastMessage);
+      })
+    ).subscribe();
+  }
+  
+  
+
 
   getClass()
   {

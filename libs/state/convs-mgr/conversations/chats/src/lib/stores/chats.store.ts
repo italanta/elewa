@@ -124,7 +124,34 @@ export class ChatsStore extends DataStore<Chat>
               // Sort based on the date of the latest message (more recent comes first)
               return b.lastMsg - a.lastMsg;
             });
+            // console.log(chats);
             return chatsWithDates;
+          })
+        );
+      })
+    );
+  }
+
+  getLastMessage(){
+    return this.get().pipe(
+      mergeMap((chats) => {
+        const dateObservables = chats.map((chat) => {
+          // Retrieve the latest message date for each chat
+          return this.messagesQuery.getLatestMessage(chat.id).pipe(
+            map((date) => ({
+              ...chat,
+              lastMsg: date
+            }))
+          );
+        });
+
+        return combineLatest(dateObservables).pipe(
+          // Sort chats based on the date of the latest message
+          map((latestChat) => {
+            
+            // console.log(chats);
+            console.log(latestChat)
+            return latestChat;
           })
         );
       })
