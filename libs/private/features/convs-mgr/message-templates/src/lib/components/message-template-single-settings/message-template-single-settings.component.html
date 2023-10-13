@@ -38,7 +38,7 @@
       <ng-container matColumnDef="Number of learners">
         <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.LEARNERS'| transloco }}</mat-header-cell>
         <mat-cell *matCellDef="let message">
-          {{message.sent}}
+          {{message.endUsers.length}}
         </mat-cell>
       </ng-container>
 
