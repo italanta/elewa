@@ -23,7 +23,9 @@
   border-radius: 30px;;
 }
 
+
 .new-clm-user{
+  height: 100%;
   .names{
     p{
       // *Email
@@ -36,7 +38,7 @@
     select,
     input{
       width: 100%; 
-      height: 53px; 
+      height: 5vh; 
       border-radius: 10px; 
       border: 1px var(--convs-mgr-color-707070) solid;
     }
