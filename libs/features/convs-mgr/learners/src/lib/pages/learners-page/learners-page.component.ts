@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
@@ -68,6 +68,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _messageService: MessageTemplatesService,
     private _route: ActivatedRoute,
     private _scheduleMessageService: ScheduleMessageService,
+    private _route$$: Router,
     private _channelService: ChannelService
   ) {}
 
@@ -219,6 +220,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     };
   
     this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
+    this.openTemplate(template.id);
+  }
+
+  openTemplate(id: any){
+    this._route$$.navigate(['/messaging', id]);
+
   }
   
   sendMessageWithChannel(template: MessageTemplate, selectedPhoneNumbers: string[]) {
@@ -231,6 +238,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       templateType: TemplateMessageTypes.Text
     }, channelId)
     .subscribe();
+    this.openTemplate(template.id);
   }
 
   ngOnDestroy() {
