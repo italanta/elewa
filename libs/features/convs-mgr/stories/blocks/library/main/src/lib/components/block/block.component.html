@@ -17,6 +17,8 @@
             </div>
         </div>
 
+        <div class="horizontal-line"></div>
+
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
             </app-message-block>
