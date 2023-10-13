@@ -7,6 +7,11 @@ mat-card-title {
   color: var(--convs-mgr-color-primary-purple);
 }
 
+form{
+  border-top: 0.5px solid #DADADA;
+  padding: 0.188rem;
+}
+
 input {
   max-width: 100%;
   height: fit-content !important;
@@ -79,5 +84,5 @@ input:focus-visible {
 }
 
 div[formGroupName="locationInput"] {
-  margin-bottom: 100px; 
+  margin-bottom: 6.25rem; 
 }
