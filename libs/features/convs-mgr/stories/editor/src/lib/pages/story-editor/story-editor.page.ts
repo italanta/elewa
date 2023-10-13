@@ -183,9 +183,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
-    this.checkStoryErrors();
-
     this.stateSaved = false;
+
+    this.checkStoryErrors(this.state);
 
     const updatedState = this.state;
     updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
@@ -209,7 +209,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   addToChannel() {
-    this.checkStoryErrors();
+    // this.checkStoryErrors();
     this._dialog.open(AddBotToChannelModal, {
       width: '550px'
     })
@@ -221,12 +221,13 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this.onClose()
   }
 
-  checkStoryErrors() {
+  checkStoryErrors(state: StoryEditorState) {
+    this.errors =[];
     const storyId = this.state.story.id as string
-    this._storyErrorCheck.fetchFlowErrors(this.state.connections, this.state.blocks, storyId).subscribe(
+    this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
       errors => {
         this.errors = errors
-        this.shownErrors = this.errors.slice(0,2)
+        this.shownErrors = this.errors.slice(0,2);
         }
       )
   }

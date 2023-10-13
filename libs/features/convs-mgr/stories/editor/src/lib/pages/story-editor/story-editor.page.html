@@ -3,7 +3,7 @@
 
   <div class="story-editor" fxFlexFill>
 
-    <div *ngIf="errors" class="error-toast">
+    <div *ngIf="errors.length>0" class="error-toast">
       <app-toast 
           *ngFor="let error of shownErrors" 
           [error]="error" 
@@ -70,7 +70,7 @@
             </ng-template>
           </button>
 
-          <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
+          <button [disabled]="!storyHasBeenSaved || errors" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
             <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
           </button>
         </div>
