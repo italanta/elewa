@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { tmpdir } from 'os';
 import { createWriteStream } from "fs";
@@ -52,8 +52,28 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  parseOutStandardMessage(message: Message, phone: string)
+  async parseOutStandardMessage(message: Message, phone: string)
   {
+    const n = this.channel.n;
+    const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
+    const endUser = await this.endUserService.getEndUser(endUserId)
+
+    if(message.params) {
+      const variables = {
+        ...endUser,
+        ...endUser.variables
+      }
+
+      const newParams = message.params.map((param)=> {
+        if(param.value == '_var_'){
+          param.value = variables[param.name] || 'undefined';
+        }
+        return param;
+      })
+  
+      message.params = newParams;
+    }
+
     const outgoingMessagePayload = new StandardMessageOutgoingMessageParser().parse(message, phone);
 
     return outgoingMessagePayload;
@@ -78,12 +98,20 @@ export class WhatsappActiveChannel implements ActiveChannel
 
     const latestMessage = await msgService.getLatestUserMessage(endUserId, orgId);
 
+    let latestMessageTime;
+    let limitPassed
+
     if (latestMessage) {
       // Get the date in milliseconds
-      const latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
+      latestMessageTime = __DateFromStorage(latestMessage.createdOn as Date);
+    }
+      if (latestMessageTime) { 
 
-      if ((Date.now() - latestMessageTime.unix() * 1000) > 864000) {
+        limitPassed = ((Date.now() - latestMessageTime.unix() * 1000) > 864000)
 
+      }
+
+      if (limitPassed || !latestMessage) {
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Whatsapp 24 hours limit has passed`);
         this._tools.Logger.log(() => `[SendOutgoingMsgHandler].execute - Sending opt-in message to ${phone}`);
 
@@ -101,7 +129,7 @@ export class WhatsappActiveChannel implements ActiveChannel
           return null;
         }
       }
-    }
+
   }
 
   private async __resolveParamVariables(params: TemplateMessageParams[], orgId: string, variables: any) { 
@@ -122,74 +150,77 @@ export class WhatsappActiveChannel implements ActiveChannel
     return Promise.all(resolvedParams);
   }
 
-  async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message)
-  {
-    if(standardMessage) {
-      whatsappMessage = await this._handle24hourWindow(whatsappMessage.to, standardMessage) || whatsappMessage;
-    }
-    // STEP 1: Assign the access token and the business phone number id
-    //            required by the whatsapp api to send messages
-    const ACCESS_TOKEN = this.channel.accessToken;
-    const PHONE_NUMBER_ID = this.channel.id;
-
-
-    // STEP 2: Prepare the outgoing whatsapp message
-    //         Convert it to a JSON string
-    const outgoingMessage = JSON.stringify(whatsappMessage);
-
-    this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(whatsappMessage)}`);
-
-    // STEP 3: Send the message
-    //         Generate the facebook url through which we send the message
-    const URL = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`;
-
-    /**
-     * Execute the post request using axios and pass in the URL, ACCESS_TOKEN and the outgoingMessage
-     * 
-     * @see https://axios-http.com/docs/post_example
-     * 
-     */
-    const res = await axios.post(
-      URL,
-      outgoingMessage,
-      {
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`,
-          'Content-Type': 'application/json'
+  async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message) {
+    try {
+      if (standardMessage) {
+        whatsappMessage = (await this._handle24hourWindow(whatsappMessage.to, standardMessage)) || whatsappMessage;
+      }
+  
+      // STEP 1: Assign the access token and the business phone number id
+      // required by the WhatsApp API to send messages
+      const ACCESS_TOKEN = this.channel.accessToken;
+      const PHONE_NUMBER_ID = this.channel.id;
+  
+      // STEP 2: Prepare the outgoing WhatsApp message
+      // Convert it to a JSON string
+      const outgoingMessage = JSON.stringify(whatsappMessage);
+  
+      this._tools.Logger.log(() => `[SendWhatsAppMessageModel]._sendRequest - Generated message ${JSON.stringify(whatsappMessage)}`);
+  
+      // STEP 3: Send the message
+      // Generate the Facebook URL through which we send the message
+      const URL = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`;
+  
+      /**
+       * Execute the post request using axios and pass in the URL, ACCESS_TOKEN, and the outgoingMessage
+       *
+       * @see https://axios-http.com/docs/post_example
+       *
+       */
+      const response = await axios.post(
+        URL,
+        outgoingMessage,
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
         }
-      }
-    ).then(response =>
-    {
-      this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
-
-      // Mark the conversation as complete
-      this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1).then(() => {
-
-        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
-      }).catch(err => {
-        this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Error in updating isComplete`);
-      }
       );
+  
+      this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Success in sending message ${JSON.stringify(response.data)}`);
+  
+      // Mark the conversation as complete
+      await this.endUserService.setConversationComplete(`w_${this.channel.n}_${whatsappMessage.to}`, 1);
+  
+      this._tools.Logger.log(() => `[SendWhatsAppMessageModel].sendMessage: Conversation marked as complete`);
+      
+      return {success: true, data: response.data};
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        if (axiosError.response) {
+          // Request made and server responded
+          this._tools.Logger.debug(() => `[SendWhatsAppMessageModel].sendMessage: url is: ${URL}`);
+          this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(axiosError.response.data)}`);
+          this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(axiosError.response.headers)}`);
+          this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(axiosError.response.status)}`);
 
-    }).catch(error =>
-    {
-      if (error.response) {
-        // Request made and server responded
-        this._tools.Logger.debug(() => `[SendWhatsAppMessageModel].sendMessage: url is: ${URL}`);
-        this._tools.Logger.log(() => `Axios post request: Response Data error 💀 ${JSON.stringify(error.response.data)}`);
-        this._tools.Logger.log(() => `Axios post request: Response Header error 🤕 ${JSON.stringify(error.response.headers)}`);
-        this._tools.Logger.log(() => `Axios post request.sendMessage: Response status error⛽ ${JSON.stringify(error.response.status)}`);
-
-      } else if (error.request) {
-        // The request was made but no response was received
-        this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${error.request}`);
+          return {success: false, data: axiosError.response.data};
+        } else if (axiosError.request) {
+          // The request was made but no response was received
+          this._tools.Logger.log(() => `Axios post request: Request error 🐱‍🚀${axiosError.request}`);
+          return {success: false, data: axiosError.request};
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          this._tools.Logger.log(() => `Axios post request: Different Error is ${axiosError.message}`);
+          return {success: false, data: axiosError.message};
+        }
       } else {
-        // Something happened in setting up the request that triggered an Error
-        this._tools.Logger.log(() => `Axios post request: Different Error is ${error.message}`);
+        // Handle non-Axios errors here
+        this._tools.Logger.log(() => `Error: ${error.message}`);
       }
-    });
-    return res;
-
+    }
   }
 
 

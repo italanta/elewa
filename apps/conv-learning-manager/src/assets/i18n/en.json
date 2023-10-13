@@ -108,6 +108,11 @@
       }
     },
     "BLOCK": {
+      "MENU": {
+        "EDIT": "Edit",
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      },
       "BLOCK_ID": "Block ID",
       "TITLES": {
         "IMAGE": "Image",
@@ -125,7 +130,6 @@
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
-        "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
         "LOCATION-INPUT": "Location Input",
@@ -348,6 +352,17 @@
       "MESSAGE": " Are you sure you want to delete this bot?"
     }
   },
+  "CLASSESS": {
+    "MODALS": {
+      "CREATE-CLASS": "Create Class",
+      "CLASSNAME": "ClassName",
+      "DESCRIPTION": "Description",
+      "ACTION-BUTTONS": {
+        "CANCEL": "Cancel",
+        "CONTINUE": "Continue"
+      }
+    }
+  },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "TITLE": "Assessment Title",
@@ -466,7 +481,7 @@
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONENUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "PhoneNumber",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
@@ -475,6 +490,7 @@
       "SEARCH-PLACEHOLDER": "Search input by name"
     },
     "BUTTONS": {
+      "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
       "BULK-ACTIONS": "Bulk Actions",
       "CLASS": "Class",
