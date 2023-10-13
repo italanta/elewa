@@ -116,7 +116,8 @@ export const iconsAndTitles: any = {
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
-    icon: 'fas fa-random'
+    icon: 'fas fa-random',
+    svgIcon: 'assets/icons/conditional.svg',
   },
   34:{
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
