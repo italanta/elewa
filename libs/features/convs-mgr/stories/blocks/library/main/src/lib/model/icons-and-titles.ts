@@ -14,6 +14,7 @@ export const iconsAndTitles: any = {
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
     icon: 'fas fa-map-marker-alt',
+    svgIcon: 'assets/svgs/blocks/system-uicons_location.svg',
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',

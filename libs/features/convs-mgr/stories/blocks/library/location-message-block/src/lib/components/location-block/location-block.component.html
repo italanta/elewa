@@ -11,9 +11,7 @@
 				type="text" />
 		</div>
 
-		<google-map height="200px" width="200px" [zoom]="10" (mapClick)="addMarker($event)">
-			<map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
-		</google-map>
+		
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
 		</app-default-option-field>
