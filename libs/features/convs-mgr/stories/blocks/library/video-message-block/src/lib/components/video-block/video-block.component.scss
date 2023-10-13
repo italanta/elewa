@@ -12,7 +12,7 @@ input {
   margin: 5px 0;
   border: none;
   border-radius: 15px;
-  background-color: var(--convs-mgr-color-primary-background);
+  background-color: var(--convs-mgr-placeholder-color);
   resize: none;
   padding: 10px;
 }
@@ -23,7 +23,7 @@ input:focus {
 }
 
 .video-wrapper {
-  background-color: var(--convs-mgr-color-primary-background);
+  background-color: var(--convs-mgr-placeholder-color);
   width: 100%;
   font-size: 2rem;
   min-height: 4rem;
