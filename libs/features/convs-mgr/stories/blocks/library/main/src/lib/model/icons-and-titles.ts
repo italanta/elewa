@@ -21,7 +21,7 @@ export const iconsAndTitles: any = {
   },
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
-    icon: 'fas fa-question-circle',
+    icon: 'far fa-circle-question',
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
@@ -46,6 +46,7 @@ export const iconsAndTitles: any = {
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
     icon: 'fas fa-phone-alt',
+    svgIcon: 'assets/svgs/blocks/ph_phone-thin.svg',
   },
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
@@ -74,6 +75,7 @@ export const iconsAndTitles: any = {
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
     icon: 'fas fa-exclamation-circle',
+    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg'
   },
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
