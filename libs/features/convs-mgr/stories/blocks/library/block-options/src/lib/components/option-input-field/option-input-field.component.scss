@@ -25,12 +25,12 @@ input {
 }
 
 .success {
-  background-color: green;
+  background-color: var(--convs-mgr-option-input-success);
   color: white;
 }
 
 .failed {
-  background-color: firebrick;
+  background-color: var(--convs-mgr-option-input-failure);
   color: white;
 }
 
