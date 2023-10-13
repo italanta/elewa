@@ -96,7 +96,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         this.extractedLearnerId = learner.id ?? ''
         // Check if learner.classId exists and set learnerClass accordingly
           this.learnerClass = learner.classId ?? '' // Convert to string
-      
+        console.log(this.learnerClass)
       },
     );
   }
