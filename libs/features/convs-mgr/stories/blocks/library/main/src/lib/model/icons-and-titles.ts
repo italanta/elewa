@@ -51,6 +51,7 @@ export const iconsAndTitles: any = {
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
     icon: 'fas fa-video',
+    
   },
   15: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STICKER',
@@ -92,6 +93,7 @@ export const iconsAndTitles: any = {
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
     icon: 'fas fa-video',
+    svgIcon: 'assets/icons/video.svg',
   },
   25: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
