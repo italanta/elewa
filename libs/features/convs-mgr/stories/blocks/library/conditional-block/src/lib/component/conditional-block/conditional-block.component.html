@@ -14,8 +14,9 @@
       </div>
 
       <div class="select-variable">
-        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
         <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
+        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
+        
       </div>
 
       <div class="type-variable">
@@ -34,7 +35,7 @@
       </div>
     </div>
 
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
+    <!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field> -->
 
   </form>
 
