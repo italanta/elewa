@@ -80,6 +80,8 @@ export const iconsAndTitles: any = {
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
     icon: 'fas fa-microphone-alt',
+    svgIcon: 'assets/svgs/blocks/audio-input.svg'
+
   },
   50: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
