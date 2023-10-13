@@ -15,20 +15,35 @@
 		<div class="second-block">
 			<p>Select the variables that will be included in the request to the webhook</p>
 			<input type="text" placeholder="Search"/>
-			<div>
+			<div class="second-block-checkbox-wrapper">
+			<div *ngFor="let variable of (vars$ | async)" >
 				<div class="second-block-checkbox">
 					<input type="checkbox" id="includeInRequest">
-					<p>variable</p>
+					<p>{{variable}}</p>
 				</div>
-				<div class="second-block-checkbox">
-					<input type="checkbox" id="includeInRequest">
-					<p>variable</p>
+			</div>
+			</div>
+		</div>
+
+		<div class="third-block">
+			<p>In this section, you configure the mapping of the webhook response to local variables within Goomza. Your webhook is expected to provide an object that holds the requested data, such as {{ '{ companyName: "Goomza" }' }}. </p>
+
+			<p>	To establish this mapping to a local variable, you should specify the location of the data within the object. For instance, you can create a local variable called "client" and link it to "companyName." It's important to note that nested objects are also supported for mapping, for example, 'data.company.name'.</p>
+
+			<div class="input-username">
+				<input placeholder="Username"/>
+				<div class="img-cont">
+					<img src="/assets/icons/ph_arrow-right-thin.svg"/>
 				</div>
-				<div class="second-block-checkbox">
-					<input type="checkbox" id="includeInRequest">
-					<p>variable</p>
-				</div>
-			</div>	
+				<input />
+			</div>
+
+			<div class="button-container">
+				<button class="update-button">
+					Update
+				</button>
+			</div>
+
 		</div>
 	</form>
 

@@ -83,7 +83,7 @@ mat-card {
     line-height: normal;
   }
 
-  input {
+  input[type="text"] {
     background-color: #F3F3F3;
     border: none;
     width: 100%;
@@ -94,6 +94,11 @@ mat-card {
     font-style: normal;
     font-weight: 300;
     line-height: normal;
+  }
+
+  .second-block-checkbox-wrapper {
+    max-height: 5rem;
+    overflow-y: scroll;
   }
 
   .second-block-checkbox {
@@ -113,5 +118,56 @@ mat-card {
   input [type="checkbox"] {
     color: #101010;
   }
+
+}
+
+.third-block {
+
+  background-color: #F3F3F3;
+  margin-top: 1rem;
+  padding: 15px;
+  border-radius: 10px;
+
+  p {
+    width: 168px;
+    margin-top: 0.5rem;
+    color: #7C7C7C;
+    font-family: Roboto;
+    font-size: 7px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+}
+
+.input-username {
+  width: 200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  .img-cont{
+    text-align: center;
+  }
+
+  input {
+    width: 100%;
+    border-radius: 10px;
+    border: 0.1rem solid #7C7C7C;
+    background-color: #F3F3F3;
+  }
+}
+
+.button-container {
+  text-align: right;
+}
+
+.update-button {
+  margin-top: 1rem;
+  border-radius: 8px;
+  background: #1F7A8C;
+  border: 0.1rem solid #1F7A8C;
+  color:white;
+  text-align: center;
 
 }
