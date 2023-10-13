@@ -3,6 +3,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
+
+import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+
 import {
   StoryBlockTypes,
   Variable,
@@ -21,6 +24,8 @@ export class WebhookBlockComponent implements OnInit {
   @Input() webhookForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  vars$: Observable<string[]>;
+
   webhookInputId: string;
   httpUrl: VariablesConfig;
 
@@ -30,7 +35,10 @@ export class WebhookBlockComponent implements OnInit {
   variables = new FormControl();
   variables$: Observable<Variable[]>;
 
-  constructor(private _variablesStore$$: VariablesConfigStore) {}
+  constructor(private _variablesStore$$: VariablesConfigStore, private variableser: VariablesService) {
+    this.vars$ = this.variableser.getAllVariables();
+  }
+
 
   ngOnInit() {
     this.variables$ = this._variablesStore$$.get();
