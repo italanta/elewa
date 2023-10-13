@@ -30,7 +30,7 @@
     p{
       // *Email
       color: var(--convs-mgr-color-3E788A);
-      font-size: 18px;
+      font-size: 14px;
       font-family: Roboto;
       font-weight: 300;
       word-wrap: break-word
@@ -42,11 +42,11 @@
       border-radius: 10px; 
       border: 1px var(--convs-mgr-color-707070) solid;
       padding-left: 10px;
-      font-size: 14px;
+      font-size: 14px !important;
     }
   }
   .buttons{
-    margin-top: 28px;
+    margin-top: 10px;
   }
 }
 /* Add this to your existing styles */
