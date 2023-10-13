@@ -13,7 +13,7 @@ export const iconsAndTitles: any = {
   },
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
-    icon: '/assets/icons/location.svg',
+    svgIcon: '/assets/icons/location.svg',
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
