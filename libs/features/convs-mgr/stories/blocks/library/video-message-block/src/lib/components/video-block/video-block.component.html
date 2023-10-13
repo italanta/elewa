@@ -17,9 +17,9 @@
         </ng-template>
       </div>
     </div>
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
     <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
     <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
-      formControlName="fileSrc">
+    formControlName="fileSrc">
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
   </form>
 </div>
