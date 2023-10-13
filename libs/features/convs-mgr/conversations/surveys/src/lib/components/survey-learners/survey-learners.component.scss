@@ -60,3 +60,27 @@
     font-weight: 300;
     line-height: normal;
  }
+
+ .student-details{
+   h3{
+      color: #101010;
+      font-family: Roboto;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+   }
+ }
+ .mat-rad{
+   display: flex;
+   flex-direction: column;
+ }
+ mat-radio-button{
+   color: #101010;
+   font-family: Roboto;
+   font-size: 1rem;
+   font-style: normal;
+   font-weight: 400;
+   line-height: normal;
+   margin-top: 1.69rem;
+ }

@@ -64,3 +64,6 @@
   .mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
     color: white!important;
   }
+  mat-tab{
+    position: fixed;
+  }
