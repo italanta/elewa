@@ -1,10 +1,15 @@
 mat-card {
 	min-width: 200px;
+	border-radius: 0.01rem;
 }
 
 .block {
 	position: relative;
 	cursor: move;
+}
+
+.svgIcon {
+	width: 1.5rem;
 }
 
 .avatar-img {
@@ -16,13 +21,15 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
-	color: var(--convs-mgr-color-primary-purple)
+	color: var(--convs-mgr-color-primary-black)
 }
 
 .block-title {
+	font-weight: 600;
 	font-size: small;	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 	font-family: Roboto;
@@ -34,10 +41,7 @@ mat-card {
 .outer {
 	display: flex;
 	align-items: center;
-	gap: 15px;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
 
 	&:hover {
 		cursor: move;
@@ -50,37 +54,10 @@ mat-card {
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.icon-block {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-
-	.icons {
-		cursor: pointer;
-	
-		* {
-			color: var(--convs-mgr-color-medium-shade);
-			
-			&:hover {
-				color: var(--convs-mgr-color-primary-purple);
-			}
-		}
-	}
-}
 .hide-block {
 	display: none;
 }
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
-}
-
-.block-menu-container {
-	cursor: pointer;
-}
-
-.horizontal-line {
-	width: 100%;
-	height: 0.1rem;
-	background-color: #DADADA;
 }
