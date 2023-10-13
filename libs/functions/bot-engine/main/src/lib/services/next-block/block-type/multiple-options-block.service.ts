@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
@@ -44,8 +46,40 @@ export class MultipleOptionsMessageService extends NextBlockService
 		const cursor = currentCursor;
 		
 		const response = msg as QuestionMessage;
+		
+		const blockIdFromOptions = response.options[0].optionId.split("-")[0];
+		
+		let lastBlock = currentBlock as QuestionMessageBlock;
 
-		const lastBlock = currentBlock as QuestionMessageBlock
+		if(lastBlock.id !== blockIdFromOptions) {
+			lastBlock = await this._blockDataService.getBlockById(blockIdFromOptions, orgId, currentStory);
+
+			// If the block clicked is not in the current story,
+			// 	We look for it in previously visited stories by the user.
+			if(!lastBlock) {
+				// Get previous stories the user has already done and
+				//	make the array unique incase they jumped to the story twice.
+				const prevRoutedCursors = _.uniqBy(cursor.parentStack, 'storyId');
+
+				// Search for the block in each story and
+				// 	stop loop if found
+				// 
+				// TODO: To avoid bugs we need to change the generated ID of blocks to be 
+				//	unique universally for this to work
+				for(let rtCursor of prevRoutedCursors) {
+					let block = await this._blockDataService.getBlockById(blockIdFromOptions,orgId, rtCursor.storyId);
+
+					if(block) {
+						lastBlock = block;
+						// Update the story to the one we've found the block in.
+						currentStory = rtCursor.storyId;
+						// Add this routed cursor to the top of the stack
+						cursor.parentStack.unshift(rtCursor);
+						break;
+					}
+				}
+			}
+		}
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies

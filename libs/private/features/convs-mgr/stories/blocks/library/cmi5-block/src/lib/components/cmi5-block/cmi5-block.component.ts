@@ -17,6 +17,7 @@ import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { CMI5BlockService } from '@app/state/file';
 import { ActiveOrgStore } from '@app/state/organisation';
 
+
 @Component({
   selector: 'app-cmi5-block',
   templateUrl: './cmi5-block.component.html',

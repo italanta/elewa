@@ -26,14 +26,14 @@ input {
 
 .success {
   margin-top: 1.25rem;
-  background-color: #19B016;
+  background-color: var(--convs-mgr-option-input-success);
   color: white;
   font-weight: 300;
   border-radius: 0.625rem;
 }
 
 .failed {
-  background-color: #D11717;
+  background-color: var(--convs-mgr-option-input-failure);
   color: white;
   font-weight: 300;
   border-radius: 0.625rem;
