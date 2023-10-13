@@ -64,6 +64,11 @@
       }
     },
     "BLOCK": {
+      "MENU": {
+        "EDIT": "Modifier",
+        "COPY": "Copie",
+        "DELETE": "Supprimer"
+      },
       "BLOCK_ID": "ID de bloc",
       "TITLES": {
         "IMAGE": "Image Bloquer",
