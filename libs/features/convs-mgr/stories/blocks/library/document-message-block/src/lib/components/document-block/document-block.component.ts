@@ -7,6 +7,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
+
 @Component({
   selector: 'app-document-block',
   templateUrl: './document-block.component.html',
@@ -25,17 +27,26 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
+  svgIcon = ''
+
   private _sBs = new SubSink();
 
   constructor(private _docUploadService: FileStorageService) {}
 
   ngOnInit(): void {
     this.docInputId = `docs-${this.id}`;
+
+    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon
+
     const fileSize = this.documentMessageForm.get('fileSize')?.value
 
     if (fileSize) {
       this._checkSizeLimit(fileSize);
     }
+  }
+
+  getBlockIconAndTitle(type: number) {
+    return iconsAndTitles[type];
   }
 
   async processDocs(event: any) {
