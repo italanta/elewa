@@ -9,6 +9,7 @@ import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/message
 import { ChannelService } from '@app/private/state/organisation/channels';
 
 import { MessageTemplateStore } from '../store/message-template.store';
+import { MessageStatusReq, MessageStatusRes } from '../models/message-status.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -124,12 +125,4 @@ export class MessageTemplatesService {
   }
   
 }
-export interface MessageStatusRes {
-    name: string;
-    status: string;
-  }
-  export interface MessageStatusReq {
-    fields: string[];
-    limit: number;
-    channelId: string;
-  }
+
