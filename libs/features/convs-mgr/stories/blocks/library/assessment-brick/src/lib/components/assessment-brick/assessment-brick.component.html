@@ -3,7 +3,7 @@
     <div fxLayout="row">
       <mat-form-field id="name">
         <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</mat-label>
-        <mat-select formControlName="assessmentId" required>
+        <mat-select formControlName="assessmentId" required class="assessmentId">
           <mat-option>--</mat-option>
           <mat-option id="assessment-name" *ngFor="let assessment of assessments" [value]="assessment.id">
             {{ assessment.name }}
