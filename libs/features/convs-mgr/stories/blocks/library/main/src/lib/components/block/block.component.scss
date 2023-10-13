@@ -7,9 +7,9 @@ mat-card {
 	cursor: move;
 }
 
-.icon-color{
-	height: 25px;
-	width: 25px;
+.svg-icon{
+	height: 1.563rem;
+	width: 1.563rem;
 	padding-left: 1rem;
 }
 
@@ -21,13 +21,13 @@ mat-card {
 
 .block-title-container {
 	display: flex;
-	//align-items: center;
+	align-items: center;
 }
 
 .block-title {
 	font-weight: 450;
-	font-size: 1.1rem;	
-	margin: .1em .4em;
+	font-size: 1rem;	
+	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 }
 
@@ -70,4 +70,8 @@ mat-card {
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+.icon-with-text{
+	margin-left: 0.3125rem;
 }
