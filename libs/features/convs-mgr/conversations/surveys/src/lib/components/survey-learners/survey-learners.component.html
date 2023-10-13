@@ -50,7 +50,7 @@
                     </div>
                     <p>{{ student.name }}</p>
                     <button mat-button (click)="showSurveyResponses(student)"><span class="hide">Hide</span> </button>
-                </div>false
+                </div>
               </div>
             </ng-container>
           </div>
@@ -60,23 +60,13 @@
     <div class="card">
         <div class="student-details">
           <!-- Placeholder data so no need for multilang atm -->
-            <h3>Student Details</h3>
-            <ng-container *ngIf="selectedStudent">
-              <p>Name: {{ selectedStudent.name }}</p>
-              <p>Phone Number: {{ selectedStudent.phoneNumber }}</p>
-              <p>Course: {{ selectedStudent.course }}</p>
-              <h4>Survey Responses</h4>
-              <ul>
-                <li *ngFor="let response of selectedStudent.surveyResponses">
-                  Question: {{ response.question }} - Answer: {{ response.answer }}
-                </li>
-              </ul>
+            <h3>Question</h3>
+            <ng-container>
+                  <mat-radio-group aria-label="what is it" class="mat-rad">
+                    <mat-radio-button value="1">True</mat-radio-button>
+                    <mat-radio-button value="2">False</mat-radio-button>
+                  </mat-radio-group>
             </ng-container>
-          </div>
-        
-          <div class="navigation-buttons">
-            <button mat-button (click)="showPreviousStudent()">Previous</button>
-            <button mat-button (click)="showNextStudent()">Next</button>
           </div>
     </div>
 </div>

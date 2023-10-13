@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 
 import { FeedbackType, Survey } from '@app/model/convs-mgr/conversations/surveys';
 
+import { frequencyOptions } from '../../utils/constants';
+
 @Component({
   selector: 'app-survey-config',
   templateUrl: './survey-config.component.html',
@@ -18,4 +20,7 @@ export class SurveyConfigComponent {
   immediateFeedback = FeedbackType.Immediately;
   onEndFeedback = FeedbackType.OnEnd;
   noFeedback = FeedbackType.Never;
+
+  frequency = frequencyOptions;
+
 }

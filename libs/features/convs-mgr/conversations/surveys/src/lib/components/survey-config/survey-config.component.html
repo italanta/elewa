@@ -1,9 +1,29 @@
 <div class="survey-config">
-    <h4>{{'SURVEYS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}} 123 {{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.LEARNERS' | transloco}}</h4>
+    <!-- <h4>{{'SURVEYS.QUESTIONS.FIELDS.CONFIGURATION' | transloco}} 123 {{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.LEARNERS' | transloco}}</h4>
     <div [formGroup]="surveyFormGroup">
         <div formGroupName="configs" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="2%">
             <p class="response-stats"><span> {{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.RECEIVED' | transloco}}: 97</span> <a>{{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.VIEW' | transloco}}</a></p>
             <p class="response-stats"><span> {{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.NON-RESPONSES' | transloco}}: 97</span> <a>{{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.REMINDER' | transloco}}</a></p>
         </div>
-    </div>
+    </div> -->
+    <h4>Channel</h4>
+    <mat-form-field appearance="outline" class="channel-select">
+        <mat-select>
+          <mat-option >
+            channel
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</div>
+
+<div class="survey-config">
+    <h4>Survey conditions</h4>
+    <p>Set up conditions for your survey to be sent</p>
+    <mat-form-field appearance="outline" class="channel-select">
+        <mat-select>
+            <mat-option *ngFor="let condition of frequency" [value]="condition.value">
+              {{condition.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
 </div>

@@ -1,43 +1,44 @@
 .survey-config {
-	padding: 1rem 1.25rem;
+	padding: 2rem 1.25rem;
 	margin: 30px auto;
 	border-radius: 1rem;
 	width: 60%;
 	background-color: white;
-
-	h4 {
-		font-size: 1.3rem;
-		font-weight: 400;
-	}
-	span {
-		font-size: 1rem;
-		font-weight: 400;
-	}
-	p{
+	h4{
 		padding: 0;
-	}
-	.response-stats{
-		color: #101010;
+		color: #000;
 		font-family: Roboto;
-		font-size: 1.125rem;
+		font-size: 1.25rem;
 		font-style: normal;
 		font-weight: 400;
 		line-height: normal;
-		display: flex;
-		justify-content: space-between;
-		a{
-			color: #1F7A8C;
-			font-family: Roboto;
-			font-size: 1.125rem;
-			font-style: normal;
-			font-weight: 300;
-			line-height: normal;
-			text-decoration-line: underline;
-			padding-right: 22.37rem;
-		}
 	}
+	p{
+		color: #707070;
+		padding: 0;
+		font-family: Roboto;
+		font-size: 1.125rem;
+		font-style: normal;
+		font-weight: 300;
+		line-height: normal;
+	}
+	
 }
 
 :host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
 	background-color: white !important;
 }
+.channel-select{
+    width: 100%;
+    height: 3.3125rem;
+    flex-shrink: 0;
+  }
+mat-form-field > mat-select {
+	border-radius: 0.9375rem;
+	background-color: transparent;
+	border: 1px solid #707070;
+	width: 100%;
+	width: 76.3125rem;
+	height: 3.3125rem;
+	flex-shrink: 0;
+  }

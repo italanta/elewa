@@ -8,7 +8,7 @@
       margin: auto;
       background-color: white;
       color: black!important;
-      padding: 1.62rem 1.93rem;
+      padding: 2.62rem 1.93rem;
       border-top-right-radius: 1.5rem;
       border-top-left-radius: 1.5rem;
       // border: solid #B8AFDA 2px;
@@ -62,4 +62,15 @@
   .tabs{
     width: 63.8%!important;
     margin: 0 auto;
+  }
+
+  #reminder{
+    color: #1F7A8C;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-decoration-line: underline;
+    padding-left: 3.19rem;
   }
