@@ -2,3 +2,116 @@ mat-card {
   min-width: 200px;
   padding: 10px;
 }
+
+.webhook-select-wrapper {
+
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+
+}
+
+.webhook-select{
+
+  padding: 8px;
+  background-color: #F3F3F3;
+  border: 0.1rem solid #F3F3F3;
+  border-radius: 10px;
+  width:100%;
+  appearance: none;
+
+}
+
+.custom-dropdown-arrow {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  flex-shrink: 0;
+  color: #7C7C7C;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #7C7C7C;
+  pointer-events: none;
+}
+
+.vertical-line-select {
+  position: absolute;
+  left: 40%;
+  transform: translateY(-100%);
+  width: 0.0125rem;
+  height: 100%;
+  background-color: #7C7C7C;;
+
+}
+
+.label-select {
+
+  position: absolute;
+  top: 35%;
+  left: 60%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 0;
+  color: #707070;
+  font-family: Roboto;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: #707070;
+
+
+}
+
+.second-block {
+
+  background-color: #F3F3F3;
+  margin-top: 1rem;
+  padding: 15px;
+  border-radius: 10px;
+
+  p {
+    width: 168px;
+    color: #7C7C7C;
+    font-family: Roboto;
+    font-size: 7px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+  input {
+    background-color: #F3F3F3;
+    border: none;
+    width: 100%;
+    border-bottom: 0.0125rem solid #DADADA;
+    color: #707070;
+    font-family: Roboto;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+  .second-block-checkbox {
+    display: flex;
+  }
+
+  p {
+    margin-left: 5px;
+    color: #101010;
+    font-family: Roboto;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+
+  input [type="checkbox"] {
+    color: #101010;
+  }
+
+}
