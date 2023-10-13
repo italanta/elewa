@@ -1,17 +1,21 @@
 mat-card {
-	min-width: 200px;
+  min-width: 200px;
 }
 
+form {
+  padding-top: 0.3125rem;
+}
 input {
-	max-width: 100%;
-	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	border-radius: 5px;
-	resize: none;
-	padding: 10px;
+  max-width: 100%;
+  margin: 5px 0;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--convs-mgr-color-primary-background);
+  resize: none;
+  padding: 10px;
 }
 
 input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+  border: 1px solid var(--convs-mgr-color-primary-black);
+  outline-color: var(--convs-mgr-color-primary-black);
 }
