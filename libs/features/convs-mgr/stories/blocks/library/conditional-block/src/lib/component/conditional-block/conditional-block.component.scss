@@ -1,16 +1,17 @@
 mat-card {
-  min-width: 200px;
+  min-width: 12.5rem; /* 200px / 16px = 12.5rem */
+  background-color: var(--convs-mgr-placeholder-color);
 }
 
 input[type='text'] {
   max-width: 100%;
   width: auto;
   box-sizing: border-box;
-  margin: 5px 0;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  border-radius: 5px;
+  margin: 0.3125rem 0; /* 5px / 16px = 0.3125rem */
+  border: none solid var(--convs-mgr-placeholder-color); /* 1px / 16px = 0.0625rem */
+  border-radius:  0.9375rem; /* 5px / 16px = 0.3125rem */
   resize: none;
-  padding: 10px;
+  padding: 0.625rem; /* 10px / 16px = 0.625rem */
 
   &:disabled {
     border: none;
@@ -19,46 +20,61 @@ input[type='text'] {
 
 .add-button {
   width: 100%;
-  background-color: var(--convs-mgr-color-primary-purple);
-  color: white;
+  background-color: var(--convs-mgr-placeholder-color);
+  border-radius:  0.9375rem;
+  // color: white;
 }
 
 .listgone {
   border: none;
-  background-color: transparent;
+  background-color: var(--convs-mgr-placeholder-color);
 }
 
 .input {
   margin: 0;
-  padding-right: 5px;
+  padding-right: 0.3125rem; /* 5px / 16px = 0.3125rem */
+  border-radius:  0.9375rem;
+  background-color: var(--convs-mgr-placeholder-color);
+  width: 100%;
 }
 
-.details-wrapper {
+details-wrapper {
   display: grid;
-  padding: 50x;
+  padding: 3.125rem; /* 50px / 16px = 3.125rem */
 
   .type-variable {
     display: flex;
     flex-direction: column;
+    border-radius:  0.9375rem;
+    background-color: var(--convs-mgr-placeholder-color);
+    max-width: 100%;
+    width: auto;
   
     label {
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.05625rem; /* 0.9px / 16px = 0.05625rem */
     } 
   }
 
   .select-variable {
     display: flex;
-    gap: 0.4rem;
-    padding: 5px 0;
-
+    gap: 0.025rem; /* 0.4px / 16px = 0.025rem */
+    padding: 0.3125rem 0; /* 5px / 16px = 0.3125rem */
     label {
       font-weight: 500;
-      font-size: 0.9rem;
+      font-size: 0.05625rem; /* 0.9px / 16px = 0.05625rem */
     }
+    // .select-variable input[type="checkbox"] {
+    //   width: 0.625rem;
+    //   height: 0.625rem;
+    //   flex-shrink: 0;
+    //   border: var(--convs-mgr-placeholder-color);
+    // }
+    
   }
 
   .options-wrapper {
-    margin-bottom: -15px;
+    margin-bottom: -0.9375rem; /* -15px / 16px = -0.9375rem */
   }
 }
+
