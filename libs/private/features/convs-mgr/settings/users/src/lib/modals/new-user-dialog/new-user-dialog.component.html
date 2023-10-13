@@ -22,7 +22,14 @@
       <input matInput type="email" formControlName="email">
       
     </div>
-   
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label">Roles</p>
+      <select name="roles" >
+        <option *ngFor="let role of reversedRoles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+
+
     <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between start" class="buttons">
       <div fxLayout="column">
         <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>

@@ -31,7 +31,7 @@ export class NewUserDialogComponent implements OnInit {
     this.newUserFormGroup = this._fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      roles: [['Viewer']],
+      roles:[[]],
       email: ['', Validators.required, Validators.email]
     });
   }
