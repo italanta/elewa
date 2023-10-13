@@ -22,16 +22,7 @@ export function _EventBlockDecoratePlumb(block: EventBlock, comp: ComponentRef<B
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: [0, 0.2, 0, 1],
-    maxConnections: -1
-  });
-
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    source: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [1, 0.75, 0, 1],
-    maxConnections: -1
+    anchor: [0, 0.18, 0, 1]
   });
   
   return comp;
