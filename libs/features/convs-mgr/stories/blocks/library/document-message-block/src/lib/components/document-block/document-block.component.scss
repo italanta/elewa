@@ -11,20 +11,33 @@ doc {
 	max-width: 100%;
 }
 
+form {
+	padding-top: 0.3125rem;
+}
+
 input {
 	max-width: 100%;
-	height: fit-content !important;
+	height: 20px;
 	padding: 5px 10px;
-	margin-bottom: 5px;
-	border-radius: 3px;
+	margin: 0.438rem auto;
+	border-radius: 0.5rem;
 	caret-color: var(--convs-mgr-color-text-black);
 	color: var(--convs-mgr-color-text-black);
 	outline: none;
-	border: 1px solid var(--convs-mgr-color-text-black);
+	border: none;
+	background-color: var(--convs-mgr-color-primary-background);
+}
+
+#docFile{
+	height: fit-content !important;
 }
 
 .fileSrc {
 	display: none;
+}
+
+.svgIcon{
+	filter: invert(49%) sepia(21%) saturate(13%) hue-rotate(314deg) brightness(94%) contrast(87%);
 }
 
 .svg-inline--fa.fa-w-12 {
@@ -36,10 +49,11 @@ input {
 
 .doc-icon {
 	text-align: center;
-	color: var(--convs-mgr-color-primary-purple) !important;
+	color: var(--convs-mgr-color-primary-black) !important;
 	width: 200px;
-	height: 100px;
-	background-color: var(--convs-mgr-color-primary-white) !important;
+	height: 120px;
+	background-color: var(--convs-mgr-color-primary-background) !important;
+	border-radius: 20px;
 	opacity: 1;
 
 	.fa-file-doc {
@@ -57,7 +71,7 @@ input {
 	margin: 5px 0;
 	width: 210px;
 	border-radius: 4px;
-	border: 2px solid var(--convs-mgr-color-primary-purple);
+	border: none;
 
 	&.error {
 		border: 3px solid red !important;
