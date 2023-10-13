@@ -131,7 +131,7 @@
         "IMAGE-INPUT": "Image Input",
         "OPEN-ENDED-QUESTION": "Open Ended Question",
         "VIDEO-INPUT": "Video Input",
-        "AUDIO-INPUT": "Audio Input",
+        "AUDIO-INPUT": "Audio",
         "LOCATION-INPUT": "Location Input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
