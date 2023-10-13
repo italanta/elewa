@@ -34,6 +34,9 @@
   --conv-mgr-color-sidemenu-background: #7619FF26;
   --textarea-outline-color: #989898;
   --convs-mgr-question-header-color: #F0EFF3;
+  --convs-mgr-light-border-color: #DADADA;
+  --convs-mgr-placeholder-color: #f3f3f3;
+  --convs-mgr-input-color: #707070;
 
   // tTODO @LemmyMwaura to delete
   --convs-mgr-light-border-color: #DADADA;
@@ -120,6 +123,12 @@
   --connector-color: #3E788A;
   --endpoint-outline: #fff;
   --endpoint-color: #3E788A;
+  --connector-color-teal-blue: #3e788a;
+  --connector-color: #ffab2d;
+  --endpoint-outline: #fff;
+  --endpoint-color: #ffab2d;
+  --connector-color-blue:  #3E788A;
+  --connector-outline-color-blue: #C7D8C5;
 
   convs-mgr-tab-button.tab-selected {
     convs-mgr-icon, convs-mgr-label {

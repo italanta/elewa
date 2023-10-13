@@ -21,6 +21,7 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
@@ -38,8 +39,6 @@ mat-card {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
 
 	&:hover {
 		cursor: move;
@@ -61,4 +60,8 @@ mat-card {
 
 ::ng-deep .mat-mdc-card-content {
 	padding: 0;
+}
+
+.icon-with-text{
+	margin-left: 0.3125rem;
 }
