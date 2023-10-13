@@ -177,8 +177,8 @@ export class MessageTemplateFormComponent implements OnInit{
     this._route$$.navigate(['/messaging'])
   }
 
-  openTemplate(templateId:string){
-    this._route$$.navigate(['/messaging', templateId]);
+  openTemplate(){
+    this._route$$.navigate(['/messaging']);
 
   }
 
@@ -232,20 +232,21 @@ export class MessageTemplateFormComponent implements OnInit{
         },
       };
       if(this.templateForm.valid){
+        this.isSaving = true
         this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
-            this.isSaving = true
             this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
               this.isSaving  = false;
               if(response.id) {
                 this._snackbar.showSuccess("Template created successfully");
-                this.openTemplate(response.id);
+                this.openTemplate();
               }
             });
           }
         });
       }else{
+        this.isSaving = false;
         this._snackbar.showError("Please fill out all fields");
       }
       
