@@ -27,7 +27,7 @@ export class MessageTemplatesService {
     const templateRef = this._aff.httpsCallable('messageTemplateAPI');
     return templateRef({
       action: action,
-      channelId: this.channel.id,
+      channelId: data.channelId,
       template: data,
     });
   }
