@@ -4,7 +4,7 @@
   display: inline-block;
   width: 89px;
   height: 23px;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .switch input {
@@ -53,13 +53,12 @@ input:checked + .slider:before {
   -webkit-transform: translateX(63px);
   -ms-transform: translateX(63px);
   transform: translateX(63px);
-  
 }
 
 /* Add "ON" text to the left */
 .slider:after {
   content: "ON";
-  line-height: 35px; /* Adjust as needed */
+  line-height: 23px; /* Adjust as needed */
   text-align: center;
   margin: 0 17px;
   color: white;
@@ -67,6 +66,7 @@ input:checked + .slider:before {
   font-family: Roboto;
   font-weight: 400;
   word-wrap: break-word;
+  padding-bottom: 6px;
 }
 
 
@@ -87,7 +87,8 @@ input:checked + .slider:before {
   color: #3E788A; /* Adjust the color as needed */
   font-size: 15px;
   font-family: Roboto;
-  font-weight: bold;
+  font-weight: 400;
+  bottom: -8px;
   word-wrap: break-word;
   opacity: 1; /* Initially visible */
   transition: opacity 0.4s; /* Add transition for smooth visibility changes */
