@@ -25,7 +25,7 @@
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
-    <div *ngIf="userClass" class="header__item">
+    <div *ngIf="userClass" class="header__item" (click)="navigateToClass()">
       <i class="icon fas fa-layer-group"></i>
       <span title="user's class/grouping"> {{ userClass }}</span>
     </div>
