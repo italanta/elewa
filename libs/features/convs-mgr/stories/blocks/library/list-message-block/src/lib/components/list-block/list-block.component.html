@@ -3,19 +3,26 @@
 
     <app-text-message [formgroup]="listMessageBlock"></app-text-message>
 
-    <div formArrayName="options" fxFlexFill>
+    <div formArrayName="options" fxFlexFill class="options-container">
       <div *ngFor="let listItem of listItems.controls; let i = index">
-        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
-          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="85">
+          <div class="vectorSvg">
+            <img src = "assets/svgs/blocks/Vector.svg" width="20" height="17">
+          </div>
           <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
-            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+          class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+          <button (click)="deleteInput(i)" class="listgone">
+            <img src ="assets/svgs/blocks/Cancel.svg" width="12" height="12">
+          </button>
         </div>
       </div>
     </div>
 
   </form>
-
+  <div class="button-container">
   <button (click)="addNewOption()" mat-flat-button class="add-button">
+    <img src="assets/svgs/blocks/Add icon.svg" class="addIcon" width="15" height="15">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
   </button>
+  </div>
 </div>
