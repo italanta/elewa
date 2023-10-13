@@ -26,14 +26,7 @@ export function _StickerBlockDecoratePlumb(block: StickerMessageBlock, comp: Com
     maxConnections: -1
   });
 
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
-    target: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [1, 0.7, 1, 0],
-    maxConnections: -1
-  });
+  
 
   return comp;
 }
