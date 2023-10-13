@@ -1,4 +1,18 @@
-<div [id]="id" *ngIf=" audioInputForm">
+<div [id]="id" *ngIf=" audioInputForm" class="container">
+	<div class="audio-input">
+		<div class="play">
+		  <img src="assets/svgs/blocks/play.svg" alt="" />
+		</div>
+		<div class="wave">
+		  <img src="assets/svgs/blocks/wave.svg" alt="" />
+		</div>
+		<div class="cancel">
+		  <img src="assets/svgs/blocks/cancel.svg" alt="" />
+		</div>
+	  </div>
+
+	  
+	<!-- form group -->
 	<form [formGroup]="audioInputForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="audioInputForm" formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-INPUT' | transloco" />
