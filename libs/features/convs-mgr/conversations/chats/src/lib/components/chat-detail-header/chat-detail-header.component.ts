@@ -279,7 +279,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   randomColor = () => GET_RANDOM_COLOR();
 
   navigateToClass(){
-    this._router.navigate([`/class/${this.learnerClass}`]);
+    this._router.navigate([`/classes/${this.learnerClass}`]);
   }
 
   navigateToStory(){
