@@ -1,19 +1,11 @@
 <div [id]="id" *ngIf="locationMessageForm">
+	<hr class="border">
 	<form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
 
 		<div fxLayout="column" formGroupName="locationInput">
 			<input formControlName="name" type="text" placeholder="Name" />
-
-			<input formControlName="latitude" [ngModel]="latitude" type="text" placeholder="Address" hidden />
-			<input formControlName="longitude" [ngModel]="longitude" type="text" placeholder="Address" hidden />
-
-			<input (change)="addressChanged($event)" formControlName="address" [ngModel]="currentAddress" #mapsSearchField
-				type="text" />
+			<input formControlName="name" type="text" placeholder="Enter a location" />
 		</div>
-
-		<google-map height="200px" width="200px" [zoom]="10" (mapClick)="addMarker($event)">
-			<map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
-		</google-map>
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
 		</app-default-option-field>
