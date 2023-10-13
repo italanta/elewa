@@ -75,6 +75,7 @@ export const iconsAndTitles: any = {
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
     icon: 'fas fa-exclamation-circle',
+    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg'
   },
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
@@ -120,7 +121,8 @@ export const iconsAndTitles: any = {
   },
   34:{
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
-    icon: 'fas fa-cube' 
+    icon: 'fas fa-cube',
+    svgIcon: 'assets/svgs/blocks/clarity_block-line.svg',
   },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',

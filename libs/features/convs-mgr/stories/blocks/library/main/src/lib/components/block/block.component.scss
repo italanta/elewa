@@ -39,8 +39,7 @@ mat-card {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px;
-	padding-bottom: 1px;
+	border-bottom: 1px solid var(--convs-mgr-light-border-color);
 
 	&:hover {
 		cursor: move;
