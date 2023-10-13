@@ -65,7 +65,6 @@ export class BlockComponent implements OnInit {
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
-
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
@@ -101,7 +100,6 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
-  svgIcon = ''
   videoMessageForm: FormGroup
   
   @ViewChild(CdkPortal) portal: CdkPortal;
@@ -125,7 +123,6 @@ export class BlockComponent implements OnInit {
 
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
-    this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
 
     if (this.blocksGroup) {
       switch (this.type) {
@@ -315,7 +312,6 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-
   editBlock() { 
     
     if (this.type === this.videoType) {

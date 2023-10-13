@@ -2,6 +2,7 @@ import { IObject } from "@iote/bricks";
 
 import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/system";
 
+import { SurveyResults } from "./survey-results.interface";
 
 /**
  * Represents an enrolled learner.
@@ -64,7 +65,18 @@ export interface EnrolledEndUser extends IObject {
   /**
      * The results of the assessments that the end user has taken.
      */
-  assessmentResults             ?: AssessmentResult[];
+  assessmentResults?: AssessmentResult[];
+
+  surveyResults?: SurveyResults[];
+
+  /** TODO: Implement after PR#610 
+   * 
+   * Will represent the platform specific details of the end user e.g.
+   * 
+   * Their user ID changes according to the platform
+  */
+  platform?: {[key:string]:{ endUserId: string}};
+
 }
 
 /**
