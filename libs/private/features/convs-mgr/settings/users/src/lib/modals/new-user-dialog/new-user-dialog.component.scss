@@ -9,7 +9,7 @@
 .cancel-btn {
   // Cancel
   color: #3E788A;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Roboto;
   font-weight: 400;
   word-wrap: break-word;
@@ -41,9 +41,20 @@
       height: 5vh; 
       border-radius: 10px; 
       border: 1px var(--convs-mgr-color-707070) solid;
+      padding-left: 10px;
+      font-size: 14px;
     }
   }
   .buttons{
     margin-top: 28px;
   }
+}
+/* Add this to your existing styles */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  height: 3rem;
+  💄 
 }
