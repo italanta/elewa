@@ -79,10 +79,10 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
       })
     ).subscribe((mergedData) => {
       this.dataSource.data = mergedData;
-      this.isSaving = false;
+      
     });
     
-
+    this.isSaving = false;
     this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
       this.applyFilter(searchText);
     });
