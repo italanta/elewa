@@ -1,17 +1,31 @@
 mat-card {
-	min-width: 200px;
-}
-
-input {
+	min-width: 12.5rem; /* Assuming 1rem = 16px */
+  }
+  
+  input {
 	max-width: 100%;
-	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	border-radius: 5px;
+	margin: 0.3125rem 0; /* 5px to rem */
+	border: none solid var(--convs-mgr-placeholder-color);
+	border-radius: 0.9375rem; /* 15px to rem */
 	resize: none;
-	padding: 10px;
-}
-
-input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
-}
+	padding: 0.625rem; /* 10px to rem */
+	background-color: var(--convs-mgr-placeholder-color);
+	display: flex;
+	/* width: 3.5625rem; (if you want to convert this as well) */
+	/* height: 0.6875rem; (if you want to convert this as well) */
+	flex-direction: column;
+	justify-content: center;
+	flex-shrink: 0;
+	font-family: Roboto;
+	font-size: 0.625rem;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	color: var(--convs-mgr-input-color);
+  }
+  
+  input:focus-visible {
+	border:  0.0625rem solid var(--convs-mgr-placeholder-color);
+	outline-color: var(--convs-mgr-placeholder-color);
+  }
+  
