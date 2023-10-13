@@ -65,7 +65,7 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
     this._sbs.sink = this._msgsQuery$.getLatestMessage(this.chat.id).pipe(
       tap(latestMessage => {
         // Assuming you have a property like 'text' in your Message model
-        this.lastMessage = latestMessage?.text ?? '';
+        this.lastMessage = latestMessage?.text ?? latestMessage?.questionText?? '';
 
         // console.log("message",this.lastMessage);
       })
