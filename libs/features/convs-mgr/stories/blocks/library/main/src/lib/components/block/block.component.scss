@@ -28,14 +28,10 @@ mat-card {
 	color: var(--convs-mgr-color-primary-black)
 }
 
-.svg-icon {
-	width: 20px;
-	height: 20px;
-}
-
 .block-title {
 	font-weight: 450;
-	font-size: small;	margin: 0 0 0 .4em;
+	font-size: 1rem;	
+	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
 	margin-bottom: 0.3125rem;
 }
@@ -65,6 +61,6 @@ mat-card {
 	padding: 0;
 }
 
-.icons-span {
+.icon-with-text{
 	margin-left: 0.3125rem;
 }

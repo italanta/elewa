@@ -100,7 +100,7 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
-  svgIcon = null
+  svgIcon = ''
   
   videoMessageForm: FormGroup
   
