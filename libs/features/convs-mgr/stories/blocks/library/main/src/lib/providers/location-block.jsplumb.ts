@@ -22,7 +22,7 @@ export function _LocationBlockDecoratePlumb(block: LocationMessageBlock, comp: C
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0, 0.12, 0, 1],
     maxConnections: -1
   });
 
