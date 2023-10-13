@@ -2,8 +2,9 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 98px;
-  height: 35px;
+  width: 89px;
+  height: 23px;
+  margin-top: 12px;
 }
 
 .switch input {
@@ -28,10 +29,10 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 20px;
+  width: 18px;
   left: 4px;
-  bottom: 4px;
+  bottom: 0;
   background-color: #3E788A;
   -webkit-transition: .4s;
   transition: .4s;
@@ -60,10 +61,9 @@ input:checked + .slider:before {
   content: "ON";
   line-height: 35px; /* Adjust as needed */
   text-align: center;
-  top: 4px; /* Adjust as needed to align with "OFF" text */
   margin: 0 17px;
   color: white;
-  font-size: 18px;
+  font-size: 15px;
   font-family: Roboto;
   font-weight: 400;
   word-wrap: break-word;
@@ -85,9 +85,9 @@ input:checked + .slider:before {
   text-align: center;
   right: 15px;
   color: #3E788A; /* Adjust the color as needed */
-  font-size: 18px;
+  font-size: 15px;
   font-family: Roboto;
-  font-weight: 400;
+  font-weight: bold;
   word-wrap: break-word;
   opacity: 1; /* Initially visible */
   transition: opacity 0.4s; /* Add transition for smooth visibility changes */
