@@ -1,4 +1,7 @@
 <h1 mat-dialog-title> Invite a new member </h1>
+<div (click)="onNoClick()" class="close-button">
+  <img src="assets/icons/delete-x.svg" alt="">
+</div>
 <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
  
     <div fxLayout="column" fxLayoutAlign="start start" class="names">
@@ -23,7 +26,7 @@
       
     </div>
     <div fxLayout="column" fxLayoutAlign="start start" class="names">
-      <p class="label">Roles</p>
+      <p class="label">Role</p>
       <select name="roles" >
         <option *ngFor="let role of reversedRoles" [value]="role">{{ role }}</option>
       </select>
