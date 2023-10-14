@@ -13,10 +13,10 @@ mat-card {
 
 .webhook-select{
 
-  padding: 8px;
-  background-color: #F3F3F3;
-  border: 0.1rem solid #F3F3F3;
-  border-radius: 10px;
+  padding: 0.5rem;
+  background-color: var(--convs-mgr-placeholder-color);
+  border: 0.1rem solid var(--convs-mgr-placeholder-color);
+  border-radius: 0.625rem;
   width:100%;
   appearance: none;
 
@@ -30,10 +30,10 @@ mat-card {
   width: 0;
   height: 0;
   flex-shrink: 0;
-  color: #7C7C7C;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #7C7C7C;
+  color: var(--convs-mgr-input-color-two);
+  border-left: 0.3125rem solid transparent;
+  border-right: 0.3125rem solid transparent;
+  border-top: 0.3125rem solid var(--convs-mgr-input-color-two);
   pointer-events: none;
 }
 
@@ -43,7 +43,7 @@ mat-card {
   transform: translateY(-100%);
   width: 0.0125rem;
   height: 100%;
-  background-color: #7C7C7C;;
+  background-color: var(--convs-mgr-input-color-two);
 
 }
 
@@ -55,42 +55,43 @@ mat-card {
   transform: translateY(-50%);
   width: 100%;
   height: 0;
-  color: #707070;
+  color: var(--convs-mgr-input-color);
   font-family: Roboto;
-  font-size: 10px;
+  font-size: 0.625rem;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  color: #707070;
+  color: var(--convs-mgr-input-color);
 
 
 }
 
 .second-block {
 
-  background-color: #F3F3F3;
+  background-color: var(--convs-mgr-placeholder-color);
   margin-top: 1rem;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 0.9375rem;
+  border-radius: 0.625rem;
 
   p {
-    width: 168px;
-    color: #7C7C7C;
+    width: 12.25rem;
+    color: var(--convs-mgr-input-color-two);
     font-family: Roboto;
-    font-size: 7px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
   }
 
   input[type="text"] {
-    background-color: #F3F3F3;
+    background-color: var(--convs-mgr-placeholder-color);
     border: none;
     width: 100%;
-    border-bottom: 0.0125rem solid #DADADA;
-    color: #707070;
+    border-bottom: 0.0125rem solid var(--convs-mgr-light-border-color);
+    color: var(--convs-mgr-input-color);
     font-family: Roboto;
-    font-size: 9px;
+    font-size: 0.7rem;
+    padding: 0.2rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -106,34 +107,34 @@ mat-card {
   }
 
   p {
-    margin-left: 5px;
-    color: #101010;
+    margin-left: 0.3125rem;
+    color: var(--convs-mgr-color-primary-black);
     font-family: Roboto;
-    font-size: 9px;
+    font-size: 0.7rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
   }
 
   input [type="checkbox"] {
-    color: #101010;
+    color: var(--convs-mgr-color-primary-black);
   }
 
 }
 
 .third-block {
 
-  background-color: #F3F3F3;
+  background-color: var(--convs-mgr-placeholder-color);
   margin-top: 1rem;
-  padding: 15px;
-  border-radius: 10px;
+  padding: 0.9375rem;
+  border-radius: 0.625rem;
 
   p {
-    width: 168px;
+    width: 12.25rem;
     margin-top: 0.5rem;
-    color: #7C7C7C;
+    color: var(--convs-mgr-input-color-two);
     font-family: Roboto;
-    font-size: 7px;
+    font-size: 0.7rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -142,19 +143,21 @@ mat-card {
 }
 
 .input-username {
-  width: 200px;
+  width: 12.5rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
   .img-cont{
     text-align: center;
+    padding: 0.3rem;
   }
 
   input {
-    width: 100%;
-    border-radius: 10px;
-    border: 0.1rem solid #7C7C7C;
-    background-color: #F3F3F3;
+    width: 100%;   
+    text-align: center; 
+    border-radius: 0.625rem;
+    border: 0.1rem solid var(--convs-mgr-input-color-two);
+    background-color: var(--convs-mgr-placeholder-color);
   }
 }
 
@@ -164,10 +167,12 @@ mat-card {
 
 .update-button {
   margin-top: 1rem;
-  border-radius: 8px;
-  background: #1F7A8C;
-  border: 0.1rem solid #1F7A8C;
-  color:white;
+  margin-right: 1rem;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  background: var(--convs-mgr-webhook-button-bg-color);
+  border: 0.1rem solid var(--convs-mgr-webhook-button-bg-color);
+  color:var(--convs-mgr-color-text-white);
   text-align: center;
 
 }
