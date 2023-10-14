@@ -1,10 +1,10 @@
 <div [id]="id" *ngIf=" webhookForm">
-	<form [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
+	<form fxLayout="column" fxLayoutALign="start" fxFlex>
 		<!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookForm"></app-default-option-field> -->
 
 		<div class="webhook-select-wrapper">
 
-			<select class="webhook-select" name="webhookId" required id="webhookId">
+			<select class="webhook-select" name="webhookselectId" required id="webhookselectId">
 				<option *ngFor="let  http of httpCategories ; let
                 	i=index" [value]="http.method" [selected]="i === 0">{{http.name}}
             	</option>
@@ -17,7 +17,7 @@
 
 		<div class="second-block">
 			<p>Select the variables that will be included in the request to the webhook</p>
-			<input name="search" id="search"  type="text" placeholder="Search" />
+			<input name="search" id="search" [(ngModel)]="search" type="text" placeholder="Search" />
 			<div class="second-block-checkbox-wrapper" *ngIf="(vars$ | async) as variables">
 				<div *ngFor="let variable of (variables | filter: search)">
 					<div class="second-block-checkbox">

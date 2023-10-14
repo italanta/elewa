@@ -39,7 +39,7 @@ export class WebhookBlockComponent implements OnInit {
   httpUrl: VariablesConfig;
 
   subscription: Subscription;
-  search!:string;
+  search = '';
   type: StoryBlockTypes;
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();

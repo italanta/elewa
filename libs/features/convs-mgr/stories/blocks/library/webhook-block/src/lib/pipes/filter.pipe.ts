@@ -5,13 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
 
-  transform(value:any, filterString:string) {
+  transform(value:string[], filterString:string) {
     if (value.length == 0 || filterString == '') return value;
 
     const variables = []
-    for (const repo of value){
-      if (repo['name'].toLowerCase().includes(filterString.toLowerCase())){
-        variables.push(repo);
+    for (const variable of value){
+      if (variable.toLowerCase().includes(filterString.toLowerCase())){
+        variables.push(variable);
       }
     }
     return variables;
