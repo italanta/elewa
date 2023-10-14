@@ -13,7 +13,7 @@ import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.fu
 export class OptionInputFieldComponent implements OnInit, AfterViewInit {
 
   @Input() blockFormGroup: FormGroup;
-  @Input() formGroupNameInput: number | string;
+  @Input() formGroupNameInput: number;
   @Input() jsPlumb?: BrowserJsPlumbInstance;
   @Input() optionClass: string;
   @Input() isNotEndpoint: boolean;

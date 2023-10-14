@@ -4,7 +4,7 @@
       <div [formGroupName]="formGroupNameInput" class="option" fxFlex>
         <input [id]="inputUniqueId" [class]="optionClass" [readOnly]="isReadOnly"
         [ngClass]="isReadOnly ? 'readonly' : ''" formControlName="message"
-        type="text" placeholder="Click here to edit" [maxlength]="charMaxlength" fxFlexFill>
+        type="text" placeholder="Option {{formGroupNameInput + 1}}" [maxlength]="charMaxlength" fxFlexFill>
         <span class="length-error" *ngIf="optionValue.length >= charMaxlength">
           {{ 'OPTION-INPUT.MAX-CHARACTERS' | transloco }}
         </span>
