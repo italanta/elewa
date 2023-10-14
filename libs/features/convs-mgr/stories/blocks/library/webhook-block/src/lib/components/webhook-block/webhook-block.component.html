@@ -5,23 +5,26 @@
 		<div class="webhook-select-wrapper">
 
 			<select class="webhook-select" name="webhookId" required id="webhookId">
-
+				<option *ngFor="let  http of httpCategories ; let
+                	i=index" [value]="http.method" [selected]="i === 0">{{http.name}}
+            	</option>
 			</select>
 			<span class="custom-dropdown-arrow"></span>
 			<div class="vertical-line-select"></div>
 			<span class="label-select">URL input</span>
 
 		</div>
+
 		<div class="second-block">
 			<p>Select the variables that will be included in the request to the webhook</p>
-			<input type="text" placeholder="Search"/>
-			<div class="second-block-checkbox-wrapper">
-			<div *ngFor="let variable of (vars$ | async)" >
-				<div class="second-block-checkbox">
-					<input type="checkbox" id="includeInRequest">
-					<p>{{variable}}</p>
+			<input name="search" id="search"  type="text" placeholder="Search" />
+			<div class="second-block-checkbox-wrapper" *ngIf="(vars$ | async) as variables">
+				<div *ngFor="let variable of (variables | filter: search)">
+					<div class="second-block-checkbox">
+						<input type="checkbox" [id]="variable">
+						<p>{{ variable }}</p>
+					</div>
 				</div>
-			</div>
 			</div>
 		</div>
 

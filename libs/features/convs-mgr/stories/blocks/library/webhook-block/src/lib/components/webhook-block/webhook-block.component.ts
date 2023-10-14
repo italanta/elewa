@@ -8,9 +8,12 @@ import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process
 
 import {
   StoryBlockTypes,
+  HttpMethods, 
+  HttpMethodTypes,
   Variable,
   VariablesConfig,
 } from '@app/model/convs-mgr/stories/blocks/main';
+
 import { WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
@@ -26,10 +29,17 @@ export class WebhookBlockComponent implements OnInit {
 
   vars$: Observable<string[]>;
 
+  httpCategories: HttpMethods[] = [
+    { method: HttpMethodTypes.POST, name: 'POST' },
+    { method: HttpMethodTypes.GET, name: 'GET' },
+    { method: HttpMethodTypes.DELETE, name: 'DELETE' }
+  ];
+
   webhookInputId: string;
   httpUrl: VariablesConfig;
 
   subscription: Subscription;
+  search!:string;
   type: StoryBlockTypes;
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();
