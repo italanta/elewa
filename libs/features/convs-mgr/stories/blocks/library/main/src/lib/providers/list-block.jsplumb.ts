@@ -22,7 +22,7 @@ export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: 'Dot',
-    anchor: [0, 0.15, 0, 1],
+    anchor: [0, 0.10, 0, 1],
     maxConnections: -1
 
   });
