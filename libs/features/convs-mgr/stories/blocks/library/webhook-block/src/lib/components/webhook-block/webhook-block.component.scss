@@ -143,7 +143,7 @@ mat-card {
 }
 
 .input-username {
-  width: 12.5rem;
+  width: 14rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
@@ -154,7 +154,7 @@ mat-card {
 
   input {
     width: 100%;   
-    text-align: center; 
+    text-align: center;
     border-radius: 0.625rem;
     border: 0.1rem solid var(--convs-mgr-input-color-two);
     background-color: var(--convs-mgr-placeholder-color);
@@ -167,9 +167,8 @@ mat-card {
 
 .update-button {
   margin-top: 1rem;
-  margin-right: 1rem;
   padding: 0.3rem;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
   background: var(--convs-mgr-webhook-button-bg-color);
   border: 0.1rem solid var(--convs-mgr-webhook-button-bg-color);
   color:var(--convs-mgr-color-text-white);
