@@ -21,9 +21,8 @@ export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: Component
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-
     endpoint: 'Dot',
-    anchor: "Left",
+    anchor: [0, 0.15, 0, 1],
     maxConnections: -1
 
   });
