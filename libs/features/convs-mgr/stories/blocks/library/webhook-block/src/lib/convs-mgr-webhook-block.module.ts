@@ -8,6 +8,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ConvsMgrBlockOptionsModule } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 import { WebhookBlockComponent } from './components/webhook-block/webhook-block.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { WebhookBlockComponent } from './components/webhook-block/webhook-block.
 
     ConvsMgrBlockOptionsModule
     ],
-  declarations: [WebhookBlockComponent],
+  declarations: [WebhookBlockComponent, FilterPipe],
   exports: [WebhookBlockComponent]
 })
 export class ConvsMgrStoriesWebhookBlockModule {}
