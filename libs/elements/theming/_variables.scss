@@ -35,8 +35,9 @@
   --textarea-outline-color: #989898;
   --convs-mgr-question-header-color: #F0EFF3;
   --assessment-brick-input-color: #7C7C7C;
-  --assessment-brick-label-color: #707070;
-  
+  --convs-mgr-light-border-color: #DADADA;
+  --convs-mgr-placeholder-color: #f3f3f3;
+  --convs-mgr-input-color: #707070;
 
   /** secondary **/
   --convs-mgr-color-secondary: #ffa225;
@@ -115,10 +116,13 @@
   --convs-mgr-font-family: Gilroy-Medium;
 
   /** Jsplumb Endpoint & Connector **/
-  --connector-color-blue: #3e788a;
+
+  --connector-color-teal-blue: #3e788a;
   --connector-color: #ffab2d;
   --endpoint-outline: #fff;
   --endpoint-color: #ffab2d;
+  --connector-color-blue:  #3E788A;
+  --connector-outline-color-blue: #C7D8C5;
 
   convs-mgr-tab-button.tab-selected {
     convs-mgr-icon, convs-mgr-label {

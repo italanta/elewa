@@ -21,7 +21,7 @@ export const iconsAndTitles: any = {
   },
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
-    icon: 'fas fa-question-circle',
+    icon: 'far fa-circle-question',
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
@@ -46,6 +46,7 @@ export const iconsAndTitles: any = {
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
     icon: 'fas fa-phone-alt',
+    svgIcon: 'assets/svgs/blocks/ph_phone-thin.svg',
   },
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
@@ -110,7 +111,8 @@ export const iconsAndTitles: any = {
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
-    icon: '/assets/icons/assessments-stroked.svg',
+    icon: 'fas fa-chart-bar',
+    svgIcon: '/assets/icons/assessments-stroked.svg'
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
