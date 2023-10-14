@@ -20,6 +20,9 @@ input {
   background-color: var(--convs-mgr-color-primary-background);
 
 }
+.location-input-container {
+  margin-bottom: 6.25rem;
+}
 
 input:focus-visible {
 	border: 1px solid var(--convs-mgr-color-primary-black);
