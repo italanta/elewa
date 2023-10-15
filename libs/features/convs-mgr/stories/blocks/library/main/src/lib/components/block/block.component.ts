@@ -102,7 +102,6 @@ export class BlockComponent implements OnInit {
   blockTitle = ''
   svgIcon= ''
   videoMessageForm: FormGroup
-  isMenuOpen = false;
   
 
   @ViewChild(CdkPortal) portal: CdkPortal;
@@ -120,14 +119,6 @@ export class BlockComponent implements OnInit {
               private matdialog: MatDialog
 
   ) { }
-
-  /**
- * toggles between isMenuOpen or closed
- */
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
 
   ngOnInit(): void {
     this.type = this.block.type;
