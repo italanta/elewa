@@ -16,11 +16,13 @@ input {
 	height: fit-content !important;
 	padding: 5px 10px;
 	margin-bottom: 5px;
-	border-radius: 3px;
+	border-radius: 0.5rem;
 	caret-color: var(--convs-mgr-color-text-black);
-	color: var(--convs-mgr-color-text-black);
+	color: #a3a3a3;
+	font-weight: 300;
 	outline: none;
-	border: 1px solid var(--convs-mgr-color-text-black);
+	border: none;
+	background-color: #f3f3f3;
 }
 
 .fileSrc {
