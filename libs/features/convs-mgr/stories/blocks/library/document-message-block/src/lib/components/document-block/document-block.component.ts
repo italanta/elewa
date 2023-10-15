@@ -7,6 +7,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
+
 @Component({
   selector: 'app-document-block',
   templateUrl: './document-block.component.html',
@@ -21,9 +23,11 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
   file: File;
   docInputId: string;
   isDocLoading = false;
-  byPassedLimits: any[] = []
+  byPassedLimits: any[] = [];
   whatsappLimit: boolean;
   messengerLimit: boolean;
+
+  svgIcon = '';
 
   private _sBs = new SubSink();
 
@@ -31,11 +35,16 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.docInputId = `docs-${this.id}`;
-    const fileSize = this.documentMessageForm.get('fileSize')?.value
+    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon;
+    const fileSize = this.documentMessageForm.get('fileSize')?.value;
 
     if (fileSize) {
       this._checkSizeLimit(fileSize);
     }
+  }
+
+  getBlockIconAndTitle(type: number) {
+    return iconsAndTitles[type];
   }
 
   async processDocs(event: any) {
@@ -43,9 +52,12 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
     this.file = event.target.files[0];
 
     if (!allowedFileTypes.includes(event.target.files[0].type)) {
-      this._docUploadService.openErrorModal("Invalid File Type", "Please select a .pdf only.");
+      this._docUploadService.openErrorModal(
+        'Invalid File Type',
+        'Please select a .pdf only.'
+      );
       return;
-    };
+    }
 
     if (this.file) {
       this.isDocLoading = true;
@@ -54,25 +66,40 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
       const docFilePath = `docs/${this.file.name}_${new Date().getTime()}`;
 
       //Step 2 - Upload file to firestore
-      const response = await this._docUploadService.uploadSingleFile(this.file, docFilePath);
+      const response = await this._docUploadService.uploadSingleFile(
+        this.file,
+        docFilePath
+      );
 
       const fileSizeInKB = this.file.size / 1024;
 
       //Step 3 - PatchValue to Block
-      this._sBs.sink = response.subscribe(url => this._autofillDocUrl(url, fileSizeInKB));
+      this._sBs.sink = response.subscribe((url) =>
+        this._autofillDocUrl(url, fileSizeInKB)
+      );
     }
   }
 
   /** Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
-    this.byPassedLimits = this._docUploadService.checkFileSizeLimits(fileSize, 'document');
+    this.byPassedLimits = this._docUploadService.checkFileSizeLimits(
+      fileSize,
+      'document'
+    );
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
-    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
+    if (this.byPassedLimits.find((limit) => limit.platform === 'WhatsApp'))
+      this.whatsappLimit = true;
+    else if (
+      this.byPassedLimits.find((limit) => limit.platform === 'messenger')
+    )
+      this.messengerLimit = true;
   }
 
   private _autofillDocUrl(url: string, fileSizeInKB: number) {
-    this.documentMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
+    this.documentMessageForm.patchValue({
+      fileSrc: url,
+      fileSize: fileSizeInKB,
+    });
     this.isDocLoading = false;
     this._checkSizeLimit(fileSizeInKB);
   }
