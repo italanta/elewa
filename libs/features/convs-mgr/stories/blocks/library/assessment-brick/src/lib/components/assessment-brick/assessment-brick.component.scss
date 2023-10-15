@@ -1,15 +1,15 @@
 input {
     border: none;
-    padding: 5px 10px;
-    width: 30px;
-    border-radius:  10px;
+    padding: 0.3125rem 0.625rem;
+    width: 1.875rem;
+    border-radius:  0.625rem;
 }
 
 .input-score-min {
     text-align: start;
     color: var(--assessment-brick-input-color);
     font-family: Roboto;
-    font-size: 9px;
+    font-size: 0.5625rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -19,7 +19,7 @@ input {
     text-align: end;
     color: var(--assessment-brick-input-color);
     font-family: Roboto;
-    font-size: 9px;
+    font-size: 0.5625rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -27,10 +27,10 @@ input {
 
 .option {
     
-    margin-top: 5px;
+    margin-top: 0.3125rem;
     width: 100%;
-    padding: 4px;
-    border-bottom: 1px solid var(--assessment-brick-input-color);
+    padding: 0.25rem;
+    border-bottom: 0.0625rem solid var(--convs-mgr-light-border-color);
     display: flex;
 
     
@@ -40,7 +40,7 @@ input {
     text-align: center;
     color: var(--assessment-brick-input-color);
     font-family: Roboto;
-    font-size: 9px;
+    font-size: 0.5625rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -53,13 +53,15 @@ input {
 
 .assess-select{
 
-    padding: 8px;
-    border-radius: 10px;
+    padding: 0.5rem;
+    border-radius: 0.625rem;
+    background-color: var(--convs-mgr-placeholder-color);
+    border: 0.00625rem solid var(--convs-mgr-placeholder-color);
     width:100%;
     appearance: none;
     color: var(--assessment-brick-label-color);
     font-family: Roboto;
-    font-size: 10px;
+    font-size: 0.625rem;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -69,18 +71,27 @@ input {
 .custom-dropdown-arrow {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 0.625rem;
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid var(--convs-mgr-color-primary-black);
+    border-left: 0.3125rem solid transparent;
+    border-right: 0.3125rem solid transparent;
+    border-top: 0.3125rem solid var(--assessment-brick-input-color);
     pointer-events: none;
 }
 
 .form-group {
 
     width:100%;
+
+}
+
+.horizontal-line {
+
+    width:100%;
+    height: 0.0625rem;
+    background-color: var(--convs-mgr-light-border-color);
+    margin-bottom: 0.3125rem;
 
 }
