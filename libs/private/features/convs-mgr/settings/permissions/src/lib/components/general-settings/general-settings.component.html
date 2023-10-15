@@ -30,7 +30,9 @@
               <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
                                   [formGroupNameGeneralValue]="'GeneralSettings'"
                                   [formGroupNameValue]="'CanAddNewMember'" 
-                                  [formControlNameValue]="control">
+                                  [formControlNameValue]="control"
+                                  [attr.disabled]="true"  
+                                  style="cursor: not-allowed;">
               </app-switch-button>
             </div>
           </div>
@@ -44,7 +46,10 @@
             <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
                                 [formGroupNameGeneralValue]="'GeneralSettings'"
                                 [formGroupNameValue]="'CanDeleteMember'" 
-                                [formControlNameValue]="control">
+                                [formControlNameValue]="control"
+                                [attr.disabled]="true"  
+                                [ngClass]="{ 'disabled':true }"
+                                 style="cursor: not-allowed;">
             </app-switch-button>
 
             </div>
