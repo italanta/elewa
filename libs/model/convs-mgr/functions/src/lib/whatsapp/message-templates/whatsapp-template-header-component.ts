@@ -8,6 +8,7 @@ export interface WhatsappHeaderTemplateComponent extends WhatsappNewTemplateComp
 
 export interface WhatsappTextHeaderTemplateComponent extends WhatsappHeaderTemplateComponent 
 {
+  text: string,
   example?: {
     header_text: string[];
   };

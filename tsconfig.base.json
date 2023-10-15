@@ -297,11 +297,17 @@
       "@app/private/functions/analytics/progress/main": [
         "libs/private/functions/analytics/progress/main/src/index.ts"
       ],
+      "@app/private/functions/convs-mgr/conversations/message-templates/scheduler": [
+        "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/index.ts"
+      ],
       "@app/private/functions/micro-apps/base": [
         "libs/private/functions/micro-apps/base/src/index.ts"
       ],
       "@app/private/functions/micro-apps/cmi5": [
         "libs/private/functions/micro-apps/cmi5/src/index.ts"
+      ],
+      "@app/private/functions/micro-apps/surveys": [
+        "libs/private/functions/micro-apps/surveys/src/index.ts"
       ],
       "@app/private/functions/organisation": [
         "libs/private/functions/organisation/src/index.ts"
@@ -314,6 +320,9 @@
       ],
       "@app/private/model/convs-mgr/micro-apps/cmi5": [
         "libs/private/model/convs-mgr/micro-apps/cmi5/src/index.ts"
+      ],
+      "@app/private/model/convs-mgr/micro-apps/surveys": [
+        "libs/private/model/convs-mgr/micro-apps/surveys/src/index.ts"
       ],
       "@app/private/state/access-control": [
         "libs/private/state/access-control/src/index.ts"

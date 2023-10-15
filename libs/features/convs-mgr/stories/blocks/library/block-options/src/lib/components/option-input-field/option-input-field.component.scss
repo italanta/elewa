@@ -1,7 +1,7 @@
 .option {
   width: inherit;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0;
 }
 
@@ -10,13 +10,13 @@ input {
   height: fit-content!important;
   min-width: auto !important;
   min-height: fit-content!important;
-  padding: 5px 10px;
+  padding: 10px 10px;
   margin: 5px 0;
-  border-radius: 3px;
-  caret-color: var(--convs-mgr-color-text-black);
-  color: var(--convs-mgr-color-text-black);
+  border: none;
+  color: var(--convs-mgr-input-color);
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
+  border-radius: 0.6rem;
+  background-color: var(--convs-mgr-placeholder-color);
 }
 
 .readonly {

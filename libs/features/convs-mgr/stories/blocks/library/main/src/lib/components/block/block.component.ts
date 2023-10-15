@@ -66,8 +66,6 @@ export class BlockComponent implements OnInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
 
-  isMenuOpen = false;
-
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
@@ -103,6 +101,7 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  svgIcon= ''
   videoMessageForm: FormGroup
   
 
@@ -122,20 +121,13 @@ export class BlockComponent implements OnInit {
 
   ) { }
 
-  /**
- * Method toggles to display or not display the menu items.
- */
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
   ngOnInit(): void {
     this.type = this.block.type;
 
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
-
+    this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
+ 
     if (this.blocksGroup) {
       switch (this.type) {
         case StoryBlockTypes.TextMessage:
@@ -324,7 +316,6 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-
   editBlock() { 
     
     if (this.type === this.videoType) {
