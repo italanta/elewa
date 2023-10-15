@@ -14,6 +14,7 @@ export const iconsAndTitles: any = {
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
     icon: 'fas fa-map-marker-alt',
+    svgIcon: 'assets/svgs/blocks/location.svg',
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
@@ -75,7 +76,7 @@ export const iconsAndTitles: any = {
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
     icon: 'fas fa-exclamation-circle',
-    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg'
+    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg',
   },
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
@@ -108,19 +109,19 @@ export const iconsAndTitles: any = {
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
-    icon: 'fas fa-flag'
+    icon: 'fas fa-flag',
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
-    icon: 'fas fa-chart-bar'
+    icon: 'fas fa-chart-bar',
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
-    icon: 'fas fa-random'
+    icon: 'fas fa-random',
   },
-  34:{
+  34: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
-    icon: 'fas fa-cube' 
+    icon: 'fas fa-cube',
   },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
