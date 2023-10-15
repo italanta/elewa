@@ -37,6 +37,9 @@ export interface StoryBlock extends IObject
   /** icon of the block on the editor */
   blockIcon: string;
 
+  /** svg icon of the block on the editor */
+  svgIcon?: string;
+
   /** block category */
   blockCategory?:string;
 

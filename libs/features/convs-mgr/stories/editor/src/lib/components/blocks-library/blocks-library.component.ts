@@ -64,7 +64,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion), blockCategory: 'questions-block' } as OpenEndedQuestionBlock,
     { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword), blockCategory: 'questions-block' } as KeywordMessageBlock,
     { id: 'event-block', type:StoryBlockTypes.Event, message: 'Event', blockIcon:this.getBlockIcon(StoryBlockTypes.Event), blockCategory: 'questions-block' } as EventBlock,
-    { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment), blockCategory: 'bricks' } as AssessmentBrick,
+    { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', svgIcon:this.getSvgIcon(StoryBlockTypes.Assessment), blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment),  blockCategory: 'bricks' } as AssessmentBrick,
     { id: 'conditional-block', type:StoryBlockTypes.Conditional, message: 'Conditional', blockIcon:this.getBlockIcon(StoryBlockTypes.Conditional), blockCategory: 'questions-block' } as ConditionalBlock,
     // { id: 'end-anchor-block', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock
     { id: 'CMI5-block', type:StoryBlockTypes.CMI5Block, message: 'CMI5 Block', blockIcon:this.getBlockIcon(StoryBlockTypes.CMI5Block), blockCategory: 'bricks' } as CMI5Block
@@ -82,6 +82,10 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   getBlockIcon(type: number) {
     return iconsAndTitles[type].icon;
+  }
+
+  getSvgIcon(type: number) {
+    return iconsAndTitles[type].svgIcon;
   }
 
   //A function that subscribes to when the search control changes and filters the blocks components list
