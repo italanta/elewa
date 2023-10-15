@@ -1,5 +1,5 @@
 .company-details{
-  margin: 76px 53px;
+  margin: 10vh 10vh;
   .company-logo{
     img{
       width: 210px;
@@ -8,7 +8,7 @@
       object-fit: contain;
       border-radius: 50%;
       border: 1px var(--convs-mgr-color-707070) solid;
-      margin-left: 20px;
+      margin-left: 2vh;
     }
     position: relative;
     .user-profile-picture {
@@ -48,8 +48,8 @@
         div{
           div{
             input{
-              width: 400px; 
-              height: 51px; 
+              width: 35vh; 
+              height: 41px; 
               border-radius: 8px; 
               border: 1px var(--convs-mgr-color-707070) solid;
               // Street Name
@@ -63,7 +63,7 @@
               }
             }
             .name-input{
-              width:884px;
+              width:80vh;
             }
             
           }
@@ -71,7 +71,7 @@
       }
       div{
         button{
-          width: 225px; 
+          width: 30vh; 
           height: 45px; 
           background: var(--convs-mgr-color-button); 
           border-radius: 25px;
@@ -81,7 +81,7 @@
           font-weight: 400;
           word-wrap: break-word;
           margin-top: 49px;
-          margin-left: 663px;
+          margin-left: 52vh;
         }
       }
     }
