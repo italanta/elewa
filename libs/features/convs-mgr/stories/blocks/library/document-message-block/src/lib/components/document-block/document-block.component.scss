@@ -39,7 +39,8 @@ input {
 	color: var(--convs-mgr-color-primary-purple) !important;
 	width: 200px;
 	height: 100px;
-	background-color: var(--convs-mgr-color-primary-white) !important;
+	border-radius: 0.7rem;
+	background-color: #f3f3f3 !important;
 	opacity: 1;
 
 	.fa-file-doc {
@@ -56,8 +57,8 @@ input {
 .doc_bg {
 	margin: 5px 0;
 	width: 210px;
-	border-radius: 4px;
-	border: 2px solid var(--convs-mgr-color-primary-purple);
+	border-radius: 0.7rem;
+	background-color: #f3f3f3 !important;
 
 	&.error {
 		border: 3px solid red !important;
