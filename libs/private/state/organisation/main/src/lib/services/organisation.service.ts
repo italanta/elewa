@@ -87,11 +87,7 @@ export class OrganisationService {
   updateOrgDetails(org: Organisation, fileUrl?: string) {
     org.logoUrl = fileUrl ?? '';
 
-    this._orgs$$.update(org).subscribe((org) => {
-      if (org) {
-        window.location.reload();
-      }
-    });
+    this._orgs$$.update(org).subscribe();
   }
 
   getOrgPermissions () {
