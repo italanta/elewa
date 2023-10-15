@@ -751,7 +751,7 @@
       "TABLE":{
         "NAME":"Name",
         "EMAIL":"Email",
-        "LAST-UPDATED":"Last Updated",
+        "LAST-UPDATED":"Last Active",
         "ROLE":"Role",
         "EDIT":"Edit",
         "REMOVE":"Remove",
