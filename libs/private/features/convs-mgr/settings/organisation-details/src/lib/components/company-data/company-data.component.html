@@ -5,10 +5,12 @@
     <div class="company-logo">
       <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
        
+        <div fxLayout="column" fxLayoutAlign="start start" class="user-picture-holder">
 
-        <img  [src]="activeOrg.logoUrl" alt="">
-
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons">
+          <img  [src]="activeOrg.logoUrl" alt="">
+          
+        </div>
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons" class="mainButtons">
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="newCompanyLogo()" mat-stroked-button>
             {{"COMPANY-INFORMATION.BUTTON.UPLOAD" | transloco}}
           </button>
@@ -84,7 +86,7 @@
           </div>
 
           <div>
-              <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile()" mat-raised-button>
+              <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)" mat-raised-button>
                 <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
                 <ng-template #saveProfile>
                   <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>

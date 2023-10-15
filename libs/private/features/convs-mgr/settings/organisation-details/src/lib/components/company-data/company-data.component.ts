@@ -67,7 +67,8 @@ export class CompanyDataComponent implements OnInit {
     this.orgDataFormGroup.disable();
   }
 
-  editOrgProfile() {
+  editOrgProfile(event: Event) {
+    event.preventDefault(); 
     this.editOrg = !this.editOrg;
     this.showButtons = this.editOrg; // Show buttons only when editing
     if (this.editOrg) {
