@@ -2,7 +2,7 @@
 .switch {
   position: relative;
   display: inline-block;
-  width: 89px;
+  width: 85px;
   height: 23px;
   margin-top: 10px;
 }
@@ -31,7 +31,7 @@
   content: "";
   height: 20px;
   width: 18px;
-  left: 4px;
+  left: 0.5px;
   bottom: 0;
   background-color: #3E788A;
   -webkit-transition: .4s;
@@ -83,7 +83,7 @@ input:checked + .slider:before {
   position: absolute;
   line-height: 35px; /* Adjust as needed */
   text-align: center;
-  right: 15px;
+  right: 17px;
   color: #3E788A; /* Adjust the color as needed */
   font-size: 15px;
   font-family: Roboto;
