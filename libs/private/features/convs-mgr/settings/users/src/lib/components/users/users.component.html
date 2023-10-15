@@ -13,9 +13,9 @@
 
         <div fxLayout="column">
           <div class="select" >
-            <select >
-              <option *ngFor="let role of orgRoles" [value]="role">{{role}}</option>
-            </select>
+            <select (change)="onRoleChange($event)">
+              <option *ngFor="let role of orgRoles" [value]="role">{{ role }}</option>
+            </select>            
           </div>
         </div>
       
