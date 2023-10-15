@@ -40,7 +40,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'story-end-anchor', type:StoryBlockTypes.EndStoryAnchorBlock, message: 'End Story', blockIcon:this.getBlockIcon(StoryBlockTypes.EndStoryAnchorBlock), blockCategory: 'end-block'} as EndStoryAnchorBlock,
     // { id: 'io-block', type: StoryBlockTypes.IO, message: 'IO', blockIcon: this.getBlockIcon(StoryBlockTypes.IO) } as QuestionMessageBlock,
     { id: 'input-location-block', type: StoryBlockTypes.Location, message: 'Location', blockIcon: this.getBlockIcon(StoryBlockTypes.Location), blockCategory: 'questions-block' } as LocationMessageBlock,
-    { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image', blockIcon: this.getBlockIcon(StoryBlockTypes.Image), blockCategory: 'images-block' } as ImageMessageBlock,
+    { id: 'input-image-block', type: StoryBlockTypes.Image, message: 'Image', blockIcon: this.getBlockIcon(StoryBlockTypes.Image), svgIcon:this.getSvgIcon(StoryBlockTypes.Image), blockCategory: 'images-block' } as ImageMessageBlock,
     { id: 'input-question-block', type: StoryBlockTypes.QuestionBlock, message: 'Question', blockIcon: this.getBlockIcon(StoryBlockTypes.QuestionBlock), blockCategory: 'questions-block' } as QuestionMessageBlock,
     { id: 'input-docs-block', type: StoryBlockTypes.Document, message: 'Document', blockIcon: this.getBlockIcon(StoryBlockTypes.Document), blockCategory: 'documents-block' } as DocumentMessageBlock,
     { id: 'input-audio-block', type: StoryBlockTypes.Audio, message: 'Audio', blockIcon: this.getBlockIcon(StoryBlockTypes.Audio), blockCategory: 'multimedia-block' } as VoiceMessageBlock,
@@ -82,6 +82,10 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
 
   getBlockIcon(type: number) {
     return iconsAndTitles[type].icon;
+  }
+
+  getSvgIcon(type: number) {
+    return iconsAndTitles[type].svgIcon;
   }
 
   //A function that subscribes to when the search control changes and filters the blocks components list

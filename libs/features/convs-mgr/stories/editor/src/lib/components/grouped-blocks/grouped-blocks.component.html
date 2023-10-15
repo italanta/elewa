@@ -2,8 +2,12 @@
   <ng-container *ngFor="let block of groupedBlocks">
     <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
       <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
-        <i *ngIf="block.message !== 'Image'" class="{{ block.blockIcon }}" id="icons"></i>
-        <img *ngIf="block.message === 'Image'" [src]="block.blockIcon" />
+        <ng-container *ngIf="block.svgIcon; else showIcon">
+          <img src="{{ block.svgIcon }}" class="svgIcon">
+        </ng-container>
+        <ng-template #showIcon>
+            <i class="{{ block.blockIcon}}" class="icon-color"></i>
+        </ng-template>
       </div>
       <p class="block-messages">
         {{ block.message }}
