@@ -2,16 +2,17 @@ import { createMollieClient } from '@mollie/api-client';
 
 import { iTalUser } from '@app/model/user';
 import { Payment } from "../models/payment"
-
 import { MollieCustomerService } from './customer-core-service';
+import { environment } from '../../environments/environment';
 
 
 export class PaymentCoreService {
     private mollieCustomerService: MollieCustomerService;
     private mollieClient;
     private mlcustomer: iTalUser;
-  constructor(private apiKey: string) {
-    this.mollieClient = createMollieClient({ apiKey: this.apiKey });
+  constructor(private _apiKey: string) {
+    this._apiKey = environment.mollieApiKey;
+    this.mollieClient = createMollieClient({ apiKey: this._apiKey });
   }
 
   async createPayment(payment: Payment, userId: string) {

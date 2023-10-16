@@ -10,6 +10,7 @@ import { Subscription } from "../models/subscription";
 import { MollieCustomerService } from "../services/customer-core-service";
 import { PaymentCoreService } from "../services/payment-core.service";
 import { SubscriptionService } from "../services/subscription-core.service";
+import { environment } from "../../environments/environment";
 
 
 export class ReceivePaymentHandler extends FunctionHandler<any, any>
@@ -20,7 +21,8 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
   private mollieCustomerService: MollieCustomerService
   private iTalUser: iTalUser
 
-   mollieClient = createMollieClient({ apiKey: 'test_dHar4XY7LxsDOtmnkVtjNVWXLSlXsM' });
+
+  mollieClient = createMollieClient({ apiKey: environment.mollieApiKey }); 
   public async execute(data: {orgId: string, subscription: Subscription}, context: FunctionContext, tools: HandlerTools): Promise<any> {
     /**
      * The webhook that is sent to mollie so as to update on payment status.

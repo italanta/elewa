@@ -5,6 +5,7 @@ import { iTalUser } from "@app/model/user";
 import { Payment } from "../models/payment";
 
 import { PaymentCoreService } from "../services/payment-core.service";
+import { environment } from "../../environments/environment";
 
 export class CreatePaymentHandler extends FunctionHandler<any, any>
 {
@@ -12,8 +13,13 @@ export class CreatePaymentHandler extends FunctionHandler<any, any>
    * function to request a payment from a one time user, returns a url that when clicked checksout to Mollie's payments page
    */
   private _paymentService: PaymentCoreService;
-  private apikey:  'test_RTxqmDAhRdfWncsEuHRW6pgbAW6yNs'
+  private apikey: string ;
   private user: iTalUser
+
+  constructor() {
+    super();
+    this.apikey = environment.mollieApiKey;
+  }
   public async execute(data: {orgId: string, payment: Payment}, context: FunctionContext, tools: HandlerTools): Promise<any> {
     try {
       const payment: Payment = {

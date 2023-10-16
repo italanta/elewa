@@ -6,6 +6,8 @@ import { Status, Subscription } from "../models/subscription";
 
 import { MollieCustomerService } from "../services/customer-core-service";
 import { SubscriptionService } from "../services/subscription-core.service";
+import { environment } from "../../environments/environment";
+import { Customer } from "../models/customer";
 
 
     //webhook works for subscriptions
@@ -27,15 +29,15 @@ import { SubscriptionService } from "../services/subscription-core.service";
 export class CreateSubscriptionsHandler extends FunctionHandler<Subscription, any> {
   private mollieClientService: MollieCustomerService;
   private subscriptionService: SubscriptionService;
-  private iTalUser: iTalUser
+  private iTalUser: iTalUser;
+  private customer: Customer
 
-  constructor(_mollieClientService: MollieCustomerService, _subscriptionService: SubscriptionService, iTalUser: iTalUser) {
+  constructor() {
     super();
-    this.mollieClientService =_mollieClientService;
-    this.subscriptionService = _subscriptionService;
-    this.iTalUser = iTalUser
+    this.mollieClientService = new MollieCustomerService(this.customer, environment.mollieApiKey);
+    this.subscriptionService = new SubscriptionService();
   }
-
+  
   public async execute(data: Subscription, context: FunctionContext, tools: HandlerTools): Promise<any> {
     
     try {

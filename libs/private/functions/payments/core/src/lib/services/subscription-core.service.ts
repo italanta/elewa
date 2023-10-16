@@ -1,8 +1,9 @@
-import { Payment } from "../models/payment"
-import { Status, Subscription } from "../models/subscription"
-import { HandlerTools } from "@iote/cqrs";
 import { createMollieClient } from '@mollie/api-client';
-import { MollieCustomerService } from "./customer-core-service";
+import { HandlerTools } from "@iote/cqrs";
+
+import { Status, Subscription } from "../models/subscription"
+
+import { environment } from "../../environments/environment";
 
 const SUBSCRIPTIONS_COLLECTION = 'subscriptions'
 
@@ -11,12 +12,11 @@ export class SubscriptionService {
   private _subscription: Subscription;
   private _handlerTools: HandlerTools;
   private _subscriptionsRepo;
+  private mollieClient;
 
-  mollieClient;
-
-  constructor(private _apiKey: string, private tools: HandlerTools, private mollieClientService: MollieCustomerService) {
+  constructor() {
     this._subscriptionsRepo = this._handlerTools.getRepository<Subscription>('subscriptions');
-    this.mollieClient = createMollieClient({ apiKey: this._apiKey });
+    this.mollieClient = createMollieClient({ apiKey: environment.mollieApiKey });
   }
 
   async createFirstPayment(molUserId: string) {
