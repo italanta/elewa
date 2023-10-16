@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { CreateLessonModalComponent } from '@app/features/convs-mgr/stories/home';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -12,12 +13,16 @@ import { CreateLessonModalComponent } from '@app/features/convs-mgr/stories/home
   styleUrls: ['./stories-list-header.component.scss'],
 })
 export class StoriesListHeaderComponent {
-  constructor(private _dialog: MatDialog) {}
+  activeBotModId:string;
+
+  constructor(private _dialog: MatDialog, private _route: ActivatedRoute) {
+    this.activeBotModId = this._route.snapshot.paramMap.get('id') as string;
+  }
 
   createBot() {
     const dialogData = {
       botMode: BotMutationEnum.CreateMode,
-      bot: '',
+      botModId: this.activeBotModId 
     };
 
     this._dialog.open(CreateLessonModalComponent, {

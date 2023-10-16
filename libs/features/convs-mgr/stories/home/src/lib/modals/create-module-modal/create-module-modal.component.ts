@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { Observable, of, switchMap, take, tap } from 'rxjs';
+import { of, switchMap, take, tap } from 'rxjs';
 
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
@@ -11,7 +11,7 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-import { CREATE_EMPTY_BOT_MODULE } from '../../providers/forms/bot-module-form.provider';
+import { BOT_MODULE_FORM } from '../../providers/forms/bot-module-form.provider';
 
 @Component({
   selector: 'italanta-apps-create-module-modal',
@@ -25,7 +25,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
 
   @Input()
   set botFromStepper(value: Bot) {
-    this.getBots(value); // this is called onInit with an undefined value so we don't add it to ngOnInit
+    this.getBots(value);
   }
 
   @Output() nextStepEvent = new EventEmitter<BotModule>();
@@ -36,6 +36,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   isCreateMode: boolean;
   isSavingModule: boolean;
 
+  activeBot: Bot;
   bots: Bot[];
 
   constructor(
@@ -43,42 +44,36 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
     private _botsServ$: BotsStateService,
     private _formBuilder: FormBuilder,
     private _dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: { botMode: BotMutationEnum; botModule?: BotModule }
+    @Inject(MAT_DIALOG_DATA) public data: { botMode: BotMutationEnum; botModule?: BotModule, botId?: string }
   ) {
     this.isCreateMode = data.botMode === BotMutationEnum.CreateMode;
-    this.data.botModule ? this.botModule = this.data.botModule : ''
+    this.botModule = this.data.botModule as BotModule;
   }
 
   ngOnInit() {
-    this.createFormGroup();
-
-    if (!this.isCreateMode) {
-      this.updateFormGroup();
-    }
+    this.moduleForm = BOT_MODULE_FORM(this._formBuilder, this.botModule);
+    this.getBots();
   }
 
   getBots(value?: Bot) {
     this._sBs.sink = this._botsServ$.getBots().subscribe((bots) => {
       this.bots = bots;
 
+      // creating within bot
+      if (!value && this.data.botId) {
+        this.selectedBot = bots.find((bot) => bot.id === this.data.botId) as Bot;
+      }
+
+      // editing existing bot
+      if (!value && this.botModule) {
+        this.selectedBot = bots.find((bot) => bot.id === this.botModule.parentBot) as Bot;
+      }
+
+      // creating in matstepper
       if (value) {
         this.selectedBot = bots.find((bot) => bot.id === value.id) as Bot;
       }
     })
-  }
-
-  createFormGroup() {
-    this.moduleForm = CREATE_EMPTY_BOT_MODULE(this._formBuilder);
-  }
-
-  updateFormGroup() {
-    this.moduleForm.patchValue({
-      id: this.botModule.id,
-      moduleName: this.botModule.name,
-      moduleDesc: this.botModule.description,
-      parentBot: this.botModule.parentBot,
-      stories: this.botModule.stories
-    });
   }
 
   submitForm() {
@@ -88,7 +83,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
       description: this.moduleForm.value.moduleDesc,
       stories: this.moduleForm.value.stories,
       parentBot : this.moduleForm.value.parentBot.id,
-      type: 'BotModule'
+      type: this.moduleForm.value.type
     };
 
     if (this.isCreateMode) {
