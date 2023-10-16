@@ -136,3 +136,13 @@ mat-spinner{
 .schedule-icon{
   color: #1F7A8C;
 }
+
+.gray-out {
+  cursor: not-allowed!important;
+  opacity: .5;
+}
+mat-paginator{
+  margin-top: 2rem;
+}
+
+

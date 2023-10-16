@@ -1,7 +1,7 @@
 <div class="message-template-settings">
     
     <div class="btn-cont">
-        <button mat-raised-button class="send-btn" (click)="saveSchedule()">
+        <button [ngClass]="{'gray-out': !action}" [disabled]="action" mat-raised-button class="send-btn" (click)="saveSchedule()">
             <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }}  </span>
         </button>
     </div>
