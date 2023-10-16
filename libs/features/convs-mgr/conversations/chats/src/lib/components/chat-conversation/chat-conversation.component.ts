@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Renderer2, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { Subscription, concatMap, map, tap } from 'rxjs';
@@ -45,7 +45,9 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   constructor(
     private _activeChat$: ActiveChatConnectedStore,
     private _chatStore: ChatsStore,
-    private _logger: Logger
+    private _logger: Logger,
+    private elementRef: ElementRef,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit() {
@@ -56,6 +58,14 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
     this.chat = this.dummyChat;
 
     this.loadChat();
+  }
+
+  loadChat() {
+    // Focus on the most recent message
+    setTimeout(() => {
+      const chatContainer = this.elementRef.nativeElement.querySelector('#chat-container');
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }, 0);
   }
 
   getActiveChat() {
