@@ -10,7 +10,7 @@ import {
   ChatsStore,
 } from '@app/state/convs-mgr/conversations/chats';
 
-import { Chat } from '@app/model/convs-mgr/conversations/chats';
+import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
 import { GET_RANDOM_COLOR } from '../../providers/avatar.provider';
@@ -40,6 +40,12 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
       { text: 'How are you?', timestamp: new Date('2023-10-16T08:05:00Z') },
       { text: 'I am fine.', timestamp: new Date('2023-10-16T08:10:00Z') },
     ],
+    phoneNumber: '',
+    name: '',
+    labels: [],
+    channelId: '',
+    channelName: '',
+    status: ChatStatus.Running
   };
 
   constructor(
