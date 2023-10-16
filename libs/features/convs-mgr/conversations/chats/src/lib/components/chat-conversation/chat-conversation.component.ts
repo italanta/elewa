@@ -23,6 +23,8 @@ import { GET_RANDOM_COLOR } from '../../providers/avatar.provider';
 export class ChatConversationComponent implements OnInit, OnDestroy {
   private _sbs = new SubSink();
   chat: Chat;
+  /** variable to track the current chat*/ 
+  currentChat: Chat;
   chat$: Subscription;
   isLoading = true;
 
@@ -35,8 +37,18 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   /**dummy chat data */
   dummyChat: Chat = {
     id: 'dummyChatId',
-    phoneNumber: '254115773915',
+    phoneNumber: '0987654321',
     name: 'Darlene',
+    labels: [],
+    channelId: '',
+    channelName: '',
+    status: ChatStatus.Running
+  };
+
+  dummyChat2: Chat = {
+    id: 'dummyChatId2',
+    phoneNumber: '1234567890',  
+    name: 'John', 
     labels: [],
     channelId: '',
     channelName: '',
@@ -55,8 +67,9 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
     if (!this.chat) {
       this.getActiveChat();
     }
-    /**dummy chat for testing*/
+    /** dummy chat for testing */
     this.chat = this.dummyChat;
+    this.currentChat = this.dummyChat; 
 
     this.loadChat();
   }
