@@ -28,10 +28,15 @@ input[type='text'] {
   border: none;
   background-color: transparent;
 }
+.my-select-panel-class{
+  background-color: aqua;
+}
 
 .input {
   margin: 0;
   padding-right: 5px;
+  background-color: #f3f3f3;
+  color: #7c7c7c;
 }
 
 .details-wrapper {
