@@ -35,13 +35,8 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   /**dummy chat data */
   dummyChat: Chat = {
     id: 'dummyChatId',
-    messages: [
-      { text: 'Hello', timestamp: new Date('2023-10-16T08:00:00Z') },
-      { text: 'How are you?', timestamp: new Date('2023-10-16T08:05:00Z') },
-      { text: 'I am fine.', timestamp: new Date('2023-10-16T08:10:00Z') },
-    ],
-    phoneNumber: '',
-    name: '',
+    phoneNumber: '254115773915',
+    name: 'Darlene',
     labels: [],
     channelId: '',
     channelName: '',
