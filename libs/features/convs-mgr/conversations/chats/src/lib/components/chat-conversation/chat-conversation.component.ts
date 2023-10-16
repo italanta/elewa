@@ -37,18 +37,8 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   /**dummy chat data */
   dummyChat: Chat = {
     id: 'dummyChatId',
-    phoneNumber: '0987654321',
+    phoneNumber: '712345678',
     name: 'Darlene',
-    labels: [],
-    channelId: '',
-    channelName: '',
-    status: ChatStatus.Running
-  };
-
-  dummyChat2: Chat = {
-    id: 'dummyChatId2',
-    phoneNumber: '1234567890',  
-    name: 'John', 
     labels: [],
     channelId: '',
     channelName: '',
@@ -75,7 +65,7 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   }
 
   loadChat() {
-    // Focus on the most recent message
+    /**focus on most recent message */
     setTimeout(() => {
       const chatContainer = this.elementRef.nativeElement.querySelector('#chat-container');
       chatContainer.scrollTop = chatContainer.scrollHeight;
