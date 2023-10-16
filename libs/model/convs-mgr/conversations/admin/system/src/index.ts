@@ -16,3 +16,5 @@ export * from './lib/platform-channels/messenger-channel.interface';
 export * from './lib/platform-end-users/messenger-enduser.interface';
 export * from './lib/assessment-result.interface';
 export * from './lib/survey-cursor.interface';
+
+export * from './lib/milestone-triggers.interface'
