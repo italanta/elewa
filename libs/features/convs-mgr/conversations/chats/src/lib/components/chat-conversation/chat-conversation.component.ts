@@ -32,6 +32,16 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   userClass: string;
   chatAvatarColor: string;
 
+  /**dummy chat data */
+  dummyChat: Chat = {
+    id: 'dummyChatId',
+    messages: [
+      { text: 'Hello', timestamp: new Date('2023-10-16T08:00:00Z') },
+      { text: 'How are you?', timestamp: new Date('2023-10-16T08:05:00Z') },
+      { text: 'I am fine.', timestamp: new Date('2023-10-16T08:10:00Z') },
+    ],
+  };
+
   constructor(
     private _activeChat$: ActiveChatConnectedStore,
     private _chatStore: ChatsStore,
@@ -42,6 +52,10 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
     if (!this.chat) {
       this.getActiveChat();
     }
+    /**dummy chat for testing*/
+    this.chat = this.dummyChat;
+
+    this.loadChat();
   }
 
   getActiveChat() {

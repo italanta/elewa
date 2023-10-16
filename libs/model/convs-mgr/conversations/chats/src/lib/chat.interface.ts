@@ -22,6 +22,8 @@ export interface Chat extends IObject
 
   labels: string[];
 
+  messages: { text: string; timestamp: Date; }[];
+  
   info?: ChatUserInfo;
 
   // channel: CommunicationChannel;
