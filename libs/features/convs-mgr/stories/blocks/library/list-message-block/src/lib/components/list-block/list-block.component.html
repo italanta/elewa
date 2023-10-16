@@ -1,21 +1,37 @@
 <div [id]="id" *ngIf="listMessageBlock">
-  <form [formGroup]="listMessageBlock" fxLayout="column" fxLayoutALign="start center">
-
+  <form
+    [formGroup]="listMessageBlock"
+    fxLayout="column"
+    fxLayoutALign="start center"
+  >
     <app-text-message [formgroup]="listMessageBlock"></app-text-message>
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let listItem of listItems.controls; let i = index">
-        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
-          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
-          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
-            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+        <div
+          [formGroupName]="i"
+          class="inputList"
+          fxLayout="row"
+          fxLayoutALign="start center end"
+          fxFlex="100"
+        >
+          <div class="listbtn">
+            <button class="listgone">
+              <img src="assets/icons/Vector.svg" />
+            </button>
+            <label class="option">Option {{ i + 1 }}</label>
+
+            <button (click)="deleteInput(i)" class="listgon">
+              <img src="/assets/icons/Cancel.svg" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
-
   </form>
-
-  <button (click)="addNewOption()" mat-flat-button class="add-button">
-    {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
-  </button>
+  <div class="line"></div>
+  <div fxLayout="row" (click)="addNewOption()" class="add-button">
+    <img src="/assets/icons/Add icon.svg" />
+    <label> {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</label>
+  </div>
 </div>
