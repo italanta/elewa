@@ -13,11 +13,11 @@
 
         <div fxLayout="column">
           <!-- <div class="select" >
-            <select (change)="onRoleChange($event)">
+            <select formControlName="role" multiple>
               <option *ngFor="let role of orgRoles" [value]="role">{{ role }}</option>
-            </select>            
+            </select>           
           </div> -->
-          <mat-form-field appearance="outline" fxFlex="50%">
+          <mat-form-field appearance="outline" >
             <mat-select formControlName="role" multiple>
               <mat-option *ngFor="let role of orgRoles" [value]="role"> {{role}} </mat-option>
             </mat-select>
