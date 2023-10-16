@@ -9,6 +9,8 @@ import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
 import { MessageTemplate, ScheduledMessage, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes, ScheduleMessageService } from '@app/private/state/message-templates';
 
+import { SnackbarService } from '../../services/snackbar.service';
+
 @Component({
   selector: 'app-message-template-list',
   templateUrl: './message-template-list.component.html',
@@ -35,7 +37,8 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     private _messageTemplateService: MessageTemplatesService,
     private fb: FormBuilder,
     private _router: Router,
-    private _scheduleMessageService: ScheduleMessageService
+    private _scheduleMessageService: ScheduleMessageService,
+    private _snackBar: SnackbarService
   ) {
     this.searchForm = this.fb.group({
       searchInput: [''], 
@@ -138,10 +141,19 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     
   }
   deleteTemplate(template: MessageTemplate){
+    this.isSaving = true;
     this._messageTemplateService.deleteTemplateMeta(template).subscribe(
       (response) => {
         if(response.success){
-          this._messageTemplateService.removeTemplate(template);
+          this._messageTemplateService.removeTemplate(template).subscribe(
+            (response) =>{
+              this._snackBar.showSuccess("Successfully deleted")
+              this.isSaving = false;
+            },
+            (error) => {
+              this._snackBar.showError(error);
+            }
+          );
         }
       }
     )
