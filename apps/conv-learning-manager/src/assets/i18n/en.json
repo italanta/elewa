@@ -125,7 +125,7 @@
         "AUDIO": "Audio",
         "VIDEO": "Video",
         "STICKER": "Sticker",
-        "LIST": "List",
+        "LIST": "Question: List",
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
