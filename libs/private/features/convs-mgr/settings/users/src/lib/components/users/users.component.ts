@@ -121,17 +121,13 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   private _getOrgUsers(orgId: string) {
     this._sbS.sink = combineLatest([
       this._users$$.getOrgUsers(orgId),
-      this.searchFormGroup.controls['role'].valueChanges.pipe(startWith(''))
-    ]).subscribe(([users, role]) => {
-      // Filter users based on the selected role (e.g., 'viewer')
-      const filteredUsers = users.filter((user) => {
-        let userRoles = __keys(__pickBy(user.roles[user.activeOrg]));
-        userRoles = this.removeItem(userRoles);
-        return role == '' ? true : userRoles.includes(role);
-      });
-  
-      this.dataSource.data = filteredUsers;
-    });
+      this.searchFormGroup.controls['role'].valueChanges.pipe(startWith(''))]).subscribe(([users, role]) => {
+        this.dataSource.data = users.filter((user) => {
+          let userRoles = __keys(__pickBy(user.roles[user.activeOrg]));
+          userRoles = this.removeItem(userRoles);          
+          return role == '' ? user : __intersection(userRoles, role).length > 0;
+        });
+    })
   }
   
   
