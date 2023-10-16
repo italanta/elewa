@@ -5,6 +5,8 @@ import { MessageTemplatesService } from './service/message-template.service';
 import { ScheduleMessageService } from './service/schedule-message.service';
 import { ScheduledMessageStore } from './store/scheduled-message.store';
 import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
+import { MilestoneTriggersService } from './service/milestone-triggers.service';
+import { MilestoneTriggersStore } from './store/milestone-trigger.store';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,7 +16,9 @@ import { ChannelService, ChannelsStore } from '@app/private/state/organisation/c
     ScheduleMessageService,
     ScheduledMessageStore,
     ChannelService,
-    ChannelsStore
+    ChannelsStore,
+    MilestoneTriggersService,
+    MilestoneTriggersStore
   ]
 })
 export class PrivateStateMessageTemplatesModule {}
