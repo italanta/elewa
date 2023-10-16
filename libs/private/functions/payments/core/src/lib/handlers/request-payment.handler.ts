@@ -1,94 +1,62 @@
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { HandlerTools } from "@iote/cqrs";
-import { IObject } from "@iote/bricks";
+
+import { iTalUser } from "@app/model/user";
+import { Payment } from "../models/payment";
 
 import { PaymentCoreService } from "../services/payment-core.service";
-import { Invoice } from '../models/invoice';
 
-export class RequestPaymentHandler extends FunctionHandler<Invoice, any>
+export class CreatePaymentHandler extends FunctionHandler<any, any>
 {
   /**
    * function to request a payment from a one time user, returns a url that when clicked checksout to Mollie's payments page
    */
   private _paymentService: PaymentCoreService;
-  public async execute(data: Invoice, context: FunctionContext, tools: HandlerTools): Promise<any> {
+  private apikey:  'test_RTxqmDAhRdfWncsEuHRW6pgbAW6yNs'
+  private user: iTalUser
+  public async execute(data: {orgId: string, payment: Payment}, context: FunctionContext, tools: HandlerTools): Promise<any> {
     try {
-      const payment = {
-        description: data.description,
-        redirectUrl: "http://localhost:4200/setting",
+      const payment: Payment = {
+        ...data.payment,
+        description: data.payment.description,
+        redirectUrl: "https://app.goomza.co",
         cancelUrl: "http://localhost:4200/home",
         amount: {
-          currency: data.amount.currency,
-          value: data.amount.value
+          currency: data.payment.amount.currency,
+          value: data.payment.amount.value
         },
-        method: ['creditcard']
-      };
+        method: data.payment.method,
+        webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
+      } as Payment;
+
+      tools.Logger.log(() => `execute: got here`)
 
       tools.Logger.log(() => `execute: Payment Obj => ${JSON.stringify(payment)}`)
 
-      this._paymentService = new PaymentCoreService("test_RTxqmDAhRdfWncsEuHRW6pgbAW6yNs", payment, "https://api.mollie.com/v2/payments", tools)
+      this._paymentService = new PaymentCoreService( this.apikey)
 
-      const paymentResponse = await this._paymentService.requestPayment();
+      const paymentResponse = await this._paymentService.createPayment(payment, this.user.id );
 
       const responseBody = JSON.parse(JSON.stringify(paymentResponse));
 
       const paymentUrl = responseBody['_links']['checkout']['href'];
 
-      const paymentRepo = tools.getRepository<PaymentData>('payments');
+      const paymentRepo = tools.getRepository<Payment>(`orgs/${data.orgId}payments`);
 
       const paymentMethod = responseBody.method;
 
-      await paymentRepo.write(responseBody as unknown as PaymentData, responseBody.id);
+      await paymentRepo.write(responseBody as unknown as Payment, responseBody.id);
 
       // Log the checkout URL
       tools.Logger.log(() => `execute: Payment URL: ${paymentUrl}`);
 
-      // Return the response body from mollie
-      return { paymentData: responseBody, paymentMethod: paymentMethod }; 
+      // Return the checkoutURL
+      return { paymentData: paymentUrl, paymentMethod: paymentMethod }; 
 
     } catch (e) {
       tools.Logger.log(() => e)
     }
   }
-
+//change data param to orgId and paymentObj orgs.orgId/obj
+//have a from id: user making payment
 }
-
-interface PaymentData extends IObject {
-  resource: string;
-  id: string;
-  mode: string;
-  createdAt: string;
-  amount: {
-    value: string;
-    currency: string;
-  };
-  description: string;
-  method: string;
-  metadata: null | any;
-  status: string;
-  isCancelable: boolean;
-  expiresAt: string;
-  profileId: string;
-  sequenceType: string;
-  redirectUrl: string;
-  cancelUrl: string;
-  _links: {
-    self: {
-      href: string;
-      type: string;
-    };
-    checkout: {
-      href: string;
-      type: string;
-    };
-    dashboard: {
-      href: string;
-      type: string;
-    };
-    documentation: {
-      href: string;
-      type: string;
-    };
-  };
-}
-

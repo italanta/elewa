@@ -1,8 +1,10 @@
+import { IObject } from "@iote/bricks";
+
 /**
  * The payment object expected by Mollie API. 
  * Amount, description, redirect url, are compulsory. 
  */
-export interface Payment {
+export interface Payment extends IObject{
     amount: Amount;
     description: string;
     redirectUrl: string;
@@ -10,6 +12,8 @@ export interface Payment {
     webhookUrl?: string;
     sequenceType?: string;
     method : string  
+    customerId: string;
+    status: string;
 }
 
 /**

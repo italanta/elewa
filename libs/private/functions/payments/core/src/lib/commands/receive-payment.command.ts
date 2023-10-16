@@ -1,5 +1,5 @@
-import { Amount } from "../models/payment";
-import { SequenceType } from "../models/sequence-type";
+import { Amount } from "../models/payment"
+
 
 /**
  * Create a new command for handling the payments webhook
@@ -12,5 +12,5 @@ export interface RcvPaymentCommand
     redirectUrl: string;
     cancelUrl: string;
     webhookUrl?: string;
-    sequenceType?: SequenceType;
+    sequenceType?: string;
 }

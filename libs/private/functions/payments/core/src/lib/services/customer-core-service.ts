@@ -9,13 +9,13 @@ import { iTalUser } from '@app/model/user';
 import { Customer } from '../models/customer'
 
 export class MollieCustomerService {
- private mollieClient; 
- public updateUser(user: iTalUser) {
-  return this._updateUser(user);
-}
-public getUser(user: iTalUser){
-  return this._getUser(user.id)
-}
+  private mollieClient;
+  public updateUser(user: iTalUser) {
+    return this._updateUser(user);
+  }
+  public getUser(user: iTalUser) {
+    return this._getUser(user.id)
+  }
 
   constructor(
     public customer: Customer,
@@ -67,15 +67,23 @@ public getUser(user: iTalUser){
     return resp.data._embedded.mandates;
   }
 
-  async _getValidMandate(userId: string) 
-  {
+  async checkIfMollieCustomer(userId: string) {
+    const user = await this._getUser(userId);
+    if (user.mollieCustomerId) {
+      return user.mollieCustomerId;
+    } else {
+      return false;
+    }
+  }
+
+  async _getValidMandate(userId: string) {
     const mandatesData = await this.getMandates(userId)
     for (const mandate of mandatesData) {
       if (mandate.status === 'valid') {
-        return mandate.id; 
+        return mandate.id;
       }
     }
-  
+
     return null;
   }
 
