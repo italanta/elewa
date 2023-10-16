@@ -5,8 +5,11 @@ import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { MessageTemplate, ScheduledMessage } from '@app/model/convs-mgr/functions';
-import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
+import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
+import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { AfterInactivityModalComponent } from '../../modals/after-inactivity-modal/after-inactivity-modal.component';
 import { SpecificTimeModalComponent } from '../../modals/specific-time-modal/specific-time-modal.component';
@@ -20,6 +23,7 @@ import { frequencyOptions } from '../../utils/constants';
 })
 export class MessageTemplateSingleSettingsComponent implements OnInit{
   selectedTime: Date;
+  selectedMilestone: EventBlock;
 
   _sBS = new SubSink();
 
@@ -37,7 +41,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     private _dialog: MatDialog, 
     private _route$$: Router,
     private _messageService: MessageTemplatesService,
-    private _scheduleMessageService: ScheduleMessageService
+    private _scheduleMessageService: ScheduleMessageService,
+    private _milestoneTriggerService: MilestoneTriggersService
 
     ){}
 
@@ -72,7 +77,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   dialogRef.componentInstance?.milestoneSelected.subscribe((selectedData: any) => {
     const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'milestone');
     if (specificTimeOption) {
-      specificTimeOption.viewValue = `${selectedData.milestoneType} ${selectedData.selectedMilestone} - ${selectedData.selectedStory.name}`;
+      specificTimeOption.viewValue = `${selectedData.selectedMilestone.eventName} - ${selectedData.selectedStory.name}`;
+      this.selectedMilestone = selectedData.selectedMilestone;
     }
     });
   }
@@ -122,21 +128,43 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     this._route$$.navigate(['/learners'], {queryParams: {templateId: template.id, dispatchDate: selectedDate}});
   }
 
-  saveSchedule(){
-
-    if (this.selectedTime){
+  saveSchedule() {
+    if (this.selectedOption) {
       let templateMessage: MessageTemplate;
+  
       this._messageService.getTemplateById(this.action).subscribe((template: any) => {
         templateMessage = template;
-      
+  
         if (templateMessage) {
-          
-        this.sendButtonClicked(templateMessage, this.selectedTime);
-         
+          switch (this.selectedOption) {
+            case 'specific-time':
+              this.sendButtonClicked(templateMessage, this.selectedTime);
+              break;
+            case 'milestone':
+              this.saveMilestone(template);
+              break;
+            default:
+              console.log('Unsupported option');
+              break;
+          }
         }
       });
     }
-    
-;    
   }
+  
+  saveMilestone(template: MessageTemplate) {
+    const event:string = this.selectedMilestone.eventName!;
+    const milestoneTriggerRequest: MilestoneTriggers = {
+        message: {
+          templateType: TemplateMessageTypes.Text,
+          type: MessageTypes.TEXT,
+          name: template.name,
+          language: template.language
+        },
+        eventName: event,
+        usersSent:1
+    }
+    this._sBS.sink= this._milestoneTriggerService.addMilestoneTrigger(milestoneTriggerRequest).subscribe()
+  }
+  
 }
