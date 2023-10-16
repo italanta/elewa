@@ -19,7 +19,6 @@ import { StoriesStore } from '@app/state/convs-mgr/stories';
 })
 export class MilestoneReachedModalComponent implements OnInit, OnDestroy{
   @Output() milestoneSelected = new EventEmitter<{
-    milestoneType: string;
     selectedStory: Story;
     selectedMilestone: EventBlock;
   }>();
@@ -30,7 +29,6 @@ export class MilestoneReachedModalComponent implements OnInit, OnDestroy{
   _sBS: SubSink;
   action: string;
 
-  selectedMilestoneType: string; 
   selectedMilestone: EventBlock; 
 
   constructor(
@@ -57,12 +55,10 @@ export class MilestoneReachedModalComponent implements OnInit, OnDestroy{
   }
 
   onSaveClick() {
-    const milestoneType = this.selectedMilestoneType;
     const selectedStory = this.story;
     const selectedMilestone = this.selectedMilestone;
 
     this.milestoneSelected.emit({
-      milestoneType,
       selectedStory,
       selectedMilestone,
     });
