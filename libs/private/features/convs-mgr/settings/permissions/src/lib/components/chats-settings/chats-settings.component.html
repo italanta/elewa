@@ -24,7 +24,7 @@
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="chatsSettingsFormGroup" 
-              [formGroupNameGeneralValue]="'ChatsSetting'"
+              [formGroupNameGeneralValue]="'ChatsSettings'"
               [formGroupNameValue]="'CanViewChats'" 
               [formControlNameValue]="control"
               [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
@@ -39,7 +39,7 @@
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
               <app-switch-button  [generalSettingsFormGroup]="chatsSettingsFormGroup" 
-              [formGroupNameGeneralValue]="'ChatsSetting'"
+              [formGroupNameGeneralValue]="'ChatsSettings'"
               [formGroupNameValue]="'CanManageChats'" 
               [formControlNameValue]="control"
               [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
