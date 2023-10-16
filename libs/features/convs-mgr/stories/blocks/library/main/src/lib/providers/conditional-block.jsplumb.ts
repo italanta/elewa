@@ -23,7 +23,7 @@ export function _ConditionalBlockDecoratePlumb(block: ConditionalBlock, comp: Co
     cssClass:"block_endpoint",
 
     endpoint: 'Dot',
-    anchor: "Left",
+    anchor: [0, 0.1, 0, 1],
     maxConnections: -1
 
   });
