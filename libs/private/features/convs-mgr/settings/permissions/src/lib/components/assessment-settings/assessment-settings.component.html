@@ -26,7 +26,9 @@
               <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
               [formGroupNameGeneralValue]="'AssessmentsSettings'"
               [formGroupNameValue]="'CanViewAssessments'" 
-              [formControlNameValue]="control">
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
               </app-switch-button>
             </div>
           </div>
@@ -39,7 +41,9 @@
               <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
               [formGroupNameGeneralValue]="'AssessmentsSettings'"
               [formGroupNameValue]="'CanCreateAssessments'" 
-              [formControlNameValue]="control">
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
               </app-switch-button>
             </div>
           </div>
@@ -52,7 +56,9 @@
               <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
               [formGroupNameGeneralValue]="'AssessmentsSettings'"
               [formGroupNameValue]="'CanEditAssessments'" 
-              [formControlNameValue]="control">
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
               </app-switch-button>
             </div>
           </div>
@@ -65,7 +71,9 @@
               <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
               [formGroupNameGeneralValue]="'AssessmentsSettings'"
               [formGroupNameValue]="'CanDeleteAssessments'" 
-              [formControlNameValue]="control">
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
               </app-switch-button>
             </div>
           </div>

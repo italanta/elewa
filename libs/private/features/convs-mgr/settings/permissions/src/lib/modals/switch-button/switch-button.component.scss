@@ -99,3 +99,13 @@ input:checked + .slider + .off-text {
   opacity: 0;
   pointer-events: none; /* Disable pointer events to make it unclickable */
 }
+
+/* Add styles for the disabled state */
+.switch.disabled {
+  cursor: not-allowed;
+  opacity: 0.5; /* You can adjust the opacity to visually indicate it's disabled */
+}
+
+.switch.disabled input {
+  pointer-events: none;
+}

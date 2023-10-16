@@ -2,11 +2,11 @@
 <div *ngIf="generalSettingsFormGroup && formControlNameValue && formGroupNameValue" [formGroup]="generalSettingsFormGroup">
     <div [formGroupName]="formGroupNameGeneralValue">
         <div [formGroupName]="formGroupNameValue">
-            <label class="switch">
-                <input type="checkbox" [formControlName]="formControlNameValue" >
+            <label class="switch" [ngClass]="{ 'disabled': generalSettingsFormGroup.get(formGroupNameGeneralValue)?.get(formGroupNameValue)?.get(formControlNameValue)?.disabled }">
+                <input type="checkbox" [formControlName]="formControlNameValue" [attr.disabled]="generalSettingsFormGroup.get(formGroupNameGeneralValue)?.get(formGroupNameValue)?.get(formControlNameValue)?.disabled ? true : null">
                 <span class="slider round"></span>
                 <span class="off-text">OFF</span>
-              </label>
+            </label>
         </div>
     </div>
 </div>
