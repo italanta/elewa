@@ -30,8 +30,8 @@
       <h4 class="label">{{ 'LESSONS.CREATE-MODAL.FIELDS.MODULE' | transloco }}</h4>
 
       <mat-form-field appearance="fill">
-        <mat-select formControlName="parentModule">
-          <ng-container *ngFor="let module of (botModules$ | async)">
+        <mat-select formControlName="parentModule" [value]="selectedBotModule">
+          <ng-container *ngFor="let module of botModules">
             <mat-option [value]="module">{{ module.name }}</mat-option>
           </ng-container>
         </mat-select>

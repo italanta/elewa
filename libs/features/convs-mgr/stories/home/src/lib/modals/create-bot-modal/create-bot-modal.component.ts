@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -20,7 +20,7 @@ import { CREATE_EMPTY_BOT } from '../../providers/forms/bot-form.provider';
 export class CreateBotModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
-  @Output() nextStepEvent = new EventEmitter<void>();
+  @Output() nextStepEvent = new EventEmitter<Bot>();
 
   botForm: FormGroup;
   isCreateMode: boolean;
@@ -100,6 +100,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
       modules: this.botForm.value.modules,
       imageField: this.botForm.value.imageField ?? '',
       orgId: '',
+      type: 'Bot'
     };
 
     if (this.botImageFile) {
@@ -139,7 +140,10 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
         bot.orgId = org.id as string;
 
         if (this.isCreateMode) {
-          return this._botStateServ$.createBot(bot);
+          return this._botStateServ$.createBot(bot).pipe(
+            // pass to the next step in matStepper
+            tap((bot) => this.nextStepEvent.emit(bot)) 
+          );
         } else {
           return this._botStateServ$.updateBot(bot).pipe(
             tap(() => this._dialog.closeAll())
@@ -147,10 +151,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
         }
       })
     )
-    .subscribe(() => {
-        this.isSavingStory = false;
-        this.nextStepEvent.emit();
-      });
+    .subscribe(() => this.isSavingStory = false);
   }
 
   submitForm() {

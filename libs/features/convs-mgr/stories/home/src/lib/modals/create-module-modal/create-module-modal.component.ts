@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -21,7 +21,14 @@ import { CREATE_EMPTY_BOT_MODULE } from '../../providers/forms/bot-module-form.p
 export class CreateModuleModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
-  @Output() nextStepEvent = new EventEmitter<void>();
+  selectedBot: Bot;
+
+  @Input()
+  set botFromStepper(value: Bot) {
+    this.getBots(value); // this is called onInit with an undefined value so we don't add it to ngOnInit
+  }
+
+  @Output() nextStepEvent = new EventEmitter<BotModule>();
 
   moduleForm: FormGroup;
 
@@ -29,7 +36,7 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   isCreateMode: boolean;
   isSavingModule: boolean;
 
-  bots$: Observable<Bot[]>;
+  bots: Bot[];
 
   constructor(
     private _botModulesServ: BotModulesStateService,
@@ -48,8 +55,16 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
     if (!this.isCreateMode) {
       this.updateFormGroup();
     }
+  }
 
-    this.bots$ = this._botsServ$.getBots();
+  getBots(value?: Bot) {
+    this._sBs.sink = this._botsServ$.getBots().subscribe((bots) => {
+      this.bots = bots;
+
+      if (value) {
+        this.selectedBot = bots.find((bot) => bot.id === value.id) as Bot;
+      }
+    })
   }
 
   createFormGroup() {
@@ -72,7 +87,8 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
       name: this.moduleForm.value.moduleName,
       description: this.moduleForm.value.moduleDesc,
       stories: this.moduleForm.value.stories,
-      parentBot : this.moduleForm.value.parentBot.id
+      parentBot : this.moduleForm.value.parentBot.id,
+      type: 'BotModule'
     };
 
     if (this.isCreateMode) {
@@ -85,17 +101,21 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   /** Save the module and add the module's id to parent Bot's module list */
   saveModuleState(botModule: BotModule, parentBot: string) {
     this.isSavingModule = true;
+    let newModule:BotModule
+
     this._sBs.sink = this._botModulesServ.createBotModules(botModule)
       .pipe(
         take(1),
         switchMap((botMod) => {
+          newModule = botMod //newly created Module 
           return this.updateNewParent(botMod, parentBot)
+        }),
+        tap(() => {
+          this.isSavingModule = false
+          this.nextStepEvent.emit(newModule);
         })
       )
-      .subscribe(() => {
-        this.isSavingModule = false
-        this.nextStepEvent.emit();
-      });
+      .subscribe();
   }
 
   /** update botModule */

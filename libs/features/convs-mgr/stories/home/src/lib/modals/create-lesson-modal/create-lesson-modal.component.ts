@@ -1,11 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
@@ -18,13 +18,22 @@ import { NewStoryService } from '../../services/new-story.service';
   styleUrls: ['./create-lesson-modal.component.scss'],
 })
 export class CreateLessonModalComponent implements OnInit {
+  private _sBs = new SubSink();
+
+  selectedBotModule: BotModule;
+
+  @Input()
+  set botModFromStepper(value: BotModule) {
+    this.getBotModules(value) // this is called onInit with an undefined value so we don't add it to ngOnInit
+  }
+
   lessonForm: FormGroup;
   isCreateMode: boolean;
 
   story: Story;
   isSavingStory = false;
 
-  botModules$: Observable<BotModule[]>;
+  botModules: BotModule[];
 
   constructor(
     private _stateStoryServ$: NewStoryService,
@@ -43,12 +52,20 @@ export class CreateLessonModalComponent implements OnInit {
     if (!this.isCreateMode) {
       this.updateFormGroup();
     }
-
-    this.botModules$ = this._botModulesServ$.getBotModules();
   }
 
   createFormGroup() {
     this.lessonForm = CREATE_EMPTY_STORY(this._formBuilder);
+  }
+
+  getBotModules(value?: BotModule) {
+    this._sBs.sink = this._botModulesServ$.getBotModules().subscribe((botMods) => {
+      this.botModules = botMods;
+
+      if (value) {
+        this.selectedBotModule = botMods.find((botMod) => botMod.id === value.id) as BotModule;
+      }
+    })
   }
 
   updateFormGroup() {
