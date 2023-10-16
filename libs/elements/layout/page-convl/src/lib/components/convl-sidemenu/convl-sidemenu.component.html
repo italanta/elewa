@@ -52,17 +52,39 @@
               </a>
             </li>
 
-            <!-- Chats sections -->
-            <li *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
+            <!-- Messaging sections -->
+            <ul class="menu-item"  >
               <a>
                 <span class="menu-icon"matTooltip="Chats">
                   <img src="assets/icons/chats-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
-                  {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
+                  {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>
-            </li>
+              <ul class="sub-side-menu">
+                <li>
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
+                    <span class="menu-icon">
+                      <img src="assets/icons/message-chat.svg" alt="">
+                    </span>
+                    <span *ngIf="isExpanded" class="menu-title">
+                      {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active">
+                    <span class="menu-icon">
+                      <img src="assets/icons/message-template.svg" alt="">
+                    </span>
+                    <span *ngIf="isExpanded" class="menu-title">
+                      {{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </ul>
 
             <!-- Asssessments sections -->
             <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments"
