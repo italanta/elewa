@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -10,7 +10,7 @@ import { FileStorageService } from '@app/state/file';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
-import { CREATE_EMPTY_BOT } from '../../providers/forms/bot-form.provider';
+import { BOT_FORM } from '../../providers/forms/bot-form.provider';
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -48,7 +48,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.botForm = CREATE_EMPTY_BOT(this._formBuilder);
+    this.botForm = BOT_FORM(this._formBuilder, this.bot);
 
     if (!this.isCreateMode) {
       this.updateFormGroup();
@@ -56,14 +56,6 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
   }
 
   updateFormGroup() {
-    this.botForm.patchValue({
-      id: this.bot.id,
-      botName: this.bot.name,
-      botDesc: this.bot.description,
-      botImage: this.bot.imageField,
-      modules: this.bot.modules,
-    });
-
     if (this.bot.imageField && this.bot.imageField != '') {
       this.storyHasImage = true;
       this.fileName = this.getFileNameFromFbUrl(this.bot.imageField);
@@ -99,8 +91,8 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
       description: this.botForm.value.botDesc,
       modules: this.botForm.value.modules,
       imageField: this.botForm.value.imageField ?? '',
-      orgId: '',
-      type: 'Bot'
+      type: this.botForm.value.type,
+      orgId: ''
     };
 
     if (this.botImageFile) {
@@ -140,18 +132,25 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
         bot.orgId = org.id as string;
 
         if (this.isCreateMode) {
-          return this._botStateServ$.createBot(bot).pipe(
-            // pass to the next step in matStepper
-            tap((bot) => this.nextStepEvent.emit(bot)) 
-          );
+          return this.createBot(bot);
         } else {
-          return this._botStateServ$.updateBot(bot).pipe(
-            tap(() => this._dialog.closeAll())
-          );
+          return this.updateBot(bot);
         }
       })
     )
     .subscribe(() => this.isSavingStory = false);
+  }
+
+  private createBot(bot:Bot) {
+    return this._botStateServ$.createBot(bot).pipe(
+      tap((bot) => this.nextStepEvent.emit(bot)) 
+    );
+  }
+
+  private updateBot(bot:Bot) {
+    return this._botStateServ$.updateBot(bot).pipe(
+      tap(() => this._dialog.closeAll())
+    );
   }
 
   submitForm() {
