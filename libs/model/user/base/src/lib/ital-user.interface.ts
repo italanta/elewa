@@ -2,6 +2,7 @@ import { User } from '@iote/bricks';
 
 import { iTalUserProfile } from './ital-user-profile.interface';
 import { iTalUserRoles } from './ital-user-roles.interface';
+import { Mandate } from '@app/private/functions/payments/core';
 
 export interface iTalUser extends User
 {
@@ -26,5 +27,5 @@ export interface iTalUser extends User
 
   mollieCustomerId?: string;
 
-//  mandates?: Mandate[];
+ mandates?: Mandate[];
 }

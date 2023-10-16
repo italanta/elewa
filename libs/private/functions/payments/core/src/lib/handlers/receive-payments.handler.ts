@@ -1,16 +1,14 @@
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { HandlerTools } from "@iote/cqrs";
-
-import createMollieClient from '@mollie/api-client';
+import { Query } from "@ngfi/firestore-qbuilder";
 
 import { iTalUser } from "@app/model/user";
-import { Payment } from "../models/payment";
-import { Subscription } from "../models/subscription";
 
 import { MollieCustomerService } from "../services/customer-core-service";
 import { PaymentCoreService } from "../services/payment-core.service";
 import { SubscriptionService } from "../services/subscription-core.service";
-import { environment } from "../../environments/environment";
+import { TransactionsService } from "../services/transaction.service";
+import { Transaction, TransactionStatus } from "../models/transaction";
 
 
 export class ReceivePaymentHandler extends FunctionHandler<any, any>
@@ -18,60 +16,72 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
   private tools: HandlerTools;
   private _paymentService: PaymentCoreService;
   private _subscriptionService: SubscriptionService;
-  private mollieCustomerService: MollieCustomerService
-  private iTalUser: iTalUser
+  private mollieCustomerService: MollieCustomerService;
+  private _trnService: TransactionsService;
+  private iTalUser: iTalUser;
 
 
-  mollieClient = createMollieClient({ apiKey: environment.mollieApiKey }); 
-  public async execute(data: {orgId: string, subscription: Subscription}, context: FunctionContext, tools: HandlerTools): Promise<any> {
+  public async execute(data: {id: string}, context: FunctionContext, tools: HandlerTools): Promise<any> {
+
+    this._paymentService =  new PaymentCoreService(process.env.MOLLIE_API_KEY, tools);
+    this._subscriptionService = new SubscriptionService(tools);
+    this._trnService  = new TransactionsService(tools);
+
     /**
      * The webhook that is sent to mollie so as to update on payment status.
      */
     try {
-      const webhookData = await this.getPaymentStatus(data.orgId)
-    //mapping only the data that we need     
-      const updatedWebhookData = {
-        transactionStatus: webhookData.status,
-        paidOn: webhookData.paidAt,
-        sequenceType: webhookData.sequenceType,
-        mandateId: webhookData.mandateId,
-        description: webhookData.description,
-        transactionId: webhookData.transactionId
-      }
-      // Write the updated webhook data to Firebase
-    const subscriptionRepo = tools.getRepository<Subscription>(`orgs/${data.orgId}/transactions`);
-    await subscriptionRepo.write(updatedWebhookData as unknown as Subscription, updatedWebhookData.transactionId);
+      const paymentDetails = await this._paymentService.getPaymentDetails(data.id);
 
-      return { updatedWebhookData };
+      tools.Logger.log(()=> `[ReceivePaymentHandler].execute - Payment status :: ${paymentDetails}`);
+
+      const mollieCustomerId = paymentDetails.customerId;
+
+      const user = await this.getUserByMollieId(mollieCustomerId, tools);
+
+      // Get transaction details:
+      const trnDetails  = await this._trnService.getTransaction(data.id, user.id);
+
+      return this.handlePaymentStatus(paymentDetails, user, trnDetails);
     } catch (e) {
       tools.Logger.log(() => `${e.message}`);
     }
     
     tools.Logger.log(() => `Payment Object ${JSON.stringify(data)}`);
   }
-  async getPaymentStatus(paymentId: string){
-    const molliePaymentStatus = await this.mollieClient.payments.get(paymentId)
-    return {
-      status: molliePaymentStatus.status,
-      sequenceType: molliePaymentStatus.sequenceType,
-      mandateId: molliePaymentStatus.mandateId,
-      paidAt: molliePaymentStatus.paidAt,
-      description: molliePaymentStatus.description,
-      transactionId: molliePaymentStatus.id
+
+  
+  async handlePaymentStatus(payment: any, user: iTalUser, trn: Transaction){
+    switch (payment.status) {
+      case 'paid':
+        trn.status = TransactionStatus.success;
+
+        if(payment.sequenceType == 'first') {
+          await this._trnService.updateTransaction(trn, user.id);
+          return this._paymentService.onFirstPayment(payment, user);
+        } else if (payment.sequenceType == 'recurring') {
+          const subTrn = await this._trnService.getTransaction(payment.subscriptionId, user.id);
+          subTrn.status = TransactionStatus.success;
+
+          await this._trnService.updateTransaction(subTrn, user.id);
+          return this._subscriptionService.renewSubscription(trn, payment);
+        }
+        break;
+      case 'failed':
+        trn.status = TransactionStatus.fail;
+        return this._trnService.updateTransaction(trn, user.id);
+      default:
+        return;
     }
   }
-  
-  async handlePaymentStatusChange(payment: Payment, mollieCustomerId: string){
-    const molliePaymentStatus = await this.getPaymentStatus(payment.id);
-    if (payment.sequenceType === 'firstPayment') {
-      const mandate = await this.mollieCustomerService.getMandates(mollieCustomerId);
-      // Update iTalUser with new mandate 
-      return mandate
-    }   
-    // Update payment with status from webhook
-    payment.status = molliePaymentStatus.status;
-    payment.sequenceType = molliePaymentStatus.sequenceType;
-    payment.description = molliePaymentStatus.description
+
+  async getUserByMollieId(mollieId: string, tools: HandlerTools) {
+    const userRepo$ = tools.getRepository<iTalUser>('users');
+
+    const user = (await userRepo$.getDocuments(new Query().where('mollieCustomerId', '==', mollieId)))[0]
+
+    // TODO: Handle null user or multiple users
+    return user;
   }
   
  }

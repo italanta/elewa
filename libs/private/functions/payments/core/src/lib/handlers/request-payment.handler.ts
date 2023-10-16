@@ -5,7 +5,7 @@ import { iTalUser } from "@app/model/user";
 import { Payment } from "../models/payment";
 
 import { PaymentCoreService } from "../services/payment-core.service";
-import { environment } from "../../environments/environment";
+
 
 export class CreatePaymentHandler extends FunctionHandler<any, any>
 {
@@ -16,10 +16,6 @@ export class CreatePaymentHandler extends FunctionHandler<any, any>
   private apikey: string ;
   private user: iTalUser
 
-  constructor() {
-    super();
-    this.apikey = environment.mollieApiKey;
-  }
   public async execute(data: {orgId: string, payment: Payment}, context: FunctionContext, tools: HandlerTools): Promise<any> {
     try {
       const payment: Payment = {
@@ -39,9 +35,9 @@ export class CreatePaymentHandler extends FunctionHandler<any, any>
 
       tools.Logger.log(() => `execute: Payment Obj => ${JSON.stringify(payment)}`)
 
-      this._paymentService = new PaymentCoreService( this.apikey)
+      this._paymentService = new PaymentCoreService( process.env.MOLLIE_API_KEY, tools)
 
-      const paymentResponse = await this._paymentService.createPayment(payment, this.user.id );
+      const paymentResponse = await this._paymentService.createPayment(payment, this.user );
 
       const responseBody = JSON.parse(JSON.stringify(paymentResponse));
 

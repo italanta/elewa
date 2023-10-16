@@ -2,12 +2,15 @@ import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { HandlerTools } from "@iote/cqrs";
 
 import { iTalUser } from "@app/model/user";
-import { Status, Subscription } from "../models/subscription";
+import { Customer } from "../models/customer";
+import { SubscriptionReq } from "../models/subscription-request.model";
 
 import { MollieCustomerService } from "../services/customer-core-service";
 import { SubscriptionService } from "../services/subscription-core.service";
-import { environment } from "../../environments/environment";
-import { Customer } from "../models/customer";
+import { SubscriptionType } from "../models/iTal-subscription.model";
+import { TransactionsService } from "../services/transaction.service";
+import { Transaction, TransactionStatus } from "../models/transaction";
+
 
 
     //webhook works for subscriptions
@@ -26,68 +29,80 @@ import { Customer } from "../models/customer";
      * provide webhook url on first payment request, help in getting a confirmation for a successful payment 
      * if you get mollie payment object... Yaay
      */
-export class CreateSubscriptionsHandler extends FunctionHandler<Subscription, any> {
-  private mollieClientService: MollieCustomerService;
+export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq, any> {
+  private mollieCustomerService: MollieCustomerService;
   private subscriptionService: SubscriptionService;
   private iTalUser: iTalUser;
-  private customer: Customer
-
-  constructor() {
-    super();
-    this.mollieClientService = new MollieCustomerService(this.customer, environment.mollieApiKey);
-    this.subscriptionService = new SubscriptionService();
-  }
+  private customer: Customer;
+  private _trnService: TransactionsService;
+  private mollieCustomerId: string;
   
-  public async execute(data: Subscription, context: FunctionContext, tools: HandlerTools): Promise<any> {
+  async execute(data: SubscriptionReq, context: FunctionContext, tools: HandlerTools): Promise<any> {
+
+    tools.Logger.log(()=> `[CreateSubscriptionsHandler].execute - Payload :: ${JSON.stringify(data)}`);
+
+    this.mollieCustomerService = new MollieCustomerService(this.customer, process.env.MOLLIE_API_KEY, tools);
+    this.subscriptionService = new SubscriptionService(tools);
+    this._trnService  = new TransactionsService(tools);
+
+    // Get user details
+    this.iTalUser = await this.mollieCustomerService.getUser(data.userId)
+
+    this.mollieCustomerId = this.iTalUser.mollieCustomerId;
     
     try {
-        const subscription: Subscription = {
-        ...data,
-        interval: '12 months',
-        status: Status.Pending,
-        orgId: "",
-        method: 'creditcard',
-        webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
-        sequenceType: 'first',
-        customerId: this.iTalUser.id
-      };
-        const customerExistsOnMollie = await this.mollieClientService.checkIfMollieCustomer(subscription.customerId);
+    //     const subscription: SubscriptionReq = {
+    //     ...data,
+    //     interval: '12 months',
+    //    // status: Status.Pending,
+    //  //   webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
+    //     sequenceType: 'first',
+    //   //  customerId: this.iTalUser.id
+    //   };
+
+        // If the customer is not on mollie, we create them and update the user object with the 
+        //  mollie customer id
+        if(!this.mollieCustomerId) {
+          const mollieCustomerId = await this.mollieCustomerService.createMollieCustomer(this.iTalUser);
+
+          this.mollieCustomerId = mollieCustomerId;
+          this.iTalUser.mollieCustomerId = mollieCustomerId;
+
+          await this.mollieCustomerService.updateUser(this.iTalUser);
+        } 
     
-        if (customerExistsOnMollie) {
-          const hasMandate = await this.mollieClientService._getValidMandate(customerExistsOnMollie);
-          const subDeets =  {amount: parseInt(subscription.amount.value), interval: subscription.interval}
+          const hasMandate = await this.mollieCustomerService._getValidMandate(this.iTalUser);
+          const subDetails =  {amount: parseInt(data.amount.value), interval: data.interval}
           if (hasMandate) {
-            const subscriptionResponse = await this.subscriptionService.createRecurringPayment(customerExistsOnMollie, hasMandate, subDeets);
+            const subscriptionResponse = await this.subscriptionService.createRecurringPayment(this.mollieCustomerId, hasMandate, subDetails);
     
             // Log the subscription response
             tools.Logger.log(() => `Subscription Created: ${JSON.stringify(subscriptionResponse)}`);
-            await this.writeToFirebase(data.orgId, subscriptionResponse, tools);
+
+            const trn: Transaction = {
+              id: subscriptionResponse.id,
+              amount: data.amount.value,
+              orgId: this.iTalUser.activeOrg,
+              date: new Date(),
+              status: TransactionStatus.pending
+            }
+            await this._trnService.writeTransaction(trn, this.iTalUser.id)
+
+            return this.subscriptionService.initSubscription(subscriptionResponse, data.subscriptionType, this.iTalUser.activeOrg);
     
-            return subscriptionResponse;
           } else {
             // If the customer does not have a mandate, create the first payment and return a URL to complete it
-            const firstPaymentUrl = await this.subscriptionService.createFirstPayment(subscription.customerId);
+            const firstPaymentUrl = await this.subscriptionService.createFirstPayment(data.userId);
     
             tools.Logger.log(() => `First Payment URL: ${firstPaymentUrl}`);
     
             return firstPaymentUrl;
           }
-        } else {
-          const newCustomer = await this.mollieClientService.createMollieCustomer(this.iTalUser.id)
-          return newCustomer
-        }
       } catch (error) {
         // Handle any errors that occur during the process
         tools.Logger.log(() => `Subscription Creation Error: ${error}`);
         throw error;
       }
     }
-    /** helper that writes the subscription data to Firebase*/
-    private async writeToFirebase(orgId: string, subscriptionData: any, tools: HandlerTools): Promise<void> {
-      const subscriptionRepo = tools.getRepository<Subscription>(`orgs/${orgId}/transactions`);
-      await subscriptionRepo.write(subscriptionData as unknown as Subscription, subscriptionData.id);
-      tools.Logger.log(() => `execute: Subscription Data Written to Firebase`);
-    }
-    
    }
 

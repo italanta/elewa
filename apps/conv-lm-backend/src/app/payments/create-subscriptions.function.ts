@@ -1,14 +1,13 @@
-import { RestRegistrar } from '@ngfi/functions';
+import { RestRegistrar } from "@ngfi/functions";
+
+import { CreateSubscriptionsHandler } from "@app/private/functions/payments/core";
 
 import { ConvLearnFunction } from "../../conv-learn-func.class";
-import { CreateSubscriptionsHandler } from '@app/private/functions/payments/core';
 
-const createCustomerSubscription = new CreateSubscriptionsHandler();
+const handler = new CreateSubscriptionsHandler();
 
-export const createSubscription = new ConvLearnFunction('createSubscription',
-//change this to restregistrar when testing on postman
-                                                new RestRegistrar(),
-                                                  [],
-                                                  createCustomerSubscription)
-                                                  .build();
-                                                  
+export const createSubscription = new ConvLearnFunction('createSubscription', 
+                                                  new RestRegistrar(), 
+                                                  [], 
+                                                  handler)
+                               .build();

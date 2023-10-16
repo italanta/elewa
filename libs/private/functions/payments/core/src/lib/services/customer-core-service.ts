@@ -12,27 +12,18 @@ import { environment } from '../../environments/environment';
 
 export class MollieCustomerService {
   private mollieClient;
-  private tools: HandlerTools
   
-  public updateUser(user: iTalUser) {
-    return this._updateUser(user);
-  }
-  public getUser(user: iTalUser) {
-    return this._getUser(user.id)
-  }
-
   constructor(
     public customer: Customer,
     private _apiKey: string,
+    private tools: HandlerTools
   ) {
     this._apiKey = environment.mollieApiKey;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
   }
 
-  async createMollieCustomer(userId: string) {
+  async createMollieCustomer(user: iTalUser) {
     this.tools.Logger.log(() => `CustomerService: createMollieCustomer`);
-
-    const user = await this._getUser(userId);
 
     const mollieCustomer: Customer = {
       name: user.displayName || user.id,
@@ -54,13 +45,12 @@ export class MollieCustomerService {
 
     user.mollieCustomerId = customerObject.id;
 
-    await this._updateUser(user);
+    await this.updateUser(user);
 
     return user.mollieCustomerId;
   }
 
-  async getMandates(userId: string) {
-    const user = await this._getUser(userId);
+  async getMandates(user: iTalUser) {
     const URL = `https://api.mollie.com/v2/customers/${user.mollieCustomerId}/mandates`;
     const resp = await axios.get(URL, {
       headers: {
@@ -71,19 +61,10 @@ export class MollieCustomerService {
     return resp.data._embedded.mandates;
   }
 
-  async checkIfMollieCustomer(userId: string) {
-    const user = await this._getUser(userId);
-    if (user.mollieCustomerId) {
-      return user.mollieCustomerId;
-    } else {
-      return false;
-    }
-  }
-
-  async _getValidMandate(userId: string) {
-    const mandatesData = await this.getMandates(userId)
+  async _getValidMandate(user: iTalUser) {
+    const mandatesData = await this.getMandates(user)
     for (const mandate of mandatesData) {
-      if (mandate.status === 'valid') {
+      if (mandate.status === 'valid' || mandate.status === 'pending') {
         return mandate.id;
       }
     }
@@ -91,13 +72,13 @@ export class MollieCustomerService {
     return null;
   }
 
-  private _getUser(userId: string) {
+  getUser(userId: string) {
     const userRepo = this.tools.getRepository<iTalUser>('users');
 
     return userRepo.getDocumentById(userId);
   }
 
-  private _updateUser(user: iTalUser) {
+  updateUser(user: iTalUser) {
     const userRepo = this.tools.getRepository<iTalUser>('users');
 
     return userRepo.update(user);

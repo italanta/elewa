@@ -1,11 +1,7 @@
-import { IObject } from "@iote/bricks";
-
-export interface Mandate extends IObject {
+export interface Mandate {
+  id: string;
   method: string;
-  consumerName: string;  
   status: MandateStatusTypes;
-  mandatesId: string;
-
 }
 /**
  * The status that is returned by calling the mollie mandates api
