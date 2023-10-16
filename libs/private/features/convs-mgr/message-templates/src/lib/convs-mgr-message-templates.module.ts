@@ -11,6 +11,8 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import {
   MessageTemplateStore,
   MessageTemplatesService,
+  MilestoneTriggersService,
+  MilestoneTriggersStore,
   ScheduleMessageService,
   ScheduledMessageStore,
 } from '@app/private/state/message-templates';
@@ -60,7 +62,9 @@ import { MessageTemplateRouterModule } from './message-template.router';
     ScheduleMessageService,
     ScheduledMessageStore,
     ChannelService,
-    ChannelsStore
+    ChannelsStore,
+    MilestoneTriggersService,
+    MilestoneTriggersStore
   ],
 
 })
