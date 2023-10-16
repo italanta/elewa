@@ -52,8 +52,4 @@ export class BotPageComponent implements OnInit {
       })
     );
   }
-
-  openModule() {
-    this._router$$.navigate([''])
-  }
 }

@@ -1,13 +1,31 @@
 <convl-page title="Modules" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
-  <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+  <div *ngIf="!showAllCourses else allCourses" class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
     <span class="bots">{{ (parentModule$ | async)?.name }} {{ "LESSONS.LESSONS-PAGE.LESSONS" | transloco }} </span>
 
     <div class="bots-header" fxFlex>
       <app-stories-list-header></app-stories-list-header>
     </div>
 
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="sub-title"> {{ "LESSONS.LESSONS-PAGE.ALL-LESSONS" | transloco }} </span>
+      <span></span>
+      <button mat-flat-button (click)="showAllCourses = !showAllCourses">
+        {{ "BOTS.BOTS-PAGE.VIEW-ALL" | transloco }}
+      </button>
+    </div>
+
     <div class="latest-courses" fxFlex>
       <app-stories-list-all-courses [stories$]="stories$"></app-stories-list-all-courses>
     </div>
   </div>
+
+  <ng-template #allCourses>
+    <div class="bots-page">
+      <app-stories-list-all-courses 
+        [showAllCourses]="showAllCourses" 
+        [stories$]="stories$"
+        (collapseAllCourses)="showAllCourses = !showAllCourses">
+      </app-stories-list-all-courses>
+    </div>
+  </ng-template>
 </convl-page>
