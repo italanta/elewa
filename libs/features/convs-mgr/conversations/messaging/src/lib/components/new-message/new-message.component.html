@@ -1,8 +1,8 @@
 <div class="input-row" fxFlex>
   <input class="text-area" type="text" placeholder="Type a message (Enter is send)" [(ngModel)]="message"
-    (keyup)="onInputKeyup($event)">
+    (keyup)="onInputKeyup($event)" [disabled]="disabled">
 
-  <button mat-mini-fab (click)="emitMessage()" color="accent">
+  <button mat-mini-fab (click)="emitMessage()" [disabled]="disabled" color="accent">
     <i class="fas fa-paper-plane"></i>
   </button>
 </div>

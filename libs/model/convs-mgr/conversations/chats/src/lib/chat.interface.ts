@@ -21,7 +21,7 @@ export interface Chat extends IObject
   name: string;
 
   labels: string[];
-  
+
   info?: ChatUserInfo;
 
   // channel: CommunicationChannel;
@@ -69,4 +69,3 @@ export interface Connection extends IObject {
   sourceId: string;
   targetId: string;
 }
-
