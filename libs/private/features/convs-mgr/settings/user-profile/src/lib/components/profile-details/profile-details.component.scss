@@ -14,7 +14,7 @@
   padding: 10px 0;
   border: 1px #707070 solid;
   overflow: hidden; /* Clip the image to the circular border */
-  margin: 63px 212px 0 53px;
+  margin: 3vh 25vh 0 10vh;
 }
 
 .text-button {
@@ -22,6 +22,9 @@
   font-size: 1rem;
   font-weight: bolder;
 }
+// .edit-btn{
+
+// }
 
 .btn {
   background-color: var(--convs-mgr-button-color)!important;
@@ -32,7 +35,7 @@
 
 .password-button{
   margin-right: 5vh;
-  margin-top: 47.25px;
+  margin-top: 2vh;
   width: 212px;
   height: 45px;
   border-radius: 25px;
@@ -68,7 +71,7 @@
 
 .profile-details {
   padding: 3vh 3vh;
-  height: 100vh;
+  height: 100%;
   max-width: 100%;
 }
 
@@ -82,7 +85,7 @@ div{
     width: 100%;
     height: fit-content;
     padding-bottom: 110px;
-    margin-bottom: 20px;
+    margin-bottom: 1vh;
     border-bottom: solid #C7CDD7 1px;
     .user-data{
       .user-profile-picture{
@@ -96,6 +99,8 @@ div{
           border-radius: 25px;
           height: 45px;
           width: 142px;
+          // position: fixed;
+          top: -10vh;
          }
       }
       
@@ -108,17 +113,17 @@ div{
              font-family: Roboto; 
              font-weight: 300; 
              word-wrap: break-word;
-             margin-top: 63px;
+             margin-top: 3vh;
           }
           .names{
             
             input{
               width: 100%; 
-              height: 51px; 
+              height: 41px; 
               border-radius: 8px; 
               border: 1px #707070 solid;
               color: #101010;
-              font-size: 18px;
+              font-size: 16px;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
@@ -135,7 +140,7 @@ div{
     }
   }
   .section-two{
-    padding-top: 20px;
+    padding-top: 5px;
     border-bottom: solid #C7CDD7 1px;
     .label{
       color: #101010;
@@ -155,7 +160,7 @@ div{
       }
     }
     div{
-      margin-bottom: 20px;
+      margin-bottom: 1vh;
     }
     .delete-profile{
       .underline{
