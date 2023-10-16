@@ -97,7 +97,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     dialogRef.componentInstance?.timeInHoursSelected.subscribe((selectedTime: number) => {
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
       if (specificTimeOption) {
-        specificTimeOption.viewValue = `Send message after ${selectedTime} of inactivity.`;
+        specificTimeOption.viewValue = `Send message after ${selectedTime} hours of inactivity.`;
       }
     });
   }
