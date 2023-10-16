@@ -38,6 +38,7 @@ export class MessengerActiveChannel implements ActiveChannel
 {
   channel: MessengerCommunicationChannel;
   endUserService: EndUserDataService;
+  API_VERSION: string = process.env.MESSENGER_VERSION || 'v18.0';
 
   constructor(private _tools: HandlerTools, channel: MessengerCommunicationChannel)
   {
@@ -143,7 +144,7 @@ export class MessengerActiveChannel implements ActiveChannel
   
       // STEP 3: Send the message
       // Generate the Facebook URL through which we send the message
-      const URL = `https://graph.facebook.com/v14.0/${PAGE_ID}/messages`;
+      const URL = `https://graph.facebook.com/${this.API_VERSION}/${PAGE_ID}/messages`;
   
       /**
        * Execute the post request using axios and pass in the URL, ACCESS_TOKEN, and the outgoingMessage
@@ -219,7 +220,7 @@ export class MessengerActiveChannel implements ActiveChannel
   private async _getMediaUrl(mediaId: string)
   {
     if (mediaId) {
-      const URL = `https://graph.facebook.com/v15.0/${mediaId}`;
+      const URL = `https://graph.facebook.com/v18.0/${mediaId}`;
       try {
         const mediaInformation = await axios.get(URL,
           {
