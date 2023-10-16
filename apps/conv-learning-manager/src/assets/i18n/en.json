@@ -262,6 +262,8 @@
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
       "CHATS": "Chats",
+      "MESSAGING": "Messaging",  
+      "MESSAGE-TEMPLATES": "Message Templates",    
       "ASSESSMENTS": "Assessments",
       "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",
@@ -740,6 +742,7 @@
       },
       "SELECT-BOT": "Select Bot",
       "SELECT-MILESTONE-INDEX": "Select milestone",
+      "SELECT-HINT": "Please select a bot to continue.",
       "MILESTONE-NUMBER": "Milestone"
     },
     "SAVE-BUTTON": {
