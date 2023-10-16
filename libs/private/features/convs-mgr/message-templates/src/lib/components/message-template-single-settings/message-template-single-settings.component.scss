@@ -115,7 +115,6 @@
     font-style: normal;
     font-weight: 300;
     line-height: normal;
-    border-bottom: none;
  }
  mat-cell{
     color: #000;
@@ -129,3 +128,7 @@
  mat-icon{
   color: #1F7A8C;
  }
+ .gray-out {
+  cursor: not-allowed!important;
+  opacity: .5;
+}
