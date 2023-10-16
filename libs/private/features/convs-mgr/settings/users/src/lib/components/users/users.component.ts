@@ -44,8 +44,9 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
 
   org: Organisation;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
   displayedColumns: string[] = ['select', 'name', 'email', 'activity', 'roles', 'actions'];
 
@@ -71,22 +72,24 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.buildSearchFormGroup();
     this.getOrg();
+
+    
   }
 
+ 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
 
-    const sortState: Sort = { active: 'fullName', direction: 'asc' };
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    
+    // const sortState : Sort = {active:'name', direction:'asc'};
+    // this.sort.active = sortState.active;
+    // this.sort.direction = sortState.direction;
+    // this.sort.sortChange.emit(sortState);
 
-    if (this.sort) {
-      this.sort.active = sortState.active;
-      this.sort.direction = sortState.direction;
-      this.sort.sortChange.emit(sortState);
-    }
-
-    this.cdref.detectChanges();
+   
   }
+  
 
   buildSearchFormGroup() {
     this.searchFormGroup = this._fb.group({
