@@ -34,21 +34,22 @@
 
   <div class="user-table">
     <div class="table-container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="20px">
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort  class="mat-elevation-z8">
 
 
           <!-- Checkbox Column Header -->
       <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
           <mat-checkbox (change)="toggleAll($event)" [checked]="isAllSelected()"></mat-checkbox>
         </th>
-        <td mat-cell *matCellDef="let user">
+        <td mat-cell *matCellDef="let user" >
           <mat-checkbox (change)="toggleSelection($event, user)" [checked]="isSelected(user)"></mat-checkbox>
         </td>
       </ng-container>
+
         <!-- Full Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.NAME' | transloco }} </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> {{ 'MEMBERS.TABLE.NAME' | transloco }} </th>
           <td mat-cell *matCellDef="let user" class="names">
             <div *ngIf="user.roles; else dash">{{user.displayName}} </div>
             <ng-template #dash> - </ng-template>
@@ -57,7 +58,7 @@
 
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.EMAIL' | transloco }} </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="email"> {{ 'MEMBERS.TABLE.EMAIL' | transloco }} </th>
           <td mat-cell *matCellDef="let user" >
             <div *ngIf="user.email; else dash">{{(user.email)}}</div>
             <ng-template #dash> - </ng-template>
@@ -66,7 +67,7 @@
 
         <!-- activity Column -->
         <ng-container matColumnDef="activity">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.LAST-UPDATED' | transloco }} </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="activity"> {{ 'MEMBERS.TABLE.LAST-UPDATED' | transloco }} </th>
           <td mat-cell *matCellDef="let user">
             <div *ngIf="user.updatedOn; else dash">{{(getDate(user.updatedOn))}}</div>
             <ng-template #dash> - </ng-template>
@@ -75,7 +76,7 @@
 
         <!-- Roles column -->
         <ng-container matColumnDef="roles" class="roles-section">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MEMBERS.TABLE.ROLE' | transloco }} </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="roles"> {{ 'MEMBERS.TABLE.ROLE' | transloco }} </th>
           <td mat-cell *matCellDef="let user" class="user-td">
             <div class="select">
               <select style="border: none; background-color: #F6F6F6;">
@@ -89,7 +90,7 @@
 
         <!-- ACTIONS Column -->
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header="action"> </th>
           <td mat-cell *matCellDef="let user">
           
               <span><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></span>
