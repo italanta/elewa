@@ -853,7 +853,6 @@
       "projectType": "library",
       "root": "libs/model/convs-mgr/bot-modules",
       "sourceRoot": "libs/model/convs-mgr/bot-modules/src",
-      "projectType": "library",
       "targets": {
         "lint": {
           "executor": "@nrwl/linter:eslint",
@@ -922,8 +921,6 @@
             "lintFilePatterns": [
               "libs/model/convs-mgr/bots/**/*.ts",
               "libs/model/convs-mgr/bots/**/*.html"
-              "libs/model/convs-mgr/classroom/**/*.ts",
-              "libs/model/convs-mgr/classroom/**/*.html"
             ]
           }
         }
@@ -1715,10 +1712,11 @@
       "targets": {
         "test": {
           "executor": "@nrwl/jest:jest",
-
           "outputs": ["coverage/libs/state/convs-mgr/bots"],
           "options": {
             "jestConfig": "libs/state/convs-mgr/bots/jest.config.ts",
+            "passWithNoTests": true
+          }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
