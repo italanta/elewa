@@ -15,12 +15,11 @@
           fxLayoutALign="start center end"
           fxFlex="100"
         >
-          <div class="listbtn">
+          <div class="listbtn" id="listbtnnnn">
             <button class="listgone">
               <img src="assets/icons/Vector.svg" />
             </button>
             <label class="option">Option {{ i + 1 }}</label>
-
             <button (click)="deleteInput(i)" class="listgon">
               <img src="/assets/icons/Cancel.svg" />
             </button>
@@ -32,6 +31,6 @@
   <div class="line"></div>
   <div fxLayout="row" (click)="addNewOption()" class="add-button">
     <img src="/assets/icons/Add icon.svg" />
-    <label> {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</label>
+    <label class="addlabel"> {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</label>
   </div>
 </div>
