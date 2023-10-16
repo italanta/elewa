@@ -26,14 +26,16 @@
           <p class="title" fxFlex="20%">{{ 'PERMISSIONS.GENERAL-SETTINGS.ADD' | transloco }}  </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
+              
               <!-- <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle> -->
               <app-switch-button  [generalSettingsFormGroup]="generalSettingsFormGroup" 
-                                  [formGroupNameGeneralValue]="'GeneralSettings'"
-                                  [formGroupNameValue]="'CanAddNewMember'" 
-                                  [formControlNameValue]="control"
-                                  [attr.disabled]="true"  
-                                  style="cursor: not-allowed;">
-              </app-switch-button>
+                  [formGroupNameGeneralValue]="'GeneralSettings'"
+                  [formGroupNameValue]="'CanAddNewMember'" 
+                  [formControlNameValue]="control"
+                  [attr.disabled]="true"  
+                  [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+                  [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+            </app-switch-button>
             </div>
           </div>
         </div>
@@ -49,7 +51,8 @@
                                 [formControlNameValue]="control"
                                 [attr.disabled]="true"  
                                 [ngClass]="{ 'disabled':true }"
-                                 style="cursor: not-allowed;">
+                                [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+                                [style.opacity]="control === 'Admin' ? '0.5' : '1'">
             </app-switch-button>
 
             </div>
