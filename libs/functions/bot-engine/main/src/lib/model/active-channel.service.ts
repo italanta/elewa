@@ -27,7 +27,7 @@ export interface ActiveChannel
    */
   parseOutMessage(storyBlock: StoryBlock, endUser: EndUser): OutgoingMessagePayload;
 
-  parseOutStandardMessage(message: Message, phone: string): OutgoingMessagePayload;
+  parseOutStandardMessage(message: Message, phone: string): any;
 
   /** 
    *  After the bot engine processes the incoming message and returns the next block,

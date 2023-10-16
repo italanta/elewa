@@ -14,6 +14,8 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
+import { StoriesStore } from '@app/state/convs-mgr/stories';
+import { FileStorageService } from '@app/state/file';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
