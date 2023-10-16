@@ -22,7 +22,7 @@
             <!-- Section Dashboard -->
             <li routerLink="/home" routerLinkActive="active" class="menu-item">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon"matTooltip="Home" >
                   <img src="assets/icons/home-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
@@ -33,7 +33,7 @@
             <!-- Section Bots -->
             <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/stories" routerLinkActive="active" class="menu-item">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon"matToolTip="Bots" >
                   <img src="assets/icons/bots-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
@@ -44,7 +44,7 @@
             <!-- Section Analytics -->
             <li *hasViewAccess="CAN_ACCESS_ANALYTICS" routerLink="/analytics/dashboard" routerLinkActive="active" class="menu-item">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon"matTooltip="Analytics" >
                   <img src="assets/icons/insights-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
@@ -55,7 +55,7 @@
             <!-- Chats sections -->
             <li *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon"matTooltip="Chats">
                   <img src="assets/icons/chats-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
@@ -68,7 +68,7 @@
             <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments"
               routerLinkActive="active">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon" matTooltip="Asssessments">
                   <img src="assets/icons/assessments-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
@@ -80,7 +80,7 @@
             <!-- Learners sections -->
             <li *hasViewAccess="CAN_ACCESS_LEARNERS" class="menu-item" routerLink="/learners" routerLinkActive="active">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon" matTooltip="Learners">
                   <img src="assets/icons/learners-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title" routerLink="/budgets" routerLinkActive="active">
@@ -91,7 +91,7 @@
 
             <li *hasViewAccess="CAN_ACCESS_SETTINGS" class="menu-item" routerLink="/settings" routerLinkActive="active">
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon"matTooltip="Settings">
                   <img src="assets/icons/settings-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">

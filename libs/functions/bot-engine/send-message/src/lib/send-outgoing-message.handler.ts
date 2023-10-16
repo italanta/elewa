@@ -1,13 +1,14 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { FunctionHandler, RestResult, HttpsContext, RestResult200 } from '@ngfi/functions';
+import { FunctionHandler, RestResult, HttpsContext } from '@ngfi/functions';
 
 import { ChannelDataService} from '@app/functions/bot-engine';
 
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 
 import { ActiveChannelFactory } from '@app/functions/bot-engine/utils';
+import { SendMessageResp } from './models/send-message-response.interface';
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
@@ -16,7 +17,7 @@ import { ActiveChannelFactory } from '@app/functions/bot-engine/utils';
  * Listens to messages sent from a third party app to the end user, processes them and 
  *    forwards them to the end user
  */
-export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
+export class SendOutgoingMsgHandler extends FunctionHandler<Message, SendMessageResp>
 {
   private _orgId: string;
   /**
@@ -38,7 +39,7 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
   {
     try {
       // STEP 1: Check if the message is meant for the end user
-      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER) return { status: 200 } as RestResult;
+      if (outgoingPayload.direction !== MessageDirection.FROM_AGENT_TO_END_USER) return { success: false, data: "Message Direction Mismatch!" } as SendMessageResp;
 
       tools.Logger.log(() => `[WhatsAppSendOutgoingMsgHandler] - Outgoing message: ${JSON.stringify(outgoingPayload)}`);
 
@@ -65,17 +66,28 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, RestResult>
 
       const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools)
 
+      let outgoingMessagePayload;
       // STEP 4: Get the outgoing message in whatsapp format
-      const outgoingMessagePayload = activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      if(activeChannel.channel.type == PlatformType.WhatsApp) {
+        outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
+      } else if(activeChannel.channel.type == PlatformType.Messenger) {
+        outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.receipientId);
+      }
 
       // STEP 5: Send the message
-      await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);
+      const response = await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);
 
-      tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
-
-      return { success: true } as RestResult200;
+      if(response.success) {
+        tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Success in sending message ${JSON.stringify(outgoingMessagePayload)}`);
+        return { success: true, data: response.data } as SendMessageResp;
+      } else {
+        tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Failed to send message ${JSON.stringify(outgoingMessagePayload)}`);
+        
+        return { success: false, data: response.data } as SendMessageResp;
+      }
     } catch (error) {
       tools.Logger.error(() => `[SendOutgoingMsgHandler].execute - Encountered an error ${error}`);
+      return { success: false, data: error } as SendMessageResp;
     }
   }
 }
