@@ -21,8 +21,8 @@ export function _CMI5BlockDecoratePlumb(block: WebhookBlock, comp: ComponentRef<
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Rectangle",
-    anchor: "Left",
+    endpoint: "Dot",
+    anchor: [0, 0.12, 0, 1],
     maxConnections: -1
   });
 
