@@ -46,6 +46,7 @@ export const iconsAndTitles: any = {
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
     icon: 'fas fa-phone-alt',
+    svgIcon: 'assets/svgs/blocks/ph_phone-thin.svg',
   },
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
@@ -74,6 +75,7 @@ export const iconsAndTitles: any = {
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
     icon: 'fas fa-exclamation-circle',
+    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg'
   },
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
@@ -118,7 +120,8 @@ export const iconsAndTitles: any = {
   },
   34:{
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
-    icon: 'fas fa-cube' 
+    icon: 'fas fa-cube',
+    svgIcon: 'assets/svgs/blocks/clarity_block-line.svg',
   },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',

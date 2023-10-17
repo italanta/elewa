@@ -65,7 +65,7 @@
     },
     "BLOCK": {
       "MENU": {
-        "EDIT": "Modifier",
+        "EDIT": "Edit",
         "COPY": "Copie",
         "DELETE": "Supprimer"
       },
