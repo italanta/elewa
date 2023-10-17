@@ -1,32 +1,4 @@
 <div fxLayout="column" fxLayoutAlign="start" fxFlex>
-  <div *ngIf="showAllCourses" class="actions" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-
-    <span class="courses-title" fxFlex> {{ "MODULES.MODULES-PAGE.ALL-MODULES" | transloco }} </span>
-
-    <div class="search" fxFlex="50">
-      <i class="fas fa-search search_tooltip"></i>
-      <input class="search_input" type="text" placeholder="Search for a course"
-      (keyup)="applyFilter($event)" #input/>
-    </div>
-  
-    <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
-      <div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
-  
-        <div class="select">
-          <select [value]="sortCoursesBy" (change)="sortBy($event)">
-            <option value=""></option>
-            <option value="newest"> {{ "MODULES.MODULES-PAGE.DATE-NEWEST" | transloco }} </option>
-            <option value="oldest"> {{ "MODULES.MODULES-PAGE.DATE-OLDEST" | transloco }} </option>
-          </select>
-        </div>
-  
-        <button mat-stroked-button>
-          <span (click)="collapseAllCourses.emit()"> {{ "MODULES.MODULES-PAGE.BACK" | transloco }} </span>
-        </button>
-      </div>
-    </div>
-  </div>
-  
   <table mat-table [dataSource]="dataSource" matSort>
   
     <!-- Name Column -->
@@ -79,5 +51,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   
-  <mat-paginator *ngIf="showAllCourses" [pageSizeOptions]="showAllCourses ? [10, 25, 100] : [5, 10]" aria-label="Select page of courses"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of courses"></mat-paginator>
 </div>

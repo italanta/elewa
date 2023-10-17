@@ -108,6 +108,8 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
         tap(() => {
           this.isSavingModule = false
           this.nextStepEvent.emit(newModule);
+          // if not part of stepper close
+          this.data.botId ? this._dialog.closeAll() : ''
         })
       )
       .subscribe();
