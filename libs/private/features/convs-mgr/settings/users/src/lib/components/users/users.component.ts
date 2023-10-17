@@ -39,7 +39,7 @@ const DATA: iTalUser[] = []
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
+export class UsersComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
 
   org: Organisation;
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dataSource.sort = sort;
   }
 
-  displayedColumns: string[] = ['select', 'name', 'email', 'activity', 'roles', 'actions'];
+  displayedColumns: string[] = ['select', 'displayName', 'email', 'updatedOn', 'roles', 'actions'];
 
   dataSource = new MatTableDataSource(DATA);
 
@@ -57,6 +57,8 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   orgLoaded: boolean;
 
   orgRoles: string[];
+
+  
   
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
   selection = new SelectionModel<iTalUser>(true, []);
@@ -69,25 +71,10 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
               private cdref: ChangeDetectorRef
   ) {}
 
+
   ngOnInit(): void {
     this.buildSearchFormGroup();
-    this.getOrg();
-
-    
-  }
-
- 
-  ngAfterViewInit() {
-
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-    
-    // const sortState : Sort = {active:'name', direction:'asc'};
-    // this.sort.active = sortState.active;
-    // this.sort.direction = sortState.direction;
-    // this.sort.sortChange.emit(sortState);
-
-   
+    this.getOrg();    
   }
   
 
