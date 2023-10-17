@@ -117,7 +117,6 @@ export enum StoryBlockTypes {
   /**
    * Block that accepts any type of input
    */
-  MultiContentInput = 28,
 
   /**
    * Block that accepts an Open-ended answer from the user
