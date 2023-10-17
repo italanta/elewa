@@ -22,7 +22,6 @@ import {
 } from '@app/state/convs-mgr/conversations/surveys';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 
-
 import { SurveyQuestionComponent } from './components/survey-question/survey-question.component';
 import { SurveyQuestionFormComponent } from './components/survey-question-form/survey-question-form.component';
 import { SurveyAnswerComponent } from './components/survey-answer/survey-answer.component';
@@ -46,6 +45,7 @@ import { SurveyLearnersComponent } from './components/survey-learners/survey-lea
 import { SurveySummaryComponent } from './components/survey-summary/survey-summary.component';
 import { HorizontalBarComponent } from './components/graphs/horizontal-bar/horizontal-bar.component';
 import { PieComponent } from './components/graphs/pie/pie.component';
+import { SendModalComponent } from './modals/send-modal/send-modal.component';
 
 @NgModule({
   imports: [
@@ -84,6 +84,7 @@ import { PieComponent } from './components/graphs/pie/pie.component';
     SurveySummaryComponent,
     HorizontalBarComponent,
     PieComponent,
+    SendModalComponent,
   ],
   providers: [
     SurveyFormService,
