@@ -33,11 +33,6 @@
       >
         <!-- <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.LABELS.EMAIL' | transloco }}</mat-label> -->
         <div fxLayout="column ">
-          <!-- <div class="select" >
-            <select formControlName="role" multiple>
-              <option *ngFor="let role of orgRoles" [value]="role">{{ role }}</option>
-            </select>           
-          </div> -->
           <mat-form-field appearance="outline">
             <mat-select formControlName="role" multiple>
               <mat-option *ngFor="let role of orgRoles" [value]="role">
