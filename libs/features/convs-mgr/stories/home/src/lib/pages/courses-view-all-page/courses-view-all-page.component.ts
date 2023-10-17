@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 import { Observable, map } from 'rxjs';
@@ -7,11 +8,12 @@ import { Bot } from '@app/model/convs-mgr/bots';
 
 import { StoryStateService } from '@app/state/convs-mgr/stories';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
-import { ActionSortingOptions } from '../../model/sorting.enum';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { Router } from '@angular/router';
+
+import { ActionSortingOptions } from '../../model/sorting.enum';
 
 @Component({
   selector: 'italanta-apps-courses-view-all-page',
@@ -21,16 +23,15 @@ import { Router } from '@angular/router';
 export class CoursesViewAllPageComponent implements OnInit {
   private _sbS = new SubSink();
 
-  @Input() bots$: Observable<Bot[]>;
   @Input() showAllCourses: boolean;
 
   courses$: Observable<
     {
       bot: Bot;
-      modules: Observable<
+      modules$: Observable<
         {
           module: BotModule;
-          stories: Observable<Story[]>;
+          stories$: Observable<Story[]>;
         }[]
       >;
     }[]
@@ -44,6 +45,7 @@ export class CoursesViewAllPageComponent implements OnInit {
   @Output() collapseAllCourses = new EventEmitter();
 
   constructor(
+    private _botsServ$: BotsStateService,
     private _storiesStateServ$: StoryStateService,
     private _modulesStateServ$: BotModulesStateService,
     private _router$: Router
@@ -54,12 +56,12 @@ export class CoursesViewAllPageComponent implements OnInit {
   }
 
   mapBotsModulesAndStories() {
-    return this.bots$.pipe(
+    return this._botsServ$.getBots().pipe(
       map((bots) =>
         bots.map((bot) => {
           return {
             bot: bot,
-            modules: this.mapModulesToLessons(bot.modules),
+            modules$: this.mapModulesToLessons(bot.modules),
           };
         })
       )
@@ -72,7 +74,7 @@ export class CoursesViewAllPageComponent implements OnInit {
         modules.map((mod) => {
           return {
             module: mod,
-            stories: this._storiesStateServ$.getMultipleStories(mod.stories),
+            stories$: this._storiesStateServ$.getMultipleStories(mod.stories),
           };
         })
       )
@@ -86,18 +88,18 @@ export class CoursesViewAllPageComponent implements OnInit {
   }
 
   sortBy(event: Event) {
-    const searchValue = (event.target as HTMLInputElement).value as ActionSortingOptions;
+    const searchValue = (event.target as HTMLInputElement)
+      .value as ActionSortingOptions;
     this.sortCoursesBy = searchValue;
   }
 
   filterStatusBy(event: Event) {
-    const searchValue = (event.target as HTMLInputElement).value as ActionSortingOptions;
+    const searchValue = (event.target as HTMLInputElement)
+      .value as ActionSortingOptions;
     this.sortCoursesBy = searchValue;
   }
 
-  
   goToDashboard() {
     this._router$.navigateByUrl('/bots/dashboard');
   }
-
 }
