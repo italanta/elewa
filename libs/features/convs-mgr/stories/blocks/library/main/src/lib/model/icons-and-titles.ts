@@ -38,6 +38,8 @@ export const iconsAndTitles: any = {
   10: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.NAME',
     icon: 'fas fa-user-alt',
+    svgIcon: 'assets/svgs/blocks/name-block.svg',
+
   },
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
