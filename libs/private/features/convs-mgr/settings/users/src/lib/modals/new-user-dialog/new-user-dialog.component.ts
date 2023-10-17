@@ -30,7 +30,7 @@ export class NewUserDialogComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       roles:[[]],
-      email: ['', Validators.required, Validators.email]
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
