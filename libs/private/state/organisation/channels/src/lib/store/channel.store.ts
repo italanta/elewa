@@ -7,7 +7,7 @@ import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { Organisation } from '@app/model/organisation';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
@@ -51,12 +51,12 @@ export class ChannelsStore extends DataStore<CommunicationChannel>
   }
 
   getChannelsByOrg() {
-    return this._org$$.get().pipe(
-      switchMap(_activeOrg => {
-        return this.get().pipe(
-          map(channels => channels.filter(channel => channel.orgId === _activeOrg.id))
-        );
-      })
-    );
+    return this.get().pipe(
+      map(channels => {
+        const ch = channels.filter((channel) => 
+           channel.orgId === this._activeOrg.id as string
+        )
+        return ch
+      }))
   }
 }
