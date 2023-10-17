@@ -148,7 +148,7 @@ export class ProcessMessageService
 
   private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUser: EndUser)
   {
-    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools, this._activeChannel).resolve(nextBlock.type);
 
     const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUser, msg);
 
