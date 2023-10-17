@@ -21,6 +21,9 @@ export interface Bot extends IObject {
 
   /** An array of module names associated with the bot.*/
   modules: string[];
+
+  /** Type of the element */
+  type: 'Bot'
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */
