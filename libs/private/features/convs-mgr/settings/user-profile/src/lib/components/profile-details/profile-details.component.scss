@@ -1,9 +1,7 @@
-
 .user-profile-picture img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* or "contain" depending on your preference */
-  border: 1px #707070 solid;
+   border: 1px #707070 solid;
   object-fit: cover; 
 }
 
@@ -229,15 +227,13 @@ div{
   height: 40px!important;
   padding: 7px!important;
 }
-
-
+::ng-deep .mat-mdc-tab-body-content{
+  overflow: hidden !important;
+}
 
 /* Target the input boxes */
 .mat-form-field input.mat-input {
-  /* Your styles here */
-  // For example, let's change the background color and text color
   background-color: #f0f0f0;
   color: #333;
 }
-
 
