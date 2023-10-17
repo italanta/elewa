@@ -119,7 +119,7 @@ Open the project with your prefered IDE (VS Code, Sublime, e.t.c)
 You need to add the environment config to your app to connect to firebase, follow the steps below:
 
 ```
-1. Create a folder called environments inside -> app/conv-learning-manager/src
+1. Create a folder called environments inside -> apps/conv-learning-manager/src
 2. Create a file called environment.ts inside this folder
 3. Create a file called environment.prod.ts inside this folder
 ```
@@ -286,7 +286,7 @@ This command connects your local machine to Firebase and grants you access to yo
 ```
 
 ```bash
-  npm install
+  npm install --legacy-peer-deps
 ```
 
 The project is now succesfuly installed on your machine.

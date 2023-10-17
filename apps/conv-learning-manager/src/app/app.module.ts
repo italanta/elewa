@@ -31,6 +31,7 @@ import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { LearnersStateModule } from '@app/state/convs-mgr/learners';
 import { EndUsersStateModule } from '@app/state/convs-mgr/end-users';
+import { ClassroomStateModule } from '@app/state/convs-mgr/classrooms';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
@@ -76,6 +77,7 @@ import { environment } from '../environments/environment';
     // DataModule.forRoot(),
     OrgStateModule.forRoot(),
     StoriesStateModule.forRoot(),
+    ClassroomStateModule.forRoot(),
     StoryBlocksStateModule.forRoot(),
     StoryBlockConnectionsStateModule.forRoot(),
     VariablesConfigStateModule.forRoot(),
