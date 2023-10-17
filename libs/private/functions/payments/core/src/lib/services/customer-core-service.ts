@@ -8,8 +8,6 @@ import { iTalUser } from '@app/model/user';
 
 import { Customer } from '../models/customer'
 
-import { environment } from '../../environments/environment';
-
 export class MollieCustomerService {
   private mollieClient;
   
@@ -18,7 +16,7 @@ export class MollieCustomerService {
     private _apiKey: string,
     private tools: HandlerTools
   ) {
-    this._apiKey = environment.mollieApiKey;
+    this._apiKey = process.env.MOLLIE_API_KEY;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
   }
 

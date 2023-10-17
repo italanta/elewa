@@ -3,8 +3,9 @@ import { createMollieClient } from '@mollie/api-client';
 import { iTalUser } from '@app/model/user';
 import { Payment } from "../models/payment"
 import { MollieCustomerService } from './customer-core-service';
-import { environment } from '../../environments/environment';
-import { Mandate, MandateStatusTypes } from '../models/mandate';
+
+import { Customer } from '../models/customer'
+import { Mandate } from '../models/mandate';
 import { HandlerTools } from '@iote/cqrs';
 
 
@@ -12,10 +13,12 @@ export class PaymentCoreService {
     private mollieCustomerService: MollieCustomerService;
     private mollieClient;
     private mlcustomer: iTalUser;
+    private customer: Customer
 
   constructor(private _apiKey: string, private tools: HandlerTools) {
-    this._apiKey = environment.mollieApiKey;
+    this._apiKey = process.env.MOLLIE_API_KEY;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
+    this.mollieCustomerService = new MollieCustomerService(this.customer, this._apiKey, tools)
   }
 
   async createPayment(payment: Payment, user: iTalUser) {

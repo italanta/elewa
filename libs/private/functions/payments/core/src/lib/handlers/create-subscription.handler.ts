@@ -7,7 +7,7 @@ import { SubscriptionReq } from "../models/subscription-request.model";
 
 import { MollieCustomerService } from "../services/customer-core-service";
 import { SubscriptionService } from "../services/subscription-core.service";
-import { SubscriptionType } from "../models/iTal-subscription.model";
+
 import { TransactionsService } from "../services/transaction.service";
 import { Transaction, TransactionStatus } from "../models/transaction";
 
@@ -51,15 +51,6 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
     this.mollieCustomerId = this.iTalUser.mollieCustomerId;
     
     try {
-    //     const subscription: SubscriptionReq = {
-    //     ...data,
-    //     interval: '12 months',
-    //    // status: Status.Pending,
-    //  //   webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
-    //     sequenceType: 'first',
-    //   //  customerId: this.iTalUser.id
-    //   };
-
         // If the customer is not on mollie, we create them and update the user object with the 
         //  mollie customer id
         if(!this.mollieCustomerId) {
@@ -72,7 +63,7 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
         } 
     
           const hasMandate = await this.mollieCustomerService._getValidMandate(this.iTalUser);
-          const subDetails =  {amount: parseInt(data.amount.value), interval: data.interval}
+          const subDetails =  {amount: data.amount.value, interval: data.interval}
           if (hasMandate) {
             const subscriptionResponse = await this.subscriptionService.createRecurringPayment(this.mollieCustomerId, hasMandate, subDetails);
     

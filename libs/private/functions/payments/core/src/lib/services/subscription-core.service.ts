@@ -43,21 +43,21 @@ export class SubscriptionService {
   /**
    * On Mollie
    */
-  async createRecurringPayment(molUserId: string, validMandateId: string, subDetails: {amount: number, interval: string} ) {  
+  async createRecurringPayment(molUserId: string, validMandateId: string, subDetails: {amount: string, interval: string} ) {  
     if (!validMandateId) {
       throw new Error('No valid mandate found for user');
     }
     
     const recurringPayment = {
-      amount: {amount: subDetails.amount.toString(), currency: "USD"},
+      amount: {value: subDetails.amount, currency: "USD"},
       customerId: molUserId,
-      sequenceType: "recurring",
       description: "Recurring payment",
       webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
       mandateId: validMandateId,
       interval: subDetails.interval
     };
-    
+    console.log(recurringPayment)
+
     const recurringPayentCreated = await this.mollieClient.customerSubscriptions.create(recurringPayment);
     
     return recurringPayentCreated;
