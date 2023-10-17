@@ -30,8 +30,8 @@
       <h4 class="label">{{ 'MODULES.CREATE-MODAL.FIELDS.COURSE' | transloco }}</h4>
 
       <mat-form-field appearance="fill">
-        <mat-select formControlName="parentBot">
-          <ng-container *ngFor="let bot of (bots$ | async)">
+        <mat-select formControlName="parentBot" [value]="selectedBot">
+          <ng-container *ngFor="let bot of bots">
             <mat-option [value]="bot">{{ bot.name }}</mat-option>
           </ng-container>
         </mat-select>
@@ -46,7 +46,7 @@
       </div>
 
       <div>
-        <button [disabled]="moduleForm.invalid" mat-raised-button class="add-btn" color="primary" (click)="submitForm()">
+        <button [disabled]="moduleForm.invalid || isSavingModule" mat-raised-button class="add-btn" color="primary" (click)="submitForm()">
           <span *ngIf="isSavingModule; else notUploading">
             <mat-spinner diameter="25" strokeWidth="3" color="primary"></mat-spinner>
           </span>

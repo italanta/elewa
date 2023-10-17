@@ -18,4 +18,6 @@ export interface BotModule extends IObject {
 
   /** An array of story id's associated with the bot.*/
   stories: string[];
+
+  type: "BotModule"
 }

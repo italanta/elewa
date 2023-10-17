@@ -7,9 +7,10 @@ import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { StoriesListHeaderComponent } from './components/stories-list-header/stories-list-header.component';
-import { StoriesListAllCoursesComponent } from './components/stories-list-all-courses/stories-list-all-courses.component';
 
 import { ConvsMgrLessonsRouterModule } from './lesson.routing';
+import { ModulesLessonsListViewComponent } from './components/modules-lessons-list-view/modules-lessons-list-view.component';
+import { ModulesLessonsGridViewComponent } from './components/modules-lessons-grid-view/modules-lessons-grid-view.component';
 
 @NgModule({
   imports: [
@@ -18,16 +19,14 @@ import { ConvsMgrLessonsRouterModule } from './lesson.routing';
     MultiLangModule,
     FlexLayoutModule,
     MaterialDesignModule,
-    ConvsMgrLessonsRouterModule
+    ConvsMgrLessonsRouterModule,
   ],
   declarations: [
     StoriesListHeaderComponent,
-    StoriesListAllCoursesComponent,
+    ModulesLessonsListViewComponent,
+    ModulesLessonsGridViewComponent,
   ],
-  exports: [
-    StoriesListHeaderComponent,
-    StoriesListAllCoursesComponent,
-  ]
+  exports: [StoriesListHeaderComponent],
 })
 
 // a story is a lesson
