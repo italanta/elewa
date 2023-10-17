@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { Observable, tap,switchMap,take } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
@@ -13,6 +14,7 @@ import { SurveyPublishService, SurveyQuestionService, SurveyService } from '@app
 import { SurveyFormService } from '../../services/survey-form.service';
 import { DEFAULT_SURVEY } from '../../provider/create-empty-survey-form.provider';
 import { SurveysFormsModel } from '../../model/question-form.model';
+import { SendModalComponent } from '../../modals/send-modal/send-modal.component';
 
 @Component({
   selector: 'app-create-survey-flow',
@@ -48,7 +50,8 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
               private _surveyService: SurveyService,
               private _surveyForm: SurveyFormService,
               private _publishSurvey: SurveyPublishService,
-              private _surveyQuestion: SurveyQuestionService        
+              private _surveyQuestion: SurveyQuestionService,
+              private _dialog: MatDialog     
   ) {
     this.surveyFormModel = new SurveysFormsModel(this._fb, _surveyForm)
   }
@@ -116,6 +119,14 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
         })
       )
     .subscribe()
+  }
+  onSendSurvey() {
+    const dialogRef = this._dialog.open(SendModalComponent, {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   onPublish() {
