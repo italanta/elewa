@@ -1,7 +1,9 @@
-
 import { HandlerTools } from '@iote/cqrs';
 import { Transaction } from '../models/transaction';
 
+/**
+ * Service for managing transactions, including updating, retrieving, and writing transactions.
+ */
 export class TransactionsService {
   
   constructor(

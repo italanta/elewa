@@ -11,24 +11,10 @@ import { SubscriptionService } from "../services/subscription-core.service";
 import { TransactionsService } from "../services/transaction.service";
 import { Transaction, TransactionStatus } from "../models/transaction";
 
-
-
-    //webhook works for subscriptions
-    /*
-    receive a user id and sub details as typed by clm f.e
-    returns a url to complete the first payment or success status.active ie subscription object from mollie
-
-    what it should do
-    check if cx is on mollie, (using the mollieCustomerService)
-    check if cx has mandate if not create first payment and return url to complete the payment
-    if mandate, create subscription
-    return sub object Reagan will know what to do
-    */
-
-    /**
-     * provide webhook url on first payment request, help in getting a confirmation for a successful payment 
-     * if you get mollie payment object... Yaay
-     */
+/**
+ * Handles the creation of subscriptions based on incoming data.
+ * provide webhook url on first payment request, help in getting a confirmation for a successful payment 
+ */
 export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq, any> {
   private mollieCustomerService: MollieCustomerService;
   private subscriptionService: SubscriptionService;
@@ -36,64 +22,69 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
   private customer: Customer;
   private _trnService: TransactionsService;
   private mollieCustomerId: string;
-  
+
+   /**
+   * The entry point for handling subscription creation.
+   * @param data - Subscription request data.
+   * @param context - Function execution context.
+   * @param tools - Handler tools for logging and interactions.
+   * @returns The result of the subscription creation or a URL for the first payment.
+   * @see https://docs.mollie.com/reference/v2/subscriptions-api/create-subscription
+   */
+
   async execute(data: SubscriptionReq, context: FunctionContext, tools: HandlerTools): Promise<any> {
 
-    tools.Logger.log(()=> `[CreateSubscriptionsHandler].execute - Payload :: ${JSON.stringify(data)}`);
+    tools.Logger.log(() => `[CreateSubscriptionsHandler].execute - Payload :: ${JSON.stringify(data)}`);
 
     this.mollieCustomerService = new MollieCustomerService(this.customer, process.env.MOLLIE_API_KEY, tools);
     this.subscriptionService = new SubscriptionService(tools);
-    this._trnService  = new TransactionsService(tools);
+    this._trnService = new TransactionsService(tools);
 
     // Get user details
     this.iTalUser = await this.mollieCustomerService.getUser(data.userId)
-
     this.mollieCustomerId = this.iTalUser.mollieCustomerId;
-    
+
     try {
-        // If the customer is not on mollie, we create them and update the user object with the 
-        //  mollie customer id
-        if(!this.mollieCustomerId) {
-          const mollieCustomerId = await this.mollieCustomerService.createMollieCustomer(this.iTalUser);
+      //Check if the customer is not on Mollie, create them, and update the user object with the Mollie customer ID
+      if (!this.mollieCustomerId) {
+        const mollieCustomerId = await this.mollieCustomerService.createMollieCustomer(this.iTalUser);
+        this.mollieCustomerId = mollieCustomerId;
+        this.iTalUser.mollieCustomerId = mollieCustomerId;
 
-          this.mollieCustomerId = mollieCustomerId;
-          this.iTalUser.mollieCustomerId = mollieCustomerId;
-
-          await this.mollieCustomerService.updateUser(this.iTalUser);
-        } 
-    
-          const hasMandate = await this.mollieCustomerService._getValidMandate(this.iTalUser);
-          const subDetails =  {amount: data.amount.value, interval: data.interval}
-          if (hasMandate) {
-            const subscriptionResponse = await this.subscriptionService.createRecurringPayment(this.mollieCustomerId, hasMandate, subDetails);
-    
-            // Log the subscription response
-            tools.Logger.log(() => `Subscription Created: ${JSON.stringify(subscriptionResponse)}`);
-
-            const trn: Transaction = {
-              id: subscriptionResponse.id,
-              amount: data.amount.value,
-              orgId: this.iTalUser.activeOrg,
-              date: new Date(),
-              status: TransactionStatus.pending
-            }
-            await this._trnService.writeTransaction(trn, this.iTalUser.id)
-
-            return this.subscriptionService.initSubscription(subscriptionResponse, data.subscriptionType, this.iTalUser.activeOrg);
-    
-          } else {
-            // If the customer does not have a mandate, create the first payment and return a URL to complete it
-            const firstPaymentUrl = await this.subscriptionService.createFirstPayment(data.userId);
-    
-            tools.Logger.log(() => `First Payment URL: ${firstPaymentUrl}`);
-    
-            return firstPaymentUrl;
-          }
-      } catch (error) {
-        // Handle any errors that occur during the process
-        tools.Logger.log(() => `Subscription Creation Error: ${error}`);
-        throw error;
+        await this.mollieCustomerService.updateUser(this.iTalUser);
       }
+      //Check if the customer has a valid mandate (permission for recurring payments)
+      const hasMandate = await this.mollieCustomerService._getValidMandate(this.iTalUser);
+      //Define subscription details based on incoming data
+      const subDetails = { amount: data.amount.value, interval: data.interval }
+      if (hasMandate) {
+        const subscriptionResponse = await this.subscriptionService.createRecurringPayment(this.mollieCustomerId, hasMandate, subDetails);
+        // Log the subscription response
+        tools.Logger.log(() => `Subscription Created: ${JSON.stringify(subscriptionResponse)}`);
+        //Create a transaction and update its status to 'pending'
+        const trn: Transaction = {
+          id: subscriptionResponse.id,
+          amount: data.amount.value,
+          orgId: this.iTalUser.activeOrg,
+          date: new Date(),
+          status: TransactionStatus.pending
+        }
+        await this._trnService.writeTransaction(trn, this.iTalUser.id)
+
+        return this.subscriptionService.initSubscription(subscriptionResponse, data.subscriptionType, this.iTalUser.activeOrg);
+
+      } else {
+        // If the customer does not have a mandate, create the first payment and return a URL to complete it
+        const firstPaymentUrl = await this.subscriptionService.createFirstPayment(data.userId);
+        tools.Logger.log(() => `First Payment URL: ${firstPaymentUrl}`);
+
+        return firstPaymentUrl;
+      }
+    } catch (error) {
+      // Handle any errors that occur during the process
+      tools.Logger.log(() => `Subscription Creation Error: ${error}`);
+      throw error;
     }
-   }
+  }
+}
 

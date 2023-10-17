@@ -5,7 +5,6 @@ import { Query } from "@ngfi/firestore-qbuilder";
 import { iTalUser } from "@app/model/user";
 import { Transaction, TransactionStatus } from "../models/transaction";
 
-import { MollieCustomerService } from "../services/customer-core-service";
 import { PaymentCoreService } from "../services/payment-core.service";
 import { SubscriptionService } from "../services/subscription-core.service";
 import { TransactionsService } from "../services/transaction.service";
@@ -16,15 +15,14 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
   private tools: HandlerTools;
   private _paymentService: PaymentCoreService;
   private _subscriptionService: SubscriptionService;
-  private mollieCustomerService: MollieCustomerService;
   private _trnService: TransactionsService;
   private iTalUser: iTalUser;
 
 
   public async execute(data: {id: string}, context: FunctionContext, tools: HandlerTools): Promise<any> {
-
+    /** Log the incoming payload for reference */
     tools.Logger.log(()=> `[ReceivePaymentHandler].execute - Payload :: ${JSON.stringify(data)}`);
-
+    /**Initialize necessary services */
     this._paymentService =  new PaymentCoreService(process.env.MOLLIE_API_KEY, tools);
     this._subscriptionService = new SubscriptionService(tools);
     this._trnService  = new TransactionsService(tools);
@@ -33,6 +31,7 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
      * The webhook that is sent to mollie so as to update on payment status.
      */
     try {
+      /**Retrieve payment details from Mollie */
       const paymentDetails = await this._paymentService.getPaymentDetails(data.id);
 
       tools.Logger.log(()=> `[ReceivePaymentHandler].execute - Payment status :: ${paymentDetails}`);
@@ -41,7 +40,7 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
 
       const user = await this.getUserByMollieId(mollieCustomerId, tools);
 
-      // Get transaction details:
+      /* Get transaction details: */
       const trnDetails  = await this._trnService.getTransaction(data.id, user.id);
 
       if (trnDetails) {
@@ -54,7 +53,7 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
     }
   }
 /**
- * 
+ * Handle payment status based on Mollie payment object.
  * @param payment payment object returned by mollie api 
  * @param user a clm user registered on mollie
  * @param trn A transaction
@@ -85,7 +84,12 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
         return;
     }
   }
-
+  /**
+   * Retrieve a user by their Mollie customer ID.
+   * @param mollieId - Mollie customer ID.
+   * @param tools - HandlerTools instance.
+   * @returns User associated with the provided Mollie customer ID.
+   */
   async getUserByMollieId(mollieId: string, tools: HandlerTools) {
     const userRepo$ = tools.getRepository<iTalUser>('users');
 
@@ -96,22 +100,3 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
   }
   
  }
-/**
- * TIPS for webhooks
- * onPAYMENTRECEIVED METHOD TO GET Status of payment and sequence type
- * chech status if paid == 
- * if fail == ? :()
- * extra return field on Payment received return payment status, mandate, 
- * if first payment: sequencetyp == first, update mandate id (user iTal)
- * return customerID to get iTal user (QUERIES )
- * extra types: sequence type first 
- * Getting the iTal user, update mandateID: The array of mandates on the iTal docs
- */
-/**if paying for recurring sbscription
- * update subscription details
- * 
- * 
- * HOW TO WRITE TO DB
- * get orgId: data.orgid and payment object is data.payment obj
- * payment repo
- */

@@ -20,7 +20,9 @@ export class MollieCustomerService {
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
     this.tools = tools;
   }
-
+/**
+  * Create a Mollie customer using user information.
+*/
   async createMollieCustomer(user: iTalUser) {
     this.tools.Logger.log(() => `CustomerService: createMollieCustomer`);
 
@@ -48,7 +50,9 @@ export class MollieCustomerService {
 
     return user.mollieCustomerId;
   }
-
+/**Get mandates for a Mollie customer
+ * @returns Valid mandate ID or null
+ */
   async getMandates(user: iTalUser) {
     const URL = `https://api.mollie.com/v2/customers/${user.mollieCustomerId}/mandates`;
     const resp = await axios.get(URL, {

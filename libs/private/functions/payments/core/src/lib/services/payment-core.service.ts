@@ -3,11 +3,11 @@ import { createMollieClient } from '@mollie/api-client';
 import { iTalUser } from '@app/model/user';
 import { HandlerTools } from '@iote/cqrs';
 
-import { MollieCustomerService } from './customer-core-service';
 import { Payment } from "../models/payment";
-
 import { Customer } from '../models/customer'
 import { Mandate } from '../models/mandate';
+
+import { MollieCustomerService } from './customer-core-service';
 
 
 export class PaymentCoreService {
@@ -16,12 +16,24 @@ export class PaymentCoreService {
     private mlcustomer: iTalUser;
     private customer: Customer
 
+  /**
+   * Constructor to initialize the service with the Mollie API key.
+   * @param apiKey - The Mollie API key for authentication.
+   * @param tools - HandlerTools for logging and other utility functions.
+   */
   constructor(private _apiKey: string, private tools: HandlerTools) {
     this._apiKey = process.env.MOLLIE_API_KEY;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
     this.mollieCustomerService = new MollieCustomerService(this.customer, this._apiKey, tools)
   }
 
+  /**
+   * Create a payment and return the payment details.
+   * @param payment - Payment details including amount, currency, and description.
+   * @param user - The user associated with the payment.
+   * @returns The details of the created payment.
+   * @throws Error if creating the payment fails.
+   */
   async createPayment(payment: Payment, user: iTalUser) {
     try {
       // TODO: Pass the actual user while using this method
@@ -41,15 +53,20 @@ export class PaymentCoreService {
 
       return molliePayment;
     } catch (error) {
+      // Handle errors gracefully by throwing a specific error message
       throw new Error('Failed to create payment');
     }
   }
-
+  /**
+   * Handle the first payment and update user information.
+   * @param payment - Payment details for the first payment.
+   * @param user - The user associated with the payment.
+   * @returns The updated user with mandate information.
+   */
   async onFirstPayment(payment: any, user: iTalUser) 
   {
     const mandateId = payment.mandateId;
     const mollClient = createMollieClient({ apiKey: this._apiKey });
-
     const mandateDetails = await mollClient.customerMandates.get(mandateId, {customerId: payment.customerId});
 
     const newMandate: Mandate = {
@@ -63,25 +80,23 @@ export class PaymentCoreService {
     } else {
       user.mandates.push(newMandate);
     }
-
-    // Update user
+    // Update user in the repo
     const usersRepo$ = this.tools.getRepository<iTalUser>('users');
 
     return usersRepo$.update(user);
   }
 
+  /**
+   * Get payment details for a given payment ID.
+   * @param paymentId - The ID of the payment to retrieve details, returned by mollie api
+   * @returns The payment details for the specified payment ID.
+   */
   async getPaymentDetails(paymentId: string){
     const molliePaymentStatus = await this.mollieClient.payments.get(paymentId) 
     return molliePaymentStatus;
   }
-        /**
-         * TODO
-         */
-    private updateSubscription(){
-      //update status in db, aka handler ish
-      //get an internal subscription interface with sstatus which can be active, expired, cancelled
-      //definitely expiry and start date , dateType extends IObject
-      // subscription param: standard, premimum, enterprise enums of course
-      //orgs/id/subscriptions: DB path .... new doc, collection of documents
-    }
+       
+  private updateSubscription(){
+    /** TODO */
+  }
 }

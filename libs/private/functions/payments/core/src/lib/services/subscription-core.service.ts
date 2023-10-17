@@ -21,8 +21,13 @@ export class SubscriptionService {
     this._subscriptionsRepo = this._handlerTools.getRepository<Subscription>('subscriptions');
     this.mollieClient = createMollieClient({ apiKey: environment.mollieApiKey });
   }
-
+  /**
+   * Create the first payment for a user.
+   * @param molUserId - Mollie user ID
+   * @returns Payment details for the first payment
+   */
   async createFirstPayment(molUserId: string) {
+    // Define the first payment object
     const firstPayment = {
       amount: {
         currency: "USD",
@@ -35,19 +40,22 @@ export class SubscriptionService {
       webhookUrl: "https://europe-west1-elewa-clm-test.cloudfunctions.net/receivePayment",
       method: 'creditcard',
     };
+    // Create the first payment using Mollie API
     const payment = await this.mollieClient.customerPayments.create(firstPayment);
-    
     return payment;
   }
-
-  /**
-   * On Mollie
+/**
+   * Create a recurring payment for a user with a valid mandate.
+   * @param molUserId - Mollie user ID
+   * @param validMandateId - Valid mandate ID
+   * @param subDetails - Subscription details including amount and interval
+   * @returns Created recurring payment details
    */
   async createRecurringPayment(molUserId: string, validMandateId: string, subDetails: {amount: string, interval: string} ) {  
     if (!validMandateId) {
       throw new Error('No valid mandate found for user');
     }
-    
+    // Define the recurring payment object
     const recurringPayment = {
       amount: {value: subDetails.amount, currency: "USD"},
       customerId: molUserId,
@@ -56,13 +64,14 @@ export class SubscriptionService {
       mandateId: validMandateId,
       interval: subDetails.interval
     };
-    console.log(recurringPayment)
-
+    this._handlerTools.Logger.log(() => `reccuring payment object: ${recurringPayment}`)
+    // Create the recurring payment using Mollie API
     const recurringPayentCreated = await this.mollieClient.customerSubscriptions.create(recurringPayment);
-    
     return recurringPayentCreated;
   }
-  
+  /** Get the payment status for a given payment ID.
+   * @param paymentId - Mollie payment ID
+   */
   async getPaymentStatus(paymentId: string){
     const molliePaymentStatus = await this.mollieClient.payment.get(paymentId) 
     return molliePaymentStatus
@@ -71,7 +80,6 @@ export class SubscriptionService {
   async cancelSubscription() {
     try {
       this._subscription.status = SubscriptionStatusTypes.Cancelled;
-
       // Delete the subscription document from the database
       await this._subscriptionsRepo.delete(this._subscription.id);
 
@@ -103,7 +111,6 @@ export class SubscriptionService {
 
   /**
    * For recurring subscriptions on our side
-   * 
    * We only set the subscription to active when the payment goes through
    */
   async renewSubscription(trn: Transaction, payment: any) 
@@ -132,14 +139,11 @@ export class SubscriptionService {
       }
       subscription = {
         ...currentSub,
-        // TODO: Calculate the expiry date from interval and new date
-        // ---Important
         startDate: startDate,
         expiryDate: expiryDate,
         status: SubscriptionStatusTypes.Active
       }
     }
-
     return subscriptionRepo$.update(subscription);
   }
 
@@ -152,8 +156,6 @@ export class SubscriptionService {
       await this._subscriptionsRepo.update(this._subscription);
 
       this._handlerTools.Logger.log(() => `Subscription paused successfully`);
-
-      /**How do i notify user of the pause? */
     } catch (error) {
       console.error("Error pausing subscription:", error);
       throw error;
