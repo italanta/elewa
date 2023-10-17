@@ -10,7 +10,7 @@
           <span *ngIf="!isSaving"> {{'SURVEYS.BUTTON.SAVE' | transloco }} </span>
           <mat-spinner diameter="25" *ngIf="isSaving"></mat-spinner>
         </button>
-        <button mat-raised-button [disabled]="isPublishing" color="primary" class="publish-btn" (click)="onPublish()">
+        <button mat-raised-button [disabled]="isPublishing" color="primary" class="publish-btn" (click)="onSendSurvey()">
           <span *ngIf="!isPublishing"> {{'SURVEYS.BUTTON.SEND' | transloco }}</span>
           <mat-spinner diameter="25" *ngIf="isPublishing"></mat-spinner>
         </button>
