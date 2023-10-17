@@ -1,8 +1,10 @@
 import { HandlerTools } from "@iote/cqrs";
 
-import { Cursor, EventsStack } from "@app/model/convs-mgr/conversations/admin/system";
+import { Cursor, EventsStack, MilestoneTriggers, PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 
-import { Message } from "@app/model/convs-mgr/conversations/messages";
+import { Query } from "@ngfi/firestore-qbuilder";
+
+import { Message, MessageDirection, TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 import { EventBlock } from "@app/model/convs-mgr/stories/blocks/messaging";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
@@ -13,6 +15,8 @@ import { EndUserDataService } from "../../data-services/end-user.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
+import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
+import { ChannelDataService } from "../../data-services/channel-info.service";
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
  *  so that we can process the response based on that block.
@@ -65,6 +69,9 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 
 				const endUserService = new EndUserDataService(this.tools, orgId);
 
+				// Send a message template to the user if a trigger was set for this milestone
+				await this._triggerMessage(eventDetails, endUser, orgId);
+
 				// update currentcourse
 				endUser.currentStory = eventDetails.name;
 
@@ -85,4 +92,45 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 
     return cursor.eventsStack.find(savedEvent => savedEvent.uid === event.uid)
   }
+
+	private async _triggerMessage(event: EventsStack, endUser: EndUser, orgId: string) {
+		const n = parseInt(endUser.id.split('_')[1]);
+
+		const milestonesTriggersRepo$ = this.tools.getRepository<MilestoneTriggers>(`orgs/${orgId}/milestones-triggers`);
+
+		const trigger = await milestonesTriggersRepo$.getDocuments(new Query().where("name", "==", event.name));
+
+		const channelService = new ChannelDataService(this.tools);
+
+		const communicationChannel = await channelService.getChannelByConnection(n);
+
+		if(trigger && trigger.length > 0) {
+			const sendMessage = new SendOutgoingMsgHandler()
+
+			let message: TemplateMessage = {
+				...trigger[0].message,
+				direction: MessageDirection.FROM_AGENT_TO_END_USER,
+				n: parseInt(endUser.id.split('_')[1]),
+			}
+
+			message = this._assignRecipientID(message, endUser.id, communicationChannel.type);
+
+			await sendMessage.execute(trigger[0].message, null, this.tools);
+
+			trigger[0].lastRun = new Date();
+			trigger[0].usersSent = trigger[0].usersSent + 1; 
+
+			await milestonesTriggersRepo$.update(trigger[0]);
+		}
+	}
+
+	private _assignRecipientID(message: TemplateMessage, endUserId: string, platform: PlatformType) {
+		if(platform == PlatformType.WhatsApp) {
+			message.endUserPhoneNumber = endUserId.split('_')[2];
+		} else if (platform == PlatformType.Messenger) {
+			message.receipientId = endUserId.split('_')[2];
+		}
+
+		return message;
+	}
 }
