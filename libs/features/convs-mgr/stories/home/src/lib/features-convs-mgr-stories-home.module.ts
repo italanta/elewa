@@ -17,6 +17,7 @@ import { BotsListLatestCoursesComponent } from './components/bots-list-latest-co
 import { BotPageComponent } from './pages/bot-page/bot-page.component';
 
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
+import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/courses-view-all-page.component';
 
 import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
 import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-modal.component';
@@ -53,6 +54,7 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     CreateModuleModalComponent,
     CreateLessonModalComponent,
     BotPageComponent,
-  ]
+    CoursesViewAllPageComponent,
+  ],
 })
 export class ConvsMgrStoriesHomeModule {}
