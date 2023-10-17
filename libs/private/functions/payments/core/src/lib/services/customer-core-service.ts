@@ -18,6 +18,7 @@ export class MollieCustomerService {
   ) {
     this._apiKey = process.env.MOLLIE_API_KEY;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
+    this.tools = tools;
   }
 
   async createMollieCustomer(user: iTalUser) {

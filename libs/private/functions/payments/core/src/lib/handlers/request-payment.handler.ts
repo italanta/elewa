@@ -13,7 +13,6 @@ export class CreatePaymentHandler extends FunctionHandler<any, any>
    * function to request a payment from a one time user, returns a url that when clicked checksout to Mollie's payments page
    */
   private _paymentService: PaymentCoreService;
-  private apikey: string ;
   private user: iTalUser
 
   public async execute(data: {orgId: string, payment: Payment}, context: FunctionContext, tools: HandlerTools): Promise<any> {
