@@ -13,14 +13,16 @@ export class LearnerInformationComponent {
   constructor( private _router: Router){}
 
   @Input() currentLearner: EnrolledEndUser;
+
   getAvatar() :string{
-    return this.currentLearner.name[0].toUpperCase();
+    return this.currentLearner.name?.toUpperCase() ?? '';
   }
+
   getStatus() :string{
-    return this.currentLearner.status === EnrolledEndUserStatus.Active ? 'Active' : 'Inactive';
+    return EnrolledEndUserStatus[this.currentLearner.status];
   }
+
   goToChat() :void{
-    //todo: Request assistance on how to retrieve the enduse id
     this._router.navigate(['chats', this.currentLearner.whatsappUserId])
   }
 }

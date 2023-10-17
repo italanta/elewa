@@ -1,0 +1,25 @@
+<div class="modal-wrapper">
+  <div class="title-section">
+    <p class="title">{{ mode }}</p>
+    <span>{{ enrolledUser.name || 'No Name' }}</span>
+  </div>
+
+  <!-- Change Class -->
+  <div class="middle-section" *ngIf="(classrooms$ | async) as classrooms">
+    <div class="class" *ngFor="let classroom of classrooms">
+      <input type="radio" name="classroom" id="classroom" [checked]="classroom.id === enrolledUser.classId"
+        [value]="classroom.id" (change)="onChange($event)">
+      <label for="classroom">{{ classroom.className }}</label>
+    </div>
+  </div>
+
+  <div class="action-btns">
+    <button class="btn" (click)="onCancel()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
+    <button class="btn" (click)="submitAction()">
+      <span *ngIf="isUpdatingClass; else notCreating">
+        <i class="spin_tooltip fas fa-circle-notch fa-spin"></i>
+      </span>
+      <ng-template #notCreating>{{'CLASSESS.MODALS.ACTION-BUTTONS.CONTINUE' | transloco }}</ng-template>
+    </button>
+  </div>
+</div>

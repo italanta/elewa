@@ -50,7 +50,7 @@ export class ChannelDataService extends BotDataService<CommunicationChannel> {
   async getChannelInfo(id: string) {
     // Get users
     // Takes longer than get by Id
-    const channelInfo = await this.getDocumentById(id ,this._docPath)
+    const channelInfo = await this.getDocumentById(id, `channels`);
 
     return channelInfo;
   }

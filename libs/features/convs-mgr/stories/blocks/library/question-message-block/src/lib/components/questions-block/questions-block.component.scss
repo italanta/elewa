@@ -16,9 +16,13 @@ textarea:focus-visible {
 }
 
 .add-button {
-  width: 100%;
-  background-color: var(--convs-mgr-color-primary-purple);
-  color: white;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center; 
+  width: 90%;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--convs-mgr-input-color);
+  border-radius: 0.7rem;
 }
 
 .listgone {
@@ -30,12 +34,41 @@ textarea:focus-visible {
 .input {
   margin: 0;
 }
+
 .inputList {
   width: auto;
   display: flex;
   align-items: center;
 }
-.fa-trash-alt {
-  color: var(--convs-mgr-color-primary-purple);
-  padding-right: 5px;
+
+.fa-xmark {
+  color: #101010;
 }
+
+form{
+  border-top: 1px solid var(--convs-mgr-border-color);
+  padding-top: 0.3125rem;
+}
+
+.option-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.625rem;
+  
+  .option-input {
+    margin-bottom: 0.625rem;
+  }
+}
+
+.line {
+  height: 0.063rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+/** style for the line element when options are visible */
+.line.active {
+  background-color: var(--convs-mgr-border-color);
+  margin-top: 0.313rem; 
+  margin-bottom: 0.938rem;
+}
+

@@ -29,12 +29,13 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 {
   channel: WhatsAppCommunicationChannel;
   _tools: HandlerTools;
+  API_VERSION: string = process.env.WHATSAPP_VERSION || 'v18.0';
 
   public async execute(payload: CommunicationChannel, context: HttpsContext, tools: HandlerTools) 
   {
     this._tools = tools;
     this.channel = payload as WhatsAppCommunicationChannel;
-    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.orgId, this.channel.defaultStory));
+    const storyPublishedTime = __DateFromStorage(await this.__getStoryPublishedDate(this.channel.defaultStory, this.channel.orgId));
 
     this._tools.Logger.log(()=> `[WhatsApp Upload Media Handler] - Uploading media for Story: ${this.channel.defaultStory}`);
 
@@ -55,7 +56,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
       if(!storyPublishedTime) return {status: 400} as RestResult;
 
       // TODO: Uncomment this when the storyPublishedTime is fixed
-      if(blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
+      if(!fileBlock.whatsappMediaId || blockUpdatedTime > storyPublishedTime || this.__hasExpired(blockUpdatedTime)) {
 
       // Only upload media if the block has a file source
       if(fileBlock.fileSrc)
@@ -133,7 +134,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     
     this._tools.Logger.log(()=> `Uploading file to Whatsapp Servers: ${filepath}`);
 
-    const URL = `https://graph.facebook.com/v17.0/${channel.id}/media`;
+    const URL = `https://graph.facebook.com/${this.API_VERSION}/${channel.id}/media`;
 
     const type = mime.lookup(filepath) as string;
 

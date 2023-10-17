@@ -12,7 +12,7 @@ import {
   TextMessageBlock, EmailMessageBlock, PhoneMessageBlock, DocumentMessageBlock, StickerMessageBlock,
   VoiceMessageBlock, VideoMessageBlock, ListMessageBlock, JumpBlock, FailBlock,
   ImageInputBlock, LocationInputBlock, AudioInputBlock, VideoInputBlock, WebhookBlock, OpenEndedQuestionBlock,
-  KeywordMessageBlock, MultiContentInputBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block
+  KeywordMessageBlock, EndStoryAnchorBlock, EventBlock, AssessmentBrick, ConditionalBlock, CMI5Block
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
@@ -62,7 +62,6 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-video-input-block', type: StoryBlockTypes.VideoInput, message: 'Video Input', blockIcon:this.getBlockIcon(StoryBlockTypes.VideoInput), blockCategory: 'multimedia-block' } as VideoInputBlock,
     { id: 'webhook-block' , type: StoryBlockTypes.WebhookBlock, message: 'Webhook', blockIcon:this.getBlockIcon(StoryBlockTypes.WebhookBlock), blockCategory: 'questions-block' } as WebhookBlock,
     { id: 'open-ended-question-block', type:StoryBlockTypes.OpenEndedQuestion, message: 'Open Ended Question', blockIcon:this.getBlockIcon(StoryBlockTypes.OpenEndedQuestion), blockCategory: 'questions-block' } as OpenEndedQuestionBlock,
-    { id: 'multi-content-input' , type:StoryBlockTypes.MultiContentInput, message:'Multi Content Input', blockIcon:this.getBlockIcon(StoryBlockTypes.MultiContentInput), blockCategory: 'multimedia-block' } as MultiContentInputBlock,
     { id: 'keyword-jump-block', type:StoryBlockTypes.keyword, message: 'Keyword Jump', blockIcon:this.getBlockIcon(StoryBlockTypes.keyword), blockCategory: 'questions-block' } as KeywordMessageBlock,
     { id: 'event-block', type:StoryBlockTypes.Event, message: 'Event', blockIcon:this.getBlockIcon(StoryBlockTypes.Event), blockCategory: 'questions-block' } as EventBlock,
     { id: 'assessment-brick', type:StoryBlockTypes.Assessment, message: 'Assessment', blockIcon:this.getBlockIcon(StoryBlockTypes.Assessment), blockCategory: 'bricks' } as AssessmentBrick,
