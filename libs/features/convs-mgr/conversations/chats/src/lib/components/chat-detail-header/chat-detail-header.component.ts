@@ -26,12 +26,14 @@ import { EndUserPosition, PlatformType } from '@app/model/convs-mgr/conversation
 import { SpinnerService } from '@app/features/convs-mgr/conversations/messaging';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
+
 
 
 @Component({
@@ -50,6 +52,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   extractedLearnerId: string ;// This variable will be used to store the ID of a learner extracted from enrolled learners.
   learnerClass: string ;
+  className: string;
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
@@ -69,6 +72,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
               private _spinner: SpinnerService,
               private _enrolledLearners: EnrolledLearnersService,
               private _router$$: Router,
+              private _classRoomService$ :ClassroomService
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
     this.avatarBgColor = this.randomColor();
@@ -95,8 +99,13 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
         // Check if learner.id is defined before passing it a string since learner.id is nullable
         this.extractedLearnerId = learner.id ?? ''
         // Check if learner.classId exists and set learnerClass accordingly
-          this.learnerClass = learner.classId ?? '' // Convert to string
+          this.learnerClass = learner.classId ?? '' 
       },
+    );
+    this._classRoomService$.getSpecificClassroom(this.learnerClass).subscribe(
+      (classroomDetails: any) => {
+        this.className = classroomDetails;
+      }
     );
   }
 
@@ -286,9 +295,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     this._router.navigate([`/bots/${this.currentStory.id}`]);
   }
 
- 
-
   ngOnDestroy() {
     this._sbs.unsubscribe();
+    
   }
 }
