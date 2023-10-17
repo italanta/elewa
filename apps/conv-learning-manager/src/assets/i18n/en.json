@@ -466,7 +466,7 @@
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONENUMBER": "PhoneNumber",
+      "PHONENUMBER": "Phone Number",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"

@@ -84,6 +84,11 @@
   color: rgba(112, 112, 112, 1); /* Gray */
 }
 
+/* CSS to make font weight lighter for the "phone" column */
+.lighter-font-weight {
+  font-weight: lighter;
+}
+
 a {
   text-decoration: none;
   color: inherit;
