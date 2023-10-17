@@ -10,6 +10,10 @@
   background-color: white;
 }
 
+:host ::ng-deep .mat-mdc-tab .mdc-tab__text-label{
+  font-size: 16px;
+}
+
 div{
   div{
     .admin-header{   
@@ -19,9 +23,6 @@ div{
       font-weight: 400;
       word-wrap: break-word;
       margin: 2vh 0 2vh 2vh;
-    }
-    mat-tab-group{
-      margin-top: 1vh;
     }
   }
 }
