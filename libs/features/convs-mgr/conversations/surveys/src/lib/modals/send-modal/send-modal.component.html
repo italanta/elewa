@@ -1,1 +1,95 @@
-<p>send-modal works!</p>
+<!-- my-form.component.html -->
+<mat-horizontal-stepper>
+    <!-- Step 1: Radio Select and Filter Search -->
+    <mat-step label="select message template">
+      <form >
+        <div class="search">
+            <i class="fas fa-search search_tooltip"></i>
+            <input class="search_input" type="text" name="" placeholder="Search for learner"/>
+        </div>
+        <mat-radio-group formControlName="selectedOption" class="radios">
+          <mat-radio-button value="option1">Option 1</mat-radio-button>
+          <mat-radio-button value="option2">Option 2</mat-radio-button>
+        </mat-radio-group>
+      </form>
+      <div class="buttons">
+        <button mat-button class="cancel" (click)="closeModal()">Cancel</button>
+        <button mat-button class="save" matStepperNext>Continue</button>
+      </div>
+      
+    </mat-step>
+  
+    <!-- Step 2: Table with Filters -->
+    <mat-step label="Select Learner" completed="false">
+        <form [formGroup]="filterForm">
+        <div class="search">
+            <i class="fas fa-search search_tooltip"></i>
+            <input
+            class="search_input"
+            type="text"
+            placeholder="Search for learner"
+            (keyup)="searchTable($event)"
+            />
+        </div>
+        <div class="fil-cont">
+            <div class="filter-select">
+            <select class="filter2" [formControl]="classFilterControl" class="custom-select">
+                <option value="">All</option>
+                <option *ngFor="let classroom of allClasses" [value]="classroom.id">{{ classroom.className }}</option>
+            </select>
+            </div>
+            <div class="filter-select">
+            <select class="filter2" [formControl]="courseFilterControl" class="custom-select">
+                <option value="">All</option>
+                <option *ngFor="let course of allCourses" [value]="course">{{ course }}</option>
+            </select>
+            </div>
+            <div class="status-filter">
+                <select class="filter2">
+                  <option value="">All</option>
+                  <option value="active">Active</option>
+                  <option value="stuck">Stuck</option>
+                  <option value="inactive">Inactive</option>
+                </select>
+              </div>
+              
+        </div>
+        </form>
+        <div class="selection-count">
+            {{selection.selected.length}} Selected
+        </div>
+        <div class="radios">
+            <mat-table [dataSource]="dataSource" matSort>
+                <!-- Define the columns and cells -->
+                <ng-container matColumnDef="Select">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        <mat-checkbox (change)="$event ? masterToggle() : null" color="white" [checked]="selection.hasValue()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                      </mat-checkbox>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <mat-checkbox (click)="$event.stopPropagation()" color="white"
+                        (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+                      </mat-checkbox>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.name ? row.name : 'No Username' }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Phone Number">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.phoneNumber }}</mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            </mat-table>
+        </div>
+        <div class="buttons">
+        <button mat-button class="cancel" matStepperPrevious>Back</button>
+        <button mat-button class="save">Save</button>
+        </div>
+    </mat-step>
+  
+  </mat-horizontal-stepper>
+  
