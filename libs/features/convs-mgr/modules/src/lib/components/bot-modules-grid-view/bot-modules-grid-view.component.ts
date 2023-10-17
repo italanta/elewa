@@ -8,6 +8,7 @@ import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 // TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { 
   DeleteBotModalComponent,
   DeleteElementsEnum, 
