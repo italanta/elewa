@@ -64,7 +64,7 @@ export class SubscriptionService {
   }
   
   async getPaymentStatus(paymentId: string){
-    const molliePaymentStatus = await this.mollieClient.payment.get(paymentId) //**shaky on userId here, (payment will have userId) */
+    const molliePaymentStatus = await this.mollieClient.payment.get(paymentId) 
     return molliePaymentStatus
   }
 

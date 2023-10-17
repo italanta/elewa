@@ -3,12 +3,12 @@ import { HandlerTools } from "@iote/cqrs";
 import { Query } from "@ngfi/firestore-qbuilder";
 
 import { iTalUser } from "@app/model/user";
+import { Transaction, TransactionStatus } from "../models/transaction";
 
 import { MollieCustomerService } from "../services/customer-core-service";
 import { PaymentCoreService } from "../services/payment-core.service";
 import { SubscriptionService } from "../services/subscription-core.service";
 import { TransactionsService } from "../services/transaction.service";
-import { Transaction, TransactionStatus } from "../models/transaction";
 
 
 export class ReceivePaymentHandler extends FunctionHandler<any, any>
@@ -22,6 +22,8 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
 
 
   public async execute(data: {id: string}, context: FunctionContext, tools: HandlerTools): Promise<any> {
+
+    tools.Logger.log(()=> `[ReceivePaymentHandler].execute - Payload :: ${JSON.stringify(data)}`);
 
     this._paymentService =  new PaymentCoreService(process.env.MOLLIE_API_KEY, tools);
     this._subscriptionService = new SubscriptionService(tools);
@@ -42,14 +44,22 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
       // Get transaction details:
       const trnDetails  = await this._trnService.getTransaction(data.id, user.id);
 
-      return this.handlePaymentStatus(paymentDetails, user, trnDetails);
+      if (trnDetails) {
+        return this.handlePaymentStatus(paymentDetails, user, trnDetails);
+      } else  {
+        tools.Logger.error(() => `missing transaction error `)
+      }
     } catch (e) {
       tools.Logger.log(() => `${e.message}`);
     }
-    
-    tools.Logger.log(() => `Payment Object ${JSON.stringify(data)}`);
   }
-
+/**
+ * 
+ * @param payment payment object returned by mollie api 
+ * @param user a clm user registered on mollie
+ * @param trn A transaction
+ * @returns updates transaction doc with received status
+ */
   
   async handlePaymentStatus(payment: any, user: iTalUser, trn: Transaction){
     switch (payment.status) {
@@ -60,11 +70,12 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
           await this._trnService.updateTransaction(trn, user.id);
           return this._paymentService.onFirstPayment(payment, user);
         } else if (payment.sequenceType == 'recurring') {
-          const subTrn = await this._trnService.getTransaction(payment.subscriptionId, user.id);
+          const subTrn = await this._trnService.getTransaction(trn.id, user.id);
+          if(subTrn != null){
           subTrn.status = TransactionStatus.success;
 
           await this._trnService.updateTransaction(subTrn, user.id);
-          return this._subscriptionService.renewSubscription(trn, payment);
+          return this._subscriptionService.renewSubscription(trn, payment); }
         }
         break;
       case 'failed':

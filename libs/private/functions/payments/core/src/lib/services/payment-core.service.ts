@@ -1,12 +1,13 @@
 import { createMollieClient } from '@mollie/api-client';
 
 import { iTalUser } from '@app/model/user';
-import { Payment } from "../models/payment"
+import { HandlerTools } from '@iote/cqrs';
+
 import { MollieCustomerService } from './customer-core-service';
+import { Payment } from "../models/payment";
 
 import { Customer } from '../models/customer'
 import { Mandate } from '../models/mandate';
-import { HandlerTools } from '@iote/cqrs';
 
 
 export class PaymentCoreService {
@@ -24,11 +25,7 @@ export class PaymentCoreService {
   async createPayment(payment: Payment, user: iTalUser) {
     try {
       // TODO: Pass the actual user while using this method
-        const customerId = await this.mollieCustomerService.createMollieCustomer(user);
-      if (!payment.customerId || !payment.sequenceType || !payment.description || !payment.amount.currency || !payment.amount.value) {
-        throw new Error("Missing required payment information");
-      }
-
+      const customerId = await this.mollieCustomerService.createMollieCustomer(user);
       const paymentData = {
         ...payment,
         amount: {
@@ -74,7 +71,7 @@ export class PaymentCoreService {
   }
 
   async getPaymentDetails(paymentId: string){
-    const molliePaymentStatus = await this.mollieClient.payment.get(paymentId) //**shaky on userId here, (payment will have userId) */
+    const molliePaymentStatus = await this.mollieClient.payments.get(paymentId) 
     return molliePaymentStatus;
   }
         /**

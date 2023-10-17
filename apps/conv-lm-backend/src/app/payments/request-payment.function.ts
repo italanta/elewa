@@ -2,9 +2,9 @@ import { RestRegistrar } from '@ngfi/functions';
 
 import { ConvLearnFunction } from "../../conv-learn-func.class";
 
-import { CreatePaymentHandler } from '@app/private/functions/payments/core';
+import { RequestPaymentHandler } from '@app/private/functions/payments/core';
 
-const requestNewPaymentHandler = new CreatePaymentHandler()
+const requestNewPaymentHandler = new RequestPaymentHandler()
 
 const INVOICES_PATH = 'invoices/{invoiceId}';
 

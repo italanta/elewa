@@ -15,10 +15,10 @@ export class TransactionsService {
     return trnRepo.update(trn);
   }
 
-  getTransaction(paymentId: string, userId: string) {
+  getTransaction(transactionId: string, userId: string) {
     const trnRepo = this.tools.getRepository<Transaction>(`users/${userId}/transactions`);
 
-    return trnRepo.getDocumentById(paymentId);
+    return trnRepo.getDocumentById(transactionId);
   }
 
   writeTransaction(trn: Transaction, userId: string) {
