@@ -1,0 +1,13 @@
+<section class="courses-wrapper">
+  <div *ngFor="let course of (courses$ | async)">
+    <div class="course">
+      <span class="bot-name">{{ course.bot.name }}</span>
+
+      <div class="stories-wrapper" *ngFor="let module of (course.modules$ | async); index as moduleIndex">
+        <ng-container *ngFor="let story of (module.stories$ | async); index as storyIndex">
+          <italanta-apps-course-module-item [botModule]="module.module" [story]="story"></italanta-apps-course-module-item>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>

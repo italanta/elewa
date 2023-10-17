@@ -1,0 +1,18 @@
+.courses-wrapper {
+  padding: 2rem 0;
+
+  .course {
+    display: flex;
+    flex-direction: column;
+
+    .bot-name {
+      font-size: 1rem;
+    }
+  }
+
+  .stories-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
