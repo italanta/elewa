@@ -1,0 +1,24 @@
+<!-- item -->
+<div class="story">
+  <div class="name span-2">{{ story.name }}</div>
+  <button class="btn btn-module">{{ botModule.name }}</button>
+  <button class="btn btn-story" (click)="openLesson(story.id!)">view Story</button>
+  <div class="status">Draft</div>
+
+  <div class="actions">
+    <button mat-flat-button [matMenuTriggerFor]="menu">
+      <i class="fa-solid fa-ellipsis-vertical tooltip"></i>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="editLesson(story)">
+        <span> {{ "BOTS.BOTS-PAGE.EDIT" | transloco }} </span>
+      </button>
+      <button mat-menu-item (click)="deleteLesson(story)">
+        <span> {{ "BOTS.BOTS-PAGE.DELETE" | transloco }} </span>
+      </button>
+    </mat-menu>
+  </div>
+
+</div>
+<!-- end item -->

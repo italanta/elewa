@@ -1,0 +1,41 @@
+.story {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+
+  .span-2 {
+    grid-column: span 2;
+  }
+
+  * {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    justify-self: center;
+    cursor: pointer;
+
+    &.btn-module {
+      background-color: white;
+      border: 1px solid teal;
+      color: teal;
+    }
+
+    &.btn-story {
+      background-color: teal;
+      color: white;
+    }
+  }
+
+  .status {
+    justify-self: center;
+  }
+
+  :last-child {
+    justify-self: flex-end;
+  }
+}

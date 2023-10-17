@@ -5,6 +5,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
+
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ConvsMgrModulesModule } from '@app/features/convs-mgr/modules';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
@@ -14,8 +16,10 @@ import { StoryListItemComponent } from './components/story-list-item/story-list-
 import { BotsListHeaderComponent } from './components/bots-list-header/bots-list-header.component';
 import { BotsListAllCoursesComponent } from './components/bots-list-all-courses/bots-list-all-courses.component';
 import { BotsListLatestCoursesComponent } from './components/bots-list-latest-courses/bots-list-latest-courses.component';
-import { BotPageComponent } from './pages/bot-page/bot-page.component';
+import { CoursesListComponent } from './components/courses-list/courses-list.component';
+import { CourseModuleItemComponent } from './components/course-module-item/course-module-item.component';
 
+import { BotPageComponent } from './pages/bot-page/bot-page.component';
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
 import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/courses-view-all-page.component';
 
@@ -55,6 +59,8 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     CreateLessonModalComponent,
     BotPageComponent,
     CoursesViewAllPageComponent,
+    CoursesListComponent,
+    CourseModuleItemComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}
