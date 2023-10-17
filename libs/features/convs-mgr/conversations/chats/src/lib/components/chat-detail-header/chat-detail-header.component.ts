@@ -283,7 +283,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   }
 
   navigateToStory(){
-    this._router.navigate([`/stories/${this.currentStory.id}`]);
+    this._router.navigate([`/bots/${this.currentStory.id}`]);
   }
 
  
