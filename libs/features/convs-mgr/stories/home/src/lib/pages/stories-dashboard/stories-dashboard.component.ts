@@ -40,4 +40,8 @@ export class StoriesDashboardComponent implements OnInit {
     this.org$ = this._org$$.get();
     this.bots$ = this._botsServ$$.getBots();
   }
+
+  openViewAllPage() {
+    this._router$$.navigateByUrl('/bots/view-all')
+  }
 }

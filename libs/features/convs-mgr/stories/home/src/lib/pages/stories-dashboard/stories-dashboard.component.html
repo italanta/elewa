@@ -1,5 +1,5 @@
 <convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
-  <div *ngIf="!showAllCourses else allCourses"  class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+  <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
     <span class="bots"> {{ "BOTS.BOTS-PAGE.BOTS" | transloco }} </span>
 
     <div class="bots-header" fxFlex>
@@ -15,7 +15,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span>
 
-      <button mat-flat-button (click)="showAllCourses = !showAllCourses">
+      <button mat-flat-button (click)="  openViewAllPage()        ">
         {{ "BOTS.BOTS-PAGE.VIEW-ALL" | transloco }}
       </button>
     </div>
@@ -27,11 +27,8 @@
 
   <ng-template #allCourses>
     <div class="bots-page">
-      <italanta-apps-bots-list-all-courses [showAllCourses]="showAllCourses" 
-                                            [bots$]="bots$"
-                                            (collapseAllCourses)="showAllCourses = !showAllCourses">
-      </italanta-apps-bots-list-all-courses>
+      <italanta-apps-courses-view-all-page [showAllCourses]="showAllCourses" [bots$]="bots$">
+      </italanta-apps-courses-view-all-page>
     </div>
   </ng-template>
-
 </convl-page>

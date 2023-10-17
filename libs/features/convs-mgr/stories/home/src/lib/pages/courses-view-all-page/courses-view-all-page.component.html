@@ -1,1 +1,37 @@
-<p>courses-view-all-page works!</p>
+<convl-page>
+  <div class="page-wrapper">
+    <p class="title">Bots</p>
+  
+    <div class="courses-container">
+      <span>All Courses</span>
+  
+      <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-tooltip"></i>
+        <input class="search-input" placeholder="search module" type="search" (keyup)="searchTable($event)" name="" id="">
+      </div>
+  
+      <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+        <div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
+          <div class="select">
+            <select [value]="sortCoursesBy" (change)="sortBy($event)">
+              <option value=""></option>
+              <option value="newest">Date Created (Newest)</option>
+              <option value="oldest">Date Created (Oldest)</option>
+            </select>
+          </div>
+  
+          <div class="select">
+            <select (change)="filterStatusBy($event)">
+              <option value=""></option>
+              <option value="newest">Date Created (Newest)</option>
+            </select>
+          </div>
+        </div>
+
+        <button mat-stroked-button>
+          <span (click)="goToDashboard()"> {{ "BOTS.BOTS-PAGE.BACK" | transloco }} </span>
+        </button>
+      </div> 
+    </div>
+  </div>
+</convl-page>
