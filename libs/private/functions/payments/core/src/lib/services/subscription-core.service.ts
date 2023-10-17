@@ -122,12 +122,20 @@ export class SubscriptionService {
     } else {
       const currentSub  = (await subscriptionRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1)))[0];
 
+      const interval = currentSub.interval;
+      const [duration, unit] = interval.split(' ');
+      const startDate = new Date();
+      const expiryDate = new Date(startDate);
+
+      if (unit == 'months'){
+        expiryDate.setMonth(currentSub.startDate.getMonth()+ parseInt(duration))
+      }
       subscription = {
         ...currentSub,
         // TODO: Calculate the expiry date from interval and new date
         // ---Important
-        expiryDate: new Date(),
-        startDate: new Date(),
+        startDate: startDate,
+        expiryDate: expiryDate,
         status: SubscriptionStatusTypes.Active
       }
     }
