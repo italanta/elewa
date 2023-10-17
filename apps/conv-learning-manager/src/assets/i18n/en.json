@@ -482,7 +482,7 @@
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "Phone Number",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
