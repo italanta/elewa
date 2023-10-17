@@ -52,11 +52,11 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
 
     this._sBS.sink = this.messageTemplates$.pipe(
       switchMap((templates) => {
-        if (!templates || templates.length === 0) {
+        const firstTemplate = templates[0];
+        if (!templates || templates.length === 0 || (!firstTemplate.channelId)) {
           this.isSaving = false;
           return [];
         }
-        const firstTemplate = templates[0];
         const channelId = firstTemplate ? firstTemplate.channelId : '';
     
         this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
@@ -76,7 +76,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
                 isScheduled, 
               };
             });
-    
             return mergedData;
           })
         );
