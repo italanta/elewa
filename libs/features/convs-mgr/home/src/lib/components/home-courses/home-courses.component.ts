@@ -6,35 +6,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-courses.component.scss'],
 })
 export class HomeCoursesComponent implements OnInit {
-
   courses = [
     {
-      id: "1",
-      name: " Course 1 ",
-      isPublished: false,
-      platform: 'whatsapp'
+      id: '1',
+      name: 'ITC - Introduction to scouting',
+      isPublished: true,
+      platform: 'whatsapp',
     },
     {
-      id: "2",
-      name: " Introduction to scouting ",
+      id: '2',
+      name: 'ITC - Introduction to scouting ',
       isPublished: true,
-      platform: 'telegram'
+      platform: 'messenger',
     },
     {
-      id: "3",
-      name: " Introduction to scouting ",
+      id: '3',
+      name: 'PTC - Preliminary scouting',
       isPublished: true,
-      platform: 'whatsapp'
+      platform: 'in progress',
     },
-  ]
-  constructor() { }
+  ];
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  openCourse(courseId: string) {
-
-  }
-  openDeleteModal(course: any) {
-
-  }
+  openCourse(courseId: string) {}
+  openDeleteModal(course: any) {}
 }

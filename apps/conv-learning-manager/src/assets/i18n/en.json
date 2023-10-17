@@ -108,6 +108,11 @@
       }
     },
     "BLOCK": {
+      "MENU": {
+        "EDIT": "Edit",
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      },
       "BLOCK_ID": "Block ID",
       "TITLES": {
         "IMAGE": "Image",
@@ -452,7 +457,18 @@
       "EDIT" : "Edit",
       "DELETE" : "Delete",
       "OPEN-LESSON" : "Open lesson",
-      "VIEW-ALL" : "View All"
+      "VIEW-ALL" : "View All",
+    }
+  },
+  "CLASSESS": {
+    "MODALS": {
+      "CREATE-CLASS": "Create Class",
+      "CLASSNAME": "ClassName",
+      "DESCRIPTION": "Description",
+      "ACTION-BUTTONS": {
+        "CANCEL": "Cancel",
+        "CONTINUE": "Continue"
+      }
     }
   },
   "ASSESSMENTS": {
@@ -573,7 +589,7 @@
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONENUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "PhoneNumber",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
@@ -582,6 +598,7 @@
       "SEARCH-PLACEHOLDER": "Search input by name"
     },
     "BUTTONS": {
+      "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
       "BULK-ACTIONS": "Bulk Actions",
       "CLASS": "Class",
