@@ -87,8 +87,8 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
               case MessageTypes.STICKER:
               case MessageTypes.VIDEO:
               case MessageTypes.REACTION:
-                  this.lastMessage = latestMessage.type; // Set lastMessage to the message type
-                  this.imageSource = this.getImageSource(); // Set imageSource
+                  this.lastMessage = latestMessage.type; 
+                  this.imageSource = this.getImageSource();
                   break;
                      
             default:
@@ -109,13 +109,12 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
       case MessageTypes.LOCATION:
         return 'assets/images/lib/block-builder/docs-block-placeholder.png';
       case MessageTypes.STICKER:
-        return 'assets/images/lib/block-builder/docs-block-placeholder.png';
+        return 'assets/images/lib/block-builder/sticker-block-placeholder.png';
       case MessageTypes.VIDEO:
-        return 'assets/images/lib/block-builder/docs-block-placeholder.png';
+        return 'assets/images/lib/block-builder/video-block-placeholder.png';
       case MessageTypes.REACTION:
-        return 'assets/images/lib/block-builder/docs-block-placeholder.png';      
+        return 'assets/images/lib/block-builder/sticker-block-placeholder.png';      
       default:
-
         return '';
     }
   }
