@@ -158,29 +158,10 @@
   }
 }
 
-
-
-.spacer{
-  background-color: red;
-  height: 20px;
-  width: 20px !important;
-}
-
-
-:host ::ng-deep .mat-mdc-form-field {
-  // width: 100%!important;
-  border-radius: 25px !important;
-  border: none !important;
- 
-  
-}
-
 :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
 .mat-mdc-form-field-infix {
   padding-top: 8px!important;
   padding-bottom: 0px!important;
-  border: none !important;
-
 }
 
 :host ::ng-deep .mat-mdc-form-field-infix {
