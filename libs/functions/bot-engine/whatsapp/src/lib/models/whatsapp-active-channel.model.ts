@@ -53,8 +53,10 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  async parseOutStandardMessage(message: Message, phone: string)
+  async parseOutStandardMessage(message: Message)
   {
+    const phone = message.endUserPhoneNumber;
+    
     const n = this.channel.n;
     const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
     const endUser = await this.endUserService.getEndUser(endUserId)
