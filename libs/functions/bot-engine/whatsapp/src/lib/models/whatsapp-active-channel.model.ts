@@ -14,10 +14,10 @@ import { WhatsAppOutgoingMessage } from "@app/model/convs-mgr/functions";
 import { PlatformType, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 import { Message, MessageTemplateConfig, TemplateMessageParams } from "@app/model/convs-mgr/conversations/messages";
+import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 import { WhatsappOutgoingMessageParser } from "../io/outgoing-message-parser/whatsapp-api-outgoing-message-parser.class";
 import { StandardMessageOutgoingMessageParser } from "../io/outgoing-message-parser/standardized-message-to-outgoing-message.parser";
-import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 
 /**
  * After the bot engine processes the incoming message and returns the next block,
@@ -38,6 +38,7 @@ export class WhatsappActiveChannel implements ActiveChannel
 {
   channel: WhatsAppCommunicationChannel;
   endUserService: EndUserDataService;
+  API_VERSION: string = process.env.WHATSAPP_VERSION || 'v18.0';
 
   constructor(private _tools: HandlerTools, channel: WhatsAppCommunicationChannel)
   {
@@ -52,8 +53,10 @@ export class WhatsappActiveChannel implements ActiveChannel
     return outgoingMessagePayload;
   }
 
-  async parseOutStandardMessage(message: Message, phone: string)
+  async parseOutStandardMessage(message: Message)
   {
+    const phone = message.endUserPhoneNumber;
+    
     const n = this.channel.n;
     const endUserId = generateEndUserId(phone, PlatformType.WhatsApp, n);
     const endUser = await this.endUserService.getEndUser(endUserId)
@@ -151,6 +154,10 @@ export class WhatsappActiveChannel implements ActiveChannel
   }
 
   async send(whatsappMessage: WhatsAppOutgoingMessage, standardMessage?: Message) {
+
+    const PHONE_NUMBER_ID = this.channel.id;
+    const URL = `https://graph.facebook.com/${this.API_VERSION}/${PHONE_NUMBER_ID}/messages`;
+
     try {
       if (standardMessage) {
         whatsappMessage = (await this._handle24hourWindow(whatsappMessage.to, standardMessage)) || whatsappMessage;
@@ -159,7 +166,6 @@ export class WhatsappActiveChannel implements ActiveChannel
       // STEP 1: Assign the access token and the business phone number id
       // required by the WhatsApp API to send messages
       const ACCESS_TOKEN = this.channel.accessToken;
-      const PHONE_NUMBER_ID = this.channel.id;
   
       // STEP 2: Prepare the outgoing WhatsApp message
       // Convert it to a JSON string
@@ -169,7 +175,7 @@ export class WhatsappActiveChannel implements ActiveChannel
   
       // STEP 3: Send the message
       // Generate the Facebook URL through which we send the message
-      const URL = `https://graph.facebook.com/v14.0/${PHONE_NUMBER_ID}/messages`;
+      // TODO: Move the versions to environment
   
       /**
        * Execute the post request using axios and pass in the URL, ACCESS_TOKEN, and the outgoingMessage
@@ -246,7 +252,7 @@ export class WhatsappActiveChannel implements ActiveChannel
   private async _getMediaUrl(mediaId: string)
   {
     if (mediaId) {
-      const URL = `https://graph.facebook.com/v15.0/${mediaId}`;
+      const URL = `https://graph.facebook.com/${this.API_VERSION}/${mediaId}`;
       try {
         const mediaInformation = await axios.get(URL,
           {
