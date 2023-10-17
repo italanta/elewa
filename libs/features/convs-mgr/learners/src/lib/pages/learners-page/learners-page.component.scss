@@ -70,6 +70,20 @@
     }
   }
 }
+
+/* Styles for status badges */
+.status-stuck {
+  color: rgba(232, 19, 19, 1); /* Red */
+}
+
+.status-active {
+  color: rgba(25, 176, 22, 1); /* Green */
+}
+
+.status-inactive {
+  color: rgba(112, 112, 112, 1); /* Gray */
+}
+
 a {
   text-decoration: none;
   color: inherit;

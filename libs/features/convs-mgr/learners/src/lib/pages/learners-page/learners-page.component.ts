@@ -72,11 +72,24 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.allPlatforms = ['Whatsapp', 'Messenger'];
   }
 
-  getStatus(status: number) {
+  getStatus(status: string): string {
     return (
       EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
       EnrolledEndUserStatus[status].slice(1)
     );
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'stuck':
+        return 'status-stuck';
+      case 'active':
+        return 'status-active';
+      case 'inactive':
+        return 'status-inactive';
+      default:
+        return ''; // Handle other cases as needed
+    }
   }
 
   searchTable(event: Event) {
