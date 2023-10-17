@@ -90,12 +90,12 @@ div{
           margin-top: 10px;
         }
       }
+     
       div{
         button{
-          margin-right: 10vh;
           border-radius: 25px;
-          height: 45px;
-          width: 142px;
+          height: 35px;
+          width: 102px;
           // position: fixed;
           top: -10vh;
          }
@@ -128,10 +128,19 @@ div{
             }
           }
         }
-        .bottons-div{
+        .bottom-buttons{
           margin-top: 346px;
           right: 1px;
           position: absolute;
+          display: flex;
+          div{
+            .edit-btn{
+              margin-right: 10vh;
+            }
+            .cancel-btn{
+              margin-right: 0.5vh;
+            }
+          }
         }
       }
     }

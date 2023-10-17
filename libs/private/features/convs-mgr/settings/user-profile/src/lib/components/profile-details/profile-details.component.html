@@ -42,14 +42,14 @@
         </div> 
          
        
-        <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="19px" fxFlex class="bottons-div">
-          <div fxLayout="column" fxLayoutAlign="start start">
-            <button class="cancel" mat-raised-button *ngIf="editProfile" (click)="editUserProfile()">
+        <div class="bottom-buttons">
+          <div class="cancel">
+            <button class="cancel-btn" mat-raised-button *ngIf="editProfile" (click)="editUserProfile()">
               {{ 'PROFILE-DETAILS.CANCEL' | transloco }}
             </button>
           </div>
   
-          <div fxLayout="column" fxLayoutAlign="end end" >     
+          <div class="edit" >     
             <button class="btn edit-btn" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editUserProfile()" mat-raised-button>
               <span *ngIf="!editProfile; else saveProfile">Edit Profile</span>
               <ng-template #saveProfile>
