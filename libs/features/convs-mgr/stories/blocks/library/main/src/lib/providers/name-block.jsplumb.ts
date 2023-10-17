@@ -22,7 +22,7 @@ export function _NameBlockDecoratePlumb(block: NameMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0, 0.3, 0, 1],
     maxConnections: -1
   });
   jsPlumb.addEndpoint(comp.location.nativeElement, {
@@ -30,7 +30,7 @@ export function _NameBlockDecoratePlumb(block: NameMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Right",
+    anchor: [1, 0.8, 0, 1],
     maxConnections: -1
   });
 
