@@ -13,7 +13,6 @@ import {
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { EndUserPosition } from '@app/model/convs-mgr/conversations/admin/system';
-import { GET_RANDOM_COLOR } from '../../providers/avatar.provider';
 
 @Component({
   selector: 'app-chat-conversation',
@@ -30,7 +29,6 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   currentStory: Story;
   chatStatus: string;
   userClass: string;
-  chatAvatarColor: string;
 
   constructor(
     private _activeChat$: ActiveChatConnectedStore,
@@ -49,10 +47,7 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
       .get()
       .pipe(
         tap((chat) => {
-          if (chat?.id) {
-            this.chat = chat;
-            this.chatAvatarColor = GET_RANDOM_COLOR();
-          }
+          if (chat?.id) this.chat = chat;
         }),
         tap(() => this.getChatInfo())
       )
