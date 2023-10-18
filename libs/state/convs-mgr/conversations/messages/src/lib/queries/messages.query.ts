@@ -49,11 +49,11 @@ export class MessagesQuery
 
   getLatestMessageDate(chatId: string) {
     
-    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${chatId}/messages`);
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${this.orgId}/messages`);
 
     const messages = messagesRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));  
 
-    return messages.pipe(map(messages => messages ? messages[0].createdOn : {} as any));
+    return messages.pipe(map(messages => messages[0].createdOn));
   }
 
   addMessage(message: Message) {

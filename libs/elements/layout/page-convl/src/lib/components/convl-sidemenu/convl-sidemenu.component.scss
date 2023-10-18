@@ -610,6 +610,19 @@ a {
   }
 }
 
+.sub-side-menu{
+  padding-left: 1rem!important;
+  font-size: .85rem!important;
+}
+.collapsible {
+  display: none; 
+}
+
+.collapsible.show {
+  display: block; 
+}
+
+
 .sidebar-toggler {
   position: fixed;
   right: 20px;
@@ -664,3 +677,4 @@ a {
 :host ::ng-deep .mat-expansion-indicator {
   padding: 10px;
 }
+

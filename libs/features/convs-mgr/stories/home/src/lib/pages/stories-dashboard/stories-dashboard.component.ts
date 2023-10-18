@@ -1,22 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { SubSink } from 'subsink';
 
 import { Observable } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
+import { Bot } from '@app/model/convs-mgr/bots';
 import { Organisation } from '@app/model/organisation';
-import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { ActiveOrgStore } from '@app/state/organisation';
-import { StoriesStore } from '@app/state/convs-mgr/stories';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
-
-import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 
 @Component({
   selector: 'italanta-apps-stories-dashboard',
@@ -24,43 +19,25 @@ import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bo
   styleUrls: ['./stories-dashboard.component.scss'],
 })
 export class StoriesDashboardComponent implements OnInit {
-
-  private _sb = new SubSink();
-
   title: string;
-
   breadcrumbs: Breadcrumb[] = [];
 
-  stories$: Observable<Story[]>;
+  bots$: Observable<Bot[]>;
   org$: Observable<Organisation>;
 
   loading = true;
+  showAllCourses = false;
 
-  constructor(private _org$$: ActiveOrgStore,
-              private _stories$$: StoriesStore,
-              private _router$$: Router,
-              private dialog : MatDialog
-  )
-  {
+  constructor(
+    private _org$$: ActiveOrgStore,
+    private _botsServ$$: BotsStateService,
+    private _router$$: Router
+  ) {
     this.breadcrumbs = [HOME_CRUMB(_router$$, true)];
-    this.org$ = _org$$.get();
-    this.stories$ = this._stories$$.get();
   }
 
-  ngOnInit(): void {}
-
-  openCreateDialog(){
-    this.dialog.open(CreateBotModalComponent, {
-      data: {
-        isEditMode: false,
-      },
-      minHeight: 'fit-content',
-      minWidth: '600px'
-    });
-  }
-
-  ngOnDestroy()
-  {
-    this._sb.unsubscribe();
+  ngOnInit(): void {
+    this.org$ = this._org$$.get();
+    this.bots$ = this._botsServ$$.getBots();
   }
 }

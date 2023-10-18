@@ -1,0 +1,39 @@
+<div class="milestone">
+    <p class="milestone-title">{{'MESSAGE-TEMPLATES.MILESTONE.MILESTONE-TITLE'| transloco }} 
+        <span (click)="closeModal()"><i class="fa-solid fa-xmark"></i></span>
+    </p>
+    <!-- <p class="milestone-sub">{{'MESSAGE-TEMPLATES.MILESTONE.SELECT-MILESTONE'| transloco }}</p> -->
+    <!-- <mat-radio-group aria-label="Select an option" class="m-radio" [(ngModel)]="selectedMilestoneType">
+        <mat-radio-button value="before">{{'MESSAGE-TEMPLATES.MILESTONE.MILESTONE-TYPES.BEFORE'| transloco }}</mat-radio-button>
+        <mat-radio-button value="after">{{'MESSAGE-TEMPLATES.MILESTONE.MILESTONE-TYPES.AFTER'| transloco }}</mat-radio-button>
+    </mat-radio-group> -->
+      
+    <div class="bot-list" *ngIf="stories$ | async as stories">
+        <p class="milestone-sub">{{'MESSAGE-TEMPLATES.MILESTONE.SELECT-BOT'| transloco }}</p>
+        <mat-form-field class="">
+            <mat-select [(ngModel)]="story" (selectionChange)="selectedBot()">
+              <mat-option *ngFor="let bot of stories" [value]="bot">
+                {{ bot.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    <div class="bot-milestone">
+        <p class="milestone-sub">{{ 'MESSAGE-TEMPLATES.MILESTONE.SELECT-MILESTONE' | transloco }}</p>
+        <ng-container *ngIf="(blocks$ | async) as milestones; else noMilestones">
+          <mat-radio-group aria-label="Select an option" class="m-radio" [(ngModel)]="selectedMilestone" appearance="outline">
+            <mat-radio-button *ngFor="let milestone of milestones; let i = index" [value]="milestone">
+              Milestone {{ i + 1 }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </ng-container>
+      </div>
+      
+      <ng-template #noMilestones>
+        <p>{{ 'MESSAGE-TEMPLATES.MILESTONE.SELECT-HINT' | transloco }}</p>
+      </ng-template>
+          
+    <button mat-raised-button class="send-btn" (click)="onSaveClick()">
+        <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }}  </span>
+    </button>
+</div>
