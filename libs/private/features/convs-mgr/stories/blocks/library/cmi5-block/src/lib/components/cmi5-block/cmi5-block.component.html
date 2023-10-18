@@ -1,7 +1,7 @@
 <div [id]="id" *ngIf="CMI5BlockForm">
     <form [formGroup]="CMI5BlockForm" fxLayout="column" fxLayoutAlign="start center">
       <div [id]="courseId" class="mci5_bg">
-        <div>
+        
           <input
             (change)="processDocs($event)"
             id="docFile"
@@ -13,7 +13,7 @@
           />
           <label for="docFile"> <!-- Add a label to act as a trigger for the file input -->
             <div *ngIf="!file && !isDocLoading" class="mci5-icon">
-              <i class="fas fa-file-archive fa-3x"></i>
+              <img src = "assets/svgs/blocks/formkit_zip.svg" width="35" height="40" class="zipIcon"/>
             </div>
             <div *ngIf="isDocLoading" class="mci5-icon">
               <i class="fas fa-circle-notch fa-spin"></i>
@@ -23,7 +23,7 @@
               <p>{{ uploadedFileName }}</p>
             </div>
           </label>
-        </div>
+        
       </div>
   
       <!-- Rest of the template remains the same -->

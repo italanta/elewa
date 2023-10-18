@@ -14,7 +14,9 @@ export * from './lib/io/incoming-message-parsers/interactive-message-parser.clas
 export * from './lib/services/data-services/end-user.service';
 export * from './lib/utils/generateEnrolledUserId';
 export * from './lib/utils/generateUserId';
+export * from './lib/utils/http-service/http.service';
 export * from './lib/io/incoming-message-parsers/models/incoming-message-parser.interface';
+export * from './lib/io/block-to-message-parser.class';
 export * from './lib/handlers/talk-to-operator.handler';
 export * from './lib/handlers/move-chat.handler';
 export * from './lib/services/data-services/cursor.service';
