@@ -1,18 +1,26 @@
+p {
+  margin: 0;
+}
+
 .page-wrapper{
   padding: 30px 50px;
 
   .title {
-    font-size: 2rem;
+    font-size: 3rem;
+    font-weight: 400;
+    padding: 20px 0px;
   }
 
-  .courses-container {
-    display: flex;
-    gap: 2rem;
+  .courses-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     align-items: center;
   }
 
   .search-wrapper {
     position: relative;
+    justify-self: center;
+    grid-column: span 2;
 
     .search-input {
       border: none;
@@ -20,7 +28,7 @@
       padding: 1rem;
       border-radius: 30px;
       padding-left: 2.5rem;
-      min-width: 22rem;
+      width: 22rem;
     }
 
     .search-tooltip {
@@ -83,5 +91,20 @@
   /* Transition */
   .select:hover::after {
     color: black;
+  }
+
+  .btn {
+    padding: 1rem 1.3rem;
+    background-color: teal;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
   }
 }
