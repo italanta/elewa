@@ -1005,7 +1005,18 @@
         "DELETE-ROLE":"Delete Role"
       }   
     }
+  },
 
+  "COMPANY-INFORMATION":{
+    "BUTTON":{
+      "UPLOAD":"Upload",
+      "REMOVE":"Remove"
+    },
+    "REMOVE":"Remove",
+    "BASIC-INFO":"Basic Information",
+    "ADDRESS-INFO":"Address Information",
+    "EDIT-CO-INFO":"Edit company information",
+    "SAVE-ORG":"Save Organization"
   }
   
 }
