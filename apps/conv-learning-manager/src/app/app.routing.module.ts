@@ -21,6 +21,12 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
+    path: 'orgs',
+    loadChildren: () => import('@app/private/features/convs-mgr/orgs').then(m => m.OrganisationModule),
+    data: { title: 'Organisation' }
+  },
+
+  {
     path: 'home',
     loadChildren: () => import('@app/features/convs-mgr/home').then(m => m.ConvsMgrHomeModule),
     canActivate: [IsLoggedInGuard]
