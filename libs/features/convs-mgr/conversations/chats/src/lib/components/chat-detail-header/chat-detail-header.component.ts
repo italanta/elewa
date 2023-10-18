@@ -121,31 +121,22 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
 
     const storyId = this.currentPosition.storyId;
 
-
     this._storiesServ$$.getStoryById(storyId).pipe(
-      switchMap((story: Story | undefined) => {
-        if (story) {
-          const storyModuleId = story.parentModule;
-          if (storyModuleId) {
-            return this._botsModuleSer$.getBotModuleById(storyModuleId).pipe(
-              switchMap((botModule: BotModule | undefined) => {
-                if (botModule) {
-                  return this._botsService$.getBotById(botModule.parentBot);
-                } else {
-                  // If botModule is undefined, return an observable with null 
-                  return of(null);
-                }
-              })
-            );
-          }
-        }
-        // If story or storyModuleId is undefined, return an observable with null 
-        return of(null);
-      }),
+      switchMap((story: Story | undefined) =>
+        story?.parentModule
+          ? this._botsModuleSer$.getBotModuleById(story.parentModule).pipe(
+              switchMap((botModule: BotModule | undefined) =>
+                botModule
+                  ? this._botsService$.getBotById(botModule.parentBot)
+                  : of(null)
+              )
+            )
+          : of(null)
+      ),
       tap((bot) => {
         if (bot) {
-          this.courseName = bot?.name || '';
-          this.courseId = bot?.id || '';
+          this.courseName = bot.name ?? '';
+          this.courseId = bot.id ?? '';
         }
       })
     ).subscribe();
