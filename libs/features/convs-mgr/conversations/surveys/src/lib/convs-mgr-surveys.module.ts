@@ -21,6 +21,7 @@ import {
   SurveysStore,
 } from '@app/state/convs-mgr/conversations/surveys';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 import { SurveyQuestionComponent } from './components/survey-question/survey-question.component';
 import { SurveyQuestionFormComponent } from './components/survey-question-form/survey-question-form.component';
@@ -46,6 +47,7 @@ import { SurveySummaryComponent } from './components/survey-summary/survey-summa
 import { HorizontalBarComponent } from './components/graphs/horizontal-bar/horizontal-bar.component';
 import { PieComponent } from './components/graphs/pie/pie.component';
 import { SendModalComponent } from './modals/send-modal/send-modal.component';
+import { MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
 
 @NgModule({
   imports: [
@@ -94,6 +96,10 @@ import { SendModalComponent } from './modals/send-modal/send-modal.component';
     ActiveSurveyStore,
     SurveyQuestionStore,
     SurveyPublishService,
+    ChannelService,
+    ChannelsStore,
+    MessageTemplateStore,
+    MessageTemplatesService
   ],
 })
 export class ConvsMgrSurveysModule {}
