@@ -9,3 +9,5 @@ export * from './lib/modals/create-module-modal/create-module-modal.component';
 export * from './lib/model/delete-element.enum';
 export * from './lib/model/sorting.enum';
 export * from './lib/model/all-elements.type';
+
+export * from './lib/model/courses.interface'
