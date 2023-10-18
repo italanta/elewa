@@ -57,10 +57,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedCourse: any = 'Course';
   selectedPlatform: any = 'Platform';
 
-  templateId: string;
-  selectedTime: Date;
-  activeMessageId: string;
-
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
