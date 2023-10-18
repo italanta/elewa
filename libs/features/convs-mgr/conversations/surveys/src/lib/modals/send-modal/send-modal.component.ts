@@ -34,6 +34,7 @@ export class SendModalComponent implements OnInit {
   allCourses: string[] = [];
   allLearn: EnrolledEndUser[] = [];
   allTemplates: any =[];
+  filteredTemplates: any = [];
 
   templateForm: FormGroup;
 
@@ -135,6 +136,13 @@ export class SendModalComponent implements OnInit {
 
   isOptionDisabled(status: string): boolean {
     return status !== 'APPROVED';
+  }
+
+  filterTemplates(event: Event): void {
+    const query = event.target as HTMLInputElement;
+    this.filteredTemplates = this.allTemplates.filter((template: any) =>
+      template.name.toLowerCase().includes(query.value.toLowerCase())
+    );
   }
 
   // TODO: Implement the function to get all courses

@@ -5,7 +5,7 @@
       <form [formGroup]="templateForm">
         <div class="search">
           <i class="fas fa-search search_tooltip"></i>
-          <input class="search_input" type="text" name="" placeholder="Search for learner" />
+          <input class="search_input" type="text" name="" placeholder="Search for template" (keyup)="filterTemplates($event)" />
         </div>
         <mat-radio-group formControlName="selectedOption" class="radios">
           <mat-radio-button *ngFor="let template of allTemplates" [value]="template.name" [disabled]="isOptionDisabled(template.status)">
