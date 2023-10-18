@@ -42,12 +42,4 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
       input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
-  
-  setFocus() {
-    const input = document.getElementById(this.inputUniqueId) as HTMLInputElement;
-    if (input) {
-      input.focus();
-    }
-  }
-  
 }

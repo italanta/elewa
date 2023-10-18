@@ -129,17 +129,7 @@ export class ProcessMessageService
    */
   private async __nextBlockService(currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
   {
-    let nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
-
-    const updatePosition = await nextBlockService.changedPath(msg, currentBlock, currentCursor, currentStory, orgId, this._blockService$);
-
-    if(updatePosition) {
-      currentCursor = updatePosition.cursor;
-      currentBlock = updatePosition.lastBlock;
-      currentStory = updatePosition.currentStory;
-
-      nextBlockService =  new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
-    }
+    const nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
 
     return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
   }

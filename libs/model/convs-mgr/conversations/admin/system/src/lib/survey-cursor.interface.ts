@@ -19,3 +19,6 @@ export interface SurveyCursor
   finishedOn?: Date;
 
 }
+
+/** Checks if the survey is ongoing */
+export const isDoingSurvey = (survey: SurveyCursor[]) => survey && !survey[0].finishedOn;

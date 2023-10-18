@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
@@ -11,13 +11,10 @@ import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
-import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } from '@app/state/convs-mgr/story-editor';
+import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
 import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
-
-import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
-import { StoryError } from '@app/model/convs-mgr/stories/main';
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 
@@ -41,10 +38,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   activeBlockForm: FormGroup
   activeBlockTitle: string
 
-  errors: StoryError[] = [];
-  shownErrors: StoryError[] = [];
-  toastType: ToastStatus = {type: ToastMessageTypeEnum.Error};
-
   opened: boolean;
 
   pageName: string;
@@ -67,19 +60,14 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   frameZoom = 1;
   frameZoomInstance: BrowserJsPlumbInstance;
 
-
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
               _router: Router,
-              private sideScreen: SideScreenToggleService,
-              private _storyErrorCheck: CheckStoryErrorsService,
-              private renderer: Renderer2
-              ) 
+              private sideScreen: SideScreenToggleService) 
   {
-
     
     this._editorStateService.get()
       .subscribe((state: StoryEditorState) =>
@@ -183,9 +171,21 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
   /** Save the changes made in the data model. */
   save() {
-    this.stateSaved = false;
 
-    this.checkStoryErrors(this.state);
+    // Get all the text area elements
+    const textAreas = document.querySelectorAll('textarea');
+
+    // Check if any of the text area elements are empty
+    const hasEmptyFields = Array.from(textAreas).some(textArea => textArea.value.trim() === '');
+
+    if (hasEmptyFields) {
+      this._dialog.open(ErrorPromptModalComponent, {
+        data: { title: "Error", message: "Please fill in ALL text fields before saving."}
+      });
+      return
+   }
+
+    this.stateSaved = false;
 
     const updatedState = this.state;
     updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
@@ -209,7 +209,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   addToChannel() {
-    // this.checkStoryErrors();
     this._dialog.open(AddBotToChannelModal, {
       width: '550px'
     })
@@ -219,40 +218,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   toggleSidenav() {
     this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
     this.onClose()
-  }
-
-  checkStoryErrors(state: StoryEditorState) {
-    this.errors =[];
-    const storyId = this.state.story.id as string
-    this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
-      errors => {
-        this.errors = errors
-        this.shownErrors = this.errors.slice(0,2);
-        }
-      )
-  }
-
-  closeErrorToast(error: StoryError){
-    this.errors = this.errors.filter(
-      (item: StoryError) => {
-        return item.blockId !== error.blockId
-      }
-    )
-    this.shownErrors = this.errors.slice(0,2)
-  }
-
-  scrollTo(error: StoryError){
-    const block = this.state.blocks.find(obj => obj.id === error.blockId)
-    if(block){
-      const targetSection = document.getElementById(`${block.id}`)
-      if(targetSection)
-      targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", inline: "center" });
-      this.renderer.setStyle(targetSection, "border", "2px red solid")
-
-      setTimeout(() => {
-        this.renderer.removeStyle(targetSection, 'border');
-      }, 5000); 
-    }
   }
 
   ngOnDestroy() {

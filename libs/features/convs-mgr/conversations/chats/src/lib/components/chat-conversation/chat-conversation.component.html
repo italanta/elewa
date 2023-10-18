@@ -1,6 +1,6 @@
-<div fxFill class="conversations left-margin" fxLayout="column" *ngIf="chat else noChat">
+<div class="conversations left-margin" fxLayout="column" fxLayoutAlign="start" *ngIf="chat else noChat" fxFlex>
 
-  <div class="">
+  <div class="" fxFlex>
     <app-chat-detail-header 
       [chat]="chat" [currentPosition]="currentPosition" [chatStatus]="chatStatus"
       [userClass]="userClass" [currentStory]="currentStory">

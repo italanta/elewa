@@ -28,7 +28,6 @@ import { AddNewOrgRoleModalComponent } from './modals/add-new-org-role-modal/add
 
 import { PermissionsModelService } from './services/permissions.service';
 import { PermissionsFormsService } from './services/permissions-forms.service';
-import { SwitchButtonComponent } from './modals/switch-button/switch-button.component';
 
 @NgModule({
   imports: [
@@ -58,13 +57,15 @@ import { SwitchButtonComponent } from './modals/switch-button/switch-button.comp
 
     AddNewOrgRoleModalComponent,
     DeleteOrgRoleModalComponent,
-    SwitchButtonComponent,
   ],
   exports: [
     PermissionsComponent,
     AddNewOrgRoleModalComponent,
     DeleteOrgRoleModalComponent,
   ],
-  providers: [PermissionsModelService, PermissionsFormsService],
+  providers: [
+    PermissionsModelService, 
+    PermissionsFormsService
+  ],
 })
 export class PermissionsSettingsModule {}

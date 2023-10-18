@@ -3,11 +3,32 @@
 }
 
 .add-btn {
+  background-color: #ffab2d;
   color: white;
+
+  & .spin_tooltip {
+    font-size: 1.2rem;
+    animation: fa-spin 1s infinite linear;
+    -webkit-animation: fa-spin 1s infinite linear;
+  }
 }
 
 .cancel-btn {
+  color: #ffab2d;
+  background-color: white;
   margin-right: 8px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 16px;
+  resize: none;
 }
 
 .bot-buttons {
@@ -16,28 +37,35 @@
   padding-bottom: 0px;
 }
 
+input[type='text'] {
+  width: 100%;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-top: none;
+  resize: none;
+  outline: none;
+}
+
 .create-bot-header {
   margin-top: 0px;
-  font-weight: 400;
+}
+
+.create-bot-name {
+  padding: 0px;
+  margin-bottom: 10px;
+}
+
+::ng-deep #mat-dialog-0 {
+  height: 560px;
+  width: 470px;
 }
 
 .file {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  padding: 10px;
-  border: dashed #707070 1px;
-  border-radius: 10px;
-}
-
-.image-hint {
-  font-size: .9rem;
-  font-weight: 300;
-  color: #707070;
-}
-
-button {
-  border-radius: 10px;
 }
 
 #fas {
@@ -52,28 +80,18 @@ button {
 
 }
 
-.label {
-  font-size: 1.1rem;
-  font-weight: 300;
-}
-
 label {
   margin-right: 20px;
   width: 120px;
   margin-bottom: 10px;
   margin-top: 2px;
-  background: #3E788A;
-  padding: 10px;
-  border-radius: 20px;
-  color: white;
+  background: var(--convs-mgr-color-primary-white);
+  padding: 5px;
+  border-radius: 10px;
+  color: var(--convs-mgr-color-primary-yellow);
   cursor: pointer;
   border-radius: 6px;
-  text-align: center;
-}
-
-::ng-deep #mat-dialog-0 {
-  height: 560px;
-  width: 470px;
+  border: 2px solid var(--convs-mgr-color-primary-yellow);
 }
 
 ::ng-deep .mat-dialog-container {

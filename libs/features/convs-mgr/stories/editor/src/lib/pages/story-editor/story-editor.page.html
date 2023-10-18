@@ -1,21 +1,7 @@
 <convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
+
   <!-- Main body page -->
-
   <div class="story-editor" fxFlexFill>
-
-    <div *ngIf="errors.length>0" class="error-toast">
-      <app-toast 
-          *ngFor="let error of shownErrors" 
-          [error]="error" 
-          [messageType]="toastType"
-          color="rgba(217, 25, 25, 0.70)" 
-          iconClass="fas fa-exclamation-circle" 
-          (closeToast)="closeErrorToast(error)" 
-          (scrollToError)="scrollTo(error)"
-        >
-      </app-toast>
-    </div>
-
     <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
@@ -61,7 +47,7 @@
 
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
           <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
-            <span *ngIf="stateSaved; else saving"> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
+            <span *ngIf="stateSaved; else saving"> Save </span>
             <ng-template #saving>
               <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
                 <span> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
@@ -70,17 +56,14 @@
             </ng-template>
           </button>
 
-          <button [disabled]="!storyHasBeenSaved || errors" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
+          <button [disabled]="!storyHasBeenSaved" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
             <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
           </button>
         </div>
       </div>
-
-      <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
-
       <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
       </convl-story-editor-frame>
-      
     </div>
+
   </div>
 </convl-page>

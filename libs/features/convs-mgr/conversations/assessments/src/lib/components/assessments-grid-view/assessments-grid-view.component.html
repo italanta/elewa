@@ -5,7 +5,7 @@
 
       <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
         <span [ngClass]="assessment.isPublished ? ['badge' , 'active'] : 'badge'">
-          {{ assessment.isPublished ? "Published" : "Draft" }}
+          {{ assessment.isPublished ? "Active" : "Not Active" }}
         </span>
 
         <button mat-button [matMenuTriggerFor]="menu">

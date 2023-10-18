@@ -16,7 +16,6 @@ export class AssessmentFormService {
     return this._formBuilder.group({
       id: [assessment.id ?? ''],
       title: [assessment?.title ?? ''],
-      questionsOrder: [assessment?.questionsOrder ?? []],
       configs: this._formBuilder.group({
         feedback: [assessment!.configs?.feedback ?? ''],
         userAttempts: [assessment!.configs?.userAttempts ?? '']

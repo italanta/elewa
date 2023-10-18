@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -11,7 +11,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
   templateUrl: './name-block.component.html',
   styleUrls: ['./name-block.component.scss'],
 })
-export class NameBlockComponent implements OnInit, AfterViewInit {
+export class NameBlockComponent implements OnInit {
   @Input() id: string;
   @Input() block: NameMessageBlock;
   @Input() nameMessageForm: FormGroup;
@@ -21,18 +21,7 @@ export class NameBlockComponent implements OnInit, AfterViewInit {
   type: StoryBlockTypes;
   nametype = StoryBlockTypes.Name;
 
-  constructor(private el: ElementRef) { }
-
   ngOnInit(): void {
     this.nameInputId = `name-${this.id}`;
-  }
-  ngAfterViewInit(): void {
-    this.setFocusOnInput();  
-  }
-  private setFocusOnInput() {
-      const inputElement = this.el.nativeElement.querySelector(`input[id="${this.nameInputId}"]`);
-      if (inputElement) {
-        inputElement.focus();
-      }
   }
 }

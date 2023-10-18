@@ -2,7 +2,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <p class="main-title">{{ 'PERMISSIONS.ASSESMENTS.SETTINGS' | transloco }}</p>
+        <p class="main-title">Assessments Settings</p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -20,61 +20,37 @@
         </div>
     
         <div formGroupName="CanViewAssessments" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.ASSESMENTS.VIEW' | transloco }}</p>
+          <p class="title" fxFlex="20%"> Can View Assessments</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
-              [formGroupNameGeneralValue]="'AssessmentsSettings'"
-              [formGroupNameValue]="'CanViewAssessments'" 
-              [formControlNameValue]="control"
-              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
-              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
-              </app-switch-button>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanCreateAssessments" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.ASSESMENTS.CREATE' | transloco }}</p>
+          <p class="title" fxFlex="20%"> Can Create Assessments</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
-              [formGroupNameGeneralValue]="'AssessmentsSettings'"
-              [formGroupNameValue]="'CanCreateAssessments'" 
-              [formControlNameValue]="control"
-              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
-              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
-              </app-switch-button>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
             </div>
           </div>
         </div>
     
         <div formGroupName="CanEditAssessments" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.ASSESMENTS.EDIT' | transloco }} </p>
+          <p class="title" fxFlex="20%"> Can Edit Assessments </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
-              [formGroupNameGeneralValue]="'AssessmentsSettings'"
-              [formGroupNameValue]="'CanEditAssessments'" 
-              [formControlNameValue]="control"
-              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
-              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
-              </app-switch-button>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanDeleteAssessments" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.ASSESMENTS.EDIT' | transloco }} </p>
+          <p class="title" fxFlex="20%"> Can Edit Assessments </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <app-switch-button  [generalSettingsFormGroup]="assessmentSettingsFormGroup" 
-              [formGroupNameGeneralValue]="'AssessmentsSettings'"
-              [formGroupNameValue]="'CanDeleteAssessments'" 
-              [formControlNameValue]="control"
-              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
-              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
-              </app-switch-button>
+              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
             </div>
           </div>
         </div>

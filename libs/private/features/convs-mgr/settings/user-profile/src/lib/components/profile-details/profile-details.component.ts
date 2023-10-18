@@ -62,8 +62,7 @@ export class ProfileDetailsComponent implements OnInit {
     let name: string[] = user.displayName!.split(' ');
     this.userFormGroup = this._fb.group({
       firstName: [name[0]],
-      lastName: [name[1]],
-      email: [user.email],
+      lastName: [name[1]]
     })
     this.userFormGroup.disable();
   }
@@ -76,10 +75,6 @@ export class ProfileDetailsComponent implements OnInit {
       this.updateUserName();
       this.userFormGroup.disable();
     }
-  }
-
-  cancelEdit() {
-    this.editProfile = false;
   }
 
   updateUserName() {

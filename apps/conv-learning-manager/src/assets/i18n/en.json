@@ -262,10 +262,7 @@
       "ACTIVE-BOTS": "Active Bots",
       "ANALYTICS": "Analytics",
       "CHATS": "Chats",
-      "MESSAGING": "Messaging",  
-      "MESSAGE-TEMPLATES": "Message Templates",    
       "ASSESSMENTS": "Assessments",
-      "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",
       "BOT": "Bots",
       "REPORTS": "Reports",
@@ -354,24 +351,6 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Delete Bot",
       "MESSAGE": " Are you sure you want to delete this bot?"
-    },
-    "BOTS-PAGE" : {
-      "BOTS" : "Bots",
-      "ALL-COURSES" : "All Courses",
-      "DATE-NEWEST": "Date Created (Newest)",
-      "DATE-OLDEST": "Date Created (Oldest)",
-      "LATEST-COURSES" : "Latest Courses",
-      "BACK" : "Back",
-      "NAME" : "Name",
-      "LAST" : "Last Edited",
-      "BEGINNER" : "Beginner",
-      "CHANNEL" : "Channel",
-      "ACTIONS" : "Actions",
-      "TYPE" : "Type",
-      "EDIT" : "Edit",
-      "DELETE" : "Delete",
-      "OPEN-BOT" : "Open Bot",
-      "VIEW-ALL" : "View All"
     }
   },
   "CLASSESS": {
@@ -388,13 +367,10 @@
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "TITLE": "Assessment Title",
-      "STATUS" : "Status",
-      "QUESTIONS" : "Questions",
-      "DUPLICATE" : "Duplicate",
-      "CREATED-ON": "Updated On",
+      "CREATED-ON": "Created On",
       "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Completion",
-      "ACTIONS": "Edit"
+      "RESPONSES": "Completed Responses",
+      "ACTIONS": "Actions"
     },
     "RESULTS": {
       "BUTTONS": {
@@ -503,180 +479,25 @@
       }
     }
   },
-  "SURVEYS": {
-    "TABLE-HEADER": {
-      "TITLE": "Survey Title",
-      "CREATED-ON": "Created On",
-      "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Completed Responses",
-      "ACTIONS": "Actions",
-      "DUPLICATE": "Duplicate",
-      "QUESTIONS": "Questions",
-      "STATUS":"Status",
-      "NAME": "Name",
-      "PHONE-NO":"Phone Number",
-      "COURSE":"Course",
-      "LIST": "List",
-      "GRID": "Grid",
-      "CLASS": "All Classes",
-      "COURS": "All Courses",
-      "ACT": "Active",
-      "STUCK": "Stuck",
-      "INACTIVE": "Inactive",
-      "SELECTED": "Selected",
-      "CONTINUE": "Continue",
-      "CANCEL":"Cancel",
-      "BACK": "Back",
-      "NONE": "No Templates"
-
-    },
-    "SORTING":{
-        "N-DATE": "Date Created (Newest)",
-        "O-DATE": "Date Created (Oldest)"
-    },
-    "RESULTS": {
-      "BUTTONS": {
-        "GO-BACK": "Go Back",
-        "EDIT SURVEY": "Edit survey"
-      },
-      "TEXT":{
-        "SURVEY RESULTS": "Survey Results",
-        "ALL-CLASSES":"All classes",
-        "NO-RESULTS": "No results found"
-      },
-      "TABLE-HEADER": {
-        "NAME": "Name",
-        "PHONE-NO": "Phone Number",
-        "STARTED-ON": "Started On",
-        "FINISHED-ON": "Finished On",
-        "SCORE": "Score",
-        "SCORE-CATEGORY": "Score Category"
-      },
-      "ACCESSIBILITY": {
-        "SELECT-RESULTS-PAGE": "Select Results Page",
-        "SORT-BY-CREATED": "Sort by survey created date",
-        "SORT-BY-No": "Sort by survey number",
-        "SORT-BY-NAME": "Sort by survey results name",
-        "SORT-BY-PHONE-NO": "Sort by survey results phone number",
-        "SORT-BY-STARTED-ON": "Sort by survey results started on",
-        "SORT-BY-FINISHED-ON": "Sort by survey results finished on",
-        "SORT-BY-SCORE": "Sort by survey results score",
-        "SORT-BY-SCORE-CATEGORY": "Sort by survey results score category",
-        "SORTED-ASC": "Sorted in ascending order",
-        "SORTED-DESC": "Sorted in descending order"
-      },
-      "LABELS": {
-        "GROUPS": "Groups"
-      },
-      "METRICS": {
-        "LOWEST": "Lowest Score",
-        "HIGHEST": "Highest Score",
-        "AVERAGE": "Average Score",
-        "TOTAL-QUESTIONS":"Total Questions"
-      }
-    },
-    "BUTTON": {
-      "VIEW": "View", 
-      "RESULTS": "Results",
-      "ADD": "Create survey",
-      "EDIT": "Edit",
-      "SAVE": "Save",
-      "DELETE": "Delete",
-      "ARCHIVE": "Archive",
-      "SEARCH-SURVEY": "Search survey",
-      "ADD-SURVEY": "Create a survey",
-      "EDIT-SURVEY": "Edit survey",
-      "PUBLISH": "Publish",
-      "SEARCH-QUESTIONS": "Search questions",
-      "OPEN-SURVEY": "OPEN SURVEY",
-      "SEND": "Send"
-      
-    },
-    "ACCESSIBILITY": {
-       "SELECT-SURVEY-PAGE": "Select page of survey",
-       "SORT-BY-TITLE": "Sort by survey title",
-       "SORT-BY-IN-PROGRESS": "Sort by survey in-progress count",
-       "SORT-BY-RESPONSES": "Sort by survey responses",
-       "SORTED-ASC": "Sorted in ascending order",
-       "SORTED-DESC": "Sorted in descending order"
-    },
-    "CREATE-MODAL": {
-      "TITLE": "Create a survey",
-      "FIELDS": {
-         "TITLE": "Title",
-         "TITLE-PLACEHOLDER": "Survey name",
-         "DESC": "Description",
-         "DESC-PLACEHOLDER": "Survey description"
-      },
-      "BUTTONS": {
-        "SUBMIT": "Create survey",
-        "CANCEL": "Cancel"
-      }
-    },
-    "DELETE-MODAL": {
-      "TITLE": "Delete Survey",
-      "CANCEL": "Cancel",
-      "SUBMIT": "Delete Survey",
-      "MESSAGE": "Are you sure you want to delete this Survey?"
-    },
-   "ALERT": {
-      "NOT-FOUND": "Survey not found"
-    },
-   "QUESTIONS": {
-      "QUESTION": "New Question",
-      "QUESTIONS": "Questions",
-      "ANSWER": "New Answer",
-      "FIELDS":{
-        "CONFIGURATION": "This Survey has been sent to ",
-        "FEEDBACK": "Feedback",
-        "CONDITION": "Condition",
-        "USER-ATTEMPTS": "User attempts",
-        "MARKS": "Marks",
-        "MARKS-PLACEHOLDER": "Enter marks",
-        "QUESTION": "Type a question you would like to ask",
-        "ANSWER": "Type a possible answer"
-      },
-      "SELECT": {
-        "IMMEDIATELY": "Immediately",
-        "ON-END": "On end",
-        "NEVER": "Never",
-        "CORRECT": "Correct",
-        "WRONG": "Wrong",
-        "50-50": "50/50"
-      },
-      "SURVEY-RESPONSES": {
-        "RECEIVED": "Received responses",
-        "VIEW": "View responses",
-        "NON-RESPONSES": "Yet to response",
-        "REMINDER": "Send Reminder",
-        "LEARNERS": "Learners",
-        "FIRST-QUESTION": "Your first survey question",
-        "RESPONSES": "responses"
-      }
-    }
-  },
   "LEARNERS":{
-    "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "Phone Number",
+      "PHONE-NUMBER": "PhoneNumber",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
     },
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search for a learner"
+      "SEARCH-PLACEHOLDER": "Search input by name"
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
-      "BULK-ACTIONS": "Send Message",
+      "BULK-ACTIONS": "Bulk Actions",
       "CLASS": "Class",
       "COURSE": "Course",
       "PLATFORM": "Platform",
-      "GO-TO-CHAT": "Go to Chat",
-      "SEND-MESSAGE": "Send Message"
-      
+      "GO-TO-CHAT": "Go to Chat"
     },
     "MODALS": {
       "ACTIONS": "Actions",
@@ -717,10 +538,7 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
-    },
-    "ERROR":" Error",
-    "ERROR-COUNT": "There are ",
-    "ERRORS": "errors"
+    }
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
@@ -745,16 +563,5 @@
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
-  },
-  "COMPANY-INFORMATION":{
-    "BUTTON":{
-      "UPLOAD":"Upload",
-      "REMOVE":"Remove"
-    },
-    "REMOVE":"Remove",
-    "BASIC-INFO":"Basic Information",
-    "ADDRESS-INFO":"Address Information",
-    "EDIT-CO-INFO":"Edit company information",
-    "SAVE-ORG":"Save Organization"
   }
 }

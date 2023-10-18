@@ -20,5 +20,5 @@ const handler = new WhatsAppReceiveIncomingMsgHandler();
 export const channelWhatsAppMsgReceiveIncmngMsg = new ConvLearnFunction('channelWhatsAppMsgReceiveIncmngMsg', 
                                                   new EndpointRegistrar(), 
                                                   [], 
-                                                  handler) 
+                                                  handler)
                                .build();

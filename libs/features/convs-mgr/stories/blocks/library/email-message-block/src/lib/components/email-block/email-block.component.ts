@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Component, OnInit, Input, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -11,7 +11,7 @@ import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
   templateUrl: './email-block.component.html',
   styleUrls: ['./email-block.component.scss'],
 })
-export class EmailBlockComponent implements  AfterViewInit {
+export class EmailBlockComponent implements OnInit {
   @Input() id: string;
   @Input() block: EmailMessageBlock;
   @Input() emailMessageForm: FormGroup;
@@ -22,16 +22,7 @@ export class EmailBlockComponent implements  AfterViewInit {
   type: StoryBlockTypes;
   emailtype = StoryBlockTypes.Email;
 
-  constructor(private el: ElementRef) { }
-
-
-  ngAfterViewInit(): void{
-    this.setFocusOnInput();
-  }
-  private setFocusOnInput() {
-      const inputElement = this.el.nativeElement.querySelector(`input[id="${this.emailInputId}"]`);
-      if (inputElement) {
-        inputElement.focus();
-      }
+  ngOnInit(): void {
+    this.emailInputId = `email-${this.id}`;
   }
 }
