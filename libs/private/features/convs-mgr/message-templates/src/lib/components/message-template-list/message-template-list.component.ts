@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
+import { Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 import { MessageTemplate, ScheduledMessage, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes, ScheduleMessageService } from '@app/private/state/message-templates';
@@ -62,18 +62,15 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
         this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
         this.scheduledMessages$ = this._scheduleMessageService.getScheduledMessages$();
     
-        return combineLatest([of(templates), this.templateStatus$, this.scheduledMessages$]).pipe(
-          map(([templates, statusData, scheduledMessages]) => {
+        return combineLatest([of(templates), this.templateStatus$]).pipe(
+          map(([templates, statusData]) => {
             const templateNames = templates.map(template => template.name);
-    
             const mergedData = templates.map((template) => {
               const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
-              const isScheduled = scheduledMessages.some(message => message.message.name === template.name);
               
               return {
                 ...template,
                 status,
-                isScheduled, 
               };
             });
             return mergedData;
