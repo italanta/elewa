@@ -260,7 +260,7 @@
       "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
-      "ANALYTICS": "Analytics",
+      "ANALYTICS": "Insights",
       "CHATS": "Chats",
       "MESSAGING": "Messaging",  
       "MESSAGE-TEMPLATES": "Message Templates",    
@@ -461,7 +461,7 @@
       "EDIT" : "Edit",
       "DELETE" : "Delete",
       "OPEN-LESSON" : "Open lesson",
-      "VIEW-ALL" : "View All",
+      "VIEW-ALL" : "View All"
     }
   },
   "CLASSESS": {
