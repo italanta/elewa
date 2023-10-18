@@ -21,8 +21,8 @@ export function _VideoBlockDecoratePlumb(block: VideoMessageBlock, comp: Compone
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Rectangle",
-    anchor: "Left",
+    endpoint: "Dot",
+    anchor:  [0, 0.11, 0, 1],
     maxConnections: -1
   });
 
