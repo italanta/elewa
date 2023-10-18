@@ -15,7 +15,7 @@ input {
 }
 
 .video-wrapper {
-	background-color: white;
+	background-color:  var(--convs-mgr-color-primary-background);;
 	width: 100%;
 	font-size: 2rem;
 	min-height: 100px;
@@ -24,9 +24,9 @@ input {
 	align-items: center;
 	justify-content: center;
 	color: var(--convs-mgr-color-primary-purple);
-	border-radius: 0.3rem;
+	border-radius: 11px;
 	cursor: pointer;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
+	border: none;
 	margin-bottom: 10px;
 }
 
