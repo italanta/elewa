@@ -213,6 +213,7 @@ $sidebar-footer-height: 230px;
           padding-left: 30px;
 
           .menu-icon {
+            cursor: pointer;
             font-size: 1.2rem;
             width: 35px;
             min-width: 30px;
@@ -223,6 +224,7 @@ $sidebar-footer-height: 230px;
             margin-right: 10px;
             border-radius: 2px;
             transition: color 0.3s;
+            cursor: pointer;
             i {
               display: inline-block;
             }
@@ -244,6 +246,7 @@ $sidebar-footer-height: 230px;
             transition: opacity 0.3s;
           }
           &:hover {
+            cursor: pointer!important;
             .menu-title {
               color: $secondary-text-color;
             }
@@ -609,6 +612,19 @@ a {
   }
 }
 
+.sub-side-menu{
+  padding-left: 1rem!important;
+  font-size: .85rem!important;
+}
+.collapsible {
+  display: none; 
+}
+
+.collapsible.show {
+  display: block; 
+}
+
+
 .sidebar-toggler {
   position: fixed;
   right: 20px;
@@ -663,3 +679,4 @@ a {
 :host ::ng-deep .mat-expansion-indicator {
   padding: 10px;
 }
+

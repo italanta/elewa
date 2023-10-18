@@ -2,7 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { isOperationBlock, isOutputBlock, StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { Cursor, isDoingSurvey } from '@app/model/convs-mgr/conversations/admin/system';
 import { AssessmentQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
@@ -18,6 +18,7 @@ import { ProcessInputFactory } from '../process-input/process-input.factory';
 import { BotMediaProcessService } from '../media/process-media-service';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
+import { SurveyService } from '../process-operation-block/block-type/survey-service';
 
 
 export class ProcessMessageService
@@ -64,6 +65,12 @@ export class ProcessMessageService
     this._tools.Logger.log(()=> `Resolving next block...`);
 
     let newCursor = currentCursor;
+
+    // If the user is doing or has started a survey, temporarily interrupt the normal flow
+    if(isDoingSurvey(currentCursor.surveyStack)) {
+      return new SurveyService(this._blockService$, this._connService$, this._tools)
+                .handleBlock(null, currentCursor, orgId, endUser, msg);
+    }
 
     const lastBlock = await this._blockService$.getBlockById(currentCursor.position.blockId, orgId, currentStory);
 
@@ -122,7 +129,17 @@ export class ProcessMessageService
    */
   private async __nextBlockService(currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
   {
-    const nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
+    let nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
+
+    const updatePosition = await nextBlockService.changedPath(msg, currentBlock, currentCursor, currentStory, orgId, this._blockService$);
+
+    if(updatePosition) {
+      currentCursor = updatePosition.cursor;
+      currentBlock = updatePosition.lastBlock;
+      currentStory = updatePosition.currentStory;
+
+      nextBlockService =  new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
+    }
 
     return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
   }
@@ -141,7 +158,7 @@ export class ProcessMessageService
 
   private async processOperationBlock(msg: Message, nextBlock: StoryBlock, newCursor: Cursor, orgId: string, endUser: EndUser)
   {
-    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools).resolve(nextBlock.type);
+    const processOperationBlock = new OperationBlockFactory(this._blockService$, this._connService$, this._tools, this._activeChannel).resolve(nextBlock.type);
 
     const updatedPosition = await processOperationBlock.handleBlock(nextBlock, newCursor, orgId, endUser, msg);
 

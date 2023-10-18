@@ -69,9 +69,21 @@ export const APP_ROUTES: Route[] = [
   },
 
   {
+    path: 'messaging',
+    loadChildren: () => import('@app/private/features/convs-mgr/message-templates').then(m => m.ConvsMgrMessageTemplatesModule),
+    canActivate: [IsLoggedInGuard, CanAccessChatsGuard]
+  },
+
+  {
     path: 'assessments',
     loadChildren: () => import('@app/features/convs-mgr/conversations/assessments').then(m => m.ConvsMgrAssessmentsModule),
     canActivate: [IsLoggedInGuard, CanAccessAssessmentsGuard]
+  },
+  
+  {
+    path: 'surveys',
+    loadChildren: () => import('@app/features/convs-mgr/conversations/surveys').then(m => m.ConvsMgrSurveysModule),
+    canActivate: [IsLoggedInGuard]
   },
 
   {

@@ -16,6 +16,10 @@ export class StoryStateService {
     return this._StoriesStore$$.get();
   }
 
+  getMultipleStories(storyIds: string[]): Observable<Story[]>{
+    return this._StoriesStore$$.getMany(storyIds);
+  }
+
   getStoriesFromParentModule(moduleId: string): Observable<Story[]> {
     return this._StoriesStore$$.get().pipe(
       map(stories => stories.filter(story => story.parentModule === moduleId))

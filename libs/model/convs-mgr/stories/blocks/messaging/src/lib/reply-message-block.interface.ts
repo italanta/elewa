@@ -5,5 +5,5 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
  */
 export interface ReplyMessageBlock extends StoryBlock{
 
-  replyMessage?:String;
+  replyMessage?:string;
 }

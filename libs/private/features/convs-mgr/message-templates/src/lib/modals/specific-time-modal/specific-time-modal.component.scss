@@ -1,0 +1,30 @@
+.specific-time{
+    color: #101010;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    flex-direction: column;
+    width: 26.5625rem;
+    height: 15.6875rem;
+    border-radius: 1.5625rem;
+    background: #FFF;
+    flex-shrink: 0;
+    padding: 0.94rem 2.38rem;
+}
+.send-btn{
+    border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+    flex-shrink: 0;
+    background-color: #1F7A8C!important;
+    color: white!important;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-self: flex-end;
+  }
