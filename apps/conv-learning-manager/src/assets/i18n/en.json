@@ -747,7 +747,7 @@
     }
   },
 
-  "PROFILE-DETAILS":{
+  "PROFILE-DETAILS": {
     "FIRST-NAME":"First Name",
     "LAST-NAME":"Last Name",
     "ROLE":"Role",
@@ -761,7 +761,8 @@
     "FETCH-USER-DATA":"Fetching user data",
     "BUTTON":{
       "PASSWORD-RESET":"Get Password Reset Link"
-    }    
+    }
+  },    
 
   "MESSAGE-TEMPLATES": {
     "MESSAGE-TEMPLATE-HISTORY": {
@@ -912,6 +913,7 @@
           }
         }
       }
+    },
   "BILLINGS":{
     "SUBSCRIPTION":"Subscription",
     "MESSAGE-TOKENS":"Message Tokens",
@@ -945,4 +947,5 @@
         "LOADING-USERS":"Loading Users"
       }
   }
+}
 }

@@ -564,7 +564,8 @@
     "FETCH-USER-DATA":"Récupération des données utilisateur",
     "BUTTON":{
       "PASSWORD-RESET":"Obtenir le lien de réinitialisation du mot de passe"
-    }    
+    }
+  },    
   "MESSAGE-TEMPLATES": {
     "MESSAGE-TEMPLATE-HISTORY": {
       "TITLE": "Historique des modèles",
@@ -712,6 +713,7 @@
           }
         }
       }
+    },
   "BILLINGS":{
     "SUBSCRIPTION":"Abonnement",
     "MESSAGE-TOKENS":"Jetons de messages",
@@ -744,5 +746,6 @@
       "DEACTIVATE":"Désactiver",
       "LOADING-USERS":"Chargement des utilisateurs"
     }
+}
 }
 }
