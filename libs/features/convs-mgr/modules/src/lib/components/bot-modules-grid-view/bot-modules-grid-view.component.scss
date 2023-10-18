@@ -1,0 +1,58 @@
+.bot-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.botModule-card {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  padding: 10px;
+  background-color: #111441;
+  color: white;
+  border-radius: 10px;
+}
+
+.grid .bot-cards .botModule-card .card-body span {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.grid .bot-cards .botModule-card .card-footer span {
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+.grid .bot-cards .botModule-card .card-footer {
+  color: white !important;
+
+  button {
+    background-color: white;
+  }
+}
+
+.botModule-card {
+  position: relative;
+}
+
+.menu-btn {
+  position: absolute;
+  right: 0rem;
+
+  .menu-tooltip {
+    color: white !important;
+  }
+}
+
+.tooltip {
+  color: black;
+}
+
+.card-header {
+  .name {
+    font-size: 1rem;
+  }
+}

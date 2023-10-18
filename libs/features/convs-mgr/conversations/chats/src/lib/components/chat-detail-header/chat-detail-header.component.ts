@@ -32,7 +32,6 @@ import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.comp
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
-import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
 
 
 
@@ -73,9 +72,9 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
               private _enrolledLearners: EnrolledLearnersService,
               private _router$$: Router,
               private _classRoomService$ :ClassroomService
+
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
-    this.avatarBgColor = this.randomColor();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -284,6 +283,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     this._router.navigate(['/chats']);
   }
 
+
   getUserName = (name: string) => GET_USER_AVATAR(name);
   randomColor = () => GET_RANDOM_COLOR();
 
@@ -294,6 +294,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   navigateToStory(){
     this._router.navigate([`/bots/${this.currentStory.id}`]);
   }
+
 
   ngOnDestroy() {
     this._sbs.unsubscribe();

@@ -31,7 +31,8 @@
             </li>
 
             <!-- Section Bots -->
-            <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/stories" routerLinkActive="active" class="menu-item">
+
+            <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/stories" routerLinkActive="active" class="menu-item" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.BOT'| transloco }}">
               <a>
                 <span class="menu-icon"matToolTip="Bots" >
                   <img src="assets/icons/bots-stroked.svg" alt="">
@@ -52,17 +53,39 @@
               </a>
             </li>
 
-            <!-- Chats sections -->
-            <li *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
+            <!-- Messaging sections -->
+            <ul class="menu-item"  >
               <a>
                 <span class="menu-icon"matTooltip="Chats">
                   <img src="assets/icons/chats-stroked.svg" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
-                  {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
+                  {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>
-            </li>
+              <ul class="sub-side-menu">
+                <li>
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
+                    <span class="menu-icon">
+                      <img src="assets/icons/message-chat.svg" alt="">
+                    </span>
+                    <span *ngIf="isExpanded" class="menu-title">
+                      {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active">
+                    <span class="menu-icon">
+                      <img src="assets/icons/message-template.svg" alt="">
+                    </span>
+                    <span *ngIf="isExpanded" class="menu-title">
+                      {{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </ul>
 
             <!-- Asssessments sections -->
             <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments"
@@ -73,6 +96,19 @@
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
+                </span>
+              </a>
+            </li>
+
+            <!-- Surveys sections -->
+            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys"
+              routerLinkActive="active">
+              <a>
+                <span class="menu-icon">
+                  <img src="assets/icons/survey.svg" alt="">
+                </span>
+                <span *ngIf="isExpanded" class="menu-title">
+                  {{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}
                 </span>
               </a>
             </li>
