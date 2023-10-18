@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 
@@ -31,6 +31,7 @@ import { CreateModuleModalComponent } from './modals/create-module-modal/create-
 import { CreateLessonModalComponent } from './modals/create-lesson-modal/create-lesson-modal.component';
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
+import { FilterCoursePipe } from './pipes/filter-course.pipe';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     ChatsRouterModule,
     MatStepperModule,
     ConvsMgrModulesModule,
+    FormsModule
   ],
   declarations: [
     StoriesDashboardComponent,
@@ -61,6 +63,7 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
     CoursesViewAllPageComponent,
     CoursesListComponent,
     CourseModuleItemComponent,
+    FilterCoursePipe,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}
