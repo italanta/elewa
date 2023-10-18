@@ -15,8 +15,8 @@ import { EndUserDataService } from "../../data-services/end-user.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 import { DefaultOptionMessageService } from "../../next-block/block-type/default-block.service";
-import { SendOutgoingMsgHandler } from "@app/functions/bot-engine/send-message";
 import { ChannelDataService } from "../../data-services/channel-info.service";
+import { ActiveChannel } from "../../../model/active-channel.service";
 /**
  * When an end user send a message to the bot, we need to know the type of block @see {StoryBlockTypes} we sent 
  *  so that we can process the response based on that block.
@@ -33,7 +33,8 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 	constructor(
 		blockDataService: BlockDataService, 
 		connDataService: ConnectionsDataService,  
-		tools: HandlerTools
+		tools: HandlerTools,
+		private _activeChannel: ActiveChannel
 	) {
 		super(blockDataService, connDataService, tools);
 		this.tools = tools;
@@ -94,6 +95,7 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
   }
 
 	private async _triggerMessage(event: EventsStack, endUser: EndUser, orgId: string) {
+		this.tools.Logger.error(() => `[EventBlockService]._triggerMessage - Milestone hit: ${event.name}`);
 		const n = parseInt(endUser.id.split('_')[1]);
 
 		const milestonesTriggersRepo$ = this.tools.getRepository<MilestoneTriggers>(`orgs/${orgId}/milestones-triggers`);
@@ -105,7 +107,6 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 		const communicationChannel = await channelService.getChannelByConnection(n);
 
 		if(trigger && trigger.length > 0) {
-			const sendMessage = new SendOutgoingMsgHandler()
 
 			let message: TemplateMessage = {
 				...trigger[0].message,
@@ -115,7 +116,17 @@ export class EventBlockService extends DefaultOptionMessageService implements IP
 
 			message = this._assignRecipientID(message, endUser.id, communicationChannel.type);
 
-			await sendMessage.execute(trigger[0].message, null, this.tools);
+			// STEP 4: Get the outgoing message in whatsapp format
+			const outgoingMessagePayload = await this._activeChannel.parseOutStandardMessage(message);
+
+			// STEP 5: Send the message
+			const response = await this._activeChannel.send(outgoingMessagePayload as any, message);
+
+			if(response.success) {
+				this.tools.Logger.error(() => `[EventBlockService]._triggerMessage - Success in sending milestone message ${JSON.stringify(outgoingMessagePayload)}`);
+			} else {
+				this.tools.Logger.error(() => `[EventBlockService]._triggerMessage - Failed to send milestone message ${JSON.stringify(outgoingMessagePayload)}`);
+			}
 
 			trigger[0].lastRun = new Date();
 			trigger[0].usersSent = trigger[0].usersSent + 1; 

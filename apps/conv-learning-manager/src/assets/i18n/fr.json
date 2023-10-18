@@ -520,7 +520,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
-    }
+    },
+    "ERROR": "Erreur",
+    "ERROR-COUNT": "Il y a",
+    "ERRORS": "erreurs"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum de caractères atteint"
@@ -530,13 +533,16 @@
       "TITLE": "Équipe",
       "DESCRIPTION": "Inviter et/ou gérer les membres de l'équipe au sein de votre organisation",
       "BUTTONS": {
-        "ADD-MEMBER": "Ajouter un membre"
+        "ADD-MEMBER": "Ajouter un membre",
+        "ADDING": "Ajout...",
+        "NO-THANKS": "Non merci"
       },
       "MODAL": {
         "TITLE": "Ajouter un membre",
         "DESC": "Inviter un membre de l'équipe via son adresse e-mail",
         "EMAIL-ERROR": "Le courriel est invalide",
-        "SELECT-ROLE": "Sélectionnez un rôle"
+        "SELECT-ROLE": "Sélectionnez un rôle",
+        "ROLE": "rôle"
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
@@ -690,6 +696,23 @@
           }
         }
       }
+  "BILLINGS":{
+    "SUBSCRIPTION":"Abonnement",
+    "MESSAGE-TOKENS":"Jetons de messages",
+    "CURRENT-PLAN":"Plan actuel",
+    "INVOICES" :"Factures",
+    "CHANGE-PLAN":"changer de plan",
+    "PAYMENT-METHOd":"Mode de paiement",
+    "PAYMENT-METHODS":"Modes de paiement",
+    "EXPIRES":"Expire",
+    "DEFAULT":"Défaut",
+    "EDIT" :"Modifier",
+    "DELETE":"Supprimer",
+    "DATE":"Date",
+    "DESCRIPTION":"Description",
+    "AMOUNT":"Montante",
+    "BUTTON":{
+      "ADD-PAYMENT-METHOD":"Ajouter un mode de paiement"
     }
   }
 }

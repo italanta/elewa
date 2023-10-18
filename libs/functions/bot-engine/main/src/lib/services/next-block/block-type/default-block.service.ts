@@ -36,13 +36,13 @@ export class DefaultOptionMessageService extends NextBlockService
 	async getNextBlock(msg: Message, currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, endUserId: string): Promise<Cursor>
 	{
 		const cursor = currentCursor;
-
+		
 		const lastBlockId = currentCursor.position.blockId;
 
 		// Get the connection
 		const connection = await this._connDataService.getConnBySourceId(lastBlockId, orgId, currentStory);
 
-		this.tools.Logger.log(()=> `Connection: ${JSON.stringify(connection)}`);
+		this.tools.Logger.log(()=> `Default - Connection: ${JSON.stringify(connection)}`);
 		// Get the next block using the id. Connection.targetId == id of the next block
 		// if (connection)
 		// 	nextBlock = await this._blockDataService.getBlockById(connection.targetId, orgId, currentStory);

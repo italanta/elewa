@@ -129,7 +129,8 @@
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
+        "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
         "LOCATION-INPUT": "Location Input",
@@ -161,7 +162,7 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "LOCATION-INPUT": "Location Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
@@ -353,6 +354,24 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Delete Bot",
       "MESSAGE": " Are you sure you want to delete this bot?"
+    },
+    "BOTS-PAGE" : {
+      "BOTS" : "Bots",
+      "ALL-COURSES" : "All Courses",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Courses",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-BOT" : "Open Bot",
+      "VIEW-ALL" : "View All"
     }
   },
   "CLASSESS": {
@@ -369,10 +388,13 @@
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "TITLE": "Assessment Title",
-      "CREATED-ON": "Created On",
+      "STATUS" : "Status",
+      "QUESTIONS" : "Questions",
+      "DUPLICATE" : "Duplicate",
+      "CREATED-ON": "Updated On",
       "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Completed Responses",
-      "ACTIONS": "Actions"
+      "RESPONSES": "Completion",
+      "ACTIONS": "Edit"
     },
     "RESULTS": {
       "BUTTONS": {
@@ -695,7 +717,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
-    }
+    },
+    "ERROR":" Error",
+    "ERROR-COUNT": "There are ",
+    "ERRORS": "errors"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
@@ -705,13 +730,16 @@
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
       "BUTTONS": {
-        "ADD-MEMBER": "Add Member"
+        "ADD-MEMBER": "Add Member",
+        "ADDING": "Adding ...",
+        "NO-THANKS": "No Thanks"
       },
       "MODAL": {
         "TITLE": "Add Member",
         "DESC": "Invite a team member via their email address",
         "EMAIL-ERROR": "Email is invalid",
-        "SELECT-ROLE": "Select Role"
+        "SELECT-ROLE": "Select Role",
+        "ROLE": "Role"
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select page of team members"
@@ -867,6 +895,23 @@
           }
         }
       }
+  "BILLINGS":{
+    "SUBSCRIPTION":"Subscription",
+    "MESSAGE-TOKENS":"Message Tokens",
+    "CURRENT-PLAN":"Current plan",
+    "INVOICES" :"Invoices",
+    "CHANGE-PLAN":"change plan",
+    "PAYMENT-METHOd":"Payment method",
+    "PAYMENT-METHODS":"Payments methods",
+    "EXPIRES":"Expires",
+    "DEFAULT":"Default",
+    "EDIT" :"Edit",
+    "DELETE":"Delete",
+    "DATE":"Date",
+    "DESCRIPTION":"Description",
+    "AMOUNT":"Amount",
+    "BUTTON":{
+      "ADD-PAYMENT-METHOD":"Add payment method"
     }
   }
 }

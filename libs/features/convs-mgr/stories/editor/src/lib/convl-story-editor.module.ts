@@ -11,6 +11,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ToastModule } from '@app/elements/layout/toast'
 
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block'
@@ -33,6 +34,8 @@ import { TrackCursorDirective } from './directives/track-cursor.directive';
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 
 
+
+
 @NgModule({
   imports: [
     CommonModule, MultiLangModule, PortalModule, InfiniteScrollModule,
@@ -40,7 +43,8 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
-    ConvlStoryEditorRouterModule, MatStepperModule
+    ConvlStoryEditorRouterModule, MatStepperModule,
+    ToastModule
   ],
 
   declarations: [
