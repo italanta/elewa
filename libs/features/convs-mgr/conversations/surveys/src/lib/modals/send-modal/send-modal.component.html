@@ -15,14 +15,14 @@
             </mat-radio-button>
           </mat-radio-group>
           <div *ngIf="!loading && allTemplates.length === 0" style="text-align: center;">
-            No templates.
+            {{'SURVEYS.TABLE-HEADER.NONE' | transloco }}
           </div>
         </div>
       </form>
       
       <div class="buttons">
-        <button mat-button class="cancel" (click)="closeModal()">Cancel</button>
-        <button mat-button class="save" matStepperNext>Continue</button>
+        <button mat-button class="cancel" (click)="closeModal()">{{'SURVEYS.TABLE-HEADER.CANCEL' | transloco }}</button>
+        <button mat-button class="save" matStepperNext>{{'SURVEYS.TABLE-HEADER.CONTINUE' | transloco }}</button>
       </div>
       
     </mat-step>
@@ -42,29 +42,29 @@
         <div class="fil-cont">
             <div class="filter-select">
             <select class="filter2" [formControl]="classFilterControl" class="custom-select">
-                <option value="">All</option>
+                <option value="">{{'SURVEYS.TABLE-HEADER.CLASS' | transloco }}</option>
                 <option *ngFor="let classroom of allClasses" [value]="classroom.id">{{ classroom.className }}</option>
             </select>
             </div>
             <div class="filter-select">
             <select class="filter2" [formControl]="courseFilterControl" class="custom-select">
-                <option value="">All</option>
+                <option value="">{{'SURVEYS.TABLE-HEADER.COURS' | transloco }}</option>
                 <option *ngFor="let course of allCourses" [value]="course">{{ course }}</option>
             </select>
             </div>
             <div class="status-filter">
                 <select class="filter2">
-                  <option value="">All</option>
-                  <option value="active">Active</option>
-                  <option value="stuck">Stuck</option>
-                  <option value="inactive">Inactive</option>
+                  <option value="">{{'SURVEYS.TABLE-HEADER.STATUS' | transloco }}</option>
+                  <option value="active">{{'SURVEYS.TABLE-HEADER.ACT' | transloco }}</option>
+                  <option value="stuck">{{'SURVEYS.TABLE-HEADER.STUCK' | transloco }}</option>
+                  <option value="inactive">{{'SURVEYS.TABLE-HEADER.INACTIVE' | transloco }}</option>
                 </select>
               </div>
               
         </div>
         </form>
         <div class="selection-count">
-            {{selection.selected.length}} Selected
+            {{selection.selected.length}} {{'SURVEYS.TABLE-HEADER.SELECTED' | transloco }}
         </div>
         <div class="radios">
             <mat-table [dataSource]="dataSource" matSort>
@@ -82,11 +82,11 @@
                     </mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'SURVEYS.TABLE-HEADER.NAME' | transloco }}</mat-header-cell>
                     <mat-cell *matCellDef="let row">{{ row.name ? row.name : 'No Username' }}</mat-cell>
                 </ng-container>
                 <ng-container matColumnDef="Phone Number">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>{{'SURVEYS.TABLE-HEADER.PHONE-NO' | transloco }}</mat-header-cell>
                     <mat-cell *matCellDef="let row">{{ row.phoneNumber }}</mat-cell>
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -94,8 +94,8 @@
             </mat-table>
         </div>
         <div class="buttons">
-        <button mat-button class="cancel" matStepperPrevious>Back</button>
-        <button mat-button class="save" (click)="sendSurvey()">Save</button>
+        <button mat-button class="cancel" matStepperPrevious>{{'SURVEYS.TABLE-HEADER.BACK' | transloco }}</button>
+        <button mat-button class="save" (click)="sendSurvey()">{{'SURVEYS.BUTTON.SAVE' | transloco }}</button>
         </div>
     </mat-step>
   
