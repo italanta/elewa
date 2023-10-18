@@ -50,7 +50,8 @@ export const iconsAndTitles: any = {
   },
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
-    icon: 'fas fa-video',
+    // icon: 'fas fa-video',
+    svgIcon: "assets/svgs/blocks/video.svg"
   },
   15: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STICKER',
