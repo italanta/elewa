@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { Organisation } from '@app/model/organisation';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 @Injectable()
 export class MessageTemplateStore extends DataStore<MessageTemplate> {
@@ -19,6 +20,8 @@ export class MessageTemplateStore extends DataStore<MessageTemplate> {
   protected _activeRepo: Repository<MessageTemplate>;
 
   private _activeOrg: Organisation;
+
+  query = new Query().where('channelId', '!=', null)
 
   constructor(
     private _org$$: ActiveOrgStore,
@@ -39,7 +42,7 @@ export class MessageTemplateStore extends DataStore<MessageTemplate> {
         }),
         switchMap((org: Organisation) =>
           org
-            ? this._activeRepo.getDocuments()
+            ? this._activeRepo.getDocuments(this.query)
             : of([] as MessageTemplate[])
         ),
         throttleTime(500, undefined, { leading: true, trailing: true })
