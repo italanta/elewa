@@ -1,10 +1,5 @@
 <convl-page title="Analytics">
-  <div class="container" *ngIf="user$ | async as user">
-  <div class="metabase-iframe" *ngIf="!!iframeUrl">
-    <iframe [src] = "iframeUrl | safe: 'resourceUrl'"
-      frameborder="0"
-      allowtransparency>
-    </iframe>
+  <div class="container">
+    <p class="title">Insights</p>
   </div>
-</div>
 </convl-page>
