@@ -103,11 +103,10 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
     
       this._classRoomService$.getSpecificClassroom(this.learnerClass).subscribe(
         (classroomDetails: Classroom | undefined) => {
-          if (classroomDetails) {
-            this.className = classroomDetails.className; 
-          }
+          this.className = classroomDetails?.className ?? this.className;
         }
       );
+      
       
 
       this._enrolledLearners
@@ -150,8 +149,6 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
         }
       })
     ).subscribe();
-    
-    
     } 
   }
 
@@ -337,8 +334,6 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
     this._router.navigate([`/classes/${this.learnerClass}`]);
   }
 
-  
-
 
   navigateToStory() {
     if(this.courseId){
@@ -346,9 +341,6 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
     }
    
   }
-  
-
-
   
 
   ngOnDestroy() {
