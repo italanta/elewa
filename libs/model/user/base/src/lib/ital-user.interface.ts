@@ -2,6 +2,7 @@ import { User } from '@iote/bricks';
 
 import { iTalUserProfile } from './ital-user-profile.interface';
 import { iTalUserRoles } from './ital-user-roles.interface';
+import { Mandate } from '@app/private/functions/payments/core';
 
 export interface iTalUser extends User
 {
@@ -23,4 +24,8 @@ export interface iTalUser extends User
   /** Active Organisation ID. Users can only have one currently active org.
    *    The active org ID is used to determine which screen to route non-admins too when selecting orgs. */
   activeOrg: string;
+
+  mollieCustomerId?: string;
+
+ mandates?: Mandate[];
 }

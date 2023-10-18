@@ -30,3 +30,9 @@ export * from './app/user/create-new-user.function';
 export * from './app/user/organisation-assign.function';
 
 export * from './app/organisation/on-create-org-assign-user-to-org.function';
+
+export * from './app/payments/receive-payment.function';
+export * from './app/payments/request-payment.function';
+export * from './app/payments/create-subscriptions.function';
+export * from './app/payments/create-mollie-customer.function'
+ 
