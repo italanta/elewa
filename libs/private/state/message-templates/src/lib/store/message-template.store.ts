@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore } from '@ngfi/state';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { Logger } from '@iote/bricks-angular';
 
@@ -12,7 +13,6 @@ import { of } from 'rxjs';
 import { Organisation } from '@app/model/organisation';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
-import { Query } from '@ngfi/firestore-qbuilder';
 
 @Injectable()
 export class MessageTemplateStore extends DataStore<MessageTemplate> {
