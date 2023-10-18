@@ -41,6 +41,7 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
   isSaving = false;
 
   action: string;
+  channelId: string;
 
   formHasLoaded = false;
 
@@ -100,6 +101,10 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
     ).subscribe()
   }
 
+  getChannelId() {
+    this.channelId = localStorage.getItem('selectedChannelId') || '';
+  }
+
   onSave()
   {
     this.isSaving = true;
@@ -121,12 +126,20 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
     .subscribe()
   }
   onSendSurvey() {
-    const dialogRef = this._dialog.open(SendModalComponent, {
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+    this.onPublish();
+    this.getChannelId();
+    if(this.channelId){
+      const dialogRef = this._dialog.open(SendModalComponent, {
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    else{
+      this.openSnackBar('Select a Channel to continue', 'Send Survey');
+    }
+    
   }
 
   onPublish() {
@@ -142,11 +155,6 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
       .subscribe((published) => {
         if (published) {
           this.isPublishing = false;
-          this._route$$.navigate(['/learners'], {
-            queryParams: {
-              surveyId: this.survey.id,
-            }
-          });
           this._sbS.unsubscribe();
           this.surveyMode = SurveyMode.View;
           this.openSnackBar('Survey was successfully published', 'Publish');
