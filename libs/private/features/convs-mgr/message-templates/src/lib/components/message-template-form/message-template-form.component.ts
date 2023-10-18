@@ -185,6 +185,7 @@ export class MessageTemplateFormComponent implements OnInit{
   save() {
     if (this.templateForm.value.id){
       this.template = {
+        id: this.templateForm.value.id,
         name: this.templateForm.value.name,
         category: this.templateForm.value.category,
         channelId: this.templateForm.value.channelId,
@@ -242,7 +243,14 @@ export class MessageTemplateFormComponent implements OnInit{
                 this._snackbar.showSuccess("Template created successfully");
                 this.openTemplate();
               }
+              else{
+                this._snackbar.showError("Something went wrong please try again")
+              }
             });
+          }
+          else{
+            this.isSaving = false;
+            this._snackbar.showError(response)
           }
         });
       }else{
