@@ -1,18 +1,51 @@
 .courses-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
   padding: 2rem 0;
 
   .course {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    font-weight: 400;
 
     .bot-name {
-      font-size: 1rem;
+      font-size: 1.1rem;
+      text-transform: capitalize;
+      font-weight: 500;
     }
   }
 
   .stories-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+
+    .new-story-btn {
+      display: grid;
+      justify-content: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(112, 112, 112, 0.3);
+
+      .btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+
+        .icon {
+          font-size: 0.7rem;
+        }
+
+        span {
+          display: flex;
+          flex-wrap: nowrap;
+          color: teal;
+        }
+      }
+    }
   }
 }
