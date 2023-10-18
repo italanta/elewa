@@ -1,8 +1,9 @@
 <!-- item -->
 <div class="story">
-  <div class="name span-2">{{ story.name }}</div>
-  <button class="btn btn-module">{{ botModule.name }}</button>
-  <button class="btn btn-story" (click)="openLesson(story.id!)">view Story</button>
+  <div class="story-name span-2">{{ story.name }}</div>
+
+  <button class="btn btn-module" (click)="openModule(botModule.id!)">{{ botModule.name }}</button>
+  <button class="btn btn-story" (click)="openLesson(story.id!)">View Story</button>
   <div class="status">Draft</div>
 
   <div class="actions">

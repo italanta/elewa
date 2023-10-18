@@ -23,6 +23,10 @@ export class CourseModuleItemComponent {
 
   constructor(private _dialog: MatDialog, private _router$: Router){}
 
+  openModule(id: string) {
+    this._router$.navigate(['modules', id]);
+  }
+
   openLesson(id: string) {
     this._router$.navigate(['stories', id]);
   }
