@@ -1,12 +1,12 @@
 #chat-detail-header{
-  border-bottom: 1px solid rgba($color: #707070, $alpha: .24);
+  border-bottom: 2px solid #fafafa;
   height: 4.5rem;
   padding: 0.5rem;
 }
 
 .icon-button {
-  color: white;
-  background-color: #3E788A;
+  color: black;
+  background-color: #ffffff;
   margin-right: 10px;
 }
 
@@ -14,20 +14,6 @@
   display: flex;
   align-items: center !important;
   gap: 10px;
-}
-
-.avatar{
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .user-char {
-    color: white!important;
-  }
 }
 
 .chat-title {
@@ -49,17 +35,6 @@
   display: grid;
   gap: 5px;
   grid-template-rows: 2;
-
-  .chat-name {
-    font-size: 1.1rem;
-    font-weight: 400;
-  }
-  
-  .chat-number {
-    color: #707070;
-    font-weight: 400;
-    font-size: .8rem;
-  }
 }
 
 .inactive {

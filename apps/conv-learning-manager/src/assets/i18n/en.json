@@ -129,7 +129,8 @@
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
+        "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
         "LOCATION-INPUT": "Location Input",
@@ -161,7 +162,7 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "LOCATION-INPUT": "Location Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
@@ -555,7 +556,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
-    }
+    },
+    "ERROR":" Error",
+    "ERROR-COUNT": "There are ",
+    "ERRORS": "errors"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
@@ -565,13 +569,16 @@
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
       "BUTTONS": {
-        "ADD-MEMBER": "Add Member"
+        "ADD-MEMBER": "Add Member",
+        "ADDING": "Adding ...",
+        "NO-THANKS": "No Thanks"
       },
       "MODAL": {
         "TITLE": "Add Member",
         "DESC": "Invite a team member via their email address",
         "EMAIL-ERROR": "Email is invalid",
-        "SELECT-ROLE": "Select Role"
+        "SELECT-ROLE": "Select Role",
+        "ROLE": "Role"
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select page of team members"
