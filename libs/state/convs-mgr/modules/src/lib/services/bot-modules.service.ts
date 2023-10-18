@@ -15,6 +15,10 @@ export class BotModulesStateService {
     return this._botModuleStore$$.get();
   }
 
+  getMultipleBotModules(moduleIds: string[]): Observable<BotModule[]>{
+    return this._botModuleStore$$.getMany(moduleIds);
+  }
+
   getBotModulesFromParentBot(botId: string): Observable<BotModule[]> {
     return this._botModuleStore$$.get().pipe(
       map(mods => mods.filter(mod => mod.parentBot === botId))
