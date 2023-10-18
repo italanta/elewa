@@ -35,8 +35,6 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
   botModule: BotModule;
   isCreateMode: boolean;
   isSavingModule: boolean;
-
-  activeBot: Bot;
   bots: Bot[];
 
   constructor(
@@ -87,9 +85,9 @@ export class CreateModuleModalComponent implements OnInit, OnDestroy {
     };
 
     if (this.isCreateMode) {
-      this.saveModuleState(botModule, this.moduleForm.value.parentBot);
+      this.saveModuleState(botModule, this.moduleForm.value.parentBot.id);
     } else {
-      this.updateModuleState(botModule, this.moduleForm.value.parentBot);
+      this.updateModuleState(botModule, this.moduleForm.value.parentBot.id);
     }
   }
 

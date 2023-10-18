@@ -10,5 +10,5 @@ export function generateName() {
     dictionaries: [adjectives, colors, animals],
   });
 
-  return defaultName;
+  return `${defaultName.charAt(0).toUpperCase()}${defaultName.slice(1)}`;
 }

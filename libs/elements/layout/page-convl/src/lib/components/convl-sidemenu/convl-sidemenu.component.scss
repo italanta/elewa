@@ -213,6 +213,7 @@ $sidebar-footer-height: 230px;
           padding-left: 30px;
 
           .menu-icon {
+            cursor: pointer;
             font-size: 1.2rem;
             width: 35px;
             min-width: 30px;
@@ -609,6 +610,19 @@ a {
   }
 }
 
+.sub-side-menu{
+  padding-left: 1rem!important;
+  font-size: .85rem!important;
+}
+.collapsible {
+  display: none; 
+}
+
+.collapsible.show {
+  display: block; 
+}
+
+
 .sidebar-toggler {
   position: fixed;
   right: 20px;
@@ -663,3 +677,4 @@ a {
 :host ::ng-deep .mat-expansion-indicator {
   padding: 10px;
 }
+

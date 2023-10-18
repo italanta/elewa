@@ -7,6 +7,7 @@ import { BotDataService } from './data-service-abstract.class';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
+import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 /**
  * Contains all the required database flow methods for the enrolled collection
@@ -65,6 +66,21 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
     return enrolledUsers;
   };
+
+  getEnrolledUserByEndUser(endUserId: string) {
+    const platformPrefix = endUserId.split("_")[0];
+
+    const platform  = __PrefixToPlatformType(platformPrefix);
+
+    switch (platform) {
+      case PlatformType.WhatsApp:
+        return this.getDocumentByField('whatsappUserId', endUserId, this._docPath);
+      case PlatformType.Messenger:
+        return this.getDocumentByField('messengerUserId', endUserId, this._docPath);
+      default:
+        return this.getDocumentByField('whatsappUserId', endUserId, this._docPath);
+    }
+  }
 
   async getEnrolledUser(enrolledUserId: string) {
     return this.getDocumentById(enrolledUserId, this._docPath);
