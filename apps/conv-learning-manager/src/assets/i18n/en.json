@@ -656,20 +656,21 @@
     }
   },
   "LEARNERS":{
+    "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "Phone Number",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
     },
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search input by name"
+      "SEARCH-PLACEHOLDER": "Search for a learner"
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
-      "BULK-ACTIONS": "Bulk Actions",
+      "BULK-ACTIONS": "Send Message",
       "CLASS": "Class",
       "COURSE": "Course",
       "PLATFORM": "Platform",
