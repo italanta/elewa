@@ -3,11 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
 
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { CreateLessonModalComponent } from '../../modals/create-lesson-modal/create-lesson-modal.component';
+import { Course } from '../../model/courses.interface';
 
 @Component({
   selector: 'italanta-apps-courses-list',
@@ -15,18 +14,9 @@ import { CreateLessonModalComponent } from '../../modals/create-lesson-modal/cre
   styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent {
-  @Input() courses$: Observable<
-    {
-      bot: Bot;
-      modules$: Observable<
-        {
-          module: BotModule;
-          stories$: Observable<Story[]>;
-        }[]
-      >;
-    }[]
-  >;
-  
+  @Input() searchValue: string;
+  @Input() courses$: Observable<Course>;
+
   constructor(private _dialog: MatDialog){}
 
   createLesson(moduleId: string) {
