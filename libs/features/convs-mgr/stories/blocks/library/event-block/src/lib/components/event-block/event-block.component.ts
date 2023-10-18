@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -12,8 +12,9 @@ import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
   templateUrl: './event-block.component.html',
   styleUrls: ['./event-block.component.scss'],
 })
-export class EventBlockComponent
+export class EventBlockComponent implements  AfterViewInit
 {
+ 
   @Input() id: string;
   @Input() block: EventBlock;
   @Input() jsPlumb: BrowserJsPlumbInstance;
@@ -25,4 +26,16 @@ export class EventBlockComponent
   type: StoryBlockTypes;
   eventType = StoryBlockTypes.Event;
   blockFormGroup: FormGroup;
+
+  constructor(private el: ElementRef) { }
+
+  ngAfterViewInit(): void {
+      this.setFocusOnInput();
+  }
+  private setFocusOnInput() {
+      const inputElement = this.el.nativeElement.querySelector(`input[id="${this.id}"]`);
+      if (inputElement) {
+        inputElement.focus();
+      }
+  }
 }
