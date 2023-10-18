@@ -42,12 +42,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
   allCourses: string[] = [];
-  allStatus: string[] = [];
 
-  selectedClass = 'All Classes';
-  selectedCourse = 'All Courses';
-  selectedStatus = 'All Courses';
-  selectedPlatform = 'All Platforms';
+  selectedClass: any = 'Class';
+  selectedCourse: any = 'Course';
+  selectedPlatform: any = 'Platform';
 
   constructor(
     private _eLearners: EnrolledLearnersService,
@@ -96,6 +94,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
       EnrolledEndUserStatus[status].slice(1)
     );
+  }
+
+  getIcon(status: number) {
+    return `/assets/svgs/learners/${this.getStatus(status)}.svg`
   }
 
   getMode(enrolledUser: EnrolledEndUser) {

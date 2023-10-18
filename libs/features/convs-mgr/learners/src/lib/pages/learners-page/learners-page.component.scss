@@ -1,6 +1,6 @@
 .page-container {
   padding: 2rem;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   min-height: calc(100vh - 8.5rem);
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
       }
 
       .bulk-actions {
-        background-color: #00112B;
+        background-color: #00112b;
         color: white;
       }
     }
@@ -54,7 +54,7 @@
         display: flex;
         align-items: center;
         padding: 20px;
-        border: solid #DADADA 1px;
+        border: solid #dadada 1px;
 
         &_tooltip {
           color: gray;
@@ -112,12 +112,12 @@
           position: absolute;
           top: 7px;
           right: 5px;
-          padding: .5rem;
+          padding: 0.5rem;
           height: 42px;
           border-radius: 20px;
           background-color: white;
           color: black !important;
-          transition: .25s all ease;
+          transition: 0.25s all ease;
           pointer-events: none;
         }
 
@@ -136,30 +136,48 @@ a {
 }
 
 a:hover {
-  color: #00A0C6;
+  color: #00a0c6;
   text-decoration: none;
   cursor: pointer;
 }
 
 .mdc-data-table__header-cell {
-	color: #7C7C7C;
-	font-weight: 300;
-	font-size: 1.1rem;
-  background-color: #F6F6F6!important;
+  color: #7c7c7c;
+  font-weight: 300;
+  font-size: 1.1rem;
+  background-color: #f6f6f6 !important;
 }
 
 .mat-mdc-row {
-	color: #101010;
-	font-size: 1rem;
-  background-color: #F6F6F6!important;
-	font-weight: 400;
-	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25)!important;
+  color: #101010;
+  font-size: 1rem;
+  background-color: #f6f6f6 !important;
+  font-weight: 400;
+  border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25) !important;
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .mat-mdc-paginator {
-  background-color: #F6F6F6!important;
+  background-color: #f6f6f6 !important;
+}
+
+.status-data {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  .status {
+    &.Inactive {
+      color: #707070;
+    }
+    &.Active {
+      color: #19b016;
+    }
+    &.Stuck {
+      color: red;
+    }
+  }
 }
