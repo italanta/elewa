@@ -116,6 +116,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
       "name": `${template.name}_copy`,
       "category": template.category,
       "language": template.language,
+      "channelId": template.channelId,
       "content": {
         "header": header,
         "body": {
@@ -125,12 +126,26 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
         "footer": template.content.footer,
       },
     };
+    this.isSaving = true;
     this._messageTemplateService.createTemplateMeta(this.template).subscribe(
       (response) => {
         if( response.success){
           this._messageTemplateService.addMessageTemplate(this.template).subscribe(
-            
+            response => {
+              if(response.id){
+                this.isSaving=false;
+                this._snackBar.showSuccess("Template duplicated successfully");
+              } 
+              else {
+                this.isSaving=false;
+                this._snackBar.showError("Something went wrong please try again");
+              } 
+            }
           );
+        }
+        else{
+          this.isSaving=false;
+          this._snackBar.showError("Something went wrong please try again");
         }
       }
     )
