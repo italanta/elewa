@@ -1,13 +1,15 @@
 <div [id]="id" *ngIf="eventBlockForm">
-	<form [formGroup]="eventBlockForm" fxLayout="column" fxLayoutALign="start center">
+    <div class="connector connector-1"></div>
+	<form [formGroup]="eventBlockForm" fxLayout="column" fxLayoutALign="start center" class="event-block">
         <input class="name-input" [id]="id" formControlName="eventName" type="text"
         [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.EVENT-NAME' | transloco" />
         <div>
             <mat-checkbox formControlName="isMilestone" class="checkbox" color="warn" type="checkbox"></mat-checkbox>
-            <label for="checkbox"> {{ 'PAGE-CONTENT.BLOCK.LABELS.TRACK-MILESTONE' | transloco }} </label>
+            <label for="checkbox" class="label"> {{ 'PAGE-CONTENT.BLOCK.LABELS.TRACK-MILESTONE' | transloco }} </label>
         </div>
         <input class="name-input" [id]="id" formControlName="payLoad" type="text"
         [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.0PTIONAL-PAYLOAD' | transloco" />
-        <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="eventBlockForm"></app-default-option-field>
+        <!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="eventBlockForm"></app-default-option-field> -->
+        <div class="connector connector-2"></div>
 	</form>
 </div>
