@@ -1,10 +1,11 @@
 <div [id]="id" *ngIf="videoMessageForm">
-  <form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
+  <form class="form" [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
 
     <div (click)="openVideoUploadModal()">
       <div class="video-wrapper">
-        <div *ngIf="!isLoadingVideo && !videoUrl; else inputHasVideo">
-          <i id="icon" class="fas fa-play-circle"></i>
+        <div class="video-heading" *ngIf="!isLoadingVideo && !videoUrl; else inputHasVideo">
+          <!-- our svgIcon/img -->
+          <img src="assets/svgs/blocks/video.svg" alt="video-svg">
         </div>
         <ng-template #inputHasVideo>
           <video id="video" #video (load)="isLoadingVideo = true" *ngIf="!isLoadingVideo && videoUrl" class="upload-video" alt="" controls
@@ -17,7 +18,6 @@
         </ng-template>
       </div>
     </div>
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
     <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
     <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
       formControlName="fileSrc">
