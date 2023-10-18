@@ -31,11 +31,14 @@ import { OrgStateModule } from '@app/state/organisation';
 import { StoriesStateModule } from '@app/state/convs-mgr/stories';
 import { LearnersStateModule } from '@app/state/convs-mgr/learners';
 import { EndUsersStateModule } from '@app/state/convs-mgr/end-users';
+import { ClassroomStateModule } from '@app/state/convs-mgr/classrooms';
 import { StoryBlocksStateModule } from '@app/state/convs-mgr/stories/blocks';
 import { StoryBlockConnectionsStateModule } from '@app/state/convs-mgr/stories/block-connections';
 import { VariablesConfigStateModule } from '@app/state/convs-mgr/stories/variables-config';
 import { ProgressMonitoringStateModule } from '@app/state/convs-mgr/monitoring';
 import { MtOrgStateModule } from '@app/private/state/organisation/main';
+import { BotsStateModule } from '@app/state/convs-mgr/bots';
+import { BotModulesStateModule } from '@app/state/convs-mgr/modules';
 import { AccessControlStateModule } from '@app/private/state/access-control';
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
@@ -76,12 +79,15 @@ import { environment } from '../environments/environment';
     // DataModule.forRoot(),
     OrgStateModule.forRoot(),
     StoriesStateModule.forRoot(),
+    ClassroomStateModule.forRoot(),
     StoryBlocksStateModule.forRoot(),
     StoryBlockConnectionsStateModule.forRoot(),
     VariablesConfigStateModule.forRoot(),
     ProgressMonitoringStateModule.forRoot(),
     EndUsersStateModule.forRoot(),
     LearnersStateModule.forRoot(),
+    BotsStateModule.forRoot(),
+    BotModulesStateModule.forRoot(),
 
     MtOrgStateModule.forRoot(),
 

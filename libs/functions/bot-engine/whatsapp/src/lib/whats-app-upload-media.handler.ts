@@ -29,6 +29,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
 {
   channel: WhatsAppCommunicationChannel;
   _tools: HandlerTools;
+  API_VERSION: string = process.env.WHATSAPP_VERSION || 'v18.0';
 
   public async execute(payload: CommunicationChannel, context: HttpsContext, tools: HandlerTools) 
   {
@@ -133,7 +134,7 @@ export class WhatsAppUploadMediaHandler extends FunctionHandler<CommunicationCha
     
     this._tools.Logger.log(()=> `Uploading file to Whatsapp Servers: ${filepath}`);
 
-    const URL = `https://graph.facebook.com/v17.0/${channel.id}/media`;
+    const URL = `https://graph.facebook.com/${this.API_VERSION}/${channel.id}/media`;
 
     const type = mime.lookup(filepath) as string;
 

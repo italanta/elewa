@@ -8,10 +8,10 @@
         </div>
 
         <div *ngIf="currentLearner">
-            <app-learner-information [currentLearner] = "currentLearner"></app-learner-information>
+            <app-learner-information [currentLearner]="currentLearner"></app-learner-information>
         </div>
         
         <app-learner-enrolled-courses></app-learner-enrolled-courses>
-        <app-learner-assessment-history [assessments] = "endUserAssessments"></app-learner-assessment-history>
+        <app-learner-assessment-history [assessments]="endUserAssessments"></app-learner-assessment-history>
     </div>
 </convl-page>
