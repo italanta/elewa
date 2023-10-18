@@ -7,7 +7,7 @@ import { orderBy as __orderBy } from 'lodash';
 
 import { __DateFromStorage } from '@iote/time';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -16,11 +16,11 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 })
 export class BotsListLatestCoursesComponent implements OnInit {
 
-  @Input() stories$: Observable<Story[]>;
+  @Input() bots$: Observable<Bot[]>;
 
   defaultImageUrl = `https://res.cloudinary.com/dyl3rncv3/image/upload/v1695626490/photo-1541746972996-4e0b0f43e02a_o9ukmi.jpg`
 
-  stories: Story[];
+  bots: Bot[];
 
   screenWidth: number;
 
@@ -30,14 +30,14 @@ export class BotsListLatestCoursesComponent implements OnInit {
 
     this.screenWidth = window.innerWidth;
 
-    if (this.stories$) {
-      this.stories$.pipe(
-        map((s) => __orderBy(s,(a) => __DateFromStorage(a.createdOn!).unix(), 'desc')),
-        tap((s) => this.stories = s)).subscribe();
+    if (this.bots$) {
+      this.bots$.pipe(
+        map((s) => __orderBy(s,(a) => __DateFromStorage(a.createdOn as Date).unix(), 'desc')),
+        tap((s) => this.bots = s)).subscribe();
     }
   }
 
   openBot(id: string) {
-    this._router$$.navigate(['stories', id]);
+    this._router$$.navigate(['bots', id]);
   }
 }

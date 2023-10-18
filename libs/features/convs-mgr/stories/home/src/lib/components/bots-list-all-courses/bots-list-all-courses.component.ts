@@ -11,24 +11,25 @@ import { orderBy as __orderBy } from 'lodash';
 
 import { __DateFromStorage } from '@iote/time';
 
-import { Story } from '@app/model/convs-mgr/stories/main';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
 
 import { ActionSortingOptions } from '../../model/sorting.enum';
+import { DeleteElementsEnum } from '../../model/delete-element.enum';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
   templateUrl: './bots-list-all-courses.component.html',
   styleUrls: ['./bots-list-all-courses.component.scss'],
 })
-export class BotsListAllCoursesComponent implements OnInit {
+export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
 
   private _sbS = new SubSink();
 
-  @Input() stories$: Observable<Story[]>
+  @Input() bots$: Observable<Bot[]>
   @Input() showAllCourses: boolean;
 
   @Output() collapseAllCourses = new EventEmitter();
@@ -39,7 +40,7 @@ export class BotsListAllCoursesComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'type', 'lastEdited', 'channel', 'actions'];
 
-  dataSource: MatTableDataSource<Story> = new MatTableDataSource();
+  dataSource: MatTableDataSource<Bot> = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -50,14 +51,14 @@ export class BotsListAllCoursesComponent implements OnInit {
               private _router$$: Router) { }
 
   ngOnInit(): void {
-    this._sbS.sink = combineLatest(([this.stories$, this.sorting$$.asObservable()]))
-    .pipe(map(([stories, sort]) => 
-            __orderBy(stories,(a) => __DateFromStorage(a.createdOn!).unix(),
+    this._sbS.sink = combineLatest(([this.bots$, this.sorting$$.asObservable()]))
+    .pipe(map(([bots, sort]) => 
+            __orderBy(bots,(a) => __DateFromStorage(a.createdOn as Date).unix(),
             sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
-          map((stories) =>
-            stories.map((s) => { 
-              return { ...s, lastEdited: TIME_AGO(this.parseDate(s.updatedOn! ? s.updatedOn : s.createdOn!)) }})),
-          tap((stories) => this.dataSource.data = !this.showAllCourses ? stories.slice(0, 3) : stories)).subscribe();
+          map((bots) =>
+            bots.map((b) => { 
+              return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
+          tap((bots) => this.dataSource.data = !this.showAllCourses ? bots.slice(0, 3) : bots)).subscribe();
   }
 
   ngAfterViewInit() {
@@ -66,17 +67,25 @@ export class BotsListAllCoursesComponent implements OnInit {
   }
 
   openBot(id: string) {
-    this._router$$.navigate(['stories', id]);
+    this._router$$.navigate(['bots', id]);
   }
 
-  editBot(story: Story) {
-    this._dialog.open(CreateBotModalComponent, 
-      {minWidth: '600px', data: {isEditMode: true, story: story}}).afterClosed();
+  editBot(bot: Bot) {
+    this._dialog.open(CreateBotModalComponent, {
+      minWidth: '600px', 
+      data: { 
+        botMode: BotMutationEnum.EditMode, bot: bot
+      }
+    }).afterClosed();
   }
 
-  deleteBot(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, 
-      {minWidth: 'fit-content', data: {isEditMode: true, story: story}}).afterClosed();
+  deleteBot(bot: Bot) {
+    this._dialog.open(DeleteBotModalComponent, {
+      minWidth: 'fit-content', 
+      data: { 
+        mode: DeleteElementsEnum.Bot, element: bot,
+      }
+    }).afterClosed();
   }
 
   applyFilter(event: Event) {

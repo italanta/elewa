@@ -6,6 +6,9 @@
       <div class="top-actions">
         <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
         <div>
+          <button mat-raised-button class="btn add-to-class" *ngIf="surveyId" (click)="sendSurvey()">send survey</button>
+          <button mat-raised-button [hidden]="!activeMessageId" class="btn" (click)="sendMessageButtonClicked()">{{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco
+          }}</button>
           <button mat-raised-button class="btn add-to-class"
             (click)="openCreateClassModal()">{{'LEARNERS.BUTTONS.CREATE-CLASS'| transloco }}</button>
           <button mat-raised-button color="primary" class="btn add-to-class">{{'LEARNERS.BUTTONS.ADD-TO-CLASS'|

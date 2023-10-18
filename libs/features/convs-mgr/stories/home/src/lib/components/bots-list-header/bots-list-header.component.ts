@@ -1,24 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
 
+import { BotMutationEnum } from '@app/model/convs-mgr/bots';
+
+import { BotCreateFlowModalComponent } from '../../modals/bot-create-flow-modal/bot-create-flow-modal.component';
 @Component({
   selector: 'italanta-apps-bots-list-header',
   templateUrl: './bots-list-header.component.html',
   styleUrls: ['./bots-list-header.component.scss'],
 })
-export class BotsListHeaderComponent implements OnInit {
-
+export class BotsListHeaderComponent {
   constructor(private _dialog: MatDialog) {}
-
-  ngOnInit(): void {}
 
   createBot() {
     const dialogData = {
-      isEditMode: false,
-      story: ''
-    }
+      botMode: BotMutationEnum.CreateMode,
+      bot: '',
+    };
 
-    this._dialog.open(CreateBotModalComponent, {minWidth: '600px', data: dialogData}).afterClosed();
+    this._dialog.open(BotCreateFlowModalComponent, {
+      minWidth: '600px',
+      data: dialogData,
+    });
   }
 }

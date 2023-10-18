@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Subject } from 'rxjs';
 
@@ -21,7 +22,7 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
 
   @Input() assessmentFormGroup: FormGroup;
 
-  count: number;
+  count: number = 0;
   formDataIsReady: boolean = false;
 
   activeCard$ = new Subject<number>();
@@ -57,13 +58,7 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
   }
 
   getCount() {
-    const lastQstn = this.questionsList.at(this.questionsList.length - 1);
-    
-    if (lastQstn) {
-      this.count = parseInt(lastQstn?.get('id' as string)?.value);
-    } else {
-      this.count = 0
-    }
+    this.count = this.questionsList.length;
   }
 
   addQuestion() {
@@ -83,6 +78,17 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
 
   activeQuestionChanged(index: number) {
     this.activeCard$.next(index);
+  }
+
+  drop(event: any) {
+    moveItemInArray(this.questionsList.controls, event.previousIndex, event.currentIndex);
+
+    let newFormOrder = this.assessmentFormGroup.value.questions;
+    let movedQuestion = newFormOrder[event.currentIndex];
+    newFormOrder[event.currentIndex] = newFormOrder[event.previousIndex];
+    newFormOrder[event.previousIndex] = movedQuestion;
+
+    this.assessmentFormGroup.value.questions = newFormOrder;
   }
 
   ngOnDestroy(): void {
