@@ -44,7 +44,7 @@ input[type='text'] {
   padding: 50x;
 
   .type-variable {
-    font-size: 0.9rem;
+    font-size: 0.9em;
     display: flex;
     flex-direction: column;
     border-radius: 1em;
@@ -82,7 +82,7 @@ input[type='text'] {
 
     label {
       position: relative;
-      font-weight: 500;
+      font-weight: 400;
       font-size: 0.9rem; 
       padding: 1em;
       // color: #7C7C7C;
@@ -104,6 +104,10 @@ input[type='text'] {
     }
   }
 
- 
+ .border-line{
+  border-top: 0.1em solid #DADADA;
+  ;
+  width: 100%;
+ }
  
 }
