@@ -1,17 +1,10 @@
 import { Timestamp } from '@firebase/firestore-types';
 
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  OnDestroy,
-  AfterViewInit,
-} from '@angular/core';
+import {Component,Input,OnChanges,SimpleChanges,OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { from, tap, switchMap, of, Observable, map } from 'rxjs';
+import { from, tap, switchMap, of } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { BackendService, UserService } from '@ngfi/angular';
@@ -38,6 +31,7 @@ import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.c
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
 import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provider';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 
 
 
@@ -106,12 +100,15 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
         this.moveChatDialogRef = null as any;
       }
       
+    
       this._classRoomService$.getSpecificClassroom(this.learnerClass).subscribe(
-        (classroomDetails: any) => {
-          this.className = classroomDetails;
+        (classroomDetails: Classroom | undefined) => {
+          if (classroomDetails) {
+            this.className = classroomDetails.className; 
+          }
         }
       );
-
+      
 
       this._enrolledLearners
     .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
@@ -136,14 +133,14 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
                 if (botModule) {
                   return this._botsService$.getBotById(botModule.parentBot);
                 } else {
-                  // If botModule is undefined, return an observable with null or default value
+                  // If botModule is undefined, return an observable with null 
                   return of(null);
                 }
               })
             );
           }
         }
-        // If story or storyModuleId is undefined, return an observable with null or default value
+        // If story or storyModuleId is undefined, return an observable with null 
         return of(null);
       }),
       tap((bot) => {
@@ -359,5 +356,3 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
     
   }
 }
-
-
