@@ -11,7 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { from, tap, switchMap, of } from 'rxjs';
+import { from, tap, switchMap, of, Observable, map } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { BackendService, UserService } from '@ngfi/angular';
@@ -29,6 +29,9 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { StoryStateService } from '@app/state/convs-mgr/stories';
 
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
@@ -41,12 +44,14 @@ import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '../../providers/avatar.provid
 
 
 
+
+
 @Component({
   selector: 'app-chat-detail-header',
   templateUrl: './chat-detail-header.component.html',
   styleUrls: ['./chat-detail-header.component.scss'],
 })
-export class ChatDetailHeaderComponent implements OnChanges, OnDestroy, AfterViewInit {
+export class ChatDetailHeaderComponent implements OnChanges, OnDestroy{
   @Input() chat: Chat;
   @Input() chatStatus: string;
   @Input() userClass: string;
@@ -58,6 +63,8 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy, AfterVie
   extractedLearnerId: string ;// This variable will be used to store the ID of a learner extracted from enrolled learners.
   learnerClass: string ;
   className: string;
+  courseName :string;
+  courseId :string;
 
   confirmDialogRef: MatDialogRef<ConfirmActionModal>;
   moveChatDialogRef: MatDialogRef<MoveChatModal>;
@@ -78,15 +85,14 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy, AfterVie
               private _enrolledLearners: EnrolledLearnersService,
               private _router$$: Router,
               private _classRoomService$ :ClassroomService,
-              private _botsService$ : BotsStateService
+              private _botsService$ : BotsStateService,
+              private _botsModuleSer$ :BotModulesStateService,
+              private _storiesServ$$: StoryStateService,
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
     this.avatarBgColor = this.randomColor();
   }
 
-  ngAfterViewInit(): void {
-    
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['chat']) {
@@ -100,29 +106,56 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy, AfterVie
         this.moveChatDialogRef = null as any;
       }
       
-      
-    }
-  
-    this._enrolledLearners
-    .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
-    .subscribe(
-      (learners: EnrolledEndUser[]) => {
-        const learner = learners[0];
-        // Check if learner.id is defined before passing it as a string since learner.id is nullable
-        this.extractedLearnerId = learner.id ?? '';
-        // Check if learner.classId exists and set learnerClass accordingly
-        this.learnerClass = learner.classId ?? '';
-        console.log("class");
-      },
-    );
-
       this._classRoomService$.getSpecificClassroom(this.learnerClass).subscribe(
         (classroomDetails: any) => {
           this.className = classroomDetails;
         }
       );
 
+
+      this._enrolledLearners
+    .getLearnerId$(PlatformType.WhatsApp, this.chat.id)
+    .subscribe(
+      (learners: EnrolledEndUser[]) => {
+        const learner = learners[0];
+        this.extractedLearnerId = learner.id ?? '';
+        this.learnerClass = learner.classId ?? '';
+      },
+    );
+
+    const storyId = this.currentPosition.storyId;
+
+
+    this._storiesServ$$.getStoryById(storyId).pipe(
+      switchMap((story: Story | undefined) => {
+        if (story) {
+          const storyModuleId = story.parentModule;
+          if (storyModuleId) {
+            return this._botsModuleSer$.getBotModuleById(storyModuleId).pipe(
+              switchMap((botModule: BotModule | undefined) => {
+                if (botModule) {
+                  return this._botsService$.getBotById(botModule.parentBot);
+                } else {
+                  // If botModule is undefined, return an observable with null or default value
+                  return of(null);
+                }
+              })
+            );
+          }
+        }
+        // If story or storyModuleId is undefined, return an observable with null or default value
+        return of(null);
+      }),
+      tap((bot) => {
+        if (bot) {
+          this.courseName = bot?.name || '';
+          this.courseId = bot?.id || '';
+        }
+      })
+    ).subscribe();
     
+    
+    } 
   }
 
   formatDate = (date: Timestamp | Date) => __FormatDateFromStorage(date);
@@ -309,23 +342,17 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy, AfterVie
 
   
 
+
   navigateToStory() {
-    const storyId = this.currentPosition.storyId;
-  
-    this._botsService$
-      .getBotById(storyId)
-      .pipe(
-        switchMap((bot) => {
-          const courseId = bot?.id;
-          return of(courseId);
-        })
-      )
-      .subscribe((courseId) => {
-        if (courseId) {
-          this._router.navigate([`/bots/${courseId}`]);
-        }
-      });
+    if(this.courseId){
+      this._router.navigate([`/bots/${this.courseId}`])
+    }
+   
   }
+  
+
+
+  
 
   ngOnDestroy() {
     this._sbs.unsubscribe();
