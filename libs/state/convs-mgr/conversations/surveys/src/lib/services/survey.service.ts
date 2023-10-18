@@ -50,8 +50,8 @@ export class SurveyService {
   }
   sendSurvey(payload: any){
     const surveyReq: StartSurveyReq = {
-      channelId: this.channelId,
-      // messageTemplateName:"hello_world",
+      channelId: payload.channelId,
+      messageTemplateName:payload.templateName,
       enrolledUserIds: payload.enrolledUserIds,
       surveyId: payload.surveyId
     }
