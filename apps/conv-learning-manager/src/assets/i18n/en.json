@@ -492,10 +492,21 @@
       "QUESTIONS": "Questions",
       "STATUS":"Status",
       "NAME": "Name",
-      "PHONE-NO":"PhoneNumber",
+      "PHONE-NO":"Phone Number",
       "COURSE":"Course",
       "LIST": "List",
-      "GRID": "Grid"
+      "GRID": "Grid",
+      "CLASS": "All Classes",
+      "COURS": "All Courses",
+      "ACT": "Active",
+      "STUCK": "Stuck",
+      "INACTIVE": "Inactive",
+      "SELECTED": "Selected",
+      "CONTINUE": "Continue",
+      "CANCEL":"Cancel",
+      "BACK": "Back",
+      "NONE": "No Templates"
+
     },
     "SORTING":{
         "N-DATE": "Date Created (Newest)",
@@ -513,7 +524,7 @@
       },
       "TABLE-HEADER": {
         "NAME": "Name",
-        "PHONE-NO": "PhoneNumber",
+        "PHONE-NO": "Phone Number",
         "STARTED-ON": "Started On",
         "FINISHED-ON": "Finished On",
         "SCORE": "Score",

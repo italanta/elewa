@@ -216,6 +216,7 @@ export class SendModalComponent implements OnInit {
         enrolledUserIds: enrolledUsers
       }
         this._surveyService.sendSurvey(surveyPayload).subscribe();
+        this._snackbar.showSuccess("survey sent ");
     }
     else{
       this._snackbar.showError("Select Channel From Settings");
