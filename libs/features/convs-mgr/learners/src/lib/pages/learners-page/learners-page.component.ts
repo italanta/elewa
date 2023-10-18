@@ -124,6 +124,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  getIcon(status: number) {
+    return `/assets/svgs/learners/${this.getStatus(status)}.svg`
+  }
+
   getMode(enrolledUser: EnrolledEndUser) {
     return enrolledUser.classId
       ? ClassroomUpdateEnum.ChangeClass
