@@ -12,15 +12,14 @@ p {
   }
 
   .courses-wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: grid !important;
+    grid-template-columns: 0.5fr 2fr 2fr;
     align-items: center;
   }
 
   .search-wrapper {
     position: relative;
     justify-self: center;
-    grid-column: span 2;
 
     .search-input {
       border: none;

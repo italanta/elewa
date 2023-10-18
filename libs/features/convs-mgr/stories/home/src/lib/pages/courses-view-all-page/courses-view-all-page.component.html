@@ -7,7 +7,7 @@
 
       <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass search-tooltip"></i>
-        <input class="search-input" placeholder="search course" type="search" (keyup)="searchTable($event)" name=""
+        <input class="search-input" placeholder="search course" type="search" [(ngModel)]="searchValue" name=""
           id="">
       </div>
 
@@ -34,6 +34,6 @@
       </div>
     </div>
 
-    <italanta-apps-courses-list [courses$]="courses$"></italanta-apps-courses-list>
+    <italanta-apps-courses-list [courses$]="courses$" [searchValue]="searchValue"></italanta-apps-courses-list>
   </div>
 </convl-page>

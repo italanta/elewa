@@ -4,16 +4,12 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 import { Observable, map } from 'rxjs';
 
-import { Bot } from '@app/model/convs-mgr/bots';
-
 import { StoryStateService } from '@app/state/convs-mgr/stories';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Story } from '@app/model/convs-mgr/stories/main';
-
 import { ActionSortingOptions } from '../../model/sorting.enum';
+import { Course } from '../../model/courses.interface';
 
 @Component({
   selector: 'italanta-apps-courses-view-all-page',
@@ -25,19 +21,10 @@ export class CoursesViewAllPageComponent implements OnInit {
 
   @Input() showAllCourses: boolean;
 
-  courses$: Observable<
-    {
-      bot: Bot;
-      modules$: Observable<
-        {
-          module: BotModule;
-          stories$: Observable<Story[]>;
-        }[]
-      >;
-    }[]
-  >;
+  courses$: Observable<Course>;
 
   sortCoursesBy = 'newest';
+  searchValue = '';
 
   dataFound = true;
   viewInListView = false;
@@ -81,12 +68,6 @@ export class CoursesViewAllPageComponent implements OnInit {
     );
   }
 
-  searchTable(event: Event) {
-    const searchValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = searchValue.trim();
-    // this.dataFound = this.dataSource.filteredData.length > 0;
-  }
-
   sortBy(event: Event) {
     const searchValue = (event.target as HTMLInputElement)
       .value as ActionSortingOptions;
@@ -94,9 +75,7 @@ export class CoursesViewAllPageComponent implements OnInit {
   }
 
   filterStatusBy(event: Event) {
-    const searchValue = (event.target as HTMLInputElement)
-      .value as ActionSortingOptions;
-    this.sortCoursesBy = searchValue;
+    // filter by status
   }
 
   goToDashboard() {
