@@ -49,6 +49,9 @@
           font-weight: 400;
           word-wrap: break-word
         }
+        .spacer{
+          height: 1vh;
+        }
         
         div{
           div{
@@ -59,7 +62,7 @@
               border: 1px var(--convs-mgr-color-707070) solid;
               // Street Name
               color: var(--convs-mgr-color-C3C3C3);
-              font-size: 16px;
+              font-size: 14px;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
