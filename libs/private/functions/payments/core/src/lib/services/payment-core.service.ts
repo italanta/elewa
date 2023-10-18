@@ -36,7 +36,7 @@ export class PaymentCoreService {
     try {
       // TODO: Pass the actual user while using this method
 
-      const customerId = getCustomerID(user, this.mollieCustomerService)
+      const customerId = await getCustomerID(user, this.mollieCustomerService)
   
       const paymentData = {
         ...payment,
