@@ -930,5 +930,19 @@
     "BUTTON":{
       "ADD-PAYMENT-METHOD":"Add payment method"
     }
+  },
+  "MEMBERS":{
+      "SEARCH":"search table",
+      "INVITE-BUTTON":"Invite Member",
+      "TABLE":{
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "LAST-UPDATED":"Last Active",
+        "ROLE":"Role",
+        "EDIT":"Edit",
+        "REMOVE":"Remove",
+        "DEACTIVATE":"De-activate",
+        "LOADING-USERS":"Loading Users"
+      }
   }
 }
