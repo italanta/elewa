@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
@@ -10,6 +10,13 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+import { SnackbarService } from '../../services/snackbar.service';
+import { SurveyPublishService, SurveyService } from '@app/state/convs-mgr/conversations/surveys';
+import { StartSurveyReq } from '@app/private/model/convs-mgr/micro-apps/surveys';
+import { Router } from '@angular/router';
+import { MessageStatusRes, MessageTemplatesService } from '@app/private/state/message-templates';
+import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
 
 @Component({
   selector: 'app-send-modal',
@@ -26,6 +33,14 @@ export class SendModalComponent implements OnInit {
   allClasses: Classroom[] = [];
   allCourses: string[] = [];
   allLearn: EnrolledEndUser[] = [];
+  allTemplates: any =[];
+
+  templateForm: FormGroup;
+
+  messageTemplates$: Observable<MessageTemplate[]>;
+  templateStatus$: Observable<MessageStatusRes[]>;
+
+  channelId: string;
 
   filterForm: FormGroup;
   classFilterControl: FormControl = new FormControl('');
@@ -36,6 +51,11 @@ export class SendModalComponent implements OnInit {
   constructor(
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
+    private _snackbar: SnackbarService,
+    private _route$$: Router,
+    private fb: FormBuilder,
+    private _surveyService: SurveyService,
+    private _templateService$: MessageTemplatesService,
     public dialogRef: MatDialogRef<SendModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -46,12 +66,19 @@ export class SendModalComponent implements OnInit {
       statusFilter: this.statusFilterControl,
       search: this.searchControl,
     });
+
+    this.templateForm = this.fb.group({
+      selectedOption: new FormControl(''), // Initialize the selectedOption control
+    });
   }
 
   ngOnInit() {
     this.getLearners();
     this.getAllClasses();
     this.getAllCourses();
+    this.getAllTemplates();
+
+    this.channelId = localStorage.getItem('selectedChannelId') || '';
 
     // Subscribe to changes in filter form controls and search input
     this.classFilterControl.valueChanges.subscribe(() => this.filterData());
@@ -73,6 +100,41 @@ export class SendModalComponent implements OnInit {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses;
     });
+  }
+
+  getAllTemplates() {
+    this.messageTemplates$ = this._templateService$.getMessageTemplates$();
+
+    this._sBs.sink = this.messageTemplates$.pipe(
+      switchMap((templates) => {
+        const firstTemplate = templates[0];
+        if (!templates || templates.length === 0 || (!firstTemplate.channelId)) {
+          return [];
+        }
+        const channelId = firstTemplate ? firstTemplate.channelId : '';
+    
+        this.templateStatus$ = this._templateService$.getTemplateStatus(channelId);
+    
+        return combineLatest([of(templates), this.templateStatus$]).pipe(
+          map(([templates, statusData]) => {
+            const mergedData = templates.map((template) => {
+              const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
+              return {
+                ...template,
+                status,
+              };
+            });
+            return mergedData;
+          })
+        );
+      })
+    ).subscribe((mergedData) => {
+      this.allTemplates = mergedData;
+    });
+  }
+
+  isOptionDisabled(status: string): boolean {
+    return status !== 'APPROVED';
   }
 
   // TODO: Implement the function to get all courses
@@ -125,6 +187,24 @@ export class SendModalComponent implements OnInit {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
+  }
+
+  sendSurvey() {
+    if(this.channelId){
+      const surveyId = this._route$$.url.split('/')[2];
+      const enrolledUsers = this.selection.selected.map((user) => user.id) as string[];
+      const surveyPayload: StartSurveyReq = {
+        messageTemplateName: '',
+        channelId: this.channelId,
+        surveyId: surveyId,
+        enrolledUserIds: enrolledUsers
+      }
+        this._surveyService.sendSurvey(surveyPayload).subscribe();
+    }
+    else{
+      this._snackbar.showError("Select Channel From Settings");
+      this.dialogRef.close();
+    }
   }
 
   closeModal(): void {
