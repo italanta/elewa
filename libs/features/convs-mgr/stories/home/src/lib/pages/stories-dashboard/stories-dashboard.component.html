@@ -1,19 +1,37 @@
 <convl-page title="Home" [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
+  <div *ngIf="!showAllCourses else allCourses"  class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
+    <span class="bots"> {{ "BOTS.BOTS-PAGE.BOTS" | transloco }} </span>
 
-  <div class="wrapper">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-      <div>
-        <div *ngIf="org$ | async as org">
-          <h2>{{ org.name }} bots</h2>
-        </div>
-      </div>
-  
-      <div id="add-btn-holder">
-        <button class="mat-raised-button"  (click)="openCreateDialog()">{{ 'BOTS.ACTIONS.LBL-NEW-BOT' | transloco }}</button>
-      </div>
+    <div class="bots-header" fxFlex>
+      <italanta-apps-bots-list-header></italanta-apps-bots-list-header>
     </div>
-  
-    <convl-italanta-apps-story-list fxFlexFill>
-    </convl-italanta-apps-story-list>
+
+    <span class="sub-title"> {{ "BOTS.BOTS-PAGE.LATEST-COURSES" | transloco }} </span>
+
+    <div class="latest-courses" fxFlex>
+      <italanta-apps-bots-list-latest-courses [bots$]="bots$"></italanta-apps-bots-list-latest-courses>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span>
+
+      <button mat-flat-button (click)="showAllCourses = !showAllCourses">
+        {{ "BOTS.BOTS-PAGE.VIEW-ALL" | transloco }}
+      </button>
+    </div>
+
+    <div class="my-courses" fxFlex>
+      <italanta-apps-bots-list-all-courses [bots$]="bots$"></italanta-apps-bots-list-all-courses>
+    </div>
   </div>
+
+  <ng-template #allCourses>
+    <div class="bots-page">
+      <italanta-apps-bots-list-all-courses [showAllCourses]="showAllCourses" 
+                                            [bots$]="bots$"
+                                            (collapseAllCourses)="showAllCourses = !showAllCourses">
+      </italanta-apps-bots-list-all-courses>
+    </div>
+  </ng-template>
+
 </convl-page>

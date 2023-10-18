@@ -15,7 +15,8 @@ export enum MessageTypes
   AUDIO             = 'audio',
   DOCUMENT          = 'document',
   STICKER           = 'sticker',
-  VIDEO             = 'video'
+  VIDEO             = 'video',
+  TEMPLATE          = 'template'
 }
 
 export function isFileMessage(messageType: MessageTypes): boolean {
