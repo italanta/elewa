@@ -2,16 +2,21 @@
 <mat-horizontal-stepper>
     <!-- Step 1: Radio Select and Filter Search -->
     <mat-step label="select message template">
-      <form >
+      <form [formGroup]="templateForm">
         <div class="search">
-            <i class="fas fa-search search_tooltip"></i>
-            <input class="search_input" type="text" name="" placeholder="Search for learner"/>
+          <i class="fas fa-search search_tooltip"></i>
+          <input class="search_input" type="text" name="" placeholder="Search for learner" />
         </div>
         <mat-radio-group formControlName="selectedOption" class="radios">
-          <mat-radio-button value="option1">Option 1</mat-radio-button>
-          <mat-radio-button value="option2">Option 2</mat-radio-button>
+          <mat-radio-button *ngFor="let template of allTemplates" [value]="template.name" [disabled]="isOptionDisabled(template.status)">
+            {{ template.name }}
+          </mat-radio-button>
         </mat-radio-group>
+        <div *ngIf="allTemplates.length === 0">
+          No templates.
+        </div>
       </form>
+      
       <div class="buttons">
         <button mat-button class="cancel" (click)="closeModal()">Cancel</button>
         <button mat-button class="save" matStepperNext>Continue</button>
@@ -87,7 +92,7 @@
         </div>
         <div class="buttons">
         <button mat-button class="cancel" matStepperPrevious>Back</button>
-        <button mat-button class="save">Save</button>
+        <button mat-button class="save" (click)="sendSurvey()">Save</button>
         </div>
     </mat-step>
   
