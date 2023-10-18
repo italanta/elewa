@@ -3,19 +3,18 @@
     <div class="details-wrapper">
 
       <div class="options-wrapper">
-        <mat-form-field>
-          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
-          <mat-select formControlName="selectedVar">
-            <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
+          <label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</label>
+          <!-- <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}" id="selectVar"> -->
+          <select formControlName="selectedVar">
+            <option *ngFor="let variable of (vars$ | async)" [value]="variable">
               {{ variable }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            </option>
+          </select>
       </div>
 
       <div class="select-variable">
-        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
         <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
+        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
       </div>
 
       <div class="type-variable">
@@ -34,7 +33,7 @@
       </div>
     </div>
 
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
+    <!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field> -->
 
   </form>
 
