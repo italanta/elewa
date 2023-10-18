@@ -1,5 +1,5 @@
-<section class="courses-wrapper">
-  <div *ngFor="let course of (courses$ | async)">
+<section class="courses-wrapper" *ngIf="courses$ | filterCourse:filterString$ as filteredCourses$">
+  <div *ngFor="let course of (filteredCourses$ | async)">
     <div class="course">
       <span class="bot-name">{{ course.bot.name }}</span>
 

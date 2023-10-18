@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
@@ -14,15 +14,20 @@ import { Course } from '../../model/courses.interface';
   styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent {
-  @Input() searchValue: string;
   @Input() courses$: Observable<Course>;
+  @Input()
+  set searchValue(value: string) {
+    this.filterString$ = of(value);
+  }
 
-  constructor(private _dialog: MatDialog){}
+  filterString$: Observable<string>;
+
+  constructor(private _dialog: MatDialog) {}
 
   createLesson(moduleId: string) {
     const dialogData = {
       botMode: BotMutationEnum.CreateMode,
-      botModId: moduleId
+      botModId: moduleId,
     };
 
     this._dialog.open(CreateLessonModalComponent, {
