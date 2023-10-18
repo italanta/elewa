@@ -337,7 +337,130 @@
       }
     }
   },
-  "LEARNERS": {
+  "SURVEYS": {
+    "TABLE-HEADER": {
+      "TITLE": "Titre de l'enquête",
+      "CREATED-ON": "Créé le",
+      "IN-PROGRESS": "En cours",
+      "RESPONSES": "Réponses terminées",
+      "ACTIONS": "Actions",
+      "DUPLICATE": "Dupliquer",
+      "QUESTIONS": "Questions",
+      "STATUS": "Statut",
+      "NAME": "Nom",
+      "PHONE-NO": "Numéro de téléphone",
+      "COURSE": "Cours",
+      "LIST": "Liste",
+      "GRID": "Grille"
+    },
+    "SORTING": {
+      "N-DATE": "Date de création (la plus récente)",
+      "O-DATE": "Date de création (la plus ancienne)"
+    },
+    "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Retour",
+        "EDIT SURVEY": "Modifier l'enquête"
+      },
+      "TEXT": {
+        "SURVEY RESULTS": "Résultats de l'enquête",
+        "ALL-CLASSES": "Toutes les classes",
+        "NO-RESULTS": "Aucun résultat trouvé"
+      },
+      "TABLE-HEADER": {
+        "NAME": "Nom",
+        "PHONE-NO": "Numéro de téléphone",
+        "STARTED-ON": "Démarré le",
+        "FINISHED-ON": "Terminé le",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Catégorie de score"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Sélectionner la page de résultats",
+        "SORT-BY-CREATED": "Trier par date de création de l'enquête",
+        "SORT-BY-No": "Trier par numéro d'enquête",
+        "SORT-BY-NAME": "Trier par nom de résultat d'enquête",
+        "SORT-BY-PHONE-NO": "Trier par numéro de téléphone des résultats de l'enquête",
+        "SORT-BY-STARTED-ON": "Trier par date de début des résultats de l'enquête",
+        "SORT-BY-FINISHED-ON": "Trier par date de fin des résultats de l'enquête",
+        "SORT-BY-SCORE": "Trier par score des résultats de l'enquête",
+        "SORT-BY-SCORE-CATEGORY": "Trier par catégorie de score des résultats de l'enquête",
+        "SORTED-ASC": "Trié par ordre croissant",
+        "SORTED-DESC": "Trié par ordre décroissant"
+      },
+      "LABELS": {
+        "GROUPS": "Groupes"
+      },
+      "METRICS": {
+        "LOWEST": "Score le plus bas",
+        "HIGHEST": "Score le plus élevé",
+        "AVERAGE": "Score moyen",
+        "TOTAL-QUESTIONS": "Nombre total de questions"
+      }
+    },
+    "BUTTON": {
+      "VIEW": "Voir",
+      "RESULTS": "Résultats",
+      "ADD": "Créer une enquête",
+      "EDIT": "Modifier",
+      "SAVE": "Sauvegarder",
+      "DELETE": "Supprimer",
+      "ARCHIVE": "Archiver",
+      "SEARCH-SURVEY": "Rechercher une enquête",
+      "ADD-SURVEY": "Créer une enquête",
+      "EDIT-SURVEY": "Modifier l'enquête",
+      "PUBLISH": "Publier",
+      "SEARCH-QUESTIONS": "Rechercher des questions",
+      "OPEN-SURVEY": "OUVRIR L'ENQUÊTE",
+      "SEND": "Envoyer"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Créer un sondage",
+      "FIELDS": {
+         "TITLE": "Titre",
+         "TITLE-PLACEHOLDER": "Nom du sondage",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Description du sondage"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Créer un sondage",
+        "CANCEL": "Annuler"
+      }
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le sondage",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le sondage",
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce sondage ?"
+    },
+   "ALERT": {
+      "NOT-FOUND": "Sondage non trouvé"
+    },
+   "QUESTIONS": {
+      "QUESTION": "Nouvelle question",
+      "QUESTIONS": "Questions",
+      "ANSWER": "Nouvelle réponse",
+      "FIELDS":{
+        "CONFIGURATION": "Cette enquête a été envoyée à",
+        "FEEDBACK": "Commentaire",
+        "CONDITION": "Condition",
+        "USER-ATTEMPTS": "Essais de l'utilisateur",
+        "MARKS": "Points",
+        "MARKS-PLACEHOLDER": "Entrez les points",
+        "QUESTION": "Tapez une question que vous souhaitez poser",
+        "ANSWER": "Tapez une réponse possible"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immédiatement",
+        "ON-END": "À la fin",
+        "NEVER": "Jamais",
+        "CORRECT": "Correct",
+        "WRONG": "Faux",
+        "50-50": "50/50"
+      }
+    }
+  },
+  "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Nom",
       "PHONE-NUMBER": "Numéro de téléphone",
@@ -354,7 +477,10 @@
       "CLASS": "Classe",
       "COURSE": "Cours",
       "PLATFORM": "Plateforme",
-      "GO-TO-CHAT": "Aller au chat"
+      "GO-TO-CHAT": "Aller au chat",
+      "SEND-SURVEY": "envoyer un sondage",
+      "SEND-MESSAGE": "Envoyer un message."
+
     },
     "MODALS": {
       "ACTIONS": "Actions",
@@ -423,6 +549,153 @@
       }
     }
   },
+  "MESSAGE-TEMPLATES": {
+    "MESSAGE-TEMPLATE-HISTORY": {
+      "TITLE": "Historique des modèles",
+      "DATE": "Date d'envoi",
+      "TIME": "Heure d'envoi",
+      "LEARNERS": "Nombre d'apprenants",
+      "STATUS": "Statut",
+      "PENDING": "En attente",
+      "SENT": "Envoyé",
+      "APPROVED": "Approuvé"
+    },    
+    "INACTIVE-MESSAGE": {
+      "INACTIVITY": "Envoyer un message après une période d'inactivité",
+      "IM-SELECT": {
+        "INPUT-PLACEHOLDER": "Entrez une valeur",
+        "SELECT-TIME-UNIT": {
+          "DAYS": "jours",
+          "HOURS": "heures"
+        }
+      }
+    },
+    "MILESTONE": {
+      "MILESTONE-TITLE": "Envoyer un message après avoir atteint une étape",
+      "CLOSE-MODAL": "Fermer",
+      "SELECT-MILESTONE": "Sélectionnez une étape",
+      "MILESTONE-TYPES": {
+        "BEFORE": "Avant",
+        "AFTER": "Après"
+      },
+      "SELECT-BOT": "Sélectionnez un Bot",
+      "SELECT-MILESTONE-INDEX": "Sélectionnez une étape",
+      "MILESTONE-NUMBER": "Étape"
+    },
+    "SAVE-BUTTON": {
+      "SAVE": "Enregistrer"
+    },
+    "SPECIFIC-TIME": {
+      "SEND-MESSAGE-AT-SPECIFIC-TIME": "Envoyer un message à une heure spécifique",
+      "CHOOSE-DATE": "Choisissez une date et une heure",
+      "DATE-PLACEHOLDER": "Date et heure",
+      "TIME-PLACEHOLDER": "Heure",
+      "SAVE-BUTTON": {
+        "SAVE": "Enregistrer"
+      }
+    },
+    "MESSAGE-TEMPLATE-SETTINGS": {
+      "BTN-CONT": {
+        "SAVE-BUTTON": {
+          "SAVE": "Enregistrer"
+        }
+      },
+      "FORM-GROUP": {
+        "HEAD": {
+          "MESSAGE-CONDITIONS": "Conditions du message",
+          "INFO": "Vous ne pouvez définir des conditions de message que lorsque votre modèle de message est approuvé",
+          "SET-UP-CONDITIONS": "Configurer les conditions pour l'envoi de votre message",
+          "MESSAGE-CONDITIONS-LABEL": "Conditions du message"
+        }
+      }
+    },
+    "MESSAGE-TEMPLATE-LIST-CONTAINER": {
+      "LIST-TITLE": {
+        "LIST-TITLE-MESSAGE": "Modèles de messages"
+      },
+      "LIST-TITLE-BUTTON": {
+        "CREATE-BUTTON": {
+          "CREATE-TEMPLATE": "Créer un modèle",
+          "SAVING": "En cours de création..."
+        }
+      },
+      "SEARCH-BAR": {
+        "SEARCH": {
+          "SEARCH-TOOLTIP": "Rechercher",
+          "SEARCH-INPUT-PLACEHOLDER": "Rechercher un modèle"
+        }
+      },
+      "TABLE": {
+        "SPINNER": "Chargement...",
+        "TABLE-HEADER": {
+          "TEMPLATE-NAME": "Nom du modèle",
+          "MESSAGES-SENT": "Messages envoyés",
+          "LAST-UPDATED": "Dernière mise à jour",
+          "ACTIONS": "Actions"
+        },
+        "SEND-BUTTON": "Envoyer",
+        "DUPLICATE-BUTTON": "Dupliquer",
+        "ARCHIVE-BUTTON": "Archiver",
+        "DELETE-BUTTON": "Supprimer"
+      }
+    },
+    "HEADER": {
+      "MESSAGE-TEMPLATE-HEADER-TITLE": {
+        "MESSAGES": "Messages",
+        "HELP": "Aide"
+      }
+    },
+    "MESSAGE-TEMPLATE-FORM": {
+      "MT-FORM": {
+        "FORM-HEADER": {
+          "EDIT-TEMPLATE": "Modifier le modèle",
+          "FORM-HEADER-BUTTONS": {
+            "CANCEL-BUTTON": "Annuler",
+            "SAVE-BUTTON": {
+              "SAVE": "Enregistrer",
+              "SAVING": "Enregistrement en cours"
+            }
+          }
+        },
+        "FORM-BODY": {
+          "TEMPLATE-SETTINGS": {
+            "TITLE": "Paramètres du modèle",
+            "CATEGORY": "Catégorie",
+            "CATEGORY-DESCRIPTION": "Sélectionnez la catégorie du modèle",
+            "LANGUAGE": "Langue",
+            "LANGUAGE-DESCRIPTION": "Sélectionnez la langue du modèle",
+            "CHANNEL": "Canal",
+            "CHANNEL-DESCRIPTION": "Sélectionnez le canal d'envoi"
+          },
+          "TITLE": "Titre",
+          "TITLE-DESCRIPTION": "Ajoutez un titre à votre modèle",
+          "CONTENT": {
+            "HEADER": {
+              "HEADER": "En-tête",
+              "HEADER-DESCRIPTION": "Ajoutez un en-tête sous forme de texte ou d'image",
+              "TEXT": "Texte"
+            },
+            "BODY": {
+              "BODY": "Corps",
+              "BODY-DESCRIPTION": "Ajoutez le contenu du message à envoyer",
+              "SAMPLES": {
+                "SAMPLES": "Exemples de contenu du corps",
+                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client"
+              },
+              "FOOTER": {
+                "FOOTER": "Pied de page",
+                "FOOTER-DESCRIPTION": "Ajoutez une courte ligne de texte au contenu du message à afficher en bas"
+              }
+            }
+          },
+          "ADD-RESPONSES": {
+            "ADD-RESPONSES": "Ajouter des réponses",
+            "ADD-RESPONSES-DESCRIPTION": "Ajoutez des boutons ou une liste permettant aux apprenants de répondre à votre message",
+            "ADD-BUTTONS": "Ajouter des boutons +",
+            "ADD-LIST": "Ajouter une liste +"
+          }
+        }
+      }
   "BILLINGS":{
     "SUBSCRIPTION":"Abonnement",
     "MESSAGE-TOKENS":"Jetons de messages",

@@ -1,0 +1,31 @@
+mat-card-header{
+    border-bottom: 0.1rem solid var(--convs-mgr-color-light);
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--convs-mgr-question-header-color);
+}
+
+.question-title{
+    font-weight: 700;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.circle{
+    height: 0.5rem;
+    width: 0.5rem;
+    border: 0.1rem solid var(--convs-mgr-color-tertiary);
+    border-radius: 50%;
+}
+
+.question-message{
+    font-size: 0.9rem;
+}
+
+.choice-text{
+    font-size: 0.85rem;
+}
+
+.question{
+    padding: 1rem 0;
+}

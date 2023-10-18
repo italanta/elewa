@@ -145,6 +145,9 @@ export enum StoryBlockTypes {
 
   CMI5Block = 34,
 
+  /** The block that represents a single survey question */
+  SurveyQuestionBlock = 35,
+
   EndStoryAnchorBlock = 9999,
 }
 

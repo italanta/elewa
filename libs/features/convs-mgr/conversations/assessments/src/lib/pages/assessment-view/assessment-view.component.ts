@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { flatten as __flatten } from 'lodash';
 
 import { startWith, tap } from 'rxjs';
-
-import { flatten as __flatten } from 'lodash';
 
 import { Assessment, AssessmentQuestion } from'@app/model/convs-mgr/conversations/assessments';
 
@@ -22,7 +21,8 @@ export class AssessmentViewComponent implements OnInit, AfterViewInit, OnDestroy
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit(): void {
     this.assessmentForm.valueChanges
