@@ -108,6 +108,11 @@
       }
     },
     "BLOCK": {
+      "MENU": {
+        "EDIT": "Edit",
+        "COPY": "Copy",
+        "DELETE": "Delete"
+      },
       "BLOCK_ID": "Block ID",
       "TITLES": {
         "IMAGE": "Image",
@@ -124,7 +129,7 @@
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
         "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
@@ -157,7 +162,7 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "LOCATION-INPUT": "Location Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
@@ -346,6 +351,35 @@
       "CANCEL": "Cancel",
       "SUBMIT": "Delete Bot",
       "MESSAGE": " Are you sure you want to delete this bot?"
+    },
+    "BOTS-PAGE" : {
+      "BOTS" : "Bots",
+      "ALL-COURSES" : "All Courses",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Courses",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-BOT" : "Open Bot",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "CLASSESS": {
+    "MODALS": {
+      "CREATE-CLASS": "Create Class",
+      "CLASSNAME": "ClassName",
+      "DESCRIPTION": "Description",
+      "ACTION-BUTTONS": {
+        "CANCEL": "Cancel",
+        "CONTINUE": "Continue"
+      }
     }
   },
   "ASSESSMENTS": {
@@ -466,7 +500,7 @@
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONENUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "PhoneNumber",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
@@ -475,6 +509,7 @@
       "SEARCH-PLACEHOLDER": "Search input by name"
     },
     "BUTTONS": {
+      "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
       "BULK-ACTIONS": "Bulk Actions",
       "CLASS": "Class",
@@ -521,7 +556,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
-    }
+    },
+    "ERROR":" Error",
+    "ERROR-COUNT": "There are ",
+    "ERRORS": "errors"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
@@ -531,13 +569,16 @@
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
       "BUTTONS": {
-        "ADD-MEMBER": "Add Member"
+        "ADD-MEMBER": "Add Member",
+        "ADDING": "Adding ...",
+        "NO-THANKS": "No Thanks"
       },
       "MODAL": {
         "TITLE": "Add Member",
         "DESC": "Invite a team member via their email address",
         "EMAIL-ERROR": "Email is invalid",
-        "SELECT-ROLE": "Select Role"
+        "SELECT-ROLE": "Select Role",
+        "ROLE": "Role"
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select page of team members"
