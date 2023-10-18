@@ -30,9 +30,6 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
   private _sbS = new SubSink();
 
   @Input() bots$: Observable<Bot[]>
-  @Input() showAllCourses: boolean;
-
-  @Output() collapseAllCourses = new EventEmitter();
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
     ActionSortingOptions.Newest
@@ -58,7 +55,7 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
           map((bots) =>
             bots.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
-          tap((bots) => this.dataSource.data = !this.showAllCourses ? bots.slice(0, 3) : bots)).subscribe();
+          tap((bots) => this.dataSource.data = bots.slice(0, 3))).subscribe();
   }
 
   ngAfterViewInit() {

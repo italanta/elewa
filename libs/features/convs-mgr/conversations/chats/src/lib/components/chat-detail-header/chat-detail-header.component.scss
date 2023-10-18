@@ -25,6 +25,7 @@
   font-size: 16px;
   text-transform: capitalize;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .user-tooltip {
@@ -35,6 +36,35 @@
   display: grid;
   gap: 5px;
   grid-template-rows: 2;
+
+
+  .chat-name {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  
+  .chat-number {
+    color: #707070;
+    font-weight: 400;
+    font-size: .8rem;
+  }
+  .chat-clasroom{
+    color: #707070;
+    font-weight: 500;
+    font-size: .8rem;
+    a{
+      color: inherit;
+      text-decoration: none;
+    }
+    .currentClasslink:hover,
+    .currentStorylink:hover {
+      /* Apply the hovered-class styles when these elements are hovered */
+      @extend .hovered-class !optional;
+
+    }
+    
+  }
+
 }
 
 .inactive {

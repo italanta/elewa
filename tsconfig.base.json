@@ -80,6 +80,12 @@
       "@app/features/convs-mgr/learners": [
         "libs/features/convs-mgr/learners/src/index.ts"
       ],
+      "@app/features/convs-mgr/lessons": [
+        "libs/features/convs-mgr/lessons/src/index.ts"
+      ],
+      "@app/features/convs-mgr/modules": [
+        "libs/features/convs-mgr/modules/src/index.ts"
+      ],
       "@app/features/convs-mgr/stories/blocks/edit/blocks-edit": [
         "libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/index.ts"
       ],

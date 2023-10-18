@@ -4,22 +4,26 @@ import { Route, RouterModule } from '@angular/router';
 import { IsLoggedInGuard } from '@app/elements/base/authorisation';
 
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
+import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/courses-view-all-page.component';
+import { BotPageComponent } from './pages/bot-page/bot-page.component';
 
-const STORIES_ROUTES: Route[] = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  { path: 'dashboard', component: StoriesDashboardComponent, canActivate: [IsLoggedInGuard] },
-  // TODO: Update analytics to analytics page
-  { path: 'analytics', component: StoriesDashboardComponent, canActivate: [IsLoggedInGuard] },
+const BOTS_ROUTES: Route[] = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   {
-    path: ':id',
-    loadChildren: () => import('libs/features/convs-mgr/stories/editor/src/lib/convl-story-editor.module').then(m => m.ConvlStoryEditorModule),
+    path: 'dashboard',
+    component: StoriesDashboardComponent,
     canActivate: [IsLoggedInGuard],
-    canLoad: [IsLoggedInGuard]
   },
+  {
+    path: 'view-all',
+    component: CoursesViewAllPageComponent,
+    canActivate: [IsLoggedInGuard],
+  },
+  { path: ':id', component: BotPageComponent, canActivate: [IsLoggedInGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(STORIES_ROUTES)],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(BOTS_ROUTES)],
+  exports: [RouterModule],
 })
-export class ConvsMgrStoriesRouterModule { }
+export class ConvsMgrStoriesRouterModule {}

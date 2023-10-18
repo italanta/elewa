@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
@@ -13,6 +13,16 @@ export class BotModulesStateService {
 
   getBotModules(): Observable<BotModule[]> {
     return this._botModuleStore$$.get();
+  }
+
+  getMultipleBotModules(moduleIds: string[]): Observable<BotModule[]>{
+    return this._botModuleStore$$.getMany(moduleIds);
+  }
+
+  getBotModulesFromParentBot(botId: string): Observable<BotModule[]> {
+    return this._botModuleStore$$.get().pipe(
+      map(mods => mods.filter(mod => mod.parentBot === botId))
+    );
   }
 
   getBotModuleById(id: string): Observable<BotModule | undefined> {
