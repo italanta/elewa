@@ -15,18 +15,23 @@
         <div *ngIf="chat.phoneNumber && chat.name" class="name-section number">
           {{ '+' + chat.phoneNumber }}
         </div>
-        <!-- <div *ngIf="chat.class" class="name-section">
-          {{ '+' + chat.class }}
-        </div> -->
+
       </div>
       <div class="date-section" fxLayout="row" fxLayoutAlign="center center" fxFlex="30">
         <span>{{ lastMessageDate }}</span>
       </div>
     </div>
     <div class="bottom-section" fxLayout="row" fxLayoutAlign="end">
-      <div *ngIf="chat.lastMsg" class="bottom-txt" fxFlex>
-        {{ chat.lastMsg.message }} message here
+      <div *ngIf="lastMessage && getImageSource(); else textMessage" class="bottom-img" fxFlex>
+        <img [src]="getImageSource()"  />
       </div>
+
+      <ng-template #textMessage>
+        <div *ngIf="lastMessage" class="bottom-txt" fxFlex>
+          {{ lastMessage }}
+        </div>
+      </ng-template>
+            
       <div fxFlexAlign="end">
         <i *ngIf="chat.awaitingResponse" class="fas fa-comment-alt new-msg"></i>
       </div>
