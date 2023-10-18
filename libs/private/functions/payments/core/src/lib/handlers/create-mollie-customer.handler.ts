@@ -11,7 +11,7 @@ export class CreateMollieCustomerHandler extends FunctionHandler<any, Promise<vo
 
   public async execute(data: any, context: FunctionContext, tools: HandlerTools): Promise<any> {
     /**nitialize the MollieCustomerService with the customer and API key */
-    this.mollieCustomerService = new MollieCustomerService(this.customer, process.env.MOLLIE_API_KEY, tools);
+    this.mollieCustomerService = new MollieCustomerService(tools);
 
     /**
     * t the iTalUser associated with the provided user ID

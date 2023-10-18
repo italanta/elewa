@@ -36,7 +36,7 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
 
     tools.Logger.log(() => `[CreateSubscriptionsHandler].execute - Payload :: ${JSON.stringify(data)}`);
 
-    this.mollieCustomerService = new MollieCustomerService(this.customer, process.env.MOLLIE_API_KEY, tools);
+    this.mollieCustomerService = new MollieCustomerService(tools);
     this.subscriptionService = new SubscriptionService(tools);
     this._trnService = new TransactionsService(tools);
 

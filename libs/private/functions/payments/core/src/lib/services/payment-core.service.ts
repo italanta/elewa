@@ -1,10 +1,9 @@
 import { createMollieClient } from '@mollie/api-client';
-
-import { iTalUser } from '@app/model/user';
 import { HandlerTools } from '@iote/cqrs';
 
+import { iTalUser } from '@app/model/user';
+
 import { Payment } from "../models/payment";
-import { Customer } from '../models/customer'
 import { Mandate } from '../models/mandate';
 
 import { MollieCustomerService } from './customer-core-service';
@@ -13,8 +12,7 @@ import { MollieCustomerService } from './customer-core-service';
 export class PaymentCoreService {
     private mollieCustomerService: MollieCustomerService;
     private mollieClient;
-    private mlcustomer: iTalUser;
-    private customer: Customer
+  //  private customerId: iTalUser;
 
   /**
    * Constructor to initialize the service with the Mollie API key.
@@ -24,7 +22,7 @@ export class PaymentCoreService {
   constructor(private _apiKey: string, private tools: HandlerTools) {
     this._apiKey = process.env.MOLLIE_API_KEY;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
-    this.mollieCustomerService = new MollieCustomerService(this.customer, this._apiKey, tools)
+    this.mollieCustomerService = new MollieCustomerService( tools)
   }
 
   /**
@@ -37,7 +35,9 @@ export class PaymentCoreService {
   async createPayment(payment: Payment, user: iTalUser) {
     try {
       // TODO: Pass the actual user while using this method
-      const customerId = await this.mollieCustomerService.createMollieCustomer(user);
+
+      const customerId = getCustomerID(user, this.mollieCustomerService)
+  
       const paymentData = {
         ...payment,
         amount: {
@@ -53,6 +53,7 @@ export class PaymentCoreService {
 
       return molliePayment;
     } catch (error) {
+      this.tools.Logger.error(() => error.message)
       // Handle errors gracefully by throwing a specific error message
       throw new Error('Failed to create payment');
     }
@@ -99,4 +100,17 @@ export class PaymentCoreService {
   private updateSubscription(){
     /** TODO */
   }
+}
+
+/** get/create a user's mollie customer id */
+async function getCustomerID(user: iTalUser, mollieCustomerDataServ: MollieCustomerService) {
+  if (user.mollieCustomerId) {
+    return user.mollieCustomerId
+  }
+
+  user.mollieCustomerId = await this.mollieCustomerService.createMollieCustomer(user);
+
+  const newUser = await mollieCustomerDataServ.updateUser(user);
+
+  return newUser.mollieCustomerId;
 }

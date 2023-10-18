@@ -10,10 +10,9 @@ import { Customer } from '../models/customer'
 
 export class MollieCustomerService {
   private mollieClient;
-  
+  private _apiKey: string;
+
   constructor(
-    public customer: Customer,
-    private _apiKey: string,
     private tools: HandlerTools
   ) {
     this._apiKey = process.env.MOLLIE_API_KEY;
@@ -26,6 +25,10 @@ export class MollieCustomerService {
   async createMollieCustomer(user: iTalUser) {
     this.tools.Logger.log(() => `CustomerService: createMollieCustomer`);
 
+    if (!user) {
+      throw new Error('User is undefined or null');
+    }
+    
     const mollieCustomer: Customer = {
       name: user.displayName || user.id,
       email: user.email,
