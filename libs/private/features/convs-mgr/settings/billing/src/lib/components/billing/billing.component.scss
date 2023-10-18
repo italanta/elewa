@@ -6,7 +6,7 @@
             .subscription,
             .mesgTokens {
               color: var(--convs-mgr-color-101010);
-              font-size: 18px;
+              font-size: 16px;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
@@ -30,7 +30,7 @@
             .subscription.selected,
             .mesgTokens.selected {
               color: var(--convs-mgr-color-button);
-              font-size: 18px;
+              font-size: 16px;
               font-family: Roboto;
               font-weight: 400;
               word-wrap: break-word;
@@ -47,20 +47,20 @@
                 div{
                     div{
                         .cards{
-                           width: 488px; 
-                           height: 185px; 
+                           width: 40vh; 
+                           height: 30vh; 
                            border-radius: 15px; 
                            border: 1px var(--convs-mgr-color-button) solid;
                            .card-title{
                             margin-top: 17px;
                            }
                            .card-contents{
-                            margin-left: 25px;
+                            margin-left: 10vh;
                             div{
                                 .plan{
                                     // Plan 1
                                     color: #101010;
-                                    font-size: 24px;
+                                    font-size: 20px;
                                     font-family: Roboto;
                                     font-weight: 300;
                                     word-wrap: break-word;
@@ -70,7 +70,7 @@
                                 .user{
                                     // 5 of 8 users
                                     color: var(--convs-mgr-color-101010);
-                                    font-size: 18px;
+                                    font-size: 16px;
                                     font-family: Roboto;
                                     font-weight: 300;
                                     word-wrap: break-word;
@@ -79,7 +79,7 @@
                                 .amount{
                                     // KSH 1,200.00
                                     color: var(--convs-mgr-color-101010);
-                                    font-size: 24px;
+                                    font-size: 20px;
                                     font-family: Roboto;
                                     font-weight: 400;
                                     word-wrap: break-word
@@ -87,7 +87,7 @@
                                 .plan-change{
                                     // Change plan
                                     color: #1F7A8C;
-                                    font-size: 16px;
+                                    font-size: 14px;
                                     font-family: Roboto;
                                     font-weight: 400;
                                     text-decoration: underline;
@@ -96,7 +96,7 @@
                                 .card-details{
                                     // Change plan
                                     color: var(--convs-mgr-color-button);;
-                                    font-size: 16px;
+                                    font-size: 14px;
                                     font-family: Roboto;
                                     font-weight: 400;
                                     text-decoration: underline;
@@ -108,7 +108,7 @@
                           
                         }
                         .payment-cards{
-                            width: 1058px; 
+                            width: 100%; 
                             height: 78px; 
                             background: white; 
                             border-radius: 8px;
@@ -122,7 +122,7 @@
                                 // Payment methods
                                 // Current plan
                                 color: var(--convs-mgr-color-button);;
-                                font-size: 18px;
+                                font-size: 16px;
                                 font-family: Roboto;
                                 font-weight: 300;
                                 word-wrap: break-word;
@@ -135,7 +135,7 @@
                                  background: var(--convs-mgr-color-button);;
                                 border-radius: 25px;
                                 color: white;
-                                font-size: 16px;
+                                font-size: 14px;
                                 font-family: Roboto;
                                 font-weight: 400;
                                 word-wrap: break-word;
@@ -148,7 +148,7 @@
                 .invoices{
                     // Invoices
                     color: black;
-                    font-size: 18px;
+                    font-size: 16px;
                     font-family: Roboto;
                     font-weight: 400;
                     word-wrap: break-word;
