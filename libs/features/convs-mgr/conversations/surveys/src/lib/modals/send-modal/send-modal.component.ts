@@ -3,20 +3,22 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
+
+import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
 
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
-import { SnackbarService } from '../../services/snackbar.service';
 import { SurveyPublishService, SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 import { StartSurveyReq } from '@app/private/model/convs-mgr/micro-apps/surveys';
-import { Router } from '@angular/router';
 import { MessageStatusRes, MessageTemplatesService } from '@app/private/state/message-templates';
-import { Observable, combineLatest, map, of, switchMap } from 'rxjs';
-import { MessageTemplate } from '@app/model/convs-mgr/functions';
+
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-send-modal',
@@ -42,6 +44,8 @@ export class SendModalComponent implements OnInit {
   templateStatus$: Observable<MessageStatusRes[]>;
 
   channelId: string;
+
+  loading: boolean;
 
   filterForm: FormGroup;
   classFilterControl: FormControl = new FormControl('');
@@ -104,12 +108,14 @@ export class SendModalComponent implements OnInit {
   }
 
   getAllTemplates() {
+    this.loading = true;
     this.messageTemplates$ = this._templateService$.getMessageTemplates$();
 
     this._sBs.sink = this.messageTemplates$.pipe(
       switchMap((templates) => {
         const firstTemplate = templates[0];
         if (!templates || templates.length === 0 || (!firstTemplate.channelId)) {
+          this.loading = false;
           return [];
         }
         const channelId = firstTemplate ? firstTemplate.channelId : '';
@@ -125,11 +131,13 @@ export class SendModalComponent implements OnInit {
                 status,
               };
             });
+            this.loading = false;
             return mergedData;
           })
         );
       })
     ).subscribe((mergedData) => {
+      this.loading = false;
       this.allTemplates = mergedData;
     });
   }

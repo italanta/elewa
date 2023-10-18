@@ -19,6 +19,10 @@ select {
     height: 12.5rem;
     margin-bottom: 1.48rem;
     overflow: scroll;
+    mat-spinner{
+      justify-self: center;
+      align-self: center;
+    }
   }
   
   // Styles for the search container

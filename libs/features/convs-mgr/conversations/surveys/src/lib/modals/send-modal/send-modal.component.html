@@ -7,13 +7,16 @@
           <i class="fas fa-search search_tooltip"></i>
           <input class="search_input" type="text" name="" placeholder="Search for template" (keyup)="filterTemplates($event)" />
         </div>
-        <mat-radio-group formControlName="selectedOption" class="radios">
-          <mat-radio-button *ngFor="let template of allTemplates" [value]="template.name" [disabled]="isOptionDisabled(template.status)">
-            {{ template.name }}
-          </mat-radio-button>
-        </mat-radio-group>
-        <div *ngIf="allTemplates.length === 0">
-          No templates.
+        <div class="radios">
+          <mat-spinner *ngIf="loading" diameter="40"></mat-spinner>
+          <mat-radio-group formControlName="selectedOption" class="radios">
+            <mat-radio-button *ngFor="let template of allTemplates" [value]="template.name" [disabled]="isOptionDisabled(template.status)">
+              {{ template.name }}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div *ngIf="!loading && allTemplates.length === 0" style="text-align: center;">
+            No templates.
+          </div>
         </div>
       </form>
       
