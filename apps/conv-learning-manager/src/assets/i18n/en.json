@@ -584,5 +584,24 @@
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
+  },
+  "BILLINGS":{
+    "SUBSCRIPTION":"Subscription",
+    "MESSAGE-TOKENS":"Message Tokens",
+    "CURRENT-PLAN":"Current plan",
+    "INVOICES" :"Invoices",
+    "CHANGE-PLAN":"change plan",
+    "PAYMENT-METHOd":"Payment method",
+    "PAYMENT-METHODS":"Payments methods",
+    "EXPIRES":"Expires",
+    "DEFAULT":"Default",
+    "EDIT" :"Edit",
+    "DELETE":"Delete",
+    "DATE":"Date",
+    "DESCRIPTION":"Description",
+    "AMOUNT":"Amount",
+    "BUTTON":{
+      "ADD-PAYMENT-METHOD":"Add payment method"
+    }
   }
 }
