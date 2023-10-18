@@ -8,12 +8,12 @@
     </div> -->
     <h4>Channel</h4>
     <mat-form-field appearance="outline" class="channel-select">
-        <mat-select>
-          <mat-option >
-            channel
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <mat-select [formControl]="channelControl"> <!-- Bind the form control -->
+        <mat-option *ngFor="let channel of channels$ | async" [value]="channel.id">
+          {{ channel.id }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>    
 </div>
 
 <div class="survey-config">
