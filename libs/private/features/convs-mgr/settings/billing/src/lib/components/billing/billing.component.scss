@@ -42,20 +42,20 @@
             }
             .section-one{
                 .card-parent{
-                    padding-left: 17px;
+                    padding-left: 3vh;
                 }
                 div{
                     div{
                         .cards{
-                           width: 40vh; 
-                           height: 30vh; 
+                            width: 48vh; 
+                            height: 20vh; 
                            border-radius: 15px; 
                            border: 1px var(--convs-mgr-color-button) solid;
                            .card-title{
                             margin-top: 17px;
                            }
                            .card-contents{
-                            margin-left: 10vh;
+                            margin-left: 3vh;
                             div{
                                 .plan{
                                     // Plan 1
@@ -64,7 +64,7 @@
                                     font-family: Roboto;
                                     font-weight: 300;
                                     word-wrap: break-word;
-                                    margin-top: 23px;
+                                    // margin-top: 5vh;
                                    
                                 }
                                 .user{
@@ -74,7 +74,7 @@
                                     font-family: Roboto;
                                     font-weight: 300;
                                     word-wrap: break-word;
-                                    margin-top: 8px;
+                                    margin-top: 2vh;
                                 }
                                 .amount{
                                     // KSH 1,200.00
@@ -108,7 +108,7 @@
                           
                         }
                         .payment-cards{
-                            width: 100%; 
+                            width: 100vh; 
                             height: 78px; 
                             background: white; 
                             border-radius: 8px;
@@ -126,7 +126,7 @@
                                 font-family: Roboto;
                                 font-weight: 300;
                                 word-wrap: break-word;
-                                margin: 17px 0 0 17px;
+                                margin: 1vh 0 0 3vh;
                             }  
                             button{
                                 margin-top: 47px;
