@@ -7,12 +7,11 @@ input {
   max-width: 100%;
   height: fit-content!important;
   padding: 5px 10px;
-	margin-bottom: 5px;
-  border-radius: 3px;
-  caret-color: var(--convs-mgr-color-text-black);
-  color: var(--convs-mgr-color-text-black);
+  margin-bottom: 5px;
+  border-radius: 11px;
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
+  border: none;
+  background-color: var(--convs-mgr-color-primary-background);
 }
 
 .video-wrapper {
