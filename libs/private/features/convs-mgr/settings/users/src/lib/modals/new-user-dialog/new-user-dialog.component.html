@@ -1,34 +1,32 @@
-<h1 mat-dialog-title> {{'ADMIN-SETTINGS.TEAM-SECTION.MODAL.DESC' | transloco}} </h1>
+
+<h1 mat-dialog-title> Invite a new member </h1>
+<div (click)="onNoClick()" class="close-button">
+  <img src="assets/icons/delete-x.svg" alt="">
+</div>
 <div class="new-clm-user" fxLayout="column" fxLayoutAlign="start" [formGroup]="newUserFormGroup"  mat-dialog-content>
-  <mat-form-field appearance="outline">
-    <mat-label>{{'LOGIN.CREATE-ACC-FORM.FLD-FNAME' | transloco}}</mat-label>
-    <input matInput formControlName="firstName">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>{{'LOGIN.CREATE-ACC-FORM.FLD-LNAME' | transloco}}</mat-label>
-    <input matInput formControlName="lastName">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>{{'LOGIN.CREATE-ACC-FORM.FLD-EMAIL' | transloco}}</mat-label>
-    <input matInput type="email" formControlName="email">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>{{'ADMIN-SETTINGS.TEAM-SECTION.MODAL.ROLE' | transloco}}</mat-label>
-    <mat-select formControlName="roles" multiple>
-      <mat-option *ngFor="let role of org.roles" [value]="role"> {{role}} </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">{{'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.NO-THANKS' | transloco}}</button>
-  
-  <button [disabled]="creatingUser" (click)="inviteNewUser()" mat-raised-button color="primary" class="submit-btn">
-    <span *ngIf="!creatingUser; else saving"> {{'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.ADD-MEMBER' | transloco}} </span>
-    <ng-template #saving>
-      <span fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-        <span> {{'ADMIN-SETTINGS.TEAM-SECTION.BUTTONS.ADDING' | transloco}} </span>
-        <mat-spinner diameter="20"></mat-spinner>
-      </span>
-    </ng-template>
-  </button>
-</div>
+ 
+    
+
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label">*Email</p>
+      
+      <input matInput type="email" formControlName="email">
+      
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start" class="names">
+      <p class="label">Role</p>
+      <select name="roles" >
+        <option *ngFor="let role of reversedRoles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+
+
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between start" class="buttons">
+      <div fxLayout="column">
+        <button class="cancel-btn" mat-stroked-button (click)="onNoClick()">No Thanks</button>
+      </div>
+      <div fxLayout="column">
+        <button class="submit-btn" [disabled]="creatingUser" mat-raised-button color="primary" (click)="inviteNewUser()">Add New Member</button>
+      </div>
+    </div>
+</div> 

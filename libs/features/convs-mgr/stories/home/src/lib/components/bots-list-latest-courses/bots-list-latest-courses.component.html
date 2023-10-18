@@ -3,9 +3,9 @@
   <div *ngFor="let bot of bots | slice: 0 : screenWidth < 1500 ? 3 : 4; let i = index" class="card" fxLayout="column" fxLayoutGap="20px"
     fxLayoutAlign="start" [fxFlex]="screenWidth < 1500 ? 32 : 25">
 
-    <span class="card-badge">
+    <!-- <span class="card-badge">
       {{ "BOTS.BOTS-PAGE.BEGINNER" | transloco }}
-    </span>
+    </span> -->
 
     <span class="card-title" fxFlex>
       {{ bot.name }}

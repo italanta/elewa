@@ -350,10 +350,10 @@
       "TITLE": "Edit Bot"
     },
     "DELETE-MODAL": {
-      "TITLE": "Delete Bot",
+      "TITLE": "Delete Element",
       "CANCEL": "Cancel",
-      "SUBMIT": "Delete Bot",
-      "MESSAGE": " Are you sure you want to delete this bot?"
+      "SUBMIT": "Delete",
+      "MESSAGE": " Are you sure you want to delete this element?"
     },
     "BOTS-PAGE" : {
       "BOTS" : "Bots",
@@ -372,6 +372,96 @@
       "DELETE" : "Delete",
       "OPEN-BOT" : "Open Bot",
       "VIEW-ALL" : "View All"
+    }
+  },
+  "MODULES": {
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a module",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Module name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Module description",
+        "COPY": "Copy",
+        "DELETE": "Delete",
+        "COURSE":"Course"
+      },
+      "CREATE": "Create Module",
+      "UPDATE": "Update Module",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create module"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Module"
+    },
+    "MODULES-PAGE": {
+      "MODULES" : "Modules",
+      "ALL-MODULES" : "All Modules",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-MODULES" : "Latest Modules",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-MODULE" : "Open Module",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "LESSONS": {
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a lesson",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Lesson name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Lesson description",
+        "COPY": "Copy",
+        "DELETE": "Delete",
+        "MODULE":"Module"
+      },
+      "CREATE": "Create Lesson",
+      "UPDATE": "Update Lesson",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create lesson"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Lesson"
+    },
+    "LESSONS-PAGE": {
+      "LESSONS" : "Lessons",
+      "ALL-LESSONS" : "All Lessons",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-LESSONS" : "Latest Lessons",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-LESSON" : "Open lesson",
+      "VIEW-ALL" : "View All",
     }
   },
   "CLASSESS": {
@@ -656,20 +746,21 @@
     }
   },
   "LEARNERS":{
+    "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "Phone Number",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
     },
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search input by name"
+      "SEARCH-PLACEHOLDER": "Search for a learner"
     },
     "BUTTONS": {
       "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
-      "BULK-ACTIONS": "Bulk Actions",
+      "BULK-ACTIONS": "Send Message",
       "CLASS": "Class",
       "COURSE": "Course",
       "PLATFORM": "Platform",
@@ -746,6 +837,24 @@
       }
     }
   },
+
+  "PROFILE-DETAILS": {
+    "FIRST-NAME":"First Name",
+    "LAST-NAME":"Last Name",
+    "ROLE":"Role",
+    "EMAIL":"Email",
+    "CANCEL":"Cancel",
+    "SAVE-PROFILE":"Save",
+    "CHANGE-PASSWORD":"Change password",
+    "PASSWORD-INFO":"It is advised to change your password every 2-4 months",
+    "DELETE-PROFILE":"Delete Profile",
+    "DELETE-TEXT":"You will receive an email to confirm your decision. This will not end your subscription or payments and you will continue to be charged.You can cancel your subscription, or switch payment methods to keep the team active",
+    "FETCH-USER-DATA":"Fetching user data",
+    "BUTTON":{
+      "PASSWORD-RESET":"Get Password Reset Link"
+    }
+  },    
+
   "MESSAGE-TEMPLATES": {
     "MESSAGE-TEMPLATE-HISTORY": {
       "TITLE": "Template history",
@@ -895,6 +1004,7 @@
           }
         }
       }
+    },
   "BILLINGS":{
     "SUBSCRIPTION":"Subscription",
     "MESSAGE-TOKENS":"Message Tokens",
@@ -913,5 +1023,91 @@
     "BUTTON":{
       "ADD-PAYMENT-METHOD":"Add payment method"
     }
+  },
+  "MEMBERS":{
+      "SEARCH":"search table",
+      "INVITE-BUTTON":"Invite Member",
+      "TABLE":{
+        "NAME":"Name",
+        "EMAIL":"Email",
+        "LAST-UPDATED":"Last Active",
+        "ROLE":"Role",
+        "EDIT":"Edit",
+        "REMOVE":"Remove",
+        "DEACTIVATE":"De-activate",
+        "LOADING-USERS":"Loading Users"
+      }
+    },
+  "PERMISSIONS" :{
+    "BUTTON":{
+      "EDIT-ROLES":"Edit roles",
+      "SAVE-ROLES":"Save roles"
+    },
+    "ANALYTICS":{
+      "SETTINGS":"Analytics Settings",
+      "VIEW-ANALYTICS":"Can View Analytics",
+      "MANAGE-ANALYTICS":"Can Manage Analytics"
+    },
+    "ASSESMENTS" :{
+      "SETTINGS":"Asessments-settings",
+      "VIEW":"Can View Assessments",
+      "CREATE":"Can Create Assessments",
+      "EDIT":"Can Edit Assessments"
+  
+    },
+    "BOT-SETTINGS":{
+      "SETTINGS":"Bots Settings",
+      "VIEW":"Can View Bots",
+      "CREATE":"Can Create Bots",
+      "EDIT" :"Can Edit Bots",
+      "DELETE":"Can Delete Bots"
+  
+    },
+    "CHAT-SETTINGS":{
+      "SETTINGS":"Chats Settings",
+      "VIEW":"Can View Chats",
+      "MANAGE":"Can Manage Chats"
+    },
+    "GENERAL-SETTINGS":{
+      "SETTINGS":"General Settings",
+      "ADD":"Can Add New Member",
+      "DELETE":"Can Delete Member"
+  
+    },
+    "LEARNER-SETTINGS":{
+      "SETTINGS":"Learners Settings",
+      "VIEW":"Can View Learners",
+      "CREATE":"Can Create Learners",
+      "EDIT":"Can Edit Learners",
+      "DELETE":"Can Delete Learners"
+    },
+    "MODALS":{
+      "ADD":{
+        "NEWROLE":"Create New Role",
+        "ENTER-ROLE-NAME":"Enter role name",
+        "CANCEL":"Cancel",
+        "CREATE-ROLE":"Create Role"
+      },
+      "DELETE":{
+        "TITLE":"Delete Role",
+        "SELECT":"Select a role to delete",
+        "CANCEL":"Cancel",
+        "DELETE-ROLE":"Delete Role"
+      }   
+    }
+  },
+
+  "COMPANY-INFORMATION":{
+    "BUTTON":{
+      "UPLOAD":"Upload",
+      "REMOVE":"Remove"
+    },
+    "REMOVE":"Remove",
+    "BASIC-INFO":"Basic Information",
+    "ADDRESS-INFO":"Address Information",
+    "EDIT-CO-INFO":"Edit company information",
+    "SAVE-ORG":"Save Organization"
   }
+  
+}
 }

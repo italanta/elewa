@@ -1,16 +1,16 @@
 import { Component, OnInit, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { switchMap, take } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { FileStorageService } from '@app/state/file';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
-import { CREATE_EMPTY_BOT } from '../../providers/forms/bot-form.provider';
+import { BOT_FORM } from '../../providers/forms/bot-form.provider';
 
 @Component({
   selector: 'convl-italanta-apps-create-bot-modal',
@@ -20,7 +20,7 @@ import { CREATE_EMPTY_BOT } from '../../providers/forms/bot-form.provider';
 export class CreateBotModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
 
-  @Output() nextStepEvent = new EventEmitter<void>();
+  @Output() nextStepEvent = new EventEmitter<Bot>();
 
   botForm: FormGroup;
   isCreateMode: boolean;
@@ -40,6 +40,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
     private _activeOrg$$: ActiveOrgStore,
     private _botImageUploadServ$: FileStorageService,
     private _formBuilder: FormBuilder,
+    private _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: { botMode: BotMutationEnum; bot?: Bot }
   ) {
     this.bot = data.bot as Bot;
@@ -47,7 +48,7 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.botForm = CREATE_EMPTY_BOT(this._formBuilder);
+    this.botForm = BOT_FORM(this._formBuilder, this.bot);
 
     if (!this.isCreateMode) {
       this.updateFormGroup();
@@ -55,13 +56,6 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
   }
 
   updateFormGroup() {
-    this.botForm.patchValue({
-      botName: this.bot.name,
-      botDesc: this.bot.description,
-      botImage: this.bot.imageField,
-      modules: this.bot.modules,
-    });
-
     if (this.bot.imageField && this.bot.imageField != '') {
       this.storyHasImage = true;
       this.fileName = this.getFileNameFromFbUrl(this.bot.imageField);
@@ -92,11 +86,13 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
 
   mutateBot() {
     const bot: Bot = {
+      id: this.botForm.value.id,
       name: this.botForm.value.botName,
       description: this.botForm.value.botDesc,
       modules: this.botForm.value.modules,
       imageField: this.botForm.value.imageField ?? '',
-      orgId: '',
+      type: this.botForm.value.type,
+      orgId: ''
     };
 
     if (this.botImageFile) {
@@ -136,16 +132,25 @@ export class CreateBotModalComponent implements OnInit, OnDestroy {
         bot.orgId = org.id as string;
 
         if (this.isCreateMode) {
-          return this._botStateServ$.createBot(bot);
+          return this.createBot(bot);
         } else {
-          return this._botStateServ$.updateBot(bot);
+          return this.updateBot(bot);
         }
       })
     )
-    .subscribe(() => {
-        this.isSavingStory = false;
-        this.nextStepEvent.emit();
-      });
+    .subscribe(() => this.isSavingStory = false);
+  }
+
+  private createBot(bot:Bot) {
+    return this._botStateServ$.createBot(bot).pipe(
+      tap((bot) => this.nextStepEvent.emit(bot)) 
+    );
+  }
+
+  private updateBot(bot:Bot) {
+    return this._botStateServ$.updateBot(bot).pipe(
+      tap(() => this._dialog.closeAll())
+    );
   }
 
   submitForm() {
