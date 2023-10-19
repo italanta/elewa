@@ -1,16 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 
 import { SubSink } from 'subsink';
-import { debounceTime, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Breadcrumb } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
 import { Story } from '@app/model/convs-mgr/stories/main';
-
-import { ActiveOrgStore } from '@app/state/organisation';
 import { StoriesStore } from '@app/state/convs-mgr/stories';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
@@ -34,14 +31,12 @@ export class HomePageComponent implements OnDestroy
 
   loading = true;
 
-  constructor(private _org$$: ActiveOrgStore,
+  constructor(
               private _stories$$: StoriesStore,
-              _router: Router,
-              private dialog : MatDialog
+              private _router: Router,
               )
   {
-    this.breadcrumbs = [HOME_CRUMB(_router, true)];
-    this.org$ = _org$$.get();
+    this.breadcrumbs = [HOME_CRUMB(this._router, true)];
     this.stories$ = this._stories$$.get();
   }
 
