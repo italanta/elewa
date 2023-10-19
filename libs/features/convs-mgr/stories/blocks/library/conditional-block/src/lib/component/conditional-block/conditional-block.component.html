@@ -76,14 +76,13 @@
         </div>
       </div>
     </div>
-
-    <app-default-option-field
-      [jsPlumb]="jsPlumb"
-      [blockFormGroup]="conditionalBlockForm"
-    ></app-default-option-field>
   </form>
 
   <button (click)="addNewOption()" mat-flat-button class="add-button">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
   </button>
+  <app-default-option-field
+      [jsPlumb]="jsPlumb"
+      [blockFormGroup]="conditionalBlockForm"
+    ></app-default-option-field>
 </div>
