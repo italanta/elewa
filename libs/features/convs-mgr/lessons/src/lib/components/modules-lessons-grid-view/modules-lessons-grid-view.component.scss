@@ -1,0 +1,65 @@
+.bot-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.story-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  padding: 10px;
+  padding-left: calc(1rem + 10px);
+  background-color: white;
+  border-radius: 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1rem;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    height: 100%;
+    background-color: #111441;
+  }
+}
+
+.grid .bot-cards .story-card .card-body span {
+  font-size: 1.2rem;
+  font-weight: 400;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.grid .bot-cards .story-card .card-footer span {
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+.grid .bot-cards .story-card .card-footer {
+  button {
+    background-color: #111441;
+  }
+}
+
+.menu-btn {
+  position: absolute;
+  right: 0rem;
+
+  .menu-tooltip {
+    color: black !important;
+  }
+}
+
+.tooltip {
+  color: white;
+}
+
+.card-header {
+  .name {
+    font-size: 1rem;
+  }
+}

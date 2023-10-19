@@ -1,0 +1,39 @@
+<convl-page>
+  <div class="page-wrapper">
+    <p class="title"> {{ "BOTS.BOTS-PAGE.BOTS" | transloco }} </p>
+
+    <div class="courses-wrapper">
+      <span>All Courses</span>
+
+      <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-tooltip"></i>
+        <input class="search-input" placeholder="search course" type="search" [(ngModel)]="searchValue" name=""
+          id="">
+      </div>
+
+      <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
+        <div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
+          <div class="select">
+            <select disabled="true" (change)="filterStatusBy($event)">
+              <option value="">Status</option>
+            </select>
+          </div>
+
+          <div class="select">
+            <select [value]="sortCoursesBy" (change)="sortBy($event)">
+              <option value=""></option>
+              <option value="newest">Date Created (Newest)</option>
+              <option value="oldest">Date Created (Oldest)</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-back" mat-stroked-button (click)="goToDashboard()">
+          <span> {{ "BOTS.BOTS-PAGE.BACK" | transloco }} </span>
+        </button>
+      </div>
+    </div>
+
+    <italanta-apps-courses-list [courses$]="courses$" [searchValue]="searchValue"></italanta-apps-courses-list>
+  </div>
+</convl-page>
