@@ -1,5 +1,5 @@
 <div class="container">
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px">
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="15vh">
 
       <!-- left section -->
       <div fxLayout ="column">
@@ -10,11 +10,13 @@
       <!-- right section -->
       <div fxLayout ="column">
           <div class="section-one">
-              <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="81px">
+              <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="6vh">
                   <div fxLayout ="column">
                       <div class="current-plan cards">
-                          <p class="card-title">Current plan </p>
-                          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="200px" class="card-contents" >
+
+                          <p class="card-title">{{ 'BILLINGS.CURRENT-PLAN' | transloco }} </p>
+                          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12vh" class="card-contents" >
+
                               <div fxLayout ="column">
                                   <p class="plan">Plan 1</p>
                                   <p class="user">5 of 8 users</p>
@@ -29,8 +31,8 @@
                   </div>
                   <div fxLayout ="column">
                       <div class="payment-methods cards">
-                         <p class="card-title">Payment method</p>
-                         <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="200px" class="card-contents" >
+                         <p class="card-title">{{ 'BILLINGS.PAYMENT METHOD' | transloco }}</p>
+                         <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12vh" class="card-contents" >
                               <div fxLayout ="column">
                                   <div class="image" >
                                       <img src="assets/icons/visa-icon.svg" alt="visa image">
@@ -52,7 +54,7 @@
                   <div fxLayout ="column">
                       <div fxLayout="row" fxLayoutAlign="space-between start"  >
                           <div fxLayout ="column">
-                              <p>Payments methods</p>
+                              <p>{{ 'BILLINGS.PAYMENT-METHOD' | transloco }}</p>
                           </div>
                           <div fxLayout ="column">
                               <button  class="btn white-btn" (click)="addPaymentMethod()">
@@ -75,22 +77,22 @@
                               </div>
                     
                               <div fxLayout="column">
-                                <p>Expires {{ card.expiry }}</p>
+                                <p>{{ 'BILLINGS.EXPIRES' | transloco }} {{ card.expiry }}</p>
                               </div>
                     
                               <div fxLayout="column">
-                                <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="40px">
+                                <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="8vh">
                                   <div fxLayout="column">
                                     <p>{{ 'BILLINGS.DEFAULT' | transloco }}</p>
                                   </div>
                                   <div fxLayout="column" >
-                                    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px" (click)="editPaymentMethod()">
+                                    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="2vh" (click)="editPaymentMethod()">
                                       <img src="assets/icons/edit-item.svg" alt="edit icon" class="icon" >
                                       <p >{{ 'BILLINGS.EDIT' | transloco }}</p>
                                     </div>
                                   </div>
                                   <div fxLayout="column">
-                                      <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="10px">
+                                      <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="2vh">
                                         <img src="assets/icons/delete-item.svg" alt="delete icon" class="icon" >
                                         <p >{{ 'BILLINGS.DELETE' | transloco }}</p>
                                       </div>
