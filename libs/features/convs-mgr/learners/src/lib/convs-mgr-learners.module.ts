@@ -19,7 +19,7 @@ import { SingleLearnerPageComponent } from './pages/single-learner-page/single-l
 import { LearnerInformationComponent } from './components/learner-information/learner-information.component';
 import { LearnerEnrolledCoursesComponent } from './components/learner-enrolled-courses/learner-enrolled-courses.component';
 import { LearnerAssessmentHistoryComponent } from './components/learner-assessment-history/learner-assessment-history.component';
-import { ActiveSurveyStore, SurveyService, SurveysStore } from '@app/state/convs-mgr/conversations/surveys';
+// import { ActiveSurveyStore, SurveyService, SurveysStore } from '@app/state/convs-mgr/conversations/surveys';
 
 import { LearnersRouterModule } from './learners.router';
 
