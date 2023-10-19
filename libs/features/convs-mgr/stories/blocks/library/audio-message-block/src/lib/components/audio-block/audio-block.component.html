@@ -11,9 +11,15 @@
             <div *ngIf="isLoadingAudio" class="audio-icon">
                 <i class="fas fa-circle-notch fa-spin"></i>
             </div>
+
             <!-- <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()"> -->
                 <!-- <i class="fas fa-file-audio" (click)="audioInput.click()"></i> -->
             <!-- </div> -->
+
+            <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
+                <!-- <i class="fas fa-file-audio" (click)="audioInput.click()"></i> -->
+            </div>
+
             <div>
                 <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
             </div>
