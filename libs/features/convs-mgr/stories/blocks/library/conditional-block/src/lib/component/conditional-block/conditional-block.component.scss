@@ -78,6 +78,14 @@ input[type='text'] {
     display: flex;
     flex-direction: column;
 
+    input{
+      border-radius: 0.7rem;
+      border: none;
+      background-color: #f3f3f3;
+      outline: none;
+      font-weight: 300;
+    }
+
     label {
       font-weight: 500;
       font-size: 0.9rem;
