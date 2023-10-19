@@ -29,7 +29,7 @@ export class StoryEditorFrame {
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
-  private _newestBlock: StoryBlock;
+  private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
 
   blocksArray: FormArray;
@@ -58,9 +58,11 @@ export class StoryEditorFrame {
     this._blocks = state.blocks;
     this._connections = state.connections;
 
-    this._newestBlock = state.blocks.reduce((prev, current) => {
+    const filteredBlocks = state.blocks.filter((block)=> block.id !== 'story-end-anchor');
+
+    this._newestBlock = filteredBlocks.length > 1 ? filteredBlocks.reduce((prev, current) => {
       return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
-    });
+    }) : null;
 
     this.blocksArray = this._fb.array([]);
 
@@ -233,9 +235,15 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+    let x, y;
 
-    const x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
-    const y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+    if(this._newestBlock) {
+      x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
+      y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+    } else {
+      x = 200;
+      y = 50;
+    }
 
     const block = {
       id: `${this._getID()}`,

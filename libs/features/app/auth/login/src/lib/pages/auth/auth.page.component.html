@@ -18,11 +18,11 @@
 
         <div class="bottom-left">
           <p class="title">
-            Creating Courses and engaging students has <br> never been easier. Elewa makes it effortless and effective
+            Goomza simplifies course creation and learner engagement effortlessly
           </p>
 
           <p class="sub-title">
-            Our user-friendly interface makes it easy to track your chat bots and engage your audience in real-time.
+            Track your chat bots and engage your audience in real-time with our user-friendly interface
           </p>
         </div>
       </div>
@@ -76,18 +76,18 @@
             </button> -->
           </div>
 
-          <div style="margin-top: 20px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
+          <div style="margin-top: 10px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
             fxFlex>
-            <span>
+            <span style="font-weight: 400;">
               Don't have an account?
             </span>
-            <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleMode()">
-              <span style="text-decoration: underline;"> Create an Account</span>
-            </button>
+            <button class="highlight-button" style="margin-left: 5px;" mat-button color="primary" (click)="toggleMode()">
+              <span style="text-decoration: underline;">Create an Account</span>
+            </button>            
           </div>
 
           <ng-template #registerNav>
-            <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+            <div style="margin-top: 10px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
               <span style= "font-weight: 100;">
                 Already have an account?
               </span>
