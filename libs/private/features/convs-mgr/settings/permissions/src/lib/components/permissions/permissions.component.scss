@@ -1,23 +1,29 @@
 .permissions {
   padding: 30px 20px;
   min-height: 100vh;
+  background-color: var(--convs-mgr-color-F6F6F6 );
 }
+
 
 .app-domains {
   padding-bottom: 100px;
 }
+
 
 .app-domains .set-accordions > div {
   margin-bottom: 30px;
 }
 
 .btn {
-  background-color: var(--convs-mgr-color-primary-yellow)!important;
+  background: var(--convs-mgr-color-button)!important;
   color: white!important;
 }
 
 .white-btn {
   color: white!important;
+  background: var(--convs-mgr-color-button);
+   border-radius: 25px;
+   margin-right: 35px;
 }
 
 .main-title {
@@ -37,7 +43,7 @@
 }
 
 .highlight {
-  background-color: #F7F7F7;
+  background-color: var(--convs-mgr-color-F7F7F7 );
 }
 
 .general, .accounts, .orders {
