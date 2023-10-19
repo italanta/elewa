@@ -20,12 +20,11 @@ export function _ConditionalBlockDecoratePlumb(block: ConditionalBlock, comp: Co
   jsPlumb.addEndpoint(comp.location.nativeElement, {
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
-    cssClass:"block_endpoint",
+    cssClass: 'block_endpoint',
 
     endpoint: 'Dot',
-    anchor: "Left",
-    maxConnections: -1
-
+    anchor: [0, 0.13, 0, 1],
+    maxConnections: -1,
   });
 
   return comp;
