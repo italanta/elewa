@@ -64,13 +64,14 @@
                                 <mat-option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.id }}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                    </div>
+                        <p *ngIf="!(channels$ | async)?.length" class="channel-dd">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.NO-CHANNEL'| transloco }}</p>
+                      </div>
                     </mat-expansion-panel>
                   </mat-accordion>
                   
                 <div class="form-group">
                     <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}</p>
-                    <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}(should be unique, lowercase, no spacing, hyphen or underscore allowed):</p>
+                    <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}</p>
                     <mat-form-field appearance="outline">
                         <input type="text" matInput formControlName="name">
                     </mat-form-field>
@@ -98,14 +99,12 @@
                             
                             <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
                               <div [formGroup] = "newVariableForm">
-                                  <input type="text" formControlName="newPlaceholder" placeholder="Variable name" class="eveinputs">
-                                <input type="text" formControlName="newVariable" placeholder="placeholder " class="eveinputs">
-                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button>                              </div>
-                              
+                                  <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinputs">
+                                <input type="text" formControlName="newVariable" placeholder="Placeholder" class="eveinputs">
+                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
+                                </div>
                         </div>
                         </div>
-                        
-    
                     <div class="form-group">
                         <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER-DESCRIPTION'| transloco }}</p>
