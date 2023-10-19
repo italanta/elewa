@@ -52,8 +52,11 @@ input[type='text'] {
       padding: 0.625rem;
       border-radius: 0.7rem;
       color: #939393;
+      outline: none;
 
-      .assess-label {        
+      .assess-label {
+        font-weight: 300;
+        background-color: #f3f3f3;
       }
     }
     .select-icon {
@@ -85,11 +88,43 @@ input[type='text'] {
     display: flex;
     gap: 0.4rem;
     padding: 5px 0;
-    margin-top: 20px;
+    margin-top: 1.25rem;
 
-    label {
-      font-weight: 500;
+    .checkbox-select {
+
+      .square-checkbox input[type='checkbox'] {
+        border: 1px solid #939393;
+        appearance: none;
+        width: 0.875rem;
+        height: 0.875rem;
+        border-radius: 0;
+        outline: none;
+        position: absolute;
+        top: 29%;
+        cursor: pointer;
+      }
+
+      .square-checkbox label::before {
+        content: '\2713';
+        color: #939393;
+        display: none;
+        position: absolute;
+        top: 34%;
+        left: 8.5%;
+        transform: translate(-50%, -50%);
+        font-size: 1.125rem;
+      }
+
+      .square-checkbox input[type='checkbox']:checked + label::before{
+        display: block;
+      }
+    }
+
+    .label {
+      font-weight: 300;
       font-size: 0.9rem;
+      margin-left: 0.625rem;
+      color: #939393;
     }
   }
 

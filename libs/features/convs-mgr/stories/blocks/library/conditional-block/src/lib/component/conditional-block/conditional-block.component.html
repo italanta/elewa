@@ -13,7 +13,7 @@
                 | transloco
             }}
           </option>
-          <option *ngFor="let variable of vars$ | async" [value]="variable">
+          <option *ngFor="let variable of vars$ | async" [value]="variable" class="assess-label">
             {{ variable }}
           </option>
         </select>
@@ -23,15 +23,20 @@
       </div>
 
       <div class="select-variable">
-        <label for="isTyped">{{
+        <div class="checkbox-select">
+          <div class="square-checkbox">
+            <input
+              type="checkbox"
+              formControlName="isTyped"
+              name="check"
+              id="isTyped"
+            />
+            <label for="myCheckbox"></label>
+          </div>
+        </div>
+        <span for="isTyped" class="label">{{
           'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco
-        }}</label>
-        <input
-          type="checkbox"
-          formControlName="isTyped"
-          name="check"
-          id="isTyped"
-        />
+        }}</span>
       </div>
 
       <div class="type-variable">
