@@ -100,7 +100,7 @@ export const iconsAndTitles: any = {
   },
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
-    icon: 'fas fa-question-circle',
+    icon: 'far fa-question-circle',
   },
 
   29: {

@@ -24,6 +24,8 @@ export class CompanyDataComponent implements OnInit {
   activeOrgLoaded: boolean;
   editOrg: boolean = false;
   formIsReady: boolean = false;
+  showButtons: boolean = false;
+
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
@@ -65,8 +67,10 @@ export class CompanyDataComponent implements OnInit {
     this.orgDataFormGroup.disable();
   }
 
-  editOrgProfile() {
+  editOrgProfile(event: Event) {
+    event.preventDefault(); 
     this.editOrg = !this.editOrg;
+    this.showButtons = this.editOrg; // Show buttons only when editing
     if (this.editOrg) {
       this.orgDataFormGroup.enable();
     } else {
@@ -74,6 +78,7 @@ export class CompanyDataComponent implements OnInit {
       this.orgDataFormGroup.disable();
     }
   }
+  
 
   updateOrg() {
     let orgFormData = this.orgDataFormGroup.value;
