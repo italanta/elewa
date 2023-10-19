@@ -59,11 +59,11 @@
             <!-- Messaging sections -->
             <ul class="menu-item"  >
               <a>
-                <span class="menu-icon">
+                <span class="menu-icon message-title">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltip="Chats" src="assets/icons/chats-stroked.svg" class="img" alt="">
                 </span>
-                <span *ngIf="isExpanded" class="menu-title">
+                <span *ngIf="isExpanded" class="menu-title message-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>

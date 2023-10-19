@@ -41,8 +41,8 @@
   }
 
   .search {
-	width: 27.5rem;
-    height: 3.4375rem;
+	width: 20rem;
+    height: 3rem;
     padding: 0 1.62rem 0 1.81rem;
 	background-color: var(--convs-mgr-color-primary-white);
 	border-radius: 2rem;
@@ -65,12 +65,12 @@
 		border: none;
 		outline: none;
 		padding-left: 6px;
-        color: #101010;
-        font-family: Roboto;
-        font-size: 0.875rem;
-        font-style: normal;
-        font-weight: 300;
-        line-height: normal;
+    color: #101010;
+    font-family: Roboto;
+    font-size: 0.775rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 	}
 }
 .search-bar{
@@ -90,7 +90,10 @@ table{
   background: transparent;
 }
 .mdc-data-table__cell, .mdc-data-table__header-cell{
-  border: none;
+  border-bottom: .5px #787676 solid;
+}
+.mat-mdc-paginator{
+  background: transparent;
 }
 .send-btn{
   border-radius: 1.5625rem;
@@ -99,7 +102,7 @@ table{
     background-color: #1F7A8C!important;
     color: white!important;
     font-family: Roboto;
-    font-size: 0.875rem;
+    font-size: 0.675rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -109,7 +112,7 @@ table{
 td{
   color: #101010;
   font-family: Roboto;
-  font-size: 1.125rem;
+  font-size: .9rem;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
@@ -123,7 +126,7 @@ td{
   color: #111441;
   text-align: center;
   font-family: Roboto;
-  font-size: .7rem!important;
+  font-size: .5rem!important;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
