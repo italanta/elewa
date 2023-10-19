@@ -5,11 +5,11 @@
       <div class="options-wrapper">
         <mat-form-field>
           <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
-          <mat-select formControlName="selectedVar">
-            <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
-              {{ variable }}
-            </mat-option>
-          </mat-select>
+          <select matNativeControl formControlName="selectedVar">
+            <option *ngFor="let variable of (vars$ | async)" [value]="variable">
+              {{variable}}
+            </option>
+          </select>
         </mat-form-field>
       </div>
 
