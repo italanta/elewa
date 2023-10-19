@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { iTalUser } from '@app/model/user';
+import { iTalUser } from '@app/model/user'; 
 import { Organisation } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
