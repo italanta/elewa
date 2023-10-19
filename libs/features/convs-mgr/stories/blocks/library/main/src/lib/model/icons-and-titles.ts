@@ -122,10 +122,7 @@ export const iconsAndTitles: any = {
   34: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
     icon: 'fas fa-cube',
-<<<<<<< HEAD
-=======
     svgIcon: 'assets/svgs/blocks/clarity_block-line.svg',
->>>>>>> e482f0f9ee1c706be065dcf0a1b3b957e16c762d
   },
   9999: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.END-BLOCK',
