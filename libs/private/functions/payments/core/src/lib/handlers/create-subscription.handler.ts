@@ -75,7 +75,7 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
 
       } else {
         // If the customer does not have a mandate, create the first payment and return a URL to complete it
-        const firstPaymentUrl = await this.subscriptionService.createFirstPayment(data.userId);
+        const firstPaymentUrl = await this.subscriptionService.createFirstPayment(this.mollieCustomerId);
         tools.Logger.log(() => `First Payment URL: ${firstPaymentUrl}`);
 
         return firstPaymentUrl;

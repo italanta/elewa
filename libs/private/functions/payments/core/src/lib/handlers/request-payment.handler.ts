@@ -22,14 +22,14 @@ export class RequestPaymentHandler extends FunctionHandler<any, any>
       const iTalUser = await mollieDataService.getUser(data.userId)
 
       this._paymentService = new PaymentCoreService(process.env.MOLLIE_API_KEY, tools)
+      /** keeping this here for future proofing incase we need single payments */
+      //const paymentResponse  = await this._paymentService.createPayment(data.payment, iTalUser);
 
-      const paymentResponse  = await this._paymentService.createPayment(data.payment, iTalUser);
+      const paymentResponse  = await this._paymentService.onFirstPayment(data.payment, iTalUser);
 
       const paymentUrl = paymentResponse['_links']['checkout']['href'];
 
       const paymentRepo = tools.getRepository<Payment>(`orgs/${data.orgId}payments`);
-
-      const paymentMethod = paymentResponse.method;
 
       await paymentRepo.write(paymentResponse as unknown as Payment, paymentResponse.id);
 
@@ -37,7 +37,7 @@ export class RequestPaymentHandler extends FunctionHandler<any, any>
       tools.Logger.log(() => `execute: Payment URL: ${paymentUrl}`);
 
       // Return the checkoutURL
-      return { paymentData: paymentUrl, paymentMethod: paymentMethod };
+      return paymentUrl
 
     } catch (e) {
       tools.Logger.log(() => e)

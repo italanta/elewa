@@ -24,10 +24,6 @@ export class MollieCustomerService {
 */
   async createMollieCustomer(user: iTalUser) {
     this.tools.Logger.log(() => `CustomerService: createMollieCustomer`);
-
-    if (!user) {
-      throw new Error('User is undefined or null');
-    }
     
     const mollieCustomer: Customer = {
       name: user.displayName || user.id,
