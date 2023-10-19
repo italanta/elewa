@@ -14,9 +14,9 @@
   </div>
 
   <div *ngIf="questionsList.controls.length > 0; else noQuestions" formArrayName="questions" fxLayout="column"
-    fxLayoutAlign="start">
+    fxLayoutAlign="start" cdkDropList (cdkDropListDropped)="drop($event)">
     <div id="questions" *ngFor="let question of questionsList.controls; let i = index" fxFlex>
-      <app-assessment-question-form class="card-list" [assessmentFormGroup]="assessmentFormGroup" 
+      <app-assessment-question-form cdkDrag class="card-list" [assessmentFormGroup]="assessmentFormGroup" 
                                     [index]="i" [questions]="questions"
                                     [questionFormGroupName]="i" [questionNo]="i+1" 
                                     [isLastQuestion]="i + 1 === questionsList.controls.length"

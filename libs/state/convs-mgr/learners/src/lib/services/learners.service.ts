@@ -4,6 +4,7 @@ import { map, switchMap, of, combineLatest } from 'rxjs';
 
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { LearnersStore } from '../store/learners.store';
 
@@ -54,5 +55,9 @@ export class EnrolledLearnersService {
 
   updateLearner$(learner: EnrolledEndUser) {
     return this._enrolledLearners$$.update(learner);
+  }
+
+  getLearnerId$(platform: PlatformType, id: string ){
+    return this._enrolledLearners$$.getLearnerByPlatfromId(platform, id)
   }
 }
