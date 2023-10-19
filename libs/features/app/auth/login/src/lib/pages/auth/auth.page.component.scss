@@ -159,3 +159,8 @@ button {
 		border-radius: 30px;
 	}
 }
+
+/* change the background color of 'create an account' on hover */
+.highlight-button:hover {
+	background-color: lightblue;
+}
