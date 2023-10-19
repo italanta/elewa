@@ -13,8 +13,10 @@
               <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="6vh">
                   <div fxLayout ="column">
                       <div class="current-plan cards">
-                          <p class="card-title">Current plan </p>
+
+                          <p class="card-title">{{ 'BILLINGS.CURRENT-PLAN' | transloco }} </p>
                           <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12vh" class="card-contents" >
+
                               <div fxLayout ="column">
                                   <p class="plan">Plan 1</p>
                                   <p class="user">5 of 8 users</p>
@@ -29,7 +31,7 @@
                   </div>
                   <div fxLayout ="column">
                       <div class="payment-methods cards">
-                         <p class="card-title">Payment method</p>
+                         <p class="card-title">{{ 'BILLINGS.PAYMENT METHOD' | transloco }}</p>
                          <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12vh" class="card-contents" >
                               <div fxLayout ="column">
                                   <div class="image" >
@@ -52,7 +54,7 @@
                   <div fxLayout ="column">
                       <div fxLayout="row" fxLayoutAlign="space-between start"  >
                           <div fxLayout ="column">
-                              <p>Payments methods</p>
+                              <p>{{ 'BILLINGS.PAYMENT-METHOD' | transloco }}</p>
                           </div>
                           <div fxLayout ="column">
                               <button  class="btn white-btn" (click)="addPaymentMethod()">
@@ -75,7 +77,7 @@
                               </div>
                     
                               <div fxLayout="column">
-                                <p>Expires {{ card.expiry }}</p>
+                                <p>{{ 'BILLINGS.EXPIRES' | transloco }} {{ card.expiry }}</p>
                               </div>
                     
                               <div fxLayout="column">

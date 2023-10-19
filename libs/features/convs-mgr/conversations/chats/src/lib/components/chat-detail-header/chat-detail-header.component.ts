@@ -76,6 +76,7 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   ) {
     this._sbs.sink = this.userService.getUser().subscribe((user) => (this.user = user));
+    this.avatarBgColor = this.randomColor();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -295,7 +296,6 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
   navigateToStory(){
     this._router.navigate([`/bots/${this.currentStory.id}`]);
   }
-
 
   ngOnDestroy() {
     this._sbs.unsubscribe();
