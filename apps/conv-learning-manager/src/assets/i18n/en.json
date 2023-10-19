@@ -53,7 +53,7 @@
     "FORGOT-PASSWD": "Forgot password?",
     "FORGOT-PASSWORD-MODAL" : {
       "TITLE": "Forgot password?",
-      "MESSAGE": "Enter your email address and we will send you a link to reset your password.",
+      "MESSAGE": "Enter your email address and we will send you a link to reset your password",
       "FLD-EMAIL": "Enter email",
       "FLD-EMAIL-ERR":"Please provide a valid email address",
       "RESET": "Reset",
@@ -949,7 +949,7 @@
     },
     "HEADER": {
       "MESSAGE-TEMPLATE-HEADER-TITLE": {
-        "MESSAGES": "Messages",
+        "MESSAGES": "Message Templates",
         "HELP": "Help"
       }
     },
@@ -976,11 +976,12 @@
             "CHANNEL-DESCRIPTION": "Select channel to send to"
           },
           "TITLE": "Title",
-          "TITLE-DESCRIPTION": "Add title for your template",
+          "TITLE-DESCRIPTION": "Add title for your template (should be unique, lowercase, no spacing, hyphen or underscore allowed):",
+          "NO-CHANNEL": "Add channels first: None currently available",
           "CONTENT": {
             "HEADER": {
               "HEADER": "Header",
-              "HEADER-DESCRIPTION": "Add a header of either text or image",
+              "HEADER-DESCRIPTION": "Add a header",
               "TEXT": "Text"
             },
             "BODY": {
