@@ -48,7 +48,11 @@
             <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
               <mat-form-field appearance="outline" fxFlex="48">
                 <mat-label>{{"ORGS.FORM.POSTAL-CODE" | transloco}}</mat-label>
-                <input matInput type="number" formControlName="postalCode">
+                <mat-select formControlName="postalCode">
+                  <mat-option *ngFor="let region of postalCodeOptions" [value]="region.postalCode">
+                    {{ region.name }} ({{ region.postalCode }})
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
   
               <mat-form-field appearance="outline" fxFlex="48">

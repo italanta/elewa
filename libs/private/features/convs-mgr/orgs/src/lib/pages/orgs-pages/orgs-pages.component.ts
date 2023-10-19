@@ -35,6 +35,11 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
   creatingOrg: boolean;
 
   lang: 'en' | 'fr' | 'nl'
+  postalCodeOptions: { name: string, postalCode: number }[] = [
+    { name: 'Region 1', postalCode: 12345 },
+    { name: 'Region 2', postalCode: 67890 },
+    // Add more regions and postal codes as needed
+  ];
 
   constructor(private _router$$: Router,
               private _fb: FormBuilder,
