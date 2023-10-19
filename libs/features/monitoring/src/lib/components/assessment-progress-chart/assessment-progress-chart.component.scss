@@ -1,7 +1,6 @@
 .wrapper {
   padding: 1rem;
   background-color: white;
-  height: 280px;
   border-radius: 5px;
 
   .assessment-card {
@@ -9,12 +8,13 @@
     flex-direction: column;
     justify-content: space-around;
     height: 100%;
+    width: 100%;
   }
 
   .title {
     font-size: 1rem;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
   }
 
   .assessment-select {
