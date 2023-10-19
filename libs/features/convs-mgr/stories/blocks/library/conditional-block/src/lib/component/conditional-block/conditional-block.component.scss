@@ -18,9 +18,14 @@ input[type='text'] {
 }
 
 .add-button {
-  width: 100%;
-  background-color: var(--convs-mgr-color-primary-purple);
-  color: white;
+  width: 95%;
+  background-color: #f3f3f3;
+  color: #939393;
+  border-radius: 0.7rem;
+  justify-content: flex-start;
+  margin: 0px 5px;
+  padding: 0.625rem;
+  font-weight: 300;
 }
 
 .listgone {
