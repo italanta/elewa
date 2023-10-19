@@ -17,11 +17,21 @@ $sidebar-footer-height: 230px;
 }
 
 .active {
-  text-decoration: underline;
   font-weight: bolder;
-  border-right: solid #101010 1px;
+  border-right: solid #1F7A8C 1px;
+  .menu-title{
+    color: #1F7A8C!important;
+  }
+  .menu-icon{
+    .img{
+      filter: invert(42%) sepia(20%) saturate(1520%) hue-rotate(142deg) brightness(91%) contrast(88%);
+    }
+  }
 }
-
+.img{
+  height: 24px;
+  width: 24px;
+}
 .extra-header {
   font-weight: 600;
   padding: 10px 25px;
