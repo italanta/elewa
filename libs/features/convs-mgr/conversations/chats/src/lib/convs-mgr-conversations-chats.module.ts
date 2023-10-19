@@ -22,7 +22,6 @@ import { ChatsOverviewTableComponent } from './components/chats-overview-table/c
 
 import { ConfirmActionModal } from './modals/confirm-action-modal/confirm-action-modal.component';
 import { StashChatModal } from './modals/stash-chat-modal/stash-chat-modal.component';
-import { ViewDetailsModal } from './modals/view-details-modal/view-details-modal.component';
 import { MoveChatModal } from './modals/move-chat-modal/move-chat-modal.component';
 
 import { FilterPipe } from './pipes/filter.pipe';
@@ -52,7 +51,6 @@ import { FilterPipe } from './pipes/filter.pipe';
     ChatsOverviewTableComponent,
     
     ConfirmActionModal,
-    ViewDetailsModal,
     MoveChatModal,
     StashChatModal,
     FilterPipe

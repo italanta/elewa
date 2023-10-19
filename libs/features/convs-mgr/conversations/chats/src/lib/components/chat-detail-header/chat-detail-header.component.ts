@@ -31,7 +31,6 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { MoveChatModal } from '../../modals/move-chat-modal/move-chat-modal.component';
 import { StashChatModal } from '../../modals/stash-chat-modal/stash-chat-modal.component';
 import { ConfirmActionModal } from '../../modals/confirm-action-modal/confirm-action-modal.component';
-import { ViewDetailsModal } from '../../modals/view-details-modal/view-details-modal.component';
 import { GET_USER_AVATAR, GET_RANDOM_COLOR } from '../../providers/avatar.provider';
 
 
