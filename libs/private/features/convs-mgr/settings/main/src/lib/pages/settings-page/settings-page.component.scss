@@ -9,3 +9,21 @@
   border-radius: 5px;
   background-color: white;
 }
+
+:host ::ng-deep .mat-mdc-tab .mdc-tab__text-label{
+  font-size: 16px;
+}
+
+div{
+  div{
+    .admin-header{   
+      color: #101010;
+      font-size: 20px;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word;
+      margin: 2vh 0 2vh 2vh;
+    }
+  }
+  background-color: #F6F6F6;
+}

@@ -8,7 +8,7 @@
 
       <div class="login-page-info" fxFlex="65">
         <div class="image-container">
-          <img src="assets/images/login-img.png" class="image">
+          <img src="https://res.cloudinary.com/dyl3rncv3/image/upload/v1697705429/Goomza/login_jvcyqp.jpg" class="image">
           <div class="overlay"></div>
         </div>
 
@@ -34,13 +34,14 @@
 
           <div class="actions" fxLayout="column" fxLayoutAlign="start">
             <span *ngIf="!isLogin" class="action-title"> Create an Account </span>
-            <span *ngIf="!isLogin" class="action-desc"> Start Your 7 Day Trial Today and Unlock a World of Engaging
+            <span *ngIf="!isLogin" class="action-desc"> Sign up to create a world of engaging learning experiences
               Learning
               Experiences
             </span>
 
             <span *ngIf="isLogin" class="action-title"> Log In </span>
             <span *ngIf="isLogin" class="action-desc"> Welcome back! Please enter your details </span>
+
           </div>
 
           <div fxFlex>
@@ -66,13 +67,13 @@
               <span *ngIf="isLogin"> Login With Google </span>
               <span *ngIf="!isLogin"> Sign Up With Google </span>
             </button>
-            <button mat-stroked-button color="primary" (click)="logInWithFaceBook()">
+            <!-- <button mat-stroked-button color="primary" (click)="logInWithFaceBook()">
               <mat-icon>
                 <img src="assets/images/facebook-logo.png">
               </mat-icon>
               <span *ngIf="isLogin">Login with Facebook </span>
               <span *ngIf="!isLogin">Sign Up with Facebook </span>
-            </button>
+            </button> -->
           </div>
 
           <div style="margin-top: 10px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
@@ -87,10 +88,10 @@
 
           <ng-template #registerNav>
             <div style="margin-top: 10px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
-              <span>
+              <span style= "font-weight: 100;">
                 Already have an account?
               </span>
-              <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleModeLogin()">
+              <button class="log-in" mat-button color="primary" (click)="toggleModeLogin()">
                 <span style="text-decoration: underline;">Log In</span>
               </button>
             </div>
