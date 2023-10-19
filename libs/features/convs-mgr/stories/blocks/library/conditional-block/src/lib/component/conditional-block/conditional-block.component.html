@@ -56,6 +56,7 @@
 
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">
+<<<<<<< HEAD
         <div
           [formGroupName]="i"
           class="inputList"
@@ -73,6 +74,12 @@
             class="input"
             [charMaxlength]="listOptionInputLimit"
           ></app-option-input-field>
+=======
+        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
+          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+          <app-option-input-field #optionInputFields [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i"
+            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+>>>>>>> e482f0f9ee1c706be065dcf0a1b3b957e16c762d
         </div>
       </div>
     </div>

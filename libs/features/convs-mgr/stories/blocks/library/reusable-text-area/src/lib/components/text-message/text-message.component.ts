@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -6,6 +6,18 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './text-message.component.html',
   styleUrls: ['./text-message.component.scss'],
 })
-export class TextMessageComponent {
+export class TextMessageComponent implements AfterViewInit{
   @Input() formgroup: FormGroup;
+
+  constructor(private el: ElementRef) {}
+
+  ngAfterViewInit(): void {
+    this.setFocusOnInput();
+  }
+  private setFocusOnInput() {
+      const inputElement = this.el.nativeElement.querySelector('textarea[name="message"]');
+      if (inputElement) {
+        inputElement.focus();
+      }
+  }
 }

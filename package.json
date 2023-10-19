@@ -62,6 +62,7 @@
     "tslib": "^2.3.0",
     "unique-names-generator": "^4.7.1",
     "unzipper": "^0.10.14",
+    "uuid": "^9.0.1",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
@@ -86,6 +87,7 @@
     "@types/lodash": "^4.14.182",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^16.11.7",
+    "@types/uuid": "^9.0.5",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "cypress": "^9.1.0",

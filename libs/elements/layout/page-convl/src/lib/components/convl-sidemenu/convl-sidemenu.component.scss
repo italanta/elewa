@@ -17,11 +17,21 @@ $sidebar-footer-height: 230px;
 }
 
 .active {
-  text-decoration: underline;
   font-weight: bolder;
-  border-right: solid #101010 1px;
+  border-right: solid #1F7A8C 1px;
+  .menu-title{
+    color: #1F7A8C!important;
+  }
+  .menu-icon{
+    .img{
+      filter: invert(42%) sepia(20%) saturate(1520%) hue-rotate(142deg) brightness(91%) contrast(88%);
+    }
+  }
 }
-
+.img{
+  height: 24px;
+  width: 24px;
+}
 .extra-header {
   font-weight: 600;
   padding: 10px 25px;
@@ -224,6 +234,7 @@ $sidebar-footer-height: 230px;
             margin-right: 10px;
             border-radius: 2px;
             transition: color 0.3s;
+            cursor: pointer;
             i {
               display: inline-block;
             }
@@ -237,6 +248,9 @@ $sidebar-footer-height: 230px;
             flex-grow: 1;
             transition: color 0.3s;
           }
+          .message-title{
+            cursor: default !important;
+          }
           .menu-prefix,
           .menu-suffix {
             display: inline-block;
@@ -245,6 +259,7 @@ $sidebar-footer-height: 230px;
             transition: opacity 0.3s;
           }
           &:hover {
+            cursor: pointer!important;
             .menu-title {
               color: $secondary-text-color;
             }
@@ -610,6 +625,19 @@ a {
   }
 }
 
+.sub-side-menu{
+  padding-left: 1rem!important;
+  font-size: .85rem!important;
+}
+.collapsible {
+  display: none; 
+}
+
+.collapsible.show {
+  display: block; 
+}
+
+
 .sidebar-toggler {
   position: fixed;
   right: 20px;
@@ -664,3 +692,4 @@ a {
 :host ::ng-deep .mat-expansion-indicator {
   padding: 10px;
 }
+
