@@ -1,12 +1,12 @@
 .message-template-form{
     border-radius: 1.5625rem;
     background: #FFF;
-    margin-top: 1.75rem;
-    padding: 1.75rem 1.56rem;
+    margin-top: 1.55rem;
+    padding: 1.5rem 2.2rem;
       p {
           color: #101010;
           font-family: Roboto;
-          font-size: 1.5rem;
+          font-size: 1rem;
           font-style: normal;
           font-weight: 400;
           line-height: normal;
@@ -26,7 +26,7 @@
               }
               color: #000; 
               font-family: Roboto;
-              font-size: 1.25rem;
+              font-size: 1rem;
               font-style: normal;
               font-weight: 400;
               line-height: normal;
@@ -36,7 +36,7 @@
             p:nth-child(2), p:nth-child(3), p:nth-child(4) {
               color: #707070;
               font-family: Roboto;
-              font-size: 1.125rem;
+              font-size: .9rem;
               font-style: normal;
               font-weight: 300;
               line-height: normal;
@@ -84,14 +84,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 2rem;
       p{
           color: #000;
           font-family: Roboto;
-          font-size: 1.375rem;
+          font-size: 1.1rem;
           font-style: normal;
           font-weight: 400;
           line-height: normal;
       }
+  }
+  .head-cont{
+    margin-top: 2rem;
   }
   .eveinputs{
     border-radius: 0.9375rem;
@@ -110,10 +114,9 @@
     
   }
   .variables{
-    border-radius: 0.9375rem;
+    border-radius: 1rem;
     border: 1px solid #1F7A8C;
     padding: 1rem .5rem;
-    
     
     .np{
       color: #707070;
@@ -144,6 +147,7 @@
   }
   
   .body{
+    margin-bottom: 1em;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 9.8125rem!important; 
   }
@@ -217,7 +221,14 @@
 
  ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
 
+ ::ng-deep .mdc-text-field{
+  border-radius: 1rem!important;
+  border: 1px grey solid;
+ }
+ ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background: transparent;
 
+ }
  
 input{
   color: #707070;
