@@ -4,11 +4,14 @@
 
       <div class="options-wrapper">
         <label for="" class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</label>
-        <select id="options" formControlName="selectedVar">
+        <select id="options" formControlName="selectedVar" class="options">
           <option *ngFor="let variable of (vars$ | async)" [value]="variable">
             {{variable}}
           </option>
         </select>
+        <div class="select-icon">
+          <img src="assets/svgs/blocks/chevron-down.svg" alt="">
+        </div>
       </div>
 
       <div class="select-variable">

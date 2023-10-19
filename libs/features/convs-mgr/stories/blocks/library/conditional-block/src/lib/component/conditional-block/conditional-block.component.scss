@@ -37,6 +37,14 @@ input[type='text'] {
   display: grid;
   padding: 50x;
 
+  .options-wrapper{
+    .assess-label{}
+    .options{}
+    .select-icon{
+      img{}
+    }
+  }
+
   .type-variable {
     display: flex;
     flex-direction: column;
