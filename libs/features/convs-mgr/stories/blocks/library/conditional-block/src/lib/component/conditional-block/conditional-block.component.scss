@@ -35,30 +35,57 @@ input[type='text'] {
 
 .details-wrapper {
   display: grid;
-  padding: 50x;
+  padding: 0.313rem;
+  margin-top: 0.625rem;
+  color: #939393;
+  font-weight: 300;
 
-  .options-wrapper{
-    .assess-label{}
-    .options{}
-    .select-icon{
-      img{}
+  .options-wrapper {
+    position: relative;
+    font-weight: 300;
+
+    .select {
+      background-color: #f3f3f3;
+      border: none;
+      appearance: none;
+      width: 100%;
+      padding: 0.625rem;
+      border-radius: 0.7rem;
+      color: #939393;
+
+      .assess-label {        
+      }
+    }
+    .select-icon {
+      height: 2.5rem;
+      width: 2.5rem;
+      position: absolute;
+      top: 50%;
+      right: 0.063rem;
+      transform: translateY(-50%);
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
     }
   }
 
   .type-variable {
     display: flex;
     flex-direction: column;
-  
+
     label {
       font-weight: 500;
       font-size: 0.9rem;
-    } 
+    }
   }
 
   .select-variable {
     display: flex;
     gap: 0.4rem;
     padding: 5px 0;
+    margin-top: 20px;
 
     label {
       font-weight: 500;
