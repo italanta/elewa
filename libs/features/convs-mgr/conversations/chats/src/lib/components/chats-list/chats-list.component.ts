@@ -20,6 +20,7 @@ import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
 import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
 
+
 @Component({
   selector: 'app-chats-list',
   templateUrl: './chats-list.component.html',
@@ -52,10 +53,13 @@ export class ChatsListComponent implements AfterViewInit, OnInit
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
+
+  newDate : Date[] = [];
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
   constructor(private _chats$: ChatsStore,
+    private _chatStore$:ChatsStore,
     private _activeChat$: ActiveChatConnectedStore,
     private cd: ChangeDetectorRef,
     _dS: DataService,
@@ -71,7 +75,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$ = this._chats$.get();
+    this.chats$  = this._chatStore$.getOrderedChats();
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 
@@ -87,7 +91,6 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     {
       if (this.paginator.length && this.dataSource) {
         this.dataSource.paginator = this.paginator?.first;
-        // this.cd.detectChanges();
       }
     });
   }
@@ -107,6 +110,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit
     this.dataSource.paginator = this.paginator?.first;
     this.isLoading = false;
   }
+  
 
   initializeLists()
   {

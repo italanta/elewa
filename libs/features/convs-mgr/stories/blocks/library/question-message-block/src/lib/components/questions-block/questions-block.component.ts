@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 
@@ -6,6 +6,12 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
+import { CursorFocusService } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+
+
+
 
 const questionOptionInputLimit: number = 20;
 const questionOptionsArrayLimit: number = 3;
@@ -17,6 +23,9 @@ const questionOptionsArrayLimit: number = 3;
 })
 export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   @ViewChild('inputOtion') inputOtion: ElementRef;
+  @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
+
+  private currentIndex = 0; 
 
   @Input() id: string;
   @Input() block: QuestionMessageBlock;
@@ -31,7 +40,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
 
   readonly questionOptionInputLimit = questionOptionInputLimit;
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private cursorFocusService: CursorFocusService) { }
 
   ngOnInit(): void {
     this.block.options?.forEach((option) => {
@@ -55,8 +64,18 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
 
   addNewOption() {
     if (this.options.length < questionOptionsArrayLimit) this.options.push(this.addQuestionOptions());
+    setTimeout(() => {
+      this.setFocusOnNextInput();
+    });
   }
   deleteInput(i: number) {
     this.options.removeAt(i);
+  }
+
+  setFocusOnNextInput() {
+    this.currentIndex = this.cursorFocusService.focusOnNextInput(
+      this.currentIndex,
+      this.optionInputFields
+    );
   }
 }

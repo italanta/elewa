@@ -2,11 +2,26 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
+import { startWith, switchMap } from 'rxjs';
 
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+import { BotModulesStateService } from '@app/state/convs-mgr/modules'
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+
+import { Bot } from '@app/model/convs-mgr/bots';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { Classroom } from '@app/model/convs-mgr/classroom';
+import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 import { periodicals } from '../../models/periodicals.interface';
+import { 
+  formatDate, 
+  getColor, 
+  getDailyProgress, 
+  getWeeklyProgress,
+  getMonthlyProgress 
+} from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-group-based-progress-chart',
@@ -18,100 +33,87 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  groups: string[];
+  courses: Bot[];
+  classrooms: Classroom[];
+  botModules: BotModule[];
+
+  activeCourse: string;
+  activeClassroom: string;
+  selectedPeriodical: periodicals;
+
   dataIsFetched = false;
-  allProgress: GroupProgressModel[];
+
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
-  periodical: periodicals = 'Weekly';
-  activeGroup = 'All';
 
-  constructor (private _progressService: ProgressMonitoringService) {}
+  @Input()
+  set setPeriodical(value: periodicals) {
+    this.selectedPeriodical = value;
+    this.selectProgressTracking(value);
+  }
+
+  @Input()
+  set setActiveCourse(value: string) {
+    this.activeCourse = value
+    this.selectProgressTracking(this.selectedPeriodical);
+  }
+
+  @Input()
+  set setActiveClassroom(value: string) {
+    this.activeClassroom = value
+    this.selectProgressTracking(this.selectedPeriodical);
+  }
+
+  constructor (
+    private _progressService: ProgressMonitoringService,
+    private _clasroomServ$: ClassroomService,
+    private _botModServ$: BotModulesStateService,
+    private _botServ$: BotsStateService
+  ) {}
 
   ngOnInit() {
-    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => { 
+    this.initDataLayer();
+
+    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
+      if(!models) return;
 
       // 1. save all progress
-      this.allProgress = models;
-
-      // 2. get all groups/ classes
-      this.groups = this.getGroups(this.allProgress);
-
-      if (!this.groups) return
-
-      this.groups?.unshift('All');
-
-      // 3. get daily progress
-      this.getDailyProgress();
-
-      // 4. get weekly progress 
-      this.getWeeklyProgress();
-
-      // 5. get Monthly Progress
-      this.getMonthlyProgress();
-
-      // 6. show periodical toggle menu after data is fetched
+      this.dailyProgress = getDailyProgress(models);
+      this.weeklyProgress = getWeeklyProgress(models);
+      this.monthlyProgress = getMonthlyProgress(models);
       this.dataIsFetched = true;
 
-      // start the chart with the weekly Progressions
       this.chart = this._loadChart(this.weeklyProgress);
     });
   }
 
-  private getGroups(model: GroupProgressModel[]) {
-    // TODO: @LemmyMwaura Pull existing groups from DB after the grouping feature is complete.
-    return model[model.length - 1]?.groupedMeasurements.map((item) => item.name.split('_')[1]);
+  initDataLayer() {
+    this._sBs.sink = this._botServ$.getBots().pipe(
+      switchMap(bots => {
+        this.courses = bots
+        return this._clasroomServ$.getAllClassrooms().pipe(
+          switchMap(clsrooms => {
+          this.classrooms = clsrooms
+          return this._botModServ$.getBotModules()
+        }))
+      })
+    ).subscribe(botModules => this.botModules = botModules);
   }
 
-  selectActiveGroup(group: string) {
-    this.activeGroup = group;
-    this.selectProgressTracking(this.periodical)
-  }
+  selectProgressTracking(periodical: periodicals) {
+    if (!this.dailyProgress) return
 
-  selectProgressTracking(trackBy: periodicals) {
-    this.periodical = trackBy;
-  
-    if (this.periodical === 'Daily') {
+    if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
-    } else if (this.periodical === 'Weekly') {
+    } else if (periodical === 'Weekly') {
       this.chart = this._loadChart(this.weeklyProgress);
     } else {
       this.chart = this._loadChart(this.monthlyProgress);
     }
   }
 
-  /** Retrieves daily milestones of all users */
-  private getDailyProgress() {
-    this.dailyProgress = this.allProgress;
-  }
-
-  /** Retrieves weekly milestones of all users */
-  private getWeeklyProgress() {
-    this.weeklyProgress = this.allProgress.filter(model => {
-      const timeInDate = new Date((model.time * 1000))
-      const dayOfWeek = timeInDate.getDay();
-
-      if (dayOfWeek === 6) return true
-      else return false
-    });
-  }
-
-  /** Retrieves weekly milestones of all users */
-  private getMonthlyProgress() {
-    this.monthlyProgress = this.allProgress.filter(model => {
-      const timeInDate = new Date((model.time * 1000))
-      const dayOfWeek = timeInDate.getDate();
-
-      if (dayOfWeek === 1) return true
-      else return false
-    });
-  }
-
   private _loadChart(model: GroupProgressModel[]): Chart {
-    // TODO: @LemmyMwaura Pull milstones from events after the events brick backend implementation is complete.
-    const milestones = ['Pre_Test', 'Onboarding', 'CH1_Systeme', 'CH2_Therapeutic', 'CH3_Indicateurs', 'CH4_Statistics', 'CH5_Maternity', 'Post_Test', 'Complete' ];
-
     if (this.chart) {
       this.chart.destroy();
     }
@@ -119,8 +121,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => this.formatDate(day.time)),
-        datasets: [...milestones].map((milestone, idx) => this.unpackLabel(milestone, idx, model)),
+        labels: model.map((day) => formatDate(day.time)),
+        datasets: this.getDatasets(model)
       },
       options: {
         maintainAspectRatio: false,
@@ -140,46 +142,47 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
+  private getDatasets(model: GroupProgressModel[]) {
+    const bot = this.courses.find(course => course.name === this.activeCourse) as Bot;
+
+    return bot?.modules.map((botMod, idx) => 
+      this.unpackLabel(
+        (this.botModules.find(mod => mod.id === botMod) as BotModule)?.name,
+        idx, 
+        model
+      )
+    );
+  }
+
   private unpackLabel(milestone: string, idx: number, model: GroupProgressModel[]) {
     return {
       label: milestone,
       data: this.getData(milestone, model),
-      backgroundColor: this.getColor(idx),
+      backgroundColor: getColor(idx),
       borderRadius: 10
     };
   }
 
-  private getData(milestone: string, model: GroupProgressModel[]): number[] {
-    if (this.activeGroup === 'All') {
-    
-      // return milestone data for all users
+  private getData(moduleMilestone: string, model: GroupProgressModel[]): number[] {
+    if (this.activeCourse === 'All' && this.activeClassroom === 'All') {
+      // return moduleMilestone data for all users
       return model.map(
         (item) =>
-          item.measurements.find((m) => m.name === milestone)?.participants
+          item.measurements.find((m) => m.name === moduleMilestone)?.participants
             .length ?? 0
       );
     } else {
-
-      // return milestone data from users of the active group - selected tab
+      // return moduleMilestone data from users of the active course and class === selected tab
       return model.map(
         (item) =>
           item.groupedMeasurements
-            .find((group) => group.name.includes(this.activeGroup))
-            ?.measurements.find((m) => m.name === milestone)?.participants
-            .length ?? 0
+          .find((course) => course.name.includes(this.activeCourse))
+            ?.classrooms.find((cls) => cls.name.includes(this.activeClassroom))
+            ?.measurements?.find((botMod) => botMod.name === moduleMilestone)
+            ?.participants.length ?? 0
       );
     }
   }
-
-  private formatDate(time: number): string {
-    const date = new Date(time * 1000);
-    return date.getDate() + '/' + (date.getMonth() + 1);
-  }
-
-  private getColor(idx: number) {
-    // TODO: @LemmyMwaura set colors on new events after the events brick backend implementation is complete.
-    return [ '#e3342f', '#f6993f', '#f66d9b', '#ffed4a', '#4dc0b5', '#3490dc', '#6574cd', '#9561e2', '#38c172' ][idx];
-  }  
 
   ngOnDestroy() {
     if (this.chart) {
