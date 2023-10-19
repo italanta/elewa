@@ -26,16 +26,16 @@
 }
 
 .actions {
-	padding: 0px 0px 40px 0px;
+	padding: 0px 0px 10px 0px;
 }
 
 .action-title {
-	font-size: 2.5rem;
+	font-size: 2rem;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .action-desc {
-	margin-top: 20px;
+	margin-top: 10px;
 	font-weight: 100;
 }
 
@@ -115,8 +115,8 @@
 
 .login-form {
 	height: 100%;
-  width: 100%;
-  padding: 20px 30px;
+    width: 100%;
+    padding: 20px 30px;
 
   display: flex;
   justify-content: center;
@@ -162,5 +162,7 @@ button {
 
 /* change the background color of 'create an account' on hover */
 .highlight-button:hover {
-	background-color: lightblue;
+	background-color: #02B3FE;
+	color: white !important;
+	transition: 0.2s ease ;
 }
