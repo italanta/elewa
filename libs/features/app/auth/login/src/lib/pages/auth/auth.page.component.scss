@@ -165,9 +165,9 @@ button {
 	margin-left: 10px;
 	transition: ease 0.2s;
 	&:hover{
-		background-color: #1f7a8c;
+		background-color: var(--convs-mgr-icon-color);
 		span {
-				color: white;
+				color: var(--convs-mgr-color-text-white);
 			}
 	}
 }
