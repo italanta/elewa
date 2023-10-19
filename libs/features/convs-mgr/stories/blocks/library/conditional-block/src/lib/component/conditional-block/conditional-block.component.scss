@@ -88,9 +88,14 @@ input[type='text'] {
 
     select{
       position: absolute;
-      left: 0;
-      width: 100%; 
+      top: 0;
+    right: 0.625rem;
+    transform: translateY(30%);
+   
       font-size: 0.9em; 
+      border-left: 0.3125rem solid transparent;
+    border-right: 0.3125rem solid transparent;
+    border-top: 0.3125rem solid #7C7C7C;
       border: none;
       padding-top: 2em;
       background-color: transparent;
