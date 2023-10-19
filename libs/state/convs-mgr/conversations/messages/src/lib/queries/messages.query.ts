@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import {  map } from 'rxjs/operators';
 
 import { __DateFromStorage } from '@iote/time';
 import { Logger } from '@iote/bricks-angular';
@@ -11,8 +11,9 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
-import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,9 @@ export class MessagesQuery
   private _activeChat: Chat;
   private orgId?: string;
 
-  constructor(
-                private _activeOrg: ActiveOrgStore,
-                _activeChat$: ActiveChatStore,
-               private _dataService: DataService,
-               protected _logger: Logger)
+  constructor(private _activeOrg: ActiveOrgStore,
+              private _dataService: DataService,
+              protected _logger: Logger)
   {
     _activeOrg.get().subscribe(org => this.orgId = org.id);
   }
@@ -56,6 +55,14 @@ export class MessagesQuery
     return messages.pipe(map(messages => messages ? messages[0].createdOn : {} as any));
   }
 
+  getLatestMessage(chatId:string){
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${chatId}/messages`);
+
+    const messages = messagesRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));  
+
+    return messages.pipe(map(messages => messages ? messages[0] : {} as any));
+  }
+
   addMessage(message: Message) {
 
     const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${this._activeChat.id}/messages`);
@@ -69,4 +76,5 @@ export class MessagesQuery
   //   return this._qRepo.getDocuments(new Query().orderBy('date', 'desc')
   //                                              .skipTake(index, n))
   // }
+ 
 }
