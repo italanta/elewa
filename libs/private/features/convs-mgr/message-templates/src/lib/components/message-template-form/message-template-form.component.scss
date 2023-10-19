@@ -11,6 +11,10 @@
           font-weight: 400;
           line-height: normal;
       }
+      ::ng-deep .mdc-text-field{
+        border-radius: 1rem!important;
+        border: 1px grey solid;
+       }
   }
   .fff{
     width: 100%;
@@ -221,10 +225,7 @@
 
  ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
 
- ::ng-deep .mdc-text-field{
-  border-radius: 1rem!important;
-  border: 1px grey solid;
- }
+
  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled){
   background: transparent;
 
