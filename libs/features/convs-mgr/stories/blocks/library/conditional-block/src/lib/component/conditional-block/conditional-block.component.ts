@@ -32,7 +32,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnInit() {
-    this.manageFormControls()
+    this.manageFormControls();
   }
 
   ngAfterViewInit(): void {
@@ -42,30 +42,34 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   manageFormControls() {
-    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value),map(isTyped => {
+    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value), map(isTyped => {
       if (isTyped) {
-        this.selectedVar.reset()
-        this.selectedVar.disable()
-        this.typedVar.enable()
+        this.selectedVar.reset();
+        this.selectedVar.disable();
+        this.typedVar.enable();
       }
       else {
-        this.typedVar.reset()
-        this.typedVar.disable()
-        this.selectedVar.enable()
+        this.typedVar.reset();
+        this.typedVar.disable();
+        this.selectedVar.enable();
       }
-    })).subscribe()
+    })).subscribe();
+  }
+
+  toggleCheckbox() {
+    this.isTyped.setValue(!this.isTyped.value);
   }
 
   get isTyped(): AbstractControl {
-    return this.conditionalBlockForm.controls['isTyped']
+    return this.conditionalBlockForm.controls['isTyped'];
   }
 
   get selectedVar(): AbstractControl {
-    return this.conditionalBlockForm.controls['selectedVar']
+    return this.conditionalBlockForm.controls['selectedVar'];
   }
 
   get typedVar(): AbstractControl {
-    return this.conditionalBlockForm.controls['typedVar']
+    return this.conditionalBlockForm.controls['typedVar'];
   }
 
   get options(): FormArray {
@@ -77,7 +81,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
       id: [optionItem?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [optionItem?.message ?? ''],
       value: [optionItem?.value ?? '']
-    })
+    });
   }
 
   addNewOption() {
@@ -91,6 +95,6 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnDestroy() {
-    this._sBs.unsubscribe()
+    this._sBs.unsubscribe();
   }
 }
