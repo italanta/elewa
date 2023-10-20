@@ -2,21 +2,28 @@
   <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
     <div class="details-wrapper">
 
-      <div class="options-wrapper">
-        <mat-form-field>
-          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
+      <!-- <div class="options-wrapper"> -->
+        <!-- <mat-form-field> -->
+          <!-- <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
           <mat-select formControlName="selectedVar">
             <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
               {{ variable }}
             </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
+          </mat-select> -->
+          
+        <!-- </mat-form-field> -->
+        <div class="form-group">
+          <div class="options-wrapper">
+          <select class="assess-label" name="assessmentlabel" required id="assessmentlabel">
+            <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
+            <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
+          </select>
+          <span class="custom-dropdown-arrow"></span>
+          </div>
+        </div>
       <div class="select-variable">
-        <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
-        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
-        
+        <mat-checkbox formControlName="isTyped" name="check" id="isTyped"></mat-checkbox>
+        <label for="isTyped" class="box-styling">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
       </div>
 
       <div class="type-variable">
@@ -24,7 +31,6 @@
         <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
       </div>
     </div>
-
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let option of options.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
