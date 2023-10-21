@@ -83,7 +83,7 @@ input[type='text'] {
     height: 0;
     border-left: 0.3125rem solid transparent; /* 5px converted to rem */
     border-right: 0.3125rem solid transparent; /* 5px converted to rem */
-    border-top: 0.3125rem solid #000; /* 5px converted to rem */
+    border-top: 0.3125rem solid var(--convs-mgr-text-color); /* 5px converted to rem */
     pointer-events: none;
   }
   
