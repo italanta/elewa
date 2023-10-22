@@ -41,7 +41,7 @@ export const iconsAndTitles: any = {
   },
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
-    icon: 'fas fa-envelope',
+    icon: 'far fa-thin fa-envelope',
   },
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
