@@ -1,8 +1,6 @@
 <div [id]="id" *ngIf=" emailMessageForm">
 	<form [formGroup]="emailMessageForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="emailInputId" formControlName="message" type="text"
-			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.EMAIL' | transloco" />
-
-		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="emailMessageForm"></app-default-option-field>
+			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.EMAIL' | transloco"/>
 	</form>
 </div>

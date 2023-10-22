@@ -5,10 +5,11 @@ mat-card {
 input {
 	max-width: 100%;
 	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
+	border: 1px solid transparent;
 	border-radius: 5px;
 	resize: none;
 	padding: 10px;
+	background-color: lightgray;
 }
 
 input:focus-visible {
