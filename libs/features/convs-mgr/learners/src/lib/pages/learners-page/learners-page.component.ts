@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -34,6 +35,7 @@ import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversati
 })
 export class LearnersPageComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('paginator') paginator: MatPaginator;
 
   private _sBs = new SubSink();
 
@@ -95,6 +97,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this._sBs.sink = allLearners$.subscribe((alllearners) => {
       this.dataSource.data = alllearners;
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
