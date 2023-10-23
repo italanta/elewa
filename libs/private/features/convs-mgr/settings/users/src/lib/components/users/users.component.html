@@ -124,12 +124,15 @@
             {{ 'MEMBERS.TABLE.ROLE' | transloco }}
           </th>
           <td mat-cell *matCellDef="let user" class="user-td">
-            <div class="select">
-              <select style="border: none; background-color: #f6f6f6">
+            <div class="select" style="display: flex;">
+              <!-- <select style="border: none; background-color: #f6f6f6">
                 <option *ngFor="let role of getRoles(user.roles[org.id!])">
                   {{ role }}
                 </option>
-              </select>
+              </select> -->
+              <div  *ngFor="let role of getRoles(user.roles[org.id!])" style="margin-right: 10px;">
+                {{ role }}
+              </div>
             </div>
             <ng-template #dash> - </ng-template>
           </td>
