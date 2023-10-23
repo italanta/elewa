@@ -2,6 +2,7 @@
   position: relative;
   height: 200px;
   width: 100%;
+  margin-bottom: 2rem;
 
   img {
     height: 200px;
@@ -10,16 +11,19 @@
     border-radius: 10px;
   }
 
+
   .header-text span:first-of-type {
     font-size: 2.5rem;
     font-weight: 400;
     padding: 0px 30px;
+    z-index: 100; 
   }
 
   .header-text span:last-of-type {
     font-size: 1.1rem;
     font-weight: 300;
     padding: 0px 30px;
+    z-index: 100; 
   }
 }
 
@@ -27,10 +31,10 @@
   margin: 30px;
   clip-path: circle();
   background-color: rgba($color: #fff, $alpha: .3);
-
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100; 
 }
 
 .circle {
@@ -45,7 +49,6 @@
   top: 0;
   margin: auto 0;
   padding-left: 20px;
-
   height: fit-content;
   width: fit-content;
 }
@@ -53,4 +56,15 @@
 .btn-add {
   background-color: white !important;
   color: black !important;
+}
+
+.white-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.2); 
+  z-index: 1; 
 }

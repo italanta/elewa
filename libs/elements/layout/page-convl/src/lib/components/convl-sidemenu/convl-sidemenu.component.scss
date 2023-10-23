@@ -248,6 +248,9 @@ $sidebar-footer-height: 230px;
             flex-grow: 1;
             transition: color 0.3s;
           }
+          .message-title{
+            cursor: default !important;
+          }
           .menu-prefix,
           .menu-suffix {
             display: inline-block;
