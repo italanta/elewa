@@ -30,7 +30,7 @@
         <div class="dropdown">
           <div class="select">
             <select [(value)]="selectedClass">
-              <option [value]="null" selected disabled>All Classes</option>
+              <option [value]="null" selected>All Classes</option>
               <option *ngFor="let class of allClasses" [value]="class">{{ class.className }}</option>
             </select>
           </div>
