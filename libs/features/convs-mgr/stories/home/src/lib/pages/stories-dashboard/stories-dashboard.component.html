@@ -1,27 +1,30 @@
 <convl-page [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
   <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
-    <span class="bots"> {{ "BOTS.BOTS-PAGE.BOTS" | transloco }} </span>
+    <span class="bots"> {{ 'BOTS.BOTS-PAGE.BOTS' | transloco }} </span>
 
     <div class="bots-header" fxFlex>
       <italanta-apps-bots-list-header></italanta-apps-bots-list-header>
     </div>
 
-    <span class="sub-title"> {{ "BOTS.BOTS-PAGE.LATEST-COURSES" | transloco }} </span>
+    <span class="sub-title">
+      {{ 'BOTS.BOTS-PAGE.LATEST-COURSES' | transloco }}
+    </span>
 
     <div class="latest-courses" fxFlex>
-      <italanta-apps-bots-list-latest-courses [bots$]="bots$"></italanta-apps-bots-list-latest-courses>
+      <italanta-apps-bots-list-latest-courses
+        [bots$]="bots$"
+      ></italanta-apps-bots-list-latest-courses>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span>
+      <!-- <span class="sub-title"> {{ "BOTS.BOTS-PAGE.ALL-COURSES" | transloco }} </span> -->
 
-      <button mat-flat-button (click)="openViewAllPage()">
-        {{ "BOTS.BOTS-PAGE.VIEW-ALL" | transloco }}
-      </button>
     </div>
 
     <div class="my-courses" fxFlex>
-      <italanta-apps-bots-list-all-courses [bots$]="bots$"></italanta-apps-bots-list-all-courses>
+      <italanta-apps-bots-list-all-courses
+        [bots$]="bots$"
+      ></italanta-apps-bots-list-all-courses>
     </div>
   </div>
 </convl-page>
