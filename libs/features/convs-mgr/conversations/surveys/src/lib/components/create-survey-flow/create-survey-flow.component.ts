@@ -157,7 +157,7 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
           this.isPublishing = false;
           this._sbS.unsubscribe();
           this.surveyMode = SurveyMode.View;
-          this.openSnackBar('Survey was successfully published', 'Publish');
+          // this.openSnackBar('Survey was successfully published', 'Publish');
         }
       });
   }

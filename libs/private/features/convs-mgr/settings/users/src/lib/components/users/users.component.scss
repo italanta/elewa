@@ -35,8 +35,8 @@
   padding: 20px;
   margin-top: 64px;
   .toolbar{
+
     select {
-    
       border: 0;
       border-radius: 25px;
       box-shadow: none;
@@ -156,6 +156,11 @@
       }
     }
   }
+}
+
+.roles {
+  display: flex;
+  gap: 0.3rem;
 }
 
 :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
