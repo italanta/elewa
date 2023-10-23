@@ -625,6 +625,9 @@ a {
 .sub-side-menu{
   padding-left: 1rem!important;
   font-size: .85rem!important;
+  li{
+    margin-top: -10px;
+  }
 }
 .collapsible {
   display: none; 
