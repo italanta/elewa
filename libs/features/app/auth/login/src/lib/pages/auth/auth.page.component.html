@@ -8,7 +8,7 @@
 
       <div class="login-page-info" fxFlex="65">
         <div class="image-container">
-          <img src="assets/images/login-img.png" class="image">
+          <img src="https://res.cloudinary.com/dyl3rncv3/image/upload/v1697705429/Goomza/login_jvcyqp.jpg" class="image">
           <div class="overlay"></div>
         </div>
 
@@ -18,11 +18,11 @@
 
         <div class="bottom-left">
           <p class="title">
-            Creating Courses and engaging students has <br> never been easier. Elewa makes it effortless and effective
+            Goomza simplifies course creation and learner engagement effortlessly
           </p>
 
           <p class="sub-title">
-            Our user-friendly interface makes it easy to track your chat bots and engage your audience in real-time.
+            Track your chat bots and engage your audience in real-time with our user-friendly interface
           </p>
         </div>
       </div>
@@ -34,7 +34,7 @@
 
           <div class="actions" fxLayout="column" fxLayoutAlign="start">
             <span *ngIf="!isLogin" class="action-title"> Create an Account </span>
-            <span *ngIf="!isLogin" class="action-desc"> Start Your 7 Day Trial Today and Unlock a World of Engaging
+            <span *ngIf="!isLogin" class="action-desc"> Sign up to create a world of engaging learning experiences
               Learning
               Experiences
             </span>
@@ -76,22 +76,22 @@
             </button> -->
           </div>
 
-          <div style="margin-top: 20px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
+          <div style="margin-top: 10px;" *ngIf="isLogin; else registerNav" fxLayout="row" fxLayoutAlign="center center"
             fxFlex>
-            <span>
+            <span style="font-weight: 400;">
               Don't have an account?
             </span>
-            <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleMode()">
-              <span style="text-decoration: underline;"> Create an Account</span>
-            </button>
+            <button class="highlight-button" style="margin-left: 5px;" mat-button color="primary" (click)="toggleMode()">
+              <span style="text-decoration: underline;">Create an Account</span>
+            </button>            
           </div>
 
           <ng-template #registerNav>
-            <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
-              <span>
+            <div style="margin-top: 10px;" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+              <span style= "font-weight: 100;">
                 Already have an account?
               </span>
-              <button style="margin-left: 20px;" mat-button color="primary" (click)="toggleModeLogin()">
+              <button class="log-in" mat-button color="primary" (click)="toggleModeLogin()">
                 <span style="text-decoration: underline;">Log In</span>
               </button>
             </div>
