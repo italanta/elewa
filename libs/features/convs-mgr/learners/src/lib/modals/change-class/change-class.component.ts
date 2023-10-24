@@ -51,7 +51,7 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
   }
 
   submitAction() {
-    if (!this.selectedClass) return;
+    if (!this.selectedClass || !this.enrolledUser) return;
 
     this.isUpdatingClass = true;
     this.enrolledUser.classId = this.selectedClass;

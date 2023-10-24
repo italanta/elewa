@@ -123,13 +123,14 @@ export class UsersComponent implements OnInit, OnDestroy {
   
 
   removeItem(roles: string[]) {
-    let data  = ['access', 'principal'];
-    data.forEach((el) => {
-      let index = roles.indexOf(el);
-      if (index > -1) {
-        roles.splice(index, 1);
+    const data  = ['access', 'principal'];
+  
+    data.map((_el, idx) => {
+      if (idx > -1) {
+        roles.splice(idx, 1);
       }
     })
+
     return roles;
   }
 
