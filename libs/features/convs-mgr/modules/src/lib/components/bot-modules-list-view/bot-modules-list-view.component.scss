@@ -5,7 +5,6 @@
 
 table {
 	width: 100%;
-	background-color: var(--convs-mgr-color-primary-dark-blue);
 }
 
 .mdc-data-table__header-cell {
@@ -67,8 +66,6 @@ table {
 	}
 }
 
-
-
 .title-desc {
 	cursor: pointer;
 }
@@ -125,8 +122,4 @@ select::-ms-expand {
 /* Transition */
 .select:hover::after {
 	color: black;
-}
-
-:host ::ng-deep .mdc-data-table__cell{
-	color: white;
 }
