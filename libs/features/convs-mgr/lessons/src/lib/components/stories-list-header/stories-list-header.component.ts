@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
@@ -41,10 +41,10 @@ export class StoriesListHeaderComponent implements OnInit {
   dataSource = new MatTableDataSource<Story>();
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
-    ActionSortingOptions.Newest
+    ActionSortingOptions.Default
   );
 
-  sortCoursesBy = 'newest';
+  sortCoursesBy = ActionSortingOptions.Default;
 
   dataFound = true;
 
@@ -54,9 +54,7 @@ export class StoriesListHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this._sBs.sink = combineLatest(([this.stories$, this.sorting$$.asObservable()]))
-    .pipe(map(([stories, sort]) => 
-            __orderBy(stories,(a) => __DateFromStorage(a.createdOn as Date).unix(),
-            sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
+    .pipe(map(([stories, sort]) => this.orderStories(stories, sort)),
           map((stories) =>
             stories.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
@@ -66,6 +64,19 @@ export class StoriesListHeaderComponent implements OnInit {
           })).subscribe();
 
     this.configureFilter();
+  }
+
+  /** order stories */
+  orderStories(stories: Story[], sort?: string) {
+    if (sort !== 'default') {
+      return __orderBy(
+          stories,
+          (a) => __DateFromStorage(a.createdOn as Date).unix(), 
+          sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
+        )
+    } else {
+      return __orderBy(stories, (a) => a.name)
+    }
   }
 
   createBot() {

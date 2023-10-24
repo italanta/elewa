@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';

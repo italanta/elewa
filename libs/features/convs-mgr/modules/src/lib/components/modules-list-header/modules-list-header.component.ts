@@ -34,10 +34,10 @@ export class ModulesListHeaderComponent implements OnInit {
   filteredBotModules: BotModule[];
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
-    ActionSortingOptions.Newest
+    ActionSortingOptions.Default
   );
 
-  sortCoursesBy = 'newest';
+  sortCoursesBy = ActionSortingOptions.Default;
 
   dataFound = true;
   viewInListView = false;
@@ -50,9 +50,7 @@ export class ModulesListHeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this._sBs.sink = combineLatest(([this.botModules$, this.sorting$$.asObservable()]))
-    .pipe(map(([botModules, sort]) => 
-            __orderBy(botModules,(a) => __DateFromStorage(a.createdOn as Date).unix(),
-            sort === ActionSortingOptions.Newest ? 'desc' : 'asc')),
+    .pipe(map(([botModules, sort]) => this.orderBotModules(botModules, sort)),
           map((botModules) =>
             botModules.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
@@ -62,6 +60,19 @@ export class ModulesListHeaderComponent implements OnInit {
           })).subscribe();
 
     this.configureFilter();
+  }
+
+  /** order BotModules */
+  orderBotModules(botModules: BotModule[], sort?: string) {
+    if (sort !== 'default') {
+      return __orderBy(
+          botModules,
+          (a) => __DateFromStorage(a.createdOn as Date).unix(), 
+          sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
+        )
+    } else {
+      return __orderBy(botModules, (a) => a.name)
+    }
   }
 
   createBot() {

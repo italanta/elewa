@@ -21,7 +21,7 @@
       <div class="grid-list" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="1rem" fxFlex>
         <div class="select">
           <select [value]="sortCoursesBy" (change)="sortBy($event)">
-            <option value=""></option>
+            <option value="default">Default Order (A-Z)</option>
             <option value="newest">Date Created (Newest)</option>
             <option value="oldest">Date Created (Oldest)</option>
           </select>
