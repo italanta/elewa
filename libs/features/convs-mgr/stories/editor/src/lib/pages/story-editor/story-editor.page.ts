@@ -241,19 +241,22 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this.shownErrors = this.errors.slice(0,2)
   }
 
-  scrollTo(error: StoryError){
-    const block = this.state.blocks.find(obj => obj.id === error.blockId)
-    if(block){
-      const blockId = block.id as string;
-      this.scrollToBlock(blockId);
-    }
-    else if(error.blockId == this.state.story.id) {
-      this.scrollToBlock(error.blockId);
-    }
-    else if(error.blockId == 'story-end-anchor') {
-      this.scrollToBlock(error.blockId);
+  scrollTo(error: StoryError) {
+    switch (error.blockId) {
+      case 'story-end-anchor':
+      case this.state.story.id:
+        this.scrollToBlock(error.blockId);
+        break;
+  
+      default:
+        const block = this.state.blocks.find(obj => obj.id === error.blockId);
+        if (block) {
+          this.scrollToBlock(block.id as string);
+        }
+        break;
     }
   }
+  
   scrollToBlock(blockId: string) {
     const targetSection = document.getElementById(`${blockId}`);
     if(targetSection)
