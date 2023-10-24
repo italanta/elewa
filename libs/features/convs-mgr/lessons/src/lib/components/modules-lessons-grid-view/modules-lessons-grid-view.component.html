@@ -1,6 +1,6 @@
 <div class="grid">
-  <div class="bot-cards" [ngClass]="dataSource.data.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
-    <div class="story-card" *ngFor="let story of dataSource.data">
+  <div class="bot-cards" [ngClass]="stories.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
+    <div class="story-card" *ngFor="let story of stories">
       <div class="menu-btn">
         <button mat-button [matMenuTriggerFor]="menu">
           <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>

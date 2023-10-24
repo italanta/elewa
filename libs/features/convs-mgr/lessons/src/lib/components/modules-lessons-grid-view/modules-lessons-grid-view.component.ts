@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
@@ -22,11 +21,11 @@ import {
 })
 export class ModulesLessonsGridViewComponent {
   
-  dataSource: MatTableDataSource<Story>
+  stories: Story[]
 
   @Input()
-  set moduleLessonsData (value: MatTableDataSource<Story>) {
-    this.dataSource = value
+  set moduleLessonsData (value: Story[]) {
+    this.stories = value;
   }
 
   constructor(private _router$$: Router,

@@ -31,6 +31,7 @@ export class ModulesListHeaderComponent implements OnInit {
   activeBotId:string;
 
   dataSource = new MatTableDataSource<BotModule>();
+  filteredBotModules: BotModule[];
 
   sorting$$ = new BehaviorSubject<ActionSortingOptions>(
     ActionSortingOptions.Newest
@@ -55,7 +56,10 @@ export class ModulesListHeaderComponent implements OnInit {
           map((botModules) =>
             botModules.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
-          tap((botModules) => this.dataSource.data = botModules)).subscribe();
+          tap((botModules) => {
+            this.dataSource.data = botModules
+            this.filteredBotModules = botModules
+          })).subscribe();
 
     this.configureFilter();
   }
@@ -86,6 +90,7 @@ export class ModulesListHeaderComponent implements OnInit {
   searchTable(event: Event){
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
+    this.filteredBotModules = this.dataSource.filteredData;
     this.dataFound = (this.dataSource.filteredData.length > 0);
   }
 

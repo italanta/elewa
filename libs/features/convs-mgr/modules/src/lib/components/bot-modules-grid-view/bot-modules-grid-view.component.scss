@@ -13,7 +13,7 @@
 
 .botModule-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
   height: 200px;
   padding: 10px;
   background-color: #111441;

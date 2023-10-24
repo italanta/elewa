@@ -51,6 +51,6 @@
 
   <div class="content-section" *ngIf="dataFound">
     <app-modules-lessons-list-view *ngIf="viewInListView" [moduleLessonsData]="dataSource"></app-modules-lessons-list-view>
-    <app-modules-lessons-grid-view  *ngIf="!viewInListView" [moduleLessonsData]="dataSource"></app-modules-lessons-grid-view>
+    <app-modules-lessons-grid-view  *ngIf="!viewInListView" [moduleLessonsData]="filteredStories"></app-modules-lessons-grid-view>
   </div>
 </div>

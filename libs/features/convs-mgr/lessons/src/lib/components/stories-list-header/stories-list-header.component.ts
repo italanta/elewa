@@ -50,6 +50,8 @@ export class StoriesListHeaderComponent implements OnInit {
 
   viewInListView = false;
 
+  filteredStories: Story[];
+
   ngOnInit(): void {
     this._sBs.sink = combineLatest(([this.stories$, this.sorting$$.asObservable()]))
     .pipe(map(([stories, sort]) => 
@@ -58,7 +60,10 @@ export class StoriesListHeaderComponent implements OnInit {
           map((stories) =>
             stories.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
-          tap((stories) => this.dataSource.data = stories)).subscribe();
+          tap((stories) => {
+            this.dataSource.data = stories
+            this.filteredStories = stories
+          })).subscribe();
 
     this.configureFilter();
   }
@@ -89,6 +94,7 @@ export class StoriesListHeaderComponent implements OnInit {
   searchTable(event: Event){
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
+    this.filteredStories = this.dataSource.filteredData;
     this.dataFound = (this.dataSource.filteredData.length > 0);
   }
 

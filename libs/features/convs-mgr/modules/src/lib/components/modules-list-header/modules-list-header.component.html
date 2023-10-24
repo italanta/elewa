@@ -51,6 +51,6 @@
 
   <div class="content-section" *ngIf="dataFound">
     <app-bot-modules-list-view *ngIf="viewInListView" [botModulesData]="dataSource"></app-bot-modules-list-view>
-    <app-bot-modules-grid-view  *ngIf="!viewInListView" [botModulesData]="dataSource"></app-bot-modules-grid-view>
+    <app-bot-modules-grid-view  *ngIf="!viewInListView" [botModulesData]="filteredBotModules"></app-bot-modules-grid-view>
   </div>
 </div>

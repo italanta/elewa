@@ -14,7 +14,7 @@
 .story-card {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
   height: 200px;
   padding: 10px;
   padding-left: calc(1rem + 10px);

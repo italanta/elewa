@@ -22,11 +22,11 @@ import {
 })
 export class BotModulesGridViewComponent {
   
-  dataSource: MatTableDataSource<BotModule>;
+  botModules: BotModule[];
 
   @Input()
-  set botModulesData (value: MatTableDataSource<BotModule>) {
-    this.dataSource = value
+  set botModulesData (value: BotModule[]) {
+    this.botModules = value;
   }
 
   constructor(private _router$$: Router,
