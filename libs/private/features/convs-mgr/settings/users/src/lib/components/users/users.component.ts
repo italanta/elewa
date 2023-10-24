@@ -72,6 +72,13 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.buildSearchFormGroup();
     this.getOrg();    
     this.configureFilter();
+    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      if (typeof data[sortHeaderId] === 'string') {
+        return data[sortHeaderId].toLocaleLowerCase();
+      }
+    
+      return data[sortHeaderId];
+    };
   }
   
 
