@@ -21,6 +21,7 @@ body {
   fill: var(--connector-color-teal-blue);
   stroke-width: 1px;
   stroke: var(--connector-outline-color-blue);
+  z-index: -1000;
 }
 
 //connector
@@ -31,7 +32,7 @@ body {
 }
 
 .frame-connector {
-  z-index: -1;
+  z-index: 0;
 }
 
 .jtk-overlay {
@@ -42,7 +43,7 @@ body {
   cursor: pointer;
   position: relative;
   display: none;
-  z-index: 5;
+  // z-index: 5;
 }
 
 .jtk-overlay svg {
@@ -56,7 +57,7 @@ body {
 
 .jtk-hover {
   cursor: pointer;
-  z-index: 4;
+  // z-index: 4;
 }
 
 .jtk-hover+.jtk-overlay {
