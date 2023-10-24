@@ -7,7 +7,7 @@
     <div class="menu-items">
       <!-- courses -->
       <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse }} Course(s)</button>
+        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse }} Course(s) &nbsp; <i class="fas fa-caret-down"></i></button>
         <mat-menu #coursesMenu="matMenu">
           <button mat-menu-item (click)="selectActiveCourse('All')">All</button>
           <div *ngFor="let course of (courses$ | async)">
@@ -18,7 +18,7 @@
 
       <!-- classrooms -->
       <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom }} Classroom(s)</button>
+        <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom }} Classroom(s) &nbsp; <i class="fas fa-caret-down"></i></button>
         <mat-menu #classMenu="matMenu">
           <button mat-menu-item (click)="selectActiveClassroom('All')">All</button>
             <div *ngFor="let classroom of (classrooms$ | async)">
@@ -29,7 +29,7 @@
 
       <!-- periodical -->
       <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical }} {{'PAGE-CONTENT.ANALYTICS.PROGRESSION' | transloco }}</button>
+        <button class="item_btn" mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical }} {{'PAGE-CONTENT.ANALYTICS.PROGRESSION' | transloco }} &nbsp; <i class="fas fa-caret-down"></i></button>
         <mat-menu #periodicalMenu="matMenu">
           <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.MONTH' | transloco }}</button>
           <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'PAGE-CONTENT.ANALYTICS.PERIODICALS.WEEK' | transloco }}</button>
