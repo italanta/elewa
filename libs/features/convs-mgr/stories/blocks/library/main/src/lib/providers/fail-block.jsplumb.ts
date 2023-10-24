@@ -22,7 +22,7 @@ export function _FailBlockDecoratePlumb(block: FailBlock, comp: ComponentRef<Blo
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: [0, 0.2, 0, 1],
+    anchor: "Left",
     maxConnections: -1
   });
 

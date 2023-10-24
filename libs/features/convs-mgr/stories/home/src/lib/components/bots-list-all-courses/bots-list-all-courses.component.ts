@@ -56,6 +56,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
             bots.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
           tap((bots) => this.dataSource.data = bots.slice(0, 3))).subscribe();
+
+    this.configureFilter();
   }
 
   ngAfterViewInit() {
@@ -83,6 +85,16 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
         mode: DeleteElementsEnum.Bot, element: bot,
       }
     }).afterClosed();
+  }
+
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: Bot, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+      // Filtering using only specific columns
+      return data.name.toLowerCase().includes(filterText);
+    };
   }
 
   applyFilter(event: Event) {

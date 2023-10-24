@@ -29,8 +29,9 @@
 
         <div class="dropdown">
           <div class="select">
-            <select [(value)]="selectedClass">
+            <select [(value)]="selectedClass" (change)="filterTable($event,'class')">
               <option [value]="null" selected>All Classes</option>
+
               <option *ngFor="let class of allClasses" [value]="class">{{ class.className }}</option>
             </select>
           </div>
@@ -38,16 +39,17 @@
           <div class="select">
             <select>
               <option [value]="null" selected>All Courses</option>
-              <option *ngFor="let course of allCourses" [value]="course">{{ course }}</option>
+              <option *ngFor="let course of allCourses" [value]="course">{{ course.name }}</option>
             </select>
           </div>
 
-          <div class="select">
+          <!-- TODO Add status sort -->
+          <!-- <div class="select">
             <select>
               <option [value]="null" selected> All Status </option>
               <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
             </select>
-          </div>
+          </div> -->
 
           <div class="select">
             <select>
