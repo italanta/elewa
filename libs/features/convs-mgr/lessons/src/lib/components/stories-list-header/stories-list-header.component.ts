@@ -59,6 +59,8 @@ export class StoriesListHeaderComponent implements OnInit {
             stories.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
           tap((stories) => this.dataSource.data = stories)).subscribe();
+
+    this.configureFilter();
   }
 
   createBot() {
@@ -71,6 +73,17 @@ export class StoriesListHeaderComponent implements OnInit {
       minWidth: '600px',
       data: dialogData,
     });
+  }
+
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: Story, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+      // Filtering using only specific columns
+      return ((data.name as string).toLowerCase().includes(filterText) || 
+              (data.description as string).toLowerCase().includes(filterText));
+    };
   }
 
   searchTable(event: Event){
