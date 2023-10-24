@@ -75,7 +75,7 @@ export const iconsAndTitles: any = {
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
     icon: 'fas fa-exclamation-circle',
-    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg'
+    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg',
   },
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
@@ -84,6 +84,7 @@ export const iconsAndTitles: any = {
   50: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
     icon: 'fas fa-image',
+    svgIcon: 'assets/svgs/blocks/image-thin.svg',
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
@@ -108,17 +109,17 @@ export const iconsAndTitles: any = {
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
-    icon: 'fas fa-flag'
+    icon: 'fas fa-flag',
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
-    icon: 'fas fa-chart-bar'
+    icon: 'fas fa-chart-bar',
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
-    icon: 'fas fa-random'
+    icon: 'fas fa-random',
   },
-  34:{
+  34: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
     icon: 'fas fa-cube',
     svgIcon: 'assets/svgs/blocks/clarity_block-line.svg',
