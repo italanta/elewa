@@ -56,6 +56,8 @@ export class ModulesListHeaderComponent implements OnInit {
             botModules.map((b) => { 
               return { ...b, lastEdited: TIME_AGO(this.parseDate(b.updatedOn ? b.updatedOn : b.createdOn as Date)) }})),
           tap((botModules) => this.dataSource.data = botModules)).subscribe();
+
+    this.configureFilter();
   }
 
   createBot() {
@@ -68,6 +70,17 @@ export class ModulesListHeaderComponent implements OnInit {
       minWidth: '600px',
       data: dialogData,
     });
+  }
+
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: BotModule, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+      // Filtering using only specific columns
+      return ((data.name).toLowerCase().includes(filterText) || 
+              (data.description as string).toLowerCase().includes(filterText));
+    };
   }
 
   searchTable(event: Event){
