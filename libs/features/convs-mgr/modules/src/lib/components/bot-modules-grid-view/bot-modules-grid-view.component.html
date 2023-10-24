@@ -1,5 +1,5 @@
 <div class="grid">
-  <div class="bot-cards">
+  <div class="bot-cards" [ngClass]="dataSource.data.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
     <div class="botModule-card" *ngFor="let botModule of dataSource.data">
       <div class="menu-btn">
         <button mat-button [matMenuTriggerFor]="menu">
