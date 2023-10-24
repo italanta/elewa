@@ -3,7 +3,7 @@
 
 		<div [id]="stickerInputId" class="sticker_bg" [ngClass]="byPassedLimits.length ? 'error' : ''">
 			<div (click)="stickerInput.click()" class="sticker-icon" *ngIf="!this.block.fileSrc && !isLoadingSticker">
-				<i class="fas fa-plus"></i>
+				<img class="svg-icon" [src]="svgIcon" alt="">
 			</div>
 			<div *ngIf="isLoadingSticker" class="sticker-icon">
 				<i class="fas fa-circle-notch fa-spin"></i>

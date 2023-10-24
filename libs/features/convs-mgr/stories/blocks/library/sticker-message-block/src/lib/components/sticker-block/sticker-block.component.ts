@@ -7,6 +7,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
 import { StickerMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
 
 @Component({
   selector: 'app-sticker-block',
@@ -26,18 +27,24 @@ export class StickerBlockComponent implements OnInit, OnDestroy {
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
+  svgIcon = ""
   private _sBs = new SubSink();
 
   constructor(private _stickerUploadService: FileStorageService) {}
 
   ngOnInit(): void {
     this.stickerInputId = `stckr-${this.id}`;
+    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon
 
     const fileSize = this.stickerMessageForm.get('fileSize')?.value;
 
     if (fileSize) {
       this._checkSizeLimit(fileSize);
     }
+  }
+
+  getBlockIconAndTitle(type: number){
+    return iconsAndTitles[type]
   }
 
   async processSticker(event: any) {
