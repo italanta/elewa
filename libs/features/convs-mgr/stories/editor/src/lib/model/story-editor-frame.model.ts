@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { BehaviorSubject, filter } from 'rxjs';
+import { BehaviorSubject, debounceTime, filter } from 'rxjs';
 
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
@@ -43,7 +43,9 @@ export class StoryEditorFrame
   private _frameChanges$$: BehaviorSubject<StoryEditorState> = new BehaviorSubject({ loading: true } as any as StoryEditorState);
   /** Observable tracking the changes to frame state. Used in frontend rendering of the minimap, 
    *    which takes a screenshot at each state change. */
-  public frameChanges$ = this._frameChanges$$.pipe(filter((state: any) => !state.loading));
+  public frameChanges$ = this._frameChanges$$.pipe(
+                              filter((state: any) => !state.loading),
+                              debounceTime(500));
 
 
   constructor(private _fb: FormBuilder,
@@ -87,7 +89,7 @@ export class StoryEditorFrame
 
     this.drawBlocks();
 
-    await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
+    await new Promise((resolve) => setTimeout(() => resolve(true), 500)); // gives some time for drawing to end
 
     this.drawConnections();
 
@@ -95,13 +97,6 @@ export class StoryEditorFrame
     // this.scroll(this._edf.nativeElement)
 
     this._frameChanges$$.next(state);
-  }
-
-  scroll(el: HTMLElement) {
-    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
-    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
-    el.scrollTo({top:editorHeight,left:editorWidth});
-    // el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
   }
 
   get jsPlumbInstance(): BrowserJsPlumbInstance {
@@ -305,11 +300,11 @@ export class StoryEditorFrame
   /**
    * Set zoom level of the frame.
    * 
-   * @param zoom - Number between 0 and 200 that indicates the zoom
+   * @param zoom - Number between 0.25 and 1 that indicates the zoom
    */
-  public setZoom(zoom: number)
+  public setZoom(zoom: number, repaint = false)
   {
-    this._jsPlumb.setZoom(zoom);
+    this._jsPlumb.setZoom(zoom, repaint);
   }
 
 }
