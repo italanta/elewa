@@ -1,7 +1,7 @@
 import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
-import { newInstance as initJsPlumb } from '@jsplumb/browser-ui';
+import { ContainmentType, newInstance as initJsPlumb } from '@jsplumb/browser-ui';
 
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
 
@@ -27,7 +27,9 @@ export class StoryEditorInitialiserService
     // Initialise div as a _jsPlumb instance
     const _jsplumb = initJsPlumb({
       container,
-      
+      dragOptions:{
+        containment: ContainmentType.parent
+      }
       // paintStyle: { strokeWidth: 1 },
       // anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
     });
