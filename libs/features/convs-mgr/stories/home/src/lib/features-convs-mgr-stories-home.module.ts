@@ -16,8 +16,8 @@ import { StoryListItemComponent } from './components/story-list-item/story-list-
 import { BotsListHeaderComponent } from './components/bots-list-header/bots-list-header.component';
 import { BotsListAllCoursesComponent } from './components/bots-list-all-courses/bots-list-all-courses.component';
 import { BotsListLatestCoursesComponent } from './components/bots-list-latest-courses/bots-list-latest-courses.component';
-import { CoursesListComponent } from './components/courses-list/courses-list.component';
-import { CourseModuleItemComponent } from './components/course-module-item/course-module-item.component';
+import { CoursesListComponent } from './components/courses/courses-list/courses-list.component';
+import { CourseModuleItemComponent } from './components/courses/course-module-item/course-module-item.component';
 
 import { BotModulesListHeaderComponent } from './components/modules/modules-list-header/modules-list-header.component';
 import { BotModulesListViewComponent } from './components/modules/bot-modules-list-view/bot-modules-list-view.component';
