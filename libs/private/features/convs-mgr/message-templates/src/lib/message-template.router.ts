@@ -14,10 +14,10 @@ const MESSAGING_ROUTES: Route[] = [
     path: 'create',
     component: MessageTemplateCreateComponent,
   },
-  {
-    path: 'help', 
-    component: MessageTemplateHelpComponent, 
-  },
+  // {
+  //   path: 'help', 
+  //   component: MessageTemplateHelpComponent, 
+  // },
   {
     path: ':id', 
     component: MessageTemplateCreateComponent, 

@@ -58,7 +58,7 @@
         </td>
       </ng-container>
   
-      <ng-container matColumnDef="duplicate">
+      <!-- <ng-container matColumnDef="duplicate">
         <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="duplicate"
           sortActionDescription="{{'SURVEYS.ACCESSIBILITY.SORT-BY-CREATED' | transloco}}">
           {{'SURVEYS.TABLE-HEADER.DUPLICATE' | transloco}}</th>
@@ -67,7 +67,7 @@
             <i class="fas fa-copy" style="color: #000000;"></i>
           </button>
         </td>
-      </ng-container>
+      </ng-container> -->
   
       <ng-container matColumnDef="actions">
         <th class="table-header" mat-header-cell *matHeaderCellDef>
@@ -83,6 +83,8 @@
               transloco}} </button>
             <button mat-menu-item (click)="openDeleteModal(survey)"> {{'SURVEYS.BUTTON.DELETE' | transloco}}
             </button>
+            <!-- <button mat-menu-item > {{'SURVEYS.BUTTON.DUPLICATE-BUTTON' | transloco}}
+            </button> -->
           </mat-menu>
         </td>
       </ng-container>

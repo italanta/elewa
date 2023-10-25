@@ -8,8 +8,7 @@ import { Logger } from '@iote/bricks-angular';
 import { of } from 'rxjs'
 import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
-
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { Organisation } from '@app/model/organisation';
 import { ScheduledMessage } from '@app/model/convs-mgr/functions';

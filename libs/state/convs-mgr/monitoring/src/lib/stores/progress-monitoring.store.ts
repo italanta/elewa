@@ -10,7 +10,9 @@ import { tap, throttleTime, switchMap } from 'rxjs/operators';
 import { Logger } from '@iote/bricks-angular';
 
 import { Organisation } from '@app/model/organisation';
-import { ActiveOrgStore } from '@app/state/organisation';
+
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
+
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 @Injectable()
