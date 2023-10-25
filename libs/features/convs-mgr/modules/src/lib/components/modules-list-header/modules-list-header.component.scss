@@ -14,7 +14,7 @@
 
     .name {
       font-size: 2.5rem;
-      font-weight: 400;
+      font-weight: 300 !important;
       text-transform: capitalize;
     }
   }
@@ -76,7 +76,7 @@
 
   .sub-title {
     font-size: 1.5rem;
-    font-weight: 400;
+    font-weight: 300;
     padding: 20px 0px;
     margin: 20px 0;
   }
@@ -133,7 +133,7 @@ select::-ms-expand {
 }
 
 .view-active {
-	background-color: #101010!important;
+	background-color: var(--convs-mgr-color-primary-dark-blue)!important;
 	color: white!important;
 }
 

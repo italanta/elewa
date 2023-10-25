@@ -120,4 +120,8 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
     }
     return 0;
   }
+
+  openViewAllPage() {
+    this._router$$.navigateByUrl('/bots/view-all')
+  }
 }

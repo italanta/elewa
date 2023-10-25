@@ -35,8 +35,4 @@ export class StoriesDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.bots$ = this._botsServ$$.getBots();
   }
-
-  openViewAllPage() {
-    this._router$$.navigateByUrl('/bots/view-all')
-  }
 }
