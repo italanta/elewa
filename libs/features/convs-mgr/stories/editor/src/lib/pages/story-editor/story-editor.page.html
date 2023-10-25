@@ -51,8 +51,7 @@
             <mat-icon>zoom_out</mat-icon>
           </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100"
-            type="number">
+          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" [disabled]="true" type="number" />
 
           <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
             <mat-icon>zoom_in</mat-icon>
@@ -78,8 +77,11 @@
 
       <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100"
-          #storyEditorFrame>
+      <convl-story-editor-frame fxFlex="100"
+              (frameLoaded)="onFrameViewLoaded($event)"
+              (zoomed)="setZoom($event * 100, true)"
+        
+          #storyEditorFrame> 
       </convl-story-editor-frame>
       
     </div>

@@ -62,7 +62,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved = false;
 
-  zoomLevel: FormControl = new FormControl(100);
+  zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
@@ -107,11 +107,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
           this.opened = true;
         }
       });
-
-      this._sb.sink =
-        this.zoomLevel.valueChanges.subscribe((val) => {
-          this.setZoom(val);
-        });
     }
 
   /**
