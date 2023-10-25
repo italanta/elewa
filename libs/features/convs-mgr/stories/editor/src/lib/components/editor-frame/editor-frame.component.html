@@ -1,11 +1,8 @@
 <div id="frame-bg"
-     class="frame-bg" fxLayout="column" fxLayoutALign="start"
-     convlPinchZoom
-     (pinch$)="onPinch($event)">
+     class="frame-bg" fxLayout="column" fxLayoutALign="start">
 
   <div convlTrackCursor
-      (scrolled)="onScroll()"
-      #editor id="editor-frame" style="position: relative" fxFlex="95">
+      #editor id="editor-frame">
     <ng-template id="viewport" #viewport></ng-template>
   </div>
   
@@ -14,3 +11,6 @@
 <convl-story-editor-minimap [editorContainer]="editorVC" 
                             [frameState$]="frameState$">
 </convl-story-editor-minimap>
+
+<!-- convlPinchZoom
+     (pinch$)="onPinch($event)" -->
