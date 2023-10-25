@@ -77,7 +77,7 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
   // SECTION - ZOOM
 
   onPinch(level:number){
-    return level > 0 ? this.increaseFrameZoom() : this.decreaseFrameZoom();
+    return level < 0 ? this.increaseFrameZoom() : this.decreaseFrameZoom();
   }
 
   /** Increase the frame zoom size */
@@ -119,8 +119,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     this._frame.setZoom(this._zoom);
 
     // Apply bounding box transformations
-    this.frameWidth = STORY_EDITOR_WIDTH * this._zoom;
-    this.frameHeight = STORY_EDITOR_HEIGHT * this._zoom;
+    // this.frameWidth = STORY_EDITOR_WIDTH * this._zoom;
+    // this.frameHeight = STORY_EDITOR_HEIGHT * this._zoom;
   }
 
   // SECTION - CLEANUP
