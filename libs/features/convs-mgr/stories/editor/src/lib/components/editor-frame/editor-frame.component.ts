@@ -16,32 +16,49 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
 {
   private _sbS = new SubSink();
 
-  @ViewChild('editor') editorVC: ElementRef<HTMLElement>;
-  @ViewChild('viewport', { read: ViewContainerRef, static: true }) viewport: ViewContainerRef;
+  @ViewChild('editor')   editorVC: ElementRef<HTMLElement>;
+  @ViewChild('viewport') viewport: ElementRef<HTMLElement>;
+  @ViewChild('draw', { read: ViewContainerRef, static: true }) drawArea: ViewContainerRef;
 
   @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
-  @Output()pinchZoom = new EventEmitter<number>();
+  @Output() pinchZoom = new EventEmitter<number>();
 
-  private _frameState$ = new BehaviorSubject<StoryEditorState>(null as any as StoryEditorState);
-  public frameState$: Observable<StoryEditorState> = this._frameState$.pipe(filter(f => !!f));
+  private _viewportBounds$$ = new BehaviorSubject<DOMRect>(null as any as DOMRect);
+  /** Observable bounding box of the viewport */
+  public viewportBounds$: Observable<DOMRect> = this._viewportBounds$$.pipe(filter(f => !!f));
+
+  private _frameState$$ = new BehaviorSubject<StoryEditorState>(null as any as StoryEditorState);
+  public frameState$: Observable<StoryEditorState> = this._frameState$$.pipe(filter(f => !!f));
 
   constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
 
 
   ngAfterViewInit() {
-    const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.viewport);
+    const frame = this._frameInitialiser.initialiseEditor(this.editorVC, this.drawArea);
 
     // Transfer listener for frame state changes.
     //    This transfer is necessary as the listener is initialised async and 
     //      can thus be null in the child components in case they render too fast.
     this._sbS.sink =
-      frame.frameChanges$.subscribe(f => f && this._frameState$.next(f));
+      frame.frameChanges$.subscribe(f => f && this._frameState$$.next(f));
 
     this.frameLoaded.emit(frame);
   }
 
+  viewPortScrolled(): void 
+  { 
+    const editorPosition     = this.editorVC.nativeElement.getBoundingClientRect();
+    const viewportDimensions = this.viewport.nativeElement.getBoundingClientRect();
+  
+    const viewportBounds = {
+      x: viewportDimensions.x - editorPosition.x,
+      y: viewportDimensions.y - editorPosition.y,
+      width: viewportDimensions.width,
+      height: viewportDimensions.height
+    } as DOMRect;
 
-  onScroll(): void { }
+    this._viewportBounds$$.next(viewportBounds);
+  }
 
   onPinch(level:number){
     this.pinchZoom.emit(level)

@@ -1,3 +1,13 @@
-<div id="minimap" [style.background-image]="'url(' + backgroundImg + ')'">
+<div id="minimap" *ngIf="backgroundImg" 
+  [style.background-image]="backgroundImg">
+
+  <div class="minimap-viewport-holder">
+
+    <div id="viewport" *ngIf="viewport"
+         [ngStyle]="getPosition()">
+    </div>
+ 
+  </div>
 
 </div>
+
