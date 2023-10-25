@@ -21,12 +21,7 @@ import {
 })
 export class ModulesLessonsGridViewComponent {
   
-  stories: Story[]
-
-  @Input()
-  set moduleLessonsData (value: Story[]) {
-    this.stories = value;
-  }
+  @Input() stories: Story[] = [];
 
   constructor(private _router$$: Router,
               private _dialog: MatDialog

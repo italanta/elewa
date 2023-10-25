@@ -1,20 +1,20 @@
 <div class="header">
-  <div class="lessons-title">
+  <div class="modules-title">
     <span class="tooltip"></span>
-    <span class="name" >{{ (parentBotModule$ | async)?.name }} </span>
+    <span class="name" >{{ (parentBot$ | async)?.name }} </span>
   </div>
 
-  <div class="lessons-btn">
+  <div class="modules-btn">
     <button class="btn" (click)="createBot()">
       <img class="add-icon" src="assets\svgs\carbon-add-filled.svg" alt="add icon">
-      <span class="btn-text">Create Lesson</span>
+      <span class="btn-text">Create Module</span>
     </button>
   </div>
 
-  <div class="lessons-search">
+  <div class="modules-search">
     <div class="search-wrapper">
       <i class="fa-solid fa-magnifying-glass search-tooltip"></i>
-      <input class="search-input" placeholder="search lesson" type="search" (keyup)="searchTable($event)" name="" id="">
+      <input class="search-input" placeholder="search module" type="search" (keyup)="searchTable($event)" name="" id="">
     </div>
 
     <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
@@ -44,13 +44,13 @@
       <div class="create-assessments" (click)="createBot()" fxLayout="row" fxLayout="center center">
         <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
           <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-          <p>Add Lesson</p>
+          <p> Add Module</p>
         </div>
       </div>
   </div>
 
   <div class="content-section" *ngIf="dataFound">
-    <app-modules-lessons-list-view *ngIf="viewInListView" [moduleLessonsData]="dataSource"></app-modules-lessons-list-view>
-    <app-modules-lessons-grid-view  *ngIf="!viewInListView" [moduleLessonsData]="filteredStories"></app-modules-lessons-grid-view>
+    <italanta-apps-bot-modules-list-view *ngIf="viewInListView" [botModulesData]="dataSource"></italanta-apps-bot-modules-list-view>
+    <italanta-apps-bot-modules-grid-view  *ngIf="!viewInListView" [botModules]="filteredBotModules"></italanta-apps-bot-modules-grid-view>
   </div>
 </div>
