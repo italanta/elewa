@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, filter } from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, filter } from 'rxjs';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
@@ -22,7 +22,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
   @ViewChild('draw', { read: ViewContainerRef, static: true }) drawArea: ViewContainerRef;
 
   @Output() frameLoaded = new EventEmitter<StoryEditorFrame>;
-  @Output() pinchZoom = new EventEmitter<number>();
+  @Output() zoomed = new EventEmitter<number>();
+
 
   private _viewportBounds$$ = new BehaviorSubject<DOMRect>(null as any as DOMRect);
   /** Observable bounding box of the viewport */
@@ -37,6 +38,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
   private _frameState$$ = new BehaviorSubject<StoryEditorState>(null as any as StoryEditorState);
   public frameState$: Observable<StoryEditorState> = this._frameState$$.pipe(filter(f => !!f));
 
+  loading = true;
+
   constructor(private _frameInitialiser: StoryEditorInitialiserService) { }
 
 
@@ -46,19 +49,26 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     // Transfer listener for frame state changes.
     //    This transfer is necessary as the listener is initialised async and 
     //      can thus be null in the child components in case they render too fast.
+    // Debounce 1 second for performance issues
     this._sbS.sink =
-      this._frame.frameChanges$.subscribe(f => 
+      this._frame.frameChanges$
+          .pipe(debounceTime(1000))
+          .subscribe(f => 
       {
         if(f) 
           this._frameState$$.next(f);
 
-        this.viewPortScrolled(null);
+        this.viewPortScrolled();
+        
+        // Release loading state after 1 second cooldown to avoid loading delays
+        if(this.loading) setTimeout(() => this.loading = false, 1000);
       });
 
-    this.frameLoaded.emit(this._frame); 
+    this.frameLoaded.emit(this._frame);
+    this._applyZoom();
   }
 
-  viewPortScrolled(event: any): void 
+  viewPortScrolled(): void 
   { 
     const editorPosition     = this.editorVC.nativeElement.getBoundingClientRect();
     const viewportDimensions = this.viewport.nativeElement.getBoundingClientRect();
@@ -112,7 +122,7 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     return this._zoom;
   }
 
-  private _applyZoom()
+  private _applyZoom(repaint = false)
   {
     // this.viewport.nativeElement.style.transform = `scale(${this._zoom})`;
     this.editorVC.nativeElement.style.transform = `scale(${this._zoom})`;
@@ -121,6 +131,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     // Apply bounding box transformations
     // this.frameWidth = STORY_EDITOR_WIDTH * this._zoom;
     // this.frameHeight = STORY_EDITOR_HEIGHT * this._zoom;
+
+    this.zoomed.emit(this._zoom);
   }
 
   // SECTION - CLEANUP
