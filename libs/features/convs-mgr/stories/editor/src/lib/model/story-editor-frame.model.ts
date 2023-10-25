@@ -35,6 +35,8 @@ export class StoryEditorFrame
   private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
 
+  private _zoom: number;
+
   blocksArray: FormArray;
   
   
@@ -297,4 +299,17 @@ export class StoryEditorFrame
   private _getID() {
     return uuidv4().slice(0, 8);
   }
+
+  // Section -- Zoom management
+
+  /**
+   * Set zoom level of the frame.
+   * 
+   * @param zoom - Number between 0 and 200 that indicates the zoom
+   */
+  public setZoom(zoom: number)
+  {
+    this._jsPlumb.setZoom(zoom);
+  }
+
 }

@@ -1,21 +1,24 @@
-import { clamp } from 'lodash';
 import { Directive, HostListener, Input, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
 
+import { Subject } from 'rxjs';
+import { clamp } from 'lodash';
 
 @Directive({
   selector: '[convlPinchZoom]',
 })
-export class PinchZoomDirective implements OnInit {
+export class PinchZoomDirective implements OnInit 
+{
   @Input() scaleFactor = 0.03;
   @Input() zoomThreshold = 2;
   @Input() initialZoom = 1;
   @Input() debounceTime = 100; // in ms
   scale: number;
   @Output() pinch$: Subject<number> = new Subject<number>();
+
   ngOnInit(): void {
     this.scale = this.initialZoom;
   }
+
   @HostListener('wheel', ['$event'])
   onWheel($event: WheelEvent) {
     if (!$event.ctrlKey) return;
@@ -24,6 +27,7 @@ export class PinchZoomDirective implements OnInit {
     scale = clamp(scale, 0.5, this.zoomThreshold);
     this.calculatePinch(scale);
   }
+  
   calculatePinch(scale: number) {
     this.scale = scale;
     this.pinch$.next(this.scale);
