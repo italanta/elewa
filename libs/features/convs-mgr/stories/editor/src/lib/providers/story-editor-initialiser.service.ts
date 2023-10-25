@@ -10,14 +10,17 @@ import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-conn
 import { StoryEditorFrame } from '../model/story-editor-frame.model';
 
 @Injectable()
-export class StoryEditorInitialiserService {
+export class StoryEditorInitialiserService
+{
+  
   constructor(private _fb: FormBuilder,
-    private _blocksInjector: BlockInjectorService,
-    private _connectionsService: BlockConnectionsService
-  ) { }
+              private _blocksInjector: BlockInjectorService,
+              private _connectionsService: BlockConnectionsService) 
+  { }
 
   initialiseEditor(editorContainer: ElementRef<HTMLElement>,
-    viewport: ViewContainerRef) {
+                   viewport: ViewContainerRef) 
+  {
     // Get inner HTML element from reference
     const container = editorContainer.nativeElement;
 

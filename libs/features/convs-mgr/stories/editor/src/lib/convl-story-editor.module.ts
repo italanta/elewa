@@ -32,6 +32,7 @@ import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
 
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
+import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
 
 
 
@@ -56,6 +57,7 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     PinchZoomDirective,
     TrackCursorDirective,
     BlockCategoryPipe,
+    StoryEditorMiniMapComponent
   ],
 
   providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],

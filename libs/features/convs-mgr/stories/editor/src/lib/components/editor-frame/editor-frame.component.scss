@@ -1,9 +1,15 @@
-#editor-frame {
-  min-height: 20000px!important;
-  min-width: 20000px!important;
-  overflow-y: scroll!important;
-  overflow-x: scroll!important;
+#frame-bg {
+  height: 100%;
+  width: 100%;
 }
+
+  #editor-frame {
+    min-height: 200000px!important;
+    min-width: 200000px!important;
+    overflow-y: scroll!important;
+    overflow-x: scroll!important;
+  }
+
 .spinner{
   background-color: white;
   min-height: 2000px!important;

@@ -48,6 +48,7 @@
     "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
     "firebase-tools": "^11.19.0",
+    "html2canvas": "^1.4.1",
     "lodash": "^4.17.21",
     "mat-select-filter": "^2.4.1",
     "mime-types": "^2.1.35",
