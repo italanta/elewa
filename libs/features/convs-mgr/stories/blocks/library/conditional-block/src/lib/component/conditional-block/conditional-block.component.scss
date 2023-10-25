@@ -19,8 +19,8 @@ input[type='text'] {
 
 .add-button {
   width: 95%;
-  background-color: #f3f3f3;
-  color: #939393;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--textarea-outline-color);
   border-radius: 0.7rem;
   justify-content: flex-start;
   margin: 0px 5px;
@@ -42,7 +42,7 @@ input[type='text'] {
   display: grid;
   padding: 0.313rem;
   margin-top: 0.625rem;
-  color: #939393;
+  color: var(--textarea-outline-color);
   font-weight: 300;
   position: relative;
 
@@ -51,18 +51,18 @@ input[type='text'] {
     font-weight: 300;
 
     .select {
-      background-color: #f3f3f3;
+      background-color: var(--convs-mgr-placeholder-color);
       border: none;
       appearance: none;
       width: 100%;
       padding: 0.625rem;
       border-radius: 0.7rem;
-      color: #939393;
+      color: var(--textarea-outline-color);
       outline: none;
 
       .assess-label {
         font-weight: 300;
-        background-color: #f3f3f3;
+        background-color: var(--convs-mgr-placeholder-color);
       }
     }
     .select-icon {
@@ -87,7 +87,7 @@ input[type='text'] {
     input{
       border-radius: 0.7rem;
       border: none;
-      background-color: #f3f3f3;
+      background-color: var(--convs-mgr-placeholder-color);
       outline: none;
       font-weight: 300;
     }
@@ -107,31 +107,15 @@ input[type='text'] {
     .checkbox-select {
 
       .square-checkbox input[type='checkbox'] {
-        border: 1px solid #939393;
-        appearance: none;
+        border: 1px solid var(--convs-mgr-color-medium-shade);
         width: 0.875rem;
         height: 0.875rem;
-        border-radius: 0;
+        border-radius: none;
         outline: none;
         position: absolute;
         top: 40%;
         cursor: pointer;
-      }
-
-      .square-checkbox label::before {
-        content: '\2713';
-        color: #939393;
-        display: none;
-        position: absolute;
-        top: 48%;
-        left: 8.5%;
-        transform: translate(-50%, -50%);
-        font-size: 1.125rem;
-      }
-
-      .square-checkbox input[type='checkbox']:checked + label::before{
-        display: block;
-        position: absolute;
+        accent-color: var(--convs-mgr-color-medium-shade);
       }
     }
 
@@ -139,7 +123,7 @@ input[type='text'] {
       font-weight: 300;
       font-size: 0.9rem;
       margin-left: 0.625rem;
-      color: #939393;
+      color: var(--textarea-outline-color);
     }
   }
 
