@@ -6,11 +6,7 @@ import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import { StoriesListHeaderComponent } from './components/stories-list-header/stories-list-header.component';
-
 import { ConvsMgrLessonsRouterModule } from './lesson.routing';
-import { ModulesLessonsListViewComponent } from './components/modules-lessons-list-view/modules-lessons-list-view.component';
-import { ModulesLessonsGridViewComponent } from './components/modules-lessons-grid-view/modules-lessons-grid-view.component';
 
 @NgModule({
   imports: [
@@ -21,12 +17,7 @@ import { ModulesLessonsGridViewComponent } from './components/modules-lessons-gr
     MaterialDesignModule,
     ConvsMgrLessonsRouterModule,
   ],
-  declarations: [
-    StoriesListHeaderComponent,
-    ModulesLessonsListViewComponent,
-    ModulesLessonsGridViewComponent,
-  ],
-  exports: [StoriesListHeaderComponent],
+  declarations: []
 })
 
 // a story is a lesson

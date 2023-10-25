@@ -1,29 +1,29 @@
-<div class="grid">
-  <div class="bot-cards" [ngClass]="stories.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
-    <div class="story-card" *ngFor="let story of stories">
+<div class="grid" *ngIf="botModules">
+  <div class="bot-cards" [ngClass]="botModules.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
+    <div class="botModule-card" *ngFor="let botModule of botModules">
       <div class="menu-btn">
         <button mat-button [matMenuTriggerFor]="menu">
           <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
         </button>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openLesson(story.id!)" > Open</button>
-          <button mat-menu-item (click)="editLesson(story)" > Edit </button>
-          <button mat-menu-item (click)="deleteLesson(story)"> {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
+          <button mat-menu-item (click)="openBot(botModule.id!)" > Open</button>
+          <button mat-menu-item (click)="editBot(botModule)" > Edit </button>
+          <button mat-menu-item (click)="deleteBot(botModule)"> {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
           </button>
         </mat-menu>
       </div>
 
       <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
         <span class="name">
-          {{ story.name }}
+          {{ botModule.name }}
         </span>
       </div>
 
       <div class="card-footer" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
-        <span> OPEN LESSON </span>
+        <span> OPEN MODULE </span>
 
-        <button mat-fab color="primary" (click)="openLesson(story.id!)">
+        <button mat-fab color="primary" (click)="openBot(botModule.id!)">
           <i class="fa-solid fa-arrow-right tooltip"></i>
         </button>
       </div>

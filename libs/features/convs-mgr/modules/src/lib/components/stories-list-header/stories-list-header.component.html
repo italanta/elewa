@@ -1,20 +1,20 @@
 <div class="header">
-  <div class="modules-title">
+  <div class="lessons-title">
     <span class="tooltip"></span>
-    <span class="name" >{{ (parentBot$ | async)?.name }} </span>
+    <span class="name" >{{ (parentBotModule$ | async)?.name }} </span>
   </div>
 
-  <div class="modules-btn">
+  <div class="lessons-btn">
     <button class="btn" (click)="createBot()">
       <img class="add-icon" src="assets\svgs\carbon-add-filled.svg" alt="add icon">
-      <span class="btn-text">Create Module</span>
+      <span class="btn-text">Create Lesson</span>
     </button>
   </div>
 
-  <div class="modules-search">
+  <div class="lessons-search">
     <div class="search-wrapper">
       <i class="fa-solid fa-magnifying-glass search-tooltip"></i>
-      <input class="search-input" placeholder="search module" type="search" (keyup)="searchTable($event)" name="" id="">
+      <input class="search-input" placeholder="search lesson" type="search" (keyup)="searchTable($event)" name="" id="">
     </div>
 
     <div class="sort-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem" fxFlex>
@@ -44,13 +44,13 @@
       <div class="create-assessments" (click)="createBot()" fxLayout="row" fxLayout="center center">
         <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
           <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-          <p> Add Module</p>
+          <p>Add Lesson</p>
         </div>
       </div>
   </div>
 
   <div class="content-section" *ngIf="dataFound">
-    <app-bot-modules-list-view *ngIf="viewInListView" [botModulesData]="dataSource"></app-bot-modules-list-view>
-    <app-bot-modules-grid-view  *ngIf="!viewInListView" [botModulesData]="filteredBotModules"></app-bot-modules-grid-view>
+    <app-modules-lessons-list-view *ngIf="viewInListView" [moduleLessonsData]="dataSource"></app-modules-lessons-list-view>
+    <app-modules-lessons-grid-view  *ngIf="!viewInListView" [stories]="filteredStories"></app-modules-lessons-grid-view>
   </div>
 </div>

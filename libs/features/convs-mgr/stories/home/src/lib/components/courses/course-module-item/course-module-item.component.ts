@@ -7,9 +7,9 @@ import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
-import { DeleteElementsEnum } from '../../model/delete-element.enum';
-import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
-import { CreateLessonModalComponent } from '../../modals/create-lesson-modal/create-lesson-modal.component';
+import { DeleteElementsEnum } from '../../../model/delete-element.enum';
+import { DeleteBotModalComponent } from '../../../modals/delete-bot-modal/delete-bot-modal.component';
+import { CreateLessonModalComponent } from '../../../modals/create-lesson-modal/create-lesson-modal.component';
 
 
 @Component({
