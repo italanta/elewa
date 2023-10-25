@@ -1,17 +1,19 @@
 #viewport {
   height: 100%;
   width: 100%;
-  overflow: auto;
+  overflow: auto;  
 
-  background-color: white;
-  background: papayawhip;
-  background-image: url(^/assets/bg/pattern-bg.png);
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: darkgray;
 }
 
   // Make sure the values here are the same as defined in ../../utils/frame-size.ts !
   #editor-frame {
-    min-width : 5000px!important;
-    min-height:  3750px!important;
+    min-width:  5000px;
+    min-height: 3750px;  
+
+    background-image: url(^/assets/bg/dot-bg.jpg);
+    background-repeat: repeat;
+
+    -webkit-box-shadow: 0px 0px 5px 0px #888; 
+    box-shadow: 0px 0px 5px 0px #888;
   }

@@ -1,12 +1,15 @@
 <!-- Viewport, what the user is seeing -->
-<div id="viewport"class="frame-bg" fxLayout="column" fxLayoutALign="start"
+<div id="viewport" class="frame-bg" fxLayout="column" fxLayoutALign="start"
      #viewport
-     (scroll)="viewPortScrolled()">
+     (scroll)="viewPortScrolled($event)"
+     (window:resize)="viewPortScrolled(null)"
+     
+     convlPinchZoom
+    (pinch$)="onPinch($event)" >
 
   <!-- Full frame, the total area on which a user can draw. -->
   <div convlTrackCursor
-      #editor id="editor-frame"
-      >
+      #editor id="editor-frame">
     <ng-template id="draw" #draw></ng-template>
   </div>
   
@@ -16,6 +19,3 @@
                             [frameState$]="frameState$"
                             [viewport$]="viewportBounds$">
 </convl-story-editor-minimap>
-
-<!-- convlPinchZoom
-     (pinch$)="onPinch($event)" -->
