@@ -12,12 +12,12 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ActionSortingOptions, CreateLessonModalComponent } from '@app/features/convs-mgr/stories/home';
-import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
 @Component({
   selector: 'app-stories-list-header',

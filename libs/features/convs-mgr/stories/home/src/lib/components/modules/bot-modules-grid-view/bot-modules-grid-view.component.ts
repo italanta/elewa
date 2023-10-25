@@ -21,12 +21,7 @@ import {
 })
 export class BotModulesGridViewComponent {
   
-  botModules: BotModule[] = [];
-
-  @Input()
-  set botModulesData (value: BotModule[]) {
-    if (value) this.botModules = value;
-  }
+  @Input() botModules: BotModule[] = [];
 
   constructor(private _router$$: Router,
               private _dialog: MatDialog

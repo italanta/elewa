@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid" *ngIf="botModules">
   <div class="bot-cards" [ngClass]="botModules.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
     <div class="botModule-card" *ngFor="let botModule of botModules">
       <div class="menu-btn">

@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-import { CreateLessonModalComponent } from '../../modals/create-lesson-modal/create-lesson-modal.component';
-import { Course } from '../../model/courses.interface';
+import { CreateLessonModalComponent } from '../../../modals/create-lesson-modal/create-lesson-modal.component';
+import { Course } from '../../../model/courses.interface';
 
 @Component({
   selector: 'italanta-apps-courses-list',

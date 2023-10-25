@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -19,22 +19,13 @@ import {
   templateUrl: './modules-lessons-grid-view.component.html',
   styleUrls: ['./modules-lessons-grid-view.component.scss'],
 })
-export class ModulesLessonsGridViewComponent implements OnInit {
+export class ModulesLessonsGridViewComponent {
   
-  stories: Story[] = [];
-
-  @Input()
-  set moduleLessonsData (value: Story[]) {
-    if (value) this.stories = value;
-  }
+  @Input() stories: Story[] = [];
 
   constructor(private _router$$: Router,
               private _dialog: MatDialog
   ) {}
-
-  ngOnInit() {
-    console.log({'stories': this.stories});
-  }
 
   openLesson(id: string) {
     this._router$$.navigate(['stories', id]);
