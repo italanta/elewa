@@ -21,11 +21,11 @@ import {
 })
 export class BotModulesGridViewComponent {
   
-  botModules: BotModule[];
+  botModules: BotModule[] = [];
 
   @Input()
   set botModulesData (value: BotModule[]) {
-    this.botModules = value;
+    if (value) this.botModules = value;
   }
 
   constructor(private _router$$: Router,
