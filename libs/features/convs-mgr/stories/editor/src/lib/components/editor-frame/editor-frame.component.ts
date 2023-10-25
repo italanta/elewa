@@ -40,9 +40,17 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     //    This transfer is necessary as the listener is initialised async and 
     //      can thus be null in the child components in case they render too fast.
     this._sbS.sink =
-      frame.frameChanges$.subscribe(f => f && this._frameState$$.next(f));
+      frame.frameChanges$.subscribe(f => 
+      {
+        if(f) 
+          this._frameState$$.next(f);
+
+        this.viewPortScrolled();
+      });
 
     this.frameLoaded.emit(frame);
+
+    
   }
 
   viewPortScrolled(): void 
