@@ -283,12 +283,12 @@ export class BlockComponent implements OnInit {
   highLight() {
     const endpoint = document.querySelector('.jtk-endpoint');
     const comp = document.getElementById(this.id) as HTMLElement
-    this._renderer.setStyle(comp, 'z-index', '2')
+    this._renderer.setStyle(comp, 'z-index', '1')
   }
 
   removeHighlight(){
     const comp = document.getElementById(this.id) as HTMLElement
-    this._renderer.setStyle(comp, 'z-index', '1')
+    this._renderer.setStyle(comp, 'z-index', '0')
   }
   /**
    * Track and update coordinates of block and update them in data model.
