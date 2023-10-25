@@ -19,7 +19,7 @@ import {
 
 
 @Component({
-  selector: 'app-bot-modules-list-view',
+  selector: 'italanta-apps-bot-modules-list-view',
   templateUrl: './bot-modules-list-view.component.html',
   styleUrls: ['./bot-modules-list-view.component.scss'],
 })

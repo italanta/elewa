@@ -19,6 +19,10 @@ import { BotsListLatestCoursesComponent } from './components/bots-list-latest-co
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
 import { CourseModuleItemComponent } from './components/course-module-item/course-module-item.component';
 
+import { BotModulesListHeaderComponent } from './components/modules/modules-list-header/modules-list-header.component';
+import { BotModulesListViewComponent } from './components/modules/bot-modules-list-view/bot-modules-list-view.component';
+import { BotModulesGridViewComponent } from './components/modules/bot-modules-grid-view/bot-modules-grid-view.component';
+
 import { BotPageComponent } from './pages/bot-page/bot-page.component';
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
 import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/courses-view-all-page.component';
@@ -64,6 +68,9 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     CoursesListComponent,
     CourseModuleItemComponent,
     FilterCoursePipe,
+    BotModulesGridViewComponent,
+    BotModulesListViewComponent,
+    BotModulesListHeaderComponent
   ],
 })
 export class ConvsMgrStoriesHomeModule {}
