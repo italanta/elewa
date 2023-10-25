@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 import { Observable, debounceTime } from 'rxjs';
 import html2canvas from 'html2canvas';
@@ -24,7 +24,7 @@ export class StoryEditorMiniMapComponent implements OnInit //implements OnDestro
   /** Representation of the viewport within the larger editor frame */
   viewport: DOMRect;
 
-  constructor(private _cd: ChangeDetectorRef) { }
+  constructor() { }
 
   ngOnInit() 
   {
@@ -37,8 +37,6 @@ export class StoryEditorMiniMapComponent implements OnInit //implements OnDestro
       // Take a screenshot of the frame div to use as background of the mini map.
       const viewpaneImg = await html2canvas(el, { useCORS: true, height: STORY_EDITOR_HEIGHT, width: STORY_EDITOR_WIDTH });
       this.backgroundImg = `url(${viewpaneImg.toDataURL('image/png')}`;
-
-      this._cd.detectChanges();
     });
 
     // Listen to viewport changes.
@@ -56,9 +54,6 @@ export class StoryEditorMiniMapComponent implements OnInit //implements OnDestro
         width: width/MINI_MAP_FACTOR,
         height: height/MINI_MAP_FACTOR
       } as DOMRect;
-      
-      console.log(this.viewport);
-      this._cd.detectChanges();
     });
   }
 
