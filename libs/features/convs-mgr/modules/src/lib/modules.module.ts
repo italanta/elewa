@@ -8,6 +8,10 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { ModulePageComponent } from './pages/module-page/module-page.component';
 
+import { StoriesListHeaderComponent } from './components/stories-list-header/stories-list-header.component';
+import { ModulesLessonsListViewComponent } from './components/modules-lessons-list-view/modules-lessons-list-view.component';
+import { ModulesLessonsGridViewComponent } from './components/modules-lessons-grid-view/modules-lessons-grid-view.component';
+
 import { ConvsMgrModulesRouterModule } from './modules.routing';
 
 @NgModule({
@@ -20,7 +24,10 @@ import { ConvsMgrModulesRouterModule } from './modules.routing';
     ConvsMgrModulesRouterModule,
   ],
   declarations: [
-    ModulePageComponent
+    ModulePageComponent,
+    StoriesListHeaderComponent,
+    ModulesLessonsGridViewComponent,
+    ModulesLessonsListViewComponent
   ]
 })
 export class ConvsMgrModulesModule {}
