@@ -6,16 +6,13 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { FlexLayoutModule, MaterialDesignModule } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ConvsMgrModulesModule } from '@app/features/convs-mgr/modules';
-
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
 import { ChatsRouterModule } from '@app/features/convs-mgr/conversations/chats';
 
-import { StoryListItemComponent } from './components/story-list-item/story-list-item.component';
-import { BotsListHeaderComponent } from './components/bots-list-header/bots-list-header.component';
-import { BotsListAllCoursesComponent } from './components/bots-list-all-courses/bots-list-all-courses.component';
-import { BotsListLatestCoursesComponent } from './components/bots-list-latest-courses/bots-list-latest-courses.component';
+import { BotsListHeaderComponent } from './components/bots/bots-list-header/bots-list-header.component';
+import { BotsListAllCoursesComponent } from './components/bots/bots-list-all-courses/bots-list-all-courses.component';
+import { BotsListLatestCoursesComponent } from './components/bots/bots-list-latest-courses/bots-list-latest-courses.component';
+
 import { CoursesListComponent } from './components/courses/courses-list/courses-list.component';
 import { CourseModuleItemComponent } from './components/courses/course-module-item/course-module-item.component';
 
@@ -48,12 +45,10 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     ConvsMgrStoriesRouterModule,
     ChatsRouterModule,
     MatStepperModule,
-    ConvsMgrModulesModule,
     FormsModule
   ],
   declarations: [
     StoriesDashboardComponent,
-    StoryListItemComponent,
     CreateBotModalComponent,
     DeleteBotModalComponent,
     StoriesDashboardComponent,
