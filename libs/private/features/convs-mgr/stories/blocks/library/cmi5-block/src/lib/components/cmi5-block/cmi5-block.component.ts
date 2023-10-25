@@ -15,7 +15,8 @@ import { TranslateService } from '@ngfi/multi-lang';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { CMI5Block } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { CMI5BlockService } from '@app/state/file';
-import { ActiveOrgStore } from '@app/state/organisation';
+
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
 
   jumpType = StoryBlockTypes.JumpBlock;
   blockFormGroup: FormGroup;
+
+  // TODO: @JAPHETHNYARANGA Move acrtiveOrg access to state Module.
 
   constructor(
     private _cmi5UploadService: CMI5BlockService,
@@ -103,6 +106,7 @@ export class Cmi5BlockComponent implements OnInit, OnDestroy {
       this.file = event.target.files[0];
       this.isDocLoading = true;
 
+      // TODO: @JAPHETHNYARANGA move this logic to state store
       const filePath = `orgs/${this.orgId}/course-packages/${this.courseId}/${this.file.name}`;
 
       const cloudResponse = await this._cmi5UploadService.parseCMI5Zip(

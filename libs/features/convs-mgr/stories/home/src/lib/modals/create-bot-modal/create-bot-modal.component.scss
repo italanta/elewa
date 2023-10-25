@@ -79,3 +79,7 @@ label {
 ::ng-deep .mat-dialog-container {
   overflow: hidden;
 }
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 25px!important;
+}

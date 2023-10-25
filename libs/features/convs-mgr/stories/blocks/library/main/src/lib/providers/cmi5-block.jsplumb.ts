@@ -22,7 +22,7 @@ export function _CMI5BlockDecoratePlumb(block: WebhookBlock, comp: ComponentRef<
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.12, 0, 1],
+    anchor: "Left",
     maxConnections: -1
   });
 

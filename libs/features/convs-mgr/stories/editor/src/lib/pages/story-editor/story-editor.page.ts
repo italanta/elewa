@@ -241,18 +241,31 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this.shownErrors = this.errors.slice(0,2)
   }
 
-  scrollTo(error: StoryError){
-    const block = this.state.blocks.find(obj => obj.id === error.blockId)
-    if(block){
-      const targetSection = document.getElementById(`${block.id}`)
-      if(targetSection)
+  scrollTo(error: StoryError) {
+    switch (error.blockId) {
+      case 'story-end-anchor':
+      case this.state.story.id:
+        this.scrollToBlock(error.blockId);
+        break;
+  
+      default:
+        const block = this.state.blocks.find(obj => obj.id === error.blockId);
+        if (block) {
+          this.scrollToBlock(block.id as string);
+        }
+        break;
+    }
+  }
+  
+  scrollToBlock(blockId: string) {
+    const targetSection = document.getElementById(`${blockId}`);
+    if(targetSection)
       targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", inline: "center" });
       this.renderer.setStyle(targetSection, "border", "2px red solid")
 
       setTimeout(() => {
         this.renderer.removeStyle(targetSection, 'border');
       }, 5000); 
-    }
   }
 
   ngOnDestroy() {

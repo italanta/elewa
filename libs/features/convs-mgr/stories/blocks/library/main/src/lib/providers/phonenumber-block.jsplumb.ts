@@ -22,7 +22,7 @@ export function _PhoneBlockDecoratePlumb(block: PhoneMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0 ,0.25, 0, 1],
+    anchor: "Left",
     maxConnections: -1
   });
 

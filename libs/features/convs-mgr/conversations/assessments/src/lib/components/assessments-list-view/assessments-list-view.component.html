@@ -1,11 +1,11 @@
-<div fxFlex>
+<div fxFlex fxLayout="column">
   <table mat-table [dataSource]="dataSource" matSort class="assessments-table" (matSortChange)="onSortChange($event)"
     fxFlex>
-    <ng-container matColumnDef="num">
+    <!-- <ng-container matColumnDef="num">
       <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="number"
         sortActionDescription="{{'ASSESSMENTS.ACCESSIBILITY.SORT-BY-NUMBER' | transloco}}">#</th>
       <td mat-cell *matCellDef="let assessment; let i = index">{{i+1}}</td>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="title">
       <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="title"
