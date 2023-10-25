@@ -29,12 +29,12 @@ export class StoryEditorInitialiserService
       container,
       dragOptions:{
         containment: ContainmentType.parent
-      }
+      },
       // paintStyle: { strokeWidth: 1 },
       // anchors: [["Left", "Right", "Bottom"], ["Top", "Bottom"]],
     });
 
-    _jsplumb.addClass(container, "jsplumb_instance")
+    _jsplumb.addClass(container, "jsplumb_instance");
 
     return new StoryEditorFrame(this._fb, _jsplumb, this._blocksInjector, viewport, this._connectionsService, editorContainer);
   }
