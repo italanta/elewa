@@ -1,5 +1,5 @@
 <mat-card  class="card" [id]="id" class="block-card">
-    <div [ngSwitch]="type">
+    <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container"> 
                 <ng-container *ngIf="svgIcon; else showIcon">
@@ -30,7 +30,6 @@
                 <i class="fas fa-ellipsis-v"></i>
             </button>  
         </div>
-        <hr>
 
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">

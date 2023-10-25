@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: start;
+  align-items: flex-start;
   margin-bottom: 1em;
   transition: all 2s ease-in-out;
 
@@ -25,6 +25,9 @@
   .mid {
     flex-grow: 2;
     padding-left: 1.2em;
+    &:hover {
+      cursor: pointer;
+    }
   }
   
   .prefix {

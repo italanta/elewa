@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+	width: 250px;
 	border-radius: 0.01rem;
 }
 
@@ -70,4 +70,10 @@ hr{
 .icon-with-text{
 	margin-left: 0.3125rem;
 }
+
+:host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
+    z-index: 0 !important;
+  }
+
+  
 

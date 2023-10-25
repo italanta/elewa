@@ -6,9 +6,6 @@ import { Observable, switchMap } from 'rxjs';
 import { Breadcrumb } from '@iote/bricks-angular';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { Organisation } from '@app/model/organisation';
-
-import { ActiveOrgStore } from '@app/state/organisation';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
@@ -26,13 +23,11 @@ export class ModulePageComponent implements OnInit {
 
   parentModule$: Observable<BotModule>;
   stories$: Observable<Story[]>;
-  org$: Observable<Organisation>;
 
   loading = true;
   showAllCourses = false;
 
   constructor(
-    private _org$$: ActiveOrgStore,
     private _storiesServ$$: StoryStateService,
     private _botModServ$$: BotModulesStateService,
     private _route$: ActivatedRoute,
@@ -42,8 +37,6 @@ export class ModulePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.org$ = this._org$$.get();
-  
     this.stories$ = this._route$.paramMap.pipe(
       switchMap((params) => {
         const id = params.get('id') as string;

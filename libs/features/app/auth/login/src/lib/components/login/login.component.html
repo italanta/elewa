@@ -18,7 +18,7 @@
         <input class="pass-input" matInput formControlName="password" [type]="passwordVisible ? 'text' : 'password'"
           placeholder="Password">
         <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
-          <mat-icon>{{ passwordVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+          <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
         <mat-error *ngIf="password.invalid && password.hasError('required')">{{
           'LOGIN.LOGIN-FORM.PLACEHOLDER.PASSWORD-ERROR' | transloco }}</mat-error>

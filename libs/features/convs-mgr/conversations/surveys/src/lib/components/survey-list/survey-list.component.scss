@@ -44,14 +44,14 @@
 }
 
 .search {
-	width: 27.5rem;
-	height: 1.3375rem;
-	flex-shrink: 0;
-	background-color: #FFF;
-	border-radius: 1.7rem;
-	display: flex;
-	align-items: center;
-	padding: 20px;
+	height: 5px;
+    width: 50%;
+    background-color: var(--convs-mgr-color-primary-white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
 	&_tooltip {
 		color: gray;

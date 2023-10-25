@@ -60,10 +60,10 @@ export class ChatCardComponent implements OnChanges, AfterViewInit, OnDestroy
                                     this._msgsQuery$.getLatestMessageDate(this.chat.id)])
                           .pipe(tap(([variables, date]) => {
                                   this.chat.name = variables?.name ?? '';
-                                  this.chatAvatarColor = GET_RANDOM_COLOR();
                                   this.lastMessageDate = TIME_AGO(date.seconds);
                                 }))
                           .subscribe();
+    this.chatAvatarColor = GET_RANDOM_COLOR();
   }
     
   getLastChat() {
