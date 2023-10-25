@@ -3,9 +3,11 @@
       <span class="card-title">
         97 {{'SURVEYS.QUESTIONS.SURVEY-RESPONSES.RESPONSES' | transloco}}
       </span>
-      <p>Yet to respond: 97 <span id="reminder">send reminder</span></p>
-      
+      <p>Yet to respond: 97 
+        <span id="reminder" (click)="goToTemplates()">send reminder</span>
+      </p>
     </div>
+    
     <mat-tab-group class="tabs" mat-stretch-tabs="true" mat-align-tabs="center" fitInkBarToContent>
         <mat-tab label="Summary">
             <app-survey-summary></app-survey-summary>

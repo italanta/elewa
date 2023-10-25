@@ -12,6 +12,9 @@
         <mat-option *ngFor="let channel of channels$ | async" [value]="channel.id">
           {{ channel.id }}
         </mat-option>
+        <mat-option *ngIf="(channels$ | async)?.length === 0">
+          No channels to select
+        </mat-option>
       </mat-select>
     </mat-form-field>    
 </div>

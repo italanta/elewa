@@ -1,6 +1,6 @@
 <div class="card" [class.selected]="currentChat.id === chat.id" fxLayout="row" fxLayoutAlign="start center"
   fxLayoutGap="16px">
-  <div class="avatar" [ngStyle]="{'background-color':chat.name ? chatAvatarColor : '#3E788A'}" [class.new-msg]="chat.awaitingResponse">
+  <div class="avatar" [ngStyle]="{'background-color': chatAvatarColor }" [class.new-msg]="chat.awaitingResponse">
     <div *ngIf="!chat.name">
      <span style="color: white;">UU</span>
     </div>
@@ -15,23 +15,15 @@
         <div *ngIf="chat.phoneNumber && chat.name" class="name-section number">
           {{ '+' + chat.phoneNumber }}
         </div>
-
       </div>
       <div class="date-section" fxLayout="row" fxLayoutAlign="center center" fxFlex="30">
         <span>{{ lastMessageDate }}</span>
       </div>
     </div>
     <div class="bottom-section" fxLayout="row" fxLayoutAlign="end">
-      <div *ngIf="lastMessage && getImageSource(); else textMessage" class="bottom-img" fxFlex>
-        <img [src]="getImageSource()"  />
+      <div *ngIf="chat.lastMsg" class="bottom-txt" fxFlex>
+        {{ chat.lastMsg.message }} message here
       </div>
-
-      <ng-template #textMessage>
-        <div *ngIf="lastMessage" class="bottom-txt" fxFlex>
-          {{ lastMessage }}
-        </div>
-      </ng-template>
-            
       <div fxFlexAlign="end">
         <i *ngIf="chat.awaitingResponse" class="fas fa-comment-alt new-msg"></i>
       </div>

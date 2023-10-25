@@ -26,6 +26,8 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   activeClassroom: string;
   selectedPeriodical: periodicals;
 
+  showData = false;
+
   allProgress: GroupProgressModel[];
   dailyProgress: GroupProgressModel[];
   weeklyProgress: GroupProgressModel[];
@@ -45,12 +47,15 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
 
   getProgressData() {
     this._progressService.getMilestones().subscribe((model) => {
-      this.chart = this._loadChart(model);
-      this.dailyProgress = getDailyProgress(model);
-      this.weeklyProgress = getWeeklyProgress(model);
-      this.monthlyProgress = getMonthlyProgress(model);
+      if (model.length) {
+        this.showData = true;
 
-      this.chart = this._loadChart(this.weeklyProgress);
+        this.chart = this._loadChart(model);
+        this.dailyProgress = getDailyProgress(model);
+        this.weeklyProgress = getWeeklyProgress(model);
+        this.monthlyProgress = getMonthlyProgress(model);
+        this.chart = this._loadChart(this.weeklyProgress);
+      }
     });
   }
 

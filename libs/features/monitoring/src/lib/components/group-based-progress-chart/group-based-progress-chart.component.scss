@@ -8,7 +8,14 @@
   .chart {
     position: relative;
     margin: auto;
-    height: 90%; // This value has to be less than 100% for the chart to be dynamically responsive
+    height: 100%; // This value has to be less than 100% for the chart to be dynamically responsive
     width: 95%; // same here
+  }
+
+  .no-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }
 }

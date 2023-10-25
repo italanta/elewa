@@ -20,11 +20,11 @@
         <nav class="menu open-current-submenu">
           <ul>
             <!-- Section Dashboard -->
-            <li routerLink="/home" routerLinkActive="active" class="menu-item">
+            <li routerLink="/home" routerLinkActive="active" class="menu-item" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.HOME'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/home-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Home" src="assets/icons/home-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/home-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded" matTooltip="Home" src="assets/icons/home-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.HOME'| transloco }} </span>
@@ -36,8 +36,8 @@
             <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/bots" routerLinkActive="active" class="menu-item" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.BOT'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/bots-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Bots" src="assets/icons/bots-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/bots-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded"  src="assets/icons/bots-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.BOT'| transloco }} </span>
@@ -45,11 +45,11 @@
             </li>
 
             <!-- Section Analytics -->
-            <li *hasViewAccess="CAN_ACCESS_ANALYTICS" routerLink="/analytics/dashboard" routerLinkActive="active" class="menu-item">
+            <li *hasViewAccess="CAN_ACCESS_ANALYTICS" routerLink="/analytics/dashboard" routerLinkActive="active" class="menu-item" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/insights-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Analytics" src="assets/icons/insights-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/insights-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded"  src="assets/icons/insights-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }} </span>
@@ -58,30 +58,30 @@
 
             <!-- Messaging sections -->
             <ul class="menu-item"  >
-              <a>
+              <a matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}">
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Chats" src="assets/icons/chats-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded" matTooltip="Chats" src="assets/icons/chats-stroked.svg" class="img" alt="">
                 </span>
-                <span *ngIf="isExpanded" class="menu-title">
+                <span *ngIf="isExpanded" class="menu-title message-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>
               <ul class="sub-side-menu">
-                <li>
+                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                   <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
-                      <img src="assets/icons/message-chat.svg" alt="">
+                      <img src="assets/icons/message-chat.svg" class="img" alt="">
                     </span>
                     <span *ngIf="isExpanded" class="menu-title">
                       {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
                     </span>
                   </a>
                 </li>
-                <li>
-                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active">
+                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active" >
                     <span class="menu-icon">
-                      <img src="assets/icons/message-template.svg" alt="">
+                      <img src="assets/icons/message-template.svg" class="img" alt="">
                     </span>
                     <span *ngIf="isExpanded" class="menu-title">
                       {{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}
@@ -92,12 +92,11 @@
             </ul>
 
             <!-- Asssessments sections -->
-            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments"
-              routerLinkActive="active">
+            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments" routerLinkActive="active" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/assessments-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Assessments" src="assets/icons/assessments-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/assessments-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded" matTooltip="Assessments" src="assets/icons/assessments-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}
@@ -106,11 +105,10 @@
             </li>
 
             <!-- Surveys sections -->
-            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys"
-              routerLinkActive="active">
+            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys" routerLinkActive="active" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img src="assets/icons/survey.svg" alt="">
+                  <img src="assets/icons/survey.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}
@@ -119,11 +117,11 @@
             </li>
 
             <!-- Learners sections -->
-            <li *hasViewAccess="CAN_ACCESS_LEARNERS" class="menu-item" routerLink="/learners" routerLinkActive="active">
+            <li *hasViewAccess="CAN_ACCESS_LEARNERS" class="menu-item" routerLink="/learners" routerLinkActive="active" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/learners-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Learners" src="assets/icons/learners-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/learners-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded" matTooltip="Learners" src="assets/icons/learners-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title" routerLink="/budgets" routerLinkActive="active">
                   {{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}
@@ -131,11 +129,11 @@
               </a>
             </li>
 
-            <li *hasViewAccess="CAN_ACCESS_SETTINGS" class="menu-item" routerLink="/settings" routerLinkActive="active">
+            <li *hasViewAccess="CAN_ACCESS_SETTINGS" class="menu-item" routerLink="/settings" routerLinkActive="active" matTooltip=" {{'PAGE-CONTENT.SIDE-MENU.ADMIN_SETTINGS'| transloco }}">
               <a>
                 <span class="menu-icon">
-                  <img *ngIf="isExpanded" src="assets/icons/settings-stroked.svg" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Settings" src="assets/icons/settings-stroked.svg" alt="">
+                  <img *ngIf="isExpanded" src="assets/icons/settings-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded" matTooltip="Settings" src="assets/icons/settings-stroked.svg"  class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ADMIN_SETTINGS'| transloco }}
