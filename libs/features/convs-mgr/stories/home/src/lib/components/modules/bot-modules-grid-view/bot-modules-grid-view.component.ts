@@ -15,25 +15,20 @@ import {
 } from '@app/features/convs-mgr/stories/home';
 
 @Component({
-  selector: 'app-bot-modules-grid-view',
+  selector: 'italanta-apps-bot-modules-grid-view',
   templateUrl: './bot-modules-grid-view.component.html',
   styleUrls: ['./bot-modules-grid-view.component.scss'],
 })
 export class BotModulesGridViewComponent {
   
-  botModules: BotModule[];
-
-  @Input()
-  set botModulesData (value: BotModule[]) {
-    this.botModules = value;
-  }
+  @Input() botModules: BotModule[] = [];
 
   constructor(private _router$$: Router,
               private _dialog: MatDialog
   ) {}
 
   openBot(id: string) {
-    this._router$$.navigate(['modules', id]);
+    this._router$$.navigate(['/modules', id]);
   }
 
   editBot(botModule: BotModule) {

@@ -14,11 +14,11 @@ import { __DateFromStorage } from '@iote/time';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
-import { CreateBotModalComponent } from '../../modals/create-bot-modal/create-bot-modal.component';
-import { DeleteBotModalComponent } from '../../modals/delete-bot-modal/delete-bot-modal.component';
+import { CreateBotModalComponent } from '../../../modals/create-bot-modal/create-bot-modal.component';
+import { DeleteBotModalComponent } from '../../../modals/delete-bot-modal/delete-bot-modal.component';
 
-import { ActionSortingOptions } from '../../model/sorting.enum';
-import { DeleteElementsEnum } from '../../model/delete-element.enum';
+import { ActionSortingOptions } from '../../../model/sorting.enum';
+import { DeleteElementsEnum } from '../../../model/delete-element.enum';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',

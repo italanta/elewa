@@ -46,7 +46,7 @@ export class ModulesLessonsListViewComponent implements AfterViewInit {
   }
 
   openLesson(id: string) {
-    this._router$$.navigate(['stories', id]);
+    this._router$$.navigate(['/stories', id]);
   }
 
   editLesson(story: Story) {

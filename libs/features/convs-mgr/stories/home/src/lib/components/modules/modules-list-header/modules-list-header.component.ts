@@ -18,11 +18,11 @@ import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { ActionSortingOptions, CreateModuleModalComponent } from '@app/features/convs-mgr/stories/home';
 
 @Component({
-  selector: 'app-modules-list-header',
+  selector: 'italanta-apps-modules-list-header',
   templateUrl: './modules-list-header.component.html',
   styleUrls: ['./modules-list-header.component.scss'],
 })
-export class ModulesListHeaderComponent implements OnInit {
+export class BotModulesListHeaderComponent implements OnInit {
   @Input() parentBot$: Observable<Bot>;
   @Input() botModules$: Observable<BotModule[]>
 
