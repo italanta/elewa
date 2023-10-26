@@ -51,6 +51,7 @@ p{
   
     height: fit-content;
     width: fit-content;
+    z-index: 5;
   }
   
   .bottom-left span {
@@ -62,6 +63,7 @@ p{
   .btn-add {
     background-color: white !important;
     color: black !important;
+    z-index: 5;
   }
 
   .white-overlay {
