@@ -6,11 +6,13 @@
                     <img [src]="svgIcon" class="svgIcon">
                 </ng-container>
                 <ng-template #showIcon>
-                    <i [class]="iconClass" class="icon-color"></i>
-                </ng-template>                
+                    <!-- <i [class]="iconClass" class="icon-color"></i> -->
+                    <img src="/assets/icons/microphone.svg" />
+                </ng-template> 
+                             
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
-
+            
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editBlock()">
                     <i class="far fa-edit"></i>
