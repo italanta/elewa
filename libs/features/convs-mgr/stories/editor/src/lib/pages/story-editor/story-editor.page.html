@@ -78,7 +78,7 @@
 
       <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
+      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100">
       </convl-story-editor-frame>
       
     </div>
