@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 
 import { AssessmentQuestionStore } from '../stores/assessment-question.store';
+import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,12 @@ export class AssessmentQuestionService {
     return this._assessmentQuestion$$.get();
   }
 
-  addQuestion$(question: AssessmentQuestion, questionId: string) {
-    return this._assessmentQuestion$$.add(question, questionId);
+  getQuestionsByAssessmentId$(assessmentId: string){
+    return this._assessmentQuestion$$.getQuestionsByAssessment(assessmentId).pipe(take(1));
+  }
+
+  addQuestion$(assessmentId: string, question: AssessmentQuestion, questionId: string) {
+    return this._assessmentQuestion$$.createAssessmentQuestion(assessmentId, question, questionId);
   }
 
   updateQuestion$(question: AssessmentQuestion){

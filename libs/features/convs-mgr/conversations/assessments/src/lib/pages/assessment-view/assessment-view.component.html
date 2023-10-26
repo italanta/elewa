@@ -1,53 +1,27 @@
-<convl-page title="{{pageTitle}}" fxLayout="column" fxFlexFill>
-  <div class="wrapper">
+<div class="preview" *ngIf="assessmentPreviewData" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="30px" fxFlex>
+  <div class="card">
+    <span class="card-title">
+      {{ assessmentPreviewData.title }}
+    </span>
+  </div>
 
-    <div *ngIf="isPublishing || isSaving" class="loading-container">
-      <mat-spinner></mat-spinner>
-    </div>
+  <div class="questions-cards" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px">
+    <div *ngFor="let question of assessmentPreviewData.questions" class="card question-card" fxLayout="column"
+      fxLayoutAlign="start" fxLayoutGap="20px">
+      <span class="question-message">
+        {{ question.message }}
+      </span>
 
-    <div *ngIf="assessment$ | async as assessment">
-      <div class="header-wrapper" fxLayout="row" fxLayoutAlign="space-between center">
-        <h2 class="title">{{assessment.title}}</h2>
-
-        <div *ngIf="assessmentMode === 1; else elseBtn" class="save-button" fxLayout="row">
-          <button [disabled]="isPublishing" type="button" mat-flat-button class="btn-publish" (click)="onSave()">
+      <div class="question-options">
+        <div style="margin-bottom: 20px;" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" *ngFor="let option of question.options">
+          <span *ngIf="option.text && option.text != ''" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="option-name">
+            <i class="fa-regular fa-circle" style="color: #707070;"></i>
             <span>
-              {{'ASSESSMENTS.BUTTON.SAVE' | transloco}}
+              {{ option.text }}
             </span>
-          </button>
-  
-          <button [disabled]="(showPublishBtn | async) || isPublishing" type="button" mat-flat-button class="btn-publish" (click)="onPublish()">
-            <span>
-              {{'ASSESSMENTS.BUTTON.PUBLISH' | transloco}}
-            </span>
-          </button>
+          </span>
         </div>
-
-        <ng-template #elseBtn>
-          <button type="button" mat-flat-button class="btn-publish" (click)="toggleForm()">
-            <span>
-              {{'ASSESSMENTS.BUTTON.EDIT' | transloco}}
-            </span>
-          </button>
-        </ng-template>
       </div>
-
-      <form *ngIf="assessmentMode; else questionList" [formGroup]="assessmentForm">
-        <app-assessment-config [assessmentFormGroup]="assessmentForm" [assessment]="assessment"
-          [assessmentMode]="assessmentMode"></app-assessment-config>
-
-        <div *ngIf="questions">
-          <app-assessment-question-forms [assessmentFormGroup]="assessmentForm" [questions]="questions" [assessmentMode]="assessmentMode">
-          </app-assessment-question-forms>
-        </div>
-      </form>
-
-      <ng-template #questionList>
-        <div *ngIf="questions">
-          <app-assessment-questions [questions$]="questions$"></app-assessment-questions>
-        </div>
-      </ng-template>
-
     </div>
   </div>
-</convl-page>
+</div>

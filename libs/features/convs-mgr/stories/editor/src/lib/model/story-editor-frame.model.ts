@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
@@ -22,13 +24,12 @@ import { Coordinate } from './coordinates.interface';
  * Responsible for keeping track of editor data and for re-loading past saved states.
  */
 export class StoryEditorFrame {
-  private _cnt = 1;
   loaded = false;
 
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
-  private _latestBlock: StoryBlock;
+  private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
   private _anchorPosition = {x:100, y: 100};
 
@@ -64,6 +65,12 @@ export class StoryEditorFrame {
 
     }
 
+    const filteredBlocks = state.blocks.filter((block)=> block.id !== 'story-end-anchor');
+
+    this._newestBlock = filteredBlocks.length > 1 ? filteredBlocks.reduce((prev, current) => {
+      return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
+    }) : null;
+
     this.blocksArray = this._fb.array([]);
 
     // Clear any previously drawn items.
@@ -80,7 +87,7 @@ export class StoryEditorFrame {
     this.drawConnections();
 
     //scroll to the middle of the screen when connections are done drawing
-    this.scroll(this._edf.nativeElement)
+    // this.scroll(this._edf.nativeElement)
   }
   scroll(el: HTMLElement) {
     const editorWidth = this._edf.nativeElement.offsetWidth / 2;
@@ -112,12 +119,13 @@ export class StoryEditorFrame {
   }
 
   cloneBlock(block: StoryBlock) {
-    this._cnt++;
-    block.id = this._cnt.toString();
+    block.id = this._getID()
     return this._injectBlockToFrame(block);
   }
 
   createStartAnchor() {
+    const editorWidth = 100;
+    const editorHeight = 100;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
     startAnchor.instance.jsPlumb = this._jsPlumb;
     startAnchor.instance.anchorInput = this._story.id as string;
@@ -138,7 +146,6 @@ export class StoryEditorFrame {
 
     for (const block of activeBlocks) {
       this._injectBlockToFrame(block);
-      this._cnt++;
     }
 
     this._jsPlumb.setSuspendDrawing(false, true); // All drawing data loaded. Now draw
@@ -182,7 +189,7 @@ export class StoryEditorFrame {
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
-        endpoints: ['Dot', 'Rectangle'],
+        endpoints: ['Dot', 'Dot'],
         overlays: [
           {
             // Specify the type of overlay as "Custom"
@@ -235,27 +242,25 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
-    const blockPosition = {x: 0, y: 0};
-    // If the story has other blocks, position the new block close to the last one
-    if(this._latestBlock) {
-      blockPosition.x = this._latestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 50);
-      blockPosition.y = this._latestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+    let x, y;
+
+    if(this._newestBlock) {
+      x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
+      y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
     } else {
-      // If it's a new story place the first block right after the start block
-      blockPosition.x = this._anchorPosition.x + (this._cnt*100);
-      blockPosition.y = this._anchorPosition.y;
+      x = 200;
+      y = 50;
     }
 
     const block = {
-      id: `${this._cnt}`,
+      id: `${this._getID()}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
       // position: coordinates || { x: 200, y: 50 },
-      position: coordinates || { x: blockPosition.x, y: blockPosition.y},
+      position: coordinates || { x: x, y: y},
     } as StoryBlock;
 
-    this._cnt++;
     this._blocks.push(block);
     return this._injectBlockToFrame(block);
   }
@@ -271,5 +276,9 @@ export class StoryEditorFrame {
       this._viewport,
       this.blocksArray
     );
+  }
+
+  private _getID() {
+    return uuidv4().slice(0, 8);
   }
 }

@@ -1,30 +1,27 @@
 <div [formGroup]="questionFormGroup" class="answer-container">
   <div formArrayName="options">
-    <div [formGroupName]="answerFormGroupName">
+    <div [formGroupName]="answerFormGroupName" (click)="answerClicked.emit(answerFormGroupName)">
 
       <!-- first row -->
-      <div fxLayout="row" fxLayoutGap="1%" fxFlexFill>
+      <div fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="start center" fxFlexFill>
         <div class="circle-wrapper">
           <div class="circle"></div>
         </div>
 
-        <mat-form-field appearance="outline" class="full-field">
-          <mat-label class="answer">
-            {{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}
-          </mat-label>
-          <input type="text" matInput formControlName="text">
+        <mat-form-field appearance="fill" class="full-field">
+          <input type="text" placeholder="{{'ASSESSMENTS.QUESTIONS.FIELDS.ANSWER' | transloco}}" matInput formControlName="text">
         </mat-form-field>
   
-        <mat-form-field appearance="outline">
-          <mat-select formControlName="accuracy">
+        <mat-form-field appearance="fill">
+          <mat-select formControlName="accuracy" [value]="correct">
             <mat-option [value]="correct">{{'ASSESSMENTS.QUESTIONS.SELECT.CORRECT' | transloco}}</mat-option>
             <mat-option [value]="wrong">{{'ASSESSMENTS.QUESTIONS.SELECT.WRONG' | transloco}}</mat-option>
             <mat-option [value]="fiftyFifty">{{'ASSESSMENTS.QUESTIONS.SELECT.50-50' | transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
   
-        <button mat-icon-button class="btn-delete" (click)="delete()">
-          <i class="fas fa-trash"></i>
+        <button mat-flat-button class="btn-delete" (click)="delete()">
+          <img src="assets/icons/delete-x.svg" alt="">
         </button>
       </div>
       <!-- end first row -->
@@ -35,14 +32,14 @@
           <div class="circle none"></div>
         </div>
 
-        <div class="feedback-item">
+        <div class="feedback-item" fxLayout="column">
           <div class="feedback-checkbox">
             <span class="title" *ngIf="true">{{'ASSESSMENTS.QUESTIONS.FIELDS.FEEDBACK' | transloco}}</span>
             <input type="checkbox" name="showFeedback" [checked]="showFeedback" (click)="setFeedback()">
           </div>
 
-          <div *ngIf="showFeedback" fxLayout="row">
-            <mat-form-field appearance="outline" class="full-field">
+          <div *ngIf="showFeedback" fxFlex="60">
+            <mat-form-field appearance="fill" class="full-field">
               <input type="text" matInput formControlName="feedback">
             </mat-form-field>
           </div>

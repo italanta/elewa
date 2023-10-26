@@ -21,11 +21,9 @@ export function _QuestionsBlockDecoratePlumb(block: QuestionMessageBlock,comp: C
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-
-    endpoint: "Dot",
+    endpoint: 'Dot',
     anchor: "Left",
     maxConnections: -1
-
   });
 
   return comp;

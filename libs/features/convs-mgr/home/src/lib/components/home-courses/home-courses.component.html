@@ -1,0 +1,36 @@
+<div class="cards" fxLayout="row-wrap" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex>
+  <div *ngFor="let course of courses" class="assessment-card" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="16px"
+    fxFlex="24">
+
+    <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+      <span [ngClass]="course.isPublished ? ['badge' , course.platform] : 'badge'">
+        {{ course.isPublished ? course.platform : "Draft" }}
+      </span>
+    </div>
+
+    <div class="card-body">
+      <span>
+        {{ course.name }}
+      </span>
+    </div>
+
+    <div class="card-footer" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+      <span>
+        OPEN COURSE
+      </span>
+
+      <button mat-fab>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="new-course" fxLayout="column" fxLayoutAlign="center center" fxFlex="24">
+    <span class="circle">
+      <button mat-fab class="btn-add">
+        <i class="fas fa-plus"></i>
+      </button>
+    </span>
+    <span class="new-course-text">New Course</span>
+  </div>
+</div>

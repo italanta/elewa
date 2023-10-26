@@ -13,6 +13,7 @@ export class AssessmentAnswerComponent  {
   @Input() answerFormGroupName: number;
 
   @Output() deleteChoice = new EventEmitter<number>();
+  @Output() answerClicked = new EventEmitter();
 
   showFeedback = false;
 

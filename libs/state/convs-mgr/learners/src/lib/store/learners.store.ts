@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
+import { Query } from '@ngfi/firestore-qbuilder';
 
-import { of } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
@@ -11,6 +12,7 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { Organisation } from '@app/model/organisation';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Injectable()
 export class LearnersStore extends DataStore<EnrolledEndUser>
@@ -48,5 +50,12 @@ export class LearnersStore extends DataStore<EnrolledEndUser>
     this._sbS.sink = data$.subscribe(properties => {
       this.set(properties, 'UPDATE - FROM DB');
     });
+  }
+  getLearnerByPlatfromId(platform: PlatformType, id: string): Observable<EnrolledEndUser[]> {
+    if (platform === PlatformType.WhatsApp) {
+      return this._activeRepo.getDocuments(new Query().where('whatsappUserId', '==', id));
+    } else {
+      return this._activeRepo.getDocuments(new Query().where('messengerUserId', '==', id));
+    }
   }
 }

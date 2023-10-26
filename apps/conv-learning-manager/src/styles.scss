@@ -6,7 +6,7 @@
 @import '_variables';
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 html,
@@ -18,9 +18,9 @@ body {
 //Block Connectors
 //endpoint
 .block_endpoint circle {
-  fill: var(--endpoint-color);
+  fill: var(--connector-color-teal-blue);
   stroke-width: 1px;
-  stroke: var(--endpoint-outline);
+  stroke: var(--connector-outline-color-blue);
 }
 
 //connector
@@ -94,3 +94,5 @@ span.label{
   padding-left: 0.6rem;
 }
 
+//.jtk-overlay { z-index:1 !important; }
+.jtk-endpoint { z-index:1; }

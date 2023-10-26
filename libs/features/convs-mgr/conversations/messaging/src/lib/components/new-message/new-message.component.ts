@@ -5,12 +5,11 @@ import { SubSink } from 'subsink';
 import { User } from '@iote/bricks';
 import { UserService, BackendService } from '@ngfi/angular';
 
-
-
-import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
 import { iTalUser } from '@app/model/user';
-import { MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages';
 import { MessageTypes } from '@app/model/convs-mgr/functions';
+import { Chat, ChatStatus } from '@app/model/convs-mgr/conversations/chats';
+import { MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages';
+
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
 @Component({
@@ -35,7 +34,7 @@ export class NewMessageComponent implements OnChanges, OnDestroy
   constructor(private userService: UserService<iTalUser>,
               private _backendService: BackendService,
               private _msgQuery: MessagesQuery,
-              ) 
+  )
   {
     this._sbs.sink = userService.getUser().subscribe(user => this.user = user);
   }

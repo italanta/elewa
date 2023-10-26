@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef, Renderer2 } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CdkPortal } from '@angular/cdk/portal';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,7 +41,6 @@ import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.m
 import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
 import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
 import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
-import { _CreateMultiContentInputForm } from '../../model/multi-content-input-block-form.model';
 import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model';
 import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
 import { _CreateEventBlockForm } from '../../model/event-block-form.model';
@@ -66,7 +65,6 @@ export class BlockComponent implements OnInit {
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
-
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
@@ -92,7 +90,6 @@ export class BlockComponent implements OnInit {
   webhookType =  StoryBlockTypes.WebhookBlock;
   endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
   openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
-  multiContentInputType = StoryBlockTypes.MultiContentInput;
   keywordJumpType = StoryBlockTypes.keyword;
   eventType = StoryBlockTypes.Event;
   assessmentBrickType= StoryBlockTypes.Assessment;
@@ -103,6 +100,7 @@ export class BlockComponent implements OnInit {
 
   iconClass = ''
   blockTitle = ''
+  svgIcon= ''
   videoMessageForm: FormGroup
   
 
@@ -118,8 +116,8 @@ export class BlockComponent implements OnInit {
               private _logger: Logger,
               private sideMenu:SidemenuToggleService,
               private sideScreen:SideScreenToggleService,
-              private matdialog: MatDialog
-
+              private matdialog: MatDialog,
+              private _renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -127,7 +125,8 @@ export class BlockComponent implements OnInit {
 
     this.iconClass = this.getBlockIconAndTitle(this.type).icon;
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
-
+    this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
+ 
     if (this.blocksGroup) {
       switch (this.type) {
         case StoryBlockTypes.TextMessage:
@@ -240,11 +239,6 @@ export class BlockComponent implements OnInit {
           this.blocksGroup.push(this.blockFormGroup);
           break;
 
-        case StoryBlockTypes.MultiContentInput:
-          this.blockFormGroup = _CreateMultiContentInputForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
         case StoryBlockTypes.VideoInput:
           this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
           this.blocksGroup.push(this.blockFormGroup);
@@ -286,6 +280,16 @@ export class BlockComponent implements OnInit {
     return iconsAndTitles[type];
   }
 
+  highLight() {
+    const endpoint = document.querySelector('.jtk-endpoint');
+    const comp = document.getElementById(this.id) as HTMLElement
+    this._renderer.setStyle(comp, 'z-index', '1')
+  }
+
+  removeHighlight(){
+    const comp = document.getElementById(this.id) as HTMLElement
+    this._renderer.setStyle(comp, 'z-index', '0')
+  }
   /**
    * Track and update coordinates of block and update them in data model.
    */
@@ -321,7 +325,6 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-
   editBlock() { 
     
     if (this.type === this.videoType) {

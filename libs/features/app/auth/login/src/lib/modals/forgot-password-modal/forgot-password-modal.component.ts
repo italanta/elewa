@@ -2,10 +2,8 @@ import {Component } from '@angular/core';
 import {MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { AuthService } from '@ngfi/angular';
 import { User } from '@iote/bricks';
-
-// import { UserStore } from '@elewa/state/user';
+import { AuthService } from '@ngfi/angular';
 
 @Component({
   selector: 'app-forgot-password-modal',
@@ -14,11 +12,14 @@ import { User } from '@iote/bricks';
 })
 export class ForgotPasswordModalComponent
 {
-  userList: User[];
+  userList: User[] = [];
 
   changePasswordForm: FormGroup = this._fb.group({
     email: ['', [Validators.required, Validators.email]]
   });
+
+  isLoading: boolean = false;
+  hasError: boolean = false;
 
   constructor(private _fb: FormBuilder,
               private _dialogRef: MatDialogRef<ForgotPasswordModalComponent>,
@@ -37,17 +38,18 @@ export class ForgotPasswordModalComponent
 
   resetPassword()
   {
+    this.isLoading = true;
+    this.hasError = false;
     const email = this.changePasswordForm.get('email')?.value;
-    this._authservice.resetPassword( email );
-    this.exitModal()
-    // if(this.ifEmailExists(email))
-    // {
-    // }
-    // else{
-    //   alert('No user found registered with this email.')
-    // }
+
+    this._authservice.resetPassword(email)
+      .then(() => {
+        this.isLoading = false
+        this.exitModal()})
+      .catch((error) => {        
+        this.isLoading = false;
+        this.hasError = true;})
   }
 
   exitModal = () => this._dialogRef.close();
-
 }
