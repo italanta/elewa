@@ -111,14 +111,16 @@ input[type='text'] {
 
 /* Checkbox styles */
 .custom-checkbox {
-  width: 0.625rem;
-  height: 0.625rem;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
   margin-right: 10px; /* Adjust margin to prevent overlap */
   vertical-align: middle; /* Adjust vertical alignment if needed */
   background-color:white;
-  border: 1px solid var(--convs-mgr-text-color);
+  // border: 0.5px solid var(--convs-mgr-text-color);
+  box-shadow: 0 0 0.5px var(--convs-mgr-text-color); 
   cursor: pointer;
+  border-radius: None;
 }
 
 .custom-checkbox.checked {
