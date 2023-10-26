@@ -31,7 +31,6 @@ export class StoryEditorFrame {
   private _blocks: StoryBlock[] = [];
   private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
-  private _anchorPosition = {x:100, y: 100};
 
   blocksArray: FormArray;
 
@@ -58,12 +57,6 @@ export class StoryEditorFrame {
     this._story = state.story;
     this._blocks = state.blocks;
     this._connections = state.connections;
-    if(state.blocks.length > 1) {
-      this._latestBlock = state.blocks.reduce((prev, current) => {
-        return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
-      });
-
-    }
 
     const filteredBlocks = state.blocks.filter((block)=> block.id !== 'story-end-anchor');
 
@@ -131,7 +124,7 @@ export class StoryEditorFrame {
     startAnchor.instance.anchorInput = this._story.id as string;
 
     //position the start anchor to center of viewport
-    startAnchor.location.nativeElement.style = `position: absolute; left: ${this._anchorPosition.y}px; top: ${this._anchorPosition.x}px;`;
+    startAnchor.location.nativeElement.style = `position: absolute; left: ${editorWidth}px; top: ${editorHeight}px;`;
   }
 
   /**
