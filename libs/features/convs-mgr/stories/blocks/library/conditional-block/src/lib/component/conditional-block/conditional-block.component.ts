@@ -1,13 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
-
 import { SubSink } from 'subsink';
 import { Observable, map, startWith } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 
 @Component({
@@ -23,11 +20,11 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
 
   vars$: Observable<string[]>;
 
-  private _sBs = new SubSink();
+  private subsink = new SubSink();
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, private variables: VariablesService) {
+  constructor(private fb: FormBuilder, private variables: VariablesService) {
     this.vars$ = this.variables.getAllVariables();
   }
 
@@ -42,7 +39,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   manageFormControls() {
-    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value), map(isTyped => {
+    this.subsink.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value), map(isTyped => {
       if (isTyped) {
         this.selectedVar.reset();
         this.selectedVar.disable();
@@ -57,7 +54,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   toggleCheckbox() {
-    this.isTyped.setValue(!this.isTyped.value);
+    this.isTyped.setValue(!this.isTyped.value); // Use .setValue to modify the control's value
   }
 
   get isTyped(): AbstractControl {
@@ -73,14 +70,14 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   get options(): FormArray {
-    return this.conditionalBlockForm.controls['options'] as FormArray;
+    return this.conditionalBlockForm.get('options') as FormArray;
   }
 
   addExistingOptions(optionItem?: ButtonsBlockButton<T>) {
-    return this._fb.group({
-      id: [optionItem?.id ?? `${this.id}-${this.options.length + 1}`],
-      message: [optionItem?.message ?? ''],
-      value: [optionItem?.value ?? '']
+    return this.fb.group({
+      id: [optionItem?.id || `${this.id}-${this.options.length + 1}`],
+      message: [optionItem?.message || ''],
+      value: [optionItem?.value || '']
     });
   }
 
@@ -95,6 +92,6 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnDestroy() {
-    this._sBs.unsubscribe();
+    this.subsink.unsubscribe();
   }
 }
