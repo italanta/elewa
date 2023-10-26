@@ -19,8 +19,8 @@ input[type='text'] {
 
 .add-button {
   width: 100%;
-  background-color: #F3F3F3;
-  color: #7C7C7C;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--textarea-outline-color);  
   font-size: 0.9em;
   padding: 0.5em, 1em;
   border-radius: 1em;
@@ -48,13 +48,14 @@ input[type='text'] {
     display: flex;
     flex-direction: column;
     border-radius: 1em;
-    color: #7C7C7C;
-    background: #F3F3F3;
+    color: var(--textarea-outline-color);    
+    background-color: var(--convs-mgr-placeholder-color);
     margin-bottom: 1em;
   
     label {
       font-weight: 500;
       font-size: 0.9rem;
+      color: var(--textarea-outline-color);    
     } 
   }
 
@@ -62,7 +63,8 @@ input[type='text'] {
     display: flex;
     gap: 0.4rem;
     padding: 1em 0;
-    color: #7C7C7C;
+    color: var(--textarea-outline-color);    
+    
     label {
       font-weight: 500;
       font-size: 0.9rem;
@@ -70,20 +72,21 @@ input[type='text'] {
   }
 
   .options-wrapper {
-    margin-top: 10px;
-    height: 3em;
+    margin-top: 8px;
+    height: 3.5em;
     width: 100%;
-    background: #F3F3F3;
-    color: #7C7C7C;
+    background-color: var(--convs-mgr-placeholder-color);
+    color: var(--textarea-outline-color);    
     border-radius: 1em;
     display: flex;
     justify-content: start;
 
     label {
       position: relative;
+      align-items: center;
       font-weight: 400;
       font-size: 0.9rem; 
-      padding: 1em;
+      padding: 1.5em 1em 0.5em;
     }
 
      select{
