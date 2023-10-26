@@ -3,7 +3,6 @@
     <div class="details-wrapper">
       <div class="options-wrapper">
           <label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</label>
-          <!-- <input type="text" placeholder="{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}" id="selectVar"> -->
           <select formControlName="selectedVar">
             <option *ngFor="let variable of (vars$ | async)" [value]="variable">
               {{ variable }}
