@@ -11,7 +11,9 @@
         </div>
       </div>
       <div class="select-variable">
-        <div class="custom-checkbox" [class.checked]="isTyped" (click)="toggleCheckbox()"></div>
+        <input type="checkbox" class="custom-checkbox" formControlName="isTyped" name="check" id="isTyped">
+
+        <!-- <div class="custom-checkbox" [class.checked]="isTyped" (click)="toggleCheckbox()"></div> -->
         <label class="custom-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
       </div>
       <div class="type-variable">
