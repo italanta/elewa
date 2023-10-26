@@ -41,7 +41,9 @@
 
   height: fit-content;
   width: fit-content;
+  z-index: 6;
 }
+
 
 .bottom-left span {
   font-size: 2.5rem;
@@ -52,6 +54,7 @@
 .btn-add {
   background-color: white !important;
   color: black !important;
+  z-index: 4;
 }
 
 .white-overlay {
