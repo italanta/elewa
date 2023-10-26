@@ -31,7 +31,7 @@
           sortActionDescription="{{'SURVEYS.ACCESSIBILITY.QUESTIONS'| transloco}}">
           {{'SURVEYS.TABLE-HEADER.QUESTIONS' | transloco}}</th>
         <td class="title-desc" (click)="openSurvey(survey.id)" mat-cell *matCellDef="let survey">
-          -
+          {{survey.questions.length}}
         </td>
       </ng-container>
   
