@@ -6,7 +6,7 @@ mat-card {
 	max-width: 100%;
 	margin: 0.3125rem 0; /* 5px to rem */
 	border: none solid var(--convs-mgr-placeholder-color);
-	border-radius: 0.9375rem; /* 15px to rem */
+	border-radius: 0.8375rem; /* 15px to rem */
 	resize: none;
 	padding: 0.625rem; /* 10px to rem */
 	background-color: var(--convs-mgr-placeholder-color);
@@ -14,7 +14,7 @@ mat-card {
 	/* width: 3.5625rem; (if you want to convert this as well) */
 	/* height: 0.6875rem; (if you want to convert this as well) */
 	flex-direction: column;
-	justify-content: center;
+	// justify-content: center;
 	flex-shrink: 0;
 	font-family: Roboto;
 	font-size: 0.625rem;
