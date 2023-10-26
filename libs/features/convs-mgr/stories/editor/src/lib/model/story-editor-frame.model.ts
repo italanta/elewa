@@ -182,7 +182,7 @@ export class StoryEditorFrame {
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
-        endpoints: ['Dot', 'Rectangle'],
+        endpoints: ['Dot', 'Dot'],
         overlays: [
           {
             // Specify the type of overlay as "Custom"

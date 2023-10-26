@@ -51,7 +51,20 @@ export class SurveyListComponent implements OnInit, OnDestroy{
             __orderBy(surveys,(a) => __DateFromStorage(a.createdOn!).unix(),
             sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
           )),
-          tap((surveys) => { this.dataSource.data = surveys})).subscribe()
+          tap((surveys) => { this.dataSource.data = surveys})).subscribe();
+
+    this.configureFilter();
+  }
+
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: Survey, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+     // Filtering using only specific columns
+      return (data.title.toLowerCase().includes(filterText) || 
+              data.description.toLowerCase().includes(filterText));
+    };
   }
 
   searchTable(event: Event){

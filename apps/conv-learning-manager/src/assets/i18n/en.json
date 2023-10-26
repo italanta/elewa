@@ -53,7 +53,7 @@
     "FORGOT-PASSWD": "Forgot password?",
     "FORGOT-PASSWORD-MODAL" : {
       "TITLE": "Forgot password?",
-      "MESSAGE": "Enter your email address and we will send you a link to reset your password.",
+      "MESSAGE": "Enter your email address and we will send you a link to reset your password",
       "FLD-EMAIL": "Enter email",
       "FLD-EMAIL-ERR":"Please provide a valid email address",
       "RESET": "Reset",
@@ -484,7 +484,7 @@
       "CREATED-ON": "Updated On",
       "IN-PROGRESS": "In Progress",
       "RESPONSES": "Completion",
-      "ACTIONS": "Edit"
+      "ACTIONS": "Actions"
     },
     "RESULTS": {
       "BUTTONS": {
@@ -1033,7 +1033,7 @@
       "NAME":"Name",
       "EMAIL":"Email",
       "LAST-UPDATED":"Last Active",
-      "ROLE":"Role",
+      "ROLE":"Role(s)",
       "EDIT":"Edit",
       "REMOVE":"Remove",
       "DEACTIVATE":"De-activate",

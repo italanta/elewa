@@ -41,7 +41,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   activeClassroom: string;
   selectedPeriodical: periodicals;
 
-  dataIsFetched = false;
+  showData = false;
 
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
@@ -76,15 +76,15 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     this.initDataLayer();
 
     this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
-      if(!models) return;
+      if (models.length) {
+        this.showData = true;
 
-      // 1. save all progress
-      this.dailyProgress = getDailyProgress(models);
-      this.weeklyProgress = getWeeklyProgress(models);
-      this.monthlyProgress = getMonthlyProgress(models);
-      this.dataIsFetched = true;
-
-      this.chart = this._loadChart(this.weeklyProgress);
+        // 1. save all progress
+        this.dailyProgress = getDailyProgress(models);
+        this.weeklyProgress = getWeeklyProgress(models);
+        this.monthlyProgress = getMonthlyProgress(models);
+        this.chart = this._loadChart(this.weeklyProgress);
+      }
     });
   }
 
