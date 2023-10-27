@@ -8,8 +8,8 @@ import {
 } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { Coordinate } from '../../model/coordinates.interface';
-import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
+import { ReteEditorFrame } from '../editor/editor';
 
 @Component({
   selector: 'convl-grouped-blocks',
@@ -18,7 +18,7 @@ import { DragDropService } from '../../providers/drag-drop.service';
 })
 export class GroupedBlocksComponent implements OnInit, OnDestroy {
   @Input() groupedBlocks: StoryBlock[];
-  @Input() frame: StoryEditorFrame;
+  @Input() frame: ReteEditorFrame;
 
   private _sBs = new SubSink();
 

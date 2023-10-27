@@ -19,6 +19,8 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
 import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
 
+import { ReteEditorFrame } from '../editor/editor';
+
 /**
  * Component which holds a library (list) of all blocks that can be created
  *    in the story editor.
@@ -31,7 +33,8 @@ import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/m
 export class BlocksLibraryComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
 
-  @Input() frame: StoryEditorFrame;
+  @Input() frame: ReteEditorFrame;
+
   filterInput$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   blockTemplates: StoryBlock[] = [
@@ -74,9 +77,6 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   constructor(private _logger: Logger, private dragService: DragDropService) {}
 
   ngOnInit(): void {
-    // WARN in case frame is not yet loaded. This might cause issues on the node loader.
-    if (!this.frame || !this.frame.loaded)
-      this._logger.warn(() => `Blocks library loaded yet frame not yet loaded.`);
     this.filterBlockTemplates();
   }
 

@@ -17,6 +17,7 @@ import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/libr
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block'
 
 import { StoryEditorFrameComponent } from './components/editor-frame/editor-frame.component';
+import { ReteEditorFrameComponent } from './components/rete-editor-frame/rete-editor-frame.component';
 import { BlocksLibraryComponent } from './components/blocks-library/blocks-library.component';
 
 import { StoryEditorPageComponent } from './pages/story-editor/story-editor.page';
@@ -51,6 +52,7 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     StoryEditorPageComponent,
     AddBotToChannelModal,
     StoryEditorFrameComponent,
+    ReteEditorFrameComponent,
     GroupedBlocksComponent,
     BlocksLibraryComponent,
     PinchZoomDirective,
