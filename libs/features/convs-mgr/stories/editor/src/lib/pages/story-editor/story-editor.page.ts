@@ -184,8 +184,9 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   /** Save the changes made in the data model. */
   save() {
     this.stateSaved = false;
+    this.errors =[];
+    this.shownErrors =[];
 
-    this.checkStoryErrors(this.state);
 
     const updatedState = this.state;
     updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
@@ -197,6 +198,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
 
     // remove duplicate jsplumb connections
     this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
+
+    this.checkStoryErrors(this.state);
 
     this._editorStateService.persist(this.state)
         .subscribe((success) => {
@@ -222,14 +225,15 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
 
   checkStoryErrors(state: StoryEditorState) {
-    this.errors =[];
     const storyId = this.state.story.id as string
-    this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
-      errors => {
-        this.errors = errors
-        this.shownErrors = this.errors.slice(0,2);
-        }
-      )
+    this.errors = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId);
+    this.shownErrors = this.errors.slice(0,2);
+    // this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
+    //   errors => {
+    //     this.errors = errors
+    //     this.shownErrors = this.errors.slice(0,2);
+    //     }
+    //   )
   }
 
   closeErrorToast(error: StoryError){
