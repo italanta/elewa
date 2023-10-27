@@ -64,6 +64,11 @@ export class ReteEditorFrame {
     this.area.use(render);
     this.area.use(minimap);
 
+    /** Allow multiple selection of nodes/blocks by pressing ctrl key (can be moved together)  */
+    const selector = AreaExtensions.selector()
+    const accumulating = AreaExtensions.accumulateOnCtrl()
+    AreaExtensions.selectableNodes(this.area, selector, { accumulating });
+
     AreaExtensions.simpleNodesOrder(this.area);
 
     setTimeout(() => {
