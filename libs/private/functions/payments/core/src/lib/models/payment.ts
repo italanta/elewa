@@ -3,6 +3,7 @@ import { IObject } from "@iote/bricks";
 /**
  * The payment object expected by Mollie API. 
  * Amount, description, redirect url, are compulsory. 
+ * Making method an optional param so that when a user is redirected to mollie, they can choose the method they prefer
  */
 export interface Payment extends IObject{
     amount: Amount;
@@ -11,7 +12,7 @@ export interface Payment extends IObject{
     cancelUrl: string;
     webhookUrl?: string;
     sequenceType?: string;
-    method : string  
+    method? : string  
     customerId: string;
     status: string;
 }

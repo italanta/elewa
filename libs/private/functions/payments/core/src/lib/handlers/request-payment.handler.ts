@@ -1,7 +1,6 @@
 import { FunctionContext, FunctionHandler } from "@ngfi/functions";
 import { HandlerTools } from "@iote/cqrs";
 
-import { iTalUser } from "@app/model/user";
 import { Payment } from "../models/payment";
 
 import { PaymentCoreService } from "../services/payment-core.service";
