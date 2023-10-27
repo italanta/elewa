@@ -26,7 +26,7 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-import { ReteEditor } from '../../components/editor/editor';
+import { ReteEditorFrame } from '../../components/editor/editor';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -54,7 +54,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   breadcrumbs: Breadcrumb[] = [];
 
   loading = new BehaviorSubject<boolean>(true);
-  frame: ReteEditor;
+  frame: ReteEditorFrame;
 
   stateSaved = true;
 
@@ -133,7 +133,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     }
   }
 
-  onFrameViewLoaded(frame: ReteEditor) {
+  onFrameViewLoaded(frame: ReteEditorFrame) {
     this.frame = frame;
 
     // After both frame AND data are loaded (hence the subscribe), draw frame blocks on the frame.

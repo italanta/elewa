@@ -8,7 +8,7 @@ import {
   EventEmitter
 } from "@angular/core";
 
-import { ReteEditor } from "../editor/editor";
+import { ReteEditorFrame } from "../editor/editor";
 
 @Component({
   selector: 'convl-rete-editor-frame',
@@ -17,9 +17,9 @@ import { ReteEditor } from "../editor/editor";
 })
 export class ReteEditorFrameComponent implements AfterViewInit {
   title = "story-editor";
-  frame: ReteEditor;
+  frame: ReteEditorFrame;
 
-  @Output() frameLoaded = new EventEmitter<ReteEditor>;
+  @Output() frameLoaded = new EventEmitter<ReteEditorFrame>;
 
   constructor(private injector: Injector) {}
 
@@ -34,7 +34,7 @@ export class ReteEditorFrameComponent implements AfterViewInit {
   }
 
   async initEditor(el: HTMLElement) {
-    this.frame = new ReteEditor(el, this.injector);
+    this.frame = new ReteEditorFrame(el, this.injector);
     this.frameLoaded.emit(this.frame);
   }
 }
