@@ -11,18 +11,32 @@ import { StoryError, StoryErrorType } from '@app/model/convs-mgr/stories/main';
   providedIn: 'root'
 })
 export class CheckStoryErrorsService {
-  private errors: StoryError[];
   private connectionIds = new Set();
 
-  constructor(private _aFF: AngularFireFunctions) { }
+  errors: StoryError[];
+
+  constructor() {
+    this.errors =[];
+   }
 
   fetchFlowErrors(connections: Connection[], blocks: StoryBlock[], storyId: string) {
-    const callable = this._aFF.httpsCallable('checkStoryErrors');
+    this.errors =[];
+    // Retrieve the connection Ids
+    this.retrieveConnectionIds(connections);
 
+    // Check if start anchor is connected
+    this.checkStartAnchorConnection(storyId);
     
+    // Check if the blocks have errors
+    this.checkBlocksForErrors(blocks);
+    return this.errors;
+  }
 
-
-    return callable({connections, blocks, storyId});
+  // Add connectionIds to the connection id set
+  private retrieveConnectionIds(connections: Connection[]) {
+    connections.forEach(connection => {
+      this.connectionIds.add(connection.sourceId);
+    });
   }
 
   // Check if start anchor is connected
@@ -37,14 +51,15 @@ export class CheckStoryErrorsService {
         return; // Skip checking for errors for end anchor and deleted blocks
       }
   
-      this.checkEmptyTextField(block.message, block.id);
+      this.checkEmptyTextField(block.message, block.id!);
   
       if (isOptionBlock(block.type)) {
         const optionBlock = block as ListMessageBlock | QuestionMessageBlock | KeywordMessageBlock;
-        optionBlock.options.forEach((option, index) => {
-          this.checkEmptyTextField(option.message, block.id, option.id);
+        optionBlock.options!.forEach((option, index) => {
+          this.checkEmptyTextField(option.message, block.id!, option.id);
           this.checkMissingConnection(`i-${index}-${block.id}`, block.id, option.id);
         });
+        
       } else {
         this.checkMissingConnection(`defo-${block.id}`, block.id);
       }
@@ -56,7 +71,7 @@ export class CheckStoryErrorsService {
     if (!this.connectionIds.has(sourceId)) {
       this.errors.push({
         type: StoryErrorType.MissingConnection,
-        blockId: blockId,
+        blockId: blockId!,
         optionsId: optionId,
       });
     }
