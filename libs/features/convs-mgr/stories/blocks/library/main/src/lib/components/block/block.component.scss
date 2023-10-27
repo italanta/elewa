@@ -1,10 +1,15 @@
 mat-card {
-	min-width: 200px;
+	width: 250px;
+	border-radius: 0.01rem;
 }
 
 .block {
 	position: relative;
 	cursor: move;
+}
+
+.svgIcon {
+	width: 1.5rem;
 }
 
 .avatar-img {
@@ -16,6 +21,7 @@ mat-card {
 .block-title-container {
 	display: flex;
 	align-items: center;
+	padding-left: 1rem;
 }
 
 .icon-color {
@@ -33,6 +39,7 @@ mat-card {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	border-bottom: 1px solid var(--convs-mgr-light-border-color);
 
 	&:hover {
 		cursor: move;
@@ -53,6 +60,17 @@ mat-card {
 	padding: 0;
 }
 
+hr{
+	color: var(--convs-mgr-border-color);
+}
+
 .icon-with-text{
 	margin-left: 0.3125rem;
 }
+
+:host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
+    z-index: 0 !important;
+  }
+
+  
+

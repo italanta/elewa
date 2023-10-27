@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
@@ -14,7 +16,6 @@ import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/lib
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
 import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Model which holds the state of a story-editor.
@@ -23,13 +24,12 @@ import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messagi
  * Responsible for keeping track of editor data and for re-loading past saved states.
  */
 export class StoryEditorFrame {
-  private _cnt = 1;
   loaded = false;
 
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
-  private _newestBlock: StoryBlock;
+  private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
 
   blocksArray: FormArray;
@@ -58,9 +58,11 @@ export class StoryEditorFrame {
     this._blocks = state.blocks;
     this._connections = state.connections;
 
-    this._newestBlock = state.blocks.reduce((prev, current) => {
+    const filteredBlocks = state.blocks.filter((block)=> block.id !== 'story-end-anchor');
+
+    this._newestBlock = filteredBlocks.length > 1 ? filteredBlocks.reduce((prev, current) => {
       return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
-    });
+    }) : null;
 
     this.blocksArray = this._fb.array([]);
 
@@ -110,8 +112,7 @@ export class StoryEditorFrame {
   }
 
   cloneBlock(block: StoryBlock) {
-    this._cnt++;
-    block.id = this._cnt.toString();
+    block.id = this._getID()
     return this._injectBlockToFrame(block);
   }
 
@@ -138,7 +139,6 @@ export class StoryEditorFrame {
 
     for (const block of activeBlocks) {
       this._injectBlockToFrame(block);
-      this._cnt++;
     }
 
     this._jsPlumb.setSuspendDrawing(false, true); // All drawing data loaded. Now draw
@@ -182,7 +182,7 @@ export class StoryEditorFrame {
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
-        endpoints: ['Dot', 'Rectangle'],
+        endpoints: ['Dot', 'Dot'],
         overlays: [
           {
             // Specify the type of overlay as "Custom"
@@ -235,15 +235,18 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+    let x, y;
 
-    const x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
-    const y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
-
-    const  pageheight = this._edf.nativeElement.offsetHeight/2;
-    const  pagewidth = this._edf.nativeElement.offsetWidth/2;
+    if(this._newestBlock) {
+      x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
+      y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+    } else {
+      x = 200;
+      y = 50;
+    }
 
     const block = {
-      id: `${this._cnt}`,
+      id: `${this._getID()}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
@@ -251,7 +254,6 @@ export class StoryEditorFrame {
       position: coordinates || { x: x, y: y},
     } as StoryBlock;
 
-    this._cnt++;
     this._blocks.push(block);
     return this._injectBlockToFrame(block);
   }
@@ -267,5 +269,9 @@ export class StoryEditorFrame {
       this._viewport,
       this.blocksArray
     );
+  }
+
+  private _getID() {
+    return uuidv4().slice(0, 8);
   }
 }

@@ -20,6 +20,8 @@ export class RegisterComponent
   lang : 'fr' | 'en' | 'nl';
   isLoading = false;
   isValid: boolean;
+  passwordVisible = false;
+  cPasswordVisible = false;
 
   constructor(private _fb: FormBuilder,
               private _translateService: TranslateService,
@@ -110,6 +112,14 @@ export class RegisterComponent
         matchingControl.setErrors(null);
       }
     };
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  toggleConfirmPasswordVisibility() {
+    this.cPasswordVisible = !this.cPasswordVisible;
   }
 
   formIsInvalid()

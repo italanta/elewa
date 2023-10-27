@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { Observable, concatMap, combineLatest, from, tap, timer, startWith, switchMap, finalize, take, takeLast } from 'rxjs';
+import { Observable, tap, switchMap, take } from 'rxjs';
 import { flatten as __flatten } from 'lodash';
 import { SubSink } from 'subsink';
 
@@ -11,43 +11,46 @@ import { Assessment, AssessmentMode, AssessmentQuestion } from '@app/model/convs
 
 import { AssessmentPublishService, AssessmentQuestionService, AssessmentService } from '@app/state/convs-mgr/conversations/assessments';
 
+import { AssessmentsFormsModel } from '../../../model/questions-form.model';
+
 import { AssessmentFormService } from '../../../services/assessment-form.service';
-import { CREATE_EMPTY_ASSESSMENT_FORM, DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
+import { DEFAULT_ASSESSMENT } from '../../../providers/create-empty-assessment-form.provider';
 @Component({
   selector: 'app-create-assessment-page',
   templateUrl: './create-assessment-page.component.html',
   styleUrls: ['./create-assessment-page.component.scss'],
 })
-export class CreateAssessmentPageComponent implements OnInit {
+export class CreateAssessmentPageComponent implements OnInit, OnDestroy {
+  private _sbS = new SubSink();
+
+  assessmentFormModel:  AssessmentsFormsModel;
+
   assessment$: Observable<Assessment>;
   questions$: Observable<AssessmentQuestion[]>;
+  showPublishBtn$: Observable<boolean>;
+
   pageTitle: string;
 
   questions: AssessmentQuestion[];
-
   assessmentMode: AssessmentMode;
-  assessmentForm: FormGroup;
-
   assessment: Assessment = DEFAULT_ASSESSMENT();
 
-  private _sbS = new SubSink();
   isPublishing = false;
-  showPublishBtn:Observable<boolean>;
   isSaving = false;
+  formHasLoaded: boolean = false;
 
   action: string;
 
-  formHasLoaded: boolean = false;
-
   constructor(private _fb: FormBuilder,
               private _route$$: Router,
-              private _route:ActivatedRoute,
               private _snackBar: MatSnackBar,
               private _assessmentService: AssessmentService,
               private _assessmentForm: AssessmentFormService,
               private _publishAssessment: AssessmentPublishService,
               private _assessmentQuestion: AssessmentQuestionService        
-  ) {}
+  ) {
+    this.assessmentFormModel = new AssessmentsFormsModel(this._fb, _assessmentForm);
+  }
 
   ngOnInit(): void
   {
@@ -61,7 +64,6 @@ export class CreateAssessmentPageComponent implements OnInit {
   }
 
   initializeEmptyAssessmentForm() {
-    this.assessmentForm = CREATE_EMPTY_ASSESSMENT_FORM(this._fb);
     this.formHasLoaded = true;
   }
 
@@ -77,19 +79,30 @@ export class CreateAssessmentPageComponent implements OnInit {
       take(1),
       tap((questions) => { 
         this.questions = questions;
-        this.assessmentForm = this._assessmentForm.createAssessmentDetailForm(this.assessment);
+
+        if (this.assessment?.questionsOrder) {
+          var questionOrdering = {},
+          sortOrder = this.assessment.questionsOrder;
+          for (var i=0; i< sortOrder!.length; i++)
+            questionOrdering[sortOrder![i]] = i;
+  
+          this.questions.sort( function(a, b) {
+              return (questionOrdering[a.id!] - questionOrdering[b.id!]) || a.id!.localeCompare(b.id!);
+          });
+        }
+                
+        this.assessmentFormModel.assessmentsFormGroup = this._assessmentForm.createAssessmentDetailForm(this.assessment);
         this.formHasLoaded = true;
       })
     ).subscribe()
   }
 
+  
   onSave()
   {
     this.isSaving = true;
 
     // since some observables complete before we call combinelatest, we initialise our stream with an empty string
-    // const assessmentQstns$ = 
-
     // we spread the `assessmentQstns$()` since it's an array of Observables.
     let savedAssessmentId: string = '';
 
@@ -137,19 +150,26 @@ export class CreateAssessmentPageComponent implements OnInit {
   insertAssessmentConfig$()
   {
     this.assessment['configs'] = {
-      feedback: this.assessmentForm.value.configs.feedback,
-      userAttempts: this.assessmentForm.value.configs.userAttempts
+      feedback: this.assessmentFormModel.assessmentsFormGroup.value.configs.feedback,
+      userAttempts: this.assessmentFormModel.assessmentsFormGroup.value.configs.userAttempts
     };
-    
-    if (this.action === 'create')
-      return this._assessmentService.addAssessment$(this.assessmentForm.value as Assessment);
 
-    return this._assessmentService.updateAssessment$(this.assessmentForm.value as Assessment);
+    let questionsOrder = this.assessmentFormModel.assessmentsFormGroup.value.questionsOrder;
+
+    if (this.assessmentFormModel.assessmentsFormGroup.value.questions)
+      questionsOrder = this.assessmentFormModel.assessmentsFormGroup.value.questions.map((q: AssessmentQuestion) => q.id);
+    
+    this.assessmentFormModel.assessmentsFormGroup.value['questionsOrder'] = questionsOrder;
+
+    if (this.action === 'create')
+      return this._assessmentService.addAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
+
+    return this._assessmentService.updateAssessment$(this.assessmentFormModel.assessmentsFormGroup.value as Assessment);
   }
 
   persistAssessmentQuestions$(assessmentId: string)
   {
-    const assessmentQuestions: AssessmentQuestion[] = this.assessmentForm.value.questions;
+    const assessmentQuestions: AssessmentQuestion[] = this.assessmentFormModel.assessmentsFormGroup.value.questions;
     return this._determineAssesActions(assessmentQuestions, assessmentId);
   }
 
@@ -160,41 +180,18 @@ export class CreateAssessmentPageComponent implements OnInit {
   */
   private _determineAssesActions(assessmentQuestions: AssessmentQuestion[], assessmentId: string)
   {
-    // get's the latest questions from the state().
-    // this.preloadQuestions();
 
     const oldQuestions = this.questions ?? [];
-
-    // Assessments which are newly created and newly configured
-    // const newQstns = assessmentQuestions.filter(question => !oldQuestions.find(oldQ => oldQ.id === question.id));
-
-    // // Assessments which were updated.
-    // const updQstns = assessmentQuestions.filter(question => !newQstns.find(newQ => newQ.id === question.id));
-
     const delQstns = oldQuestions.filter(oldQ => !assessmentQuestions.find(question => question.id === oldQ.id));
 
     delQstns.map(question => this._assessmentQuestion.deleteQuestion$(question));
 
-    // we set a delay here so we can maintain a consistent order on our questions
-    // TODO: replace with drag and drop feature
-
-    // const newQstns$ = from(newQstns).pipe(
-    //   concatMap((question, index) =>
-    //   {
-    //     const delay = 10 * index; // Delay in milliseconds (0.01 second per question)
-    //     return timer(delay).pipe(
-    //       concatMap(() => this._assessmentQuestion.addQuestion$(assessmentId, question, question.id as string))
-    //     );
-    //   })
-    // );
-
     return assessmentQuestions.map(question => this._assessmentQuestion.addQuestion$(assessmentId, question, question.id!));
-
-    // return __flatten([newQstns$, updQstns$, delQstns$]);
   }
 
   ngOnDestroy(): void
   {
+    this.assessment = {} as any;
     this.questions = [];
     this._sbS.unsubscribe();
   }

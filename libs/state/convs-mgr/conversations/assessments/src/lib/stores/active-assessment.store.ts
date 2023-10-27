@@ -5,9 +5,8 @@ import { Store } from "@iote/state";
 import { combineLatest, filter, map, tap } from "rxjs";
 
 import { Assessment } from "@app/model/convs-mgr/conversations/assessments";
+
 import { AssessmentsStore } from "./assessments.store";
-
-
 
 @Injectable()
 export class ActiveAssessmentStore extends Store<Assessment> {
@@ -26,17 +25,17 @@ export class ActiveAssessmentStore extends Store<Assessment> {
       map((_event) => _event as NavigationEnd)
     );
 
-    this._sbS.sink = combineLatest([assessments$, route$]).pipe(
-      tap(([assessments, route]) => {
+    this._sbS.sink = combineLatest([assessments$, route$]).subscribe(
+      ([assessments, route]) => {
         const assessmentId = this._getActiveAssessmentId(route);
         const assessment = assessments.find(_assessment => _assessment.id === assessmentId);
           
-        if(assessmentId !== '__noop__' && assessment && this._activeAssessment !== assessmentId){
+        if(assessment){
           this._activeAssessment = assessmentId;
           this.set(assessment, 'UPDATE - FROM DB || ROUTE');
         }
-      })
-    ).subscribe();
+      }
+    );
   }
 
   private _getUrlSegments(route: NavigationEnd){

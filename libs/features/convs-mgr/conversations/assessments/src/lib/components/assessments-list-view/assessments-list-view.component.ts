@@ -28,7 +28,7 @@ export class AssessmentsListViewComponent implements OnInit {
     this.dataSource.paginator = paginator;
   }
 
-  assessmentsColumns = ['num', 'title', 'createdOn', 'inProgress', 'responses', 'actions'];
+  assessmentsColumns = [ 'title', 'status', 'questions', 'inProgress', 'responses', 'updatedOn',  'actions'];
 
   @Input() dataSource: MatTableDataSource<Assessment>;
   @Input() assessments: Assessment[];
