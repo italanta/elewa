@@ -32,7 +32,7 @@ export class EnrolledLearnersService {
                 user.name = endUser.variables['name'];
               }
               if (endUser) {
-                user.currentCourse = endUser.currentStory as string;
+                user.currentCourse = endUser.currentStory as string || "";
               }
               return user;
             })
