@@ -1,4 +1,4 @@
-export * from './lib/features-convs-mgr-stories-home.module';
+export * from './lib/stories-home.module';
 
 // TODO: move modals to a shared module after AT
 export * from './lib/modals/create-bot-modal/create-bot-modal.component';
