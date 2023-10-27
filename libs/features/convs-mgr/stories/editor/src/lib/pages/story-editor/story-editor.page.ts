@@ -26,7 +26,7 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
-
+import { ReteEditor } from '../../components/editor/editor';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -54,7 +54,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   breadcrumbs: Breadcrumb[] = [];
 
   loading = new BehaviorSubject<boolean>(true);
-  frame: StoryEditorFrame;
+  frame: ReteEditor;
 
   stateSaved = true;
 
@@ -133,80 +133,78 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     }
   }
 
-  onFrameViewLoaded(frame: StoryEditorFrame) {
+  onFrameViewLoaded(frame: ReteEditor) {
     this.frame = frame;
 
     // After both frame AND data are loaded (hence the subscribe), draw frame blocks on the frame.
     this._sb.sink =
       this.loading.pipe(filter(loading => !loading))
         .subscribe(() => {
-          this.frame.init(this.state);
-          this.setFrameZoom();
-        }
-        );
+          this.frame.init();
+        });
 
-    this._cd.detectChanges();
+    // this._cd.detectChanges();
   }
 
-  setFrameZoom() {
-    this.frameElement = document.getElementById('editor-frame') as HTMLElement;
-    this.frameZoomInstance = newInstance({
-      container: this.frameElement
-    })
-    this.zoom(this.frameZoom);
-  }
+  // setFrameZoom() {
+  //   this.frameElement = document.getElementById('editor-frame') as HTMLElement;
+  //   this.frameZoomInstance = newInstance({
+  //     container: this.frameElement
+  //   })
+  //   this.zoom(this.frameZoom);
+  // }
 
-  setZoomByPinch(value:number){
-    this.frameZoom=value
-    this.zoom(this.frameZoom)
-  }
+  // setZoomByPinch(value:number){
+  //   this.frameZoom=value
+  //   this.zoom(this.frameZoom)
+  // }
 
-  increaseFrameZoom() {
-    if (this.zoomLevel.value <= 100) this.zoom(this.frameZoom += 0.03);
-  }
+  // increaseFrameZoom() {
+  //   if (this.zoomLevel.value <= 100) this.zoom(this.frameZoom += 0.03);
+  // }
 
-  decreaseFrameZoom() {
-    if (this.zoomLevel.value > 25) this.zoom(this.frameZoom -= 0.03);
-  }
+  // decreaseFrameZoom() {
+  //   if (this.zoomLevel.value > 25) this.zoom(this.frameZoom -= 0.03);
+  // }
 
-  zoom(frameZoom: number) {
-    this.frameElement.style.transform = `scale(${frameZoom})`;
-    this.frame.jsPlumbInstance.setZoom(frameZoom);
-    this.zoomLevel.setValue(Math.round(frameZoom / 1 * 100));
-  }
+  // zoom(frameZoom: number) {
+  //   this.frameElement.style.transform = `scale(${frameZoom})`;
+  //   this.frame.jsPlumbInstance.setZoom(frameZoom);
+  //   this.zoomLevel.setValue(Math.round(frameZoom / 1 * 100));
+  // }
 
-  zoomChanged(event: any) {
-    const z = event.target.value / 100;
-    this.zoomLevel.setValue(z);
-    this.zoom(z);
-  }
+  // zoomChanged(event: any) {
+  //   const z = event.target.value / 100;
+  //   this.zoomLevel.setValue(z);
+  //   this.zoom(z);
+  // }
 
   /** Save the changes made in the data model. */
-  save() {
-    this.stateSaved = false;
+  // save() {
+  //   this.stateSaved = false;
 
-    this.checkStoryErrors(this.state);
+  //   this.checkStoryErrors(this.state);
 
-    const updatedState = this.state;
-    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
+  //   const updatedState = this.state;
+  //   updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
 
-    //TODO: compare old state connections to updated connections
-    // from getConnections()
-    // find a jsPlumb types library to replace any with strict type
-    const connections = this.frame.getJsPlumbConnections as any[];
+  //   //TODO: compare old state connections to updated connections
+  //   // from getConnections()
+  //   // find a jsPlumb types library to replace any with strict type
+  //   const connections = this.frame.getJsPlumbConnections as any[];
 
-    // remove duplicate jsplumb connections
-    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
+  //   // remove duplicate jsplumb connections
+  //   this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
-    this._editorStateService.persist(this.state)
-        .subscribe((success) => {
-          if (success) {
-            this.stateSaved = true;
-            this.opened = false;
-            this.storyHasBeenSaved = true;
-          }
-        });
-  }
+  //   this._editorStateService.persist(this.state)
+  //       .subscribe((success) => {
+  //         if (success) {
+  //           this.stateSaved = true;
+  //           this.opened = false;
+  //           this.storyHasBeenSaved = true;
+  //         }
+  //       });
+  // }
 
   addToChannel() {
     // this.checkStoryErrors();

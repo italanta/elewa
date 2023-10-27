@@ -4,15 +4,9 @@
   <div class="story-editor" fxFlexFill>
 
     <div *ngIf="errors.length>0" class="error-toast">
-      <app-toast 
-          *ngFor="let error of shownErrors" 
-          [error]="error" 
-          [messageType]="toastType"
-          color="rgba(217, 25, 25, 0.70)" 
-          iconClass="fas fa-exclamation-circle" 
-          (closeToast)="closeErrorToast(error)" 
-          (scrollToError)="scrollTo(error)"
-        >
+      <app-toast *ngFor="let error of shownErrors" [error]="error" [messageType]="toastType"
+        color="rgba(217, 25, 25, 0.70)" iconClass="fas fa-exclamation-circle" (closeToast)="closeErrorToast(error)"
+        (scrollToError)="scrollTo(error)">
       </app-toast>
     </div>
 
@@ -27,8 +21,7 @@
       </div>
 
       <ng-template #library>
-        <convl-blocks-library *ngIf="frame" [frame]="frame">
-        </convl-blocks-library>
+        <convl-blocks-library *ngIf="frame" [frame]="frame"></convl-blocks-library>
       </ng-template>
     </div>
 
@@ -45,7 +38,7 @@
       </div>
 
       <!-- Convl page subbar -->
-      <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+      <!-- <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
           <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseFrameZoom()">
             <mat-icon>zoom_out</mat-icon>
@@ -74,13 +67,15 @@
             <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
           </button>
         </div>
-      </div>
+      </div> -->
 
-      <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
+      <!-- <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p> -->
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
-      </convl-story-editor-frame>
-      
+      <!-- <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100" (pinchZoom)="setZoomByPinch($event)">
+      </convl-story-editor-frame> -->
+
+      <convl-rete-editor-frame (frameLoaded)="onFrameViewLoaded($event)"></convl-rete-editor-frame>
+
     </div>
   </div>
 </convl-page>
