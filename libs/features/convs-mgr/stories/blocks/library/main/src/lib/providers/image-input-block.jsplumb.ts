@@ -21,16 +21,7 @@ export function _ImageInputBlockDecoratePlumb(block: ImageInputBlock, comp: Comp
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.3 , 0, 1],
-    maxConnections: -1
-  });
-
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
-    target: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [1, 0.80, 0 , 1],
+    anchor: [0, 0.2 , 0, 1],
     maxConnections: -1
   });
 
