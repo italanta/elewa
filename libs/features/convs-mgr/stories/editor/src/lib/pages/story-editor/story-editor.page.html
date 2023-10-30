@@ -1,21 +1,9 @@
 <convl-page class="conv" [breadcrumbs]="breadcrumbs" [title]="pageName" [nomarg]="true">
+  
   <!-- Main body page -->
-
   <div class="story-editor" fxFlexFill>
 
-    <div *ngIf="errors.length>0" class="error-toast">
-      <app-toast 
-          *ngFor="let error of shownErrors" 
-          [error]="error" 
-          [messageType]="toastType"
-          color="rgba(217, 25, 25, 0.70)" 
-          iconClass="fas fa-exclamation-circle" 
-          (closeToast)="closeErrorToast(error)" 
-          (scrollToError)="scrollTo(error)"
-        >
-      </app-toast>
-    </div>
-
+    <!-- Side screen wiht block selectors and editor -->
     <div [ngClass]="isSideScreenOpen ? 'open' : 'close'" class="nav">
       <div *ngIf="opened; else library">
         <div class="wrapper-edit">
@@ -32,34 +20,35 @@
       </ng-template>
     </div>
 
+    <!-- Main story body (top-menu bar + story editor)-->
     <div class="story-index" fxFlex="80" fxLayout="column" fxLayoutAlign="start" fxFlex>
-      <div class="toggle-btn">
-        <button (click)="toggleSidenav()">
-          <span *ngIf="isSideScreenOpen">
-            <i class="fas fa-arrow-left tooltip"></i>
-          </span>
-          <span *ngIf="!isSideScreenOpen">
-            <i class="fas fa-arrow-right tooltip"></i>
-          </span>
-        </button>
-      </div>
 
       <!-- Convl page subbar -->
-      <div class="sub-bar" subbar fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+      <div class="sub-bar" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+
+        <!-- Toggle block library button -->
+        <button class="toggle-btn" (click)="toggleSidenav()">
+          <span *ngIf="isSideScreenOpen"><i class="fas fa-arrow-left tooltip"></i></span>
+          <span *ngIf="!isSideScreenOpen"><i class="fas fa-arrow-right tooltip"></i></span>
+        </button>
+
+        <!-- Zoom button -->
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseFrameZoom()">
+          <button class="zoom-btn" [disabled]="zoomLevel.value <= 25" mat-mini-fab (click)="decreaseZoom()">
             <mat-icon>zoom_out</mat-icon>
           </button>
 
-          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" (change)="zoomChanged($event)"
-            type="number">
+          <input style="margin-right: 0px;" [formControl]="zoomLevel" min="25" max="100" [disabled]="true" type="number" />
 
-          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseFrameZoom()">
+          <button class="zoom-btn" [disabled]="zoomLevel.value >= 100" mat-mini-fab (click)="increaseZoom()">
             <mat-icon>zoom_in</mat-icon>
           </button>
         </div>
 
+        <div class="flex-spacer"></div>
+        
         <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+          <!-- Save button -->
           <button [disabled]="hasEmptyFields || !stateSaved" (click)="save()" mat-flat-button class="subbar-btn">
             <span *ngIf="stateSaved; else saving"> {{'PAGE-CONTENT.TOP-BAR.SAVE-STORY' | transloco }} </span>
             <ng-template #saving>
@@ -70,6 +59,7 @@
             </ng-template>
           </button>
 
+          <!-- Publish button -->
           <button [disabled]="!storyHasBeenSaved || errors" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
             <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
           </button>
@@ -78,9 +68,27 @@
 
       <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
 
-      <convl-story-editor-frame (frameLoaded)="onFrameViewLoaded($event)" fxFlex="100">
+      <convl-story-editor-frame fxFlex="100"
+              (frameLoaded)="onFrameViewLoaded($event)"
+              (zoomed)="setZoom($event * 100, true)"
+        
+          #storyEditorFrame> 
       </convl-story-editor-frame>
       
     </div>
   </div>
 </convl-page>
+
+<!-- Error handler messages (fixed overlay) -->
+<div *ngIf="errors.length>0" class="error-toast">
+  <app-toast 
+      *ngFor="let error of shownErrors" 
+      [error]="error" 
+      [messageType]="toastType"
+      color="rgba(217, 25, 25, 0.70)" 
+      iconClass="fas fa-exclamation-circle" 
+      (closeToast)="closeErrorToast(error)" 
+      (scrollToError)="scrollTo(error)"
+    >
+  </app-toast>
+</div>
