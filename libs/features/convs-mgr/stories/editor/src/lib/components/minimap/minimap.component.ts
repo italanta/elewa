@@ -1,18 +1,22 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { Observable, debounceTime } from 'rxjs';
-import html2canvas from 'html2canvas';
+import { SubSink } from 'subsink';
+import { Observable, debounceTime, interval } from 'rxjs';
+import html2canvas from 'dom-to-image';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 import { MINI_MAP_FACTOR, STORY_EDITOR_HEIGHT, STORY_EDITOR_WIDTH } from '../../utils/frame-size';
+
 
 @Component({
   selector: 'convl-story-editor-minimap',
   templateUrl: './minimap.component.html',
   styleUrls: ['./minimap.component.scss']
 })
-export class StoryEditorMiniMapComponent implements OnInit //implements OnDestroy
+export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
 {
+  private _sBs = new SubSink();
+
   @Input() editorContainer: ElementRef<HTMLElement>;
 
   @Input() frameState$    : Observable<StoryEditorState>;
@@ -31,12 +35,15 @@ export class StoryEditorMiniMapComponent implements OnInit //implements OnDestro
     // Whenever the frame changes, take a screenshot of the frame div 
     //    which acts as background image of the minimap.
     // @see https://javascript.plainenglish.io/how-to-take-a-screenshot-of-a-div-with-javascript-641576de0f74
-    this.frameState$.subscribe(async () => 
-    {
-      const el = this.editorContainer.nativeElement;
-      // Take a screenshot of the frame div to use as background of the mini map.
-      const viewpaneImg = await html2canvas(el, { useCORS: true, height: STORY_EDITOR_HEIGHT, width: STORY_EDITOR_WIDTH });
-      this.backgroundImg = `url(${viewpaneImg.toDataURL('image/png')}`;
+    // this.frameState$.subscribe(async () => 
+    // {
+    
+    this._sBs.sink = 
+      interval(10000).subscribe(async () => {
+        const el = this.editorContainer.nativeElement;
+        // Take a screenshot of the frame div to use as background of the mini map.
+        const viewpaneImg = await html2canvas.toJpeg(el, { quality: 0.1,  height: STORY_EDITOR_HEIGHT, width: STORY_EDITOR_WIDTH });
+        this.backgroundImg = `url(${viewpaneImg})`;
     });
 
     // Listen to viewport changes.
@@ -72,4 +79,9 @@ export class StoryEditorMiniMapComponent implements OnInit //implements OnDestro
     } as any;
   }
 
+
+  ngOnDestroy()
+  {
+    this._sBs.unsubscribe();
+  }
 }
