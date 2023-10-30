@@ -129,3 +129,8 @@ mat-sidenav {
 ::ng-deep .mat-mini-fab .mat-button-wrapper {
   bottom: 0px;
 }
+
+// 30/10/23 - Fix bug where sub-bar is being pushed out of view by story editor load
+convl-story-editor-frame {
+  overflow: hidden;
+}
