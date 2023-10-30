@@ -1,12 +1,11 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { Observable, debounceTime, interval } from 'rxjs';
-import html2canvas from 'dom-to-image';
+import { Observable, debounceTime } from 'rxjs'; //interval
+// import html2canvas from 'dom-to-image';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
-import { MINI_MAP_FACTOR, STORY_EDITOR_HEIGHT, STORY_EDITOR_WIDTH } from '../../utils/frame-size';
-
+import { MINI_MAP_FACTOR } from '../../utils/frame-size';
 
 @Component({
   selector: 'convl-story-editor-minimap',
