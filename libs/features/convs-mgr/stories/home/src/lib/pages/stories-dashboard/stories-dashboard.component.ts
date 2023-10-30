@@ -16,7 +16,8 @@ import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
   templateUrl: './stories-dashboard.component.html',
   styleUrls: ['./stories-dashboard.component.scss'],
 })
-export class StoriesDashboardComponent implements OnInit {
+export class StoriesDashboardComponent implements OnInit 
+{
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 
@@ -25,10 +26,9 @@ export class StoriesDashboardComponent implements OnInit {
   loading = true;
   showAllCourses = false;
 
-  constructor(
-    private _botsServ$$: BotsStateService,
-    private _router$$: Router
-  ) {
+  constructor(private _botsServ$$: BotsStateService,
+              private _router$$: Router) 
+  {
     this.breadcrumbs = [HOME_CRUMB(_router$$, true)];
   }
 
