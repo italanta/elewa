@@ -11,6 +11,7 @@ import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } from '@app/state/convs-mgr/story-editor';
 
+import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
@@ -70,11 +71,15 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
               _router: Router,
+              private _sideMenu: SidemenuToggleService,
               private sideScreen: SideScreenToggleService,
               private _storyErrorCheck: CheckStoryErrorsService,
               private renderer: Renderer2
               ) 
   {
+    // Make sure screen is always closed on loading editor
+    this._sideMenu.toggleExpand(false);
+
     this._editorStateService.get().pipe(take(1))
       .subscribe((state: StoryEditorState) =>
       {
@@ -88,6 +93,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
       });
+
     }
 
     ngOnInit()
