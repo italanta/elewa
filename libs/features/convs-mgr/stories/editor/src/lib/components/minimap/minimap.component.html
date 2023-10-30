@@ -1,5 +1,8 @@
-<div id="minimap" *ngIf="backgroundImg" 
-  [style.background-image]="backgroundImg">
+<div id="minimap" 
+  [style.transform]="'scale('+ zoomFactor +')'">
+
+<!-- TODO: show dynamic background. Requires performance fix. -->
+<!-- *ngIf="backgroundImg" [style.background-image]="backgroundImg" -->
 
   <div class="minimap-viewport-holder">
 

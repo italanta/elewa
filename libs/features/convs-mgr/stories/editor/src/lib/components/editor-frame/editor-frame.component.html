@@ -10,15 +10,19 @@
      convlPinchZoom
     (pinch$)="onPinch($event)" >
 
-  <!-- Full frame, the total area on which a user can draw. -->
-  <div convlTrackCursor
-      #editor id="editor-frame">
-    <ng-template id="draw" #draw></ng-template>
+  <!-- Scroll control. Dynamically adjusts scroll based on frame zoom -->
+  <div id="scroll" [style.width]="frameWidth + 'px'" [style.min-height]="frameHeight + 'px'">
+    <!-- Full frame, the total area on which a user can draw. -->
+    <div convlTrackCursor
+        #editor id="editor-frame">
+      <ng-template id="draw" #draw></ng-template>
+    </div>
   </div>
-  
+
 </div>
 
 <convl-story-editor-minimap [editorContainer]="editorVC" 
                             [frameState$]="frameState$"
-                            [viewport$]="viewportBounds$">
+                            [viewport$]="viewportBounds$"
+                            [zoomFactor]="_zoom">
 </convl-story-editor-minimap>

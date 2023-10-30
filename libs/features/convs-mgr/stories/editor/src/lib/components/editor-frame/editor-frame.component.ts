@@ -30,7 +30,7 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
   public viewportBounds$: Observable<DOMRect> = this._viewportBounds$$.pipe(filter(f => !!f));
 
   // Set frame width and height at minimum on load.
-  private _zoom = 1;
+  _zoom = 1;
   frameWidth = STORY_EDITOR_WIDTH;
   frameHeight = STORY_EDITOR_HEIGHT;
 
@@ -129,8 +129,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     this._frame.setZoom(this._zoom);
 
     // Apply bounding box transformations
-    // this.frameWidth = STORY_EDITOR_WIDTH * this._zoom;
-    // this.frameHeight = STORY_EDITOR_HEIGHT * this._zoom;
+    this.frameWidth = STORY_EDITOR_WIDTH * this._zoom;
+    this.frameHeight = STORY_EDITOR_HEIGHT * this._zoom;
 
     this.zoomed.emit(this._zoom);
   }

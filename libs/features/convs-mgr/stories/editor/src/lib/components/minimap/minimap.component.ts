@@ -21,6 +21,7 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
 
   @Input() frameState$    : Observable<StoryEditorState>;
   @Input() viewport$      : Observable<DOMRect>;
+  @Input() zoomFactor     = 1;
   
   /** Base64 encoded background image */
   backgroundImg: string;
@@ -38,13 +39,14 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
     // this.frameState$.subscribe(async () => 
     // {
     
-    this._sBs.sink = 
-      interval(10000).subscribe(async () => {
-        const el = this.editorContainer.nativeElement;
-        // Take a screenshot of the frame div to use as background of the mini map.
-        const viewpaneImg = await html2canvas.toJpeg(el, { quality: 0.1,  height: STORY_EDITOR_HEIGHT, width: STORY_EDITOR_WIDTH });
-        this.backgroundImg = `url(${viewpaneImg})`;
-    });
+    // @todo - this is a performance hog, needs to be optimised
+    // this._sBs.sink = 
+    //   interval(10000).subscribe(async () => {
+        // const el = this.editorContainer.nativeElement;
+        // // Take a screenshot of the frame div to use as background of the mini map.
+        // const viewpaneImg = await html2canvas.toJpeg(el, { quality: 0.1,  height: STORY_EDITOR_HEIGHT * this.zoomFactor, width: STORY_EDITOR_WIDTH * this.zoomFactor });
+        // this.backgroundImg = `url(${viewpaneImg})`;
+    // });
 
     // Listen to viewport changes.
     //  Draw the viewport inside the minimap to show position
@@ -72,10 +74,10 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
 
     return {
       position: 'absolute',
-      left:   this.viewport.x + 'px',
-      top:    this.viewport.y + 'px',
-      width:  this.viewport.width + 'px',
-      height: this.viewport.height + 'px'
+      left:   this.viewport.x * (1/this.zoomFactor)       + 'px',
+      top:    this.viewport.y * (1/this.zoomFactor)       + 'px',
+      width:  this.viewport.width * (1/this.zoomFactor)   + 'px',
+      height: this.viewport.height * (1/this.zoomFactor)  + 'px',
     } as any;
   }
 

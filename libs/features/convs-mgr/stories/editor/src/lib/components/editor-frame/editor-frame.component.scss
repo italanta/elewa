@@ -2,9 +2,16 @@
   height: 100%;
   width: 100%;
   overflow: auto;  
+  overflow-y: scroll;
+  overflow-x: scroll;
 
   background-color: darkgray;
 }
+
+  #scroll {
+    overflow: hidden;
+    display: block;
+  }
 
   // Make sure the values here are the same as defined in ../../utils/frame-size.ts !
   #editor-frame {
