@@ -18,9 +18,9 @@ export const STORY_EDITOR_HEIGHT = 3750;
 export const MIN_STORY_EDITOR_HEIGHT = STORY_EDITOR_HEIGHT * MAX_ZOOM_LEVEL;
 
 /** Width in pixels of the mini map */
-export const MINI_MAP_WIDTH = 200;
+export const MINI_MAP_WIDTH = 100;
 /** Width in pixels of the mini map */
-export const MINI_MAP_HEIGHT = 150;
+export const MINI_MAP_HEIGHT = 75;
 
 /** How many pixels a single pixel on the mini map represents at the story editor level */
 export const MINI_MAP_FACTOR = STORY_EDITOR_WIDTH/MINI_MAP_WIDTH;

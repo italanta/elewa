@@ -28,8 +28,6 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
   /** Representation of the viewport within the larger editor frame */
   viewport: DOMRect;
 
-  constructor() { }
-
   ngOnInit() 
   {
     // Whenever the frame changes, take a screenshot of the frame div 
