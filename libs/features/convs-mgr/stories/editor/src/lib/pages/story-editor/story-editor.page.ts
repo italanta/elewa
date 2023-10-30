@@ -1,19 +1,17 @@
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ComponentRef, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
-
-import { BrowserJsPlumbInstance, newInstance } from '@jsplumb/browser-ui';
+import { BehaviorSubject, filter, Observable, take } from 'rxjs';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
 import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } from '@app/state/convs-mgr/story-editor';
 
-import { ErrorPromptModalComponent } from '@app/elements/layout/modals';
+import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 
 import { ToastMessageTypeEnum, ToastStatus } from '@app/model/layout/toast';
@@ -26,6 +24,7 @@ import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
 
 
 @Component({
@@ -45,6 +44,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   shownErrors: StoryError[] = [];
   toastType: ToastStatus = {type: ToastMessageTypeEnum.Error};
 
+  @ViewChild('storyEditorFrame') storyEditorFrame: StoryEditorFrameComponent;
+
   opened: boolean;
 
   pageName: string;
@@ -62,11 +63,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   //TODO @CHESA LInk boolean to existence of story in DB
   storyHasBeenSaved = false;
 
-  zoomLevel: FormControl = new FormControl(100);
-  frameElement: HTMLElement;
-  frameZoom = 1;
-  frameZoomInstance: BrowserJsPlumbInstance;
-
+  zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
   constructor(private _editorStateService: StoryEditorStateService,
               private _dialog: MatDialog,
@@ -74,14 +71,17 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
               private _logger: Logger,
               private _blockPortalService: BlockPortalService,
               _router: Router,
+              private _sideMenu: SidemenuToggleService,
               private sideScreen: SideScreenToggleService,
               private _storyErrorCheck: CheckStoryErrorsService,
               private renderer: Renderer2
               ) 
   {
+    // Make sure screen is always closed on loading editor
+    this._sideMenu.toggleExpand(false);
 
-    
-    this._editorStateService.get()
+    // Load the editor
+    this._editorStateService.get().pipe(take(1))
       .subscribe((state: StoryEditorState) =>
       {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
@@ -94,6 +94,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
       });
+
     }
 
     ngOnInit()
@@ -141,46 +142,12 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       this.loading.pipe(filter(loading => !loading))
         .subscribe(() => {
           this.frame.init(this.state);
-          this.setFrameZoom();
         }
         );
 
     this._cd.detectChanges();
   }
-
-  setFrameZoom() {
-    this.frameElement = document.getElementById('editor-frame') as HTMLElement;
-    this.frameZoomInstance = newInstance({
-      container: this.frameElement
-    })
-    this.zoom(this.frameZoom);
-  }
-
-  // setZoomByPinch(value:number){
-  //   this.frameZoom=value
-  //   this.zoom(this.frameZoom)
-  // }
-
-  increaseFrameZoom() {
-    if (this.zoomLevel.value <= 100) this.zoom(this.frameZoom += 0.03);
-  }
-
-  decreaseFrameZoom() {
-    if (this.zoomLevel.value > 25) this.zoom(this.frameZoom -= 0.03);
-  }
-
-  zoom(frameZoom: number) {
-    this.frameElement.style.transform = `scale(${frameZoom})`;
-    this.frame.jsPlumbInstance.setZoom(frameZoom);
-    this.zoomLevel.setValue(Math.round(frameZoom / 1 * 100));
-  }
-
-  zoomChanged(event: any) {
-    const z = event.target.value / 100;
-    this.zoomLevel.setValue(z);
-    this.zoom(z);
-  }
-
+ 
   /** Save the changes made in the data model. */
   save() {
     this.stateSaved = false;
@@ -252,11 +219,13 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.scrollToBlock(error.blockId);
         break;
   
-      default:
+      default: 
+      {
         const block = this.state.blocks.find(obj => obj.id === error.blockId);
         if (block) {
           this.scrollToBlock(block.id as string);
         }
+      }
         break;
     }
   }
@@ -270,6 +239,39 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       setTimeout(() => {
         this.renderer.removeStyle(targetSection, 'border');
       }, 5000); 
+  }
+
+  // Section - Zoom
+
+  increaseZoom() {
+    if(this.zoomLevel.value >= 100) 
+      return;
+
+    const zoom = this.storyEditorFrame.increaseFrameZoom();
+    return this.setZoom(zoom * 100, true);
+  }
+  decreaseZoom() {
+    if(this.zoomLevel.value <= 25) 
+      return; 
+
+    const zoom = this.storyEditorFrame.decreaseFrameZoom();
+    return this.setZoom(zoom * 100, true);
+  }
+ 
+  /**
+   * 
+   * @param val - Zoom value to set
+   * @param avoidUpdate - In case the call comes from internal ops such as increaseZoom or decreaseZoom,
+   *                          avoid updating the underlying structure as it already happened.
+   */
+  setZoom(val: number, avoidUpdate = false) 
+  {
+    if(val >= 25 && val <= 100)
+    {
+      this.zoomLevel.setValue(val);
+      if(!avoidUpdate) 
+        this.storyEditorFrame.setFrameZoom(val / 100);
+    }
   }
 
   ngOnDestroy() {

@@ -42,32 +42,11 @@ mat-sidenav {
   width: 80%;
   position: relative;
 
-  .toggle-btn {
-    position: absolute;
-    top: 10rem;
-    z-index: 999;
-    left: 1rem;
-
-    button {
-      background-color: var(--endpoint-color);
-      border: none;
-      transition: transform 0.3s ease;
-      padding: 8px;
-      border-radius: 5px;
-      width: 3.5rem;
-      cursor: pointer;
-      color: var(--endpoint-outline);
- 
-      .tooltip {
-        font-size: 1.2rem;
-      }
-    }
-  }
 }
 
 .sub-bar {
   width: auto;
-  padding: 10px 5px;
+  padding: 10px;
   background-color: white;
   border-bottom: solid #eee 1px;
   // box-shadow: 0px 4px 8px slategrey;
@@ -78,6 +57,22 @@ mat-sidenav {
   color: white;
   font-weight: 600;
   min-width: 100px;
+}
+
+
+.toggle-btn { 
+  background-color: var(--endpoint-color);
+  border: none;
+  transition: transform 0.3s ease;
+  padding: 8px;
+  border-radius: 5px;
+  width: 3.5rem;
+  cursor: pointer;
+  color: var(--endpoint-outline);
+
+  .tooltip {
+    font-size: 1.2rem;
+  }
 }
 
 .error-count{
@@ -133,4 +128,9 @@ mat-sidenav {
 
 ::ng-deep .mat-mini-fab .mat-button-wrapper {
   bottom: 0px;
+}
+
+// 30/10/23 - Fix bug where sub-bar is being pushed out of view by story editor load
+convl-story-editor-frame {
+  overflow: hidden;
 }
