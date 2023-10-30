@@ -45,7 +45,6 @@
     "caniuse-lite": "^1.0.30001519",
     "chart.js": "^4.2.1",
     "crypto-js": "^4.1.1",
-    "dom-to-image": "^2.6.0",
     "dotenv": "^16.3.1",
     "firebase-admin": "^11.4.1",
     "firebase-functions": "^4.1.1",
