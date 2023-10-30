@@ -27,4 +27,11 @@
 }
   #viewport {
     position: absolute;
+    z-index: 10;
   }
+
+.block {
+  background-color: #444;
+  position: absolute;
+  z-index: 5;
+}

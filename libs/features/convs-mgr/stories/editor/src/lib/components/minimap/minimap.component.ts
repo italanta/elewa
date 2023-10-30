@@ -21,6 +21,8 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
   @Input() frameState$    : Observable<StoryEditorState>;
   @Input() viewport$      : Observable<DOMRect>;
   @Input() zoomFactor     = 1;
+
+  blocks: DOMRect[];
   
   /** Base64 encoded background image */
   backgroundImg: string;
@@ -33,8 +35,23 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
     // Whenever the frame changes, take a screenshot of the frame div 
     //    which acts as background image of the minimap.
     // @see https://javascript.plainenglish.io/how-to-take-a-screenshot-of-a-div-with-javascript-641576de0f74
-    // this.frameState$.subscribe(async () => 
-    // {
+    // The above has strong performance issues.
+
+    // -- Alternative approach, draw boxes for each block.
+    // TODO: Now all minimap-blocks have same dimensions. 
+    //       Possible optimalisation is to look at block type and draw approximate dimensions based on type.
+    //          Or different colour per block type.
+    this._sBs.sink =
+      this.frameState$.subscribe(async (state) => 
+      {
+        this.blocks = state.blocks.map(block => ({
+          x: block.position.x/MINI_MAP_FACTOR,
+          y: block.position.y/MINI_MAP_FACTOR,
+  
+          width:  250/MINI_MAP_FACTOR,
+          height: 200/MINI_MAP_FACTOR
+        }) as DOMRect);
+      });
     
     // @todo - this is a performance hog, needs to be optimised
     // this._sBs.sink = 
@@ -63,7 +80,6 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
     });
   }
 
-
   getPosition()
   {
     if(!this.viewport) 
@@ -77,7 +93,6 @@ export class StoryEditorMiniMapComponent implements OnInit, OnDestroy
       height: this.viewport.height * (1/this.zoomFactor)  + 'px',
     } as any;
   }
-
 
   ngOnDestroy()
   {

@@ -12,5 +12,13 @@
  
   </div>
 
+  <!-- display blocks -->
+  <div *ngFor="let block of blocks" class="block"
+    [style.left]="block.x + 'px'"
+    [style.top]="block.y  + 'px'"
+    [style.width]="block.width + 'px'"
+    [style.height]="block.height + 'px'">
+  </div>
+
 </div>
 
