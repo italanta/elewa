@@ -1,6 +1,7 @@
 .bot-cards {
-  display: grid;
-  gap: 20px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
 
   &.grid-evenly-spaced {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -20,6 +21,8 @@
   padding-left: calc(1rem + 10px);
   background-color: white;
   border-radius: 10px;
+
+  min-width: 300px;
 
   &::before {
     content: '';

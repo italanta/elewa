@@ -1,4 +1,4 @@
-<div class="grid" *ngIf="stories">
+<div class="grid" *ngIf="stories" fxFlex fxLayout="row" fxLayoutAlign="space-between center">
   <div class="bot-cards" [ngClass]="stories.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
     <div class="story-card" *ngFor="let story of stories">
       <div class="menu-btn">
