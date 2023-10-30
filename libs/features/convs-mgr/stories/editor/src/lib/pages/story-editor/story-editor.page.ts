@@ -80,6 +80,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     // Make sure screen is always closed on loading editor
     this._sideMenu.toggleExpand(false);
 
+    // Load the editor
     this._editorStateService.get().pipe(take(1))
       .subscribe((state: StoryEditorState) =>
       {

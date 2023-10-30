@@ -35,8 +35,6 @@ export class StoryEditorFrame
   private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
 
-  private _zoom: number;
-
   blocksArray: FormArray;
   
   
