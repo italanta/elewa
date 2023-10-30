@@ -5,7 +5,7 @@ import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { BehaviorSubject, filter, Observable, take } from 'rxjs';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
@@ -75,7 +75,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
               private renderer: Renderer2
               ) 
   {
-    this._editorStateService.get()
+    this._editorStateService.get().pipe(take(1))
       .subscribe((state: StoryEditorState) =>
       {
         this._logger.log(() => `Loaded editor for story ${state.story.id}. Logging state.`)
