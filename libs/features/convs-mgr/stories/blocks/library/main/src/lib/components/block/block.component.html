@@ -1,6 +1,6 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
-        <div  class="outer">
+        <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container"> 
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
@@ -8,13 +8,7 @@
                 <ng-template #showIcon>
                     <i [class]="iconClass" class="icon-color"></i>
                 </ng-template>                
-                <h4 *ngIf="type !== endStoryAnchor" class="block-title"> {{ blockTitle | transloco }}</h4>
-                <div *ngIf="type === endStoryAnchor">
-                     <div *ngSwitchCase="endStoryAnchor">
-                        <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
-                        </app-end-anchor>
-                    </div>
-                </div>
+                <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
 
             <mat-menu #menu="matMenu">
@@ -120,10 +114,10 @@
             <app-open-ended-question-block [id]="id" [block]="block" [openEndedQuestionForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-open-ended-question-block>
         </div>
-        <!-- <div *ngSwitchCase="endStoryAnchor">
+        <div *ngSwitchCase="endStoryAnchor">
             <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-end-anchor>
-        </div> -->
+        </div>
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-video-input-block>
@@ -151,45 +145,3 @@
         </div>
     </div>
 </mat-card>
-
-
-
-
-<!-- <div *ngIf="type == endStoryAnchor" class="card" [id]="id" class="block-card">
-    <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
-        <div *ngIf="type == endStoryAnchor" class="outer">
-            <div class="block-title-container"> 
-                <ng-container *ngIf="svgIcon; else showIcon">
-                    <img [src]="svgIcon" class="svgIcon">
-                </ng-container>
-                <ng-template #showIcon>
-                    <i [class]="iconClass" class="icon-color"></i>
-                </ng-template>                
-                <div *ngSwitchCase="endStoryAnchor">
-                    <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
-                    </app-end-anchor>
-                </div>
-            </div>
-
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editBlock()">
-                    <i class="far fa-edit"></i>
-                    <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.EDIT' | transloco }}</span>
-                </button>
-                <button mat-menu-item (click)="copyblock(block)">
-                    <i class="far fa-clone"></i>
-                    <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.COPY' | transloco }}</span>
-                </button>
-                <button mat-menu-item (click)="deleteBlock()">
-                    <i class="far fa-trash-alt"></i>
-                    <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.DELETE' | transloco }}</span>
-                </button>
-            </mat-menu> 
-          
-            <button mat-icon-button [matMenuTriggerFor]="menu">
-                <i class="fas fa-ellipsis-v"></i>
-            </button>  
-        </div>
-   
-    </div>
-</div> -->
