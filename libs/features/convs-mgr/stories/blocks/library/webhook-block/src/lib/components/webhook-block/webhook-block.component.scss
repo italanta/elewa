@@ -15,9 +15,22 @@ mat-card {
 
   padding: 0.5rem;
   background-color: var(--convs-mgr-placeholder-color);
-  border: 0.1rem solid var(--convs-mgr-placeholder-color);
-  border-radius: 0.625rem;
-  width:100%;
+  border:none;
+  border-right: 0.1rem solid var(--convs-mgr-placeholder-color);
+  width:35%;
+  appearance: none;
+
+}
+
+.webhook-input{
+
+  padding: 0.5rem;
+  background-color: var(--convs-mgr-placeholder-color);
+  border:none;
+  border-right: 0.1rem solid var(--convs-mgr-placeholder-color);
+  width:60%;
+  font-weight: 300;
+  text-align: center;
   appearance: none;
 
 }
@@ -25,7 +38,7 @@ mat-card {
 .custom-dropdown-arrow {
   position: absolute;
   top: 50%;
-  left: 30%;
+  left: 25%;
   transform: translateY(-50%);
   width: 0;
   height: 0;
@@ -39,30 +52,11 @@ mat-card {
 
 .vertical-line-select {
   position: absolute;
-  left: 40%;
+  left: 35%;
   transform: translateY(-100%);
   width: 0.0125rem;
   height: 100%;
   background-color: var(--convs-mgr-input-color-two);
-
-}
-
-.label-select {
-
-  position: absolute;
-  top: 35%;
-  left: 60%;
-  transform: translateY(-50%);
-  width: 100%;
-  height: 0;
-  color: var(--convs-mgr-input-color);
-  font-family: Roboto;
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  color: var(--convs-mgr-input-color);
-
 
 }
 
@@ -72,16 +66,6 @@ mat-card {
   margin-top: 1rem;
   padding: 0.9375rem;
   border-radius: 0.625rem;
-
-  p {
-    width: 12.25rem;
-    color: var(--convs-mgr-input-color-two);
-    font-family: Roboto;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-  }
 
   input[type="text"] {
     background-color: var(--convs-mgr-placeholder-color);
@@ -107,8 +91,8 @@ mat-card {
   }
 
   p {
-    margin-left: 0.3125rem;
-    color: var(--convs-mgr-color-primary-black);
+    width: 12.25rem;
+    color: var(--convs-mgr-input-color-two);
     font-family: Roboto;
     font-size: 0.7rem;
     font-style: normal;
@@ -168,10 +152,22 @@ mat-card {
 .update-button {
   margin-top: 1rem;
   padding: 0.3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border-radius: 0.8rem;
   background: var(--convs-mgr-webhook-button-bg-color);
   border: 0.1rem solid var(--convs-mgr-webhook-button-bg-color);
   color:var(--convs-mgr-color-text-white);
   text-align: center;
 
+}
+
+.webhook-select-inputs {
+  display: flex;
+  // padding: 0.5rem;
+  background-color: var(--convs-mgr-placeholder-color);
+  border: 0.1rem solid var(--convs-mgr-placeholder-color);
+  border-radius: 0.625rem;
+  width:100%;
+  appearance: none;
 }

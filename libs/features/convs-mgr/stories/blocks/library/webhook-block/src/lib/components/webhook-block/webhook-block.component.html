@@ -3,16 +3,18 @@
 		<!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookForm"></app-default-option-field> -->
 
 		<div class="webhook-select-wrapper">
+			<div class="webhook-select-inputs">
 
-			<select class="webhook-select" name="webhookselectId" required id="webhookselectId">
+			<select class="webhook-select" name="webhookselect" required id="webhookselectId">
 				<option *ngFor="let  http of httpCategories ; let
                 	i=index" [value]="http.method" [selected]="i === 0">{{http.name}}
             	</option>
 			</select>
+			<input placeholder="URL input" class="webhook-input" name="webhookinput" required id="webhookInputId"/>
+
+			</div>
 			<span class="custom-dropdown-arrow"></span>
 			<div class="vertical-line-select"></div>
-			<span class="label-select">URL input</span>
-
 		</div>
 
 		<div class="second-block">
