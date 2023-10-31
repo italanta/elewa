@@ -1,5 +1,5 @@
-mat-card {
-  min-width: 200px;
+.wide{
+  width: 25vh;
 }
 
 textarea {
@@ -33,6 +33,7 @@ textarea:focus-visible {
 
 .input {
   margin: 0;
+  width: 200px;
 }
 
 .inputList {
