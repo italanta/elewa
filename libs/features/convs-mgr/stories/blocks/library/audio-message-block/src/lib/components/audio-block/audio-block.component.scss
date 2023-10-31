@@ -13,14 +13,15 @@ audio {
 
 input {
   max-width: 100%;
-  height: fit-content !important;
-  padding: 5px 10px;
+  height: 1.757rem;
+  padding: 0.313rem 0.625rem;
   margin-bottom: 5px;
-  border-radius: 3px;
+  border-radius: 0.938rem;
   caret-color: var(--convs-mgr-color-text-black);
   color: var(--convs-mgr-color-text-black);
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
+  border: none;
+  background-color: var(--convs-mgr-placeholder-color);
 }
 
 .fileSrc {
