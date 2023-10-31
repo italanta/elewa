@@ -1,34 +1,85 @@
 <div [id]="id" *ngIf="audioMessageForm">
-    <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
+  <form
+    [formGroup]="audioMessageForm"
+    fxLayout="column"
+    fxLayoutALign="start center"
+  >
+    <div
+      [id]="audioInputId"
+      class="audio_bg"
+      [ngClass]="byPassedLimits.length ? 'error' : ''"
+    >
+      <div *ngIf="this.block.fileSrc && !isLoadingAudio">
+        <audio controls>
+          <source
+            [src]="this.block.fileSrc!"
+            class="audio"
+            (click)="audioInput.click()"
+          />
+        </audio>
+      </div>
+      <div *ngIf="isLoadingAudio" class="audio-icon">
+        <i class="fas fa-circle-notch fa-spin"></i>
+      </div>
+      <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon">
+        <div
+          *ngIf="svgIconPlay && svgIconAudio && svgIconCancel; else iconClass"
+          class="audio-icons-container"
+        >
+          <img
+            (click)="audioInput.click()"
+            [src]="svgIconPlay"
+            alt="play icon"
+            class="play"
+          />
 
-        <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
-
-            <div *ngIf="this.block.fileSrc && !isLoadingAudio">
-                <audio controls>
-                    <source [src]="this.block.fileSrc!" class="audio" (click)="audioInput.click()">
-                </audio>
-            </div>
-            <div *ngIf="isLoadingAudio" class="audio-icon">
-                <i class="fas fa-circle-notch fa-spin"></i>
-            </div>
-            <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
-                <i class="fas fa-file-audio" (click)="audioInput.click()"></i>
-            </div>
-            <div>
-                <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
-            </div>
+          <img
+            (click)="audioInput.click()"
+            [src]="svgIconAudio"
+            alt="Audio icon"
+            class="audio"
+          />
+          <img [src]="svgIconCancel" alt="Cancel icon" class="cancel" />
         </div>
 
-        <div class="error-message" *ngIf="whatsappLimit">
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
-        </div>
+        <ng-template #iconClass>
+          <i class="fas fa-file-audio" (click)="audioInput.click()"></i>
+        </ng-template>
+      </div>
+      <div>
+        <input
+          #audioInput
+          (change)="processAudio($event)"
+          type="file"
+          accept=".mp3"
+          class="fileSrc"
+        />
+      </div>
+    </div>
 
-        <input type="text" formControlName="fileSrc"
-            [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
-            id="audio-link ">
+    <div class="error-message" *ngIf="whatsappLimit">
+      <span>{{
+        'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE'
+          | transloco
+      }}</span
+      ><br />
+      <span>{{
+        'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO'
+          | transloco
+      }}</span>
+    </div>
 
-        <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
+    <input
+      type="text"
+      formControlName="fileSrc"
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco"
+      name="audio-link "
+      id="audio-link "
+    />
 
-    </form>
+    <app-default-option-field
+      [jsPlumb]="jsPlumb"
+      [blockFormGroup]="audioMessageForm"
+    ></app-default-option-field>
+  </form>
 </div>

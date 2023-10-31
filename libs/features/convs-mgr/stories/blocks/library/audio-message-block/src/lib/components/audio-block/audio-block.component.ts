@@ -8,6 +8,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
+
 @Component({
   selector: 'app-audio-block',
   templateUrl: './audio-block.component.html',
@@ -28,11 +30,20 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
+  svgIconPlay = '';
+  svgIconAudio = '';
+  svgIconCancel = '';
+
   constructor(private _audioUploadService: FileStorageService) {}
 
   ngOnInit(): void {
     this.audioInputId = `aud-${this.id}`;
-    const fileSize = this.audioMessageForm.get('fileSize')?.value
+
+    this.svgIconAudio = iconsAndTitles[8].svgIconAudio;
+    this.svgIconCancel = iconsAndTitles[8].svgIconCancel;
+    this.svgIconPlay = iconsAndTitles[8].svgIconPlay;
+
+    const fileSize = this.audioMessageForm.get('fileSize')?.value;
 
     if (fileSize) {
       this._checkSizeLimit(fileSize);
@@ -47,31 +58,42 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
 
       //Step 1 - Create the file path that will be in firebase storage
       const audioFilePath = `audios/${this.file.name}_${new Date().getTime()}`;
-      
+
       //Step 2 - Upload file to firestore
-      const response = await this._audioUploadService.uploadSingleFile(this.file, audioFilePath);
+      const response = await this._audioUploadService.uploadSingleFile(
+        this.file,
+        audioFilePath
+      );
 
       const fileSizeInKB = this.file.size / 1024;
 
       //Step 3 - PatchValue to Block
-      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
+      this._sBs.sink = response
+        .pipe(take(1))
+        .subscribe((url) => this._autofillUrl(url, fileSizeInKB));
     }
   }
 
-  
   /** Step 3 Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
-    this.byPassedLimits = this._audioUploadService.checkFileSizeLimits(fileSize, 'audio');
+    this.byPassedLimits = this._audioUploadService.checkFileSizeLimits(
+      fileSize,
+      'audio'
+    );
 
-    if (this.byPassedLimits.find(limit => limit.platform === "WhatsApp")) this.whatsappLimit = true;
-    else if (this.byPassedLimits.find(limit => limit.platform === "messenger")) this.messengerLimit = true;
-  };
+    if (this.byPassedLimits.find((limit) => limit.platform === 'WhatsApp'))
+      this.whatsappLimit = true;
+    else if (
+      this.byPassedLimits.find((limit) => limit.platform === 'messenger')
+    )
+      this.messengerLimit = true;
+  }
 
   private _autofillUrl(url: string, fileSizeInKB: number) {
     this.audioMessageForm.patchValue({ fileSrc: url, fileSize: fileSizeInKB });
     this.isLoadingAudio = false;
     this._checkSizeLimit(fileSizeInKB);
-  };
+  }
 
   ngOnDestroy() {
     this._sBs.unsubscribe();
