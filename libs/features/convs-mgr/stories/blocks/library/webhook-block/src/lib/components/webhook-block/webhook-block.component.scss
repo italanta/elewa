@@ -2,3 +2,78 @@ mat-card {
   min-width: 200px;
   padding: 10px;
 }
+
+form {
+  gap: 1.25rem;
+  margin-top: 0.625rem;
+  font-weight: 300;
+
+  .top {
+    background-color: #f3f3f3;
+    border-radius: 0.7rem;
+    display: flex;
+    gap: 0.125rem;
+
+    .drop-down {
+      flex: 1.2;
+      overflow: hidden;
+      padding: 0.313rem;
+      position: relative;
+
+      .select-field {
+        height: 100%;
+        width: 100%;
+        padding: 0.313rem 0.125rem;
+        appearance: none;
+        border: none;
+        outline: none;
+        border-radius: 0.7rem;
+        font-weight: 300;
+        color: gray;
+      }
+
+      &:after {
+        content: '▼';
+        padding: 0.75rem 0.5rem;
+        position: absolute;
+        right: -10%;
+        top: -15%;
+        z-index: 1;
+        text-align: center;
+        width: 30%;
+        height: 100%;
+        pointer-events: none;
+        color: gray;
+      }
+    }
+    .vertical-line {
+      background-color: lightgray;
+      width: 0.5px;
+      height: 100%;
+    }
+    .input {
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .input-field {
+        background-color: #f3f3f3;
+        padding: 5px 2px;
+        width: 90%;
+        border: none;
+        outline: none;
+        color: gray;
+        font-weight: 300;
+      }
+    }
+  }
+  .center {
+    border-radius: 0.7rem;
+    background-color: blue;
+  }
+  .bottom {
+    border-radius: 0.7rem;
+    background-color: green;
+  }
+}
