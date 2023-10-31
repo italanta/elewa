@@ -37,6 +37,11 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     });
   }
 
+  writeConnection(connection: StoryBlockConnection) 
+  {
+    return this._activeRepo.write(connection, connection.id);
+  }
+
   addConnectionsByStory(storyId: string, orgId: string, connections: StoryBlockConnection[], isPublished: boolean){
     const repo = this._repoFac.getRepo<StoryBlockConnection>(`orgs/${orgId}/stories/${storyId}/connections`);
 
