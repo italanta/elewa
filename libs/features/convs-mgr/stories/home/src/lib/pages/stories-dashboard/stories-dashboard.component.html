@@ -1,4 +1,5 @@
 <convl-page [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
+
   <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
     <span class="bots"> {{ 'BOTS.BOTS-PAGE.BOTS' | transloco }} </span>
 
@@ -11,9 +12,8 @@
     </span>
 
     <div class="latest-courses" fxFlex>
-      <italanta-apps-bots-list-latest-courses
-        [bots$]="bots$"
-      ></italanta-apps-bots-list-latest-courses>
+      <italanta-apps-bots-list-latest-courses [bots$]="bots$">
+      </italanta-apps-bots-list-latest-courses>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -22,9 +22,9 @@
     </div>
 
     <div class="my-courses" fxFlex>
-      <italanta-apps-bots-list-all-courses
-        [bots$]="bots$"
-      ></italanta-apps-bots-list-all-courses>
+      <italanta-apps-bots-list-all-courses [bots$]="bots$">
+      </italanta-apps-bots-list-all-courses>
     </div>
   </div>
+  
 </convl-page>
