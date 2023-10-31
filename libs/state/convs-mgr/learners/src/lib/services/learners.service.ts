@@ -29,7 +29,7 @@ export class EnrolledLearnersService {
           return this._endUsers.getSpecificUser(user.whatsappUserId).pipe(
             map((endUser) => {
               if (endUser) {
-                user.currentCourse = endUser.currentStory as string;
+                user.currentCourse = endUser.currentStory as string || "";
               }
               return user;
             })
