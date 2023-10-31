@@ -1,6 +1,7 @@
 mat-card {
 	width: 100%;
 	border-radius: 0.01rem;
+	padding: 0;
 }
 
 .block {
@@ -72,5 +73,6 @@ hr{
     z-index: 0 !important;
   }
 
-  
-
+:host ::ng-deep .block-card{
+	padding: 0 !important;
+}
