@@ -60,6 +60,10 @@ mat-card {
 
 }
 
+select:focus, input:focus{
+  outline: none;
+}
+
 .second-block {
 
   background-color: var(--convs-mgr-placeholder-color);
@@ -151,9 +155,7 @@ mat-card {
 
 .update-button {
   margin-top: 1rem;
-  padding: 0.3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.3rem 1rem 0.3rem 1rem;
   border-radius: 0.8rem;
   background: var(--convs-mgr-webhook-button-bg-color);
   border: 0.1rem solid var(--convs-mgr-webhook-button-bg-color);
@@ -164,7 +166,7 @@ mat-card {
 
 .webhook-select-inputs {
   display: flex;
-  // padding: 0.5rem;
+  padding: 0.3rem 0rem 0.3rem 0rem;
   background-color: var(--convs-mgr-placeholder-color);
   border: 0.1rem solid var(--convs-mgr-placeholder-color);
   border-radius: 0.625rem;
