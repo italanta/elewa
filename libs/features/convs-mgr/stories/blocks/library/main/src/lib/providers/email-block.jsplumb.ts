@@ -22,16 +22,7 @@ export function _EmailBlockDecoratePlumb(block: EmailMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.28, 1, 0],
-    maxConnections: -1
-  });
-
-  jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
-    target: true,
-    cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [1, 0.8, 1, 1],
+    anchor: [0, 0.23, 1, 0],
     maxConnections: -1
   });
 
