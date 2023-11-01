@@ -83,16 +83,16 @@ export class MessagesQuery
         });
   
         return combineLatest(dateObservables).pipe(
-          map((chatsWithDates: Chat[]) => {
-            chatsWithDates.sort((a, b) => {
-              // If there's no lastMsg, place the chat at the end
-              if (!a.lastMsg) return 1;
-              if (!b.lastMsg) return -1;
-              // Sort based on the date of the latest message (more recent comes first)
-              return b.lastMsg - a.lastMsg;
-            });
-            return chatsWithDates;
-          })
-      )})
+            map((chatsWithDates: Chat[]) => {
+              chatsWithDates.sort((a, b) => {
+                // If there's no lastMsg, place the chat at the end
+                if (!a.lastMsg) return 1;
+                if (!b.lastMsg) return -1;
+                // Sort based on the date of the latest message (more recent comes first)
+                return b.lastMsg - a.lastMsg;
+              });
+              return chatsWithDates;
+            })
+        )})
       )}
 }
