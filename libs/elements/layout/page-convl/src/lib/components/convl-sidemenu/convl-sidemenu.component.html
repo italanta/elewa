@@ -66,6 +66,9 @@
                 <span *ngIf="isExpanded" class="menu-title message-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
+                <span class="menu-icon" *ngIf="isExpanded">
+                  <img [src]="isCollapsed? 'assets/icons/arrow-up.svg' : 'assets/icons/arrow-down.svg'" class="img" alt="">
+                </span>
               </a>
               <ul class="sub-side-menu" *ngIf="!isCollapsed">
                 <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
