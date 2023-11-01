@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import { map, mergeMap, combineLatest, pipe } from 'rxjs';
+// import { pipe, map, mergeMap } from 'rxjs/operators';
+
+import { Observable } from 'rxjs';
 
 import { __DateFromStorage } from '@iote/time';
 import { Logger } from '@iote/bricks-angular';
@@ -11,7 +14,7 @@ import { Query } from '@ngfi/firestore-qbuilder';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 
-import { ActiveChatStore } from '@app/state/convs-mgr/conversations/chats';
+import { ActiveChatStore, ChatsStore } from '@app/state/convs-mgr/conversations/chats';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable({
@@ -23,13 +26,17 @@ export class MessagesQuery
   private _activeChat: Chat;
   private orgId?: string;
 
+  chats$: Observable<Chat[]>;
+
   constructor(
                 private _activeOrg: ActiveOrgStore,
                 _activeChat$: ActiveChatStore,
+                private _chats$: ChatsStore,
                private _dataService: DataService,
                protected _logger: Logger)
   {
     _activeOrg.get().subscribe(org => this.orgId = org.id);
+    this.chats$ = this._chats$.get();
   }
 
   getPaginator(chat: Chat)
@@ -63,10 +70,30 @@ export class MessagesQuery
     return messagesRepo$.create(message, Date.now().toString());
   }
 
-  // get(index: number, n: number): Observable<ChatMessage[]>
-  // {
 
-  //   return this._qRepo.getDocuments(new Query().orderBy('date', 'desc')
-  //                                              .skipTake(index, n))
-  // }
+  getOrderedChats(): Observable<Chat[]> {
+    return this.chats$.pipe(
+      mergeMap((chats) => {
+        const dateObservables = chats.map((chat) => {
+          return this.getLatestMessageDate(chat.id).pipe(
+            map((date) => ({
+              ...chat,
+              lastMsg: date
+            }))
+          );
+        });
+  
+        return combineLatest(dateObservables).pipe(
+          map((chatsWithDates: Chat[]) => {
+            chatsWithDates.sort((a, b) => {
+              // If there's no lastMsg, place the chat at the end
+              if (!a.lastMsg) return 1;
+              if (!b.lastMsg) return -1;
+              // Sort based on the date of the latest message (more recent comes first)
+              return b.lastMsg - a.lastMsg;
+            });
+            return chatsWithDates;
+          })
+      )})
+      )}
 }

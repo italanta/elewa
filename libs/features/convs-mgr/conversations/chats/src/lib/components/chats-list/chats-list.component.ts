@@ -19,6 +19,7 @@ import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
 import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-chats-list',
@@ -59,6 +60,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
     private _activeChat$: ActiveChatConnectedStore,
     private cd: ChangeDetectorRef,
     _dS: DataService,
+    private messageQuery : MessagesQuery,
     private _logger: Logger)
   {
     const _repo = _dS.getRepo<Payment>('payments');
@@ -71,8 +73,9 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$ = this._chats$.get();
-    this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
+      this._sbs.sink = this.messageQuery.getOrderedChats().subscribe((orderedChats) => {
+      this.getChats(orderedChats);
+    })
   }
 
   
