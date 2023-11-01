@@ -15,7 +15,6 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
 
 
@@ -50,7 +49,6 @@ export class StoryEditorFrame
               private _jsPlumb: BrowserJsPlumbInstance,
               private _blocksInjector: BlockInjectorService,
               private _viewport: ViewContainerRef,
-              private _connectionsService: BlockConnectionsService,
               private _edf: ElementRef<HTMLElement>) 
   {
     this.loaded = true;
@@ -207,24 +205,7 @@ export class StoryEditorFrame
               location: 0.5,
               events: {
                 // Add a double-click event to the overlay
-                dblclick: (overlayData) => {
-                  // Find the connection in the state object by the connection ID in the overlayData object
-                  const con = this.state.connections.find(
-                    (c) => c.id == overlayData.overlay.id
-                  );
-
-                  // Call the `deleteConnection` method of the `_connectionsService` object
-                  if (con) {
-                    this._connectionsService.deleteConnection(con);
-                  }
-
-                  // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
-                  return DeleteConnectorbyID(
-                    this._jsPlumb,
-                    this.state,
-                    overlayData
-                  );
-                },
+                dblclick: (overlayData) => this._deleteConnection(overlayData)
               },
             },
           },
@@ -275,8 +256,10 @@ export class StoryEditorFrame
    * Private method which draws the block on the frame.
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
    */
-  private _injectBlockToFrame(block: StoryBlock) {
+  private _injectBlockToFrame(block: StoryBlock) 
+  {
     const blck = this._blocksInjector.newBlock(
+      this._state,
       block,
       this._jsPlumb,
       this._viewport,
@@ -291,6 +274,28 @@ export class StoryEditorFrame
 
   private _getID() {
     return uuidv4().slice(0, 8);
+  }
+
+  /** 
+   * Method to delete a connection. 
+   * To be called on double-click of the delete button overlay.
+   */
+  private _deleteConnection(overlayData: any) 
+  {
+    // Find the connection in the state object by the connection ID in the overlayData object
+    const con = this.state.connections.find(
+      (c) => c.id == overlayData.overlay.id
+    );
+    // Call the `deleteConnection` method of the `_connectionsService` object
+    if (con)
+      this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
+
+    // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
+    return DeleteConnectorbyID(
+      this._jsPlumb,
+      this.state,
+      overlayData
+    );
   }
 
   // Section -- Zoom management
