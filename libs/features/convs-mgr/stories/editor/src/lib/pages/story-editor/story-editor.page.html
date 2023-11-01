@@ -66,7 +66,10 @@
         </div>
       </div>
 
-      <p class="error-count" *ngIf="errors.length>0">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</p>
+      <div class="error-count" *ngIf="errors.length>0" fxFlex fxLayout="row" fxLayoutAlign="end center">
+        <div class="error-msg">{{'TOAST.ERROR-COUNT' | transloco}} <span class="error-count-length">{{errors.length}}</span> {{'TOAST.ERRORS' | transloco}}</div>
+        <div class="save-msg"><a class="save-anyway" (click)="saveWithErrors()">{{'PAGE-CONTENT.TOP-BAR.SAVE-WITH-ERRORS' | transloco }}</a></div>
+      </div>
 
       <convl-story-editor-frame fxFlex="100"
               (frameLoaded)="onFrameViewLoaded($event)"

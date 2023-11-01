@@ -154,7 +154,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
    * 
    * Save the changes made in the data model.
    */
-  save() 
+  save(overrideValidators = false) 
   {
     this.errors = this.shownErrors = [];
     this.stateSaved = false;
@@ -164,7 +164,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
    
     try {
       this._sb.sink =
-        this._saveStory.saveStory(this.state, this.frame)
+        this._saveStory.saveStory(this.state, this.frame, !overrideValidators)
           .subscribe((success) => 
           {
             if (success) 
@@ -183,6 +183,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
       this.shownErrors = this.errors.slice(0,2);
       this.stateSaved = true;
     }
+  }
+
+  /** After providing user feedback, the user can decide to save even with errors. */
+  saveWithErrors() {
+    return this.save(true);
   }
 
   //
