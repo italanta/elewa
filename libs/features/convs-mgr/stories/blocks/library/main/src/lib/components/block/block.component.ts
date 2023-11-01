@@ -68,7 +68,7 @@ export class BlockComponent implements OnInit
     if(this.blocksGroup && this.blockFormGroup)
       this.blocksGroup.push(this.blockFormGroup);
     else 
-      console.warn('Cannot determine block type!')
+      console.warn('Cannot determine block type!');
   }
 
   getBlockIconAndTitle(type: number) {
@@ -76,7 +76,7 @@ export class BlockComponent implements OnInit
   }
 
   highLight() {
-    const endpoint = document.querySelector('.jtk-endpoint');
+    // const endpoint = document.querySelector('.jtk-endpoint');
     const comp = document.getElementById(this.id) as HTMLElement
     this._renderer.setStyle(comp, 'z-index', '1')
   }
