@@ -9,6 +9,9 @@ import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 
 import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video-upload-modal.component';
 
+import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
+
+
 @Component({
   selector: 'app-video-block',
   templateUrl: './video-block.component.html',
@@ -22,6 +25,9 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
 
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
 
+  /**creating a placeholder  that will be used or assigned  an SVG icon*/
+  svgIcon = ""
+
   private _sBs = new SubSink();
   isLoadingVideo: boolean;
   videoUrl: string;
@@ -31,6 +37,14 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.checkIfVideoExists();
+
+    /** Assign the SVG icon based on the 'block.type' to 'svgIcon'.*/
+    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon;
+  }
+  
+  /**Get icon and title information based on 'type'. */
+  getBlockIconAndTitle(type:number) {
+    return iconsAndTitles[type];
   }
 
   checkIfVideoExists() {
