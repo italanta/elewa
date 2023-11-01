@@ -50,7 +50,7 @@ export class StoryEditorStateService
   get(): Observable<StoryEditorState> 
   {
     const state$ = this._story$$.get().pipe(
-                      debounceTime(1000),
+                      debounceTime(500),
                       // Load story editor state. This includes the story itself, the blocks which it consists and the connections.
                       switchMap(story => story ? combineLatest([of(story), 
                                                                 this._blocks$$.getBlocksByStory(story.id!), 

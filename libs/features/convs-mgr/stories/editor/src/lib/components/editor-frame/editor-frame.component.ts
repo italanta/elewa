@@ -49,10 +49,10 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
     // Transfer listener for frame state changes.
     //    This transfer is necessary as the listener is initialised async and 
     //      can thus be null in the child components in case they render too fast.
-    // Debounce 1 second for performance issues
+    // Debounce 1 second for performance issues (scrapped - not necessary?)
     this._sbS.sink =
       this._frame.frameChanges$
-          .pipe(debounceTime(1000))
+          // .pipe(debounceTime(1000))
           .subscribe(f => 
       {
         if(f) 
