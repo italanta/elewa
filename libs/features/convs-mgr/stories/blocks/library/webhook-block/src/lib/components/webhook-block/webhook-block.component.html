@@ -58,7 +58,27 @@
         </div>
       </div>
     </div>
-    <div class="bottom">bottom</div>
+    <div class="bottom">
+		<div class="text">
+			<p>In this section, you configure the mapping of the webhook response to local variables within Goomza. Your webhook is expected to provide an object that holds the requested data, such as &#123;  companyName: "Goomza" &#125; .
+			</p>
+			<p>
+				To establish this mapping to a local variable, you should specify the location of the data within the object. For instance, you can create a local variable called "client" and link it to "companyName." It's important to note that nested objects are also supported for mapping, for example, 'data.company.name'.
+			</p>
+		</div>
+		<div class="webhook-obj">
+			<span class="wb-name">
+				Username
+			</span>
+			<span class="wb-image">
+				<img src="assets/svgs/blocks/ph_arrow-thin.svg" alt="">
+			</span>
+			<span class="wb-name"></span>
+		</div>
+		<span class="wb-button">
+			Update
+		</span>
+	</div>
     <app-default-option-field
       [jsPlumb]="jsPlumb"
       [blockFormGroup]="webhookForm"

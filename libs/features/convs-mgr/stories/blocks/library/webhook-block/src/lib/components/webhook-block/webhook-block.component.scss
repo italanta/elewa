@@ -166,7 +166,52 @@ form {
     }
   }
   .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     border-radius: 0.7rem;
-    background-color: green;
+    background-color: #f3f3f3;
+    padding: 0px 0.625rem 0.625rem 0.625rem;
+
+    .text {
+      font-size: 0.75rem;
+      // text-align: justify;
+    }
+    .webhook-obj {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .wb-name {
+        width: 4.6875rem;
+        height: 0.9375rem;
+        border-radius: 0.3125rem;
+        border: 0.025rem solid #7c7c7c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.3125rem;
+      }
+      .wb-image {
+        img {
+          height: 0.9375rem;
+          width: 0.9375rem;
+        }
+      }
+    }
+    .wb-button {
+      width: 3.75rem;
+      height: 0.9375rem;
+      border-radius: 0.9375rem;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3125rem;
+      background-color: #1F7A8C;
+      color: #fff;
+      align-self: end;
+      cursor: pointer;
+    }
   }
 }
