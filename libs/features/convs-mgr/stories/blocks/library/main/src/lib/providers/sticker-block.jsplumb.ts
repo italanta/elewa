@@ -21,8 +21,8 @@ export function _StickerBlockDecoratePlumb(block: StickerMessageBlock, comp: Com
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Dot",
-    anchor: [0, 0.2, 1, 0],
+    endpoint: "Rectangle",
+    anchor: "Left",
     maxConnections: -1
   });
 
