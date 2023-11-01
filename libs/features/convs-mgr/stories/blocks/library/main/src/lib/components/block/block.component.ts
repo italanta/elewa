@@ -354,7 +354,7 @@ export class BlockComponent implements OnInit {
   deleteBlock() {
     this.block.deleted = true;
     this.blockFormGroup.value.deleted = true;
-    this._connectionsService.deleteBlockConnections(this.block);
+    this._connectionsService.deleteBlockConnections(this.block, this.jsPlumb);
     const index = this.viewPort.indexOf(this.ref.hostView);
     this.viewPort.remove(index);
     this._cd.detectChanges();
