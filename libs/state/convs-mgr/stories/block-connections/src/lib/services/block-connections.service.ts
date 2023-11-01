@@ -48,17 +48,12 @@ export class BlockConnectionsService implements OnDestroy {
   deleteBlockConnections(block: StoryBlock, jsPlumb: BrowserJsPlumbInstance,) {
     this.getAllConnections().pipe(take(1)).subscribe((connections: StoryBlockConnection[]) => {
 
-      let deletedConnections = connections.filter(
-        (connection) => connection.sourceId.includes(block.id as string) || connection.targetId === block.id
-      );
+      const remainingConnections = connections.filter(
+        (connection) => connection.sourceId !== block.id && connection.targetId !== block.id
+        );
 
-      const anchorConnection = connections.filter((connection)=> connection.sourceId === this._story$$._activeStory);
-
-      deletedConnections = [...deletedConnections, ...anchorConnection];
-
-      DeleteConnectors(jsPlumb, deletedConnections);
-
-      this._connections$$.removeMultiple(deletedConnections).subscribe();
+      this._connections$$.set(remainingConnections);
+      
     });
   }
   
