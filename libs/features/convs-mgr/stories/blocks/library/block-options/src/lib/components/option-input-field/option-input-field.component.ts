@@ -21,9 +21,7 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   @Input() charMaxlength: number;
 
   inputUniqueId: string;
-  optionValue: string = "";
-
-  constructor() { }
+  optionValue = "";
 
   ngOnInit(): void 
   {

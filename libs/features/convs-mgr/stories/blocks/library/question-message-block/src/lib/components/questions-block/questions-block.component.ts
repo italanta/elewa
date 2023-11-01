@@ -1,27 +1,24 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { QuestionMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { CursorFocusService } from '@app/features/convs-mgr/stories/blocks/library/main';
-import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
+import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
-
-
-
-const questionOptionInputLimit: number = 20;
-const questionOptionsArrayLimit: number = 3;
+const questionOptionInputLimit = 20;
+const questionOptionsArrayLimit = 3;
 
 @Component({
   selector: 'app-questions-block',
   templateUrl: './questions-block.component.html',
   styleUrls: ['./questions-block.component.scss'],
 })
-export class QuestionsBlockComponent implements OnInit, AfterViewInit {
+export class QuestionsBlockComponent implements OnInit 
+{
   @ViewChild('inputOtion') inputOtion: ElementRef;
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 
@@ -40,15 +37,13 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
 
   readonly questionOptionInputLimit = questionOptionInputLimit;
 
-  constructor(private _fb: FormBuilder, private cursorFocusService: CursorFocusService) { }
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.block.options?.forEach((option) => {
       this.options.push(this.addQuestionOptions(option));
     })
   }
-
-  ngAfterViewInit(): void { }
 
   get options(): FormArray {
     return this.questionMessageBlock.controls['options'] as FormArray;
@@ -73,7 +68,7 @@ export class QuestionsBlockComponent implements OnInit, AfterViewInit {
   }
 
   setFocusOnNextInput() {
-    this.currentIndex = this.cursorFocusService.focusOnNextInput(
+    this.currentIndex = __FocusCursorOnNextInputOfBlock(
       this.currentIndex,
       this.optionInputFields
     );
