@@ -1,5 +1,5 @@
 import { FunctionHandler, FunctionRegistrar, GCFunction, Guard } from "@ngfi/functions";
-import { environment } from "./environments/environment";
+import { environment } from "../../conv-learning-manager/src/environments/environment";
 
 /**
  * @Description Implementation of GCFunction for the scope of this project. Adds in Environment.
