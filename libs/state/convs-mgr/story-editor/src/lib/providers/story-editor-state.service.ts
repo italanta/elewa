@@ -93,7 +93,7 @@ export class StoryEditorStateService
                           : of(false);
 
     const blockActions$ = this._determineBlockActions(state.blocks);
-    const actions$ = shouldAddNewConns ? blockActions$.concat(addNewConnections$ as any)
+    const actions$ = shouldAddNewConns ? blockActions$.concat(addNewConnections$ as Observable<StoryBlockConnection[]> as any)
                                        : blockActions$;
 
     // Persist the story and all the blocks
@@ -146,12 +146,8 @@ export class StoryEditorStateService
     // Todo: check for deleted connections and upated conections
     private _determineConnections(connections: StoryBlockConnection[]) 
     {
-      const oldConns = (this._lastLoadedState as StoryEditorState).connections;
       // fetches only the new connections
-      let newConnections = this.fetchNewJsPlumbConnections(connections);
-
-      // Filter out old connections
-      // newConnections = newConnections.filter(newConn => !oldConns.find(oCon => newConn.id === oCon.id));
+      const newConnections = this.fetchNewJsPlumbConnections(connections);
 
       //TODO: chain connections actions -> refer to determineBlockActions
       return newConnections;
@@ -159,7 +155,7 @@ export class StoryEditorStateService
 
     /** Creates a block. */
     private _createBlock(block: StoryBlock) {
-      return this._blocks$$.addBlock(block);
+      return this._blocks$$.add(block, block.id);
     }
 
     /** We cannot just delete blocks as active chat users might have their cursor on that block. 
