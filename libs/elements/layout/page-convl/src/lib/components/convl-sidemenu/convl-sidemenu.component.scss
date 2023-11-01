@@ -240,6 +240,10 @@ $sidebar-footer-height: 230px;
             align-items: center;
             justify-content: center;
 
+            .img-icon{
+              height: 14px;
+            }
+
             i {
               display: inline-block;
             }
