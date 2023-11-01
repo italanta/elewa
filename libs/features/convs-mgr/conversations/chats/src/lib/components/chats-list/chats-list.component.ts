@@ -53,6 +53,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
+  chatsLoaded = false; 
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
@@ -73,9 +74,12 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-      this._sbs.sink = this.messageQuery.getOrderedChats().subscribe((orderedChats) => {
-      this.getChats(orderedChats);
-    })
+    //   this._sbs.sink = this.messageQuery.getOrderedChats().subscribe((orderedChats) => {
+    //   this.getChats(orderedChats);
+    // })
+    this.chats$ = this._chats$.get();
+    this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
+    this.chatsLoaded = true; 
   }
 
   
