@@ -25,6 +25,7 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
+import { StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
 
 @Component({
@@ -94,7 +95,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
       });
-
     }
 
     ngOnInit()
@@ -148,13 +148,23 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this._cd.detectChanges();
   }
  
-  /** Save the changes made in the data model. */
+  /** 
+   * Save the changes made in the data model. 
+   * @todo: Move the error handling into story-editor-persist service
+   */
   save() 
   {
     this.stateSaved = false;
     this.errors =[];
     this.shownErrors =[];
 
+    // Get connections from JsPlumb
+    // Connecting happens within JsPlumb and outside of our state's control
+    this.state.connections = this.frame.jsPlumbInstance.connections
+                                 .map(c => ({ id: c.id, sourceId: c.sourceId, 
+                                              // Target ID needs to be gotten from the component itself
+                                              targetId: c.target.id }) as StoryBlockConnection);
+   
     this.checkStoryErrors(this.state);
 
     this._editorStateService.persist(this.state)
@@ -262,6 +272,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     const zoom = this.storyEditorFrame.increaseFrameZoom();
     return this.setZoom(zoom * 100, true);
   }
+
   decreaseZoom() {
     if(this.zoomLevel.value <= 25) 
       return; 
