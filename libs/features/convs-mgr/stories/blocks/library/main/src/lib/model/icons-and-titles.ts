@@ -112,7 +112,9 @@ export const iconsAndTitles: any = {
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
-    icon: 'fas fa-chart-bar'
+    icon: 'fas fa-chart-bar',
+    svgIcon: 'assets/svgs/blocks/la_clipboard-check.svg',
+
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
