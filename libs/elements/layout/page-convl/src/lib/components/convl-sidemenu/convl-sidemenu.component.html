@@ -57,39 +57,43 @@
             </li>
 
             <!-- Messaging sections -->
-            <ul class="menu-item"  >
+            <li class="menu-item" (click)="toggleDropdown()">
               <a matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
-                  <img *ngIf="!isExpanded" matTooltip="Chats" src="assets/icons/chats-stroked.svg" class="img" alt="">
+                  <img *ngIf="!isExpanded"  src="assets/icons/chats-stroked.svg" class="img" alt="">
                 </span>
-                <span *ngIf="isExpanded" class="menu-title message-title">
+                <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>
-              <ul class="sub-side-menu">
-                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
-                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
-                    <span class="menu-icon">
-                      <img src="assets/icons/message-chat.svg" class="img" alt="">
-                    </span>
-                    <span *ngIf="isExpanded" class="menu-title">
-                      {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
-                    </span>
-                  </a>
-                </li>
-                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
-                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active" >
-                    <span class="menu-icon">
-                      <img src="assets/icons/message-template.svg" class="img" alt="">
-                    </span>
-                    <span *ngIf="isExpanded" class="menu-title">
-                      {{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </ul>
+
+              <div *ngIf="isDropdownOpen">
+                <ul class="sub-side-menu">
+                  <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
+                    <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
+                      <span class="menu-icon">
+                        <img src="assets/icons/message-chat.svg" class="img" alt="">
+                      </span>
+                      <span *ngIf="isExpanded" class="menu-title">
+                        {{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}
+                      </span>
+                    </a>
+                  </li>
+                  <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
+                    <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active" >
+                      <span class="menu-icon">
+                        <img src="assets/icons/message-template.svg" class="img" alt="">
+                      </span>
+                      <span *ngIf="isExpanded" class="menu-title">
+                        {{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
+            </li>
 
             <!-- Asssessments sections -->
             <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/assessments" routerLinkActive="active" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ASSESSMENTS'| transloco }}">
