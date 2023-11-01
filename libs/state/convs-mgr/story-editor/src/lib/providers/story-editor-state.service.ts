@@ -171,9 +171,11 @@ export class StoryEditorStateService
     return this._connections$$.add(connection);
   }
 
+  // @todo @reagan - investigate impact of deleting connections on the bot
   private _deleteConnection(connection: StoryBlockConnection) {
-    connection.deleted = true;
-    return this._connections$$.update(connection);
+    // connection.deleted = true;
+    // return this._connections$$.update(connection);
+    return this._connections$$.remove(connection);
   }
 
   /** 
