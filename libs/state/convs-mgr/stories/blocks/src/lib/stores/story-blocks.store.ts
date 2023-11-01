@@ -46,6 +46,18 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
     });
   }
 
+  /**
+   * Quick fix for the story editor issue. This function overwrites the current connection 
+   *    when saving if it already exists.
+   * 
+   * TODO: Fix the actual state issue which results in the story editor trying to create blocks
+   *   and connections which already exist.
+   */
+  addBlock(block: StoryBlock) 
+  {
+    return this._activeRepo.write(block, block.id as string);
+  }
+
   addBlocksByStory(storyId: string, orgId: string, blocks: StoryBlock[], isPublished: boolean) 
   {
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);
