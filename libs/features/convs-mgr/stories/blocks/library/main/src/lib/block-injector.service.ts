@@ -10,9 +10,9 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { BlockComponent } from '../components/block/block.component';
+import { BlockComponent } from './components/block/block.component';
 
-import { _JsPlumbComponentDecorator } from './jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from './utils/jsplumb-decorator.util';
 
 /**
  * The BlockInjector is part of the engine of the story-editor. 
@@ -50,7 +50,6 @@ export class BlockInjectorService
     blockComp.instance.deleteBlock.pipe(take(1)).subscribe(((block: StoryBlock) => { this._delete(state, block, blockComp, jsPlumb, viewport, blocksGroup) }).bind(this));
     // On copy block
     blockComp.instance.copyBlock.subscribe(((block: StoryBlock) => { this._copy(state, block, blockComp, jsPlumb, viewport, blocksGroup) }).bind(this));
-
 
     return blockComp;
   }
