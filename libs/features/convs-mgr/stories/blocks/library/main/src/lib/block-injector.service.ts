@@ -63,8 +63,10 @@ export class BlockInjectorService
    */
   private _delete(state: StoryEditorState, block: StoryBlock, ref: ComponentRef<BlockComponent>, plumb: BrowserJsPlumbInstance, viewport: ViewContainerRef, blocksGroup: FormArray)
   {
-    // Remove the block
+    // Remove the block from state and form
     state.blocks = state.blocks.filter(bl => bl.id !== block.id);
+    blocksGroup.removeAt(blocksGroup.value.findIndex((bl: StoryBlock) => bl.id === block.id));
+
       // Remove the block from viewport
     // plumb.viewport.remove(block.id as string);
     const index = viewport.indexOf(ref.hostView);
@@ -76,9 +78,10 @@ export class BlockInjectorService
     state.connections = state.connections.filter(conn => conn.sourceId !== block.id && conn.targetId !== block.id);
         // Remove on viewport - @see https://docs.jsplumbtoolkit.com/community/6.x/lib/querying
     const sourceConns = plumb.connections.filter(conn => conn.sourceId.includes(block.id as string));
-    const targetConns = plumb.select({ target: block.id } as any); 
+    const targetConns = plumb.connections.filter(conn => conn.target.id.includes(block.id as string) || conn.targetId.includes(block.id as string));
+
     sourceConns.forEach(c => plumb.deleteConnection(c));
-    targetConns.deleteAll();
+    targetConns.forEach(c => plumb.deleteConnection(c));
   }
 
   /**

@@ -40,20 +40,9 @@ import { _CreateCmi5BlockForm }             from "./model/cmi5-block-form.model"
  * @param blocksGroup - The array in which to push the block
  * @returns 
  */
-export function _DetermineBlockType(block: StoryBlock, type: StoryBlockTypes, _fb: FormBuilder, blocksGroup: FormArray)
+export function _DetermineBlockType(block: StoryBlock, type: StoryBlockTypes, _fb: FormBuilder)
 {
-  if(! blocksGroup)
-  {
-    console.log(`Cannot determine block type for block ${block.id} `)
-    return false;
-  }
-
-  let blockFormGroup = _renderBlockByType(block, type, _fb);
-  
-  if(blockFormGroup)
-    blocksGroup.push(blockFormGroup);
-
-  return blockFormGroup;
+  return  _renderBlockByType(block, type, _fb);
 }
 
 function _renderBlockByType(block: StoryBlock, type: StoryBlockTypes, _fb: FormBuilder)

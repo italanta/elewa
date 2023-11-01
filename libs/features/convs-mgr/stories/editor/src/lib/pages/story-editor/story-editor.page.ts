@@ -9,7 +9,7 @@ import { BehaviorSubject, filter, Observable, take } from 'rxjs';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
-import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } from '@app/state/convs-mgr/story-editor';
+import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
@@ -22,11 +22,10 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
+import { SaveStoryService } from '../../providers/save-story.service';
 
-import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
-import { StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
-
+import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -67,16 +66,18 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
   constructor(private _editorStateService: StoryEditorStateService,
-              private _dialog: MatDialog,
-              private _cd: ChangeDetectorRef,
-              private _logger: Logger,
               private _blockPortalService: BlockPortalService,
-              _router: Router,
+              private _saveStory: SaveStoryService,
+
               private _sideMenu: SidemenuToggleService,
               private sideScreen: SideScreenToggleService,
-              private _storyErrorCheck: CheckStoryErrorsService,
-              private renderer: Renderer2
-              ) 
+
+              private _dialog: MatDialog,
+              private _cd: ChangeDetectorRef,
+              private renderer: Renderer2,
+              _router: Router,
+
+              private _logger: Logger) 
   {
     // Make sure screen is always closed on loading editor
     this._sideMenu.toggleExpand(false);
@@ -122,8 +123,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   */
   onBlockComponentRendering(ref: any) {
     ref = ref as ComponentRef<any>
-    ref.instance['form'] = this.activeBlockForm
-    ref.instance['title'] = this.activeBlockTitle
+    ref.instance['form'] = this.activeBlockForm;
+    ref.instance['title'] = this.activeBlockTitle;
   }
 
   /**  Detach and close Block Edit form */
@@ -149,33 +150,44 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
  
   /** 
-   * Save the changes made in the data model. 
-   * @todo: Move the error handling into story-editor-persist service
+   * ==== CORE FEATURE ====
+   * 
+   * Save the changes made in the data model.
    */
   save() 
   {
+    this.errors = this.shownErrors = [];
     this.stateSaved = false;
-    this.errors =[];
-    this.shownErrors =[];
-
-    // Get connections from JsPlumb
-    // Connecting happens within JsPlumb and outside of our state's control
-    this.state.connections = this.frame.jsPlumbInstance.connections
-                                 .map(c => ({ id: c.id, sourceId: c.sourceId, 
-                                              // Target ID needs to be gotten from the component itself
-                                              targetId: c.target.id }) as StoryBlockConnection);
    
-    this.checkStoryErrors(this.state);
-
-    this._editorStateService.persist(this.state)
-        .subscribe((success) => {
-          if (success) {
-            this.stateSaved = true;
-            this.opened = false;
-            this.storyHasBeenSaved = true;
-          }
-        });
+    // Get updated blocks from the frame-form
+    this.state.blocks = [...this.frame.blocksArray.getRawValue()];
+   
+    try {
+      this._sb.sink =
+        this._saveStory.saveStory(this.state, this.frame)
+          .subscribe((success) => 
+          {
+            if (success) 
+            {
+              this.stateSaved = true;
+              this.opened = false;
+              this.storyHasBeenSaved = true;
+            }
+          // TODO: Handle failed saves
+          });
+    }
+    // If there are errors, inform the user and give control to the user.
+    catch (e)
+    {
+      this.errors = e as StoryError[];
+      this.shownErrors = this.errors.slice(0,2);
+      this.stateSaved = true;
+    }
   }
+
+  //
+  // END SAVE
+  //
 
   addToChannel() {
     // this.checkStoryErrors();
@@ -188,20 +200,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   toggleSidenav() {
     this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
     this.onClose()
-  }
-
-  checkStoryErrors(state: StoryEditorState)
-  {
-    const storyId = this.state.story.id as string
-    this.errors = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId);
-    this.shownErrors = this.errors.slice(0,2);
-
-    // this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
-    //   errors => {
-    //     this.errors = errors
-    //     this.shownErrors = this.errors.slice(0,2);
-    //     }
-    //   )
   }
 
   closeErrorToast(error: StoryError){
