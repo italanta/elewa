@@ -1,15 +1,11 @@
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
 import { Injectable, OnDestroy } from '@angular/core';
 
-import { SubSink } from 'subsink';
 import { Observable, take } from 'rxjs';
 
 import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
-import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 
 import { StoryConnectionsStore } from '../stores/story-connections.store';
-import { DeleteConnectors } from '../utils/delete-connections.jsplumb';
+import { SubSink } from 'subsink';
 
 @Injectable({
   providedIn: 'root'
@@ -17,27 +13,14 @@ import { DeleteConnectors } from '../utils/delete-connections.jsplumb';
 export class BlockConnectionsService implements OnDestroy {
   private _sbS = new SubSink();
 
-  constructor(private _connections$$: StoryConnectionsStore, private _story$$: ActiveStoryStore) { }
+  constructor(private _connections$$: StoryConnectionsStore) { }
 
   getAllConnections(): Observable<StoryBlockConnection[]> {
     return this._connections$$.get();
   }
 
-  // addNewConnections(connections: StoryBlockConnection[]): Observable<StoryBlockConnection[]> {
-  //   return this._connections$$.addMultiple(connections as StoryBlockConnection[], true);
-  // }
-
-  /**
-   * Quick fix for the story editor issue. This function overwrites the current connection 
-   *    when saving if it already exists
-   * 
-   * TODO: Fix the actual state issue which results in the story editor trying to create blocks
-   *   and connections which already exist.
-   */
-  addNewConnections(connections: StoryBlockConnection[]) {
-    const newConnections = connections.map((conn)=> this._connections$$.writeConnection(conn));
-
-    return newConnections;
+  addNewConnections(connections: StoryBlockConnection[]): Observable<StoryBlockConnection[]> {
+    return this._connections$$.addMultiple(connections as StoryBlockConnection[], true);
   }
 
   deleteConnection(connection: StoryBlockConnection) {
@@ -45,20 +28,14 @@ export class BlockConnectionsService implements OnDestroy {
   }
 
 
-  deleteBlockConnections(block: StoryBlock, jsPlumb: BrowserJsPlumbInstance,) {
+  deleteBlockConnections(block: StoryBlock) {
     this.getAllConnections().pipe(take(1)).subscribe((connections: StoryBlockConnection[]) => {
 
-      let deletedConnections = connections.filter(
-        (connection) => connection.sourceId.includes(block.id as string) || connection.targetId === block.id
+      // Filter out the connections associated with the block
+      const remainingConnections = connections.filter(
+        (connection) => connection.sourceId !== block.id && connection.targetId !== block.id
       );
-
-      const anchorConnection = connections.filter((connection)=> connection.sourceId === this._story$$._activeStory);
-
-      deletedConnections = [...deletedConnections, ...anchorConnection];
-
-      DeleteConnectors(jsPlumb, deletedConnections);
-
-      this._connections$$.removeMultiple(deletedConnections).subscribe();
+      this._connections$$.set(remainingConnections);
     });
   }
   
