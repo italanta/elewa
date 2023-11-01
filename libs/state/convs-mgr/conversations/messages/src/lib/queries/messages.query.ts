@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { map, mergeMap, combineLatest, pipe } from 'rxjs';
-// import { pipe, map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, combineLatest } from 'rxjs';
 
 import { Observable } from 'rxjs';
 
