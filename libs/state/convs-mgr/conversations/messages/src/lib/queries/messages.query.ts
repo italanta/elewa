@@ -69,6 +69,13 @@ export class MessagesQuery
     return messagesRepo$.create(message, Date.now().toString());
   }
 
+  getLatestMessage(chatId:string){
+    const messagesRepo$ = this._dataService.getRepo<Message>(`orgs/${this.orgId}/end-users/${chatId}/messages`);
+
+    const messages = messagesRepo$.getDocuments(new Query().orderBy('createdOn', 'desc').limit(1));  
+
+    return messages.pipe(map(messages => messages ? messages[0] : {} as any));
+  }
 
   getOrderedChats(): Observable<Chat[]> {
     return this.chats$.pipe(
