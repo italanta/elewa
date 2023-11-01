@@ -9,7 +9,7 @@ form {
   font-weight: 300;
 
   .top {
-    background-color: #f3f3f3;
+    background-color: var(--convs-mgr-placeholder-color);
     border-radius: 0.7rem;
     display: flex;
     gap: 0.125rem;
@@ -29,7 +29,7 @@ form {
         outline: none;
         border-radius: 0.7rem;
         font-weight: 300;
-        color: gray;
+        color: var(--convs-mgr-input-color);
       }
 
       &:after {
@@ -43,11 +43,11 @@ form {
         width: 30%;
         height: 100%;
         pointer-events: none;
-        color: gray;
+        color: var(--convs-mgr-input-color);
       }
     }
     .vertical-line {
-      background-color: lightgray;
+      background-color: lightvar(--convs-mgr-input-color);;
       width: 0.031rem;
       height: 100%;
     }
@@ -58,19 +58,19 @@ form {
       justify-content: center;
 
       .input-field {
-        background-color: #f3f3f3;
+        background-color: var(--convs-mgr-placeholder-color);
         padding: 0.313rem 0.125rem;
         width: 90%;
         border: none;
         outline: none;
-        color: gray;
+        color: var(--convs-mgr-input-color);;
         font-weight: 300;
       }
     }
   }
   .center {
     border-radius: 0.7rem;
-    background-color: #f3f3f3;
+    background-color: var(--convs-mgr-placeholder-color);
     padding: 0.625rem;
     display: flex;
     flex-direction: column;
@@ -88,9 +88,9 @@ form {
       .search-text {
         font-weight: 300;
         border: none;
-        border-bottom: 0.0625rem solid gray;
+        border-bottom: 0.0625rem solid var(--convs-mgr-input-color);;
         outline: none;
-        background-color: #f3f3f3;
+        background-color: var(--convs-mgr-placeholder-color);
       }
       .search-results {
         height: 6.25rem;
@@ -124,18 +124,18 @@ form {
           left: 0;
           height: 0.875rem;
           width: 0.875rem;
-          background-color: #fff;
-          border: 0.0625rem solid gray;
+          background-color: var(--convs-mgr-color-success-contrast);
+          border: 0.0625rem solid var(--convs-mgr-input-color);;
         }
 
         /* On mouse-over, add a grey background color */
         .container:hover input ~ .checkmark {
-          background-color: #ccc;
+          background-color: var(--convs-mgr-field-border-color);
         }
 
-        /* When the checkbox is checked, add a blue background */
+        /* When the checkbox is checked, add a black background */
         .container input:checked ~ .checkmark {
-          background-color: #002b4e;
+          background-color: var(--convs-mgr-color-tertiary-contrast);
         }
 
         /* Create the checkmark/indicator (hidden when not checked) */
@@ -156,7 +156,7 @@ form {
           top: 2.5%;
           width: 0.3125rem;
           height: 0.5rem;
-          border: solid white;
+          border: solid var(--convs-mgr-color-success-contrast);
           border-width: 0 0.125rem 0.125rem 0;
           -webkit-transform: rotate(35deg);
           -ms-transform: rotate(35deg);
@@ -170,7 +170,7 @@ form {
     flex-direction: column;
     gap: 1.25rem;
     border-radius: 0.7rem;
-    background-color: #f3f3f3;
+    background-color: var(--convs-mgr-placeholder-color);
     padding: 0px 0.625rem 0.625rem 0.625rem;
 
     .text {
@@ -186,7 +186,7 @@ form {
         width: 4.6875rem;
         height: 0.9375rem;
         border-radius: 0.3125rem;
-        border: 0.025rem solid #7c7c7c;
+        border: 0.025rem solid var(--textarea-outline-color);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -208,8 +208,8 @@ form {
       align-items: center;
       justify-content: center;
       padding: 0.3125rem;
-      background-color: #1F7A8C;
-      color: #fff;
+      background-color: var(--convs-mgr-button-color);
+      color: var(--convs-mgr-color-success-contrast);
       align-self: end;
       cursor: pointer;
     }
