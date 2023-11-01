@@ -12,37 +12,8 @@ import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
 import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/blocks/library/video-message-block'
 
-import { _CreateImageMessageBlockForm } from '../../model/image-block-form.model';
-import { _CreateLocationBlockForm } from '../../model/location-block-form.model';
-import { _CreateQuestionBlockMessageForm } from '../../model/questions-block-form.model';
-import { _CreateTextMessageBlockForm } from '../../model/message-block-form.model';
-import { _CreateNameMessageBlockForm } from '../../model/name-block-form.model';
-import { _CreateEmailMessageBlockForm } from '../../model/email-block-form.model';
-import { _CreatePhoneMessageBlockForm } from '../../model/phonenumber-block-form.model';
-import { _CreateAudioBlockForm } from '../../model/audio-block-form.model';
-import { _CreateVideoMessageBlockForm } from '../../model/video-block-form.model';
-import { _CreateStickerBlockForm } from '../../model/sticker-block-form.model';
-import { _CreateListBlockMessageForm } from '../../model/list-block-form.model';
-import { _CreateDocumentMessageBlockForm } from '../../model/document-block-form.model';
-import { _CreateReplyBlockForm } from '../../model/reply-block-form.model';
-import { _CreateMultipleInputMessageBlockForm } from '../../model/multiple-input-message-block-form.model';
-import { _CreateImageInputBlockForm } from '../../model/image-input-block-form.model';
-import { _CreateCmi5BlockForm } from '../../model/cmi5-block-form.model';
-
-import { iconsAndTitles } from '../../model/icons-and-titles';
-import { _CreateJumpBlockForm } from '../../model/jump-block-form.model';
-import { _CreateFailBlockForm } from '../../model/fail-block-form.model';
-import { _CreateLocationInputBlockForm } from '../../model/location-input-block-form.model';
-import { _CreateAudioInputBlockForm } from '../../model/audio-input-block-form.model';
-import { _CreateWebhookBlockForm } from '../../model/webhook-block-form.model';
-import { _CreateEndStoryAnchorBlockForm } from '../../model/end-story-anchor-block-form.model';
-import { _CreateOpenEndedQuestionBlockForm } from '../../model/open-ended-question-block-form.model';
-import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.model';
-import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
-import { _CreateEventBlockForm } from '../../model/event-block-form.model';
-
-import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
-import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
+import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
+import { _DetermineBlockType } from '../../utils/block-inheritance.util';
 
 
 /**
@@ -65,36 +36,6 @@ export class BlockComponent implements OnInit
   @Output() copyBlock  : EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
 
   type: StoryBlockTypes;
-  messagetype = StoryBlockTypes.TextMessage;
-  imagetype = StoryBlockTypes.Image;
-  nametype = StoryBlockTypes.Name;
-  emailtype = StoryBlockTypes.Email;
-  phonetype = StoryBlockTypes.PhoneNumber;
-  questiontype = StoryBlockTypes.QuestionBlock;
-  locationtype = StoryBlockTypes.Location;
-  audioType = StoryBlockTypes.Audio;
-  videoType = StoryBlockTypes.Video;
-  stickerType = StoryBlockTypes.Sticker;
-  listType = StoryBlockTypes.List;
-  documentType = StoryBlockTypes.Document;
-  replyType = StoryBlockTypes.Reply;
-  jumpType = StoryBlockTypes.JumpBlock;
-  multipleInputType = StoryBlockTypes.MultipleInput;
-  failType = StoryBlockTypes.FailBlock;
-  imageinputType =  StoryBlockTypes.ImageInput
-  locationInputType =  StoryBlockTypes.LocationInputBlock;
-  imageInputType =  StoryBlockTypes.ImageInput;
-  audioInputType =  StoryBlockTypes.AudioInput;
-  videoInputType = StoryBlockTypes.VideoInput;
-  webhookType =  StoryBlockTypes.WebhookBlock;
-  endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
-  openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
-  keywordJumpType = StoryBlockTypes.keyword;
-  eventType = StoryBlockTypes.Event;
-  assessmentBrickType= StoryBlockTypes.Assessment;
-  conditionalBlockType = StoryBlockTypes.Conditional;
-  CMI5BlockType = StoryBlockTypes.CMI5Block;
-
   blockFormGroup: FormGroup;
 
   iconClass = ''
@@ -122,157 +63,11 @@ export class BlockComponent implements OnInit
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
     this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
  
-    if (this.blocksGroup) {
-      switch (this.type) {
-        case StoryBlockTypes.TextMessage:
-          this.blockFormGroup = _CreateTextMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Image:
-          this.blockFormGroup = _CreateImageMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Name:
-          this.blockFormGroup = _CreateNameMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Email:
-          this.blockFormGroup = _CreateEmailMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.PhoneNumber:
-          this.blockFormGroup = _CreatePhoneMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.QuestionBlock:
-          this.blockFormGroup = _CreateQuestionBlockMessageForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Location:
-          this.blockFormGroup = _CreateLocationBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.List:
-          this.blockFormGroup = _CreateListBlockMessageForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Document:
-          this.blockFormGroup = _CreateDocumentMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Audio:
-          this.blockFormGroup = _CreateAudioBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break
-
-        case StoryBlockTypes.Video:
-          this.blockFormGroup = _CreateVideoMessageBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break
-
-        case StoryBlockTypes.Sticker:
-          this.blockFormGroup = _CreateStickerBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Reply:
-          this.blockFormGroup = _CreateReplyBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.JumpBlock:
-          this.blockFormGroup = _CreateJumpBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.MultipleInput:
-        this.blockFormGroup = _CreateMultipleInputMessageBlockForm(this._fb, this.block);
-        this.blocksGroup.push(this.blockFormGroup);
-        break;
-
-        case StoryBlockTypes.FailBlock:
-          this.blockFormGroup = _CreateFailBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.ImageInput:
-          this.blockFormGroup = _CreateImageInputBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.LocationInputBlock:
-          this.blockFormGroup = _CreateLocationInputBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.AudioInput:
-          this.blockFormGroup = _CreateAudioInputBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.WebhookBlock:
-          this.blockFormGroup = _CreateWebhookBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.EndStoryAnchorBlock:
-          this.blockFormGroup = _CreateEndStoryAnchorBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.OpenEndedQuestion:
-          this.blockFormGroup = _CreateOpenEndedQuestionBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.VideoInput:
-          this.blockFormGroup = _CreateVideoInputBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.keyword:
-          this.blockFormGroup = _CreateKeywordJumpBlockMessageForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Event:
-          this.blockFormGroup = _CreateEventBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Assessment:
-          this.blockFormGroup = _CreateAssessmentBrickForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-
-        case StoryBlockTypes.Conditional:
-          this.blockFormGroup = _CreateConditionalBlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-        
-        case StoryBlockTypes.CMI5Block:
-          this.blockFormGroup = _CreateCmi5BlockForm(this._fb, this.block);
-          this.blocksGroup.push(this.blockFormGroup);
-          break;
-  
-        default:
-          break;
-      }
-    }
-
+    this.blockFormGroup = _DetermineBlockType(this.block, this.type, this._fb, this.blocksGroup) as FormGroup;
   }
 
   getBlockIconAndTitle(type: number) {
-    return iconsAndTitles[type];
+    return ICONS_AND_TITLES[type];
   }
 
   highLight() {
@@ -324,16 +119,19 @@ export class BlockComponent implements OnInit
   // TODO: Use proper inheritance instead of firing from here
   editBlock() 
   {   
-    if (this.type === this.videoType) {
+    // Special case - Video input via modal
+    if (this.type === StoryBlockTypes.VideoInput) {
       this.matdialog.open(VideoUploadModalComponent, {
         data: { videoMessageForm: this.blockFormGroup },
       });
+
+      return;
     }
-      else{
-        this.sideMenu.toggleExpand(false)
-        this.sideScreen.toggleSideScreen(true)
-        this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);
-      }   
+   
+    // Normal case - open side menu
+    this.sideMenu.toggleExpand(false)
+    this.sideScreen.toggleSideScreen(true)
+    this._blockPortalBridge.sendFormGroup(this.blockFormGroup, this.blockTitle);  
   }
 
   copyMe() {
@@ -344,4 +142,38 @@ export class BlockComponent implements OnInit
   {
     this.deleteBlock.emit(this.block);
   }
+
+  //
+  // SECTION BOILERPLATE
+  //  Declare block types for interpretation by ngSwitchCase in the frontend
+
+  messagetype = StoryBlockTypes.TextMessage;
+  imagetype = StoryBlockTypes.Image;
+  nametype = StoryBlockTypes.Name;
+  emailtype = StoryBlockTypes.Email;
+  phonetype = StoryBlockTypes.PhoneNumber;
+  questiontype = StoryBlockTypes.QuestionBlock;
+  locationtype = StoryBlockTypes.Location;
+  audioType = StoryBlockTypes.Audio;
+  videoType = StoryBlockTypes.Video;
+  stickerType = StoryBlockTypes.Sticker;
+  listType = StoryBlockTypes.List;
+  documentType = StoryBlockTypes.Document;
+  replyType = StoryBlockTypes.Reply;
+  jumpType = StoryBlockTypes.JumpBlock;
+  multipleInputType = StoryBlockTypes.MultipleInput;
+  failType = StoryBlockTypes.FailBlock;
+  imageinputType =  StoryBlockTypes.ImageInput
+  locationInputType =  StoryBlockTypes.LocationInputBlock;
+  imageInputType =  StoryBlockTypes.ImageInput;
+  audioInputType =  StoryBlockTypes.AudioInput;
+  videoInputType = StoryBlockTypes.VideoInput;
+  webhookType =  StoryBlockTypes.WebhookBlock;
+  endStoryAnchor = StoryBlockTypes.EndStoryAnchorBlock;
+  openQuestiontype = StoryBlockTypes.OpenEndedQuestion;
+  keywordJumpType = StoryBlockTypes.keyword;
+  eventType = StoryBlockTypes.Event;
+  assessmentBrickType= StoryBlockTypes.Assessment;
+  conditionalBlockType = StoryBlockTypes.Conditional;
+  CMI5BlockType = StoryBlockTypes.CMI5Block;
 }

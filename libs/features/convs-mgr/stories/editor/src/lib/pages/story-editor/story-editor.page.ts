@@ -25,6 +25,7 @@ import { getActiveBlock } from '../../providers/fetch-active-block-component.fun
 
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
 import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
+import { StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
 
 @Component({
@@ -94,7 +95,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
       });
-
     }
 
     ngOnInit()
@@ -148,24 +148,23 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this._cd.detectChanges();
   }
  
-  /** Save the changes made in the data model. */
-  save() {
+  /** 
+   * Save the changes made in the data model. 
+   * @todo: Move the error handling into story-editor-persist service
+   */
+  save() 
+  {
     this.stateSaved = false;
     this.errors =[];
     this.shownErrors =[];
 
-
-    const updatedState = this.state;
-    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
-
-    //TODO: compare old state connections to updated connections
-    // from getConnections()
-    // find a jsPlumb types library to replace any with strict type
-    const connections = this.frame.getJsPlumbConnections as any[];
-
-    // remove duplicate jsplumb connections
-    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
-
+    // Get connections from JsPlumb
+    // Connecting happens within JsPlumb and outside of our state's control
+    this.state.connections = this.frame.jsPlumbInstance.connections
+                                 .map(c => ({ id: c.id, sourceId: c.sourceId, 
+                                              // Target ID needs to be gotten from the component itself
+                                              targetId: c.target.id }) as StoryBlockConnection);
+   
     this.checkStoryErrors(this.state);
 
     this._editorStateService.persist(this.state)
@@ -191,10 +190,12 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this.onClose()
   }
 
-  checkStoryErrors(state: StoryEditorState) {
+  checkStoryErrors(state: StoryEditorState)
+  {
     const storyId = this.state.story.id as string
     this.errors = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId);
     this.shownErrors = this.errors.slice(0,2);
+
     // this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
     //   errors => {
     //     this.errors = errors
@@ -271,6 +272,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     const zoom = this.storyEditorFrame.increaseFrameZoom();
     return this.setZoom(zoom * 100, true);
   }
+
   decreaseZoom() {
     if(this.zoomLevel.value <= 25) 
       return; 
