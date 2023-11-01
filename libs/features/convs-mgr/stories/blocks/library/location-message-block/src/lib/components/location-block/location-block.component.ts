@@ -7,8 +7,6 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { LocationMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
 @Component({
   selector: 'app-location-block',
   templateUrl: './location-block.component.html',

@@ -75,22 +75,6 @@ mat-sidenav {
   }
 }
 
-.error-count{
-  color: #707070;
-  text-align: right;
-  padding-right: 17em;
-  /* Reg 14 */
-  font-family: Roboto;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.error-count-length{
-  color: #E25C5C;
-}
-
 .add-channel-btn {
   background-color: #6418c3;
   color: white;
@@ -134,3 +118,36 @@ mat-sidenav {
 convl-story-editor-frame {
   overflow: hidden;
 }
+
+// Error message handling
+
+.error-count{
+  color: #707070;
+  background-color: white;
+  padding-right: 17em;
+  /* Reg 14 */
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+
+  padding: 3px;
+
+}
+
+  .error-count-length{
+    color: #E25C5C;
+  }
+
+  .save-msg {
+    margin: 0 5px;
+  }
+
+    a.save-anyway {
+      color: lightblue;
+      text-decoration: underline;
+    }
+      a.save-anyway:hover {
+        cursor: pointer;
+      }
