@@ -63,8 +63,12 @@ export class QuestionsBlockComponent implements OnInit
       this.setFocusOnNextInput();
     });
   }
+
   deleteInput(i: number) {
     this.options.removeAt(i);
+    // TODO: Wrapper around jsPlumb instance that can take care of such operations more cleanly
+    const conns = this.jsPlumb.connections.filter((c) => c.sourceId === `i-${i}-${this.id}`);
+    conns.forEach(c => this.jsPlumb.deleteConnection(c));
   }
 
   setFocusOnNextInput() {
