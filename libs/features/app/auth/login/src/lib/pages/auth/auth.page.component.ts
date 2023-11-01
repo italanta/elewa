@@ -1,14 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { SubSink } from 'subsink';
+
 import { Observable, Subscription } from 'rxjs';
+
+import { TranslateService } from '@ngfi/multi-lang';
+
 
 import { User } from '@iote/bricks';
 import { AuthService } from '@ngfi/angular';
 
 import { UserStore } from '@app/state/user';
-import { TranslateService } from '@ngfi/multi-lang';
 import { iTalUser } from '@app/model/user';
-import { SubSink } from 'subsink';
+
+
+
 
 @Component({
   selector: 'app-auth-page',
