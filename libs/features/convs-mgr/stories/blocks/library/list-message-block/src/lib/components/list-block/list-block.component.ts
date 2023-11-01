@@ -5,18 +5,15 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { ListMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
-import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-import { CursorFocusService } from '@app/features/convs-mgr/stories/blocks/library/main';
-
-
+import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-list-block',
   templateUrl: './list-block.component.html',
   styleUrls: ['./list-block.component.scss'],
 })
-export class ListBlockComponent<T> implements OnInit, AfterViewInit {
-
+export class ListBlockComponent<T> implements AfterViewInit 
+{
   @Input() id: string;
   @Input() block: ListMessageBlock;
   @Input() listMessageBlock: FormGroup;
@@ -28,9 +25,8 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   readonly listOptionInputLimit = 24;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, private cursorFocusService: CursorFocusService) { }
-
-  ngOnInit(): void { }
+  constructor(private _fb: FormBuilder) 
+  { }
 
   ngAfterViewInit(): void {
     this.block.options?.forEach((listItem) => {
@@ -61,7 +57,7 @@ export class ListBlockComponent<T> implements OnInit, AfterViewInit {
   }
 
   setFocusOnNextInput() {
-    this.currentIndex = this.cursorFocusService.focusOnNextInput(
+    this.currentIndex = __FocusCursorOnNextInputOfBlock(
       this.currentIndex,
       this.optionInputFields
     );

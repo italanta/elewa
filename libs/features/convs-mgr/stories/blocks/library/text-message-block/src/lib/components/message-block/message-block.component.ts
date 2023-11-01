@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import { Logger } from '@iote/bricks-angular';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+
+import { Logger } from '@iote/bricks-angular';
+
+import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { TextMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 /**
  * Block which sends a message from bot to user.
@@ -15,7 +16,7 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
   templateUrl: './message-block.component.html',
   styleUrls: ['./message-block.component.scss']
 })
-export class MessageBlockComponent implements OnInit
+export class MessageBlockComponent
 {
   @Input() id: string;
   @Input() block: TextMessageBlock;
@@ -32,6 +33,4 @@ export class MessageBlockComponent implements OnInit
   constructor(private _fb: FormBuilder,
               private _logger: Logger) 
   { }
-  
-  ngOnInit(): void {}
 }
