@@ -63,7 +63,7 @@ export class BlockComponent implements OnInit
     this.blockTitle = this.getBlockIconAndTitle(this.type).title;
     this.svgIcon = this.getBlockIconAndTitle(this.type).svgIcon;
  
-    _DetermineBlockType(this.block, this.type, this._fb, this.blocksGroup);
+    this.blockFormGroup = _DetermineBlockType(this.block, this.type, this._fb, this.blocksGroup) as FormGroup;
   }
 
   getBlockIconAndTitle(type: number) {

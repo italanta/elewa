@@ -53,7 +53,7 @@ export function _DetermineBlockType(block: StoryBlock, type: StoryBlockTypes, _f
   if(blockFormGroup)
     blocksGroup.push(blockFormGroup);
 
-  return blocksGroup;
+  return blockFormGroup;
 }
 
 function _renderBlockByType(block: StoryBlock, type: StoryBlockTypes, _fb: FormBuilder)

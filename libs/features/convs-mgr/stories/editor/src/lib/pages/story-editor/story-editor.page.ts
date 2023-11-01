@@ -149,22 +149,11 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
  
   /** Save the changes made in the data model. */
-  save() {
+  save() 
+  {
     this.stateSaved = false;
     this.errors =[];
     this.shownErrors =[];
-
-
-    const updatedState = this.state;
-    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
-
-    //TODO: compare old state connections to updated connections
-    // from getConnections()
-    // find a jsPlumb types library to replace any with strict type
-    const connections = this.frame.getJsPlumbConnections as any[];
-
-    // remove duplicate jsplumb connections
-    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
 
     this.checkStoryErrors(this.state);
 
@@ -191,10 +180,12 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this.onClose()
   }
 
-  checkStoryErrors(state: StoryEditorState) {
+  checkStoryErrors(state: StoryEditorState)
+  {
     const storyId = this.state.story.id as string
     this.errors = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId);
     this.shownErrors = this.errors.slice(0,2);
+
     // this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
     //   errors => {
     //     this.errors = errors

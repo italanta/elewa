@@ -3,7 +3,7 @@ import { FormGroup, FormArray } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
+import { _JsPlumbInputOptionDecorator } from '../../providers/jsplumb-decorator.function';
 
 @Component({
   selector: 'app-list-option',
@@ -33,7 +33,7 @@ export class ListOptionComponent implements OnInit, AfterViewInit
   {
     let input = document.getElementById(this.listOptionId) as Element;
     if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
+      input = _JsPlumbInputOptionDecorator(input, this.jsPlumb);
     }
   }
 }
