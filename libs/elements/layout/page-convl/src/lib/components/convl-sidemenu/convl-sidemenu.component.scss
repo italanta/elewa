@@ -367,6 +367,9 @@ $sidebar-footer-height: 230px;
             .menu-suffix {
               opacity: 0;
             }
+            .menu-icon {
+              line-height: 3rem; // Adjust the line height to vertically center the icons
+            }
           }
           &.sub-menu {
             > a {
