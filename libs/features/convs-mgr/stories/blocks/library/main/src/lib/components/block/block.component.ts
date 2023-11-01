@@ -1,16 +1,12 @@
-import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, Input, OnInit, ViewContainerRef, ChangeDetectorRef, ComponentRef, Renderer2, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { CdkPortal } from '@angular/cdk/portal';
 import { MatDialog } from '@angular/material/dialog';
 
-
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-
-import { Logger } from '@iote/bricks-angular';
 
 import { BlockPortalService } from '@app/features/convs-mgr/stories/editor';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { SideScreenToggleService } from '@app/features/convs-mgr/stories/editor';
@@ -45,10 +41,8 @@ import { _CreateVideoInputBlockForm } from '../../model/video-input-block-form.m
 import { _CreateKeywordJumpBlockMessageForm } from '../../model/keyword-jump-form.model';
 import { _CreateEventBlockForm } from '../../model/event-block-form.model';
 
-import { BlockInjectorService } from '../../providers/block-injector.service';
 import { _CreateAssessmentBrickForm } from '../../model/assessment-brick-form.model';
 import { _CreateConditionalBlockForm } from '../../model/conditional-block.model';
-
 
 
 /**
@@ -59,12 +53,17 @@ import { _CreateConditionalBlockForm } from '../../model/conditional-block.model
   templateUrl: 'block.component.html',
   styleUrls: ['./block.component.scss']
 })
-export class BlockComponent implements OnInit {
+export class BlockComponent implements OnInit 
+{
   @Input() id: string;
   @Input() block: StoryBlock;
   @Input() blocksGroup: FormArray;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() viewPort: ViewContainerRef;
+
+  @Output() deleteBlock: EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
+  @Output() copyBlock  : EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
+
   type: StoryBlockTypes;
   messagetype = StoryBlockTypes.TextMessage;
   imagetype = StoryBlockTypes.Image;
@@ -108,12 +107,8 @@ export class BlockComponent implements OnInit {
   ref: ComponentRef<BlockComponent>;
 
   constructor(private _el: ElementRef,
-              private _cd:ChangeDetectorRef,
               private _fb: FormBuilder,
               private _blockPortalBridge: BlockPortalService,
-              private _blockInjectorService: BlockInjectorService,
-              private _connectionsService: BlockConnectionsService,
-              private _logger: Logger,
               private sideMenu:SidemenuToggleService,
               private sideScreen:SideScreenToggleService,
               private matdialog: MatDialog,
@@ -325,8 +320,10 @@ export class BlockComponent implements OnInit {
     }
     return false;
   }
-  editBlock() { 
-    
+
+  // TODO: Use proper inheritance instead of firing from here
+  editBlock() 
+  {   
     if (this.type === this.videoType) {
       this.matdialog.open(VideoUploadModalComponent, {
         data: { videoMessageForm: this.blockFormGroup },
@@ -339,24 +336,12 @@ export class BlockComponent implements OnInit {
       }   
   }
 
-
-  copyblock(block: StoryBlock) {
-    block.id = (this.blocksGroup.value.length + 1).toString();
-    block.position.x = block.position.x + 300;
-    delete block.createdBy;
-    delete block.createdOn;
-    delete block.updatedOn;
-
-    this._blockInjectorService.newBlock(block, this.jsPlumb, this.viewPort, this.blocksGroup);
+  copyMe() {
+    this.copyBlock.emit(this.block);
   }
 
-  deleteBlock() {
-    this.block.deleted = true;
-    this.blockFormGroup.value.deleted = true;
-    this._connectionsService.deleteBlockConnections(this.block);
-    const index = this.viewPort.indexOf(this.ref.hostView);
-    this.viewPort.remove(index);
-    this._cd.detectChanges();
+  deleteMe() 
+  {
+    this.deleteBlock.emit(this.block);
   }
 }
-
