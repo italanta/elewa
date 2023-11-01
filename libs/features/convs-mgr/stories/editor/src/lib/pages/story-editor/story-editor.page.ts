@@ -231,16 +231,37 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
   
   scrollToBlock(blockId: string) {
+    const editorFrame = document.getElementById('viewport');
     const targetSection = document.getElementById(`${blockId}`);
-    if(targetSection)
-      targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", inline: "center" });
-      this.renderer.setStyle(targetSection, "border", "2px red solid")
+    
+    if (editorFrame && targetSection) {
 
+      // Limit the scrolling to only the viewport by binding it
+      const rect = targetSection.getBoundingClientRect();
+      const editorRect = editorFrame.getBoundingClientRect();
+      
+      // Calculate the scroll positions
+      const scrollTop = editorFrame.scrollTop + rect.top - editorRect.top - (editorRect.height - rect.height) / 2;
+      const scrollLeft = editorFrame.scrollLeft + rect.left - editorRect.left - (editorRect.width - rect.width) / 2;
+      
+      // Scroll to the target block
+      editorFrame.scrollTo({
+        top: Math.max(0, scrollTop),  // Ensure the scrollTop value is not negative
+        left: Math.max(0, scrollLeft),  // Ensure the scrollLeft value is not negative
+        behavior: 'smooth'
+      });
+      
+      // Set the border style
+      this.renderer.setStyle(targetSection, 'border', '2px solid red');
+      
+      // Remove the border style after 5 seconds
       setTimeout(() => {
         this.renderer.removeStyle(targetSection, 'border');
-      }, 5000); 
+      }, 5000);
+    }
   }
-
+  
+  
   // Section - Zoom
 
   increaseZoom() {
