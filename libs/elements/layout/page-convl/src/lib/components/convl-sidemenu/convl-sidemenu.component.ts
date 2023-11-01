@@ -1,5 +1,12 @@
 import { AfterViewInit, Component, Inject, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 import { SubSink } from 'subsink';
 
@@ -17,7 +24,16 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
 @Component({
   selector: 'convl-sidemenu',
   templateUrl: './convl-sidemenu.component.html',
-  styleUrls: [ './convl-sidemenu.component.scss' ]
+  styleUrls: [ './convl-sidemenu.component.scss' ],
+  animations: [
+    trigger('indicatorRotate', [
+      state('collapsed', style({transform: 'rotate(0deg)'})),
+      state('expanded', style({transform: 'rotate(180deg)'})),
+      transition('expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4,0.0,0.2,1)')
+      ),
+    ])
+  ]
 })
 export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 {
@@ -32,6 +48,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   projectInfo: string;
 
   isExpanded:boolean;
+  displayDropDownContent:boolean = false;
 
   readonly CAN_ACCESS_BOTS = AppClaimDomains.BotsView;
   readonly CAN_ACCESS_ANALYTICS = AppClaimDomains.AnalyticsView;
@@ -128,4 +145,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
     this._sbS.unsubscribe();
   }
 
+  viewDropDownContent(){
+    this.displayDropDownContent = !this.displayDropDownContent;
+  }
 }

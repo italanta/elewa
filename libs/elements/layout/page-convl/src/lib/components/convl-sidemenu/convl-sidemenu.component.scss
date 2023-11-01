@@ -249,7 +249,7 @@ $sidebar-footer-height: 230px;
             transition: color 0.3s;
           }
           .message-title{
-            cursor: default !important;
+            cursor: pointer !important;
           }
           .menu-prefix,
           .menu-suffix {
@@ -695,4 +695,3 @@ a {
 :host ::ng-deep .mat-expansion-indicator {
   padding: 10px;
 }
-

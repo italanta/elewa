@@ -57,7 +57,7 @@
             </li>
 
             <!-- Messaging sections -->
-            <ul class="menu-item"  >
+            <ul class="menu-item" (click) = viewDropDownContent()>
               <a matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
@@ -66,8 +66,11 @@
                 <span *ngIf="isExpanded" class="menu-title message-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
+                <mat-icon [@indicatorRotate]="displayDropDownContent ? 'expanded': 'collapsed'">
+                  expand_more
+                </mat-icon>
               </a>
-              <ul class="sub-side-menu">
+              <ul *ngIf="displayDropDownContent" class="sub-side-menu">
                 <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                   <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
@@ -79,7 +82,7 @@
                   </a>
                 </li>
                 <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGE-TEMPLATES'| transloco }}">
-                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active" >
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/messaging" routerLinkActive="active">
                     <span class="menu-icon">
                       <img src="assets/icons/message-template.svg" class="img" alt="">
                     </span>
