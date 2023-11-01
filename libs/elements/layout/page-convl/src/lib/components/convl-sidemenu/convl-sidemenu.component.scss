@@ -241,12 +241,14 @@ $sidebar-footer-height: 230px;
           }
 
           .menu-title {
+            position: relative;
             font-size: 1em;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             flex-grow: 1;
             transition: color 0.3s;
+            top: -0.188rem;
           }
           .message-title{
             cursor: default !important;
