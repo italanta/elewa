@@ -291,6 +291,7 @@ export class StoryEditorFrame
     const con = this.state.connections.find(
       (c) => c.id == overlayData.overlay.id
     );
+
     // Call the `deleteConnection` method of the `_connectionsService` object
     if (con)
       this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
@@ -298,8 +299,9 @@ export class StoryEditorFrame
     // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
     return DeleteConnectorbyID(
       this._jsPlumb,
-      this.state,
-      overlayData
+
+      // Pass overlayed connection id - This is the connection to be deleted
+      overlayData.overlay.id
     );
   }
 
