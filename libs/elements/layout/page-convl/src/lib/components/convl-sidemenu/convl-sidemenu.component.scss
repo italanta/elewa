@@ -216,8 +216,8 @@ $sidebar-footer-height: 230px;
         a {
           display: flex;
           align-items: center;
-          height: 35px;
-          padding: 0 20px;
+          height: 3rem;
+          padding: 0 1rem;
           color: $text-color;
           margin-bottom: 20px;
           padding-left: 30px;
@@ -225,13 +225,13 @@ $sidebar-footer-height: 230px;
           .menu-icon {
             cursor: pointer;
             font-size: 1.2rem;
-            width: 35px;
+            width: 2rem;
             min-width: 30px;
-            height: 30px;
-            line-height: 35px;
+            height: 2rem;
+            line-height: 3rem;
             text-align: center;
             display: inline-block;
-            margin-right: 10px;
+            margin-right: 1rem;
             border-radius: 2px;
             transition: color 0.3s;
             cursor: pointer;
