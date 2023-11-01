@@ -140,7 +140,6 @@ export class SaveStoryService
   {
     if (message?.trim() === '')
     {
-      debugger;
       return {
         type: StoryErrorType.EmptyTextField,
         blockId: blockId,
