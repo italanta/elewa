@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+	min-width: 12.5rem;
 }
 
 mat-card-title {
@@ -14,15 +14,15 @@ doc {
 input {
 	max-width: 100%;
 	height: fit-content !important;
-	padding: 5px 10px;
-	margin-bottom: 5px;
+	padding: 0.3125rem 0.625rem;
+	margin-bottom: 0.3125rem;
 	border-radius: 0.5rem;
 	caret-color: var(--convs-mgr-color-text-black);
-	color: #a3a3a3;
+	color: var(--convs-mgr-input-color);
 	font-weight: 300;
 	outline: none;
 	border: none;
-	background-color: #f3f3f3;
+	background-color: var(--convs-mgr-placeholder-color);
 }
 
 .fileSrc {
@@ -30,19 +30,19 @@ input {
 }
 
 .svg-inline--fa.fa-w-12 {
-	width: 30px;
+	width: 1.875rem;
 	border-color: var(--convs-mgr-color-primary-white) !important;
-	border-radius: 15px;
+	border-radius: 0.9375rem;
 	background-color: var(--convs-mgr-color-primary-white) !important;
 }
 
 .doc-icon {
 	text-align: center;
 	color: var(--convs-mgr-color-primary-purple) !important;
-	width: 200px;
-	height: 100px;
+	width: 12.5rem;
+	height: 6.25rem;
 	border-radius: 0.7rem;
-	background-color: #f3f3f3 !important;
+	background-color: var(--convs-mgr-placeholder-color) !important;
 	opacity: 1;
 
 	.fa-file-doc {
@@ -57,13 +57,13 @@ input {
 }
 
 .doc_bg {
-	margin: 5px 0;
-	width: 210px;
+	margin: 0.3125rem 0;
+	width: 13.125rem;
 	border-radius: 0.7rem;
-	background-color: #f3f3f3 !important;
+	background-color: var(--convs-mgr-placeholder-color) !important;
 
 	&.error {
-		border: 3px solid red !important;
+		border: 0.1875rem solid red !important;
 	}
 }
 
@@ -77,14 +77,14 @@ input {
 }
 
 .svg-inline--fa {
-	height: 40px;
+	height: 2.5rem;
 	margin-top: 13%;
 	overflow: hidden;
 }
 
 .svg-inline--fa.fa-w-16 {
-	width: 40px;
-	height: 40px;
+	width: 2.5rem;
+	height: 2.5rem;
 	color: var(--convs-mgr-color-primary-white) !important;
 }
 
