@@ -57,7 +57,7 @@
             </li>
 
             <!-- Messaging sections -->
-            <ul class="menu-item"  >
+            <ul class="menu-item"  (click)="toggleCollapse()">
               <a matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
@@ -67,7 +67,7 @@
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>
-              <ul class="sub-side-menu">
+              <ul class="sub-side-menu" *ngIf="!isCollapsed">
                 <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                   <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
