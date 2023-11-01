@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Output, EventEmitter, ViewChild, ViewContainerRef, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, debounceTime, filter } from 'rxjs';
+import { BehaviorSubject, Observable, filter } from 'rxjs';
 
 import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 
@@ -61,7 +61,8 @@ export class StoryEditorFrameComponent implements AfterViewInit, OnDestroy //imp
         this.viewPortScrolled();
         
         // Release loading state after 1 second cooldown to avoid loading delays
-        if(this.loading) setTimeout(() => this.loading = false, 1000);
+        //(scrapped - not necessary?)
+        if(this.loading) setTimeout(() => this.loading = false, 250);
       });
 
     this.frameLoaded.emit(this._frame);
