@@ -101,7 +101,6 @@ export class AuthPageComponent implements OnInit, OnDestroy
 
     if(!this.isLogin)
     {
-      console.log(this.isLogin);
       this._router$$.navigate(['/auth/register']);
     }
   }
