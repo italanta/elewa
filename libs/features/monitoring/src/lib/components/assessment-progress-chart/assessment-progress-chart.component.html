@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <div class="assessment-card" *ngIf="scoresComputed; else fetchingAssessment">
+    <div class="title">
+      <span>Assessment Scores</span>
+    </div>
+
+    <div class="assessment-select">
+      <div *ngIf="scoresComputed" class="container">
+        <select [(ngModel)]="selectedAssessment" (change)="switchAssessmentScores()">
+          <option *ngFor="let assessment of assessments" [ngValue]="assessment">
+            {{ assessment.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="score">
+      {{ averageScore || '0%' }}
+    </div>
+
+    <div class="assessment-scores">
+      <div class="highscore">
+        <i class="fa-solid fa-arrow-up tooltip"></i>
+        <span> Highest Score: {{ highestScore }}</span>
+      </div>
+
+      <div class="lowscore">
+        <i class="fa-solid fa-arrow-down tooltip"></i>
+        <span> Lowest Score: {{ lowestScore }}</span>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #fetchingAssessment>
+    <div class="loader">
+      <span>Computing Scores</span>
+      <mat-spinner diameter="25" strokeWidth="3"></mat-spinner>
+    </div>
+  </ng-template>
+</div>

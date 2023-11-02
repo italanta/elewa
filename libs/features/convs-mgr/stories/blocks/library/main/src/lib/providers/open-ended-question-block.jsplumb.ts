@@ -21,10 +21,10 @@ export function _OpenEndedQuestionBlockDecoratePlumb(block: OpenEndedQuestionBlo
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass: 'block_endpoint',
-    endpoint: 'Rectangle',
+    endpoint: 'Dot',
     anchor: "Left",
     maxConnections: -1
   });
-  
+
   return comp;
 }

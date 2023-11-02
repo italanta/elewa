@@ -5,42 +5,42 @@
     }
   },
   "LOGIN": {
-  "LOGIN": {
-    "LOGIN": "Connexion",
-    "OR": "ou",
-    "CREATE-ACCOUNT": "Créer un compte",
-    "LOGIN-FORM": {
-      "FLD-EMAIL": "Email",
-      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "Mot de passe",
-      "FLD-REMEMBER-ME": "Se souvenir de moi",
-      "SUBMIT": "Connexion",
-      "PLACEHOLDER": {
-        "EMAIL": "name@example.com",
-        "PASSWORD": "************",
-        "LOGIN-FAILED": "Mot de passe incorrect ou email invalide",
-        "INVALID-DETAILS": "Le formulaire est invalide",
-        "PASSWORD-ERROR": "Mot de passe requis",
-        "EMAIL-ERROR": "Format d'email invalide"
+    "LOGIN": {
+      "LOGIN": "Connexion",
+      "OR": "ou",
+      "CREATE-ACCOUNT": "Créer un compte",
+      "LOGIN-FORM": {
+        "FLD-EMAIL": "Email",
+        "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+        "FLD-PASSWD": "Mot de passe",
+        "FLD-REMEMBER-ME": "Se souvenir de moi",
+        "SUBMIT": "Connexion",
+        "PLACEHOLDER": {
+          "EMAIL": "name@example.com",
+          "PASSWORD": "************",
+          "LOGIN-FAILED": "Mot de passe incorrect ou email invalide",
+          "INVALID-DETAILS": "Le formulaire est invalide",
+          "PASSWORD-ERROR": "Mot de passe requis",
+          "EMAIL-ERROR": "Format d'email invalide"
+        },
+        "LABELS": {
+          "EMAIL": "E-mail",
+          "PASSWORD": "Mot de passe"
+        }
       },
-      "LABELS" : {
-        "EMAIL": "E-mail",
-        "PASSWORD": "Mot de passe"
+      "FORGOT-PASSWD": "Mot de passe oublié ?",
+      "CREATE-ACC-FORM": {
+        "FLD-FNAME": "Prénom",
+        "FLD-LNAME": "Nom de famille",
+        "FLD-NAME-REQ": "Le nom est obligatoire",
+        "FLD-EMAIL": "Email",
+        "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
+        "FLD-PASSWD": "Mot de passe",
+        "FLD-CONF-PASSWD": "Confirmer le mot de passe",
+        "FLD-CONF-PASSWD-ERR": "Le mot de passe doit être identique",
+        "SUBMIT": "Créer un compte"
       }
     },
-    "FORGOT-PASSWD": "Mot de passe oublié ?",
-    "CREATE-ACC-FORM": {
-      "FLD-FNAME": "Prénom",
-      "FLD-LNAME": "Nom de famille",
-      "FLD-NAME-REQ": "Le nom est obligatoire",
-      "FLD-EMAIL": "Email",
-      "FLD-EMAIL-ERR": "Veuillez fournir une adresse électronique valide",
-      "FLD-PASSWD": "Mot de passe",
-      "FLD-CONF-PASSWD": "Confirmer le mot de passe",
-      "FLD-CONF-PASSWD-ERR": "Le mot de passe doit être identique",
-      "SUBMIT": "Créer un compte"
-    }
-  },
     "TOS": {
       "P1": "En m'inscrivant, j'accepte",
       "P2-LINK": "les conditions d'utilisation du service",
@@ -85,13 +85,13 @@
         "DOCUMENT": "Document Bloquer",
         "WEBHOOK": "webhook Bloquer",
         "IMAGE-INPUT": "Entrée d'images",
-        "VIDEO-INPUT":"entrée vidéo",
-        "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position",
+        "VIDEO-INPUT": "entrée vidéo",
+        "AUDIO-INPUT": "entrée audio",
+        "LOCATION-INPUT": "saisie de position",
         "KEYWORD-JUMP": "saut de mots-clés",
         "EVENT": "Événement",
         "ASSESSMENT": "Évaluation",
-        "JUMP":"saut"
+        "JUMP": "saut"
       },
       "PLACEHOLDER": {
         "CAPTION": "Légende",
@@ -99,17 +99,17 @@
         "NAME": "Nom",
         "EMAIL": "Email",
         "PHONE-NUMBER": "Téléphoner",
-        "AUDIO-LINK":"Lien audio",
+        "AUDIO-LINK": "Lien audio",
         "WEBHOOK": "Un webhook",
         "IMAGE-INPUT": "Entrée d'images",
-        "VIDEO-INPUT":"entrée vidéo",
-        "AUDIO-INPUT":"entrée audio",
-        "LOCATION-INPUT":"saisie de position",
+        "VIDEO-INPUT": "entrée vidéo",
+        "AUDIO-INPUT": "entrée audio",
+        "LOCATION-INPUT": "saisie de position",
         "EVENT-NAME": "Nom de l'événement",
         "0PTIONAL-PAYLOAD": "Facultatif - Charge utile",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable de type",
-          "SELECT-VARIABLE":"Sélectionnez Variable"
+          "SELECT-VARIABLE": "Sélectionnez Variable"
         },
         "JUMP": {
           "SELECT_STORY": "sélectionner l'histoire",
@@ -122,10 +122,10 @@
           "FAILED": "Échoué"
         }
       },
-      "UPLOAD-WARNING" :{
-        "CMI5-BLOCK":{
-          "INVALID-FILE-TYPE":"Type de fichier invalide",
-          "PLEASE-SELECT-ZIP-ONLY":"Veuillez sélectionner un fichier .zip uniquement."
+      "UPLOAD-WARNING": {
+        "CMI5-BLOCK": {
+          "INVALID-FILE-TYPE": "Type de fichier invalide",
+          "PLEASE-SELECT-ZIP-ONLY": "Veuillez sélectionner un fichier .zip uniquement."
         }
       },
       "LABELS": {
@@ -133,7 +133,7 @@
         "ASSESSMENTS-NAME": "Nom de l'évaluation",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
-          "SELECT-VARIABLE":"Sélectionnez Variable",
+          "SELECT-VARIABLE": "Sélectionnez Variable",
           "CHECKBOX": "variable personnalisée"
         }
       }
@@ -147,7 +147,7 @@
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal",
-      "MENU-ITEMS" : {
+      "MENU-ITEMS": {
         "CHATS": {
           "ITEM-NAME": "Chats",
           "CHILD-ITEMS": {
@@ -193,26 +193,37 @@
       },
       "CANCEL": "Annuler",
       "SUBMIT": "Créer un robot",
-    "ACTIONS": {
-      "OPEN-BOT": "Ouvert un robot",
-      "LBL-NEW-BOT": "Créer un nouveau robot",
-      "EDIT-BOT":"Edit",
-      "DELETE-BOT": "Effacer",
-      "ADD-OPTION": "Ajouter une option",
-      "NEW-LIST": "Nouvelle liste"
-    },
-    "EDIT-MODAL": {
-      "TITLE": "Modifier un robot",
-      "SUBMIT": "Mettre à jour un robot"
-    },
-    "DELETE-MODAL": {
-      "TITLE": "Supprimer le robot",
-      "CANCEL": "Annuler",
-      "SUBMIT": "Supprimer le robot",
-      "MESSAGE":"Êtes-vous sûr de vouloir supprimer ce bot?"
+      "ACTIONS": {
+        "OPEN-BOT": "Ouvert un robot",
+        "LBL-NEW-BOT": "Créer un nouveau robot",
+        "EDIT-BOT": "Edit",
+        "DELETE-BOT": "Effacer",
+        "ADD-OPTION": "Ajouter une option",
+        "NEW-LIST": "Nouvelle liste"
+      },
+      "EDIT-MODAL": {
+        "TITLE": "Modifier un robot",
+        "SUBMIT": "Mettre à jour un robot"
+      },
+      "DELETE-MODAL": {
+        "TITLE": "Supprimer le robot",
+        "CANCEL": "Annuler",
+        "SUBMIT": "Supprimer le robot",
+        "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
+      }
     }
-  }
-},
+  },
+  "CLASSESS": {
+    "MODALS": {
+      "CREATE-CLASS": "Créer une classe",
+      "CLASSNAME": "Nom du cours",
+      "DESCRIPTION": "Description",
+      "ACTION-BUTTONS": {
+        "CANCEL": "Annuler",
+        "CONTINUE": "Continuer"
+      }
+    }
+  },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "NAME": "Nom",
@@ -256,11 +267,11 @@
         "LOWEST": "Note la plus basse",
         "HIGHEST": "Le score le plus élevé",
         "AVERAGE": "Score moyen",
-        "TOTAL-QUESTIONS":"Nombre total de questions"
+        "TOTAL-QUESTIONS": "Nombre total de questions"
       }
     },
     "BUTTON": {
-      "VIEW": "Voir", 
+      "VIEW": "Voir",
       "RESULTS": "Résultats",
       "ADD": "Créer",
       "EDIT": "Modifier",
@@ -272,21 +283,21 @@
       "SEARCH-QUESTIONS": "Rechercher des questions"
     },
     "ACCESSIBILITY": {
-       "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
-       "SORT-BY-NO": "Trier par numéro d'évaluation",
-       "SORT-BY-NAME": "Trier par nom d'évaluation",
-       "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
-       "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
-       "SORTED-ASC": "Trié par ordre croissant",
-       "SORTED-DESC": "Trié par ordre décroissant"
+      "SELECT-ASSESSMENT-PAGE": "Sélectionner la page des évaluations",
+      "SORT-BY-NO": "Trier par numéro d'évaluation",
+      "SORT-BY-NAME": "Trier par nom d'évaluation",
+      "SORT-BY-IN-PROGRESS": "Trier par nombre d'évaluations en cours",
+      "SORT-BY-RESPONSES": "Trier par réponses d'évaluation",
+      "SORTED-ASC": "Trié par ordre croissant",
+      "SORTED-DESC": "Trié par ordre décroissant"
     },
     "CREATE-MODAL": {
       "TITLE": "Créer une évaluation",
       "FIELDS": {
-         "NAME": "Nom",
-         "NAME-PLACEHOLDER": "Nom de l'évaluation",
-         "DESC": "Description",
-         "DESC-PLACEHOLDER": "Description de l'évaluation"
+        "NAME": "Nom",
+        "NAME-PLACEHOLDER": "Nom de l'évaluation",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Description de l'évaluation"
       },
       "BUTTONS": {
         "SUBMIT": "Créer une évaluation",
@@ -299,10 +310,10 @@
       "SUBMIT": "Supprimer l'évaluation",
       "MESSAGE": "Voulez-vous vraiment supprimer cette évaluation ?"
     },
-   "ALERT": {
+    "ALERT": {
       "NOT-FOUND": "Évaluation introuvable"
     },
-   "QUESTIONS": {
+    "QUESTIONS": {
       "QUESTION": "Une question",
       "QUESTIONS": "Les questions",
       "ANSWER": "Une réponse",
@@ -326,10 +337,133 @@
       }
     }
   },
+  "SURVEYS": {
+    "TABLE-HEADER": {
+      "TITLE": "Titre de l'enquête",
+      "CREATED-ON": "Créé le",
+      "IN-PROGRESS": "En cours",
+      "RESPONSES": "Réponses terminées",
+      "ACTIONS": "Actions",
+      "DUPLICATE": "Dupliquer",
+      "QUESTIONS": "Questions",
+      "STATUS": "Statut",
+      "NAME": "Nom",
+      "PHONE-NO": "Numéro de téléphone",
+      "COURSE": "Cours",
+      "LIST": "Liste",
+      "GRID": "Grille"
+    },
+    "SORTING": {
+      "N-DATE": "Date de création (la plus récente)",
+      "O-DATE": "Date de création (la plus ancienne)"
+    },
+    "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Retour",
+        "EDIT SURVEY": "Modifier l'enquête"
+      },
+      "TEXT": {
+        "SURVEY RESULTS": "Résultats de l'enquête",
+        "ALL-CLASSES": "Toutes les classes",
+        "NO-RESULTS": "Aucun résultat trouvé"
+      },
+      "TABLE-HEADER": {
+        "NAME": "Nom",
+        "PHONE-NO": "Numéro de téléphone",
+        "STARTED-ON": "Démarré le",
+        "FINISHED-ON": "Terminé le",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Catégorie de score"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Sélectionner la page de résultats",
+        "SORT-BY-CREATED": "Trier par date de création de l'enquête",
+        "SORT-BY-No": "Trier par numéro d'enquête",
+        "SORT-BY-NAME": "Trier par nom de résultat d'enquête",
+        "SORT-BY-PHONE-NO": "Trier par numéro de téléphone des résultats de l'enquête",
+        "SORT-BY-STARTED-ON": "Trier par date de début des résultats de l'enquête",
+        "SORT-BY-FINISHED-ON": "Trier par date de fin des résultats de l'enquête",
+        "SORT-BY-SCORE": "Trier par score des résultats de l'enquête",
+        "SORT-BY-SCORE-CATEGORY": "Trier par catégorie de score des résultats de l'enquête",
+        "SORTED-ASC": "Trié par ordre croissant",
+        "SORTED-DESC": "Trié par ordre décroissant"
+      },
+      "LABELS": {
+        "GROUPS": "Groupes"
+      },
+      "METRICS": {
+        "LOWEST": "Score le plus bas",
+        "HIGHEST": "Score le plus élevé",
+        "AVERAGE": "Score moyen",
+        "TOTAL-QUESTIONS": "Nombre total de questions"
+      }
+    },
+    "BUTTON": {
+      "VIEW": "Voir",
+      "RESULTS": "Résultats",
+      "ADD": "Créer une enquête",
+      "EDIT": "Modifier",
+      "SAVE": "Sauvegarder",
+      "DELETE": "Supprimer",
+      "ARCHIVE": "Archiver",
+      "SEARCH-SURVEY": "Rechercher une enquête",
+      "ADD-SURVEY": "Créer une enquête",
+      "EDIT-SURVEY": "Modifier l'enquête",
+      "PUBLISH": "Publier",
+      "SEARCH-QUESTIONS": "Rechercher des questions",
+      "OPEN-SURVEY": "OUVRIR L'ENQUÊTE",
+      "SEND": "Envoyer"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Créer un sondage",
+      "FIELDS": {
+         "TITLE": "Titre",
+         "TITLE-PLACEHOLDER": "Nom du sondage",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Description du sondage"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Créer un sondage",
+        "CANCEL": "Annuler"
+      }
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Supprimer le sondage",
+      "CANCEL": "Annuler",
+      "SUBMIT": "Supprimer le sondage",
+      "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce sondage ?"
+    },
+   "ALERT": {
+      "NOT-FOUND": "Sondage non trouvé"
+    },
+   "QUESTIONS": {
+      "QUESTION": "Nouvelle question",
+      "QUESTIONS": "Questions",
+      "ANSWER": "Nouvelle réponse",
+      "FIELDS":{
+        "CONFIGURATION": "Cette enquête a été envoyée à",
+        "FEEDBACK": "Commentaire",
+        "CONDITION": "Condition",
+        "USER-ATTEMPTS": "Essais de l'utilisateur",
+        "MARKS": "Points",
+        "MARKS-PLACEHOLDER": "Entrez les points",
+        "QUESTION": "Tapez une question que vous souhaitez poser",
+        "ANSWER": "Tapez une réponse possible"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immédiatement",
+        "ON-END": "À la fin",
+        "NEVER": "Jamais",
+        "CORRECT": "Correct",
+        "WRONG": "Faux",
+        "50-50": "50/50"
+      }
+    }
+  },
   "LEARNERS":{
     "TABLE-HEADER": {
       "NAME": "Nom",
-      "PHONENUMBER": "Numéro de téléphone",
+      "PHONE-NUMBER": "Numéro de téléphone",
       "COURSE": "Cours",
       "CLASS": "Classe",
       "STATUS": "Statut"
@@ -343,19 +477,21 @@
       "CLASS": "Classe",
       "COURSE": "Cours",
       "PLATFORM": "Plateforme",
-      "GO-TO-CHAT": "Aller au chat"
+      "GO-TO-CHAT": "Aller au chat",
+      "SEND-SURVEY": "envoyer un sondage",
+      "SEND-MESSAGE": "Envoyer un message."
+
     },
     "MODALS": {
       "ACTIONS": "Actions",
-      "SEND-INVITATION":"Envoyer une invitation",
-      "SEND-REMINDER":"Envoyer un rappel",
-      "CANCEL":"Annuler",
-      "CONTINUE":"Continuer"
+      "SEND-INVITATION": "Envoyer une invitation",
+      "SEND-REMINDER": "Envoyer un rappel",
+      "CANCEL": "Annuler",
+      "CONTINUE": "Continuer"
     },
     "PLATFORM": {
       "WHATSAPP": "WhatsApp",
       "MESSENGER": "Messenger"
-      
     },
     "PILLS": {
       "ACTIVE": "Actif",
@@ -384,27 +520,306 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "l'opération de suppression a réussi",
       "FAIL": "l'opération de suppression n'a pas réussi"
-    }
+    },
+    "ERROR": "Erreur",
+    "ERROR-COUNT": "Il y a",
+    "ERRORS": "erreurs"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum de caractères atteint"
   },
   "ADMIN-SETTINGS": {
-    "TEAM-SECTION" : {
+    "TEAM-SECTION": {
       "TITLE": "Équipe",
       "DESCRIPTION": "Inviter et/ou gérer les membres de l'équipe au sein de votre organisation",
       "BUTTONS": {
-        "ADD-MEMBER": "Ajouter un membre"
+        "ADD-MEMBER": "Ajouter un membre",
+        "ADDING": "Ajout...",
+        "NO-THANKS": "Non merci"
       },
       "MODAL": {
         "TITLE": "Ajouter un membre",
         "DESC": "Inviter un membre de l'équipe via son adresse e-mail",
         "EMAIL-ERROR": "Le courriel est invalide",
-        "SELECT-ROLE": "Sélectionnez un rôle"
+        "SELECT-ROLE": "Sélectionnez un rôle",
+        "ROLE": "rôle"
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Sélectionnez la page des membres de l'équipe"
       }
     }
+  },
+
+  "PROFILE-DETAILS":{
+    "FIRST-NAME":"Prénom",
+    "LAST-NAME":"Nom de famille",
+    "ROLE":"Rôle",
+    "EMAIL":"E-mail",
+    "CANCEL":"Annuler",
+    "SAVE-PROFILE":"Enregistrer",
+    "CHANGE-PASSWORD":"Changer le mot de passe",
+    "PASSWORD-INFO":"It is advised to change your password every 2-4 months",
+    "DELETE-PROFILE":"Supprimer le profil",
+    "DELETE-TEXT":"Vous recevrez un e-mail pour confirmer votre décision. Cela ne mettra pas fin à votre abonnement ou à vos paiements et vous continuerez à être facturé. Vous pouvez annuler votre abonnement ou changer de mode de paiement pour garder l'équipe active.",
+    "FETCH-USER-DATA":"Récupération des données utilisateur",
+    "BUTTON":{
+      "PASSWORD-RESET":"Obtenir le lien de réinitialisation du mot de passe"
+    }
+  },    
+  "MESSAGE-TEMPLATES": {
+    "MESSAGE-TEMPLATE-HISTORY": {
+      "TITLE": "Historique des modèles",
+      "DATE": "Date d'envoi",
+      "TIME": "Heure d'envoi",
+      "LEARNERS": "Nombre d'apprenants",
+      "STATUS": "Statut",
+      "PENDING": "En attente",
+      "SENT": "Envoyé",
+      "APPROVED": "Approuvé"
+    },    
+    "INACTIVE-MESSAGE": {
+      "INACTIVITY": "Envoyer un message après une période d'inactivité",
+      "IM-SELECT": {
+        "INPUT-PLACEHOLDER": "Entrez une valeur",
+        "SELECT-TIME-UNIT": {
+          "DAYS": "jours",
+          "HOURS": "heures"
+        }
+      }
+    },
+    "MILESTONE": {
+      "MILESTONE-TITLE": "Envoyer un message après avoir atteint une étape",
+      "CLOSE-MODAL": "Fermer",
+      "SELECT-MILESTONE": "Sélectionnez une étape",
+      "MILESTONE-TYPES": {
+        "BEFORE": "Avant",
+        "AFTER": "Après"
+      },
+      "SELECT-BOT": "Sélectionnez un Bot",
+      "SELECT-MILESTONE-INDEX": "Sélectionnez une étape",
+      "MILESTONE-NUMBER": "Étape"
+    },
+    "SAVE-BUTTON": {
+      "SAVE": "Enregistrer"
+    },
+    "SPECIFIC-TIME": {
+      "SEND-MESSAGE-AT-SPECIFIC-TIME": "Envoyer un message à une heure spécifique",
+      "CHOOSE-DATE": "Choisissez une date et une heure",
+      "DATE-PLACEHOLDER": "Date et heure",
+      "TIME-PLACEHOLDER": "Heure",
+      "SAVE-BUTTON": {
+        "SAVE": "Enregistrer"
+      }
+    },
+    "MESSAGE-TEMPLATE-SETTINGS": {
+      "BTN-CONT": {
+        "SAVE-BUTTON": {
+          "SAVE": "Enregistrer"
+        }
+      },
+      "FORM-GROUP": {
+        "HEAD": {
+          "MESSAGE-CONDITIONS": "Conditions du message",
+          "INFO": "Vous ne pouvez définir des conditions de message que lorsque votre modèle de message est approuvé",
+          "SET-UP-CONDITIONS": "Configurer les conditions pour l'envoi de votre message",
+          "MESSAGE-CONDITIONS-LABEL": "Conditions du message"
+        }
+      }
+    },
+    "MESSAGE-TEMPLATE-LIST-CONTAINER": {
+      "LIST-TITLE": {
+        "LIST-TITLE-MESSAGE": "Modèles de messages"
+      },
+      "LIST-TITLE-BUTTON": {
+        "CREATE-BUTTON": {
+          "CREATE-TEMPLATE": "Créer un modèle",
+          "SAVING": "En cours de création..."
+        }
+      },
+      "SEARCH-BAR": {
+        "SEARCH": {
+          "SEARCH-TOOLTIP": "Rechercher",
+          "SEARCH-INPUT-PLACEHOLDER": "Rechercher un modèle"
+        }
+      },
+      "TABLE": {
+        "SPINNER": "Chargement...",
+        "TABLE-HEADER": {
+          "TEMPLATE-NAME": "Nom du modèle",
+          "MESSAGES-SENT": "Messages envoyés",
+          "LAST-UPDATED": "Dernière mise à jour",
+          "ACTIONS": "Actions"
+        },
+        "SEND-BUTTON": "Envoyer",
+        "DUPLICATE-BUTTON": "Dupliquer",
+        "ARCHIVE-BUTTON": "Archiver",
+        "DELETE-BUTTON": "Supprimer"
+      }
+    },
+    "HEADER": {
+      "MESSAGE-TEMPLATE-HEADER-TITLE": {
+        "MESSAGES": "Messages",
+        "HELP": "Aide"
+      }
+    },
+    "MESSAGE-TEMPLATE-FORM": {
+      "MT-FORM": {
+        "FORM-HEADER": {
+          "EDIT-TEMPLATE": "Modifier le modèle",
+          "FORM-HEADER-BUTTONS": {
+            "CANCEL-BUTTON": "Annuler",
+            "SAVE-BUTTON": {
+              "SAVE": "Enregistrer",
+              "SAVING": "Enregistrement en cours"
+            }
+          }
+        },
+        "FORM-BODY": {
+          "TEMPLATE-SETTINGS": {
+            "TITLE": "Paramètres du modèle",
+            "CATEGORY": "Catégorie",
+            "CATEGORY-DESCRIPTION": "Sélectionnez la catégorie du modèle",
+            "LANGUAGE": "Langue",
+            "LANGUAGE-DESCRIPTION": "Sélectionnez la langue du modèle",
+            "CHANNEL": "Canal",
+            "CHANNEL-DESCRIPTION": "Sélectionnez le canal d'envoi"
+          },
+          "TITLE": "Titre",
+          "TITLE-DESCRIPTION": "Ajoutez un titre à votre modèle",
+          "CONTENT": {
+            "HEADER": {
+              "HEADER": "En-tête",
+              "HEADER-DESCRIPTION": "Ajoutez un en-tête sous forme de texte ou d'image",
+              "TEXT": "Texte"
+            },
+            "BODY": {
+              "BODY": "Corps",
+              "BODY-DESCRIPTION": "Ajoutez le contenu du message à envoyer",
+              "SAMPLES": {
+                "SAMPLES": "Exemples de contenu du corps",
+                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client"
+              },
+              "FOOTER": {
+                "FOOTER": "Pied de page",
+                "FOOTER-DESCRIPTION": "Ajoutez une courte ligne de texte au contenu du message à afficher en bas"
+              }
+            }
+          },
+          "ADD-RESPONSES": {
+            "ADD-RESPONSES": "Ajouter des réponses",
+            "ADD-RESPONSES-DESCRIPTION": "Ajoutez des boutons ou une liste permettant aux apprenants de répondre à votre message",
+            "ADD-BUTTONS": "Ajouter des boutons +",
+            "ADD-LIST": "Ajouter une liste +"
+          }
+        }
+      }
+    },
+  "BILLINGS":{
+    "SUBSCRIPTION":"Abonnement",
+    "MESSAGE-TOKENS":"Jetons de messages",
+    "CURRENT-PLAN":"Plan actuel",
+    "INVOICES" :"Factures",
+    "CHANGE-PLAN":"changer de plan",
+    "PAYMENT-METHOd":"Mode de paiement",
+    "PAYMENT-METHODS":"Modes de paiement",
+    "EXPIRES":"Expire",
+    "DEFAULT":"Défaut",
+    "EDIT" :"Modifier",
+    "DELETE":"Supprimer",
+    "DATE":"Date",
+    "DESCRIPTION":"Description",
+    "AMOUNT":"Montante",
+    "BUTTON":{
+      "ADD-PAYMENT-METHOD":"Ajouter un mode de paiement"
+    }
+  },
+  "MEMBERS":{
+    "SEARCH":"table de recherche",
+    "INVITE-BUTTON":"Inviter un membre",
+    "TABLE":{
+      "NAME":"Nom",
+      "EMAIL":"Courriel",
+      "LAST-UPDATED":"Dernière mise à jour",
+      "ROLE":"Rôle",
+      "EDIT":"Éditer",
+      "REMOVE":"Supprimer",
+      "DEACTIVATE":"Désactiver",
+      "LOADING-USERS":"Chargement des utilisateurs"
+    }
+}
+},
+  "PERMISSIONS" :{
+    "BUTTON":{
+      "EDIT-ROLES":"Modifier les rôles",
+      "SAVE-ROLES":"Enregistrer les rôles"
+    },
+    "ANALYTICS":{
+      "SETTINGS":"Paramètres d'analyse",
+      "VIEW-ANALYTICS":"Peut afficher les analyses",
+      "MANAGE-ANALYTICS":"Peut gérer les analyses"
+    },
+    "ASSESMENTS" :{
+      "SETTINGS":"Paramètres des évaluations",
+      "VIEW":"Can View Assessments",
+      "CREATE":"Peut afficher les évaluations",
+      "EDIT":"Peut modifier les évaluations"
+  
+    },
+    "BOT-SETTINGS":{
+      "SETTINGS":"Paramètres des robots",
+      "VIEW":"Peut afficher les robots",
+      "CREATE":"Peut créer des robots",
+      "EDIT" :"Peut modifier les robots",
+      "DELETE":"Peut supprimer des robots"
+  
+    },
+    "CHAT-SETTINGS":{
+      "SETTINGS":"Paramètres de discussion",
+      "VIEW":"Peut afficher les discussions",
+      "MANAGE":"Peut gérer les discussions"
+    },
+    "GENERAL-SETTINGS":{
+      "SETTINGS":"réglages généraux",
+      "ADD":"Peut ajouter un nouveau membre",
+      "DELETE":"Peut supprimer un membre"
+  
+    },
+    "LEARNER-SETTINGS":{
+      "SETTINGS":"Paramètres des apprenants",
+      "VIEW":"Peut voir les apprenants",
+      "CREATE":"Peut créer des apprenants",
+      "EDIT":"Peut modifier les apprenants",
+      "DELETE":"Peut supprimer des apprenants"
+    },
+    "MODALS":{
+      "ADD":{
+        "NEWROLE":"Créer un nouveau rôle",
+        "ENTER-ROLE-NAME":"Entrez le nom du rôle",
+        "CANCEL":"Annuler",
+        "CREATE-ROLE":"Créer un rôle"
+      },
+      "DELETE":{
+        "TITLE":"Supprimer le rôle",
+        "SELECT":"Sélectionnez un rôle à supprimer",
+        "CANCEL":"Annuler",
+        "DELETE-ROLE":"Supprimer le rôle"
+      },
+      "SWITCH":{
+        "OFF":"DÉSACTIVÉ",
+        "ON":"SUR"
+      }
+     
+    }
+  },
+  "COMPANY-INFORMATION":{
+    "BUTTON":{
+      "UPLOAD":"télécharger",
+      "REMOVE":"retirer"
+    },
+    "REMOVE":"Retirer",
+    "BASIC-INFO":"INFORMATIONS DE BASE",
+    "ADDRESS-INFO":"Informations sur l'adresse",
+    "EDIT-CO-INFO":"Modifier les informations de l'entreprise",
+    "SAVE-ORG":"Enregistrer l'organisation"
   }
 }

@@ -5,7 +5,7 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { CursorDataService, VariablesDataService } from '@app/functions/bot-engine';
+import { CursorDataService, VariablesDataService, BotModuleDataService } from '@app/functions/bot-engine';
 
 import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress'
 
@@ -24,19 +24,21 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
     const { orgId , participant, interval } = cmd;
 
     const cursorDataService = new CursorDataService(tools)
-    
+
+    const botModDataService = new BotModuleDataService(tools, orgId);
+
     // 1.1. Get the user cursor at the measurement point.
     const latestCursor = interval
-      ? (await cursorDataService.getUserCursorAtSetTime(interval, orgId, participant.id))?.cursor
+      ? (await cursorDataService.getUserCursorAtSetTime(interval, orgId, participant.endUser.id))?.cursor
   
-      : ((await cursorDataService.getLatestCursor(participant.id, orgId)) as Cursor);
+      : ((await cursorDataService.getLatestCursor(participant.endUser.id, orgId)) as Cursor);
 
     const storyRepo = tools.getRepository<Story>(`orgs/${orgId}/stories`);
 
     // Get User's Name
-    const varService = new VariablesDataService(tools, orgId, participant.id);
+    const varService = new VariablesDataService(tools, orgId, participant.endUser.id);
 
-    const userName = await varService.getSpecificVariable(participant.id, 'name');
+    const userName = await varService.getSpecificVariable(participant.endUser.id, 'name');
 
     // guard clause to filter user's with no cursor history when calculating past data
     if (!latestCursor) return
@@ -45,14 +47,17 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const story = await storyRepo.getDocumentById(storyId);
 
+    const parentModule = await botModDataService.getBotModule(story.parentModule);
+
     return {
       participant: {
-        id: participant.id,
+        id: participant.endUser.id,
         name: userName ? userName : 'unknown',
-        phone: participant.phoneNumber,
+        phone: participant.endUser.phoneNumber,
       },
-      group: participant.labels ? participant.labels[0] : 'class_TBD',
-      milestone: story.chapter,
+      classroom: participant.classroom,
+      milestone: story.parentModule,
+      course: parentModule.parentBot,
       storyId: story.id,
     }
   }

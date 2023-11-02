@@ -26,16 +26,17 @@
 }
 
 .actions {
-	padding: 0px 0px 40px 0px;
+	padding: 0px 0px 10px 0px;
 }
 
 .action-title {
-	font-size: 2.5rem;
+	font-size: 2rem;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .action-desc {
-	margin-top: 20px;
+	margin-top: 10px;
+	font-weight: 100;
 }
 
 .action-buttons {
@@ -63,7 +64,8 @@
 	width: 200px;
 	height: auto;
 	object-fit: contain;
-	margin: 20px 0;
+	margin: 40px 0 30px 0;
+
 }
 
 .login-page-info {
@@ -88,6 +90,7 @@
 
 	img {
 		width: 60px;
+		padding: 30px;
 		height: auto;
 		object-fit: contain;
 	}
@@ -114,8 +117,8 @@
 
 .login-form {
 	height: 100%;
-  width: 100%;
-  padding: 20px 30px;
+    width: 100%;
+    padding: 20px 30px;
 
   display: flex;
   justify-content: center;
@@ -135,4 +138,43 @@ button {
 
 :host ::ng-deep .mat-mdc-form-field {
   width: 100%!important;
+}
+
+.image-container{
+	position: relative;
+	display: inline-block;
+	height: 100%;
+
+	.image{
+		height: 100%;
+		width: 100%;
+	}
+
+	.overlay{
+		background-color: rgba(0,0,0,0.5);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		border-radius: 30px;
+	}
+}
+
+/* change the background color of 'create an account' on hover */
+.highlight-button:hover {
+	background-color: #02B3FE;
+	color: white !important;
+	transition: 0.2s ease ;
+}
+.log-in {
+	margin-left: 10px;
+	transition: ease 0.2s;
+	&:hover{
+		background-color: var(--convs-mgr-icon-color);
+		span {
+				color: var(--convs-mgr-color-text-white);
+			}
+	}
 }

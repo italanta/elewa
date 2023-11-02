@@ -59,9 +59,9 @@ export class OrganisationService {
     const orgWithId = { 
       ...org,
       id: id,
-      logoUrl: '',
-      email: '',
-      phone: '',
+      logoUrl: org.logoUrl ?? '',
+      email: org.email ?? '',
+      phone: org.phone ?? '',
     };
 
     this._sbS.sink = this._orgs$$.add(orgWithId, id)
@@ -87,11 +87,7 @@ export class OrganisationService {
   updateOrgDetails(org: Organisation, fileUrl?: string) {
     org.logoUrl = fileUrl ?? '';
 
-    this._orgs$$.update(org).subscribe((org) => {
-      if (org) {
-        window.location.reload();
-      }
-    });
+    this._orgs$$.update(org).subscribe();
   }
 
   getOrgPermissions () {

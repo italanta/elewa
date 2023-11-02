@@ -53,7 +53,7 @@
     "FORGOT-PASSWD": "Forgot password?",
     "FORGOT-PASSWORD-MODAL" : {
       "TITLE": "Forgot password?",
-      "MESSAGE": "Enter your email address and we will send you a link to reset your password.",
+      "MESSAGE": "Enter your email address and we will send you a link to reset your password",
       "FLD-EMAIL": "Enter email",
       "FLD-EMAIL-ERR":"Please provide a valid email address",
       "RESET": "Reset",
@@ -129,7 +129,8 @@
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
+        "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
         "LOCATION-INPUT": "Location Input",
@@ -161,7 +162,7 @@
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
         "LOCATION-INPUT": "Location Input",
-        "OPEN-ENDED-QUESTION": "Open Ended Question",
+        "OPEN-ENDED-QUESTION": "Open ended question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
@@ -259,9 +260,12 @@
       "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
-      "ANALYTICS": "Analytics",
+      "ANALYTICS": "Insights",
       "CHATS": "Chats",
+      "MESSAGING": "Messaging",  
+      "MESSAGE-TEMPLATES": "Message Templates",    
       "ASSESSMENTS": "Assessments",
+      "SURVEYS": "Surveys",
       "LOG-OUT": "Logout",
       "BOT": "Bots",
       "REPORTS": "Reports",
@@ -346,18 +350,140 @@
       "TITLE": "Edit Bot"
     },
     "DELETE-MODAL": {
-      "TITLE": "Delete Bot",
+      "TITLE": "Delete Element",
       "CANCEL": "Cancel",
-      "SUBMIT": "Delete Bot",
-      "MESSAGE": " Are you sure you want to delete this bot?"
+      "SUBMIT": "Delete",
+      "MESSAGE": " Are you sure you want to delete this element?"
+    },
+    "BOTS-PAGE" : {
+      "BOTS" : "Bots",
+      "ALL-COURSES" : "All Courses",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-COURSES" : "Latest Courses",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-BOT" : "Open Bot",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "MODULES": {
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a module",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Module name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Module description",
+        "COPY": "Copy",
+        "DELETE": "Delete",
+        "COURSE":"Course"
+      },
+      "CREATE": "Create Module",
+      "UPDATE": "Update Module",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create module"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Module"
+    },
+    "MODULES-PAGE": {
+      "MODULES" : "Modules",
+      "ALL-MODULES" : "All Modules",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-MODULES" : "Latest Modules",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-MODULE" : "Open Module",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "LESSONS": {
+    "FIELDS": {
+      "NAME": "Name",
+      "NAME-PLACEHOLDER": "Bot name",
+      "DESC": "Description",
+      "DESC-PLACEHOLDER": "Bot description"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a lesson",
+      "FIELDS": {
+        "NAME": "Name",
+        "NAME-PLACEHOLDER": "Lesson name",
+        "DESC": "Description",
+        "DESC-PLACEHOLDER": "Lesson description",
+        "COPY": "Copy",
+        "DELETE": "Delete",
+        "MODULE":"Module"
+      },
+      "CREATE": "Create Lesson",
+      "UPDATE": "Update Lesson",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Create lesson"
+    },
+    "EDIT-MODAL": {
+      "TITLE": "Edit Lesson"
+    },
+    "LESSONS-PAGE": {
+      "LESSONS" : "Lessons",
+      "ALL-LESSONS" : "All Lessons",
+      "DATE-NEWEST": "Date Created (Newest)",
+      "DATE-OLDEST": "Date Created (Oldest)",
+      "LATEST-LESSONS" : "Latest Lessons",
+      "BACK" : "Back",
+      "NAME" : "Name",
+      "LAST" : "Last Edited",
+      "BEGINNER" : "Beginner",
+      "CHANNEL" : "Channel",
+      "ACTIONS" : "Actions",
+      "TYPE" : "Type",
+      "EDIT" : "Edit",
+      "DELETE" : "Delete",
+      "OPEN-LESSON" : "Open lesson",
+      "VIEW-ALL" : "View All"
+    }
+  },
+  "CLASSESS": {
+    "MODALS": {
+      "CREATE-CLASS": "Create Class",
+      "CLASSNAME": "ClassName",
+      "DESCRIPTION": "Description",
+      "ACTION-BUTTONS": {
+        "CANCEL": "Cancel",
+        "CONTINUE": "Continue"
+      }
     }
   },
   "ASSESSMENTS": {
     "TABLE-HEADER": {
       "TITLE": "Assessment Title",
-      "CREATED-ON": "Created On",
+      "STATUS" : "Status",
+      "QUESTIONS" : "Questions",
+      "DUPLICATE" : "Duplicate",
+      "CREATED-ON": "Updated On",
       "IN-PROGRESS": "In Progress",
-      "RESPONSES": "Completed Responses",
+      "RESPONSES": "Completion",
       "ACTIONS": "Actions"
     },
     "RESULTS": {
@@ -467,24 +593,181 @@
       }
     }
   },
+  "SURVEYS": {
+    "TABLE-HEADER": {
+      "TITLE": "Survey Title",
+      "CREATED-ON": "Created On",
+      "IN-PROGRESS": "In Progress",
+      "RESPONSES": "Completed Responses",
+      "ACTIONS": "Actions",
+      "DUPLICATE": "Duplicate",
+      "QUESTIONS": "Questions",
+      "STATUS":"Status",
+      "NAME": "Name",
+      "PHONE-NO":"Phone Number",
+      "COURSE":"Course",
+      "LIST": "List",
+      "GRID": "Grid",
+      "CLASS": "All Classes",
+      "COURS": "All Courses",
+      "ACT": "Active",
+      "STUCK": "Stuck",
+      "INACTIVE": "Inactive",
+      "SELECTED": "Selected",
+      "CONTINUE": "Continue",
+      "CANCEL":"Cancel",
+      "BACK": "Back",
+      "NONE": "No Templates"
+
+    },
+    "SORTING":{
+        "N-DATE": "Date Created (Newest)",
+        "O-DATE": "Date Created (Oldest)"
+    },
+    "RESULTS": {
+      "BUTTONS": {
+        "GO-BACK": "Go Back",
+        "EDIT SURVEY": "Edit survey"
+      },
+      "TEXT":{
+        "SURVEY RESULTS": "Survey Results",
+        "ALL-CLASSES":"All classes",
+        "NO-RESULTS": "No results found"
+      },
+      "TABLE-HEADER": {
+        "NAME": "Name",
+        "PHONE-NO": "Phone Number",
+        "STARTED-ON": "Started On",
+        "FINISHED-ON": "Finished On",
+        "SCORE": "Score",
+        "SCORE-CATEGORY": "Score Category"
+      },
+      "ACCESSIBILITY": {
+        "SELECT-RESULTS-PAGE": "Select Results Page",
+        "SORT-BY-CREATED": "Sort by survey created date",
+        "SORT-BY-No": "Sort by survey number",
+        "SORT-BY-NAME": "Sort by survey results name",
+        "SORT-BY-PHONE-NO": "Sort by survey results phone number",
+        "SORT-BY-STARTED-ON": "Sort by survey results started on",
+        "SORT-BY-FINISHED-ON": "Sort by survey results finished on",
+        "SORT-BY-SCORE": "Sort by survey results score",
+        "SORT-BY-SCORE-CATEGORY": "Sort by survey results score category",
+        "SORTED-ASC": "Sorted in ascending order",
+        "SORTED-DESC": "Sorted in descending order"
+      },
+      "LABELS": {
+        "GROUPS": "Groups"
+      },
+      "METRICS": {
+        "LOWEST": "Lowest Score",
+        "HIGHEST": "Highest Score",
+        "AVERAGE": "Average Score",
+        "TOTAL-QUESTIONS":"Total Questions"
+      }
+    },
+    "BUTTON": {
+      "VIEW": "View", 
+      "RESULTS": "Results",
+      "ADD": "Create survey",
+      "EDIT": "Edit",
+      "SAVE": "Save",
+      "DELETE": "Delete",
+      "ARCHIVE": "Archive",
+      "SEARCH-SURVEY": "Search survey",
+      "ADD-SURVEY": "Create a survey",
+      "EDIT-SURVEY": "Edit survey",
+      "PUBLISH": "Publish",
+      "SEARCH-QUESTIONS": "Search questions",
+      "OPEN-SURVEY": "OPEN SURVEY",
+      "SEND": "Send"
+      
+    },
+    "ACCESSIBILITY": {
+       "SELECT-SURVEY-PAGE": "Select page of survey",
+       "SORT-BY-TITLE": "Sort by survey title",
+       "SORT-BY-IN-PROGRESS": "Sort by survey in-progress count",
+       "SORT-BY-RESPONSES": "Sort by survey responses",
+       "SORTED-ASC": "Sorted in ascending order",
+       "SORTED-DESC": "Sorted in descending order"
+    },
+    "CREATE-MODAL": {
+      "TITLE": "Create a survey",
+      "FIELDS": {
+         "TITLE": "Title",
+         "TITLE-PLACEHOLDER": "Survey name",
+         "DESC": "Description",
+         "DESC-PLACEHOLDER": "Survey description"
+      },
+      "BUTTONS": {
+        "SUBMIT": "Create survey",
+        "CANCEL": "Cancel"
+      }
+    },
+    "DELETE-MODAL": {
+      "TITLE": "Delete Survey",
+      "CANCEL": "Cancel",
+      "SUBMIT": "Delete Survey",
+      "MESSAGE": "Are you sure you want to delete this Survey?"
+    },
+   "ALERT": {
+      "NOT-FOUND": "Survey not found"
+    },
+   "QUESTIONS": {
+      "QUESTION": "New Question",
+      "QUESTIONS": "Questions",
+      "ANSWER": "New Answer",
+      "FIELDS":{
+        "CONFIGURATION": "This Survey has been sent to ",
+        "FEEDBACK": "Feedback",
+        "CONDITION": "Condition",
+        "USER-ATTEMPTS": "User attempts",
+        "MARKS": "Marks",
+        "MARKS-PLACEHOLDER": "Enter marks",
+        "QUESTION": "Type a question you would like to ask",
+        "ANSWER": "Type a possible answer"
+      },
+      "SELECT": {
+        "IMMEDIATELY": "Immediately",
+        "ON-END": "On end",
+        "NEVER": "Never",
+        "CORRECT": "Correct",
+        "WRONG": "Wrong",
+        "50-50": "50/50"
+      },
+      "SURVEY-RESPONSES": {
+        "RECEIVED": "Received responses",
+        "VIEW": "View responses",
+        "NON-RESPONSES": "Yet to response",
+        "REMINDER": "Send Reminder",
+        "LEARNERS": "Learners",
+        "FIRST-QUESTION": "Your first survey question",
+        "RESPONSES": "responses"
+      }
+    }
+  },
   "LEARNERS":{
+    "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONENUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "Phone Number",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status"
     },
     "PLACEHOLDERS":{
-      "SEARCH-PLACEHOLDER": "Search input by name"
+      "SEARCH-PLACEHOLDER": "Search for a learner"
     },
     "BUTTONS": {
+      "CREATE-CLASS":"Create Class",
       "ADD-TO-CLASS": "Add to Class",
-      "BULK-ACTIONS": "Bulk Actions",
+      "BULK-ACTIONS": "Send Message",
       "CLASS": "Class",
       "COURSE": "Course",
       "PLATFORM": "Platform",
-      "GO-TO-CHAT": "Go to Chat"
+      "GO-TO-CHAT": "Go to Chat",
+      "SEND-SURVEY": "Send survey",
+      "SEND-MESSAGE": "Send Message"
+      
     },
     "MODALS": {
       "ACTIONS": "Actions",
@@ -525,7 +808,10 @@
     "DELETE-BOT": {
       "SUCCESSFUL": "Delete operation was successful",
       "FAIL": "Delete operation was not successful"
-    }
+    },
+    "ERROR":" Error",
+    "ERROR-COUNT": "There are ",
+    "ERRORS": "errors"
   },
   "OPTION-INPUT": {
     "MAX-CHARACTERS": "maximum characters reached"
@@ -535,17 +821,294 @@
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
       "BUTTONS": {
-        "ADD-MEMBER": "Add Member"
+        "ADD-MEMBER": "Add Member",
+        "ADDING": "Adding ...",
+        "NO-THANKS": "No Thanks"
       },
       "MODAL": {
         "TITLE": "Add Member",
         "DESC": "Invite a team member via their email address",
         "EMAIL-ERROR": "Email is invalid",
-        "SELECT-ROLE": "Select Role"
+        "SELECT-ROLE": "Select Role",
+        "ROLE": "Role"
       },
       "ACCESSIBILITY": {
         "SELECT-RESULTS-PAGE": "Select page of team members"
       }
     }
+  },
+
+  "PROFILE-DETAILS": {
+    "FIRST-NAME":"First Name",
+    "LAST-NAME":"Last Name",
+    "ROLE":"Role",
+    "EMAIL":"Email",
+    "CANCEL":"Cancel",
+    "SAVE-PROFILE":"Save",
+    "CHANGE-PASSWORD":"Change password",
+    "PASSWORD-INFO":"It is advised to change your password every 2-4 months",
+    "DELETE-PROFILE":"Delete Profile",
+    "DELETE-TEXT":"You will receive an email to confirm your decision. This will not end your subscription or payments and you will continue to be charged.You can cancel your subscription, or switch payment methods to keep the team active",
+    "FETCH-USER-DATA":"Fetching user data",
+    "BUTTON":{
+      "PASSWORD-RESET":"Get Password Reset Link"
+    }
+  },    
+
+  "MESSAGE-TEMPLATES": {
+    "MESSAGE-TEMPLATE-HISTORY": {
+      "TITLE": "Template history",
+      "DATE": "Date Sent",
+      "TIME": "Time sent",
+      "LEARNERS": "Number of learners",
+      "STATUS": "status",
+      "PENDING": "Pending",
+      "SENT": "Sent",
+      "APPROVED": "Approved"
+
+    },
+    "INACTIVE-MESSAGE": {
+      "INACTIVITY": "Send message after inactivity",
+      "IM-SELECT": {
+        "INPUT-PLACEHOLDER": "Enter a value",
+        "SELECT-TIME-UNIT": {
+          "DAYS": "days",
+          "HOURS": "hours"
+        }
+      }
+    },
+    "MILESTONE": {
+      "MILESTONE-TITLE": "Send message after milestone reached",
+      "CLOSE-MODAL": "Close",
+      "SELECT-MILESTONE": "Select milestone",
+      "MILESTONE-TYPES": {
+        "BEFORE": "Before",
+        "AFTER": "After"
+      },
+      "SELECT-BOT": "Select Bot",
+      "SELECT-MILESTONE-INDEX": "Select milestone",
+      "SELECT-HINT": "Please select a bot to continue.",
+      "MILESTONE-NUMBER": "Milestone"
+    },
+    "SAVE-BUTTON": {
+      "SAVE": "Save"
+    },
+    "SPECIFIC-TIME": {
+      "SEND-MESSAGE-AT-SPECIFIC-TIME": "Send message at a specific time",
+      "CHOOSE-DATE": "Choose a date and time",
+      "DATE-PLACEHOLDER": "Date and Time",
+      "TIME-PLACEHOLDER": "Time",
+      "SAVE-BUTTON": {
+        "SAVE": "Save"
+      }
+    },
+    "MESSAGE-TEMPLATE-SETTINGS": {
+      "BTN-CONT": {
+        "SAVE-BUTTON": {
+          "SAVE": "Save"
+        }
+      },
+      "FORM-GROUP": {
+        "HEAD": {
+          "MESSAGE-CONDITIONS": "Message Conditions",
+          "INFO": "You can only set message conditions when your message template is approved",
+          "SET-UP-CONDITIONS": "Set up conditions for your message to be sent",
+          "MESSAGE-CONDITIONS-LABEL": "Message conditions"
+        }
+      }
+    },
+    "MESSAGE-TEMPLATE-LIST-CONTAINER": {
+      "LIST-TITLE": {
+        "LIST-TITLE-MESSAGE": "Message templates"
+      },
+      "LIST-TITLE-BUTTON": {
+        "CREATE-BUTTON": {
+          "CREATE-TEMPLATE": "Create template",
+          "SAVING": "Creating..."
+        }
+      },
+      "SEARCH-BAR": {
+        "SEARCH": {
+          "SEARCH-TOOLTIP": "Search",
+          "SEARCH-INPUT-PLACEHOLDER": "Search template"
+        }
+      },
+      "TABLE": {
+        "SPINNER": "Loading...",
+        "TABLE-HEADER": {
+          "TEMPLATE-NAME": "Template name",
+          "MESSAGES-SENT": "Messages sent",
+          "LAST-UPDATED": "Last Updated",
+          "ACTIONS": "Actions"
+        },
+        "SEND-BUTTON": "Send",
+        "DUPLICATE-BUTTON": "Duplicate",
+        "ARCHIVE-BUTTON": "Archive",
+        "DELETE-BUTTON": "Delete"
+      }
+    },
+    "HEADER": {
+      "MESSAGE-TEMPLATE-HEADER-TITLE": {
+        "MESSAGES": "Message Templates",
+        "HELP": "Help"
+      }
+    },
+    "MESSAGE-TEMPLATE-FORM": {
+      "MT-FORM": {
+        "FORM-HEADER": {
+          "EDIT-TEMPLATE": "Edit template",
+          "FORM-HEADER-BUTTONS": {
+            "CANCEL-BUTTON": "Cancel",
+            "SAVE-BUTTON": {
+              "SAVE": "Save",
+              "SAVING": "Saving"
+            }
+          }
+        },
+        "FORM-BODY": {
+          "TEMPLATE-SETTINGS": {
+            "TITLE": "Template Settings",
+            "CATEGORY": "Category",
+            "CATEGORY-DESCRIPTION": "Select category of the template",
+            "LANGUAGE": "Language",
+            "LANGUAGE-DESCRIPTION": "Select template language",
+            "CHANNEL": "Channel",
+            "CHANNEL-DESCRIPTION": "Select channel to send to"
+          },
+          "TITLE": "Title",
+          "TITLE-DESCRIPTION": "Add title for your template (should be unique, lowercase, no spacing, hyphen or underscore allowed):",
+          "NO-CHANNEL": "Add channels first: None currently available",
+          "CONTENT": {
+            "HEADER": {
+              "HEADER": "Header",
+              "HEADER-DESCRIPTION": "Add a header",
+              "TEXT": "Text"
+            },
+            "BODY": {
+              "BODY": "Body",
+              "BODY-DESCRIPTION": "Add content of the message to be sent",
+              "SAMPLES": {
+                "SAMPLES": "Samples for body content",
+                "NOTICE": "To help META review your message template, please add an example for each variable in your body text. Do not use real customer information"
+              },
+              "FOOTER": {
+                "FOOTER": "Footer",
+                "FOOTER-DESCRIPTION": "Add a short line of text to your message content to be shown at the bottom"
+              }
+            }
+          },
+          "ADD-RESPONSES": {
+            "ADD-RESPONSES": "Add responses",
+            "ADD-RESPONSES-DESCRIPTION": "Add buttons or a list that let learners respond to your message",
+            "ADD-BUTTONS": "Add buttons +",
+            "ADD-LIST": "Add list +"
+          }
+        }
+      }
+    } 
+},
+"BILLINGS":{
+  "SUBSCRIPTION":"Subscription",
+  "MESSAGE-TOKENS":"Message Tokens",
+  "CURRENT-PLAN":"Current plan",
+  "INVOICES" :"Invoices",
+  "CHANGE-PLAN":"change plan",
+  "PAYMENT-METHOD":"Payment method",
+  "PAYMENT-METHODS":"Payments methods",
+  "EXPIRES":"Expires",
+  "DEFAULT":"Default",
+  "EDIT" :"Edit",
+  "DELETE":"Delete",
+  "DATE":"Date",
+  "DESCRIPTION":"Description",
+  "AMOUNT":"Amount",
+  "BUTTON":{
+    "ADD-PAYMENT-METHOD":"Add payment method"
   }
+},
+"MEMBERS":{
+    "SEARCH":"search table",
+    "INVITE-BUTTON":"Invite Member",
+    "TABLE":{
+      "NAME":"Name",
+      "EMAIL":"Email",
+      "LAST-UPDATED":"Last Active",
+      "ROLE":"Role(s)",
+      "EDIT":"Edit",
+      "REMOVE":"Remove",
+      "DEACTIVATE":"De-activate",
+      "LOADING-USERS":"Loading Users"
+    }
+  },
+"PERMISSIONS" :{
+  "BUTTON":{
+    "EDIT-ROLES":"Edit roles",
+    "SAVE-ROLES":"Save roles"
+  },
+  "ANALYTICS":{
+    "SETTINGS":"Analytics Settings",
+    "VIEW-ANALYTICS":"Can View Analytics",
+    "MANAGE-ANALYTICS":"Can Manage Analytics"
+  },
+  "ASSESMENTS" :{
+    "SETTINGS":"Asessments-settings",
+    "VIEW":"Can View Assessments",
+    "CREATE":"Can Create Assessments",
+    "EDIT":"Can Edit Assessments"
+
+  },
+  "BOT-SETTINGS":{
+    "SETTINGS":"Bots Settings",
+    "VIEW":"Can View Bots",
+    "CREATE":"Can Create Bots",
+    "EDIT" :"Can Edit Bots",
+    "DELETE":"Can Delete Bots"
+
+  },
+  "CHAT-SETTINGS":{
+    "SETTINGS":"Chats Settings",
+    "VIEW":"Can View Chats",
+    "MANAGE":"Can Manage Chats"
+  },
+  "GENERAL-SETTINGS":{
+    "SETTINGS":"General Settings",
+    "ADD":"Can Add New Member",
+    "DELETE":"Can Delete Member"
+
+  },
+  "LEARNER-SETTINGS":{
+    "SETTINGS":"Learners Settings",
+    "VIEW":"Can View Learners",
+    "CREATE":"Can Create Learners",
+    "EDIT":"Can Edit Learners",
+    "DELETE":"Can Delete Learners"
+  },
+  "MODALS":{
+    "ADD":{
+      "NEWROLE":"Create New Role",
+      "ENTER-ROLE-NAME":"Enter role name",
+      "CANCEL":"Cancel",
+      "CREATE-ROLE":"Create Role"
+    },
+    "DELETE":{
+      "TITLE":"Delete Role",
+      "SELECT":"Select a role to delete",
+      "CANCEL":"Cancel",
+      "DELETE-ROLE":"Delete Role"
+    }   
+  }
+},
+
+"COMPANY-INFORMATION":{
+  "BUTTON":{
+    "UPLOAD":"Upload",
+    "REMOVE":"Remove"
+  },
+  "REMOVE":"Remove",
+  "BASIC-INFO":"Basic Information",
+  "ADDRESS-INFO":"Address Information",
+  "EDIT-CO-INFO":"Edit company information",
+  "SAVE-ORG":"Save Organization"
+}
+
 }
