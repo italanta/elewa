@@ -1,6 +1,6 @@
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
+import { ListBlockEditComponent, QuestionButtonsEditFormsComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { LocationInputBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { KeywordJumpBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { OpenEndedQuestionEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
@@ -14,7 +14,7 @@ import { NameBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/e
 import { PhoneBlockEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { WebhookEditComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
 import { DefaultComponent } from '@app/features/convs-mgr/stories/blocks/edit/blocks-edit';
-import { ListBlockEditComponent } from 'libs/features/convs-mgr/stories/blocks/edit/blocks-edit/src/lib/components/list-block-edit/list-block-edit.component';
+
 
 export function getActiveBlock(type: StoryBlockTypes) {
   switch (type) {
