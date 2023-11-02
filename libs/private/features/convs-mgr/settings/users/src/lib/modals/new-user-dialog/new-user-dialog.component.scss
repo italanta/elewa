@@ -7,10 +7,57 @@
 }
 
 .cancel-btn {
-  border: solid var(--convs-mgr-color-primary-yellow) 1px;
-  color: var(--convs-mgr-color-primary-blue);
+  // Cancel
+  color: #3E788A;
+  font-size: 14px;
+  font-family: Roboto;
+  font-weight: 400;
+  word-wrap: break-word;
+  border-radius: 30px;
+  border: 1px var(--convs-mgr-color-3E788A)solid;
 }
 
 .submit-btn {
   color: white;
+  background: var(--convs-mgr-color-3E788A); 
+  border-radius: 30px;;
+}
+
+
+.new-clm-user{
+  height: 100%;
+  .names{
+    p{
+      // *Email
+      color: var(--convs-mgr-color-3E788A);
+      font-size: 14px;
+      font-family: Roboto;
+      font-weight: 300;
+      word-wrap: break-word
+    }
+    select,
+    input{
+      width: 100%; 
+      height: 5vh; 
+      border-radius: 10px; 
+      border: 1px var(--convs-mgr-color-707070) solid;
+      padding-left: 10px;
+      font-size: 14px !important;
+    }
+  }
+  .buttons{
+    margin-top: 10px;
+  }
+}
+/* Add this to your existing styles */
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  height: 3rem;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 25px!important;
 }

@@ -34,7 +34,7 @@ export interface EnrolledEndUser extends IObject {
    * TODO: Change to array of modules.
    *       If they start a module, we add it to the array
    */
-  currentCourse: string;
+  currentCourse?: string;
 
   /** The modules done by the end-user including the current one 
    * TODO: Limit the stack to 20, and add the logic to the bot engine

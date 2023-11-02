@@ -1,0 +1,178 @@
+// Common styles
+select {
+    width: 8.875rem;
+    height: 1.875rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    background: rgba(112, 112, 112, 0.17);
+    border: none;
+  }
+  
+  .fil-cont {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .radios {
+    display: flex;
+    flex-direction: column;
+    height: 12.5rem;
+    margin-bottom: 1.48rem;
+    overflow: scroll;
+    mat-spinner{
+      justify-self: center;
+      align-self: center;
+    }
+  }
+  
+  // Styles for the search container
+  .search {
+    width: 27.9375rem;
+    height: 2.125rem;
+    flex-shrink: 0;
+    border-radius: 2.1875rem;
+    border: 1px solid #707070;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    margin: 1.55rem 0;
+  
+    &_tooltip {
+      color: gray;
+      transform: rotate(90deg);
+      font-size: 20px;
+      font-weight: 500;
+    }
+  
+    &_input {
+      width: 70%;
+      height: 30px;
+      border: none;
+      outline: none;
+      padding-left: 1.83rem;
+      color: #101010;
+      font-family: Roboto;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+    }
+  }
+  
+  // Styles for the MatStepper
+  mat-horizontal-stepper {
+    width: 32.0625rem;
+    height: 30rem;
+    border-radius: 0.5rem;
+    background: #FFF;
+    padding: 2.11rem 1.94rem;
+  }
+  mat-header-cell{
+    color: #707070;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+  mat-cell{
+    color: #101010;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+  
+  // Styles for the form field
+  ::ng-deep .mdc-form-field {
+    color: #101010;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+  
+  // Styles for buttons
+  button {
+    width: 7.3rem;
+    height: 1.25rem;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  
+    &.cancel {
+      border-radius: 1.875rem;
+      border: 1.5px solid #3E788A;
+      color: rgba(62, 120, 138, 1);
+    }
+  
+    &.save {
+      border-radius: 1.875rem;
+      background: #3E788A;
+      color: #FFF;
+    }
+  }
+
+  .selection-count{
+    width: 4.8125rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    background: #3E788A;
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 0.6875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 1.38rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  // Styles for buttons container
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  // Hide horizontal stepper line
+  ::ng-deep .mat-stepper-horizontal-line {
+    display: none !important;
+  }
+  
+  ::ng-deep .mat-horizontal-stepper-header {
+    height: 30px;
+  }
+  
+  ::ng-deep .mat-step-icon {
+    display: none;
+  }
+  
+  // Customize step label styles
+  ::ng-deep .mat-step-label {
+    width: 13rem;
+    padding-top: 1.25rem;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  
+    &-active {
+      border-top: 3px solid rgba(112, 112, 112, 0.70) !important;
+      color: rgba(112, 112, 112, 0.70) !important;
+    }
+  
+    &-selected {
+      border-top: 3px solid #3E788A !important;
+      color: rgba(62, 120, 138, 0.70) !important;
+    }
+  }
+  

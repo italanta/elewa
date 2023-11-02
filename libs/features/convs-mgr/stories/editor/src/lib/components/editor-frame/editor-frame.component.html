@@ -1,25 +1,28 @@
+<!-- Block editing till after proper load -->
+<div id="loader" *ngIf="loading"><mat-progress-bar mode="indeterminate"></mat-progress-bar></div>
 
-<div
- id="frame-bg"
-  class="frame-bg"
-  fxLayout="column"
-  fxLayoutALign="start"
-  fxFlexFill
-  convlPinchZoom
-  (pinch$)="onPinch($event)"
-  
->
-  <div 
-  infinite-scroll 
-  [scrollWindow]="true" 
-  [horizontal]="true" 
-  [infiniteScrollContainer]="editorVC" 
-  [fromRoot]="false" 
-  convlTrackCursor
-  [infiniteScrollDistance]="9"
-    [infiniteScrollThrottle]="150" 
-    (scrolled)="onScroll()"
-     #editor id="editor-frame" style="position: relative" fxFlex="95">
-    <ng-template id="viewport" #viewport></ng-template>
+<!-- Viewport, what the user is seeing -->
+<div id="viewport" class="frame-bg" fxLayout="column" fxLayoutALign="start"
+     #viewport
+     (scroll)="viewPortScrolled()"
+     (window:resize)="viewPortScrolled()"
+     
+     convlPinchZoom
+    (pinch$)="onPinch($event)" >
+
+  <!-- Scroll control. Dynamically adjusts scroll based on frame zoom -->
+  <div id="scroll" [style.width]="frameWidth + 'px'" [style.min-height]="frameHeight + 'px'">
+    <!-- Full frame, the total area on which a user can draw. -->
+    <div convlTrackCursor
+        #editor id="editor-frame">
+      <ng-template id="draw" #draw></ng-template>
+    </div>
   </div>
+
 </div>
+
+<convl-story-editor-minimap [editorContainer]="editorVC" 
+                            [frameState$]="frameState$"
+                            [viewport$]="viewportBounds$"
+                            [zoomFactor]="_zoom">
+</convl-story-editor-minimap>

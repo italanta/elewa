@@ -58,7 +58,7 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     const enrolledUserService = new EnrolledUserDataService(tools, orgId);
 
-    const enrolledEndUsers = await enrolledUserService.getAllEnrolledUsers();
+    const enrolledEndUsers = await enrolledUserService.getEnrolledUsers();
 
     // If there are no filters, send the message to all end users under that
     //  organisation
