@@ -1,0 +1,37 @@
+#minimap
+{
+  width: 100px;
+  height: 75px;
+  background-size: cover;
+
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.25);
+
+  z-index: 99999;
+  background-color: white;
+}
+
+#viewport {
+  background-color: #ff000020;
+  border: 1px solid black;
+  display: block;
+}
+
+.minimap-viewport-holder {
+  position:relative;
+  width: 100%;
+  height: 100%;
+}
+  #viewport {
+    position: absolute;
+    z-index: 10;
+  }
+
+.block {
+  background-color: #444;
+  position: absolute;
+  z-index: 5;
+}

@@ -11,6 +11,7 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { StoryEditorStateModule } from '@app/state/convs-mgr/story-editor';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ToastModule } from '@app/elements/layout/toast'
 
 import { BlocksLibraryModule } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { ConvsMgrAnchorBlockModule } from '@app/features/convs-mgr/stories/blocks/library/anchor-block'
@@ -31,6 +32,9 @@ import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
 
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
+import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
+
+
 
 
 @NgModule({
@@ -40,7 +44,8 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     MaterialFormBricksModule, FormsModule, ReactiveFormsModule,
     ConvlPageModule, ConvsMgrAnchorBlockModule,
     BlocksLibraryModule, StoryEditorStateModule,
-    ConvlStoryEditorRouterModule, MatStepperModule
+    ConvlStoryEditorRouterModule, MatStepperModule,
+    ToastModule
   ],
 
   declarations: [
@@ -52,6 +57,7 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     PinchZoomDirective,
     TrackCursorDirective,
     BlockCategoryPipe,
+    StoryEditorMiniMapComponent
   ],
 
   providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],

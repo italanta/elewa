@@ -20,7 +20,7 @@ body {
 .block_endpoint circle {
   fill: var(--connector-color-blue);
   stroke-width: 1px;
-  stroke: var(--endpoint-outline);
+  stroke: var(--connector-outline-color-blue);
 }
 
 //connector
@@ -94,3 +94,5 @@ span.label{
   padding-left: 0.6rem;
 }
 
+
+.jtk-endpoint { z-index:1; }
