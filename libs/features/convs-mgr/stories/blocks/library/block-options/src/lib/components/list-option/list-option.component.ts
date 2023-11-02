@@ -1,23 +1,26 @@
 import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
+
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbInputOptionDecorator } from '../../providers/jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
 
 @Component({
   selector: 'app-list-option',
   templateUrl: './list-option.component.html',
   styleUrls: ['./list-option.component.scss'],
 })
-export class ListOptionComponent implements OnInit, AfterViewInit 
-{
+export class ListOptionComponent implements OnInit, AfterViewInit {
+
   @Input() blockFormGroup: FormGroup;
   @Input() formGroupNameInput: number | string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() listItems: FormArray;
 
   listOptionId: string;
+
+  constructor() {}
 
   ngOnInit(): void 
   {
@@ -33,7 +36,7 @@ export class ListOptionComponent implements OnInit, AfterViewInit
   {
     let input = document.getElementById(this.listOptionId) as Element;
     if (this.jsPlumb) {
-      input = _JsPlumbInputOptionDecorator(input, this.jsPlumb);
+      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
 }

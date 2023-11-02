@@ -9,7 +9,7 @@ import { BehaviorSubject, filter, Observable, take } from 'rxjs';
 
 import { Breadcrumb, Logger } from '@iote/bricks-angular';
 
-import { StoryEditorState, StoryEditorStateService } from '@app/state/convs-mgr/story-editor';
+import { StoryEditorState, StoryEditorStateService, CheckStoryErrorsService } from '@app/state/convs-mgr/story-editor';
 
 import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 import { HOME_CRUMB, STORY_EDITOR_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
@@ -22,10 +22,10 @@ import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { SideScreenToggleService } from '../../providers/side-screen-toggle.service';
 import { BlockPortalService } from '../../providers/block-portal.service';
 import { getActiveBlock } from '../../providers/fetch-active-block-component.function';
-import { SaveStoryService } from '../../providers/save-story.service';
 
-import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
 import { AddBotToChannelModal } from '../../modals/add-bot-to-channel-modal/add-bot-to-channel.modal';
+import { StoryEditorFrameComponent } from '../../components/editor-frame/editor-frame.component';
+
 
 @Component({
   selector: 'convl-story-editor-page',
@@ -66,18 +66,16 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   zoomLevel: FormControl = new FormControl({ value: 100, disabled: true});
 
   constructor(private _editorStateService: StoryEditorStateService,
-              private _blockPortalService: BlockPortalService,
-              private _saveStory: SaveStoryService,
-
-              private _sideMenu: SidemenuToggleService,
-              private sideScreen: SideScreenToggleService,
-
               private _dialog: MatDialog,
               private _cd: ChangeDetectorRef,
-              private renderer: Renderer2,
+              private _logger: Logger,
+              private _blockPortalService: BlockPortalService,
               _router: Router,
-
-              private _logger: Logger) 
+              private _sideMenu: SidemenuToggleService,
+              private sideScreen: SideScreenToggleService,
+              private _storyErrorCheck: CheckStoryErrorsService,
+              private renderer: Renderer2
+              ) 
   {
     // Make sure screen is always closed on loading editor
     this._sideMenu.toggleExpand(false);
@@ -96,6 +94,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
         this.breadcrumbs = [HOME_CRUMB(_router), STORY_EDITOR_CRUMB(_router, story.id, story.name as string, true)];
         this.loading.next(false);
       });
+
     }
 
     ngOnInit()
@@ -123,8 +122,8 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   */
   onBlockComponentRendering(ref: any) {
     ref = ref as ComponentRef<any>
-    ref.instance['form'] = this.activeBlockForm;
-    ref.instance['title'] = this.activeBlockTitle;
+    ref.instance['form'] = this.activeBlockForm
+    ref.instance['title'] = this.activeBlockTitle
   }
 
   /**  Detach and close Block Edit form */
@@ -149,50 +148,35 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     this._cd.detectChanges();
   }
  
-  /** 
-   * ==== CORE FEATURE ====
-   * 
-   * Save the changes made in the data model.
-   */
-  save(overrideValidators = false) 
-  {
-    this.errors = this.shownErrors = [];
+  /** Save the changes made in the data model. */
+  save() {
     this.stateSaved = false;
-   
-    // Get updated blocks from the frame-form
-    this.state.blocks = [...this.frame.blocksArray.getRawValue()];
-   
-    try {
-      this._sb.sink =
-        this._saveStory.saveStory(this.state, this.frame, !overrideValidators)
-          .subscribe((success) => 
-          {
-            if (success) 
-            {
-              this.stateSaved = true;
-              this.opened = false;
-              this.storyHasBeenSaved = true;
-            }
-          // TODO: Handle failed saves
-          });
-    }
-    // If there are errors, inform the user and give control to the user.
-    catch (e)
-    {
-      this.errors = e as StoryError[];
-      this.shownErrors = this.errors.slice(0,2);
-      this.stateSaved = true;
-    }
-  }
+    this.errors =[];
+    this.shownErrors =[];
 
-  /** After providing user feedback, the user can decide to save even with errors. */
-  saveWithErrors() {
-    return this.save(true);
-  }
 
-  //
-  // END SAVE
-  //
+    const updatedState = this.state;
+    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
+
+    //TODO: compare old state connections to updated connections
+    // from getConnections()
+    // find a jsPlumb types library to replace any with strict type
+    const connections = this.frame.getJsPlumbConnections as any[];
+
+    // remove duplicate jsplumb connections
+    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
+
+    this.checkStoryErrors(this.state);
+
+    this._editorStateService.persist(this.state)
+        .subscribe((success) => {
+          if (success) {
+            this.stateSaved = true;
+            this.opened = false;
+            this.storyHasBeenSaved = true;
+          }
+        });
+  }
 
   addToChannel() {
     // this.checkStoryErrors();
@@ -205,6 +189,18 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   toggleSidenav() {
     this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)
     this.onClose()
+  }
+
+  checkStoryErrors(state: StoryEditorState) {
+    const storyId = this.state.story.id as string
+    this.errors = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId);
+    this.shownErrors = this.errors.slice(0,2);
+    // this._sb.sink = this._storyErrorCheck.fetchFlowErrors(state.connections, state.blocks, storyId).subscribe(
+    //   errors => {
+    //     this.errors = errors
+    //     this.shownErrors = this.errors.slice(0,2);
+    //     }
+    //   )
   }
 
   closeErrorToast(error: StoryError){
@@ -235,37 +231,16 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   }
   
   scrollToBlock(blockId: string) {
-    const editorFrame = document.getElementById('viewport');
     const targetSection = document.getElementById(`${blockId}`);
-    
-    if (editorFrame && targetSection) {
+    if(targetSection)
+      targetSection.scrollIntoView({ behavior: 'smooth' , block: "center", inline: "center" });
+      this.renderer.setStyle(targetSection, "border", "2px red solid")
 
-      // Limit the scrolling to only the viewport by binding it
-      const rect = targetSection.getBoundingClientRect();
-      const editorRect = editorFrame.getBoundingClientRect();
-      
-      // Calculate the scroll positions
-      const scrollTop = editorFrame.scrollTop + rect.top - editorRect.top - (editorRect.height - rect.height) / 2;
-      const scrollLeft = editorFrame.scrollLeft + rect.left - editorRect.left - (editorRect.width - rect.width) / 2;
-      
-      // Scroll to the target block
-      editorFrame.scrollTo({
-        top: Math.max(0, scrollTop),  // Ensure the scrollTop value is not negative
-        left: Math.max(0, scrollLeft),  // Ensure the scrollLeft value is not negative
-        behavior: 'smooth'
-      });
-      
-      // Set the border style
-      this.renderer.setStyle(targetSection, 'border', '2px solid red');
-      
-      // Remove the border style after 5 seconds
       setTimeout(() => {
         this.renderer.removeStyle(targetSection, 'border');
-      }, 5000);
-    }
+      }, 5000); 
   }
-  
-  
+
   // Section - Zoom
 
   increaseZoom() {
@@ -275,7 +250,6 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
     const zoom = this.storyEditorFrame.increaseFrameZoom();
     return this.setZoom(zoom * 100, true);
   }
-
   decreaseZoom() {
     if(this.zoomLevel.value <= 25) 
       return; 

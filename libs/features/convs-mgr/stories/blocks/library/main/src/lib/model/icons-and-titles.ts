@@ -1,4 +1,4 @@
-export const ICONS_AND_TITLES = {
+export const iconsAndTitles: any = {
   1: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE',
     icon: 'fas fa-comment-alt',

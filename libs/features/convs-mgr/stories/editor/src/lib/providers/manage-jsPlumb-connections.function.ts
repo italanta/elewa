@@ -22,21 +22,22 @@ export function CreateDeleteButton() {
   return deleteButton
 }
 
-/**
- * Deletes jsplumb connections by id
- * 
- * @param jsPlumb Current instance of jsplumb
- * @param connectionId The id of the connection to be deleted. Pulled from overlayData.overlay.id
- */
-export function DeleteConnectorbyID(jsPlumb: BrowserJsPlumbInstance, connectionId: string) {
+export function DeleteConnectorbyID(jsPlumb: BrowserJsPlumbInstance, state: StoryEditorState, overlayData: any) {
+  // Get an array of connections from the state object
+  let conArray: any = state.connections;
+
   // Get an array of all connections using the jsPlumb library
-  const connections: any = jsPlumb.getConnections();
+  let del: any = jsPlumb.getConnections();
+
+  // Filter the connections in the state object by the connection ID in the overlayData object
+  let con = conArray.find((c: any) => c.id == overlayData.overlay.id);
 
   // Filter the connections obtained from the jsPlumb library by the filtered connection ID
-  const dCon = connections.filter((c: any) => (c.uuids[0] === connectionId));
+  let dCon = del.filter((c: any) => (c.uuids[0] == con.id));
 
   // Delete each filtered connection using the jsPlumb.deleteConnection method
   dCon.forEach((cn: any) => {
     jsPlumb.deleteConnection(cn);
+    
   });
 }

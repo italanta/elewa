@@ -17,7 +17,7 @@ import {
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
-import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
+import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
 
 /**
  * Component which holds a library (list) of all blocks that can be created
@@ -81,7 +81,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   }
 
   getBlockIcon(type: number) {
-    return ICONS_AND_TITLES[type].icon;
+    return iconsAndTitles[type].icon;
   }
 
   //A function that subscribes to when the search control changes and filters the blocks components list

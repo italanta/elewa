@@ -28,33 +28,29 @@ export class TranslateService
   {
     if(!this._lang)
     {
-      this._lang = 'en';
+      this._lang = this._localPersistanceSrv.getConfig('lang');
+
+      // Lang has never been set
+      if(!this._lang)
+        this._lang = this._getLangFromUser();
     }
-    //   this._lang = this._localPersistanceSrv.getConfig('lang');
 
-    //   // Lang has never been set
-    //   if(!this._lang)
-    //     this._lang = this._getLangFromUser();
-    // }
-
-    // if(!this._isOverride)
-    //   this.setLang(this._lang);
+    if(!this._isOverride)
+      this.setLang(this._lang);
   }
 
   initialise()
   {
     if(!this._lang)
     {
-      this._lang = 'en';
+      this._lang = this._localPersistanceSrv.getConfig('lang');
+
+      // Lang has never been set
+      if(!this._lang)
+        this._lang = this._getLangFromUser();
     }
-    //   this._lang = this._localPersistanceSrv.getConfig('lang');
 
-    //   // Lang has never been set
-    //   if(!this._lang)
-    //     this._lang = this._getLangFromUser();
-    // }
-
-    // this.setLang(this._lang);
+    this.setLang(this._lang);
     return this._lang;
   }
 

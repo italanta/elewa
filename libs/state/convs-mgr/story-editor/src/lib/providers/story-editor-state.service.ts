@@ -12,7 +12,7 @@ import { StoryBlock, StoryBlockConnection } from '@app/model/convs-mgr/stories/b
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
-import { StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
+import { BlockConnectionsService, StoryConnectionsStore } from '@app/state/convs-mgr/stories/block-connections';
 
 import { StoryEditorState } from '../model/story-editor-state.model';
 
@@ -29,6 +29,7 @@ export class StoryEditorStateService
   private _lastLoadedState: StoryEditorState | null;
 
   private _isSaving = false;
+  private _connections: StoryBlockConnection[];
 
   private _sBs = new SubSink();
 
@@ -36,7 +37,7 @@ export class StoryEditorStateService
     private _story$$: ActiveStoryStore,
     private _blocks$$: StoryBlocksStore,
     private _connections$$: StoryConnectionsStore,
-    // private _blockConnectionsService: BlockConnectionsService,
+    private _blockConnectionsService: BlockConnectionsService,
     private _logger: Logger) 
   { }
 
@@ -50,7 +51,7 @@ export class StoryEditorStateService
   get(): Observable<StoryEditorState> 
   {
     const state$ = this._story$$.get().pipe(
-                      debounceTime(500),
+                      debounceTime(1000),
                       // Load story editor state. This includes the story itself, the blocks which it consists and the connections.
                       switchMap(story => story ? combineLatest([of(story), 
                                                                 this._blocks$$.getBlocksByStory(story.id!), 
@@ -65,7 +66,9 @@ export class StoryEditorStateService
 
     // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
     stateData$.pipe(take(1)).subscribe((state) => (
-      this._lastLoadedState = ___cloneDeep(state)
+      this._lastLoadedState = ___cloneDeep(state),
+      this._sBs.sink 
+        = this._connections$$.get().subscribe(cons => this._connections = cons)
     ));
 
     // Return state.
@@ -80,13 +83,18 @@ export class StoryEditorStateService
     // Avoid double save
     this._isSaving = true;
 
-    // Prepare save command that updates the story to it's new full state
-    //  This is somewhat of a plan on how to turn the old story into a new one.
     const updateStory$ = this._story$$.update(state.story);
-    const blockActions$ = this._determineBlockActions(state.blocks);
-    const connectionActions$ = this._determineConnectionActions(state.connections);
 
-    const actions$ = blockActions$.concat(connectionActions$ as Observable<any>[]) as Observable<StoryBlock | StoryBlockConnection>[];
+    // return the save stream for new connections only when new connections are available
+    const newConnections = this._determineConnections(state.connections);
+    const shouldAddNewConns = newConnections.length > 0;
+    const addNewConnections$ 
+      = shouldAddNewConns ? this._blockConnectionsService.addNewConnections(newConnections)
+                          : of(false);
+
+    const blockActions$ = this._determineBlockActions(state.blocks);
+    const actions$ = shouldAddNewConns ? blockActions$.concat(addNewConnections$ as Observable<StoryBlockConnection[]> as any)
+                                       : blockActions$;
 
     // Persist the story and all the blocks
     return combineLatest(actions$)
@@ -135,47 +143,62 @@ export class StoryEditorStateService
     ]);
   }
 
-  // Todo: check for deleted connections and upated conections
-  private _determineConnectionActions(currCons: StoryBlockConnection[]) 
-  {
-    const oldConns = (this._lastLoadedState as StoryEditorState).connections;
+    // Todo: check for deleted connections and upated conections
+    private _determineConnections(connections: StoryBlockConnection[]) 
+    {
+      // fetches only the new connections
+      const newConnections = this.fetchNewJsPlumbConnections(connections);
 
-    // Blocks which are newly created and newly configured
-    const newConns = currCons.filter(nC => !oldConns.find(oC => nC.sourceId === oC.sourceId && nC.targetId === oC.targetId));
-    // Blocks which were deleted.
-    const delConns = oldConns.filter(oC => !currCons.find(nC => nC.sourceId === oC.sourceId && nC.targetId === oC.targetId));
+      //TODO: chain connections actions -> refer to determineBlockActions
+      return newConnections;
+    }
 
-    const newConns$ = newConns.map(bl => this._createConnection(bl));
-    const delConns$ = delConns.map(bl => this._deleteConnection(bl));
+    /** Creates a block. */
+    private _createBlock(block: StoryBlock) {
+      return this._blocks$$.add(block, block.id);
+    }
 
-    return newConns$.concat(delConns$);
+    /** We cannot just delete blocks as active chat users might have their cursor on that block. 
+     *  We still need to service them with the older flow. */
+    private _deleteBlock(oldBlock: StoryBlock) {
+      oldBlock.deleted = true;
+      return this._updateBlock(oldBlock);
+    }
+
+    private _updateBlock(block: StoryBlock) {
+      return this._blocks$$.update(block);
+    }
+
+  private fetchNewJsPlumbConnections(connections: StoryBlockConnection[]): StoryBlockConnection[] {
+
+    /** after add multiple jsplumb adds a target connection to state */
+    /** the filter removes the jsplumb duplicate connection as it's not needed */
+    /** it also ensures every save has only unique values i.e length > 0 */
+    return connections.filter((c) => this.checkForEndBlockConnections(c))
+      .map(c => {
+        return {
+          id: c.id,
+          sourceId: c.sourceId,
+          slot: 0,
+          targetId: c.targetId
+        }
+      });
   }
 
-  /** Creates a block. */
-  private _createBlock(block: StoryBlock) {
-    return this._blocks$$.add(block, block.id);
-  }
+  /** Check for existance of endblock conmnection to prevent duplication (weird Jsplumb side effect) */
+  private checkForEndBlockConnections(c:StoryBlockConnection) {
 
-  /** We cannot just delete blocks as active chat users might have their cursor on that block. 
-   *  We still need to service them with the older flow. */
-  private _deleteBlock(oldBlock: StoryBlock) {
-    oldBlock.deleted = true;
-    return this._updateBlock(oldBlock);
-  }
+    //if targetId includes jsplumb (connection already exists - not new) mark as an old connection
+    if (c.targetId.includes('jsplumb')) return false
 
-  private _updateBlock(block: StoryBlock) {
-    return this._blocks$$.update(block);
-  }
+    // filter by source ID and target Id
+    const isPresent = this._connections.find(con => con.targetId === 'story-end-anchor' && con.sourceId === c.sourceId)
 
-  private _createConnection(connection: StoryBlockConnection) {
-    return this._connections$$.add(connection);
-  }
-
-  // @todo @reagan - investigate impact of deleting connections on the bot
-  private _deleteConnection(connection: StoryBlockConnection) {
-    // connection.deleted = true;
-    // return this._connections$$.update(connection);
-    return this._connections$$.remove(connection);
+    if (isPresent) {
+      return false
+    } else {
+      return true
+    }
   }
 
   /** 

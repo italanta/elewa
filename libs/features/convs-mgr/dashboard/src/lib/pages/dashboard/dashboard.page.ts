@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { User } from '@iote/bricks';
 import { iTalUser } from '@app/model/user';
 import { UserStore } from '@app/state/user';
-import { SidemenuToggleService } from '@app/elements/layout/page-convl';
 // import { UserStore } from '@elewa/state/user';
 // import { EleUser } from '@elewa/model/user';
 
@@ -22,7 +21,6 @@ export class DashboardPage implements OnInit
   selectVal = 'Onboarding';
 
   constructor(userService: UserStore,
-              private _sideMenu: SidemenuToggleService,
               private _router: Router)
   {
     this.user$ = userService.getUser();
@@ -30,8 +28,7 @@ export class DashboardPage implements OnInit
 
   ngOnInit()
   {
-    // On dashboard load, always expand the side menu
-    this._sideMenu.toggleExpand(true);
+
   }
 
   onChangeGraph(evt: any) {

@@ -33,7 +33,6 @@ import { TrackCursorDirective } from './directives/track-cursor.directive';
 
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
 import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
-import { SaveStoryService } from './providers/save-story.service';
 
 
 
@@ -61,6 +60,6 @@ import { SaveStoryService } from './providers/save-story.service';
     StoryEditorMiniMapComponent
   ],
 
-  providers: [StoryEditorInitialiserService, SaveStoryService, ManageChannelStoryLinkService],
+  providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],
 })
 export class ConvlStoryEditorModule { }

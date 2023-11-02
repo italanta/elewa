@@ -6,7 +6,7 @@ import { ReplyMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { _JsPlumbInputOptionDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-reply-block',
@@ -39,8 +39,9 @@ export class ReplyBlockComponent implements OnInit, AfterViewInit
   }
 
   private _decorateInput() {
-    const input = document.getElementById(this.replyInputId) as Element;
-    if (this.jsPlumb)
-      _JsPlumbInputOptionDecorator(input, this.jsPlumb);
+    let input = document.getElementById(this.replyInputId) as Element;
+    if (this.jsPlumb) {
+      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
+    }
   }
 }

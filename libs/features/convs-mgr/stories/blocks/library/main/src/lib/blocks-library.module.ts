@@ -44,7 +44,7 @@ import { ConvsMgrCMI5BlockModule } from '@app/private/features/convs-mgr/stories
 
 import { FileStateModule } from '@app/state/file';
 
-import { BlockInjectorService } from './block-injector.service';
+import { BlockInjectorService } from './providers/block-injector.service';
 import { BlockComponent } from './components/block/block.component';
 
 @NgModule({

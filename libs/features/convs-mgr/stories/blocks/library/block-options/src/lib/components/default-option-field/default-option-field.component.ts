@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbInputOptionDecorator } from '../../providers/jsplumb-decorator.function';
+import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
 
 @Component({
   selector: 'app-default-option-field',
@@ -17,6 +17,8 @@ export class DefaultOptionFieldComponent implements OnInit, AfterViewInit
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   inputUniqueId: string;
+
+  constructor() {}
 
   ngOnInit(): void 
   {
@@ -34,7 +36,7 @@ export class DefaultOptionFieldComponent implements OnInit, AfterViewInit
   {
     let input = document.getElementById(this.inputUniqueId) as Element;
     if (this.jsPlumb) {
-      input = _JsPlumbInputOptionDecorator(input, this.jsPlumb);
+      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
     }
   }
 }
