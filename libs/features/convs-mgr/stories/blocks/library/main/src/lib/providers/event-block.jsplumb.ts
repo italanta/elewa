@@ -22,7 +22,8 @@ export function _EventBlockDecoratePlumb(block: EventBlock, comp: ComponentRef<B
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: [0, 0.18, 0, 1]
+    anchor: "Left",
+    maxConnections: -1
   });
   
   return comp;
