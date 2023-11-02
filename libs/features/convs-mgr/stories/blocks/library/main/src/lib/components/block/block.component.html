@@ -1,5 +1,5 @@
 <mat-card  class="card" [id]="id" class="block-card">
-    <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
+    <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()"></div>
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container"> 
                 <ng-container *ngIf="svgIcon; else showIcon">
