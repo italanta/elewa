@@ -3,7 +3,7 @@ mat-card {
 }
 
 textarea {
-  margin: 5px 0;
+  margin: 5px auto;
   border: 1px solid var(--convs-mgr-color-primary-purple);
   border-radius: 5px;
   resize: none;
@@ -17,9 +17,7 @@ textarea:focus-visible {
 
 form {
   padding-top: 0.3125rem;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
+  margin: 0 auto;  
 }
 
 .options-container {
@@ -28,6 +26,7 @@ form {
 
 .inputList{
   margin: 0 auto;
+  padding: 0 0.7rem;
 }
 
 .button-container {
@@ -59,5 +58,5 @@ form {
 }
 
 .addIcon {
-  margin: 0.75rem 0.625rem 0 0.188rem;
+  margin: 0.75rem 0.625rem 0 0;
 }
