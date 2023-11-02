@@ -35,3 +35,14 @@ mat-card {
 .buttons button {
   color: white;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.postalCode-input{
+      -moz-appearance: textfield;
+
+}

@@ -52,6 +52,8 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
           )),
           tap((assessments) => { this.dataSource.data = assessments})).subscribe()
     this.getMetrics();
+
+    this.configureFilter();
   }
 
   getMetrics() {
@@ -69,6 +71,17 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: Assessment, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+      // Filtering using only specific columns
+      return (data.title.toLowerCase().includes(filterText) || 
+              data.description.toLowerCase().includes(filterText));
+    };
   }
 
   searchTable(event: Event){
