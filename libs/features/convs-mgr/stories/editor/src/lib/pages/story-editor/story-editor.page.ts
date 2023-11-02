@@ -158,33 +158,49 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
   {
     this.errors = this.shownErrors = [];
     this.stateSaved = false;
-    this.errors =[];
-    this.shownErrors =[];
-
-
-    const updatedState = this.state;
-    updatedState.blocks = [...this.frame.blocksArray.getRawValue()];
-
-    //TODO: compare old state connections to updated connections
-    // from getConnections()
-    // find a jsPlumb types library to replace any with strict type
-    const connections = this.frame.getJsPlumbConnections as any[];
-
-    // remove duplicate jsplumb connections
-    this.state.connections = connections.filter((con) => !con.targetId.includes('jsPlumb'));
-
-    this.checkStoryErrors(this.state);
-
-    this._editorStateService.persist(this.state)
-        .subscribe((success) => {
-          if (success) {
-            this.stateSaved = true;
-            this.opened = false;
-            this.storyHasBeenSaved = true;
-          }
-        });
+   
+    // Get updated blocks from the frame-form
+    this.state.blocks = [...this.frame.blocksArray.getRawValue()];
+   
+    try {
+      this._sb.sink =
+        this._saveStory.saveStory(this.state, this.frame, !overrideValidators)
+          .subscribe((success) => 
+          {
+            if (success) 
+            {
+              this.stateSaved = true;
+              this.opened = false;
+              this.storyHasBeenSaved = true;
+            }
+          // TODO: Handle failed saves
+          });
+    }
+    // If there are errors, inform the user and give control to the user.
+    catch (e)
+    {
+      this.errors = e as StoryError[];
+      this.shownErrors = this.errors.slice(0,2);
+      this.stateSaved = true;
+    }
   }
 
+  /** After providing user feedback, the user can decide to save even with errors. */
+  saveWithErrors() {
+    return this.save(true);
+  }
+
+  //
+  // END SAVE
+  //
+
+  addToChannel() {
+    // this.checkStoryErrors();
+    this._dialog.open(AddBotToChannelModal, {
+      width: '550px'
+    })
+
+  }
 
   toggleSidenav() {
     this.sideScreen.toggleSideScreen(!this.isSideScreenOpen)

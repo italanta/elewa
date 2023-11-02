@@ -59,6 +59,10 @@
             </ng-template>
           </button>
 
+          <!-- Publish button -->
+          <button [disabled]="!storyHasBeenSaved || errors" (click)="addToChannel()" mat-flat-button class="add-channel-btn">
+            <span> {{'PAGE-CONTENT.TOP-BAR.PUBLISH-STORY' | transloco }} </span>
+          </button>
         </div>
       </div>
 
