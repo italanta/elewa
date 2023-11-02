@@ -17,7 +17,6 @@ import { _CreateVideoMessageBlockForm }     from "./model/video-block-form.model
 import { _CreateStickerBlockForm }          from "./model/sticker-block-form.model";
 import { _CreateReplyBlockForm }            from "./model/reply-block-form.model";
 import { _CreateJumpBlockForm }             from "./model/jump-block-form.model";
-import { _CreateMultipleInputMessageBlockForm } from "./model/multiple-input-message-block-form.model";
 import { _CreateFailBlockForm }             from "./model/fail-block-form.model";
 import { _CreateImageInputBlockForm }       from "./model/image-input-block-form.model";
 import { _CreateLocationInputBlockForm }    from "./model/location-input-block-form.model";
@@ -90,9 +89,6 @@ function _renderBlockByType(block: StoryBlock, type: StoryBlockTypes, _fb: FormB
 
     case StoryBlockTypes.JumpBlock:
       return _CreateJumpBlockForm(_fb, block);
-
-    case StoryBlockTypes.MultipleInput:
-      return _CreateMultipleInputMessageBlockForm(_fb, block);
 
     case StoryBlockTypes.FailBlock:
       return _CreateFailBlockForm(_fb, block);
