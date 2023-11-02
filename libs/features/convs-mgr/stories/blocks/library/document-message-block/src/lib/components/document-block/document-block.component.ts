@@ -7,7 +7,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
+import { ICONS_AND_TITLES } from '../../../../../main/src/lib/assets/icons-and-titles';
 
 @Component({
   selector: 'app-document-block',
@@ -27,7 +27,7 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
-  svgIcon = ''
+  svgIcon: string
 
   private _sBs = new SubSink();
 
@@ -46,7 +46,7 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
   }
 
   getBlockIconAndTitle(type: number) {
-    return iconsAndTitles[type];
+    return ICONS_AND_TITLES[type];
   }
 
   async processDocs(event: any) {

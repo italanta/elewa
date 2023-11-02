@@ -22,7 +22,7 @@ export function _DocumentBlockDecoratePlumb(block: DocumentMessageBlock, comp: C
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.11 , 0, 1],
+    anchor: "Left",
     maxConnections: -1
   });
 
