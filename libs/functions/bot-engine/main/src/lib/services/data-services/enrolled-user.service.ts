@@ -1,4 +1,7 @@
-import { HandlerTools } from '@iote/cqrs';
+import { firestore } from 'firebase-admin';
+
+import { HandlerTools, Repository } from '@iote/cqrs';
+import { Query } from '@ngfi/firestore-qbuilder';
 
 import { BotDataService } from './data-service-abstract.class';
 
@@ -7,7 +10,7 @@ import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 /**
- * Contains all the required database flow methods for the chat-status collection
+ * Contains all the required database flow methods for the enrolled collection
  */
  export class EnrolledUserDataService extends BotDataService<EnrolledEndUser>{
   private _docPath: string;
@@ -22,6 +25,13 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
 
   protected _init(orgId: string) {
     this._docPath = `orgs/${orgId}/enrolled-end-users`;
+  }
+
+  private _getEnrolledUsrRepo(orgId: string): Repository<EnrolledEndUser>
+  {
+    const EnrolledUsrRepo = this.tools.getRepository<EnrolledEndUser>(`orgs/${orgId}/enrolled-end-users`);
+
+    return EnrolledUsrRepo;
   }
 
   async createEnrolledUser(enrolledUser: EnrolledEndUser, id?:string) {
@@ -49,6 +59,14 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     return currentEnrolledUser;
   };
 
+  async getTodaysUsers(orgId: string) {
+    const enrolledUsers = this. _getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('created-At', ">=" , firestore.Timestamp.fromDate(new Date()))
+    );
+
+    return enrolledUsers;
+  };
+
   getEnrolledUserByEndUser(endUserId: string) {
     const platformPrefix = endUserId.split("_")[0];
 
@@ -68,7 +86,7 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     return this.getDocumentById(enrolledUserId, this._docPath);
   }
 
-  getAllEnrolledUsers() {
+  async getEnrolledUsers() {
     return this.getDocuments(this._docPath);
   }
 

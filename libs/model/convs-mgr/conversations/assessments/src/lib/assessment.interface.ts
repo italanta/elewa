@@ -7,6 +7,7 @@ export interface Assessment extends Story {
     configs?: AssessmentConfiguration,
     scoreCategories?: ScoreCategory[],
 
+    questionsOrder? : string[],
     /** Differentiate between published assessment and non published ones */
     isPublished?: boolean
     metrics?: AssessmentMetrics

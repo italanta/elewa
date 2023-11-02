@@ -1,3 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
+import { BehaviorSubject, debounceTime, filter } from 'rxjs';
+
 import { ElementRef, ViewContainerRef } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 
@@ -12,9 +15,8 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
-import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+
 
 /**
  * Model which holds the state of a story-editor.
@@ -22,26 +24,33 @@ import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messagi
  * For each JsPlumb frame, an instance of this class is created which 1-on-1 manages the frame state.
  * Responsible for keeping track of editor data and for re-loading past saved states.
  */
-export class StoryEditorFrame {
-  private _cnt = 1;
+export class StoryEditorFrame 
+{
   loaded = false;
 
   private _state: StoryEditorState;
   private _story: Story;
   private _blocks: StoryBlock[] = [];
-  private _newestBlock: StoryBlock;
+  private _newestBlock: StoryBlock | null;
   private _connections: StoryBlockConnection[];
 
   blocksArray: FormArray;
+  
+  
+  private _frameChanges$$: BehaviorSubject<StoryEditorState> = new BehaviorSubject({ loading: true } as any as StoryEditorState);
+  /** Observable tracking the changes to frame state. Used in frontend rendering of the minimap, 
+   *    which takes a screenshot at each state change. */
+  public frameChanges$ = this._frameChanges$$.pipe(
+                              filter((state: any) => !state.loading),
+                              debounceTime(500));
 
-  constructor(
-    private _fb: FormBuilder,
-    private _jsPlumb: BrowserJsPlumbInstance,
-    private _blocksInjector: BlockInjectorService,
-    private _viewport: ViewContainerRef,
-    private _connectionsService: BlockConnectionsService,
-    private _edf: ElementRef<HTMLElement>
-  ) {
+
+  constructor(private _fb: FormBuilder,
+              private _jsPlumb: BrowserJsPlumbInstance,
+              private _blocksInjector: BlockInjectorService,
+              private _viewport: ViewContainerRef,
+              private _edf: ElementRef<HTMLElement>) 
+  {
     this.loaded = true;
   }
 
@@ -52,15 +61,18 @@ export class StoryEditorFrame {
    * @param story   - Story visualised by the editor
    * @param blocks  - Blocks to render on the story
    */
-  async init(state: StoryEditorState) {
+  async init(state: StoryEditorState) 
+  {
     this._state = state;
     this._story = state.story;
     this._blocks = state.blocks;
     this._connections = state.connections;
 
-    this._newestBlock = state.blocks.reduce((prev, current) => {
+    const filteredBlocks = state.blocks.filter((block)=> block.id !== 'story-end-anchor');
+
+    this._newestBlock = filteredBlocks.length > 1 ? filteredBlocks.reduce((prev, current) => {
       return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
-    });
+    }) : null;
 
     this.blocksArray = this._fb.array([]);
 
@@ -73,18 +85,14 @@ export class StoryEditorFrame {
 
     this.drawBlocks();
 
-    await new Promise((resolve) => setTimeout(() => resolve(true), 1000)); // gives some time for drawing to end
+    await new Promise((resolve) => setTimeout(() => resolve(true), 500)); // gives some time for drawing to end
 
     this.drawConnections();
 
     //scroll to the middle of the screen when connections are done drawing
     // this.scroll(this._edf.nativeElement)
-  }
-  scroll(el: HTMLElement) {
-    const editorWidth = this._edf.nativeElement.offsetWidth / 2;
-    const editorHeight = this._edf.nativeElement.offsetHeight / 2;
-    el.scrollTo({top:editorHeight,left:editorWidth});
-    // el.scrollIntoView({block: 'center', inline: 'center',behavior: 'smooth'});
+
+    this._frameChanges$$.next(state);
   }
 
   get jsPlumbInstance(): BrowserJsPlumbInstance {
@@ -110,12 +118,12 @@ export class StoryEditorFrame {
   }
 
   cloneBlock(block: StoryBlock) {
-    this._cnt++;
-    block.id = this._cnt.toString();
+    block.id = this._getID()
     return this._injectBlockToFrame(block);
   }
 
-  createStartAnchor() {
+  createStartAnchor() 
+  {
     const editorWidth = 100;
     const editorHeight = 100;
     const startAnchor = this._viewport.createComponent(AnchorBlockComponent);
@@ -138,7 +146,6 @@ export class StoryEditorFrame {
 
     for (const block of activeBlocks) {
       this._injectBlockToFrame(block);
-      this._cnt++;
     }
 
     this._jsPlumb.setSuspendDrawing(false, true); // All drawing data loaded. Now draw
@@ -148,10 +155,10 @@ export class StoryEditorFrame {
    * Function which draw connections.
    * It draws the previously saved blocks on the screen.
    * Here we're perfoming a key feature of the frame which is drawing the existing
-   * connections from the connections collection
-   *
+   *    connections from the connections collection
    */
-  drawConnections() {
+  drawConnections() 
+  {
     // returns a static NodeList representing a list of the document's elements
     // that match the specified selector.
     // here we're holding the elements in an array inorder to find the source
@@ -161,7 +168,10 @@ export class StoryEditorFrame {
     const domSourceInputs = Array.from(document.querySelectorAll('input'));
     const domBlockCards = Array.from(document.querySelectorAll('mat-card'));
 
-    for (const conn of this._connections) {
+    // this._jsPlumb.setSuspendDrawing(true); // Start loading drawing
+
+    for (const conn of this._connections) 
+    {
       // anchorBlock.id == this._story.id!;
       // fetching the source (input) that matches the connection source id
       const sourceElement = domSourceInputs.find(
@@ -182,7 +192,7 @@ export class StoryEditorFrame {
         source: sourceElement as Element,
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
-        endpoints: ['Dot', 'Rectangle'],
+        endpoints: ['Dot', 'Dot'],
         overlays: [
           {
             // Specify the type of overlay as "Custom"
@@ -198,24 +208,7 @@ export class StoryEditorFrame {
               location: 0.5,
               events: {
                 // Add a double-click event to the overlay
-                dblclick: (overlayData) => {
-                  // Find the connection in the state object by the connection ID in the overlayData object
-                  const con = this.state.connections.find(
-                    (c) => c.id == overlayData.overlay.id
-                  );
-
-                  // Call the `deleteConnection` method of the `_connectionsService` object
-                  if (con) {
-                    this._connectionsService.deleteConnection(con);
-                  }
-
-                  // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
-                  return DeleteConnectorbyID(
-                    this._jsPlumb,
-                    this.state,
-                    overlayData
-                  );
-                },
+                dblclick: ((overlayData: any) => this._deleteConnection(overlayData)).bind(this)
               },
             },
           },
@@ -228,6 +221,11 @@ export class StoryEditorFrame {
         },
       });
     }
+
+    // this._jsPlumb.setSuspendDrawing(false); // End loading drawing
+
+    // Update the frame state listeners.
+    this._frameChanges$$.next(this._state);
   }
 
   /**
@@ -235,15 +233,18 @@ export class StoryEditorFrame {
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+    let x, y;
 
-    const x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
-    const y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
-
-    const  pageheight = this._edf.nativeElement.offsetHeight/2;
-    const  pagewidth = this._edf.nativeElement.offsetWidth/2;
+    if(this._newestBlock) {
+      x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
+      y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+    } else {
+      x = 200;
+      y = 50;
+    }
 
     const block = {
-      id: `${this._cnt}`,
+      id: `${this._getID()}`,
       type: type,
       message: '',
       // TODO: Positioning in the middle + offset based on _cnt
@@ -251,8 +252,8 @@ export class StoryEditorFrame {
       position: coordinates || { x: x, y: y},
     } as StoryBlock;
 
-    this._cnt++;
     this._blocks.push(block);
+     
     return this._injectBlockToFrame(block);
   }
 
@@ -260,12 +261,60 @@ export class StoryEditorFrame {
    * Private method which draws the block on the frame.
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
    */
-  private _injectBlockToFrame(block: StoryBlock) {
-    return this._blocksInjector.newBlock(
+  private _injectBlockToFrame(block: StoryBlock) 
+  {
+    const blck = this._blocksInjector.newBlock(
+      this._state,
       block,
       this._jsPlumb,
       this._viewport,
       this.blocksArray
     );
+
+    // Update the frame state listeners.
+    this._frameChanges$$.next(this._state);
+
+    return blck;
   }
+
+  private _getID() {
+    return uuidv4().slice(0, 8);
+  }
+
+  /** 
+   * Method to delete a connection. 
+   * To be called on double-click of the delete button overlay.
+   */
+  private _deleteConnection(overlayData: any) 
+  {
+    // Find the connection in the state object by the connection ID in the overlayData object
+    const con = this.state.connections.find(
+      (c) => c.id == overlayData.overlay.id
+    );
+
+    // Call the `deleteConnection` method of the `_connectionsService` object
+    if (con)
+      this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
+
+    // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
+    return DeleteConnectorbyID(
+      this._jsPlumb,
+
+      // Pass overlayed connection id - This is the connection to be deleted
+      overlayData.overlay.id
+    );
+  }
+
+  // Section -- Zoom management
+
+  /**
+   * Set zoom level of the frame.
+   * 
+   * @param zoom - Number between 0.25 and 1 that indicates the zoom
+   */
+  public setZoom(zoom: number, repaint = false)
+  {
+    this._jsPlumb.setZoom(zoom, repaint);
+  }
+
 }
