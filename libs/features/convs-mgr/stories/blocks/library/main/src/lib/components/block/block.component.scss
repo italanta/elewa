@@ -67,3 +67,7 @@ mat-card {
 .icon-with-text{
 	margin-left: 0.3125rem;
 }
+
+:host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
+    z-index: 0 !important;
+}
