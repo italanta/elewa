@@ -30,7 +30,6 @@ import { _DocumentBlockDecoratePlumb } from './transformers/document-block.jsplu
 import { _ReplyBlockDecoratePlumb } from './transformers/reply-block.jsplumb';
 import { _AnchorBlockDecoratePlumb } from './transformers/anchor-block.jsplumb';
 import { _JumpBlockDecoratePlumb } from './transformers/jump-block.jsplumb';
-import { _MultipleBlockDecoratePlumb } from './transformers/multiple-block.jsplumb';
 import { _FailBlockDecoratePlumb } from './transformers/fail-block.jsplumb';
 import { _ImageInputBlockDecoratePlumb } from './transformers/image-input-block.jsplumb';
 import { _LocationInputBlockDecoratePlumb } from './transformers/location-input-block.jsplumb';
@@ -101,9 +100,6 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
 
     case StoryBlockTypes.JumpBlock:
       return _JumpBlockDecoratePlumb(block as JumpBlock, comp, jsPlumb);
-
-    case StoryBlockTypes.MultipleInput:
-      return _MultipleBlockDecoratePlumb(block as MultipleInputMessageBlock, comp, jsPlumb);
 
     case StoryBlockTypes.ImageInput:
       return _ImageInputBlockDecoratePlumb(block as ImageInputBlock, comp, jsPlumb);
