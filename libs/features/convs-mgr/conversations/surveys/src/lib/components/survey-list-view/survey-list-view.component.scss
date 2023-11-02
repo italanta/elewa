@@ -1,0 +1,50 @@
+.mdc-data-table__header-cell {
+	color: #7C7C7C;
+	font-weight: 300;
+	font-size: 1.1rem;
+}
+
+.mat-mdc-row {
+	color: #101010;
+	font-size: 1rem;
+	font-weight: 400;
+	border-bottom: 1px solid rgba($color: #707070, $alpha: 0.25);
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+	background-color: #eee;
+	cursor: pointer;
+	
+}
+.mat-menu{
+	color: #101010;
+	font-family: Roboto;
+	font-size: 1rem!important;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+}
+.badge {
+	display: inline-block;
+	padding: 0.25rem 0.69rem;
+	font-size: .6rem;
+	font-weight: 400;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.55rem;
+	background-color: #DAE0F0;
+  
+	&.active {
+	  background-color: #3E788A;
+	  color: #FFF;
+	}
+	&.draft{
+		background-color: #DAE0F0;
+		color: black;
+	}
+}
+table{
+	background-color: #F6F6F6;
+}

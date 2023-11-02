@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { SelectionModel } from '@angular/cdk/collections';
 
 import { SubSink } from 'subsink';
 
@@ -22,9 +23,14 @@ import { AppClaimDomains } from '@app/private/model/access-control';
 import { UserStore } from '@app/state/user';
 import { OrganisationService } from '@app/private/state/organisation/main';
 import { CLMUsersService } from '@app/private/state/user/base';
+import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 import { NewUserDialogComponent } from '../../modals/new-user-dialog/new-user-dialog.component';
 import { UpdateUserModalComponent } from '../../modals/update-user-modal/update-user-modal.component';
+
+
+
+
 
 const DATA: iTalUser[] = []
 
@@ -33,15 +39,16 @@ const DATA: iTalUser[] = []
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
+export class UsersComponent implements OnInit, OnDestroy {
   private _sbS = new SubSink();
 
   org: Organisation;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, {static: false}) set content(sort: MatSort) {
+    this.dataSource.sort = sort;
+  }
 
-  displayedColumns: string[] = ['name', 'email', 'roles', 'activity', 'status', 'actions'];
+  displayedColumns: string[] = ['select', 'displayName', 'email', 'updatedOn', 'roles', 'actions'];
 
   dataSource = new MatTableDataSource(DATA);
 
@@ -50,8 +57,11 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   orgLoaded: boolean;
 
   orgRoles: string[];
+
+  
   
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
+  selection = new SelectionModel<iTalUser>(true, []);
 
   constructor(private _fb: FormBuilder,
               private dialog: MatDialog,
@@ -61,25 +71,12 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
               private cdref: ChangeDetectorRef
   ) {}
 
+
   ngOnInit(): void {
     this.buildSearchFormGroup();
-    this.getOrg();
+    this.getOrg();    
   }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-
-    const sortState: Sort = { active: 'fullName', direction: 'asc' };
-
-    if (this.sort) {
-      this.sort.active = sortState.active;
-      this.sort.direction = sortState.direction;
-      this.sort.sortChange.emit(sortState);
-    }
-
-    this.cdref.detectChanges();
-  }
+  
 
   buildSearchFormGroup() {
     this.searchFormGroup = this._fb.group({
@@ -101,6 +98,15 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   getRoles(roles: {}): string[] {
     return __keys(__pickBy(roles));
   }
+  
+  onRoleChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const selectedRole = target.value;
+  
+    // Now you can use the 'selectedRole' in your logic
+    console.log(selectedRole);
+  
+  }
 
   private _getOrgUsers(orgId: string) {
     this._sbS.sink = combineLatest([
@@ -113,6 +119,8 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
         });
     })
   }
+  
+  
 
   removeItem(roles: string[]) {
     let data  = ['access', 'principal'];
@@ -131,7 +139,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getDate(date: any): string {
-    return __DateFromStorage(date).format('DD/MM/YYYY');
+    return TIME_AGO(date.seconds);
   }
 
   inviteMember() {
@@ -151,6 +159,30 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
         user: user
       }
     });
+  }
+
+  
+
+  toggleAll(event: any) {
+    if (event.checked) {
+      this.selection.select(...this.dataSource.data);
+    } else {
+      this.selection.clear();
+    }
+  }
+
+  toggleSelection(event: any, user: iTalUser) {
+    event.checked ? this.selection.select(user) : this.selection.deselect(user);
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  isSelected(user: iTalUser) {
+    return this.selection.isSelected(user);
   }
 
   removerUser(user: iTalUser) {
