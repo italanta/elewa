@@ -1,7 +1,7 @@
 .mdc-data-table__header-cell {
 	color: #7C7C7C;
 	font-weight: 300;
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 .mat-mdc-row {
@@ -14,4 +14,23 @@
 .mat-mdc-row:hover .mat-mdc-cell {
 	background-color: #eee;
 	cursor: pointer;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: .9em;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: black;
+  background-color: #DAE0F0;
+
+  &.active {
+    background-color: #3E788A;
+    padding:10px;
+  }
 }
