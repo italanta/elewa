@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { HandlerTools, Logger } from "@iote/cqrs";
 
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
@@ -44,8 +46,8 @@ export class MultipleOptionsMessageService extends NextBlockService
 		const cursor = currentCursor;
 		
 		const response = msg as QuestionMessage;
-
-		const lastBlock = currentBlock as QuestionMessageBlock
+		
+		const lastBlock = currentBlock as QuestionMessageBlock;
 
 		// Set the match strategy to exactMatch
 		// TODO: Add a dynamic way of selecting matching strategies

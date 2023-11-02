@@ -11,6 +11,6 @@ export class BlockCategoryPipe implements PipeTransform {
       return block.blockCategory === category;
     });
 
-    return groupedBlocks
+    return groupedBlocks;
   }
 }
