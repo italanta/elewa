@@ -1,4 +1,3 @@
-
 .mdc-data-table__header-cell {
  // Email
   color: var(--convs-mgr-color-707070);
@@ -195,4 +194,10 @@
   border-radius: 25px;
   background-color: var(--convs-mgr-color-primary-white);
   padding: 10px;
+}
+
+
+
+:host ::ng-deep .ng-start-inserted{
+  padding-right: 10px;
 }

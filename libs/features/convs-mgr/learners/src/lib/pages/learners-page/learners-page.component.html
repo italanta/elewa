@@ -1,4 +1,4 @@
-<convl-page title="Learners Tab">
+<convl-page>
   <div class="page-container">
 
     <!-- top actions and filter container -->
@@ -13,8 +13,8 @@
             (click)="openCreateClassModal()">{{'LEARNERS.BUTTONS.CREATE-CLASS'| transloco }}</button>
           <!-- <button mat-raised-button color="primary" class="btn add-to-class">{{'LEARNERS.BUTTONS.ADD-TO-CLASS'|
             transloco }}</button> -->
-          <button mat-raised-button class="btn bulk-actions"
-            (click)="openBulkActionsDialog()">{{'LEARNERS.BUTTONS.BULK-ACTIONS'| transloco }}</button>
+          <!-- <button mat-raised-button class="btn bulk-actions"
+            (click)="openBulkActionsDialog()">{{'LEARNERS.BUTTONS.BULK-ACTIONS'| transloco }}</button> -->
         </div>
       </div>
 
@@ -30,7 +30,8 @@
         <div class="dropdown">
           <div class="select">
             <select [(value)]="selectedClass" (change)="filterTable($event,'class')">
-              <option [value]="null" selected disabled>All Classes</option>
+              <option [value]="null" selected>All Classes</option>
+
               <option *ngFor="let class of allClasses" [value]="class">{{ class.className }}</option>
             </select>
           </div>
@@ -131,7 +132,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
+      <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" [length]="dataSource.data.length" [pageSize]="10"
         [ariaLabel]="'ASSESSMENTS.RESULTS.ACCESSIBILITY.SELECT-RESULTS-PAGE' | transloco "></mat-paginator>
     </div>
     <!-- end mat-table -->

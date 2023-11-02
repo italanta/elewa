@@ -1,47 +1,40 @@
-#editor-frame {
-  min-height: 20000px!important;
-  min-width: 20000px!important;
-  overflow-y: scroll!important;
-  overflow-x: scroll!important;
+#viewport {
+  height: 100%;
+  width: 100%;
+  overflow: auto;  
+  overflow-y: scroll;
+  overflow-x: scroll;
+
+  background-color: darkgray;
 }
-.spinner{
-  background-color: white;
-  min-height: 2000px!important;
-  min-width: 2000px!important;
-  position: sticky!important;
+
+  #scroll {
+    overflow: hidden;
+    display: block;
+  }
+
+  // Make sure the values here are the same as defined in ../../utils/frame-size.ts !
+  #editor-frame {
+    min-width:  5000px;
+    min-height: 3750px;  
+
+    background-image: url(^/assets/bg/dot-bg.jpg);
+    background-repeat: repeat;
+
+    -webkit-box-shadow: 0px 0px 5px 0px #888; 
+    box-shadow: 0px 0px 5px 0px #888;
+    transform-origin: 0 0;
+  }
+
+
+#loader {
+  height: 100%;
+  width: 100%;
+  background-color: #00000020;
+
+  position: absolute;
+  left: 0;
   bottom: 0;
-  right: 0;
-  z-index: 2000;
-}
-mat-spinner {
-  position: sticky!important;
-  top: 30%;
-  left: 30%;
-}
 
-#editor-frame .block {
-  position: absolute;
-}
-
-.block {
-  text-align: center;
-  cursor: move;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-}
-
-app-message-block {
-  position: relative;
-}
-
-.frame-bg {
-  background-color: white;
-  background: papayawhip;
-  background-image: url(^/assets/bg/pattern-bg.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  overflow: scroll;
-  position: fixed;
+  z-index: 9999999999999999;
 }

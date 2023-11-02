@@ -28,10 +28,6 @@ import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 import { NewUserDialogComponent } from '../../modals/new-user-dialog/new-user-dialog.component';
 import { UpdateUserModalComponent } from '../../modals/update-user-modal/update-user-modal.component';
 
-
-
-
-
 const DATA: iTalUser[] = []
 
 @Component({
@@ -75,9 +71,19 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buildSearchFormGroup();
     this.getOrg();    
+    this.configureFilter();
+    this.configureSorting();
+  }
+
+  configureSorting() {
+    this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
+      if (typeof data[sortHeaderId] === 'string') {
+        return data[sortHeaderId].toLocaleLowerCase();
+      }
+      return data[sortHeaderId];
+    };
   }
   
-
   buildSearchFormGroup() {
     this.searchFormGroup = this._fb.group({
       role: [[]]
@@ -132,6 +138,17 @@ export class UsersComponent implements OnInit, OnDestroy {
     })
 
     return roles;
+  }
+
+  configureFilter() {
+    this.dataSource.filterPredicate = (data: iTalUser, filter: string) => {
+      // Convert the filter to lowercase and remove extra spaces
+      const filterText = filter.trim().toLowerCase(); 
+    
+      // Filtering using only specific columns
+      return ((data.displayName as string).toLowerCase().includes(filterText) || 
+              data.email.toLowerCase().includes(filterText));
+    };
   }
 
   applyFilter(event: Event) {

@@ -30,7 +30,7 @@ export class CreateClassModalComponent implements OnInit, OnDestroy {
   buildFormGroup() {
     return this._fb.group({
       className: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       deleted: [false],
     });
   }
