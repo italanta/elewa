@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -19,7 +19,7 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
   templateUrl: './convl-sidemenu.component.html',
   styleUrls: [ './convl-sidemenu.component.scss' ]
 })
-export class ConvlSideMenuComponent implements OnInit, OnDestroy
+export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 {
   private _sbS = new SubSink();
 
@@ -50,12 +50,6 @@ export class ConvlSideMenuComponent implements OnInit, OnDestroy
     this._sbS.sink = this.sideMenu.menuStatus$.subscribe(
       (isOpen) => (this.isExpanded = isOpen)
     );
-  }
-
-  ngOnInit()
-  {
-    this.projectName = this._env.project.name;
-    this.projectInfo = this._env.project.info;
   }
 
   ngAfterViewInit(): void {

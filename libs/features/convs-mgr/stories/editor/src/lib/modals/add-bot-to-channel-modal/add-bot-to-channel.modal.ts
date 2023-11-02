@@ -9,7 +9,7 @@ import { combineLatest, concatMap, filter, map } from 'rxjs';
 import { __DECODE_AES, __ENCODE_AES } from '@app/elements/base/security-config';
 
 import { ActiveStoryStore, StoriesStore } from '@app/state/convs-mgr/stories';
-import { ActiveOrgStore } from '@app/state/organisation';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { FileStorageService } from '@app/state/file';
 
 import { WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';

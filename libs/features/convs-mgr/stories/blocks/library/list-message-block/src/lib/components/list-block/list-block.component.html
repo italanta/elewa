@@ -9,7 +9,7 @@
           <div class="vectorSvg">
             <img src = "assets/svgs/blocks/Vector.svg" width="20" height="17">
           </div>
-          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
+          <app-option-input-field #optionInputFields [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
           class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
           <button (click)="deleteInput(i)" class="listgone">
             <img src ="assets/svgs/blocks/Cancel.svg" width="12" height="12">
