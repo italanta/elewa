@@ -1,15 +1,15 @@
 .anchor {
-	padding: 10px;
 	border: none;
 	border-radius: 5px;
 	height: fit-content;
-	width: 150px;
+	width: 100px;
+	padding: 10px;
 	background-color: var(--convs-mgr-color-primary-purple);
 	color: white;
 	text-align: center;
-	box-shadow: 2px 4px 8px slategrey;
 	cursor: pointer;
 	z-index: 10;
+	font-size: 12px;
 }
 
 input[disabled]::placeholder {
