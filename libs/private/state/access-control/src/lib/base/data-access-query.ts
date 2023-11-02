@@ -7,7 +7,7 @@ import { Query } from "@ngfi/firestore-qbuilder";
 
 import { iTalUser } from "@app/model/user";
 
-import { ActiveOrgStore } from "@app/state/organisation";
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { ActiveDomainLoader } from "./base-domains/active-domain-loader.service";
 

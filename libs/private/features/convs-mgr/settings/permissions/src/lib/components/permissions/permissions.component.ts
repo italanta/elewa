@@ -35,15 +35,15 @@ export class PermissionsComponent implements OnInit, AfterViewInit, AfterContent
   public model: PermissionsModel;
 
   permissions: CLMPermissions;
-  permissionsLoaded: boolean = false;
+  permissionsLoaded = false;
   roles : string[];
 
   userRoles: any[];
 
   isEditMode: boolean;
 
-  orgLoaded: boolean = false;
-  usersLoaded: boolean = false;
+  orgLoaded = false;
+  usersLoaded = false;
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
@@ -51,7 +51,7 @@ export class PermissionsComponent implements OnInit, AfterViewInit, AfterContent
               private _orgService: OrganisationService,
               private _permissionsService: PermissionsModelService,
               private _permissionsFormService: PermissionsFormsService,
-              private _ts: PermissionsStore
+              private _ts: PermissionsStore,
   ) { }
 
   ngOnInit(): void {
