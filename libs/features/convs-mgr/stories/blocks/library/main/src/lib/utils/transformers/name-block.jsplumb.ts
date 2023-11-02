@@ -22,7 +22,7 @@ export function _NameBlockDecoratePlumb(block: NameMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.23, 0, 1],
+    anchor: "Left",
     maxConnections: -1
   });
 
