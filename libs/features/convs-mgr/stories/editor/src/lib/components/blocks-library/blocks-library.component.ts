@@ -55,7 +55,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock), blockCategory: 'questions-block' } as JumpBlock,
     // { id: 'io-multiple-input-block', type: StoryBlockTypes.MultipleInput, message: 'MultipleInput', blockIcon:this.getBlockIcon(StoryBlockTypes.MultipleInput) } as MultipleInputMessageBlock,
     { id: 'fail-block', type: StoryBlockTypes.FailBlock, message: 'Fail', blockIcon:this.getBlockIcon(StoryBlockTypes.FailBlock), blockCategory: 'questions-block' } as FailBlock,
-    { id: 'io-image-input-block' , type: StoryBlockTypes.ImageInput, message: 'Image Input', blockIcon:this.getBlockIcon(StoryBlockTypes.ImageInput), svgIcon:this.getSvgIcon(StoryBlockTypes.ImageInput), blockCategory: 'images-block' } as ImageInputBlock,
+    { id: 'io-image-input-block' , type: StoryBlockTypes.ImageInput, message: 'Image Input', blockIcon:this.getBlockIcon(StoryBlockTypes.ImageInput), blockCategory: 'images-block' } as ImageInputBlock,
     { id: 'io-audio-input-block' , type: StoryBlockTypes.AudioInput, message: 'Audio Input', blockIcon:this.getBlockIcon(StoryBlockTypes.AudioInput), blockCategory: 'multimedia-block' } as AudioInputBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock
     { id: 'io-location-input-block' , type: StoryBlockTypes.LocationInputBlock, message: 'Location Input', blockIcon:this.getBlockIcon(StoryBlockTypes.LocationInputBlock), blockCategory: 'questions-block' } as LocationInputBlock,
@@ -84,9 +84,6 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     return ICONS_AND_TITLES[type].icon;
   }
 
-  getSvgIcon(type: number) {
-    return iconsAndTitles[type].svgIcon;
-  }
 
   //A function that subscribes to when the search control changes and filters the blocks components list
   filterBlockTemplates() {
