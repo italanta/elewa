@@ -23,7 +23,7 @@ export function _JumpBlockDecoratePlumb(block: JumpBlock, comp: ComponentRef<Blo
     cssClass:"block_endpoint",
 
     endpoint: 'Dot',
-    anchor: [0,0.13,0,1]
+    anchor: "Left"
 
   });
 
