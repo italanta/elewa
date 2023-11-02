@@ -86,9 +86,6 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
       case StoryBlockTypes.JumpBlock:
         this.frame.newBlock(StoryBlockTypes.JumpBlock, coordinates);
         break;
-      case StoryBlockTypes.MultipleInput:
-        this.frame.newBlock(StoryBlockTypes.MultipleInput, coordinates);
-        break;
       case StoryBlockTypes.FailBlock:
         this.frame.newBlock(StoryBlockTypes.FailBlock, coordinates);
         break;
