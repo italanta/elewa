@@ -166,7 +166,6 @@ export class BlockComponent implements OnInit
   documentType = StoryBlockTypes.Document;
   replyType = StoryBlockTypes.Reply;
   jumpType = StoryBlockTypes.JumpBlock;
-  multipleInputType = StoryBlockTypes.MultipleInput;
   failType = StoryBlockTypes.FailBlock;
   imageinputType =  StoryBlockTypes.ImageInput
   locationInputType =  StoryBlockTypes.LocationInputBlock;
