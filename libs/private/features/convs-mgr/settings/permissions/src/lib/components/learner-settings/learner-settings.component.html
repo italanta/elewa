@@ -2,7 +2,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <p class="main-title">Learners Settings</p>
+        <p class="main-title">{{ 'PERMISSIONS.LEARNER-SETTINGS.SETTINGS' | transloco }}</p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -21,37 +21,61 @@
         </div>
 
         <div formGroupName="CanViewLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">Can View Learners</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.LEARNER-SETTINGS.VIEW' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanViewLearners'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanCreateLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Create Learners</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.LEARNER-SETTINGS.CREATE' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanCreateLearners'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanEditLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Edit Learners </p>
+          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.LEARNER-SETTINGS.EDIT' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanEditLearners'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanDeleteLearners" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Delete Learners </p>
+          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.LEARNER-SETTINGS.DELETE' | transloco }} </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="learnerSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'LearnersSettings'"
+              [formGroupNameValue]="'CanDeleteLearners'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
