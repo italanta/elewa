@@ -9,11 +9,7 @@ import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
-import { CursorFocusService } from '@app/features/convs-mgr/stories/blocks/library/main';
-import { OptionInputFieldComponent } from '@app/features/convs-mgr/stories/blocks/library/block-options';
-
-
-
+import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-conditional-block',
@@ -36,7 +32,9 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, private variables: VariablesService, private cursorFocusService: CursorFocusService) {
+  constructor(private _fb: FormBuilder, 
+              private variables: VariablesService) 
+  {
     this.vars$ = this.variables.getAllVariables();
   }
 
@@ -103,7 +101,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   setFocusOnNextInput() {
-    this.currentIndex = this.cursorFocusService.focusOnNextInput(
+    this.currentIndex = __FocusCursorOnNextInputOfBlock(
       this.currentIndex,
       this.optionInputFields
     );
