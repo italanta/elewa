@@ -1,4 +1,5 @@
 export enum ActionSortingOptions {
   Oldest = 'oldest',
-  Newest = 'newest'
+  Newest = 'newest',
+  Default = 'default'
 }
