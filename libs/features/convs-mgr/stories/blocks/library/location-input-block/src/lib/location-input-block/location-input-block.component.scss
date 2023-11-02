@@ -5,13 +5,19 @@ mat-card {
 input {
 	max-width: 100%;
 	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	border-radius: 5px;
+	background-color: var(--convs-mgr-color-primary-background);
+	border-radius: 0.938rem;
 	resize: none;
 	padding: 10px;
+	border: none;
+	
 }
 
+
+.location-input-container {
+  margin-bottom: 6.25rem;
+}
 input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+	border: 1px solid var(--convs-mgr-color-primary-black);
+	outline-color: var(--convs-mgr-color-primary-black);
 }

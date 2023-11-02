@@ -1,15 +1,15 @@
 <div [id]="id" *ngIf="locationMessageForm">
 	<form [formGroup]="locationMessageForm" fxLayout="column" fxLayoutALign="start center">
 
-		<div fxLayout="column" class="location-input-container"formGroupName="locationInput">
-			<input formControlName="name" type="text" placeholder="Name" />
+		
+			
 
 			<input formControlName="latitude" [ngModel]="latitude" type="text" placeholder="Address" hidden />
 			<input formControlName="longitude" [ngModel]="longitude" type="text" placeholder="Address" hidden />
 
 			<input (change)="addressChanged($event)" formControlName="address" [ngModel]="currentAddress" #mapsSearchField
 				type="text" />
-		</div>
+		
 
 		
 

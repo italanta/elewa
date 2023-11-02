@@ -21,7 +21,7 @@ export function _LocationInputBlockDecoratePlumb(block: LocationInputBlock, comp
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0 ,0.11, 0, 1],
     maxConnections: -1
   });
 
