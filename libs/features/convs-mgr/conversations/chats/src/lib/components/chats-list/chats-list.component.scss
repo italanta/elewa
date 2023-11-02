@@ -6,7 +6,11 @@
   text-transform: capitalize;
   font-weight: 600;
 }
-
+.title{
+	color: #101010;
+    font-size: 2rem;
+    font-weight: 400;
+}
 .heading-area{
   background-color: white;
   padding: 20px 15px;
@@ -14,7 +18,7 @@
 
 .search-bar{
   font-size: 16px;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .filter {

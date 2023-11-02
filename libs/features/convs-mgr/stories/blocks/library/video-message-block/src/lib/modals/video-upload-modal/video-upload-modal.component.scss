@@ -27,7 +27,8 @@ input {
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  // TODO: Change to: 1fr 1fr after the media encoding section is returned
+  grid-template-columns: 1fr;
   grid-gap: 20px;
   padding: 2rem;
   justify-content: space-around;
@@ -101,6 +102,7 @@ img {
   cursor: pointer;
   border: 1px solid var(--convs-mgr-color-primary-purple);
   border-radius: 9px;
+  max-width: 500px;
 }
 
 .name__input {
