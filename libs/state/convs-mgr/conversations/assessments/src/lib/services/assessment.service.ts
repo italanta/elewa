@@ -13,10 +13,9 @@ import { ActiveAssessmentStore } from '../stores/active-assessment.store';
   providedIn: 'root',
 })
 export class AssessmentService {
-  constructor(
-    private _assessments$$: AssessmentsStore,
-    private _orgId$$: ActiveOrgStore,
-    private _activeAssessment$$: ActiveAssessmentStore
+  constructor(private _assessments$$: AssessmentsStore,
+              private _orgId$$: ActiveOrgStore,
+              private _activeAssessment$$: ActiveAssessmentStore
   ) {}
 
   getActiveAssessment$() {

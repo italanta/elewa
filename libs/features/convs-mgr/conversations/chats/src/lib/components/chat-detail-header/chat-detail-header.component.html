@@ -12,11 +12,12 @@
       <span *ngIf="chat.name" class="chat-name"> {{ chat.name.toLowerCase() }} </span>
       <span title="phoneNumber" class="chat-number"> +{{ chat.phoneNumber }} </span>
     </div>
+   
   </div>
 
   <div class="fab-holder" fxFlex="30" fxLayout="row" fxLayoutAlign="end">
 
-    <div *ngIf="userClass" class="header__item">
+    <div *ngIf="userClass" class="header__item" (click)="navigateToClass()">
       <i class="icon fas fa-layer-group"></i>
       <span title="user's class/grouping"> {{ userClass }}</span>
     </div>
@@ -58,10 +59,12 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="viewDetails()">View Chat details</button>
-      <button mat-menu-item (click)="openModal('stash')">Stash Chat</button>
+      <!-- TODO: Add back later -->
+      <!-- <button mat-menu-item (click)="viewDetails()">View Chat details</button> -->
+      <!-- <button mat-menu-item (click)="openModal('stash')">Stash Chat</button> -->
       <button mat-menu-item (click)="openModal('move')">Move Chat to</button>
       <button mat-menu-item (click)="unblockUser()">Unblock User</button>
+
       <!-- For Testing Use -->
       <!-- <button mat-menu-item (click)="testPayment()">Request Payment</button> -->
       <!-- <button mat-menu-item (click)="cancelReq()">Cancel Request</button> -->

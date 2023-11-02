@@ -20,14 +20,20 @@
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-form-field id="password-input" data-intercom-tooltip="Password Input" class="" appearance="fill" fxFlex>
         <!-- <label for="password">{{'LOGIN.CREATE-ACC-FORM.FLD-PASSWD' | transloco}}</label> -->
-        <input matInput placeholder="Password" name="password" type="password" formControlName="password" required />
+        <input matInput placeholder="Password" name="password" [type]="passwordVisible ? 'text' : 'password'" formControlName="password" required />
+        <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+          <mat-icon>{{ passwordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
       </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-form-field id="password2-input" data-intercom-tooltip="Password 2 Input" class="" appearance="fill" fxFlex>
         <!-- <label for="confirmPassword">{{'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD' | transloco}}</label> -->
-        <input matInput placeholder="Confirm password" name="confirmPassword" type="password" formControlName="confirmPassword" required />
+        <input matInput placeholder="Confirm password" name="confirmPassword" [type]="cPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword" required />
+        <button mat-icon-button matSuffix (click)="toggleConfirmPasswordVisibility()">
+          <mat-icon>{{ cPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
         <mat-error>{{'LOGIN.CREATE-ACC-FORM.FLD-CONF-PASSWD-ERR' | transloco}}</mat-error>
       </mat-form-field>
     </div>
