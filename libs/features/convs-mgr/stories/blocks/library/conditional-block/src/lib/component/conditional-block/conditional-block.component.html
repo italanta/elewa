@@ -8,10 +8,7 @@
       <div class="options-wrapper">
         <select id="options" formControlName="selectedVar" class="select">
           <option selected disabled class="assess-label">
-            {{
-              'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE'
-                | transloco
-            }}
+            {{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}
           </option>
           <option
           *ngFor="let variable of vars$ | async"

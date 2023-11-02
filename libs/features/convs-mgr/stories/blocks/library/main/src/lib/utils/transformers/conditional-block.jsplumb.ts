@@ -21,9 +21,8 @@ export function _ConditionalBlockDecoratePlumb(block: ConditionalBlock, comp: Co
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass: 'block_endpoint',
-
     endpoint: 'Dot',
-    anchor: [0, 0.13, 0, 1],
+    anchor: "Left",
     maxConnections: -1,
   });
 
