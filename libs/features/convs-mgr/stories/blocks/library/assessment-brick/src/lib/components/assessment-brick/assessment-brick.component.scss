@@ -13,11 +13,32 @@ input {
 }
 
 .option {
-    border: solid 1px grey;
+
     display: flex;
     justify-content: space-between;
 }
 
 #dash {
     text-align: end;
+}
+
+#scores{
+    border-bottom: 1px solid rgb(207, 207, 207);
+    margin-bottom: 5px;
+    color: grey;
+}
+
+.input-score-min{
+    color: gray;
+}
+
+.input-score-max{
+    color: gray;
+    font-size: 15px;
+    margin-right: 10px !important;
+}
+
+#name{
+    margin-top: 10px;  
+    margin-left: 10px;
 }
