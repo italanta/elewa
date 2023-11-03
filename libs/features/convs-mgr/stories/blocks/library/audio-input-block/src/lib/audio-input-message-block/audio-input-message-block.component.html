@@ -1,4 +1,11 @@
 <div [id]="id" *ngIf=" audioInputForm">
+
+	<div class="audio-icons-container">
+		<img [src]="svgIconPlay" alt="play icon" class="play">
+		<img [src]="svgIconAudio" alt="audio icon" class="audio">
+		<img [src]="svgIconCancel" alt="cancel icon" class="cancel">
+	</div>
+	
 	<form [formGroup]="audioInputForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="audioInputForm" formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-INPUT' | transloco" />

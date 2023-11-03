@@ -19,6 +19,10 @@ export class AudioInputMessageBlockComponent implements OnInit{
 
   audioInputId: string;
 
+  svgIconPlay = 'assets/svgs/blocks/audio/Play.svg';
+  svgIconAudio = 'assets/svgs/blocks/audio/audio.svg';
+  svgIconCancel = 'assets/svgs/blocks/audio/Cancel.svg';
+
   type: StoryBlockTypes;
   audioInputType = StoryBlockTypes.AudioInput;
   blockFormGroup: FormGroup;
