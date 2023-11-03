@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { _JsPlumbInputOptionDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-anchor-block',
@@ -23,7 +23,8 @@ import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/bloc
  * We will just save the first connection whose id == 'anchorId'. In this way, we will be able to get the
  *  first connection and send it back to the end user.
  */
-export class AnchorBlockComponent implements AfterViewInit {
+export class AnchorBlockComponent implements AfterViewInit 
+{
   @Input() id: string;
   @Input() jsPlumb: BrowserJsPlumbInstance;
   @Input() anchorInput: string;
@@ -36,10 +37,9 @@ export class AnchorBlockComponent implements AfterViewInit {
     //Step 1 - Get the id of the element to decorate with jsplumb
     const input = document.getElementById(this.anchorInput) as Element;
 
-
     if (this.jsPlumb) {
       //Step 2 - Call the jsplumb decorator function
-      _JsPlumbComponentDecorator(input, this.jsPlumb);
+      _JsPlumbInputOptionDecorator(input, this.jsPlumb);
     }
   }
 }

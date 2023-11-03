@@ -1,12 +1,21 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { SubSink } from 'subsink';
+
 import { Observable, Subscription } from 'rxjs';
+
+import { TranslateService } from '@ngfi/multi-lang';
+
 
 import { User } from '@iote/bricks';
 import { AuthService } from '@ngfi/angular';
 
 import { UserStore } from '@app/state/user';
-import { TranslateService } from '@ngfi/multi-lang';
+import { iTalUser } from '@app/model/user';
+
+
+
 
 @Component({
   selector: 'app-auth-page',
@@ -17,7 +26,9 @@ export class AuthPageComponent implements OnInit, OnDestroy
 {
   isLoading = true;
   user$: Observable<User>;
+  userOrg$: Observable<iTalUser>;
   userHasAccess: boolean = false;
+  private _sbS = new SubSink();
 
   isLogin = true;
   lang = 'en';
@@ -27,6 +38,7 @@ export class AuthPageComponent implements OnInit, OnDestroy
   constructor(userService: UserStore,
               private _authService: AuthService,
               private _translateService: TranslateService,
+              private _userService$$: UserStore,
               private _router$$: Router
   ) {
     this.user$ = userService.getUser();
@@ -34,6 +46,7 @@ export class AuthPageComponent implements OnInit, OnDestroy
 
   ngOnInit()
   {
+    this.userOrg$ = this._userService$$.getUser();
     this.lang = this._translateService.initialise();
     this._userSubscr = this.user$.subscribe(user =>
     {
@@ -44,7 +57,7 @@ export class AuthPageComponent implements OnInit, OnDestroy
           if (userDetails.activeOrg && userDetails.orgIds && userDetails.activeOrg != '' && userDetails.orgIds.length > 0) {
             this._router$$.navigate(['/home']);
           } else {
-            this._router$$.navigate(['/orgs']);
+            this._checkOrgs()
           }
         }
       } else {
@@ -52,6 +65,16 @@ export class AuthPageComponent implements OnInit, OnDestroy
       }
       this.isLoading = false;
     });
+  }
+
+  _checkOrgs(){
+     this._sbS.sink = this.userOrg$.subscribe((user) => {
+      if (user.activeOrg && user.activeOrg != '') {
+        this._router$$.navigate(['/home']);
+      }else{
+        this._router$$.navigate(['/orgs']);
+      }
+    })
   }
 
   logInWithGoogle() {
@@ -78,7 +101,6 @@ export class AuthPageComponent implements OnInit, OnDestroy
 
     if(!this.isLogin)
     {
-      console.log(this.isLogin);
       this._router$$.navigate(['/auth/register']);
     }
   }
