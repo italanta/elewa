@@ -61,14 +61,16 @@
               <a >
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
-                  <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}"  src="assets/icons/chats-stroked.svg" class="img" alt="">
+                  <div *ngIf="!isExpanded" style="display: flex;">
+                    <img  matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}"  src="assets/icons/chats-stroked.svg" class="img" alt="">
+                    
+                    <img src="assets/icons/expand-icon.png" width="18" [@indicatorRotate]="displayDropDownContent ? 'expanded': 'collapsed'">
+                  </div>
                 </span>
                 <span *ngIf="isExpanded" class="menu-title message-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
-                <mat-icon [@indicatorRotate]="displayDropDownContent ? 'expanded': 'collapsed'">
-                  expand_more
-                </mat-icon>
+                <img *ngIf="isExpanded" src="assets/icons/expand-icon.png" width="25" [@indicatorRotate]="displayDropDownContent ? 'expanded': 'collapsed'">
               </a>
               <ul *ngIf="displayDropDownContent" class="sub-side-menu">
                 <li >
