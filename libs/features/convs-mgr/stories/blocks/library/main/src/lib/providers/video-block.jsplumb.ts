@@ -24,7 +24,7 @@ export function _VideoBlockDecoratePlumb(
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: [0, 0.13, 0, 1],
+    anchor: "Left",
     maxConnections: -1,
   });
 
