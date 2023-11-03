@@ -1,4 +1,5 @@
 .company-details{
+  background-color: #F6F6F6;
   margin: 10vh 10vh;
   .company-logo{
     img{
@@ -38,7 +39,7 @@
   }
   
   .information{
-   
+        padding: 3%;
     .company-fields{
       form{
         h4{
@@ -95,6 +96,10 @@
       }
     }
   }
+  .card{
+    cursor: pointer;
+    padding: 3%;
+  }
 }
 
 
@@ -113,5 +118,7 @@
 :host ::ng-deep .company-details .mat-form-field-wrapper {
   padding: 0px 0px 15px 0px;
 }
-
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 25px!important;
+}
 

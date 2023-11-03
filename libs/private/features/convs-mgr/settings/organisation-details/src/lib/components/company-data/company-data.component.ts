@@ -9,7 +9,8 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 
 // import { FileStorageService } from '@app/features/files';
 
-import { UpdateCompanyLogoModalComponent } from '../update-company-logo-modal/update-company-logo-modal.component';
+import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
+import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
 
 @Component({
   selector: 'company-data',
@@ -94,5 +95,12 @@ export class CompanyDataComponent implements OnInit {
     // this._fileStorageService$$.deleteSingleFile(this.activeOrg.logoUrl).subscribe();
     this.activeOrg.logoUrl = '';
     this._orgService$$.updateOrgDetails(this.activeOrg);
+  }
+
+  addChannel(){
+    this._dialog.open(AddChannelModalComponent, {
+      minWidth: '30%',
+      minHeight: '338px',
+    });
   }
 }
