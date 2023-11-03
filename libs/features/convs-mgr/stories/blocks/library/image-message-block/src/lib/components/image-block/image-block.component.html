@@ -19,6 +19,8 @@
 
 		</div>
 
+		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="imageMessageForm"></app-default-option-field>
+
 		<div class="error-message" *ngIf="whatsappLimit">
 			<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-ONE' | transloco }}</span><br>
       		<span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.IMAGE.MESSAGE-TWO' | transloco }}</span>
