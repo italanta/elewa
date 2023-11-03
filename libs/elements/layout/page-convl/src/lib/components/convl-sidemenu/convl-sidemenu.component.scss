@@ -221,6 +221,7 @@ $sidebar-footer-height: 230px;
           color: $text-color;
           margin-bottom: 20px;
           padding-left: 30px;
+          justify-content: center;
 
           .menu-icon {
             cursor: pointer;
@@ -235,6 +236,14 @@ $sidebar-footer-height: 230px;
             border-radius: 2px;
             transition: color 0.3s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .img-icon{
+              height: 14px;
+            }
+
             i {
               display: inline-block;
             }
