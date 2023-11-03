@@ -61,6 +61,10 @@ $sidebar-footer-height: 230px;
   object-fit: contain;
 }
 
+.nav-toggle{
+  cursor: pointer;
+}
+
 .layout {
   z-index: 1;
   height: 100%;
