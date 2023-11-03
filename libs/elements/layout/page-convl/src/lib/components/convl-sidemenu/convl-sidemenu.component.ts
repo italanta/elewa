@@ -123,7 +123,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   }
 
   /** Toggles the visibility of the dropdown content. */
-  toggleDropdown() {
+  toggleMessageDropdown() {
     this.showDropdownContent = !this.showDropdownContent;
   }
 
