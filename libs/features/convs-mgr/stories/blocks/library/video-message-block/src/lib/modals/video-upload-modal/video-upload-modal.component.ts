@@ -67,6 +67,7 @@ export class VideoUploadModalComponent implements OnInit {
 
   onVideoSelected(event: any) {
     this.selectedFile = event.target.files[0] as File;
+    this.whatsappLimit = false
 
     // Check if file bypasses size limit.
     const fileSizeInKB = this.selectedFile.size / 1024;
