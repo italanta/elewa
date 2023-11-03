@@ -1,1 +1,72 @@
-<p>add-channel-modal works!</p>
+<div class="card">
+    <div class="top">
+      <h3>Add Channel</h3>
+    </div>
+    <div class="lines">
+        <div class="left-line"></div>
+        <div class="right-line"></div>
+    </div>
+    <div class="platform">
+      <div class="select">
+        <p>Select Platform</p>
+      </div>
+      <div class="add">
+        <p>Add Details</p>
+      </div>
+    </div>
+    <div class="select" *ngIf="showOptionBoxes">
+        <div class="whats-app">
+            <input type="radio" id="html" name="fav_language" [(ngModel)]="selectedPlatform" value="WhatsApp">
+            <img src="assets/icons/whatsapp-icon.svg" alt="">
+            <label for="html">WhatsApp</label><br>
+        </div>
+        <div class="messenger">
+            <input type="radio" id="css" name="fav_language" [(ngModel)]="selectedPlatform" value="Messenger">
+            <img src="assets/icons/facebook-messenger.png" alt="">
+            <label for="css">Messenger</label><br>
+        </div>
+      
+    </div>
+  
+    <!-- WhatsApp Form -->
+    <div *ngIf="showWhatsAppForm">
+      <form>
+        <div class="general">
+            <label for="fname">General Details</label><br>
+        <input type="text" placeholder="Bot Details" id="fname" name="fname" >
+        </div>
+        <div class="channel-details">
+            <label for="fname">General Details</label><br>
+            <input type="text" placeholder="Access Token" id="fname" name="fname"><br>
+            <input type="text" placeholder="Bot Phone Number" id="fname" name="fname" ><br>
+            <input type="text" placeholder="Bot Phone Number ID" id="fname" name="fname" ><br>
+            <input type="text" placeholder="Business Account ID" id="fname" name="fname" >
+        </div>
+      </form>
+    </div>
+  
+    <!-- Messenger Form -->
+    <div *ngIf="showMessengerForm">
+      <form>
+            <div class="general">
+                <label for="fname">General Details</label><br>
+            <input type="text" id="fname" name="fname" placeholder="Bot Details">
+            </div>
+            <div class="channel-details">
+                <label for="fname">Messenger Channel Details</label><br>
+                <input type="text" placeholder="Access Token" id="fname" name="fname"><br>
+                <input type="text" placeholder="Page ID" id="fname" name="fname" >
+            </div>    
+      </form>
+    </div>
+  
+    <div class="buttons">
+      <div class="cancel">
+        <button (click)="closeModal()">Cancel</button>
+      </div>
+      <div class="continue">
+        <button (click)="showForm()">{{ continueButtonText }}</button>
+      </div>
+    </div>
+  </div>
+  
