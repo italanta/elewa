@@ -17,21 +17,22 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
 @Component({
   selector: 'convl-sidemenu',
   templateUrl: './convl-sidemenu.component.html',
-  styleUrls: [ './convl-sidemenu.component.scss' ]
+  styleUrls: ['./convl-sidemenu.component.scss'],
 })
-export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
-{
+export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy {
   private _sbS = new SubSink();
 
   @Input() user: any;
-  
+
   FIRST_SUB_MENUS_BTN: NodeListOf<Element>;
 
   getLogo = 'assets/images/italanta-logo.png';
   projectName: string;
   projectInfo: string;
 
-  isExpanded:boolean;
+  isExpanded: boolean;
+
+  isCollapsed = true;
 
   readonly CAN_ACCESS_BOTS = AppClaimDomains.BotsView;
   readonly CAN_ACCESS_ANALYTICS = AppClaimDomains.AnalyticsView;
@@ -40,13 +41,14 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   readonly CAN_ACCESS_ASSESSMENTS = AppClaimDomains.AssessmentsView;
   readonly CAN_ACCESS_SETTINGS = AppClaimDomains.SettingsView;
 
-  constructor(// private _org$$: ActiveOrgStore,
-              // private _flow$$: ActiveCommFlowStore,
-              private _router$$: Router,
-              private sideMenu:SidemenuToggleService,
-              private _ps: PermissionsStore,
-              @Inject('ENVIRONMENT') private _env: any)
-  {
+  constructor(
+    // private _org$$: ActiveOrgStore,
+    // private _flow$$: ActiveCommFlowStore,
+    private _router$$: Router,
+    private sideMenu: SidemenuToggleService,
+    private _ps: PermissionsStore,
+    @Inject('ENVIRONMENT') private _env: any
+  ) {
     this._sbS.sink = this.sideMenu.menuStatus$.subscribe(
       (isOpen) => (this.isExpanded = isOpen)
     );
@@ -60,37 +62,38 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   }
 
   handlerUserNavClicks() {
-
     const PoppersInstance = new Poppers();
-    const SIDEBAR_EL = document.getElementById("sidebar");
+    const SIDEBAR_EL = document.getElementById('sidebar');
     this.FIRST_SUB_MENUS_BTN = document.querySelectorAll(
-      ".menu > ul > .menu-item.sub-menu > a"
+      '.menu > ul > .menu-item.sub-menu > a'
     );
     const INNER_SUB_MENUS_BTN = document.querySelectorAll(
-      ".menu > ul > .menu-item.sub-menu .menu-item.sub-menu > a"
+      '.menu > ul > .menu-item.sub-menu .menu-item.sub-menu > a'
     );
-    const defaultOpenMenus = document.querySelectorAll(".menu-item.sub-menu.open");
+    const defaultOpenMenus = document.querySelectorAll(
+      '.menu-item.sub-menu.open'
+    );
 
     defaultOpenMenus.forEach((element: any) => {
-      element.lastElementChild.style.display = "block";
-    });    
+      element.lastElementChild.style.display = 'block';
+    });
 
     /**
      * handle top level submenu click
      */
     this.FIRST_SUB_MENUS_BTN.forEach((element) => {
-      element.addEventListener("click", () => {
-        if (SIDEBAR_EL?.classList.contains("collapsed"))
+      element.addEventListener('click', () => {
+        if (SIDEBAR_EL?.classList.contains('collapsed'))
           PoppersInstance.togglePopper(element.nextElementSibling);
         else {
-          const parentMenu = element.closest(".menu.open-current-submenu");
+          const parentMenu = element.closest('.menu.open-current-submenu');
           if (parentMenu)
             parentMenu
-              .querySelectorAll(":scope > ul > .menu-item.sub-menu > a")
+              .querySelectorAll(':scope > ul > .menu-item.sub-menu > a')
               .forEach(
                 (el: any) =>
                   window.getComputedStyle(el.nextElementSibling).display !==
-                  "none" && slideUp(el.nextElementSibling)
+                    'none' && slideUp(el.nextElementSibling)
               );
           slideToggle(element.nextElementSibling);
         }
@@ -101,31 +104,35 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
      * handle inner submenu click
      */
     INNER_SUB_MENUS_BTN.forEach((element) => {
-      element.addEventListener("click", () => {
+      element.addEventListener('click', () => {
         slideToggle(element.nextElementSibling);
       });
     });
   }
 
-  openActiveFeature(feature: string, ) {
+  openActiveFeature(feature: string) {
     const features = ['home', 'stories', 'analytics', 'assessments', 'chats'];
     const featureIndex = features.indexOf(feature);
     const featureEl = this.FIRST_SUB_MENUS_BTN[featureIndex];
     slideToggle(featureEl?.nextElementSibling);
   }
 
-  toggleMenu () {
-    this.sideMenu.toggleExpand(!this.isExpanded)
-    
+  toggleMenu() {
+    this.sideMenu.toggleExpand(!this.isExpanded);
+  }
+
+    /**
+   * function to collapse menu
+   */
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   addPers() {
     this._ps.createInitialDoc();
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this._sbS.unsubscribe();
   }
-
 }

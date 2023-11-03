@@ -31,6 +31,10 @@ $sidebar-footer-height: 230px;
 .img{
   height: 24px;
   width: 24px;
+
+  .rotate-up{
+    transform: rotate(180deg);
+  }
 }
 .extra-header {
   font-weight: 600;
