@@ -3,6 +3,10 @@ mat-card {
   padding: 10px;
 }
 
+form {
+  width:100%;
+}
+
 .webhook-select-wrapper {
 
   position: relative;
@@ -131,9 +135,9 @@ select:focus, input:focus{
 }
 
 .input-username {
-  width: 14rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  display: flex;
+  // grid-template-columns: repeat(3, 1fr);
 
   .img-cont{
     text-align: center;
