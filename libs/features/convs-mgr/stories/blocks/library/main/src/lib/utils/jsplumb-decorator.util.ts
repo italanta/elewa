@@ -15,34 +15,33 @@ import { DocumentMessageBlock, EmailMessageBlock, ImageMessageBlock, LocationMes
           ConditionalBlock
 } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _MessageBlockDecoratePlumb } from './message-block.jsplumb';
-import { _QuestionsBlockDecoratePlumb } from './questions-block.jsplumb';
-import { _LocationBlockDecoratePlumb } from './location-block.jsplumb';
-import { _ImageBlockDecoratePlumb } from './image-block.jsplumb';
-import { _NameBlockDecoratePlumb } from './name-block.jsplumb';
-import { _EmailBlockDecoratePlumb } from './email-block.jsplumb';
-import { _PhoneBlockDecoratePlumb } from './phonenumber-block.jsplumb';
-import { _AudioBlockDecoratePlumb } from './audio-block.jsplumb';
-import { _VideoBlockDecoratePlumb } from './video-block.jsplumb';
-import { _StickerBlockDecoratePlumb } from './sticker-block.jsplumb';
-import { _ListBlockDecoratePlumb } from './list-block.jsplumb';
-import { _DocumentBlockDecoratePlumb } from './document-block.jsplumb';
-import { _ReplyBlockDecoratePlumb } from './reply-block.jsplumb';
-import { _AnchorBlockDecoratePlumb } from './anchor-block.jsplumb';
-import { _JumpBlockDecoratePlumb } from './jump-block.jsplumb';
-import { _MultipleBlockDecoratePlumb } from './multiple-block.jsplumb';
-import { _FailBlockDecoratePlumb } from './fail-block.jsplumb';
-import { _ImageInputBlockDecoratePlumb } from './image-input-block.jsplumb';
-import { _LocationInputBlockDecoratePlumb } from './location-input-block.jsplumb';
-import { _AudioInputBlockDecoratePlumb } from './audio-input-block.jsplumb';
-import { _VideoInputBlockDecoratePlumb } from './video-input-block.jsplumb';
-import { _WebhookBlockDecoratePlumb } from './webhook-block.jsplumb';
-import { _OpenEndedQuestionBlockDecoratePlumb } from './open-ended-question-block.jsplumb';
-import { _KeywordJumpBlockDecoratePlumb } from './keyword-jump-block.jsplumb';
-import { _EventBlockDecoratePlumb } from './event-block.jsplumb';
-import { _AssessmentBrickDecoratePlumb } from './assessment-brick.jsplumb';
-import { _ConditionalBlockDecoratePlumb } from './conditional-block.jsplumb';
-import { _CMI5BlockDecoratePlumb } from './cmi5-block.jsplumb';
+import { _MessageBlockDecoratePlumb } from './transformers/message-block.jsplumb';
+import { _QuestionsBlockDecoratePlumb } from './transformers/questions-block.jsplumb';
+import { _LocationBlockDecoratePlumb } from './transformers/location-block.jsplumb';
+import { _ImageBlockDecoratePlumb } from './transformers/image-block.jsplumb';
+import { _NameBlockDecoratePlumb } from './transformers/name-block.jsplumb';
+import { _EmailBlockDecoratePlumb } from './transformers/email-block.jsplumb';
+import { _PhoneBlockDecoratePlumb } from './transformers/phonenumber-block.jsplumb';
+import { _AudioBlockDecoratePlumb } from './transformers/audio-block.jsplumb';
+import { _VideoBlockDecoratePlumb } from './transformers/video-block.jsplumb';
+import { _StickerBlockDecoratePlumb } from './transformers/sticker-block.jsplumb';
+import { _ListBlockDecoratePlumb } from './transformers/list-block.jsplumb';
+import { _DocumentBlockDecoratePlumb } from './transformers/document-block.jsplumb';
+import { _ReplyBlockDecoratePlumb } from './transformers/reply-block.jsplumb';
+import { _AnchorBlockDecoratePlumb } from './transformers/anchor-block.jsplumb';
+import { _JumpBlockDecoratePlumb } from './transformers/jump-block.jsplumb';
+import { _FailBlockDecoratePlumb } from './transformers/fail-block.jsplumb';
+import { _ImageInputBlockDecoratePlumb } from './transformers/image-input-block.jsplumb';
+import { _LocationInputBlockDecoratePlumb } from './transformers/location-input-block.jsplumb';
+import { _AudioInputBlockDecoratePlumb } from './transformers/audio-input-block.jsplumb';
+import { _VideoInputBlockDecoratePlumb } from './transformers/video-input-block.jsplumb';
+import { _WebhookBlockDecoratePlumb } from './transformers/webhook-block.jsplumb';
+import { _OpenEndedQuestionBlockDecoratePlumb } from './transformers/open-ended-question-block.jsplumb';
+import { _KeywordJumpBlockDecoratePlumb } from './transformers/keyword-jump-block.jsplumb';
+import { _EventBlockDecoratePlumb } from './transformers/event-block.jsplumb';
+import { _AssessmentBrickDecoratePlumb } from './transformers/assessment-brick.jsplumb';
+import { _ConditionalBlockDecoratePlumb } from './transformers/conditional-block.jsplumb';
+import { _CMI5BlockDecoratePlumb } from './transformers/cmi5-block.jsplumb';
 
 /**
  * This function adds jsPlumb endpoints to rendered components. 
@@ -59,79 +58,84 @@ export function _JsPlumbComponentDecorator(block: StoryBlock, comp: ComponentRef
   switch (block.type) {
     case StoryBlockTypes.TextMessage:
       return _MessageBlockDecoratePlumb(block, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Image:
       return _ImageBlockDecoratePlumb(block, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Name:
       return _NameBlockDecoratePlumb(block as NameMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Email:
       return _EmailBlockDecoratePlumb(block as EmailMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.PhoneNumber:
       return _PhoneBlockDecoratePlumb(block as PhoneMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.QuestionBlock:
       return _QuestionsBlockDecoratePlumb(block, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Location:
       return _LocationBlockDecoratePlumb(block, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Audio:
         return _AudioBlockDecoratePlumb(block as VoiceMessageBlock, comp, jsPlumb);
+
     case StoryBlockTypes.Video:
       return _VideoBlockDecoratePlumb(block as VideoMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Sticker:
       return _StickerBlockDecoratePlumb(block as StickerMessageBlock, comp, jsPlumb);
+
     case StoryBlockTypes.List:
       return _ListBlockDecoratePlumb(block as ListMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Document:
         return _DocumentBlockDecoratePlumb(block as DocumentMessageBlock, comp, jsPlumb);
+
     case StoryBlockTypes.AnchorBlock:
         return _AnchorBlockDecoratePlumb(comp, jsPlumb);
-        break;
+
     case StoryBlockTypes.Reply:
       return _ReplyBlockDecoratePlumb(block as ReplyMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.JumpBlock:
       return _JumpBlockDecoratePlumb(block as JumpBlock, comp, jsPlumb);
-      break;
-    case StoryBlockTypes.MultipleInput:
-      return _MultipleBlockDecoratePlumb(block as MultipleInputMessageBlock, comp, jsPlumb);
+
     case StoryBlockTypes.ImageInput:
       return _ImageInputBlockDecoratePlumb(block as ImageInputBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.FailBlock:
       return _FailBlockDecoratePlumb(block as FailBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.LocationInputBlock:
       return _LocationInputBlockDecoratePlumb(block as LocationInputBlock, comp, jsPlumb);
+
     case StoryBlockTypes.AudioInput:
       return _AudioInputBlockDecoratePlumb(block as AudioInputBlock, comp, jsPlumb);
+
     case StoryBlockTypes.VideoInput:
       return _VideoInputBlockDecoratePlumb(block as VideoInputBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.WebhookBlock:
       return _WebhookBlockDecoratePlumb(block as WebhookBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.OpenEndedQuestion:
       return _OpenEndedQuestionBlockDecoratePlumb(block as OpenEndedQuestionBlock, comp, jsPlumb);
-      break; 
+
     case StoryBlockTypes.keyword:
       return _KeywordJumpBlockDecoratePlumb(block as KeywordMessageBlock, comp, jsPlumb);
-      break;
+
     case StoryBlockTypes.Event:
       return _EventBlockDecoratePlumb(block as EventBlock, comp, jsPlumb);
+
     case StoryBlockTypes.Assessment:
       return _AssessmentBrickDecoratePlumb(block as AssessmentBrick, comp, jsPlumb);
+
     case StoryBlockTypes.Conditional:
       return _ConditionalBlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
+
     case StoryBlockTypes.CMI5Block:
       return _CMI5BlockDecoratePlumb(block as ConditionalBlock, comp, jsPlumb);
-
   }
 
   return comp;
