@@ -105,6 +105,7 @@ export const ICONS_AND_TITLES = {
   29: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.KEYWORD-JUMP',
     icon: 'fas fa-bullseye',
+    svgIcon: '/assets/icons/bullseye.svg',
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
