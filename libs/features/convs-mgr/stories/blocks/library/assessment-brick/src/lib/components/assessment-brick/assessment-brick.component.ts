@@ -64,7 +64,7 @@ export class AssessmentBrickComponent implements OnInit, AfterViewInit, OnDestro
   /** Add JsPlumb connector to max score input */
   private _decorateInput()
   {
-    const inputs = document.getElementsByClassName('input-score-max');
+    const inputs = document.getElementsByClassName('option');
     if (this.jsPlumb) {
       for (let i = 0; i < inputs.length; i++) {
         let input = inputs[i];
