@@ -48,7 +48,6 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user$ = this._userService$$.getUser();
-    this._checkUserOrg();
     this.buildOrgForm();
   }
 
@@ -56,13 +55,6 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
     this._translateService.setLang(lang);
   }
 
-  private _checkUserOrg(){
-    this._sbS.sink = this.user$.subscribe((user) => {
-      if (user.activeOrg && user.activeOrg != '') {
-        this._router$$.navigate(['/home']);
-      }
-    })
-  }
 
   buildOrgForm() {
     this.orgFormGroup = this._fb.group({
