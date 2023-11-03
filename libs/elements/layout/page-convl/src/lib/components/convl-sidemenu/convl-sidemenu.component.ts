@@ -33,6 +33,9 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 
   isExpanded:boolean;
 
+  /**controls the visibility of the dropdown content*/
+  showDropdownContent:boolean = false;
+
   readonly CAN_ACCESS_BOTS = AppClaimDomains.BotsView;
   readonly CAN_ACCESS_ANALYTICS = AppClaimDomains.AnalyticsView;
   readonly CAN_ACCESS_CHATS = AppClaimDomains.ChatsView;
@@ -117,6 +120,11 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   toggleMenu () {
     this.sideMenu.toggleExpand(!this.isExpanded)
     
+  }
+
+  /** Toggles the visibility of the dropdown content. */
+  toggleDropdown() {
+    this.showDropdownContent = !this.showDropdownContent;
   }
 
   addPers() {
