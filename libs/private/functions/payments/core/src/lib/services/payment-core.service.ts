@@ -3,7 +3,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { iTalUser } from '@app/model/user';
 
-import { Payment } from "../models/payment";
+import { Payment, SequenceType } from "../models/payment";
 import { Mandate } from '../models/mandate';
 
 import { MollieCustomerService } from './customer-core-service';
@@ -20,7 +20,7 @@ export class PaymentCoreService {
    * @param tools - HandlerTools for logging and other utility functions.
    */
   constructor(private _apiKey: string, private tools: HandlerTools) {
-    this._apiKey = process.env.MOLLIE_API_KEY;
+    this._apiKey = process.env.MOLLIE_API_KEY as string;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
     this.mollieCustomerService = new MollieCustomerService( tools)
   }
@@ -36,7 +36,7 @@ export class PaymentCoreService {
     try {
       // TODO: Pass the actual user while using this method
 
-      const customerId = await getCustomerID(user, this.mollieCustomerService)
+      const customerId = await this.getCustomerID(user, this.mollieCustomerService)
   
       const paymentData = {
         ...payment,
@@ -45,15 +45,16 @@ export class PaymentCoreService {
           value: payment.amount.value,
         },
         description: payment.description,
-        sequenceType: payment.sequenceType,
-        redirectUrl: payment.redirectUrl || '',
+        sequenceType: payment.sequenceType.First as unknown as SequenceType,
+        redirectUrl: payment.redirectUrl,
+        method: payment.method
       };
 
       const molliePayment = await this.mollieClient.customerPayments.create(paymentData, customerId);
 
       return molliePayment;
     } catch (error) {
-      this.tools.Logger.error(() => error.message)
+      this.tools.Logger.log(() => `An error occuered: ${JSON.stringify(error)}`)
       // Handle errors gracefully by throwing a specific error message
       throw new Error('Failed to create payment');
     }
@@ -100,17 +101,17 @@ export class PaymentCoreService {
   private updateSubscription(){
     /** TODO */
   }
-}
 
-/** get/create a user's mollie customer id */
-async function getCustomerID(user: iTalUser, mollieCustomerDataServ: MollieCustomerService) {
-  if (user.mollieCustomerId) {
-    return user.mollieCustomerId
+  /** get/create a user's mollie customer id */
+  async getCustomerID(user: iTalUser, mollieCustomerDataServ: MollieCustomerService) {
+    if (user.mollieCustomerId) {
+      return user.mollieCustomerId
+    }
+
+    user.mollieCustomerId = await this.mollieCustomerService.createMollieCustomer(user);
+
+    const newUser = await mollieCustomerDataServ.updateUser(user);
+
+    return newUser.mollieCustomerId;
   }
-
-  user.mollieCustomerId = await this.mollieCustomerService.createMollieCustomer(user);
-
-  const newUser = await mollieCustomerDataServ.updateUser(user);
-
-  return newUser.mollieCustomerId;
 }

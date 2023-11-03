@@ -42,7 +42,7 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
 
     // Get user details
     this.iTalUser = await this.mollieCustomerService.getUser(data.userId)
-    this.mollieCustomerId = this.iTalUser.mollieCustomerId;
+    this.mollieCustomerId = this.iTalUser.mollieCustomerId as string;
 
     try {
       //Check if the customer is not on Mollie, create them, and update the user object with the Mollie customer ID
@@ -69,7 +69,7 @@ export class CreateSubscriptionsHandler extends FunctionHandler<SubscriptionReq,
           date: new Date(),
           status: TransactionStatus.pending
         }
-        await this._trnService.writeTransaction(trn, this.iTalUser.id)
+        await this._trnService.writeTransaction(trn, this.iTalUser.id as string)
 
         return this.subscriptionService.initSubscription(subscriptionResponse, data.subscriptionType, this.iTalUser.activeOrg);
 

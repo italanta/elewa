@@ -23,7 +23,7 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
     /** Log the incoming payload for reference */
     tools.Logger.log(()=> `[ReceivePaymentHandler].execute - Payload :: ${JSON.stringify(data)}`);
     /**Initialize necessary services */
-    this._paymentService =  new PaymentCoreService(process.env.MOLLIE_API_KEY, tools);
+    this._paymentService =  new PaymentCoreService(process.env.MOLLIE_API_KEY as string, tools);
     this._subscriptionService = new SubscriptionService(tools);
     this._trnService  = new TransactionsService(tools);
 
@@ -36,12 +36,12 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
 
       tools.Logger.log(()=> `[ReceivePaymentHandler].execute - Payment status :: ${paymentDetails}`);
 
-      const mollieCustomerId = paymentDetails.customerId;
+      const mollieCustomerId = paymentDetails?.customerId as string;
 
       const user = await this.getUserByMollieId(mollieCustomerId, tools);
 
       /* Get transaction details: */
-      const trnDetails  = await this._trnService.getTransaction(data.id, user.id);
+      const trnDetails  = await this._trnService.getTransaction(data.id, user?.id as string);
 
       if (trnDetails) {
         return this.handlePaymentStatus(paymentDetails, user, trnDetails);
@@ -49,7 +49,7 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
         tools.Logger.error(() => `missing transaction error `)
       }
     } catch (e) {
-      tools.Logger.log(() => `${e.message}`);
+      tools.Logger.log(() => `${JSON.stringify(e)}`);
     }
   }
 /**
@@ -66,22 +66,22 @@ export class ReceivePaymentHandler extends FunctionHandler<any, any>
         trn.status = TransactionStatus.success;
 
         if(payment.sequenceType == 'first') {
-          await this._trnService.updateTransaction(trn, user.id);
+          await this._trnService.updateTransaction(trn, user?.id as string);
           return this._paymentService.onFirstPayment(payment, user);
         } else if (payment.sequenceType == 'recurring') {
-          const subTrn = await this._trnService.getTransaction(trn.id, user.id);
+          const subTrn = await this._trnService.getTransaction(trn.id, user?.id as string);
           if(subTrn != null){
           subTrn.status = TransactionStatus.success;
 
-          await this._trnService.updateTransaction(subTrn, user.id);
+          await this._trnService.updateTransaction(subTrn, user?.id as string);
           return this._subscriptionService.renewSubscription(trn, payment); }
         }
         break;
       case 'failed':
-        trn.status = TransactionStatus.fail;
-        return this._trnService.updateTransaction(trn, user.id);
+        trn.status = TransactionStatus.fail; 
+        return this._trnService.updateTransaction(trn, user?.id as string);
       default:
-        return;
+        return null;
     }
   }
   /**

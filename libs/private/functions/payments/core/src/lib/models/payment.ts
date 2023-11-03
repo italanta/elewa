@@ -11,8 +11,8 @@ export interface Payment extends IObject{
     redirectUrl: string;
     cancelUrl: string;
     webhookUrl?: string;
-    sequenceType?: string;
-    method? : string  
+    sequenceType?: SequenceType;
+    method : string  
     customerId: string;
     status: string;
 }
@@ -25,4 +25,9 @@ export interface Amount {
     currency: string;
     value: string;
 }
-    
+
+export interface SequenceType {
+    Oneoff:  "oneoff", 
+    First: "first",
+    Reccuring: "recurring"
+}

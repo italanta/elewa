@@ -73,7 +73,7 @@ export class SubscriptionService {
    * @param paymentId - Mollie payment ID
    */
   async getPaymentStatus(paymentId: string){
-    const molliePaymentStatus = await this.mollieClient.payment.get(paymentId) 
+    const molliePaymentStatus = await this.mollieClient.payments.get(paymentId) 
     return molliePaymentStatus
   }
 
@@ -81,7 +81,7 @@ export class SubscriptionService {
     try {
       this._subscription.status = SubscriptionStatusTypes.Cancelled;
       // Delete the subscription document from the database
-      await this._subscriptionsRepo.delete(this._subscription.id);
+      await this._subscriptionsRepo.delete(this._subscription.id as string);
 
       this._handlerTools.Logger.log(() => `Cancel subsceription triggered`)
 
@@ -150,15 +150,15 @@ export class SubscriptionService {
   /**
    * Update the subscription document in the database with status paused
    */
-  async pauseSubscription() {
-    try {
-      this._subscription.status = SubscriptionStatusTypes.Paused
-      await this._subscriptionsRepo.update(this._subscription);
+  // async pauseSubscription() {
+  //   try {
+  //     this._subscription.status = SubscriptionStatusTypes.Paused
+  //     await this._subscriptionsRepo.update(this._subscription);
 
-      this._handlerTools.Logger.log(() => `Subscription paused successfully`);
-    } catch (error) {
-      console.error("Error pausing subscription:", error);
-      throw error;
-    }
-  }
+  //     this._handlerTools.Logger.log(() => `Subscription paused successfully`);
+  //   } catch (error) {
+  //     console.error("Error pausing subscription:", error);
+  //     throw error;
+  //   }
+  // }
 }

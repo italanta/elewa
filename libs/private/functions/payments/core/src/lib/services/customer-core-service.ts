@@ -15,7 +15,7 @@ export class MollieCustomerService {
   constructor(
     private tools: HandlerTools
   ) {
-    this._apiKey = process.env.MOLLIE_API_KEY;
+    this._apiKey = process.env.MOLLIE_API_KEY as string;
     this.mollieClient = createMollieClient({ apiKey: this._apiKey });
     this.tools = tools;
   }
@@ -26,7 +26,7 @@ export class MollieCustomerService {
     this.tools.Logger.log(() => `CustomerService: createMollieCustomer`);
     
     const mollieCustomer: Customer = {
-      name: user.displayName || user.id,
+      name: user.displayName || user.id as string,
       email: user.email,
     };
 
