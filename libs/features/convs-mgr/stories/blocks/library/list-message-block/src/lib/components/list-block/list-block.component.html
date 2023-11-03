@@ -19,12 +19,20 @@
             <button class="listgone">
               <img src="assets/icons/Vector.svg" />
             </button>
-            <label class="option">Option {{ i + 1 }}</label>
+            <app-option-input-field
+              [jsPlumb]="jsPlumb"
+              [optionNumber]="i"
+              [blockFormGroup]="listMessageBlock"
+              [formGroupNameInput]="i"
+              class="input"
+              [charMaxlength]="listOptionInputLimit"
+            ></app-option-input-field>
+
+           
             <button (click)="deleteInput(i)" class="listgon">
               <img src="/assets/icons/Cancel.svg" />
             </button>
           </div>
-
         </div>
       </div>
     </div>
