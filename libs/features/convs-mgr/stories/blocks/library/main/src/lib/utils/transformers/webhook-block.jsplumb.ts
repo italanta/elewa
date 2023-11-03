@@ -22,7 +22,7 @@ export function _WebhookBlockDecoratePlumb(block: WebhookBlock, comp: ComponentR
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.05 , 0, 1],
+    anchor: "Left",
     maxConnections: -1
   });
 
