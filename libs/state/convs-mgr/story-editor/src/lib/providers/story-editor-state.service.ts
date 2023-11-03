@@ -50,7 +50,7 @@ export class StoryEditorStateService
   get(): Observable<StoryEditorState> 
   {
     const state$ = this._story$$.get().pipe(
-                      debounceTime(1000),
+                      debounceTime(500),
                       // Load story editor state. This includes the story itself, the blocks which it consists and the connections.
                       switchMap(story => story ? combineLatest([of(story), 
                                                                 this._blocks$$.getBlocksByStory(story.id!), 
@@ -171,9 +171,11 @@ export class StoryEditorStateService
     return this._connections$$.add(connection);
   }
 
+  // @todo @reagan - investigate impact of deleting connections on the bot
   private _deleteConnection(connection: StoryBlockConnection) {
-    connection.deleted = true;
-    return this._connections$$.update(connection);
+    // connection.deleted = true;
+    // return this._connections$$.update(connection);
+    return this._connections$$.remove(connection);
   }
 
   /** 

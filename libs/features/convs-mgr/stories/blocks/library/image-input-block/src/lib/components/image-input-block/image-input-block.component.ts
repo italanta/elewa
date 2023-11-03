@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { ImageInputBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { _JsPlumbComponentDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
+import { _JsPlumbInputOptionDecorator } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-image-input-block',

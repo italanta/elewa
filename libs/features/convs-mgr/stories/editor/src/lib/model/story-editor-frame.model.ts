@@ -168,7 +168,10 @@ export class StoryEditorFrame
     const domSourceInputs = Array.from(document.querySelectorAll('input'));
     const domBlockCards = Array.from(document.querySelectorAll('mat-card'));
 
-    for (const conn of this._connections) {
+    // this._jsPlumb.setSuspendDrawing(true); // Start loading drawing
+
+    for (const conn of this._connections) 
+    {
       // anchorBlock.id == this._story.id!;
       // fetching the source (input) that matches the connection source id
       const sourceElement = domSourceInputs.find(
@@ -205,7 +208,7 @@ export class StoryEditorFrame
               location: 0.5,
               events: {
                 // Add a double-click event to the overlay
-                dblclick: (overlayData) => this._deleteConnection(overlayData)
+                dblclick: ((overlayData: any) => this._deleteConnection(overlayData)).bind(this)
               },
             },
           },
@@ -218,6 +221,8 @@ export class StoryEditorFrame
         },
       });
     }
+
+    // this._jsPlumb.setSuspendDrawing(false); // End loading drawing
 
     // Update the frame state listeners.
     this._frameChanges$$.next(this._state);
@@ -286,6 +291,7 @@ export class StoryEditorFrame
     const con = this.state.connections.find(
       (c) => c.id == overlayData.overlay.id
     );
+
     // Call the `deleteConnection` method of the `_connectionsService` object
     if (con)
       this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
@@ -293,8 +299,9 @@ export class StoryEditorFrame
     // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
     return DeleteConnectorbyID(
       this._jsPlumb,
-      this.state,
-      overlayData
+
+      // Pass overlayed connection id - This is the connection to be deleted
+      overlayData.overlay.id
     );
   }
 
