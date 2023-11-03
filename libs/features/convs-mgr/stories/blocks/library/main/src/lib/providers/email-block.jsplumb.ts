@@ -4,6 +4,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { EmailMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/main";
+import { left } from '@popperjs/core';
 
 /**
  * Decorates MessageBlock with JS plumb connectors.
@@ -22,7 +23,7 @@ export function _EmailBlockDecoratePlumb(block: EmailMessageBlock, comp: Compone
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: [0, 0.23, 1, 0],
+    anchor: "Left",
     maxConnections: -1
   });
 
