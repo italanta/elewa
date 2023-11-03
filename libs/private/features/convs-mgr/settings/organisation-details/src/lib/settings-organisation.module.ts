@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
+import {
+  MaterialDesignModule,
+  MaterialBricksModule,
+  FlexLayoutModule,
+  MaterialFormBricksModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 // import { FileStorageService } from '@ngfi/files';
 
@@ -11,7 +16,8 @@ import { MatSelectFilterModule } from 'mat-select-filter';
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 
 import { CompanyDataComponent } from './components/company-data/company-data.component';
-import { UpdateCompanyLogoModalComponent } from './components/update-company-logo-modal/update-company-logo-modal.component';
+import { UpdateCompanyLogoModalComponent } from './modals/update-company-logo-modal/update-company-logo-modal.component';
+import { AddChannelModalComponent } from './modals/add-channel-modal/add-channel-modal.component';
 
 @NgModule({
   imports: [
@@ -27,17 +33,16 @@ import { UpdateCompanyLogoModalComponent } from './components/update-company-log
     FormsModule,
     ReactiveFormsModule,
 
-    AccessControlModule
+    AccessControlModule,
   ],
   declarations: [
     CompanyDataComponent,
-    UpdateCompanyLogoModalComponent
+    UpdateCompanyLogoModalComponent,
+    AddChannelModalComponent,
   ],
-  exports: [
-    CompanyDataComponent
-  ],
+  exports: [CompanyDataComponent],
   providers: [
     // FileStorageService
-  ]
+  ],
 })
 export class SettingsOrganisationModule {}
