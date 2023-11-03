@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <app-default-option-field [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
 
   </form>
   <button (click)="addNewOption()" class="custom-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
