@@ -30,6 +30,10 @@ export const ICONS_AND_TITLES = {
   8: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO',
     icon: 'fas fa-microphone-alt',
+    svgIcon: 'assets/svgs/blocks/audio/noun-microphone-862192.svg',
+    svgIconPlay: 'assets/svgs/blocks/audio/Play.svg',
+    svgIconAudio: 'assets/svgs/blocks/audio/audio.svg',
+    svgIconCancel: 'assets/svgs/blocks/audio/Cancel.svg',
   },
   9: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STRUCTURAL',
