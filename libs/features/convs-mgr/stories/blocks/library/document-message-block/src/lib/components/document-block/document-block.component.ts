@@ -6,6 +6,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { FileStorageService } from '@app/state/file';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ICONS_AND_TITLES } from '../../../../../main/src/lib/assets/icons-and-titles';
+
 
 @Component({
   selector: 'app-document-block',
@@ -29,13 +31,19 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
 
   constructor(private _docUploadService: FileStorageService) {}
 
+  svgIcon = ''
+
   ngOnInit(): void {
     this.docInputId = `docs-${this.id}`;
     const fileSize = this.documentMessageForm.get('fileSize')?.value
+    this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon
 
     if (fileSize) {
       this._checkSizeLimit(fileSize);
     }
+  }
+  getBlockIconAndTitle(type: number) {
+    return ICONS_AND_TITLES[type];
   }
 
   async processDocs(event: any) {
@@ -46,6 +54,8 @@ export class DocumentBlockComponent implements OnInit, OnDestroy {
       this._docUploadService.openErrorModal("Invalid File Type", "Please select a .pdf only.");
       return;
     };
+
+    
 
     if (this.file) {
       this.isDocLoading = true;
