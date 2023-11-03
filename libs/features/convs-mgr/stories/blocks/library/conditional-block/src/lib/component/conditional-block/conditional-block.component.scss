@@ -5,14 +5,14 @@ input[type='text'] {
   box-sizing: border-box;
   margin: 0.3125rem 0; /* 5px / 16px = 0.3125rem */
   border: none solid var(--convs-mgr-placeholder-color); /* 1px / 16px = 0.0625rem */
-  border-radius:  0.9375rem; /* 5px / 16px = 0.3125rem */
+  border-radius:  0.4375rem; /* 5px / 16px = 0.3125rem */
   resize: none;
   padding: 8px;
   &:disabled {
     border: none;
     width: 100%;
     background-color: var(--convs-mgr-placeholder-color);
-    border-radius:  0.9375rem;
+    border-radius:  0.4375rem;
     font-family: Roboto;
     font-size: 0.5625rem;
     font-style: normal;
@@ -45,7 +45,7 @@ input[type='text'] {
 }
 .assess-label{
   padding: 8px;
-  border-radius: 15px;
+  border-radius: 0.4375rem;
   width:100%;
   appearance: none;
   border-color: var(--convs-mgr-placeholder-color);
@@ -60,7 +60,7 @@ input[type='text'] {
   margin: 0;
   padding: 8px;
   padding-right: 0.3125rem; /* 5px / 16px = 0.3125rem */
-  border-radius:  0.9375rem;
+  border-radius:  0.4375rem;
   background-color: var(--convs-mgr-placeholder-color);
   width: 100%;
   color:var(-convs-mgr-text-color);
@@ -90,7 +90,7 @@ input[type='text'] {
   .custom-button {
     width: 100%;
     background-color: var(--convs-mgr-placeholder-color);
-    border-radius: 0.9375rem;
+    border-radius: 0.4375rem;
     color: var(--convs-mgr-text-color);
     font-family: Roboto;
     font-size: 0.5625rem;
