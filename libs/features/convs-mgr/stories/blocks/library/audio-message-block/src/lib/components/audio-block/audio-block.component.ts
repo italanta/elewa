@@ -8,6 +8,8 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
+
 @Component({
   selector: 'app-audio-block',
   templateUrl: './audio-block.component.html',
@@ -28,10 +30,19 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
   whatsappLimit: boolean;
   messengerLimit: boolean;
 
+  svgIconPlay = '';
+  svgIconAudio = '';
+  svgIconCancel = '';
+
   constructor(private _audioUploadService: FileStorageService) {}
 
   ngOnInit(): void {
     this.audioInputId = `aud-${this.id}`;
+
+    this.svgIconAudio = ICONS_AND_TITLES[8].svgIconAudio;
+    this.svgIconCancel = ICONS_AND_TITLES[8].svgIconCancel;
+    this.svgIconPlay = ICONS_AND_TITLES[8].svgIconPlay;
+
     const fileSize = this.audioMessageForm.get('fileSize')?.value
 
     if (fileSize) {

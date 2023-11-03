@@ -13,15 +13,15 @@ audio {
 
 input {
 	max-width: 100%;
-	height: fit-content !important;
-	padding: 5px 10px;
+	padding: 0.725rem 0.938rem;
 	margin-bottom: 5px;
-	border-radius: 3px;
+	border-radius: 0.9rem;
 	caret-color: var(--convs-mgr-color-text-black);
 	color: var(--convs-mgr-color-text-black);
 	outline: none;
-	border: 1px solid var(--convs-mgr-color-text-black);
-}
+	border: none;
+	background-color: var(--convs-mgr-placeholder-color);
+}	
 
 .fileSrc {
 	display: none;
@@ -54,14 +54,40 @@ input {
 }
 
 .audio_bg {
-	margin: 5px 0;
+	margin: 5px;
 	width: 210px;
 	border-radius: 4px;
-	border: 2px solid var(--convs-mgr-color-primary-purple);
+	// border: 2px solid var(--convs-mgr-color-primary-purple);
 
 	&.error {
 		border: 3px solid red !important;
 	}
+
+	.audio-icons-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		min-height: 3.75rem;
+		width: 90%;
+		margin-inline: auto;
+	  }
+	
+	  .play {
+		width: 1.25rem;
+		height: 1.25rem;
+		margin-right: 0.313rem;
+	  }
+	
+	  .audio {
+		height: 1.35rem;
+	  }
+	
+	  .cancel {
+		width: 1rem;
+		height: 1rem;
+		margin-left: 0.625rem;
+	  }
 }
 
 .error-message {
