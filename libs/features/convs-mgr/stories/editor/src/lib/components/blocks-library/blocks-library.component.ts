@@ -17,7 +17,7 @@ import {
 
 import { StoryEditorFrame } from '../../model/story-editor-frame.model';
 import { DragDropService } from '../../providers/drag-drop.service';
-import { iconsAndTitles } from 'libs/features/convs-mgr/stories/blocks/library/main/src/lib/model/icons-and-titles';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
 
 /**
  * Component which holds a library (list) of all blocks that can be created
@@ -49,7 +49,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     { id: 'io-email-block', type: StoryBlockTypes.Email, message: 'Email', blockIcon: this.getBlockIcon(StoryBlockTypes.Email), blockCategory: 'questions-block' } as EmailMessageBlock,
     { id: 'io-phone-block', type: StoryBlockTypes.PhoneNumber, message: 'Phone', blockIcon: this.getBlockIcon(StoryBlockTypes.PhoneNumber), blockCategory: 'questions-block' } as PhoneMessageBlock,
     { id: 'input-video-block', type: StoryBlockTypes.Video, message: 'Video', blockIcon: this.getBlockIcon(StoryBlockTypes.Video), blockCategory: 'multimedia-block' } as VideoMessageBlock,
-    { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker), blockCategory: 'images-block' } as StickerMessageBlock,
+    // { id: 'input-sticker-block', type: StoryBlockTypes.Sticker, message: 'Sticker', blockIcon: this.getBlockIcon(StoryBlockTypes.Sticker), blockCategory: 'images-block' } as StickerMessageBlock,
     { id: 'io-list-block', type: StoryBlockTypes.List, message: 'List', blockIcon: this.getBlockIcon(StoryBlockTypes.List), blockCategory: 'questions-block' } as ListMessageBlock,
     // { id: 'input-reply-block', type: StoryBlockTypes.Reply, message: 'Reply', blockIcon: this.getBlockIcon(StoryBlockTypes.Reply) } as ReplyMessageBlock,
     { id: 'jump-story-block', type: StoryBlockTypes.JumpBlock, message: 'Jump', blockIcon: this.getBlockIcon(StoryBlockTypes.JumpBlock), blockCategory: 'questions-block' } as JumpBlock,
@@ -81,7 +81,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
   }
 
   getBlockIcon(type: number) {
-    return iconsAndTitles[type].icon;
+    return ICONS_AND_TITLES[type].icon;
   }
 
   getSvgIcon(type: number) {

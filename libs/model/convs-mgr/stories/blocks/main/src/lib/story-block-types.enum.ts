@@ -100,11 +100,6 @@ export enum StoryBlockTypes {
    */
   JumpBlock = 18,
 
-  /**
-   * Block that sends a list of items for user to choose and asks a question if they want to choose again
-   */
-  MultipleInput = 19,
-
   /** */
   FailBlock = 20,
   AudioInput = 21,
@@ -144,6 +139,9 @@ export enum StoryBlockTypes {
   AssessmentQuestionBlock = 33,
 
   CMI5Block = 34,
+
+  /** The block that represents a single survey question */
+  SurveyQuestionBlock = 35,
 
   EndStoryAnchorBlock = 9999,
 }
@@ -217,3 +215,30 @@ export function isMediaBlock(blockType: StoryBlockTypes): boolean {
       return false
   }
 }
+
+// Return Blocks with options generally
+export function isOptionBlock(blockType: StoryBlockTypes) {
+  switch (blockType) {
+    case StoryBlockTypes.ListBlock:
+      return true;
+    case StoryBlockTypes.keyword:
+      return true;
+    case StoryBlockTypes.QuestionBlock:
+      return true
+    case StoryBlockTypes.CMI5Block:
+      return true
+    case StoryBlockTypes.Assessment:
+      return true
+    case StoryBlockTypes.Conditional:
+      return true
+    case StoryBlockTypes.JumpBlock:
+      return true
+    default:
+      return false
+  }
+}
+
+
+
+
+
