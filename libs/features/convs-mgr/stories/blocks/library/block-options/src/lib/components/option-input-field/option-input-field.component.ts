@@ -19,6 +19,7 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   @Input() isNotEndpoint: boolean;
   @Input() isReadOnly: boolean;
   @Input() charMaxlength: number;
+  @Input() optionNumber: number;
 
   inputUniqueId: string;
   optionValue = "";
