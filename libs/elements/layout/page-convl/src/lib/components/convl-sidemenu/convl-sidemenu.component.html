@@ -72,8 +72,8 @@
                 </span>
                 <img *ngIf="isExpanded" src="assets/icons/expand-icon.png" width="25" [@indicatorRotate]="displayDropDownContent ? 'expanded': 'collapsed'">
               </a>
-              <ul *ngIf="displayDropDownContent" class="sub-side-menu">
-                <li >
+              <ul *ngIf="displayDropDownContent" [ngClass]="{ 'sub-side-menu': isExpanded, 'sub-side-menu-collapsed': !isExpanded }">
+                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                   <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
                       <img *ngIf="isExpanded" src="assets/icons/message-chat.svg" class="img" alt="">
