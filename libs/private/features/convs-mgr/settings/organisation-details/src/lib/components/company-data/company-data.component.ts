@@ -23,9 +23,9 @@ export class CompanyDataComponent implements OnInit {
   orgDataFormGroup: FormGroup;
 
   activeOrgLoaded: boolean;
-  editOrg: boolean = false;
-  formIsReady: boolean = false;
-  showButtons: boolean = false;
+  editOrg = false;
+  formIsReady = false;
+  showButtons = false;
 
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;

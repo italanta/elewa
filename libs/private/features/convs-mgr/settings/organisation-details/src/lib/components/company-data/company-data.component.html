@@ -32,7 +32,7 @@
           <div fxLayout="column"  fxFlex>
             <p class="static-label">{{"ORGS.FORM.NAME" | transloco}}</p>
           
-              <input matInput type="email" formControlName="name" class="name-input">
+              <input matInput type="text" formControlName="name" class="name-input">
          
           </div>
         </div>
@@ -85,15 +85,18 @@
                 <input matInput type="text" formControlName="postalAddress">
                 
             </div>
+          
           </div>
 
+          <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)" mat-raised-button>
+            <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
+            <ng-template #saveProfile>
+              <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
+            </ng-template>
+          </button>
+         
           <div>
-              <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)" mat-raised-button>
-                <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
-                <ng-template #saveProfile>
-                  <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
-                </ng-template>
-              </button>
+              
           </div>
         </div>
       </form>
