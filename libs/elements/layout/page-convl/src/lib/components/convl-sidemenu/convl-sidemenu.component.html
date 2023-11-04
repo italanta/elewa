@@ -66,6 +66,9 @@
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
+                <span class="menu-icon" [ngClass]="{'chev-collapsed': !isExpanded}">
+                  <img src="assets/icons/chevron-down.png" alt="" class="img chevron" [ngClass]="{'chevron-up': isDropdownOpen}">
+                </span>
               </a>
 
               <div *ngIf="isDropdownOpen">
