@@ -24,7 +24,7 @@ export function _KeywordJumpBlockDecoratePlumb(
     target: true,
     cssClass: 'block_endpoint',
     endpoint: 'Dot',
-    anchor: 'Left',
+    anchor: "Left",
     maxConnections: -1,
   });
 
