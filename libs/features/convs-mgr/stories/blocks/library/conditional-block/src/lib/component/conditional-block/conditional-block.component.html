@@ -27,9 +27,9 @@
           <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
         </div>
       </div>
-    </div>
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
 
+    </div>
   </form>
   <button (click)="addNewOption()" class="custom-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
 </div>
