@@ -840,7 +840,10 @@
         "BOT-PHONE-NUMBER-ID":"ID du numéro de téléphone du robot",
         "BUSINESS-ACCOUNT-ID":"ID de compte professionnel",
         "PAGE-ID":"Identifiant de la page",
-        "MESSENGER-CHANNEL-DETAILS":"Détails du canal Messenger"
+        "MESSENGER-CHANNEL-DETAILS":"Détails du canal Messenger",
+        "CHANNEL-NAME":"Nom du canal",
+        "PLATFORM":"Plate-forme",
+        "FIRST-STORY":"Première histoire"
         
     }
   }

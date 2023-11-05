@@ -14,16 +14,16 @@ import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-cha
 
 
 interface CardElement{
-  date: string;
-    description: string;
-    amount: number;
+    ChannelName: string;
+    platform: string;
+    firstStory: string;
     download: string;
 }
 
 const ELEMENT_DATA: CardElement[] = [
-  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'EditChannel' },
-  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'EditChannel' },
-  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'EditChannel' },
+  { ChannelName: "23 August 2023", platform: 'Plan 1', firstStory: "hello", download: 'EditChannel' },
+  { ChannelName: "23 August 2023", platform: 'Plan 1', firstStory: "hello", download: 'EditChannel' },
+  { ChannelName: "23 August 2023", platform: 'Plan 1', firstStory: "hello", download: 'EditChannel' },
 ];
 
 @Component({

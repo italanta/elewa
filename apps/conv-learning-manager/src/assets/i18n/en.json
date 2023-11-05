@@ -1128,7 +1128,10 @@
       "BOT-PHONE-NUMBER-ID":"Bot Phone Number ID",
       "BUSINESS-ACCOUNT-ID":"Business Account ID",
       "PAGE-ID":"Page ID",
-      "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details"
+      "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
+      "CHANNEL-NAME":"Channel Name",
+      "PLATFORM":"Platform",
+      "FIRST-STORY":"First Story"
       
   }
 }

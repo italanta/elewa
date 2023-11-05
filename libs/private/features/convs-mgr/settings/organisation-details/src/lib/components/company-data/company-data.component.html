@@ -111,20 +111,20 @@
     
       
         <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef> {{ 'BILLINGS.DATE' | transloco }}</th>
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}}</th>
           <td mat-cell *matCellDef="let element"> {{element.ChannelName}} </td>
         </ng-container>
     
       
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> {{ 'BILLINGS.DESCRIPTION' | transloco }} </th>
-          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.PLATFORM" | transloco}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.platform}} </td>
         </ng-container>
     
       
         <ng-container matColumnDef="weight">
-          <th mat-header-cell *matHeaderCellDef> {{ 'BILLINGS.AMOUNT' | transloco }} </th>
-          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.FIRST-STORY" | transloco}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstStory}} </td>
         </ng-container>
     
      
