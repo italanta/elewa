@@ -91,14 +91,15 @@ input {
 	height: 40px;
 	color: var(--convs-mgr-color-primary-white) !important;
 }
+.playAudio{
+	padding-bottom: 1rem;
+	padding-top: 1rem
+}
 .play {
 	border: none;
 	background-color: transparent;
   }
-  .audio {
-	border: none;
-	background-color: transparent;
-  }
+  
   .delete {
 	border: none;
 	background-color: transparent;
