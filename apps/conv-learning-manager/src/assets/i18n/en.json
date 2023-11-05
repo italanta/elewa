@@ -1102,13 +1102,35 @@
 "COMPANY-INFORMATION":{
   "BUTTON":{
     "UPLOAD":"Upload",
-    "REMOVE":"Remove"
+    "REMOVE":"Remove",
+    "CANCEL":"Cancel"
   },
   "REMOVE":"Remove",
   "BASIC-INFO":"Basic Information",
   "ADDRESS-INFO":"Address Information",
   "EDIT-CO-INFO":"Edit company information",
-  "SAVE-ORG":"Save Organization"
+  "SAVE-ORG":"Save Organization",
+  "CHANNEL-MODAL":{
+      "BUTTONS":{
+        "CANCEL":"Cancel",
+        "CONTINUE":"Continue"
+      },
+      "ADD-CHANNEL":"Add Channel",
+      "SELECT-PLATFORM":"Select Platform",
+      "ADD-DETAILS":"Add Details",
+      "WHATSAPP":"WhatsApp",
+      "Messenger":"Messenger",
+      "GENERAL-DETAILS":"General Details",
+      "BOT-DETAILS":"Bot Details",
+      "WHATSAPP-CHANNEL-DETAILS":"WhatsApp Channel Details",
+      "ACCESS-TOKEN":"Access Token",
+      "BOT-PHONE-NUMBER":"Bot Phone Number",
+      "BOT-PHONE-NUMBER-ID":"Bot Phone Number ID",
+      "BUSINESS-ACCOUNT-ID":"Business Account ID",
+      "PAGE-ID":"Page ID",
+      "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details"
+      
+  }
 }
 
 }
