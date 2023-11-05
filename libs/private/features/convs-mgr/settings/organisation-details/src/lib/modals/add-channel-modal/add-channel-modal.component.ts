@@ -34,6 +34,6 @@ export class AddChannelModalComponent {
   
 
   closeModal() {
-    // this._dialog.close();
+    this._dialog.closeAll();
   }
 }

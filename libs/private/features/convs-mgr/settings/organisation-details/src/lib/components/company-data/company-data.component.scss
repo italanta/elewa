@@ -1,5 +1,4 @@
 .company-details{
-  background-color: #F6F6F6;
   margin: 10vh 10vh;
   .company-logo{
     img{
@@ -40,6 +39,8 @@
   
   .information{
         padding: 3%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+        background-color: white;
     .company-fields{
       form{
         h4{
@@ -98,8 +99,20 @@
     }
   }
   .card{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    background-color: white;
     cursor: pointer;
     padding: 3%;
+    margin-top: 2%;
+    .button-link{
+      // Add channel
+    color: #1F7A8C;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 300;
+    text-decoration: underline;
+    word-wrap: break-word
+    }
   }
 }
 

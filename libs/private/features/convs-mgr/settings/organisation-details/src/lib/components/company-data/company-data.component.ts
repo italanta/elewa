@@ -12,11 +12,27 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
 import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
 
+
+interface CardElement{
+  date: string;
+    description: string;
+    amount: number;
+    download: string;
+}
+
+const ELEMENT_DATA: CardElement[] = [
+  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'EditChannel' },
+  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'EditChannel' },
+  { date: "23 August 2023", description: 'Plan 1', amount: 1200, download: 'EditChannel' },
+];
+
 @Component({
   selector: 'company-data',
   templateUrl: './company-data.component.html',
   styleUrls: ['./company-data.component.scss']
 })
+
+
 export class CompanyDataComponent implements OnInit {
 
   activeOrg: Organisation;
@@ -30,11 +46,16 @@ export class CompanyDataComponent implements OnInit {
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
+ 
+
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
               // private _fileStorageService$$: FileStorageService,
               private _orgService$$: OrganisationService
   ) { }
+
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  dataSource = ELEMENT_DATA;
 
   ngOnInit(): void {
     this.getActiveOrg();
@@ -103,4 +124,5 @@ export class CompanyDataComponent implements OnInit {
       minHeight: '338px',
     });
   }
+ 
 }
