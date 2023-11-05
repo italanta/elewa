@@ -1,7 +1,10 @@
 <div [id]="id" *ngIf="audioMessageForm">
-    <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
-
-        <!-- <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
+  <form
+    [formGroup]="audioMessageForm"
+    fxLayout="column"
+    fxLayoutALign="start center"
+  >
+    <!-- <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">
 
             <div *ngIf="this.block.fileSrc && !isLoadingAudio">
                 <audio controls>
@@ -16,32 +19,37 @@
 
             <div>
                 <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
-            </div> -->
-        
+            </div>
+        </div> -->
 
-        <div class="error-message" *ngIf="whatsappLimit">
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE' | transloco }}</span><br>
-            <span>{{ 'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO' | transloco }}</span>
-        </div>
-        <div class="lis">
-            <button class="play">
-              <img src="assets/icons/Play.svg" />
-            </button>
-            <!-- <label class="option">Option {{ i + 1 }}</label> -->
+    <div class="error-message" *ngIf="whatsappLimit">
+      <span>{{
+        'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-ONE'
+          | transloco
+      }}</span
+      ><br />
+      <span>{{
+        'PAGE-CONTENT.BLOCK.SIZE-LIMIT-MESSAGE.WHATSAPP.AUDIO.MESSAGE-TWO'
+          | transloco
+      }}</span>
+    </div>
+    <div class="playAudio">
+      <button class="play">
+        <img src="assets/icons/Play.svg" />
+      </button>
 
-            <button class="audio">
-                <img src="assets/svgs/blocks/audio.svg" />
-              </button>
-              <button  class="delete">
-                <img src="/assets/icons/delete-x.svg" />
-              </button>
-          </div>
-        <input type="text" formControlName="fileSrc"
-            [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
-            id="audio-link ">
-            
+      <img src="assets/svgs/blocks/audio.svg" />
 
-        <!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field> -->
-       
-    </form>
+      <button class="delete">
+        <img src="/assets/icons/delete-x.svg" />
+      </button>
+    </div>
+    <input
+      type="text"
+      formControlName="fileSrc"
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco"
+      name="audio-link "
+      id="audio-link "
+    />
+  </form>
 </div>
