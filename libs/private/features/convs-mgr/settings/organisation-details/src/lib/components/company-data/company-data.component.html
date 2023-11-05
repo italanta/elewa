@@ -106,7 +106,7 @@
   
   <div class="card" >
     <h3>My Channels</h3>
-    <div>
+    <div *ngIf="dataSource.length !== 0">
       <table mat-table [dataSource]="dataSource">
     
       
