@@ -8,12 +8,61 @@
     display: flex;
     flex-direction: column;
     width: 26.5625rem;
-    height: 15.6875rem;
     border-radius: 1.5625rem;
     background: #FFF;
     flex-shrink: 0;
     padding: 0.94rem 2.38rem;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .date-container{
+        display: flex;
+        justify-content: space-between;
+        padding: 2rem 0;
+    }
+    .date,.time{
+        input{
+            height: 2rem;
+            border-radius: 0.5rem;
+            padding: 0.3rem;
+        }
+    }
+    .recur{
+        display: flex;
+        justify-content: space-between; 
+        align-items: center;
+        .select{
+            select{
+                border: none;
+                background-color: #FFF;
+            }
+            select ::after{
+                border: none;
+            }
+            select ::before{
+                border: none;
+            }
+        }
+    }
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+    }
+    .weekly{
+        .weeks{
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+    .monthly{
+        .months{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        
+    }
 }
+
 .send-btn{
     border-radius: 1.5625rem;
     width: 4.875rem;
@@ -22,9 +71,76 @@
     background-color: #1F7A8C!important;
     color: white!important;
     font-family: Roboto;
-    font-size: 0.875rem;
+    font-size: small;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     align-self: flex-end;
   }
+
+  .cancel-btn{
+    border-radius: 1.5625rem;
+    width: 4.875rem;
+    height: 2.0625rem;
+    flex-shrink: 0;
+    // background-color: #1F7A8C!important;
+    color: black!important;
+    font-family: Roboto;
+    font-size: small;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-self: flex-end;
+    border: 1px #1F7A8C solid;
+  }
+
+
+  .selected-day {
+    background-color: #1F7A8C; 
+    color: white;
+    border-radius: 0.5rem; 
+    }
+
+
+  
+  
+
+  ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 1.3rem !important;
+  }
+
+
+
+  .custom-dropdown {
+    position: relative;
+    width: 150px; /* Adjust the width as needed */
+  }
+  
+  #circular-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 50px; /* Makes the dropdown circular */
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+  }
+  
+  #circular-dropdown option {
+    border-radius: 50px;
+    background-color: #fff; /* Option background color */
+  }
+  
+  /* Style to hide the default dropdown arrow */
+  #circular-dropdown::-ms-expand {
+    display: none;
+  }
+  
+  #circular-dropdown::before {
+    content: '▼'; /* Custom dropdown arrow (you can use a different icon) */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+  

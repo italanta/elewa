@@ -1,16 +1,110 @@
 <div class="specific-time">
     <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.SEND-MESSAGE-AT-SPECIFIC-TIME'| transloco }} </p>
-    <mat-form-field appearance="outline">
+    <!-- <mat-form-field appearance="outline">
       <mat-label>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-DATE'| transloco }} </mat-label>
       <input matInput [matDatepicker]="picker" placeholder="Date and Time" (dateChange)="dateChanged($event)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
+    </mat-form-field> -->
+    <div class="date-container">
+      <div class="date">
+        <input type="date" id="birthday" name="birthday">
+      </div>
+      <div class="time">
+        <input type="time" id="appt" name="appt">
+      </div>
+    </div>
+
+    <div class="recur">
+      <div class="text">
+        <p>Recur</p>
+      </div>
+      <div class="select">
+        <div class="custom-dropdown">
+          <select id="circular-dropdown" (change)="onRecurrenceChange($event)">
+            <option value="Never">Never</option>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Monthly">Monthly</option>
+            
+          </select>
+        </div>
+      </div>
+    </div>
+   
+    <!-- <mat-form-field appearance="outline">
       <input matInput type="time" [(ngModel)]="selectedTime" placeholder="Time">
-    </mat-form-field>
-    <button mat-raised-button class="send-btn" (click)="saveDateTime()">
-      <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }} </span>
-    </button>
-  </div>
+    </mat-form-field> -->
+
+   
+      <div class="daily" *ngIf="selectedRecurrence === 'Daily'">
+        <p>Recur daily configurations</p>
+
+        <div class="select-days" >
+            <p>Repeat every<input type="number"> days</p>
+            <p>Occurs every day until 20th Oct 2021</p>
+            <p>Remove end date</p>
+        </div>
+      </div>
+
+      <div class="weekly" *ngIf="selectedRecurrence === 'Weekly'">
+        <p>Recur weekly configurations</p>
+    
+        <div class="weeks">
+            <p [ngClass]="{'selected-day': selectedDays.includes('Monday')}" (click)="toggleSelectedDay('Monday')">M</p>
+            <p [ngClass]="{'selected-day': selectedDays.includes('Tuesday')}" (click)="toggleSelectedDay('Tuesday')">T</p>
+            <p [ngClass]="{'selected-day': selectedDays.includes('Wednesday')}" (click)="toggleSelectedDay('Wednesday')">W</p>
+            <p [ngClass]="{'selected-day': selectedDays.includes('Thursday')}" (click)="toggleSelectedDay('Thursday')">T</p>
+            <p [ngClass]="{'selected-day': selectedDays.includes('Friday')}" (click)="toggleSelectedDay('Friday')">F</p>
+            <p [ngClass]="{'selected-day': selectedDays.includes('Saturday')}" (click)="toggleSelectedDay('Saturday')">S</p>
+            <p [ngClass]="{'selected-day': selectedDays.includes('Sunday')}" (click)="toggleSelectedDay('Sunday')">S</p>
+        </div>
+        <div class="select-days" >
+            <p>Repeat every<input type="number"> Weeks</p>
+            <p>Occurs every day until 20th Oct 2021</p>
+            <p>Remove end date</p>
+        </div>
+    </div>
+    
+    <div class="monthly" *ngIf="selectedRecurrence === 'Monthly'">
+      <p>Recur Monthly configurations</p>
+
+      <div class="months">
+        <p [ngClass]="{'selected-day': selectedDays.includes('January')}" (click)="toggleSelectedDay('January')">1</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('Febuary')}" (click)="toggleSelectedDay('Febuary')">2</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('March')}" (click)="toggleSelectedDay('March')">3</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('April')}" (click)="toggleSelectedDay('April')">4</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('May')}" (click)="toggleSelectedDay('May')">5</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('June')}" (click)="toggleSelectedDay('June')">6</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('July')}" (click)="toggleSelectedDay('July')">7</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('August')}" (click)="toggleSelectedDay('August')">8</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('September')}" (click)="toggleSelectedDay('September')">9</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('October')}" (click)="toggleSelectedDay('October')">10</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('November')}" (click)="toggleSelectedDay('November')">11</p>
+        <p [ngClass]="{'selected-day': selectedDays.includes('December')}" (click)="toggleSelectedDay('December')">12</p>
+    </div>
+    
+
+      <div class="select-days" >
+          <p>Repeat every<input type="number"> months</p>
+          <p>Occurs every day until 20th Oct 2021</p>
+          <p>Remove end date</p>
+      </div>
+    </div>
+
+    <div class="buttons">
+        <div class="cancel">
+          <button mat-raised-button class="cancel-btn" >
+            <span>CANCEL </span>
+          </button>
+        </div>
+        <div class="save">
+          <button mat-raised-button class="send-btn" (click)="saveDateTime()">
+            <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }} </span>
+          </button>
+        </div>
+    </div>
+   
+    
+</div>
   

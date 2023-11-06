@@ -7,12 +7,16 @@ import { Router } from '@angular/router';
   templateUrl: './specific-time-modal.component.html',
   styleUrls: ['./specific-time-modal.component.scss'],
 })
+
+
 export class SpecificTimeModalComponent {
   @Output() dateTimeSelected = new EventEmitter<{ date: Date, time: string }>();
 
   selectedDate: Date;
   selectedTime: string;
   action: string;
+  selectedRecurrence = 'Never'; 
+  selectedDays: string[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 
@@ -26,6 +30,32 @@ export class SpecificTimeModalComponent {
   dateChanged(event: any): void {
     this.selectedDate = event.value;
   }
+
+  onRecurrenceChange(event: any): void {
+    this.selectedRecurrence = event.target.value;
+}
+
+
+
+  toggleSelectedDay(day: string): void {
+      if (this.selectedDays.includes(day)) {
+          this.selectedDays = this.selectedDays.filter((d) => d !== day);
+      } else {
+          this.selectedDays.push(day);
+      }
+  }
+
+  scrollMonths(direction: 'left' | 'right') {
+    const monthsContainer = document.querySelector('.months');
+    if (monthsContainer) {
+      if (direction === 'left') {
+        monthsContainer.scrollLeft -= 100; // Adjust the scroll distance as needed
+      } else {
+        monthsContainer.scrollLeft += 100; // Adjust the scroll distance as needed
+      }
+    }
+  }
+  
 
   saveDateTime(): void {
     if (this.selectedDate && this.selectedTime) {
