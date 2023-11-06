@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { ChannelsStore } from '../store/channel.store'
+import { ChannelsStore } from '../store/channel.store';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ChannelsService {
+export class CommunicationChannelService {
   constructor(private _channels$$: ChannelsStore) {}
 
   getAllChannels() {
