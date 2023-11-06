@@ -3,13 +3,13 @@
 	border-radius: 5px;
 	height: fit-content;
 	width: 6.5rem;
-	padding: 0.8rem;
+	padding: 0.5rem;
 	background-color: var(--convs-mgr-color-primary-purple);
 	color: white;
 	text-align: center;
 	cursor: pointer;
 	z-index: 10;
-	font-size: 12px;
+	font-size: medium;
 }
 
 input[disabled]::placeholder {
