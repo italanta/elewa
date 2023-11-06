@@ -31,7 +31,7 @@
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word;
-          margin-top: 30px;
+          margin-top: 2rem;
         }
       }
     
@@ -87,7 +87,7 @@
           background: var(--convs-mgr-color-button); 
           border-radius: 25px;
           color: white;
-          font-size: 14px;
+          font-size: medium;
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word;
@@ -106,7 +106,7 @@
     .button-link{
       // Add channel
     color: #1F7A8C;
-    font-size: 18px;
+    font-size: medium;
     font-family: Roboto;
     font-weight: 300;
     text-decoration: underline;
@@ -115,7 +115,7 @@
     .channel-head{
       // My Channels
       color: #101010;
-      font-size: 18px;
+      font-size: medium;
       font-family: Roboto;
       font-weight: 400;
       word-wrap: break-word
@@ -125,7 +125,7 @@
           .channelTitle{
             // Channel Name
             color: #707070;
-            font-size: 18px;
+            font-size: medium;
             font-family: Roboto;
             font-weight: 300;
             word-wrap: break-word
