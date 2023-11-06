@@ -32,7 +32,7 @@ body {
 
 //blocks
 .wide{
-  padding: 10px;
+  padding: 1rem;
   width: 25vh;
 }
 
@@ -53,7 +53,7 @@ body {
 
 .jtk-overlay svg {
   color: var(--convs-mgr-color-primary-pink) !important;
-  font-size: 16px !important;
+  font-size: medium !important;
 }
 
 .jsplumb_instance svg path:hover {
