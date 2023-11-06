@@ -26,7 +26,7 @@ body {
 //connector
 .jsplumb_instance svg path {
   stroke: var(--connector-color);
-  stroke-width: 3.5px;
+  stroke-width: 0.2rem;
 
 }
 
@@ -43,8 +43,8 @@ body {
 .jtk-overlay {
   background-color: #ffffff;
   border: none;
-  border-radius: 30px;
-  padding: 8px 8px 6px 8px;
+  border-radius: 1.9rem;
+  padding: 0.5rem 0.5rem 0.4rem 0.5rem;
   cursor: pointer;
   position: relative;
   display: none;
