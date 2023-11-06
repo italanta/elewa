@@ -11,19 +11,15 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 
 import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
 import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
+import { CardElement } from '../../interfaces/channneldetails.interface';
 
 
-interface CardElement{
-    ChannelName: string;
-    platform: string;
-    firstStory: string;
-    download: string;
-}
+
 
 const ELEMENT_DATA: CardElement[] = [
-  { ChannelName: "23 August 2023", platform: 'Plan 1', firstStory: "hello", download: 'EditChannel' },
-  { ChannelName: "23 August 2023", platform: 'Plan 1', firstStory: "hello", download: 'EditChannel' },
-  { ChannelName: "23 August 2023", platform: 'Plan 1', firstStory: "hello", download: 'EditChannel' },
+  { ChannelName: "farmBetter Kenya", platform: 'WhatsApp' , firstStory: "Plant Care", download: 'EditChannel' },
+  { ChannelName: "kenyaScouts Association", platform: 'Messenger', firstStory: "Scout Rules", download: 'EditChannel' },
+  
 ];
 
 @Component({
