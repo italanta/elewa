@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
-import { _JsPlumbComponentDecorator } from '../../providers/jsplumb-decorator.function';
+import { _JsPlumbInputOptionDecorator } from '../../providers/jsplumb-decorator.function';
 
 @Component({
   selector: 'app-option-input-field',
@@ -21,9 +21,7 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   @Input() charMaxlength: number;
 
   inputUniqueId: string;
-  optionValue: string = "";
-
-  constructor() { }
+  optionValue = "";
 
   ngOnInit(): void 
   {
@@ -37,9 +35,9 @@ export class OptionInputFieldComponent implements OnInit, AfterViewInit {
   }
 
   private _decorateInput() {
-    let input = document.getElementById(this.inputUniqueId) as Element;
+    const input = document.getElementById(this.inputUniqueId) as Element;
     if (this.jsPlumb) {
-      input = _JsPlumbComponentDecorator(input, this.jsPlumb);
+      _JsPlumbInputOptionDecorator(input, this.jsPlumb);
     }
   }
   

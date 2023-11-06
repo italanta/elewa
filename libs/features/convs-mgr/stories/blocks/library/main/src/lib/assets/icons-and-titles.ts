@@ -1,4 +1,4 @@
-export const iconsAndTitles: any = {
+export const ICONS_AND_TITLES = {
   1: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE',
     icon: 'fas fa-comment-alt',
@@ -105,6 +105,7 @@ export const iconsAndTitles: any = {
   29: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.KEYWORD-JUMP',
     icon: 'fas fa-bullseye',
+    svgIcon: '/assets/icons/bullseye.svg',
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
@@ -112,7 +113,8 @@ export const iconsAndTitles: any = {
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
-    icon: 'fas fa-chart-bar'
+    icon: 'fas fa-chart-bar',
+    svgIcon: '/assets/icons/assessments-stroked.svg'
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
