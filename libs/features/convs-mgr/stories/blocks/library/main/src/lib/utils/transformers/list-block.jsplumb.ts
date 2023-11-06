@@ -17,18 +17,8 @@ import { BlockComponent } from "@app/features/convs-mgr/stories/blocks/library/m
 export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: ComponentRef<BlockComponent>, jsPlumb: BrowserJsPlumbInstance) : ComponentRef<BlockComponent> 
 {
 
-  // jsPlumb.addEndpoint(comp.location.nativeElement, {
-  //   // Whether the anchor is target (Other Block -> This Block)
-  //   target: true,
-  //   cssClass:"block_endpoint",
-
-  //   endpoint: 'Dot',
-  //   anchor: "Left",
-  //   maxConnections: -1
-
-  // });
+  
   jsPlumb.addEndpoint(comp.location.nativeElement, {
-    // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
@@ -36,15 +26,7 @@ export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: Component
     maxConnections: -1
 
   });
-  // jsPlumb.addEndpoint(comp.location.nativeElement, {
-  //   // Whether the anchor is target (Other Block -> This Block)
-  //   target: true,
-  //   cssClass:"block_endpoint",
-  //   endpoint: "Dot",
-  //   anchor: [1,0.7,0,0],
-  //   maxConnections: -1
-
-  // });
+ 
   
    return comp;
 
