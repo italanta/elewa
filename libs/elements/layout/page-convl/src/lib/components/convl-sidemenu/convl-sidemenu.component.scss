@@ -45,6 +45,16 @@ $sidebar-footer-height: 230px;
   cursor: pointer!important;
 }
 
+.arrow-icon {
+  cursor: pointer;
+  width: 1em;
+  height: 1em;
+
+  &.rotate180 {
+    transform: rotate(180deg);
+  }
+} 
+
 .logo {
   width: 90%;
   height: auto;
