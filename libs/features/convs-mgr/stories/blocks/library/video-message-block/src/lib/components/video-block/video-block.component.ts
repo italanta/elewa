@@ -9,9 +9,7 @@ import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
 
 import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video-upload-modal.component';
 
-import { iconsAndTitles } from '../../../../../main/src/lib/model/icons-and-titles';
-
-
+import {ICONS_AND_TITLES} from '../../../../../main/src/lib/assets/icons-and-titles'
 @Component({
   selector: 'app-video-block',
   templateUrl: './video-block.component.html',
@@ -44,7 +42,7 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   
   /**Get icon and title information based on 'type'. */
   getBlockIconAndTitle(type:number) {
-    return iconsAndTitles[type];
+    return ICONS_AND_TITLES[type];
   }
 
   checkIfVideoExists() {
