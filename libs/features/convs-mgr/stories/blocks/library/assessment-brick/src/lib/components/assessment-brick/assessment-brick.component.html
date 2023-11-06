@@ -7,7 +7,7 @@
           <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.ASSESSMENTS-NAME' | transloco }}</option>
           <option>--</option>
           <option *ngFor="let assessment of assessments" [value]="assessment.id">
-            {{ assessment.name }}
+            {{ assessment.title }}
             <!-- Display all available assessments for the active organization -->
           </option>
         </select>
