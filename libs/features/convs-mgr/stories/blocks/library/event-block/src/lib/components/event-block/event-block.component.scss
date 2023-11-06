@@ -1,15 +1,16 @@
 .name-input {
 	max-width: 100%;
-	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	border-radius: 5px;
+	margin: 0.5em 0;
+	background-color: var(--convs-mgr-color-primary-light-grey);
+	border-radius: 0.8em;
 	resize: none;
-	padding: 10px;
-}
+	padding: 0.75em 1.25em;
+	border: 0.0625em solid transparent; /* Add a default border style */
+  }
 
-.name-input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+.name-input:focus{
+	border: 0.0625em solid var(--convs-mgr-color-primary-grey);
+	outline-color: var(--convs-mgr-color-primary-grey);
 }
 
 input[type='checkbox']:checked:after {
