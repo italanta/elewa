@@ -41,6 +41,7 @@ import { BotsStateModule } from '@app/state/convs-mgr/bots';
 import { BotModulesStateModule } from '@app/state/convs-mgr/modules';
 import { AccessControlStateModule } from '@app/private/state/access-control';
 import { StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
+import { ChannelsStateModule } from '@app/state/convs-mgr/channels';
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 
@@ -90,6 +91,7 @@ import { environment } from '../environments/environment';
     BotsStateModule.forRoot(),
     BotModulesStateModule.forRoot(),
     StateAssessmentsModule.forRoot(),
+    ChannelsStateModule.forRoot(),
 
     MtOrgStateModule.forRoot(),
 
