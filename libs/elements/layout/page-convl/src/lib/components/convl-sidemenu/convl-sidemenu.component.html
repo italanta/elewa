@@ -67,8 +67,8 @@
                   {{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}
                 </span>
               </a>
-              <ul class="sub-side-menu">
-                <li >
+              <ul [ngClass]="{ 'sub-side-menu': isExpanded, 'sub-side-menu-collapsed': !isExpanded }">
+                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                   <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
                       <img *ngIf="isExpanded" src="assets/icons/message-chat.svg" class="img" alt="">
