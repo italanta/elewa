@@ -15,7 +15,6 @@ import { ActiveSurveyStore } from '../stores/active-survey.store';
   providedIn: 'root',
 })
 export class SurveyService {
-  private channelId = "123034824233910";
   constructor(
     private _surveys$$: SurveysStore,
     private _orgId$$: ActiveOrgStore,
@@ -32,7 +31,7 @@ export class SurveyService {
   }
 
   addSurvey$(survey: Survey) {
-    return this._surveys$$.createSurvey(survey);
+    return this._surveys$$.add(survey);
   }
 
   updateSurvey$(survey: Survey) {
@@ -48,6 +47,7 @@ export class SurveyService {
   getSurvey$(surveyId: string) {
     return this._surveys$$.getOne(surveyId);
   }
+
   sendSurvey(payload: any){
     const surveyReq: StartSurveyReq = {
       channelId: payload.channelId,
