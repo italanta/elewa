@@ -37,7 +37,14 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
     });
   }
 
-  addConnectionsByStory(storyId: string, orgId: string, connections: StoryBlockConnection[], isPublished: boolean){
+  /** Make sure to only load connections that have not been deleted */
+  override get() {
+    return super.get().pipe(map(conns => conns.filter(conn => !conn.deleted)));
+  }
+
+  /** Turns an assessment into a story. Adds its connections */
+  addConnectionsByStory(storyId: string, orgId: string, connections: StoryBlockConnection[], isPublished: boolean)
+  {
     const repo = this._repoFac.getRepo<StoryBlockConnection>(`orgs/${orgId}/stories/${storyId}/connections`);
 
     if(isPublished) {
