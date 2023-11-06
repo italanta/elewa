@@ -23,11 +23,11 @@
 
         button {
           width: 50%;
-          height: 35px;
+          height: 2.2rem;
           background: var(--convs-mgr-color-button);
           border-radius: 25px;
           color: white;
-          font-size: 14px;
+          font-size: medium;
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word;
@@ -46,7 +46,7 @@
         h4{
           // Basic Information
           color: var(--convs-mgr-color-101010);
-          font-size: 16px;
+          font-size: medium;
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word
@@ -59,12 +59,12 @@
           div{
             input{
               width: 100%; 
-              height: 41px; 
+              height: 2.6rem; 
               border-radius: 8px; 
               border: 1px var(--convs-mgr-color-707070) solid;
               // Street Name
               color: var(--convs-mgr-color-C3C3C3);
-              font-size: 14px;
+              font-size: medium;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
@@ -83,7 +83,7 @@
       div{
         button{
           width: 30%; 
-          height: 35px; 
+          height: 2.2rem; 
           background: var(--convs-mgr-color-button); 
           border-radius: 25px;
           color: white;
@@ -91,7 +91,7 @@
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word;
-          margin-top: 49px;
+          margin-top: 3rem;
           margin-left: 73%;          
         }
       }
