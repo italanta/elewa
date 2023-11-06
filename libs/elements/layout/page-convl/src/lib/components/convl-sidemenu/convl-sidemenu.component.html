@@ -70,8 +70,8 @@
                 <img  class="arrow-icon" [class.rotate180]="isArrowRotated" (click)="toggleMessageDropdown()" [src]= "'assets/icons/arrow-down.svg'"  alt="" >
 
               </a>
-              <ul class="sub-side-menu" *ngIf="showDropdownContent">
-                <li >
+              <ul [ngClass]="{ 'sub-side-menu': isExpanded, 'sub-side-menu-collapsed': !isExpanded }" *ngIf="showDropdownContent">
+                <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
                   <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
                       <img *ngIf="isExpanded" src="assets/icons/message-chat.svg" class="img" alt="">
