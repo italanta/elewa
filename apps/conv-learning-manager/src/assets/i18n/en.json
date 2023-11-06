@@ -217,7 +217,7 @@
       },
       "LABELS": {
         "TRACK-MILESTONE": "Track as a milestone",
-        "ASSESSMENTS-NAME": "Assessment's name",
+        "ASSESSMENTS-NAME": "Assessment name",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
           "SELECT-VARIABLE": "Select Variable",
@@ -484,7 +484,7 @@
       "CREATED-ON": "Updated On",
       "IN-PROGRESS": "In Progress",
       "RESPONSES": "Completion",
-      "ACTIONS": "Edit"
+      "ACTIONS": "Actions"
     },
     "RESULTS": {
       "BUTTONS": {

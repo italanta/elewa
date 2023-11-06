@@ -22,7 +22,11 @@ export class StoryStateService {
 
   getStoriesFromParentModule(moduleId: string): Observable<Story[]> {
     return this._StoriesStore$$.get().pipe(
-      map(stories => stories.filter(story => story.parentModule === moduleId))
+      map(stories => 
+          stories
+            .filter(story => story.parentModule === moduleId)
+            .sort((a, b) => (a.name as string).localeCompare(b.name as string))
+        )
     );
   }
 

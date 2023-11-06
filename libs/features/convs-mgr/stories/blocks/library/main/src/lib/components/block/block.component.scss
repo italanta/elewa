@@ -1,5 +1,5 @@
 mat-card {
-	min-width: 200px;
+	width: 250px;
 	border-radius: 0.01rem;
 }
 
@@ -29,10 +29,13 @@ mat-card {
 }
 
 .block-title {
-	font-weight: 400;
-	font-size: 1.25rem;	
+	font-weight: 400;	
 	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
+	font-family: Roboto;
+	font-style: normal;
+	font-size: 0.8125rem;
+	line-height: normal;
 }
 
 .outer {
@@ -67,4 +70,10 @@ hr{
 .icon-with-text{
 	margin-left: 0.3125rem;
 }
+
+:host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
+    z-index: 0 !important;
+  }
+
+  
 

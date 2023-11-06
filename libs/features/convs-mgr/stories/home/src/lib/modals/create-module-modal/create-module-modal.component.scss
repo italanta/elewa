@@ -91,3 +91,6 @@ label {
 :host ::ng-deep .mdc-text-field--filled .mdc-text-field--underline {
   background-color: white !important;
 }
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 25px!important;
+}

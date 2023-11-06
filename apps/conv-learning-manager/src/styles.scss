@@ -18,6 +18,7 @@ body {
 //Block Connectors
 //endpoint
 .block_endpoint circle {
+
   fill: var(--connector-color-teal-blue);
   stroke-width: 1px;
   stroke: var(--connector-outline-color-blue);
@@ -94,3 +95,5 @@ span.label{
   padding-left: 0.6rem;
 }
 
+
+.jtk-endpoint { z-index:1; }

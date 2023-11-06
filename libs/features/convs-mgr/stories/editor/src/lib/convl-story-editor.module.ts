@@ -32,6 +32,8 @@ import { PinchZoomDirective } from './directives/app-pinch-zoom.directive';
 import { TrackCursorDirective } from './directives/track-cursor.directive';
 
 import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
+import { StoryEditorMiniMapComponent } from './components/minimap/minimap.component';
+import { SaveStoryService } from './providers/save-story.service';
 
 
 
@@ -56,8 +58,9 @@ import { BlockCategoryPipe } from './components/pipes/block-category-pipe.pipe';
     PinchZoomDirective,
     TrackCursorDirective,
     BlockCategoryPipe,
+    StoryEditorMiniMapComponent
   ],
 
-  providers: [StoryEditorInitialiserService, ManageChannelStoryLinkService],
+  providers: [StoryEditorInitialiserService, SaveStoryService, ManageChannelStoryLinkService],
 })
 export class ConvlStoryEditorModule { }

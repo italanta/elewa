@@ -81,4 +81,8 @@ export class CoursesViewAllPageComponent implements OnInit {
   goToDashboard() {
     this._router$.navigateByUrl('/bots/dashboard');
   }
+
+  openViewAllPage() {
+    this._router$.navigateByUrl('/bots/view-all')
+  }
 }
