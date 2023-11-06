@@ -112,6 +112,26 @@
     text-decoration: underline;
     word-wrap: break-word
     }
+    .channel-head{
+      // My Channels
+      color: #101010;
+      font-size: 18px;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
+    }
+    div{
+      table{
+          .channelTitle{
+            // Channel Name
+            color: #707070;
+            font-size: 18px;
+            font-family: Roboto;
+            font-weight: 300;
+            word-wrap: break-word
+          }
+      }
+    }
   }
 }
 
