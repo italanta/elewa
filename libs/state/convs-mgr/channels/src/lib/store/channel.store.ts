@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Repository, DataService } from '@ngfi/angular';
-import { DataStore }  from '@ngfi/state';
 
 import { of } from 'rxjs'
 import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
+import { Repository, DataService } from '@ngfi/angular';
+import { DataStore }  from '@ngfi/state';
 import { Query } from '@ngfi/firestore-qbuilder';
 import { Logger } from '@iote/bricks-angular';
 
