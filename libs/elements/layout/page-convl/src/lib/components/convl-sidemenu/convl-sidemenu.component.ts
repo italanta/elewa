@@ -10,6 +10,9 @@ import { PermissionsStore } from '@app/private/state/organisation/main';
 
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-constants.function';
+
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -17,7 +20,7 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
 @Component({
   selector: 'convl-sidemenu',
   templateUrl: './convl-sidemenu.component.html',
-  styleUrls: [ './convl-sidemenu.component.scss' ]
+  styleUrls: [ './convl-sidemenu.component.scss' ],
 })
 export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 {
@@ -36,6 +39,9 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   /**controls the visibility of the dropdown content*/
   showDropdownContent:boolean = false;
 
+  isArrowRotated: boolean = false;
+
+  
   readonly CAN_ACCESS_BOTS = AppClaimDomains.BotsView;
   readonly CAN_ACCESS_ANALYTICS = AppClaimDomains.AnalyticsView;
   readonly CAN_ACCESS_CHATS = AppClaimDomains.ChatsView;
@@ -125,6 +131,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   /** Toggles the visibility of the dropdown content. */
   toggleMessageDropdown() {
     this.showDropdownContent = !this.showDropdownContent;
+    this.isArrowRotated = !this.isArrowRotated;
   }
 
   addPers() {
