@@ -1,16 +1,17 @@
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
-import { MessageTypes, ScheduledMessage, SendMessageTemplate } from "@app/model/convs-mgr/functions";
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { MessageDirection, TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
 import { SendOutgoingMsgHandler } from "./send-outgoing-message.handler";
 import { SendMultipleMessagesResp } from "./models/send-multiple-messages-rep.interface";
+import { SendMultipleMessagesReq } from "./models/send-multiple-messages-req.interface";
 
-export class SendMultipleMessagesHandler extends FunctionHandler<ScheduledMessage, SendMultipleMessagesResp>
+export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMessagesReq, SendMultipleMessagesResp>
 {
-  async execute(cmd: SendMessageTemplate, context: FunctionContext, tools: HandlerTools) 
+  async execute(cmd: SendMultipleMessagesReq, context: FunctionContext, tools: HandlerTools) 
   {
     try {
       
@@ -22,11 +23,11 @@ export class SendMultipleMessagesHandler extends FunctionHandler<ScheduledMessag
     }
   }
 
-  private async _sendMessages(msgToSend: SendMessageTemplate, tools: HandlerTools)
+  private async _sendMessages(msgToSend: SendMultipleMessagesReq, tools: HandlerTools)
   {
     let count = 0;
-    let successfulUsers: string[] = [];
-    let failedUsers: string[] = [];
+    const successfulUsers: string[] = [];
+    const failedUsers: string[] = [];
 
     const message: TemplateMessage = {
       ...msgToSend.message,
@@ -37,7 +38,7 @@ export class SendMultipleMessagesHandler extends FunctionHandler<ScheduledMessag
 
     const sendMessage = new SendOutgoingMsgHandler();
 
-    for (let receieveID of msgToSend.endUsers) {
+    for (const receieveID of msgToSend.endUsers) {
       if (msgToSend.plaform === PlatformType.WhatsApp) {
         message.endUserPhoneNumber = receieveID;
       } else if (msgToSend.plaform === PlatformType.Messenger) {
