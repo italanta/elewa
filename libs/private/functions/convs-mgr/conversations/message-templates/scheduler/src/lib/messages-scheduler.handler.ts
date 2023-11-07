@@ -7,22 +7,26 @@ import { JobTypes, ScheduledMessage, UsersFilters } from "@app/model/convs-mgr/f
 
 import { ScheduleMessagesReq } from "./model/schedule-message-req";
 import { getReceipientID } from "./utils/get-receive-id.util";
-import { ScheduleRecurringJob } from "./utils/schedule-recurring-job.util";
-import { ScheduleTask } from "./utils/schedule-onetime-job.util";
 import { CreateSurveyPayload, CreateTemplateMessagePayload } from "./utils/create-payload.util";
+import CloudSchedulerService from "./model/services/cloud-scheduler.service";
+import CloudTasksService from "./model/services/cloud-task.service";
 
 export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMessagesReq, any>
 {
   async execute(cmd: ScheduleMessagesReq, context: FunctionContext, tools: HandlerTools) 
   {
     tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Schedule Request: ${JSON.stringify(cmd)}`);
+    const schedulerService = new CloudSchedulerService(tools);
+    const cloudTaskService = new CloudTasksService(tools);
 
+    let task: any;
+    
     try {
       const channelService = new ChannelDataService(tools);
 
       const communicationChannel = await channelService.getChannelInfo(cmd.channelId);
 
-      const {endUsers, enrolledEndUserIds} = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
+      const { endUsers, enrolledEndUserIds } = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
 
       const scheduledMessage = {
         ...cmd,
@@ -32,18 +36,26 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
         dispatchTime: new Date(cmd.dispatchTime)
       };
 
-      let task: any;
+
 
       const payload = this._getPayload(cmd, communicationChannel, endUsers, enrolledEndUserIds);
-      // Create job/task
-      if(scheduledMessage.frequency) {
-        task = await ScheduleRecurringJob(payload, scheduledMessage, tools);
+
+      // If frequency is specified, then it is a recurring job
+      if (scheduledMessage.frequency) {
+
+        task = await schedulerService.scheduleRecurringJob(payload, scheduledMessage);
+
+        // If the recurring job has an endDate, schedule a cloud task to delete the job on that date
+        if (scheduledMessage.endDate) {
+          await cloudTaskService.scheduleDeleteTask({ jobName: task.name }, cmd);
+
+        }
       } else {
-        task = await ScheduleTask(payload, scheduledMessage, tools);
+        task = await cloudTaskService.scheduleTask(payload, scheduledMessage);
       }
-      
+
       // Save scheduled message
-      await this._saveScheduledMessage(cmd, communicationChannel.orgId, tools);
+      await this._saveScheduledMessage(cmd, task, communicationChannel.orgId, tools);
       tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Scheduled Message: ${JSON.stringify(scheduledMessage)}`);
       return { success: true, task } as any;
     } catch (error) {
@@ -52,12 +64,13 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
     }
   }
 
-  private _saveScheduledMessage(cmd: ScheduleMessagesReq, orgId: string, tools: HandlerTools)
+  private _saveScheduledMessage(cmd: ScheduleMessagesReq, task: any, orgId: string, tools: HandlerTools)
   {
     const schedule = {
       ...cmd,
       successful: [],
-      failed: []
+      failed: [],
+      jobID: task.name,
     } as ScheduledMessage;
 
     const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${orgId}/scheduled-messages`);
@@ -73,21 +86,21 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     const enrolledEndUsers = await enrolledUserService.getEnrolledUsers();
 
-    const enrolledEndUserIds = enrolledEndUsers.map((user)=> user.id);
+    const enrolledEndUserIds = enrolledEndUsers.map((user) => user.id);
 
     // If there are no filters, send the message to all end users under that
     //  organisation
     if (!usersFilters) {
-      endUsers =  enrolledEndUsers.map((user) => getReceipientID(user, platform));
+      endUsers = enrolledEndUsers.map((user) => getReceipientID(user, platform));
 
-      return {endUsers, enrolledEndUserIds};
+      return { endUsers, enrolledEndUserIds };
     }
 
     // Get the receive ID of only the end users specified
     if (usersFilters.endUsersId) {
       const filteredEndUsers = enrolledEndUsers
-          .filter((user) => usersFilters.endUsersId.includes(user.id))
-          .map((user) => getReceipientID(user, platform)) || [];
+        .filter((user) => usersFilters.endUsersId.includes(user.id))
+        .map((user) => getReceipientID(user, platform)) || [];
 
       endUsers = [...endUsers, ...filteredEndUsers];
     }
@@ -120,10 +133,11 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       endUsers = [...endUsers, ...filteredByStory];
     }
 
-    return {endUsers, enrolledEndUserIds};
+    return { endUsers, enrolledEndUserIds };
   }
 
-  _getPayload(cmd: ScheduleMessagesReq, channel: CommunicationChannel, endusers: string[], enrolledEndUserIds: string[]) {
+  _getPayload(cmd: ScheduleMessagesReq, channel: CommunicationChannel, endusers: string[], enrolledEndUserIds: string[])
+  {
     switch (cmd.type) {
       case JobTypes.Survey:
         return CreateSurveyPayload(cmd, channel, enrolledEndUserIds);
