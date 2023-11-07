@@ -49,7 +49,7 @@ class CloudTasksService
 
   public async scheduleTask(payload: any, options: ScheduleOptions): Promise<any>
   {
-    const endpoint = this.getEndpoint(payload.functionName, 'scheduled-messages');
+    const endpoint = this.getEndpoint(payload.functionName);
     const taskName = this.getTaskName(this.queuePath('scheduled-messages'), options.dispatchTime, options.id);
     const task = this.generateTask(payload, options, taskName, endpoint);
 
@@ -64,7 +64,7 @@ class CloudTasksService
 
   public async scheduleDeleteTask(payload: any, options: ScheduleOptions): Promise<any>
   {
-    const endpoint = this.getEndpoint('deleteJob', 'side-tasks');
+    const endpoint = this.getEndpoint('deleteJob');
     const taskName = this.getTaskName(this.queuePath('side-tasks'), options.endDate, options.id);
     const task = this.generateTask(payload, options, taskName, endpoint);
 
@@ -81,7 +81,7 @@ class CloudTasksService
     return `projects/${this.projectId}/locations/${this.locationId}/queues/${queueName}`;
   }
 
-  private getEndpoint(functionName: string, queueName: string): string
+  private getEndpoint(functionName: string): string
   {
     return `https://${this.locationId}-${this.projectId}.cloudfunctions.net/${functionName}`;
   }
