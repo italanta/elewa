@@ -75,8 +75,8 @@ export class MessageTemplatesService {
     );
   }
 
-  addMessageTemplate(template: MessageTemplate){
-    return this._messageTemplateStore$$.add(template);
+  addMessageTemplate(template: MessageTemplate, id?:string){
+    return this._messageTemplateStore$$.add(template, id);
   }
 
   removeTemplate(template: MessageTemplate){
