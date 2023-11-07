@@ -95,9 +95,9 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   createTemplate() :void{
     this._router.navigate(['/messaging/create'])
   }
-  openTemplate(templateId:string){
-    this._router.navigate(['/messaging', templateId]);
 
+  openTemplate(templateId:string){
+    this._router.navigate(['/messaging', templateId], { queryParams: { selectedTab: 3 }});
   }
 
   sendButtonClicked(template: MessageTemplate){
@@ -170,6 +170,12 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     )
     
   }
+
+  modifyStatus(status: string) {
+    if(!status) return;
+    return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()
+  }
+
   ngOnDestroy(): void {
       this._sBS.unsubscribe();
   }
