@@ -1,14 +1,15 @@
 import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
-
 import { ChannelDataService, EnrolledUserDataService } from "@app/functions/bot-engine";
-import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
-import { ScheduledMessage, UsersFilters } from "@app/model/convs-mgr/functions";
+import { CommunicationChannel, PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
+import { JobTypes, ScheduledMessage, UsersFilters } from "@app/model/convs-mgr/functions";
 
 import { ScheduleMessagesReq } from "./model/schedule-message-req";
-import { ScheduleMessage } from "./utils/schedule-job.util";
 import { getReceipientID } from "./utils/get-receive-id.util";
+import { ScheduleRecurringJob } from "./utils/schedule-recurring-job.util";
+import { ScheduleTask } from "./utils/schedule-onetime-job.util";
+import { CreateSurveyPayload, CreateTemplateMessagePayload } from "./utils/create-payload.util";
 
 export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMessagesReq, any>
 {
@@ -21,9 +22,9 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
       const communicationChannel = await channelService.getChannelInfo(cmd.channelId);
 
-      const endUsers = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
+      const {endUsers, enrolledEndUserIds} = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
 
-      const scheduledMessage: ScheduledMessage = {
+      const scheduledMessage = {
         ...cmd,
         n: communicationChannel.n,
         plaform: communicationChannel.type,
@@ -31,12 +32,18 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
         dispatchTime: new Date(cmd.dispatchTime)
       };
 
-      
-      // Create job
-      const task = await ScheduleMessage(scheduledMessage, tools);
+      let task: any;
+
+      const payload = this._getPayload(cmd, communicationChannel, endUsers, enrolledEndUserIds);
+      // Create job/task
+      if(scheduledMessage.frequency) {
+        task = await ScheduleRecurringJob(payload, scheduledMessage, tools);
+      } else {
+        task = await ScheduleTask(payload, scheduledMessage, tools);
+      }
       
       // Save scheduled message
-      await this._saveScheduledMessage(scheduledMessage, communicationChannel.orgId, tools);
+      await this._saveScheduledMessage(cmd, communicationChannel.orgId, tools);
       tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Scheduled Message: ${JSON.stringify(scheduledMessage)}`);
       return { success: true, task } as any;
     } catch (error) {
@@ -45,8 +52,14 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
     }
   }
 
-  private _saveScheduledMessage(schedule: ScheduledMessage, orgId: string, tools: HandlerTools)
+  private _saveScheduledMessage(cmd: ScheduleMessagesReq, orgId: string, tools: HandlerTools)
   {
+    const schedule = {
+      ...cmd,
+      successful: [],
+      failed: []
+    } as ScheduledMessage;
+
     const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${orgId}/scheduled-messages`);
 
     return scheduledMessages$.create(schedule);
@@ -60,10 +73,14 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     const enrolledEndUsers = await enrolledUserService.getEnrolledUsers();
 
+    const enrolledEndUserIds = enrolledEndUsers.map((user)=> user.id);
+
     // If there are no filters, send the message to all end users under that
     //  organisation
     if (!usersFilters) {
-      return enrolledEndUsers.map((user) => getReceipientID(user, platform));
+      endUsers =  enrolledEndUsers.map((user) => getReceipientID(user, platform));
+
+      return {endUsers, enrolledEndUserIds};
     }
 
     // Get the receive ID of only the end users specified
@@ -103,6 +120,17 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       endUsers = [...endUsers, ...filteredByStory];
     }
 
-    return endUsers;
+    return {endUsers, enrolledEndUserIds};
+  }
+
+  _getPayload(cmd: ScheduleMessagesReq, channel: CommunicationChannel, endusers: string[], enrolledEndUserIds: string[]) {
+    switch (cmd.type) {
+      case JobTypes.Survey:
+        return CreateSurveyPayload(cmd, channel, enrolledEndUserIds);
+      case JobTypes.SimpleMessage:
+        return CreateTemplateMessagePayload(cmd, channel, endusers);
+      default:
+        return CreateTemplateMessagePayload(cmd, channel, endusers);
+    }
   }
 }
