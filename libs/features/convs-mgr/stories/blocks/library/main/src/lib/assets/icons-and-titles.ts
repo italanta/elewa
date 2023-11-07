@@ -119,7 +119,7 @@ export const ICONS_AND_TITLES = {
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
     icon: 'fas fa-random',
-    svgIcon: 'assets/svgs/blocks/mdi_shuffle.svg',
+    svgIcon: 'assets/svgs/blocks/mdi_shuffle.svg'
   },
   34:{
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
