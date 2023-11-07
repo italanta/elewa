@@ -1192,6 +1192,29 @@
       "tags": []
     },
     "model-organisation": "libs/model/organisation/main",
+    "model-payments-mollie-payments": {
+      "root": "libs/model/payments/mollie-payments",
+      "sourceRoot": "libs/model/payments/mollie-payments/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/model/payments/mollie-payments/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/payments/mollie-payments"],
+          "options": {
+            "jestConfig": "libs/model/payments/mollie-payments/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "model-user": "libs/model/user/base",
     "model-user-bot-users": {
       "root": "libs/model/user/bot-users",

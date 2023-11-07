@@ -283,6 +283,9 @@
       "@app/model/finance/sales": ["libs/model/finance/sales/src/index.ts"],
       "@app/model/layout/toast": ["libs/model/layout/toast/src/index.ts"],
       "@app/model/organisation": ["libs/model/organisation/main/src/index.ts"],
+      "@app/model/payments/mollie-payments": [
+        "libs/model/payments/mollie-payments/src/index.ts"
+      ],
       "@app/model/user": ["libs/model/user/base/src/index.ts"],
       "@app/model/user/bot-users": ["libs/model/user/bot-users/src/index.ts"],
       "@app/private/elements/convs-mgr/access-control": [
