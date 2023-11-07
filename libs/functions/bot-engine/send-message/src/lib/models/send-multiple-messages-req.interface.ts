@@ -3,10 +3,9 @@ import { IObject } from "@iote/bricks";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
 import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
-export interface SendMessageTemplate extends IObject
+export interface SendMultipleMessagesReq extends IObject
 {
   n: number,
-
 
   // TODO: Correct spelling
   plaform: PlatformType;
