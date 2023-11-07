@@ -15,7 +15,7 @@ export class DeleteJobHandler extends FunctionHandler<{jobName: string}, any>
       
       return { success: true, resp };
     } catch (error) {
-      tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Error Deleting Task: ${error}`);
+      tools.Logger.log(() => `[DeleteJobHandler].execute - Error Deleting Task: ${error}`);
       return { success: false, error };
     }
   }
