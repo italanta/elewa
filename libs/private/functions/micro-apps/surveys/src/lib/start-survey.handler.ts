@@ -43,11 +43,11 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
       }
   
       let count = 0;
-      let successfulUsers: string[] = [];
-      let failedUsers: string[] = [];
+      const successfulUsers: string[] = [];
+      const failedUsers: string[] = [];
   
       // Update the cursor
-      for (let id of req.enrolledUserIds) {
+      for (const id of req.enrolledUserIds) {
         const {endUserId, receiveID} = await this._getEndUserId(id, commChannel.type, commChannel.orgId, tools);
   
         const cursorService = new CursorDataService(tools);
