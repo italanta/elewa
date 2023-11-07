@@ -17,7 +17,7 @@
         <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-DETAILS" | transloco}}</p>
       </div>
     </div>
-    <div class="select" *ngIf="showOptionBoxes">
+    <div class="select" >
         <div class="whats-app">
             <input type="radio" id="html" name="fav_language" [(ngModel)]="selectedPlatform" value="WhatsApp">
             <img src="assets/icons/whatsapp-icon.svg" alt="">
@@ -31,44 +31,13 @@
       
     </div>
   
-    <!-- WhatsApp Form -->
-    <div *ngIf="showWhatsAppForm">
-      <form >
-        <div class="general">
-            <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
-        <input type="text" placeholder="Bot Details" id="fname" name="fname" >
-        </div>
-        <div class="channel-details">
-            <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP-CHANNEL-DETAILS" | transloco}}</label><br>
-            <input type="text" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' id="fname" name="fname"><br>
-            <input type="text" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}' id="fname" name="fname" ><br>
-            <input type="text" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}' id="fname" name="fname" ><br>
-            <input type="text" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}' id="fname" name="fname" >
-        </div>
-      </form>
-    </div>
-  
-    <!-- Messenger Form -->
-    <div *ngIf="showMessengerForm">
-      <form>
-            <div class="general">
-                <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
-            <input type="text" id="fname" name="fname" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
-            </div>
-            <div class="channel-details">
-                <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.MESSENGER-CHANNEL-DETAILS" | transloco}}</label><br>
-                <input type="text" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' id="fname" name="fname"><br>
-                <input type="text" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}' id="fname" name="fname" >
-            </div>    
-      </form>
-    </div>
   
     <div class="buttons">
       <div class="cancel">
-        <button (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+        <button (click)="closeModal()">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.CANCEL" | transloco}}</button>
       </div>
       <div class="continue">
-        <button (click)="showForm()">{{ continueButtonText }}</button>
+        <button (click)="showForm()">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.CONTINUE" | transloco}}</button>
       </div>
     </div>
   </div>

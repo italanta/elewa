@@ -74,7 +74,37 @@
             }
         }
     }
-    
+    div{
+        form{
+            padding: 0 0 5%;
+            .general{
+                padding: 0 0 5%;
+            }
+            input{
+                width: 100%;
+                // height: 2em; 
+                border-radius: 10px; 
+                border: 1px #707070 solid;
+                margin: 1% 0;
+                // General Details
+                // Bot Name
+                color: #707070;
+                font-size: 16px;
+                font-family: Roboto;
+                font-weight: 300;
+                word-wrap: break-word;
+                padding: 2%;
+            }
+            label{
+                // Messenger Channel Details
+                color: #101010;
+                font-size: 16px;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word
+            }
+        }
+    }
     .buttons{
         display: flex;
         justify-content: space-between;

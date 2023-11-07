@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+
+import { ChannelFormModalComponent } from '../channel-form-modal/channel-form-modal.component';
 
 @Component({
   selector: 'app-add-channel-modal',
@@ -8,46 +10,29 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./add-channel-modal.component.scss'],
 })
 export class AddChannelModalComponent {
-  selectedPlatform: string | null = null;
-  showWhatsAppForm = false;
-  showMessengerForm = false;
-  showOptionBoxes = true;
-  continueButtonText = 'Continue';
-  channelForm: FormGroup;
+  selectedPlatform: string ;
+ 
+ 
+
 
   constructor(
     private _dialog: MatDialog,
     private fb: FormBuilder
   ){
-    // this.channelForm = this.fb.group({
-    //   platform: ['', Validators.required], // Example control with validation
-    //   botDetails: [''],
-    //   accessToken: [''],
-    //   phoneNumber: [''],
-    //   phoneNumberId: [''],
-    //   businessAccountId: [''],
-    // });
+  
   }
 
 
   showForm() {
-    // if (this.channelForm.valid) {
-    //   const formData = this.channelForm.value;
-
-      if (this.selectedPlatform === 'WhatsApp') {
-        this.showWhatsAppForm = true;
-        this.showMessengerForm = false;
-        this.showOptionBoxes = false;
-        this.continueButtonText = 'Add Channel';
-      } else if (this.selectedPlatform === 'Messenger') {
-        this.showWhatsAppForm = false;
-        this.showMessengerForm = true;
-        this.showOptionBoxes = false;
-        this.continueButtonText = 'Add Channel';
-      }
-    
-    // }
-  
+    // Check if a platform is selected
+    if (this.selectedPlatform) {
+      // Pass the selected platform as data to the modal
+      this._dialog.open(ChannelFormModalComponent, {
+        minWidth: '30%',
+        minHeight: '338px',
+        data: { selectedPlatform: this.selectedPlatform }, // Pass the selected platform as data
+      });
+    }
   }
   
 

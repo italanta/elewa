@@ -18,6 +18,7 @@ import { AccessControlModule } from '@app/private/elements/convs-mgr/access-cont
 import { CompanyDataComponent } from './components/company-data/company-data.component';
 import { UpdateCompanyLogoModalComponent } from './modals/update-company-logo-modal/update-company-logo-modal.component';
 import { AddChannelModalComponent } from './modals/add-channel-modal/add-channel-modal.component';
+import { ChannelFormModalComponent } from './modals/channel-form-modal/channel-form-modal.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { AddChannelModalComponent } from './modals/add-channel-modal/add-channel
     CompanyDataComponent,
     UpdateCompanyLogoModalComponent,
     AddChannelModalComponent,
+    ChannelFormModalComponent,
   ],
   exports: [CompanyDataComponent],
   providers: [

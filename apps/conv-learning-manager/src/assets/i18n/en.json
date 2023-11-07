@@ -1113,7 +1113,8 @@
   "CHANNEL-MODAL":{
       "BUTTONS":{
         "CANCEL":"Cancel",
-        "CONTINUE":"Continue"
+        "CONTINUE":"Continue",
+        "ADD-CHANNEL":"Add Channel"
       },
       "ADD-CHANNEL":"Add Channel",
       "SELECT-PLATFORM":"Select Platform",
