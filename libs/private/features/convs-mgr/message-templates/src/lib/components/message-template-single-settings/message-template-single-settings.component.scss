@@ -1,10 +1,37 @@
 .message-template-settings{
-    height: 17rem;
+    height: 22rem;
     flex-shrink: 0;
     border-radius: 1.5625rem;
     background: #FFF;
     margin-top: 1.75rem;
     padding: 1.75rem 1.56rem;
+
+    .form-group{
+      background: #FFF;
+      .data-result{
+        padding: 1rem 0;
+        form{
+          display: flex;
+          input{
+            font-size: 1rem;
+            width:90%; 
+            height: 100%; 
+            border-radius: 15px; 
+            border: 1px #707070 solid;
+            padding: 1rem 1rem;
+          }
+          .buttons{
+            text-align: center;
+            img{
+              padding: 0.5rem 0.5rem 0 0.5rem;
+              cursor: pointer;
+              
+            }
+          }
+        }
+      }
+
+    }
 }
 .disabled-button {
   background-color: #f0f0f0; /* Change to your desired background color */
@@ -83,11 +110,22 @@
 
   .info{
     color: #1F7A8C!important;
-  font-family: Roboto;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 400!important;
-  line-height: normal;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400!important;
+    line-height: normal;
+  }
+
+  .add-condition{
+    // Add message condition
+    color: #1F7A8C;
+    font-size: 1rem;
+    font-family: Roboto;
+    font-weight: 300;
+    text-decoration: underline;
+    word-wrap: break-word;
+    cursor: pointer;
   }
 
   .message-template-history{
