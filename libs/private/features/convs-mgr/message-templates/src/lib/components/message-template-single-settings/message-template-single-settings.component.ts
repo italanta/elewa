@@ -46,33 +46,11 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     private _messageService: MessageTemplatesService,
     private _scheduleMessageService: ScheduleMessageService,
     private _milestoneTriggerService: MilestoneTriggersService
+  ){}
 
-    ){}
-
-    ngOnInit(): void {
-      this.action = this._route$$.url.split('/')[2];
-      this.fetchTemplateAndScheduledMessages();
-    }
-
-    fetchTemplateAndScheduledMessages() {
-      this._messageService.getTemplateById(this.action).subscribe((template) => {
-        if (template) {
-          const templateName = template.name;
-          this.filterMatchingScheduledMessages(templateName);
-        }
-      });
-    }
-
-    filterMatchingScheduledMessages(templateName: string) {
-      this._scheduleMessageService.getScheduledMessages$().subscribe((scheduledMessages) => {
-        const matchingScheduledMessages = scheduledMessages.filter((message) => message.message.name === templateName);
-        this.dataSource = new MatTableDataSource<ScheduledMessage>(matchingScheduledMessages);
-      });
-    }
-
-    isTimePast(time: Date){
-      return time > new Date() ? 'Pending' : 'Sent';
-    }
+  ngOnInit(): void {
+    this.action = this._route$$.url.split('/')[2];
+  }
 
   openMilestoneModal() {
   const dialogRef = this._dialog.open(MilestoneReachedModalComponent);
@@ -156,7 +134,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   }
   
   saveMilestone(template: MessageTemplate) {
-    const event:string = this.selectedMilestone.eventName!;
+    const event:string = this.selectedMilestone.eventName as string;
     const milestoneTriggerRequest: MilestoneTriggers = {
         message: {
           templateType: TemplateMessageTypes.Text,
@@ -168,6 +146,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
         usersSent:1
     }
     this._sBS.sink= this._milestoneTriggerService.addMilestoneTrigger(milestoneTriggerRequest).subscribe()
+
+    // TODO: save scheduled messages
   }
-  
 }

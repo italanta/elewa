@@ -83,7 +83,7 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     });
     
 
-    this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
+    this._sBS.sink = this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
       this.applyFilter(searchText);
     });
   }
@@ -95,9 +95,9 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   createTemplate() :void{
     this._router.navigate(['/messaging/create'])
   }
-  openTemplate(templateId:string){
-    this._router.navigate(['/messaging', templateId]);
 
+  openTemplate(templateId:string){
+    this._router.navigate(['/messaging', templateId], { queryParams: { selectedTab: 3 }});
   }
 
   sendButtonClicked(template: MessageTemplate){
@@ -127,10 +127,10 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
       },
     };
     this.isSaving = true;
-    this._messageTemplateService.createTemplateMeta(this.template).subscribe(
+    this._sBS.sink = this._messageTemplateService.createTemplateMeta(this.template).subscribe(
       (response) => {
         if( response.success){
-          this._messageTemplateService.addMessageTemplate(this.template).subscribe(
+          this._sBS.sink = this._messageTemplateService.addMessageTemplate(this.template).subscribe(
             response => {
               if(response.id){
                 this.isSaving=false;
@@ -153,10 +153,10 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   }
   deleteTemplate(template: MessageTemplate){
     this.isSaving = true;
-    this._messageTemplateService.deleteTemplateMeta(template).subscribe(
+    this._sBS.sink =this._messageTemplateService.deleteTemplateMeta(template).subscribe(
       (response) => {
         if(response.success){
-          this._messageTemplateService.removeTemplate(template).subscribe(
+          this._sBS.sink = this._messageTemplateService.removeTemplate(template).subscribe(
             (response) =>{
               this._snackBar.showSuccess("Successfully deleted")
               this.isSaving = false;
@@ -170,6 +170,12 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     )
     
   }
+
+  modifyStatus(status: string) {
+    if(!status) return;
+    return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()
+  }
+
   ngOnDestroy(): void {
       this._sBS.unsubscribe();
   }
