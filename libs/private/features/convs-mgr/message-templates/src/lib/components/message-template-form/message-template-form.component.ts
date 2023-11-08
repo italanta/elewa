@@ -239,7 +239,10 @@ export class MessageTemplateFormComponent implements OnInit{
         this._sbS.sink = this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
-            this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
+      
+            const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`
+
+            this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value, templateId).subscribe((response: any) => {
               this.isSaving  = false;
               if(response.id) {
                 this._snackbar.showSuccess("Template created successfully");
