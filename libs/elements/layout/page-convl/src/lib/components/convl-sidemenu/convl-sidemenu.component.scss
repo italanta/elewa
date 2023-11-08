@@ -16,6 +16,10 @@ $sidebar-footer-height: 230px;
   clip-path: circle();
 }
 
+.nav-toggle{
+  cursor: pointer;
+}
+
 .active {
   font-weight: bolder;
   border-right: solid #1F7A8C 1px;
