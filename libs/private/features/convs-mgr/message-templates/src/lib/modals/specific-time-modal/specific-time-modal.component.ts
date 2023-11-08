@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { recurrenceOptions } from '../../utils/constants';
+import { recurrenceOptions, weekdays } from '../../utils/constants';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class SpecificTimeModalComponent {
     monthlyOptions: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
 
     // Add the weekdays array to your component
-    weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    weekdays = weekdays;
 
      // Define an array of radio option values
     recurrenceOptions = recurrenceOptions;

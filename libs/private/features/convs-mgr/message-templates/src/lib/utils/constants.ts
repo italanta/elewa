@@ -18,3 +18,7 @@ export const categoryOptions = [
   export const recurrenceOptions =[
     'Never', 'Daily', 'Weekly', 'Monthly'
   ]
+
+  export const weekdays = [
+    'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+  ]
