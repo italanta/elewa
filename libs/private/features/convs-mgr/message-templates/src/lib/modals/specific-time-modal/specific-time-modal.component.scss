@@ -1,146 +1,201 @@
-.specific-time{
-    color: #101010;
-    font-family: Roboto;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    display: flex;
-    flex-direction: column;
-    width: 26.5625rem;
-    border-radius: 1.5625rem;
-    background: #FFF;
-    flex-shrink: 0;
-    padding: 0.94rem 2.38rem;
-    box-sizing: border-box;
-    cursor: pointer;
+.specific-time {
+  color: #101010;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  width: 26.5625rem;
+  border-radius: 1.5625rem;
+  background: #fff;
+  flex-shrink: 0;
+  padding: 0.94rem 2.38rem;
+  box-sizing: border-box;
+  cursor: pointer;
 
-    .date-container{
-        display: flex;
-        justify-content: space-between;
-        padding: 2rem 0;
+  .date-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0;
+  }
+  .date,
+  .time {
+    input {
+      height: 2rem;
+      border-radius: 0.5rem;
+      padding: 0.3rem;
     }
-    .date,.time{
-        input{
-            height: 2rem;
-            border-radius: 0.5rem;
-            padding: 0.3rem;
-        }
+  }
+  .recur {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .select {
+      select {
+        border: none;
+        background-color: #fff;
+      }
+      select ::after {
+        border: none;
+      }
+      select ::before {
+        border: none;
+      }
     }
-    .recur{
-        display: flex;
-        justify-content: space-between; 
-        align-items: center;
-        .select{
-            select{
-                border: none;
-                background-color: #FFF;
-            }
-            select ::after{
-                border: none;
-            }
-            select ::before{
-                border: none;
-            }
-        }
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .weekly {
+    .weeks {
+      display: flex;
+      justify-content: space-evenly;
     }
-    .buttons{
-        display: flex;
-        justify-content: space-between;
+  }
+  .monthly {
+    .months {
+      display: flex;
+      justify-content: space-evenly;
     }
-    .weekly{
-        .weeks{
-            display: flex;
-            justify-content: space-evenly;
-        }
-    }
-    .monthly{
-        .months{
-            display: flex;
-            justify-content: space-evenly;
-        }
-        
-    }
+  }
 }
 
-.send-btn{
-    border-radius: 1.5625rem;
-    width: 4.875rem;
-    height: 2.0625rem;
-    flex-shrink: 0;
-    background-color: #1F7A8C!important;
-    color: white!important;
+.send-btn {
+  border-radius: 1.5625rem;
+  width: 4.875rem;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  background-color: #1f7a8c !important;
+  color: white !important;
+  font-family: Roboto;
+  font-size: small;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-self: flex-end;
+}
+
+.cancel-btn {
+  border-radius: 1.5625rem;
+  width: 4.875rem;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  // background-color: #1F7A8C!important;
+  color: black !important;
+  font-family: Roboto;
+  font-size: small;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-self: flex-end;
+  border: 1px #1f7a8c solid;
+}
+
+.selected-day {
+  background-color: #1f7a8c;
+  color: white !important;
+  border-radius: 0.5rem;
+}
+
+
+
+.custom-dropdown {
+  position: relative;
+  width: fit-content; /* Adjust the width as needed */
+}
+
+.circular-dropdown {
+  width: 100%;
+  padding: 10px;
+  border: none !important;
+  outline: none;
+  cursor: pointer;
+}
+
+#circular-dropdown option {
+  border-radius: 50px;
+  background-color: #fff;
+  border: none !important;
+}
+
+/* Style to hide the default dropdown arrow */
+#circular-dropdown::-ms-expand {
+  display: none;
+}
+
+#circular-dropdown::before {
+  content: '▼'; /* Custom dropdown arrow (you can use a different icon) */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+button.mat-button {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+}
+
+img {
+  height: 0.5rem;
+}
+.occur-text{
+    // Repeat every
+    color: #101010;
+    font-size: 16px;
     font-family: Roboto;
-    font-size: small;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    align-self: flex-end;
-  }
-
-  .cancel-btn{
-    border-radius: 1.5625rem;
-    width: 4.875rem;
-    height: 2.0625rem;
-    flex-shrink: 0;
-    // background-color: #1F7A8C!important;
-    color: black!important;
+    font-weight: 300;
+    word-wrap: break-word
+}
+.day-month{
+    // S
+    color: #707070;
     font-family: Roboto;
-    font-size: small;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    align-self: flex-end;
-    border: 1px #1F7A8C solid;
-  }
+    font-weight: 300;
+    word-wrap: break-word
+}
+.repeat{
+    // Repeat every
+    color: #101010;
+    font-size: 16px;
+    font-family: Roboto;
+    font-weight: 300;
+    word-wrap: break-word
+}
+.recur-text {
+  // Recur daily configurations
+  color: #101010;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.date-bd {
+  border: none !important;
+  color: #1f7a8c;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 300;
+  word-wrap: break-word;
+}
+.remove-end {
+  // Remove end date
+  color: #1f7a8c;
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 300;
+  text-decoration: underline;
+  word-wrap: break-word;
+}
 
+::ng-deep .mat-mdc-radio-group.options {
+  display: flex !important;
+  flex-direction: column !important;
+}
 
-  .selected-day {
-    background-color: #1F7A8C; 
-    color: white;
-    border-radius: 0.5rem; 
-    }
-
-
-  
-  
-
-  ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 1.3rem !important;
   }
-
-
-
-  .custom-dropdown {
-    position: relative;
-    width: 150px; /* Adjust the width as needed */
-  }
-  
-  #circular-dropdown {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 50px; /* Makes the dropdown circular */
-    outline: none;
-    cursor: pointer;
-    appearance: none;
-  }
-  
-  #circular-dropdown option {
-    border-radius: 50px;
-    background-color: #fff; /* Option background color */
-  }
-  
-  /* Style to hide the default dropdown arrow */
-  #circular-dropdown::-ms-expand {
-    display: none;
-  }
-  
-  #circular-dropdown::before {
-    content: '▼'; /* Custom dropdown arrow (you can use a different icon) */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-  }
-  

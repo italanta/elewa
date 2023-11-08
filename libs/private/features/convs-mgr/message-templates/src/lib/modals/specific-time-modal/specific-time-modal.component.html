@@ -1,11 +1,13 @@
 <div class="specific-time">
     <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.SEND-MESSAGE-AT-SPECIFIC-TIME'| transloco }} </p>
+
     <!-- <mat-form-field appearance="outline">
       <mat-label>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-DATE'| transloco }} </mat-label>
       <input matInput [matDatepicker]="picker" placeholder="Date and Time" (dateChange)="dateChanged($event)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field> -->
+
     <div class="date-container">
       <div class="date">
         <input type="date" id="birthday" name="birthday">
@@ -21,74 +23,74 @@
       </div>
       <div class="select">
         <div class="custom-dropdown">
-          <select id="circular-dropdown" (change)="onRecurrenceChange($event)">
-            <option value="Never">Never</option>
-            <option value="Daily">Daily</option>
-            <option value="Weekly">Weekly</option>
-            <option value="Monthly">Monthly</option>
-            
-          </select>
+
+          <button mat-button [matMenuTriggerFor]="menu">{{ menuButtonText }}<img class="down-arrow" src="assets/icons/down-arrow.png" alt="down arrow"/></button>
+            <mat-menu #menu="matMenu">
+              <mat-radio-group aria-label="Select an option" class="options" (change)="onRecurrenceChange($event.value)">
+                <mat-radio-button value="Never">Never</mat-radio-button>
+                <mat-radio-button value="Daily">Daily</mat-radio-button>
+                <mat-radio-button value="Weekly">Weekly</mat-radio-button>
+                <mat-radio-button value="Monthly">Monthly</mat-radio-button>
+              </mat-radio-group>              
+            </mat-menu>
+           
         </div>
       </div>
     </div>
    
-    <!-- <mat-form-field appearance="outline">
-      <input matInput type="time" [(ngModel)]="selectedTime" placeholder="Time">
-    </mat-form-field> -->
-
-   
+ 
       <div class="daily" *ngIf="selectedRecurrence === 'Daily'">
-        <p>Recur daily configurations</p>
+        <p class="recur-text">Recur daily configurations</p>
 
         <div class="select-days" >
-            <p>Repeat every<input type="number"> days</p>
-            <p>Occurs every day until 20th Oct 2021</p>
-            <p>Remove end date</p>
+          <p class="repeat">Repeat every
+            <select name="dailyRepeat" id="dailyRepeat" [(ngModel)]="selectedDailyRepeat">
+              <option *ngFor="let option of dailyOptions" [value]="option">{{ option }}</option>
+            </select>
+            days
+          </p>
+            <p class="occur-text">Occurs every day until <input type="date" class="date-bd" id="date" name="daily-date"></p>
+            <p class="remove-end" (click)="removeEndDate()">Remove end date</p>
         </div>
       </div>
 
       <div class="weekly" *ngIf="selectedRecurrence === 'Weekly'">
-        <p>Recur weekly configurations</p>
+        <p class="recur-text">Recur weekly configurations</p>
     
-        <div class="weeks">
-            <p [ngClass]="{'selected-day': selectedDays.includes('Monday')}" (click)="toggleSelectedDay('Monday')">M</p>
-            <p [ngClass]="{'selected-day': selectedDays.includes('Tuesday')}" (click)="toggleSelectedDay('Tuesday')">T</p>
-            <p [ngClass]="{'selected-day': selectedDays.includes('Wednesday')}" (click)="toggleSelectedDay('Wednesday')">W</p>
-            <p [ngClass]="{'selected-day': selectedDays.includes('Thursday')}" (click)="toggleSelectedDay('Thursday')">T</p>
-            <p [ngClass]="{'selected-day': selectedDays.includes('Friday')}" (click)="toggleSelectedDay('Friday')">F</p>
-            <p [ngClass]="{'selected-day': selectedDays.includes('Saturday')}" (click)="toggleSelectedDay('Saturday')">S</p>
-            <p [ngClass]="{'selected-day': selectedDays.includes('Sunday')}" (click)="toggleSelectedDay('Sunday')">S</p>
+        <div class="weeks" *ngIf="selectedRecurrence === 'Weekly'">
+          <p class="day-month" *ngFor="let day of weekdays; let i = index" [ngClass]="{'selected-day': selectedDays.includes(day)}" (click)="toggleSelectedDay(day)">
+            {{ i === 0 ? 'M' : i === 1 ? 'T' : i === 2 ? 'W' : i === 3 ? 'T' : i === 4 ? 'F' : i === 5 ? 'S' : 'S' }}
+          </p>
         </div>
         <div class="select-days" >
-            <p>Repeat every<input type="number"> Weeks</p>
-            <p>Occurs every day until 20th Oct 2021</p>
-            <p>Remove end date</p>
+          <p class="repeat">Repeat every
+            <select name="weeklyRepeat" id="weeklyRepeat" [(ngModel)]="selectedWeeklyRepeat">
+              <option *ngFor="let option of weeklyOptions" [value]="option">{{ option }}</option>
+            </select>
+            Weeks
+          </p>
+            <p>Occurs every day until <input type="date" class="date-bd" id="birthday" name="weekly-date"></p>
+            <p class="remove-end">Remove end date</p>
         </div>
     </div>
     
     <div class="monthly" *ngIf="selectedRecurrence === 'Monthly'">
-      <p>Recur Monthly configurations</p>
+      <p class="recur-text">Recur Monthly configurations</p>
 
-      <div class="months">
-        <p [ngClass]="{'selected-day': selectedDays.includes('January')}" (click)="toggleSelectedDay('January')">1</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('Febuary')}" (click)="toggleSelectedDay('Febuary')">2</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('March')}" (click)="toggleSelectedDay('March')">3</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('April')}" (click)="toggleSelectedDay('April')">4</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('May')}" (click)="toggleSelectedDay('May')">5</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('June')}" (click)="toggleSelectedDay('June')">6</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('July')}" (click)="toggleSelectedDay('July')">7</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('August')}" (click)="toggleSelectedDay('August')">8</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('September')}" (click)="toggleSelectedDay('September')">9</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('October')}" (click)="toggleSelectedDay('October')">10</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('November')}" (click)="toggleSelectedDay('November')">11</p>
-        <p [ngClass]="{'selected-day': selectedDays.includes('December')}" (click)="toggleSelectedDay('December')">12</p>
-    </div>
+        <div class="months" >
+          <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedDays.includes(monthNumber.toString())}" (click)="toggleSelectedDay(monthNumber.toString())">{{ monthNumber }}</p>
+        </div>        
     
 
       <div class="select-days" >
-          <p>Repeat every<input type="number"> months</p>
-          <p>Occurs every day until 20th Oct 2021</p>
-          <p>Remove end date</p>
+        <p class="repeat">Repeat every
+          <select name="monthlyRepeat" id="monthlyRepeat" [(ngModel)]="selectedMonthlyRepeat">
+            <option *ngFor="let option of monthlyOptions" [value]="option">{{ option }}</option>
+          </select>
+          months
+        </p>
+          <p>Occurs every day until <input type="date" class="date-bd" id="date" name="monthly-date"></p>
+          <p class="remove-end">Remove end date</p>
       </div>
     </div>
 
@@ -104,7 +106,6 @@
           </button>
         </div>
     </div>
-   
     
 </div>
   

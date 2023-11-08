@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-specific-time-modal',
   templateUrl: './specific-time-modal.component.html',
@@ -17,6 +18,25 @@ export class SpecificTimeModalComponent {
   action: string;
   selectedRecurrence = 'Never'; 
   selectedDays: string[] = [];
+  menuButtonText = 'Never'; 
+
+
+    // Arrays to populate the "Repeat every" select dropdowns
+    dailyOptions: number[] = Array.from({ length: 30 }, (_, i) => i + 1);
+    weeklyOptions: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
+    monthlyOptions: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
+
+    // Add the weekdays array to your component
+    weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+  
+    // Properties for selected repeat values
+    selectedDailyRepeat: number;
+    selectedWeeklyRepeat: number;
+    selectedMonthlyRepeat: number;
+
+  
+
 
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 
@@ -31,11 +51,36 @@ export class SpecificTimeModalComponent {
     this.selectedDate = event.value;
   }
 
-  onRecurrenceChange(event: any): void {
-    this.selectedRecurrence = event.target.value;
-}
+  onRecurrenceChange(selectedValue: string): void {
+    this.selectedRecurrence = selectedValue;
+    this.updateMenuButtonText();
+  }
+  
 
+  updateMenuButtonText() {
+    switch (this.selectedRecurrence) {
+      case 'Never':
+        this.menuButtonText = 'Never';
+        break;
+      case 'Daily':
+        this.menuButtonText = 'Daily';
+        break;
+      case 'Weekly':
+        this.menuButtonText = 'Weekly';
+        break;
+      case 'Monthly':
+        this.menuButtonText = 'Monthly';
+        break;
+      default:
+        this.menuButtonText = 'Menu'; // Default text
+    }
+  }
 
+  removeEndDate() {
+    // Set the input field value to an empty string to remove the date
+    const dateInput = document.getElementById('birthday') as HTMLInputElement;
+    dateInput.value = '';
+  }
 
   toggleSelectedDay(day: string): void {
       if (this.selectedDays.includes(day)) {
@@ -56,7 +101,6 @@ export class SpecificTimeModalComponent {
     }
   }
   
-
   saveDateTime(): void {
     if (this.selectedDate && this.selectedTime) {
       const selectedDateTime = new Date(this.selectedDate);
