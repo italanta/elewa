@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Dialog } from '@angular/cdk/dialog';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -29,6 +30,9 @@ export class SpecificTimeModalComponent {
     // Add the weekdays array to your component
     weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+     // Define an array of radio option values
+    recurrenceOptions = ['Never', 'Daily', 'Weekly', 'Monthly'];
+
   
     // Properties for selected repeat values
     selectedDailyRepeat: number;
@@ -41,6 +45,7 @@ export class SpecificTimeModalComponent {
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 
     private _route$$: Router,
+    private _dialog: Dialog
     ) {}
 
   ngOnInit(): void {
@@ -102,5 +107,9 @@ export class SpecificTimeModalComponent {
 
       this.dialogRef.close();
     }
+  }
+
+  closeModal(){
+    this._dialog.closeAll();
   }
 }

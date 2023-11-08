@@ -1,5 +1,6 @@
 <div class="specific-time">
     <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.SEND-MESSAGE-AT-SPECIFIC-TIME'| transloco }} </p>
+    <span class="xmark" (click)="closeModal()"> <i class="fa-solid fa-xmark" ></i></span>
 
     <!-- <mat-form-field appearance="outline">
       <mat-label>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-DATE'| transloco }} </mat-label>
@@ -27,11 +28,8 @@
           <button mat-button [matMenuTriggerFor]="menu">{{ menuButtonText }}<img class="down-arrow" src="assets/icons/down-arrow.png" alt="down arrow"/></button>
             <mat-menu #menu="matMenu">
               <mat-radio-group aria-label="Select an option" class="options" (change)="onRecurrenceChange($event.value)">
-                <mat-radio-button value="Never">Never</mat-radio-button>
-                <mat-radio-button value="Daily">Daily</mat-radio-button>
-                <mat-radio-button value="Weekly">Weekly</mat-radio-button>
-                <mat-radio-button value="Monthly">Monthly</mat-radio-button>
-              </mat-radio-group>              
+                <mat-radio-button *ngFor="let option of recurrenceOptions" [value]="option">{{ option }}</mat-radio-button>
+              </mat-radio-group>           
             </mat-menu>
            
         </div>
@@ -96,7 +94,7 @@
 
     <div class="buttons">
         <div class="cancel">
-          <button mat-raised-button class="cancel-btn" >
+          <button mat-raised-button class="cancel-btn" (click)="closeModal()" >
             <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
           </button>
         </div>
