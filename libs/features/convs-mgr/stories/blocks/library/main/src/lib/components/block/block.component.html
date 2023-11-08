@@ -29,7 +29,9 @@
                 <i class="fas fa-ellipsis-v"></i>
             </button> 
         </div>
+    
         <hr class="form-border"> 
+
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">
             </app-message-block>
