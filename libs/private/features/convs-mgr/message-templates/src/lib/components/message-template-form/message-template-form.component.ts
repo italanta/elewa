@@ -204,9 +204,11 @@ export class MessageTemplateFormComponent implements OnInit{
       };
 
       this.isSaving = true
-      this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
+
+      // TODO: clean this logic, create a better data stream
+      this._sbS.sink = this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
         if (response.success){
-          this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
+          this._sbS.sink = this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
             this._snackbar.showSuccess("Template updated successfully");
             this.isSaving  = false;
           });
@@ -234,10 +236,13 @@ export class MessageTemplateFormComponent implements OnInit{
       };
       if(this.templateForm.valid){
         this.isSaving = true
-        this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
+        this._sbS.sink = this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
-            this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
+      
+            const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`
+
+            this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value, templateId).subscribe((response: any) => {
               this.isSaving  = false;
               if(response.id) {
                 this._snackbar.showSuccess("Template created successfully");
