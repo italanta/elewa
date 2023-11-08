@@ -1,0 +1,52 @@
+.message-template-settings {
+  min-height: 17rem;
+  flex-shrink: 0;
+  border-radius: 1.5625rem;
+  background: #fff;
+  margin-top: 1.75rem;
+  padding: 1.75rem 1.56rem;
+}
+
+.message-template-history {
+  flex-shrink: 0;
+  border-radius: 1.5625rem;
+  background: #fff;
+  margin-top: 1.75rem;
+  padding: 2.08rem 2.12rem;
+
+  h1 {
+    color: #101010;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 2.1rem;
+  }
+}
+
+mat-header-cell {
+  color: #707070;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+mat-cell {
+  color: #000;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+mat-icon {
+  color: #1f7a8c;
+}
+.gray-out {
+  cursor: not-allowed !important;
+  opacity: 0.5;
+}

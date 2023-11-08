@@ -861,7 +861,8 @@
       "DATE": "Date Sent",
       "TIME": "Time sent",
       "LEARNERS": "Number of learners",
-      "STATUS": "status",
+      "STATUS": "Status",
+      "META": "Meta",
       "PENDING": "Pending",
       "SENT": "Sent",
       "APPROVED": "Approved"
