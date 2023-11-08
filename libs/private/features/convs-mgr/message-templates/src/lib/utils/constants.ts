@@ -14,4 +14,7 @@ export const categoryOptions = [
     { value: 'specific-time', viewValue: 'Send message at specific time' },
     { value: 'inactivity', viewValue: 'After inactivity' },
   ];
-    
+ 
+  export const recurrenceOptions =[
+    'Never', 'Daily', 'Weekly', 'Monthly'
+  ]

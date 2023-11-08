@@ -3,6 +3,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
+import { recurrenceOptions } from '../../utils/constants';
+
 
 @Component({
   selector: 'app-specific-time-modal',
@@ -31,7 +33,7 @@ export class SpecificTimeModalComponent {
     weekdays: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
      // Define an array of radio option values
-    recurrenceOptions = ['Never', 'Daily', 'Weekly', 'Monthly'];
+    recurrenceOptions = recurrenceOptions;
 
   
     // Properties for selected repeat values
