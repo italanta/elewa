@@ -1,5 +1,5 @@
 .specific-time {
-  color: #101010;
+  color: var(--convs-mgr-color-101010);;
   font-family: Roboto;
   font-size: 1.125rem;
   font-style: normal;
@@ -9,7 +9,7 @@
   flex-direction: column;
   width: 26.5625rem;
   border-radius: 1.5625rem;
-  background: #fff;
+  background: var(--convs-mgr-color-primary-white);
   flex-shrink: 0;
   padding: 0.94rem 2.38rem;
   box-sizing: border-box;
@@ -35,7 +35,7 @@
     .select {
       select {
         border: none;
-        background-color: #fff;
+        background-color: var(--convs-mgr-color-success-contrast);
       }
       select ::after {
         border: none;
@@ -73,8 +73,8 @@
   width: 4.875rem;
   height: 2.0625rem;
   flex-shrink: 0;
-  background-color: #1f7a8c !important;
-  color: white !important;
+  background-color: var(--convs-mgr-icon-color) !important;
+  color: var(--convs-mgr-color-success-contrast) !important;
   font-family: Roboto;
   font-size: small;
   font-style: normal;
@@ -88,55 +88,25 @@
   width: 4.875rem;
   height: 2.0625rem;
   flex-shrink: 0;
-  // background-color: #1F7A8C!important;
-  color: black !important;
+  color: var(--convs-mgr-color-primary-black) !important;
   font-family: Roboto;
   font-size: small;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   align-self: flex-end;
-  border: 1px #1f7a8c solid;
+  border: 1px var(--convs-mgr-icon-color) solid;
 }
 
 .selected-day {
-  background-color: #1f7a8c;
-  color: white !important;
+  background-color: var(--convs-mgr-icon-color) !important;
+  color: var(--convs-mgr-color-primary-white) !important;
   border-radius: 0.5rem;
 }
-
-
 
 .custom-dropdown {
   position: relative;
   width: fit-content; /* Adjust the width as needed */
-}
-
-.circular-dropdown {
-  width: 100%;
-  padding: 10px;
-  border: none !important;
-  outline: none;
-  cursor: pointer;
-}
-
-#circular-dropdown option {
-  border-radius: 50px;
-  background-color: #fff;
-  border: none !important;
-}
-
-/* Style to hide the default dropdown arrow */
-#circular-dropdown::-ms-expand {
-  display: none;
-}
-
-#circular-dropdown::before {
-  content: '▼'; /* Custom dropdown arrow (you can use a different icon) */
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
 }
 
 button.mat-button {
@@ -149,22 +119,21 @@ img {
 }
 .occur-text{
     // Repeat every
-    color: #101010;
+    color: var(--convs-mgr-color-101010);;
     font-size: 16px;
     font-family: Roboto;
     font-weight: 300;
     word-wrap: break-word
 }
 .day-month{
-    // S
-    color: #707070;
+    color: var(--convs-mgr-color-707070);
     font-family: Roboto;
     font-weight: 300;
     word-wrap: break-word
 }
 .repeat{
     // Repeat every
-    color: #101010;
+    color: var(--convs-mgr-color-101010);;
     font-size: 16px;
     font-family: Roboto;
     font-weight: 300;
@@ -172,7 +141,7 @@ img {
 }
 .recur-text {
   // Recur daily configurations
-  color: #101010;
+  color: var(--convs-mgr-color-101010);
   font-size: 1rem;
   font-family: Roboto;
   font-weight: 400;
@@ -180,7 +149,7 @@ img {
 }
 .date-bd {
   border: none !important;
-  color: #1f7a8c;
+  color: var(--convs-mgr-icon-color);
   font-size: 1rem;
   font-family: Roboto;
   font-weight: 300;
@@ -188,7 +157,7 @@ img {
 }
 .remove-end {
   // Remove end date
-  color: #1f7a8c;
+  color: var(--convs-mgr-icon-color); 
   font-size: 1rem;
   font-family: Roboto;
   font-weight: 300;
@@ -203,4 +172,4 @@ img {
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 1.3rem !important;
-  }
+}
