@@ -84,6 +84,7 @@ export const ICONS_AND_TITLES = {
   50: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
     icon: 'fas fa-image',
+    svgIcon: '/assets/icons/ph_image-light.svg',
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',

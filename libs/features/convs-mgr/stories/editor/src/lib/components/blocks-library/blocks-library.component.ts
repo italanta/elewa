@@ -84,6 +84,7 @@ export class BlocksLibraryComponent implements OnInit, OnDestroy {
     return ICONS_AND_TITLES[type].icon;
   }
 
+
   //A function that subscribes to when the search control changes and filters the blocks components list
   filterBlockTemplates() {
     this.blockTemplate$ = combineLatest([this.filterInput$$, this.blockTemplate$])
