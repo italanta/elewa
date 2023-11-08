@@ -18,6 +18,7 @@ import { MessageTemplateHeaderComponent } from './components/message-template-he
 import { MessageTemplateListComponent } from './components/message-template-list/message-template-list.component';
 import { MessageTemplateSingleSettingsComponent } from './components/message-template-single-settings/message-template-single-settings.component';
 import { MessageTemplateSingleComponent } from './components/message-template-single/message-template-single.component';
+import { MessageTemplatesHistoryComponent } from './components/message-templates-history/message-templates-history.component';
 import { SpecificTimeModalComponent } from './modals/specific-time-modal/specific-time-modal.component';
 import { AfterInactivityModalComponent } from './modals/after-inactivity-modal/after-inactivity-modal.component';
 import { MilestoneReachedModalComponent } from './modals/milestone-reached-modal/milestone-reached-modal.component';
@@ -46,6 +47,7 @@ import { MessageTemplateRouterModule } from './message-template.router';
     SpecificTimeModalComponent,
     AfterInactivityModalComponent,
     MilestoneReachedModalComponent,
+    MessageTemplatesHistoryComponent,
   ]
 })
 export class ConvsMgrMessageTemplatesModule {}
