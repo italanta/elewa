@@ -43,13 +43,13 @@
         <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-DAILY'| transloco }}</p>
 
         <div class="select-days" >
-          <p class="repeat">Repeat every
+          <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
             <select name="dailyRepeat" id="dailyRepeat" [(ngModel)]="selectedDailyRepeat">
               <option *ngFor="let option of dailyOptions" [value]="option">{{ option }}</option>
             </select>
-            days
+            {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.DAYS'| transloco }}
           </p>
-            <p class="occur-text">Occurs every day until <input type="date" class="date-bd" id="date" name="daily-date"></p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="date" name="daily-date"></p>
             <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
       </div>
@@ -63,13 +63,13 @@
           </p>
         </div>
         <div class="select-days" >
-          <p class="repeat">Repeat every
+          <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
             <select name="weeklyRepeat" id="weeklyRepeat" [(ngModel)]="selectedWeeklyRepeat">
               <option *ngFor="let option of weeklyOptions" [value]="option">{{ option }}</option>
             </select>
-            Weeks
+            {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.WEEKS'| transloco }}
           </p>
-            <p>Occurs every week until <input type="date" class="date-bd" id="birthday" name="weekly-date"></p>
+            <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-WEEKLY'| transloco }} <input type="date" class="date-bd" id="birthday" name="weekly-date"></p>
             <p class="remove-end">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
     </div>
@@ -83,13 +83,13 @@
     
 
       <div class="select-days" >
-        <p class="repeat">Repeat every
+        <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
           <select name="monthlyRepeat" id="monthlyRepeat" [(ngModel)]="selectedMonthlyRepeat">
             <option *ngFor="let option of monthlyOptions" [value]="option">{{ option }}</option>
           </select>
-          months
+          {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.MONTHS'| transloco }}
         </p>
-          <p>Occurs every month until <input type="date" class="date-bd" id="date" name="monthly-date"></p>
+          <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="date" class="date-bd" id="date" name="monthly-date"></p>
           <p class="remove-end">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
       </div>
     </div>
@@ -97,7 +97,7 @@
     <div class="buttons">
         <div class="cancel">
           <button mat-raised-button class="cancel-btn" >
-            <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.CANCEL-BUTTON.CANCEL'| transloco }} </span>
+            <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
           </button>
         </div>
         <div class="save">

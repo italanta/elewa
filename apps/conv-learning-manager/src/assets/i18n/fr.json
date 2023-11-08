@@ -609,7 +609,19 @@
       "TIME-PLACEHOLDER": "Heure",
       "SAVE-BUTTON": {
         "SAVE": "Enregistrer"
-      }
+      },
+      "REMOVE-END":"Supprimer la date de fin",
+      "RECUR" :"Se reproduire",
+      "RECUR-DAILY":"Configurations quotidiennes récurrentes",
+      "RECUR-WEEKLY":"Configurations hebdomadaires récurrentes",
+      "RECUR-MONTHLY":"Configurations mensuelles récurrentes",
+      "DAYS":"jours",
+      "WEEKS":"semaines",
+      "MONTHS":"mois",
+      "REPEAT-EVERY":"Répétez tous les",
+      "OCCURS-MONTHLY":"Se produit chaque mois jusqu'à",
+      "OCCURS-WEEKLY":"Se produit chaque semaine jusqu'à",
+      "OCCURS-DAILY":"Se produit tous les jours jusqu'à"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
@@ -671,12 +683,7 @@
             "SAVE-BUTTON": {
               "SAVE": "Enregistrer",
               "SAVING": "Enregistrement en cours"
-            },
-            "REMOVE-END":"Remove end date",
-            "RECUR" :"Recur",
-            "RECUR-DAILY":"Recur daily configurations",
-            "RECUR-WEEKLY":"Recur weekly configurations",
-            "RECUR-MONTHLY":"Recur Monthly configurations"
+            }
           }
         },
         "FORM-BODY": {
