@@ -19,7 +19,7 @@
 
     <div class="recur">
       <div class="text">
-        <p>Recur</p>
+        <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR'| transloco }}</p>
       </div>
       <div class="select">
         <div class="custom-dropdown">
@@ -40,7 +40,7 @@
    
  
       <div class="daily" *ngIf="selectedRecurrence === 'Daily'">
-        <p class="recur-text">Recur daily configurations</p>
+        <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-DAILY'| transloco }}</p>
 
         <div class="select-days" >
           <p class="repeat">Repeat every
@@ -50,12 +50,12 @@
             days
           </p>
             <p class="occur-text">Occurs every day until <input type="date" class="date-bd" id="date" name="daily-date"></p>
-            <p class="remove-end" (click)="removeEndDate()">Remove end date</p>
+            <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
       </div>
 
       <div class="weekly" *ngIf="selectedRecurrence === 'Weekly'">
-        <p class="recur-text">Recur weekly configurations</p>
+        <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-WEEKLY'| transloco }}</p>
     
         <div class="weeks" *ngIf="selectedRecurrence === 'Weekly'">
           <p class="day-month" *ngFor="let day of weekdays; let i = index" [ngClass]="{'selected-day': selectedDays.includes(day)}" (click)="toggleSelectedDay(day)">
@@ -69,13 +69,13 @@
             </select>
             Weeks
           </p>
-            <p>Occurs every day until <input type="date" class="date-bd" id="birthday" name="weekly-date"></p>
-            <p class="remove-end">Remove end date</p>
+            <p>Occurs every week until <input type="date" class="date-bd" id="birthday" name="weekly-date"></p>
+            <p class="remove-end">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
     </div>
     
     <div class="monthly" *ngIf="selectedRecurrence === 'Monthly'">
-      <p class="recur-text">Recur Monthly configurations</p>
+      <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-MONTHLY'| transloco }}</p>
 
         <div class="months" >
           <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedDays.includes(monthNumber.toString())}" (click)="toggleSelectedDay(monthNumber.toString())">{{ monthNumber }}</p>
@@ -89,15 +89,15 @@
           </select>
           months
         </p>
-          <p>Occurs every day until <input type="date" class="date-bd" id="date" name="monthly-date"></p>
-          <p class="remove-end">Remove end date</p>
+          <p>Occurs every month until <input type="date" class="date-bd" id="date" name="monthly-date"></p>
+          <p class="remove-end">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
       </div>
     </div>
 
     <div class="buttons">
         <div class="cancel">
           <button mat-raised-button class="cancel-btn" >
-            <span>CANCEL </span>
+            <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.CANCEL-BUTTON.CANCEL'| transloco }} </span>
           </button>
         </div>
         <div class="save">

@@ -90,16 +90,6 @@ export class SpecificTimeModalComponent {
       }
   }
 
-  scrollMonths(direction: 'left' | 'right') {
-    const monthsContainer = document.querySelector('.months');
-    if (monthsContainer) {
-      if (direction === 'left') {
-        monthsContainer.scrollLeft -= 100; // Adjust the scroll distance as needed
-      } else {
-        monthsContainer.scrollLeft += 100; // Adjust the scroll distance as needed
-      }
-    }
-  }
   
   saveDateTime(): void {
     if (this.selectedDate && this.selectedTime) {
