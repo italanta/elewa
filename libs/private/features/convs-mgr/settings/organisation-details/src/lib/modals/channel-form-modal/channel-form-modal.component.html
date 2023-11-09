@@ -33,6 +33,14 @@
               <input type="text" formControlName="botPhoneNumberId" id="botPhoneNumberId" name="botPhoneNumberId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}'><br>
               <input type="text" formControlName="businessAccountId" id="businessAccountId" name="businessAccountId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}'>
           </div>
+          <div class="buttons">
+            <div class="cancel">
+              <button (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+            </div>
+            <div class="continue">
+              <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
+            </div>
+          </div>
         </form>
       </div>
     
@@ -47,17 +55,17 @@
                   <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.MESSENGER-CHANNEL-DETAILS" | transloco}}</label><br>
                   <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' ><br>
                   <input type="text" formControlName="pageId" id="pageId" name="pageId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}' >
-              </div>    
+              </div>  
+              <div class="buttons">
+                <div class="cancel">
+                  <button (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
+                </div>
+                <div class="continue">
+                  <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
+                </div>
+              </div>  
         </form>
       </div>
     
-      <div class="buttons">
-        <div class="cancel">
-          <button (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</button>
-        </div>
-        <div class="continue">
-          <button (click)="showForm()">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
-        </div>
-      </div>
     </div>
     
