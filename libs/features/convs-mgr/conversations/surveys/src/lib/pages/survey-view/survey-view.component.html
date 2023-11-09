@@ -14,7 +14,7 @@
 
       <div class="question-options">
         <div style="margin-bottom: 20px;" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" *ngFor="let option of question.options">
-          <span *ngIf="option.text && option.text != ''" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="option-name">
+          <span *ngIf="option.text && option.text !== ''" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" class="option-name">
             <i class="fa-regular fa-circle" style="color: #707070;"></i>
             <span>
               {{ option.text }}

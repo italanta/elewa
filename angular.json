@@ -1887,32 +1887,6 @@
       },
       "tags": []
     },
-    "private-state-organisation-channels": {
-      "projectType": "library",
-      "root": "libs/private/state/organisation/channels",
-      "sourceRoot": "libs/private/state/organisation/channels/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/private/state/organisation/channels"],
-          "options": {
-            "jestConfig": "libs/private/state/organisation/channels/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/private/state/organisation/channels/**/*.ts",
-              "libs/private/state/organisation/channels/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "private-state-organisation-main": {
       "projectType": "library",
       "root": "libs/private/state/organisation/main",
@@ -1985,6 +1959,32 @@
             "lintFilePatterns": [
               "libs/state/convs-mgr/bots/**/*.ts",
               "libs/state/convs-mgr/bots/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-channels": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/channels",
+      "sourceRoot": "libs/state/convs-mgr/channels/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/channels"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/channels/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/channels/**/*.ts",
+              "libs/state/convs-mgr/channels/**/*.html"
             ]
           }
         }

@@ -4,12 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, switchMap, take, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { ChannelService } from '@app/private/state/organisation/channels';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
@@ -50,13 +50,13 @@ export class MessageTemplateFormComponent implements OnInit{
     private _route:ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
-    private _channelService: ChannelService
+    private _channelService: CommunicationChannelService
   ) {}
 
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
     this.templateForm = createEmptyTemplateForm(this.fb);
-    this.channels$ = this._channelService.getChannelByOrg();
+    this.channels$ = this._channelService.getAllChannels();
 
     if (this.action !== 'create') {
       this.initPage();
