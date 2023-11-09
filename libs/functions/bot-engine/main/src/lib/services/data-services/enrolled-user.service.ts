@@ -1,5 +1,3 @@
-import { firestore } from 'firebase-admin';
-
 import { HandlerTools, Repository } from '@iote/cqrs';
 import { Query } from '@ngfi/firestore-qbuilder';
 
@@ -59,9 +57,40 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     return currentEnrolledUser;
   };
 
-  async getTodaysUsers(orgId: string) {
-    const enrolledUsers = this. _getEnrolledUsrRepo(orgId).getDocuments(
-      new Query().where('created-At', ">=" , firestore.Timestamp.fromDate(new Date()))
+  /** get today's created user count */
+  async getTodaysUsers(orgId: string, timeInUnix:number) {
+    // Set the time to the start of the day (00:00:00)
+    const timeInDate = new Date(timeInUnix);
+    timeInDate.setHours(0, 0, 0, 0);
+
+    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('createdOn', ">=" , new Date(timeInDate))
+    );
+
+    return enrolledUsers;
+  };
+
+  /** get the past week created user count */
+  async getPastWeekUserCount(orgId: string) {
+    const today = new Date();
+    const startAt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7); // Start date (seven days ago)
+    const endAt = today;
+
+    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
+    );
+
+    return enrolledUsers;
+  };
+
+  /** get the past month created user count */
+  async getPastMonthUserCount(orgId: string) {
+    const today = new Date();
+    const startAt = new Date(today.getFullYear(), today.getMonth(), 0);
+    const endAt = new Date();
+
+    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
     );
 
     return enrolledUsers;
