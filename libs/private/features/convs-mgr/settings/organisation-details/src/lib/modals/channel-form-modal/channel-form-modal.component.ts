@@ -38,16 +38,10 @@ export class ChannelFormModalComponent implements OnInit {
 
 
   showForm() {
-    // Access the selected platform from the injected data
     if (this.data && this.data.selectedPlatform) {
       this.selectedPlatform = this.data.selectedPlatform;
-
-
-      if (this.selectedPlatform === 'WhatsApp') {
-        this.showWhatsAppForm = true;
-      } else {
-        this.showWhatsAppForm = false;
-      }
+  
+      this.showWhatsAppForm = this.selectedPlatform === 'WhatsApp';
     }
   }
   
