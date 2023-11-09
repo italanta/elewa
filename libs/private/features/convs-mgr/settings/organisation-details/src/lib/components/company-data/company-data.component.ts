@@ -13,6 +13,7 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 
 import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
 import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
+import { ChannelFormModalComponent } from '../../modals/channel-form-modal/channel-form-modal.component';
 
 
 const ELEMENT_DATA: CommunicationChannel[] = [
@@ -47,7 +48,7 @@ export class CompanyDataComponent implements OnInit {
   ) { }
 
  
-  displayedColumns: string[] = ['name', 'type', 'orgId', 'n'];
+  displayedColumns: string[] = ['name', 'type', 'orgId', 'n', 'edit'];
   dataSource = ELEMENT_DATA;
 
 
@@ -117,6 +118,16 @@ export class CompanyDataComponent implements OnInit {
       minWidth: '30%',
       minHeight: '21.125rem',
     });
+  }
+
+  editChannel(channel: CommunicationChannel) {
+    // Determine the platform and open the modal with the respective form
+    this._dialog.open(ChannelFormModalComponent, {
+      minWidth: '30%',
+      minHeight: '21.125rem',
+      data: { selectedPlatform: channel.type === PlatformType.WhatsApp ? 'WhatsApp' : 'Messenger', initialValues: channel }
+    });
+  
   }
  
 }

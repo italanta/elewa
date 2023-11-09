@@ -1133,7 +1133,8 @@
       "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
       "CHANNEL-NAME":"Channel Name",
       "PLATFORM":"Platform",
-      "FIRST-STORY":"First Story"
+      "FIRST-STORY":"First Story",
+      "EDIT-CHANNEL":"Edit Channel"
       
   }
 }

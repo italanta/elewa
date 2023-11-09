@@ -843,7 +843,8 @@
         "MESSENGER-CHANNEL-DETAILS":"Détails du canal Messenger",
         "CHANNEL-NAME":"Nom du canal",
         "PLATFORM":"Plate-forme",
-        "FIRST-STORY":"Première histoire"
+        "FIRST-STORY":"Première histoire",
+        "EDIT-CHANNEL":"Modifier la chaîne"
         
     }
   }
