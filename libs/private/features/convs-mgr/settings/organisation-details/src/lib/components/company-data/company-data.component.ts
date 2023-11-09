@@ -1,26 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {  FormBuilder,  FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Organisation } from '@app/model/organisation';
 import { AppClaimDomains } from '@app/private/model/access-control';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { OrganisationService } from '@app/private/state/organisation/main';
+
 
 // import { FileStorageService } from '@app/features/files';
 
 import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
 import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
-import { CardElement } from '../../interfaces/channneldetails.interface';
 
 
 
 
-const ELEMENT_DATA: CardElement[] = [
-  { ChannelName: "farmBetter Kenya", platform: 'WhatsApp' , firstStory: "Plant Care", download: 'EditChannel' },
-  { ChannelName: "kenyaScouts Association", platform: 'Messenger', firstStory: "Scout Rules", download: 'EditChannel' },
-  
+const ELEMENT_DATA: CommunicationChannel[] = [
+  { name: 'test', type: PlatformType.WhatsApp ,  orgId: '123456' , n:12},
+  { name: 'test', type: PlatformType.WhatsApp ,  orgId: '1256', n:13},
+  { name: 'test', type: PlatformType.Messenger ,  orgId: '98665', n:23},
 ];
+
+
+
 
 @Component({
   selector: 'company-data',
@@ -35,12 +39,13 @@ export class CompanyDataComponent implements OnInit {
   orgDataFormGroup: FormGroup;
 
   activeOrgLoaded: boolean;
-  editOrg = false;
-  formIsReady = false;
-  showButtons = false;
+  editOrg :boolean;
+  formIsReady:boolean;
+  showButtons :boolean;
 
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
+
 
  
 
@@ -50,8 +55,11 @@ export class CompanyDataComponent implements OnInit {
               private _orgService$$: OrganisationService
   ) { }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+ 
+
+  displayedColumns: string[] = ['name', 'type', 'orgId', 'n'];
   dataSource = ELEMENT_DATA;
+
 
   ngOnInit(): void {
     this.getActiveOrg();

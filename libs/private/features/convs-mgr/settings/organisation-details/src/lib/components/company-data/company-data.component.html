@@ -108,36 +108,33 @@
   <div class="card" >
     <h3 class="channel-head">My Channels</h3>
     <div *ngIf="dataSource.length !== 0">
-      <table mat-table [dataSource]="dataSource">
-    
       
-        <ng-container matColumnDef="position">
-          <th mat-header-cell *matHeaderCellDef class="channelTitle"> {{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}}</th>
-          <td mat-cell *matCellDef="let element"> {{element.ChannelName}} </td>
-        </ng-container>
-    
-      
+      <table mat-table [dataSource]="dataSource" >
+
+        <!-- Position Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef class="channelTitle"> {{"COMPANY-INFORMATION.CHANNEL-MODAL.PLATFORM" | transloco}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.platform}} </td>
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
-    
       
-        <ng-container matColumnDef="weight">
-          <th mat-header-cell *matHeaderCellDef class="channelTitle"> {{"COMPANY-INFORMATION.CHANNEL-MODAL.FIRST-STORY" | transloco}} </th>
-          <td mat-cell *matCellDef="let element"> {{element.firstStory}} </td>
+        <!-- Name Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.PLATFORM" | transloco}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
         </ng-container>
-    
-     
-        <ng-container matColumnDef="symbol" class="link">
-          <th mat-header-cell *matHeaderCellDef>  </th>
-          <td mat-cell *matCellDef="let element"> 
-              <a 
-              (click)="addChannel()" this will open model after data is inputed
-               style="color:#1F7A8C;">{{element.download}} </a>
-          </td>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="orgId">
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.FIRST-STORY" | transloco}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.orgId}} </td>
         </ng-container>
-    
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="n">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let element"> {{element.n}} </td>
+        </ng-container>
+      
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
