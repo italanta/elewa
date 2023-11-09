@@ -22,7 +22,7 @@
       }
       .mainButtons {
         position: absolute;
-        margin-top: 260px;
+        margin-top: 16.25rem;
 
         button {
           width: 50%;
@@ -75,7 +75,7 @@
               padding-left: 2vh;
 
               &:focus {
-                color: black;
+                color: var(--convs-mgr-color-primary-black);
               }
             }
             .name-input{
@@ -110,7 +110,7 @@
     margin-top: 2%;
     .button-link{
       // Add channel
-    color: #1F7A8C;
+    color: var(--convs-mgr-button-color);
     font-size: medium;
     font-family: Roboto;
     font-weight: 300;
@@ -119,7 +119,7 @@
     }
     .channel-head{
       // My Channels
-      color: #101010;
+      color: var(--convs-mgr-color-101010);
       font-size: medium;
       font-family: Roboto;
       font-weight: 400;
@@ -129,7 +129,7 @@
       table{
           .channelTitle{
             // Channel Name
-            color: #707070;
+            color: var(--convs-mgr-input-color) !important;
             font-size: medium;
             font-family: Roboto;
             font-weight: 300;

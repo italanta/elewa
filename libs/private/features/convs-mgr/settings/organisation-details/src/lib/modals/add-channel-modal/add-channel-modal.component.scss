@@ -6,11 +6,11 @@
     .cancel-icon{
         .close-button {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 20px;
+            top: 0.8rem;
+            right: 0.8rem;
+            font-size: 1rem;
             cursor: pointer;
-            color: #3E788A; 
+            color: var(--connector-color-blue) !important; 
           }          
     }
 
@@ -20,21 +20,19 @@
         .left-line{
             width: 45%;
             height: 0.1rem;
-            background: #3E788A; 
-            // border: 3px #3E788A solid;
+            background: var(--connector-color-blue) !important;
         }
         .right-line{
             width: 45%;
-            height: 0.1rem;
-            background: #3E788A; 
-            // border: 1px #3E788A solid; 
+            height: 0.1rem; 
+            background: var(--connector-color-blue) !important;
         }
     }
     .top{
         text-align: center;
         // Add Channel
         color: #101010;
-        font-size: 18px;
+        font-size: 1rem;
         font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word
@@ -43,8 +41,8 @@
         display: flex;
         justify-content: space-between;
         // Select Platform
-        color: #3E788A;
-        font-size: 16px;
+        color: var(--connector-color-blue) !important;
+        font-size: 1rem;
         font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
@@ -81,12 +79,12 @@
         margin-top: 3%;
         .cancel{
             button{
-                border-radius: 30px;
-                border: 1.50px #3E788A solid;
+                border-radius: 2rem;
+                border: 1.50px var(--connector-color-blue) solid;
                 padding: 0.5em 2em;
                 // Cancel
-                color: #3E788A;
-                font-size: 16px;
+                color: var(--connector-color-blue) !important;
+                font-size: 1rem;
                 font-family: Roboto;
                 font-weight: 400;
                 word-wrap: break-word;
@@ -96,13 +94,13 @@
         .continue{
             button{
                 // Continue
-                color: white;
-                font-size: 16px;
+                color: var(--convs-mgr-color-primary-white) !important;
+                font-size: 1rem;
                 font-family: Roboto;
                 font-weight: 400;
                 word-wrap: break-word;
-                background: #1F7A8C; 
-                border-radius: 30px;
+                background: var(--convs-mgr-button-color) !important;
+                border-radius: 2rem;
                 padding: 0.5em 2em;
                 border: none;
                 cursor: pointer;
