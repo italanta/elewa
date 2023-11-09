@@ -1,7 +1,7 @@
 .specific-time {
   color: var(--convs-mgr-color-101010);;
   font-family: Roboto;
-  font-size: 1.125rem;
+  font-size: medium;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -95,7 +95,7 @@
   font-weight: 400;
   line-height: normal;
   align-self: flex-end;
-  border: 1px var(--convs-mgr-icon-color) solid;
+  border: 0.0625rem var(--convs-mgr-icon-color) solid;
 }
 
 .selected-day {
@@ -120,7 +120,7 @@ img {
 .occur-text{
     // Repeat every
     color: var(--convs-mgr-color-101010);;
-    font-size: 16px;
+    font-size: 1rem;
     font-family: Roboto;
     font-weight: 300;
     word-wrap: break-word
@@ -134,7 +134,7 @@ img {
 .repeat{
     // Repeat every
     color: var(--convs-mgr-color-101010);;
-    font-size: 16px;
+    font-size: medium;
     font-family: Roboto;
     font-weight: 300;
     word-wrap: break-word
@@ -142,7 +142,7 @@ img {
 .recur-text {
   // Recur daily configurations
   color: var(--convs-mgr-color-101010);
-  font-size: 1rem;
+  font-size: medium;
   font-family: Roboto;
   font-weight: 400;
   word-wrap: break-word;
@@ -150,7 +150,7 @@ img {
 .date-bd {
   border: none !important;
   color: var(--convs-mgr-icon-color);
-  font-size: 1rem;
+  font-size: medium;
   font-family: Roboto;
   font-weight: 300;
   word-wrap: break-word;
@@ -158,7 +158,7 @@ img {
 .remove-end {
   // Remove end date
   color: var(--convs-mgr-icon-color); 
-  font-size: 1rem;
+  font-size: medium;
   font-family: Roboto;
   font-weight: 300;
   text-decoration: underline;
