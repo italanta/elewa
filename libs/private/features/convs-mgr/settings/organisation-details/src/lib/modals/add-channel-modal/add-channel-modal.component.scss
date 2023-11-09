@@ -10,7 +10,6 @@
             right: 0.8rem;
             font-size: 1rem;
             cursor: pointer;
-            color: var(--connector-color-blue) !important; 
           }          
     }
 
@@ -94,7 +93,7 @@
         .continue{
             button{
                 // Continue
-                color: var(--convs-mgr-color-primary-white) !important;
+                color: var(--convs-mgr-color-text-white);
                 font-size: 1rem;
                 font-family: Roboto;
                 font-weight: 400;
