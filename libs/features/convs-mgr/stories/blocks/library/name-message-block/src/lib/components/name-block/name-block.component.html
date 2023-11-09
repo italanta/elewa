@@ -1,4 +1,4 @@
-<div [id]="id" *ngIf=" nameMessageForm">
+<div class="wide" [id]="id" *ngIf=" nameMessageForm">
 	<form [formGroup]="nameMessageForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="nameInputId" formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.NAME' | transloco" />
