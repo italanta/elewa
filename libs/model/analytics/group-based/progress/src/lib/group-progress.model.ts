@@ -18,7 +18,7 @@ export interface GroupProgressModel extends IObject
   groupedMeasurements: GroupedProgressMilestone[];
 
   /** Today's EnrolledUserCount */
-  todaysEnrolledUsersCount: number;
+  todaysEnrolledUsersCount: EnrolledUserCount;
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
@@ -49,4 +49,15 @@ export interface UsersProgressMilestone {
 
   /** Users */
   participants: ParticipantProgressMilestone[];
+}
+
+export interface EnrolledUserCount {
+  /** daily user count */
+  dailyCount: number;
+
+  /** weekly user count */
+  pastWeekCount: number;
+
+  /** monthly user count */
+  pastMonthCount: number;
 }
