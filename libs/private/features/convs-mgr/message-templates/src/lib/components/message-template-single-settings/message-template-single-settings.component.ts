@@ -32,7 +32,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   canBeScheduled: boolean;
 
-  showMessageConditions = false;
+  showMessageConditions :boolean;
 
 
   messageTemplateFrequency = frequencyOptions;
