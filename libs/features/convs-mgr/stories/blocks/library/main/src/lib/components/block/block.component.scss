@@ -29,17 +29,20 @@ mat-card {
 }
 
 .block-title {
-	font-weight: 450;
-	font-size: 1rem;	
+
+	font-weight: 400;	
 	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
+	font-family: Roboto;
+	font-style: normal;
+	font-size: 0.8125rem;
+	line-height: normal;
 }
 
 .outer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-bottom: 1px solid var(--convs-mgr-light-border-color);
 
 	&:hover {
 		cursor: move;
@@ -60,8 +63,8 @@ mat-card {
 	padding: 0;
 }
 
-hr{
-	color: var(--convs-mgr-border-color);
+.form-border {
+	border-top: 0.5px solid #DADADA;
 }
 
 .icon-with-text{
@@ -70,7 +73,4 @@ hr{
 
 :host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
     z-index: 0 !important;
-  }
-
-  
-
+}
