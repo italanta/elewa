@@ -1,4 +1,4 @@
-<div [id]="id" *ngIf="audioMessageForm">
+<div class="wide" [id]="id" *ngIf="audioMessageForm">
     <form [formGroup]="audioMessageForm" fxLayout="column" fxLayoutALign="start center">
 
         <div [id]="audioInputId" class="audio_bg"  [ngClass]="byPassedLimits.length ? 'error' : ''">

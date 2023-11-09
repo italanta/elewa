@@ -84,14 +84,17 @@ export const ICONS_AND_TITLES = {
   50: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
     icon: 'fas fa-image',
+    svgIcon: '/assets/icons/ph_image-light.svg',
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
+    svgIcon: '/assets/icons/map-pin.svg',
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
     icon: 'fas fa-video',
+    svgIcon: 'assets/svgs/blocks/system-uicons_video.svg'
   },
   25: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
@@ -109,7 +112,7 @@ export const ICONS_AND_TITLES = {
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
-    icon: 'fas fa-flag'
+    icon: 'far fa-flag'
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
