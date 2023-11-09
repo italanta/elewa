@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 export class ChannelFormModalComponent implements OnInit {
 
   selectedPlatform: string;
-  showWhatsAppForm = false;
+  showWhatsAppForm :boolean;
  
   channelForm: FormGroup;
 
