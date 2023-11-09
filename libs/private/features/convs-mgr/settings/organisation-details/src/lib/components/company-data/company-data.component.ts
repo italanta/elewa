@@ -115,7 +115,7 @@ export class CompanyDataComponent implements OnInit {
   addChannel(){
     this._dialog.open(AddChannelModalComponent, {
       minWidth: '30%',
-      minHeight: '338px',
+      minHeight: '21.125rem',
     });
   }
  
