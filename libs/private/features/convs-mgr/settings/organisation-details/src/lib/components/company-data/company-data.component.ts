@@ -15,16 +15,11 @@ import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-log
 import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
 
 
-
-
 const ELEMENT_DATA: CommunicationChannel[] = [
   { name: 'test', type: PlatformType.WhatsApp ,  orgId: '123456' , n:12},
   { name: 'test', type: PlatformType.WhatsApp ,  orgId: '1256', n:13},
   { name: 'test', type: PlatformType.Messenger ,  orgId: '98665', n:23},
 ];
-
-
-
 
 @Component({
   selector: 'company-data',
@@ -37,7 +32,6 @@ export class CompanyDataComponent implements OnInit {
 
   activeOrg: Organisation;
   orgDataFormGroup: FormGroup;
-
   activeOrgLoaded: boolean;
   editOrg :boolean;
   formIsReady:boolean;
@@ -46,9 +40,6 @@ export class CompanyDataComponent implements OnInit {
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
-
- 
-
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
               // private _fileStorageService$$: FileStorageService,
@@ -56,7 +47,6 @@ export class CompanyDataComponent implements OnInit {
   ) { }
 
  
-
   displayedColumns: string[] = ['name', 'type', 'orgId', 'n'];
   dataSource = ELEMENT_DATA;
 

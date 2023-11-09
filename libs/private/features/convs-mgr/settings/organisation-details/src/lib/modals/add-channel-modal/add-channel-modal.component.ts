@@ -12,9 +12,6 @@ import { ChannelFormModalComponent } from '../channel-form-modal/channel-form-mo
 export class AddChannelModalComponent {
   selectedPlatform: string ;
  
- 
-
-
   constructor(
     private _dialog: MatDialog,
     private fb: FormBuilder
@@ -29,7 +26,7 @@ export class AddChannelModalComponent {
       // Pass the selected platform as data to the modal
       this._dialog.open(ChannelFormModalComponent, {
         minWidth: '30%',
-        minHeight: '338px',
+        minHeight: '21.125rem',
         data: { selectedPlatform: this.selectedPlatform }, // Pass the selected platform as data
       });
     }
