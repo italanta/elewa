@@ -29,7 +29,7 @@ export class SetInactivityHandler extends FunctionHandler<SetInacivityReq, any>
       
       const scheduleOptions: ScheduleOptions = {
         ...cmd,
-        dispatchTime: cmd.dispatchTime || new Date(),
+        dispatchTime: new Date(cmd.dispatchTime) || new Date(),
         frequency: `every ${recurringTime} hours`
       }
 
@@ -46,7 +46,7 @@ export class SetInactivityHandler extends FunctionHandler<SetInacivityReq, any>
       
     return { success: true, task };
     } catch (error) {
-      tools.Logger.log(() => `[SetInactivityHandler].execute - Error Deleting Task: ${error}`);
+      tools.Logger.log(() => `[SetInactivityHandler].execute - Error Creating Task: ${error}`);
       return { success: false, error };
     }
   }
