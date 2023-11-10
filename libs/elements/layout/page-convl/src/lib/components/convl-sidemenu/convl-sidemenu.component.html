@@ -69,7 +69,7 @@
               </a>
               <ul [ngClass]="{ 'sub-side-menu': isExpanded, 'sub-side-menu-collapsed': !isExpanded }">
                 <li matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}">
-                  <a class="menu-item" routerLink="/chats" routerLinkActive="active">
+                  <a *hasViewAccess="CAN_ACCESS_CHATS" class="menu-item" routerLink="/chats" routerLinkActive="active">
                     <span class="menu-icon">
                       <img *ngIf="isExpanded" src="assets/icons/message-chat.svg" class="img" alt="">
                       <img *ngIf="!isExpanded"  matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.CHATS'| transloco }}" src="assets/icons/message-chat.svg" class="img" alt="">
