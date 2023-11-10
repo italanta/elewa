@@ -10,7 +10,7 @@ export interface StartSurveyReq
   /** The template name of the template to send to users
    *   before starting the survey
    */
-  messageTemplateName?: string;
+  messageTemplateId?: string;
 
   /** The Id of the channel to send the survey to */
   channelId: string;

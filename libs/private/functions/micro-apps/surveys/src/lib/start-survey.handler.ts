@@ -1,6 +1,5 @@
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
-import { Query } from '@ngfi/firestore-qbuilder';
 
 import { StartSurveyReq, StartSurveyResponse } from '@app/private/model/convs-mgr/micro-apps/surveys';
 import { BlockDataService, BlockToStandardMessage, ChannelDataService, ConnectionsDataService, CursorDataService, EnrolledUserDataService } from '@app/functions/bot-engine';
@@ -27,10 +26,10 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
       }
   
       // Get the message template
-      if (req.messageTemplateName) {
+      if (req.messageTemplateId) {
         const templatesRepo$ = tools.getRepository<any>(`orgs/${commChannel.orgId}/message-templates`);
-  
-        messageToSend = (await templatesRepo$.getDocuments(new Query().where('name', '==', req.messageTemplateName)))[0];
+
+        messageToSend =  await templatesRepo$.getDocumentById(req.messageTemplateId);
 
         messageToSend.type = MessageTypes.TEMPLATE;
       } else {

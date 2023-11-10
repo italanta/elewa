@@ -21,7 +21,7 @@ export function CreateSurveyPayload (options: ScheduleOptions,channel: Communica
     functionName: 'sendSurvey',
     endUserIds: endUserIds,
     surveyId: options.id,
-    messageTemplateName: msg.name,
+    messageTemplateId: msg.id,
     channelId: channel.id
   };
 }
