@@ -61,7 +61,7 @@
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL-DESCRIPTION'| transloco }} </p>
                         <mat-form-field  class="">
                             <mat-select class="mat-outline" formControlName="channelId">
-                                <mat-option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.id }}</mat-option>
+                                <mat-option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <p *ngIf="!(channels$ | async)?.length" class="channel-dd">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.NO-CHANNEL'| transloco }}</p>

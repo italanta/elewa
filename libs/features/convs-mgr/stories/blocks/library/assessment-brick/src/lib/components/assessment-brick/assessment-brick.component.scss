@@ -9,7 +9,7 @@ input {
     text-align: start;
     color: var(--assessment-brick-input-color);
     font-family: Roboto;
-    font-size: 0.5625rem;
+    font-size: small;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -19,20 +19,20 @@ input {
     text-align: end;
     color: var(--assessment-brick-input-color);
     font-family: Roboto;
-    font-size: 0.5625rem;
+    font-size: small;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
 }
 
-.option {
+.assessment-option {
     
     margin-top: 0.3125rem;
     width: 100%;
     padding: 0.25rem;
     display: flex;
 
-    
+    justify-content: space-evenly ;
 }
 
 #dash {
@@ -40,7 +40,7 @@ input {
     padding: 0.25rem;
     color: var(--assessment-brick-input-color);
     font-family: Roboto;
-    font-size: 0.5625rem;
+    font-size: small;
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -62,7 +62,7 @@ input {
     appearance: none;
     color: var(--assessment-brick-label-color);
     font-family: Roboto;
-    font-size: 0.625rem;
+    font-size: small;
     font-style: normal;
     font-weight: 300;
     line-height: normal;

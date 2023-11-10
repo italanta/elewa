@@ -1,6 +1,5 @@
-<div [id]="id" *ngIf="keywordJumpBlock">
-  <form [formGroup]="keywordJumpBlock" fxLayout="column" fxLayoutALign="start center">
-
+<div class="wide" [id]="id" *ngIf="keywordJumpBlock">
+    <form [formGroup]="keywordJumpBlock" fxLayout="column" fxLayoutALign="start center">
     <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="keywordJumpBlock"></app-default-option-field>
   </form>
 
