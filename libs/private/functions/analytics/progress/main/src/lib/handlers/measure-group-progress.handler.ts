@@ -37,9 +37,12 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
       //1. get OrgId from channel
       const channelDataService = new ChannelDataService(tools);
 
-      const channels = await channelDataService.getChannels();
+      // TODO: get the channel id cleanly.
+      const channel = await channelDataService.getChannels();
 
-      const orgId = channels.orgId;
+      const orgId = channel.orgId;
+
+      tools.Logger.log(() => `[measureGroupProgressHandler].execute - Computing Progress for Org : ${orgId}`);
 
       const classroomDataService = new ClassroomDataService(tools, orgId);
 
@@ -57,18 +60,24 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
         enrolledUsers
           .filter((user) => user.whatsappUserId).map(async (user) => {
             return {
+              enrolledUser: user,
               endUser: await endUserDataService.getEndUser(user.whatsappUserId),
               classroom: classrooms.find((classroom) => classroom.id === user.classId),
             };
           })
       );
 
+      tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
+
       const engine = new MeasureParticipantProgressHandler();
 
       //4. get all users progress
       const allUsersProgress = await Promise.all(
-        endUsersWithClassroom?.map((user) =>
-          engine.execute({ orgId, participant: user, interval }, context, tools)
+        endUsersWithClassroom?.map((user) => {
+            if (user.endUser) {
+              return engine.execute({ orgId, participant: user, interval }, context, tools)
+            }
+          }
         )
       );
 
@@ -99,10 +108,12 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   //2. group users by milestones and classroom
   const groupedMeasurements = _parseGroupedProgressData(allUsersProgress);
 
-  //3. get newly Enrolled User Count
-  const enrolledUserCount = (await enrolledUserDataServ.getTodaysUsers(orgId)).length
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Progress Successfully Grouped`);
 
-  const date = new Date(timeInUnix * 1000);
+  const date = new Date(timeInUnix);
+
+  //3. get newly Enrolled User Count
+  const enrolledUserCount = await getEnrolledUserCreationCount(enrolledUserDataServ, orgId, tools, timeInUnix);
 
   //4. Add To Database
   const savedMilestone = await monitoringDataServ.createNewMilestone(
@@ -117,6 +128,38 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 }
 
 /**
+ * Gets the number of enrolled users created today, in the past week (if it's friday), and in the past month (if end of month).
+ * @param {enrolledUserDataServ} enrolledUserDataServ - The enrolled user data service.
+ * @param {string} orgId - The organization ID.
+ */
+async function getEnrolledUserCreationCount(enrolledUserDataServ: EnrolledUserDataService, orgId: string, tools:HandlerTools, timeInUnix:number) {
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ...
+  const isLastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate() === today.getDate();
+
+  const dailyCount = (await enrolledUserDataServ.getTodaysUsers(orgId, timeInUnix)).length;
+
+  let pastWeekCount = 0;
+  let pastMonthCount = 0;
+
+  if (dayOfWeek === 5) { // Friday (0-based index, where 5 represents Friday)
+    pastWeekCount = (await enrolledUserDataServ.getPastWeekUserCount(orgId)).length;
+  }
+
+  if (isLastDayOfMonth) {
+    pastMonthCount = (await enrolledUserDataServ.getPastMonthUserCount(orgId)).length;
+  }
+
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
+
+  return {
+    dailyCount,
+    pastWeekCount,
+    pastMonthCount
+  }
+}
+
+/**
  * Groups users by milestone(current Module) in their progress.
  * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
  * @returns {UsersProgressMilestone[]} An array of participants grouped by milestone.
@@ -126,13 +169,13 @@ function _parseAllUserProgressData(allUsersProgress: ParticipantProgressMileston
     //guard clause to filter user's with no history when calculating past data
     if (!participant) return acc;
 
-    const { milestone } = participant;
+    const { course } = participant;
 
-    if (!acc[milestone]) {
-      acc[milestone] = [];
+    if (!acc[course]) {
+      acc[course] = [];
     }
 
-    acc[milestone].push(participant);
+    acc[course].push(participant);
     return acc;
   }, {});
 
@@ -203,5 +246,5 @@ function _convertGroupedObjectsToArray(groupedData: GroupedParticipants): UsersP
 /** get current Date in unix */
 function _getCurrentDateInUnix() {
   const time = new Date();
-  return Math.floor(time.getTime() / 1000);
+  return Math.floor(time.getTime());
 }
