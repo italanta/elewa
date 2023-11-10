@@ -16,5 +16,8 @@ export interface WhatsAppCommunicationChannel extends CommunicationChannel
      * 
      * Please note that this is not the same as the phoneNumber id
      */
+    
     businessAccountId?: string;
+
+    
 }

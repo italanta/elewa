@@ -21,16 +21,16 @@
     
       <!-- WhatsApp Form -->
       <div *ngIf="showWhatsAppForm">
-        <form [formGroup]="channelForm" (ngSubmit)="onWhatsAppSubmit()">
+        <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
           <div class="general">
               <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
-          <input type="text" formControlName="botDetails" id="botDetails" name="botDetails" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+              <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
           </div>
           <div class="channel-details">
-              <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP-CHANNEL-DETAILS" | transloco}}</label><br>
+              <label >{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP-CHANNEL-DETAILS" | transloco}}</label><br>
               <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' ><br>
-              <input type="text" formControlName="botPhoneNumber" id="botPhoneNumber" name="botPhoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}' ><br>
-              <input type="text" formControlName="botPhoneNumberId" id="botPhoneNumberId" name="botPhoneNumberId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}'><br>
+              <input type="text" formControlName="phoneNumber" id="phoneNumber" name="botPhoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}' ><br>
+              <input type="text" formControlName="botPhoneNumberId" id="businessAccountId" name="botPhoneNumberId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}'><br>
               <input type="text" formControlName="businessAccountId" id="businessAccountId" name="businessAccountId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}'>
           </div>
           <div class="buttons">
@@ -46,13 +46,13 @@
     
       <!-- Messenger Form -->
       <div *ngIf="!showWhatsAppForm">
-        <form [formGroup]="channelForm" (ngSubmit)="onMessengerSubmit()">
+        <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
               <div class="general">
-              <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
-              <input type="text" id="fname" name="fname" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+              <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
+              <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
               </div>
               <div class="channel-details">
-                  <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.MESSENGER-CHANNEL-DETAILS" | transloco}}</label><br>
+                  <label >{{"COMPANY-INFORMATION.CHANNEL-MODAL.MESSENGER-CHANNEL-DETAILS" | transloco}}</label><br>
                   <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' ><br>
                   <input type="text" formControlName="pageId" id="pageId" name="pageId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}' >
               </div>  

@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Organisation } from '@app/model/organisation';
+import { OrganisationService } from '@app/private/state/organisation/main';
+
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 @Component({
   selector: 'app-channel-form-modal',
@@ -13,50 +17,69 @@ export class ChannelFormModalComponent implements OnInit {
   showWhatsAppForm :boolean;
  
   channelForm: FormGroup;
+  
+  activeOrg: Organisation;
 
   constructor(
+    private _channelService$: CommunicationChannelService,
     private _dialog: MatDialog,
     private fb: FormBuilder,
+    private _orgService$$: OrganisationService,
     @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string }
   ){  }
   ngOnInit(): void {
-    this.showForm()
-    this.initForm()
+    this.showForm();
   }
-
-  initForm() {
-    this.channelForm = this.fb.group({
-      botDetails: [''],
-      accessToken: ['', Validators.required], 
-      botPhoneNumber: [''],
-      botPhoneNumberId: [''],
-      businessAccountId: [''],
-      pageId: [''],
-    });
-  }
-
-
 
   showForm() {
     if (this.data && this.data.selectedPlatform) {
       this.selectedPlatform = this.data.selectedPlatform;
-  
       this.showWhatsAppForm = this.selectedPlatform === 'WhatsApp';
-    }
-  }
-  
-  onWhatsAppSubmit() {
-    if (this.channelForm.valid) {
-      // Handle form submission here
-     
+
+      // Initialize form only after obtaining the active org
+      this.getActiveOrg();
     }
   }
 
-  onMessengerSubmit(){
-    if(this.channelForm.valid){
-      //handle messenger submission here 
+  getActiveOrg() {
+    this._orgService$$.getActiveOrg().subscribe((org) => {
+      this.activeOrg = org;
+      this.initForm();
+    });
+  }
+
+  initForm() {
+    this.channelForm = this.fb.group({
+      type: [this.selectedPlatform], 
+      name: [''],
+      accessToken: ['', Validators.required], 
+      phoneNumber: [''],
+      botPhoneNumberId: [''],
+      businessAccountId: [''],
+      pageId: [''],
+      orgId: [this.activeOrg.id], 
+      
+    });
+  }
+
+  
+  onChannelFormSubmit() {
+    if (this.channelForm.valid) {
+      if (this.showWhatsAppForm) {
+        this.channelForm.removeControl('pageId');
+      }else{
+        this.channelForm.removeControl('phoneNumber');
+        this.channelForm.removeControl('botPhoneNumberId');
+        this.channelForm.removeControl('businessAccountId');
+      }
+      
+      this._channelService$.addChannels(this.channelForm.value).subscribe(() => {
+        this.closeModal();
+      });
     }
   }
+
+ 
 
 
   closeModal() {
