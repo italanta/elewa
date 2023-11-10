@@ -2,7 +2,7 @@ import { RestRegistrar } from "@ngfi/functions";
 
 import { ScheduleMessageTemplatesHandler } from "@app/private/functions/convs-mgr/conversations/message-templates/scheduler";
 
-import { ConvLearnFunction } from "../../../conv-learn-func.class";
+import { ConvLearnFunction } from "../../../../conv-learn-func.class";
 
 const handler = new ScheduleMessageTemplatesHandler();
 
