@@ -37,7 +37,7 @@
             <th class="table-header" mat-header-cell *matHeaderCellDef
               >{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.TEMPLATE-NAME'| transloco }}
             </th>
-              <td mat-cell *matCellDef="let template" (click)="openTemplate(template.id)">  {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
+              <td class="temp-name" mat-cell *matCellDef="let template" (click)="openTemplate(template.id)">  {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
           </ng-container>
       
           <ng-container matColumnDef="sentMessages">
@@ -56,9 +56,9 @@
 
           <ng-container matColumnDef="status">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
-              
+              Status
             </th>
-              <td mat-cell *matCellDef="let template"> {{template.status}} </td>
+              <td mat-cell *matCellDef="let template"> {{modifyStatus(template.status)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="send">
@@ -73,6 +73,7 @@
       
           <ng-container matColumnDef="actions">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Actions
             </th>
             <td mat-cell *matCellDef="let template"> 
                 <button mat-button [matMenuTriggerFor]="menu">

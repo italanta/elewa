@@ -21,7 +21,7 @@ export function _EventBlockDecoratePlumb(block: EventBlock, comp: ComponentRef<B
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass: 'block_endpoint',
-    endpoint: 'Rectangle',
+    endpoint: 'Dot',
     anchor: "Left",
     maxConnections: -1
   });

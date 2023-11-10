@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'private-state-organisation-channels',
-  preset: '../../../../../jest.preset.js',
+  displayName: 'state-convs-mgr-channels',
+  preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -9,8 +9,7 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory:
-    '../../../../../coverage/libs/private/state/organisation/channels',
+  coverageDirectory: '../../../../coverage/libs/state/convs-mgr/channels',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
