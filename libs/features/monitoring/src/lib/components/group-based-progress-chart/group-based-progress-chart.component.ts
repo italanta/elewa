@@ -88,6 +88,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
+  /** initialise the data layer (fetch bots, modules and classrooms) */
   initDataLayer() {
     this._sBs.sink = this._botServ$.getBots().pipe(
       switchMap(bots => {
@@ -103,13 +104,15 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     ).subscribe(botModules => this.botModules = botModules);
   }
 
+  /** add default class */
   addDefaultClass() {
     const classroom = this.classrooms.find(cls => cls.className === defaultClassroom.className)
     classroom ?? this.classrooms.push(defaultClassroom);
   }
 
+  /** select progress tracking periodicals */
   selectProgressTracking(periodical: periodicals) {
-    if (!this.dailyProgress) return
+    if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
 
     if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
@@ -120,6 +123,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** draw chart. */
   private _loadChart(model: GroupProgressModel[]): Chart {
     if (this.chart) {
       this.chart.destroy();
@@ -149,16 +153,16 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** returns a data set for visualisation */
+  /** returns a dataset for visualisation */
   private getDatasets(model: GroupProgressModel[]) {
     const bot = this.courses.find(course => course.id === this.activeCourse.id) as Bot;
 
     // if AllCourses is selected we group with the course as our reference point.
-    if(!bot) {
+    if (!bot) {
       return this.courses.map((bot, idx) => {
         return {
           label: bot.name,
-          data: this.unPackAllBots(model, bot),
+          data: this.unpackAllBots(model, bot),
           backgroundColor: getColor(idx),
           borderRadius: 10,
         };
@@ -169,7 +173,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     else {
       return bot.modules.map((botMod, idx) => {
         const botMilestone = this.botModules.find(mod => mod.id === botMod) as BotModule;
-        return this.unpackLabel(
+
+        return this.unpackAtModuleLevel(
           botMilestone,
           idx,
           model
@@ -179,19 +184,20 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
   /** unpack/ungroup data when all courses is selected */
-  private unPackAllBots(model: GroupProgressModel[], bot:Bot) {
+  private unpackAllBots(model: GroupProgressModel[], bot:Bot) {
     return model.map((item) => {
       const participants = item.measurements.find((m) => m.name === bot.id)?.participants;
 
-      if(this.activeClassroom === 'All') {
-        return participants?.length ?? 0
+      if (this.activeClassroom === 'All') {
+        return participants?.length ?? 0;
       } else {
-        return participants?.filter((part) => part.classroom.className === this.activeClassroom).length ?? 0
+        return participants?.filter((part) => part.classroom.className === this.activeClassroom).length ?? 0;
       }
     })
   };
 
-  private unpackLabel(milestone: BotModule, idx: number, model: GroupProgressModel[]) {
+  /** unpack data at the module level */
+  private unpackAtModuleLevel(milestone: BotModule, idx: number, model: GroupProgressModel[]) {
     return {
       label: milestone?.name,
       data: this.getData(milestone, model),
@@ -200,15 +206,26 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     };
   }
 
+  /** get data while unpacking at the module level */
   private getData(moduleMilestone: BotModule, model: GroupProgressModel[]): number[] {
     // return moduleMilestone data from users of the active course and class === selected tab
     return model.map(
       (item) => {
-        const courseGroup = item.groupedMeasurements.find((course) => course?.name === this.activeCourse.id);
-        const classGroup = courseGroup?.classrooms.find((cls) => cls?.name === this.activeClassroom);
+        if (this.activeClassroom === 'All') {
+          const courseGroup = item.groupedMeasurements.find((course) => course?.name === this.activeCourse.id);
+          const measurements = courseGroup?.classrooms.flatMap(clsroom => clsroom?.measurements?.filter((botMod) => botMod?.name === moduleMilestone?.id));
+          const participantCount = measurements?.reduce((acc, clsroom) => acc + (clsroom?.participants?.length ?? 0), 0) ?? 0;
+          
+          return participantCount;
+        } else {
+          const courseGroup = item.groupedMeasurements.find((course) => course?.name === this.activeCourse.id);
+          const classGroup = courseGroup?.classrooms.find((cls) => cls?.name === this.activeClassroom);
+          const participantCount = classGroup?.measurements?.find((botMod) => botMod?.name === moduleMilestone?.id)?.participants.length ?? 0
 
-        return classGroup?.measurements?.find((botMod) => botMod?.name === moduleMilestone?.id)?.participants.length ?? 0
-    });
+          return participantCount;
+        }
+      }
+    );
   }
 
   ngOnDestroy() {
