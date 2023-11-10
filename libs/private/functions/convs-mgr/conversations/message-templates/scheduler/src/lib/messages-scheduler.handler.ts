@@ -3,10 +3,9 @@ import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
 import { ChannelDataService, EnrolledUserDataService } from "@app/functions/bot-engine";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
-import { ScheduledMessage, UsersFilters } from "@app/model/convs-mgr/functions";
+import { ScheduledMessage } from "@app/model/convs-mgr/functions";
 
 import { ScheduleMessagesReq } from "./model/schedule-message-req";
-import { getReceipientID } from "./utils/get-receive-id.util";
 import CloudSchedulerService from "./model/services/cloud-scheduler.service";
 import CloudTasksService from "./model/services/cloud-task.service";
 import { _getPayload } from "./utils/create-payload.util";
@@ -26,19 +25,17 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
       const communicationChannel = await channelService.getChannelInfo(cmd.channelId);
 
-      const { endUsers, enrolledEndUserIds } = await this.__getEndUsers(cmd.usersFilters, communicationChannel.type, communicationChannel.orgId, tools);
+      const endUserIds = await this.__getEndUsers(communicationChannel.type, communicationChannel.orgId, tools);
 
       const scheduledMessage = {
         ...cmd,
         n: communicationChannel.n,
         plaform: communicationChannel.type,
-        endUsers: endUsers,
+        endUserIds: endUserIds,
         dispatchTime: new Date(cmd.dispatchTime)
       };
 
-
-
-      const payload = _getPayload(cmd, communicationChannel, endUsers, enrolledEndUserIds);
+      const payload = _getPayload(cmd, communicationChannel, endUserIds, cmd.message);
 
       // If frequency is specified, then it is a recurring job
       if (scheduledMessage.frequency) {
@@ -78,61 +75,14 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
     return scheduledMessages$.create(schedule);
   }
 
-  private async __getEndUsers(usersFilters: UsersFilters, platform: PlatformType, orgId: string, tools: HandlerTools) 
+  private async __getEndUsers(platform: PlatformType, orgId: string, tools: HandlerTools) 
   {
-    let endUsers: string[] = [];
-
     const enrolledUserService = new EnrolledUserDataService(tools, orgId);
 
     const enrolledEndUsers = await enrolledUserService.getEnrolledUsers();
 
-    const enrolledEndUserIds = enrolledEndUsers.map((user) => user.id);
+    const endUsersIds = enrolledEndUsers.map((user) => user.platformDetails[platform].endUserId);
 
-    // If there are no filters, send the message to all end users under that
-    //  organisation
-    if (!usersFilters) {
-      endUsers = enrolledEndUsers.map((user) => getReceipientID(user, platform));
-
-      return { endUsers, enrolledEndUserIds };
-    }
-
-    // Get the receive ID of only the end users specified
-    if (usersFilters.endUsersId) {
-      const filteredEndUsers = enrolledEndUsers
-        .filter((user) => usersFilters.endUsersId.includes(user.id))
-        .map((user) => getReceipientID(user, platform)) || [];
-
-      endUsers = [...endUsers, ...filteredEndUsers];
-    }
-
-    if (usersFilters.class) {
-      const filteredByClass = enrolledEndUsers
-        // TODO: Filter the array of classes
-        .filter((user) => usersFilters.class.includes(user.classId))
-        .map((user) => getReceipientID(user, platform)) || [];
-
-      endUsers = [...endUsers, ...filteredByClass];
-    }
-
-
-    if (usersFilters.module) {
-      const filteredByModule = enrolledEndUsers
-        // TODO: Filter the array of classes
-        .filter((user) => user.modules[0] == usersFilters.module)
-        .map((user) => getReceipientID(user, platform)) || [];
-
-      endUsers = [...endUsers, ...filteredByModule];
-    }
-
-    if (usersFilters.story) {
-      const filteredByStory = enrolledEndUsers
-        // TODO: Filter the array of classes
-        .filter((user) => user.lessons[0] == usersFilters.story)
-        .map((user) => getReceipientID(user, platform)) || [];
-
-      endUsers = [...endUsers, ...filteredByStory];
-    }
-
-    return { endUsers, enrolledEndUserIds };
+    return endUsersIds;
   }
 }
