@@ -13,9 +13,7 @@ export interface SendMultipleMessagesReq extends IObject
   message: TemplateMessage,
 
   /**
-   * This can be an array of phone numbers if it's on whatsapp or an array of
-   *  recepientIds, on messenger. The unique identifier through which the end user
-   *   receives the message.
+   * This is an array of the endusers ids who we are about to send the messsage to
    */
-  endUsers: string[];
+  endUsersIds: string[];
 }

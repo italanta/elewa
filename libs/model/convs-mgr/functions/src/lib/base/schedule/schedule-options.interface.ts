@@ -21,6 +21,8 @@ export interface ScheduleOptions
  
    /** Interval to send message templates to users in cron format */
    frequency?: string;
+
+   inactivityTime: number; 
    
    /**
     * If it is a recurring schedule, the end date is the time the repetition will
@@ -30,9 +32,9 @@ export interface ScheduleOptions
    endDate?: Date;
 
    /**
-    * The array of users to send the message template/survey to
+    * The array of users id to send the message template/survey to
     */
-   users: string[];
+   enrolledEndUsers: string[];
 
    /**
     * The type of the job scheduled. Can be survey or just one message
@@ -52,5 +54,10 @@ export enum JobTypes
     * A simple type is when the user wants to send a message template to users at
     *   a scheduled time.
     */
-   SimpleMessage = 'simple-message'
+   SimpleMessage = 'simple-message',
+
+   /**
+    * A job scheduled to check for user inactivity and then send a message.
+    */
+   Inactivity = 'inactivity'
 }
