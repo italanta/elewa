@@ -41,6 +41,11 @@ import { throws } from 'assert';
     return this.createDocument(endUser, this._docPath, endUser.id);
   }
 
+  getAllEndUsers() 
+  {
+    return this.getDocuments(this._docPath);
+  }
+
   async getOrCreateEndUser(endUser: EndUser, endUserId?: string)
   {
     let currentEndUser;
