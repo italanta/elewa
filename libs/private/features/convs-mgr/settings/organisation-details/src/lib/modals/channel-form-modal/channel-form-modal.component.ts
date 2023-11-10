@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+
+import { CommunicationChannel, MessengerCommunicationChannel, WhatsAppCommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { Organisation } from '@app/model/organisation';
 import { OrganisationService } from '@app/private/state/organisation/main';
 
@@ -25,7 +27,7 @@ export class ChannelFormModalComponent implements OnInit {
     private _dialog: MatDialog,
     private fb: FormBuilder,
     private _orgService$$: OrganisationService,
-    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string }
+    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string, initialValues: CommunicationChannel }
   ){  }
   ngOnInit(): void {
     this.showForm();
@@ -49,16 +51,25 @@ export class ChannelFormModalComponent implements OnInit {
   }
 
   initForm() {
+    const initialValues = this.data.initialValues || {};
+  
+    // Cast initialValues to the specific interface based on the selected platform
+    let specificInitialValues: WhatsAppCommunicationChannel | MessengerCommunicationChannel;
+    if (this.showWhatsAppForm) {
+      specificInitialValues = initialValues as WhatsAppCommunicationChannel;
+    } else {
+      specificInitialValues = initialValues as MessengerCommunicationChannel;
+    }
+  
     this.channelForm = this.fb.group({
-      type: [this.selectedPlatform], 
-      name: [''],
-      accessToken: ['', Validators.required], 
-      phoneNumber: [''],
-      botPhoneNumberId: [''],
-      businessAccountId: [''],
-      pageId: [''],
-      orgId: [this.activeOrg.id], 
-      
+      type: [this.selectedPlatform],
+      name: [specificInitialValues.name || ''],
+      accessToken: [specificInitialValues.accessToken || '', Validators.required],
+      phoneNumber: [(specificInitialValues as WhatsAppCommunicationChannel).phoneNumber || ''],
+      phoneNumberId: [(specificInitialValues as WhatsAppCommunicationChannel).phoneNumberId || ''],
+      businessAccountId: [(specificInitialValues as WhatsAppCommunicationChannel).businessAccountId || ''],
+      pageId: [(specificInitialValues as MessengerCommunicationChannel).pageId || ''],
+      orgId: [this.activeOrg.id],
     });
   }
 
@@ -69,7 +80,7 @@ export class ChannelFormModalComponent implements OnInit {
         this.channelForm.removeControl('pageId');
       }else{
         this.channelForm.removeControl('phoneNumber');
-        this.channelForm.removeControl('botPhoneNumberId');
+        this.channelForm.removeControl('phoneNumberId');
         this.channelForm.removeControl('businessAccountId');
       }
       
