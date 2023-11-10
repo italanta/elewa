@@ -17,7 +17,7 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
 {
   async execute(cmd: CheckInactivityReq, context: FunctionContext, tools: HandlerTools) 
   {
-    tools.Logger.log(() => `[DeleteJobHandler].execute - Delete Request: ${JSON.stringify(cmd)}`);
+    tools.Logger.log(() => `[CheckInactivityHandler].execute - Check Request: ${JSON.stringify(cmd)}`);
     const orgId = cmd.channel.orgId;
 
     const endUsersService = new EndUserDataService(tools, orgId);
@@ -43,11 +43,13 @@ export class CheckInactivityHandler extends FunctionHandler<CheckInactivityReq, 
 
       const payload = _getPayload(cmd.scheduleOptions, cmd.channel, inactiveUsers, cmd.message);
 
+      tools.Logger.log(() => `[CheckInactivityHandler].execute - Payload to send: ${JSON.stringify(payload)}`);
+
       const response = await this._sendMessage(payload, cmd.scheduleOptions.type, context, tools);
 
       return { success: true, response };
     } catch (error) {
-      tools.Logger.log(() => `[CheckInactivityHandler].execute - Error Deleting Task: ${error}`);
+      tools.Logger.log(() => `[CheckInactivityHandler].execute - Error Checking inactivity Task: ${error}`);
       return { success: false, error };
     }
   }
