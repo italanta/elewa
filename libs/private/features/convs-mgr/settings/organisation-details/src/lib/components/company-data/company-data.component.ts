@@ -5,8 +5,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Organisation } from '@app/model/organisation';
 import { AppClaimDomains } from '@app/private/model/access-control';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+
 
 import { OrganisationService } from '@app/private/state/organisation/main';
+
 
 
 // import { FileStorageService } from '@app/features/files';
@@ -16,11 +19,6 @@ import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-cha
 import { ChannelFormModalComponent } from '../../modals/channel-form-modal/channel-form-modal.component';
 
 
-const ELEMENT_DATA: CommunicationChannel[] = [
-  { name: 'test', type: PlatformType.WhatsApp ,  orgId: '123456' , n:12},
-  { name: 'test', type: PlatformType.WhatsApp ,  orgId: '1256', n:13},
-  { name: 'test', type: PlatformType.Messenger ,  orgId: '98665', n:23},
-];
 
 @Component({
   selector: 'company-data',
@@ -44,16 +42,18 @@ export class CompanyDataComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
               // private _fileStorageService$$: FileStorageService,
-              private _orgService$$: OrganisationService
+              private _orgService$$: OrganisationService,
+              private _channelService$: CommunicationChannelService,
   ) { }
 
  
-  displayedColumns: string[] = ['name', 'type', 'orgId', 'n', 'edit'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['name', 'type', 'defaultStory', 'n', 'edit'];
+  dataSource : CommunicationChannel[] = [];
 
 
   ngOnInit(): void {
     this.getActiveOrg();
+    this.getChannels()
   }
 
   getActiveOrg() {
@@ -66,6 +66,11 @@ export class CompanyDataComponent implements OnInit {
     })
   }
 
+  getChannels() {
+    this._channelService$.getAllChannels().subscribe((channels) => {
+      this.dataSource = channels;
+    });
+  }
   buildOrgDataFormGroup(orgData: Organisation) {    
     this.orgDataFormGroup = this._fb.group({
       id: [orgData.id],
