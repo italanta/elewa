@@ -1,3 +1,4 @@
+import { ActiveOrgStore } from './../../../../state/organisation/main/src/lib/stores/active-org.store';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionContext, FunctionHandler } from '@ngfi/functions';
 
@@ -5,6 +6,7 @@ import { Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';
 
 import { defaultPermissions } from './default-permissions';
+import { create, trimEnd } from 'lodash';
 
 /**
  * This handler is responsible for assigning roles and permissions to the organisation and 
@@ -19,18 +21,19 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
     const orgsRepo = tools.getRepository<any>(`orgs`);
     const userRepo = tools.getRepository<any>(`users`);
 
+    const createdOrg = await orgsRepo.create(org);
+
     // Permissions are stored in the config repository
     const perRepo = tools.getRepository<any>(`orgs/${org.id}/config`);
-
     if (!!org.createdBy) {
       try {
         // Add roles to the organisation object
         const activeOrg = {
-          id: org.id,
+          id: createdOrg.id,
           logoUrl: '',
-          name: org.name,
-          users: [org.createdBy],
-          address: org.address,
+          name: createdOrg.name,
+          users: [createdOrg.createdBy],
+          address: createdOrg.address,
           roles: ['Admin', 'ContentDeveloper', 'Viewer'],
           permissions: {}
         } as Organisation;
@@ -42,7 +45,7 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
         perRepo.write(defaultPermissions, 'permissions');
 
         // Get the admin user - The user who created the organisation
-        let adminUser: iTalUser = await userRepo.getDocumentById(org.createdBy);
+        let adminUser: iTalUser = await userRepo.getDocumentById(createdOrg.createdBy);
 
         let adminRight = {
           Admin: true,
@@ -51,17 +54,17 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
         };
 
         // Assign admin role to the user who created the organisation
-        adminUser.roles[org.id!] = adminRight;
-        adminUser.activeOrg = org.id!;
+        adminUser.roles[createdOrg.id!] = adminRight;
+        adminUser.activeOrg = createdOrg.id!;
 
         if (!adminUser.orgIds) {
           adminUser.orgIds = [];
         }
         
-        adminUser.orgIds.push(org.id!);
+        adminUser.orgIds.push(createdOrg.id!);
 
         // Update the user object
-        userRepo.write(adminUser, org.createdBy)
+        userRepo.write(adminUser, createdOrg.createdBy)
 
         return true;
 

@@ -64,17 +64,29 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
     this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
     this.chatStatus = this.getUserChatStatus(this.chat);
   }
+//ORIGINAL
+  // getUserClass() {
+  //   if (this.chat.labels) {
+  //     const userClass = this.chat.labels.map((label) => {
+  //       const split = label.split('_');
+  //       return split[1];
+  //     });
 
-  getUserClass() {
-    if (this.chat.labels) {
-      const userClass = this.chat.labels.map((label) => {
+  //     this.userClass = userClass[0];
+  //   } else {
+  //     this.userClass = '';
+  //   }
+  // }
+
+  getUserClass(){
+    if(this.chat && this.chat.labels){
+      const userClass = this.chat.labels.map((label) =>{
         const split = label.split('_');
         return split[1];
       });
-
       this.userClass = userClass[0];
-    } else {
-      this.userClass = '';
+    }else{
+      this.userClass='';
     }
   }
 

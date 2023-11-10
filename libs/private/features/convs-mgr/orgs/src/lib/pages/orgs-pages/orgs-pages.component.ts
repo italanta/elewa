@@ -8,11 +8,12 @@ import { Observable } from 'rxjs';
 import { TranslateService } from '@ngfi/multi-lang';
 
 import { iTalUser } from '@app/model/user';
-import { Organisation } from '@app/model/organisation';
+import { Organisation, CLMPermissions } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
 
-import { OrganisationService } from '@app/private/state/organisation/main';
+import { OrganisationService, PermissionsStore } from '@app/private/state/organisation/main';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Component({
   selector: 'kujali-org-page',
@@ -26,7 +27,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
 
   orgFormGroup: FormGroup;
 
-  user$: Observable<iTalUser>;
+  user: iTalUser;
   organisation: Organisation;
 
   activeOrg: FormControl = new FormControl();
@@ -40,14 +41,16 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
               private _fb: FormBuilder,
               private _translateService: TranslateService,
               private _userService$$: UserStore,
-              private _orgService: OrganisationService
+              private _orgService: OrganisationService,
+              private _aff: AngularFireFunctions,
+              private _permissionsStore: PermissionsStore
   ) 
   {
     this.lang = this._translateService.initialise();
   }
 
   ngOnInit(): void {
-    this.user$ = this._userService$$.getUser();
+    this._sbS.sink = this._userService$$.getUser().subscribe(u => this.user = u);
     this.buildOrgForm();
   }
 
@@ -66,7 +69,8 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
         city: ['', Validators.required],
         postalCode: ['', Validators.required],
         postalAddress: ['', Validators.required],
-      })
+      }),
+      createdBy: this.user.id
     })
   }
 
@@ -74,12 +78,16 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
     this.creatingOrg = true;
     try {
       this._orgService.createOrg(this.orgFormGroup.value as Organisation);
-    } catch (error) {
-      throw error
-    }
-  }
+      // call org creation handler 
+     } catch (error) {
+    //   throw error
+    // }
+  }}
+
 
   ngOnDestroy(): void {
     this._sbS.unsubscribe();
   }
 }
+
+

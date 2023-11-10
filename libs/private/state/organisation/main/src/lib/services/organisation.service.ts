@@ -6,15 +6,16 @@ import { FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink';
 
 import { combineLatest, Observable } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 import { UserStore } from '@app/private/state/user/base';
-import { Organisation } from '@app/model/organisation';
+import { CLMPermissions, Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';
 
 import { ActiveOrgStore } from '../stores/active-org.store';
 import { OrgStore } from '../stores/organisation.store';
 import { PermissionsStore } from '../stores/permissions.store';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class OrganisationService {
               private _user$$: UserStore,
               private _orgs$$: OrgStore,
               private _db: AngularFirestore,
+              private _aff: AngularFireFunctions,
               private _permissionsStore: PermissionsStore
   ){}
 
@@ -64,14 +66,19 @@ export class OrganisationService {
       phone: org.phone ?? '',
     };
 
-    this._sbS.sink = this._orgs$$.add(orgWithId, id)
-      .pipe(take(1))
+    this._sbS.sink = this._aff.httpsCallable('assignUserToOrg')(orgWithId)
+      .pipe(take(1), tap((p) => this.setPermissions(p)))
       .subscribe(o => this._afterCreateOrg(o));
   }
 
+
+  setPermissions(p: CLMPermissions) {
+    return this._permissionsStore.set(p);
+  }
+
   private _afterCreateOrg(org: Organisation) {
-    this._router$$.navigate(['/home']);
     this._activeOrg$$.setOrg(org);
+    this._router$$.navigate(['/home']);
   }
 
   /** Switches the active org to a new one */

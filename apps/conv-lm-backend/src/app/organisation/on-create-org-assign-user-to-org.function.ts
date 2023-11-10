@@ -9,7 +9,7 @@ const ORGANIZATIONS_PATH = 'orgs/{orgId}';
 const organisationAssignHandler = new OrganisationAssignUserHandler()
 
 export const assignUserToCreatedOrg = new ConvLearnFunction('assignUserToCreatedOrg',
-                                                  new FirestoreCreateRegistrar(ORGANIZATIONS_PATH),
+                                                new RestRegistrar(),
                                                   [],
                                                   organisationAssignHandler)
                                                   .build()

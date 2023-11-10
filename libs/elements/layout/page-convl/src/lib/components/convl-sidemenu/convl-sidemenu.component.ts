@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -19,7 +19,7 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
   templateUrl: './convl-sidemenu.component.html',
   styleUrls: [ './convl-sidemenu.component.scss' ]
 })
-export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
+export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy, OnInit
 {
   private _sbS = new SubSink();
 
@@ -52,11 +52,16 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
     );
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     const featureName = this._router$$.url.split('/')[1];
+    this.openActiveFeature(featureName);
+  }
+
+  ngAfterViewInit(): void {
+    // const featureName = this._router$$.url.split('/')[1];
 
     this.handlerUserNavClicks();
-    this.openActiveFeature(featureName);
+    // this.openActiveFeature(featureName);
   }
 
   handlerUserNavClicks() {
