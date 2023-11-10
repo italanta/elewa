@@ -74,38 +74,36 @@ export class ChannelFormModalComponent implements OnInit {
 
   
   onChannelFormSubmit() {
-    if (this.channelForm.valid) {
-      // Check if the selected platform is WhatsApp
-      if (this.showWhatsAppForm) {
-        // Set phoneNumberId as id for WhatsApp
-        this.channelForm.patchValue({
-          id: this.channelForm.value.phoneNumberId,
-        });
-        this.channelForm.removeControl('pageId');
-      } else {
-        // Set pageId as id for Messenger
-        this.channelForm.patchValue({
-          id: this.channelForm.value.pageId,
-        });
-        this.channelForm.removeControl('phoneNumber');
-        this.channelForm.removeControl('phoneNumberId');
-        this.channelForm.removeControl('businessAccountId');
-      }
-  
-      const channelData = this.channelForm.value;
-  
-      if (this.data.update) {
-        this._channelService$.updateChannel(channelData).subscribe(() => {
-          this.closeModal();
-        });
-      } else {
-        // If the channel doesn't have an ID, it's a new channel, so add it
-        this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value).subscribe(() => {
-          this.closeModal();
-        });
-      }
+    if (!this.channelForm.valid) {
+      return;
     }
+  
+    // Set id based on the selected platform
+    const idKey = this.showWhatsAppForm ? 'phoneNumberId' : 'pageId';
+    this.channelForm.patchValue({
+      id: this.channelForm.value[idKey],
+    });
+  
+    if (this.showWhatsAppForm) {
+      this.channelForm.removeControl('pageId');
+    } else {
+      this.channelForm.removeControl('phoneNumber');
+      this.channelForm.removeControl('phoneNumberId');
+      this.channelForm.removeControl('businessAccountId');
+    }
+  
+    const channelData = this.channelForm.value;
+  
+    // Check if it's an update or new channel
+    const channelObservable = this.data.update ?
+      this._channelService$.updateChannel(channelData) :
+      this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value);
+  
+    channelObservable.subscribe(() => {
+      this.closeModal();
+    });
   }
+  
 
   closeModal() {
     this._dialog.closeAll();
