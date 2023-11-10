@@ -133,21 +133,21 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
  * @param {string} orgId - The organization ID.
  */
 async function getEnrolledUserCreationCount(enrolledUserDataServ: EnrolledUserDataService, orgId: string, tools:HandlerTools, timeInUnix:number) {
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ...
-  const isLastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate() === today.getDate();
+  const timeToCollect = new Date(timeInUnix);
+  const dayOfWeek = timeToCollect.getDay(); // 0 = Sunday, 1 = Monday, ...
+  const isLastDayOfMonth = new Date(timeToCollect.getFullYear(), timeToCollect.getMonth() + 1, 0).getDate() === timeToCollect.getDate();
 
-  const dailyCount = (await enrolledUserDataServ.getTodaysUsers(orgId, timeInUnix)).length;
+  const dailyCount = (await enrolledUserDataServ.getSpecificDayUserCount(orgId, timeInUnix)).length;
 
   let pastWeekCount = 0;
   let pastMonthCount = 0;
 
   if (dayOfWeek === 5) { // Friday (0-based index, where 5 represents Friday)
-    pastWeekCount = (await enrolledUserDataServ.getPastWeekUserCount(orgId)).length;
+    pastWeekCount = (await enrolledUserDataServ.getPastWeekUserCount(orgId, timeInUnix)).length;
   }
 
   if (isLastDayOfMonth) {
-    pastMonthCount = (await enrolledUserDataServ.getPastMonthUserCount(orgId)).length;
+    pastMonthCount = (await enrolledUserDataServ.getPastMonthUserCount(orgId, timeInUnix)).length;
   }
 
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);

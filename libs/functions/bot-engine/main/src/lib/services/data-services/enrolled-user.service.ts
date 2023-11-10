@@ -57,24 +57,27 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     return currentEnrolledUser;
   };
 
-  /** get today's created user count */
-  async getTodaysUsers(orgId: string, timeInUnix:number) {
+  /** get timeInDate's created user count */
+  async getSpecificDayUserCount(orgId: string, timeInUnix:number) {
     // Set the time to the start of the day (00:00:00)
-    const timeInDate = new Date(timeInUnix);
-    timeInDate.setHours(0, 0, 0, 0);
+    const startAt = new Date(timeInUnix);
+    startAt.setHours(0, 0, 0, 0);
+
+    const endAt = new Date(timeInUnix);
+    endAt.setHours(23, 59, 59, 999);
 
     const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
-      new Query().where('createdOn', ">=" , new Date(timeInDate))
+      new Query().where('createdOn', ">=" , startAt).where('createdOn', '<=', endAt)
     );
 
     return enrolledUsers;
   };
 
   /** get the past week created user count */
-  async getPastWeekUserCount(orgId: string) {
-    const today = new Date();
-    const startAt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7); // Start date (seven days ago)
-    const endAt = today;
+  async getPastWeekUserCount(orgId: string, timeInUnix:number) {
+    const timeInDate = new Date(timeInUnix);
+    const startAt = new Date(timeInDate.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate the start date (seven days ago) to millisecond equivalent
+    const endAt = timeInDate;
 
     const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
       new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
@@ -84,9 +87,9 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
   };
 
   /** get the past month created user count */
-  async getPastMonthUserCount(orgId: string) {
-    const today = new Date();
-    const startAt = new Date(today.getFullYear(), today.getMonth(), 0);
+  async getPastMonthUserCount(orgId: string, timeInUnix:number) {
+    const timeInDate = new Date(timeInUnix);
+    const startAt = new Date(timeInDate.getFullYear(), timeInDate.getMonth(), 0);
     const endAt = new Date();
 
     const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
