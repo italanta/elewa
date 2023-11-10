@@ -47,7 +47,7 @@ export class CompanyDataComponent implements OnInit {
   ) { }
 
  
-  displayedColumns: string[] = ['name', 'type', 'defaultStory', 'n', 'edit'];
+  displayedColumns: string[] = ['name', 'type', 'defaultStory', 'edit'];
   dataSource : CommunicationChannel[] = [];
 
 
@@ -130,7 +130,7 @@ export class CompanyDataComponent implements OnInit {
     this._dialog.open(ChannelFormModalComponent, {
       minWidth: '30%',
       minHeight: '21.125rem',
-      data: { selectedPlatform: channel.type === PlatformType.WhatsApp ? 'WhatsApp' : 'Messenger', initialValues: channel }
+      data: { selectedPlatform: channel.type === PlatformType.WhatsApp ? 'WhatsApp' : 'Messenger', initialValues: channel, update: 1 }
     });
   
   }
