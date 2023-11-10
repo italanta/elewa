@@ -250,6 +250,21 @@ $sidebar-footer-height: 230px;
             i {
               display: inline-block;
             }
+
+            .chevron-up{
+              rotate: 180deg;
+              transition: all 0.3s;
+            }
+
+            .chevron{
+              transition: all 0.3s;
+            }
+          }
+
+          .chev-collapsed{
+            position: absolute;
+            right: 0;
+      
           }
 
           .menu-title {
