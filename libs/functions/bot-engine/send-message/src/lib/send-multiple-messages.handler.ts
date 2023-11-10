@@ -38,11 +38,13 @@ export class SendMultipleMessagesHandler extends FunctionHandler<SendMultipleMes
 
     const sendMessage = new SendOutgoingMsgHandler();
 
-    for (const receieveID of msgToSend.endUsers) {
+    for (const endUserId of msgToSend.endUsersIds) {
+      const contactID = endUserId.split('_')[2];
+
       if (msgToSend.plaform === PlatformType.WhatsApp) {
-        message.endUserPhoneNumber = receieveID;
+        message.endUserPhoneNumber = contactID;
       } else if (msgToSend.plaform === PlatformType.Messenger) {
-        message.receipientId = receieveID;
+        message.receipientId = contactID;
       }
 
       const resp = await sendMessage.execute(message, null, tools);

@@ -47,9 +47,9 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
       const failedUsers: string[] = [];
   
       // Update the cursor
-      for (const id of req.enrolledUserIds) {
-        const {endUserId, receiveID} = await this._getEndUserId(id, commChannel.type, commChannel.orgId, tools);
-  
+      for (const endUserId of req.endUserIds) {
+        const contactID =  endUserId.split('_')[2];
+
         const cursorService = new CursorDataService(tools);
         const latestCursor = await cursorService.getLatestCursor(endUserId, commChannel.orgId);
         let newCursor: Cursor;
@@ -92,14 +92,14 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
         // Send the template message to the users
         messageToSend.n = commChannel.n;
         messageToSend.direction = MessageDirection.FROM_AGENT_TO_END_USER;
-        messageToSend = this._setReceiveID(commChannel.type, receiveID, messageToSend);
+        messageToSend = this._setReceiveID(commChannel.type, contactID, messageToSend);
   
         const resp = await sendMessage.execute(messageToSend, null, tools);
 
         if(resp.success) {
-          successfulUsers.push(receiveID);
+          successfulUsers.push(contactID);
         } else {
-          failedUsers.push(receiveID);
+          failedUsers.push(contactID);
         }
 
         count++;
