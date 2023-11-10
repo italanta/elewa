@@ -11,6 +11,8 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
+import { AllCourse } from '../../utils/mock.data';
+
 export type Periodicals = 'Daily' | 'Weekly' | 'Monthly';
 
 @Component({
@@ -26,7 +28,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   botModules$: Observable<BotModule[]>;
 
   periodical: Periodicals = 'Weekly';
-  activeCourse = 'All';
+
+  allCourse = AllCourse; // so i can access this in the template
+  activeCourse = this.allCourse;
+
   activeClassroom = 'All';
 
   loading = true;
@@ -47,7 +52,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.botModules$ = this._botModServ$.getBotModules();
   }
 
-  selectActiveCourse(course: string) {
+  selectActiveCourse(course: Bot) {
     this.activeCourse = course;
   }
 
