@@ -1,4 +1,5 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
+import { JobTypes } from "@app/model/convs-mgr/functions";
 
 import { ScheduleMessagesReq } from "../model/schedule-message-req";
 
@@ -23,4 +24,16 @@ export function CreateSurveyPayload (cmd: ScheduleMessagesReq, channel: Communic
     messageTemplateName: cmd.message.name,
     channelId: channel.id
   };
+}
+
+export function _getPayload(cmd: ScheduleMessagesReq, channel: CommunicationChannel, endusers: string[], enrolledEndUserIds: string[])
+{
+  switch (cmd.type) {
+    case JobTypes.Survey:
+      return CreateSurveyPayload(cmd, channel, enrolledEndUserIds);
+    case JobTypes.SimpleMessage:
+      return CreateTemplateMessagePayload(cmd, channel, endusers);
+    default:
+      return CreateTemplateMessagePayload(cmd, channel, endusers);
+  }
 }

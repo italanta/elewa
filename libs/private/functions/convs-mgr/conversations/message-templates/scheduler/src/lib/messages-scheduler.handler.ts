@@ -2,14 +2,14 @@ import { HandlerTools } from "@iote/cqrs";
 import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
 import { ChannelDataService, EnrolledUserDataService } from "@app/functions/bot-engine";
-import { CommunicationChannel, PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
-import { JobTypes, ScheduledMessage, UsersFilters } from "@app/model/convs-mgr/functions";
+import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
+import { ScheduledMessage, UsersFilters } from "@app/model/convs-mgr/functions";
 
 import { ScheduleMessagesReq } from "./model/schedule-message-req";
 import { getReceipientID } from "./utils/get-receive-id.util";
-import { CreateSurveyPayload, CreateTemplateMessagePayload } from "./utils/create-payload.util";
 import CloudSchedulerService from "./model/services/cloud-scheduler.service";
 import CloudTasksService from "./model/services/cloud-task.service";
+import { _getPayload } from "./utils/create-payload.util";
 
 export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMessagesReq, any>
 {
@@ -38,7 +38,7 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
 
 
-      const payload = this._getPayload(cmd, communicationChannel, endUsers, enrolledEndUserIds);
+      const payload = _getPayload(cmd, communicationChannel, endUsers, enrolledEndUserIds);
 
       // If frequency is specified, then it is a recurring job
       if (scheduledMessage.frequency) {
@@ -134,17 +134,5 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
     }
 
     return { endUsers, enrolledEndUserIds };
-  }
-
-  _getPayload(cmd: ScheduleMessagesReq, channel: CommunicationChannel, endusers: string[], enrolledEndUserIds: string[])
-  {
-    switch (cmd.type) {
-      case JobTypes.Survey:
-        return CreateSurveyPayload(cmd, channel, enrolledEndUserIds);
-      case JobTypes.SimpleMessage:
-        return CreateTemplateMessagePayload(cmd, channel, endusers);
-      default:
-        return CreateTemplateMessagePayload(cmd, channel, endusers);
-    }
   }
 }
