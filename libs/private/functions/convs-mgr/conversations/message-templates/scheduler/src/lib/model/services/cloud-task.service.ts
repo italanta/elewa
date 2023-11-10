@@ -43,8 +43,8 @@ class CloudTasksService
 
   private getTaskName(path: string, time: Date, name: string): string
   {
-    const taskId = `${name}_${time.getTime()}_${Date.now()}`;
-    return path + taskId;
+    const taskId = `${name}-${time.getTime()}-${Date.now()}`;
+    return path + '/tasks/' + taskId;
   }
 
   public async scheduleTask(payload: any, options: ScheduleOptions): Promise<any>
