@@ -27,7 +27,7 @@ export class ChannelFormModalComponent implements OnInit {
     private _dialog: MatDialog,
     private fb: FormBuilder,
     private _orgService$$: OrganisationService,
-    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string, initialValues: CommunicationChannel }
+    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string, initialValues: CommunicationChannel , update : number}
   ){  }
   ngOnInit(): void {
     this.showForm();
@@ -62,6 +62,7 @@ export class ChannelFormModalComponent implements OnInit {
     }
   
     this.channelForm = this.fb.group({
+      id:[],
       type: [this.selectedPlatform],
       name: [specificInitialValues.name || ''],
       accessToken: [specificInitialValues.accessToken || '', Validators.required],
@@ -76,21 +77,41 @@ export class ChannelFormModalComponent implements OnInit {
   
   onChannelFormSubmit() {
     if (this.channelForm.valid) {
+      // Check if the selected platform is WhatsApp
       if (this.showWhatsAppForm) {
+        // Set phoneNumberId as id for WhatsApp
+        this.channelForm.patchValue({
+          id: this.channelForm.value.phoneNumberId,
+        });
         this.channelForm.removeControl('pageId');
-      }else{
+      } else {
+        // Set pageId as id for Messenger
+        this.channelForm.patchValue({
+          id: this.channelForm.value.pageId,
+        });
         this.channelForm.removeControl('phoneNumber');
         this.channelForm.removeControl('phoneNumberId');
         this.channelForm.removeControl('businessAccountId');
       }
-      
-      this._channelService$.addChannels(this.channelForm.value).subscribe(() => {
-        this.closeModal();
-      });
+  
+      const channelData = this.channelForm.value;
+  
+      // Check if the channel has an ID
+      if (this.data.update === 1) {
+        // If the channel has an ID, it already exists, so update it
+        this._channelService$.updateChannel(channelData).subscribe(() => {
+          this.closeModal();
+        });
+      } else {
+        // If the channel doesn't have an ID, it's a new channel, so add it
+        this._channelService$.addChannels(channelData, this.channelForm.get('id')?.value).subscribe(() => {
+          this.closeModal();
+        });
+      }
     }
   }
 
- 
+  
 
 
   closeModal() {
