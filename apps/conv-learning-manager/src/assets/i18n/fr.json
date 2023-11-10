@@ -819,7 +819,7 @@
     "REMOVE":"Retirer",
     "BASIC-INFO":"INFORMATIONS DE BASE",
     "ADDRESS-INFO":"Informations sur l'adresse",
-    "EDIT-CO-INFO":"Modifier les informations de l'entreprise",
+    "EDIT-CO-INFO":"Modifier",
     "SAVE-ORG":"Enregistrer l'organisation"
   }
 }
