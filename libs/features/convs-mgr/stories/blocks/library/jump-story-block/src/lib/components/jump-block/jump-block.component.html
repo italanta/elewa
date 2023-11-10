@@ -1,4 +1,4 @@
-<div [id]="id" *ngIf="jumpBlockForm">
+<div class="wide" [id]="id" *ngIf="jumpBlockForm">
   <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
     <select id="story" name="story" formControlName="targetStoryId" (change)='getBlocks()'>
       <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>

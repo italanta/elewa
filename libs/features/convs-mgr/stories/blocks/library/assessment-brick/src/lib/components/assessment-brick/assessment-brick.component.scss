@@ -1,24 +1,47 @@
 input {
     border: none;
-    padding: 5px 10px;
-    width: 70px;
+    padding: 0.3125rem 0.625rem;
+    width: 1.875rem;
+    border-radius:  0.625rem;
 }
 
 .input-score-min {
-    text-align: center;
+    text-align: start;
+    color: var(--assessment-brick-input-color);
+    font-family: Roboto;
+    font-size: small;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
 
 .input-score-max {
     text-align: end;
+    color: var(--assessment-brick-input-color);
+    font-family: Roboto;
+    font-size: small;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
 
+<<<<<<< HEAD
 .option {
 
+=======
+.assessment-option {
+    
+    margin-top: 0.3125rem;
+    width: 100%;
+    padding: 0.25rem;
+>>>>>>> 5c312a69f184cc192e1f4ddd9ccc1b602575d064
     display: flex;
-    justify-content: space-between;
+
+    justify-content: space-evenly ;
 }
 
 #dash {
+<<<<<<< HEAD
     text-align: end;
 }
 
@@ -42,3 +65,65 @@ input {
     margin-top: 10px;  
     margin-left: 10px;
 }
+=======
+    text-align: center;
+    padding: 0.25rem;
+    color: var(--assessment-brick-input-color);
+    font-family: Roboto;
+    font-size: small;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.assess-select-wrapper {
+    position: relative;
+    width: 100%;  
+    margin-top: 1rem;
+}
+
+.assess-select{
+
+    padding: 0.5rem;
+    border-radius: 0.625rem;
+    background-color: var(--convs-mgr-placeholder-color);
+    border: 0.00625rem solid var(--convs-mgr-placeholder-color);
+    width:100%;
+    appearance: none;
+    color: var(--assessment-brick-label-color);
+    font-family: Roboto;
+    font-size: small;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    
+
+}
+
+.custom-dropdown-arrow {
+    position: absolute;
+    top: 50%;
+    right: 0.625rem;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 0.3125rem solid transparent;
+    border-right: 0.3125rem solid transparent;
+    border-top: 0.3125rem solid var(--assessment-brick-input-color);
+    pointer-events: none;
+}
+
+.form-group {
+
+    width:100%;
+
+}
+
+.horizontal {
+
+    width:100%;
+    height: 0.06rem;
+    background-color: var(--convs-mgr-light-border-color);
+
+}
+>>>>>>> 5c312a69f184cc192e1f4ddd9ccc1b602575d064

@@ -84,14 +84,17 @@ export const ICONS_AND_TITLES = {
   50: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
     icon: 'fas fa-image',
+    svgIcon: '/assets/icons/ph_image-light.svg',
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
+    svgIcon: '/assets/icons/map-pin.svg',
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
     icon: 'fas fa-video',
+    svgIcon: 'assets/svgs/blocks/system-uicons_video.svg'
   },
   25: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
@@ -105,15 +108,20 @@ export const ICONS_AND_TITLES = {
   29: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.KEYWORD-JUMP',
     icon: 'fas fa-bullseye',
+    svgIcon: '/assets/icons/bullseye.svg',
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
-    icon: 'fas fa-flag'
+    icon: 'far fa-flag'
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
     icon: 'fas fa-chart-bar',
+<<<<<<< HEAD
     svgIcon: 'assets/svgs/blocks/la_clipboard-check.svg',
+=======
+    svgIcon: '/assets/icons/assessments-stroked.svg'
+>>>>>>> 5c312a69f184cc192e1f4ddd9ccc1b602575d064
   },
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
