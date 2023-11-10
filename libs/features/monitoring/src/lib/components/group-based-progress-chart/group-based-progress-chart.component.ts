@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { startWith, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -11,7 +11,7 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Classroom } from '@app/model/convs-mgr/classroom';
+import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 import { periodicals } from '../../models/periodicals.interface';
@@ -37,7 +37,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   classrooms: Classroom[];
   botModules: BotModule[];
 
-  activeCourse: string;
+  activeCourse: Bot;
   activeClassroom: string;
   selectedPeriodical: periodicals;
 
@@ -54,7 +54,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set setActiveCourse(value: string) {
+  set setActiveCourse(value: Bot) {
     this.activeCourse = value
     this.selectProgressTracking(this.selectedPeriodical);
   }
@@ -92,9 +92,11 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     this._sBs.sink = this._botServ$.getBots().pipe(
       switchMap(bots => {
         this.courses = bots
+
         return this._clasroomServ$.getAllClassrooms().pipe(
           switchMap(clsrooms => {
-          this.classrooms = clsrooms
+          this.classrooms = clsrooms;
+          // this.classrooms.push(defaultClassroom);
           return this._botModServ$.getBotModules()
         }))
       })
@@ -122,7 +124,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
       type: 'bar',
       data: {
         labels: model.map((day) => formatDate(day.time)),
-        datasets: this.getDatasets(model)
+        datasets: this.getDatasets(model),
       },
       options: {
         maintainAspectRatio: false,
@@ -143,45 +145,50 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
   private getDatasets(model: GroupProgressModel[]) {
-    const bot = this.courses.find(course => course.name === this.activeCourse) as Bot;
+    const bot = this.courses.find(course => course.id === this.activeCourse.id) as Bot;
 
-    return bot?.modules.map((botMod, idx) => 
-      this.unpackLabel(
-        (this.botModules.find(mod => mod.id === botMod) as BotModule)?.name,
-        idx, 
-        model
-      )
-    );
+    if (bot) {
+      return bot.modules.map((botMod, idx) => {
+        const botMilestone = this.botModules.find(mod => mod.id === botMod) as BotModule;
+        return this.unpackLabel(
+          botMilestone,
+          idx,
+          model
+        )
+      });
+    }
+
+    else {
+      // if AllCourses is selected we group with the course as our reference point.
+      return this.courses.map((bot, idx) => {
+        return {
+          label: bot.name,
+          data: model.map((item) => item.measurements.find((m) => m.name === bot.id)?.participants.length ?? 0),
+          backgroundColor: getColor(idx),
+          borderRadius: 10
+        };
+      })
+    }
   }
 
-  private unpackLabel(milestone: string, idx: number, model: GroupProgressModel[]) {
+  private unpackLabel(milestone: BotModule, idx: number, model: GroupProgressModel[]) {
     return {
-      label: milestone,
+      label: milestone?.name,
       data: this.getData(milestone, model),
       backgroundColor: getColor(idx),
       borderRadius: 10
     };
   }
 
-  private getData(moduleMilestone: string, model: GroupProgressModel[]): number[] {
-    if (this.activeCourse === 'All' && this.activeClassroom === 'All') {
-      // return moduleMilestone data for all users
-      return model.map(
-        (item) =>
-          item.measurements.find((m) => m.name === moduleMilestone)?.participants
-            .length ?? 0
-      );
-    } else {
-      // return moduleMilestone data from users of the active course and class === selected tab
-      return model.map(
-        (item) =>
-          item.groupedMeasurements
-          .find((course) => course.name.includes(this.activeCourse))
-            ?.classrooms.find((cls) => cls.name.includes(this.activeClassroom))
-            ?.measurements?.find((botMod) => botMod.name === moduleMilestone)
-            ?.participants.length ?? 0
-      );
-    }
+  private getData(moduleMilestone: BotModule, model: GroupProgressModel[]): number[] {
+    // return moduleMilestone data from users of the active course and class === selected tab
+    return model.map(
+      (item) => {
+        const courseGroup = item.groupedMeasurements.find((course) => course?.name === this.activeCourse.id);
+        const classGroup = courseGroup?.classrooms.find((cls) => cls?.name === this.activeClassroom);
+
+        return classGroup?.measurements?.find((botMod) => botMod?.name === moduleMilestone?.id)?.participants.length ?? 0
+    });
   }
 
   ngOnDestroy() {
