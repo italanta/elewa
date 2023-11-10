@@ -186,7 +186,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   /** unpack/ungroup data when all courses is selected */
   private unpackAllBots(model: GroupProgressModel[], bot:Bot) {
     return model.map((item) => {
-      const participants = item.measurements.find((m) => m.name === bot.id)?.participants;
+      const participants = item.measurements.find((m) => m.id === bot.id)?.participants;
 
       if (this.activeClassroom === 'All') {
         return participants?.length ?? 0;
@@ -212,15 +212,15 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return model.map(
       (item) => {
         if (this.activeClassroom === 'All') {
-          const courseGroup = item.groupedMeasurements.find((course) => course?.name === this.activeCourse.id);
-          const measurements = courseGroup?.classrooms.flatMap(clsroom => clsroom?.measurements?.filter((botMod) => botMod?.name === moduleMilestone?.id));
+          const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
+          const measurements = courseGroup?.classrooms.flatMap(clsroom => clsroom?.measurements?.filter((botMod) => botMod?.id === moduleMilestone?.id));
           const participantCount = measurements?.reduce((acc, clsroom) => acc + (clsroom?.participants?.length ?? 0), 0) ?? 0;
           
           return participantCount;
         } else {
-          const courseGroup = item.groupedMeasurements.find((course) => course?.name === this.activeCourse.id);
-          const classGroup = courseGroup?.classrooms.find((cls) => cls?.name === this.activeClassroom);
-          const participantCount = classGroup?.measurements?.find((botMod) => botMod?.name === moduleMilestone?.id)?.participants.length ?? 0
+          const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
+          const classGroup = courseGroup?.classrooms.find((cls) => cls?.id === this.activeClassroom);
+          const participantCount = classGroup?.measurements?.find((botMod) => botMod?.id === moduleMilestone?.id)?.participants.length ?? 0
 
           return participantCount;
         }
