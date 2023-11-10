@@ -96,11 +96,16 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         return this._clasroomServ$.getAllClassrooms().pipe(
           switchMap(clsrooms => {
           this.classrooms = clsrooms;
-          // this.classrooms.push(defaultClassroom);
+          this.addDefaultClass();
           return this._botModServ$.getBotModules()
         }))
       })
     ).subscribe(botModules => this.botModules = botModules);
+  }
+
+  addDefaultClass() {
+    const classroom = this.classrooms.find(cls => cls.className === defaultClassroom.className)
+    classroom ?? this.classrooms.push(defaultClassroom);
   }
 
   selectProgressTracking(periodical: periodicals) {
