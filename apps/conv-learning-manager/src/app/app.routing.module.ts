@@ -65,7 +65,7 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'chats',
     loadChildren: () => import('@app/features/convs-mgr/conversations/chats').then(m => m.ConvsMgrConversationsChatsModule),
-    canActivate: [IsLoggedInGuard, CanAccessChatsGuard]
+    canActivate: [IsLoggedInGuard]
   },
 
   {

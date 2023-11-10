@@ -10,7 +10,7 @@
     <mat-form-field appearance="outline" class="channel-select">
       <mat-select [formControl]="channelControl"> <!-- Bind the form control -->
         <mat-option *ngFor="let channel of channels$ | async" [value]="channel.id">
-          {{ channel.id }}
+          {{ channel.name }}
         </mat-option>
         <mat-option *ngIf="(channels$ | async)?.length === 0">
           No channels to select
