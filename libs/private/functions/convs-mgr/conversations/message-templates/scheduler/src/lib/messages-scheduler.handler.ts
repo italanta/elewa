@@ -81,7 +81,7 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
 
     const enrolledEndUsers = await enrolledUserService.getEnrolledUsers();
 
-    const endUsersIds = enrolledEndUsers.map((user) => user.platformDetails[platform].endUserId);
+    const endUsersIds = enrolledEndUsers.filter((user)=> user.platformDetails).map((user) => user.platformDetails[platform].endUserId);
 
     return endUsersIds;
   }
