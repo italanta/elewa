@@ -1,39 +1,39 @@
 import { CommunicationChannel } from "@app/model/convs-mgr/conversations/admin/system";
-import { JobTypes } from "@app/model/convs-mgr/functions";
+import { JobTypes, ScheduleOptions } from "@app/model/convs-mgr/functions";
 
-import { ScheduleMessagesReq } from "../model/schedule-message-req";
+import { TemplateMessage } from "@app/model/convs-mgr/conversations/messages";
 
-export function CreateTemplateMessagePayload (cmd: ScheduleMessagesReq, channel: CommunicationChannel, endUsers: string[]) 
+export function CreateTemplateMessagePayload (options: ScheduleOptions, channel: CommunicationChannel, endUsersIds: string[], msg: TemplateMessage) 
 {
   return {
-    ...cmd,
+    message: msg,
     functionName: 'sendMultipleMessages',
     n: channel.n,
     plaform: channel.type,
-    endUsers: endUsers,
-    dispatchTime: new Date(cmd.dispatchTime)
+    endUsersIds: endUsersIds,
+    dispatchTime: new Date(options.dispatchTime)
   };
 }
 
-export function CreateSurveyPayload (cmd: ScheduleMessagesReq, channel: CommunicationChannel, enrolledUserIds: string[]) 
+export function CreateSurveyPayload (options: ScheduleOptions,channel: CommunicationChannel, endUsersIds: string[], msg: TemplateMessage) 
 {
   return {
     functionName: 'sendSurvey',
-    enrolledUserIds: enrolledUserIds,
-    surveyId: cmd.id,
-    messageTemplateName: cmd.message.name,
+    endUsersIds: endUsersIds,
+    surveyId: options.id,
+    messageTemplateName: msg.name,
     channelId: channel.id
   };
 }
 
-export function _getPayload(cmd: ScheduleMessagesReq, channel: CommunicationChannel, endusers: string[], enrolledEndUserIds: string[])
+export function _getPayload(options: ScheduleOptions,channel: CommunicationChannel, endUsersIds: string[], msg: TemplateMessage)
 {
-  switch (cmd.type) {
+  switch (options.type) {
     case JobTypes.Survey:
-      return CreateSurveyPayload(cmd, channel, enrolledEndUserIds);
+      return CreateSurveyPayload(options, channel, endUsersIds, msg);
     case JobTypes.SimpleMessage:
-      return CreateTemplateMessagePayload(cmd, channel, endusers);
+      return CreateTemplateMessagePayload(options, channel, endUsersIds, msg);
     default:
-      return CreateTemplateMessagePayload(cmd, channel, endusers);
+      return CreateTemplateMessagePayload(options, channel, endUsersIds, msg);
   }
 }
