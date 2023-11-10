@@ -1,21 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
 
 import { orderBy as __orderBy } from 'lodash';
 
 import { __DateFromStorage } from '@iote/time';
 
-import { BehaviorSubject, Observable, combineLatest, map, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
 import { SubSink } from 'subsink';
 
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
 import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
-import { EndUserService } from '@app/state/convs-mgr/end-users';
 
 import { ActionSortingOptions } from '../../utils/sorting-options.enum';
-import { SurveyMetricsService } from '../../services/survey-metrics.service';
-
 
 @Component({
   selector: 'app-survey-list',
@@ -38,17 +34,15 @@ export class SurveyListComponent implements OnInit, OnDestroy{
   dataFound = true;
   viewInListView = true;
 
-  constructor(private _aMetrics: SurveyMetricsService,
+  constructor(
               private _surveys: SurveyService,
-              private _endUserService: EndUserService,
-              private _dialog: MatDialog,
   ){}
 
   ngOnInit(): void {
     this.surveys$ = this._surveys.getSurveys$();
     this._sBs.sink = combineLatest(([this.surveys$, this.sorting$$.asObservable()]))
           .pipe(map(([surveys, sort]) => 
-            __orderBy(surveys,(a) => __DateFromStorage(a.createdOn!).unix(),
+            __orderBy(surveys,(a) => __DateFromStorage(a.createdOn as Date).unix(),
             sort === ActionSortingOptions.Newest ? 'desc' : 'asc'
           )),
           tap((surveys) => { this.dataSource.data = surveys})).subscribe();

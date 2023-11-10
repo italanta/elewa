@@ -4,19 +4,20 @@
 
     <div class="company-logo">
       <div fxLayout="column" fxLayoutAlign="start start" class="user-profile-picture">
-       
+
         <div fxLayout="column" fxLayoutAlign="start start" class="user-picture-holder">
 
-          <img  [src]="activeOrg.logoUrl" alt="">
-          
+          <img [src]="activeOrg.logoUrl" alt="">
+
         </div>
-        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons" class="mainButtons">
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between start" *ngIf="showButtons"
+          class="mainButtons">
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="newCompanyLogo()" mat-stroked-button>
             {{"COMPANY-INFORMATION.BUTTON.UPLOAD" | transloco}}
           </button>
           <button *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" mat-stroked-button (click)="removePhoto()">
-             {{"COMPANY-INFORMATION.BUTTON.REMOVE" | transloco}} 
-            </button>
+            {{"COMPANY-INFORMATION.BUTTON.REMOVE" | transloco}}
+          </button>
         </div>
       </div>
     </div>
@@ -24,34 +25,34 @@
 
     <div fxLayout="column" class="company-fields" fxFlex="50%">
 
-      <form [formGroup]="orgDataFormGroup"  *ngIf="formIsReady" fxLayout="column">
+      <form [formGroup]="orgDataFormGroup" *ngIf="formIsReady" fxLayout="column">
 
         <h4>{{"COMPANY-INFORMATION.BASIC-INFO" | transloco}}</h4>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex >
-          <div fxLayout="column"  fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+          <div fxLayout="column" fxFlex>
             <p class="static-label">{{"ORGS.FORM.NAME" | transloco}}</p>
-          
-              <input matInput type="email" formControlName="name" class="name-input">
-         
+
+            <input matInput type="text" formControlName="name" class="name-input">
+
           </div>
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="3vh">
-          <div fxLayout="column"  fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="6%">
+          <div fxLayout="column" fxFlex>
             <p class="static-label">{{"ORGS.FORM.EMAIL" | transloco}}</p>
-        
-              <input matInput type="email" formControlName="email">
-         
+
+            <input matInput type="email" formControlName="email">
+
           </div>
-          
-          <div fxLayout="column"  fxFlex>
-             <p class="static-label">{{"ORGS.FORM.PHONE" | transloco}}</p>
-         
+
+          <div fxLayout="column" fxFlex>
+            <p class="static-label">{{"ORGS.FORM.PHONE" | transloco}}</p>
+
             <input matInput type="tel" formControlName="phone">
-         
+
           </div>
-         
+
         </div>
 
         <div class="spacer"></div>
@@ -59,41 +60,42 @@
         <h4>{{"COMPANY-INFORMATION.ADDRESS-INFO" | transloco}}</h4>
 
         <div fxLayout="column" formGroupName="address" fxFlex>
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="3vh">
-            <div fxLayout="column"  fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="6%">
+            <div fxLayout="column" fxFlex>
               <p class="static-label">{{"ORGS.FORM.STREET" | transloco}}</p>
-            
-                <input matInput type="text" formControlName="streetName">
-           
+
+              <input matInput type="text" formControlName="streetName">
+
             </div>
-            <div fxLayout="column"  fxFlex>
+            <div fxLayout="column" fxFlex>
               <p class="static-label">{{"ORGS.FORM.CITY" | transloco}}</p>
-      
-                <input matInput type="text" formControlName="city">
-     
+
+              <input matInput type="text" formControlName="city">
+
             </div>
           </div>
 
-          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="3vh">
-            <div fxLayout="column"  fxFlex>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex fxLayoutGap="6%">
+            <div fxLayout="column" fxFlex>
               <p class="static-label">{{"ORGS.FORM.POSTAL-CODE" | transloco}}</p>
 
-                <input matInput type="number" formControlName="postalCode">
+              <input matInput type="number" formControlName="postalCode">
             </div>
-            <div fxLayout="column"  fxFlex>
+            <div fxLayout="column" fxFlex>
               <p class="static-label">{{"ORGS.FORM.POSTAL-ADDRESS" | transloco}}</p>
-                <input matInput type="text" formControlName="postalAddress">
-                
+              <input matInput type="text" formControlName="postalAddress">
+
             </div>
           </div>
 
           <div>
-              <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)" mat-raised-button>
-                <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
-                <ng-template #saveProfile>
-                  <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
-                </ng-template>
-              </button>
+            <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)"
+              mat-raised-button>
+              <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
+              <ng-template #saveProfile>
+                <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
+              </ng-template>
+            </button>
           </div>
         </div>
       </form>

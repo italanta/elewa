@@ -46,8 +46,6 @@ export function getActiveBlock(type: StoryBlockTypes) {
       return DefaultComponent;
     case StoryBlockTypes.JumpBlock:
       return DefaultComponent;
-    case StoryBlockTypes.MultipleInput:
-      return DefaultComponent;
     case StoryBlockTypes.FailBlock:
       return DefaultComponent;
     case StoryBlockTypes.ImageInput:
