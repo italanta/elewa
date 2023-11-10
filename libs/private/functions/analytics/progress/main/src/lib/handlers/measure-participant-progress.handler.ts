@@ -58,8 +58,8 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
         dateCreated: participant.enrolledUser.createdOn,
       },
       classroom: participant.classroom ?? defaultClassroom,
-      milestone: story.parentModule,
-      course: parentModule.parentBot,
+      milestoneId: story.parentModule,
+      courseId: parentModule.parentBot,
       storyId: story.id,
     }
   }

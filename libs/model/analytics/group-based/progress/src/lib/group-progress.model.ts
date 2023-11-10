@@ -28,7 +28,7 @@ export interface GroupedParticipants {
 
 export interface GroupedProgressMilestone {
   /** Name of course the user has reached */
-  name: string;
+  id: string;
 
   /** Milestones for users in that class */
   classrooms: ClassroomProgressMilestone[];
@@ -37,7 +37,7 @@ export interface GroupedProgressMilestone {
 /** Course visualisation  */
 export interface ClassroomProgressMilestone {
   /** Name of group / class the user has reached */
-  name: string;
+  id: string;
 
   /** Milestones for users in that class */
   measurements: UsersProgressMilestone[];
@@ -45,7 +45,7 @@ export interface ClassroomProgressMilestone {
 
 export interface UsersProgressMilestone {
   /** Name of Milestone the user has reached */
-  name: string;
+  id: string;
 
   /** Users */
   participants: ParticipantProgressMilestone[];

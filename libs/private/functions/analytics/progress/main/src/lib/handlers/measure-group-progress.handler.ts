@@ -169,13 +169,13 @@ function _parseAllUserProgressData(allUsersProgress: ParticipantProgressMileston
     //guard clause to filter user's with no history when calculating past data
     if (!participant) return acc;
 
-    const { course } = participant;
+    const { courseId } = participant;
 
-    if (!acc[course]) {
-      acc[course] = [];
+    if (!acc[courseId]) {
+      acc[courseId] = [];
     }
 
-    acc[course].push(participant);
+    acc[courseId].push(participant);
     return acc;
   }, {});
 
@@ -193,30 +193,30 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
       //guard clause to filter user's with no history when calculating past data
       if (!participant) return acc;
 
-      const { classroom, milestone, course, participant: user } = participant;
+      const { classroom, milestoneId, courseId, participant: user } = participant;
 
-      if (!acc[course]) {
-        acc[course] = {
-          name: course,
+      if (!acc[courseId]) {
+        acc[courseId] = {
+          id: courseId,
           classrooms: {},
         };
       }
 
-      if (!acc[course].classrooms[classroom.className]) {
-        acc[course].classrooms[classroom.className] = {
-          name: classroom.className,
+      if (!acc[courseId].classrooms[classroom.id]) {
+        acc[courseId].classrooms[classroom.id] = {
+          id: classroom.id,
           measurements: {},
         };
       }
 
-      if (!acc[course].classrooms[classroom.className].measurements[milestone]) {
-        acc[course].classrooms[classroom.className].measurements[milestone] = {
-          name: milestone,
+      if (!acc[courseId].classrooms[classroom.id].measurements[milestoneId]) {
+        acc[courseId].classrooms[classroom.id].measurements[milestoneId] = {
+          id: milestoneId,
           participants: [],
         };
       }
 
-      acc[course].classrooms[classroom.className].measurements[milestone].participants.push(user);
+      acc[courseId].classrooms[classroom.id].measurements[milestoneId].participants.push(user);
       return acc;
     }, {})
   ).map((group: GroupedProgressMilestone) => {
@@ -238,7 +238,7 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
  */
 function _convertGroupedObjectsToArray(groupedData: GroupedParticipants): UsersProgressMilestone[] {
   return Object.keys(groupedData).map((key) => ({
-    name: key,
+    id: key,
     participants: groupedData[key],
   }));
 }
