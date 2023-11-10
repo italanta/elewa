@@ -144,10 +144,24 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
+  /** returns a data set for visualisation */
   private getDatasets(model: GroupProgressModel[]) {
     const bot = this.courses.find(course => course.id === this.activeCourse.id) as Bot;
 
-    if (bot) {
+    // if AllCourses is selected we group with the course as our reference point.
+    if(!bot) {
+      return this.courses.map((bot, idx) => {
+        return {
+          label: bot.name,
+          data: this.unPackAllBots(model, bot),
+          backgroundColor: getColor(idx),
+          borderRadius: 10,
+        };
+      })
+    }
+
+    // if a specific course is selected we group with the modules as our reference point.
+    else {
       return bot.modules.map((botMod, idx) => {
         const botMilestone = this.botModules.find(mod => mod.id === botMod) as BotModule;
         return this.unpackLabel(
@@ -157,19 +171,20 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
         )
       });
     }
-
-    else {
-      // if AllCourses is selected we group with the course as our reference point.
-      return this.courses.map((bot, idx) => {
-        return {
-          label: bot.name,
-          data: model.map((item) => item.measurements.find((m) => m.name === bot.id)?.participants.length ?? 0),
-          backgroundColor: getColor(idx),
-          borderRadius: 10
-        };
-      })
-    }
   }
+
+  /** unpack/ungroup data when all courses is selected */
+  private unPackAllBots(model: GroupProgressModel[], bot:Bot) {
+    return model.map((item) => {
+      const participants = item.measurements.find((m) => m.name === bot.id)?.participants;
+
+      if(this.activeClassroom === 'All') {
+        return participants?.length ?? 0
+      } else {
+        return participants?.filter((part) => part.classroom.className === this.activeClassroom).length ?? 0
+      }
+    })
+  };
 
   private unpackLabel(milestone: BotModule, idx: number, model: GroupProgressModel[]) {
     return {
