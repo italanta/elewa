@@ -130,7 +130,7 @@ export class CompanyDataComponent implements OnInit {
     this._dialog.open(ChannelFormModalComponent, {
       minWidth: '30%',
       minHeight: '21.125rem',
-      data: { selectedPlatform: channel.type === PlatformType.WhatsApp ? 'WhatsApp' : 'Messenger', initialValues: channel, update: 1 }
+      data: { selectedPlatform: channel.type === PlatformType.WhatsApp ? 'WhatsApp' : 'Messenger', initialValues: channel, update: true }
     });
   
   }

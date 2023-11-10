@@ -27,7 +27,7 @@ export class ChannelFormModalComponent implements OnInit {
     private _dialog: MatDialog,
     private fb: FormBuilder,
     private _orgService$$: OrganisationService,
-    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string, initialValues: CommunicationChannel , update : number}
+    @Inject(MAT_DIALOG_DATA) private data: { selectedPlatform: string, initialValues: CommunicationChannel , update : boolean}
   ){  }
   ngOnInit(): void {
     this.showForm();
@@ -37,8 +37,6 @@ export class ChannelFormModalComponent implements OnInit {
     if (this.data && this.data.selectedPlatform) {
       this.selectedPlatform = this.data.selectedPlatform;
       this.showWhatsAppForm = this.selectedPlatform === 'WhatsApp';
-
-      // Initialize form only after obtaining the active org
       this.getActiveOrg();
     }
   }
@@ -96,9 +94,7 @@ export class ChannelFormModalComponent implements OnInit {
   
       const channelData = this.channelForm.value;
   
-      // Check if the channel has an ID
-      if (this.data.update === 1) {
-        // If the channel has an ID, it already exists, so update it
+      if (this.data.update) {
         this._channelService$.updateChannel(channelData).subscribe(() => {
           this.closeModal();
         });
@@ -110,9 +106,6 @@ export class ChannelFormModalComponent implements OnInit {
       }
     }
   }
-
-  
-
 
   closeModal() {
     this._dialog.closeAll();
