@@ -3,10 +3,9 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { Observable, first, switchMap, throwError } from 'rxjs';
 
-import { MessageTemplate, MessageTypes, SendMessageTemplate } from '@app/model/convs-mgr/functions'
+import { MessageTemplate, SendMessageTemplate } from '@app/model/convs-mgr/functions'
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
-import { ChannelService } from '@app/private/state/organisation/channels';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { MessageTemplateStore } from '../store/message-template.store';
 import { MessageStatusReq, MessageStatusRes } from '../models/message-status.interface';
@@ -20,7 +19,7 @@ export class MessageTemplatesService {
   constructor(
     private _aff:  AngularFireFunctions, 
     private _messageTemplateStore$$: MessageTemplateStore,
-    private _channels$$: ChannelService
+    private _channelsServ$: CommunicationChannelService
   ) {}
 
   private templateCallFunction(action: string, data: MessageTemplate) {
@@ -61,7 +60,7 @@ export class MessageTemplatesService {
   }
 
   sendMessageTemplate(payload: any, channelId: string): Observable<any> {
-    return this._channels$$.getChannelById(channelId).pipe(
+    return this._channelsServ$.getSpecificChannel(channelId).pipe(
       first(),
       switchMap((channel) => {
         if (channel && channel.type) {
@@ -75,8 +74,8 @@ export class MessageTemplatesService {
     );
   }
 
-  addMessageTemplate(template: MessageTemplate){
-    return this._messageTemplateStore$$.add(template);
+  addMessageTemplate(template: MessageTemplate, id?:string){
+    return this._messageTemplateStore$$.add(template, id);
   }
 
   removeTemplate(template: MessageTemplate){
@@ -92,6 +91,7 @@ export class MessageTemplatesService {
   getMessageTemplates$() {
     return this._messageTemplateStore$$.get();
   }
+
   createTemplateMeta(payload: MessageTemplate){
     return this.templateCallFunction('create', payload );
   }
@@ -106,7 +106,7 @@ export class MessageTemplatesService {
 
   
   getTemplateStatus(channelId: any): Observable<MessageStatusRes[]> {
-    return this._channels$$.getChannelById(channelId).pipe(
+    return this._channelsServ$.getSpecificChannel(channelId).pipe(
       first(),
       switchMap((channel) => {
         if (channel && channel.id) {

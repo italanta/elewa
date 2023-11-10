@@ -40,6 +40,12 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   readonly CAN_ACCESS_ASSESSMENTS = AppClaimDomains.AssessmentsView;
   readonly CAN_ACCESS_SETTINGS = AppClaimDomains.SettingsView;
 
+  isDropdownOpen = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
               private _router$$: Router,

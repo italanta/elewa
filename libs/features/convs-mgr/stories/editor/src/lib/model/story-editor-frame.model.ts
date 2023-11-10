@@ -15,7 +15,6 @@ import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/lib
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
 import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
-import { BlockConnectionsService } from '@app/state/convs-mgr/stories/block-connections';
 import { Coordinate } from './coordinates.interface';
 
 
@@ -50,7 +49,6 @@ export class StoryEditorFrame
               private _jsPlumb: BrowserJsPlumbInstance,
               private _blocksInjector: BlockInjectorService,
               private _viewport: ViewContainerRef,
-              private _connectionsService: BlockConnectionsService,
               private _edf: ElementRef<HTMLElement>) 
   {
     this.loaded = true;
@@ -69,12 +67,6 @@ export class StoryEditorFrame
     this._story = state.story;
     this._blocks = state.blocks;
     this._connections = state.connections;
-
-    const filteredBlocks = state.blocks.filter((block)=> block.id !== 'story-end-anchor');
-
-    this._newestBlock = filteredBlocks.length > 1 ? filteredBlocks.reduce((prev, current) => {
-      return ((prev.createdOn as Date) > (current.createdOn as Date)) ? prev : current
-    }) : null;
 
     this.blocksArray = this._fb.array([]);
 
@@ -170,7 +162,10 @@ export class StoryEditorFrame
     const domSourceInputs = Array.from(document.querySelectorAll('input'));
     const domBlockCards = Array.from(document.querySelectorAll('mat-card'));
 
-    for (const conn of this._connections) {
+    // this._jsPlumb.setSuspendDrawing(true); // Start loading drawing
+
+    for (const conn of this._connections) 
+    {
       // anchorBlock.id == this._story.id!;
       // fetching the source (input) that matches the connection source id
       const sourceElement = domSourceInputs.find(
@@ -207,24 +202,7 @@ export class StoryEditorFrame
               location: 0.5,
               events: {
                 // Add a double-click event to the overlay
-                dblclick: (overlayData) => {
-                  // Find the connection in the state object by the connection ID in the overlayData object
-                  const con = this.state.connections.find(
-                    (c) => c.id == overlayData.overlay.id
-                  );
-
-                  // Call the `deleteConnection` method of the `_connectionsService` object
-                  if (con) {
-                    this._connectionsService.deleteConnection(con);
-                  }
-
-                  // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
-                  return DeleteConnectorbyID(
-                    this._jsPlumb,
-                    this.state,
-                    overlayData
-                  );
-                },
+                dblclick: ((overlayData: any) => this._deleteConnection(overlayData)).bind(this)
               },
             },
           },
@@ -238,6 +216,8 @@ export class StoryEditorFrame
       });
     }
 
+    // this._jsPlumb.setSuspendDrawing(false); // End loading drawing
+
     // Update the frame state listeners.
     this._frameChanges$$.next(this._state);
   }
@@ -247,11 +227,16 @@ export class StoryEditorFrame
    * TODO: Move this to a factory later
    */
   newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
+
     let x, y;
 
+    const filteredBlocks = this._blocks.filter((block)=> block.id !== 'story-end-anchor');
+
+    this._newestBlock = filteredBlocks.length > 0 ? filteredBlocks[filteredBlocks.length-1] : null;
+
     if(this._newestBlock) {
-      x = this._newestBlock.position.x + Math.floor(Math.random() * (200 - 20 + 1) + 20);
-      y = this._newestBlock.position.y - Math.floor(Math.random() * (50 - 5 + 1) + 5);
+      x = this._newestBlock.position.x + Math.floor(Math.random() * (200) + 20);
+      y = this._newestBlock.position.y - Math.floor(Math.random() * (50) + 5);
     } else {
       x = 200;
       y = 50;
@@ -275,8 +260,10 @@ export class StoryEditorFrame
    * Private method which draws the block on the frame.
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
    */
-  private _injectBlockToFrame(block: StoryBlock) {
+  private _injectBlockToFrame(block: StoryBlock) 
+  {
     const blck = this._blocksInjector.newBlock(
+      this._state,
       block,
       this._jsPlumb,
       this._viewport,
@@ -291,6 +278,30 @@ export class StoryEditorFrame
 
   private _getID() {
     return uuidv4().slice(0, 8);
+  }
+
+  /** 
+   * Method to delete a connection. 
+   * To be called on double-click of the delete button overlay.
+   */
+  private _deleteConnection(overlayData: any) 
+  {
+    // Find the connection in the state object by the connection ID in the overlayData object
+    const con = this.state.connections.find(
+      (c) => c.id == overlayData.overlay.id
+    );
+
+    // Call the `deleteConnection` method of the `_connectionsService` object
+    if (con)
+      this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
+
+    // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
+    return DeleteConnectorbyID(
+      this._jsPlumb,
+
+      // Pass overlayed connection id - This is the connection to be deleted
+      overlayData.overlay.id
+    );
   }
 
   // Section -- Zoom management
