@@ -1,4 +1,10 @@
-export const GET_RANDOM_COLOR = () => `#${Math.floor(Math.random()*16777215).toString(16)}`;
+export const GET_RANDOM_COLOR = () => {
+  let color;
+  do {
+    color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  } while (color === "#FFFFFF");
+  return color;
+};
 
 export function GET_USER_AVATAR(name: string) {
   if (!name) return '';

@@ -66,13 +66,8 @@ export class SendOutgoingMsgHandler extends FunctionHandler<Message, SendMessage
 
       const activeChannel = activeChannelFactory.getActiveChannel(communicationChannel, tools)
 
-      let outgoingMessagePayload;
       // STEP 4: Get the outgoing message in whatsapp format
-      if(activeChannel.channel.type == PlatformType.WhatsApp) {
-        outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.endUserPhoneNumber);
-      } else if(activeChannel.channel.type == PlatformType.Messenger) {
-        outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload, outgoingPayload.receipientId);
-      }
+      const outgoingMessagePayload = await activeChannel.parseOutStandardMessage(outgoingPayload);
 
       // STEP 5: Send the message
       const response = await activeChannel.send(outgoingMessagePayload as any, outgoingPayload);

@@ -65,6 +65,32 @@
     },
     "elements-layout-page": "libs/elements/layout/page",
     "elements-layout-page-convl": "libs/elements/layout/page-convl",
+    "elements-layout-toast": {
+      "projectType": "library",
+      "root": "libs/elements/layout/toast",
+      "sourceRoot": "libs/elements/layout/toast/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/elements/layout/toast"],
+          "options": {
+            "jestConfig": "libs/elements/layout/toast/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/elements/layout/toast/**/*.ts",
+              "libs/elements/layout/toast/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-layout-user-menu": "libs/elements/layout/user-menu",
     "elements-nav-convl-breadcrumbs": "libs/elements/nav/convl/breadcrumbs",
     "features-app-auth-login": "libs/features/app/auth/login",
@@ -150,6 +176,32 @@
       },
       "tags": []
     },
+    "features-convs-mgr-conversations-surveys": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/conversations/surveys",
+      "sourceRoot": "libs/features/convs-mgr/conversations/surveys/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/conversations/surveys"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/conversations/surveys/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/conversations/surveys/**/*.ts",
+              "libs/features/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-convs-mgr-dashboard": {
       "projectType": "library",
       "root": "libs/features/convs-mgr/dashboard",
@@ -197,6 +249,58 @@
             "lintFilePatterns": [
               "libs/features/convs-mgr/learners/**/*.ts",
               "libs/features/convs-mgr/learners/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-lessons": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/lessons",
+      "sourceRoot": "libs/features/convs-mgr/lessons/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/lessons"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/lessons/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/lessons/**/*.ts",
+              "libs/features/convs-mgr/lessons/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "features-convs-mgr-modules": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/modules",
+      "sourceRoot": "libs/features/convs-mgr/modules/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/modules"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/modules/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/modules/**/*.ts",
+              "libs/features/convs-mgr/modules/**/*.html"
             ]
           }
         }
@@ -518,34 +622,6 @@
     },
     "features-convs-mgr-stories-blocks-library-location-message-block": "libs/features/convs-mgr/stories/blocks/library/location-message-block",
     "features-convs-mgr-stories-blocks-library-main": "libs/features/convs-mgr/stories/blocks/library/main",
-    "features-convs-mgr-stories-blocks-library-multiple-input-message-block": {
-      "projectType": "library",
-      "root": "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block",
-      "sourceRoot": "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/src",
-      "prefix": "app",
-      "targets": {
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block"
-          ],
-          "options": {
-            "jestConfig": "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/jest.config.ts",
-            "passWithNoTests": true
-          }
-        },
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/**/*.ts",
-              "libs/features/convs-mgr/stories/blocks/library/multiple-input-message-block/**/*.html"
-            ]
-          }
-        }
-      },
-      "tags": []
-    },
     "features-convs-mgr-stories-blocks-library-name-message-block": "libs/features/convs-mgr/stories/blocks/library/name-message-block",
     "features-convs-mgr-stories-blocks-library-open-ended-question-block": {
       "projectType": "library",
@@ -823,6 +899,33 @@
       },
       "tags": []
     },
+    "functions-convs-mgr-story-editor--check-story-for-errors": {
+      "root": "libs/functions/convs-mgr/story-editor/check-story-for-errors",
+      "sourceRoot": "libs/functions/convs-mgr/story-editor/check-story-for-errors/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/functions/convs-mgr/story-editor/check-story-for-errors/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/functions/convs-mgr/story-editor/check-story-for-errors"
+          ],
+          "options": {
+            "jestConfig": "libs/functions/convs-mgr/story-editor/check-story-for-errors/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-user": "libs/functions/user",
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",
@@ -844,6 +947,57 @@
           "options": {
             "jestConfig": "libs/model/analytics/group-based/progress/jest.config.ts",
             "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-convs-mgr-bot-modules": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/bot-modules",
+      "sourceRoot": "libs/model/convs-mgr/bot-modules/src",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/bot-modules/**/*.ts",
+              "libs/model/convs-mgr/bot-modules/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/bot-modules"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/bot-modules/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-convs-mgr-bots": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/bots",
+      "sourceRoot": "libs/model/convs-mgr/bots/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/bots"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/bots/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/bots/**/*.ts",
+              "libs/model/convs-mgr/bots/**/*.html"
+            ]
           }
         }
       },
@@ -907,6 +1061,32 @@
     },
     "model-convs-mgr-conversations-chats": "libs/model/convs-mgr/conversations/chats",
     "model-convs-mgr-conversations-messages": "libs/model/convs-mgr/conversations/messages",
+    "model-convs-mgr-conversations-surveys": {
+      "projectType": "library",
+      "root": "libs/model/convs-mgr/conversations/surveys",
+      "sourceRoot": "libs/model/convs-mgr/conversations/surveys/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/convs-mgr/conversations/surveys"],
+          "options": {
+            "jestConfig": "libs/model/convs-mgr/conversations/surveys/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/convs-mgr/conversations/surveys/**/*.ts",
+              "libs/model/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "model-convs-mgr-functions": "libs/model/convs-mgr/functions",
     "model-convs-mgr-learners": {
       "projectType": "library",
@@ -980,6 +1160,32 @@
           "options": {
             "jestConfig": "libs/model/finance/sales/jest.config.ts",
             "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "model-layout-toast": {
+      "projectType": "library",
+      "root": "libs/model/layout/toast",
+      "sourceRoot": "libs/model/layout/toast/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/model/layout/toast"],
+          "options": {
+            "jestConfig": "libs/model/layout/toast/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/model/layout/toast/**/*.ts",
+              "libs/model/layout/toast/**/*.html"
+            ]
           }
         }
       },
@@ -1075,6 +1281,34 @@
       },
       "tags": []
     },
+    "private-features-convs-mgr-message-templates": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/message-templates",
+      "sourceRoot": "libs/private/features/convs-mgr/message-templates/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/message-templates"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/message-templates/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/message-templates/**/*.ts",
+              "libs/private/features/convs-mgr/message-templates/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-features-convs-mgr-orgs": {
       "projectType": "library",
       "root": "libs/private/features/convs-mgr/orgs",
@@ -1095,6 +1329,34 @@
             "lintFilePatterns": [
               "libs/private/features/convs-mgr/orgs/**/*.ts",
               "libs/private/features/convs-mgr/orgs/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-features-convs-mgr-settings-billing": {
+      "projectType": "library",
+      "root": "libs/private/features/convs-mgr/settings/billing",
+      "sourceRoot": "libs/private/features/convs-mgr/settings/billing/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/private/features/convs-mgr/settings/billing"
+          ],
+          "options": {
+            "jestConfig": "libs/private/features/convs-mgr/settings/billing/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/features/convs-mgr/settings/billing/**/*.ts",
+              "libs/private/features/convs-mgr/settings/billing/**/*.html"
             ]
           }
         }
@@ -1599,6 +1861,32 @@
       },
       "tags": []
     },
+    "private-state-message-templates": {
+      "projectType": "library",
+      "root": "libs/private/state/message-templates",
+      "sourceRoot": "libs/private/state/message-templates/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/state/message-templates"],
+          "options": {
+            "jestConfig": "libs/private/state/message-templates/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/state/message-templates/**/*.ts",
+              "libs/private/state/message-templates/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "private-state-organisation-main": {
       "projectType": "library",
       "root": "libs/private/state/organisation/main",
@@ -1645,6 +1933,58 @@
             "lintFilePatterns": [
               "libs/private/state/user/base/**/*.ts",
               "libs/private/state/user/base/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-bots": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/bots",
+      "sourceRoot": "libs/state/convs-mgr/bots/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/bots"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/bots/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/bots/**/*.ts",
+              "libs/state/convs-mgr/bots/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-channels": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/channels",
+      "sourceRoot": "libs/state/convs-mgr/channels/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/channels"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/channels/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/channels/**/*.ts",
+              "libs/state/convs-mgr/channels/**/*.html"
             ]
           }
         }
@@ -1708,6 +2048,32 @@
     },
     "state-convs-mgr-conversations-chats": "libs/state/convs-mgr/conversations/chats",
     "state-convs-mgr-conversations-messages": "libs/state/convs-mgr/conversations/messages",
+    "state-convs-mgr-conversations-surveys": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/conversations/surveys",
+      "sourceRoot": "libs/state/convs-mgr/conversations/surveys/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/conversations/surveys"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/conversations/surveys/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/conversations/surveys/**/*.ts",
+              "libs/state/convs-mgr/conversations/surveys/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "state-convs-mgr-end-users": {
       "projectType": "library",
       "root": "libs/state/convs-mgr/end-users",
@@ -1754,6 +2120,32 @@
             "lintFilePatterns": [
               "libs/state/convs-mgr/learners/**/*.ts",
               "libs/state/convs-mgr/learners/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "state-convs-mgr-modules": {
+      "projectType": "library",
+      "root": "libs/state/convs-mgr/modules",
+      "sourceRoot": "libs/state/convs-mgr/modules/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/state/convs-mgr/modules"],
+          "options": {
+            "jestConfig": "libs/state/convs-mgr/modules/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/state/convs-mgr/modules/**/*.ts",
+              "libs/state/convs-mgr/modules/**/*.html"
             ]
           }
         }

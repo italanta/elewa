@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
@@ -9,6 +9,7 @@ import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging'
 import { ButtonsBlockButton } from '@app/model/convs-mgr/stories/blocks/scenario';
 
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { OptionInputFieldComponent, __FocusCursorOnNextInputOfBlock } from '@app/features/convs-mgr/stories/blocks/library/block-options';
 
 @Component({
   selector: 'app-conditional-block',
@@ -21,13 +22,19 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   @Input() conditionalBlockForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
+
+  private currentIndex = 0; 
+
   vars$: Observable<string[]>;
 
   private _sBs = new SubSink();
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, private variables: VariablesService) {
+  constructor(private _fb: FormBuilder, 
+              private variables: VariablesService) 
+  {
     this.vars$ = this.variables.getAllVariables();
   }
 
@@ -84,10 +91,20 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
     if (this.options.length < this.listOptionsArrayLimit) {
       this.options.push(this.addExistingOptions());
     }
+    setTimeout(() => {
+      this.setFocusOnNextInput();
+    });
   }
 
   deleteInput(i: number) {
     this.options.removeAt(i);
+  }
+
+  setFocusOnNextInput() {
+    this.currentIndex = __FocusCursorOnNextInputOfBlock(
+      this.currentIndex,
+      this.optionInputFields
+    );
   }
 
   ngOnDestroy() {

@@ -1,0 +1,16 @@
+<div class="specific-time">
+    <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.SEND-MESSAGE-AT-SPECIFIC-TIME'| transloco }} </p>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-DATE'| transloco }} </mat-label>
+      <input matInput [matDatepicker]="picker" placeholder="Date and Time" (dateChange)="dateChanged($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <input matInput type="time" [(ngModel)]="selectedTime" placeholder="Time">
+    </mat-form-field>
+    <button mat-raised-button class="send-btn" (click)="saveDateTime()">
+      <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }} </span>
+    </button>
+  </div>
+  

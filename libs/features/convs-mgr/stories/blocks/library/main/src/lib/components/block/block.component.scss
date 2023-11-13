@@ -1,6 +1,7 @@
 mat-card {
-	min-width: 200px;
+	width: 100%;
 	border-radius: 0.01rem;
+	padding: 0;
 }
 
 .block {
@@ -29,17 +30,20 @@ mat-card {
 }
 
 .block-title {
-	font-weight: 450;
-	font-size: 1rem;	
+
+	font-weight: 400;	
 	margin: 0 0 0 .4em;
 	color: var(--convs-mgr-color-text-black);
+	font-family: Roboto;
+	font-style: normal;
+	font-size: 0.8125rem;
+	line-height: normal;
 }
 
 .outer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-bottom: 1px solid var(--convs-mgr-light-border-color);
 
 	&:hover {
 		cursor: move;
@@ -48,7 +52,7 @@ mat-card {
 
 .block-card {
 	border-radius: 10px;
-	padding: 10px;
+	padding: 0;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
@@ -60,6 +64,15 @@ mat-card {
 	padding: 0;
 }
 
+.form-border {
+	border-top: 0.5px solid #DADADA;
+}
+
 .icon-with-text{
 	margin-left: 0.3125rem;
 }
+
+:host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
+    z-index: 0 !important;
+}
+

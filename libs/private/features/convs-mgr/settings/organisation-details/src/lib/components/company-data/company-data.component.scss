@@ -1,42 +1,110 @@
 .company-details {
-  padding: 30px 20px;
+  margin: 10vh 10vh;
+
+  .company-logo {
+    img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      /* or "contain" depending on your preference */
+    }
+
+    position: relative;
+
+    .user-picture-holder {
+      width: 210px;
+      /* Adjust as needed */
+      height: 210px;
+      /* Adjust as needed */
+      border-radius: 50%;
+      border: 1px #707070 solid;
+      overflow: hidden;
+      /* Clip the image to the circular border */
+      margin-left: 3vh;
+    }
+
+    .mainButtons {
+      position: absolute;
+      margin-top: 260px;
+
+      button {
+        width: 142px;
+        height: 35px;
+        background: var(--convs-mgr-color-button);
+        border-radius: 25px;
+        color: white;
+        font-size: 14px;
+        font-family: Roboto;
+        font-weight: 400;
+        word-wrap: break-word;
+        margin-top: 30px;
+      }
+    }
+
+  }
+
+  .information {
+
+    .company-fields {
+      form {
+        h4 {
+          // Basic Information
+          color: var(--convs-mgr-color-101010);
+          font-size: 16px;
+          font-family: Roboto;
+          font-weight: 400;
+          word-wrap: break-word
+        }
+
+        .spacer {
+          height: 1vh;
+        }
+
+        div {
+          div {
+            input {
+              width: 100%;
+              height: 3em;
+              border-radius: 1em;
+              border: 1px var(--convs-mgr-color-707070) solid;
+              // Street Name
+              color: var(--convs-mgr-color-C3C3C3);
+              font-size: 1rem;
+              font-family: Roboto;
+              font-weight: 300;
+              word-wrap: break-word;
+              padding-left: 2vh;
+
+              &:focus {
+                color: black;
+              }
+            }
+          }
+        }
+      }
+      div {
+        button {
+          width: 25vh;
+          height: 2rem;
+          background: var(--convs-mgr-color-button);
+          border-radius: 1.5rem;
+          color: white;
+          font-size: 1rem;
+          font-family: Roboto;
+          font-weight: 400;
+          word-wrap: break-word;
+          margin-top: 49px;
+          margin-left: 63vh;
+        }
+      }
+    }
+  }
 }
 
-.label {
-  margin: 0;
-  font-weight: 600;
-  color: var(--kujali-color-text-black);
-  font-size: 1rem;
-}
 
-.company-logo img {
-  width: 200px;
-  height: 200px;
-  padding: 20px 0px;
-  object-fit: contain;
-}
 
-.edit-button {
-  margin-bottom: 20px;
-  width: fit-content;
-  color: white;
-}
 
-.btn {
-  background-color: var(--convs-mgr-color-primary-yellow)!important;
-  color: white!important;
-}
-
-.add-acc-btn {
-  width: 30%;
-  color: var(--kujali-color-primary-blue)!important;
-  margin-bottom: 30px;
-}
-
-.delete-btn {
-  background-color: #CA0B00!important;
-  color: white;
-}
 
 :host ::ng-deep .company-details .names .mat-form-field,
 .emails-inputs .mat-form-field {
