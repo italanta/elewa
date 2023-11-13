@@ -83,7 +83,9 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
       });
     }
   }
-
+  playAudio( ){
+    this.waversufer.playPause()
+  }
   
   /** Step 3 Check if file bypasses size limit. */
   private _checkSizeLimit(fileSize: number) {
