@@ -25,29 +25,26 @@ import { MeasureParticipantProgressHandler } from './measure-participant-progres
  *
  * Can be used to create a stacjed bar chart which visualises the progress of a group of participants over time.
  */
-export class MeasureParticipantGroupProgressHandler extends FunctionHandler<MeasureGroupProgressCommand, GroupProgressModel | RestResult> {
+export class MeasureParticipantGroupProgressHandler extends FunctionHandler<MeasureGroupProgressCommand, (GroupProgressModel | RestResult)[]> {
   /**
    * Calculate progress of a given participant based on the stories they have completed.e.
    * @param cmd - Command with participant ID and intervals at which to measure.
    */
   public async execute(cmd: MeasureGroupProgressCommand, context: HttpsContext, tools: HandlerTools) {
-    try {
-      const { interval } = cmd;
+    const { interval } = cmd;
 
-      //1. get OrgIds from analytics config
-      const app = tools.getRepository<AnalyticsConfig>(`analytics`);
+    //1. get OrgIds from analytics config
+    const app = tools.getRepository<AnalyticsConfig>(`analytics`);
 
-      const config = await app.getDocumentById('config');
+    const config = await app.getDocumentById('config');
 
-      if (!config && !config.orgIds) {
-        tools.Logger.error(() => `[measureGroupProgressHandler].execute - Config missing, No orgs to compute progress for`);
-      } else {
-        config.orgIds.map((orgId) => orgId ? _computeAnalyticsForOrg(tools, orgId, context, interval) : '');
-      }
+    if (!config && !config.orgIds) {
+      tools.Logger.error(() => `[measureGroupProgressHandler].execute - Config missing, No orgs to compute progress for`);
+    } 
 
-    } catch (error) {
-      tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
-      return { error: error.message, status: 500 } as RestResult;
+    else {
+      const data = await Promise.all(config.orgIds.map((orgId) => _computeAnalyticsForOrg(tools, orgId, context, interval)))
+      return data
     }
   }
 }
