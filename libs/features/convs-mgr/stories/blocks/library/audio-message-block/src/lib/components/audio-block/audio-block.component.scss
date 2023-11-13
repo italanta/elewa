@@ -9,6 +9,7 @@ mat-card-title {
 
 audio {
   max-width: 100%;
+  
 }
 
 input {
@@ -16,7 +17,7 @@ input {
   height: fit-content !important;
   padding: 5px 10px;
   margin-bottom: 5px;
-  // border-radius: 3px;
+  margin-top: 5px;
   border-radius: 0.625rem;
   border: none;
   caret-color: var(--convs-mgr-color-text-black);
@@ -44,10 +45,11 @@ input {
   height: 3.5rem;
   background-color: var(--convs-mgr-color-primary-background);
   opacity: 1;
-  width:100%;
   justify-content: center;
   align-items: center;
   display: flex;
+  
+ 
   .fa-file-audio {
     color: var(--convs-mgr-color-primary-purple) !important;
     border: none;
@@ -63,7 +65,7 @@ input {
   margin: 5px 0;
   border-radius: 0.625rem;
   border: none;
-  padding: 20px;
+  padding: 1.25rem;
 
   background-color: var(--convs-mgr-color-primary-background);
 
@@ -93,8 +95,7 @@ input {
   color: var(--convs-mgr-color-primary-white) !important;
 }
 .playAudio {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
+  padding: 0.025rem;
   display: flex;
   width: 100%;
   .waveform {
