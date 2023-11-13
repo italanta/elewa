@@ -37,7 +37,7 @@
       }}</span>
     </div>
     <div class="playAudio">
-      <button class="play">
+      <button (click)="playAudio()" class="play">
         <img src="assets/icons/Play.svg" />
       </button>
 
@@ -49,6 +49,6 @@
         <img src="/assets/icons/delete-x.svg" />
       </button>
     </div>
-    
+    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
   </form>
 </div>
