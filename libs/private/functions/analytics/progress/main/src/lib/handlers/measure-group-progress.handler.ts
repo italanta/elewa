@@ -2,7 +2,6 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
 import {
-  ChannelDataService,
   ClassroomDataService,
   EndUserDataService,
   EnrolledUserDataService,
@@ -15,6 +14,7 @@ import {
   GroupProgressModel,
   UsersProgressMilestone,
   GroupedProgressMilestone,
+  AnalyticsConfig,
 } from '@app/model/analytics/group-based/progress';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
@@ -34,63 +34,70 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
     try {
       const { interval } = cmd;
 
-      //1. get OrgId from channel
-      const channelDataService = new ChannelDataService(tools);
+      //1. get OrgIds from analytics config
+      const app = tools.getRepository<AnalyticsConfig>(`analytics`);
 
-      // TODO: get the channel id cleanly.
-      const channel = await channelDataService.getChannels();
+      const config = await app.getDocumentById('config');
 
-      const orgId = channel.orgId;
+      if (!config) {
+        tools.Logger.error(() => `[measureGroupProgressHandler].execute - Config missing, No orgs to compute progress for`);
+        return;
+      }
 
-      tools.Logger.log(() => `[measureGroupProgressHandler].execute - Computing Progress for Org : ${orgId}`);
+      config.orgIds.map((orgId) => _computeAnalyticsForOrg(tools, orgId, context, interval))
 
-      const classroomDataService = new ClassroomDataService(tools, orgId);
-
-      const endUserDataService = new EndUserDataService(tools, orgId);
-
-      const enrUserDataService = new EnrolledUserDataService(tools, orgId);
-
-      const classrooms = await classroomDataService.getClassrooms();
-
-      // 2. Get all enrolled users of org
-      const enrolledUsers = await enrUserDataService.getEnrolledUsers();
-
-      // 3. Get all end users of an org, map end user to enrolled user's class
-      const endUsersWithClassroom = await Promise.all(
-        enrolledUsers
-          .filter((user) => user.whatsappUserId).map(async (user) => {
-            return {
-              enrolledUser: user,
-              endUser: await endUserDataService.getEndUser(user.whatsappUserId),
-              classroom: classrooms.find((classroom) => classroom.id === user.classId),
-            };
-          })
-      );
-
-      tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
-
-      const engine = new MeasureParticipantProgressHandler();
-
-      //4. get all users progress
-      const allUsersProgress = await Promise.all(
-        endUsersWithClassroom?.map((user) => {
-            if (user.endUser) {
-              return engine.execute({ orgId, participant: user, interval }, context, tools)
-            }
-          }
-        )
-      );
-
-      // get the time/date for the measurement calculated in unix
-      const timeInUnix = interval ? interval : _getCurrentDateInUnix();
-
-      // 4. Combine the progress of each user into a group progress model
-      return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
     } catch (error) {
       tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
       return { error: error.message, status: 500 } as RestResult;
     }
   }
+}
+
+async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, context: HttpsContext, interval: number ) {
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Computing Progress for Org : ${orgId}`);
+
+  const classroomDataService = new ClassroomDataService(tools, orgId);
+
+  const endUserDataService = new EndUserDataService(tools, orgId);
+
+  const enrUserDataService = new EnrolledUserDataService(tools, orgId);
+
+  const classrooms = await classroomDataService.getClassrooms();
+
+  // 2. Get all enrolled users of org
+  const enrolledUsers = await enrUserDataService.getEnrolledUsers();
+
+  // 3. Get all end users of an org, map end user to enrolled user's class
+  const endUsersWithClassroom = await Promise.all(
+    enrolledUsers
+      .filter((user) => user.whatsappUserId).map(async (user) => {
+        return {
+          enrolledUser: user,
+          endUser: await endUserDataService.getEndUser(user.whatsappUserId),
+          classroom: classrooms.find((classroom) => classroom.id === user.classId),
+        };
+      })
+  );
+
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
+
+  const engine = new MeasureParticipantProgressHandler();
+
+  //4. get all users progress
+  const allUsersProgress = await Promise.all(
+    endUsersWithClassroom?.map((user) => {
+        if (user.endUser) {
+          return engine.execute({ orgId, participant: user, interval }, context, tools)
+        }
+      }
+    )
+  );
+
+  // get the time/date for the measurement calculated in unix
+  const timeInUnix = interval ? interval : _getCurrentDateInUnix();
+
+  // 4. Combine the progress of each user into a group progress model
+  return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
 }
 
 /**
