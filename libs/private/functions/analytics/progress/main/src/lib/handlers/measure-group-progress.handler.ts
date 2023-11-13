@@ -30,7 +30,7 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
    * Calculate progress of a given participant based on the stories they have completed.e.
    * @param cmd - Command with participant ID and intervals at which to measure.
    */
-  public async execute(cmd: MeasureGroupProgressCommand, context: HttpsContext,tools: HandlerTools) {
+  public async execute(cmd: MeasureGroupProgressCommand, context: HttpsContext, tools: HandlerTools) {
     try {
       const { interval } = cmd;
 
@@ -39,12 +39,11 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
 
       const config = await app.getDocumentById('config');
 
-      if (!config) {
+      if (!config && !config.orgIds) {
         tools.Logger.error(() => `[measureGroupProgressHandler].execute - Config missing, No orgs to compute progress for`);
-        return;
+      } else {
+        config.orgIds.map((orgId) => orgId ? _computeAnalyticsForOrg(tools, orgId, context, interval) : '');
       }
-
-      config.orgIds.map((orgId) => _computeAnalyticsForOrg(tools, orgId, context, interval))
 
     } catch (error) {
       tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
@@ -54,50 +53,55 @@ export class MeasureParticipantGroupProgressHandler extends FunctionHandler<Meas
 }
 
 async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, context: HttpsContext, interval: number ) {
-  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Computing Progress for Org : ${orgId}`);
-
-  const classroomDataService = new ClassroomDataService(tools, orgId);
-
-  const endUserDataService = new EndUserDataService(tools, orgId);
-
-  const enrUserDataService = new EnrolledUserDataService(tools, orgId);
-
-  const classrooms = await classroomDataService.getClassrooms();
-
-  // 2. Get all enrolled users of org
-  const enrolledUsers = await enrUserDataService.getEnrolledUsers();
-
-  // 3. Get all end users of an org, map end user to enrolled user's class
-  const endUsersWithClassroom = await Promise.all(
-    enrolledUsers
-      .filter((user) => user.whatsappUserId).map(async (user) => {
-        return {
-          enrolledUser: user,
-          endUser: await endUserDataService.getEndUser(user.whatsappUserId),
-          classroom: classrooms.find((classroom) => classroom.id === user.classId),
-        };
-      })
-  );
-
-  tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
-
-  const engine = new MeasureParticipantProgressHandler();
-
-  //4. get all users progress
-  const allUsersProgress = await Promise.all(
-    endUsersWithClassroom?.map((user) => {
-        if (user.endUser) {
-          return engine.execute({ orgId, participant: user, interval }, context, tools)
+  try {
+    tools.Logger.log(() => `[measureGroupProgressHandler].execute - Computing Progress for Org : ${orgId}`);
+  
+    const classroomDataService = new ClassroomDataService(tools, orgId);
+  
+    const endUserDataService = new EndUserDataService(tools, orgId);
+  
+    const enrUserDataService = new EnrolledUserDataService(tools, orgId);
+  
+    const classrooms = await classroomDataService.getClassrooms();
+  
+    // 2. Get all enrolled users of org
+    const enrolledUsers = await enrUserDataService.getEnrolledUsers();
+  
+    // 3. Get all end users of an org, map end user to enrolled user's class
+    const endUsersWithClassroom = await Promise.all(
+      enrolledUsers
+        .filter((user) => user.whatsappUserId).map(async (user) => {
+          return {
+            enrolledUser: user,
+            endUser: await endUserDataService.getEndUser(user.whatsappUserId),
+            classroom: classrooms.find((classroom) => classroom.id === user.classId),
+          };
+        })
+    );
+  
+    tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
+  
+    const engine = new MeasureParticipantProgressHandler();
+  
+    //4. get all users progress
+    const allUsersProgress = await Promise.all(
+      endUsersWithClassroom?.map((user) => {
+          if (user.endUser) {
+            return engine.execute({ orgId, participant: user, interval }, context, tools)
+          }
         }
-      }
-    )
-  );
-
-  // get the time/date for the measurement calculated in unix
-  const timeInUnix = interval ? interval : _getCurrentDateInUnix();
-
-  // 4. Combine the progress of each user into a group progress model
-  return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
+      )
+    );
+  
+    // get the time/date for the measurement calculated in unix
+    const timeInUnix = interval ? interval : _getCurrentDateInUnix();
+  
+    // 4. Combine the progress of each user into a group progress model
+    return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
+  } catch (error) {
+    tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
+    return { error: error.message, status: 500 } as RestResult;
+  }
 }
 
 /**
