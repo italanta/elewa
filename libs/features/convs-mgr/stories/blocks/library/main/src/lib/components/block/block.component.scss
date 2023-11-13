@@ -43,6 +43,7 @@ mat-card {
 .outer {
 	display: flex;
 	align-items: center;
+	border-bottom: 1px solid var(--convs-mgr-light-border-color);
 	justify-content: space-between;
 
 	&:hover {
