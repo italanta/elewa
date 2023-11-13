@@ -11,7 +11,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
-import { AllCourse } from '../../utils/mock.data';
+import { AllClassroom, AllCourse } from '../../utils/mock.data';
 
 export type Periodicals = 'Daily' | 'Weekly' | 'Monthly';
 
@@ -30,9 +30,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   periodical: Periodicals = 'Weekly';
 
   allCourse = AllCourse; // so i can access this in the template
-  activeCourse = this.allCourse;
+  allClass = AllClassroom // so i can access this in the template
 
-  activeClassroom = 'All';
+  activeCourse = this.allCourse;
+  activeClassroom = this.allClass;
 
   loading = true;
 
@@ -56,7 +57,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.activeCourse = course;
   }
 
-  selectActiveClassroom(classroom: string) {
+  selectActiveClassroom(classroom: Classroom) {
     this.activeClassroom = classroom;
   }
 

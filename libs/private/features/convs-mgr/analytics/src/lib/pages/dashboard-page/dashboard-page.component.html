@@ -18,11 +18,11 @@
 
       <!-- classrooms -->
       <div class="items">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom | titlecase  }} Classroom(s) &nbsp; <i class="fas fa-caret-down"></i></button>
+        <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom.className | titlecase  }} Classroom(s) &nbsp; <i class="fas fa-caret-down"></i></button>
         <mat-menu #classMenu="matMenu">
-          <button mat-menu-item (click)="selectActiveClassroom('All')">All</button>
+          <button mat-menu-item (click)="selectActiveClassroom(allClass)">All</button>
             <div *ngFor="let classroom of (classrooms$ | async)">
-              <button mat-menu-item (click)="selectActiveClassroom(classroom.className)">{{ classroom.className | titlecase }}</button>
+              <button mat-menu-item (click)="selectActiveClassroom(classroom)">{{ classroom.className | titlecase }}</button>
             </div>
         </mat-menu>
       </div>

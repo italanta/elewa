@@ -38,7 +38,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   botModules: BotModule[];
 
   activeCourse: Bot;
-  activeClassroom: string;
+  activeClassroom: Classroom;
   selectedPeriodical: periodicals;
 
   showData = false;
@@ -60,7 +60,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set setActiveClassroom(value: string) {
+  set setActiveClassroom(value: Classroom) {
     this.activeClassroom = value
     this.selectProgressTracking(this.selectedPeriodical);
   }
@@ -188,10 +188,10 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return model.map((item) => {
       const participants = item.measurements.find((m) => m.id === bot.id)?.participants;
 
-      if (this.activeClassroom === 'All') {
+      if (this.activeClassroom.className === 'All') {
         return participants?.length ?? 0;
       } else {
-        return participants?.filter((part) => part.classroom.className === this.activeClassroom).length ?? 0;
+        return participants?.filter((part) => part.classroom.className === this.activeClassroom.className).length ?? 0;
       }
     })
   };
@@ -211,7 +211,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     // return moduleMilestone data from users of the active course and class === selected tab
     return model.map(
       (item) => {
-        if (this.activeClassroom === 'All') {
+        if (this.activeClassroom.className === 'All') {
           const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
           const measurements = courseGroup?.classrooms.flatMap(clsroom => clsroom?.measurements?.filter((botMod) => botMod?.id === moduleMilestone?.id));
           const participantCount = measurements?.reduce((acc, clsroom) => acc + (clsroom?.participants?.length ?? 0), 0) ?? 0;
@@ -219,7 +219,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
           return participantCount;
         } else {
           const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
-          const classGroup = courseGroup?.classrooms.find((cls) => cls?.id === this.activeClassroom);
+          const classGroup = courseGroup?.classrooms.find((cls) => cls?.id === this.activeClassroom.id);
           const participantCount = classGroup?.measurements?.find((botMod) => botMod?.id === moduleMilestone?.id)?.participants.length ?? 0
 
           return participantCount;
