@@ -66,8 +66,10 @@ mat-card {
 
 hr{
 	color: var(--convs-mgr-border-color);
-.form-border {
-	border-top: 0.5px solid #DADADA;
+	
+	.form-border {
+		border-top: 0.5px solid #DADADA;
+	}
 }
 
 .icon-with-text{
