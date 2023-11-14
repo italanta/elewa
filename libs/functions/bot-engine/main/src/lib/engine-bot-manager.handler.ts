@@ -7,6 +7,7 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
 import { FileMessage, Message, MessageDirection } from '@app/model/convs-mgr/conversations/messages';
 import { isFileMessage } from '@app/model/convs-mgr/functions';
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ConnectionsDataService } from './services/data-services/connections.service';
 import { CursorDataService } from './services/data-services/cursor.service';
@@ -69,6 +70,7 @@ export class EngineBotManager
     try {
       // Set the Organisation Id
       this.orgId = this._activeChannel.channel.orgId;
+      const platform = this._activeChannel.channel.type;
 
       // STEP 1: Initialize the services which are necessary for execution of the bot engine
       // TODO: use a DI container to manage instances and dynamically inject appropriate dependencies
@@ -87,7 +89,7 @@ export class EngineBotManager
       const END_USER_ID = endUser.id;
 
       // create endUser and enrolledUser equivalent.
-      await this.createEndUser(endUser, enrolledUserService, this._logger);
+      await this.createEndUser(endUser, enrolledUserService, platform, this._logger);
 
       //TODO: Find a better way because we are passing the active channel twice
       // const bot = new BotEngineMainService(blockDataService, connDataService, _msgDataService$, cursorDataService, this._tools, this._activeChannel, botMediaUploadService);
@@ -142,15 +144,31 @@ export class EngineBotManager
     }
   }
 
-  async createEndUser(endUser: EndUser, enrolledUserService: EnrolledUserDataService, logger:Logger) {
+  async createEndUser(endUser: EndUser, enrolledUserService: EnrolledUserDataService, platform: PlatformType, logger:Logger) {
     logger.log(() => `Creating EndUser and Enrolled User Equivalent`);
     
     // Step 1: Get or Create End User
-    this.endUser = await this._endUserService$.getOrCreateEndUser(endUser);
+    // TODO: Create enrolled user first
+    let enrolledUser: Promise<EnrolledEndUser>;
 
-    // Step 2: Get or Create Enrolled User
-    const userId = generateEnrolledUserId();
-    const enrolledUser = enrolledUserService.getOrCreateEnrolledUser(this.endUser, 'whatsappUserId', userId);
+    this.endUser = await this._endUserService$.getEndUser(endUser.id);
+
+    if(!this.endUser) {
+      // Create an enrolled user
+      const enrolledUserID = generateEnrolledUserId();
+      enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+
+      // Create end user 
+      this.endUser = await this._endUserService$.createEndUser(endUser, enrolledUserID);
+    } else if(this.endUser && !this.endUser.enrolledUserId) {
+
+      const enrolledUserID = generateEnrolledUserId();
+      enrolledUser = enrolledUserService.createEnrolledUser(endUser, platform, enrolledUserID);
+
+      this.endUser.enrolledUserId = enrolledUserID;
+
+      this.endUser = await this._endUserService$.updateEndUser(this.endUser);
+    }
 
     // step 3: batch and resolve later
     this.addSideOperation(enrolledUser);
