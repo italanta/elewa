@@ -24,14 +24,44 @@
         <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
           <div class="general">
               <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
-              <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+              <div class="input-data">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}</mat-label>
+                  <input type="text" formControlName="name" id="name" name="name" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+                </mat-form-field>
+              </div>
+
           </div>
           <div class="channel-details">
               <label >{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP-CHANNEL-DETAILS" | transloco}}</label><br>
-              <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' ><br>
-              <input type="text" formControlName="phoneNumber" id="phoneNumber" name="botPhoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}' ><br>
-              <input type="text" formControlName="phoneNumberId" id="phoneNumberId" name="phoneNumberId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}'><br>
-              <input type="text" formControlName="businessAccountId" id="businessAccountId" name="businessAccountId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}'>
+              <div class="input-data">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}</mat-label>
+                  <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}'>
+                </mat-form-field>
+              </div>
+
+              <div class="input-data">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}</mat-label>
+                  <input type="text" formControlName="phoneNumber" id="phoneNumber" name="botPhoneNumber" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}'>
+                </mat-form-field>
+              </div>
+  
+              <div class="input-data">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}</mat-label>
+                  <input type="text" formControlName="phoneNumberId" id="phoneNumberId" name="phoneNumberId" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}'>
+                </mat-form-field>
+              </div>
+
+              <div class="input-data">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}</mat-label>
+                  <input type="text" formControlName="businessAccountId" id="businessAccountId" name="businessAccountId" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}'>
+                </mat-form-field>
+              </div>
+
           </div>
           <div class="buttons">
             <div class="cancel">
@@ -49,12 +79,32 @@
         <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
               <div class="general">
               <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
-              <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+              <div class="input-data">
+                <mat-form-field appearance="outline" >
+                  <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}</mat-label>
+                  <input type="text" formControlName="name" id="name" name="name" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+                </mat-form-field>
+              </div>
+            
               </div>
               <div class="channel-details">
                   <label >{{"COMPANY-INFORMATION.CHANNEL-MODAL.MESSENGER-CHANNEL-DETAILS" | transloco}}</label><br>
-                  <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}' ><br>
-                  <input type="text" formControlName="pageId" id="pageId" name="pageId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}' >
+                  <div class="input-data">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}</mat-label>
+                      <input type="text" formControlName="accessToken" id="accessToken" name="accessToken"  matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}'>
+                    </mat-form-field>
+                  </div>
+                  
+
+                 
+                  <div class="input-data">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}</mat-label>
+                      <input type="text" formControlName="pageId" id="pageId" name="pageId" matInput placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}'>
+                    </mat-form-field>
+                  </div>
+                
               </div>  
               <div class="buttons">
                 <div class="cancel">
