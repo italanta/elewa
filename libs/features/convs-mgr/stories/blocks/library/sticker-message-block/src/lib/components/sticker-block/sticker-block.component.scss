@@ -71,10 +71,10 @@ input {
 
 .sticker_bg {
 	margin: 5px 0;
+	align-items: center;
 	width: 240px;
 	border-radius: 0.6rem;
 	justify-content: center;
-	margin-top: -5px;
 	background-color: #F3F3F3 !important;
 	&.error {
 		border: 3px solid red !important;
@@ -113,7 +113,12 @@ input {
 
 .svgicon{
 	width: 30px;
-	margin-top: 30px;
-	margin-left: 50px;
 	filter: invert(49%) sepia(21%) saturate(13%) hue-rotate(314deg) ;
+}
+
+.sticker-icon{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }
