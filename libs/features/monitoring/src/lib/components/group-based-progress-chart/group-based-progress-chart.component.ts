@@ -191,7 +191,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
       if (this.activeClassroom.className === 'All') {
         return participants?.length ?? 0;
       } else {
-        return participants?.filter((part) => part.classroom.className === this.activeClassroom.className).length ?? 0;
+        return participants?.filter((part) => part.classroom.id === this.activeClassroom.id).length ?? 0;
       }
     })
   };
