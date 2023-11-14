@@ -231,6 +231,9 @@ $sidebar-footer-height: 230px;
             height: 20px;
             line-height: 35px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-right: 10px;
             border-radius: 2px;
             transition: color 0.3s;
@@ -247,6 +250,21 @@ $sidebar-footer-height: 230px;
             i {
               display: inline-block;
             }
+
+            .chevron-up{
+              rotate: 180deg;
+              transition: all 0.3s;
+            }
+
+            .chevron{
+              transition: all 0.3s;
+            }
+          }
+
+          .chev-collapsed{
+            position: absolute;
+            right: 0;
+      
           }
 
           .menu-title {
@@ -376,6 +394,9 @@ $sidebar-footer-height: 230px;
             .menu-prefix,
             .menu-suffix {
               opacity: 0;
+            }
+            .menu-icon {
+              line-height: 3rem; // Adjust the line height to vertically center the icons
             }
           }
           &.sub-menu {
@@ -642,6 +663,15 @@ a {
     margin-top: -10px;
   }
 }
+
+.sub-side-menu-collapsed{
+  padding-left: 0rem!important;
+  font-size: .85rem!important;
+  li{
+    margin-top: -10px;
+  }
+}
+
 .collapsible {
   display: none; 
 }

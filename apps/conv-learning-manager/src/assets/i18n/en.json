@@ -133,7 +133,7 @@
         "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
-        "LOCATION-INPUT": "Location Input",
+        "LOCATION-INPUT": "Location input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
@@ -161,7 +161,7 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
-        "LOCATION-INPUT": "Location Input",
+        "LOCATION-INPUT": "Location input",
         "OPEN-ENDED-QUESTION": "Open ended question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
@@ -217,7 +217,7 @@
       },
       "LABELS": {
         "TRACK-MILESTONE": "Track as a milestone",
-        "ASSESSMENTS-NAME": "Assessment's name",
+        "ASSESSMENTS-NAME": "Assessment name",
         "CONDITIONAL-BLOCK": {
           "INPUT-VARIABLE": "Variable",
           "SELECT-VARIABLE": "Select Variable",
@@ -299,14 +299,6 @@
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block",
       "CMI5-BLOCK" :"CMI5 Block"
-    },
-    "ANALYTICS": {
-      "PERIODICALS": {
-        "MONTH": "Month",
-        "WEEK": "Week",
-        "DAY": "Day"
-      },
-      "PROGRESSION": "Progression"
     }
   },
   "BOTS": {
@@ -473,6 +465,25 @@
         "CANCEL": "Cancel",
         "CONTINUE": "Continue"
       }
+    }
+  },
+  "INSIGHTS": {
+    "TITLE": "Insights",
+    "ALL-OPTION": "All",
+    "CHART": {
+      "PERIODICALS": {
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      },
+      "ASSESSMENTS": {
+        "TITLE": "Assessment Scores",
+        "HIGHEST-SCORE": "Highest Score:",
+        "LOWEST-SCORE": "Lowest Score:",
+        "COMPUTING-SCORES":"Computing Scores"
+      },
+      "PROGRESSION": "Progression",
+      "NO-CHART-MESSAGE": "You currently have no Data to visualise"
     }
   },
   "ASSESSMENTS": {
@@ -861,7 +872,8 @@
       "DATE": "Date Sent",
       "TIME": "Time sent",
       "LEARNERS": "Number of learners",
-      "STATUS": "status",
+      "STATUS": "Status",
+      "META": "Meta",
       "PENDING": "Pending",
       "SENT": "Sent",
       "APPROVED": "Approved"
@@ -1107,7 +1119,7 @@
   "REMOVE":"Remove",
   "BASIC-INFO":"Basic Information",
   "ADDRESS-INFO":"Address Information",
-  "EDIT-CO-INFO":"Edit company information",
+  "EDIT-CO-INFO":"Edit",
   "SAVE-ORG":"Save Organization"
 }
 

@@ -10,7 +10,7 @@
                 </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
-
+            
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editBlock()">
                     <i class="far fa-edit"></i>
@@ -25,11 +25,12 @@
                     <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.DELETE' | transloco }}</span>
                 </button>
             </mat-menu> 
-          
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <i class="fas fa-ellipsis-v"></i>
-            </button>  
+            </button> 
         </div>
+    
+        <hr> 
 
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">

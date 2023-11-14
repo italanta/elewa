@@ -17,7 +17,6 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { ChannelService } from '@app/private/state/organisation/channels';
 
 import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
@@ -74,8 +73,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _messageService: MessageTemplatesService,
     private _route: ActivatedRoute,
     private _scheduleMessageService: ScheduleMessageService,
-    private _route$$: Router,
-    private _channelService: ChannelService
+    private _route$$: Router
   ) {}
 
   ngOnInit() {
