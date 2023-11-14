@@ -3,9 +3,12 @@ mat-card {
   padding: 10px;
 }
 
+.wide{
+  box-sizing: content-box !important;
+ }
+
 form {
   width:100%;
-  padding:0.625rem;
 }
 
 .webhook-select-wrapper {
@@ -100,7 +103,7 @@ select:focus, input:focus{
   }
 
   p {
-    width: 12.25rem;
+    width: 100%;
     color: var(--convs-mgr-input-color-two);
     font-family: Roboto;
     font-size: 0.7rem;
@@ -119,11 +122,13 @@ select:focus, input:focus{
 
   background-color: var(--convs-mgr-placeholder-color);
   margin-top: 1rem;
+  margin-bottom: 0.3rem;
   padding: 0.9375rem;
   border-radius: 0.625rem;
+  border:none;
 
   p {
-    width: 12.25rem;
+    width: 100%;
     margin-top: 0.5rem;
     color: var(--convs-mgr-input-color-two);
     font-family: Roboto;
