@@ -8,8 +8,8 @@ import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/s
 import { Organisation } from '@app/model/organisation';
 import { OrganisationService } from '@app/private/state/organisation/main';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+
 import { _channelMessengerForm, _channelWhatsAppForm } from '../../providers/channels-forms';
 
 
