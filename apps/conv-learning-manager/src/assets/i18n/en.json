@@ -109,8 +109,8 @@
     },
     "BLOCK": {
       "MENU": {
-        "EDIT": "Edit",
         "COPY": "Copy",
+        "EDIT": "Edit",
         "DELETE": "Delete"
       },
       "BLOCK_ID": "Block ID",
@@ -299,14 +299,6 @@
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block",
       "CMI5-BLOCK" :"CMI5 Block"
-    },
-    "ANALYTICS": {
-      "PERIODICALS": {
-        "MONTH": "Month",
-        "WEEK": "Week",
-        "DAY": "Day"
-      },
-      "PROGRESSION": "Progression"
     }
   },
   "BOTS": {
@@ -473,6 +465,25 @@
         "CANCEL": "Cancel",
         "CONTINUE": "Continue"
       }
+    }
+  },
+  "INSIGHTS": {
+    "TITLE": "Insights",
+    "ALL-OPTION": "All",
+    "CHART": {
+      "PERIODICALS": {
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      },
+      "ASSESSMENTS": {
+        "TITLE": "Assessment Scores",
+        "HIGHEST-SCORE": "Highest Score:",
+        "LOWEST-SCORE": "Lowest Score:",
+        "COMPUTING-SCORES":"Computing Scores"
+      },
+      "PROGRESSION": "Progression",
+      "NO-CHART-MESSAGE": "You currently have no Data to visualise"
     }
   },
   "ASSESSMENTS": {

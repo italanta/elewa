@@ -68,7 +68,7 @@ export const ICONS_AND_TITLES = {
   },
   18: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
-    icon: 'fas fa-forward',
+    svgIcon: '/assets/icons/forward-play.svg',
   },
   19: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLE-INPUT',
