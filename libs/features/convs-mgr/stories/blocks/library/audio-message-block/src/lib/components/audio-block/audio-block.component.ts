@@ -103,7 +103,7 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
 /*
   *Handles the selection of an audio file through an input event.
   *Retrieves the selected file, creates a URL for it, and loads it into the WaveSurfer instance.
-*/
+  */
   handleFileInput(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     const files = inputElement.files;
@@ -116,6 +116,16 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
       this.wavesurfer.load(url);
       console.log('After loading file');
 
+    }
+  }
+/**Toggles the play and pause state of the Wavesurfer audio player. */
+  togglePlayPause(): void {
+    if (this.wavesurfer) {
+      if (this.wavesurfer.isPlaying()) {
+        this.wavesurfer.pause();
+      } else {
+        this.wavesurfer.play();
+      }
     }
   }
   
