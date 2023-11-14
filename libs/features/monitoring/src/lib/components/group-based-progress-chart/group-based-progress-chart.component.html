@@ -1,5 +1,9 @@
 <div class="chart-container">
-  <div class="chart">
+  <div class="chart" [ngClass]="showData ? 'show-canvas' : ''">
     <canvas id="chart-ctx">{{ chart }}</canvas>
+  </div>
+
+  <div class="no-data" [ngClass]="showData ? 'hide-no-data' : ''">
+    <span>{{'INSIGHTS.CHART.NO-CHART-MESSAGE' | transloco }}</span>
   </div>
 </div>

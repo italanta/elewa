@@ -1,7 +1,7 @@
 .mdc-data-table__header-cell {
 	color: #7C7C7C;
 	font-weight: 300;
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 .mat-mdc-row {
@@ -31,5 +31,6 @@
 
   &.active {
     background-color: #3E788A;
+    padding:10px;
   }
 }

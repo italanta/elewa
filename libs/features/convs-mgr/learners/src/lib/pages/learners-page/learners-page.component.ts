@@ -1,14 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-
-import { first } from 'rxjs';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
@@ -16,16 +15,16 @@ import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
 import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { ChannelService } from '@app/private/state/organisation/channels';
+
 import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
-import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/lib/model/schedule-message-req';
 
 @Component({
   selector: 'app-learners-page',
@@ -34,6 +33,7 @@ import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversati
 })
 export class LearnersPageComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('paginator') paginator: MatPaginator;
 
   private _sBs = new SubSink();
 
@@ -52,7 +52,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
-  allCourses: string[] = [];
+  allCourses: Bot[] = [];
 
   selectedClass: any = 'Class';
   selectedCourse: any = 'Course';
@@ -67,13 +67,13 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
+    private _botServ$: BotsStateService,
     private _dialog: MatDialog,
     private _surveyService: SurveyService,
     private _messageService: MessageTemplatesService,
     private _route: ActivatedRoute,
     private _scheduleMessageService: ScheduleMessageService,
-    private _route$$: Router,
-    private _channelService: ChannelService
+    private _route$$: Router
   ) {}
 
   ngOnInit() {
@@ -95,6 +95,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this._sBs.sink = allLearners$.subscribe((alllearners) => {
       this.dataSource.data = alllearners;
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -104,9 +105,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  //TODO: get all courses
   getAllCourses() {
-    this.allCourses = [];
+    this._sBs.sink = this._botServ$.getBots().subscribe((courses) => this.allCourses = courses)
   }
 
   getAllPlatforms() {
@@ -137,6 +137,14 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   searchTable(event: Event) {
     const searchValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = searchValue.trim();
+  }
+
+  filterTable(event: Event, mode:string) {
+    switch (mode) {
+      case 'class':
+        this.dataSource.filter = this.selectedClass.ClassName;
+        break
+    }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

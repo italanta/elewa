@@ -48,7 +48,7 @@
       <div>
         <button [disabled]="moduleForm.invalid || isSavingModule" mat-raised-button class="add-btn" color="primary" (click)="submitForm()">
           <span *ngIf="isSavingModule; else notUploading">
-            <mat-spinner diameter="25" strokeWidth="3" color="primary"></mat-spinner>
+            <mat-spinner diameter="25" strokeWidth="3" color="white"></mat-spinner>
           </span>
 
           <ng-template #notUploading>

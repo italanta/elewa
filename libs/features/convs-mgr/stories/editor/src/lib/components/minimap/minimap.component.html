@@ -1,0 +1,24 @@
+<div id="minimap"
+  [style.transform]="'scale('+ zoomFactor +')'">
+
+<!-- TODO: show dynamic background. Requires performance fix. -->
+<!-- *ngIf="backgroundImg" [style.background-image]="backgroundImg" -->
+
+  <div class="minimap-viewport-holder">
+
+    <div id="viewport" *ngIf="viewport"
+         [ngStyle]="getPosition()">
+    </div>
+ 
+  </div>
+
+  <!-- display blocks -->
+  <div *ngFor="let block of blocks" class="block"
+    [style.left]="block.x + 'px'"
+    [style.top]="block.y  + 'px'"
+    [style.width]="block.width + 'px'"
+    [style.height]="block.height + 'px'">
+  </div>
+
+</div>
+

@@ -1,13 +1,13 @@
 .message-template-create{
-    padding: 2.19rem 4rem;
+    padding: 2.19rem 3rem;
     background-color:#F6F6F6;
 }
 :host ::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab .mdc-tab__text-label,
 .mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab__text-label {
 	font-family: Roboto;
-    font-size: 24px!important;
+    font-size: 1rem!important;
     font-weight: 300;
-    line-height: 28px;
+    line-height: 20px;
     letter-spacing: 0em;
     text-align: center;
 }

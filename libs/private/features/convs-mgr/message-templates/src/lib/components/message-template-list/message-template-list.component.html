@@ -1,6 +1,10 @@
 <div class="message-template-list-container">
-    <div class="list-title">
-        <span class="list-title-message">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE.LIST-TITLE-MESSAGE'| transloco }}</span>
+      <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+        <form [formGroup]="searchForm" class="search">
+          <i class="fas fa-search search_tooltip"></i>
+          <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="search templates" />
+        </form>
+        <!-- <span class="list-title-message">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.LIST-TITLE.LIST-TITLE-MESSAGE'| transloco }}</span> -->
         <!-- <span class="list-title-sub">2 learners selected</span> -->
     </div>
     <div class="list-title-button">
@@ -16,12 +20,12 @@
       <input  class="search_input" type="text" name="" placeholder="Search template" />
     </div>
   </div> -->
-  <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
+  <!-- <div class="search-bar" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFlex>
     <form [formGroup]="searchForm" class="search">
       <i class="fas fa-search search_tooltip"></i>
-      <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="Search template" />
+      <input formControlName="searchInput" class="search_input" type="text" name="" placeholder="search templates" />
     </form>
-  </div>
+  </div> -->
 
 
 <div class="table">
@@ -33,7 +37,7 @@
             <th class="table-header" mat-header-cell *matHeaderCellDef
               >{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-LIST-CONTAINER.TABLE.TABLE-HEADER.TEMPLATE-NAME'| transloco }}
             </th>
-              <td mat-cell *matCellDef="let template" (click)="openTemplate(template.id)">  {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
+              <td class="temp-name" mat-cell *matCellDef="let template" (click)="openTemplate(template.id)">  {{template.name}} <span class="span-ls">{{template.category | titlecase}}</span></td>
           </ng-container>
       
           <ng-container matColumnDef="sentMessages">
@@ -52,9 +56,9 @@
 
           <ng-container matColumnDef="status">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
-              
+              Status
             </th>
-              <td mat-cell *matCellDef="let template"> {{template.status}} </td>
+              <td mat-cell *matCellDef="let template"> {{modifyStatus(template.status)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="send">
@@ -69,6 +73,7 @@
       
           <ng-container matColumnDef="actions">
             <th class="table-header" mat-header-cell *matHeaderCellDef>
+              Actions
             </th>
             <td mat-cell *matCellDef="let template"> 
                 <button mat-button [matMenuTriggerFor]="menu">
