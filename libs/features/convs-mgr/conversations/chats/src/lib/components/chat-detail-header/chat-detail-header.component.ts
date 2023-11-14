@@ -1,4 +1,8 @@
+// import { ErrorMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { CommunicationChannel } from './../../../../../../../../model/convs-mgr/conversations/admin/system/src/lib/channel.interface';
 import { Timestamp } from '@firebase/firestore-types';
+// import { ErrorModalComponent } from '../error-module/error-module.component';
+
 
 import {
   Component,
@@ -244,6 +248,15 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
     if (this.chat.isConversationComplete === -1) {
       const storyId = this.currentPosition.storyId;
       const blockId = this.currentPosition.blockId;
+
+
+      if(!this.currentPosition.CommunicationChannel){
+        this._spinner.hide()
+        this._snackBar.open('User not linked to  communication channel!', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        })
+      }
 
       const req = { storyId, endUserId: this.chat.id, blockId };
 

@@ -76,6 +76,7 @@ export interface Cursor extends IObject
  *     when they reply.
  */
 export interface EndUserPosition {
+  CommunicationChannel: any;
   storyId: string;
 
   /** The block in the story that is sent to the user immediately after processing their message. This marks the position of the cursor */
