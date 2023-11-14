@@ -47,7 +47,7 @@ export class CompanyDataComponent implements OnInit {
   ) { }
 
  
-  displayedColumns: string[] = ['name', 'type', 'defaultStory', 'edit'];
+  displayedColumns: string[] = ['name', 'type',  'edit'];
   dataSource : CommunicationChannel[] = [];
 
 
