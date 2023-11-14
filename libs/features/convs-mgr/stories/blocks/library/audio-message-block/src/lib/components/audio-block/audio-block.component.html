@@ -15,7 +15,8 @@
                 <i class="fas fa-file-audio" (click)="audioInput.click()"></i>
             </div>
             <div>
-                <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
+                <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc" (change)="handleFileInput($event)">
+
             </div>
         </div>
 
@@ -29,6 +30,10 @@
             id="audio-link ">
 
         <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
+        <div #waveform>
+          
+        </div>
+
 
     </form>
 </div>
