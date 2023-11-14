@@ -8,12 +8,11 @@ import { Observable } from 'rxjs';
 import { TranslateService } from '@ngfi/multi-lang';
 
 import { iTalUser } from '@app/model/user';
-import { Organisation, CLMPermissions } from '@app/model/organisation';
+import { Organisation } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
 
-import { OrganisationService, PermissionsStore } from '@app/private/state/organisation/main';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { OrganisationService } from '@app/private/state/organisation/main';
 
 @Component({
   selector: 'kujali-org-page',
@@ -27,7 +26,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
 
   orgFormGroup: FormGroup;
 
-  user: iTalUser;
+  user$: Observable<iTalUser>;
   organisation: Organisation;
 
   activeOrg: FormControl = new FormControl();
@@ -38,19 +37,16 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
   lang: 'en' | 'fr' | 'nl'
 
   constructor(private _router$$: Router,
-              private _fb: FormBuilder,
-              private _translateService: TranslateService,
-              private _userService$$: UserStore,
-              private _orgService: OrganisationService,
-              private _aff: AngularFireFunctions,
-              private _permissionsStore: PermissionsStore
-  ) 
-  {
+    private _fb: FormBuilder,
+    private _translateService: TranslateService,
+    private _userService$$: UserStore,
+    private _orgService: OrganisationService
+  ) {
     this.lang = this._translateService.initialise();
   }
 
   ngOnInit(): void {
-    this._sbS.sink = this._userService$$.getUser().subscribe(u => this.user = u);
+    this.user$ = this._userService$$.getUser();
     this.buildOrgForm();
   }
 
@@ -69,8 +65,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
         city: ['', Validators.required],
         postalCode: ['', Validators.required],
         postalAddress: ['', Validators.required],
-      }),
-      createdBy: this.user.id
+      })
     })
   }
 
@@ -78,16 +73,12 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
     this.creatingOrg = true;
     try {
       this._orgService.createOrg(this.orgFormGroup.value as Organisation);
-      // call org creation handler 
-     } catch (error) {
-    //   throw error
-    // }
-  }}
-
+    } catch (error) {
+      throw error
+    }
+  }
 
   ngOnDestroy(): void {
     this._sbS.unsubscribe();
   }
 }
-
-
