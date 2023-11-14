@@ -3,7 +3,11 @@
 		<input [id]="audioInputForm" formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-INPUT' | transloco" />
 
-		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioInputForm"></app-default-option-field>
+			<input type="text" formControlName="fileSrc"
+            [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
+            id="audio-link ">
+
+		<!-- <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioInputForm"></app-default-option-field> -->
 
 	</form>
 </div>
