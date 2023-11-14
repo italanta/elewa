@@ -17,3 +17,11 @@ export enum ClassroomUpdateEnum {
   ChangeClass = 'Change Class',
   AddToClass = 'Add To Class',
 }
+
+// TODO: move elsewhere, potentially to DB - to be decided
+/** example of a classroom - we use to group ungrouped users (classroom) */
+export const defaultClassroom: Classroom = {
+  className: 'default',
+  description: 'the default classroom',
+  deleted: false
+}

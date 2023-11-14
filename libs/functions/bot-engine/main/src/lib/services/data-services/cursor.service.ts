@@ -62,7 +62,7 @@ export class CursorDataService extends BotDataService<Cursor> {
     this._docPath = `orgs/${orgId}/end-users/${endUserId}/cursor`;
   
     // Convert unix time to date
-    const timeToMeasure = new Date(unixToMeasure * 1000);
+    const timeToMeasure = new Date(unixToMeasure);
   
     const crsors$ = await this.getDocumentsBySetDate(timeToMeasure, this._docPath);
 

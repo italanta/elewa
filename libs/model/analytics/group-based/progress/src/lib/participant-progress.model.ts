@@ -14,10 +14,10 @@ export interface ParticipantProgressMilestone
   classroom: Classroom; 
 
   /** Milestone the user has reached */
-  milestone: string; 
+  milestoneId: string; 
   
   /** Course that the user is in */
-  course: string;
+  courseId: string;
 
   /** Story ID of the milestone the user has reached */
   storyId: string;
