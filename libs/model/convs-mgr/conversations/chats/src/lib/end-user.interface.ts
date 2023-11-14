@@ -42,6 +42,8 @@ export interface EndUser extends IObject
     assessmentResults             ?: AssessmentResult[];
 
     lastActiveTime                ?: Date;
+
+    enrolledUserId                ?: string;
 }
 
 
