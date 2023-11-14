@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 import { take } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+import WaveSurfer from 'wavesurfer.js';
+
 
 import { FileStorageService } from '@app/state/file';
 import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -13,13 +15,17 @@ import { VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging
   templateUrl: './audio-block.component.html',
   styleUrls: ['./audio-block.component.scss'],
 })
-export class AudioBlockComponent implements OnInit, OnDestroy {
+export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
   @Input() id: string;
   @Input() block: VoiceMessageBlock;
   @Input() audioMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @ViewChild('waveform') waveformElement!: ElementRef;
+
 
   private _sBs = new SubSink();
+  private wavesurfer!: WaveSurfer;
+
 
   file: File;
   audioInputId: string;
@@ -37,6 +43,10 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
     if (fileSize) {
       this._checkSizeLimit(fileSize);
     }
+
+    /** Call the method to initialize WaveSurfer*/
+    
+
   }
 
   async processAudio(event: any) {
@@ -73,6 +83,42 @@ export class AudioBlockComponent implements OnInit, OnDestroy {
     this._checkSizeLimit(fileSizeInKB);
   };
 
+  /**Initializes a WaveSurfer instance for audio waveform visualization. */
+  private initializeWaveSurfer(): void {
+    this.wavesurfer = WaveSurfer.create({
+      container: this.waveformElement.nativeElement,
+      waveColor: '#E9E7F4',
+      progressColor: '#1F7A8C',
+      barWidth: 3,
+      barHeight: 0.1,
+      normalize: true,
+    });
+  }
+
+ /**this function is responsible for setting up and initializing the WaveSurfer component*/
+  ngAfterViewInit() {
+    this.initializeWaveSurfer();   
+
+  }
+/*
+  *Handles the selection of an audio file through an input event.
+  *Retrieves the selected file, creates a URL for it, and loads it into the WaveSurfer instance.
+*/
+  handleFileInput(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    const files = inputElement.files;
+  
+    if (files && files.length > 0) {
+      const file = files[0];
+      const url = URL.createObjectURL(file);
+      console.log('Before loading file:', url);
+
+      this.wavesurfer.load(url);
+      console.log('After loading file');
+
+    }
+  }
+  
   ngOnDestroy() {
     this._sBs.unsubscribe();
   }
