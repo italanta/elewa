@@ -8,7 +8,7 @@
       <div *ngIf="scoresComputed" class="container">
         <select [(ngModel)]="selectedAssessment" (change)="switchAssessmentScores()">
           <option *ngFor="let assessment of assessments" [ngValue]="assessment">
-            {{ assessment.name }}
+            {{ assessment.name ?? 'No Name' }}
           </option>
         </select>
       </div>
