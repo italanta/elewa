@@ -4,6 +4,7 @@ import { FunctionHandler, HttpsContext } from '@ngfi/functions';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
 import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
+import { defaultClassroom } from '@app/model/convs-mgr/classroom';
 
 import { CursorDataService, VariablesDataService, BotModuleDataService } from '@app/functions/bot-engine';
 
@@ -54,10 +55,11 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
         id: participant.endUser.id,
         name: userName ? userName : 'unknown',
         phone: participant.endUser.phoneNumber,
+        dateCreated: participant.enrolledUser.createdOn,
       },
-      classroom: participant.classroom,
-      milestone: story.parentModule,
-      course: parentModule.parentBot,
+      classroom: participant.classroom ?? defaultClassroom,
+      milestoneId: story.parentModule,
+      courseId: parentModule.parentBot,
       storyId: story.id,
     }
   }
