@@ -1,9 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-export function _channelMessengerForm(_fb: FormBuilder, platform: string, orgId: string): FormGroup {
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+
+export function _channelMessengerForm(_fb: FormBuilder,  orgId: string): FormGroup {
   return _fb.group({
     id: [''],
-    type: [platform],
+    type: [PlatformType.Messenger],
     name: [''],
     accessToken: ['', Validators.required],
     pageId: [''],
@@ -11,10 +13,10 @@ export function _channelMessengerForm(_fb: FormBuilder, platform: string, orgId:
   });
 }
 
-export function _channelWhatsAppForm(_fb: FormBuilder, platform: string, orgId: string): FormGroup {
+export function _channelWhatsAppForm(_fb: FormBuilder,  orgId: string): FormGroup {
   return _fb.group({
     id: [''],
-    type: [platform],
+    type: [PlatformType.WhatsApp],
     name: [''],
     accessToken: ['', Validators.required],
     phoneNumber: [''],

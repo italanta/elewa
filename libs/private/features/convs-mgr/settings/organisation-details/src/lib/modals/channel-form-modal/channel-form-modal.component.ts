@@ -60,9 +60,9 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
     const orgId = this.activeOrg?.id as string; 
   
     if (this.selectedPlatform === 'WhatsApp') {
-      this.channelForm = _channelWhatsAppForm(this.fb, this.selectedPlatform, orgId);
+      this.channelForm = _channelWhatsAppForm(this.fb, orgId);
     } else {
-      this.channelForm = _channelMessengerForm(this.fb, this.selectedPlatform, orgId);
+      this.channelForm = _channelMessengerForm(this.fb, orgId);
     }
 
      // Populate the form with initial values if available
