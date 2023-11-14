@@ -2,7 +2,7 @@
   <mat-expansion-panel (opened)="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <p class="main-title">Bots Settings</p>
+        <p class="main-title">{{ 'PERMISSIONS.BOT-SETTINGS.SETTINGS' | transloco }}</p>
       </mat-panel-title>
       <mat-panel-description>
 
@@ -20,42 +20,65 @@
         </div>
 
         <div formGroupName="CanViewBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%">Can View Bots</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.BOT-SETTINGS.VIEW' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" class="center-toogle" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanViewBots'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanCreateBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Create Bots</p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.BOT-SETTINGS.CREATE' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanCreateBots'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
 
         <div formGroupName="CanEditBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Edit Bots </p>
+          <p class="title" fxFlex="20%"> {{ 'PERMISSIONS.BOT-SETTINGS.EDIT' | transloco }} </p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanEditBots'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
 
 
         <div formGroupName="CanDeleteBots" fxLayout="row" fxLayoutAlign="start center" class="titles">
-          <p class="title" fxFlex="20%"> Can Delete Bots </p>
+          <p class="title" fxFlex="20%">{{ 'PERMISSIONS.BOT-SETTINGS.DELETE' | transloco }}</p>
           <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
             <div *ngFor="let control of roles" fxLayout="row" fxLayoutAlign="center start" fxFlex>
-              <mat-slide-toggle [formControlName]="control" color="primary" style="text-align: center;"></mat-slide-toggle>
+              <app-switch-button  [generalSettingsFormGroup]="botsSettingsFormGroup" 
+              [formGroupNameGeneralValue]="'BotsSettings'"
+              [formGroupNameValue]="'CanDeleteBots'" 
+              [formControlNameValue]="control"
+              [style.pointer-events]="control === 'Admin' ? 'none' : 'auto'"
+              [style.opacity]="control === 'Admin' ? '0.5' : '1'">
+              </app-switch-button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </mat-expansion-panel>

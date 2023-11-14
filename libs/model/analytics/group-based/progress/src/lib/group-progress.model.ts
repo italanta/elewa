@@ -16,6 +16,9 @@ export interface GroupProgressModel extends IObject
 
   /** Grouped milestones by class/group */
   groupedMeasurements: GroupedProgressMilestone[];
+
+  /** Today's EnrolledUserCount */
+  todaysEnrolledUsersCount: EnrolledUserCount;
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
@@ -23,21 +26,38 @@ export interface GroupedParticipants {
   [key: string]: ParticipantProgressMilestone[];
 }
 
-/** Progress of a group at a single moment in time. */
-export interface UsersProgressMilestone
-{
+export interface GroupedProgressMilestone {
+  /** Name of course the user has reached */
+  id: string;
+
+  /** Milestones for users in that class */
+  classrooms: ClassroomProgressMilestone[];
+}
+
+/** Course visualisation  */
+export interface ClassroomProgressMilestone {
+  /** Name of group / class the user has reached */
+  id: string;
+
+  /** Milestones for users in that class */
+  measurements: UsersProgressMilestone[];
+}
+
+export interface UsersProgressMilestone {
   /** Name of Milestone the user has reached */
-  name: string; 
+  id: string;
 
   /** Users */
   participants: ParticipantProgressMilestone[];
 }
 
-export interface GroupedProgressMilestone
-{
-  /** Name of group / class */
-  name: string; 
+export interface EnrolledUserCount {
+  /** daily user count */
+  dailyCount: number;
 
-  /** milestones for users in  that class*/
-  measurements: UsersProgressMilestone[];
+  /** weekly user count */
+  pastWeekCount: number;
+
+  /** monthly user count */
+  pastMonthCount: number;
 }

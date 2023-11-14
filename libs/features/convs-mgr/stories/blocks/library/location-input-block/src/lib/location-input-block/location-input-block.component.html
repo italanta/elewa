@@ -1,12 +1,8 @@
-<div [id]="id" *ngIf="locationInputForm">
-
-	<input formControlName="name" type="text" placeholder="Name" />
+<div class="wide" [id]="id" *ngIf="locationInputForm">
 	<form [formGroup]="locationInputForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="locationInputId" formControlName="message" type="text"
 			[placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.LOCATION-INPUT' | transloco" />
-			<div fxLayout="column" class="location-input-container"formGroupName="locationInput"></div>
-			
-		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationInputForm"></app-default-option-field>
+			<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationInputForm"></app-default-option-field>
 
 	</form>
 </div>

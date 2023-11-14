@@ -2,11 +2,26 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
+import { switchMap } from 'rxjs';
 
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+import { BotModulesStateService } from '@app/state/convs-mgr/modules'
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+
+import { Bot } from '@app/model/convs-mgr/bots';
+import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
+import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 import { periodicals } from '../../models/periodicals.interface';
+import { 
+  formatDate, 
+  getColor, 
+  getDailyProgress, 
+  getWeeklyProgress,
+  getMonthlyProgress 
+} from '../../providers/helper-fns.util';
 
 @Component({
   selector: 'app-group-based-progress-chart',
@@ -18,100 +33,98 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
 
   private _sBs = new SubSink();
 
-  groups: string[];
-  dataIsFetched = false;
-  allProgress: GroupProgressModel[];
+  courses: Bot[];
+  classrooms: Classroom[];
+  botModules: BotModule[];
+
+  activeCourse: Bot;
+  activeClassroom: Classroom;
+  selectedPeriodical: periodicals;
+
+  showData = false;
+
   dailyProgress: GroupProgressModel[]; 
   weeklyProgress: GroupProgressModel[];
   monthlyProgress: GroupProgressModel[];
-  periodical: periodicals = 'Weekly';
-  activeGroup = 'All';
 
-  constructor (private _progressService: ProgressMonitoringService) {}
+  @Input()
+  set setPeriodical(value: periodicals) {
+    this.selectedPeriodical = value;
+    this.selectProgressTracking(value);
+  }
+
+  @Input()
+  set setActiveCourse(value: Bot) {
+    this.activeCourse = value
+    this.selectProgressTracking(this.selectedPeriodical);
+  }
+
+  @Input()
+  set setActiveClassroom(value: Classroom) {
+    this.activeClassroom = value
+    this.selectProgressTracking(this.selectedPeriodical);
+  }
+
+  constructor (
+    private _progressService: ProgressMonitoringService,
+    private _clasroomServ$: ClassroomService,
+    private _botModServ$: BotModulesStateService,
+    private _botServ$: BotsStateService
+  ) {}
 
   ngOnInit() {
-    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => { 
+    this.initDataLayer();
 
-      // 1. save all progress
-      this.allProgress = models;
+    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
+      if (models.length) {
+        this.showData = true;
 
-      // 2. get all groups/ classes
-      this.groups = this.getGroups(this.allProgress);
-
-      if (!this.groups) return
-
-      this.groups?.unshift('All');
-
-      // 3. get daily progress
-      this.getDailyProgress();
-
-      // 4. get weekly progress 
-      this.getWeeklyProgress();
-
-      // 5. get Monthly Progress
-      this.getMonthlyProgress();
-
-      // 6. show periodical toggle menu after data is fetched
-      this.dataIsFetched = true;
-
-      // start the chart with the weekly Progressions
-      this.chart = this._loadChart(this.weeklyProgress);
+        // 1. save all progress
+        this.dailyProgress = getDailyProgress(models);
+        this.weeklyProgress = getWeeklyProgress(models);
+        this.monthlyProgress = getMonthlyProgress(models);
+        this.chart = this._loadChart(this.weeklyProgress);
+      }
     });
   }
 
-  private getGroups(model: GroupProgressModel[]) {
-    // TODO: @LemmyMwaura Pull existing groups from DB after the grouping feature is complete.
-    return model[model.length - 1]?.groupedMeasurements.map((item) => item.name.split('_')[1]);
+  /** initialise the data layer (fetch bots, modules and classrooms) */
+  initDataLayer() {
+    this._sBs.sink = this._botServ$.getBots().pipe(
+      switchMap(bots => {
+        this.courses = bots
+
+        return this._clasroomServ$.getAllClassrooms().pipe(
+          switchMap(clsrooms => {
+          this.classrooms = clsrooms;
+          this.addDefaultClass();
+          return this._botModServ$.getBotModules()
+        }))
+      })
+    ).subscribe(botModules => this.botModules = botModules);
   }
 
-  selectActiveGroup(group: string) {
-    this.activeGroup = group;
-    this.selectProgressTracking(this.periodical)
+  /** add default class */
+  addDefaultClass() {
+    const classroom = this.classrooms.find(cls => cls.className === defaultClassroom.className)
+    classroom ?? this.classrooms.push(defaultClassroom);
   }
 
-  selectProgressTracking(trackBy: periodicals) {
-    this.periodical = trackBy;
-  
-    if (this.periodical === 'Daily') {
+  /** select progress tracking periodicals */
+  selectProgressTracking(periodical: periodicals) {
+    if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
+
+    if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
-    } else if (this.periodical === 'Weekly') {
+    } else if (periodical === 'Weekly') {
       this.chart = this._loadChart(this.weeklyProgress);
     } else {
       this.chart = this._loadChart(this.monthlyProgress);
     }
   }
 
-  /** Retrieves daily milestones of all users */
-  private getDailyProgress() {
-    this.dailyProgress = this.allProgress;
-  }
-
-  /** Retrieves weekly milestones of all users */
-  private getWeeklyProgress() {
-    this.weeklyProgress = this.allProgress.filter(model => {
-      const timeInDate = new Date((model.time * 1000))
-      const dayOfWeek = timeInDate.getDay();
-
-      if (dayOfWeek === 6) return true
-      else return false
-    });
-  }
-
-  /** Retrieves weekly milestones of all users */
-  private getMonthlyProgress() {
-    this.monthlyProgress = this.allProgress.filter(model => {
-      const timeInDate = new Date((model.time * 1000))
-      const dayOfWeek = timeInDate.getDate();
-
-      if (dayOfWeek === 1) return true
-      else return false
-    });
-  }
-
+  /** draw chart. */
   private _loadChart(model: GroupProgressModel[]): Chart {
-    // TODO: @LemmyMwaura Pull milstones from events after the events brick backend implementation is complete.
-    const milestones = ['Pre_Test', 'Onboarding', 'CH1_Systeme', 'CH2_Therapeutic', 'CH3_Indicateurs', 'CH4_Statistics', 'CH5_Maternity', 'Post_Test', 'Complete' ];
-
     if (this.chart) {
       this.chart.destroy();
     }
@@ -119,8 +132,8 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     return new Chart('chart-ctx', {
       type: 'bar',
       data: {
-        labels: model.map((day) => this.formatDate(day.time)),
-        datasets: [...milestones].map((milestone, idx) => this.unpackLabel(milestone, idx, model)),
+        labels: model.map((day) => formatDate(day.time)),
+        datasets: this.getDatasets(model),
       },
       options: {
         maintainAspectRatio: false,
@@ -140,46 +153,80 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private unpackLabel(milestone: string, idx: number, model: GroupProgressModel[]) {
+  /** returns a dataset for visualisation */
+  private getDatasets(model: GroupProgressModel[]) {
+    const bot = this.courses.find(course => course.id === this.activeCourse.id) as Bot;
+
+    // if AllCourses is selected we group with the course as our reference point.
+    if (!bot) {
+      return this.courses.map((bot, idx) => {
+        return {
+          label: bot.name,
+          data: this.unpackAllBots(model, bot),
+          backgroundColor: getColor(idx),
+          borderRadius: 10,
+        };
+      })
+    }
+
+    // if a specific course is selected we group with the modules as our reference point.
+    else {
+      return bot.modules.map((botMod, idx) => {
+        const botMilestone = this.botModules.find(mod => mod.id === botMod) as BotModule;
+
+        return this.unpackAtModuleLevel(
+          botMilestone,
+          idx,
+          model
+        )
+      });
+    }
+  }
+
+  /** unpack/ungroup data when all courses is selected */
+  private unpackAllBots(model: GroupProgressModel[], bot:Bot) {
+    return model.map((item) => {
+      const participants = item.measurements.find((m) => m.id === bot.id)?.participants;
+
+      if (this.activeClassroom.className === 'All') {
+        return participants?.length ?? 0;
+      } else {
+        return participants?.filter((part) => part.classroom.id === this.activeClassroom.id).length ?? 0;
+      }
+    })
+  };
+
+  /** unpack data at the module level */
+  private unpackAtModuleLevel(milestone: BotModule, idx: number, model: GroupProgressModel[]) {
     return {
-      label: milestone,
+      label: milestone?.name,
       data: this.getData(milestone, model),
-      backgroundColor: this.getColor(idx),
+      backgroundColor: getColor(idx),
       borderRadius: 10
     };
   }
 
-  private getData(milestone: string, model: GroupProgressModel[]): number[] {
-    if (this.activeGroup === 'All') {
-    
-      // return milestone data for all users
-      return model.map(
-        (item) =>
-          item.measurements.find((m) => m.name === milestone)?.participants
-            .length ?? 0
-      );
-    } else {
+  /** get data while unpacking at the module level */
+  private getData(moduleMilestone: BotModule, model: GroupProgressModel[]): number[] {
+    // return moduleMilestone data from users of the active course and class === selected tab
+    return model.map(
+      (item) => {
+        if (this.activeClassroom.className === 'All') {
+          const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
+          const measurements = courseGroup?.classrooms.flatMap(clsroom => clsroom?.measurements?.filter((botMod) => botMod?.id === moduleMilestone?.id));
+          const participantCount = measurements?.reduce((acc, clsroom) => acc + (clsroom?.participants?.length ?? 0), 0) ?? 0;
+          
+          return participantCount;
+        } else {
+          const courseGroup = item.groupedMeasurements.find((course) => course?.id === this.activeCourse.id);
+          const classGroup = courseGroup?.classrooms.find((cls) => cls?.id === this.activeClassroom.id);
+          const participantCount = classGroup?.measurements?.find((botMod) => botMod?.id === moduleMilestone?.id)?.participants.length ?? 0
 
-      // return milestone data from users of the active group - selected tab
-      return model.map(
-        (item) =>
-          item.groupedMeasurements
-            .find((group) => group.name.includes(this.activeGroup))
-            ?.measurements.find((m) => m.name === milestone)?.participants
-            .length ?? 0
-      );
-    }
+          return participantCount;
+        }
+      }
+    );
   }
-
-  private formatDate(time: number): string {
-    const date = new Date(time * 1000);
-    return date.getDate() + '/' + (date.getMonth() + 1);
-  }
-
-  private getColor(idx: number) {
-    // TODO: @LemmyMwaura set colors on new events after the events brick backend implementation is complete.
-    return [ '#e3342f', '#f6993f', '#f66d9b', '#ffed4a', '#4dc0b5', '#3490dc', '#6574cd', '#9561e2', '#38c172' ][idx];
-  }  
 
   ngOnDestroy() {
     if (this.chart) {

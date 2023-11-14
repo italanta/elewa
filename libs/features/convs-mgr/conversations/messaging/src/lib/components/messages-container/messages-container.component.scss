@@ -52,14 +52,14 @@ mat-list {
 .message-block .right {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding-right: 10px;
 }
 
 .message-block .left {
   width: 100%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   padding-left: 10px;
 }
 
