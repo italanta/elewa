@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
+import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+
 import { ChannelFormModalComponent } from '../channel-form-modal/channel-form-modal.component';
 
 @Component({
@@ -10,7 +12,7 @@ import { ChannelFormModalComponent } from '../channel-form-modal/channel-form-mo
   styleUrls: ['./add-channel-modal.component.scss'],
 })
 export class AddChannelModalComponent {
-  selectedPlatform: string ;
+  selectedPlatform: PlatformType;
  
   constructor(
     private _dialog: MatDialog,
