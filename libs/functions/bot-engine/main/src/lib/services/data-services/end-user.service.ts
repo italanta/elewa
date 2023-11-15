@@ -2,9 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from './data-service-abstract.class';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { throws } from 'assert';
 
 /**
  * Contains all the required database flow methods for the chat-status collection
@@ -44,18 +42,6 @@ import { throws } from 'assert';
   getAllEndUsers() 
   {
     return this.getDocuments(this._docPath);
-  }
-
-  async getOrCreateEndUser(endUser: EndUser, endUserId?: string)
-  {
-    let currentEndUser;
-    if(!endUserId) {
-      currentEndUser = await this.getDocumentById(endUserId || endUser.id, this._docPath)
-    }
-
-    if(!currentEndUser) currentEndUser = await this.createEndUser(endUser);
-
-    return currentEndUser;
   }
 
   async getEndUser(endUserId: string) {
