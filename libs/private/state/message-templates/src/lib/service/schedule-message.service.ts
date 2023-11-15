@@ -36,11 +36,10 @@ export class ScheduleMessageService {
 
   scheduleMessage(payload: any){
     const scheduledMessageReq: ScheduleMessagesReq = {
+      id: payload.id,
       channelId: payload.channelId,
       message: payload.message,
-      usersFilters: {
-        endUsersId: payload.endUsers
-      },
+      enrolledEndUsers: payload.enrolledEndUsers,
       dispatchTime: payload.dispatchTime
     }
     return this.scheduleCallFunction( scheduledMessageReq );
