@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
 import { combineLatest, Observable } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 import { UserStore } from '@app/private/state/user/base';
-import { Organisation } from '@app/model/organisation';
+import { CLMPermissions, Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';
 
 import { ActiveOrgStore } from '../stores/active-org.store';
@@ -34,6 +35,7 @@ export class OrganisationService {
               private _user$$: UserStore,
               private _orgs$$: OrgStore,
               private _db: AngularFirestore,
+              private _aff: AngularFireFunctions,
               private _permissionsStore: PermissionsStore
   ){}
 
@@ -53,7 +55,7 @@ export class OrganisationService {
   }
 
   /** Creates an organisation */
-  createOrg(org: Organisation) {
+  createOrg(org: Organisation, user: iTalUser) {
     const id = this._db.createId();
 
     const orgWithId = { 
@@ -62,16 +64,21 @@ export class OrganisationService {
       logoUrl: org.logoUrl ?? '',
       email: org.email ?? '',
       phone: org.phone ?? '',
+      createdBy: user.id,
     };
 
-    this._sbS.sink = this._orgs$$.add(orgWithId, id)
-      .pipe(take(1))
-      .subscribe(o => this._afterCreateOrg(o));
+    this._sbS.sink = this._aff
+      .httpsCallable('assignUserToCreatedOrg')(orgWithId)
+      .pipe(tap((perm:CLMPermissions) => this.setPermissions(perm)))
+      .subscribe(() => this._afterCreateOrg());
   }
 
-  private _afterCreateOrg(org: Organisation) {
+  private setPermissions(perm: CLMPermissions) {
+    this._permissionsStore.set(perm);
+  }
+
+  private _afterCreateOrg() {
     this._router$$.navigate(['/home']);
-    this._activeOrg$$.setOrg(org);
   }
 
   /** Switches the active org to a new one */
