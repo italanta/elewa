@@ -1,22 +1,22 @@
 .user-profile-picture img {
   width: 100%;
   height: 100%;
-   border: 1px #707070 solid;
+   border: 1px var(--convs-mgr-color-707070) solid;
   object-fit: cover; 
 }
 
 .user-profile-picture {
-  width: 12.5rem; /* Adjust as needed */
-  height: 12.5rem; /* Adjust as needed */
+  width: 200px; /* Adjust as needed */
+  height: 200px; /* Adjust as needed */
   border-radius: 50%;
-  border: 1px #707070 solid;
+  border: 1px var(--convs-mgr-color-707070) solid;
   overflow: hidden; /* Clip the image to the circular border */
-  margin: 0.1875rem 1.5625rem 0 0.625rem;
+  margin: 3vh 25vh 0 10vh;
 }
 
 .text-button {
   color: var(--convs-mgr-color-primary-yellow);
-  font-size: 1rem;
+  font-size: medium;
   font-weight: bolder;
 }
 // .edit-btn{
@@ -31,11 +31,11 @@
 
 
 .password-button{
-  margin-right: 0.3125rem;
-  margin-top: 0.125rem;
-  width: 13.25rem;
-  height: 2.1875rem;
-  border-radius: 1.5625;
+  margin-right: 5vh;
+  margin-top: 2vh;
+  width: 212px;
+  height: 35px;
+  border-radius: 25px;
 }
 
 
@@ -51,10 +51,10 @@
 }
 
 .label-blue {
-  margin: 0.625rem 0 1.25rem 0;
+  margin: 10px 0 20px 0;
   font-weight: 600;
-  color: #3E788A;
-  font-size: 1rem;
+  color: var(--connector-color-blue);
+  font-size: medium;
   cursor: pointer;
 }
 
@@ -67,14 +67,14 @@
 }
 
 .user-profile-picture img {
-  width: 12.5rem;
-  height: 12.5rem;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
-  border-radius: 0.625rem;
+  border-radius: 10px;
 }
 
 .profile-details {
-  padding: 0.1875rem 0.1875rem;
+  padding: 3vh 3vh;
   height: 100%;
   max-width: 100%;
 }
@@ -88,45 +88,45 @@ div{
   .section-one {
     width: 100%;
     height: fit-content;
-    padding-bottom: 6.875rem;
-    margin-bottom: 0.0625rem;
+    padding-bottom: 110px;
+    margin-bottom: 1vh;
     border-bottom: solid #C7CDD7 1px;
     .user-data{
       .user-profile-picture{
         .top-butons{
-          margin-top: 0.625rem;
+          margin-top: 10px;
         }
       }
      
       div{
         button{
-          border-radius: 1.5625rem;
-          height: 2.1875rem;
-          width: 6.375rem;
+          border-radius: 25px;
+          height: 35px;
+          width: 102px;
           // position: fixed;
-          top: -0.625rem;
+          top: -10vh;
          }
       }
       
       .user-info{
-        margin-right: 0.625rem;    
+        margin-right: 10vh;    
         div{
           .label{
-             color: #101010;
-             font-size: 1.125rem; 
+             color: var(--convs-mgr-color-101010);
+             font-size: medium; 
              font-family: Roboto; 
              font-weight: 300; 
              word-wrap: break-word;
-             margin-top: 0.1875rem;
+             margin-top: 3vh;
           }
           .names{
             
             input{
               width: 100%; 
-              height: 2.5625rem; 
-              border-radius: 0.5rem; 
+              height: 41px; 
+              border-radius: 8px; 
               border: 1px #707070 solid;
-              color: #101010;
+              color: var(--convs-mgr-color-101010);
               font-size: medium;
               font-family: Roboto;
               font-weight: 300;
@@ -136,16 +136,16 @@ div{
           }
         }
         .bottom-buttons{
-          margin-top: 21.625rem;
+          margin-top: 346px;
           right: 1px;
           position: absolute;
           display: flex;
           div{
             .edit-btn{
-              margin-right: 0.625rem;
+              margin-right: 10vh;
             }
             .cancel-btn{
-              margin-right: 0.03125rem;
+              margin-right: 0.5vh;
             }
           }
         }
@@ -153,10 +153,10 @@ div{
     }
   }
   .section-two{
-    padding-top: 0.3125rem;
+    padding-top: 5px;
     border-bottom: solid #C7CDD7 1px;
     .label{
-      color: #101010;
+      color: var(--convs-mgr-color-101010);
       font-size: medium;
       font-family: Roboto;
       font-weight: 400;
@@ -169,7 +169,7 @@ div{
         font-family: Roboto;
         font-weight: 300;
         word-wrap: break-word;
-        margin: 0.95rem 0 2.6875rem 0;
+        margin: 15.25px 0 43px 0;
       }
     }
     div{
@@ -177,7 +177,7 @@ div{
     }
     .delete-profile{
       .underline{
-        color: #3E788A;
+        color: var(--convs-mgr-color-3E788A);
         font-size: medium;
         font-family: Roboto;
         font-weight: 400;
@@ -201,19 +201,19 @@ div{
 
 
 .email-button {
-  margin-bottom: 1.25rem;
+  margin-bottom: 20px;
   width: fit-content;
   color: white;
 }
 
 .toolbar {
-  padding: 1.875rem 0.625rem 0 0.625rem;
+  padding: 30px 10px 0 10px;
   width: 100%;
 }
 
 .spinner {
   width: 100%;
-  height: 6.25rem;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
