@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+
+import { SubSink } from 'subsink';
 
 import {flatMap as __flatMap, keys as __keys, pickBy as __pickBy} from 'lodash';
 
@@ -17,12 +19,13 @@ import { OrganisationService } from '@app/private/state/organisation/main';
 import { UpdateProfilePictureModalComponent } from '../..//modals/update-profile-picture-modal/update-profile-picture-modal.component';
 import { DeactivateUserComponent } from '../../modals/deactivate-user/deactivate-user.component';
 
+
 @Component({
   selector: 'clm-profile-details',
   templateUrl: './profile-details.component.html',
   styleUrls: ['./profile-details.component.scss']
 })
-export class ProfileDetailsComponent implements OnInit {
+export class ProfileDetailsComponent implements OnInit, OnDestroy {
 
   org$: Observable<Organisation>;
   user: iTalUser;
@@ -33,6 +36,8 @@ export class ProfileDetailsComponent implements OnInit {
   userDetailsLoaded: boolean;
 
   editProfile: boolean = false;
+
+  private _sbS = new SubSink();
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
 
@@ -49,7 +54,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   getUser() {
-    this._user$$.getUser().pipe(take(1)).subscribe((user) => {
+    this._sbS.sink =  this._user$$.getUser().pipe(take(1)).subscribe((user) => {
       if (user) {
         this.userDetailsLoaded = true;
         this.user = user;
@@ -105,5 +110,9 @@ export class ProfileDetailsComponent implements OnInit {
       minWidth: '25.625rem',
       height: '10rem',
     });
+  }
+  ngOnDestroy()
+  {
+    this._sbS.unsubscribe();
   }
 }
