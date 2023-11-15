@@ -153,7 +153,7 @@ export class StoryEditorStateService
 
   /** Creates a block. */
   private _createBlock(block: StoryBlock) {
-    return this._blocks$$.write(block, block.id); 
+    return this._blocks$$.write(block, block.id as string); 
   }
 
   /** We cannot just delete blocks as active chat users might have their cursor on that block. 
