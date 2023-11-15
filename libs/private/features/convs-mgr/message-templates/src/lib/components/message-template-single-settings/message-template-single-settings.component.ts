@@ -32,6 +32,9 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   canBeScheduled: boolean;
 
+  showMessageConditions :boolean;
+
+
   messageTemplateFrequency = frequencyOptions;
   
   displayedColumns: string[] = ['Date sent', 'Time sent', 'Number of learners', 'status', 'meta'];
