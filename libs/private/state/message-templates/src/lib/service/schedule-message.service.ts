@@ -4,7 +4,7 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { ScheduledMessage } from '@app/model/convs-mgr/functions';
 
 import { ScheduledMessageStore } from '../store/scheduled-message.store';
-import { ScheduleMessagesReq } from 'libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/lib/model/schedule-message-req';
+import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 
 
 @Injectable({
@@ -35,7 +35,7 @@ export class ScheduleMessageService {
   }
 
   scheduleMessage(payload: any){
-    const scheduledMessageReq: ScheduleMessagesReq = {
+    const scheduledMessageReq: any = {
       id: payload.id,
       channelId: payload.channelId,
       message: payload.message,
@@ -45,9 +45,18 @@ export class ScheduleMessageService {
     return this.scheduleCallFunction( scheduledMessageReq );
   }
 
-  private scheduleCallFunction(data: ScheduleMessagesReq){
+  private scheduleCallFunction(data: any){
     const scheduleRef = this._aff.httpsCallable('scheduleMessageTemplates');
     return scheduleRef(data);
+  }
+
+  scheduleInactivity(inactivityPayload: any) {
+    return this.callInactivityFunction(inactivityPayload);
+  }
+
+  private callInactivityFunction(data: {  message: TemplateMessage, inactivityTime: number; channelId: string;}) {
+    const inactivityRef = this._aff.httpsCallable('setInactivity');
+    return inactivityRef(data);
   }
   
 }
