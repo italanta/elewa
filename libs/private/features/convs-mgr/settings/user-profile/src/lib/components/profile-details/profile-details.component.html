@@ -81,7 +81,7 @@
   
   <div class="section-two">
     <div fxLayout="column" fxLayoutAlign="start start" class="delete-profile">
-      <p class="label-blue underline"> {{ 'PROFILE-DETAILS.DEACTIVATE-PROFILE' | transloco }}</p>
+      <p (click)="deactivateUser()" class="label-blue underline"> {{ 'PROFILE-DETAILS.DEACTIVATE-PROFILE' | transloco }}</p>
       <p>
         {{ 'PROFILE-DETAILS.DELETE-TEXT' | transloco }}
       </p>
