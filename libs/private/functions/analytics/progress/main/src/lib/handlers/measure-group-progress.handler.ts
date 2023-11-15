@@ -2,7 +2,6 @@ import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
 import {
-  ChannelDataService,
   ClassroomDataService,
   EndUserDataService,
   EnrolledUserDataService,
@@ -15,6 +14,7 @@ import {
   GroupProgressModel,
   UsersProgressMilestone,
   GroupedProgressMilestone,
+  AnalyticsConfig,
 } from '@app/model/analytics/group-based/progress';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
@@ -25,62 +25,79 @@ import { MeasureParticipantProgressHandler } from './measure-participant-progres
  *
  * Can be used to create a stacjed bar chart which visualises the progress of a group of participants over time.
  */
-export class MeasureParticipantGroupProgressHandler extends FunctionHandler<MeasureGroupProgressCommand, GroupProgressModel | RestResult> {
+export class MeasureParticipantGroupProgressHandler extends FunctionHandler<MeasureGroupProgressCommand, (GroupProgressModel | RestResult)[]> {
   /**
    * Calculate progress of a given participant based on the stories they have completed.e.
    * @param cmd - Command with participant ID and intervals at which to measure.
    */
-  public async execute(cmd: MeasureGroupProgressCommand, context: HttpsContext,tools: HandlerTools) {
-    try {
-      const { interval } = cmd;
+  public async execute(cmd: MeasureGroupProgressCommand, context: HttpsContext, tools: HandlerTools) {
+    const { interval } = cmd;
 
-      //1. get OrgId from channel
-      const channelDataService = new ChannelDataService(tools);
+    //1. get OrgIds from analytics config
+    const app = tools.getRepository<AnalyticsConfig>(`analytics`);
 
-      const channels = await channelDataService.getChannels();
+    const config = await app.getDocumentById('config');
 
-      const orgId = channels.orgId;
+    if (!config && !config.orgIds) {
+      tools.Logger.error(() => `[measureGroupProgressHandler].execute - Config missing, No orgs to compute progress for`);
+    } 
 
-      const classroomDataService = new ClassroomDataService(tools, orgId);
-
-      const endUserDataService = new EndUserDataService(tools, orgId);
-
-      const enrUserDataService = new EnrolledUserDataService(tools, orgId);
-
-      const classrooms = await classroomDataService.getClassrooms();
-
-      // 2. Get all enrolled users of org
-      const enrolledUsers = await enrUserDataService.getEnrolledUsers();
-
-      // 3. Get all end users of an org, map end user to enrolled user's class
-      const endUsersWithClassroom = await Promise.all(
-        enrolledUsers
-          .filter((user) => user.whatsappUserId).map(async (user) => {
-            return {
-              endUser: await endUserDataService.getEndUser(user.whatsappUserId),
-              classroom: classrooms.find((classroom) => classroom.id === user.classId),
-            };
-          })
-      );
-
-      const engine = new MeasureParticipantProgressHandler();
-
-      //4. get all users progress
-      const allUsersProgress = await Promise.all(
-        endUsersWithClassroom?.map((user) =>
-          engine.execute({ orgId, participant: user, interval }, context, tools)
-        )
-      );
-
-      // get the time/date for the measurement calculated in unix
-      const timeInUnix = interval ? interval : _getCurrentDateInUnix();
-
-      // 4. Combine the progress of each user into a group progress model
-      return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
-    } catch (error) {
-      tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
-      return { error: error.message, status: 500 } as RestResult;
+    else {
+      const data = await Promise.all(config.orgIds.map((orgId) => _computeAnalyticsForOrg(tools, orgId, context, interval)))
+      return data
     }
+  }
+}
+
+async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, context: HttpsContext, interval: number ) {
+  try {
+    tools.Logger.log(() => `[measureGroupProgressHandler].execute - Computing Progress for Org : ${orgId}`);
+  
+    const classroomDataService = new ClassroomDataService(tools, orgId);
+  
+    const endUserDataService = new EndUserDataService(tools, orgId);
+  
+    const enrUserDataService = new EnrolledUserDataService(tools, orgId);
+  
+    const classrooms = await classroomDataService.getClassrooms();
+  
+    // 2. Get all enrolled users of org
+    const enrolledUsers = await enrUserDataService.getEnrolledUsers();
+  
+    // 3. Get all end users of an org, map end user to enrolled user's class
+    const endUsersWithClassroom = await Promise.all(
+      enrolledUsers
+        .filter((user) => user.whatsappUserId).map(async (user) => {
+          return {
+            enrolledUser: user,
+            endUser: await endUserDataService.getEndUser(user.whatsappUserId),
+            classroom: classrooms.find((classroom) => classroom.id === user.classId),
+          };
+        })
+    );
+  
+    tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
+  
+    const engine = new MeasureParticipantProgressHandler();
+  
+    //4. get all users progress
+    const allUsersProgress = await Promise.all(
+      endUsersWithClassroom?.map((user) => {
+          if (user.endUser) {
+            return engine.execute({ orgId, participant: user, interval }, context, tools)
+          }
+        }
+      )
+    );
+  
+    // get the time/date for the measurement calculated in unix
+    const timeInUnix = interval ? interval : _getCurrentDateInUnix();
+  
+    // 4. Combine the progress of each user into a group progress model
+    return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
+  } catch (error) {
+    tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
+    return { error: error.message, status: 500 } as RestResult;
   }
 }
 
@@ -99,10 +116,12 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   //2. group users by milestones and classroom
   const groupedMeasurements = _parseGroupedProgressData(allUsersProgress);
 
-  //3. get newly Enrolled User Count
-  const enrolledUserCount = (await enrolledUserDataServ.getTodaysUsers(orgId)).length
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Progress Successfully Grouped`);
 
-  const date = new Date(timeInUnix * 1000);
+  const date = new Date(timeInUnix);
+
+  //3. get newly Enrolled User Count
+  const enrolledUserCount = await getEnrolledUserCreationCount(enrolledUserDataServ, orgId, tools, timeInUnix);
 
   //4. Add To Database
   const savedMilestone = await monitoringDataServ.createNewMilestone(
@@ -117,6 +136,38 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 }
 
 /**
+ * Gets the number of enrolled users created today, in the past week (if it's friday), and in the past month (if end of month).
+ * @param {enrolledUserDataServ} enrolledUserDataServ - The enrolled user data service.
+ * @param {string} orgId - The organization ID.
+ */
+async function getEnrolledUserCreationCount(enrolledUserDataServ: EnrolledUserDataService, orgId: string, tools:HandlerTools, timeInUnix:number) {
+  const timeToCollect = new Date(timeInUnix);
+  const dayOfWeek = timeToCollect.getDay(); // 0 = Sunday, 1 = Monday, ...
+  const isLastDayOfMonth = new Date(timeToCollect.getFullYear(), timeToCollect.getMonth() + 1, 0).getDate() === timeToCollect.getDate();
+
+  const dailyCount = (await enrolledUserDataServ.getSpecificDayUserCount(orgId, timeInUnix)).length;
+
+  let pastWeekCount = 0;
+  let pastMonthCount = 0;
+
+  if (dayOfWeek === 5) { // Friday (0-based index, where 5 represents Friday)
+    pastWeekCount = (await enrolledUserDataServ.getPastWeekUserCount(orgId, timeInUnix)).length;
+  }
+
+  if (isLastDayOfMonth) {
+    pastMonthCount = (await enrolledUserDataServ.getPastMonthUserCount(orgId, timeInUnix)).length;
+  }
+
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
+
+  return {
+    dailyCount,
+    pastWeekCount,
+    pastMonthCount
+  }
+}
+
+/**
  * Groups users by milestone(current Module) in their progress.
  * @param {ParticipantProgressMilestone[]} allUsersProgress - The array of participants' progress milestones.
  * @returns {UsersProgressMilestone[]} An array of participants grouped by milestone.
@@ -126,13 +177,13 @@ function _parseAllUserProgressData(allUsersProgress: ParticipantProgressMileston
     //guard clause to filter user's with no history when calculating past data
     if (!participant) return acc;
 
-    const { milestone } = participant;
+    const { courseId } = participant;
 
-    if (!acc[milestone]) {
-      acc[milestone] = [];
+    if (!acc[courseId]) {
+      acc[courseId] = [];
     }
 
-    acc[milestone].push(participant);
+    acc[courseId].push(participant);
     return acc;
   }, {});
 
@@ -150,30 +201,30 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
       //guard clause to filter user's with no history when calculating past data
       if (!participant) return acc;
 
-      const { classroom, milestone, course, participant: user } = participant;
+      const { classroom, milestoneId, courseId, participant: user } = participant;
 
-      if (!acc[course]) {
-        acc[course] = {
-          name: course,
+      if (!acc[courseId]) {
+        acc[courseId] = {
+          id: courseId,
           classrooms: {},
         };
       }
 
-      if (!acc[course].classrooms[classroom.className]) {
-        acc[course].classrooms[classroom.className] = {
-          name: classroom.className,
+      if (!acc[courseId].classrooms[classroom.id]) {
+        acc[courseId].classrooms[classroom.id] = {
+          id: classroom.id,
           measurements: {},
         };
       }
 
-      if (!acc[course].classrooms[classroom.className].measurements[milestone]) {
-        acc[course].classrooms[classroom.className].measurements[milestone] = {
-          name: milestone,
+      if (!acc[courseId].classrooms[classroom.id].measurements[milestoneId]) {
+        acc[courseId].classrooms[classroom.id].measurements[milestoneId] = {
+          id: milestoneId,
           participants: [],
         };
       }
 
-      acc[course].classrooms[classroom.className].measurements[milestone].participants.push(user);
+      acc[courseId].classrooms[classroom.id].measurements[milestoneId].participants.push(user);
       return acc;
     }, {})
   ).map((group: GroupedProgressMilestone) => {
@@ -195,7 +246,7 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
  */
 function _convertGroupedObjectsToArray(groupedData: GroupedParticipants): UsersProgressMilestone[] {
   return Object.keys(groupedData).map((key) => ({
-    name: key,
+    id: key,
     participants: groupedData[key],
   }));
 }
@@ -203,5 +254,5 @@ function _convertGroupedObjectsToArray(groupedData: GroupedParticipants): UsersP
 /** get current Date in unix */
 function _getCurrentDateInUnix() {
   const time = new Date();
-  return Math.floor(time.getTime() / 1000);
+  return Math.floor(time.getTime());
 }

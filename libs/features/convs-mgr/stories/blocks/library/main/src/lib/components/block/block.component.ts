@@ -40,7 +40,8 @@ export class BlockComponent implements OnInit
 
   iconClass = ''
   blockTitle = ''
-  svgIcon= ''
+  svgIcon = ''
+  
   videoMessageForm: FormGroup
   
 
