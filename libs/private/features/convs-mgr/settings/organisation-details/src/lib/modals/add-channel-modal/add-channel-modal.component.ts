@@ -21,6 +21,8 @@ export class AddChannelModalComponent {
   
   }
 
+  whatsappValue: PlatformType = PlatformType.WhatsApp;
+  messengerValue: PlatformType = PlatformType.Messenger;
 
   showForm() {
     // Check if a platform is selected
