@@ -858,7 +858,7 @@
     "SAVE-PROFILE":"Save",
     "CHANGE-PASSWORD":"Change password",
     "PASSWORD-INFO":"It is advised to change your password every 2-4 months",
-    "DELETE-PROFILE":"Delete Profile",
+    "DEACTIVATE-PROFILE":"Deactivate Profile",
     "DELETE-TEXT":"You will receive an email to confirm your decision. This will not end your subscription or payments and you will continue to be charged.You can cancel your subscription, or switch payment methods to keep the team active",
     "FETCH-USER-DATA":"Fetching user data",
     "BUTTON":{
