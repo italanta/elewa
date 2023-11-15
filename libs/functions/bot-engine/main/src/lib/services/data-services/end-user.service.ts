@@ -46,18 +46,6 @@ import { throws } from 'assert';
     return this.getDocuments(this._docPath);
   }
 
-  async getOrCreateEndUser(endUser: EndUser, endUserId?: string)
-  {
-    let currentEndUser;
-    if(!endUserId) {
-      currentEndUser = await this.getDocumentById(endUserId || endUser.id, this._docPath)
-    }
-
-    if(!currentEndUser) currentEndUser = await this.createEndUser(endUser);
-
-    return currentEndUser;
-  }
-
   async getEndUser(endUserId: string) {
     return this.getDocumentById(endUserId, this._docPath);
   }
