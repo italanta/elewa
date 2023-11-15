@@ -15,6 +15,7 @@ import { UserStore, CLMUsersService } from '@app/private/state/user/base';
 import { OrganisationService } from '@app/private/state/organisation/main';
 
 import { UpdateProfilePictureModalComponent } from '../..//modals/update-profile-picture-modal/update-profile-picture-modal.component';
+import { DeactivateUserComponent } from '../../modals/deactivate-user/deactivate-user.component';
 
 @Component({
   selector: 'clm-profile-details',
@@ -97,5 +98,12 @@ export class ProfileDetailsComponent implements OnInit {
   newProfileImg() {
     this._dialog.open(UpdateProfilePictureModalComponent, {
       data: this.user}).afterClosed().subscribe();
+  }
+
+  deactivateUser(){
+    this._dialog.open(DeactivateUserComponent, {
+      minWidth: '25.625rem',
+      height: '10rem',
+    });
   }
 }

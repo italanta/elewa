@@ -6,12 +6,12 @@
 }
 
 .user-profile-picture {
-  width: 200px; /* Adjust as needed */
-  height: 200px; /* Adjust as needed */
+  width: 12.5rem; /* Adjust as needed */
+  height: 12.5rem; /* Adjust as needed */
   border-radius: 50%;
   border: 1px #707070 solid;
   overflow: hidden; /* Clip the image to the circular border */
-  margin: 3vh 25vh 0 10vh;
+  margin: 0.1875rem 1.5625rem 0 0.625rem;
 }
 
 .text-button {
@@ -31,11 +31,11 @@
 
 
 .password-button{
-  margin-right: 5vh;
-  margin-top: 2vh;
-  width: 212px;
-  height: 35px;
-  border-radius: 25px;
+  margin-right: 0.3125rem;
+  margin-top: 0.125rem;
+  width: 13.25rem;
+  height: 2.1875rem;
+  border-radius: 1.5625;
 }
 
 
@@ -51,10 +51,11 @@
 }
 
 .label-blue {
-  margin: 10px 0 20px 0;
+  margin: 0.625rem 0 1.25rem 0;
   font-weight: 600;
   color: #3E788A;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .blue {
@@ -66,14 +67,14 @@
 }
 
 .user-profile-picture img {
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
   object-fit: contain;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 .profile-details {
-  padding: 3vh 3vh;
+  padding: 0.1875rem 0.1875rem;
   height: 100%;
   max-width: 100%;
 }
@@ -87,46 +88,46 @@ div{
   .section-one {
     width: 100%;
     height: fit-content;
-    padding-bottom: 110px;
-    margin-bottom: 1vh;
+    padding-bottom: 6.875rem;
+    margin-bottom: 0.0625rem;
     border-bottom: solid #C7CDD7 1px;
     .user-data{
       .user-profile-picture{
         .top-butons{
-          margin-top: 10px;
+          margin-top: 0.625rem;
         }
       }
      
       div{
         button{
-          border-radius: 25px;
-          height: 35px;
-          width: 102px;
+          border-radius: 1.5625rem;
+          height: 2.1875rem;
+          width: 6.375rem;
           // position: fixed;
-          top: -10vh;
+          top: -0.625rem;
          }
       }
       
       .user-info{
-        margin-right: 10vh;    
+        margin-right: 0.625rem;    
         div{
           .label{
              color: #101010;
-             font-size: 18px; 
+             font-size: 1.125rem; 
              font-family: Roboto; 
              font-weight: 300; 
              word-wrap: break-word;
-             margin-top: 3vh;
+             margin-top: 0.1875rem;
           }
           .names{
             
             input{
               width: 100%; 
-              height: 41px; 
-              border-radius: 8px; 
+              height: 2.5625rem; 
+              border-radius: 0.5rem; 
               border: 1px #707070 solid;
               color: #101010;
-              font-size: 16px;
+              font-size: medium;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
@@ -135,16 +136,16 @@ div{
           }
         }
         .bottom-buttons{
-          margin-top: 346px;
+          margin-top: 21.625rem;
           right: 1px;
           position: absolute;
           display: flex;
           div{
             .edit-btn{
-              margin-right: 10vh;
+              margin-right: 0.625rem;
             }
             .cancel-btn{
-              margin-right: 0.5vh;
+              margin-right: 0.03125rem;
             }
           }
         }
@@ -152,11 +153,11 @@ div{
     }
   }
   .section-two{
-    padding-top: 5px;
+    padding-top: 0.3125rem;
     border-bottom: solid #C7CDD7 1px;
     .label{
       color: #101010;
-      font-size: 18px;
+      font-size: medium;
       font-family: Roboto;
       font-weight: 400;
       word-wrap: break-word
@@ -164,11 +165,11 @@ div{
     .email-details{
       .your-email{
         color: black;
-        font-size: 18px;
+        font-size: medium;
         font-family: Roboto;
         font-weight: 300;
         word-wrap: break-word;
-        margin: 15.25px 0 43px 0;
+        margin: 0.95rem 0 2.6875rem 0;
       }
     }
     div{
@@ -177,7 +178,7 @@ div{
     .delete-profile{
       .underline{
         color: #3E788A;
-        font-size: 18px;
+        font-size: medium;
         font-family: Roboto;
         font-weight: 400;
         text-decoration: underline;
@@ -185,7 +186,7 @@ div{
       }
       p{
         color: black;
-        font-size: 18px;
+        font-size: medium;
         font-family: Roboto;
         font-weight: 300;
         line-height: 26px;
@@ -200,19 +201,19 @@ div{
 
 
 .email-button {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   width: fit-content;
   color: white;
 }
 
 .toolbar {
-  padding: 30px 10px 0 10px;
+  padding: 1.875rem 0.625rem 0 0.625rem;
   width: 100%;
 }
 
 .spinner {
   width: 100%;
-  height: 100vh;
+  height: 6.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
