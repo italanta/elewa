@@ -14,8 +14,8 @@ export class CommunicationChannelService {
     return this._channels$$.get();
   }
 
-  addChannels(channel: CommunicationChannel) {
-    return this._channels$$.add(channel);
+  addChannels(channel: CommunicationChannel, id?:string) {
+    return this._channels$$.add(channel, id ?? '');
   }
 
   getSpecificChannel(id: string) {
