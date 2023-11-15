@@ -22,7 +22,7 @@ export interface ScheduleOptions
    /** Interval to send message templates to users in cron format */
    frequency?: string;
 
-   inactivityTime: number; 
+   inactivityTime?: number; 
    
    /**
     * If it is a recurring schedule, the end date is the time the repetition will
