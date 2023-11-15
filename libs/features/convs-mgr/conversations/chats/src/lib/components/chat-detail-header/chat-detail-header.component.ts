@@ -243,43 +243,40 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   checkIfChannelExist(chat: Chat){
     const channelNo = parseInt(chat.id.split('_')[1]);
-    console.log(channelNo);
     return  this._channelService$.getChannelByNumber(channelNo)
   }
 
   unblockUser() {
-    if (this.chat.isConversationComplete === -1) {
-      const storyId = this.currentPosition.storyId;
-      const blockId = this.currentPosition.blockId;
-
-      this.checkIfChannelExist(this.chat).subscribe((val) => {
-        if (val.length) {
-          const req = { storyId, endUserId: this.chat.id, blockId };
-
-          this._spinner.show();
-          this._sbs.sink = this._afsF
-            .httpsCallable('moveChat')(req)
-            .pipe(tap(() => this._spinner.hide()))
-            .subscribe(() =>
-              this._snackBar.open('User unblocked!', 'OK', {
-                duration: 3000,
-                verticalPosition: 'top',
-              })
-            );
-
-        } else {
-          this._snackBar.open('Communication channel does not exist!', 'OK', {
-            duration: 3000,
-            verticalPosition: 'top',
-          });
-        }
-      });
-    } else {
+    if (this.chat.isConversationComplete !== -1) {
       this._snackBar.open('User is not blocked!', 'OK', {
         duration: 3000,
         verticalPosition: 'top',
       });
-    }
+    } 
+
+    this._sbs.sink = this.checkIfChannelExist(this.chat).subscribe((val) => {
+      if (val.length) {
+        const { storyId, blockId } = this.currentPosition;
+        const req = { storyId, endUserId: this.chat.id, blockId };
+
+        this._spinner.show();
+        this._sbs.sink = this._afsF
+          .httpsCallable('moveChat')(req)
+          .pipe(tap(() => this._spinner.hide()))
+          .subscribe(() =>
+            this._snackBar.open('User unblocked!', 'OK', {
+              duration: 3000,
+              verticalPosition: 'top',
+            })
+          );
+
+      } else {
+        this._snackBar.open('Communication channel does not exist!', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      }
+    });
   }
 
   // cancelReq()
@@ -316,6 +313,5 @@ export class ChatDetailHeaderComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy() {
     this._sbs.unsubscribe();
-    
   }
 }

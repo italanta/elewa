@@ -76,7 +76,7 @@ export class ChannelFormModalComponent implements OnInit, OnDestroy {
       return;
     }
   
-    // // Set id based on the selected platform
+    // Set id based on the selected platform
     const idKey = this.showWhatsAppForm ? 'phoneNumberId' : 'pageId';
     this.channelForm.patchValue({
       id: this.channelForm.get(idKey)?.value,
