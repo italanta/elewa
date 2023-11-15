@@ -4,8 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatSelectFilterModule } from 'mat-select-filter';
 
-
-import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule, MaterialFormBricksModule } from '@iote/bricks-angular';
+import {
+  MaterialDesignModule,
+  MaterialBricksModule,
+  FlexLayoutModule,
+  MaterialFormBricksModule,
+} from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 // import { FileStorageService } from '@ngfi/files';
 
@@ -13,6 +17,7 @@ import { AccessControlModule } from '@app/private/elements/convs-mgr/access-cont
 
 import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
 import { UpdateProfilePictureModalComponent } from './modals/update-profile-picture-modal/update-profile-picture-modal.component';
+import { DeactivateUserComponent } from './modals/deactivate-user/deactivate-user.component';
 
 @NgModule({
   imports: [
@@ -28,17 +33,16 @@ import { UpdateProfilePictureModalComponent } from './modals/update-profile-pict
     FormsModule,
     ReactiveFormsModule,
 
-    AccessControlModule
+    AccessControlModule,
   ],
   declarations: [
     ProfileDetailsComponent,
-    UpdateProfilePictureModalComponent
+    UpdateProfilePictureModalComponent,
+    DeactivateUserComponent,
   ],
-  exports: [
-    ProfileDetailsComponent
-  ],
+  exports: [ProfileDetailsComponent],
   providers: [
     // FileStorageService
-  ]
+  ],
 })
 export class SettingsProfileDetailsModule {}
