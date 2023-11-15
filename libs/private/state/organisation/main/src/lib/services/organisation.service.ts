@@ -78,7 +78,8 @@ export class OrganisationService {
   }
 
   private _afterCreateOrg() {
-    this._router$$.navigate(['/home']);
+    // give time for permissions to set
+    setTimeout(() => this._router$$.navigate(['/home']), 5000);
   }
 
   /** Switches the active org to a new one */
