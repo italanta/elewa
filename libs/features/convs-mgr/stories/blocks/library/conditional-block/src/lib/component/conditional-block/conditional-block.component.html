@@ -1,17 +1,17 @@
 <div class="wide" [id]="id" *ngIf="conditionalBlockForm">
   <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
-    <div class="details-wrapper">
-
-      <div class="options-wrapper">
-        <mat-form-field class="no-underline">
-          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
-          <mat-select formControlName="selectedVar" panelClass="mat-select-panel-class">
-            <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
-              {{ variable }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+    <div  class="details-wrapper">
+     
+        <div class="conditional-select-wrapper">
+        <select class="conditional-select">
+          <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
+          <option *ngFor="let variable of (vars$ | async)" [value]="variable">
+            {{ variable }}
+          </option>
+        </select>
+        <span class="custom-dropdown-arrow"></span>
+        </div>
+      
 
       <div class="select-variable">
         <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">

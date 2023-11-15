@@ -17,6 +17,47 @@ input[type='text'] {
   }
 }
 
+.conditional-select{
+
+  padding: 0.5rem;
+  border-radius: 0.625rem;
+  background-color: var(--convs-mgr-placeholder-color);
+  border: 0.00625rem solid var(--convs-mgr-placeholder-color);
+  width:100%;
+  appearance: none;
+  color: var(--assessment-brick-label-color);
+  font-family: Roboto;
+  font-size: small;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  
+
+}
+.conditional-select-wrapper {
+  position: relative;
+  width: 100%;  
+  margin-top: 1rem;
+}
+
+.custom-dropdown-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0.625rem;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 0.3125rem solid transparent;
+  border-right: 0.3125rem solid transparent;
+  border-top: 0.3125rem solid var(--assessment-brick-input-color);
+  pointer-events: none;
+}
+
+.options-wrapper{
+  margin-bottom: 30px !important;
+  background-color: #f3f3f3;
+}
+
 .add-button {
   width: 100%;
   background-color: #f3f3f3;
