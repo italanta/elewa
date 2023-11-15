@@ -90,7 +90,7 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
       waveColor: '#E9E7F4',
       progressColor: '#1F7A8C',
       barWidth: 3,
-      barHeight: 0.1,
+      height: 20,
       normalize: true,
     });
   }
