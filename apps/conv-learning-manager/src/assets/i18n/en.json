@@ -912,7 +912,19 @@
       "TIME-PLACEHOLDER": "Time",
       "SAVE-BUTTON": {
         "SAVE": "Save"
-      }
+      },
+      "REMOVE-END":"Remove end date",
+      "RECUR" :"Recur",
+      "RECUR-DAILY":"Recur daily configurations",
+      "RECUR-WEEKLY":"Recur weekly configurations",
+      "RECUR-MONTHLY":"Recur Monthly configurations",
+      "DAYS":"days",
+      "WEEKS":"weeks",
+      "MONTHS":"months",
+      "REPEAT-EVERY":"Repeat every",
+      "OCCURS-MONTHLY":"Occurs every month until",
+      "OCCURS-WEEKLY":"Occurs every week until",
+      "OCCURS-DAILY":"Occurs every day until"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
@@ -1114,13 +1126,40 @@
 "COMPANY-INFORMATION":{
   "BUTTON":{
     "UPLOAD":"Upload",
-    "REMOVE":"Remove"
+    "REMOVE":"Remove",
+    "CANCEL":"Cancel"
   },
   "REMOVE":"Remove",
   "BASIC-INFO":"Basic Information",
   "ADDRESS-INFO":"Address Information",
   "EDIT-CO-INFO":"Edit",
-  "SAVE-ORG":"Save Organization"
+  "SAVE-ORG":"Save Organization",
+  "CHANNEL-MODAL":{
+      "BUTTONS":{
+        "CANCEL":"Cancel",
+        "CONTINUE":"Continue",
+        "ADD-CHANNEL":"Add Channel"
+      },
+      "ADD-CHANNEL":"Add Channel",
+      "SELECT-PLATFORM":"Select Platform",
+      "ADD-DETAILS":"Add Details",
+      "WHATSAPP":"WhatsApp",
+      "Messenger":"Messenger",
+      "GENERAL-DETAILS":"General Details",
+      "BOT-DETAILS":"Channel Details",
+      "WHATSAPP-CHANNEL-DETAILS":"WhatsApp Channel Details",
+      "ACCESS-TOKEN":"Access Token",
+      "BOT-PHONE-NUMBER":"Channel Phone Number",
+      "BOT-PHONE-NUMBER-ID":"Channel Phone Number ID",
+      "BUSINESS-ACCOUNT-ID":"Business Account ID",
+      "PAGE-ID":"Page ID",
+      "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
+      "CHANNEL-NAME":"Channel Name",
+      "PLATFORM":"Platform",
+      "FIRST-STORY":"First Story",
+      "EDIT-CHANNEL":"Edit Channel"
+      
+  }
 }
 
 }

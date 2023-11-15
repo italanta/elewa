@@ -32,6 +32,9 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   canBeScheduled: boolean;
 
+  showMessageConditions :boolean;
+
+
   messageTemplateFrequency = frequencyOptions;
   
   displayedColumns: string[] = ['Date sent', 'Time sent', 'Number of learners', 'status', 'meta'];
@@ -94,9 +97,6 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       case 'specific-time':
         this.openSpecificTimeModal();
         break;
-      case 'inactivity':
-        this.openInactivityModal();
-        break;
       default:
         break;
     }
@@ -109,16 +109,18 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   saveSchedule() {
     if (this.selectedOption) {
       let templateMessage: MessageTemplate;
-  
-      this._messageService.getTemplateById(this.action).subscribe((template: any) => {
+      // TODO: @Lemmy/Beryl Pass template id from query params
+      this._messageService.getTemplateById(this.action.split('?')[0]).subscribe((template: any) => {
         templateMessage = template;
-  
         if (templateMessage) {
           switch (this.selectedOption) {
             case 'specific-time':
               this.sendButtonClicked(templateMessage, this.selectedTime);
               break;
             case 'milestone':
+              this.saveMilestone(template);
+              break;
+            case 'inactivity':
               this.saveMilestone(template);
               break;
             default:

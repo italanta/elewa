@@ -74,7 +74,8 @@ export class MessageTemplateFormComponent implements OnInit{
   initPage()
   {
     if (this.action){
-      this.template$ = this._messageTemplatesService.getTemplateById(this.action) || '';
+      // TODO:Fetch template id from query params
+      this.template$ = this._messageTemplatesService.getTemplateById(this.action.split('?')[0]) || '';
 
     }
     this._sbS.sink = this.template$.subscribe((template) => {

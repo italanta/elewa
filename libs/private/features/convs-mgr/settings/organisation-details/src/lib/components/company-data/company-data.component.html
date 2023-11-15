@@ -32,9 +32,9 @@
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
           <div fxLayout="column" fxFlex>
             <p class="static-label">{{"ORGS.FORM.NAME" | transloco}}</p>
-
-            <input matInput type="text" formControlName="name" class="name-input">
-
+          
+              <input matInput type="text" formControlName="name" class="name-input">
+         
           </div>
         </div>
 
@@ -86,20 +86,54 @@
               <input matInput type="text" formControlName="postalAddress">
 
             </div>
+          
           </div>
 
+          <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)" mat-raised-button>
+            <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
+            <ng-template #saveProfile>
+              <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
+            </ng-template>
+          </button>
+         
           <div>
-            <button class="btn edit-button" *hasViewAccess="CAN_PERFOM_ADMIN_ACTIONS" (click)="editOrgProfile($event)"
-              mat-raised-button>
-              <span *ngIf="!editOrg; else saveProfile">{{"COMPANY-INFORMATION.EDIT-CO-INFO" | transloco}}</span>
-              <ng-template #saveProfile>
-                <span>{{"COMPANY-INFORMATION.SAVE-ORG" | transloco}}</span>
-              </ng-template>
-            </button>
+              
           </div>
         </div>
       </form>
     </div>
 
+  </div>
+  
+  <div class="card" >
+    <h3 class="channel-head">My Channels</h3>
+    <div *ngIf="dataSource.length !== 0">
+      
+      <table mat-table [dataSource]="dataSource" >
+
+        
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.CHANNEL-NAME" | transloco}} </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> {{"COMPANY-INFORMATION.CHANNEL-MODAL.PLATFORM" | transloco}}</th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+      
+      
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td class="edit-channel" mat-cell *matCellDef="let element" (click)="editChannel(element)"> {{"COMPANY-INFORMATION.CHANNEL-MODAL.EDIT-CHANNEL" | transloco}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>
+    <a class="button-link" (click)="addChannel()" >{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</a>
   </div>
 </div>

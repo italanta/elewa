@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import { IObject } from "@iote/bricks";
 
 import { MessageTypes } from "@app/model/convs-mgr/functions";
@@ -58,6 +59,15 @@ export interface Message extends IObject
    *  may fail to reach the end user.
    */
   params?             : TemplateMessageParams[];
+
+  /**
+   * New way of handling the end users contacts on different platforms. With this structure, we will
+   *  not have to check for the receipientID or enduser phone number to send the message to the right user
+   *    contact.
+   * 
+   * TODO: @Reagan Deprecate receipientId and endUserPhoneNumber
+   */
+  platformDetails?           : {[key:string]:{ contactID: string, endUserId: string}}
 }
 
 

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { map } from 'rxjs';
+
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { ChannelsStore } from '../store/channel.store';
@@ -14,8 +16,8 @@ export class CommunicationChannelService {
     return this._channels$$.get();
   }
 
-  addChannels(channel: CommunicationChannel) {
-    return this._channels$$.add(channel);
+  addChannels(channel: CommunicationChannel, id?:string) {
+    return this._channels$$.add(channel, id ?? '');
   }
 
   getSpecificChannel(id: string) {
@@ -28,5 +30,11 @@ export class CommunicationChannelService {
 
   updateChannel(channel: CommunicationChannel) {
     return this._channels$$.update(channel);
+  }
+
+  getChannelByNumber(n: number){
+    return this._channels$$.get().pipe(
+      map(channels => channels.filter(channel => channel.n === n))
+    );
   }
 }

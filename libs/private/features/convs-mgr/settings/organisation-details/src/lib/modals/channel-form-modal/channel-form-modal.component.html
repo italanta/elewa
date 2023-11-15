@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="cancel-icon">
+      <img src="assets/icons/delete-x.svg" class="close-button" (click)="closeModal()">
+    </div>
+      <div class="top">
+        <h3>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</h3>
+      </div>
+      <div class="lines">
+          <div class="left-line"></div>
+          <div class="right-line"></div>
+      </div>
+      <div class="platform">
+        <div class="select">
+          <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
+        </div>
+        <div class="add">
+          <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-DETAILS" | transloco}}</p>
+        </div>
+      </div>
+    
+    
+      <!-- WhatsApp Form -->
+<div *ngIf="showWhatsAppForm">
+  <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
+    <div class="general">
+      <label for="fname">{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}</label>
+        <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+      </div>
+    </div>
+    <div class="channel-details">
+      <label >{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP-CHANNEL-DETAILS" | transloco}}</label><br>
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}</label>
+        <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}'>
+      </div>
+
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}</label>
+        <input type="text" formControlName="phoneNumber" id="phoneNumber" name="botPhoneNumber" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER" | transloco}}'>
+      </div>
+
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}</label>
+        <input type="text" formControlName="phoneNumberId" id="phoneNumberId" name="phoneNumberId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-PHONE-NUMBER-ID" | transloco}}'>
+      </div>
+
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}</label>
+        <input type="text" formControlName="businessAccountId" id="businessAccountId" name="businessAccountId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUSINESS-ACCOUNT-ID" | transloco}}'>
+      </div>
+    </div>
+    <div class="buttons">
+      <div class="cancel">
+        <div (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</div>
+      </div>
+      <div class="continue">
+        <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Messenger Form -->
+<div *ngIf="!showWhatsAppForm">
+  <form [formGroup]="channelForm" (ngSubmit)="onChannelFormSubmit()">
+    <div class="general">
+      <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.GENERAL-DETAILS" | transloco}}</label><br>
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}</label>
+        <input type="text" formControlName="name" id="name" name="name" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.BOT-DETAILS" | transloco}}'>
+      </div>
+    </div>
+    <div class="channel-details">
+      <label >{{"COMPANY-INFORMATION.CHANNEL-MODAL.MESSENGER-CHANNEL-DETAILS" | transloco}}</label><br>
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}</label>
+        <input type="text" formControlName="accessToken" id="accessToken" name="accessToken" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.ACCESS-TOKEN" | transloco}}'>
+      </div>
+
+      <div class="input-data">
+        <label>{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}</label>
+        <input type="text" formControlName="pageId" id="pageId" name="pageId" placeholder='{{"COMPANY-INFORMATION.CHANNEL-MODAL.PAGE-ID" | transloco}}'>
+      </div>
+    </div>
+    <div class="buttons">
+      <div class="cancel">
+        <div (click)="closeModal()">{{"COMPANY-INFORMATION.BUTTON.CANCEL" | transloco}}</div>
+      </div>
+      <div class="continue">
+        <button type="submit">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.ADD-CHANNEL" | transloco}}</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+    
+    </div>
+    
