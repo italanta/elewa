@@ -40,6 +40,7 @@ export class SendModalComponent implements OnInit {
 
   templateForm: FormGroup;
 
+  messageTemplates: MessageTemplate[];
   messageTemplates$: Observable<MessageTemplate[]>;
   templateStatus$: Observable<MessageStatusRes[]>;
 
@@ -113,6 +114,8 @@ export class SendModalComponent implements OnInit {
 
     this._sBs.sink = this.messageTemplates$.pipe(
       switchMap((templates) => {
+        this.messageTemplates = templates;
+
         const firstTemplate = templates[0];
         if (!templates || templates.length === 0 || (!firstTemplate.channelId)) {
           this.loading = false;
@@ -208,14 +211,15 @@ export class SendModalComponent implements OnInit {
   sendSurvey() {
     if(this.channelId){
       const surveyId = this._route$$.url.split('/')[2];
-      const enrolledUsers = this.selection.selected.map((user) => user.id) as string[];
+      const enrolledUsers = this.selection.selected;
       const surveyPayload: StartSurveyReq = {
-        messageTemplateName: '',
+        messageTemplateId: this.templateForm.value.selectedOption,
+        
         channelId: this.channelId,
         surveyId: surveyId,
-        enrolledUserIds: enrolledUsers
+        endUserIds: []
       }
-        this._surveyService.sendSurvey(surveyPayload).subscribe();
+        this._surveyService.sendSurvey(surveyPayload, enrolledUsers).subscribe();
         this._snackbar.showSuccess("survey sent ");
     }
     else{

@@ -65,7 +65,7 @@ export class StoryEditorStateService
 
     // Store the first load to later diff. between previous and new state (to allow deletion of blocks etc.)
     stateData$.pipe(take(1)).subscribe((state) => (
-      this._lastLoadedState = ___cloneDeep(state)
+      this._setLastLoadedState(state)
     ));
 
     // Return state.
@@ -90,7 +90,7 @@ export class StoryEditorStateService
 
     // Persist the story and all the blocks
     return combineLatest(actions$)
-      .pipe(tap(() => this._lastLoadedState = ___cloneDeep(state)),
+      .pipe(tap(() => this._setLastLoadedState(state)),
             tap(() => this._isSaving = false),
             catchError(err => {
               this._logger.log(() => `Error saving story editor state, ${err}`);
@@ -153,7 +153,7 @@ export class StoryEditorStateService
 
   /** Creates a block. */
   private _createBlock(block: StoryBlock) {
-    return this._blocks$$.add(block, block.id);
+    return this._blocks$$.write(block, block.id as string); 
   }
 
   /** We cannot just delete blocks as active chat users might have their cursor on that block. 
@@ -178,11 +178,18 @@ export class StoryEditorStateService
     return this._connections$$.remove(connection);
   }
 
+  private _setLastLoadedState(state: StoryEditorState | null)
+  {
+    console.log(`:: Setting last loaded state ::`);
+    console.debug(state);
+    this._lastLoadedState = ___cloneDeep(state)
+  }
+
   /** 
    * Reset the state to null 
    *  - to use in onDestroy */
   flush() {
-    this._lastLoadedState = null;
+    this._setLastLoadedState(null);
     this._sBs.unsubscribe();
   }
 }

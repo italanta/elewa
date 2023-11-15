@@ -19,7 +19,9 @@ export * from './app/analytics/fns-measure-group-progress';
 export * from './app/analytics//get-metabase-url.function';
 export * from './app/bot/messenger/messenger-receive-message.function';
 export * from './app/bot/main/send-multiple-messages.function';
-export * from './app/bot/main/schedule-message-templates.function';
+export * from './app/bot/main/schedule/schedule-message-templates.function';
+export * from './app/bot/main/schedule/check-inactivity.function';
+export * from './app/bot/main/schedule/set-inactivity.function';
 
 export * from './app/micro-apps/cmi5/fetch-token.function';
 export * from './app/micro-apps/cmi5/cmi5-zip-parser.function';

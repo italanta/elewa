@@ -10,7 +10,21 @@
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS'| transloco }}</p>
         <div class="info" [hidden]="canBeScheduled"><i class="fas fa-info-circle"></i> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.INFO'| transloco }}</div>
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.SET-UP-CONDITIONS'| transloco }} </p>
-        <mat-form-field appearance="outline" class="frequency-select">
+
+        <div class="data-result">
+          <form action="">
+            <input type="text" name="text"  >
+            <div class="buttons">
+              <img src="assets/icons/edit-item.svg" alt="edit">
+              <img src="assets/icons/delete-item.svg" alt="delete">
+            </div>
+          </form>
+        </div>
+
+        <p class="add-condition" (click)="showMessageConditions = !showMessageConditions">Add message condition</p>
+
+        <ng-container *ngIf="showMessageConditions">
+          <mat-form-field appearance="outline" class="frequency-select">
             <mat-label>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS-LABEL'| transloco }}</mat-label>
             <mat-select [(ngModel)]="selectedOption" (selectionChange)="openModal()">
               <mat-option *ngFor="let condition of messageTemplateFrequency" [value]="condition.value">
@@ -18,5 +32,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </ng-container>
     </div>
 </div>
