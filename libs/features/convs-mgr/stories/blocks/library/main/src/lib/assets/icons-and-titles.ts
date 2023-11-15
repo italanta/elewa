@@ -42,6 +42,7 @@ export const ICONS_AND_TITLES = {
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
     icon: 'fas fa-envelope',
+    svgIcon: 'assets/svgs/blocks/mdi-light_email.svg'
   },
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
@@ -66,7 +67,7 @@ export const ICONS_AND_TITLES = {
   },
   18: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
-    icon: 'fas fa-forward',
+    svgIcon: '/assets/icons/forward-play.svg',
   },
   19: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLE-INPUT',
