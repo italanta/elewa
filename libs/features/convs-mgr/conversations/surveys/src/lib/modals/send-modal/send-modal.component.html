@@ -10,7 +10,7 @@
         <div class="radios">
           <mat-spinner *ngIf="loading" diameter="40"></mat-spinner>
           <mat-radio-group formControlName="selectedOption" class="radios">
-            <mat-radio-button *ngFor="let template of allTemplates" [value]="template.name" [disabled]="isOptionDisabled(template.status)">
+            <mat-radio-button *ngFor="let template of allTemplates" [value]="template.id" [disabled]="isOptionDisabled(template.status)">
               {{ template.name }}
             </mat-radio-button>
           </mat-radio-group>

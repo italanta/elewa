@@ -1,5 +1,3 @@
-import { firestore } from 'firebase-admin';
-
 import { HandlerTools, Repository } from '@iote/cqrs';
 import { Query } from '@ngfi/firestore-qbuilder';
 
@@ -34,34 +32,62 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     return EnrolledUsrRepo;
   }
 
-  async createEnrolledUser(enrolledUser: EnrolledEndUser, id?:string) {
+  async createEnrolledUser(endUser: EndUser, platform: PlatformType, id?:string) {
+    const enrolledUser: EnrolledEndUser = {
+      id:id || '',
+      name: endUser.name || '',
+      phoneNumber: endUser.phoneNumber || '',
+      classId: '',
+      currentCourse: '',
+      whatsappUserId: endUser.id,
+      status: EnrolledEndUserStatus.Active
+    };
+  
+    enrolledUser.platformDetails[platform] = {
+      endUserId: endUser.id,
+      contactID: endUser.id.split('_')[2]
+    }
+
     return this.createDocument(enrolledUser, this._docPath, id);
   }
 
-  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string, id?:string,) {
-    const enrolledUsers = await this.getDocumentByField(platformField, endUser.id, this._docPath);
-    let currentEnrolledUser = enrolledUsers[0];
+  /** get timeInDate's created user count */
+  async getSpecificDayUserCount(orgId: string, timeInUnix:number) {
+    // Set the time to the start of the day (00:00:00)
+    const startAt = new Date(timeInUnix);
+    startAt.setHours(0, 0, 0, 0);
 
-    if (!currentEnrolledUser) {
-      const enrolledUser: EnrolledEndUser = {
-        id:id || '',
-        name: endUser.name || '',
-        phoneNumber: endUser.phoneNumber || '',
-        classId: '',
-        currentCourse: '',
-        whatsappUserId: endUser.id,
-        status: EnrolledEndUserStatus.Active
-      };
-  
-      currentEnrolledUser = await this.createEnrolledUser(enrolledUser, id);
-    };
+    const endAt = new Date(timeInUnix);
+    endAt.setHours(23, 59, 59, 999);
 
-    return currentEnrolledUser;
+    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('createdOn', ">=" , startAt).where('createdOn', '<=', endAt)
+    );
+
+    return enrolledUsers;
   };
 
-  async getTodaysUsers(orgId: string) {
-    const enrolledUsers = this. _getEnrolledUsrRepo(orgId).getDocuments(
-      new Query().where('created-At', ">=" , firestore.Timestamp.fromDate(new Date()))
+  /** get the past week created user count */
+  async getPastWeekUserCount(orgId: string, timeInUnix:number) {
+    const timeInDate = new Date(timeInUnix);
+    const startAt = new Date(timeInDate.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate the start date (seven days ago) to millisecond equivalent
+    const endAt = timeInDate;
+
+    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
+    );
+
+    return enrolledUsers;
+  };
+
+  /** get the past month created user count */
+  async getPastMonthUserCount(orgId: string, timeInUnix:number) {
+    const timeInDate = new Date(timeInUnix);
+    const startAt = new Date(timeInDate.getFullYear(), timeInDate.getMonth(), 0);
+    const endAt = new Date();
+
+    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
+      new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
     );
 
     return enrolledUsers;

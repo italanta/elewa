@@ -22,7 +22,7 @@ export class AssessmentMetricsService {
     this._resetMetrics();
     
     const data = endUsers.filter((user) => {
-      if (!user.cursor[0].assessmentStack) return false;
+      if (!user.cursor || !user?.cursor.length || !user?.cursor[0].assessmentStack) return false;
 
       const assessExists = user.cursor[0].assessmentStack.find((assess) => assess.assessmentId === assessment.id);
 

@@ -12,16 +12,7 @@ import {
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import {
-  ActiveSurveyStore,
-  SurveyPublishService,
-  SurveyQuestionService,
-  SurveyQuestionStore,
-  SurveyService,
-  SurveysStore,
-} from '@app/state/convs-mgr/conversations/surveys';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 import { SurveyQuestionComponent } from './components/survey-question/survey-question.component';
 import { SurveyQuestionFormComponent } from './components/survey-question-form/survey-question-form.component';
@@ -38,7 +29,6 @@ import { SurveyResultsComponent } from './pages/survey-results/survey-results.co
 import { SurveyViewComponent } from './pages/survey-view/survey-view.component';
 import { SurveyHomeComponent } from './pages/survey-home/survey-home.component';
 import { DeleteSurveyModalComponent } from './modals/delete-survey-modal/delete-survey-modal.component';
-import { SurveyFormService } from './services/survey-form.service';
 import { SurveysRouterModule } from './surveys.router.module';
 import { CreateSurveyFlowComponent } from './components/create-survey-flow/create-survey-flow.component';
 import { SurveyResponsesComponent } from './pages/survey-responses/survey-responses.component';
@@ -47,7 +37,6 @@ import { SurveySummaryComponent } from './components/survey-summary/survey-summa
 import { HorizontalBarComponent } from './components/graphs/horizontal-bar/horizontal-bar.component';
 import { PieComponent } from './components/graphs/pie/pie.component';
 import { SendModalComponent } from './modals/send-modal/send-modal.component';
-import { MessageTemplateStore, MessageTemplatesService } from '@app/private/state/message-templates';
 
 @NgModule({
   imports: [
@@ -87,19 +76,6 @@ import { MessageTemplateStore, MessageTemplatesService } from '@app/private/stat
     HorizontalBarComponent,
     PieComponent,
     SendModalComponent,
-  ],
-  providers: [
-    SurveyFormService,
-    SurveyService,
-    SurveyQuestionService,
-    SurveysStore,
-    ActiveSurveyStore,
-    SurveyQuestionStore,
-    SurveyPublishService,
-    ChannelService,
-    ChannelsStore,
-    MessageTemplateStore,
-    MessageTemplatesService
-  ],
+  ]
 })
 export class ConvsMgrSurveysModule {}

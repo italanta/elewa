@@ -54,8 +54,8 @@ mat-sidenav {
 }
 
 .subbar-btn {
-  background-color: #ffab2d;
-  color: white;
+  background-color: #ffab2d !important;
+  color: white !important;
   font-weight: 600;
   min-width: 100px;
 }
@@ -74,13 +74,6 @@ mat-sidenav {
   .tooltip {
     font-size: 1.2rem;
   }
-}
-
-.add-channel-btn {
-  background-color: #6418c3;
-  color: white;
-  font-weight: 600;
-  min-width: 100px;
 }
 
 .zoom-btn {
