@@ -12,22 +12,21 @@ import { SubSink } from 'subsink';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
 import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
-import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
+import { Classroom, ClassroomUpdateEnum, defaultClassroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
-import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
 import { Bot } from '@app/model/convs-mgr/bots';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-learners-page',
@@ -108,7 +107,13 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses
+      this.addDefaultClass();
     });
+  }
+
+  addDefaultClass() {
+    const classroom = this.allClasses.find(cls => cls.className === defaultClassroom.className)
+    classroom ?? this.allClasses.push(defaultClassroom);
   }
 
   getAllCourses() {
