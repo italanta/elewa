@@ -9,7 +9,7 @@ input {
 	border-radius: 0.7rem;
 	resize: none;
 	padding: 0.625rem;
-	background-color: #f3f3f3;
+	background-color: var(--convs-mgr-placeholder-color);
 	font-weight: 300;
 	font-size: 1.125rem;
 }

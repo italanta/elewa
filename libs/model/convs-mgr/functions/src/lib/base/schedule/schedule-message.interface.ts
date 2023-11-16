@@ -1,13 +1,26 @@
-import { SendMessageTemplate } from "./send-message-template.interface";
+import { ScheduleOptions } from "./schedule-options.interface";
 
-export interface ScheduledMessage extends SendMessageTemplate
+export interface ScheduledMessage extends ScheduleOptions
 {
-  /** JOB ID - As scheduled on GCP Tasks */
-  taskId?: string;
+  /** Ids of the end users who have been successfully sent the message */
+  successful: string[];
+  
+  /** Ids of the end users who fail */
+  failed: string[];
 
-  /** The time scheduled for the message to be sent */
-  dispatchTime: Date;
+  /** 
+   * Ids of the end users who are yet to receive the message
+   * 
+   * TODO: Implement logic to check the read receipt of the template messages
+   */
+  pending?: string[];
 
-  /** Interval to send message templates to users in cron format */
-  frequency?: string;
+  status?: ScheduledMessageStatus;
+}
+
+export enum ScheduledMessageStatus 
+{
+  Active = 1,
+  Pending = 2,
+  Stopped = 0
 }

@@ -25,7 +25,7 @@ import { throws } from 'assert';
     this._docPath = `orgs/${orgId}/end-users`;
   }
 
-  async createEndUser(endUser: EndUser)
+  async createEndUser(endUser: EndUser, enrolledUserID: string)
   {
 
     // const newEndUser: EndUser = {
@@ -35,10 +35,15 @@ import { throws } from 'assert';
     //   id: endUserId,
 
     // };
-
+    endUser.enrolledUserId = enrolledUserID;
     endUser.status = ChatStatus.Running;
 
     return this.createDocument(endUser, this._docPath, endUser.id);
+  }
+
+  getAllEndUsers() 
+  {
+    return this.getDocuments(this._docPath);
   }
 
   async getOrCreateEndUser(endUser: EndUser, endUserId?: string)
