@@ -35,8 +35,6 @@
           <div class="actions" fxLayout="column" fxLayoutAlign="start">
             <span *ngIf="!isLogin" class="action-title"> Create an Account </span>
             <span *ngIf="!isLogin" class="action-desc"> Sign up to create a world of engaging learning experiences
-              Learning
-              Experiences
             </span>
 
             <span *ngIf="isLogin" class="action-title"> Log In </span>
@@ -81,9 +79,9 @@
             <span style="font-weight: 400;">
               Don't have an account?
             </span>
-            <button class="highlight-button" style="margin-left: 5px;" mat-button color="primary" (click)="toggleMode()">
+            <div class="highlight-button" style="margin-left: 5px;" mat-button color="primary" (click)="toggleMode()">
               <span style="text-decoration: underline;">Create an Account</span>
-            </button>            
+            </div>            
           </div>
 
           <ng-template #registerNav>
@@ -91,9 +89,9 @@
               <span style= "font-weight: 100;">
                 Already have an account?
               </span>
-              <button class="log-in" mat-button color="primary" (click)="toggleModeLogin()">
+              <div class="log-in" mat-button color="primary" (click)="toggleModeLogin()">
                 <span style="text-decoration: underline;">Log In</span>
-              </button>
+              </div>
             </div>
           </ng-template>
         </div>

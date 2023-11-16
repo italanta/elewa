@@ -1608,6 +1608,31 @@
       },
       "tags": []
     },
+    "private-functions-function-utils": {
+      "root": "libs/private/functions/function-utils",
+      "sourceRoot": "libs/private/functions/function-utils/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/function-utils/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/function-utils"],
+          "options": {
+            "jestConfig": "libs/private/functions/function-utils/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-functions-micro-apps-base": {
       "root": "libs/private/functions/micro-apps/base",
       "sourceRoot": "libs/private/functions/micro-apps/base/src",
