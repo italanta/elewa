@@ -30,6 +30,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   selectedOption: string;
   action: string;
+  cronSchedule: string;
+  endDate: Date;
 
   canBeScheduled: boolean;
 
@@ -68,9 +70,12 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   openSpecificTimeModal() {
     const dialogRef = this._dialog.open(SpecificTimeModalComponent);
 
-    dialogRef.componentInstance?.dateTimeSelected.subscribe((selectedDateTime: any) => {
-      this.selectedTime = selectedDateTime.date;
-      const formattedDateTime = `Send message at ${selectedDateTime.time} ${selectedDateTime.date.toLocaleString()}`;
+    dialogRef.componentInstance?.dateTimeSelected.subscribe((schedule: any) => {
+      this.selectedTime = schedule.date;
+      this.cronSchedule = schedule.cron;
+      this.endDate = schedule.endDate;
+
+      const formattedDateTime = `Send message at ${schedule.time} ${schedule.date.toLocaleString()}`;
       
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'specific-time');
       if (specificTimeOption) {
@@ -178,6 +183,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     return {
       template: templateMessage,
       dispatchDate: this.selectedTime,
+      frequency: this.cronSchedule,
+      endDate: this.endDate ? this.endDate : null,
     }
   }
 }

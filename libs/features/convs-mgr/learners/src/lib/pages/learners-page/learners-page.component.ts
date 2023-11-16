@@ -244,6 +244,8 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     const scheduleRequest = {
       ...payload,
       dispatchTime: this.scheduleMessageOptions.dispatchDate,
+      endDate:  this.scheduleMessageOptions.endDate || null,
+      frequency: this.scheduleMessageOptions.frequency || null
     };
 
     this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
