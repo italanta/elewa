@@ -43,6 +43,9 @@ export class WebhookBlockComponent implements OnInit {
   type: StoryBlockTypes;
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();
+  search = new FormControl('');
+  name = new FormControl('');
+  value = new FormControl('');
   variables$: Observable<Variable[]>;
 
   constructor(private _variablesStore$$: VariablesConfigStore, private variableser: VariablesService) {
@@ -54,13 +57,9 @@ export class WebhookBlockComponent implements OnInit {
     this.variables$ = this._variablesStore$$.get();
     this.webhookInputId = `webhook-${this.id}`;
 
-    this.webhookForm = new FormGroup({
-
-      search: new FormControl(''),
-      name: new FormControl(''),
-      value: new FormControl('')
-
-    })
+    this.webhookForm.addControl('search', this.search);
+    this.webhookForm.addControl('name', this.name);
+    this.webhookForm.addControl('value', this.name);
 
   }
 
@@ -69,5 +68,6 @@ export class WebhookBlockComponent implements OnInit {
       name:this.webhookForm.value.name,
       value: this.webhookForm.value.value
     }
+
   }
 }
