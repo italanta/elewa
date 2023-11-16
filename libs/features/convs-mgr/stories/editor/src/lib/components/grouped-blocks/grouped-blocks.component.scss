@@ -3,8 +3,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
-  .block-main {
-    height: 4rem;
+  .blocks-main {
+    height: 60px;
     border-radius: 5px;
     word-wrap: break-word;
     background-color: #fff;
@@ -16,7 +16,7 @@
     margin: 0;
   }
 
-  .block-main:hover {
+  .blocks-main:hover {
     background-color: #fbc113 !important;
 
     #icons {
