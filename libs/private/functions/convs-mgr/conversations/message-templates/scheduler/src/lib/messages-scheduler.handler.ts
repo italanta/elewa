@@ -32,7 +32,8 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
         n: communicationChannel.n,
         plaform: communicationChannel.type,
         endUserIds: endUserIds,
-        dispatchTime: new Date(cmd.dispatchTime)
+        dispatchTime: new Date(cmd.dispatchTime),
+        endDate: cmd.endDate ? new Date(cmd.endDate) : null
       };
 
       const payload = _getPayload(cmd, communicationChannel, endUserIds, cmd.message);
