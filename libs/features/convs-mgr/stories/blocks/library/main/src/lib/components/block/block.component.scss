@@ -1,6 +1,7 @@
 mat-card {
-	width: 250px;
+	width: 100%;
 	border-radius: 0.01rem;
+	padding: 0;
 }
 
 .block {
@@ -51,7 +52,7 @@ mat-card {
 
 .block-card {
 	border-radius: 10px;
-	padding: 10px;
+	padding: 0;
 	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
@@ -74,3 +75,4 @@ mat-card {
 :host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
     z-index: 0 !important;
 }
+
