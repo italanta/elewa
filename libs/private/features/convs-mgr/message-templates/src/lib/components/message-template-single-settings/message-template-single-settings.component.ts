@@ -99,6 +99,9 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       case 'specific-time':
         this.openSpecificTimeModal();
         break;
+      case 'inactivity':
+        this.openInactivityModal();
+        break;
       default:
         break;
     }
