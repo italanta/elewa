@@ -14,7 +14,7 @@ import {
   VariablesConfig,
 } from '@app/model/convs-mgr/stories/blocks/main';
 
-import { WebhookBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { WebhookBlock, VariablesToSave } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 @Component({
   selector: 'app-webhook-block',
@@ -38,8 +38,8 @@ export class WebhookBlockComponent implements OnInit {
   webhookInputId: string;
   httpUrl: VariablesConfig;
 
+  variablesToSave: VariablesToSave
   subscription: Subscription;
-  search = '';
   type: StoryBlockTypes;
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();
@@ -53,5 +53,21 @@ export class WebhookBlockComponent implements OnInit {
   ngOnInit() {
     this.variables$ = this._variablesStore$$.get();
     this.webhookInputId = `webhook-${this.id}`;
+
+    this.webhookForm = new FormGroup({
+
+      search: new FormControl(''),
+      name: new FormControl(''),
+      value: new FormControl('')
+
+    })
+
+  }
+
+  onSubmit(){
+    this.variablesToSave = {
+      name:this.webhookForm.value.name,
+      value: this.webhookForm.value.value
+    }
   }
 }
