@@ -66,10 +66,11 @@
         min-width: 22rem;
       }
 
-      .search-tooltip {
-        position: absolute;
-        left: 1rem;
-        top: 35%;
+      .search-wrapper_tooltip {
+        color: gray;
+        transform: rotate(90deg);
+        font-size: 20px;
+        font-weight: 500;
       }
     }
   }
