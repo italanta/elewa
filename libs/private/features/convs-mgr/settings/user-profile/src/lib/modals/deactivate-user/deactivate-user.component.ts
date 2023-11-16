@@ -12,6 +12,10 @@ export class DeactivateUserComponent {
   ){}
 
 
+  deactivateUser(){
+    console.log("deactivated")
+  }
+
   closeModal(){
     this._dialog.closeAll()
   }
