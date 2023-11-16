@@ -1,11 +1,10 @@
-
 input[type='text'] {
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
-  margin: 0.3125rem 0; 
-  border: none solid var(--convs-mgr-placeholder-color); 
-  border-radius:  0.4375rem; 
+  margin: 0.3125rem 0; /* 5px / 16px = 0.3125rem */
+  border: none solid var(--convs-mgr-placeholder-color); /* 1px / 16px = 0.0625rem */
+  border-radius:  0.4375rem; /* 5px / 16px = 0.3125rem */
   resize: none;
   padding: 8px;
   &:disabled {
@@ -22,9 +21,6 @@ input[type='text'] {
     padding: 8px;
   }
 }
-
-
-
 .details-wrapper {
   position: relative;
   width: 100%; 
@@ -43,20 +39,6 @@ input[type='text'] {
   font-weight: 300;
   line-height: normal;
 }
-.input {
-  margin: 0;
-  padding: 8px;
-  padding-right: 0.3125rem; /* 5px / 16px = 0.3125rem */
-  border-radius:  0.4375rem;
-  background-color: var(--convs-mgr-placeholder-color);
-  width: 100%;
-  color:var(-convs-mgr-text-color);
-  font-family: Roboto;
-  font-size: 0.5625rem;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
   .options-wrapper {
     position: relative;
     width: 100%;
@@ -64,17 +46,17 @@ input[type='text'] {
   .custom-dropdown-arrow {
     position: absolute;
     top: 50%;
-    right: 0.625rem; 
+    right: 0.625rem; /* 10px converted to rem */
     transform: translateY(-50%);
     width: 0;
     height: 0;
-    border-left: 0.3125rem solid transparent; 
-    border-right: 0.3125rem solid transparent; 
-    border-top: 0.3125rem solid var(--convs-mgr-text-color); 
+    border-left: 0.3125rem solid transparent; /* 5px converted to rem */
+    border-right: 0.3125rem solid transparent; /* 5px converted to rem */
+    border-top: 0.3125rem solid var(--convs-mgr-text-color); /* 5px converted to rem */
     pointer-events: none;
   }
   
-  .custom-button {
+  .add-option {
     width: 100%;
     background-color: var(--convs-mgr-placeholder-color);
     border-radius: 0.4375rem;
@@ -95,7 +77,6 @@ input[type='text'] {
   align-items: center; /* Center vertically */
   padding: 8px;
 }
-
 /* Checkbox styles */
 .custom-checkbox {
   width: 18px;
@@ -109,20 +90,16 @@ input[type='text'] {
   cursor: pointer;
   border-radius: None;
 }
-
 .custom-checkbox.checked {
   background-color:var(--convs-mgr-placeholder-color); /* Add a different color when checked */
 }
-
 .custom-checkbox:active {
   background-color:var(--convs-mgr-placeholder-color); /* Change color on click for feedback */
 }
-
 /* You may also want to add a transition for a smooth animation */
 .custom-checkbox {
   transition: background-color 0.2s;
 }
-
 /* Label styles */
 .custom-label {
   color:var(--convs-mgr-input-color);
@@ -134,3 +111,7 @@ input[type='text'] {
   vertical-align: middle; /* Adjust vertical alignment if needed */
 }
 
+.listgone{
+  border: none;
+  background-color: transparent;
+}
