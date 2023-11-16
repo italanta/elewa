@@ -66,6 +66,8 @@ class CloudTasksService
   {
     const endpoint = this.getEndpoint('deleteJob');
     const taskName = this.getTaskName(this.queuePath('side-tasks'), options.endDate, options.id);
+    
+    options.dispatchTime = options.endDate;
     const task = this.generateTask(payload, options, taskName, endpoint);
 
     const request = { parent: this.queuePath('side-tasks'), task };
