@@ -1,46 +1,60 @@
 mat-card {
-	min-width: 200px;
-	position: relative;
+  min-width: 200px;
+  position: relative;
+}
+
+form {
+  padding-top: 0.3125rem;
 }
 
 input {
   max-width: 100%;
-  height: fit-content!important;
-  padding: 5px 10px;
-	margin-bottom: 5px;
-  border-radius: 3px;
-  caret-color: var(--convs-mgr-color-text-black);
-  color: var(--convs-mgr-color-text-black);
+  margin: 5px 0;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--convs-mgr-placeholder-color);
+  resize: none;
+  padding: 10px;
+}
+
+input:focus {
+  border: none;
   outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
 }
 
 .video-wrapper {
-	background-color: white;
-	width: 100%;
-	font-size: 2rem;
-	min-height: 100px;
-	font-size: 3rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: var(--convs-mgr-color-primary-purple);
-	border-radius: 0.3rem;
-	cursor: pointer;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	margin-bottom: 10px;
+  background-color: var(--convs-mgr-placeholder-color);
+  width: 100%;
+  font-size: 2rem;
+  min-height: 4rem;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--convs-mgr-color-primary-purple);
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
 
 video {
-	max-width: 220px;
+  max-width: 220px;
 }
 
 .upload-video {
-	max-width: 100%;
-	max-height: 150px;
-	object-fit: cover;
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: cover;
 }
 
+img{
+	width: 1.8rem;
+	height: 1.8rem;
+}
 
-  
-  
+.fa-video{
+  width: 1.3rem;
+	height: 1.3rem;
+  transform: translateY(-50%);
+  color: black;
+}

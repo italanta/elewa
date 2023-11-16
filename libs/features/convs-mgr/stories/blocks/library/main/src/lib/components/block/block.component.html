@@ -30,7 +30,9 @@
             </button> 
         </div>
     
-        <hr class="form-border"> 
+        <div *ngIf="block.type !== endStoryAnchor">
+            <hr>
+        </div>
 
         <div *ngSwitchCase="messagetype">
             <app-message-block [id]="id" [block]="block" [jsPlumb]="jsPlumb" [textMessageForm]="blockFormGroup">

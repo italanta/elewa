@@ -13,5 +13,13 @@ export const categoryOptions = [
     { value: 'milestone', viewValue: 'Milestone reached' },
     { value: 'specific-time', viewValue: 'Send message at specific time' },
     { value: 'inactivity', viewValue: 'After inactivity' },
+    { value: 'recurring', viewValue: 'Set up recurring messages' },
   ];
-    
+ 
+  export const recurrenceOptions =[
+    'Never', 'Daily', 'Weekly', 'Monthly'
+  ]
+
+  export const weekdays = [
+    'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+  ]

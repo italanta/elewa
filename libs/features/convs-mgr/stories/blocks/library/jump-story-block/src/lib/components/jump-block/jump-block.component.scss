@@ -5,20 +5,24 @@
 
 select {
   margin: 5px 0;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  border-radius: 5px;
+  border: none;
+  border-radius: 10px;
   resize: none;
   padding: 10px;
   max-width: 24rem;
+  background-color: #F3F3F3;
+  color: #7C7C7C;
 }
 
 #block {
   max-width: 100%;
   margin: 5px 0;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  border-radius: 5px;
+  border: none;
+  border-radius: 10px;
   resize: none;
   padding: 10px;
+  background-color: #F3F3F3;
+  color: #7C7C7C;
 }
 
 #block:focus-visible {

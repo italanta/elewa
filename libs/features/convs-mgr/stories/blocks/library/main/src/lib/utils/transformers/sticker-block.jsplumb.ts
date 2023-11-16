@@ -24,7 +24,6 @@ export function _StickerBlockDecoratePlumb(block: StickerMessageBlock, comp: Com
     endpoint: "Rectangle",
     anchor: "Left",
     maxConnections: -1
-  });
-
+  });  
   return comp;
 }

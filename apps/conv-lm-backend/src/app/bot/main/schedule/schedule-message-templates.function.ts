@@ -2,9 +2,9 @@ import { RestRegistrar } from "@ngfi/functions";
 
 import { ScheduleMessageTemplatesHandler } from "@app/private/functions/convs-mgr/conversations/message-templates/scheduler";
 
-import { ConvLearnFunction } from "../../../conv-learn-func.class";
+import { ConvLearnFunction } from "../../../../conv-learn-func.class";
 
-const handler = new ScheduleMessageTemplatesHandler
+const handler = new ScheduleMessageTemplatesHandler();
 
 /**
  * @Description : When an end user sends a message to the chatbot from a thirdparty application, this function is triggered, 
