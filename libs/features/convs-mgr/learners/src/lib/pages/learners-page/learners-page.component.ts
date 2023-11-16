@@ -246,8 +246,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       dispatchTime: this.scheduleMessageOptions.dispatchDate,
     };
 
-    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
-    this.openTemplate(payload.id);
+    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
+      if(resp) {
+        // TODO: Display Toast Message based on Response
+        this.openTemplate(payload.id);
+      }
+    });
   }
 
   scheduleInactivity(payload: any) {
@@ -256,8 +260,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       inactivityTime: this.scheduleMessageOptions.inactivityTime
     };
   
-    this._sBs.sink = this._scheduleMessageService.scheduleInactivity(inactivityRequest).subscribe();
-    this.openTemplate(payload.id);
+    this._sBs.sink = this._scheduleMessageService.scheduleInactivity(inactivityRequest).subscribe((resp)=> {
+      if(resp) {
+        // TODO: Display Toast Message based on Response
+        this.openTemplate(payload.id);
+      }
+    });
   }
 
   openTemplate(id: any){
