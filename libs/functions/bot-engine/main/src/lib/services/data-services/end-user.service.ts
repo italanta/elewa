@@ -2,9 +2,7 @@ import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from './data-service-abstract.class';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
-import { throws } from 'assert';
 
 /**
  * Contains all the required database flow methods for the chat-status collection

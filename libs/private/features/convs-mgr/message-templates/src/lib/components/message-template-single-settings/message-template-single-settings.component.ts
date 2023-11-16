@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { JobTypes, MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
@@ -23,6 +23,7 @@ import { frequencyOptions } from '../../utils/constants';
 })
 export class MessageTemplateSingleSettingsComponent implements OnInit{
   selectedTime: Date;
+  inactivityTime: number;
   selectedMilestone: EventBlock;
 
   _sBS = new SubSink();
@@ -84,6 +85,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     dialogRef.componentInstance?.timeInHoursSelected.subscribe((selectedTime: number) => {
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
       if (specificTimeOption) {
+        this.inactivityTime = selectedTime;
         specificTimeOption.viewValue = `Send message after ${selectedTime} hours of inactivity.`;
       }
     });
@@ -102,11 +104,21 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     }
   }
 
-  sendButtonClicked(template: MessageTemplate, selectedDate: Date){
-    this._route$$.navigate(['/learners'], {queryParams: {templateId: template.id, dispatchDate: selectedDate}});
+  sendButtonClicked(scheduleMessageOptions: any, action: string){
+
+    scheduleMessageOptions.type = JobTypes.SimpleMessage;
+    scheduleMessageOptions.action = action;
+    scheduleMessageOptions.id = scheduleMessageOptions.template.id;
+
+    this._scheduleMessageService.setOptions(scheduleMessageOptions);
+
+    this._route$$.navigate(['/learners']);
   }
 
   saveSchedule() {
+    // TODO: Use interface
+    let scheduleMessageOptions: any;
+
     if (this.selectedOption) {
       let templateMessage: MessageTemplate;
       // TODO: @Lemmy/Beryl Pass template id from query params
@@ -115,16 +127,20 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
         if (templateMessage) {
           switch (this.selectedOption) {
             case 'specific-time':
-              this.sendButtonClicked(templateMessage, this.selectedTime);
+              scheduleMessageOptions = this._getSpecificTimeOptions(templateMessage);
+
+              this.sendButtonClicked(scheduleMessageOptions, 'specific-time');
               break;
             case 'milestone':
               this.saveMilestone(template);
               break;
             case 'inactivity':
-              this.saveMilestone(template);
+              scheduleMessageOptions = this._getInactivityOptions(templateMessage);
+
+              this.sendButtonClicked(scheduleMessageOptions, 'inactivity');
               break;
             default:
-              console.log('Unsupported option');
+              this.openSpecificTimeModal();
               break;
           }
         }
@@ -147,5 +163,18 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     this._sBS.sink= this._milestoneTriggerService.addMilestoneTrigger(milestoneTriggerRequest).subscribe()
 
     // TODO: save scheduled messages
+  }
+
+  _getInactivityOptions(templateMessage: MessageTemplate) {
+    return {
+      template: templateMessage,
+      inactivityTime: this.inactivityTime,
+    }
+  }
+  _getSpecificTimeOptions(templateMessage: MessageTemplate) {
+    return {
+      template: templateMessage,
+      dispatchDate: this.selectedTime,
+    }
   }
 }
