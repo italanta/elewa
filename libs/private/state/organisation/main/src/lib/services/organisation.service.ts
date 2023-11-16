@@ -15,7 +15,7 @@ import { iTalUser } from '@app/model/user';
 
 import { ActiveOrgStore } from '../stores/active-org.store';
 import { OrgStore } from '../stores/organisation.store';
-import { PermissionsStore } from '../stores/permissions.store';
+import { PermissionsStateService } from './permisssions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class OrganisationService {
               private _orgs$$: OrgStore,
               private _db: AngularFirestore,
               private _aff: AngularFireFunctions,
-              private _permissionsStore: PermissionsStore
+              private _permissionsServ$: PermissionsStateService
   ){}
 
   /** Gets the active(current) organisation */
@@ -74,11 +74,11 @@ export class OrganisationService {
   }
 
   private setPermissions(perm: CLMPermissions) {
-    this._permissionsStore.set(perm);
+    this._permissionsServ$.setOrgPermissions(perm);
   }
 
   private _afterCreateOrg() {
-    // give time for permissions to set
+    // give time for permissions to set ('less than 5sec doesn't always work')
     setTimeout(() => this._router$$.navigate(['/home']), 5000);
   }
 
@@ -99,11 +99,11 @@ export class OrganisationService {
   }
 
   getOrgPermissions () {
-    return this._permissionsStore.get();
+    return this._permissionsServ$.getOrgPermissions();
   }
 
   updateOrgPermissions(permissions: FormGroup) {
-    return this._permissionsStore.create(permissions.value);
+    return this._permissionsServ$.updatePermissions(permissions.value);
   }
 
   removeUserFromOrg(user: iTalUser) {
@@ -115,7 +115,6 @@ export class OrganisationService {
       }
     })
   }
-
 
   async removeOrgFromUser(user: iTalUser, org: Organisation) {
     user.orgIds.splice(user.orgIds.indexOf(org.id as string), 1);

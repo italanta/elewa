@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 import { combineLatest, Observable } from 'rxjs';
@@ -37,10 +36,15 @@ export class PermissionsStateService {
     return this._permissions$$.get();
   }
 
+  /** Sets the permissions configured in the active organisation */
+  setOrgPermissions(perm: CLMPermissions) {
+    return this._permissions$$.set(perm);
+  }
+
   /** Updates the permissions for the active organisation */
-  // updateOrgPermissions(permissions: FormGroup) {
-  //   return this._permissions$$.update(permissions.value);
-  // }
+  updatePermissions (perm: CLMPermissions) {
+    return this._permissions$$.update(perm);
+  }
 
   getPermissions(): Observable<[CLMPermissions, iTalUser]> {
     return combineLatest([this._permissions$$.get(), this._user$$.getUser()]);
