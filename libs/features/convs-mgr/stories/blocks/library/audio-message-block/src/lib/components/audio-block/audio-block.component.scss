@@ -16,11 +16,13 @@ input {
 	height: fit-content !important;
 	padding: 5px 10px;
 	margin-bottom: 5px;
-	border-radius: 3px;
+	border-radius: 0.7em;
 	caret-color: var(--convs-mgr-color-text-black);
 	color: var(--convs-mgr-color-text-black);
 	outline: none;
-	border: 1px solid var(--convs-mgr-color-text-black);
+	background-color: var(--convs-mgr-color-primary-light-grey);
+	border: none;
+
 }
 
 .fileSrc {
@@ -37,9 +39,8 @@ input {
 .audio-icon {
 	text-align: center;
 	color: var(--convs-mgr-color-primary-purple) !important;
-	width: 200px;
-	height: 100px;
-	background-color: var(--convs-mgr-color-primary-white) !important;
+	width: 220px;
+	height: 80px;
 	opacity: 1;
 
 	.fa-file-audio {
@@ -48,16 +49,26 @@ input {
 	}
 
 	.fa-spin {
-		color: var(--convs-mgr-color-primary-purple) !important;
+		color: var(--convs-mgr-color-text-inactive-bolder) !important;
 		border: none;
+	}
+
+	img{
+		height: 30px;
+		padding-top: 20px;
+		padding-bottom: 10px;
 	}
 }
 
 .audio_bg {
-	margin: 5px 0;
-	width: 210px;
-	border-radius: 4px;
-	border: 2px solid var(--convs-mgr-color-primary-purple);
+	background-color: var(--convs-mgr-color-primary-light-grey);
+	width: 100%;
+	height: 100px;
+	resize: none;
+	border-radius: 0.7em;
+	padding: 8px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
 
 	&.error {
 		border: 3px solid red !important;
@@ -87,6 +98,19 @@ input {
 
 #waveform {
 	width: 100%;
-	height: 30px; // Adjust the height as needed
-  }
-  
+}
+.wave{
+	width: 100%;
+}
+
+.waveform-container{
+	display: flex;
+}
+
+.play-button{
+	cursor: pointer;
+	height: 20px;
+	width :20px;
+}
+
+
