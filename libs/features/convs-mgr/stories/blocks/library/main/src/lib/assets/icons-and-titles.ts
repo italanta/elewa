@@ -52,6 +52,7 @@ export const ICONS_AND_TITLES = {
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
     icon: 'fas fa-video',
+    svgIcon: "assets/svgs/blocks/system-uicons_video.svg"
   },
   15: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STICKER',

@@ -1,15 +1,32 @@
 <div class="wide" [id]="id" *ngIf="videoMessageForm">
-  <form [formGroup]="videoMessageForm" fxLayout="column" fxLayoutALign="start center">
-
+  <form
+    [formGroup]="videoMessageForm"
+    fxLayout="column"
+    fxLayoutALign="start center"
+  >
     <div (click)="openVideoUploadModal()">
       <div class="video-wrapper">
         <div *ngIf="!isLoadingVideo && !videoUrl; else inputHasVideo">
-          <i id="icon" class="fas fa-play-circle"></i>
+          <ng-container *ngIf="svgIcon; else iconClass">
+            <img [src]="svgIcon" alt="" />
+          </ng-container>
+
+          <ng-template #iconClass class="fa-video">
+            <i id="icon" [class]="faIcon"></i>
+          </ng-template>
         </div>
         <ng-template #inputHasVideo>
-          <video id="video" #video (load)="isLoadingVideo = true" *ngIf="!isLoadingVideo && videoUrl" class="upload-video" alt="" controls
-            autoplay>
-            <source [src]="videoUrl" type="video/mp4">
+          <video
+            id="video"
+            #video
+            (load)="isLoadingVideo = true"
+            *ngIf="!isLoadingVideo && videoUrl"
+            class="upload-video"
+            alt=""
+            controls
+            autoplay
+          >
+            <source [src]="videoUrl" type="video/mp4" />
           </video>
           <div *ngIf="isLoadingVideo" class="doc-icon">
             <i class="fas fa-circle-notch fa-spin"></i>
@@ -17,9 +34,19 @@
         </ng-template>
       </div>
     </div>
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoMessageForm"></app-default-option-field>
-    <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco" formControlName="message">
-    <input type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
-      formControlName="fileSrc">
+    <input
+      type="text"
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.CAPTION' | transloco"
+      formControlName="message"
+    />
+    <input
+      type="text"
+      [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-LINK' | transloco"
+      formControlName="fileSrc"
+    />
+    <app-default-option-field
+      [jsPlumb]="jsPlumb"
+      [blockFormGroup]="videoMessageForm"
+    ></app-default-option-field>
   </form>
 </div>
