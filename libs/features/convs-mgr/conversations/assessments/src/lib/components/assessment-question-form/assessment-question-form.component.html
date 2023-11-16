@@ -40,14 +40,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="plus-icon" (mouseenter)="setHoveredState(true)" (mouseleave)="setHoveredState(false)">
-			<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
-				(click)="addNewQuestion.emit()">
-				<i class="fas fa-plus"></i>
-			</button>
-			<div *ngIf="isHovered" class="hover-text">
-				<p >Add Question</p>
-			</div>
-	</div>
-	
+	<button matTooltip="add Question" mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
+		(click)="addNewQuestion.emit()">
+		<i class="fas fa-plus"></i>
+	</button>
 </div>

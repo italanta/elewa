@@ -34,8 +34,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   
   activeCard: number;
 
-  isHovered: boolean;
-
   constructor() {}
 
   feedBackConditions = [
@@ -48,10 +46,6 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     this.activeCard$.pipe(tap((activeId) => {
       this.activeCard = activeId;
     })).subscribe();
-  }
-
-  setHoveredState(isHovered: boolean) {
-    this.isHovered = isHovered;
   }
 
   get questionsList() {
