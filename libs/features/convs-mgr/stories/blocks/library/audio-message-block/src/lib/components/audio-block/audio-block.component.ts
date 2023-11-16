@@ -5,6 +5,8 @@ import { SubSink } from 'subsink';
 import { take } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import WaveSurfer from 'wavesurfer.js';
+import {ICONS_AND_TITLES} from '../../../../../main/src/lib/assets/icons-and-titles'
+
 
 
 import { FileStorageService } from '@app/state/file';
@@ -26,6 +28,8 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
   private _sBs = new SubSink();
   private wavesurfer!: WaveSurfer;
 
+  svgIcon = ""
+
 
   file: File;
   audioInputId: string;
@@ -44,7 +48,13 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
       this._checkSizeLimit(fileSize);
     }
 
-    /** Call the method to initialize WaveSurfer*/
+     /** Assign the SVG icon based on the 'block.type' to 'svgIcon'.*/
+     this.svgIcon = this.getBlockIconAndTitle(this.block.type).svgIcon;
+    }
+  
+    /**Get icon and title information based on 'type'. */
+    getBlockIconAndTitle(type:number) {
+      return ICONS_AND_TITLES[type];
     
 
   }
