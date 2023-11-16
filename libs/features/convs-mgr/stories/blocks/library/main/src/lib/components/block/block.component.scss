@@ -29,6 +29,11 @@ mat-card {
 	color: var(--convs-mgr-color-primary-black)
 }
 
+img{
+	width: 25px;
+	margin-top: 3px;
+}
+
 .block-title {
 
 	font-weight: 400;	
@@ -64,8 +69,8 @@ mat-card {
 	padding: 0;
 }
 
-.form-border {
-	border-top: 0.5px solid #DADADA;
+hr {
+	border: 0.5px solid var(--convs-mgr-border-color);
 }
 
 .icon-with-text{

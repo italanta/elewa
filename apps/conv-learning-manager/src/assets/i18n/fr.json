@@ -609,7 +609,19 @@
       "TIME-PLACEHOLDER": "Heure",
       "SAVE-BUTTON": {
         "SAVE": "Enregistrer"
-      }
+      },
+      "REMOVE-END":"Supprimer la date de fin",
+      "RECUR" :"Se reproduire",
+      "RECUR-DAILY":"Configurations quotidiennes récurrentes",
+      "RECUR-WEEKLY":"Configurations hebdomadaires récurrentes",
+      "RECUR-MONTHLY":"Configurations mensuelles récurrentes",
+      "DAYS":"jours",
+      "WEEKS":"semaines",
+      "MONTHS":"mois",
+      "REPEAT-EVERY":"Répétez tous les",
+      "OCCURS-MONTHLY":"Se produit chaque mois jusqu'à",
+      "OCCURS-WEEKLY":"Se produit chaque semaine jusqu'à",
+      "OCCURS-DAILY":"Se produit tous les jours jusqu'à"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
@@ -813,13 +825,39 @@
   },
   "COMPANY-INFORMATION":{
     "BUTTON":{
-      "UPLOAD":"télécharger",
-      "REMOVE":"retirer"
+      "UPLOAD":"Télécharger",
+      "REMOVE":"Retirer",
+      "CANCEL":"Annuler"
     },
     "REMOVE":"Retirer",
-    "BASIC-INFO":"INFORMATIONS DE BASE",
+    "BASIC-INFO":"Informations de base",
     "ADDRESS-INFO":"Informations sur l'adresse",
     "EDIT-CO-INFO":"Modifier les informations de l'entreprise",
-    "SAVE-ORG":"Enregistrer l'organisation"
+    "SAVE-ORG":"Enregistrer l'organisation",
+    "CHANNEL-MODAL":{
+        "BUTTONS":{
+          "CANCEL":"Annuler",
+          "CONTINUE":"Continuer"
+        },
+        "ADD-CHANNEL":"Ajouter une chaîne",
+        "SELECT-PLATFORM":"Sélectionnez la plateforme",
+        "ADD-DETAILS":"Ajouter des détails",
+        "WHATSAPP":"WhatsApp",
+        "Messenger":"Messenger",
+        "GENERAL-DETAILS":"Détails Généraux",
+        "BOT-DETAILS":"Détails du canal",
+        "WHATSAPP-CHANNEL-DETAILS":"Détails de la chaîne WhatsApp",
+        "ACCESS-TOKEN":"Jeton d'accès",
+        "BOT-PHONE-NUMBER":"Numéro de téléphone du canal",
+        "BOT-PHONE-NUMBER-ID":"ID du numéro de téléphone du canal",
+        "BUSINESS-ACCOUNT-ID":"ID de compte professionnel",
+        "PAGE-ID":"Identifiant de la page",
+        "MESSENGER-CHANNEL-DETAILS":"Détails du canal Messenger",
+        "CHANNEL-NAME":"Nom du canal",
+        "PLATFORM":"Plate-forme",
+        "FIRST-STORY":"Première histoire",
+        "EDIT-CHANNEL":"Modifier la chaîne"
+        
+    }
   }
 }

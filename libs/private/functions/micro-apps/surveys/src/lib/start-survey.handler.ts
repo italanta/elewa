@@ -1,6 +1,5 @@
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, FunctionContext } from '@ngfi/functions';
-import { Query } from '@ngfi/firestore-qbuilder';
 
 import { StartSurveyReq, StartSurveyResponse } from '@app/private/model/convs-mgr/micro-apps/surveys';
 import { BlockDataService, BlockToStandardMessage, ChannelDataService, ConnectionsDataService, CursorDataService, EnrolledUserDataService } from '@app/functions/bot-engine';
@@ -27,10 +26,10 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
       }
   
       // Get the message template
-      if (req.messageTemplateName) {
+      if (req.messageTemplateId) {
         const templatesRepo$ = tools.getRepository<any>(`orgs/${commChannel.orgId}/message-templates`);
-  
-        messageToSend = (await templatesRepo$.getDocuments(new Query().where('name', '==', req.messageTemplateName)))[0];
+
+        messageToSend =  await templatesRepo$.getDocumentById(req.messageTemplateId);
 
         messageToSend.type = MessageTypes.TEMPLATE;
       } else {
@@ -43,13 +42,13 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
       }
   
       let count = 0;
-      let successfulUsers: string[] = [];
-      let failedUsers: string[] = [];
+      const successfulUsers: string[] = [];
+      const failedUsers: string[] = [];
   
       // Update the cursor
-      for (let id of req.enrolledUserIds) {
-        const {endUserId, receiveID} = await this._getEndUserId(id, commChannel.type, commChannel.orgId, tools);
-  
+      for (const endUserId of req.endUserIds) {
+        const contactID =  endUserId.split('_')[2];
+
         const cursorService = new CursorDataService(tools);
         const latestCursor = await cursorService.getLatestCursor(endUserId, commChannel.orgId);
         let newCursor: Cursor;
@@ -92,14 +91,14 @@ export class SendSurveyHandler extends FunctionHandler<StartSurveyReq, StartSurv
         // Send the template message to the users
         messageToSend.n = commChannel.n;
         messageToSend.direction = MessageDirection.FROM_AGENT_TO_END_USER;
-        messageToSend = this._setReceiveID(commChannel.type, receiveID, messageToSend);
+        messageToSend = this._setReceiveID(commChannel.type, contactID, messageToSend);
   
         const resp = await sendMessage.execute(messageToSend, null, tools);
 
         if(resp.success) {
-          successfulUsers.push(receiveID);
+          successfulUsers.push(contactID);
         } else {
-          failedUsers.push(receiveID);
+          failedUsers.push(contactID);
         }
 
         count++;

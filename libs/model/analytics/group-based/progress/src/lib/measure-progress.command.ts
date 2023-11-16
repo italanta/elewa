@@ -1,5 +1,6 @@
 import { Classroom } from "@app/model/convs-mgr/classroom";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
+import { EnrolledEndUser } from "@app/model/convs-mgr/learners";
 
 /**
  * Command to measure progress of a participant.
@@ -18,6 +19,9 @@ export interface MeasureProgressCommand
 
 export interface Participant 
 {
+  /** enrolledEndUser */
+  enrolledUser: EnrolledEndUser
+
   /** endUser */
   endUser: EndUser
 

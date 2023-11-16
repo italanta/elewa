@@ -8,16 +8,7 @@ import {
 } from '@iote/bricks-angular';
 import { MultiLangModule } from '@ngfi/multi-lang';
 
-import {
-  MessageTemplateStore,
-  MessageTemplatesService,
-  MilestoneTriggersService,
-  MilestoneTriggersStore,
-  ScheduleMessageService,
-  ScheduledMessageStore,
-} from '@app/private/state/message-templates';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
-import { ChannelService, ChannelsStore } from '@app/private/state/organisation/channels';
 
 import { MessageTemplateHomeComponent } from './pages/message-template-home/message-template-home.component';
 import { MessageTemplateHelpComponent } from './pages/message-template-help/message-template-help.component';
@@ -57,16 +48,6 @@ import { MessageTemplateRouterModule } from './message-template.router';
     AfterInactivityModalComponent,
     MilestoneReachedModalComponent,
     MessageTemplatesHistoryComponent,
-  ],
-  providers: [
-    MessageTemplatesService, 
-    MessageTemplateStore,
-    ScheduleMessageService,
-    ScheduledMessageStore,
-    ChannelService,
-    ChannelsStore,
-    MilestoneTriggersService,
-    MilestoneTriggersStore
-  ],
+  ]
 })
 export class ConvsMgrMessageTemplatesModule {}

@@ -4,5 +4,5 @@
 export interface MeasureGroupProgressCommand 
 {
   /** Unix timestamp at which time to measure progress. */
-  interval: number;
+  interval?: number;
 }

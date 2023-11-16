@@ -43,7 +43,7 @@ export class MessageTemplatesHistoryComponent implements OnInit {
             return this.scheduleMsgsServ$.getScheduledMessages$().pipe(
               map((schedMsgs) => {
                 return schedMsgs.filter(
-                  (scheduledMsg) => scheduledMsg.message.name === msgTemp?.name
+                  (scheduledMsg) => scheduledMsg.id === msgTemp?.id
                 );
               })
             );

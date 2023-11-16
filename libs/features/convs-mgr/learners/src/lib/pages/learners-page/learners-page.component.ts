@@ -17,7 +17,7 @@ import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { ChannelService } from '@app/private/state/organisation/channels';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
@@ -26,6 +26,8 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-learners-page',
@@ -64,7 +66,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedTime: Date;
   activeMessageId: string;
 
+  channel: CommunicationChannel;
+
   constructor(
+    private _channelService: CommunicationChannelService,
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
@@ -74,8 +79,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     private _messageService: MessageTemplatesService,
     private _route: ActivatedRoute,
     private _scheduleMessageService: ScheduleMessageService,
-    private _route$$: Router,
-    private _channelService: ChannelService
+    private _route$$: Router
   ) {}
 
   ngOnInit() {
@@ -168,11 +172,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  sendSurvey() {
-    const selectedPhoneNumbers = this.selection.selected.map((user) => user.id);
-    this._surveyService.sendSurvey({surveyId: this.surveyId, enrolledUserIds:selectedPhoneNumbers }).subscribe();
-  }
-
   isSomeSelected() {
     return this.selection.selected.length > 0;
   }
@@ -219,22 +218,21 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
    }
 
    sendMessageButtonClicked() {
-    const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber) as string[];
-    const endUserIds = this.selection.selected.map((user) => user.id) as string[];
+    const selectedUsers = this.selection.selected;
   
     this._sBs.sink = this._messageService.getTemplateById(this.activeMessageId).subscribe((template) => {
       if (template) {
         if (this.selectedTime) {
-          this.scheduleMessage(template, endUserIds);
+          this.scheduleMessage(template, selectedUsers);
         } else {
-          this.sendMessageWithChannel(template, selectedPhoneNumbers);
+          this.sendMessageWithChannel(template, selectedUsers);
         }
       }
     });
   }
   
   
-  scheduleMessage(template: MessageTemplate, endUserIds: string[]) {
+  scheduleMessage(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
     const scheduleRequest = {
       message: {
         type: MessageTypes.TEXT,
@@ -244,7 +242,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       },
       channelId: template?.channelId,
       dispatchTime: this.selectedTime,
-      endUsers: endUserIds,
+      enrolledEndUsers: selectedUsers.map((user)=> user.id)
     };
   
     this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
@@ -256,17 +254,23 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   }
   
-  sendMessageWithChannel(template: MessageTemplate, selectedPhoneNumbers: string[]) {
+  sendMessageWithChannel(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
     const channelId = template?.channelId || '';
-  
-    this._messageService.sendMessageTemplate({
-      endUsers: selectedPhoneNumbers,
+
+    const payload = {
       template: template,
       type: MessageTypes.TEXT,
-      templateType: TemplateMessageTypes.Text
-    }, channelId)
-    .subscribe();
+      templateType: TemplateMessageTypes.Text,
+      enrolledEndUsers: [] as string[],
+    };
+  
+    this._messageService.sendMessageTemplate(payload, channelId, selectedUsers).subscribe();
+    
     this.openTemplate(template.id);
+  }
+
+  _getChannelDetails(channelId: string) {
+    return this._channelService.getSpecificChannel(channelId);
   }
 
   ngOnDestroy() {
