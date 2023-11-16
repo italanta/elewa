@@ -12,8 +12,7 @@ export const categoryOptions = [
   export const frequencyOptions = [
     { value: 'milestone', viewValue: 'Milestone reached' },
     { value: 'specific-time', viewValue: 'Send message at specific time' },
-    { value: 'inactivity', viewValue: 'After inactivity' },
-    { value: 'recurring', viewValue: 'Set up recurring messages' },
+    { value: 'inactivity', viewValue: 'After inactivity' }
   ];
  
   export const recurrenceOptions =[
