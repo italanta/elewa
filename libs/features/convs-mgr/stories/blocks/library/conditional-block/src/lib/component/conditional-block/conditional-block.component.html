@@ -1,18 +1,18 @@
-<div [id]="id" *ngIf="conditionalBlockForm">
+<div [id]="id" class="wide" *ngIf="conditionalBlockForm">
   <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutAlign="start center">
     <div class="details-wrapper">
       <div class="form-group">
         <div class="options-wrapper">
-          <select class="assess-label" name="assessmentlabel" required id="assessmentlabel">
+          <select class="assess-label" name="assessmentlabel" required id="assessmentlabel" [attr.disabled]="isTyped.value ? true : null">
             <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
             <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
           </select>
+          
           <span class="custom-dropdown-arrow"></span>
         </div>
       </div>
       <div class="select-variable">
         <input type="checkbox" class="custom-checkbox" formControlName="isTyped" name="check" id="isTyped">
-
         <!-- <div class="custom-checkbox" [class.checked]="isTyped" (click)="toggleCheckbox()"></div> -->
         <label class="custom-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
       </div>
@@ -24,12 +24,13 @@
       <div *ngFor="let option of options.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutAlign="start center" fxFlex="100">
           <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
-          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+          <!-- <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field> -->
+          <app-option-input-field #optionInputFields [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i"
+            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
         </div>
       </div>
       <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
-
     </div>
   </form>
-  <button (click)="addNewOption()" class="custom-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
+  <button (click)="addNewOption()" class="add-option">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
 </div>
