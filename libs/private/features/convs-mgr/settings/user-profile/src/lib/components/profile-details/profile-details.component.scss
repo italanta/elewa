@@ -6,8 +6,8 @@
 }
 
 .user-profile-picture {
-  width: 200px; /* Adjust as needed */
-  height: 200px; /* Adjust as needed */
+  width: 12.5rem; /* Adjust as needed */
+  height: 12.5rem; /* Adjust as needed */
   border-radius: 50%;
   border: 1px var(--convs-mgr-color-707070) solid;
   overflow: hidden; /* Clip the image to the circular border */
@@ -33,9 +33,9 @@
 .password-button{
   margin-right: 5vh;
   margin-top: 2vh;
-  width: 212px;
-  height: 35px;
-  border-radius: 25px;
+  width: 13.25rem;
+  height: 2.2rem;
+  border-radius: 1.6rem;
 }
 
 
@@ -51,7 +51,7 @@
 }
 
 .label-blue {
-  margin: 10px 0 20px 0;
+  margin: 0.625rem 0 1.25rem 0;
   font-weight: 600;
   color: var(--connector-color-blue);
   font-size: medium;
@@ -67,10 +67,10 @@
 }
 
 .user-profile-picture img {
-  width: 200px;
-  height: 200px;
+  width: 12.5rem;
+  height: 12.5rem;
   object-fit: contain;
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 .profile-details {
@@ -88,21 +88,21 @@ div{
   .section-one {
     width: 100%;
     height: fit-content;
-    padding-bottom: 110px;
+    padding-bottom: 6.875rem;
     margin-bottom: 1vh;
     border-bottom: solid var( --convs-mgr-color-C7CDD7) 1px;
     .user-data{
       .user-profile-picture{
         .top-butons{
-          margin-top: 10px;
+          margin-top: 0.625rem;
         }
       }
      
       div{
         button{
-          border-radius: 25px;
-          height: 35px;
-          width: 102px;
+          border-radius: 1.56rem;
+          height: 2.2rem;
+          width: 6.4rem;
           // position: fixed;
           top: -10vh;
          }
@@ -123,20 +123,20 @@ div{
             
             input{
               width: 100%; 
-              height: 41px; 
-              border-radius: 8px; 
+              height: 2.5625rem; 
+              border-radius: 0.5rem; 
               border: 1px var(--convs-mgr-color-707070) solid;
               color: var(--convs-mgr-color-101010);
               font-size: medium;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
-              padding-left: 20px;  
+              padding-left: 1.25rem;  
             }
           }
         }
         .bottom-buttons{
-          margin-top: 346px;
+          margin-top: 21.625rem;
           right: 1px;
           position: absolute;
           display: flex;
@@ -153,7 +153,7 @@ div{
     }
   }
   .section-two{
-    padding-top: 5px;
+    padding-top: 0.3rem;
     border-bottom: solid var( --convs-mgr-color-C7CDD7) 1px;
     .label{
       color: var(--convs-mgr-color-101010);
@@ -169,7 +169,7 @@ div{
         font-family: Roboto;
         font-weight: 300;
         word-wrap: break-word;
-        margin: 15.25px 0 43px 0;
+        margin: 1rem 0 2.6875rem 0;
       }
     }
     div{
@@ -189,7 +189,7 @@ div{
         font-size: medium;
         font-family: Roboto;
         font-weight: 300;
-        line-height: 26px;
+        line-height: 1.625rem;
         word-wrap: break-word
       }
       
@@ -201,13 +201,13 @@ div{
 
 
 .email-button {
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   width: fit-content;
   color: var(--convs-mgr-color-text-white);
 }
 
 .toolbar {
-  padding: 30px 10px 0 10px;
+  padding: 1.875rem 0.625rem 0 0.625rem;
   width: 100%;
 }
 
@@ -220,7 +220,7 @@ div{
 }
 
 .spinner p {
-  margin-right: 30px;
+  margin-right: 1.875rem;
 }
 
 :host ::ng-deep .mat-mdc-form-field {
@@ -229,18 +229,18 @@ div{
 
 :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 
 .mat-mdc-form-field-infix {
-  padding-top: 8px!important;
-  padding-bottom: 0px!important;
+  padding-top: 0.5rem!important;
+  padding-bottom: 0!important;
 }
 
 :host ::ng-deep .mat-mdc-form-field-infix {
-  min-height: 40px!important;
-  max-height: 40px!important;
+  min-height: 2.5rem!important;
+  max-height: 2.5rem!important;
 }
 
 :host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
-  height: 40px!important;
-  padding: 7px!important;
+  height: 2.5rem!important;
+  padding: 0.44rem!important;
 }
 ::ng-deep .mat-mdc-tab-body-content{
   overflow: hidden !important;

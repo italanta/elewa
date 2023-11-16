@@ -2,24 +2,31 @@
     height: fit-content;
     padding: 0.5rem;
     .buttons{
+        padding: 2rem 0 0 0;
         display: flex;
         justify-content: space-around;
         .cancel{
             border: 1px var(--convs-mgr-color-button) solid;
             color: #1F7A8C;
-            font-size: 16px;
+            font-size: medium;
             font-family: Roboto;
             font-weight: 400;
-            word-wrap: break-word
+            word-wrap: break-word;
+            border-radius: 1.56rem ;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
 
         }
         .confirm{
             color: white;
-            font-size: 16px;
+            font-size: medium;
             font-family: Roboto;
             font-weight: 400;
             word-wrap: break-word;
             background: var(--convs-mgr-color-button); 
+            border-radius: 1.56rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
         }
     }
 }
