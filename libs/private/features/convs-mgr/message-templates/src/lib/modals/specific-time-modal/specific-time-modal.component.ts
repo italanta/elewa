@@ -1,9 +1,11 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { recurrenceOptions, weekdays } from '../../utils/constants';
+import { ConvertToCron } from '../../utils/convert-to-cron.util';
 
 
 @Component({
@@ -14,14 +16,17 @@ import { recurrenceOptions, weekdays } from '../../utils/constants';
 
 
 export class SpecificTimeModalComponent {
-  @Output() dateTimeSelected = new EventEmitter<{ date: Date, time: string }>();
+  @Output() dateTimeSelected = new EventEmitter<{ date: Date, time: string, endDate?: Date ,cron: string }>();
 
+  schedulerForm: FormGroup;
+  
   selectedDate: Date;
   selectedTime: string;
   action: string;
   selectedRecurrence = 'Never'; 
-  selectedDays: string[] = [];
-  menuButtonText = 'Never'; 
+  selectedDays: number[] = [];
+  menuButtonText = 'Never';
+  cronFormat: string; 
 
 
     // Arrays to populate the "Repeat every" select dropdowns
@@ -41,17 +46,28 @@ export class SpecificTimeModalComponent {
     selectedWeeklyRepeat: number;
     selectedMonthlyRepeat: number;
 
-  
-
-
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 
     private _route$$: Router,
-    private _dialog: Dialog
+    private _dialog: Dialog,
+    private fb: FormBuilder
     ) {}
 
   ngOnInit(): void {
     this.action = this._route$$.url.split('/')[2];
+    this.buildForm();
+  }
+
+  buildForm(){
+    this.schedulerForm = this.fb.group({
+      frequency: [''], // 'daily', 'weekly', 'monthly', etc.
+      date: [''], // The start date
+      time: [''], // specific time for daily
+      daysOfWeek: [''], // for weekly
+      dayOfMonth: [1, [Validators.max(31)]], // for monthly
+      interval: [''], // every x days/weeks/months
+      endDate: ['']
+    });
   }
 
   dateChanged(event: any): void {
@@ -85,11 +101,11 @@ export class SpecificTimeModalComponent {
 
   removeEndDate() {
     // Set the input field value to an empty string to remove the date
-    const dateInput = document.getElementById('birthday') as HTMLInputElement;
-    dateInput.value = '';
+    this.schedulerForm.patchValue({endDate: null})
   }
 
-  toggleSelectedDay(day: string): void {
+  toggleSelectedDay(day: number): void {
+    console.log(this.selectedDays)
       if (this.selectedDays.includes(day)) {
           this.selectedDays = this.selectedDays.filter((d) => d !== day);
       } else {
@@ -99,16 +115,29 @@ export class SpecificTimeModalComponent {
 
   
   saveDateTime(): void {
+    this.schedulerForm.patchValue({
+      daysOfWeek: this.selectedDays || [0]
+    })
+
+    this.selectedDate =  this.schedulerForm.value.date;
+    this.selectedTime =  this.schedulerForm.value.time;
+    const endDate = this.schedulerForm.value.endDate ? new Date(this.schedulerForm.value.endDate) : null;
+
     if (this.selectedDate && this.selectedTime) {
       const selectedDateTime = new Date(this.selectedDate);
       const timeParts = this.selectedTime.split(':');
       selectedDateTime.setHours(Number(timeParts[0]));
       selectedDateTime.setMinutes(Number(timeParts[1]));
-      
-      this.dateTimeSelected.emit({ date: selectedDateTime, time: this.selectedTime });
+
+      if(this.schedulerForm.value.frequency !== 'Never') {
+        this.cronFormat = ConvertToCron(this.schedulerForm.value);
+      }
+
+      this.dateTimeSelected.emit({ date: selectedDateTime, time: this.selectedTime, endDate: endDate || undefined, cron: this.cronFormat });
 
       this.dialogRef.close();
     }
+
   }
 
   closeModal(){
