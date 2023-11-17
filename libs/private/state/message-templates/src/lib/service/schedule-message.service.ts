@@ -1,20 +1,28 @@
 import { Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
-import { ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { BehaviorSubject } from 'rxjs';
 
-import { ScheduledMessageStore } from '../store/scheduled-message.store';
+import { JobTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { TemplateMessage } from '@app/model/convs-mgr/conversations/messages';
 
+import { ScheduledMessageStore } from '../store/scheduled-message.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleMessageService {
+  private scheduleOption$ = new BehaviorSubject<any>({});
+  optionsSet$ = this.scheduleOption$.asObservable();
+  
   constructor(
     private _aff:  AngularFireFunctions, 
     private _scheduledMessageStore$$: ScheduledMessageStore
   ) {}
+
+  setOptions(options: any) {
+    this.scheduleOption$.next(options);
+  }
 
   addScheduledMesssage(message: ScheduledMessage) {
     return this._scheduledMessageStore$$.add(message);
@@ -34,20 +42,12 @@ export class ScheduleMessageService {
     return this._scheduledMessageStore$$.get();
   }
 
-  scheduleMessage(payload: any){
-    const scheduledMessageReq: any = {
-      id: payload.id,
-      channelId: payload.channelId,
-      message: payload.message,
-      enrolledEndUsers: payload.enrolledEndUsers,
-      dispatchTime: payload.dispatchTime
-    }
-    return this.scheduleCallFunction( scheduledMessageReq );
+  scheduleMessage(scheduleMessagePayload: any){
+    return this.scheduleCallFunction(scheduleMessagePayload);
   }
 
   private scheduleCallFunction(data: any){
-    const scheduleRef = this._aff.httpsCallable('scheduleMessageTemplates');
-    return scheduleRef(data);
+    return this._aff.httpsCallable('scheduleMessageTemplates')(data);
   }
 
   scheduleInactivity(inactivityPayload: any) {

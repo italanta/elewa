@@ -40,7 +40,7 @@
 			</div>
 		</div>
 	</div>
-	<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
+	<button matTooltip="add Question" mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
 		(click)="addNewQuestion.emit()">
 		<i class="fas fa-plus"></i>
 	</button>
