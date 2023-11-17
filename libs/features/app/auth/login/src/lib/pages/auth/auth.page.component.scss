@@ -162,7 +162,8 @@ button {
 	}
 }
 
-.highlight-button {
+.highlight-button,
+.log-in {
 	transition: 0.2s ease ;
 	cursor: pointer;
 	color: var(--convs-mgr-color-A700);
@@ -170,8 +171,4 @@ button {
 
 .log-in {
 	margin-left: 10px;
-	transition: ease 0.2s;
-	cursor: pointer;
-	color: var(--convs-mgr-color-A700);
-
 	}
