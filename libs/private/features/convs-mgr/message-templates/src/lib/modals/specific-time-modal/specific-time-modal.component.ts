@@ -66,7 +66,7 @@ export class SpecificTimeModalComponent {
       time: [''], // specific time for daily
       daysOfWeek: [''], // for weekly
       daysOfMonth: [''], // for monthly
-      interval: [''], // every x days/weeks/months
+      interval: [null], // every x days/weeks/months
       endDate: ['']
     });
   }

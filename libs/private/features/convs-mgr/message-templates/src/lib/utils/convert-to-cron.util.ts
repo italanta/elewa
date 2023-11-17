@@ -10,6 +10,7 @@ export function ConvertToCron(data: ScheduleFormData): string {
   let cronExpression = '';
   let daysOfWeekCron: string;
   let daysOfMonthCron: string;
+  const interval = data.interval;
 
   // Extract hours and minutes from time
   const [hours, minutes] = data.time.split(':').map(Number);
@@ -17,7 +18,11 @@ export function ConvertToCron(data: ScheduleFormData): string {
   switch (data.frequency) {
     case 'Daily':
       // For daily, the interval is every 'x' days
-      cronExpression = `${minutes} ${hours} */${data.interval} * *`;
+      cronExpression = `${minutes} ${hours} * * *`;
+
+      if(interval) {
+        cronExpression = `${minutes} ${hours} */${data.interval} * *`;
+      }
       break;
     case 'Weekly':
       // For weekly, the interval is every 'x' weeks
@@ -28,7 +33,12 @@ export function ConvertToCron(data: ScheduleFormData): string {
     case 'Monthly':
       // For monthly, the interval is every 'x' months
       daysOfMonthCron = data.daysOfMonth.join(',');
-      cronExpression = `${minutes} ${hours} ${daysOfMonthCron} */${data.interval} *`;
+
+      cronExpression = `${minutes} ${hours} ${daysOfMonthCron} * *`;
+
+      if(interval) {
+        cronExpression = `${minutes} ${hours} ${daysOfMonthCron} */${data.interval} *`;
+      }
       break;
   }
 
