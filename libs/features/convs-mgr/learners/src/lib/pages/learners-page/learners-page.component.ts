@@ -27,7 +27,6 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 
 @Component({
   selector: 'app-learners-page',
