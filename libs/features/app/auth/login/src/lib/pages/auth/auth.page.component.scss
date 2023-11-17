@@ -162,12 +162,13 @@ button {
 	}
 }
 
-.highlight-button:hover {
+.highlight-button,
+.log-in {
 	transition: 0.2s ease ;
 	cursor: pointer;
+	color: var(--convs-mgr-color-A700);
 }
+
 .log-in {
 	margin-left: 10px;
-	transition: ease 0.2s;
-	cursor: pointer;
 	}

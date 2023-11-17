@@ -77,9 +77,7 @@
       <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-MONTHLY'| transloco }}</p>
 
         <div class="months" >
-          <!-- <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedDays.includes(monthNumber)}" (click)="toggleSelectedDay(monthNumber)">{{ monthNumber }}</p> -->
-          <p class="repeat">Monthly on day:</p> 
-          <input type="number" id="month" name="dayOfMonth" formControlName="dayOfMonth">
+          <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedMonthlyDays.includes(monthNumber)}" (click)="toggleSelectedMonthlyDay(monthNumber)">{{ monthNumber }}</p>
         </div>        
     
 
