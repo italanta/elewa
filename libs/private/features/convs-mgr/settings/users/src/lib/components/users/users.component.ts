@@ -109,9 +109,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLSelectElement;
     const selectedRole = target.value;
   
-    // Now you can use the 'selectedRole' in your logic
-    console.log(selectedRole);
-  
+    // Now you can use the 'selectedRole' in your logic  
   }
 
   private _getOrgUsers(orgId: string) {
