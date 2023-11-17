@@ -1,6 +1,6 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
@@ -25,6 +25,7 @@ export class SpecificTimeModalComponent {
   action: string;
   selectedRecurrence = 'Never'; 
   selectedDays: number[] = [];
+  selectedMonthlyDays: number[] = [];
   menuButtonText = 'Never';
   cronFormat: string; 
 
@@ -32,7 +33,7 @@ export class SpecificTimeModalComponent {
     // Arrays to populate the "Repeat every" select dropdowns
     dailyOptions: number[] = Array.from({ length: 30 }, (_, i) => i + 1);
     weeklyOptions: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
-    monthlyOptions: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
+    monthlyOptions: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
 
     // Add the weekdays array to your component
     weekdays = weekdays;
@@ -64,8 +65,8 @@ export class SpecificTimeModalComponent {
       date: [''], // The start date
       time: [''], // specific time for daily
       daysOfWeek: [''], // for weekly
-      dayOfMonth: [1, [Validators.max(31)]], // for monthly
-      interval: [''], // every x days/weeks/months
+      daysOfMonth: [''], // for monthly
+      interval: [null], // every x days/weeks/months
       endDate: ['']
     });
   }
@@ -105,7 +106,6 @@ export class SpecificTimeModalComponent {
   }
 
   toggleSelectedDay(day: number): void {
-    console.log(this.selectedDays)
       if (this.selectedDays.includes(day)) {
           this.selectedDays = this.selectedDays.filter((d) => d !== day);
       } else {
@@ -113,10 +113,19 @@ export class SpecificTimeModalComponent {
       }
   }
 
+  toggleSelectedMonthlyDay(day: number): void {
+      if (this.selectedMonthlyDays.includes(day)) {
+          this.selectedMonthlyDays = this.selectedMonthlyDays.filter((d) => d !== day);
+      } else {
+          this.selectedMonthlyDays.push(day);
+      }
+  }
+
   
   saveDateTime(): void {
     this.schedulerForm.patchValue({
-      daysOfWeek: this.selectedDays || [0]
+      daysOfWeek: this.selectedDays || [0],
+      daysOfMonth: this.selectedMonthlyDays || [1]
     })
 
     this.selectedDate =  this.schedulerForm.value.date;

@@ -60,16 +60,15 @@
       .search-input {
         border: none;
         outline: none;
-        padding: 1rem;
+        padding: 1rem 0.5rem;
         border-radius: 30px;
-        padding-left: 2.5rem;
         min-width: 22rem;
       }
 
       .search-wrapper_tooltip {
         color: gray;
         transform: rotate(90deg);
-        font-size: 20px;
+        font-size: medium;
         font-weight: 500;
       }
     }

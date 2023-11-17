@@ -25,7 +25,7 @@ class CloudTasksService
   private generateTask(payload: any, options: ScheduleOptions, taskName: string, endpoint: string): GcpTask
   {
     const body = JSON.stringify({ data: { ...payload } });
-    const dispatchTime = options.dispatchTime || options.endDate;
+    const dispatchTime = options.dispatchTime;
     const seconds = Math.floor(dispatchTime.getTime() / 1000);
     const nanoseconds = (dispatchTime.getTime() - seconds * 1000) * 1000000;
 
@@ -64,10 +64,11 @@ class CloudTasksService
 
   public async scheduleDeleteTask(payload: any, options: ScheduleOptions): Promise<any>
   {
+    const endDate = new Date(options.endDate);
     const endpoint = this.getEndpoint('deleteJob');
-    const taskName = this.getTaskName(this.queuePath('side-tasks'), options.endDate, options.id);
+    const taskName = this.getTaskName(this.queuePath('side-tasks'), endDate, options.id);
     
-    options.dispatchTime = options.endDate;
+    options.dispatchTime =  endDate;
     const task = this.generateTask(payload, options, taskName, endpoint);
 
     const request = { parent: this.queuePath('side-tasks'), task };

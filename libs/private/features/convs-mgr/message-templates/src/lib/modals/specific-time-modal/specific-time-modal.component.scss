@@ -62,6 +62,8 @@
       justify-content: flex-start; 
       align-items: center;
       gap: 0.5rem; 
+      width: 100%;
+      overflow-x: scroll;
     }
   }
   .xmark{
@@ -137,7 +139,7 @@ img {
     color: var(--convs-mgr-color-707070);
     font-family: Roboto;
     font-weight: 300;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 .repeat{
     // Repeat every
