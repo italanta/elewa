@@ -13,5 +13,5 @@
     "jest.config.ts",
     "**/*.test.ts"
   ],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../../features/convs-mgr/learners/src/lib/pages/learners-page/learners-mock-data.data.ts"]
 }
