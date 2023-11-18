@@ -28,9 +28,6 @@ import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-
 import { ChangeClassComponent } from '../../modals/change-class/change-class.component';
 import { CreateClassModalComponent } from '../../modals/create-class-modal/create-class-modal.component';
 
-
-import {enrolledEndUsersMockData} from "./learners-mock-data.data"
-
 @Component({
   selector: 'app-learners-page',
   templateUrl: './learners-page.component.html',
@@ -95,21 +92,16 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getScheduleOptions();
   }
 
-  // getLearners() {
-  //   const allLearners$ = this._eLearners.getAllLearners$();
-
-  //   this._sBs.sink = allLearners$.subscribe((alllearners) => {
-  //     this.dataSource.data = alllearners;
-  //     this.dataSource.sort = this.sort;
-  //     this.dataSource.paginator = this.paginator;
-  //   });
-  // }
-
   getLearners() {
-      this.dataSource.data = enrolledEndUsersMockData;
+    const allLearners$ = this._eLearners.getAllLearners$();
+
+    this._sBs.sink = allLearners$.subscribe((alllearners) => {
+      this.dataSource.data = alllearners;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+    });
   }
+
 
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
@@ -161,17 +153,11 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     const selectedValue = (event.target as HTMLSelectElement).value;
     switch (mode) {
       case 'class':
-        // this.dataSource.filter = this.selectedClass.ClassName;
-        // this.dataSource.filter = selectedValue;
-        console.log(selectedValue);
-        
         if (selectedValue !== 'null' && selectedValue !== "undefined" ) {
-          console.log("hello from if", selectedValue)
-          const filteredLearners = enrolledEndUsersMockData.filter(learner => learner.classId === selectedValue)
+          const filteredLearners = this.dataSource.data.filter(learner => learner.classId === selectedValue)
           this.dataSource.data = filteredLearners
         } else {
-          this.dataSource.data = enrolledEndUsersMockData
-          console.log("Hello from else", selectedValue)
+          return this.getLearners()
         }
         break
     }
