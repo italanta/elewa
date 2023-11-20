@@ -529,6 +529,7 @@
     "MAX-CHARACTERS": "maximum de caractères atteint"
   },
   "ADMIN-SETTINGS": {
+    "ADMIN-TITLE":"Paramètres",
     "TEAM-SECTION": {
       "TITLE": "Équipe",
       "DESCRIPTION": "Inviter et/ou gérer les membres de l'équipe au sein de votre organisation",

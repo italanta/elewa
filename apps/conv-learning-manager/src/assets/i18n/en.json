@@ -828,6 +828,7 @@
     "MAX-CHARACTERS": "maximum characters reached"
   },
   "ADMIN-SETTINGS": {
+    "ADMIN-TITLE":"Settings",
     "TEAM-SECTION" : {
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
