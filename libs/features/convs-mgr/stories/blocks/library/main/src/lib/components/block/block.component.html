@@ -113,23 +113,21 @@
             <app-open-ended-question-block [id]="id" [block]="block" [openEndedQuestionForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-open-ended-question-block>
         </div>
-        <div *ngSwitchCase="endStoryAnchor">
-            <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
-            </app-end-anchor>
-            <div class="outer">
+        <div *ngSwitchCase="endStoryAnchor" class="outer">
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="deleteMe()">
+                    <i class="far fa-trash-alt"></i>
+                    <span class="icon-with-text">Delete</span>
+                </button>
+            </mat-menu>
                 <div class="block-title-container"> 
-                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+                    </app-end-anchor>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="deleteMe()">
-                            <i class="far fa-trash-alt"></i>
-                            <span class="icon-with-text">Delete</span>
-                        </button>
-                    </mat-menu>
                 </div>
             </div>
-        </div>
         
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
