@@ -31,9 +31,9 @@ export class SpecificTimeModalComponent {
 
 
     // Arrays to populate the "Repeat every" select dropdowns
-    dailyOptions: number[] = Array.from({ length: 30 }, (_, i) => i + 1);
+    dailyOptions: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
     weeklyOptions: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
-    monthlyOptions: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+    monthlyOptions: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
 
     // Add the weekdays array to your component
     weekdays = weekdays;

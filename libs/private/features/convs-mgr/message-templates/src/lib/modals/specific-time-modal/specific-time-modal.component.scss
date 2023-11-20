@@ -59,7 +59,7 @@
   .monthly {
     .months {
       display: flex;
-      justify-content: flex-start; 
+      justify-content: space-around; 
       align-items: center;
       gap: 0.5rem; 
       width: 100%;
@@ -110,8 +110,8 @@
 
 .selected-day {
   background-color: var(--convs-mgr-icon-color) !important;
-  color: var(--convs-mgr-color-primary-white) !important;
-  border-radius: 0.5rem;
+  color: var(--convs-mgr-color-text-white) !important;
+  padding:0.1rem 0.3rem;
 }
 
 .custom-dropdown {
