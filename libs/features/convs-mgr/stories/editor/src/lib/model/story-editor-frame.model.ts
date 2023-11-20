@@ -164,6 +164,7 @@ export class StoryEditorFrame
 
     // this._jsPlumb.setSuspendDrawing(true); // Start loading drawing
 
+    console.log(this._connections)
     for (const conn of this._connections) 
     {
       // anchorBlock.id == this._story.id!;
@@ -187,26 +188,26 @@ export class StoryEditorFrame
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
         endpoints: ['Dot', 'Dot'],
-        overlays: [
-          {
-            // Specify the type of overlay as "Custom"
-            type: 'Custom',
-            options: {
-              // Set the id of the overlay to the connection id
-              id: conn.id,
-              create: (component: any, conn: any) => {
-                // Create the delete button element and return it
-                return CreateDeleteButton();
-              },
-              // Set the location of the overlay as 0.5
-              location: 0.5,
-              events: {
-                // Add a double-click event to the overlay
-                dblclick: ((overlayData: any) => this._deleteConnection(overlayData)).bind(this)
-              },
-            },
-          },
-        ],
+        // overlays: [
+        //   {
+        //     // Specify the type of overlay as "Custom"
+        //     type: 'Custom',
+        //     options: {
+        //       // Set the id of the overlay to the connection id
+        //       id: conn.id,
+        //       create: (component: any, conn: any) => {
+        //         // Create the delete button element and return it
+        //         return CreateDeleteButton();
+        //       },
+        //       // Set the location of the overlay as 0.5
+        //       location: 0.5,
+        //       events: {
+        //         // Add a double-click event to the overlay
+        //         dblclick: ((overlayData: any) => this._deleteConnection(overlayData)).bind(this)
+        //       },
+        //     },
+        //   },
+        // ],
         connector: {
           type: 'Flowchart',
           options: {
@@ -292,8 +293,8 @@ export class StoryEditorFrame
     );
 
     // Call the `deleteConnection` method of the `_connectionsService` object
-    if (con)
-      this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
+    // if (con)
+    //   this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
 
     // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
     return DeleteConnectorbyID(
