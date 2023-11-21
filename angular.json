@@ -36,6 +36,32 @@
     "elements-base-authorisation": "libs/elements/base/authorisation",
     "elements-base-configuration": "libs/elements/base/configuration",
     "elements-base-date-time": "libs/elements/base/date-time",
+    "elements-base-feature-flags": {
+      "projectType": "library",
+      "root": "libs/elements/base/feature-flags",
+      "sourceRoot": "libs/elements/base/feature-flags/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/elements/base/feature-flags"],
+          "options": {
+            "jestConfig": "libs/elements/base/feature-flags/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/elements/base/feature-flags/**/*.ts",
+              "libs/elements/base/feature-flags/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "elements-base-firebase": "libs/elements/base/firebase",
     "elements-layout-modals": {
       "projectType": "library",
