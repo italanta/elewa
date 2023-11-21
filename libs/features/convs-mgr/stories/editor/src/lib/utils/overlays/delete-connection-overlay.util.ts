@@ -16,10 +16,7 @@ export const DeleteConnOverlaySpec = {
     location: 0.5,
     events: {
       // Add a double-click event to the overlay
-      dblclick: ((overlayData: any) =>
-      {
-        return DeleteConnector(overlayData);
-      }).bind(this)
+      dblclick: ((overlayData: any) => DeleteConnector(overlayData)).bind(this)
     },
   },
 };
