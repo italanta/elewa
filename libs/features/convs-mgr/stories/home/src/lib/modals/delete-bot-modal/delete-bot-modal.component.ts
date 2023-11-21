@@ -52,16 +52,20 @@ export class DeleteBotModalComponent implements OnInit, OnDestroy {
       case DeleteElementsEnum.Bot:
         return this._botServ$
           .deleteBot(this.element as Bot)
-          .subscribe(() => this._dialog.close());
+          .subscribe(() => this.closeModal());
       case DeleteElementsEnum.Story:
         return this._addStory$
           .removeStory(this.element as Story, this.parentElement as BotModule)
-          .subscribe(() => this._dialog.close());
+          .subscribe(() => this.closeModal());
       case DeleteElementsEnum.BotModule:
         return this._botModServ$
           .deleteBotModules(this.element as BotModule)
-          .subscribe(() => this._dialog.close());
+          .subscribe(() => this.closeModal());
     }
+  }
+
+  closeModal() {
+    this._dialog.close();
   }
 
   delete() {
