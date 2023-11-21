@@ -16,11 +16,11 @@
 			<div class="vertical-line-select"></div>
 		</div>
 
-		<div class="second-block formGroup">
+		<div class="second-block">
 			<p>Select the variables that will be included in the request to the webhook</p>
-			<input name="search" id="search" formControlName="search" type="text" placeholder="Search" />
+			<input name="search" id="search" [formControl]="search" type="text" placeholder="Search" />
 			<div class="second-block-checkbox-wrapper" *ngIf="(vars$ | async) as variables">
-				<div *ngFor="let variable of (variables | filter: webhookForm.value.search)">
+				<div *ngFor="let variable of (variables | filter: search.value)">
 					<div class="second-block-checkbox">
 						<input type="checkbox" [id]="variable">
 						<p>{{ variable }}</p>
@@ -34,12 +34,12 @@
 
 			<p>	To establish this mapping to a local variable, you should specify the location of the data within the object. For instance, you can create a local variable called "client" and link it to "companyName." It's important to note that nested objects are also supported for mapping, for example, 'data.company.name'.</p>
 
-			<div class="input-username formGroup">
-				<input formControlName="name" placeholder="Username"/>
+			<div class="input-username">
+				<input required [formControl]="userName" placeholder="Username"/>
 				<div class="img-cont">
 					<img src="/assets/icons/ph_arrow-right-thin.svg"/>
 				</div>
-				<input formControlName="value" />
+				<input required [formControl]="userValue" />
 			</div>
 
 			<div class="button-container">
