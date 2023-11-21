@@ -97,12 +97,17 @@
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
-                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
-                              <div [formGroup] = "newVariableForm">
-                                  <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinputs">
+                            <h6 class="vars" *ngFor="let variable of newVariables; let i = index">
+                                <span>{{variable.placeholder}}:</span>
+                                <span>{{variable.variable}}</span>
+                                <span><button (click)="removeVariable(i)">delete</button></span>
+                            </h6>
+
+                            <div [formGroup] = "newVariableForm">
+                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinputs">
                                 <input type="text" formControlName="newVariable" placeholder="Placeholder" class="eveinputs">
                                 <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
-                                </div>
+                            </div>
                         </div>
                         </div>
                     <div class="form-group">

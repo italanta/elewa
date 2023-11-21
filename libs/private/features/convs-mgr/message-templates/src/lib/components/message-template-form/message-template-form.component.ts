@@ -121,6 +121,7 @@ export class MessageTemplateFormComponent implements OnInit{
     const formBody = formContent.get('body') as FormGroup;
     const bodyControl = formBody.get('text') as FormControl;
     const updatedBody = `${bodyControl.value}{{${newPlaceholder}}}`;
+
     bodyControl.setValue(updatedBody);
 
     // Track new variables as strings
@@ -136,7 +137,7 @@ export class MessageTemplateFormComponent implements OnInit{
 
   removeVariable(index: number) {
     // Get the placeholder to be removed
-    const placeholder = this.newVariables[index];
+    const { placeholder } = this.newVariables[index];
 
     // Remove the variable from the body
     const formContent = this.templateForm.get('content') as FormGroup;
@@ -151,6 +152,7 @@ export class MessageTemplateFormComponent implements OnInit{
     // Remove the placeholder from the newVariables array
     this.newVariables.splice(index, 1);
   }
+
   updateReferencesFromBody(updatedBody: string) {
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
@@ -173,7 +175,7 @@ export class MessageTemplateFormComponent implements OnInit{
       }
     }
   }
-    
+
   cancel() {
     this._route$$.navigate(['/messaging'])
   }
