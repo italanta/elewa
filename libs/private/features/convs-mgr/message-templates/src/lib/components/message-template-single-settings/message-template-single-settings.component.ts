@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { JobTypes, MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { JobTypes, MessageTemplate, MessageTypes, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
@@ -39,6 +39,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
 
   messageTemplateFrequency = frequencyOptions;
+
+  scheduledMessages: ScheduleOptions[] = [];
   
   displayedColumns: string[] = ['Date sent', 'Time sent', 'Number of learners', 'status', 'meta'];
   dataSource: MatTableDataSource<ScheduledMessage>;
@@ -53,6 +55,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   ngOnInit(): void {
     this.action = this._route$$.url.split('/')[2];
+    this.getSheduleMessages()
   }
 
   openMilestoneModal() {
@@ -83,6 +86,18 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       }
     });
   }
+  deleteTimeOption(){
+    // this._scheduleMessageService.removeScheduledMesssage()
+  }
+
+  getSheduleMessages() {
+    this._scheduleMessageService.getScheduledMessages$().subscribe(
+      (messages) => {
+        this.scheduledMessages = messages;
+      }
+    );
+  }
+  
 
   openInactivityModal() {
     const dialogRef = this._dialog.open(AfterInactivityModalComponent);
