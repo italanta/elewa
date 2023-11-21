@@ -25,14 +25,14 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 
   private currentIndex = 0;
-  private subsink = new SubSink();
+  private _sBs = new SubSink();
 
   vars$: Observable<string[]>;
 
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private fb: FormBuilder, private variables: VariablesService) {
+  constructor(private _fb: FormBuilder, private variables: VariablesService) {
     this.vars$ = this.variables.getAllVariables();
   }
 
@@ -47,7 +47,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   manageFormControls() {
-    this.subsink.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value)).subscribe((isTyped) => {
+    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value)).subscribe((isTyped) => {
       if (isTyped) {
         this.selectedVar.reset();
         this.selectedVar.disable();
@@ -81,7 +81,7 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   addExistingOptions(optionItem?: ButtonsBlockButton<T>) {
-    return this.fb.group({
+    return this._fb.group({
       id: [optionItem?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [optionItem?.message ?? ''],
       value: [optionItem?.value ?? ''],
@@ -106,6 +106,6 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnDestroy() {
-    this.subsink.unsubscribe();
+    this._sBs .unsubscribe();
   }
 }
