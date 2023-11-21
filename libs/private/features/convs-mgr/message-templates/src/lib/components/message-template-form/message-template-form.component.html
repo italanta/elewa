@@ -85,14 +85,20 @@
                           <input type="text" matInput formControlName="text">
                         </mat-form-field>
                       </div>
-                    
+                      <div class="add-variable">
+                        <p (click)="toggleVariableSection()"><i class="fas fa-plus"></i>add variable</p>
+                      </div>
+                     
                     <div class="form-group body" formGroupName="body">
                         <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
                         <mat-form-field>
                             <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
                         </mat-form-field>
-                        <div class="variables">
+                        <div class="add-variable">
+                            <p (click)="toggleVariableSection()"><i class="fas fa-plus"></i>add variable</p>
+                          </div>
+                        <div class="variables" *ngIf="showVariableSection">
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>

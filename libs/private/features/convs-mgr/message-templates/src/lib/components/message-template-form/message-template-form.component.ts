@@ -43,6 +43,7 @@ export class MessageTemplateFormComponent implements OnInit{
   newVariables: any = [];
   newVariableForm: FormGroup;
   private _sbS = new SubSink();
+  showVariableSection: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -174,6 +175,10 @@ export class MessageTemplateFormComponent implements OnInit{
     }
   }
     
+  toggleVariableSection() {
+    this.showVariableSection = !this.showVariableSection;
+  }
+
   cancel() {
     this._route$$.navigate(['/messaging'])
   }

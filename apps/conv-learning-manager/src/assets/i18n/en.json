@@ -980,7 +980,7 @@
     "MESSAGE-TEMPLATE-FORM": {
       "MT-FORM": {
         "FORM-HEADER": {
-          "EDIT-TEMPLATE": "Edit template",
+          "EDIT-TEMPLATE": "Edit template content",
           "FORM-HEADER-BUTTONS": {
             "CANCEL-BUTTON": "Cancel",
             "SAVE-BUTTON": {

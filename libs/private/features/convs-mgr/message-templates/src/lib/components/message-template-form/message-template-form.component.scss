@@ -1,10 +1,10 @@
 .message-template-form{
     border-radius: 1.5625rem;
-    background: #FFF;
+    background: var(--convs-mgr-color-text-white);
     margin-top: 1.55rem;
     padding: 1.5rem 2.2rem;
       p {
-          color: #101010;
+          color: var(--convs-mgr-color-101010);
           font-family: Roboto;
           font-size: 1rem;
           font-style: normal;
@@ -13,7 +13,7 @@
       }
       ::ng-deep .mdc-text-field{
         border-radius: 1rem!important;
-        border: 1px grey solid;
+        border: 1px var(--convs-mgr-medium-gray) solid;
        }
   }
   .fff{
@@ -26,9 +26,9 @@
               
             p:first-child {
               span {
-                  color: #1F7A8C;
+                  color: var(--convs-mgr-button-color);
               }
-              color: #000; 
+              color: var(--convs-mgr-color-secondary-contrast); 
               font-family: Roboto;
               font-size: 1rem;
               font-style: normal;
@@ -38,7 +38,7 @@
             }
             
             p:nth-child(2), p:nth-child(3), p:nth-child(4) {
-              color: #707070;
+              color: var(--convs-mgr-color-707070);
               font-family: Roboto;
               font-size: .9rem;
               font-style: normal;
@@ -51,22 +51,37 @@
             mat-form-field > input {
               border-radius: 0.9375rem;
               background-color: transparent;
-              border: 1px solid #707070;
+              border: 1px solid var(--convs-mgr-color-707070);
               width: 100%;
             }
           }
         }
         
   }
-  
+  .add-variable{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    p{
+      color: var(--convs-mgr-button-color) !important;
+      font-size: 1rem;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word;
+      margin-right: 1rem;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+  }
   
   button {
       border-radius: 1.5625rem;
       height: 2.0625rem;
     }
   .cancel-btn {
-      color: #1F7A8C!important;
-      border: 1px #1F7A8C solid!important;
+      color: var(--convs-mgr-button-color) !important;
+      border: 1px var(--convs-mgr-button-color) solid!important;
       box-shadow: none!important;
       font-family: Roboto;
       font-size: 0.875rem;
@@ -75,8 +90,8 @@
       line-height: normal;
     }
   .save-btn{
-      background-color: #1F7A8C!important;
-      color: white!important;
+      background-color: var(--convs-mgr-button-color) !important;
+      color: var(--convs-mgr-color-text-white) !important;
       font-family: Roboto;
       font-size: 0.875rem;
       font-style: normal;
@@ -90,7 +105,7 @@
       align-items: center;
       margin-bottom: 2rem;
       p{
-          color: #000;
+          color: var( --convs-mgr-color-secondary-contrast);
           font-family: Roboto;
           font-size: 1.1rem;
           font-style: normal;
@@ -103,13 +118,13 @@
   }
   .eveinputs{
     border-radius: 0.9375rem;
-  border: 1px solid #707070;
+  border: 1px solid var(--convs-mgr-color-707070);
   height: 2rem;
   margin: 0 1rem;
   padding-left: .5rem;
   }
   .pees {
-    color: #000; 
+    color: var(--convs-mgr-color-tertiary-contrast); 
     font-family: Roboto;
     font-size: 1.25rem;
     font-style: normal;
@@ -119,18 +134,34 @@
   }
   .variables{
     border-radius: 1rem;
-    border: 1px solid #1F7A8C;
+    border: 1px solid var(--convs-mgr-button-color);
     padding: 1rem .5rem;
+    background-color: var(--convs-mgr-button-color);
+    .pees{
+      color: var(--convs-mgr-color-text-white) !important;
+      font-size: 1.125rem;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
+    }
     
     .np{
-      color: #707070;
-      font-family: Roboto;
+      color: var(--convs-mgr-color-secondary-light-gray-b3) !important;
       font-size: 1.125rem;
-      font-style: normal;
+      font-family: Roboto;
       font-weight: 300;
+      word-wrap: break-word;
       line-height: normal;
       display: flex;
       justify-content: space-between;
+    }
+    .vars{
+      div{
+        input{
+          background-color: var(--convs-mgr-button-color) !important;
+          border: var(--convs-mgr-color-text-white) !important;
+        }
+      }
     }
   }
   mat-form-field{
@@ -138,7 +169,7 @@
       width: 100%;
   }
   .spec{
-      color: #1F7A8C;
+      color: var(--convs-mgr-button-color);
       font-family: Roboto;
       font-size: 1.5rem;
       font-style: normal;
@@ -146,7 +177,7 @@
       line-height: normal;
       margin-right: 1.31rem;
       i{
-          color: black;
+          color: var(--convs-mgr-color-primary-black);
       }
   }
   
@@ -163,18 +194,18 @@
   }
   .titles > p:first-child {
     /* Add your styles here */
-    color: #000;
-  font-family: Roboto;
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+    color: var(--convs-mgr-color-secondary-contrast);
+    font-family: Roboto;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
   
   /* Select the second <p> element within the .titles div */
   .titles > p:last-child {
     /* Add your styles here */
-    color: #707070;
+    color: var(--convs-mgr-input-color);
   font-family: Roboto;
   font-size: 1.125rem;
   font-style: normal;
@@ -193,7 +224,7 @@
   
   /* Adjust the margins or spacing between form groups as needed */
   .dd-holder .form-group + .form-group {
-    margin-left: 10px; /* You can adjust the margin as needed */
+    margin-left: 0.625rem; /* You can adjust the margin as needed */
   }
   
   /* Apply styles to the <p> elements inside form groups */
@@ -203,7 +234,7 @@
   
   
   .vars{
-    color: #000; 
+    color: var(--convs-mgr-color-secondary-contrast); 
     font-family: Roboto;
     font-size: 1rem;
     font-style: normal;
@@ -211,7 +242,7 @@
     height: 1rem;
     margin: 1rem;
     span{
-      color: #1F7A8C;
+      color: var(--convs-mgr-button-color);
     font-style: 300;
   
     }
@@ -223,7 +254,7 @@
     justify-content: space-evenly;
   }
 
- ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
+ ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: var(--convs-mgr-color-text-white); }
 
 
  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled){
@@ -232,7 +263,7 @@
  }
  
 input{
-  color: #707070;
+  color: var(--convs-mgr-input-color);
     font-family: Roboto;
     font-size: 1.125rem;
     font-style: normal;
@@ -240,7 +271,7 @@ input{
     line-height: normal;
 }
 .channel-dd{
-  color: red!important;
+  color: var(--convs-mgr-color-primary-red) !important;
   font-family: Roboto;
   font-size: 1.125rem;
   font-style: normal;
