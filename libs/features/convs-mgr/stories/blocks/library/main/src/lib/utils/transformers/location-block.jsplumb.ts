@@ -25,13 +25,5 @@ export function _LocationBlockDecoratePlumb(block: LocationMessageBlock, comp: C
     anchor: [0, 0.1,0,1],
     maxConnections: -1
   });
-  // jsPlumb.addEndpoint(comp.location.nativeElement, {
-  //   // Whether the anchor is target (Other Block -> This Block)
-  //   target: true,
-  //   cssClass:"block_endpoint",
-  //   endpoint: "Dot",
-  //   anchor: [1, 0.9 ,0, 1],
-  //   maxConnections: -1
-  // });
   return comp;
 }
