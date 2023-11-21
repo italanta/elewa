@@ -187,26 +187,6 @@ export class StoryEditorFrame
         target: targetElement as Element,
         anchors: ['Right', 'Left'],
         endpoints: ['Dot', 'Dot'],
-        // overlays: [
-        //   {
-        //     // Specify the type of overlay as "Custom"
-        //     type: 'Custom',
-        //     options: {
-        //       // Set the id of the overlay to the connection id
-        //       id: conn.id,
-        //       create: (component: any, conn: any) => {
-        //         // Create the delete button element and return it
-        //         return CreateDeleteButton();
-        //       },
-        //       // Set the location of the overlay as 0.5
-        //       location: 0.5,
-        //       events: {
-        //         // Add a double-click event to the overlay
-        //         dblclick: ((overlayData: any) => this._deleteConnection(overlayData)).bind(this)
-        //       },
-        //     },
-        //   },
-        // ],
         connector: {
           type: 'Flowchart',
           options: {
