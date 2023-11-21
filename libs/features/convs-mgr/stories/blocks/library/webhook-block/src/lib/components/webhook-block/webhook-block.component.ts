@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
@@ -38,14 +38,13 @@ export class WebhookBlockComponent implements OnInit {
   webhookInputId: string;
   httpUrl: VariablesConfig;
 
-  variablesToSave: VariablesToSave
   subscription: Subscription;
   type: StoryBlockTypes;
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();
-  search = new FormControl('');
-  name = new FormControl('');
-  value = new FormControl('');
+  search: FormControl;
+  userName: FormControl;
+  userValue: FormControl;
   variables$: Observable<Variable[]>;
 
   constructor(private _variablesStore$$: VariablesConfigStore, private variableser: VariablesService) {
@@ -57,17 +56,24 @@ export class WebhookBlockComponent implements OnInit {
     this.variables$ = this._variablesStore$$.get();
     this.webhookInputId = `webhook-${this.id}`;
 
-    this.webhookForm.addControl('search', this.search);
-    this.webhookForm.addControl('name', this.name);
-    this.webhookForm.addControl('value', this.name);
+    this.search = new FormControl('');
+    this.userName = new FormControl('', Validators.required);
+    this.userValue = new FormControl('', Validators.required);
 
   }
 
+  /**
+ * submits webhook form
+ */
+
   onSubmit(){
-    this.variablesToSave = {
-      name:this.webhookForm.value.name,
-      value: this.webhookForm.value.value
+    const variablesToSave: VariablesToSave = {
+      name:this.userName.value,
+      value: this.userValue.value
     }
+    
+    // pushes variablesToSave in webhookForm control
+    this.webhookForm.get('variablesToSave')?.value.push(variablesToSave)
 
   }
 }
