@@ -90,7 +90,25 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllCourses();
     this.getAllPlatforms();
     this.getScheduleOptions();
+    this.setFilterPredicate();
   }
+
+  setFilterPredicate() {
+    this.dataSource.filterPredicate = (learner, filter) =>
+      this.customFilterPredicate(learner, filter);
+  }
+
+  customFilterPredicate(learner: EnrolledEndUser, filter: string): boolean{
+    if (filter === "undefined" || filter === "null") {
+      return true; // No filter, include all rows
+    }
+
+    // Filter based on classId
+    const classCondition = !filter || learner.classId.toLowerCase().includes(filter);
+    
+    return classCondition
+  }
+
 
   getLearners() {
     const allLearners$ = this._eLearners.getAllLearners$();
@@ -102,7 +120,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses
@@ -153,12 +171,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     const selectedValue = (event.target as HTMLSelectElement).value;
     switch (mode) {
       case 'class':
-        if (selectedValue !== 'null' && selectedValue !== "undefined" ) {
-          const filteredLearners = this.dataSource.data.filter(learner => learner.classId === selectedValue)
-          this.dataSource.data = filteredLearners
-        } else {
-          return this.getLearners()
-        }
+        this.dataSource.filter = selectedValue.trim().toLowerCase() || ""
         break
     }
   }
