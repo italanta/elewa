@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogRef } from '@angular/cdk/dialog';
 
@@ -32,6 +32,7 @@ export class DeleteBotModalComponent implements OnInit, OnDestroy {
     private _botServ$: BotsStateService,
     private _botModServ$: BotModulesStateService,
     private _dialog: DialogRef,
+    private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef for manual change detection
 
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -50,25 +51,53 @@ export class DeleteBotModalComponent implements OnInit, OnDestroy {
   getElementToDelete() {
     switch (this.mode) {
       case DeleteElementsEnum.Bot:
-        return this._botServ$
-          .deleteBot(this.element as Bot)
-          .subscribe(() => this.closeModal());
+        return this._botServ$.deleteBot(this.element as Bot).subscribe(
+          () => {
+            console.log('Bot deleted successfully');
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error deleting bot:', error);
+            this.closeModal(); // Close the modal even on error
+          }
+        );
       case DeleteElementsEnum.Story:
         return this._addStory$
           .removeStory(this.element as Story, this.parentElement as BotModule)
-          .subscribe(() => this.closeModal());
+          .subscribe(
+            () => {
+              console.log('Story removed successfully');
+              this.closeModal();
+            },
+            (error) => {
+              console.error('Error removing story:', error);
+              this.closeModal(); // Close the modal even on error
+            }
+          );
       case DeleteElementsEnum.BotModule:
         return this._botModServ$
           .deleteBotModules(this.element as BotModule)
-          .subscribe(() => this.closeModal());
+          .subscribe(
+            () => {
+              console.log('Bot module deleted successfully');
+              this.closeModal();
+            },
+            (error) => {
+              console.error('Error deleting bot module:', error);
+              this.closeModal(); // Close the modal even on error
+            }
+          );
     }
   }
 
   closeModal() {
+    console.log('Closing modal');
     this._dialog.close();
+    this.cdr.detectChanges(); // Manual change detection
   }
 
   delete() {
+    console.log('Deleting element...');
     this._sBs.sink = this.getElementToDelete();
   }
 
