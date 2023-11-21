@@ -14,7 +14,6 @@ import { StoryEditorState } from '@app/state/convs-mgr/story-editor';
 import { BlockInjectorService } from '@app/features/convs-mgr/stories/blocks/library/main';
 import { AnchorBlockComponent } from '@app/features/convs-mgr/stories/blocks/library/anchor-block';
 
-import { CreateDeleteButton, DeleteConnectorbyID } from '../providers/manage-jsPlumb-connections.function';
 import { Coordinate } from './coordinates.interface';
 
 
@@ -279,30 +278,6 @@ export class StoryEditorFrame
 
   private _getID() {
     return uuidv4().slice(0, 8);
-  }
-
-  /** 
-   * Method to delete a connection. 
-   * To be called on double-click of the delete button overlay.
-   */
-  private _deleteConnection(overlayData: any) 
-  {
-    // Find the connection in the state object by the connection ID in the overlayData object
-    const con = this.state.connections.find(
-      (c) => c.id == overlayData.overlay.id
-    );
-
-    // Call the `deleteConnection` method of the `_connectionsService` object
-    // if (con)
-    //   this.state.connections = this.state.connections.filter(conn => conn.id !== con.id);
-
-    // Call the `DeleteConnectorbyID` function and pass in the `_jsPlumb` object, state object, and overlayData object as arguments
-    return DeleteConnectorbyID(
-      this._jsPlumb,
-
-      // Pass overlayed connection id - This is the connection to be deleted
-      overlayData.overlay.id
-    );
   }
 
   // Section -- Zoom management
