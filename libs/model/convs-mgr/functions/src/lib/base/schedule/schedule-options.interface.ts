@@ -31,6 +31,8 @@ export interface ScheduleOptions
     */
    endDate?: Date;
 
+   inactivityTime?: number;
+
    /**
     * The array of users id to send the message template/survey to
     */

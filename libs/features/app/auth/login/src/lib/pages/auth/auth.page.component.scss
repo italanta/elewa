@@ -162,19 +162,13 @@ button {
 	}
 }
 
-/* change the background color of 'create an account' on hover */
-.highlight-button:hover {
-	background-color: #02B3FE;
-	color: white !important;
+.highlight-button,
+.log-in {
 	transition: 0.2s ease ;
+	cursor: pointer;
+	color: var(--convs-mgr-color-A700);
 }
+
 .log-in {
 	margin-left: 10px;
-	transition: ease 0.2s;
-	&:hover{
-		background-color: var(--convs-mgr-icon-color);
-		span {
-				color: var(--convs-mgr-color-text-white);
-			}
 	}
-}

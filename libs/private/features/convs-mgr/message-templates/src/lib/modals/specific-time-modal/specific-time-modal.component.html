@@ -9,12 +9,13 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field> -->
 
+    <form [formGroup]="schedulerForm">
     <div class="date-container">
       <div class="date">
-        <input type="date" id="birthday" name="birthday">
+        <input type="date" id="date" name="date" formControlName="date">
       </div>
       <div class="time">
-        <input type="time" id="appt" name="appt">
+        <input type="time" id="time" name="time" formControlName="time">
       </div>
     </div>
 
@@ -27,7 +28,7 @@
 
           <button mat-button [matMenuTriggerFor]="menu">{{ menuButtonText }}<img class="down-arrow" src="assets/icons/down-arrow.png" alt="down arrow"/></button>
             <mat-menu #menu="matMenu">
-              <mat-radio-group aria-label="Select an option" class="options" (change)="onRecurrenceChange($event.value)">
+              <mat-radio-group aria-label="Select an option" class="options" (change)="onRecurrenceChange($event.value)"  formControlName="frequency">
                 <mat-radio-button *ngFor="let option of recurrenceOptions" [value]="option">{{ option }}</mat-radio-button>
               </mat-radio-group>           
             </mat-menu>
@@ -42,12 +43,12 @@
 
         <div class="select-days" >
           <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
-            <select name="dailyRepeat" id="dailyRepeat" [(ngModel)]="selectedDailyRepeat">
+            <select name="dailyRepeat" id="dailyRepeat" formControlName="interval">
               <option *ngFor="let option of dailyOptions" [value]="option">{{ option }}</option>
             </select>
             {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.DAYS'| transloco }}
           </p>
-            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="date" name="daily-date"></p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="endDate" name="daily-date" formControlName="endDate"></p>
             <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
       </div>
@@ -56,19 +57,19 @@
         <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-WEEKLY'| transloco }}</p>
     
         <div class="weeks" *ngIf="selectedRecurrence === 'Weekly'">
-          <p class="day-month" *ngFor="let day of weekdays; let i = index" [ngClass]="{'selected-day': selectedDays.includes(day)}" (click)="toggleSelectedDay(day)">
-            {{ i === 0 ? 'M' : i === 1 ? 'T' : i === 2 ? 'W' : i === 3 ? 'T' : i === 4 ? 'F' : i === 5 ? 'S' : 'S' }}
+          <p class="day-month" *ngFor="let day of weekdays; let i = index" [ngClass]="{'selected-day': selectedDays.includes(i)}" (click)="toggleSelectedDay(i)">
+            {{ i === 0 ? 'S' : i === 1 ? 'M' : i === 2 ? 'T' : i === 3 ? 'W' : i === 4 ? 'T' : i === 5 ? 'F' : 'S' }}
           </p>
         </div>
         <div class="select-days" >
           <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
-            <select name="weeklyRepeat" id="weeklyRepeat" [(ngModel)]="selectedWeeklyRepeat">
+            <select name="weeklyRepeat" id="weeklyRepeat" formControlName="interval">
               <option *ngFor="let option of weeklyOptions" [value]="option">{{ option }}</option>
             </select>
             {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.WEEKS'| transloco }}
           </p>
-            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-WEEKLY'| transloco }} <input type="date" class="date-bd" id="birthday" name="weekly-date"></p>
-            <p class="remove-end">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-WEEKLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="weekly-date" endDate></p>
+            <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
     </div>
     
@@ -76,19 +77,19 @@
       <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-MONTHLY'| transloco }}</p>
 
         <div class="months" >
-          <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedDays.includes(monthNumber.toString())}" (click)="toggleSelectedDay(monthNumber.toString())">{{ monthNumber }}</p>
+          <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedMonthlyDays.includes(monthNumber)}" (click)="toggleSelectedMonthlyDay(monthNumber)">{{ monthNumber }}</p>
         </div>        
     
 
       <div class="select-days" >
         <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
-          <select name="monthlyRepeat" id="monthlyRepeat" [(ngModel)]="selectedMonthlyRepeat">
+          <select name="monthlyRepeat" id="monthlyRepeat" formControlName="interval">
             <option *ngFor="let option of monthlyOptions" [value]="option">{{ option }}</option>
           </select>
           {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.MONTHS'| transloco }}
         </p>
-          <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="date" class="date-bd" id="date" name="monthly-date"></p>
-          <p class="remove-end">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
+          <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="monthly-date" formControlName="endDate"></p>
+          <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
       </div>
     </div>
 
@@ -104,6 +105,6 @@
           </button>
         </div>
     </div>
-    
+  </form>
 </div>
   
