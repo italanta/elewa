@@ -18,13 +18,13 @@ export const DeleteConnOverlaySpec = {
       // Add a double-click event to the overlay
       dblclick: ((overlayData: any) =>
       {
-        return DeleteConnectorbyID(overlayData);
+        return DeleteConnector(overlayData);
       }).bind(this)
     },
   },
 };
 
-function DeleteConnectorbyID(overlayData: any)
+function DeleteConnector(overlayData: any)
 {
   const connections = overlayData.overlay.instance.connections;
   const connectionId = overlayData.overlay.component.id;
