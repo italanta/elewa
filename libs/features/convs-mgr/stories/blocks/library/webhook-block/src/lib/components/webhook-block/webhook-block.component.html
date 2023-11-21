@@ -43,7 +43,7 @@
 			</div>
 
 			<div class="button-container">
-				<button type="submit" class="update-button">
+				<button [disabled]="userName.invalid || userValue.invalid" type="submit" class="update-button">
 					Update
 				</button>
 			</div>
