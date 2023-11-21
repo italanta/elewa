@@ -226,36 +226,35 @@ export class StoryEditorFrame
    * Create a new block for the frame.
    * TODO: Move this to a factory later
    */
-  newBlock(type: StoryBlockTypes, coordinates?:Coordinate) {
-
-    let x, y;
-
-    const filteredBlocks = this._blocks.filter((block)=> block.id !== 'story-end-anchor');
-
-    this._newestBlock = filteredBlocks.length > 0 ? filteredBlocks[filteredBlocks.length-1] : null;
-
-    if(this._newestBlock) {
-      x = this._newestBlock.position.x + Math.floor(Math.random() * (200) + 20);
-      y = this._newestBlock.position.y - Math.floor(Math.random() * (50) + 5);
-    } else {
-      x = 200;
-      y = 50;
+  newBlock(type: StoryBlockTypes, coordinates?: Coordinate) {
+    const block = this._createBlock(type, coordinates);
+    this._blocks.push(block);
+    return this._injectBlockToFrame(block);
+  }
+  
+  //private method which creates a block
+  _createBlock(type: StoryBlockTypes, coordinates?: Coordinate): StoryBlock {
+    const blockSize = 200; //default block size
+    const verticalSpacing = 60;
+  
+    let maxBlock = 0;
+  
+    if (this._blocks.length > 0) {
+      //find the maximum y coordinates of the blocks that exist
+      maxBlock = Math.max(...this._blocks.map((block) => block.position.y + blockSize));
     }
-
-    const block = {
+  
+    return {
       id: `${this._getID()}`,
       type: type,
       message: '',
-      // TODO: Positioning in the middle + offset based on _cnt
-      // position: coordinates || { x: 200, y: 50 },
-      position: coordinates || { x: x, y: y},
+      position: coordinates || {
+        x: 200,
+        y: maxBlock + verticalSpacing, 
+      },
     } as StoryBlock;
-
-    this._blocks.push(block);
-     
-    return this._injectBlockToFrame(block);
   }
-
+  
   /**
    * Private method which draws the block on the frame.
    * @see {BlockInjectorService} - package @app/features/convs-mgr/stories/blocks/library
