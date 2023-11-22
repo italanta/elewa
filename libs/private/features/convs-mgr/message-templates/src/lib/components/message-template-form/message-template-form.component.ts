@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -26,7 +26,7 @@ import { categoryOptions, languageOptions } from '../../utils/constants';
   templateUrl: './message-template-form.component.html',
   styleUrls: ['./message-template-form.component.scss'],
 })
-export class MessageTemplateFormComponent implements OnInit {
+export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
 
   template$: Observable<MessageTemplate | undefined>;
@@ -221,5 +221,9 @@ export class MessageTemplateFormComponent implements OnInit {
             this.openTemplate();
           });
       });
+  }
+
+  ngOnDestroy() {
+    this._sbS.unsubscribe();
   }
 }
