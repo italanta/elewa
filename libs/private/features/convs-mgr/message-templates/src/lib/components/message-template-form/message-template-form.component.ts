@@ -6,12 +6,12 @@ import { SubSink } from 'subsink';
 
 import { Observable } from 'rxjs';
 
-import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
+import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
-import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
+import { createTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
 
@@ -23,7 +23,7 @@ import { categoryOptions, languageOptions } from '../../utils/constants';
 export class MessageTemplateFormComponent implements OnInit{
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
   
-  template$: Observable<any>;
+  template$: Observable<MessageTemplate | undefined>;
   channels$: Observable<CommunicationChannel[]>;
 
   templateForm: FormGroup;
@@ -55,7 +55,7 @@ export class MessageTemplateFormComponent implements OnInit{
 
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
-    this.templateForm = createEmptyTemplateForm(this.fb);
+    this.templateForm = createTemplateForm(this.fb);
     this.channels$ = this._channelService.getAllChannels();
 
     if (this.action !== 'create') {
@@ -74,36 +74,16 @@ export class MessageTemplateFormComponent implements OnInit{
   initPage()
   {
     if (this.action){
-      // TODO:Fetch template id from query params
-      this.template$ = this._messageTemplatesService.getTemplateById(this.action.split('?')[0]) || '';
-
+      this.template$ = this._messageTemplatesService.getTemplateById(this.action.split('?')[0] as string);
     }
+
     this._sbS.sink = this.template$.subscribe((template) => {
       if (template) {
-        this.templateForm = this.fb.group({
-          name: [template.name, Validators.required],
-          channelId: [template.channelId, Validators.required],
-          category: [template.category], 
-          language: [template.language],
-          content: this.fb.group({
-            header: this.fb.group({
-              type: "TEXT",
-              text: [template.content.header.text,  Validators.required],
-              examples: this.fb.array([]),
-            }),
-            body: this.fb.group({
-              text: [template.content.body.text,  Validators.required],
-              examples: this.fb.array([]),
-            }),
-            footer: [template.content.footer],
-            templateId: [''],
-            sent: [''],
-          }),
-          buttons: this.fb.array([]), 
-        });
+        this.templateForm = createTemplateForm(this.fb, template);
       }
     });
   }
+
   subscribeToBodyControlChanges() {
     const bodyControl = this.templateForm.get('content.body.text') as FormControl;
     bodyControl.valueChanges.subscribe((updatedBody) => {
@@ -150,7 +130,8 @@ export class MessageTemplateFormComponent implements OnInit{
 
     // Remove the placeholder from the newVariables array
     this.newVariables.splice(index, 1);
-  }
+  };
+
   updateReferencesFromBody(updatedBody: string) {
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
@@ -185,85 +166,51 @@ export class MessageTemplateFormComponent implements OnInit{
 
   save() {
     if (this.templateForm.value.id){
-      this.template = {
-        id: this.templateForm.value.id,
-        name: this.templateForm.value.name,
-        category: this.templateForm.value.category,
-        channelId: this.templateForm.value.channelId,
-        language: this.templateForm.value.language,
-        content: {
-          header: {
-            type: TemplateHeaderTypes.TEXT,
-            text: this.templateForm.value.content.header.text,
-          } as TextHeader,
-          body: {
-            text: this.templateForm.value.content.body.text,
-            examples: this.newVariables,
-          },
-          footer: this.templateForm.value.content.footer,
-        },
-      };
-
-      this.isSaving = true
-
-      // TODO: clean this logic, create a better data stream
-      this._sbS.sink = this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
-        if (response.success){
-          this._sbS.sink = this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
-            this._snackbar.showSuccess("Template updated successfully");
-            this.isSaving  = false;
-          });
-        }
-      });
+      this.updateTemplate();
+    } else {
+      this.saveTemplate();
     }
-    else{
-      
-      this.template = {
-        "name": this.templateForm.value.name,
-        "category": this.templateForm.value.category,
-        "language": this.templateForm.value.language,
-        "channelId": this.templateForm.value.channelId,
-        "content": {
-          "header": { 
-            "type": TemplateHeaderTypes.TEXT,
-            "text": this.templateForm.value.content.header.text,
-          } as TextHeader,
-          "body": {
-            "text": this.templateForm.value.content.body.text,
-            "examples": [],
-          },
-          "footer": this.templateForm.value.content.footer,
-        },
-      };
-      if(this.templateForm.valid){
-        this.isSaving = true
-        this._sbS.sink = this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
-          if (response.success){
-            this.templateForm.value.content.templateId = response.data.id;
-      
-            const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`
+  }
 
-            this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value, templateId).subscribe((response: any) => {
-              this.isSaving  = false;
-              if(response.id) {
-                this._snackbar.showSuccess("Template created successfully");
-                this.openTemplate();
-              }
-              else{
-                this._snackbar.showError("Something went wrong please try again")
-              }
-            });
-          }
-          else{
-            this.isSaving = false;
-            this._snackbar.showError(response)
-          }
+  updateTemplate() {
+    this.template = this.templateForm.value;
+    this.isSaving = true
+
+    this._sbS.sink = this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
+      if (response.success){
+        this._sbS.sink = this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe(() => {
+          this._snackbar.showSuccess("Template updated successfully");
+          this.isSaving  = false;
         });
-      }else{
-        this.isSaving = false;
-        this._snackbar.showError("Please fill out all fields");
-      }
-      
-    }
-  }  
-}
+      };
+    });
+  };
+
+  saveTemplate() {
+    this.template = this.templateForm.value;
+
+    if (!this.templateForm.valid) {
+      this._snackbar.showError('Please fill out all fields');
+      return;
+    };
+
+    this.isSaving = true;
+    this._sbS.sink = this._messageTemplatesService.createTemplateMeta(this.template)
+      .subscribe((response) => {
+        if (!response.success) {
+          this.isSaving = false;
+          this._snackbar.showError(response);
+        }
+
+        this.templateForm.value.content.templateId = response.data.id;
+
+        const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
+
+        this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value, templateId).subscribe(() => {
+          this.isSaving = false;
+          this._snackbar.showSuccess('Template created successfully');
+          this.openTemplate();
+        });
+      });
+  }
+};
