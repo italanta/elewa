@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -64,14 +64,8 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
-  }
 
-  toggleSurveysFeature() {
-    const currentFlagState = this.featureFlagsService.isFeatureOn('surveys');
-    this.featureFlagsService.setFeatureFlag('surveys', !currentFlagState);
     
-    // Trigger change detection explicitly
-    this.cdr.detectChanges();
   }
 
   handlerUserNavClicks() {

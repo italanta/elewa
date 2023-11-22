@@ -1,22 +1,45 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, ViewContainerRef, TemplateRef, OnInit, Renderer2 } from '@angular/core';
 import { FeatureFlagsService } from '../service/feature-flags.service';
+
 
 @Directive({
   selector: '[appFeatureFlag]'
 })
-export class FeatureFlagDirectiveDirective {
+export class FeatureFlagDirectiveDirective implements OnInit {
+  @Input('appFeatureFlag') featureName = '';
 
   constructor(
-    private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private featureFlagService: FeatureFlagsService
+    private templateRef: TemplateRef<any>,
+    private renderer: Renderer2, 
+    private featureFlagsService: FeatureFlagsService // Inject the FeatureFlagsService
   ) {}
 
-  @Input() set appFeatureFlag(featureName: string) {
-    if (this.featureFlagService.isFeatureOn(featureName)) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-    } else {
-      this.viewContainer.clear();
+  ngOnInit() {
+    // Check if the feature is on
+    const isFeatureOn = this.featureFlagsService.isFeatureOn(this.featureName);
+
+    // Create the embedded view
+    const embeddedView = this.viewContainer.createEmbeddedView(this.templateRef);
+
+    // Access the root nodes of the embedded view
+    const rootNodes = embeddedView.rootNodes;
+
+    // Check if there are root nodes (there should be at least one)
+    if (rootNodes && rootNodes.length > 0) {
+      const element = rootNodes[0] as HTMLElement;
+
+       // Apply or remove a CSS class based on the feature status
+       if (isFeatureOn) {
+        // Feature is on, remove the CSS class and deactivate the link
+        this.renderer.removeClass(element, 'feature-flag-off');
+      } else {
+        // Feature is off, add the CSS class and "Coming Soon" text
+        this.renderer.addClass(element, 'feature-flag-off');
+        this.renderer.appendChild(element, 'innerText', 'Coming Soon');
+        this.renderer.removeAttribute(element, 'href'); // Optional: Remove href attribute
+        this.renderer.setStyle(element, 'cursor', 'not-allowed'); // Optional: Change cursor style
+      }
     }
   }
- }
+}
