@@ -8,6 +8,7 @@ import { SurveyResults } from "./survey-results.interface";
  * Represents an enrolled learner.
  */
 export interface EnrolledEndUser extends IObject {
+  isDefault: boolean;
   /**
    * The name of the enrolled learner.
    */

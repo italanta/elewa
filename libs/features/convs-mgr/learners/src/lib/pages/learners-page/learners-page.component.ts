@@ -150,18 +150,23 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   
- customFilterPredicate(data: EnrolledEndUser, filter: any, mode: string): boolean {
-  const filterValue = filter.trim().toLowerCase();
-
-   switch (mode) {
-    case 'class':
-      const classValue = data.classId.toLowerCase();
-      return filterValue === 'allclasses' || classValue.includes(filterValue);
-    default:
-      return true;
+  customFilterPredicate(data: EnrolledEndUser, filter: string, filterKey: string): boolean {
+    const lowerCaseFilter = filter.toLowerCase();
+    switch (filterKey) {
+      case 'class':
+        return this.filterClass(data, lowerCaseFilter);
+      default:
+        return true;
+    }
   }
-}
-  
+  filterClass(data: EnrolledEndUser, lowerCaseFilter: string): boolean {
+    if (data.classId) {
+      const classId = data.classId.toString(); 
+      const className = this.getClassName(classId);
+      return classId.toLowerCase().includes(lowerCaseFilter);
+    }
+    return false;
+  }
 
   filterTable(event: any, mode: string) {
     const filterValue = (event.target as HTMLInputElement).value;
