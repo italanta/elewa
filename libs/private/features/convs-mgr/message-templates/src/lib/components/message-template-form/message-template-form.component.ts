@@ -1,10 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
@@ -20,72 +26,72 @@ import { categoryOptions, languageOptions } from '../../utils/constants';
   templateUrl: './message-template-form.component.html',
   styleUrls: ['./message-template-form.component.scss'],
 })
-export class MessageTemplateFormComponent implements OnInit{
+export class MessageTemplateFormComponent implements OnInit {
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
-  
+
   template$: Observable<MessageTemplate | undefined>;
   channels$: Observable<CommunicationChannel[]>;
 
   templateForm: FormGroup;
-  template: MessageTemplate;
   content: FormGroup;
 
-  action: string;
+  templateId: string;
   panelOpenState: boolean;
   isSaving: boolean;
 
-
   categories: { display: string; value: string }[] = categoryOptions;
   languages: { display: string; value: string }[] = languageOptions;
-  
+
   referenceForm: FormGroup;
   nextVariableId: number;
   newVariables: any = [];
   newVariableForm: FormGroup;
+
   private _sbS = new SubSink();
 
   constructor(
     private fb: FormBuilder,
     private _messageTemplatesService: MessageTemplatesService,
-    private _route:ActivatedRoute,
+    private _route: ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
     private _channelService: CommunicationChannelService
   ) {}
 
   ngOnInit() {
-    this.action = this._route$$.url.split('/')[2];
     this.templateForm = createTemplateForm(this.fb);
+    this.initPage();
+
     this.channels$ = this._channelService.getAllChannels();
 
-    if (this.action !== 'create') {
-      this.initPage();
-    } 
-
     this.newVariableForm = this.fb.group({
-      newVariable: ['',Validators.required],
-      newPlaceholder: ['',Validators.required],
+      newVariable: ['', Validators.required],
+      newPlaceholder: ['', Validators.required],
     });
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
-    
   }
 
-  initPage()
-  {
-    if (this.action){
-      this.template$ = this._messageTemplatesService.getTemplateById(this.action.split('?')[0] as string);
-    }
+  initPage() {
+    this._sbS.sink = this._route.params
+      .pipe(map((params) => params['id'] as string))
+      .subscribe((templateId) => {
+        if (templateId) {
+          this.template$ = this._messageTemplatesService.getTemplateById(templateId);
 
-    this._sbS.sink = this.template$.subscribe((template) => {
-      if (template) {
-        this.templateForm = createTemplateForm(this.fb, template);
-      }
-    });
+          this._sbS.sink = this.template$.subscribe((template) => {
+            if (template) {
+              this.templateForm = createTemplateForm(this.fb, template);
+            }
+          });
+        }
+      });
   }
 
   subscribeToBodyControlChanges() {
-    const bodyControl = this.templateForm.get('content.body.text') as FormControl;
+    const bodyControl = this.templateForm.get(
+      'content.body.text'
+    ) as FormControl;
     bodyControl.valueChanges.subscribe((updatedBody) => {
       this.updateReferencesFromBody(updatedBody);
     });
@@ -105,9 +111,9 @@ export class MessageTemplateFormComponent implements OnInit{
 
     // Track new variables as strings
     this.newVariables.push({
-      "variable": newVariable,
-      "placeholder": newPlaceholder
-      });
+      variable: newVariable,
+      placeholder: newPlaceholder,
+    });
 
     // Clear the input fields in the newVariableForm
     this.newVariableForm.get('newVariable')?.reset();
@@ -130,7 +136,7 @@ export class MessageTemplateFormComponent implements OnInit{
 
     // Remove the placeholder from the newVariables array
     this.newVariables.splice(index, 1);
-  };
+  }
 
   updateReferencesFromBody(updatedBody: string) {
     const formContent = this.templateForm.get('content') as FormGroup;
@@ -142,7 +148,7 @@ export class MessageTemplateFormComponent implements OnInit{
     for (let i = referencesArray.length - 1; i >= 0; i--) {
       const referenceGroup = referencesArray.at(i) as FormGroup;
       const placeholder = referenceGroup.get('placeholder')?.value;
-      
+
       // If the placeholder does not exist in the updated body, remove the reference
       if (!updatedBody.includes(`{{${placeholder}}}`)) {
         referencesArray.removeAt(i);
@@ -154,18 +160,17 @@ export class MessageTemplateFormComponent implements OnInit{
       }
     }
   }
-    
+
   cancel() {
-    this._route$$.navigate(['/messaging'])
+    this._route$$.navigate(['/messaging']);
   }
 
-  openTemplate(){
+  openTemplate() {
     this._route$$.navigate(['/messaging']);
-
   }
 
   save() {
-    if (this.templateForm.value.id){
+    if (this.templateForm.value.id) {
       this.updateTemplate();
     } else {
       this.saveTemplate();
@@ -173,29 +178,31 @@ export class MessageTemplateFormComponent implements OnInit{
   }
 
   updateTemplate() {
-    this.template = this.templateForm.value;
-    this.isSaving = true
+    this.isSaving = true;
 
-    this._sbS.sink = this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
-      if (response.success){
-        this._sbS.sink = this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe(() => {
-          this._snackbar.showSuccess("Template updated successfully");
-          this.isSaving  = false;
-        });
-      };
-    });
-  };
+    this._sbS.sink = this._messageTemplatesService
+      .updateTemplateMeta(this.templateForm.value)
+      .subscribe((response) => {
+        if (response.success) {
+          this._sbS.sink = this._messageTemplatesService
+            .updateTemplate(this.templateForm.value)
+            .subscribe(() => {
+              this._snackbar.showSuccess('Template updated successfully');
+              this.isSaving = false;
+            });
+        }
+      });
+  }
 
   saveTemplate() {
-    this.template = this.templateForm.value;
-
     if (!this.templateForm.valid) {
       this._snackbar.showError('Please fill out all fields');
       return;
-    };
+    }
 
     this.isSaving = true;
-    this._sbS.sink = this._messageTemplatesService.createTemplateMeta(this.template)
+    this._sbS.sink = this._messageTemplatesService
+      .createTemplateMeta(this.templateForm.value)
       .subscribe((response) => {
         if (!response.success) {
           this.isSaving = false;
@@ -206,11 +213,13 @@ export class MessageTemplateFormComponent implements OnInit{
 
         const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
 
-        this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value, templateId).subscribe(() => {
-          this.isSaving = false;
-          this._snackbar.showSuccess('Template created successfully');
-          this.openTemplate();
-        });
+        this._sbS.sink = this._messageTemplatesService
+          .addMessageTemplate(this.templateForm.value, templateId)
+          .subscribe(() => {
+            this.isSaving = false;
+            this._snackbar.showSuccess('Template created successfully');
+            this.openTemplate();
+          });
       });
   }
-};
+}
