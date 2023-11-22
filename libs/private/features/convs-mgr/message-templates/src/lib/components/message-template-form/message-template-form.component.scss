@@ -62,7 +62,7 @@
     cursor: pointer;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: flex-start;
     p{
       color: var(--convs-mgr-button-color) !important;
       font-size: 1rem;
@@ -72,7 +72,12 @@
       margin-right: 1rem;
       vertical-align: middle;
       line-height: 1.5;
+      mat-menu{
+        padding-right: 2rem !important;
+
+      }
     }
+
   }
   
   button {

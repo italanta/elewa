@@ -10,10 +10,12 @@ import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/con
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
+
 
 @Component({
   selector: 'app-message-template-form',
@@ -44,6 +46,7 @@ export class MessageTemplateFormComponent implements OnInit{
   newVariableForm: FormGroup;
   private _sbS = new SubSink();
   showVariableSection: boolean;
+  bots: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -51,7 +54,8 @@ export class MessageTemplateFormComponent implements OnInit{
     private _route:ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
-    private _channelService: CommunicationChannelService
+    private _channelService: CommunicationChannelService,
+    private _botStateServ$: BotsStateService
   ) {}
 
   ngOnInit() {
@@ -177,6 +181,13 @@ export class MessageTemplateFormComponent implements OnInit{
     
   toggleVariableSection() {
     this.showVariableSection = !this.showVariableSection;
+  }
+
+  fetchBots(){
+     this._botStateServ$.getBots().subscribe(data =>{
+      this.bots = data
+    })
+   
   }
 
   cancel() {
