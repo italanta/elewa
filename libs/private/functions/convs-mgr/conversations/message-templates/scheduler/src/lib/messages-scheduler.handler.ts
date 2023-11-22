@@ -3,7 +3,7 @@ import { FunctionHandler, FunctionContext } from "@ngfi/functions";
 
 import { ChannelDataService, EnrolledUserDataService } from "@app/functions/bot-engine";
 import { PlatformType } from "@app/model/convs-mgr/conversations/admin/system";
-import { ScheduledMessage } from "@app/model/convs-mgr/functions";
+import { ScheduledMessage, ScheduledMessageStatus } from "@app/model/convs-mgr/functions";
 
 import { ScheduleMessagesReq } from "./model/schedule-message-req";
 import CloudSchedulerService from "./model/services/cloud-scheduler.service";
@@ -53,7 +53,7 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
       }
 
       // Save scheduled message
-      await this._saveScheduledMessage(cmd, task, communicationChannel.orgId, tools);
+      await this._updateScheduledMessage(cmd.id, task, communicationChannel.orgId, tools);
       tools.Logger.log(() => `[ScheduleMessageTemplatesHandler].execute - Scheduled Message: ${JSON.stringify(scheduledMessage)}`);
       return { success: true, task } as any;
     } catch (error) {
@@ -62,18 +62,23 @@ export class ScheduleMessageTemplatesHandler extends FunctionHandler<ScheduleMes
     }
   }
 
-  private _saveScheduledMessage(cmd: ScheduleMessagesReq, task: any, orgId: string, tools: HandlerTools)
+  private async _updateScheduledMessage(id: string, task: any, orgId: string, tools: HandlerTools)
   {
+    
+    const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${orgId}/scheduled-messages`);
+    
+    const scheduledMessage  = await scheduledMessages$.getDocumentById(id);
+    
     const schedule = {
-      ...cmd,
+      ...scheduledMessage,
       successful: [],
       failed: [],
       jobID: task.name,
+      status: ScheduledMessageStatus.Pending,
+      scheduledOn: new Date()
     } as ScheduledMessage;
 
-    const scheduledMessages$ = tools.getRepository<ScheduledMessage>(`orgs/${orgId}/scheduled-messages`);
-
-    return scheduledMessages$.create(schedule);
+    return scheduledMessages$.update(schedule);
   }
 
   private async __getEndUsers(platform: PlatformType, orgId: string, tools: HandlerTools) 
