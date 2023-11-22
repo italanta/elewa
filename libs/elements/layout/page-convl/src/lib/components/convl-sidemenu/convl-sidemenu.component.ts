@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -11,6 +11,7 @@ import { PermissionsStore } from '@app/private/state/organisation/main';
 
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-constants.function';
+import { FeatureFlagsService } from 'libs/elements/base/feature-flags/src/lib/service/feature-flags.service';
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -49,10 +50,13 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
               private sideMenu:SidemenuToggleService,
               private _mMenuState: MenuStateToggleService,
               private _ps: PermissionsStore,
+              private featureFlagsService: FeatureFlagsService,
+              private cdr: ChangeDetectorRef,
               @Inject('ENVIRONMENT') private _env: any)
   {
     this._sbS.sink = this.sideMenu.menuStatus$.subscribe((isOpen) => (this.isExpanded = isOpen));
     this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => (this.isDropdownOpen = isOpen));
+    
   }
 
   ngAfterViewInit(): void {
@@ -60,6 +64,14 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
+  }
+
+  toggleSurveysFeature() {
+    const currentFlagState = this.featureFlagsService.isFeatureOn('surveys');
+    this.featureFlagsService.setFeatureFlag('surveys', !currentFlagState);
+    
+    // Trigger change detection explicitly
+    this.cdr.detectChanges();
   }
 
   handlerUserNavClicks() {

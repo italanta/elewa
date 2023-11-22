@@ -46,7 +46,7 @@
 
             <!-- Section Analytics -->
             <li *hasViewAccess="CAN_ACCESS_ANALYTICS" routerLink="/analytics/dashboard" routerLinkActive="active" class="menu-item" >
-              <a>
+              <a *appFeatureFlag="'insights'">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/insights-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}" src="assets/icons/insights-stroked.svg" class="img" alt="">
@@ -113,7 +113,7 @@
 
             <!-- Surveys sections -->
             <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys" routerLinkActive="active" >
-              <a>
+              <a *appFeatureFlag="'surveys'">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/survey.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}" src="assets/icons/survey.svg" class="img" alt="">
