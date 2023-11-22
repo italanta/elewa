@@ -163,7 +163,6 @@ export class StoryEditorFrame
 
     // this._jsPlumb.setSuspendDrawing(true); // Start loading drawing
 
-    console.log(this._connections)
     for (const conn of this._connections) 
     {
       // anchorBlock.id == this._story.id!;
