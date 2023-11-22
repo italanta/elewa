@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Renderer2, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { FeatureFlagsService } from '../service/feature-flags.service';
 
 @Directive({
@@ -9,8 +9,6 @@ export class FeatureFlagDirectiveDirective {
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private renderer: Renderer2,
-    private el: ElementRef,
     private featureFlagService: FeatureFlagsService
   ) {}
 
@@ -19,7 +17,6 @@ export class FeatureFlagDirectiveDirective {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainer.clear();
-      this.renderer.addClass(this.el.nativeElement, 'grayed-out-feature');
     }
   }
  }
