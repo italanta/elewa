@@ -270,7 +270,7 @@
       "BOT": "Bots",
       "REPORTS": "Reports",
       "LEARNERS": "Learners",
-      "ADMIN_SETTINGS": "Settings"
+      "SETTINGS": "Settings"
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
@@ -834,7 +834,7 @@
       "BUTTONS": {
         "ADD-MEMBER": "Add Member",
         "ADDING": "Adding ...",
-        "CANCEL": "Cancel"
+        "NO-THANKS": "No Thanks"
       },
       "MODAL": {
         "TITLE": "Add Member",
