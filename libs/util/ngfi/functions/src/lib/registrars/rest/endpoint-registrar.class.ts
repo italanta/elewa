@@ -1,4 +1,6 @@
-import * as functions from 'firebase-functions';
+import { Response } from "express";
+import { HttpsFunction, onRequest } from 'firebase-functions/v2/https';
+
 import { FunctionRegistrar } from "../function-registrar.interface";
 
 import { FIREBASE_REGIONS } from '../regions.type';
@@ -14,14 +16,14 @@ export class EndpointRegistrar<T, R> extends FunctionRegistrar<T, any>
 {
   constructor(private _region: FIREBASE_REGIONS = 'europe-west1') { super(); }
 
-  register(func: (req: any, resp: any) => Promise<void>): functions.HttpsFunction
+  register(func: (req: any, resp: any) => Promise<void>): HttpsFunction
   {
-    return functions.region(this._region).https.onRequest(func);
+    return onRequest({ region: this._region}, func);
   }
 
-  before(req: functions.Request, context: any): { data: T; context: HttpsContext; }
+  before(req: Request, context: any): { data: T; context: HttpsContext; }
   {
-    context = context as functions.Response<R>;
+    context = context as Response;
                                                         // Unsafe!!! TODO: Integrate auth security
     return { data: req.body as any as T, context: { request: req, response: context, eventContext: context, isAuthenticated: false, userId: 'external', environment: process.env as any }};
   }

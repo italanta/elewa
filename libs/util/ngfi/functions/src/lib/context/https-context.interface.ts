@@ -1,9 +1,8 @@
-import * as functions from 'firebase-functions';
+import { Response } from "express";
 import { FunctionContext } from './context.interface';
-
 
 export interface HttpsContext extends FunctionContext
 {
-  request: functions.Request;
-  response: functions.Response<any>;
+  request: Request;
+  response: Response;
 }

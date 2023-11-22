@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+import { onCall } from "firebase-functions/v2/https";
 
 import { FunctionRegistrar } from "../function-registrar.interface";
 
@@ -14,9 +14,9 @@ export class RestRegistrar<T, R> extends FunctionRegistrar<T, R>
 {
   constructor(private _region: FIREBASE_REGIONS = 'europe-west1') { super(); }
 
-  register(func: (dataSnap: any, context: any) => Promise<R>): functions.CloudFunction<any>
+  register(func: (dataSnap: any, context: any) => Promise<R>)
   {
-    return functions.region(this._region).https.onCall(func);
+    return onCall<T, Promise<R>>({ region: this._region }, (req) => func(req.data, req));
   }
 
   before(dataSnap: any, context: any): { data: T; context: FunctionContext; } {
