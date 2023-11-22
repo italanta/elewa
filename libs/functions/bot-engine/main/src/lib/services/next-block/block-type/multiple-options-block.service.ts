@@ -67,7 +67,7 @@ export class MultipleOptionsMessageService extends NextBlockService
 
 		const newUserPosition: EndUserPosition = {
 			storyId: currentStory,
-			blockId: connection.targetId
+			blockId: connection ? connection.targetId : null
 		}
 		cursor.position = newUserPosition;
 
@@ -92,17 +92,17 @@ export class MultipleOptionsMessageService extends NextBlockService
 		// check for next block from default option
 		const connection = await this._connDataService.getConnBySourceId(lastBlock.id, orgId, currentStory);
 
-		if (!connection.targetId) {
+		if (!connection) {
 			this.tools.Logger.error(() => `The message did not match any option and no default next block was found`)
 		}
 
 		const newUserPosition: EndUserPosition = {
 			storyId: currentStory,
-			blockId: connection.targetId
+			blockId: connection ? connection.targetId : null
 		}
 
 		cursor.position = newUserPosition;
 
-		return cursor
+		return cursor;
 	}
 }
