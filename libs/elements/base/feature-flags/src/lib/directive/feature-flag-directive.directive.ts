@@ -36,7 +36,6 @@ export class FeatureFlagDirectiveDirective implements OnInit {
       } else {
         // Feature is off, add the CSS class and "Coming Soon" text
         this.renderer.addClass(element, 'feature-flag-off');
-        this.renderer.appendChild(element, 'innerText', 'Coming Soon');
         this.renderer.removeAttribute(element, 'href'); // Optional: Remove href attribute
         this.renderer.setStyle(element, 'cursor', 'not-allowed'); // Optional: Change cursor style
       }
