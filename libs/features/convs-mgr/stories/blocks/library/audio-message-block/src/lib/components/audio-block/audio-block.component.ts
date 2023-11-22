@@ -74,7 +74,14 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
       const fileSizeInKB = this.file.size / 1024;
 
       //Step 3 - PatchValue to Block
-      this._sBs.sink = response.pipe(take(1)).subscribe((url) => this._autofillUrl(url, fileSizeInKB));
+      this._sBs.sink = response.pipe(take(1)).subscribe((url) =>{
+      this.wavesurfer.load(url)
+      this._autofillUrl(url, fileSizeInKB)
+      }
+       );
+
+      
+
     }
   }
 
@@ -100,12 +107,13 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
       waveColor: '#E9E7F4',
       progressColor: '#1F7A8C',
       barWidth: 3,
-      height: 20,
+      height: 30,
       normalize: true,
     });
   }
 
- /**this function is responsible for setting up and initializing the WaveSurfer component*/
+ /**setting up and initializing the WaveSurfer component.
+*/
   ngAfterViewInit() {
     this.initializeWaveSurfer();   
 
@@ -121,9 +129,6 @@ export class AudioBlockComponent implements OnInit, OnDestroy,AfterViewInit {
     if (files && files.length > 0) {
       const file = files[0];
       const url = URL.createObjectURL(file);
-      console.log('Before loading file:', url);
-
-      this.wavesurfer.load(url);
       console.log('After loading file');
 
     }
