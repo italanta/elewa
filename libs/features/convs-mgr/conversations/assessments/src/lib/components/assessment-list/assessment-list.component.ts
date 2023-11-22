@@ -81,7 +81,7 @@ export class AssessmentListComponent implements OnInit, OnDestroy {
       // Filtering using only specific columns
       return (data.title.toLowerCase().includes(filterText) || 
               data.description.toLowerCase().includes(filterText));
-    };
+    };``
   }
 
   searchTable(event: Event){

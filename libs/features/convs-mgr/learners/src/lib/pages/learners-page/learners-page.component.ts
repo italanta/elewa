@@ -90,6 +90,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllCourses();
     this.getAllPlatforms();
     this.getScheduleOptions();
+    this.dataSource.filterPredicate = (data, filter) => this.customFilterPredicate(data, filter, 'class');
   }
 
   getLearners() {
@@ -148,13 +149,33 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.dataSource.filter = searchValue.trim();
   }
 
-  filterTable(event: Event, mode:string) {
+  
+ customFilterPredicate(data: EnrolledEndUser, filter: any, mode: string): boolean {
+  const filterValue = filter.trim().toLowerCase();
+
+   switch (mode) {
+    case 'class':
+      const classValue = data.classId.toLowerCase();
+      return filterValue === 'allclasses' || classValue.includes(filterValue);
+    default:
+      return true;
+  }
+}
+  
+
+  filterTable(event: any, mode: string) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
+  
     switch (mode) {
       case 'class':
-        this.dataSource.filter = this.selectedClass.ClassName;
-        break
+        this.dataSource.filter = filterValue.trim().toLowerCase();;
+        break;
     }
   }
+  
+
+    
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
