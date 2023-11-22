@@ -44,7 +44,7 @@ export class DeleteBotModalComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mode = this.data.mode;
     this.element = this.data.element;
-    this.parentElement = this.data.parentElement;
+    this.parentElement = this.data.element;
   }
 
   getElementToDelete() {
