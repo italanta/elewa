@@ -11,27 +11,18 @@
         <div class="info" [hidden]="canBeScheduled"><i class="fas fa-info-circle"></i> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.INFO'| transloco }}</div>
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.SET-UP-CONDITIONS'| transloco }} </p>
 
-        <div class="data-result" *ngIf="scheduledMessages.length > 0">
-          <form action="">
-            <input  type="text" name="scheduled-messages"  >
-            <div class="buttons">
-              <img (click)="openSpecificTimeModal()" src="assets/icons/edit-item.svg" alt="edit">
-              <img (click)="deleteTimeOption()" src="assets/icons/delete-item.svg" alt="delete">
-            </div>
-          </form>
-        </div>
-
-        <!-- <div class="data-result">
-          <div *ngFor="let message of scheduledMessages">
+       
+        <div class="data-result" *ngFor="let message of scheduledMessages">
+          <!-- <div *ngFor="let message of scheduledMessages"> -->
             <form action="">
-              <input  type="text" name="scheduled-messages" value="{{ message.endDate }}" disabled>
+              <input type="text" name="scheduled-messages" [value]="'Send message at ' + message.dispatchTime" disabled>
               <div class="buttons">
                 <img  src="assets/icons/edit-item.svg" alt="edit">
                 <img  src="assets/icons/delete-item.svg" alt="delete">
               </div>
             </form>
-          </div>
-        </div> -->
+          <!-- </div> -->
+        </div>
 
         <p class="add-condition" (click)="showMessageConditions = !showMessageConditions">Add message condition</p>
 
