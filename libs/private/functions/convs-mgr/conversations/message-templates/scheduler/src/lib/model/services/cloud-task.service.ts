@@ -50,7 +50,7 @@ class CloudTasksService
   public async scheduleTask(payload: any, options: ScheduleOptions): Promise<any>
   {
     const endpoint = this.getEndpoint(payload.functionName);
-    const taskName = this.getTaskName(this.queuePath('scheduled-messages'), options.dispatchTime, options.id);
+    const taskName = this.getTaskName(this.queuePath('scheduled-messages'), options.dispatchTime, options.objectID);
     const task = this.generateTask(payload, options, taskName, endpoint);
 
     const request = { parent: this.queuePath('scheduled-messages'), task };
@@ -66,7 +66,7 @@ class CloudTasksService
   {
     const endDate = new Date(options.endDate);
     const endpoint = this.getEndpoint('deleteJob');
-    const taskName = this.getTaskName(this.queuePath('side-tasks'), endDate, options.id);
+    const taskName = this.getTaskName(this.queuePath('side-tasks'), endDate, options.objectID);
     
     options.dispatchTime =  endDate;
     const task = this.generateTask(payload, options, taskName, endpoint);
