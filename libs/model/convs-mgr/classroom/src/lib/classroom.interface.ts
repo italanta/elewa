@@ -21,6 +21,7 @@ export enum ClassroomUpdateEnum {
 // TODO: move elsewhere, potentially to DB - to be decided
 /** example of a classroom - we use to group ungrouped users (classroom) */
 export const defaultClassroom: Classroom = {
+  id: "default",
   className: 'default',
   description: 'the default classroom',
   deleted: false

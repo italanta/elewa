@@ -103,10 +103,24 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       return true; // No filter, include all rows
     }
 
-    // Filter based on classId
-    const classCondition = !filter || learner.classId.toLowerCase().includes(filter);
-    
-    return classCondition
+    const { filter: filterValue, mode } = JSON.parse(filter);
+
+    switch (mode) {
+      case 'class':
+        switch (filterValue) {
+          case 'null' || "undefined":
+            return true
+          case 'default':
+            return learner?.classId === ""
+          default:
+            return learner?.classId?.toLowerCase().includes(filterValue)  
+        }
+  
+      // Add cases for other modes as needed
+  
+      default:
+        return true; // No specific filtering for unknown mode
+    }
   }
 
 
@@ -120,7 +134,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  
+
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses
@@ -169,11 +183,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   filterTable(event: Event, mode:string) {
     const selectedValue = (event.target as HTMLSelectElement).value;
-    switch (mode) {
-      case 'class':
-        this.dataSource.filter = selectedValue.trim().toLowerCase() || ""
-        break
-    }
+    const filterObject = {
+      filter: selectedValue.trim().toLowerCase() || '',
+      mode: mode,
+    };
+  
+    this.dataSource.filter = JSON.stringify(filterObject);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
