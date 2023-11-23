@@ -68,7 +68,7 @@ export class NewMessageComponent implements OnChanges, OnDestroy
   }
 
   emitMessage() {
-    if (this.message) 
+    if (this.message && !this.disabled) 
     {
       const data = { chatId: this.chat.id, message: this.message, agentId: this.user.id };
 
