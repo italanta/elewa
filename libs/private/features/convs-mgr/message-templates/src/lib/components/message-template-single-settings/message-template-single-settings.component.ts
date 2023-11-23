@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { JobTypes, MessageTemplate, MessageTypes, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { JobTypes, MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { AfterInactivityModalComponent } from '../../modals/after-inactivity-modal/after-inactivity-modal.component';
@@ -37,10 +37,14 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   showMessageConditions :boolean;
 
+  ScheduleId:string;
 
   messageTemplateFrequency = frequencyOptions;
 
-  scheduledMessages: ScheduleOptions[] = [];
+  scheduledMessages: ScheduledMessage[] = [];
+  milestoneMessages : MilestoneTriggers[] = [];
+
+  combinedMessages: (ScheduledMessage | MilestoneTriggers)[] = [];
   
   displayedColumns: string[] = ['Date sent', 'Time sent', 'Number of learners', 'status', 'meta'];
   dataSource: MatTableDataSource<ScheduledMessage>;
@@ -55,7 +59,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
   ngOnInit(): void {
     this.action = this._route$$.url.split('/')[2];
-    this.getSheduleMessages()
+    this.getSheduleMessages();
+    this.getMilestones();
   }
 
   openMilestoneModal() {
@@ -78,6 +83,22 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       this.cronSchedule = schedule.cron;
       this.endDate = schedule.endDate;
 
+      
+      const specificTimeOptions  = this._getSpecificTimeOptions(schedule);
+      const payload :ScheduledMessage = {
+        ...specificTimeOptions, 
+        enrolledEndUsers:[],
+        successful:[],
+        failed:[],
+        objectID:''      }
+
+      this._scheduleMessageService.addScheduledMesssage(payload).subscribe(data => {
+         // Check if the returned data has the 'id' property
+        if (data && data.id) {
+          this.ScheduleId = data.id;
+        } 
+      });
+
       const formattedDateTime = `Send message at ${schedule.time} ${schedule.date.toLocaleString()}`;
       
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'specific-time');
@@ -86,18 +107,67 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       }
     });
   }
-  deleteTimeOption(){
-    // this._scheduleMessageService.removeScheduledMesssage()
+  deleteTimeOption(message: ScheduledMessage) {
+    this._scheduleMessageService.removeScheduledMesssage(message).subscribe();
+  }
+
+  editTimeOption(message: ScheduledMessage) {
+    switch (this.selectedOption) {
+      case 'milestone':
+        this.editMilestone(message);
+        break;
+      case 'specific-time':
+        this.editSpecificTime(message);
+        break;
+      case 'inactivity':
+        this.editInactivity(message);
+        break;
+      default:
+        break;
+    }
+  }
+
+  editMilestone(message: ScheduledMessage) {
+    alert("milestone")
+  }
+
+  editSpecificTime(message: ScheduledMessage) {
+    alert("specific time")
+  }
+
+  editInactivity(message: ScheduledMessage) {
+    alert("inacivity")
+  }
+  
+  getMilestones() {
+    this._milestoneTriggerService.fetchMileStoneTriggers().subscribe(
+      (milestone) => {
+        this.milestoneMessages = milestone;
+        this.combinedMessages = [...this.scheduledMessages, ...this.milestoneMessages];
+        console.log("milestone", milestone)
+      }
+    );
   }
 
   getSheduleMessages() {
     this._scheduleMessageService.getScheduledMessages$().subscribe(
       (messages) => {
         this.scheduledMessages = messages;
+        this.combinedMessages = [...this.scheduledMessages, ...this.milestoneMessages];
       }
     );
   }
-  
+
+
+  getMessageDisplayText(message: ScheduledMessage | MilestoneTriggers): string {
+    if (message instanceof ScheduledMessage) {
+      return `Send message at ${message.dispatchTime}`;
+    } else if (message instanceof MilestoneTriggers) {
+      return `Milestone: ${message.eventName}`;
+    }
+    // Add more cases if needed for other message types
+    return '';
+  }
 
   openInactivityModal() {
     const dialogRef = this._dialog.open(AfterInactivityModalComponent);
@@ -131,7 +201,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
     scheduleMessageOptions.type = JobTypes.SimpleMessage;
     scheduleMessageOptions.action = action;
-    scheduleMessageOptions.id = scheduleMessageOptions.template.id;
+    scheduleMessageOptions.id = this.ScheduleId;
 
     this._scheduleMessageService.setOptions(scheduleMessageOptions);
 
@@ -194,12 +264,15 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       inactivityTime: this.inactivityTime,
     }
   }
-  _getSpecificTimeOptions(templateMessage: MessageTemplate) {
+   _getSpecificTimeOptions(templateMessage: MessageTemplate) {
     return {
       template: templateMessage,
       dispatchDate: this.selectedTime,
       frequency: this.cronSchedule,
-      endDate: this.endDate ? this.endDate : null,
+      endDate: this.endDate ? this.endDate : undefined,
     }
   }
 }
+
+ 
+

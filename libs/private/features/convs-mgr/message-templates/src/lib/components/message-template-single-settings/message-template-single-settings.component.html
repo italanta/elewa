@@ -18,7 +18,7 @@
               <input type="text" name="scheduled-messages" [value]="'Send message at ' + message.dispatchTime" disabled>
               <div class="buttons">
                 <img  src="assets/icons/edit-item.svg" alt="edit">
-                <img  src="assets/icons/delete-item.svg" alt="delete">
+                <img (click)="deleteTimeOption(message)" src="assets/icons/delete-item.svg" alt="delete">
               </div>
             </form>
           <!-- </div> -->

@@ -16,4 +16,8 @@ export class MilestoneTriggersService {
   addMilestoneTrigger(milestone: MilestoneTriggers) {
     return this._milestoneTriggerStore$$.add(milestone);
   }
+
+  fetchMileStoneTriggers(){
+    return this._milestoneTriggerStore$$.get()
+  }
 }
