@@ -8,6 +8,9 @@ import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
+import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
+import { BotModuleDataService } from "../../data-services/botmodules.service";
+import { StoriesDataService } from "../../data-services/stories.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 
 
@@ -36,6 +39,10 @@ export class JumpStoryBlockService implements IProcessOperationBlock
       
     const currentStory = updatedCursor.position.storyId;
     
+    const updateLearnersProgressPromise = updateLearnerProgress(currentStory, endUser, this.tools, orgId);
+
+    this.sideOperations.push(updateLearnersProgressPromise);
+
     // 1. Get the connections pointing to block success or block fail blocks in the story
     // Then we use the connections to get the blocks id and construct our RoutedCursor
 
@@ -96,7 +103,7 @@ export class JumpStoryBlockService implements IProcessOperationBlock
       blockId: nextBlock.id
     };
 
-    let newCursor = updatedCursor;
+    const newCursor = updatedCursor;
 
     // 3. Create new stack if it does not exist or 
     //  push the new routed cursor to the top existing stack
@@ -121,3 +128,40 @@ export class JumpStoryBlockService implements IProcessOperationBlock
     };
   }
 }
+
+/** update the enrolled user's progress with the just completed story(lesson's) details*/
+const updateLearnerProgress = async (currentStory: string, endUser:EndUser, tools:HandlerTools, orgId:string) => {
+  const enrolledDataServ = new EnrolledUserDataService(tools, orgId);
+  const botModDataService = new BotModuleDataService(tools, orgId);
+  const storiesDataService = new StoriesDataService(tools, orgId);
+
+  const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
+
+  const parentModule = (await storiesDataService.getStory(currentStory)).parentModule;
+
+  const parentCourse = (await botModDataService.getBotModule(parentModule)).parentBot;
+
+  if (!enrolledUser) return;
+
+  // Find or create the course
+  let theCourse = enrolledUser.courses.find(course => course.courseId === parentCourse);
+
+  if (!theCourse) {
+    theCourse = { courseId: parentCourse, modules: [] };
+    enrolledUser.courses.push(theCourse);
+  }
+
+  // Find or create the module
+  let theModule = theCourse.modules.find(mod => mod.moduleId === parentModule);
+
+  if (!theModule) {
+    theModule = { moduleId: parentModule, lessons: [] };
+    theCourse.modules.push(theModule);
+  }
+
+  // Update lessons
+  theModule.lessons.push(currentStory);
+
+  // Save changes
+  await enrolledDataServ.updateEnrolledUser(enrolledUser);
+};
