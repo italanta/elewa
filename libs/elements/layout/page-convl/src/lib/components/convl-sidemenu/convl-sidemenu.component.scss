@@ -519,7 +519,7 @@ body {
   margin: 0;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
-  color: #3f4750;
+  color: var(--convs-mgr-color-37f4750);
   font-size: 0.9rem;
 }
 
@@ -579,7 +579,7 @@ a {
       width: 180px;
       min-width: 190px;
       margin: 0 auto;
-      background-color: #162d4a;
+      background-color: var(--convs-mgr-color-162d4a);
       img.react-logo {
         width: 40px;
         height: 40px;
@@ -600,7 +600,7 @@ a {
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background-color: #00829f;
+      background-color: var(--convs-mgr-color-00829f);
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -648,7 +648,7 @@ a {
   background-color: var(--convs-mgr-color-6c757d);
 
   &.primary {
-    background-color: #ab2dff;
+    background-color: var(--convs-mgr-color-ab2dff);
   }
 
   &.secondary {
