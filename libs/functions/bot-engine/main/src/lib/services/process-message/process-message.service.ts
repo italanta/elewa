@@ -67,7 +67,7 @@ export class ProcessMessageService
    */
   async resolveNextBlock(msg: Message, currentCursor: Cursor, endUser: EndUser, orgId: string, currentStory: string, tools: HandlerTools)
   {
-    this._tools.Logger.log(()=> `Resolving next block...`);
+    this._tools.Logger.log(()=> `Resolving next block... ${JSON.stringify(currentCursor)}`);
 
     const lastBlockId = currentCursor.position.blockId;
 
@@ -141,15 +141,23 @@ export class ProcessMessageService
 
     const updatePosition = await nextBlockService.changedPath(msg, currentBlock, currentCursor, currentStory, orgId, this._blockService$);
 
-    if(updatePosition) {
+    if(updatePosition && updatePosition.lastBlock) {
       currentCursor = updatePosition.cursor;
       currentBlock = updatePosition.lastBlock;
       currentStory = updatePosition.currentStory;
 
       nextBlockService =  new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
     }
+    
+    if(!updatePosition.lastBlock) {
+      const nextBlock = this.fallBackService.getBlock(currentBlock.id);
+      currentCursor.position.blockId = nextBlock.id;
+
+      return {newCursor: currentCursor, nextBlock};
+    }
 
     const newCursor = await nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
+
     let nextBlock: StoryBlock;
 
     if (newCursor.position.blockId) {
