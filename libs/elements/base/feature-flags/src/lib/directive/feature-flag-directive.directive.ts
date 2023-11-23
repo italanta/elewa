@@ -1,4 +1,5 @@
 import { Directive, Input, ViewContainerRef, TemplateRef, OnInit, Renderer2 } from '@angular/core';
+
 import { FeatureFlagsService } from '../service/feature-flags.service';
 
 
@@ -36,7 +37,7 @@ export class FeatureFlagDirectiveDirective implements OnInit {
       } else {
         // Feature is off, add the CSS class and "Coming Soon" text
         this.renderer.addClass(element, 'feature-flag-off');
-        this.renderer.removeAttribute(element, 'href'); // Optional: Remove href attribute
+        this.renderer.setAttribute(element, 'disabled', 'true');
         this.renderer.setStyle(element, 'cursor', 'not-allowed'); // Optional: Change cursor style
       }
     }

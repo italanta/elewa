@@ -30,5 +30,4 @@ export class FeatureFlagsService {
     const value = this.flags[featureName] || false;
     return value;
   }
-
 }

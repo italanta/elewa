@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { AppClaimDomains } from '@app/private/model/access-control';
+import { PermissionsStore } from '@app/private/state/organisation/main';
 
 import { MenuStateToggleService } from '../../providers/messages-menu-state';
 import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
-import { PermissionsStore } from '@app/private/state/organisation/main';
+
 
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-constants.function';
@@ -114,6 +115,21 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
         slideToggle(element.nextElementSibling);
       });
     });
+  }
+  
+  navigateToBots(){
+    this._router$$.navigate(['/bots'])
+  }
+
+  navigateToHome(){
+    this._router$$.navigate(['/home'])
+  }
+
+  navigateToAnalytics() {
+    this._router$$.navigate(['/analytics/dashboard']);
+  }
+  navigateToSurveys(){
+    this._router$$.navigate(['/surveys']);
   }
 
   openActiveFeature(feature: string, ) {
