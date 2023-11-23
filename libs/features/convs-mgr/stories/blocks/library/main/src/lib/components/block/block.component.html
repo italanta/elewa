@@ -114,18 +114,9 @@
             </app-open-ended-question-block>
         </div>
         <div *ngSwitchCase="endStoryAnchor" class="outer">
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="deleteMe()">
-                    <i class="far fa-trash-alt"></i>
-                    <span class="icon-with-text">Delete</span>
-                </button>
-            </mat-menu>
-                <div class="block-title-container"> 
+                <div class="block-title-container2"> 
                     <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
-                    </app-end-anchor>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
+                    </app-end-anchor> 
                 </div>
             </div>
         
