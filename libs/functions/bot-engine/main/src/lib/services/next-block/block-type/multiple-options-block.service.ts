@@ -53,6 +53,11 @@ export class MultipleOptionsMessageService extends NextBlockService
 		// TODO: Add a dynamic way of selecting matching strategies
 		this.matchInput.setMatchStrategy(new ExactMatch());
 
+		if(!response.options) {
+			currentCursor.position.blockId = null;
+			return currentCursor;
+		}
+
 		const selectedOptionIndex = this.match(type || "matchId", response, lastBlock.options);
 
 		if (selectedOptionIndex == -1) {
