@@ -116,7 +116,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
 
     scheduleMessageOptions.type = JobTypes.SimpleMessage;
     scheduleMessageOptions.action = action;
-    scheduleMessageOptions.id = scheduleMessageOptions.template.id;
+    scheduleMessageOptions.objectID = scheduleMessageOptions.template.id;
 
     this._scheduleMessageService.setOptions(scheduleMessageOptions);
 

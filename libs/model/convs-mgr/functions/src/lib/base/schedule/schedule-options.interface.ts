@@ -1,18 +1,18 @@
+import { IObject } from "@iote/bricks";
+
 /**
  * Defines the options required to send a template message or start a survey
  *  on a selected schedule or specified date.
  */
-export interface ScheduleOptions 
+export interface ScheduleOptions extends IObject
 {
    /** JOB ID - As scheduled on GCP Tasks */
    jobID?: string;
 
    /**
     * The id of the survey or message template
-    * 
-    * TODO:@Reagan Change name to objectID
     */
-   id: string;
+   objectID: string;
 
    /** The time scheduled for the message to be sent 
     * 
