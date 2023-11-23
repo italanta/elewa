@@ -23,7 +23,7 @@ export class FallBackBlockService
       deleted: false,
       blockTitle: '',
       blockIcon: '',
-      message: `Sorry, I could not understand your response. Please select of the below:`,
+      message: `Sorry, I could not understand your message. Please select what you want to do:`,
       options: this.__getFallBackOptions()
     };
     return block;
@@ -34,11 +34,11 @@ export class FallBackBlockService
     const fallBackOptions: ButtonsBlockButton<Button>[] = [
       {
         id: "1",
-        message: "Resend last message",
+        message: "Resend Last Message",
       },
       {
         id: "2",
-        message: "Restart Lesson",
+        message: "Restart Story",
       },
       {
         id: "3",
@@ -51,7 +51,7 @@ export class FallBackBlockService
 
   async fallBack(channel: CommunicationChannel, currentCursor: Cursor, blockDataService: BlockDataService, message: Message)
 	{
-    let newCursor: Cursor;
+    const newCursor = currentCursor;
     let nextBlock: StoryBlock;
 
     const response =  message as QuestionMessage;
@@ -60,6 +60,12 @@ export class FallBackBlockService
     const currentStory = currentCursor.position.storyId;
     const lastBlockId = currentCursor.position.blockId.split('-')[0];
     
+    if(!response.options) {
+      newCursor.position.blockId = lastBlockId;
+      nextBlock = await blockDataService.getBlockById(lastBlockId, orgId, currentStory);
+      return { nextBlock, newCursor };
+    }
+
     switch (response.options[0].optionId) {
       case '1':
         // Resend the last block
