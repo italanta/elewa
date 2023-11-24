@@ -158,15 +158,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     );
   }
 
-
-  getMessageDisplayText(message: ScheduledMessage | MilestoneTriggers): string {
-    if (message instanceof ScheduledMessage) {
-      return `Send message at ${message.dispatchTime}`;
-    } else if (message instanceof MilestoneTriggers) {
-      return `Milestone: ${message.eventName}`;
-    }
-    // Add more cases if needed for other message types
-    return '';
+  editItem(){
+    
   }
 
   openInactivityModal() {
