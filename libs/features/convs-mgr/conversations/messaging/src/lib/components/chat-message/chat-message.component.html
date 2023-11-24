@@ -21,6 +21,7 @@
       </div>
 
       <div *ngSwitchCase="'document'" [ngClass]="(message.direction === 5 || message.direction === 25) ? ['message-content', 'green'] : ['message-content', 'grey']">
+        <img [src]="svgIcon" class="svgIcon" alt="">
         <a [href]="documentUrl" target="_blank">{{ documentName }}</a> 
       </div>
 

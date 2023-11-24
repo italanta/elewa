@@ -3,6 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Message, MessageDirection, TextMessage, DocumentMessage } from '@app/model/convs-mgr/conversations/messages';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
+import { ICONS_AND_TITLES } from '../../../../../../stories/blocks/library/main/src/lib/assets/icons-and-titles'; 
+
 import { __NewDate, __DateFromStorage } from '@iote/time';
 
 // import { ChatMessage, MessageOrigins, TextMessage }   from '@elewa/model/conversations/messages';
@@ -24,9 +26,13 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
   agentMessage: boolean;
   timestamp: string;
 
+  svgIcon = ''
+
   constructor(private _sanetizer: DomSanitizer) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.svgIcon = ICONS_AND_TITLES[7].svgIcon
+  }
 
   ngAfterViewInit(): void {
     if (this.message) {
@@ -76,5 +82,10 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
   // Getter function to retrieve the document name
   get documentName(): string | undefined {
     return this.documentMessage?.documentName;
+  }
+
+  // Getter function to retrieve the file size
+  get fileSize(): number | undefined {
+    return this.block?.fileSize;
   }
 }

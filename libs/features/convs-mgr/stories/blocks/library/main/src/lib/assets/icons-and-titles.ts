@@ -26,6 +26,7 @@ export const ICONS_AND_TITLES = {
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
     icon: 'fas fa-file-alt',
+    svgIcon: '/assets/icons/document.svg'
   },
   8: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO',
