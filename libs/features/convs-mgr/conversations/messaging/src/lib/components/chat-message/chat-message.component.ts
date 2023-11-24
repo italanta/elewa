@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Message, MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages';
+import { Message, MessageDirection, TextMessage, DocumentMessage } from '@app/model/convs-mgr/conversations/messages';
+import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { __NewDate, __DateFromStorage } from '@iote/time';
 
@@ -14,6 +15,8 @@ import { __NewDate, __DateFromStorage } from '@iote/time';
 export class ChatMessageComponent implements OnInit, AfterViewInit
 {
   @Input() message: Message;
+  @Input() documentMessage: DocumentMessage;
+  @Input() block: DocumentMessageBlock;
 
   // Calculated properties
   messageIsNotMine: boolean;
@@ -63,5 +66,15 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
 
   private _replaceAt(msg : string, index : number, replacement: string) {
     return msg.substr(0, index) + replacement + msg.substr(index + 1);
+  }
+
+  // Getter function to retrieve the document URL
+  get documentUrl(): string | undefined {
+    return this.documentMessage?.url;
+  }
+
+  // Getter function to retrieve the document name
+  get documentName(): string | undefined {
+    return this.documentMessage?.documentName;
   }
 }

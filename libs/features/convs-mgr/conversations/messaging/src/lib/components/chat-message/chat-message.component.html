@@ -20,6 +20,10 @@
         [innerHtml]=" textMessage(message)"></span>
       </div>
 
+      <div *ngSwitchCase="'document'" [ngClass]="(message.direction === 5 || message.direction === 25) ? ['message-content', 'green'] : ['message-content', 'grey']">
+        <a [href]="documentUrl" target="_blank">{{ documentName }}</a> 
+      </div>
+
     <app-resource-message *ngSwitchCase="'image'" [message]="message"></app-resource-message>
     <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
   </div>
