@@ -1,5 +1,7 @@
 import { User } from '@iote/bricks';
 
+import { Mandate } from '@app/private/functions/payments/core';
+
 import { iTalUserProfile } from './ital-user-profile.interface';
 import { iTalUserRoles } from './ital-user-roles.interface';
 
