@@ -16,4 +16,12 @@ export class MollieCustomerService
         this.mollieClient = createMollieClient({apiKey: this._apiKey});
         this.tools = tools;
     }
+    /**
+    * Create a Mollie customer using user information.
+    */
+
+    async createMollieCustomer (user: iTalUser){
+
+    }
+
 }
