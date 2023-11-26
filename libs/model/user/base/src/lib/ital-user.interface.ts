@@ -23,4 +23,9 @@ export interface iTalUser extends User
   /** Active Organisation ID. Users can only have one currently active org.
    *    The active org ID is used to determine which screen to route non-admins too when selecting orgs. */
   activeOrg: string;
+  /**ID field after a user registers for mollie payments */
+  mollieCustomerId?: string;
+
+  /** An array of customer mandates, allowing Elewa to request them for payments */
+  mandates?: Mandate[];
 }

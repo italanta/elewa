@@ -1,8 +1,12 @@
 import axios from "axios";
- 
+
 import { createMollieClient } from '@mollie/api-client';
 
 import { HandlerTools } from '@iote/cqrs';
+
+import { iTalUser } from '@app/model/user';
+import { Customer } from "../models/customer.model";
+
 
 export class MollieCustomerService 
 {
