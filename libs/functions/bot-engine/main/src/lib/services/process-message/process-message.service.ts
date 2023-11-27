@@ -215,10 +215,14 @@ export class ProcessMessageService
       theModule.lessons.push(theLesson);
     }
 
-    // Update blocks covered in a story
-    theLesson.blocks.push(lastBlock.id);
+    const block = theLesson.blocks.find((blockId) => blockId === lastBlock.id)
+    if (!block) theLesson.blocks.push(lastBlock.id);
 
-    tools.Logger.log(() => `updating enrolled user progress`);
+    tools.Logger.log(() => `Updating enrolled user progress for ${endUser.enrolledUserId}`);
+    tools.Logger.log(() => `Current Story: ${currentStory}`);
+    tools.Logger.log(() => `Parent Course: ${parentCourse}`);
+    tools.Logger.log(() => `Parent Module: ${parentModule}`);
+    tools.Logger.log(() => `Lesson: ${JSON.stringify(theLesson)}`);
 
     // Save changes
     await enrolledDataServ.updateEnrolledUser(enrolledUser);
