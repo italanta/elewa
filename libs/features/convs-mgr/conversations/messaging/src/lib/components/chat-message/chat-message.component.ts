@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 import { Message, MessageDirection, TextMessage, DocumentMessage } from '@app/model/convs-mgr/conversations/messages';
 import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
@@ -28,7 +29,7 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
 
   svgIcon = ''
 
-  constructor(private _sanetizer: DomSanitizer) {}
+  constructor(private _sanetizer: DomSanitizer, private http: HttpClient) {}
 
   ngOnInit() {
     this.svgIcon = ICONS_AND_TITLES[7].svgIcon
@@ -87,5 +88,31 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
   // Getter function to retrieve the file size
   get fileSize(): number | undefined {
     return this.block?.fileSize;
+  }
+
+  downloadDocument() {
+    const documentUrl: string | undefined = this.documentUrl;
+
+    if (documentUrl) {
+      // Use HttpClient to fetch the document as a blob
+      this.http.get(documentUrl, { responseType: 'blob' }).subscribe((blob: Blob) => {
+        // Create a Blob URL for the blob
+        const blobUrl = window.URL.createObjectURL(blob);
+        // Create a link element
+        const link = document.createElement('a');
+        // Set the href attribute to the Blob URL
+        link.href = blobUrl;
+        // Set the download attribute to the document name
+        link.download = this.documentName || 'document';
+        // Append the link to the document
+        document.body.appendChild(link);
+        // Simulate a click on the link to trigger the download
+        link.click();
+        // Remove the link from the document
+        document.body.removeChild(link);
+        // Revoke the Blob URL to free up resources
+        window.URL.revokeObjectURL(blobUrl);
+      });
+    }
   }
 }
