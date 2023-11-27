@@ -13,9 +13,12 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
-import { ProcessInputFactory } from '../process-input/process-input.factory';
+import { EnrolledUserDataService } from '../data-services/enrolled-user.service';
+import { BotModuleDataService } from '../data-services/botmodules.service';
+import { StoriesDataService } from '../data-services/stories.service';
 
 import { BotMediaProcessService } from '../media/process-media-service';
+import { ProcessInputFactory } from '../process-input/process-input.factory';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
 import { SurveyService } from '../process-operation-block/block-type/survey-service';
@@ -80,6 +83,11 @@ export class ProcessMessageService
     const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
 
     this.sideOperations.push(inputPromise);
+
+    // upodate leaner progrress
+    const updateLearnersProgressPromise = this._updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
+
+    this.sideOperations.push(updateLearnersProgressPromise);
 
     // Return the cursor updated with the next block in the story
     newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);
@@ -168,6 +176,49 @@ export class ProcessMessageService
 
     return updatedPosition;
   }
+
+  /** update the enrolled user's progress with the just completed story(lesson's) details*/
+  private async _updateLearnerProgress (currentStory: string, lastBlock:StoryBlock, endUser:EndUser, tools:HandlerTools, orgId:string) {
+    const enrolledDataServ = new EnrolledUserDataService(tools, orgId);
+    const botModDataService = new BotModuleDataService(tools, orgId);
+    const storiesDataService = new StoriesDataService(tools, orgId);
+
+    const enrolledUser = await enrolledDataServ.getEnrolledUser(endUser.enrolledUserId ?? '');
+
+    const parentModule = (await storiesDataService.getStory(currentStory))?.parentModule;
+    const parentCourse = (await botModDataService.getBotModule(parentModule))?.parentBot;
+
+    if (!enrolledUser) return;
+
+    // Find or create the course
+    let theCourse = enrolledUser.courses.find(course => course.courseId === parentCourse);
+
+    if (!theCourse) {
+      theCourse = { courseId: parentCourse, modules: [] };
+      enrolledUser.courses.push(theCourse);
+    }
+
+    // Find or create the module
+    let theModule = theCourse.modules.find(mod => mod.moduleId === parentModule);
+
+    if (!theModule) {
+      theModule = { moduleId: parentModule, lessons: [] };
+      theCourse.modules.push(theModule);
+    }
+
+    let theLesson = theModule.lessons.find(lesson => lesson.lessonId === currentStory);
+
+    if (!theLesson) {
+      theLesson = { lessonId: currentStory, blocks: [] };
+      theModule.lessons.push(theLesson);
+    }
+
+    // Update blocks covered in a story
+    theLesson.blocks.push(lastBlock.id);
+
+    // Save changes
+    await enrolledDataServ.updateEnrolledUser(enrolledUser);
+  };
 
   public getSideOperations()
   {
