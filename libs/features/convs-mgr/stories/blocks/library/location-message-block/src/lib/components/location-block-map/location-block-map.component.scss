@@ -11,3 +11,12 @@ input {
 	border-radius: 0.7rem;
 	border: none;
 }
+
+input:focus-visible {
+	border: none;
+	outline: none;
+}
+
+.locationInput{
+	margin-bottom: 100px;
+}
