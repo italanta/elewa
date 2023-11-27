@@ -56,7 +56,7 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
       return of([]);
     }
 
-    return combineLatest(this.currentLearner.courses.map((course) =>
+    const progress = this.currentLearner.courses.map((course) =>
       this._botsStateServ$.getBotById(course.courseId).pipe(
         switchMap((bot) =>
           combineLatest(
@@ -69,7 +69,9 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
           )
         )
       )
-    )).pipe(tap(() => this.isLoading = false))
+    );
+
+    return combineLatest(progress).pipe(tap(() => this.isLoading = false))
   }
 
   /** computes learner progress per module (lessons covered) */
@@ -94,7 +96,6 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
       switchMap((story) =>
         this._blocksStateService$.getBlocksByStory(story?.id as string, story?.orgId).pipe(
           map((blocks) => {
-            console.log({blocks})
             const totalBlocks = blocks.length ? blocks.length - 2 : 0;
             const blockedPassed = userprogModule?.blocks?.length ?? 0;
             const percentage = totalBlocks === 0 ? 0 : (blockedPassed / totalBlocks) * 100;
