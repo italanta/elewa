@@ -190,6 +190,8 @@ export class ProcessMessageService
 
     if (!enrolledUser) return;
 
+    if (enrolledUser.courses == null) enrolledUser.courses = [];
+
     // Find or create the course
     let theCourse = enrolledUser.courses.find(course => course.courseId === parentCourse);
 
@@ -215,6 +217,8 @@ export class ProcessMessageService
 
     // Update blocks covered in a story
     theLesson.blocks.push(lastBlock.id);
+
+    tools.Logger.log(() => `updating enrolled user progress`);
 
     // Save changes
     await enrolledDataServ.updateEnrolledUser(enrolledUser);
