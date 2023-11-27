@@ -1,0 +1,15 @@
+<div [formGroup]="locationInputForm" *ngIf="locationInputForm">
+    <form fxLayout="column" fxLayoutAlign="start center">
+      <!-- Assuming message is one of the form controls -->
+      <input [id]="locationInputId + '-name'" formControlName="name" type="text"
+        [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.NAME' | transloco" />
+      <input class="locationInput" [id]="locationInputId + '-location'" formControlName="location" type="text"
+        [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.LOCATION-INPUT' | transloco" />
+  
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationInputForm"></app-default-option-field>
+    </form>
+  </div>
+  
+
+
+<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationInputForm"></app-default-option-field>
