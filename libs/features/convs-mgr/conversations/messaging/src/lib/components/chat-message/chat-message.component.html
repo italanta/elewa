@@ -21,10 +21,17 @@
       </div>
 
       <div *ngSwitchCase="'document'" [ngClass]="(message.direction === 5 || message.direction === 25) ? ['message-content', 'green'] : ['message-content', 'white']">
-        <img [src]="svgIcon" class="svgIcon" alt="">
-        <a [href]="documentUrl" target="_blank">{{ documentName }}</a> 
-        <img src="assets/icons/download.svg" class="download-btn" alt="">
-      </div>
+        <div class="document-info">
+          <div class="icon-and-size">
+            <img [src]="svgIcon" class="svgIcon" alt="">
+            <div class="file-size">{{ fileSize }} KB</div>
+          </div>
+          <div class="link-download">
+            <a [href]="documentUrl" target="_blank">{{ documentName }}</a>
+            <img src="assets/icons/download.svg" class="download-btn" alt="">
+          </div>
+        </div>
+      </div>          
 
     <app-resource-message *ngSwitchCase="'image'" [message]="message"></app-resource-message>
     <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
