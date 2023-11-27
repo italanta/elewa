@@ -115,7 +115,7 @@
         </div>
         <div *ngSwitchCase="endStoryAnchor" class="outer">
                 <div class="block-title-container2"> 
-                    <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
+                    <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" (deleteButtonClick)="handleDeleteEndStoryAnchor($event)" class="block">
                     </app-end-anchor> 
                 </div>
             </div>
