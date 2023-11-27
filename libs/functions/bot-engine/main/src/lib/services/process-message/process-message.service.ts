@@ -149,7 +149,7 @@ export class ProcessMessageService
       nextBlockService =  new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
     }
     
-    if(!updatePosition.lastBlock) {
+    if(updatePosition && !updatePosition.lastBlock) {
       const nextBlock = this.fallBackService.getBlock(currentBlock.id);
       currentCursor.position.blockId = nextBlock.id;
 
