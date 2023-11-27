@@ -270,7 +270,7 @@
       "BOT": "Bots",
       "REPORTS": "Reports",
       "LEARNERS": "Learners",
-      "ADMIN_SETTINGS": "Settings"
+     
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
@@ -298,7 +298,8 @@
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block",
-      "CMI5-BLOCK" :"CMI5 Block"
+      "CMI5-BLOCK" :"CMI5 Block",
+      "ADMIN_SETTINGS": "Settings"
     }
   },
   "BOTS": {
