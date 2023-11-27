@@ -1,3 +1,13 @@
 agm-map {
     height: 200px;
 }
+
+input {
+	max-width: 100%;
+	margin: 5px 0;
+	resize: none;
+	padding: 10px;
+	background-color: var(--convs-mgr-placeholder-color);
+	border-radius: 0.7rem;
+	border: none;
+}
