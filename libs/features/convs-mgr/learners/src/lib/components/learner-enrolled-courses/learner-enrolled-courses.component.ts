@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
-import { Observable, combineLatest, map, switchMap, tap } from 'rxjs';
+import { combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
@@ -25,7 +25,7 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   isOpen = false;
   isLoading: boolean;
 
-  leanerProgress: Observable<EnrolledUserProgress>[];
+  leanerProgress: EnrolledUserProgress[];
 
   private _sBs = new SubSink();
 
@@ -39,11 +39,9 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.leanerProgress = this.getLearnerProgress();
-
-    this.leanerProgress.map((each) => {
-      each.subscribe((v) => console.log(v))
-    })
+    this._sBs.sink = this.getLearnerProgress().subscribe((progresss) =>{
+      this.leanerProgress = progresss
+    });
   }
 
   toggleCollapsible() {
@@ -55,10 +53,10 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
     this.isLoading = true;
   
     if (!this.currentLearner.courses) {
-      return [];
+      return of([]);
     }
 
-    return this.currentLearner.courses.map((course) =>
+    return combineLatest(this.currentLearner.courses.map((course) =>
       this._botsStateServ$.getBotById(course.courseId).pipe(
         switchMap((bot) =>
           combineLatest(
@@ -71,7 +69,7 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
           )
         )
       )
-    );
+    )).pipe(tap(() => this.isLoading = false))
   }
 
   /** computes learner progress per module (lessons covered) */
@@ -106,10 +104,8 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
               progress: Math.round(percentage),
             };
           })
-         
         )
-      ),
-      tap(() => this.isLoading = false)
+      )
     );
   }
 
