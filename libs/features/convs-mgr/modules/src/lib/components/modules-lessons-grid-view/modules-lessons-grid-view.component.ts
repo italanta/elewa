@@ -7,6 +7,9 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
+import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+
+
 // TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
 import { 
   DeleteBotModalComponent,
@@ -24,11 +27,13 @@ export class ModulesLessonsGridViewComponent {
   @Input() stories: Story[] = [];
 
   constructor(private _router$$: Router,
-              private _dialog: MatDialog
+              private _dialog: MatDialog,
+              private _botsModulesServ$: BotModulesStateService,
   ) {}
 
   openLesson(id: string) {
     this._router$$.navigate(['stories', id]);
+    console.log(this._router$$.navigate(['stories', id]))
   }
 
   editLesson(story: Story) {
@@ -40,11 +45,11 @@ export class ModulesLessonsGridViewComponent {
     }).afterClosed();
   }
 
-  deleteLesson(story: Story) {
-    this._dialog.open(DeleteBotModalComponent, {
+  deleteLesson(story: Story) {   
+    this._dialog.open(DeleteBotModalComponent, {      
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: story
+        mode: DeleteElementsEnum.Story, element: story, parentElement:this._botsModulesServ$.getBotModuleById(story.parentModule ?? "")
       }
     }).afterClosed();
   }
