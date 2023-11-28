@@ -90,39 +90,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllCourses();
     this.getAllPlatforms();
     this.getScheduleOptions();
-    this.setFilterPredicate();
   }
-
-  setFilterPredicate() {
-    this.dataSource.filterPredicate = (learner, filter) =>
-      this.customFilterPredicate(learner, filter);
-  }
-
-  customFilterPredicate(learner: EnrolledEndUser, filter: string): boolean{
-    if (filter === "undefined" || filter === "null") {
-      return true; // No filter, include all rows
-    }
-
-    const { filter: filterValue, mode } = JSON.parse(filter);
-
-    switch (mode) {
-      case 'class':
-        switch (filterValue) {
-          case 'null' || "undefined":
-            return true
-          case 'default':
-            return learner?.classId === ""
-          default:
-            return learner?.classId?.toLowerCase().includes(filterValue)  
-        }
-  
-      // Add cases for other modes as needed
-  
-      default:
-        return true; // No specific filtering for unknown mode
-    }
-  }
-
 
   getLearners() {
     const allLearners$ = this._eLearners.getAllLearners$();
@@ -183,12 +151,23 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
 
   filterTable(event: Event, mode:string) {
     const selectedValue = (event.target as HTMLSelectElement).value;
-    const filterObject = {
-      filter: selectedValue.trim().toLowerCase() || '',
-      mode: mode,
-    };
-  
-    this.dataSource.filter = JSON.stringify(filterObject);
+    switch (mode) {
+      case 'class':
+
+        this.getLearners()
+
+        if (selectedValue === 'undefined') {
+          this.filterLearnersByClass('');  //filter learners that have no class assigned
+        } else if (selectedValue !== 'null') {
+          this.filterLearnersByClass(selectedValue);
+        }
+        break
+    }
+  }
+
+  filterLearnersByClass(selectedClassId: string): void {
+    const filteredLearners = this.dataSource.data.filter(learner => learner.classId === selectedClassId);
+    this.dataSource.data = filteredLearners;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
