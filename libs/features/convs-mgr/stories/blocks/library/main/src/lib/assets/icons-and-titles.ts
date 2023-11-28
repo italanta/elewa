@@ -2,6 +2,7 @@ export const ICONS_AND_TITLES = {
   1: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE',
     icon: 'fas fa-comment-alt',
+    svgIcon: 'assets/svgs/blocks/messageIcon.svg'
   },
   2: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.INPUT',
