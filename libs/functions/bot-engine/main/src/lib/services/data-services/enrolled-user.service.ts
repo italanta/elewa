@@ -43,6 +43,8 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
       whatsappUserId: endUser.id,
       status: EnrolledEndUserStatus.Active
     };
+    
+    enrolledUser.platformDetails = {};
   
     enrolledUser.platformDetails[platform] = {
       endUserId: endUser.id,
