@@ -15,6 +15,7 @@ export const ICONS_AND_TITLES = {
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
     icon: 'fas fa-map-marker-alt',
+    
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
@@ -96,7 +97,11 @@ export const ICONS_AND_TITLES = {
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
-    svgIcon: '/assets/icons/map-pin.svg',
+    svgIcon: 'assets/svgs/blocks/system-uicons_location.svg',
+
+
+    
+
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
