@@ -11,9 +11,6 @@ import { DeleteElementsEnum } from '../../../model/delete-element.enum';
 import { DeleteBotModalComponent } from '../../../modals/delete-bot-modal/delete-bot-modal.component';
 import { CreateLessonModalComponent } from '../../../modals/create-lesson-modal/create-lesson-modal.component';
 
-import { BotModulesStateService } from '@app/state/convs-mgr/modules';
-
-
 @Component({
   selector: 'italanta-apps-course-module-item',
   templateUrl: './course-module-item.component.html',
@@ -23,7 +20,7 @@ export class CourseModuleItemComponent {
   @Input() botModule: BotModule;
   @Input() story: Story;
 
-  constructor(private _dialog: MatDialog, private _router$: Router, private _botsModulesServ$: BotModulesStateService,){}
+  constructor(private _dialog: MatDialog, private _router$: Router,){}
 
   openModule(id: string) {
     this._router$.navigate(['modules', id]);
@@ -46,7 +43,7 @@ export class CourseModuleItemComponent {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: story, parentElement:this._botsModulesServ$.getBotModuleById(story.parentModule ?? "")
+        mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule
       }
     }).afterClosed();
   }
