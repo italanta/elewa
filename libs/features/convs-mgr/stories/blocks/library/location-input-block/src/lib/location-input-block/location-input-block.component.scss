@@ -2,21 +2,24 @@ mat-card {
 	min-width: 200px;
 }
 
-input {
-	max-width: 100%;
-	margin: 5px 0;
-
-	background-color: var(--convs-mgr-color-primary-background);
-	border-radius: 0.938rem;
-	resize: none;
-	padding: 10px;
-	border: none;
-	
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
-.form-border {
-	border-top: 0.5px solid var(--convs-mgr-border-color);
-	margin-top: 0.625rem;
-	width: 100%;
+input {
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; // minus the padding
+	padding: 10px;
+	border: none;
+	resize: none;
+  outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
+}
 
+input:focus-visible {
+	border: 1px solid var(--convs-mgr-color-primary-black);
+	outline-color: var(--convs-mgr-color-primary-black);
 }

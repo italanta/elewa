@@ -26,8 +26,6 @@ export function __ConvertMessengerApiPayload(message: IncomingMessengerPayload):
 
 function __ConvertMessengerTypeToEngineMessageType(message:  MessengerMessagingData): MessageTypes 
 {
-
-  console.log('message', message)
   let messagePayload: any;
   
   if (__isMessage(message)) {

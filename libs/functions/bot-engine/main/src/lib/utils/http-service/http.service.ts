@@ -2,6 +2,9 @@ import axios, { Axios } from "axios";
 
 import { HandlerTools } from "@iote/cqrs";
 
+/**
+ * TODO: @Reagan - Move this to functions/base/utils folder
+ */
 export class HttpService
 {
   public async post(URL: string, dataPayload: any, tools: HandlerTools, accessToken?: string)

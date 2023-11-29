@@ -21,6 +21,7 @@
   padding-left: calc(1rem + 10px);
   background-color: white;
   border-radius: 10px;
+  width: 30%;
 
   min-width: 300px;
 
@@ -71,5 +72,7 @@
 .card-header {
   .name {
     font-size: 1rem;
+    text-wrap: wrap;
+    width: 60%;
   }
 }

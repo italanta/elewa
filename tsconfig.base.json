@@ -318,14 +318,14 @@
       "@app/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
       ],
-      "@app/private/functions/analytics/metabase": [
-        "libs/private/functions/analytics/metabase/src/index.ts"
-      ],
       "@app/private/functions/analytics/progress/main": [
         "libs/private/functions/analytics/progress/main/src/index.ts"
       ],
       "@app/private/functions/convs-mgr/conversations/message-templates/scheduler": [
         "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/index.ts"
+      ],
+      "@app/private/functions/function-utils": [
+        "libs/private/functions/function-utils/src/index.ts"
       ],
       "@app/private/functions/micro-apps/base": [
         "libs/private/functions/micro-apps/base/src/index.ts"

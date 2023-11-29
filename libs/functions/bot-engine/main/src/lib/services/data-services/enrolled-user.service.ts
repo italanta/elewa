@@ -32,30 +32,26 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     return EnrolledUsrRepo;
   }
 
-  async createEnrolledUser(enrolledUser: EnrolledEndUser, id?:string) {
+  async createEnrolledUser(endUser: EndUser, platform: PlatformType, id?:string) {
+    const enrolledUser: EnrolledEndUser = {
+      id:id || '',
+      name: endUser.name || '',
+      phoneNumber: endUser.phoneNumber || '',
+      classId: '',
+      currentCourse: '',
+      whatsappUserId: endUser.id,
+      status: EnrolledEndUserStatus.Active
+    };
+    
+    enrolledUser.platformDetails = {};
+  
+    enrolledUser.platformDetails[platform] = {
+      endUserId: endUser.id,
+      contactID: endUser.id.split('_')[2]
+    }
+
     return this.createDocument(enrolledUser, this._docPath, id);
   }
-
-  async getOrCreateEnrolledUser(endUser: EndUser, platformField: string, id?:string,) {
-    const enrolledUsers = await this.getDocumentByField(platformField, endUser.id, this._docPath);
-    let currentEnrolledUser = enrolledUsers[0];
-
-    if (!currentEnrolledUser) {
-      const enrolledUser: EnrolledEndUser = {
-        id:id || '',
-        name: endUser.name || '',
-        phoneNumber: endUser.phoneNumber || '',
-        classId: '',
-        currentCourse: '',
-        whatsappUserId: endUser.id,
-        status: EnrolledEndUserStatus.Active
-      };
-  
-      currentEnrolledUser = await this.createEnrolledUser(enrolledUser, id);
-    };
-
-    return currentEnrolledUser;
-  };
 
   /** get timeInDate's created user count */
   async getSpecificDayUserCount(orgId: string, timeInUnix:number) {
