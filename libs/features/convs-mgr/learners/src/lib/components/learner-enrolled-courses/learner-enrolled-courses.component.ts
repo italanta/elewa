@@ -5,6 +5,7 @@ import { combineLatest, map, of, switchMap, tap } from 'rxjs';
 
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
+import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
 
 import {
@@ -14,7 +15,6 @@ import {
 import { EnrolledUserBotModule } from '@app/model/convs-mgr/learners';
 
 import { EnrolledUserProgress } from '../../models/enrolled-user-progress.interface';
-import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
 
 @Component({
   selector: 'app-learner-enrolled-courses',
