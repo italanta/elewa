@@ -80,18 +80,19 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
     this._sbS.sink = this.survey$.pipe(
       take(1),
       tap((survey) => {this.survey = survey}),
-      switchMap((survey) => this._surveyQuestion.getQuestionsBySurveyId$(survey.id!)),
+      switchMap((survey) => this._surveyQuestion.getQuestionsBySurveyId$(survey.id as string)),
       take(1),
       tap((questions) => { 
         this.questions = questions;
         if (this.survey?.questionsOrder) {
-          var questionOrdering = {},
+          const questionOrdering = {},
           sortOrder = this.survey.questionsOrder;
-          for (var i=0; i< sortOrder!.length; i++)
-            questionOrdering[sortOrder![i]] = i;
+      
+          for (let i=0; i< sortOrder.length; i++)
+            questionOrdering[sortOrder[i]] = i;
 
           this.questions.sort( function(a, b) {
-              return (questionOrdering[a.id!] - questionOrdering[b.id!]) || a.id!.localeCompare(b.id!);
+              return (questionOrdering[a.id as string] - questionOrdering[b.id as string]) || (a.id as string).localeCompare(b.id as string);
           });
         }
 
@@ -114,9 +115,9 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
     // we spread the `surveyQstns$()` since it's an array of Observables.
     let savedSurveyId = '';
 
-    this.insertSurveyConfig$().pipe(take(1),
-        tap((ass) => savedSurveyId = ass.id!),
-        switchMap((ass) => this.persistSurveyQuestions$(ass.id!)),
+    this._sbS.sink = this.insertSurveyConfig$().pipe(take(1),
+        tap((ass) => savedSurveyId = ass.id as string),
+        switchMap((ass) => this.persistSurveyQuestions$(ass.id as string)),
         tap(() => {
           this.isSaving = false;
           this.openSnackBar('Survey successfully saved', 'Save')
@@ -125,21 +126,17 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
       )
     .subscribe()
   }
+
   onSendSurvey() {
     this.onPublish();
     this.getChannelId();
-    if(this.channelId){
-      const dialogRef = this._dialog.open(SendModalComponent, {
-      });
   
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
-    }
-    else{
+    if (this.channelId) {
+      const dialogRef = this._dialog.open(SendModalComponent);
+      dialogRef.afterClosed();
+    } else{
       this.openSnackBar('Select a Channel to continue', 'Send Survey');
     }
-    
   }
 
   onPublish() {
@@ -210,7 +207,7 @@ export class CreateSurveyFlowComponent implements OnInit, OnDestroy{
 
     delQstns.map(question => this._surveyQuestion.deleteQuestion$(question));
 
-    return surveyQuestions.map(question => this._surveyQuestion.addQuestion$(surveyId, question, question.id!));
+    return surveyQuestions.map(question => this._surveyQuestion.addQuestion$(surveyId, question, question.id as string));
 
   }
 

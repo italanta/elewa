@@ -1,4 +1,5 @@
-import { StoryBlock } from "@app/model/bot/blocks/story-block";
+import { StoryBlock } from "@app/model/convs-mgr/stories/blocks/main";
+
 import { BotProvider } from "./bot-provider.enum";
 
 export interface SendMessageCommand {

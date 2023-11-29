@@ -19,7 +19,7 @@ textarea:focus-visible {
   display: flex;
   justify-content: flex-start; 
   align-items: center; 
-  width: 90%;
+  width: 100%;
   background-color: var(--convs-mgr-placeholder-color);
   color: var(--convs-mgr-input-color);
   border-radius: 0.7rem;
@@ -44,11 +44,6 @@ textarea:focus-visible {
 
 .fa-xmark {
   color: #101010;
-}
-
-form{
-  border-top: 1px solid var(--convs-mgr-border-color);
-  padding-top: 0.3125rem;
 }
 
 .option-input-container {

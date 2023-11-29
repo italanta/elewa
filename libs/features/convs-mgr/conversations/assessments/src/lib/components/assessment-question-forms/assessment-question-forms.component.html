@@ -20,7 +20,7 @@
                                     [index]="i" [questions]="questions"
                                     [questionFormGroupName]="i" [questionNo]="i+1" 
                                     [isLastQuestion]="i + 1 === questionsList.controls.length"
-                                    [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion()" 
+                                    [assessmentMode]="assessmentMode" (addNewQuestion)="addQuestion($event)" 
                                     [activeCard$]="activeCard$.asObservable()"
                                     (activeQuestionChanged)="activeQuestionChanged($event)" fxFlex>
       </app-assessment-question-form>

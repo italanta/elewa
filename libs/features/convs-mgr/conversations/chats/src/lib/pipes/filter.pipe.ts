@@ -29,7 +29,7 @@ export class FilterPipe implements PipeTransform {
   private filterChatList(filterValue: string, chatList: Chat[]) {
     return chatList.filter(
       (chat: Chat) =>
-      chat.phoneNumber.startsWith(filterValue) ||
+      chat?.phoneNumber?.startsWith(filterValue) ||
       chat?.name?.toLowerCase().includes(filterValue.toLowerCase()) 
     );
   }

@@ -1,16 +1,110 @@
 <div class="specific-time">
     <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.SEND-MESSAGE-AT-SPECIFIC-TIME'| transloco }} </p>
-    <mat-form-field appearance="outline">
+    <span class="xmark" (click)="closeModal()"> <i class="fa-solid fa-xmark" ></i></span>
+
+    <!-- <mat-form-field appearance="outline">
       <mat-label>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-DATE'| transloco }} </mat-label>
       <input matInput [matDatepicker]="picker" placeholder="Date and Time" (dateChange)="dateChanged($event)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <input matInput type="time" [(ngModel)]="selectedTime" placeholder="Time">
-    </mat-form-field>
-    <button mat-raised-button class="send-btn" (click)="saveDateTime()">
-      <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }} </span>
-    </button>
-  </div>
+    </mat-form-field> -->
+
+    <form [formGroup]="schedulerForm">
+    <div class="date-container">
+      <div class="date">
+        <input type="date" id="date" name="date" formControlName="date">
+      </div>
+      <div class="time">
+        <input type="time" id="time" name="time" formControlName="time">
+      </div>
+    </div>
+
+    <div class="recur">
+      <div class="text">
+        <p>{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR'| transloco }}</p>
+      </div>
+      <div class="select">
+        <div class="custom-dropdown">
+
+          <button mat-button [matMenuTriggerFor]="menu">{{ menuButtonText }}<img class="down-arrow" src="assets/icons/down-arrow.png" alt="down arrow"/></button>
+            <mat-menu #menu="matMenu">
+              <mat-radio-group aria-label="Select an option" class="options" (change)="onRecurrenceChange($event.value)"  formControlName="frequency">
+                <mat-radio-button *ngFor="let option of recurrenceOptions" [value]="option">{{ option }}</mat-radio-button>
+              </mat-radio-group>           
+            </mat-menu>
+           
+        </div>
+      </div>
+    </div>
+   
+ 
+      <div class="daily" *ngIf="selectedRecurrence === 'Daily'">
+        <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-DAILY'| transloco }}</p>
+
+        <div class="select-days" >
+          <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
+            <select name="dailyRepeat" id="dailyRepeat" formControlName="interval">
+              <option *ngFor="let option of dailyOptions" [value]="option">{{ option }}</option>
+            </select>
+            {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.DAYS'| transloco }}
+          </p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="endDate" name="daily-date" formControlName="endDate"></p>
+            <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
+        </div>
+      </div>
+
+      <div class="weekly" *ngIf="selectedRecurrence === 'Weekly'">
+        <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-WEEKLY'| transloco }}</p>
+    
+        <div class="weeks" *ngIf="selectedRecurrence === 'Weekly'">
+          <p class="day-month" *ngFor="let day of weekdays; let i = index" [ngClass]="{'selected-day': selectedDays.includes(i)}" (click)="toggleSelectedDay(i)">
+            {{ i === 0 ? 'S' : i === 1 ? 'M' : i === 2 ? 'T' : i === 3 ? 'W' : i === 4 ? 'T' : i === 5 ? 'F' : 'S' }}
+          </p>
+        </div>
+        <div class="select-days" >
+          <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
+            <select name="weeklyRepeat" id="weeklyRepeat" formControlName="interval">
+              <option *ngFor="let option of weeklyOptions" [value]="option">{{ option }}</option>
+            </select>
+            {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.WEEKS'| transloco }}
+          </p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-WEEKLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="weekly-date" endDate></p>
+            <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
+        </div>
+    </div>
+    
+    <div class="monthly" *ngIf="selectedRecurrence === 'Monthly'">
+      <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-MONTHLY'| transloco }}</p>
+
+        <div class="months" >
+          <p class="day-month" *ngFor="let monthNumber of monthlyOptions" [ngClass]="{'selected-day': selectedMonthlyDays.includes(monthNumber)}" (click)="toggleSelectedMonthlyDay(monthNumber)">{{ monthNumber }}</p>
+        </div>        
+    
+
+      <div class="select-days" >
+        <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
+          <select name="monthlyRepeat" id="monthlyRepeat" formControlName="interval">
+            <option *ngFor="let option of monthlyOptions" [value]="option">{{ option }}</option>
+          </select>
+          {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.MONTHS'| transloco }}
+        </p>
+          <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="monthly-date" formControlName="endDate"></p>
+          <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
+      </div>
+    </div>
+
+    <div class="buttons">
+        <div class="cancel">
+          <button mat-raised-button class="cancel-btn" (click)="closeModal()" >
+            <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
+          </button>
+        </div>
+        <div class="save">
+          <button mat-raised-button class="send-btn" (click)="saveDateTime()">
+            <span>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }} </span>
+          </button>
+        </div>
+    </div>
+  </form>
+</div>
   

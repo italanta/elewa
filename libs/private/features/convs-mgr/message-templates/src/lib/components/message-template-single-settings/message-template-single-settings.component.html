@@ -1,15 +1,30 @@
 <div class="message-template-settings">
     
     <div class="btn-cont">
-        <button [ngClass]="{'gray-out': !action}" [disabled]="action" mat-raised-button class="send-btn" (click)="saveSchedule()">
+        <button [ngClass]="{'gray-out': !action}" mat-raised-button class="send-btn" (click)="saveSchedule()">
             <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.BTN-CONT.SAVE-BUTTON.SAVE'| transloco }}  </span>
         </button>
     </div>
+
     <div class="form-group head">
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS'| transloco }}</p>
         <div class="info" [hidden]="canBeScheduled"><i class="fas fa-info-circle"></i> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.INFO'| transloco }}</div>
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.SET-UP-CONDITIONS'| transloco }} </p>
-        <mat-form-field appearance="outline" class="frequency-select">
+
+        <div class="data-result">
+          <form action="">
+            <input type="text" name="text"  >
+            <div class="buttons">
+              <img src="assets/icons/edit-item.svg" alt="edit">
+              <img src="assets/icons/delete-item.svg" alt="delete">
+            </div>
+          </form>
+        </div>
+
+        <p class="add-condition" (click)="showMessageConditions = !showMessageConditions">Add message condition</p>
+
+        <ng-container *ngIf="showMessageConditions">
+          <mat-form-field appearance="outline" class="frequency-select">
             <mat-label>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS-LABEL'| transloco }}</mat-label>
             <mat-select [(ngModel)]="selectedOption" (selectionChange)="openModal()">
               <mat-option *ngFor="let condition of messageTemplateFrequency" [value]="condition.value">
@@ -17,52 +32,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </ng-container>
     </div>
-</div>
-
-
-<div class="message-template-history">
-    <h1>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.TITLE'| transloco }}</h1>
-  <div class="table">
-    <mat-table [dataSource]="dataSource" class="student-table">
-      <ng-container matColumnDef="Date sent">
-        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.DATE'| transloco }}</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.dispatchTime.toDate() | date: 'dd/MM/yyyy' }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="Time sent">
-        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.TIME'| transloco }}</mat-header-cell>
-        <mat-cell *matCellDef="let message">{{ message.dispatchTime.toDate() | date: 'h:mm a' }}</mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="Number of learners">
-        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.LEARNERS'| transloco }}</mat-header-cell>
-        <mat-cell *matCellDef="let message">
-          {{message.endUsers.length}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.STATUS'| transloco }}</mat-header-cell>
-        <mat-cell *matCellDef="let message">
-          <span *ngIf="isTimePast(message.dispatchTime.toDate()) === 'Pending'">
-            <mat-icon>schedule</mat-icon> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.PENDING'| transloco }}
-          </span>
-          <span *ngIf="isTimePast(message.dispatchTime.toDate()) === 'Sent'">
-            <mat-icon>done</mat-icon> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.SENT'| transloco }}
-          </span>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="meta">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let message">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-HISTORY.APPROVED'| transloco }}</mat-cell>
-      </ng-container>
-
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
-  </div>
-  
 </div>

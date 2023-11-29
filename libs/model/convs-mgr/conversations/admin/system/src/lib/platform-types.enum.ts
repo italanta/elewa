@@ -13,12 +13,11 @@
 export enum PlatformType 
 {
   /** WhatsApp Business API */
-  WhatsApp  =  'WhatsApp',
+  WhatsApp  =  'whatsapp',
   /** Telegram API */
-  Telegram  =  'Telegram',
-
+  Telegram  =  'telegram',
   /** Messenger API */
-  Messenger =  'Messenger'
+  Messenger =  'messenger'
 }
 
 /**
