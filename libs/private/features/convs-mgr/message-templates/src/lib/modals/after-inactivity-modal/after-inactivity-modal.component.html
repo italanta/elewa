@@ -2,13 +2,13 @@
     <p>{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.INACTIVITY'| transloco }} </p>
     <div class="im-select">
         <mat-form-field appearance="outline">
-            <input matInput [(ngModel)]="selectedTimeInDays">
+            <input matInput [formControl]="selectedTime">
         </mat-form-field>
   
         <mat-form-field appearance="outline">
             <mat-select [(ngModel)]="selectedTimeUnit">
-              <mat-option value="days">{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.IM-SELECT.SELECT-TIME-UNIT.DAYS'| transloco }} </mat-option>
-              <mat-option value="hours">{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.IM-SELECT.SELECT-TIME-UNIT.HOURS'| transloco }} </mat-option>
+              <mat-option value="days" (click)="toggleMode()">{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.IM-SELECT.SELECT-TIME-UNIT.DAYS'| transloco }} </mat-option>
+              <mat-option value="hours" (click)="toggleMode()">{{'MESSAGE-TEMPLATES.INACTIVE-MESSAGE.IM-SELECT.SELECT-TIME-UNIT.HOURS'| transloco }} </mat-option>
             </mat-select>
         </mat-form-field>
     </div>

@@ -1,13 +1,9 @@
 <div class="chart-container">
-  <div *ngIf="showData; else noData">
-    <div class="chart">
-      <canvas id="user-chart">{{ chart }}</canvas>
-    </div>
+  <div class="chart" [ngClass]="showData ? 'show-canvas' : ''">
+    <canvas id="chart-ctx">{{ chart }}</canvas>
   </div>
 
-  <ng-template #noData>
-    <div class="no-data">
-      <span>You currently have no Data to visualise</span>
-    </div>
-  </ng-template>
+  <div class="no-data" [ngClass]="showData ? 'hide-no-data' : ''">
+    <span>{{'INSIGHTS.CHART.NO-CHART-MESSAGE' | transloco }}</span>
+  </div>
 </div>

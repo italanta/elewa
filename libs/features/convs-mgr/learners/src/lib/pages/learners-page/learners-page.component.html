@@ -6,7 +6,6 @@
       <div class="top-actions">
         <span class="learners-title"> {{ "LEARNERS.LEARNERS" | transloco }} </span>
         <div>
-          <button mat-raised-button class="btn add-to-class" *ngIf="surveyId" (click)="sendSurvey()">send survey</button>
           <button mat-raised-button [hidden]="!activeMessageId" class="btn" (click)="sendMessageButtonClicked()">{{'LEARNERS.BUTTONS.SEND-MESSAGE'| transloco
           }}</button>
           <button mat-raised-button class="btn add-to-class"
@@ -30,16 +29,16 @@
         <div class="dropdown">
           <div class="select">
             <select [(value)]="selectedClass" (change)="filterTable($event,'class')">
-              <option [value]="null" selected>All Classes</option>
+              <option [value]="null" selected>{{ 'All Classes' | titlecase  }}</option>
 
-              <option *ngFor="let class of allClasses" [value]="class">{{ class.className }}</option>
+              <option *ngFor="let class of allClasses" [value]="class">{{ class.className | titlecase }}</option>
             </select>
           </div>
 
           <div class="select">
             <select>
               <option [value]="null" selected>All Courses</option>
-              <option *ngFor="let course of allCourses" [value]="course">{{ course.name }}</option>
+              <option *ngFor="let course of allCourses" [value]="course">{{ course.name | titlecase }}</option>
             </select>
           </div>
 
@@ -54,7 +53,7 @@
           <div class="select">
             <select>
               <option [value]="null" selected>All Platforms</option>
-              <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform }}</option>
+              <option *ngFor="let platform of allPlatforms" [value]="platform">{{ platform | titlecase }}</option>
             </select>
           </div>
         </div>
@@ -83,27 +82,26 @@
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="name">
             {{'LEARNERS.TABLE-HEADER.NAME'| transloco }}</th>
           <td mat-cell *matCellDef="let enrolledUsr">
-            <a routerLink="{{enrolledUsr.id}}" routerLinkActive="router-link-active"> {{ enrolledUsr.name || 'No Name'
-              }} </a>
+            <a routerLink="{{enrolledUsr.id}}" routerLinkActive="router-link-active"> {{ enrolledUsr.name || 'No Name' | titlecase }}</a>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="phone">
             {{'LEARNERS.TABLE-HEADER.PHONE-NUMBER'| transloco }}</th>
-          <td mat-cell *matCellDef="let enrolledUsr">{{ enrolledUsr.phoneNumber }}</td>
+          <td mat-cell *matCellDef="let enrolledUsr">{{ enrolledUsr.phoneNumber | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="course">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="course">
             {{'LEARNERS.TABLE-HEADER.COURSE'| transloco }}</th>
-          <td mat-cell *matCellDef="let enrolledUsr">{{ enrolledUsr.currentCourse }}</td>
+          <td mat-cell *matCellDef="let enrolledUsr">{{ enrolledUsr.currentCourse | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="class">
           <th class="table-header" mat-header-cell *matHeaderCellDef mat-sort-header="class">
             {{'LEARNERS.TABLE-HEADER.CLASS'| transloco }}</th>
-          <td mat-cell *matCellDef="let enrolledUsr">{{ getClassName(enrolledUsr.classId) || 'Not Assigned' }}</td>
+          <td mat-cell *matCellDef="let enrolledUsr">{{ getClassName(enrolledUsr.classId) || 'Default' | titlecase }}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -114,7 +112,7 @@
           <td mat-cell *matCellDef="let enrolledUsr">
             <div class="status-data">
               <img class="img" [src]="getIcon(enrolledUsr.status)" alt="">
-              <span class="status" [ngClass]="getStatus(enrolledUsr.status)">{{ getStatus(enrolledUsr.status) }}</span>
+              <span class="status" [ngClass]="getStatus(enrolledUsr.status)">{{ getStatus(enrolledUsr.status)  | titlecase }}</span>
             </div>
           </td>
         </ng-container>
@@ -123,7 +121,7 @@
           <th class="table-header" mat-header-cell *matHeaderCellDef> Action </th>
           <td mat-cell *matCellDef="let enrolledUsr">
             <button mat-raised-button (click)="openChangeClassModal($event, enrolledUsr)">
-              {{ getMode(enrolledUsr) }}
+              {{ getMode(enrolledUsr) | titlecase  }}
             </button>
           </td>
         </ng-container>
