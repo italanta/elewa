@@ -1,4 +1,9 @@
 mat-card {
-    min-width:200px;
-    padding: 10px;
+  min-width: 200px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
