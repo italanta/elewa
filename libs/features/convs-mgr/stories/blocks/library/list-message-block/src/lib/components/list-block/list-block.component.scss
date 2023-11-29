@@ -20,26 +20,33 @@ form {
   margin: 0 auto;  
 }
 
-.options-container {
-  margin: 0.625rem 0 0.5rem 0;
-}
-
 .inputList{
-  margin: 0 auto;
-  padding: 0 0.7rem;
+  width: auto;
+    display: flex;
+    align-items: center;
 }
 
-.button-container {
-  border-top: 1px solid var(--convs-mgr-light-border-color);
+.line {
+  height: 0.063rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.line.active{
+  background-color: var(--convs-mgr-border-color);
+    margin-top: 0.313rem;
+    margin-bottom: 0.938rem;
 }
 
 .add-button {
-  width: 100%;
-  color: var(--convs-mgr-input-color);
-  margin-top: 0.625rem;
   display: flex;
   justify-content: flex-start;
-  padding-bottom: 0.625rem;
+  align-items: center;
+  width: 100%;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--convs-mgr-input-color);
+  margin-top: 0.625rem;
+  border-radius: 0.7rem;
 }
 
 .vectorSvg {
@@ -47,14 +54,14 @@ form {
 }
 
 .listgone {
+  cursor: pointer;
   border: none;
   background-color: transparent;
-  padding: 0.25rem;
 }
 
 .input {
   margin: 0;
-  padding-right: 5px;
+  width: 100%;
 }
 
 .addIcon {
