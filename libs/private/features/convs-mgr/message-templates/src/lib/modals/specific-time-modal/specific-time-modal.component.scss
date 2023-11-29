@@ -21,7 +21,8 @@
     padding: 2rem 0;
   }
   .date,
-  .time {
+  .time, 
+  .months {
     input {
       height: 2rem;
       border-radius: 0.5rem;
@@ -58,7 +59,11 @@
   .monthly {
     .months {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-start; 
+      align-items: center;
+      gap: 0.5rem; 
+      width: 100%;
+      overflow-x: scroll;
     }
   }
   .xmark{
@@ -66,6 +71,11 @@
     top: 1rem;
     right: 1rem;
   }
+}
+
+#month {
+  width: 10%;
+  height: 1.2rem;
 }
 
 .send-btn {
@@ -129,7 +139,7 @@ img {
     color: var(--convs-mgr-color-707070);
     font-family: Roboto;
     font-weight: 300;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 .repeat{
     // Repeat every

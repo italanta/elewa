@@ -298,7 +298,8 @@
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block",
-      "CMI5-BLOCK" :"CMI5 Block"
+      "CMI5-BLOCK" :"CMI5 Block",
+      "ADMIN_SETTINGS": "Settings"
     }
   },
   "BOTS": {
@@ -834,7 +835,7 @@
       "BUTTONS": {
         "ADD-MEMBER": "Add Member",
         "ADDING": "Adding ...",
-        "NO-THANKS": "No Thanks"
+        "CANCEL": "Cancel"
       },
       "MODAL": {
         "TITLE": "Add Member",

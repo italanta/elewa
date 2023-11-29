@@ -136,6 +136,9 @@ export class EngineBotManager
           await _msgDataService$.saveMessage(message, this.orgId, END_USER_ID);
           break;
         default:
+          message.direction = MessageDirection.FROM_END_USER_TO_CHATBOT;
+
+          await bot.play(message, this.endUser, currentCursor);
           break;
       }
       return { success: true } as RestResult200;
