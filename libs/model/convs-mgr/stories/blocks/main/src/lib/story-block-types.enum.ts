@@ -143,6 +143,9 @@ export enum StoryBlockTypes {
   /** The block that represents a single survey question */
   SurveyQuestionBlock = 35,
 
+  /** Fallback block - Block to send incase our engine does not understand the message */
+  FallbackBlock = 36,
+
   EndStoryAnchorBlock = 9999,
 }
 
@@ -238,6 +241,12 @@ export function isOptionBlock(blockType: StoryBlockTypes) {
   }
 }
 
+export function isFallBack(blockId: string) {
+  if(blockId.includes('fallback')) {
+    return true;
+  }
+  return false;
+}
 
 
 
