@@ -1,4 +1,4 @@
-<div [id]="id" *ngIf=" videoInputForm">
+<div class="wide" [id]="id" *ngIf=" videoInputForm">
 	<form [formGroup]="videoInputForm" fxLayout="column" fxLayoutALign="start center">
 		<input [id]="videoInputId" formControlName="message" type="text" [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.VIDEO-INPUT' | transloco" />
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="videoInputForm"></app-default-option-field>	

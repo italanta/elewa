@@ -293,10 +293,28 @@ The project is now succesfuly installed on your machine.
 
 ### Setup Firebase Emulators
 
-Make sure the below are installed: 
+To Build the serveless functions you need to make sure you add an environments folder to the following path `libs/functions/bot-engine/messenger/src/lib/`:
+
+- Create an `environment.ts` and an `environment.prod.ts` files.
+- After that paste the code below to both the `environment.ts` and `environment.prod.ts` files.
+- Change production property value in the `environment.ts` file to false.
+
+``` typeScript
+  export const environment = {
+  production: true,
+ 
+  useEmulators: true,
+ 
+  messenger: {
+    verifyToken: 'MESSENGER_VERIFY_TOKEN_76544',
+  }
+}
+```
+
+Make sure the below are installed:
 
 - Node.js version 8.0 or higher.
-- Java JDK version 11 or higher 
+- Java JDK version 11 or higher.
 
 Download the JDK from [here](https://www.oracle.com/ke/java/technologies/downloads/)
 

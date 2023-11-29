@@ -2,6 +2,7 @@ export const ICONS_AND_TITLES = {
   1: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE',
     icon: 'fas fa-comment-alt',
+    svgIcon: 'assets/svgs/blocks/messageIcon.svg'
   },
   2: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.INPUT',
@@ -23,6 +24,7 @@ export const ICONS_AND_TITLES = {
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
     icon: 'far fa-circle-question',
+    svgIcon: 'assets/svgs/blocks/question.svg'
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
@@ -39,10 +41,12 @@ export const ICONS_AND_TITLES = {
   10: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.NAME',
     icon: 'fas fa-user-alt',
+    svgIcon: 'assets/svgs/blocks/user.svg'
   },
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
     icon: 'fas fa-envelope',
+    svgIcon: 'assets/svgs/blocks/mdi-light_email.svg'
   },
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
@@ -52,10 +56,12 @@ export const ICONS_AND_TITLES = {
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
     icon: 'fas fa-video',
+    svgIcon: "assets/svgs/blocks/system-uicons_video.svg"
   },
   15: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STICKER',
     icon: 'fas fa-sticky-note',
+    svgIcon: 'assets/svgs/blocks/ph_sticker-light.svg',
   },
   16: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LIST',
@@ -68,6 +74,7 @@ export const ICONS_AND_TITLES = {
   18: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
     icon: 'fas fa-forward',
+    svgIcon: '/assets/icons/forward-play.svg',
   },
   19: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLE-INPUT',
@@ -90,7 +97,11 @@ export const ICONS_AND_TITLES = {
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
-    svgIcon: '/assets/icons/map-pin.svg',
+    svgIcon: 'assets/svgs/blocks/system-uicons_location.svg',
+
+
+    
+
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
@@ -104,6 +115,7 @@ export const ICONS_AND_TITLES = {
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
     icon: 'far fa-question-circle',
+    svgIcon: 'assets/svgs/blocks/question.svg'
   },
 
   29: {

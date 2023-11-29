@@ -1,5 +1,5 @@
 .company-details {
-  margin: 10vh 10vh;
+  padding: 0.7rem 0.7rem;
 
   .company-logo {
     img {
@@ -11,47 +11,45 @@
     }
 
     position: relative;
-
-    .user-picture-holder {
-      width: 210px;
-      /* Adjust as needed */
-      height: 210px;
-      /* Adjust as needed */
-      border-radius: 50%;
-      border: 1px #707070 solid;
-      overflow: hidden;
-      /* Clip the image to the circular border */
-      margin-left: 3vh;
-    }
-
-    .mainButtons {
-      position: absolute;
-      margin-top: 260px;
-
-      button {
-        width: 142px;
-        height: 35px;
-        background: var(--convs-mgr-color-button);
-        border-radius: 25px;
-        color: white;
-        font-size: 14px;
-        font-family: Roboto;
-        font-weight: 400;
-        word-wrap: break-word;
-        margin-top: 30px;
+    
+      .user-picture-holder{
+        width: 13.125rem; /* Adjust as needed */
+        height: 13.125rem; /* Adjust as needed */
+        border-radius: 50%;
+        border: 0.0625rem var(--convs-mgr-input-color) solid;
+        overflow: hidden; /* Clip the image to the circular border */
+        margin-left: 3%;
       }
-    }
+      .mainButtons {
+        position: absolute;
+        margin-top: 16.25rem;
 
+        button {
+          width: 50%;
+          height: 2.2rem;
+          background: var(--convs-mgr-color-button);
+          border-radius: 1.5625rem;
+          color: var(--convs-mgr-color-text-white);
+          font-size: medium;
+          font-family: Roboto;
+          font-weight: 400;
+          word-wrap: break-word;
+          margin-top: 2rem;
+        }
+      }
+    
   }
-
-  .information {
-
-    .company-fields {
-      form {
-        h4 {
+  
+  .information{
+        padding: 3%;
+        box-shadow: 0 0.25rem 0.375rem  rgba(0, 0, 0, 0.1); 
+        background-color: var(--convs-mgr-color-text-white);
+    .company-fields{
+      form{
+        h4{
           // Basic Information
           color: var(--convs-mgr-color-101010);
-          font-size: 16px;
+          font-size: medium;
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word
@@ -60,44 +58,92 @@
         .spacer {
           height: 1vh;
         }
-
-        div {
-          div {
-            input {
-              width: 100%;
-              height: 3em;
-              border-radius: 1em;
-              border: 1px var(--convs-mgr-color-707070) solid;
+        
+        div{
+          div{
+            input{
+              width: 100%; 
+              height: 2.6rem; 
+              border-radius: 0.5rem; 
+              border: 0.0625rem var(--convs-mgr-color-707070) solid;
               // Street Name
               color: var(--convs-mgr-color-C3C3C3);
-              font-size: 1rem;
+              font-size: medium;
               font-family: Roboto;
               font-weight: 300;
               word-wrap: break-word;
               padding-left: 2vh;
 
               &:focus {
-                color: black;
+                color: var(--convs-mgr-color-primary-black);
               }
             }
+            .name-input{
+              width:100%;
+            }
+            
           }
         }
       }
-
-      div {
-        button {
-          width: 25vh;
-          height: 2rem;
-          background: var(--convs-mgr-color-button);
-          border-radius: 1.5rem;
-          color: white;
-          font-size: 1rem;
+      div{
+        button{
+          width: 30%; 
+          height: 2.2rem; 
+          background: var(--convs-mgr-color-button); 
+          border-radius: 1.5625rem;
+          color: var(--convs-mgr-color-text-white);
+          font-size: medium;
           font-family: Roboto;
           font-weight: 400;
           word-wrap: break-word;
-          margin-top: 49px;
-          margin-left: 53vh;
+          margin-top: 3rem;
+          margin-left: 73%;          
         }
+      }
+    }
+  }
+  .card{
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); 
+    background-color: var(--convs-mgr-color-text-white);
+    cursor: pointer;
+    padding: 3%;
+    margin-top: 2%;
+    .button-link{
+      // Add channel
+    color: var(--convs-mgr-button-color);
+    font-size: medium;
+    font-family: Roboto;
+    font-weight: 300;
+    text-decoration: underline;
+    word-wrap: break-word
+    }
+    .channel-head{
+      // My Channels
+      color: var(--convs-mgr-color-101010);
+      font-size: medium;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
+    }
+    div{
+      table{
+          .channelTitle{
+            // Channel Name
+            color: var(--convs-mgr-input-color) !important;
+            font-size: medium;
+            font-family: Roboto;
+            font-weight: 300;
+            word-wrap: break-word
+          }
+          .edit-channel{
+            // Edit channel
+            color: #1F7A8C;
+            font-size: medium;
+            font-family: Roboto;
+            font-weight: 300;
+            text-decoration: underline;
+            word-wrap: break-word
+          }
       }
     }
   }
@@ -113,9 +159,13 @@
 }
 
 :host ::ng-deep .company-details .mat-form-field-infix {
-  border-top-width: 2px !important;
+  border-top-width: 0.125rem !important;
 }
 
 :host ::ng-deep .company-details .mat-form-field-wrapper {
-  padding: 0px 0px 15px 0px;
+  padding: 0 0 1rem 0;
 }
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 1.5625rem!important;
+}
+

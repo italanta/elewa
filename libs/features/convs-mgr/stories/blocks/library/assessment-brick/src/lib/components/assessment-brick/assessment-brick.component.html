@@ -1,4 +1,4 @@
-<div [id]="id" *ngIf="assessmentBrickForm">
+<div class="wide" [id]="id" *ngIf="assessmentBrickForm">
   <form [formGroup]="assessmentBrickForm" fxLayout="column" fxLayoutALign="start center">
     <div fxLayout="row">
       <div class="form-group">
@@ -18,7 +18,7 @@
     <div formArrayName="scoreOptions" *ngIf="scores">
       <div *ngFor="let score of scores.controls; let i = index">
         <span [formGroupName]="i">
-          <div class="assessment-option">
+          <div class="assessment-option option">
             <input [readOnly]="true" class="input-score-min" formControlName="min" type="text" placeholder="Enter min value">
             <span id="dash">-</span>
             <!-- Connection is created from max score. The assessmentsScore connetions sourceId is e.g max-score-1-42 -->

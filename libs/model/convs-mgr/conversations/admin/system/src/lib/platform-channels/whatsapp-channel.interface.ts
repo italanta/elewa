@@ -11,10 +11,18 @@ export interface WhatsAppCommunicationChannel extends CommunicationChannel
 
     /** Phone number of the whatsapp bot that end users are chatting with */
     phoneNumber?: string;
+
+    /** Phone number id of the whatsapp bot that end users are chatting with */
+    phoneNumberId?:string;
     /**
      * The ID of the whatsapp business account that the phone number is linked to.
      * 
      * Please note that this is not the same as the phoneNumber id
      */
+
     businessAccountId?: string;
+
+
+
+    
 }

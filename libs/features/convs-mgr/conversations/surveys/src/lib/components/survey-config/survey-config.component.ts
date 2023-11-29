@@ -1,13 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
 
 import { FeedbackType, Survey } from '@app/model/convs-mgr/conversations/surveys';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { frequencyOptions } from '../../utils/constants';
-import { ChannelService } from '@app/private/state/organisation/channels';
-import { Observable } from 'rxjs';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-survey-config',
@@ -34,12 +37,12 @@ export class SurveyConfigComponent implements OnInit{
   channelControl: FormControl = new FormControl();
 
   constructor (
-    private _channelService: ChannelService,
+    private _channelService$: CommunicationChannelService,
     private _router$$: Router,
     ) {}
 
   ngOnInit(): void {
-    this.channels$ = this._channelService.getChannelByOrg();
+    this.channels$ = this._channelService$.getAllChannels();
     this.getSurveyId();
 
     this.channelControl.valueChanges.subscribe((selectedChannelId) => {
