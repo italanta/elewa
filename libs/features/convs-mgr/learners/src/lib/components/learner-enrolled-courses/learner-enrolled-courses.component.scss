@@ -8,51 +8,51 @@
     .course {
       display: flex;
       flex-direction: column;
-
-      .course-name-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        span {
-          width: 3px;
-          height: 28px;
-          border-radius: 10%;
-          background-color: black;
-        }
-
-        .course-name {
-          font-size: 20px;
-        }
-      }
-
-      .module-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-
-        .module-title {
-          display: flex;
-          gap: 0.5rem;
-          margin-bottom: 2rem;
-        }
-
-        .module-progress-name {
-          font-size: 17px;
-        }
-
-        .lessons-wrapper {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        .course-progress-bars {
-          display: grid;
-          align-items: center;
-          grid-template-columns: 1fr 2.5fr 1fr;
-        }
-      }
     }
+  }
+}
+
+.course-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .course-name-tooltip {
+    width: 3px;
+    height: 28px;
+    border-radius: 10%;
+    background-color: black;
+  }
+
+  .course-name {
+    font-size: 20px;
+  }
+}
+
+.module-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .module-title {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .module-progress-name {
+    font-size: 17px;
+  }
+
+  .lessons-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .course-progress-bars {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2.5fr 1fr;
   }
 }
