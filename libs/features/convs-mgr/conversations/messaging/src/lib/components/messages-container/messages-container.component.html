@@ -5,13 +5,13 @@
   </div>
 
   <div *ngIf="isLoaded; else loading">
-    <div>
+    <div *ngFor="let message of messages; let i = index">
       <!-- <div *ngIf="isNewDate(messages[i])" class="hr-with-text" fxLayout="row" fxLayoutAlign="center">
         {{ lastDate | date }}
       </div> -->
       <div class="message-block">
-        <span *ngFor="let message of messages">
-          <app-chat-message [message]="message" [documentMessage]="message"></app-chat-message>
+        <span>
+          <app-chat-message [message]="message" [documentMessage]="documentMessage"></app-chat-message>
         </span>
       </div>
     </div>

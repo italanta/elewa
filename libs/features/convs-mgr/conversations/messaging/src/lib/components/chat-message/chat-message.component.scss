@@ -86,10 +86,6 @@
     background-color: #DAE0F0 !important;
   }
 
-  .white{
-    background-color: white !important;
-  }
-
   .message-sender {
     font-weight: bold;
     font-size: 0.9em;
@@ -102,51 +98,5 @@
     color: gray;
     font-size: 11px;
     margin-left: 10px;
-  }
-
-  .document-info {
-    display: flex;
-    align-items: flex-start;
-
-    .icon-and-size {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-
-      .svgIcon {
-        height: 1.563em;
-        width: 1.563em;
-        margin-right: 0.625em;
-      }
-
-      .file-size {
-        position: relative;
-        font-size: 12px;
-        color: #666;
-        top: 0.6em;
-        left: 0.8em;
-      }
-    }
-    
-    .link-download {
-      display: flex;
-      align-items: flex-end;
-      margin-top: 0.3em;
-    
-      a {
-        text-decoration: none;
-        color: black;
-        font-size: 0.75em;
-        text-transform: lowercase;
-        font-weight: 500;
-      }
-    
-      .download-btn {
-        height: 1.25em;
-        width: 1.25em;
-        margin-left: 1.25em; 
-        cursor: pointer;      
-      }
-    }    
   }
 }

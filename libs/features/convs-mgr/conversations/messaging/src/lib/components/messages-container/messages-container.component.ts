@@ -10,7 +10,7 @@ import { Logger } from '@iote/bricks-angular';
 import { PaginatedScroll } from '@ngfi/infinite-scroll';
 
 import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { DocumentMessage, Message } from '@app/model/convs-mgr/conversations/messages';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
 import { SpinnerService } from '../../providers/spinner.service';
@@ -24,6 +24,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 {
   private _sbs = new SubSink()
   @Input() chat: Chat;
+  @Input() documentMessage: DocumentMessage;
 
   lastDate: moment.Moment;
   unblocking$: Observable<boolean>;

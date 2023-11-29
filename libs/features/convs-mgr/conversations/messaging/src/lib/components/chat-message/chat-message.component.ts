@@ -1,10 +1,7 @@
 import {Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
-import { Message, MessageDirection, TextMessage, DocumentMessage } from '@app/model/convs-mgr/conversations/messages';
-import { DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
-import { ICONS_AND_TITLES } from '../../../../../../stories/blocks/library/main/src/lib/assets/icons-and-titles'; 
+import { DocumentMessage, Message, MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages'; 
 
 import { __NewDate, __DateFromStorage } from '@iote/time';
 
@@ -19,7 +16,6 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
 {
   @Input() message: Message;
   @Input() documentMessage: DocumentMessage;
-  @Input() block: DocumentMessageBlock;
 
   // Calculated properties
   messageIsNotMine: boolean;
@@ -27,13 +23,9 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
   agentMessage: boolean;
   timestamp: string;
 
-  svgIcon = ''
+  constructor(private _sanetizer: DomSanitizer) {}
 
-  constructor(private _sanetizer: DomSanitizer, private http: HttpClient) {}
-
-  ngOnInit() {
-    this.svgIcon = ICONS_AND_TITLES[7].svgIcon
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(): void {
     if (this.message) {
@@ -73,46 +65,5 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
 
   private _replaceAt(msg : string, index : number, replacement: string) {
     return msg.substr(0, index) + replacement + msg.substr(index + 1);
-  }
-
-  // Getter function to retrieve the document URL
-  get documentUrl(): string | undefined {
-    return this.documentMessage?.url;
-  }
-
-  // Getter function to retrieve the document name
-  get documentName(): string | undefined {
-    return this.documentMessage?.documentName;
-  }
-
-  // Getter function to retrieve the file size
-  get fileSize(): number | undefined {
-    return this.block?.fileSize;
-  }
-
-  downloadDocument() {
-    const documentUrl: string | undefined = this.documentUrl;
-
-    if (documentUrl) {
-      // Use HttpClient to fetch the document as a blob
-      this.http.get(documentUrl, { responseType: 'blob' }).subscribe((blob: Blob) => {
-        // Create a Blob URL for the blob
-        const blobUrl = window.URL.createObjectURL(blob);
-        // Create a link element
-        const link = document.createElement('a');
-        // Set the href attribute to the Blob URL
-        link.href = blobUrl;
-        // Set the download attribute to the document name
-        link.download = this.documentName || 'document';
-        // Append the link to the document
-        document.body.appendChild(link);
-        // Simulate a click on the link to trigger the download
-        link.click();
-        // Remove the link from the document
-        document.body.removeChild(link);
-        // Revoke the Blob URL to free up resources
-        window.URL.revokeObjectURL(blobUrl);
-      });
-    }
   }
 }

@@ -1,4 +1,16 @@
 <div class="resource-holder">
   <img *ngIf="message.type === 'image'"     [src]="cleanUrl(message.url)" class="chat-image" />
   <!-- <iframe *ngIf="message.type === 'iframe'" [src]="cleanUrl(message.url)" class="chat-resource"></iframe> -->
+  <div *ngIf="message.type === 'document'">
+    <div class="document-info">
+      <div class="icon-and-size">
+        <img [src]="svgIcon" class="svgIcon" alt="">
+        <div class="file-size">{{ fileSize }} KB</div>
+      </div>
+      <div class="link-download">
+        <a [href]="documentUrl" target="_blank">{{ documentName }}</a>
+        <img src="assets/icons/download.svg" class="download-btn" alt="">
+      </div>
+    </div>
+  </div>
 </div>
