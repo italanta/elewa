@@ -1,5 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
+import { Timestamp } from '@firebase/firestore-types';
+
 import { SubSink } from 'subsink';
 import { combineLatest, map, of, tap } from 'rxjs';
 
@@ -53,7 +55,13 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
         course.modules.map((usrProgModule) =>
           this.computeProgressAtModuleLevel(usrProgModule)
         )
-      ).pipe(map((modules) => ({ name: course.courseName, modules: modules })))
+      ).pipe(
+        map((modules) => ({
+          name: course.courseName,
+          enrollmentDate: (course.enrollmentDate as Timestamp).toDate(),
+          modules: modules,
+        }))
+      )
     );
 
     return combineLatest(progress).pipe(tap(() => (this.isLoading = false)));

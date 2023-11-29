@@ -1,9 +1,10 @@
 export interface EnrolledUserProgress {
-  name: string | undefined;
+  name?: string;
+  enrollmentDate: Date;
   modules: {
-    name: string | undefined;
+    name?: string;
     lessons: {
-      name: string | undefined;
+      name?: string;
       progress: number;
     }[];
   }[];

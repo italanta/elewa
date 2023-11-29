@@ -29,7 +29,13 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
   let theCourse = enrolledUser.courses.find(course => course.courseId === parentCourse.id);
 
   if (!theCourse) {
-    theCourse = { courseId: parentCourse.id, courseName: parentCourse.name, modules: [] };
+    theCourse = {
+      courseId: parentCourse.id, 
+      courseName: parentCourse.name,
+      enrollmentDate: new Date(),
+      modules: [],
+    };
+
     enrolledUser.courses.push(theCourse);
   } else theCourse.courseName = parentCourse.name;
 

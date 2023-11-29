@@ -1,7 +1,10 @@
+import { Timestamp } from "@firebase/firestore-types";
+
 /** progress covered by the enrolled user */
 export interface EnrolledUserCourse {
   courseId: string;
   courseName: string;
+  enrollmentDate: Date | Timestamp;
   modules: EnrolledUserBotModule[];
 };
 
