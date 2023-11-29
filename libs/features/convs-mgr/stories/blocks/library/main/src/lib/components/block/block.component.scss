@@ -53,14 +53,8 @@ mat-card {
 	color: var(--convs-mgr-color-primary-black)
 }
 
-img{
-	width: 25px;
-	margin-top: 3px;
-}
-
 .block-title {
-	font-weight: 400;	
-	margin: 0 0 0 .4em;
+	font-weight: 400;
 	color: var(--convs-mgr-color-text-black);
 	font-family: Roboto;
 	font-style: normal;
@@ -91,6 +85,6 @@ hr {
 }
 
 :host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
-    z-index: 0 !important;
+  z-index: 0 !important;
 }
 

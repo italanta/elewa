@@ -23,6 +23,7 @@ export const ICONS_AND_TITLES = {
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
     icon: 'far fa-circle-question',
+    svgIcon: 'assets/svgs/blocks/question.svg'
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
@@ -39,6 +40,7 @@ export const ICONS_AND_TITLES = {
   10: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.NAME',
     icon: 'fas fa-user-alt',
+    svgIcon: 'assets/svgs/blocks/user.svg'
   },
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
@@ -107,6 +109,7 @@ export const ICONS_AND_TITLES = {
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
     icon: 'far fa-question-circle',
+    svgIcon: 'assets/svgs/blocks/question.svg'
   },
 
   29: {
