@@ -7,8 +7,14 @@ mat-card-title {
 	color: var(--convs-mgr-color-primary-purple);
 }
 
-sticker {
+.sticker {
 	max-width: 100%;
+}
+
+.image2{
+	margin-top: 40px;
+	width: 25px;
+	filter: grayscale(100%);
 }
 
 input {
@@ -16,11 +22,12 @@ input {
 	height: fit-content !important;
 	padding: 5px 10px;
 	margin-bottom: 5px;
-	border-radius: 3px;
+	border-radius: 0.7rem;
 	caret-color: var(--convs-mgr-color-text-black);
 	color: var(--convs-mgr-color-text-black);
 	outline: none;
 	border: 1px solid var(--convs-mgr-color-text-black);
+	background-color: #f3f3f3;
 }
 
 .fileSrc {
@@ -39,8 +46,9 @@ input {
 	color: var(--convs-mgr-color-primary-purple) !important;
 	width: 200px;
 	height: 100px;
-	background-color: var(--convs-mgr-color-primary-white) !important;
 	opacity: 1;
+	border-radius: 0.5rem;
+	justify-content: center;
 
 	.fa-file-sticker {
 		color: var(--convs-mgr-color-primary-purple) !important;
@@ -53,15 +61,28 @@ input {
 	}
 }
 
+.sicker_link{
+	border: 0 !important;
+	background-color: #F3F3F3;
+	border-radius: 10px;
+}
+
+
+
 .sticker_bg {
 	margin: 5px 0;
-	width: 210px;
-	border-radius: 4px;
-	border: 2px solid var(--convs-mgr-color-primary-purple);
-
+	align-items: center;
+	width: 240px;
+	border-radius: 0.6rem;
+	justify-content: center;
+	background-color: #F3F3F3 !important;
 	&.error {
 		border: 3px solid red !important;
 	}
+}
+
+.wide{
+	padding: 15px;
 }
 
 .error-message {
@@ -83,4 +104,21 @@ input {
 	width: 40px;
 	height: 40px;
 	color: var(--convs-mgr-color-primary-white) !important;
+}
+
+.sticker-link{
+	border: 0;
+	border-radius: 10px;
+}
+
+.svgicon{
+	width: 30px;
+	filter: invert(49%) sepia(21%) saturate(13%) hue-rotate(314deg) ;
+}
+
+.sticker-icon{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }

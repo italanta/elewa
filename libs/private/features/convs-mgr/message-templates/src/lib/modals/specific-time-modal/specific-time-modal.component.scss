@@ -1,30 +1,185 @@
-.specific-time{
-    color: #101010;
-    font-family: Roboto;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+.specific-time {
+  color: var(--convs-mgr-color-101010);;
+  font-family: Roboto;
+  font-size: medium;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  width: 26.5625rem;
+  border-radius: 1.5625rem;
+  background: var(--convs-mgr-color-primary-white);
+  flex-shrink: 0;
+  padding: 0.94rem 2.38rem;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  .date-container {
     display: flex;
-    flex-direction: column;
-    width: 26.5625rem;
-    height: 15.6875rem;
-    border-radius: 1.5625rem;
-    background: #FFF;
-    flex-shrink: 0;
-    padding: 0.94rem 2.38rem;
-}
-.send-btn{
-    border-radius: 1.5625rem;
-    width: 4.875rem;
-    height: 2.0625rem;
-    flex-shrink: 0;
-    background-color: #1F7A8C!important;
-    color: white!important;
-    font-family: Roboto;
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    align-self: flex-end;
+    justify-content: space-between;
+    padding: 2rem 0;
   }
+  .date,
+  .time, 
+  .months {
+    input {
+      height: 2rem;
+      border-radius: 0.5rem;
+      padding: 0.3rem;
+    }
+  }
+  .recur {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .select {
+      select {
+        border: none;
+        background-color: var(--convs-mgr-color-success-contrast);
+      }
+      select ::after {
+        border: none;
+      }
+      select ::before {
+        border: none;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .weekly {
+    .weeks {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+  .monthly {
+    .months {
+      display: flex;
+      justify-content: flex-start; 
+      align-items: center;
+      gap: 0.5rem; 
+      width: 100%;
+      overflow-x: scroll;
+    }
+  }
+  .xmark{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+#month {
+  width: 10%;
+  height: 1.2rem;
+}
+
+.send-btn {
+  border-radius: 1.5625rem;
+  width: 4.875rem;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  background-color: var(--convs-mgr-icon-color) !important;
+  color: var(--convs-mgr-color-success-contrast) !important;
+  font-family: Roboto;
+  font-size: small;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-self: flex-end;
+}
+
+.cancel-btn {
+  border-radius: 1.5625rem;
+  width: 4.875rem;
+  height: 2.0625rem;
+  flex-shrink: 0;
+  color: var(--convs-mgr-color-primary-black) !important;
+  font-family: Roboto;
+  font-size: small;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-self: flex-end;
+  border: 0.0625rem var(--convs-mgr-icon-color) solid;
+}
+
+.selected-day {
+  background-color: var(--convs-mgr-icon-color) !important;
+  color: var(--convs-mgr-color-primary-white) !important;
+  border-radius: 0.5rem;
+}
+
+.custom-dropdown {
+  position: relative;
+  width: fit-content; /* Adjust the width as needed */
+}
+
+button.mat-button {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+}
+
+img {
+  height: 0.5rem;
+}
+.occur-text{
+    // Repeat every
+    color: var(--convs-mgr-color-101010);;
+    font-size: 1rem;
+    font-family: Roboto;
+    font-weight: 300;
+    word-wrap: break-word
+}
+.day-month{
+    color: var(--convs-mgr-color-707070);
+    font-family: Roboto;
+    font-weight: 300;
+    word-wrap: break-word;
+}
+.repeat{
+    // Repeat every
+    color: var(--convs-mgr-color-101010);;
+    font-size: medium;
+    font-family: Roboto;
+    font-weight: 300;
+    word-wrap: break-word
+}
+.recur-text {
+  // Recur daily configurations
+  color: var(--convs-mgr-color-101010);
+  font-size: medium;
+  font-family: Roboto;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+.date-bd {
+  border: none !important;
+  color: var(--convs-mgr-icon-color);
+  font-size: medium;
+  font-family: Roboto;
+  font-weight: 300;
+  word-wrap: break-word;
+}
+.remove-end {
+  // Remove end date
+  color: var(--convs-mgr-icon-color); 
+  font-size: medium;
+  font-family: Roboto;
+  font-weight: 300;
+  text-decoration: underline;
+  word-wrap: break-word;
+}
+
+::ng-deep .mat-mdc-radio-group.options {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 1.3rem !important;
+}

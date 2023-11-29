@@ -1,17 +1,38 @@
-.name-input {
-	max-width: 100%;
-	margin: 5px 0;
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	border-radius: 5px;
-	resize: none;
-	padding: 10px;
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
-.name-input:focus-visible {
-	border: 1px solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+.name-input {
+	max-width: calc(100% - 20px);
+	border: none;
+	outline: none;
+	resize: none;
+	border-radius: 0.6rem;
+	padding: 10px;
+	color: #707070;
+	background-color: var(--convs-mgr-placeholder-color);
+
+	&:focus-visible {
+		border: 1px solid var(--convs-mgr-color-primary-black);
+		outline-color: var(--convs-mgr-color-primary-black);
+	}
 }
 
 input[type='checkbox']:checked:after {
-    color: white !important;
+  color: white !important;
+}
+
+.checkbox-area{
+	margin-left: -0.625rem;
+}
+
+.checkbox{
+	color: #7c7c7c;
+}
+
+.label-styling{
+	color: #707070;
+	margin-left: -0.625rem;
 }

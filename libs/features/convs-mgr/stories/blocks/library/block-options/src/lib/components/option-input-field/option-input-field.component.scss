@@ -6,7 +6,7 @@
 }
 
 input {
-  width: 93% !important;
+  width: 90% !important;
   height: fit-content!important;
   min-width: auto !important;
   min-height: fit-content!important;
@@ -25,13 +25,18 @@ input {
 }
 
 .success {
+  margin-top: 1.25rem;
   background-color: var(--convs-mgr-option-input-success);
   color: white;
+  font-weight: 300;
+  border-radius: 0.625rem;
 }
 
 .failed {
   background-color: var(--convs-mgr-option-input-failure);
   color: white;
+  font-weight: 300;
+  border-radius: 0.625rem;
 }
 
 .length-error {

@@ -1,0 +1,110 @@
+.card{
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 10%;
+
+    .cancel-icon{
+        .close-button {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            font-size: 1rem;
+            cursor: pointer;
+          }          
+    }
+
+    .lines{
+        display: flex;
+        justify-content: space-between;
+        .left-line{
+            width: 45%;
+            height: 0.1rem;
+            background: var(--connector-color-blue) !important;
+        }
+        .right-line{
+            width: 45%;
+            height: 0.1rem; 
+            background: var(--connector-color-blue) !important;
+        }
+    }
+    .top{
+        text-align: center;
+        // Add Channel
+        color: #101010;
+        font-size: 1rem;
+        font-family: Roboto;
+        font-weight: 400;
+        word-wrap: break-word
+    }
+    .platform{
+        display: flex;
+        justify-content: space-between;
+        // Select Platform
+        color: var(--connector-color-blue) !important;
+        font-size: 1rem;
+        font-family: Roboto;
+        font-weight: 400;
+        word-wrap: break-word;
+        .select{
+            padding-left: 13%;
+        }
+        .add{
+            padding-right: 13%;
+        }
+    }
+
+    .select{
+        .whats-app{
+            padding: 5% 0 5%;
+            display: flex;
+            align-items: center; 
+            img{
+                padding: 0 2%;
+            }
+        }
+        .messenger{
+            padding: 0 0 10%;
+            display: flex;
+            align-items: center; 
+            img{
+                padding: 0 2%;
+            }
+        }
+    }
+    
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3%;
+        .cancel{
+            button{
+                border-radius: 2rem;
+                border: 0.125rem var(--connector-color-blue) solid;
+                padding: 0.5em 2em;
+                // Cancel
+                color: var(--connector-color-blue) !important;
+                font-size: 1rem;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word;
+                cursor: pointer;
+            } 
+        }
+        .continue{
+            button{
+                // Continue
+                color: var(--convs-mgr-color-text-white);
+                font-size: 1rem;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word;
+                background: var(--convs-mgr-button-color) !important;
+                border-radius: 2rem;
+                padding: 0.5em 2em;
+                border: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+

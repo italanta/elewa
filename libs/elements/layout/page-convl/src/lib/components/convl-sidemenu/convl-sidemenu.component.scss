@@ -216,28 +216,55 @@ $sidebar-footer-height: 230px;
         a {
           display: flex;
           align-items: center;
-          height: 35px;
+          height: 25px;
           padding: 0 20px;
           color: $text-color;
           margin-bottom: 20px;
           padding-left: 30px;
+          justify-content: center;
 
           .menu-icon {
             cursor: pointer;
             font-size: 1.2rem;
-            width: 35px;
-            min-width: 30px;
-            height: 30px;
+            width: 25px;
+            min-width: 20px;
+            height: 20px;
             line-height: 35px;
             text-align: center;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-right: 10px;
             border-radius: 2px;
             transition: color 0.3s;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .img{
+              height: 100%;
+              width: 100%;
+            }
+
             i {
               display: inline-block;
             }
+
+            .chevron-up{
+              rotate: 180deg;
+              transition: all 0.3s;
+            }
+
+            .chevron{
+              transition: all 0.3s;
+            }
+          }
+
+          .chev-collapsed{
+            position: absolute;
+            right: 0;
+      
           }
 
           .menu-title {
@@ -247,6 +274,7 @@ $sidebar-footer-height: 230px;
             white-space: nowrap;
             flex-grow: 1;
             transition: color 0.3s;
+            height: 20px;
           }
           .message-title{
             cursor: default !important;
@@ -366,6 +394,9 @@ $sidebar-footer-height: 230px;
             .menu-prefix,
             .menu-suffix {
               opacity: 0;
+            }
+            .menu-icon {
+              line-height: 3rem; // Adjust the line height to vertically center the icons
             }
           }
           &.sub-menu {
@@ -632,6 +663,15 @@ a {
     margin-top: -10px;
   }
 }
+
+.sub-side-menu-collapsed{
+  padding-left: 0rem!important;
+  font-size: .85rem!important;
+  li{
+    margin-top: -10px;
+  }
+}
+
 .collapsible {
   display: none; 
 }
@@ -696,3 +736,6 @@ a {
   padding: 10px;
 }
 
+.nav-toggle{
+  cursor: pointer;
+}

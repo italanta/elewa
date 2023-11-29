@@ -3,11 +3,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { Observable } from 'rxjs';
-
 import { TranslateService } from '@ngfi/multi-lang';
 
-import { iTalUser } from '@app/model/user';
+import { iTalUser } from '@app/model/user'; 
 import { Organisation } from '@app/model/organisation';
 
 import { UserStore } from '@app/state/user';
@@ -15,7 +13,7 @@ import { UserStore } from '@app/state/user';
 import { OrganisationService } from '@app/private/state/organisation/main';
 
 @Component({
-  selector: 'kujali-org-page',
+  selector: 'app-org-page',
   templateUrl: './orgs-pages.component.html',
   styleUrls: ['./orgs-pages.component.scss']
 })
@@ -26,7 +24,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
 
   orgFormGroup: FormGroup;
 
-  user$: Observable<iTalUser>;
+  user: iTalUser;
   organisation: Organisation;
 
   activeOrg: FormControl = new FormControl();
@@ -47,7 +45,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.user$ = this._userService$$.getUser();
+    this._sbS.sink = this._userService$$.getUser().subscribe(u => this.user = u);
     this.buildOrgForm();
   }
 
@@ -72,11 +70,7 @@ export class OrgsPagesComponent implements OnInit, OnDestroy {
 
   createNewOrg() {
     this.creatingOrg = true;
-    try {
-      this._orgService.createOrg(this.orgFormGroup.value as Organisation);
-    } catch (error) {
-      throw error
-    }
+    this._orgService.createOrg(this.orgFormGroup.value as Organisation, this.user);
   }
 
   ngOnDestroy(): void {

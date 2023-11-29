@@ -69,14 +69,15 @@ export interface EnrolledEndUser extends IObject {
 
   surveyResults?: SurveyResults[];
 
-  /** TODO: Implement after PR#610 
-   * 
+  /** 
    * Will represent the platform specific details of the end user e.g.
    * 
    * Their user ID changes according to the platform
+   * 
+   * TODO: @Reagan Deprecate whatsappUserId, phoneNumber,receipientId 
+   *          and messengerUserId properties
   */
-  platform?: {[key:string]:{ endUserId: string}};
-
+  platformDetails?: {[key:string]:{ endUserId: string, contactID: string}};
 }
 
 /**

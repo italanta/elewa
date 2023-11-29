@@ -1,30 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {  FormBuilder,  FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { Organisation } from '@app/model/organisation';
 import { AppClaimDomains } from '@app/private/model/access-control';
+import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+
 
 import { OrganisationService } from '@app/private/state/organisation/main';
 
+
+
 // import { FileStorageService } from '@app/features/files';
 
-import { UpdateCompanyLogoModalComponent } from '../update-company-logo-modal/update-company-logo-modal.component';
+import { UpdateCompanyLogoModalComponent } from '../../modals/update-company-logo-modal/update-company-logo-modal.component';
+import { AddChannelModalComponent } from '../../modals/add-channel-modal/add-channel-modal.component';
+import { ChannelFormModalComponent } from '../../modals/channel-form-modal/channel-form-modal.component';
+
+
 
 @Component({
   selector: 'company-data',
   templateUrl: './company-data.component.html',
   styleUrls: ['./company-data.component.scss']
 })
+
+
 export class CompanyDataComponent implements OnInit {
 
   activeOrg: Organisation;
   orgDataFormGroup: FormGroup;
-
   activeOrgLoaded: boolean;
-  editOrg: boolean = false;
-  formIsReady: boolean = false;
-  showButtons: boolean = false;
+  editOrg :boolean;
+  formIsReady:boolean;
+  showButtons :boolean;
 
 
   readonly CAN_PERFOM_ADMIN_ACTIONS = AppClaimDomains.Admin;
@@ -32,11 +42,18 @@ export class CompanyDataComponent implements OnInit {
   constructor(private _fb: FormBuilder,
               private _dialog: MatDialog,
               // private _fileStorageService$$: FileStorageService,
-              private _orgService$$: OrganisationService
+              private _orgService$$: OrganisationService,
+              private _channelService$: CommunicationChannelService,
   ) { }
+
+ 
+  displayedColumns: string[] = ['name', 'type',  'edit'];
+  dataSource : CommunicationChannel[] = [];
+
 
   ngOnInit(): void {
     this.getActiveOrg();
+    this.getChannels()
   }
 
   getActiveOrg() {
@@ -49,6 +66,11 @@ export class CompanyDataComponent implements OnInit {
     })
   }
 
+  getChannels() {
+    this._channelService$.getAllChannels().subscribe((channels) => {
+      this.dataSource = channels;
+    });
+  }
   buildOrgDataFormGroup(orgData: Organisation) {    
     this.orgDataFormGroup = this._fb.group({
       id: [orgData.id],
@@ -95,4 +117,22 @@ export class CompanyDataComponent implements OnInit {
     this.activeOrg.logoUrl = '';
     this._orgService$$.updateOrgDetails(this.activeOrg);
   }
+
+  addChannel(){
+    this._dialog.open(AddChannelModalComponent, {
+      minWidth: '30%',
+      minHeight: '21.125rem',
+    });
+  }
+
+  editChannel(channel: CommunicationChannel) {
+    // Determine the platform and open the modal with the respective form
+    this._dialog.open(ChannelFormModalComponent, {
+      minWidth: '30%',
+      minHeight: '21.125rem',
+      data: { selectedPlatform: channel.type, initialValues: channel, update: true }
+    });
+  
+  }
+ 
 }

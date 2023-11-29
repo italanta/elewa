@@ -318,14 +318,14 @@
       "@app/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
       ],
-      "@app/private/functions/analytics/metabase": [
-        "libs/private/functions/analytics/metabase/src/index.ts"
-      ],
       "@app/private/functions/analytics/progress/main": [
         "libs/private/functions/analytics/progress/main/src/index.ts"
       ],
       "@app/private/functions/convs-mgr/conversations/message-templates/scheduler": [
         "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/src/index.ts"
+      ],
+      "@app/private/functions/function-utils": [
+        "libs/private/functions/function-utils/src/index.ts"
       ],
       "@app/private/functions/micro-apps/base": [
         "libs/private/functions/micro-apps/base/src/index.ts"
@@ -360,9 +360,6 @@
       "@app/private/state/message-templates": [
         "libs/private/state/message-templates/src/index.ts"
       ],
-      "@app/private/state/organisation/channels": [
-        "libs/private/state/organisation/channels/src/index.ts"
-      ],
       "@app/private/state/organisation/main": [
         "libs/private/state/organisation/main/src/index.ts"
       ],
@@ -374,6 +371,9 @@
         "libs/state/convs-mgr/analytics/src/index.ts"
       ],
       "@app/state/convs-mgr/bots": ["libs/state/convs-mgr/bots/src/index.ts"],
+      "@app/state/convs-mgr/channels": [
+        "libs/state/convs-mgr/channels/src/index.ts"
+      ],
       "@app/state/convs-mgr/classrooms": [
         "libs/state/convs-mgr/classrooms/src/index.ts"
       ],

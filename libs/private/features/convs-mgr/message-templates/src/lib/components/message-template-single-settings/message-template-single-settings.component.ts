@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
-import { MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
+import { JobTypes, MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
 import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
@@ -23,14 +23,20 @@ import { frequencyOptions } from '../../utils/constants';
 })
 export class MessageTemplateSingleSettingsComponent implements OnInit{
   selectedTime: Date;
+  inactivityTime: number;
   selectedMilestone: EventBlock;
 
   _sBS = new SubSink();
 
   selectedOption: string;
   action: string;
+  cronSchedule: string;
+  endDate: Date;
 
   canBeScheduled: boolean;
+
+  showMessageConditions :boolean;
+
 
   messageTemplateFrequency = frequencyOptions;
   
@@ -43,33 +49,11 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     private _messageService: MessageTemplatesService,
     private _scheduleMessageService: ScheduleMessageService,
     private _milestoneTriggerService: MilestoneTriggersService
+  ){}
 
-    ){}
-
-    ngOnInit(): void {
-      this.action = this._route$$.url.split('/')[2];
-      this.fetchTemplateAndScheduledMessages();
-    }
-
-    fetchTemplateAndScheduledMessages() {
-      this._messageService.getTemplateById(this.action).subscribe((template) => {
-        if (template) {
-          const templateName = template.name;
-          this.filterMatchingScheduledMessages(templateName);
-        }
-      });
-    }
-
-    filterMatchingScheduledMessages(templateName: string) {
-      this._scheduleMessageService.getScheduledMessages$().subscribe((scheduledMessages) => {
-        const matchingScheduledMessages = scheduledMessages.filter((message) => message.message.name === templateName);
-        this.dataSource = new MatTableDataSource<ScheduledMessage>(matchingScheduledMessages);
-      });
-    }
-
-    isTimePast(time: Date){
-      return time > new Date() ? 'Pending' : 'Sent';
-    }
+  ngOnInit(): void {
+    this.action = this._route$$.url.split('/')[2];
+  }
 
   openMilestoneModal() {
   const dialogRef = this._dialog.open(MilestoneReachedModalComponent);
@@ -86,9 +70,12 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   openSpecificTimeModal() {
     const dialogRef = this._dialog.open(SpecificTimeModalComponent);
 
-    dialogRef.componentInstance?.dateTimeSelected.subscribe((selectedDateTime: any) => {
-      this.selectedTime = selectedDateTime.date;
-      const formattedDateTime = `Send message at ${selectedDateTime.time} ${selectedDateTime.date.toLocaleString()}`;
+    dialogRef.componentInstance?.dateTimeSelected.subscribe((schedule: any) => {
+      this.selectedTime = schedule.date;
+      this.cronSchedule = schedule.cron;
+      this.endDate = schedule.endDate;
+
+      const formattedDateTime = `Send message at ${schedule.time} ${schedule.date.toLocaleString()}`;
       
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'specific-time');
       if (specificTimeOption) {
@@ -103,6 +90,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     dialogRef.componentInstance?.timeInHoursSelected.subscribe((selectedTime: number) => {
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
       if (specificTimeOption) {
+        this.inactivityTime = selectedTime;
         specificTimeOption.viewValue = `Send message after ${selectedTime} hours of inactivity.`;
       }
     });
@@ -124,27 +112,43 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     }
   }
 
-  sendButtonClicked(template: MessageTemplate, selectedDate: Date){
-    this._route$$.navigate(['/learners'], {queryParams: {templateId: template.id, dispatchDate: selectedDate}});
+  sendButtonClicked(scheduleMessageOptions: any, action: string){
+
+    scheduleMessageOptions.type = JobTypes.SimpleMessage;
+    scheduleMessageOptions.action = action;
+    scheduleMessageOptions.objectID = scheduleMessageOptions.template.id;
+
+    this._scheduleMessageService.setOptions(scheduleMessageOptions);
+
+    this._route$$.navigate(['/learners']);
   }
 
   saveSchedule() {
+    // TODO: Use interface
+    let scheduleMessageOptions: any;
+
     if (this.selectedOption) {
       let templateMessage: MessageTemplate;
-  
-      this._messageService.getTemplateById(this.action).subscribe((template: any) => {
+      // TODO: @Lemmy/Beryl Pass template id from query params
+      this._messageService.getTemplateById(this.action.split('?')[0]).subscribe((template: any) => {
         templateMessage = template;
-  
         if (templateMessage) {
           switch (this.selectedOption) {
             case 'specific-time':
-              this.sendButtonClicked(templateMessage, this.selectedTime);
+              scheduleMessageOptions = this._getSpecificTimeOptions(templateMessage);
+
+              this.sendButtonClicked(scheduleMessageOptions, 'specific-time');
               break;
             case 'milestone':
               this.saveMilestone(template);
               break;
+            case 'inactivity':
+              scheduleMessageOptions = this._getInactivityOptions(templateMessage);
+
+              this.sendButtonClicked(scheduleMessageOptions, 'inactivity');
+              break;
             default:
-              console.log('Unsupported option');
+              this.openSpecificTimeModal();
               break;
           }
         }
@@ -153,7 +157,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   }
   
   saveMilestone(template: MessageTemplate) {
-    const event:string = this.selectedMilestone.eventName!;
+    const event:string = this.selectedMilestone.eventName as string;
     const milestoneTriggerRequest: MilestoneTriggers = {
         message: {
           templateType: TemplateMessageTypes.Text,
@@ -165,6 +169,22 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
         usersSent:1
     }
     this._sBS.sink= this._milestoneTriggerService.addMilestoneTrigger(milestoneTriggerRequest).subscribe()
+
+    // TODO: save scheduled messages
   }
-  
+
+  _getInactivityOptions(templateMessage: MessageTemplate) {
+    return {
+      template: templateMessage,
+      inactivityTime: this.inactivityTime,
+    }
+  }
+  _getSpecificTimeOptions(templateMessage: MessageTemplate) {
+    return {
+      template: templateMessage,
+      dispatchDate: this.selectedTime,
+      frequency: this.cronSchedule,
+      endDate: this.endDate ? this.endDate : null,
+    }
+  }
 }
