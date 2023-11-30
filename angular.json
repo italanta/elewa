@@ -1227,6 +1227,40 @@
       },
       "tags": []
     },
+    "private-containers-analytics-bi": {
+      "root": "libs/private/containers/analytics/bi",
+      "sourceRoot": "libs/private/containers/analytics/bi/src",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/js:tsc",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/private/containers/analytics/bi",
+            "tsConfig": "libs/private/containers/analytics/bi/tsconfig.lib.json",
+            "packageJson": "libs/private/containers/analytics/bi/package.json",
+            "main": "libs/private/containers/analytics/bi/src/index.ts",
+            "assets": ["libs/private/containers/analytics/bi/*.md"]
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/private/containers/analytics/bi/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/containers/analytics/bi"],
+          "options": {
+            "jestConfig": "libs/private/containers/analytics/bi/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "private-elements-convs-mgr-access-control": {
       "projectType": "library",
       "root": "libs/private/elements/convs-mgr/access-control",
