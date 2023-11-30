@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { Subscription, concatMap, map, tap } from 'rxjs';
@@ -31,6 +31,8 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   chatStatus: string;
   userClass: string;
   chatAvatarColor: string;
+
+   @ViewChild('conversationContainer') private conversationContainer: ElementRef;
 
   constructor(
     private _activeChat$: ActiveChatConnectedStore,
@@ -104,6 +106,13 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
         return story;
       })
     );
+  }
+
+  scrollToBottom() {
+    if (this.conversationContainer && this.conversationContainer.nativeElement) {
+      // Scroll the conversation container to the bottom
+      this.conversationContainer.nativeElement.scrollTop = this.conversationContainer.nativeElement.scrollHeight;
+    }
   }
 
   ngOnDestroy() {
