@@ -45,6 +45,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 
   ngOnInit() {
     this.unblocking$ = this._spinner.showSpinner$
+    this.getData();
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -77,10 +78,13 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 
       if(!this.isLoaded) {
         this.isLoaded = true;
-        setTimeout(() => this.scrollToBottom(), 400);
+        this._cd.detectChanges();
+        this.scrollToBottom();
       }
       else {
         this.newMessages = true;
+        this._cd.detectChanges();
+        this.scrollToBottom();
       }
 
       this._cd.detectChanges();
