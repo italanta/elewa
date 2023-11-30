@@ -63,7 +63,9 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
 
   getChatInfo() {
     this.getUserClass();
-    this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
+    this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe(() => {
+      this.scrollToBottom(); // Scrolling call
+    });
     this.chatStatus = this.getUserChatStatus(this.chat);
   }
 
