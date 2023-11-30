@@ -8,6 +8,12 @@ mat-card-title {
 	color: var(--convs-mgr-color-primary-purple);
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
 label {
 	width: 100%;
 	min-height: 6.25rem;
@@ -26,7 +32,6 @@ div {
 }
 
 .image_bg {
-	margin: 0.3125rem 0;
 	width: 100%;
 	border-radius: 0.4375rem;
 	border: 0.0625rem solid var(--convs-mgr-placeholder-color);
