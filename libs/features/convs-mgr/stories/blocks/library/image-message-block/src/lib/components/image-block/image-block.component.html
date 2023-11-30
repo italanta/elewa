@@ -6,7 +6,7 @@
 
 			<label *ngIf="!isLoadingImage" [for]="imageInputUpload">
 				<div *ngIf="!hasImage; else inputHasImage">
-					<i class="fas fa-image"></i>
+					<img type="image" class="upload-image" [src]="'/assets/icons/ph_image-light.svg'" alt="" />
 				</div>
 				<ng-template #inputHasImage>
 					<img type="image" class="upload-image" [src]="'/assets/icons/ph_image-light.svg'" alt="" />
