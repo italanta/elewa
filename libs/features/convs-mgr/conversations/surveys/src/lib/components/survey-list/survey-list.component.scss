@@ -55,7 +55,6 @@
 
 	&_tooltip {
 		color: gray;
-		transform: rotate(90deg);
 		font-size: 20px;
 		font-weight: 500;
 
@@ -67,14 +66,15 @@
 		border: none;
 		outline: none;
 		padding-left: 1.83rem;
-
 		color: #101010;
 		font-family: Roboto;
 		font-size: 0.875rem;
 		font-style: normal;
-		font-weight: 400;
+		font-weight: 300;
 		line-height: normal;
+		background: none;
 	}
+
 }
 
 .title-desc {

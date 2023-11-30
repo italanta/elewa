@@ -52,7 +52,6 @@
 
 	&_tooltip {
 		color: gray;
-		transform: rotate(90deg);
 		width: 1.13725rem;
         height: 1.18869rem; 
 		font-weight: 400;
@@ -71,6 +70,7 @@
     font-style: normal;
     font-weight: 300;
     line-height: normal;
+    background: none;
 	}
 }
 .search-bar{

@@ -212,12 +212,12 @@ $sidebar-footer-height: 230px;
         transition: opacity 0.3s;
         opacity: 0.5;
       }
-      .menu-item {
+      .menu-item {        
         a {
           display: flex;
           align-items: center;
           height: 25px;
-          padding: 0 20px;
+          // padding: 0 20px;
           color: $text-color;
           margin-bottom: 20px;
           padding-left: 30px;
@@ -659,6 +659,7 @@ a {
 .sub-side-menu{
   padding-left: 1rem!important;
   font-size: .85rem!important;
+  margin-bottom: .5px;
   li{
     margin-top: -10px;
   }
@@ -738,4 +739,21 @@ a {
 
 .nav-toggle{
   cursor: pointer;
+}
+
+
+.menu-item:hover{
+  background-color:#c5d7dc ;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin:20px;
+
+}
+
+.sub-side-menu:hover {
+  background-color: none;
+}
+
+.menu-item:not(:hover) > .sub-side-menu:hover >  {
+  background-color: none;
 }

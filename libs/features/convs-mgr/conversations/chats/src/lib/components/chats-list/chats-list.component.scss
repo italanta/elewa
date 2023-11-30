@@ -10,6 +10,7 @@
 	color: #101010;
     font-size: 2rem;
     font-weight: 400;
+	margin-top: -10px;
 }
 .heading-area{
   background-color: white;
@@ -46,9 +47,10 @@
 
 	&_tooltip {
 		color: gray;
-		transform: rotate(90deg);
+		transform: scaleX(1);
 		font-size: 20px;
 		font-weight: 500;
+
 	}
 
 	&_input {
@@ -57,6 +59,7 @@
 		border: none;
 		outline: none;
 		font-size: 15px;
+		font-weight: 300;
 		padding-left: 6px;
 	}
 }
