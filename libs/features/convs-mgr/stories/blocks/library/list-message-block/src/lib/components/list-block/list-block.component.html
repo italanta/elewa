@@ -6,15 +6,15 @@
     <div formArrayName="options" fxFlexFill>
       <div *ngFor="let listItem of listItems.controls; let i = index">
         <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
-          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
+          <button (click)="deleteInput(i)" class="listgone"><i class="fa-solid fa-xmark fa-lg"></i></button>
           <app-option-input-field #optionInputFields [jsPlumb]="jsPlumb" [blockFormGroup]="listMessageBlock" [formGroupNameInput]="i"
-            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+          class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
         </div>
       </div>
     </div>
 
   </form>
-
+  <div class="line" [class.active]="listItems.length > 0"></div>
   <button (click)="addNewOption()" mat-flat-button class="add-button">
     {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
   </button>
