@@ -39,6 +39,7 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
       phoneNumber: endUser.phoneNumber || '',
       classId: '',
       currentCourse: '',
+      courses: [],
       whatsappUserId: endUser.id,
       status: EnrolledEndUserStatus.Active
     };
