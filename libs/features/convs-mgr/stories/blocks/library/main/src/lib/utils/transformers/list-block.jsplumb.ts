@@ -22,7 +22,23 @@ export function _ListBlockDecoratePlumb(block: ListMessageBlock, comp: Component
     target: true,
     cssClass:"block_endpoint",
     endpoint: "Dot",
-    anchor: "Left",
+    anchor: [0,0.12,0,1],
+    maxConnections: -1
+
+  });
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    target: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1,0.58,0,1],
+    maxConnections: -1
+
+  });
+  jsPlumb.addEndpoint(comp.location.nativeElement, {
+    target: true,
+    cssClass:"block_endpoint",
+    endpoint: "Dot",
+    anchor: [1,0.73,0,1],
     maxConnections: -1
 
   });
