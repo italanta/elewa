@@ -213,6 +213,15 @@ $sidebar-footer-height: 230px;
         opacity: 0.5;
       }
       .menu-item {
+        :hover{
+          background-color:#c5d7dc ;
+          height: 40px;
+          border-radius: 5px;
+          margin: 20px;
+          padding: 5px;
+          margin: 5x;
+          box-sizing: border-box;
+        }
         a {
           display: flex;
           align-items: center;
