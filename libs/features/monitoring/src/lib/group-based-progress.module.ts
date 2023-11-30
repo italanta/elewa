@@ -31,6 +31,7 @@ import { ProgressCompletionRateChartComponent } from './components/progress-comp
     GroupBasedProgressChartComponent,
     AssessmentProgressChartComponent,
     EnrolledUserProgressChartComponent,
+    ProgressCompletionRateChartComponent,
   ],
 })
 export class GroupBasedProgressModule {}
