@@ -77,11 +77,11 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   }
 
   /** computes leaner progress per lesson(blocks covered) */
-  computeLearnerProgress(userprogModule: EnrolledUserLesson) {
-    return this._lessonStateService$.getStoryById(userprogModule.lessonId).pipe(
+  computeLearnerProgress(lessonProg: EnrolledUserLesson) {
+    return this._lessonStateService$.getStoryById(lessonProg.lessonId).pipe(
       map((story) => {
-        const totalBlocks = story?.blocksCount ? story.blocksCount - 2 : 0;
-        const blockedPassed = userprogModule?.blocks?.length ?? 0;
+        const totalBlocks = story?.blocksCount ? story.blocksCount - 2 : 0; // subtract start and end anchor
+        const blockedPassed = lessonProg?.blocks?.length ?? 0;
         const percentage =
           totalBlocks === 0 ? 0 : (blockedPassed / totalBlocks) * 100;
 
