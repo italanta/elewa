@@ -1,1 +1,1 @@
-export * from './lib/export-firestore';
+export * from './lib/analytics-endpoint';
