@@ -7,7 +7,7 @@ import { FeatureFlagsService } from '../service/feature-flags.service';
   selector: '[appFeatureFlag]'
 })
 export class FeatureFlagDirectiveDirective implements OnInit {
-  @Input('appFeatureFlag') featureName = '';
+  @Input('appFeatureFlag') featureName:string;
 
   constructor(
     private viewContainer: ViewContainerRef,

@@ -8,7 +8,7 @@ import { SubSink } from 'subsink';
 import { EventBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { JobTypes, MessageTemplate, MessageTypes, ScheduledMessage } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MilestoneTriggersService, ScheduleMessageService } from '@app/private/state/message-templates';
-import { TemplateMessage, TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
 import { MilestoneTriggers } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { AfterInactivityModalComponent } from '../../modals/after-inactivity-modal/after-inactivity-modal.component';
