@@ -9,6 +9,7 @@ COPY . .
 
 # Install any needed packages specified in package.json
 RUN npm install
+RUN npm install tslib
 
 # Install Google Cloud SDK
 RUN apt-get update && apt-get install -y curl
@@ -20,4 +21,4 @@ RUN apt-get update -y && apt-get install google-cloud-sdk -y
 EXPOSE 8080
 
 # Run app.js when the container launches
-CMD ["node", "index.js"]
+CMD ["node", "main.js"]
