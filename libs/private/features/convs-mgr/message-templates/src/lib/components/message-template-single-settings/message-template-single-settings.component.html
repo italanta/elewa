@@ -13,15 +13,13 @@
 
        
         <div class="data-result" *ngFor="let message of scheduledMessages">
-          <!-- <div *ngFor="let message of scheduledMessages"> -->
-            <form action="">
-              <input type="text" name="scheduled-messages" [value]="'Send message at ' + message.dispatchTime" disabled>
-              <div class="buttons">
-                <img  (click)="editItem(message)" src="assets/icons/edit-item.svg" alt="edit">
-                <img (click)="deleteTimeOption(message)" src="assets/icons/delete-item.svg" alt="delete">
-              </div>
-            </form>
-          <!-- </div> -->
+          <form action="">
+            <input type="text" name="scheduled-messages" [value]="'Send message at ' + message.createdOn" disabled>
+            <div class="buttons">
+              <img (click)="editTimeOption(message)" src="assets/icons/edit-item.svg" alt="edit">
+              <img (click)="deleteTimeOption(message)" src="assets/icons/delete-item.svg" alt="delete">
+            </div>
+          </form>
         </div>
 
         <p class="add-condition" (click)="showMessageConditions = !showMessageConditions">Add message condition</p>

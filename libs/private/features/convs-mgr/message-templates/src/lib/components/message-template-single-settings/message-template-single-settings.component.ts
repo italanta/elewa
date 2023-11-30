@@ -16,6 +16,8 @@ import { SpecificTimeModalComponent } from '../../modals/specific-time-modal/spe
 import { MilestoneReachedModalComponent } from '../../modals/milestone-reached-modal/milestone-reached-modal.component';
 import { frequencyOptions } from '../../utils/constants';
 
+
+
 @Component({
   selector: 'app-message-template-single-settings',
   templateUrl: './message-template-single-settings.component.html',
@@ -42,12 +44,14 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   messageTemplateFrequency = frequencyOptions;
 
   scheduledMessages: ScheduledMessage[] = [];
-  milestoneMessages : MilestoneTriggers[] = [];
 
-  combinedMessages: (ScheduledMessage | MilestoneTriggers)[] = [];
+  
+
   
   displayedColumns: string[] = ['Date sent', 'Time sent', 'Number of learners', 'status', 'meta'];
   dataSource: MatTableDataSource<ScheduledMessage>;
+  
+
   
   constructor(
     private _dialog: MatDialog, 
@@ -57,11 +61,34 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     private _milestoneTriggerService: MilestoneTriggersService
   ){}
 
+  
+
   ngOnInit(): void {
     this.action = this._route$$.url.split('/')[2];
-    this.getSheduleMessages();
-    this.getMilestones();
+    this.fetchScheduledMessages()
+
   }
+
+  
+ 
+  fetchScheduledMessages() {
+    this._scheduleMessageService.getScheduledMessages$().subscribe((messages) => {
+      this.scheduledMessages = messages.map((message) => {
+          const timestamp = message.createdOn as any;
+          const newDate = new Date(timestamp.seconds * 1000);
+          return {
+            ...message,
+            createdOn: newDate, 
+            formattedDate: newDate.toLocaleString(),
+          };
+        return message;
+      });
+    });
+  }
+  
+  
+  
+  
 
   openMilestoneModal() {
   const dialogRef = this._dialog.open(MilestoneReachedModalComponent);
@@ -74,6 +101,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     }
     });
   }
+  
 
   openSpecificTimeModal() {
     const dialogRef = this._dialog.open(SpecificTimeModalComponent);
@@ -112,55 +140,9 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   }
 
   editTimeOption(message: ScheduledMessage) {
-    switch (this.selectedOption) {
-      case 'milestone':
-        this.editMilestone(message);
-        break;
-      case 'specific-time':
-        this.editSpecificTime(message);
-        break;
-      case 'inactivity':
-        this.editInactivity(message);
-        break;
-      default:
-        break;
-    }
+    this.openSpecificTimeModal()
   }
 
-  editMilestone(message: ScheduledMessage) {
-    alert("milestone")
-  }
-
-  editSpecificTime(message: ScheduledMessage) {
-    alert("specific time")
-  }
-
-  editInactivity(message: ScheduledMessage) {
-    alert("inacivity")
-  }
-  
-  getMilestones() {
-    this._milestoneTriggerService.fetchMileStoneTriggers().subscribe(
-      (milestone) => {
-        this.milestoneMessages = milestone;
-        this.combinedMessages = [...this.scheduledMessages, ...this.milestoneMessages];
-        console.log("milestone", milestone)
-      }
-    );
-  }
-
-  getSheduleMessages() {
-    this._scheduleMessageService.getScheduledMessages$().subscribe(
-      (messages) => {
-        this.scheduledMessages = messages;
-        this.combinedMessages = [...this.scheduledMessages, ...this.milestoneMessages];
-      }
-    );
-  }
-
-  editItem(){
-    
-  }
 
   openInactivityModal() {
     const dialogRef = this._dialog.open(AfterInactivityModalComponent);
