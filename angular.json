@@ -1529,31 +1529,6 @@
       },
       "tags": []
     },
-    "private-functions-analytics-metabase": {
-      "root": "libs/private/functions/analytics/metabase",
-      "sourceRoot": "libs/private/functions/analytics/metabase/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "libs/private/functions/analytics/metabase/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/private/functions/analytics/metabase"],
-          "options": {
-            "jestConfig": "libs/private/functions/analytics/metabase/jest.config.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "tags": []
-    },
     "private-functions-analytics-progress-main": {
       "root": "libs/private/functions/analytics/progress/main",
       "sourceRoot": "libs/private/functions/analytics/progress/main/src",
@@ -1602,6 +1577,31 @@
           ],
           "options": {
             "jestConfig": "libs/private/functions/convs-mgr/conversations/message-templates/scheduler/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "private-functions-function-utils": {
+      "root": "libs/private/functions/function-utils",
+      "sourceRoot": "libs/private/functions/function-utils/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/private/functions/function-utils/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/private/functions/function-utils"],
+          "options": {
+            "jestConfig": "libs/private/functions/function-utils/jest.config.ts",
             "passWithNoTests": true
           }
         }

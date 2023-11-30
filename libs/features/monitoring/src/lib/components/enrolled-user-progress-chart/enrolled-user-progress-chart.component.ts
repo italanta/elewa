@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
+import { SubSink } from 'subsink';
 
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
@@ -20,6 +21,8 @@ import {
   styleUrls: ['./enrolled-user-progress-chart.component.scss'],
 })
 export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
+  private _sBs = new SubSink();
+  
   chart: Chart;
 
   activeCourse: string;
@@ -46,7 +49,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
   }
 
   getProgressData() {
-    this._progressService.getMilestones().subscribe((model) => {
+    this._sBs.sink = this._progressService.getMilestones().subscribe((model) => {
       if (model.length) {
         this.showData = true;
 
@@ -54,6 +57,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
         this.dailyProgress = getDailyProgress(model);
         this.weeklyProgress = getWeeklyProgress(model);
         this.monthlyProgress = getMonthlyProgress(model);
+
         this.chart = this._loadChart(this.weeklyProgress);
       }
     });
@@ -109,14 +113,11 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
 
   private getData(models: GroupProgressModel[]): number[] {
     if (this.selectedPeriodical === 'Daily') {
-      // compute daily data
-      return models.map((mod) => mod.todaysEnrolledUsersCount);
+      return models.map((mod) => mod.todaysEnrolledUsersCount.dailyCount);
     } else if (this.selectedPeriodical === 'Weekly') {
-      // compute weekly data
-      return models.map((mod) => mod.todaysEnrolledUsersCount);
+      return models.map((mod) => mod.todaysEnrolledUsersCount.pastWeekCount);
     } else {
-      // compute monthly data
-      return models.map((mod) => mod.todaysEnrolledUsersCount);
+      return models.map((mod) => mod.todaysEnrolledUsersCount.pastMonthCount);
     }
   }
 
@@ -124,5 +125,7 @@ export class EnrolledUserProgressChartComponent implements OnInit, OnDestroy {
     if (this.chart) {
       this.chart.destroy();
     }
+
+    this._sBs.unsubscribe();
   }
 }

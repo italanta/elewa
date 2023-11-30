@@ -1,0 +1,170 @@
+.card{
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 10%;
+
+    .cancel-icon{
+        .close-button {
+            position: absolute;
+            top: 0.625rem;
+            right: 0.625rem;
+            font-size: medium;
+            cursor: pointer;
+            color: var(--connector-color-blue); 
+          }          
+    }
+
+    .lines{
+        display: flex;
+        justify-content: space-between;
+        .left-line{
+            width: 45%;
+            height: 0.1rem;
+            background: var(--connector-color-blue); 
+        }
+        .right-line{
+            width: 45%;
+            height: 0.1rem;
+            background: var(--connector-color-blue); 
+        }
+    }
+    .top{
+        text-align: center;
+        // Add Channel
+        color: var(--convs-mgr-color-101010);
+        font-size: medium;
+        font-family: Roboto;
+        font-weight: 400;
+        word-wrap: break-word
+    }
+    .platform{
+        display: flex;
+        justify-content: space-between;
+        // Select Platform
+        color: var(--connector-color-blue);
+        font-size: medium;
+        font-family: Roboto;
+        font-weight: 400;
+        word-wrap: break-word;
+        .select{
+            padding-left: 13%;
+        }
+        .add{
+            padding-right: 13%;
+        }
+    }
+
+    .select{
+        .whats-app{
+            padding: 5% 0 5%;
+            display: flex;
+            align-items: center; 
+            img{
+                padding: 0 2%;
+            }
+        }
+        .messenger{
+            padding: 0 0 10%;
+            display: flex;
+            align-items: center; 
+            img{
+                padding: 0 2%;
+            }
+        }
+    }
+    div{
+        form{
+            padding: 0 0 5%;
+            .general{
+                padding: 0 0 5%;
+            }
+            
+            .input-data{
+                padding-top: 0.5rem;
+
+                input{
+                    width: 100%;
+                    // height: 2em; 
+                    border-radius: 0.625rem; 
+                    border: 0.0625rem var(--convs-mgr-input-color) solid;
+                    margin: 1% 0;
+                    // General Details
+                    // Bot Name
+                    color: var(--convs-mgr-input-color);
+                    font-size: medium;
+                    font-family: Roboto;
+                    font-weight: 300;
+                    word-wrap: break-word;
+                    padding: 2%;
+                }
+                label{
+                    // Messenger Channel Details
+                    color: var(--convs-mgr-color-101010 );
+                    font-size: smaller;
+                    font-family: Roboto;
+                    font-weight: 400;
+                    word-wrap: break-word
+                }
+            }
+           
+            label{
+                // Messenger Channel Details
+                color: var(--convs-mgr-color-101010 );
+                font-size: medium;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word
+            }
+        }
+    }
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 3%;
+        .cancel{
+            div{
+                border-radius: 1.875rem;
+                border: 0.125rem var(--connector-color-blue) solid;
+                padding: 0.5em 2em;
+                // Cancel
+                color: var(--connector-color-blue);
+                font-size: medium;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word;
+                cursor: pointer;
+            } 
+        }
+        .continue{
+            button{
+                // Continue
+                color: var(--convs-mgr-color-text-white);
+                font-size: medium;
+                font-family: Roboto;
+                font-weight: 400;
+                word-wrap: break-word;
+                background: var(--convs-mgr-button-color); 
+                border-radius: 1.875rem;
+                padding: 0.5em 2em;
+                border: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+:host ::ng-deep .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
+    color: var(--convs-mgr-color-C3C3C3);
+} 
+/* Set top-lef and bottom-left corner radius */
+:host ::ng-deep .mat-form-field-outline-start {
+    border-radius: 15px 0 0 15px !important;
+    display: none;
+
+}
+ 
+/* Set top-right and bottom-right corner radius */
+:host ::ng-deep .mat-form-field-outline-end {
+    border-radius: 0 15px 15px 0 !important;
+    display: none;
+}  

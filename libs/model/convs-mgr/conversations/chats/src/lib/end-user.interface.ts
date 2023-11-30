@@ -40,6 +40,10 @@ export interface EndUser extends IObject
 
     /** The results of the assessments that the end user has taken */
     assessmentResults             ?: AssessmentResult[];
+
+    lastActiveTime                ?: Date;
+
+    enrolledUserId                ?: string;
 }
 
 

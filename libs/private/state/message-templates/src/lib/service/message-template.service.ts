@@ -3,9 +3,10 @@ import { AngularFireFunctions } from '@angular/fire/compat/functions';
 
 import { Observable, first, switchMap, throwError } from 'rxjs';
 
-import { MessageTemplate, SendMessageTemplate } from '@app/model/convs-mgr/functions'
+import { MessageTemplate } from '@app/model/convs-mgr/functions'
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 import { MessageTemplateStore } from '../store/message-template.store';
 import { MessageStatusReq, MessageStatusRes } from '../models/message-status.interface';
@@ -36,12 +37,20 @@ export class MessageTemplatesService {
     return templateRef(data);
   }
 
-  private sendMessagesCallFunction(data: SendMessageTemplate) {
+  private sendMessagesCallFunction(data: any) {
     const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
     return scheduleRef(data);
   }
 
-  private constructSendMessageReq(payload: any, channel: CommunicationChannel): SendMessageTemplate {
+  private constructSendMessageReq(payload: any, channel: CommunicationChannel, selectedUsers: EnrolledEndUser[]): any {
+    const endUserIds =  selectedUsers.map((user)=> {
+      if(user.platformDetails){
+        return user.platformDetails[channel.type].endUserId
+      } else {
+        return null;
+      }
+    });
+
     return {
       n: channel.n || 0,
       plaform: channel.type as PlatformType,
@@ -51,7 +60,7 @@ export class MessageTemplatesService {
         language: payload.template.language,
         templateType: payload.templateType,
       },
-      endUsers: payload.endUsers,
+      endUserIds: endUserIds,
     };
   }
 
@@ -59,13 +68,13 @@ export class MessageTemplatesService {
     return throwError('Invalid channel or channel type.');
   }
 
-  sendMessageTemplate(payload: any, channelId: string): Observable<any> {
+  sendMessageTemplate(payload: any, channelId: string, selectedUsers: EnrolledEndUser[]): Observable<any> {
     return this._channelsServ$.getSpecificChannel(channelId).pipe(
       first(),
       switchMap((channel) => {
         if (channel && channel.type) {
           this.channel = channel;
-          const sendMessageReq = this.constructSendMessageReq(payload, channel);
+          const sendMessageReq = this.constructSendMessageReq(payload, channel, selectedUsers);
           return this.sendMessagesCallFunction(sendMessageReq);
         } else {
           return this.handleInvalidChannelError();

@@ -12,14 +12,16 @@ import { SubSink } from 'subsink';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
 import { SurveyService } from '@app/state/convs-mgr/conversations/surveys';
-import { Classroom, ClassroomUpdateEnum } from '@app/model/convs-mgr/classroom';
+import { Classroom, ClassroomUpdateEnum, defaultClassroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { MessageTemplatesService, ScheduleMessageService } from '@app/private/state/message-templates';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
-import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { TemplateMessageTypes } from '@app/model/convs-mgr/conversations/messages';
+import { MessageTemplate, MessageTypes } from '@app/model/convs-mgr/functions';
 import { Bot } from '@app/model/convs-mgr/bots';
 
 import { BulkActionsModalComponent } from '../../modals/bulk-actions-modal/bulk-actions-modal.component';
@@ -63,7 +65,13 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   selectedTime: Date;
   activeMessageId: string;
 
+  scheduleMessageOptions: any;
+  templateMessage: MessageTemplate;
+
+  channel: CommunicationChannel;
+
   constructor(
+    private _channelService: CommunicationChannelService,
     private _eLearners: EnrolledLearnersService,
     private _classroomServ$: ClassroomService,
     private _liveAnnouncer: LiveAnnouncer,
@@ -81,12 +89,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllClasses();
     this.getAllCourses();
     this.getAllPlatforms();
-    this.getSurveyId();
-  }
-  
-  getSurveyId(){
-    this.surveyId= this._route.snapshot.queryParamMap.get('surveyId') || '';
-    this.getActiveMessageTemplate();
+    this.getScheduleOptions();
   }
 
   getLearners() {
@@ -102,7 +105,13 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
       this.allClasses = allClasses
+      this.addDefaultClass();
     });
+  }
+
+  addDefaultClass() {
+    const classroom = this.allClasses.find(cls => cls.className === defaultClassroom.className)
+    classroom ?? this.allClasses.push(defaultClassroom);
   }
 
   getAllCourses() {
@@ -166,11 +175,6 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  sendSurvey() {
-    const selectedPhoneNumbers = this.selection.selected.map((user) => user.id);
-    this._surveyService.sendSurvey({surveyId: this.surveyId, enrolledUserIds:selectedPhoneNumbers }).subscribe();
-  }
-
   isSomeSelected() {
     return this.selection.selected.length > 0;
   }
@@ -207,64 +211,107 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getActiveMessageTemplate(){
-    this.activeMessageId = this._route.snapshot.queryParamMap.get('templateId') ?? '';
-    const dispatchDateQueryParam = this._route.snapshot.queryParamMap.get('dispatchDate');
+  getScheduleOptions(){
 
-    if (dispatchDateQueryParam) {
-      this.selectedTime = new Date(dispatchDateQueryParam);
-    }
+    this._scheduleMessageService.optionsSet$.subscribe((options)=> {
+      if(options || options.template) {
+        this.scheduleMessageOptions = options;
+        // TODO: Remove this redundancy
+        this.templateMessage = options.template;
+        this.activeMessageId = options.template.id;
+        this.selectedTime = options.dispatchDate;
+      }
+    })
    }
 
    sendMessageButtonClicked() {
-    const selectedPhoneNumbers = this.selection.selected.map((user) => user.phoneNumber) as string[];
-    const endUserIds = this.selection.selected.map((user) => user.id) as string[];
-  
-    this._sBs.sink = this._messageService.getTemplateById(this.activeMessageId).subscribe((template) => {
-      if (template) {
-        if (this.selectedTime) {
-          this.scheduleMessage(template, endUserIds);
-        } else {
-          this.sendMessageWithChannel(template, selectedPhoneNumbers);
-        }
+    const selectedUsers = this.selection.selected;
+    const action = this.scheduleMessageOptions.action
+    if(this.scheduleMessageOptions && this.templateMessage) {
+
+      const basePayload = this._getBasePayload(this.templateMessage, selectedUsers);
+
+      switch (action) {
+        case 'specific-time':
+          this.scheduleMessage(basePayload);
+          break;
+        case 'inactivity':
+          this.scheduleInactivity(basePayload);
+          break;
+        default:
+          alert('No message configuration found!')
+          break;
       }
-    });
+    }
   }
   
   
-  scheduleMessage(template: MessageTemplate, endUserIds: string[]) {
+  scheduleMessage(payload: any) {
     const scheduleRequest = {
+      ...payload,
+      dispatchTime: this.scheduleMessageOptions.dispatchDate,
+      endDate:  this.scheduleMessageOptions.endDate || null,
+      frequency: this.scheduleMessageOptions.frequency || null
+    };
+
+    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
+      if(resp) {
+        // TODO: Display Toast Message based on Response
+        this.openTemplate(payload.id);
+      }
+    });
+  }
+
+  scheduleInactivity(payload: any) {
+    const inactivityRequest = {
+      ...payload,
+      inactivityTime: this.scheduleMessageOptions.inactivityTime
+    };
+  
+    this._sBs.sink = this._scheduleMessageService.scheduleInactivity(inactivityRequest).subscribe((resp)=> {
+      if(resp) {
+        // TODO: Display Toast Message based on Response
+        this.openTemplate(payload.id);
+      }
+    });
+  }
+
+  openTemplate(id: any){
+    this._route$$.navigate(['/messaging', id]);
+  }
+
+  _getBasePayload(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
+    return {
       message: {
         type: MessageTypes.TEXT,
         name: template?.name,
         language: template?.language,
         templateType: TemplateMessageTypes.Text,
       },
+      id: this.scheduleMessageOptions.id,
       channelId: template?.channelId,
-      dispatchTime: this.selectedTime,
-      endUsers: endUserIds,
+      enrolledEndUsers: selectedUsers.map((user)=> user.id),
+      type: this.scheduleMessageOptions.type
     };
-  
-    this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe();
-    this.openTemplate(template.id);
-  }
-
-  openTemplate(id: any){
-    this._route$$.navigate(['/messaging', id]);
-
   }
   
-  sendMessageWithChannel(template: MessageTemplate, selectedPhoneNumbers: string[]) {
+  sendMessageWithChannel(template: MessageTemplate, selectedUsers: EnrolledEndUser[]) {
     const channelId = template?.channelId || '';
-  
-    this._messageService.sendMessageTemplate({
-      endUsers: selectedPhoneNumbers,
+
+    const payload = {
       template: template,
       type: MessageTypes.TEXT,
-      templateType: TemplateMessageTypes.Text
-    }, channelId)
-    .subscribe();
+      templateType: TemplateMessageTypes.Text,
+      enrolledEndUsers: [] as string[],
+    };
+  
+    this._messageService.sendMessageTemplate(payload, channelId, selectedUsers).subscribe();
+    
     this.openTemplate(template.id);
+  }
+
+  _getChannelDetails(channelId: string) {
+    return this._channelService.getSpecificChannel(channelId);
   }
 
   ngOnDestroy() {

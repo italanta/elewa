@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="cancel-icon">
+    <img src="assets/icons/delete-x.svg" class="close-button" (click)="closeModal()">
+  </div>
+    <div class="top">
+      <h3>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-CHANNEL" | transloco}}</h3>
+    </div>
+    <div class="lines">
+        <div class="left-line"></div>
+        <div class="right-line"></div>
+    </div>
+    <div class="platform">
+      <div class="select">
+        <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
+      </div>
+      <div class="add">
+        <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.ADD-DETAILS" | transloco}}</p>
+      </div>
+    </div>
+    <div class="select" >
+        <div class="whats-app">
+            <input type="radio" id="html" name="fav_language" [(ngModel)]="selectedPlatform" [value]="whatsappValue">
+            <img src="assets/icons/whatsapp-icon.svg" alt="">
+            <label for="html">{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP" | transloco}}</label><br>
+        </div>
+        <div class="messenger">
+            <input type="radio" id="css" name="fav_language" [(ngModel)]="selectedPlatform"  [value]="messengerValue">
+            <img src="assets/icons/facebook-messenger.png" alt="">
+            <label for="css">{{"COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco}}</label><br>
+        </div>
+      
+    </div>
+  
+  
+    <div class="buttons">
+      <div class="cancel">
+        <button (click)="closeModal()">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.CANCEL" | transloco}}</button>
+      </div>
+      <div class="continue">
+        <button (click)="showForm()">{{"COMPANY-INFORMATION.CHANNEL-MODAL.BUTTONS.CONTINUE" | transloco}}</button>
+      </div>
+    </div>
+  </div>
+  

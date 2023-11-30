@@ -1,33 +1,60 @@
 .message-template-settings{
-    height: 17rem;
+    height: 22rem;
     flex-shrink: 0;
     border-radius: 1.5625rem;
-    background: #FFF;
+    background: var(--convs-mgr-color-primary-white);
     margin-top: 1.75rem;
     padding: 1.75rem 1.56rem;
+
+    .form-group{
+      background: var(--convs-mgr-color-primary-white);
+      .data-result{
+        padding: 1rem 0;
+        form{
+          display: flex;
+          input{
+            font-size: medium;
+            width:90%; 
+            height: 100%; 
+            border-radius: 1rem; 
+            border: 0.0625rem var(--convs-mgr-input-color) solid;
+            padding: 1rem 1rem;
+          }
+          .buttons{
+            text-align: center;
+            img{
+              padding: 0.5rem 0.5rem 0 0.5rem;
+              cursor: pointer;
+              
+            }
+          }
+        }
+      }
+
+    }
 }
 .disabled-button {
-  background-color: #f0f0f0; /* Change to your desired background color */
-  color: #999; /* Change to your desired text color */
+  background-color: var(--convs-mgr-very-light-gray); /* Change to your desired background color */
+  color: var(--convs-mgr-medium-gray ); /* Change to your desired text color */
   cursor: not-allowed;
   pointer-events: none;
-  border: 1px solid #ccc; /* Add a border if needed */
+  border: 0.0625rem solid var(--convs-mgr-field-border-color); /* Add a border if needed */
 }
 
 /* Style the button on hover (optional) */
 .disabled-button:hover {
-  background-color: #f0f0f0; /* Change to your desired background color on hover */
-  color: #999; /* Change to your desired text color on hover */
+  background-color: var(--convs-mgr-very-light-gray); /* Change to your desired background color on hover */
+  color: var(--convs-mgr-medium-gray ); /* Change to your desired text color on hover */
 }
 .send-btn{
     border-radius: 1.5625rem;
     width: 4.875rem;
     height: 2.0625rem;
     flex-shrink: 0;
-    background-color: #1F7A8C!important;
-    color: white!important;
+    background-color: var(--convs-mgr-button-color) !important;
+    color:  var(--convs-mgr-color-primary-white)!important;
     font-family: Roboto;
-    font-size: 0.875rem;
+    font-size: medium;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -41,11 +68,11 @@
             
     p:first-child {
       span {
-          color: #1F7A8C;
+          color: var(--convs-mgr-button-color);
       }
-      color: #000; 
+      color: var(--convs-mgr-color-primary-black); 
       font-family: Roboto;
-      font-size: 1.25rem;
+      font-size: medium;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
@@ -53,9 +80,9 @@
     }
     
     p:nth-child(2), p:nth-child(3), p:nth-child(4) {
-      color: #707070;
+      color: var(--convs-mgr-color-707070);
       font-family: Roboto;
-      font-size: 1.125rem;
+      font-size: medium;
       font-style: normal;
       font-weight: 300;
       line-height: normal;
@@ -66,7 +93,7 @@
     mat-form-field > mat-select {
       border-radius: 0.9375rem;
       background-color: transparent;
-      border: 1px solid #707070;
+      border: 0.0625rem solid var(--convs-mgr-color-707070);
       width: 100%;
       width: 76.3125remt;
         height: 3.3125rem;
@@ -82,10 +109,65 @@
   }
 
   .info{
-    color: #1F7A8C!important;
-  font-family: Roboto;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 400!important;
-  line-height: normal;
+    color: var(--convs-mgr-button-color) !important;
+    font-family: Roboto;
+    font-size: medium;
+    font-style: normal;
+    font-weight: 400!important;
+    line-height: normal;
   }
+
+  .add-condition{
+    // Add message condition
+    color: var(--convs-mgr-button-color);
+    font-size: medium;
+    font-family: Roboto;
+    font-weight: 300;
+    text-decoration: underline;
+    word-wrap: break-word;
+    cursor: pointer;
+  }
+
+  .message-template-history{
+    height: 17rem;
+    flex-shrink: 0;
+    border-radius: 1.5625rem;
+    background: var(--convs-mgr-color-text-white);
+    margin-top: 1.75rem;
+    padding: 2.08rem 2.12rem;
+    h1{
+      color: var(--convs-mgr-color-101010);
+      font-family: Roboto;
+      font-size: medium;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 2.1rem;
+    }
+  }
+
+  mat-header-cell{
+    color: var(--convs-mgr-input-color);
+    font-family: Roboto;
+    font-size: medium;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+ }
+ mat-cell{
+    color: var(--convs-mgr-color-primary-black);
+    font-family: Roboto;
+    font-size: medium;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+ }
+
+ mat-icon{
+  color: var(--convs-mgr-button-color);
+ }
+ .gray-out {
+  cursor: not-allowed!important;
+  opacity: .5;
+}
+

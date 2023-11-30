@@ -46,6 +46,11 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
     });
   }
 
+  write(block: StoryBlock, id: string)
+  {
+    return this._activeRepo.write(block, id);
+  }
+
   addBlocksByStory(storyId: string, orgId: string, blocks: StoryBlock[], isPublished: boolean) 
   {
     const repo = this._repoFac.getRepo<StoryBlock>(`orgs/${orgId}/stories/${storyId}/blocks`);

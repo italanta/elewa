@@ -25,7 +25,7 @@ export class StoryStateService {
       map(stories => 
           stories
             .filter(story => story.parentModule === moduleId)
-            .sort((a, b) => (a.name as string).localeCompare(b.name as string))
+            .sort((a, b) => (a.name as string)?.localeCompare(b.name as string))
         )
     );
   }
