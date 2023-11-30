@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
-import { Chart, TooltipItem } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
 
@@ -15,9 +15,7 @@ import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 import { periodicals } from '../../models/periodicals.interface';
-import { 
-  formatDate, 
-  getColor, 
+import {
   getDailyProgress, 
   getWeeklyProgress,
   getMonthlyProgress 
@@ -29,7 +27,7 @@ import {
   styleUrls: ['./progress-completion-rate-chart.component.scss'],
 })
 export class ProgressCompletionRateChartComponent {
-  @Input() chart: Chart;
+  chart: Chart<'doughnut'>;
 
   private _sBs = new SubSink();
 
@@ -123,49 +121,32 @@ export class ProgressCompletionRateChartComponent {
     }
   }
 
-  private _loadChart(chartData: GroupProgressModel[]) {
+  private _loadChart(_chartData: any) {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
     // don't generate graph if no data is present
-    return new Chart('chart-ctx', {
-      type: 'pie',
+    return new Chart('completion-chart', {
+      type: 'doughnut',
       data: {
-        labels: ['completion-rate'],
+        labels: ['Completion Rate'],
         datasets: [{
-          data: chartData,
-          backgroundColor: ['rgb(2, 179, 254)'],
+          label: 'Completion Rate',
+          data: [100],
+          backgroundColor: ['rgba(31, 124, 142, 1)'],
           hoverOffset: 4
         }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        normalized: true,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels : {
-              usePointStyle: true,
-              padding: 25,
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label(context:TooltipItem<"pie">) {
-                const sum = context.dataset.data.reduce((sum, value) => sum + value);
-      
-                const value = context.raw as number;
-                const percentage = Math.round((value / sum) * 100);
-      
-                return `learners ${value} (${percentage}%)`;
-              }
-            }
-          }
-        },
       }
     });
   }
 
   private _drawEmptyChart() {
-    return new Chart('chart-ctx', {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    return new Chart('completion-chart', {
       type: 'doughnut',
       data: {
         labels: ['No Metrics Available'],
@@ -186,25 +167,47 @@ export class ProgressCompletionRateChartComponent {
               usePointStyle: true,
               padding: 25,
             }
-          },
-          tooltip: {
-            callbacks: {
-              label(context:TooltipItem<"pie">) {
-                const sum = context.dataset.data.reduce((sum, value) => sum + value);
-      
-                const value = context.raw as number;
-                const percentage = Math.round((value / sum) * 100);
-      
-                return `learners ${value} (${percentage}%)`;
-              }
-            }
           }
         },
       }
     })
   }
 
-  unpackData(data: GroupProgressModel[]) {
-    data.map((item) => item.measurements)
+  /** unpack data */
+  private getDatasets(model: GroupProgressModel[]) {
+    const bot = this.courses.find(course => course.id === this.activeCourse.id) as Bot;
+
+    // if AllCourses is selected we group with the course as our reference point.
+    if (!bot) {
+      return this.courses.map((bot, idx) => {
+        return {
+          labels: [bot.name],
+          data: this.unpackAllBots(model, bot),
+          backgroundColor: ['rgba(31, 124, 142, 1)'],
+          hoverOffset: 4
+        };
+      })
+    }
+
+    // if a specific course is selected we group with the modules as our reference point.
+    else {
+      return bot.modules.map((botMod, idx) => {
+        const botModule = this.botModules.find(mod => mod.id === botMod) as BotModule;
+
+        return this.unpackAtModuleLevel(
+          model,
+          botModule,
+          idx,
+        )
+      });
+    }
+  }
+
+  unpackAllBots(model:GroupProgressModel[], bot: Bot) {
+
+  }
+
+  unpackAtModuleLevel(model: GroupProgressModel[], botMod: BotModule, idx: number) {
+
   }
 }
