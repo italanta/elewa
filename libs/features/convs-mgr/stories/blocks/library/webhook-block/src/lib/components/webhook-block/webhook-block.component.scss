@@ -7,15 +7,16 @@ mat-card {
   box-sizing: content-box !important;
  }
 
-form {
-  width:100%;
+ form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .webhook-select-wrapper {
 
   position: relative;
   width: 100%;
-  margin-top: 1rem;
 
 }
 
@@ -75,7 +76,6 @@ select:focus, input:focus{
 .second-block {
 
   background-color: var(--convs-mgr-placeholder-color);
-  margin-top: 1rem;
   padding: 0.9375rem;
   border-radius: 0.625rem;
 
@@ -121,7 +121,6 @@ select:focus, input:focus{
 .third-block {
 
   background-color: var(--convs-mgr-placeholder-color);
-  margin-top: 1rem;
   margin-bottom: 0.3rem;
   padding: 0.9375rem;
   border-radius: 0.625rem;
