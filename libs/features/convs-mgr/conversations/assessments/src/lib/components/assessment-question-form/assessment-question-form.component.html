@@ -16,7 +16,7 @@
 								</mat-form-field>
 
 								<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
-									<button mat-flat-button>
+									<button mat-flat-button (click)="duplicateQuestion()">
 										<img src="assets/icons/duplicate-item.svg" alt="">
 									</button>
 									<button mat-flat-button (click)="deleteQuestion()">
@@ -40,7 +40,7 @@
 			</div>
 		</div>
 	</div>
-	<button mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
+	<button matTooltip="Add Question" mat-mini-fab [disabled]="!isLastQuestion" [ngClass]="isLastQuestion ? 'btn-add' : 'btn-add-hidden'"
 		(click)="addNewQuestion.emit()">
 		<i class="fas fa-plus"></i>
 	</button>

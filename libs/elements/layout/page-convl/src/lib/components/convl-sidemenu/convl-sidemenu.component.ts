@@ -5,6 +5,7 @@ import { SubSink } from 'subsink';
 
 import { AppClaimDomains } from '@app/private/model/access-control';
 
+import { MenuStateToggleService } from '../../providers/messages-menu-state';
 import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
 import { PermissionsStore } from '@app/private/state/organisation/main';
 
@@ -40,16 +41,18 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   readonly CAN_ACCESS_ASSESSMENTS = AppClaimDomains.AssessmentsView;
   readonly CAN_ACCESS_SETTINGS = AppClaimDomains.SettingsView;
 
+  isDropdownOpen: boolean;
+
   constructor(// private _org$$: ActiveOrgStore,
               // private _flow$$: ActiveCommFlowStore,
               private _router$$: Router,
               private sideMenu:SidemenuToggleService,
+              private _mMenuState: MenuStateToggleService,
               private _ps: PermissionsStore,
               @Inject('ENVIRONMENT') private _env: any)
   {
-    this._sbS.sink = this.sideMenu.menuStatus$.subscribe(
-      (isOpen) => (this.isExpanded = isOpen)
-    );
+    this._sbS.sink = this.sideMenu.menuStatus$.subscribe((isOpen) => (this.isExpanded = isOpen));
+    this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => (this.isDropdownOpen = isOpen));
   }
 
   ngAfterViewInit(): void {
@@ -116,15 +119,13 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 
   toggleMenu () {
     this.sideMenu.toggleExpand(!this.isExpanded)
-    
   }
 
-  addPers() {
-    this._ps.createInitialDoc();
+  toggleDropdown() {
+    this._mMenuState.toggleMenuState(!this.isDropdownOpen);
   }
 
-  ngOnDestroy()
-  {
+  ngOnDestroy() {
     this._sbS.unsubscribe();
   }
 

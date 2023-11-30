@@ -41,6 +41,9 @@ import { BotsStateModule } from '@app/state/convs-mgr/bots';
 import { BotModulesStateModule } from '@app/state/convs-mgr/modules';
 import { AccessControlStateModule } from '@app/private/state/access-control';
 import { StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
+import { ChannelsStateModule } from '@app/state/convs-mgr/channels';
+import { StateSurveysModule } from '@app/state/convs-mgr/conversations/surveys';
+import { MessageTemplatesModule } from '@app/private/state/message-templates';
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 
@@ -90,15 +93,13 @@ import { environment } from '../environments/environment';
     BotsStateModule.forRoot(),
     BotModulesStateModule.forRoot(),
     StateAssessmentsModule.forRoot(),
+    ChannelsStateModule.forRoot(),
+    StateSurveysModule.forRoot(),
+    MessageTemplatesModule.forRoot(),
 
     MtOrgStateModule.forRoot(),
 
     AccessControlStateModule.forRoot(),
-
-    // FlowsStateModule.forRoot(),
-    // ChatsStateModule.forRoot(),
-    // MessagingStateModule.forRoot(),
-    // CommChannelsStateModule.forRoot(),
 
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
