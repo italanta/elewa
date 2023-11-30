@@ -51,7 +51,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
               private sideMenu:SidemenuToggleService,
               private _mMenuState: MenuStateToggleService,
               private _ps: PermissionsStore,
-              private featureFlagsService: FeatureFlagsService,
+              public featureFlagsService: FeatureFlagsService,
               private cdr: ChangeDetectorRef,
               @Inject('ENVIRONMENT') private _env: any)
   {

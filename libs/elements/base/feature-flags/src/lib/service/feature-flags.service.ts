@@ -17,7 +17,7 @@ export class FeatureFlagsService {
   }
 
   private loadFeatureFlags(): Observable<any> {
-    return this.http.get('/assets/featureFlags.json');
+    return this.http.get('/assets/flags/featureFlags.json');
   }
   // In FeatureFlagsService
   setFeatureFlag(featureName: string, value: boolean): void {

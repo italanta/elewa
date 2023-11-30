@@ -18,7 +18,7 @@ export class FeatureFlagDirectiveDirective implements OnInit {
 
   ngOnInit() {
     // Check if the feature is on
-    const isFeatureOn = this.featureFlagsService.isFeatureOn(this.featureName);
+    const isFeatureOff = this.featureFlagsService.isFeatureOn(this.featureName);
 
     // Create the embedded view
     const embeddedView = this.viewContainer.createEmbeddedView(this.templateRef);
@@ -31,14 +31,15 @@ export class FeatureFlagDirectiveDirective implements OnInit {
       const element = rootNodes[0] as HTMLElement;
 
        // Apply or remove a CSS class based on the feature status
-       if (isFeatureOn) {
-        // Feature is on, remove the CSS class and deactivate the link
-        this.renderer.removeClass(element, 'feature-flag-off');
+       if (isFeatureOff) {
+        
+          // Feature is off, add the CSS class and "Coming Soon" text
+          this.renderer.addClass(element, 'feature-flag-off');
+          this.renderer.setAttribute(element, 'disabled', 'true');
+          this.renderer.setStyle(element, 'cursor', 'not-allowed'); // Optional: Change cursor style
       } else {
-        // Feature is off, add the CSS class and "Coming Soon" text
-        this.renderer.addClass(element, 'feature-flag-off');
-        this.renderer.setAttribute(element, 'disabled', 'true');
-        this.renderer.setStyle(element, 'cursor', 'not-allowed'); // Optional: Change cursor style
+          // Feature is on, remove the CSS class and deactivate the link
+        this.renderer.removeClass(element, 'feature-flag-off');
       }
     }
   }
