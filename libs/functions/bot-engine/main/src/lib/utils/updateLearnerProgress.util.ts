@@ -59,8 +59,8 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
 
   tools.Logger.log(() => `Updating enrolled user progress for ${endUser.enrolledUserId}`);
   tools.Logger.log(() => `Current Story: ${currentStory}`);
-  tools.Logger.log(() => `Parent Module: ${parentModule}`);
-  tools.Logger.log(() => `Parent Course: ${parentCourse}`);
+  tools.Logger.log(() => `Parent Module: ${parentModule.id}`);
+  tools.Logger.log(() => `Parent Course: ${parentCourse.id}`);
   tools.Logger.log(() => `Lesson: ${JSON.stringify(theLesson)}`);
 
   // Save changes
