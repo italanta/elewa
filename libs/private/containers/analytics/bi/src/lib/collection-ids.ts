@@ -4,14 +4,14 @@ export const collectionIds = [
   'users',
   'end-users',
   'enrolled-end-users',
+  'cursor',
+  'messages',
   'bots',
+  'stories',
+  'surveys',
   'classes',
   'message-templates',
   'milestone-triggers',
   'modules',
   'scheduled-messages',
-  'stories',
-  'surveys',
-  'cursor',
-  'messages'
 ]

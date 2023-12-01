@@ -41,7 +41,7 @@ app.get('/load', async (req, res) => {
         const table = `${projectName}_${collection}`;
         const exportFile = `${projectName}/exports/all_namespaces/kind_${collection}/all_namespaces_kind_${collection}.export_metadata`;
         const source = `gs://${BUCKET_NAME}/${exportFile}`;
-        const command = `bq --location=asia-south1 load --source_format=DATASTORE_BACKUP goomza_bi_analysis.${table} ${source}`;
+        const command = `bq --location=asia-south1 load  --replace --source_format=DATASTORE_BACKUP goomza_bi_analysis.${table} ${source} &`;
 
         try {
             await new Promise((resolve, reject) => {
@@ -63,7 +63,21 @@ app.get('/load', async (req, res) => {
         }
     }
 
-    res.send(`Export started for all collections in project ${projectName}`);
+    // Wait for 2 seconds before running next command
+    await sleep(2000);
+    
+    // Remove exports folder after loading the data to big query
+    const removeFolder = `gsutil rm -r gs://${BUCKET_NAME}/${projectName}/exports`;
+
+    exec(removeFolder, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error: ${error}`);
+            res.status(500).send(`Error: ${error}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+        res.send(`Delete started: ${stdout}`);
+    });
 });
 
 app.listen(port, () => {
