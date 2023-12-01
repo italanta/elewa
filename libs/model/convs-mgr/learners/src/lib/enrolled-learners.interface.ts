@@ -4,6 +4,8 @@ import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/syste
 
 import { SurveyResults } from "./survey-results.interface";
 
+import { EnrolledUserCourse } from "./enrolled-user-courses.interface";
+
 /**
  * Represents an enrolled learner.
  */
@@ -36,15 +38,10 @@ export interface EnrolledEndUser extends IObject {
    */
   currentCourse?: string;
 
-  /** The modules done by the end-user including the current one 
+  /** The courses done by the end-user including the current one 
    * TODO: Limit the stack to 20, and add the logic to the bot engine
-  */
-  modules?: string[];
-  
-  /** The lessons/stories done by the end-user including the current one 
-   * TODO: Limit the stack to 20, and add the logic to the bot engine
-  */
-  lessons?: string[];
+   */
+  courses?: EnrolledUserCourse[];
 
   /**
    * Optional field to link to the whatsappend-userId collection using their ID.

@@ -143,6 +143,9 @@ export class BlockComponent implements OnInit
   copyMe() {
     this.copyBlock.emit(this.block);
   }
+  handleDeleteEndStoryAnchor(event:any){
+    this.deleteMe();
+  }
 
   deleteMe() 
   {

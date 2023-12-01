@@ -113,10 +113,13 @@
             <app-open-ended-question-block [id]="id" [block]="block" [openEndedQuestionForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-open-ended-question-block>
         </div>
-        <div *ngSwitchCase="endStoryAnchor">
-            <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
-            </app-end-anchor>
-        </div>
+        <div *ngSwitchCase="endStoryAnchor" class="outer">
+                <div class="block-title-container2"> 
+                    <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" (deleteButtonClick)="handleDeleteEndStoryAnchor($event)" class="block">
+                    </app-end-anchor> 
+                </div>
+            </div>
+        
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-video-input-block>

@@ -1,19 +1,21 @@
-mat-card {
-	min-width: 12.5rem;
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 input {
-	max-width: 100%;
-	margin: 0.3125rem 0;
-	border: 0.0625rem solid var(--convs-mgr-placeholder-color);
-	border-radius: 0.625rem;
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; // minus the padding
+	padding: 10px;
+	border: none;
 	resize: none;
-	padding: 0.625rem;
-	color: var(--convs-mgr-input-image-grey-color);
+  outline: none;
+	border-radius: 0.6rem;
 	background-color: var(--convs-mgr-placeholder-color);
 }
 
 input:focus-visible {
-	border: 0.0625rem solid var(--convs-mgr-color-primary-purple);
-	outline-color: var(--convs-mgr-color-primary-purple);
+	border: 1px solid var(--convs-mgr-color-primary-black);
+	outline-color: var(--convs-mgr-color-primary-black);
 }
