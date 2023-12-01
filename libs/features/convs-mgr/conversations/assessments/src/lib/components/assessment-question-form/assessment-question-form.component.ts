@@ -8,6 +8,8 @@ import { Observable, tap } from 'rxjs';
 import { AssessmentQuestion } from '@app/model/convs-mgr/conversations/assessments';
 import { FeedbackCondition } from '@app/model/convs-mgr/conversations/assessments';
 
+import { AssessmentFormService } from '../../services/assessment-form.service';
+
 @Component({
   selector: 'app-assessment-question-form',
   templateUrl: './assessment-question-form.component.html',
@@ -29,12 +31,14 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
   @Input() questionFormGroupName: number | string;
   @Input() activeCard$: Observable<number>;
 
-  @Output() addNewQuestion = new EventEmitter();
+  @Output() addNewQuestion = new EventEmitter<FormGroup>();
   @Output() activeQuestionChanged = new EventEmitter();
   
   activeCard: number;
 
-  constructor() {}
+  constructor(
+    private _assessmentForm: AssessmentFormService
+  ) {}
 
   feedBackConditions = [
     FeedbackCondition[1],
@@ -56,6 +60,7 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     return this.questionsList.controls[this.questionFormGroupName as number] as FormGroup;
   }
 
+  /** delete Question */
   deleteQuestion() {
     const question = this.questionsList.at(this.index);
     const prevQuestion = this.questionsList.at(this.index - 1);
@@ -70,6 +75,17 @@ export class AssessmentQuestionFormComponent implements OnInit, OnDestroy {
     };
 
     this.questionsList.removeAt(this.index);
+  }
+
+  /** duplicate question */
+  duplicateQuestion() {
+    const prevQuestion = this.questionsList.at(this.index) as FormGroup;
+
+    const copiedQstn = this._assessmentForm.createQuestionForm(prevQuestion.value);
+  
+    copiedQstn.patchValue({ nextQuestionId : null });
+  
+    this.addNewQuestion.emit(copiedQstn);
   }
 
   ngOnDestroy() {

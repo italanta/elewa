@@ -35,7 +35,6 @@ export class JumpStoryBlockService implements IProcessOperationBlock
   public async handleBlock(storyBlock: JumpBlock, updatedCursor: Cursor, orgId: string, endUser: EndUser) {
       
     const currentStory = updatedCursor.position.storyId;
-    
     // 1. Get the connections pointing to block success or block fail blocks in the story
     // Then we use the connections to get the blocks id and construct our RoutedCursor
 
@@ -96,7 +95,7 @@ export class JumpStoryBlockService implements IProcessOperationBlock
       blockId: nextBlock.id
     };
 
-    let newCursor = updatedCursor;
+    const newCursor = updatedCursor;
 
     // 3. Create new stack if it does not exist or 
     //  push the new routed cursor to the top existing stack

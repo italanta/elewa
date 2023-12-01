@@ -1,37 +1,39 @@
-<div class="page-container">
-    <h2>{{'LEARNERS.LEARNER-DETAIL-TAB.DETAILS.COURSES-ENROLLED'| transloco }}</h2>
-    <div class="course-item-container">
-      <div class="course-item-title-container" (click)="toggleCollapsible()">
-        <div class="course-item-title" >Enabel</div>
-  
-          <div *ngIf="!isOpen">
-            <i  class="fas fa-chevron-up"></i>
+<section class="section-container">
+  <h2 class="title">{{'LEARNERS.LEARNER-DETAIL-TAB.DETAILS.COURSES-ENROLLED'| transloco }}</h2>
+  <div class="course-item-container">
+
+    <div *ngIf="!isLoading; else noData">
+      <div *ngIf="leanerProgress">
+        <div class="course" *ngFor="let course of leanerProgress">
+          <div class="course-name-wrapper">
+            <span class="course-name-tooltip"></span>
+            <p class="course-name">{{ course.name| titlecase }}</p>
+            <span>Enrolled On: {{ course.enrollmentDate | date: 'mediumDate'}}</span>
           </div>
-          <div *ngIf="isOpen">
-            <i  class="fas fa-chevron-down"></i>
-          </div>
+
+          <ng-container *ngFor="let module of course?.modules">
+            <div class="module-wrapper">
+              <div class="module-title">
+                <img src="assets/svgs/learners/module.svg">
+                <div class="module-progress-name">{{ module.name | titlecase }}</div>
+              </div>
+
+              <ng-container *ngFor="let lesson of module?.lessons">
+                <div class="lessons-wrapper">
+                  <div class="course-progress-bars">
+                    <div class="course-progress-name">{{ lesson.name | titlecase }}</div>
+                    <mat-progress-bar mode="determinate" [value]="lesson.progress"></mat-progress-bar>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
       </div>
-  
-      <ng-container *ngIf="isOpen">
-        <h3>{{'LEARNERS.LEARNER-DETAIL-TAB.DETAILS.ENROLLED-ON'| transloco }} 20th May 2023</h3>
-        <div class="course-name">
-          <i class="far fa-bookmark"></i>
-          BDOM
-          <i class="fas fa-pen-square"></i>
-        </div>
-        <div class="course-progress-bars">
-          <div class="course-progress-name">CH1_Systeme</div>
-          <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
-        </div>
-        <div class="course-progress-bars">
-          <div class="course-progress-name">Onboarding</div>
-          <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
-        </div>
-        <div class="course-progress-bars">
-          <div class="course-progress-name">PreTest</div>
-          <mat-progress-bar mode="determinate" value="10"></mat-progress-bar>
-        </div>
-      </ng-container>
     </div>
+
+    <ng-template #noData>
+      <mat-spinner *ngIf="isLoading" diameter="30"></mat-spinner>
+    </ng-template>
   </div>
-  
+</section>

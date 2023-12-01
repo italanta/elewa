@@ -1,12 +1,14 @@
 textarea {
-  margin: 5px 0;
   border-radius: 0.6rem;
   background-color: var(--convs-mgr-placeholder-color);
-  padding: 20px;
+  width: calc(100% - 20px); //minus the padding
+  padding: 10px;
   text-align: left;
-  width: 85%;
+  height: 4rem;
   border: none;
   outline: none;
   resize: none;
+  display: flex;
+  justify-content: center;
 }
 

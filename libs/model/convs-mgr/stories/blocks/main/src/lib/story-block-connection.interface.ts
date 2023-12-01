@@ -17,4 +17,7 @@ export interface StoryBlockConnection {
 
   /** Whether the connection has been deleted and should no longer be used in new flows */
   deleted?: boolean;
+
+  /** This will act as the unique id because jsPlumb keeps changing the connection ids after refresh */
+  uuid?: string;
 }

@@ -1,14 +1,13 @@
 input {
   width: inherit!important;
   height: fit-content!important;
-  min-width: 91%!important;
+  min-width: calc(100% - 20px) !important;
   min-height: fit-content!important;
-  padding: 5px 10px;
-  margin: 5px 0;
-  border-radius: 3px;
+  padding: 10px;
+  border-radius: 0.6rem;
   caret-color: var(--convs-mgr-color-text-black);
   color: var(--convs-mgr-color-text-black);
   outline: none;
   border: none;
-  background-color: var(--convs-mgr-color-tertiary-tint);
+  background-color: var(--convs-mgr-placeholder-color);
 }
