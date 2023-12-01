@@ -901,7 +901,8 @@
       "SELECT-BOT": "Select Bot",
       "SELECT-MILESTONE-INDEX": "Select milestone",
       "SELECT-HINT": "Please select a bot to continue.",
-      "MILESTONE-NUMBER": "Milestone"
+      "MILESTONE-NUMBER": "Milestone",
+      "NO-MILESTONE":"Bot has no milestone"
     },
     "SAVE-BUTTON": {
       "SAVE": "Save"
