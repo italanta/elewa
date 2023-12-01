@@ -15,8 +15,7 @@
                 <img [src]="svgIcon" (click)="audioInput.click()"  class="svgIcon" >
             </div>
             <div>
-                <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc" (change)="handleFileInput($event)">
-
+                <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
             </div>
         </div>
 
@@ -28,17 +27,13 @@
         <input type="text" formControlName="fileSrc"
             [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
             id="audio-link ">
-        <div class="waveform-container">
-            <div>
-                <img (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
-            </div>
+
+        <div *ngIf="this.block.fileSrc && !isLoadingAudio" class="waveform-container">
+            <img (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
             <div class="wave">
                 <div #waveform></div>
             </div>
         </div>
         <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
-       
-
-
     </form>
 </div>

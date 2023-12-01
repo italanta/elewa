@@ -1,6 +1,9 @@
-mat-card {
-    min-width: 12.5em;
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
+
 
 mat-card-title {
     font-size: 1.2em !important;
@@ -105,10 +108,11 @@ input {
 
 .waveform-container {
     display: flex;
+    align-items: center;
 }
 
 .play-button {
     cursor: pointer;
-    height: 2em;
-    width: 2em;
+    height: 1.5em;
+    width: 1.5em;
 }
