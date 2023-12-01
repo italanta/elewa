@@ -12,10 +12,10 @@
     <form [formGroup]="schedulerForm">
     <div class="date-container">
       <div class="date">
-        <input type="date" id="date" name="date" formControlName="date">
+        <input type="date" id="date" name="date" formControlName="date" placeholder="Date" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
       </div>
       <div class="time">
-        <input type="time" id="time" name="time" formControlName="time">
+        <input type="time" id="time" name="time" formControlName="time" placeholder="Time" onfocus="(this.type='time')" onblur="if(this.value==''){this.type='text'}">
       </div>
     </div>
 
