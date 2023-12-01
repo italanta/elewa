@@ -1,6 +1,6 @@
 import { orderBy as __orderBy } from 'lodash';
 
-import { Component, ElementRef, OnInit, ViewChild, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit, ViewChild, ViewChildren, QueryList, OnDestroy, ChangeDetectorRef, Input, SimpleChanges, OnChanges } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ import { MessagesQuery } from '@app/state/convs-mgr/conversations/messages';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
 import { Chat } from '@app/model/convs-mgr/conversations/chats';
 
+import { ChatMessageComponent } from '../chat-message/chat-message.component';
+
 import { SpinnerService } from '../../providers/spinner.service';
 
 @Component({
@@ -20,7 +22,7 @@ import { SpinnerService } from '../../providers/spinner.service';
   templateUrl: './messages-container.component.html',
   styleUrls:  ['./messages-container.component.scss']
 })
-export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
+export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit
 {
   private _sbs = new SubSink()
   @Input() chat: Chat;
@@ -32,10 +34,12 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   messages$: Observable<Message[]>;
 
   @ViewChild('container') private _container: ElementRef;
+  @ViewChildren(ChatMessageComponent) chatMessages: QueryList<ChatMessageComponent>;
   model: PaginatedScroll<Message>;
 
   isLoaded = false;
   newMessages = false;
+  paginationNumber = 1
 
   constructor(private _messages$$: MessagesQuery,
               private _cd: ChangeDetectorRef,
@@ -45,7 +49,23 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 
   ngOnInit() {
     this.unblocking$ = this._spinner.showSpinner$
-    this.getData();
+  
+  }
+
+  ngAfterViewInit(): void {
+    /**
+     * Subscribes to changes in the chat messages and scrolls to the last message at first time .
+     *  considering pagination which value changes on this.model.loadMore()
+     * 
+     * @listens ChatMessageComponent[]
+     */
+    this.chatMessages.changes.subscribe(() => {
+      // Calculate the index of the message to scroll to
+      const scrollToIndex = this.chatMessages.length - this.paginationNumber;
+
+      // Scroll to the calculated index
+      this.scrollToMessage(scrollToIndex);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges)
@@ -65,10 +85,11 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 
     this.model = this._messages$$.getPaginator(this.chat);
     this.messages$ = this.model.get();
+    
 
     this._sbs.sink =  this.messages$.subscribe(msgs => {
       this._logger.log(() => '[MessagesContainerComponent] - Detected change in messages-subscr');
-
+      
       // TODO: Weird bug in paginator seems to skip ordering on new load, so we re-order here.
       this.messages = __orderBy(msgs, m => __DateFromStorage(m.createdOn as Date));
 
@@ -78,13 +99,9 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
 
       if(!this.isLoaded) {
         this.isLoaded = true;
-        this._cd.detectChanges();
-        this.scrollToBottom();
       }
       else {
         this.newMessages = true;
-        this._cd.detectChanges();
-        this.scrollToBottom();
       }
 
       this._cd.detectChanges();
@@ -95,8 +112,10 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
   {
     if(this.isLoaded)
     {
-      if (e === 'top')
+      if (e === 'top'){
         this.model.more();
+        this.paginationNumber = this.messages.length + 1;
+      }
       else if(e === 'bottom')
         this.newMessages = false;
     }
@@ -120,6 +139,37 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy
       return true;
     }
     return false;
+  }
+
+  /**
+ * Scrolls to the message at the specified index.
+ *
+ * @private
+ * @param {number} index - The index of the message to scroll to.
+ * @returns {void}
+ */
+  private scrollToMessage(index: number): void {
+    const scrollContainer = this._container.nativeElement;
+    const messageComponent = this.chatMessages.toArray()[index];
+
+    if (messageComponent) {
+      const messageElement = this.getMessageElement(messageComponent);
+
+      if (messageElement) {
+        scrollContainer.scrollTop = messageElement.offsetTop;
+      }
+    }
+  }
+
+  /**
+ * Retrieves the HTML element associated with the given chat message component.
+ *
+ * @private
+ * @param {ChatMessageComponent} messageComponent - The chat message component.
+ * @returns {HTMLElement | null} The HTML element or null if not found.
+ */
+  private getMessageElement(messageComponent: ChatMessageComponent): HTMLElement | null {
+    return messageComponent.getElementRef();
   }
 
   ngOnDestroy()
