@@ -2,9 +2,11 @@ import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy, 
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { AppClaimDomains } from '@app/private/model/access-control';
 import { PermissionsStore } from '@app/private/state/organisation/main';
+import { FeatureFlagsService } from '@app/elements/base/feature-flags';
 
 import { MenuStateToggleService } from '../../providers/messages-menu-state';
 import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
@@ -12,7 +14,8 @@ import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
 
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-constants.function';
-import { FeatureFlagsService } from 'libs/elements/base/feature-flags/src/lib/service/feature-flags.service';
+
+
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -25,6 +28,7 @@ import { FeatureFlagsService } from 'libs/elements/base/feature-flags/src/lib/se
 export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 {
   private _sbS = new SubSink();
+  private _subscription: Subscription;
 
   @Input() user: any;
   
@@ -63,6 +67,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   ngAfterViewInit(): void {
     const featureName = this._router$$.url.split('/')[1];
 
+    this._subscription = this.featureFlagsService.init();
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
 

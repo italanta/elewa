@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,16 +9,18 @@ import { Observable } from 'rxjs';
 export class FeatureFlagsService {
   private flags: any = {};
 
-  constructor(private http: HttpClient) {
-    // Load feature flags from the JSON file when the service is created
-    this.loadFeatureFlags().subscribe(data => {
-      this.flags = data;
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   private loadFeatureFlags(): Observable<any> {
     return this.http.get('/assets/flags/featureFlags.json');
   }
+
+  init(): Subscription {
+    return this.loadFeatureFlags().subscribe(data => {
+      this.flags = data;
+    });
+  }
+
   // In FeatureFlagsService
   setFeatureFlag(featureName: string, value: boolean): void {
     this.flags[featureName] = value;
