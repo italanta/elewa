@@ -25,15 +25,31 @@
   .months {
     input {
       height: 2rem;
+      width: 9rem;
       border-radius: 0.5rem;
       padding: 0.3rem;
+      font-family: Roboto;
+      font-weight: 300;
+      font-size: 1.125rem;
     }
   }
+  
   .recur {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 300;
+    .text{
+     font-size: 1.125rem;
+    }
     .select {
+      .custom-dropdown{
+        button{
+          font-size: 1rem;
+          font-weight: 300;
+          padding-right: 1.5rem;
+        }
+      }
       select {
         border: none;
         background-color: var(--convs-mgr-color-success-contrast);
@@ -53,13 +69,13 @@
   .weekly {
     .weeks {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
     }
   }
   .monthly {
     .months {
       display: flex;
-      justify-content: flex-start; 
+      justify-content: space-between;
       align-items: center;
       gap: 0.5rem; 
       width: 100%;
@@ -110,8 +126,8 @@
 
 .selected-day {
   background-color: var(--convs-mgr-icon-color) !important;
-  color: var(--convs-mgr-color-primary-white) !important;
-  border-radius: 0.5rem;
+  color: var(--convs-mgr-color-text-white) !important;
+  padding:0.1rem 0.3rem;
 }
 
 .custom-dropdown {
@@ -121,11 +137,14 @@
 
 button.mat-button {
   display: flex;
-  align-items: center; /* Vertically center the content */
+  align-items: center; 
 }
 
 img {
-  height: 0.5rem;
+  position: absolute;
+  padding: 0 0.2rem;
+  top: 0.1rem;
+  height: 1rem;
 }
 .occur-text{
     // Repeat every
@@ -156,6 +175,7 @@ img {
   font-family: Roboto;
   font-weight: 400;
   word-wrap: break-word;
+  font-size: 1rem;
 }
 .date-bd {
   border: none !important;
