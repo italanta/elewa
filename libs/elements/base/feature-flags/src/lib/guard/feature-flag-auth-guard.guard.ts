@@ -11,7 +11,6 @@ export class FeatureFlagAuthGuardGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const featureName = route.data['feature'];
-    console.log(`Checking feature flag for ${featureName}: ${this.featureFlagsService.isFeatureOn(featureName)}`);
 
     if (this.featureFlagsService.isFeatureOn(featureName)) {
       this.router.navigate(['access-denied']);
