@@ -149,8 +149,8 @@
         }
       },
       "PLACEHOLDER": {
-        "ANCHOR": "Start here",
-        "END-ANCHOR": "End-here",
+        "ANCHOR": "Start",
+        "END-ANCHOR": "End",
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Url",
         "NAME": "Name",
