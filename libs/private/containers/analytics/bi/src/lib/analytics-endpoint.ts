@@ -39,7 +39,7 @@ app.get('/load', async (req, res) => {
     for (const collectionId of collectionIds) {
         const collection = collectionId;
         const table = `${projectName}_${collection}`;
-        const exportFile = `export-1701272410561/all_namespaces/kind_${collection}/all_namespaces_kind_${collection}.export_metadata`;
+        const exportFile = `${projectName}/exports/all_namespaces/kind_${collection}/all_namespaces_kind_${collection}.export_metadata`;
         const source = `gs://${BUCKET_NAME}/${exportFile}`;
         const command = `bq --location=asia-south1 load --source_format=DATASTORE_BACKUP goomza_bi_analysis.${table} ${source}`;
 
@@ -56,7 +56,7 @@ app.get('/load', async (req, res) => {
                 });
             });
 
-            await sleep(3000); // Wait for 3 seconds
+            await sleep(2000); // Wait for 2 seconds
         } catch (error) {
             res.status(500).send(`Error with collection ${collection}: ${error}`);
             return;
