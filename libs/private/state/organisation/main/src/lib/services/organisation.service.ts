@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireFunctions } from '@angular/fire/compat/functions';
 import { FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
 import { combineLatest, Observable } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 import { UserStore } from '@app/private/state/user/base';
-import { Organisation } from '@app/model/organisation';
+import { CLMPermissions, Organisation } from '@app/model/organisation';
 import { iTalUser } from '@app/model/user';
 
 import { ActiveOrgStore } from '../stores/active-org.store';
 import { OrgStore } from '../stores/organisation.store';
-import { PermissionsStore } from '../stores/permissions.store';
+import { PermissionsStateService } from './permisssions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,8 @@ export class OrganisationService {
               private _user$$: UserStore,
               private _orgs$$: OrgStore,
               private _db: AngularFirestore,
-              private _permissionsStore: PermissionsStore
+              private _aff: AngularFireFunctions,
+              private _permissionsServ$: PermissionsStateService
   ){}
 
   /** Gets the active(current) organisation */
@@ -53,7 +55,7 @@ export class OrganisationService {
   }
 
   /** Creates an organisation */
-  createOrg(org: Organisation) {
+  createOrg(org: Organisation, user: iTalUser) {
     const id = this._db.createId();
 
     const orgWithId = { 
@@ -62,16 +64,22 @@ export class OrganisationService {
       logoUrl: org.logoUrl ?? '',
       email: org.email ?? '',
       phone: org.phone ?? '',
+      createdBy: user.id,
     };
 
-    this._sbS.sink = this._orgs$$.add(orgWithId, id)
-      .pipe(take(1))
-      .subscribe(o => this._afterCreateOrg(o));
+    this._sbS.sink = this._aff
+      .httpsCallable('assignUserToCreatedOrg')(orgWithId)
+      .pipe(tap((perm:CLMPermissions) => this.setPermissions(perm)))
+      .subscribe(() => this._afterCreateOrg());
   }
 
-  private _afterCreateOrg(org: Organisation) {
-    this._router$$.navigate(['/home']);
-    this._activeOrg$$.setOrg(org);
+  private setPermissions(perm: CLMPermissions) {
+    this._permissionsServ$.setOrgPermissions(perm);
+  }
+
+  private _afterCreateOrg() {
+    // give time for permissions to set ('less than 5sec doesn't always work')
+    setTimeout(() => this._router$$.navigate(['/home']), 5000);
   }
 
   /** Switches the active org to a new one */
@@ -91,11 +99,11 @@ export class OrganisationService {
   }
 
   getOrgPermissions () {
-    return this._permissionsStore.get();
+    return this._permissionsServ$.getOrgPermissions();
   }
 
   updateOrgPermissions(permissions: FormGroup) {
-    return this._permissionsStore.create(permissions.value);
+    return this._permissionsServ$.updatePermissions(permissions.value);
   }
 
   removeUserFromOrg(user: iTalUser) {
@@ -107,7 +115,6 @@ export class OrganisationService {
       }
     })
   }
-
 
   async removeOrgFromUser(user: iTalUser, org: Organisation) {
     user.orgIds.splice(user.orgIds.indexOf(org.id as string), 1);

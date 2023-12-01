@@ -2,6 +2,7 @@ export const ICONS_AND_TITLES = {
   1: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MESSAGE',
     icon: 'fas fa-comment-alt',
+    svgIcon: 'assets/svgs/blocks/messageIcon.svg'
   },
   2: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.INPUT',
@@ -14,6 +15,7 @@ export const ICONS_AND_TITLES = {
   4: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION',
     icon: 'fas fa-map-marker-alt',
+    
   },
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
@@ -22,6 +24,7 @@ export const ICONS_AND_TITLES = {
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
     icon: 'far fa-circle-question',
+    svgIcon: 'assets/svgs/blocks/question.svg'
   },
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
@@ -30,6 +33,7 @@ export const ICONS_AND_TITLES = {
   8: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO',
     icon: 'fas fa-microphone-alt',
+    svgIcon: 'assets/svgs/blocks/audio.svg'
   },
   9: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STRUCTURAL',
@@ -38,10 +42,12 @@ export const ICONS_AND_TITLES = {
   10: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.NAME',
     icon: 'fas fa-user-alt',
+    svgIcon: 'assets/svgs/blocks/user.svg'
   },
   11: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EMAIL',
     icon: 'fas fa-envelope',
+    svgIcon: 'assets/svgs/blocks/mdi-light_email.svg'
   },
   12: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.PHONE',
@@ -51,14 +57,17 @@ export const ICONS_AND_TITLES = {
   13: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO',
     icon: 'fas fa-video',
+    svgIcon: "assets/svgs/blocks/system-uicons_video.svg"
   },
   15: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.STICKER',
     icon: 'fas fa-sticky-note',
+    svgIcon: 'assets/svgs/blocks/ph_sticker-light.svg',
   },
   16: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LIST',
     icon: 'fas fa-list-ul',
+    svgIcon: 'assets/svgs/blocks/ph_question-light.svg'
   },
   17: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.REPLY',
@@ -67,6 +76,7 @@ export const ICONS_AND_TITLES = {
   18: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.JUMP',
     icon: 'fas fa-forward',
+    svgIcon: '/assets/icons/forward-play.svg',
   },
   19: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.MULTIPLE-INPUT',
@@ -75,7 +85,7 @@ export const ICONS_AND_TITLES = {
   20: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.FAILBLOCK',
     icon: 'fas fa-exclamation-circle',
-    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg'
+    svgIcon: 'assets/svgs/blocks/fluent-mdl2_error.svg',
   },
   21: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO-INPUT',
@@ -84,14 +94,21 @@ export const ICONS_AND_TITLES = {
   50: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE-INPUT',
     icon: 'fas fa-image',
+    svgIcon: 'assets/svgs/blocks/image-thin.svg',
   },
   22: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
+    svgIcon: 'assets/svgs/blocks/system-uicons_location.svg',
+
+
+    
+
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
     icon: 'fas fa-video',
+    svgIcon: 'assets/svgs/blocks/system-uicons_video.svg'
   },
   25: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
@@ -100,6 +117,7 @@ export const ICONS_AND_TITLES = {
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',
     icon: 'far fa-question-circle',
+    svgIcon: 'assets/svgs/blocks/question.svg'
   },
 
   29: {
@@ -109,7 +127,7 @@ export const ICONS_AND_TITLES = {
   },
   30: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.EVENT',
-    icon: 'fas fa-flag'
+    icon: 'fas fa-flag',
   },
   31: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.ASSESSMENT',
@@ -119,9 +137,9 @@ export const ICONS_AND_TITLES = {
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
     icon: 'fas fa-random',
-    svgIcon: 'assets/svgs/blocks/mdi_shuffle.svg',
+    svgIcon: 'assets/svgs/blocks/mdi_shuffle.svg'
   },
-  34:{
+  34: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
     icon: 'fas fa-cube',
     svgIcon: 'assets/svgs/blocks/clarity_block-line.svg',

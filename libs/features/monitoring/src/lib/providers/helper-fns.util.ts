@@ -2,7 +2,7 @@ import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 /** formart Date and then pass to chart */
 export function formatDate(time: number): string {
-  const date = new Date(time * 1000);
+  const date = new Date(time);
   return date.getDate() + '/' + (date.getMonth() + 1);
 }
 
@@ -29,21 +29,21 @@ export function getDailyProgress(allProgress: GroupProgressModel[]) {
 /** Retrieves weekly milestones of all users */
 export function getWeeklyProgress(allProgress: GroupProgressModel[]) {
   return allProgress.filter((model) => {
-    const timeInDate = new Date(model.time * 1000);
+    const timeInDate = new Date(model.time);
     const dayOfWeek = timeInDate.getDay();
 
-    if (dayOfWeek === 6) return true;
+    if (dayOfWeek === 5) return true; // if friday
     else return false;
   });
 }
 
-/** Retrieves weekly milestones of all users */
+/** Retrieves monthly milestones of all users */
 export function getMonthlyProgress(allProgress: GroupProgressModel[]) {
   return allProgress.filter((model) => {
-    const timeInDate = new Date(model.time * 1000);
-    const dayOfWeek = timeInDate.getDate();
+    const timeInDate = new Date(model.time); // 0 = Sunday, 1 = Monday, ...
+    const isLastDayOfMonth = new Date(timeInDate.getFullYear(), timeInDate.getMonth() + 1, 0).getDate() === timeInDate.getDate();
 
-    if (dayOfWeek === 1) return true;
+    if (isLastDayOfMonth) return true;
     else return false;
   });
 }

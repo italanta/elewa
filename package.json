@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "emulators:start": "firebase emulators:start --import=emulator-data --export-on-exit",
+    "emulators:start": "nx build conv-lm-backend --skip-nx-cache --prod && node tools/scripts/build-gc-functions-package.js && firebase emulators:start --import=emulator-data --export-on-exit",
     "functions:serve": "nx build conv-lm-backend --skip-nx-cache --prod && node tools/scripts/build-gc-functions-package.js && firebase emulators:start --import=emulator-data --export-on-exit --only functions,firestore",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve",
@@ -64,6 +64,7 @@
     "unique-names-generator": "^4.7.1",
     "unzipper": "^0.10.14",
     "uuid": "^9.0.1",
+    "wavesurfer.js": "^7.4.5",
     "zone.js": "^0.11.4"
   },
   "devDependencies": {
@@ -122,6 +123,7 @@
     "mime-types",
     "jsonwebtoken",
     "dotenv",
-    "@google-cloud/tasks"
+    "@google-cloud/tasks",
+    "@google-cloud/scheduler"
   ]
 }

@@ -109,8 +109,8 @@
     },
     "BLOCK": {
       "MENU": {
-        "EDIT": "Edit",
         "COPY": "Copy",
+        "EDIT": "Edit",
         "DELETE": "Delete"
       },
       "BLOCK_ID": "Block ID",
@@ -125,7 +125,7 @@
         "AUDIO": "Audio",
         "VIDEO": "Video",
         "STICKER": "Sticker",
-        "LIST": "List",
+        "LIST": "Question: List",
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
@@ -133,7 +133,7 @@
         "MULTI-CONTENT-INPUT": "Multi Content Input",
         "VIDEO-INPUT": "Video Input",
         "AUDIO-INPUT": "Audio Input",
-        "LOCATION-INPUT": "Location Input",
+        "LOCATION-INPUT": "Location input",
         "KEYWORD-JUMP": "Keyword Jump",
         "WEBHOOK": "Webhook",
         "FAILBLOCK": "Fail Block",
@@ -149,8 +149,8 @@
         }
       },
       "PLACEHOLDER": {
-        "ANCHOR": "Start here",
-        "END-ANCHOR": "End-here",
+        "ANCHOR": "Start",
+        "END-ANCHOR": "End",
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Url",
         "NAME": "Name",
@@ -161,7 +161,7 @@
         "FILE-NAME": "File name",
         "DOCUMENT-LINK": "Document link",
         "STICKER-LINK": "Sticker link",
-        "LOCATION-INPUT": "Location Input",
+        "LOCATION-INPUT": "Location input",
         "OPEN-ENDED-QUESTION": "Open ended question",
         "IMAGE-INPUT": "Image Input",
         "VIDEO-INPUT": "Video Input",
@@ -298,15 +298,8 @@
       "IMAGE-BLOCKS": "Images blocks",
       "QUESTION-BLOCKS": "Question Blocks",
       "MESSAGE-BLOCK": "Message Block",
-      "CMI5-BLOCK" :"CMI5 Block"
-    },
-    "ANALYTICS": {
-      "PERIODICALS": {
-        "MONTH": "Month",
-        "WEEK": "Week",
-        "DAY": "Day"
-      },
-      "PROGRESSION": "Progression"
+      "CMI5-BLOCK" :"CMI5 Block",
+      "ADMIN_SETTINGS": "Settings"
     }
   },
   "BOTS": {
@@ -473,6 +466,25 @@
         "CANCEL": "Cancel",
         "CONTINUE": "Continue"
       }
+    }
+  },
+  "INSIGHTS": {
+    "TITLE": "Insights",
+    "ALL-OPTION": "All",
+    "CHART": {
+      "PERIODICALS": {
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      },
+      "ASSESSMENTS": {
+        "TITLE": "Assessment Scores",
+        "HIGHEST-SCORE": "Highest Score:",
+        "LOWEST-SCORE": "Lowest Score:",
+        "COMPUTING-SCORES":"Computing Scores"
+      },
+      "PROGRESSION": "Progression",
+      "NO-CHART-MESSAGE": "You currently have no Data to visualise"
     }
   },
   "ASSESSMENTS": {
@@ -823,7 +835,7 @@
       "BUTTONS": {
         "ADD-MEMBER": "Add Member",
         "ADDING": "Adding ...",
-        "NO-THANKS": "No Thanks"
+        "CANCEL": "Cancel"
       },
       "MODAL": {
         "TITLE": "Add Member",
@@ -861,7 +873,8 @@
       "DATE": "Date Sent",
       "TIME": "Time sent",
       "LEARNERS": "Number of learners",
-      "STATUS": "status",
+      "STATUS": "Status",
+      "META": "Meta",
       "PENDING": "Pending",
       "SENT": "Sent",
       "APPROVED": "Approved"
@@ -900,7 +913,19 @@
       "TIME-PLACEHOLDER": "Time",
       "SAVE-BUTTON": {
         "SAVE": "Save"
-      }
+      },
+      "REMOVE-END":"Remove end date",
+      "RECUR" :"Recur",
+      "RECUR-DAILY":"Recur daily configurations",
+      "RECUR-WEEKLY":"Recur weekly configurations",
+      "RECUR-MONTHLY":"Recur Monthly configurations",
+      "DAYS":"days",
+      "WEEKS":"weeks",
+      "MONTHS":"months",
+      "REPEAT-EVERY":"Repeat every",
+      "OCCURS-MONTHLY":"Occurs every month until",
+      "OCCURS-WEEKLY":"Occurs every week until",
+      "OCCURS-DAILY":"Occurs every day until"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
@@ -1102,13 +1127,40 @@
 "COMPANY-INFORMATION":{
   "BUTTON":{
     "UPLOAD":"Upload",
-    "REMOVE":"Remove"
+    "REMOVE":"Remove",
+    "CANCEL":"Cancel"
   },
   "REMOVE":"Remove",
   "BASIC-INFO":"Basic Information",
   "ADDRESS-INFO":"Address Information",
-  "EDIT-CO-INFO":"Edit company information",
-  "SAVE-ORG":"Save Organization"
+  "EDIT-CO-INFO":"Edit",
+  "SAVE-ORG":"Save Organization",
+  "CHANNEL-MODAL":{
+      "BUTTONS":{
+        "CANCEL":"Cancel",
+        "CONTINUE":"Continue",
+        "ADD-CHANNEL":"Add Channel"
+      },
+      "ADD-CHANNEL":"Add Channel",
+      "SELECT-PLATFORM":"Select Platform",
+      "ADD-DETAILS":"Add Details",
+      "WHATSAPP":"WhatsApp",
+      "Messenger":"Messenger",
+      "GENERAL-DETAILS":"General Details",
+      "BOT-DETAILS":"Channel Details",
+      "WHATSAPP-CHANNEL-DETAILS":"WhatsApp Channel Details",
+      "ACCESS-TOKEN":"Access Token",
+      "BOT-PHONE-NUMBER":"Channel Phone Number",
+      "BOT-PHONE-NUMBER-ID":"Channel Phone Number ID",
+      "BUSINESS-ACCOUNT-ID":"Business Account ID",
+      "PAGE-ID":"Page ID",
+      "MESSENGER-CHANNEL-DETAILS":"Messenger Channel Details",
+      "CHANNEL-NAME":"Channel Name",
+      "PLATFORM":"Platform",
+      "FIRST-STORY":"First Story",
+      "EDIT-CHANNEL":"Edit Channel"
+      
+  }
 }
 
 }

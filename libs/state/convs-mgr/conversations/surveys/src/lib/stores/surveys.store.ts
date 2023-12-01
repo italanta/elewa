@@ -5,8 +5,7 @@ import { DataStore }  from '@ngfi/state';
 import { Logger } from '@iote/bricks-angular';
 
 import { of } from 'rxjs'
-import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
-
+import { tap, throttleTime, switchMap } from 'rxjs/operators';
 
 import { Organisation } from '@app/model/organisation';
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
@@ -38,11 +37,5 @@ export class SurveysStore extends DataStore<Survey>
     this._sbS.sink = data$.subscribe(properties => {
       this.set(properties, 'UPDATE - FROM DB');
     });
-  }
-
-  createSurvey (survey: Survey) {
-    return this._org$$.get().pipe(map((org) => {return {...survey, orgId: org.id}}),
-                            tap((survey) => {this._activeRepo = this._repoFac.getRepo<Survey>(`orgs/${survey.orgId}/surveys`)}),
-                                switchMap((survey) => this._activeRepo.create(survey)));
   }
 }

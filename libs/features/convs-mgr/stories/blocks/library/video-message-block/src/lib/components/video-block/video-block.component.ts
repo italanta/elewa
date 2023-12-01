@@ -8,6 +8,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { VideoMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 import { VideoUploadModalComponent } from '../../modals/video-upload-modal/video-upload-modal.component';
+import { ICONS_AND_TITLES } from '@app/features/convs-mgr/stories/blocks/library/main';
 
 @Component({
   selector: 'app-video-block',
@@ -20,6 +21,9 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   @Input() videoMessageForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
+  svgIcon = ""
+  faIcon = ""
+
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
 
   private _sBs = new SubSink();
@@ -31,6 +35,8 @@ export class VideoBlockComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.checkIfVideoExists();
+    this.svgIcon = ICONS_AND_TITLES[13].svgIcon
+    this.faIcon = ICONS_AND_TITLES[13].icon
   }
 
   checkIfVideoExists() {
