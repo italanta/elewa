@@ -1,8 +1,10 @@
+import { IObject } from "@iote/bricks";
+
 /**
  * Defines the options required to send a template message or start a survey
  *  on a selected schedule or specified date.
  */
-export interface ScheduleOptions 
+export interface ScheduleOptions extends IObject
 {
    /** JOB ID - As scheduled on GCP Tasks */
    jobID?: string;
@@ -10,19 +12,17 @@ export interface ScheduleOptions
    /**
     * The id of the survey or message template
     */
-   id: string;
+   objectID: string;
 
    /** The time scheduled for the message to be sent 
     * 
     * For recurring messages, this will be the date the first
     *   job will be executed.
     */
-   dispatchTime: Date;
+   dispatchTime?: Date;
  
    /** Interval to send message templates to users in cron format */
    frequency?: string;
-
-   inactivityTime?: number; 
    
    /**
     * If it is a recurring schedule, the end date is the time the repetition will
@@ -30,6 +30,8 @@ export interface ScheduleOptions
     *   at the specified date. Because gcloud scheduler does not support 'repeat-until' feature.
     */
    endDate?: Date;
+
+   inactivityTime?: number;
 
    /**
     * The array of users id to send the message template/survey to

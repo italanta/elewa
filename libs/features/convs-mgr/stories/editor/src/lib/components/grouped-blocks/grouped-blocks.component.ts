@@ -30,6 +30,13 @@ export class GroupedBlocksComponent implements OnInit, OnDestroy {
     this._sBs.sink = this.dragService.coord$.subscribe((position) => (this.coordinates = position));
   }
 
+  /** check icon type */
+  // TODO: replace all non-svg icons with svg
+  getIcon(icon: string) {
+    const svgPath = icon.split('.').pop();
+    return svgPath === 'svg';
+  }
+
   addBlock(type: number, coordinates?: Coordinate) {
     switch (type) {
       case StoryBlockTypes.EndStoryAnchorBlock:

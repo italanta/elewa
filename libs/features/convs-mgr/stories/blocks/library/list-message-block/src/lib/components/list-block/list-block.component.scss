@@ -3,7 +3,7 @@ mat-card {
 }
 
 textarea {
-  margin: 5px 0;
+  margin: 5px auto;
   border: 1px solid var(--convs-mgr-color-primary-purple);
   border-radius: 5px;
   resize: none;
@@ -15,18 +15,55 @@ textarea:focus-visible {
   outline-color: var(--convs-mgr-color-primary-purple);
 }
 
+form {
+  padding-top: 0.3125rem;
+  margin: 0 auto;  
+}
+
+.inputList{
+  width: auto;
+    display: flex;
+    align-items: center;
+}
+
+.line {
+  height: 0.063rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.line.active{
+  background-color: var(--convs-mgr-border-color);
+    margin-top: 0.313rem;
+    margin-bottom: 0.938rem;
+}
+
 .add-button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
-  background-color: var(--convs-mgr-color-primary-purple);
-  color: white;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--convs-mgr-input-color);
+  margin-top: 0.625rem;
+  border-radius: 0.7rem;
+}
+
+.vectorSvg {
+  padding: 0.75rem 0.125rem 0 0;
 }
 
 .listgone {
+  cursor: pointer;
   border: none;
   background-color: transparent;
 }
 
 .input {
   margin: 0;
-  padding-right: 5px;
+  width: 100%;
+}
+
+.addIcon {
+  margin: 0.75rem 0.625rem 0 0;
 }

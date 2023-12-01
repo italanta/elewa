@@ -16,6 +16,8 @@ export interface ScheduledMessage extends ScheduleOptions
   pending?: string[];
 
   status?: ScheduledMessageStatus;
+
+  scheduledOn?: Date;
 }
 
 export enum ScheduledMessageStatus 
