@@ -4,12 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, switchMap, take, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { MessageTemplate, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { ChannelService } from '@app/private/state/organisation/channels';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
@@ -50,13 +50,13 @@ export class MessageTemplateFormComponent implements OnInit{
     private _route:ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
-    private _channelService: ChannelService
+    private _channelService: CommunicationChannelService
   ) {}
 
   ngOnInit() {
     this.action = this._route$$.url.split('/')[2];
     this.templateForm = createEmptyTemplateForm(this.fb);
-    this.channels$ = this._channelService.getChannelByOrg();
+    this.channels$ = this._channelService.getAllChannels();
 
     if (this.action !== 'create') {
       this.initPage();
@@ -74,7 +74,8 @@ export class MessageTemplateFormComponent implements OnInit{
   initPage()
   {
     if (this.action){
-      this.template$ = this._messageTemplatesService.getTemplateById(this.action) || '';
+      // TODO:Fetch template id from query params
+      this.template$ = this._messageTemplatesService.getTemplateById(this.action.split('?')[0]) || '';
 
     }
     this._sbS.sink = this.template$.subscribe((template) => {
@@ -204,9 +205,11 @@ export class MessageTemplateFormComponent implements OnInit{
       };
 
       this.isSaving = true
-      this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
+
+      // TODO: clean this logic, create a better data stream
+      this._sbS.sink = this._messageTemplatesService.updateTemplateMeta(this.template).subscribe((response) => {
         if (response.success){
-          this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
+          this._sbS.sink = this._messageTemplatesService.updateTemplate(this.templateForm.value).subscribe((response: any) => {
             this._snackbar.showSuccess("Template updated successfully");
             this.isSaving  = false;
           });
@@ -234,10 +237,13 @@ export class MessageTemplateFormComponent implements OnInit{
       };
       if(this.templateForm.valid){
         this.isSaving = true
-        this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
+        this._sbS.sink = this._messageTemplatesService.createTemplateMeta(this.template).subscribe((response) => {
           if (response.success){
             this.templateForm.value.content.templateId = response.data.id;
-            this._messageTemplatesService.addMessageTemplate(this.templateForm.value).subscribe((response: any) => {
+      
+            const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`
+
+            this._sbS.sink = this._messageTemplatesService.addMessageTemplate(this.templateForm.value, templateId).subscribe((response: any) => {
               this.isSaving  = false;
               if(response.id) {
                 this._snackbar.showSuccess("Template created successfully");

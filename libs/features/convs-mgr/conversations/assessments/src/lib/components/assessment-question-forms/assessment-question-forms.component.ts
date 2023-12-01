@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Subject } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { AssessmentFormService } from '../../services/assessment-form.service';
   templateUrl: './assessment-question-forms.component.html',
   styleUrls: ['./assessment-question-forms.component.scss'],
 })
-export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AssessmentQuestionFormsComponent implements AfterViewInit, OnDestroy {
 
   @Input() previewMode: boolean;
   @Input() assessmentMode: number;
@@ -22,16 +22,14 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
 
   @Input() assessmentFormGroup: FormGroup;
 
-  count: number = 0;
-  formDataIsReady: boolean = false;
+  count = 0;
+  formDataIsReady = false;
 
   activeCard$ = new Subject<number>();
 
   constructor(private _router$$: Router,
               private _assessmentForm: AssessmentFormService
   ) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const action = this._router$$.url.split('/')[2];
@@ -58,12 +56,15 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
   }
 
   getCount() {
-    this.count = this.questionsList.length;
+    this.count = this.questionsList.length - 1;
   }
 
-  addQuestion() {
+  addQuestion(newQForm?: FormGroup) {
+
     const lastQstn = this.questionsList.at(this.questionsList.length - 1);
-    const questionForm = this._assessmentForm.createQuestionForm();
+
+    const questionForm =  newQForm ? newQForm : this._assessmentForm.createQuestionForm();
+
     this.count += 1;
 
     // update nodes
@@ -72,7 +73,12 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
       questionForm.patchValue({ prevQuestionId: lastQstn.value.id });
     }
 
-    questionForm.patchValue({ id: `${this.count}` });
+    if (newQForm) {
+      questionForm.patchValue({ id:`${this.count}`, message:`${questionForm.value.message} - Copy`});
+    } else {
+      questionForm.patchValue({ id:`${this.count}`});
+    } 
+
     this.questionsList.push(questionForm);
   }
 
@@ -83,8 +89,8 @@ export class AssessmentQuestionFormsComponent implements OnInit, AfterViewInit, 
   drop(event: any) {
     moveItemInArray(this.questionsList.controls, event.previousIndex, event.currentIndex);
 
-    let newFormOrder = this.assessmentFormGroup.value.questions;
-    let movedQuestion = newFormOrder[event.currentIndex];
+    const newFormOrder = this.assessmentFormGroup.value.questions;
+    const movedQuestion = newFormOrder[event.currentIndex];
     newFormOrder[event.currentIndex] = newFormOrder[event.previousIndex];
     newFormOrder[event.previousIndex] = movedQuestion;
 

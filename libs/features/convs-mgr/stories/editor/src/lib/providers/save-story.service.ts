@@ -98,11 +98,12 @@ export class SaveStoryService
         errors.push(hasEmptyTextFields);
 
       // Check for empty text options
-      if (isOptionBlock(block.type)) 
+      if (isOptionBlock(block.type) && (block as QuestionMessageBlock).options) 
       {
         const optionBlock = block as ListMessageBlock | QuestionMessageBlock | KeywordMessageBlock;
         
         let i = 0;
+
         for(const option of optionBlock.options!)
         {
           const hasEmptyOption = this.checkEmptyTextField(option.message, block.id as string, option.id);

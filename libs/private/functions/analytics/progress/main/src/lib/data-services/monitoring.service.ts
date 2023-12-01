@@ -4,7 +4,8 @@ import { BotDataService } from '@app/functions/bot-engine';
 import { 
   GroupProgressModel, 
   UsersProgressMilestone, 
-  GroupedProgressMilestone 
+  GroupedProgressMilestone, 
+  EnrolledUserCount
 } from '@app/model/analytics/group-based/progress';
 
 /**
@@ -26,7 +27,7 @@ export class MonitoringAndEvaluationService extends BotDataService<GroupProgress
     this._docPath = `orgs/${orgId}/monitoring`;
   }
 
-  async createNewMilestone(time:number, measurements: UsersProgressMilestone[], groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: number, Milestoneid: string)
+  async createNewMilestone(time:number, measurements: UsersProgressMilestone[], groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount, Milestoneid: string)
   {
     const newMilestone: GroupProgressModel = {
       time,

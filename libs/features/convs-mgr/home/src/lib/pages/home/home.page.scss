@@ -2,7 +2,23 @@
 	padding: 30px;
 	background-color: var(--convs-mgr-color-primary-light-grey);
 }
-
+.title{
+	color: #101010;
+	font-size: 2rem;
+	font-weight: 400;
+	position: relative;
+	left: 1.5rem;
+	line-height: 1.5;
+}
+p{
+	color: #101010;
+	font-family: Roboto;
+	font-size: 2.25rem;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	padding: 0 4.75rem;
+}
 
 :host ::ng-deep .mat-mdc-tab.mdc-tab {
 	background-color: white !important;

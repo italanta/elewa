@@ -9,13 +9,11 @@ import { Timestamp } from 'firebase-admin/firestore';
 
 import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
-import { map, switchMap } from 'rxjs';
 
 import { Survey } from '@app/model/convs-mgr/conversations/surveys';
-import { EndUserDetails, EndUserService } from '@app/state/convs-mgr/end-users';
-import { ActiveSurveyStore, SurveyQuestionService } from '@app/state/convs-mgr/conversations/surveys';
+import { EndUserDetails } from '@app/state/convs-mgr/end-users';
+import { SurveyQuestionService } from '@app/state/convs-mgr/conversations/surveys';
 
-import { SurveyMetricsService } from '../../services/survey-metrics.service';
 import { pieChartOptions } from '../../utils/chart.utils';
 
 @Component({
@@ -47,10 +45,7 @@ export class SurveyResultsComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _liveAnnouncer: LiveAnnouncer,
-    private _activeSurvey$$: ActiveSurveyStore,
     private _surveyQuestion: SurveyQuestionService,
-    private _aMetrics: SurveyMetricsService,
-    private _endUserService: EndUserService
   ) {}
 
   ngOnInit() {

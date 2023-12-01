@@ -10,51 +10,54 @@ export class OrganisationAssignUserHandler extends FunctionHandler<Organisation,
 {
 
   public async execute(org: Organisation, context: FunctionContext, tools: HandlerTools) {
-
-    const orgsRepo = tools.getRepository<any>(`orgs`);
-    const userRepo = tools.getRepository<any>(`users`);
+    const orgsRepo = tools.getRepository<Organisation>(`orgs`);
+    const userRepo = tools.getRepository<iTalUser>(`users`);
+    const createdOrg = await orgsRepo.create(org);
 
     const perRepo = tools.getRepository<any>(`orgs/${org.id}/config`);
 
-    if (!!org.createdBy) {
+    tools.Logger.log(() => `Successfullly created Organisation`);
+
+    if (org.createdBy) {
       try {
         const activeOrg = {
-          id: org.id,
+          id: createdOrg.id,
           logoUrl: '',
-          name: org.name,
-          users: [org.createdBy],
+          name: createdOrg.name,
+          users: [createdOrg.createdBy],
           email: '',
           phone: '',
-          address: org.address,
+          address: createdOrg.address,
           roles: ['ContentDeveloper', 'Viewer', 'Admin'],
           permissions: {}
         } as Organisation;
 
         orgsRepo.update(activeOrg);
 
-        perRepo.write(defaultPermissions, 'permissions');
+        await perRepo.write(defaultPermissions, 'permissions');
 
-        let adminUser: iTalUser = await userRepo.getDocumentById(org.createdBy);
-        let adminRight = {
-          ContentDeveloper: true,
+        const adminUser: iTalUser = await userRepo.getDocumentById(createdOrg.createdBy);
+
+        const adminRight = {
+          ContentDeveloper: false,
           Viewer: false,
-          Admin: false,
+          Admin: true,
         };
 
-        adminUser.roles[org.id!] = adminRight;
+        adminUser.roles[createdOrg.id as string] = adminRight;
 
-        adminUser.activeOrg = org.id!;
+        adminUser.activeOrg = createdOrg.id as string;
 
         if (!adminUser.orgIds) {
           adminUser.orgIds = [];
         }
         
-        adminUser.orgIds.push(org.id!);
+        adminUser.orgIds.push(createdOrg.id as string);
 
-        userRepo.write(adminUser, org.createdBy)
+        userRepo.write(adminUser, createdOrg.createdBy);
+        tools.Logger.log(() => `Successfullly updated adminUser with newly created Org`);
 
-        return true;
-
+        return await perRepo.getDocumentById('permissions');
       } catch (err) {
         tools.Logger.log(() => `Error updating ${err}`)
         return false;

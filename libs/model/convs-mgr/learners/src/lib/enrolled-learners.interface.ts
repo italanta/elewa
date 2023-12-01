@@ -4,6 +4,8 @@ import { AssessmentResult } from "@app/model/convs-mgr/conversations/admin/syste
 
 import { SurveyResults } from "./survey-results.interface";
 
+import { EnrolledUserCourse } from "./enrolled-user-courses.interface";
+
 /**
  * Represents an enrolled learner.
  */
@@ -36,15 +38,10 @@ export interface EnrolledEndUser extends IObject {
    */
   currentCourse?: string;
 
-  /** The modules done by the end-user including the current one 
+  /** The courses done by the end-user including the current one 
    * TODO: Limit the stack to 20, and add the logic to the bot engine
-  */
-  modules?: string[];
-  
-  /** The lessons/stories done by the end-user including the current one 
-   * TODO: Limit the stack to 20, and add the logic to the bot engine
-  */
-  lessons?: string[];
+   */
+  courses?: EnrolledUserCourse[];
 
   /**
    * Optional field to link to the whatsappend-userId collection using their ID.
@@ -69,14 +66,15 @@ export interface EnrolledEndUser extends IObject {
 
   surveyResults?: SurveyResults[];
 
-  /** TODO: Implement after PR#610 
-   * 
+  /** 
    * Will represent the platform specific details of the end user e.g.
    * 
    * Their user ID changes according to the platform
+   * 
+   * TODO: @Reagan Deprecate whatsappUserId, phoneNumber,receipientId 
+   *          and messengerUserId properties
   */
-  platform?: {[key:string]:{ endUserId: string}};
-
+  platformDetails?: {[key:string]:{ endUserId: string, contactID: string}};
 }
 
 /**

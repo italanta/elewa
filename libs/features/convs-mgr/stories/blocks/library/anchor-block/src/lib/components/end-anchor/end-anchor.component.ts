@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
@@ -17,6 +17,10 @@ export class EndAnchorComponent implements AfterViewInit {
   @Input() block: EndStoryAnchorBlock;
   @Input() endStoryAnchorForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
+  @Input() showDeleteButton = true; 
+  @Output() deleteButtonClick: EventEmitter<void> = new EventEmitter<void>();
+
+
 
   endAnchorId = 'story-end-anchor';
 
@@ -30,5 +34,8 @@ export class EndAnchorComponent implements AfterViewInit {
     if (this.jsPlumb) {
       _JsPlumbTargetLeftComponentDecorator(input, this.jsPlumb);
     }
+  }
+  deleteMe() {
+    this.deleteButtonClick.emit();
   }
 }
