@@ -90,6 +90,22 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     this.getAllCourses();
     this.getAllPlatforms();
     this.getScheduleOptions();
+
+    this.dataSource.filterPredicate = function (enrolledEndUsers:EnrolledEndUser,filter:string) {
+      //return true if filter is undefined, null or empty string
+      if (filter === "undefined" || filter === "null" || filter === "") {
+        return true;
+      }
+      
+      // Check if the enrolledEndUsers's id matches the filter
+      const isMatch = enrolledEndUsers.classId === filter;
+
+      // Return true if there is a match, false otherwise
+      return isMatch;
+    }
+
+    
+    
   }
 
   getLearners() {
@@ -149,9 +165,10 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   filterTable(event: Event, mode:string) {
+    const selectedClassValueId = (event.target as HTMLSelectElement).value;
     switch (mode) {
       case 'class':
-        this.dataSource.filter = this.selectedClass.ClassName;
+        this.dataSource.filter = selectedClassValueId;
         break
     }
   }

@@ -31,7 +31,7 @@
             <select [(value)]="selectedClass" (change)="filterTable($event,'class')">
               <option [value]="null" selected>{{ 'All Classes' | titlecase  }}</option>
 
-              <option *ngFor="let class of allClasses" [value]="class">{{ class.className | titlecase }}</option>
+              <option *ngFor="let class of allClasses" [value]="class.id">{{ class.className | titlecase }}</option>
             </select>
           </div>
 
