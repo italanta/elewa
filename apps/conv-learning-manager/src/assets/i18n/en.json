@@ -125,7 +125,7 @@
         "AUDIO": "Audio",
         "VIDEO": "Video",
         "STICKER": "Sticker",
-        "LIST": "List",
+        "LIST": "Question: List",
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
@@ -149,8 +149,8 @@
         }
       },
       "PLACEHOLDER": {
-        "ANCHOR": "Start here",
-        "END-ANCHOR": "End-here",
+        "ANCHOR": "Start",
+        "END-ANCHOR": "End",
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Url",
         "NAME": "Name",
