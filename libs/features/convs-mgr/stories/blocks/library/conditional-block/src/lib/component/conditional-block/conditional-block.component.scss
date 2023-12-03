@@ -6,7 +6,7 @@ input[type='text'] {
   border: none solid var(--convs-mgr-placeholder-color); /* 1px / 16px = 0.0625rem */
   border-radius:  0.4375rem; /* 5px / 16px = 0.3125rem */
   resize: none;
-  padding: 8px;
+  padding: 10px;
   &:disabled {
     border: none;
     width: 100%;
@@ -18,7 +18,7 @@ input[type='text'] {
     font-weight: 300;
     line-height: normal;
     color: var(convs-mgr-text-color);
-    padding: 8px;
+    padding: 10px;
   }
 }
 .details-wrapper {
@@ -27,7 +27,7 @@ input[type='text'] {
   padding-top: 0.125rem;
 }
 .assess-label{
-  padding: 8px;
+  padding: 10px;
   border-radius: 0.4375rem;
   width:100%;
   appearance: none;
@@ -66,7 +66,7 @@ input[type='text'] {
     font-style: normal;
     font-weight: 300;
     line-height: normal;
-    padding: 8px;
+    padding: 10px;
     text-align: left;
     border-color: var(--convs-mgr-placeholder-color);
     border: none;
@@ -75,7 +75,7 @@ input[type='text'] {
 .select-variable {
   display: flex;
   align-items: center; /* Center vertically */
-  padding: 8px;
+  padding: 10px;
 }
 /* Checkbox styles */
 .custom-checkbox {

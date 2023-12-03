@@ -6,12 +6,12 @@
 }
 
 input {
-  width: 90% !important;
+  width: fit-content !important;
   height: fit-content!important;
   min-width: auto !important;
   min-height: fit-content!important;
-  padding: 10px 10px;
-  margin: 5px 0;
+  padding: 8px ;
+  margin: 5px 5px;
   border: none;
   color: var(--convs-mgr-input-color);
   outline: none;
