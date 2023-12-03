@@ -29,7 +29,7 @@ export class SetInactivityHandler extends FunctionHandler<SetInacivityReq, any>
       
       const scheduleOptions: ScheduleOptions = {
         ...cmd,
-        dispatchTime: new Date(cmd.dispatchTime) || new Date(),
+        dispatchTime: new Date(),
         frequency: `every ${recurringTime} hours`
       }
 

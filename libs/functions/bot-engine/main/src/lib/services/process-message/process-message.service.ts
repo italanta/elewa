@@ -1,8 +1,8 @@
 import { HandlerTools } from '@iote/cqrs';
 
-import { isOperationBlock, isOutputBlock, StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { isFallBack, isOperationBlock, isOutputBlock, StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
 import { Message } from '@app/model/convs-mgr/conversations/messages';
-import { Cursor, isDoingSurvey } from '@app/model/convs-mgr/conversations/admin/system';
+import { CommunicationChannel, Cursor, isDoingSurvey } from '@app/model/convs-mgr/conversations/admin/system';
 import { AssessmentQuestionBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 import { EndUser } from '@app/model/convs-mgr/conversations/chats';
 
@@ -13,18 +13,23 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
-import { ProcessInputFactory } from '../process-input/process-input.factory';
 
 import { BotMediaProcessService } from '../media/process-media-service';
+import { ProcessInputFactory } from '../process-input/process-input.factory';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
 import { SurveyService } from '../process-operation-block/block-type/survey-service';
+import { FallBackBlockService } from '../next-block/block-type/fallback-block.service';
+
+import { updateLearnerProgress } from '../../utils/updateLearnerProgress.util';
 
 
 export class ProcessMessageService
 {
   isInputValid = true;
   sideOperations: Promise<unknown>[] = [];
+  private fallBackService = new FallBackBlockService();
+  private channel: CommunicationChannel;
 
   constructor(
     private _cursorService$: CursorDataService,
@@ -33,7 +38,9 @@ export class ProcessMessageService
     private _tools: HandlerTools,
     private _activeChannel: ActiveChannel,
     private _processMediaService$: BotMediaProcessService,
-  ) { }
+  ) { 
+    this.channel = _activeChannel.channel;
+  }
 
   /**
    * If a chat session has not yet been recorded, we create a new one and return the first block
@@ -62,9 +69,9 @@ export class ProcessMessageService
    */
   async resolveNextBlock(msg: Message, currentCursor: Cursor, endUser: EndUser, orgId: string, currentStory: string, tools: HandlerTools)
   {
-    this._tools.Logger.log(()=> `Resolving next block...`);
+    this._tools.Logger.log(()=> `Resolving next block... ${JSON.stringify(currentCursor)}`);
 
-    let newCursor = currentCursor;
+    const lastBlockId = currentCursor.position.blockId;
 
     // If the user is doing or has started a survey, temporarily interrupt the normal flow
     if(isDoingSurvey(currentCursor.surveyStack)) {
@@ -72,7 +79,12 @@ export class ProcessMessageService
                 .handleBlock(null, currentCursor, orgId, endUser, msg);
     }
 
-    const lastBlock = await this._blockService$.getBlockById(currentCursor.position.blockId, orgId, currentStory);
+    if(isFallBack(lastBlockId)) {
+      // Return cursor and block fallbacks
+      return this.fallBackService.fallBack(this.channel, currentCursor, this._blockService$, msg);
+    }
+
+    const lastBlock = await this._blockService$.getBlockById(lastBlockId, orgId, currentStory);
 
     this._tools.Logger.log(()=> `Processing block: Last block: ${JSON.stringify(lastBlock)}}`);
 
@@ -81,10 +93,16 @@ export class ProcessMessageService
 
     this.sideOperations.push(inputPromise);
 
+    // upodate leaner progrress
+    const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
+
+    this.sideOperations.push(updateLearnersProgressPromise);
+
     // Return the cursor updated with the next block in the story
-    newCursor = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);
+    let {newCursor, nextBlock} = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);
 
     // Update the cursor with the user score in the assessment
+    // TODO: @Reagan - This should be handled by a separate service
     if(lastBlock.type === StoryBlockTypes.AssessmentQuestionBlock) {
       const userAnswerScore = assessUserAnswer(lastBlock as AssessmentQuestionBlock, msg)
       newCursor.assessmentStack[0].score += userAnswerScore;
@@ -92,9 +110,6 @@ export class ProcessMessageService
       
       this._tools.Logger.log(()=> `User score on question ${lastBlock.id}: ${userAnswerScore}`);
     }
-
-    // Get the full block object here so that we can return it to the bot engine
-    let nextBlock = await this._blockService$.getBlockById(newCursor.position.blockId, orgId, currentStory);
 
     // We check if the next block is a Structural Block so that we can handle it and find the next block
     //  to send back to the end user. Because we cannot send these types of blocks to the user, we
@@ -127,21 +142,41 @@ export class ProcessMessageService
    * 
    * @returns NextBlock
    */
-  private async __nextBlockService(currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string): Promise<Cursor>
+  private async __nextBlockService(currentCursor: Cursor, currentBlock: StoryBlock, orgId: string, currentStory: string, msg?: Message, endUserId?: string)
   {
     let nextBlockService = new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
 
     const updatePosition = await nextBlockService.changedPath(msg, currentBlock, currentCursor, currentStory, orgId, this._blockService$);
 
-    if(updatePosition) {
+    if(updatePosition && updatePosition.lastBlock) {
       currentCursor = updatePosition.cursor;
       currentBlock = updatePosition.lastBlock;
       currentStory = updatePosition.currentStory;
 
       nextBlockService =  new NextBlockFactory().resoveBlockType(currentBlock.type, this._tools, this._blockService$, this._connService$);
     }
+    
+    if(updatePosition && !updatePosition.lastBlock) {
+      const nextBlock = this.fallBackService.getBlock(currentBlock.id);
+      currentCursor.position.blockId = nextBlock.id;
 
-    return nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
+      return {newCursor: currentCursor, nextBlock};
+    }
+
+    const newCursor = await nextBlockService.getNextBlock(msg, currentCursor, currentBlock, orgId, currentStory, endUserId);
+
+    let nextBlock: StoryBlock;
+
+    if (newCursor.position.blockId) {
+      // Get the full block object here so that we can return it to the bot engine
+      nextBlock = await this._blockService$.getBlockById(newCursor.position.blockId, orgId, currentStory);
+    } else {
+      // Gets the fallback block if the engine failed to get the next block
+      nextBlock = this.fallBackService.getBlock(currentBlock.id);
+      newCursor.position.blockId = nextBlock.id;
+    }
+
+    return {newCursor, nextBlock};
   }
 
   private async processInput(msg: Message, lastBlock: StoryBlock, orgId: string, endUser: EndUser)

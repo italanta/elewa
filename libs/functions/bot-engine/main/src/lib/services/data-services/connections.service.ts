@@ -77,7 +77,7 @@ export class ConnectionsDataService extends BotDataService<Connection>
       });
 
       return lastCreatedConnection
-    } else if (!conn[0])
+    } else if (conn.length < 1)
     {
       return null;
     }

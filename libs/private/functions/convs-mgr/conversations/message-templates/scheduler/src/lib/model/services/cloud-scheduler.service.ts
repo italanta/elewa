@@ -1,10 +1,13 @@
 import { CloudSchedulerClient } from '@google-cloud/scheduler';
 import { Timestamp } from '@firebase/firestore-types';
+
 import { HandlerTools } from '@iote/cqrs';
+
 import { ScheduleOptions } from '@app/model/convs-mgr/functions';
 
 import { GcpTask } from '../../model/gcp/gcp-task.interface';
 import { GcpJob, HttpMethodTypes } from '../../model/gcp/gcp-job.interface';
+import { ModifyCronString } from '../../utils/modify-custom-cron.util';
 
 class CloudSchedulerService
 {
@@ -28,19 +31,34 @@ class CloudSchedulerService
 
   private generateJob(payload: any, options: ScheduleOptions, jobName: string, endpoint: string): GcpTask
   {
-    const body = JSON.stringify({ data: { ...payload } });
     const dispatchTimeSeconds = Math.floor(options.dispatchTime.getTime() / 1000);
     const dispatchTimeNanos = (options.dispatchTime.getTime() / 1000 - dispatchTimeSeconds) * 1000000;
+    
+     // Check if the job has been scheduled to run x number of weeks, and modify the cron format
+    const [modifiedCron, extractedNumber] = ModifyCronString(options.frequency);
+    
+    const runSchedulePayload = {
+      payload: { data: { ...payload }},
+      function: endpoint,
+      startDate: options.dispatchTime,
+      weeklyInterval: null,
+    }
+    
+    if(extractedNumber) {
+      runSchedulePayload.weeklyInterval = extractedNumber
+    }
+    
+    const body = JSON.stringify(runSchedulePayload);
 
     const task: GcpJob = {
       name: jobName,
       httpTarget: {
-        uri: endpoint,
+        uri: this.runScheduleEndpoint(),
         body: Buffer.from(body).toString("base64"),
         httpMethod: HttpMethodTypes.POST,
         headers: { 'Content-Type': 'application/json' },
       },
-      schedule: options.frequency,
+      schedule: modifiedCron,
       scheduleTime: {
         seconds: dispatchTimeSeconds,
         nanoseconds: dispatchTimeNanos,
@@ -61,11 +79,16 @@ class CloudSchedulerService
   {
     return `https://${this.locationId}-${this.projectId}.cloudfunctions.net/${functionName}`;
   }
+  
+  private runScheduleEndpoint(): string 
+  {
+    return `https://${this.locationId}-${this.projectId}.cloudfunctions.net/runSchedule`;
+  }
 
   public async scheduleRecurringJob(payload: any, options: ScheduleOptions): Promise<any>
   {
     const endpoint = this.getEndpoint(payload.functionName);
-    const jobName = this.getJobName(options, options.id);
+    const jobName = this.getJobName(options, options.objectID);
     const job = this.generateJob(payload, options, jobName, endpoint);
 
     const request = { parent: `projects/${this.projectId}/locations/${this.locationId}`, job };
