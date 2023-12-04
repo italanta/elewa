@@ -4,7 +4,7 @@ export function _getProgressCompletionRateData(
   allUsersProgress: ParticipantProgressMilestone[]
 ) {
 
-  const progressData: Record<
+  const coursesProgressData: Record<
     string,
     {
       avgCourseProgress: number;
@@ -21,23 +21,23 @@ export function _getProgressCompletionRateData(
       enrolledUserProgress.modules.map((moduleProgress) => {
         const { moduleId } = moduleProgress;
 
-        if (!progressData[courseId]) {
-          progressData[courseId] = { avgCourseProgress: 0, modules: {} };
+        if (!coursesProgressData[courseId]) {
+          coursesProgressData[courseId] = { avgCourseProgress: 0, modules: {} };
         }
 
-        if (!progressData[courseId].modules[moduleId]) {
-          progressData[courseId].modules[moduleId] = { avgModuleProgress: 0 };
+        if (!coursesProgressData[courseId].modules[moduleId]) {
+          coursesProgressData[courseId].modules[moduleId] = { avgModuleProgress: 0 };
         }
 
-        progressData[courseId].modules[moduleId].avgModuleProgress +=
+        coursesProgressData[courseId].modules[moduleId].avgModuleProgress +=
           moduleProgress.moduleProgress;
       });
     });
   });
 
   // Calculate average progress for each module within each course
-  for (const courseId in progressData) {
-    const modules = progressData[courseId].modules;
+  for (const courseId in coursesProgressData) {
+    const modules = coursesProgressData[courseId].modules;
 
     let totalCourseProgress = 0;
     let totalModules = 0;
@@ -50,8 +50,17 @@ export function _getProgressCompletionRateData(
     }
 
     // Calculate average course progress based on module progress only
-    progressData[courseId].avgCourseProgress = totalModules > 0 ? totalCourseProgress / totalModules : 0;
+    coursesProgressData[courseId].avgCourseProgress = totalModules > 0 ? totalCourseProgress / totalModules : 0;
   }
 
-  return progressData;
+  // Calculate the overall average progress across all courses
+  const totalCourses = Object.keys(coursesProgressData).length;
+  const overallCourseProgress = totalCourses > 0
+    ? Object.values(coursesProgressData).reduce((total, course) => total + course.avgCourseProgress, 0) / totalCourses
+    : 0;
+
+  return {
+    allCourseAverage: overallCourseProgress,
+    progressData: coursesProgressData
+  }
 }

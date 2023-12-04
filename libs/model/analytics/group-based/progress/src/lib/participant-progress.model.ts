@@ -27,12 +27,14 @@ export interface ParticipantProgressMilestone
 /** user progress per course */
 export interface EnrolledUserProgress {
   courseId: string;
+  courseProgress: number;
   modules: ModuleProgress[];
 }
 
 /** user progress per module */
 export interface ModuleProgress {
   moduleId: string;
+  moduleProgress: number;
   lessons: LessonProgress[];
 }
 

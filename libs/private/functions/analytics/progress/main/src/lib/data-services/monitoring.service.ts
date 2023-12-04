@@ -5,7 +5,8 @@ import {
   GroupProgressModel, 
   UsersProgressMilestone, 
   GroupedProgressMilestone, 
-  EnrolledUserCount
+  EnrolledUserCount,
+  CompletionRateProgress
 } from '@app/model/analytics/group-based/progress';
 
 /**
@@ -27,16 +28,21 @@ export class MonitoringAndEvaluationService extends BotDataService<GroupProgress
     this._docPath = `orgs/${orgId}/monitoring`;
   }
 
-  async createNewMilestone(time:number, measurements: UsersProgressMilestone[], groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount, Milestoneid: string)
+  async createNewMilestone(
+    time:number, measurements: UsersProgressMilestone[], 
+    groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount, 
+    progressCompletion: CompletionRateProgress, Milestoneid: string
+  )
   {
     const newMilestone: GroupProgressModel = {
       time,
       measurements,
       groupedMeasurements,
       todaysEnrolledUsersCount,
+      progressCompletion,
     };
 
-    const milestone = await this.createDocument(newMilestone, this._docPath, Milestoneid);
+    const milestone = await this.writeDocument(newMilestone, this._docPath, Milestoneid);
     return milestone;
   }
 
