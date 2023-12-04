@@ -67,7 +67,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   ngAfterViewInit(): void {
     const featureName = this._router$$.url.split('/')[1];
 
-    this._subscription = this.featureFlagsService.init();
+    this.featureFlagsService.init(); 
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
 
