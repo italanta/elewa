@@ -1,1 +1,12 @@
-<div [id]="id" class="anchor"> {{'PAGE-CONTENT.BLOCK.PLACEHOLDER.END-ANCHOR' | transloco}}</div>
+<div [id]="id" class="anchor"> {{'PAGE-CONTENT.BLOCK.PLACEHOLDER.END-ANCHOR' | transloco}}
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteMe()">
+            <i class="far fa-trash-alt"></i>
+            <span class="icon-with-text"> Delete</span>
+        </button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+        <i class="fas fa-ellipsis-v ic"></i>
+    </button>
+</div>
+   
