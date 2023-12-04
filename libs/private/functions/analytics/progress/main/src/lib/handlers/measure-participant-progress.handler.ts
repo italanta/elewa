@@ -81,11 +81,18 @@ const _computeLearnerProgress = async (enrolledUser: EnrolledEndUser, storiesDat
     const modulePromises = course.modules.map(
       (moduleProg) => _calculateProgress(moduleProg, storiesDataService)
     )
+  
+    const moduleProgress = await Promise.all(modulePromises);
+
+    // Calculate average module progress
+    const totalCourseProgress = moduleProgress.reduce((acc, mod) => acc + mod.moduleProgress, 0);
+    const avgCourseProgress = moduleProgress.length > 0 ? totalCourseProgress / moduleProgress.length : 0;
 
     return {
       courseId: course.courseId,
-      modules: await Promise.all(modulePromises)
-    }
+      courseProgress: avgCourseProgress,
+      modules: moduleProgress
+    };
   })
 
   const courses = await Promise.all(coursePromises);
@@ -106,8 +113,15 @@ const _calculateProgress = async (moduleProg: EnrolledUserBotModule, storiesData
     };
   })
 
+  const lessons = await Promise.all(lessonPromises);
+
+  // Calculate average module progress
+  const totalModuleProgress = lessons.reduce((acc, lesson) => acc + lesson.progress, 0);
+  const avgModuleProgress = lessonPromises.length > 0 ? totalModuleProgress / lessonPromises.length : 0;
+
   return {
     moduleId: moduleProg.moduleId,
-    lessons: await Promise.all(lessonPromises),
+    moduleProgress: avgModuleProgress,
+    lessons
   }
 }
