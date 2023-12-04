@@ -5,14 +5,17 @@
             </div>
             <div class="learner-details">
                 <p>{{currentLearner.name}}</p>
-                <p>
-                    <i class="fas fa-phone-alt"></i>
-                    {{currentLearner.phoneNumber}}
-                </p>
-                <p>
-                    <i class="fas fa-map-marker-alt"></i>
-                    {{location}}
-                </p>
+                <span>
+                    <p>
+                        <i class="fas fa-phone-alt"></i>
+                        {{currentLearner.phoneNumber}}
+                    </p>
+                    <p> | </p>
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <!-- {{location}} -->Nairobi, Kenya
+                    </p>
+                </span>
             </div>
         </div>
         <div class="learner-activity">
@@ -20,7 +23,6 @@
                 {{getStatus()}}
             </div>
             <a class="chat-button" (click)="goToChat()" routerLinkActive="router-link-active">
-                    <span><i class="fab fa-whatsapp"></i></span> 
                     {{'LEARNERS.BUTTONS.GO-TO-CHAT'| transloco }}
             </a>
         </div>

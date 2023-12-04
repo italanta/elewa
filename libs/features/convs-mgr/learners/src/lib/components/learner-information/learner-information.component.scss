@@ -25,9 +25,10 @@ a:hover {
 
     .learner-avatar {
       margin-right: 0.625em; /* Converted from 10px */
-      width: 6.25em; /* Converted from 100px */
-      height: 6.25em; /* Converted from 100px */
-      background-color: #ddd;
+      width: 5.25em; /* Converted from 100px */
+      height: 5.25em; /* Converted from 100px */
+      background-color: var(--learners-single-page-avatar-background);
+      color: var(--convs-mgr-color-text-white);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -39,30 +40,32 @@ a:hover {
 
     .learner-details {
       p {
-        margin: 0;
-        font-weight: lighter;
-        width: 10em; /* Converted from 160px */
-        height: 1.5em; /* Converted from 24px */
+        font-weight: 500;
+        font-size: 1.375em; /* Converted from 22px */
+        color: black;
+        line-height: 1.19em; /* Converted from 26px */
+        padding-bottom: 0.6em;
+        padding-left: 0.5em;
+        margin-bottom: 0.875em; /* Converted from 14px */
 
-        &:nth-child(1) {
-          font-weight: 500;
+      }
+
+      span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding-top: 0.3em;
+
+
+        p {
+          margin: 0;
+          font-weight: lighter;
           font-size: 1.375em; /* Converted from 22px */
-          color: black;
           line-height: 1.19em; /* Converted from 26px */
-          padding-left: 0.5em; /* Converted from 8px */
-          margin-bottom: 0.875em; /* Converted from 14px */
+          padding-left: 1em; /* Converted from 8px */    
         }
 
-        &:nth-child(2),
-        &:nth-child(3) {
-          font-weight: 400;
-          font-size: 1.125em; /* Converted from 18px */
-          color: black;
-          line-height: 1.17em; /* Converted from 21px */
-          display: flex;
-          align-items: center;
-          margin: 0.3125em; /* Converted from 5px */
-        }
       }
     }
   }
@@ -81,7 +84,8 @@ a:hover {
       font-size: 0.875em; /* Converted from 14px */
       font-weight: 400;
       line-height: 1.3em; /* Converted from 18.15px */
-      background-color: #d9d9d9;
+      background-color: var(--learners-single-page-active-background);
+      color: var(--convs-mgr-color-text-white);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -91,10 +95,12 @@ a:hover {
     .chat-button {
       width: 11.6875em; /* Converted from 187px */
       height: 2.5em; /* Converted from 40px */
+      border-radius: 1.9375em; /* Converted from 15px */
+      color: var(--convs-mgr-color-text-white);
       display: flex;
       justify-content: space-evenly;
       align-items: center;
-      background-color: #d9d9d9;
+      background-color: var(--convs-mgr-button-color);
     }
   }
 }
