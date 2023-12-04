@@ -11,7 +11,7 @@ export class FeatureFlagsService {
 
   constructor(private http: HttpClient) {}
 
-  private loadFeatureFlags(): Observable<any> {
+  loadFeatureFlags(): Observable<any> {
     return this.http.get('/assets/flags/featureFlags.json');
   }
 
@@ -29,7 +29,7 @@ export class FeatureFlagsService {
 
     // In FeatureFlagsService
   isFeatureOn(featureName: string): boolean {
-    const value = this.flags[featureName] || false;
+    const value = this.flags[featureName];
     return value;
   }
 }

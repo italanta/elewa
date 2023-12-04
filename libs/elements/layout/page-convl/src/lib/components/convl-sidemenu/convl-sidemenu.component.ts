@@ -25,7 +25,7 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
   templateUrl: './convl-sidemenu.component.html',
   styleUrls: [ './convl-sidemenu.component.scss' ]
 })
-export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
+export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy 
 {
   private _sbS = new SubSink();
   private _subscription: Subscription;
@@ -61,13 +61,13 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   {
     this._sbS.sink = this.sideMenu.menuStatus$.subscribe((isOpen) => (this.isExpanded = isOpen));
     this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => (this.isDropdownOpen = isOpen));
+    this._sbS.sink = this.featureFlagsService.init(); 
     
   }
 
   ngAfterViewInit(): void {
     const featureName = this._router$$.url.split('/')[1];
 
-    this.featureFlagsService.init(); 
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
 
