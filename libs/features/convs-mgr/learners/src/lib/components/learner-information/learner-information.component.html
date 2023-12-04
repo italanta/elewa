@@ -1,7 +1,8 @@
 <div class="page-container">
     <div class="learner-information">
         <div class="learner-information-details">
-            <div class="learner-avatar">{{getAvatar()}}
+            <div class="learner-avatar" [style.background-color]="getAvatarColor()">
+                {{getInitials()}}
             </div>
             <div class="learner-details">
                 <p>{{currentLearner.name}}</p>

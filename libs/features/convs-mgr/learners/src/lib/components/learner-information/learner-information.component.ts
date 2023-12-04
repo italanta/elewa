@@ -14,9 +14,11 @@ export class LearnerInformationComponent {
 
   @Input() currentLearner: EnrolledEndUser;
 
-  getAvatar() :string{
-    return this.currentLearner.name?.toUpperCase() ?? '';
-  }
+  // Generate a random color in hex format for the avatar
+  getAvatarColor(): string {
+    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+    return randomColor;
+  }  
 
   getStatus() :string{
     return EnrolledEndUserStatus[this.currentLearner.status];
@@ -24,5 +26,11 @@ export class LearnerInformationComponent {
 
   goToChat() :void{
     this._router.navigate(['chats', this.currentLearner.whatsappUserId])
+  }
+
+  // Get initials from the first two characters of the name
+  getInitials(): string {
+    const name = this.currentLearner.name || '';
+    return name.slice(0, 2).toUpperCase();
   }
 }
