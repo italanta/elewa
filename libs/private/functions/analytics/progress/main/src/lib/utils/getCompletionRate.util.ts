@@ -8,62 +8,50 @@ export function _getProgressCompletionRateData(
     string,
     {
       avgCourseProgress: number;
-      classrooms: Record<string, { progress: number, modules: Record<string, { progress: number }> }>;
+      modules: Record<string, { avgModuleProgress: number }>;
     }
   > = {};
 
-  allUsersProgress.forEach((participantProgress) => {
-    const { participant, classroom } = participantProgress;
+  allUsersProgress.map((participantProgress) => {
+    const { participant } = participantProgress;
 
-    participant.progress.forEach((enrolledUserProgress) => {
+    participant.progress.map((enrolledUserProgress) => {
       const { courseId } = enrolledUserProgress;
 
-      enrolledUserProgress.modules.forEach((moduleProgress) => {
+      enrolledUserProgress.modules.map((moduleProgress) => {
         const { moduleId } = moduleProgress;
 
         if (!progressData[courseId]) {
-          progressData[courseId] = { avgCourseProgress: 0, classrooms: {} };
+          progressData[courseId] = { avgCourseProgress: 0, modules: {} };
         }
 
-        if (!progressData[courseId].classrooms[classroom.id]) {
-          progressData[courseId].classrooms[classroom.id] = { progress: 0, modules: {} };
+        if (!progressData[courseId].modules[moduleId]) {
+          progressData[courseId].modules[moduleId] = { avgModuleProgress: 0 };
         }
 
-        if (!progressData[courseId].classrooms[classroom.id].modules[moduleId]) {
-          progressData[courseId].classrooms[classroom.id].modules[moduleId] = { progress: 0 };
-        }
-
-        progressData[courseId].classrooms[classroom.id].modules[moduleId].progress += moduleProgress.moduleProgress;
+        progressData[courseId].modules[moduleId].avgModuleProgress +=
+          moduleProgress.moduleProgress;
       });
     });
   });
 
-  // Calculate average progress for each module within each course and classroom
+  // Calculate average progress for each module within each course
   for (const courseId in progressData) {
-    const classrooms = progressData[courseId].classrooms;
+    const modules = progressData[courseId].modules;
 
-    for (const classroomId in classrooms) {
-      const modules = classrooms[classroomId].modules;
+    let totalCourseProgress = 0;
+    let totalModules = 0;
 
-      let totalClassroomProgress = 0;
-      let totalModules = 0;
-
-      for (const moduleId in modules) {
-        const moduleProgress = modules[moduleId];
-        moduleProgress.progress /= allUsersProgress.length;
-        totalClassroomProgress += moduleProgress.progress;
-        totalModules++;
-      }
-
-      // Calculate average classroom progress
-      progressData[courseId].classrooms[classroomId].progress = totalModules > 0 ? totalClassroomProgress / totalModules : 0;
+    for (const moduleId in modules) {
+      const moduleProgress = modules[moduleId];
+      moduleProgress.avgModuleProgress /= allUsersProgress.length;
+      totalCourseProgress += moduleProgress.avgModuleProgress;
+      totalModules++;
     }
 
-    // Calculate average course progress
-    progressData[courseId].avgCourseProgress = Object.values(classrooms).reduce((total, classroom) => total + classroom.progress, 0) / Object.keys(classrooms).length;
+    // Calculate average course progress based on module progress only
+    progressData[courseId].avgCourseProgress = totalModules > 0 ? totalCourseProgress / totalModules : 0;
   }
-
-  console.log(JSON.stringify(progressData));
 
   return progressData;
 }
