@@ -64,9 +64,14 @@
         padding: 1rem 0.5rem;
         border-radius: 30px;
         min-width: 22rem;
+        padding-left: 1.875rem;
       }
 
       .search-wrapper_tooltip {
+        position: absolute;
+        left: 0.625rem; 
+        top: 50%;
+        transform: translateY(-50%);
         color: gray;
         font-size: medium;
         font-weight: 300;
