@@ -65,6 +65,7 @@
   .buttons {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 1rem;
   }
   .weekly {
     .weeks {
@@ -84,7 +85,7 @@
   }
   .xmark{
     position: absolute;
-    top: 1rem;
+    top: 2rem;
     right: 1rem;
   }
 }
