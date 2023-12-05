@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
@@ -15,7 +17,7 @@ export class AfterInactivityModalComponent {
   selectedTimeUnit = 'days';
   isDays = true; 
 
-  @Output() timeInHoursSelected = new EventEmitter<number>();
+  @Output() timeInHoursSelected = new EventEmitter<{data: ScheduledMessage}>();
 
   constructor(private _dialog: MatDialog, 
               private _scheduleMessageService: ScheduleMessageService,
@@ -35,13 +37,14 @@ export class AfterInactivityModalComponent {
     }
 
     const schedule: ScheduledMessage = {
+      id: uuid(),
       objectID: this.data.templateId,
       inactivityTime: timeInHours,
       scheduleOption: ScheduleOptionType.Inactivity,
       scheduledOn: new Date()
     }
 
-    this.timeInHoursSelected.emit(timeInHours);
+    this.timeInHoursSelected.emit({data: schedule});
 
     if(this.data.schedule) {
       schedule.id = this.data.schedule.id;

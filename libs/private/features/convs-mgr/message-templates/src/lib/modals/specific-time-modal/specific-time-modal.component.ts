@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -154,6 +156,7 @@ export class SpecificTimeModalComponent {
       }
       // Save schedule to DB
       const scheduleMessage: ScheduledMessage = {
+        id: uuid(),
         objectID: this.data.templateId,
         dispatchTime: selectedDateTime,
         frequency: this.cronFormat,

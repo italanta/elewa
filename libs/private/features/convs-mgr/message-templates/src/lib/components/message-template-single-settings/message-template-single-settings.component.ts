@@ -32,6 +32,9 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
 
   // Milestone schedule
   mtSchedule: ScheduledMessage;
+
+  specificTimeSchedule: ScheduledMessage;
+  inactivitySchedule: ScheduledMessage;
   limit = 1;
 
   _sBS = new SubSink();
@@ -96,6 +99,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     });
 
     dialogRef.componentInstance?.dateTimeSelected.subscribe((schedule: any) => {
+      this.specificTimeSchedule = schedule.data;
       this.selectedTime = schedule.data.dispatchTime as Date;
       this.cronSchedule = schedule.data.frequency as string;
       this.endDate = schedule.data.endDate as Date;
@@ -130,11 +134,13 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
       data: {schedule: schedule, templateId: this.messageTemplateId},
     });
     
-    dialogRef.componentInstance?.timeInHoursSelected.subscribe((selectedTime: number) => {
+    dialogRef.componentInstance?.timeInHoursSelected.subscribe((schedule: any) => {
+      this.inactivitySchedule = schedule.data;
+
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
       if (specificTimeOption) {
-        this.inactivityTime = selectedTime;
-        specificTimeOption.viewValue = `Send message after ${selectedTime} hours of inactivity.`;
+        this.inactivityTime = schedule.data.inactivityTime;
+        specificTimeOption.viewValue = `Send message after ${this.inactivityTime } hours of inactivity.`;
       }
     });
   }
@@ -235,12 +241,14 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
 
   _getInactivityOptions(templateMessage: MessageTemplate) {
     return {
+      id: this.inactivitySchedule.id,
       template: templateMessage,
       inactivityTime: this.inactivityTime,
     }
   }
   _getSpecificTimeOptions(templateMessage: MessageTemplate) {
     return {
+      id: this.specificTimeSchedule.id,
       template: templateMessage,
       dispatchDate: this.selectedTime,
       frequency: this.cronSchedule,
