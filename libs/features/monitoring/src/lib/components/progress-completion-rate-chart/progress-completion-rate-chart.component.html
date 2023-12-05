@@ -1,12 +1,12 @@
 <div class="chart-container">
   <div class="chart" [ngClass]="showData ? 'show-canvas' : ''">
-  
-    <select [(ngModel)]="selectedModule">
-      <option *ngFor="let module of modulesInActiveCourse" [ngValue]="selectedModule">
+
+    <select [(ngModel)]="selectedModule" (change)="onSelectChange()">
+      <option *ngFor="let module of modulesInActiveCourse" [ngValue]="module">
         {{ module.name | titlecase }}
       </option>
     </select>
-  
+
     <canvas id="completion-chart">{{ chart }}</canvas>
   </div>
 
