@@ -47,5 +47,12 @@ export class LearnerInformationComponent {
       return '';
     }
   }
-  
+
+  // Format the phone number in the desired pattern(4-3-3)
+  formatPhoneNumber(phoneNumber: string | undefined): string {
+    if (!phoneNumber) {
+      return ''; 
+    }
+    return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  }
 }
