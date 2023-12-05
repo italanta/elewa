@@ -112,8 +112,10 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
           .subscribe();
   }
 
-  openInactivityModal() {
-    const dialogRef = this._dialog.open(AfterInactivityModalComponent);
+  openInactivityModal(schedule?: ScheduledMessage) {
+    const dialogRef = this._dialog.open(AfterInactivityModalComponent, {
+      data: {schedule: schedule, templateId: this.messageTemplateId},
+    });
     
     dialogRef.componentInstance?.timeInHoursSelected.subscribe((selectedTime: number) => {
       const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
@@ -149,7 +151,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
         this.openSpecificTimeModal(schedule);
         break;
       case ScheduleOptionType.Inactivity:
-        this.openInactivityModal();
+        this.openInactivityModal(schedule);
         break;
       default:
         break;
