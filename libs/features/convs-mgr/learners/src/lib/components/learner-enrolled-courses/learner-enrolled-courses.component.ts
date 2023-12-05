@@ -23,6 +23,7 @@ import { EnrolledUserProgress } from '../../models/enrolled-user-progress.interf
 export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   isOpen = false;
   isLoading: boolean;
+  showLessons = false;
 
   leanerProgress: EnrolledUserProgress[];
 
@@ -40,6 +41,10 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
 
   toggleCollapsible() {
     return (this.isOpen = !this.isOpen);
+  }
+
+  toggleLessons() {
+    this.showLessons = !this.showLessons;
   }
 
   /** gets the learner progress */

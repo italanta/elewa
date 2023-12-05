@@ -1,7 +1,9 @@
 .section-container {
+  margin-top: 5em; 
+
   .title {
     font-size: 22px;
-    font-weight: 450;
+    font-weight: 400;
   }
 
   .course-item-container {
@@ -27,7 +29,7 @@
 
   .course-name {
     font-size: 20px;
-    font-weight: 450;
+    font-weight: 400;
   }
 
   .enrollment-date {
@@ -47,7 +49,7 @@
     display: flex;
     gap: 0.5rem;
     align-items: center; 
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 
     a{
       color: #008080;
@@ -58,6 +60,28 @@
       height: 1.75em;
       width: 1.75em;
       margin-left: 0.625em;
+    }
+
+    .view-module-progress{
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      cursor: pointer;
+
+      span{
+        font-weight: 400;
+        margin-top: 5px;
+      }
+  
+      .dropdown-icon{
+        height: 25px;
+        width: 25px;
+        margin-top: 4px;
+      }
+
+      .rotate180 {
+        transform: rotate(180deg);
+      }      
     }
   }
 
@@ -75,5 +99,9 @@
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 2.5fr 1fr;
+
+    mat-progress-bar {
+      border-radius: 10px; 
+    }  
   }
 }

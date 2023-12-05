@@ -19,17 +19,23 @@
                   <div class="module-progress-name">{{ module.name | titlecase }}</div>
                 </a>
                 <img src="assets/svgs/learners/edit.svg" class="edit-icon"/>
+                <div class="view-module-progress" (click)="toggleLessons()">
+                  <span>{{ showLessons ? 'View less' : 'View more' }}</span>
+                  <img src="assets/icons/chevron-down.png" class="dropdown-icon" [class.rotate180]="showLessons" />
+                </div>                               
               </div>
-
-              <ng-container *ngFor="let lesson of module?.lessons">
-                <div class="lessons-wrapper">
-                  <div class="course-progress-bars">
-                    <div class="course-progress-name">{{ lesson.name | titlecase }}</div>
-                    <mat-progress-bar mode="determinate" [value]="lesson.progress"></mat-progress-bar>
+            
+              <ng-container *ngIf="showLessons">
+                <ng-container *ngFor="let lesson of module?.lessons">
+                  <div class="lessons-wrapper">
+                    <div class="course-progress-bars">
+                      <div class="course-progress-name">{{ lesson.name | titlecase }}</div>
+                      <mat-progress-bar mode="determinate" [value]="70"></mat-progress-bar>
+                    </div>
                   </div>
-                </div>
+                </ng-container>
               </ng-container>
-            </div>
+            </div>            
           </ng-container>
         </div>
       </div>
