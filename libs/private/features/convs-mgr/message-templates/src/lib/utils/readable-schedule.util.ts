@@ -5,7 +5,7 @@ import { __DateFromStorage } from '@iote/time';
 
 export function getHumanReadableSchedule(schedule: ScheduleOptions): string {
   if (schedule.scheduleOption === ScheduleOptionType.Milestone) {
-    return 'Send message at milestone';
+    return `Send message at milestone - ${schedule.milestone.selectedMilestone.eventName}`;
   } else if (schedule.scheduleOption === ScheduleOptionType.Inactivity) {
     const inactivityTime = schedule.inactivityTime ?? 0;
     return `Send message after ${inactivityTime} hours of inactivity`;
@@ -30,11 +30,3 @@ function getCronReadable(cronExpression: string): string {
     return 'Unable to parse cron expression';
   }
 }
-
-// Example usage:
-const exampleSchedule: ScheduleOptions = {
-  // Populate the object with your schedule details
-};
-
-const humanReadableSchedule = getHumanReadableSchedule(exampleSchedule);
-console.log(humanReadableSchedule); // Outputs the human-readable representation of the schedule
