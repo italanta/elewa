@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
@@ -47,7 +47,7 @@ export class BotModulesListHeaderComponent implements OnInit {
 
   botModules: BotModule[];
 
-  constructor(private _dialog: MatDialog, private _route: ActivatedRoute) {
+  constructor(private _dialog: MatDialog, private _route: ActivatedRoute, private router:Router) {
     this.activeBotId = this._route.snapshot.paramMap.get('id') as string;
   }
 

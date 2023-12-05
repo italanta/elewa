@@ -1,14 +1,25 @@
 <div class="ital-breadcrumb">
-  <span class="icon"><img src="assets/icons/bot.png"></span>
-    <ul>
-      <li *ngFor="let path of breadcrumb.paths; let last=last">
-        <a routerLink="path.link" *ngIf="path.link">
-          {{ path.label }}
-        </a>
-        <span [ngClass]="last? 'active': 'label'" *ngIf="!path.link">{{ path.label }}</span>
-        <span *ngIf="!last"> > </span>
+  <img class="icon" src="assets/icons/bot.png">
+  <svg class="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="iconamoon:arrow-right-2-thin">
+      <path id="Vector" d="M7.5 12.75L11.25 9L7.5 5.25" stroke="#101010" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </g>
+  </svg>
 
-      </li>
-    </ul>
-  </div>
-  
+  <ul style="display: flex; align-items: center; flex-direction: row; list-style: none; padding: 0; margin: 0;">
+    <li *ngFor="let path of breadcrumb.paths; let last=last" style="display: flex; align-items: center;">
+      <a routerLink="path.link" *ngIf="path.link" style="text-decoration: none;">
+        {{ path.label }}
+      </a>
+      <span [ngClass]="last ? 'active' : 'label'" *ngIf="!path.link">{{ path.label }}</span>
+      <svg *ngIf="!last" class="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <g id="iconamoon:arrow-right-2-thin">
+          <path id="Vector" d="M7.5 12.75L11.25 9L7.5 5.25" stroke="#101010" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </g>
+      </svg>
+    </li>
+  </ul>
+</div>
