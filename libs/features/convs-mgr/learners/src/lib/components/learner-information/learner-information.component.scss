@@ -58,9 +58,11 @@ a:hover {
           }     
         }
 
-        &:nth-child(2)::after{
+        &:nth-child(2)::after {
           content: " | ";
+          margin: 0 0.625em;
         }
+
         &:nth-child(2),
         &:nth-child(3) {
           font-weight: 400;
