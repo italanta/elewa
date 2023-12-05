@@ -1,25 +1,19 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { Classroom, defaultClassroom } from '@app/model/convs-mgr/classroom';
-import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
+import { CompletionRateProgress } from '@app/model/analytics/group-based/progress';
 
-import { periodicals } from '../../models/periodicals.interface';
-import {
-  getDailyProgress, 
-  getWeeklyProgress,
-  getMonthlyProgress 
-} from '../../providers/helper-fns.util';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-progress-completion-rate-chart',
@@ -32,18 +26,14 @@ export class ProgressCompletionRateChartComponent {
   private _sBs = new SubSink();
 
   courses: Bot[];
-  classrooms: Classroom[];
-  botModules: BotModule[];
-
   activeCourse: Bot;
-  activeClassroom: Classroom;
-  selectedPeriodical: periodicals;
+  allBotModules: BotModule[];
+  modulesInActiveCourse: BotModule[];
+  selectedModule: BotModule;
+
+  completionRateData: CompletionRateProgress;
 
   showData = false;
-
-  dailyProgress: GroupProgressModel[]; 
-  weeklyProgress: GroupProgressModel[];
-  monthlyProgress: GroupProgressModel[];
 
   constructor (
     private _progressService: ProgressMonitoringService,
@@ -53,35 +43,19 @@ export class ProgressCompletionRateChartComponent {
   ) {}
 
   @Input()
-  set setPeriodical(value: periodicals) {
-    this.selectedPeriodical = value;
-    this.selectProgressTracking(value);
-  }
-
-  @Input()
   set setActiveCourse(value: Bot) {
-    this.activeCourse = value
-    this.selectProgressTracking(this.selectedPeriodical);
-  }
-
-  @Input()
-  set setActiveClassroom(value: Classroom) {
-    this.activeClassroom = value
-    this.selectProgressTracking(this.selectedPeriodical);
+    this.activeCourse = value;
+    this.selectActiveCourse(this.activeCourse);
   }
 
   ngOnInit() {
     this.initDataLayer();
 
-    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
-      if (models.length) {
+    this._sBs.sink = this._progressService.getCompletionRateProgressData().subscribe((data) => {
+      if (data) {
         this.showData = true;
-
-        // 1. save all progress
-        this.dailyProgress = getDailyProgress(models);
-        this.weeklyProgress = getWeeklyProgress(models);
-        this.monthlyProgress = getMonthlyProgress(models);
-        this.chart = this._loadChart(this.weeklyProgress);
+        this.completionRateData = data;
+        this.chart = this._loadChart(this.completionRateData);
       }
     });
   }
@@ -91,37 +65,23 @@ export class ProgressCompletionRateChartComponent {
     this._sBs.sink = this._botServ$.getBots().pipe(
       switchMap(bots => {
         this.courses = bots
-
-        return this._clasroomServ$.getAllClassrooms().pipe(
-          switchMap(clsrooms => {
-          this.classrooms = clsrooms;
-          this.addDefaultClass();
-          return this._botModServ$.getBotModules()
-        }))
+        return this._botModServ$.getBotModules()
       })
-    ).subscribe(botModules => this.botModules = botModules);
-  }
-
-  /** add default class */
-  addDefaultClass() {
-    const classroom = this.classrooms.find(cls => cls.className === defaultClassroom.className)
-    classroom ?? this.classrooms.push(defaultClassroom);
+    ).subscribe(allBotModules => this.allBotModules = allBotModules);
   }
 
   /** select progress tracking periodicals */
-  selectProgressTracking(periodical: periodicals) {
-    if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
+  selectActiveCourse(course: Bot) {
+    if (!this.completionRateData) return;
 
-    if (periodical === 'Daily') {
-      this.chart = this._loadChart(this.dailyProgress);
-    } else if (periodical === 'Weekly') {
-      this.chart = this._loadChart(this.weeklyProgress);
+    if (this.activeCourse.name === 'All') {
+      this.modulesInActiveCourse = [];
     } else {
-      this.chart = this._loadChart(this.monthlyProgress);
+      this.modulesInActiveCourse = this.allBotModules.filter((botMod) => botMod.parentBot === course.id);
     }
   }
 
-  private _loadChart(_chartData: any) {
+  private _loadChart(_chartData: CompletionRateProgress) {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -131,83 +91,32 @@ export class ProgressCompletionRateChartComponent {
       type: 'doughnut',
       data: {
         labels: ['Completion Rate'],
-        datasets: [{
-          label: 'Completion Rate',
-          data: [100],
-          backgroundColor: ['rgba(31, 124, 142, 1)'],
-          hoverOffset: 4
-        }]
+        datasets: [this.getChartData(_chartData)]
       }
     });
   }
 
-  private _drawEmptyChart() {
-    if (this.chart) {
-      this.chart.destroy();
-    }
 
-    return new Chart('completion-chart', {
-      type: 'doughnut',
-      data: {
-        labels: ['No Metrics Available'],
-        datasets: [{
-          data: [100],
-          backgroundColor: ['rgba(128, 128, 128, 1)'],
-          hoverOffset: 4
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        normalized: true,
-        plugins: {
-          legend: {
-            position: 'right',
-            labels : {
-              usePointStyle: true,
-              padding: 25,
-            }
-          }
-        },
+  getChartData(chartData: CompletionRateProgress) {
+    if (this.activeCourse.name === 'All') {
+      return {
+        label: 'All Courses',
+        data: [chartData.allCourseAverage],
+        backgroundColor: ['rgba(31, 124, 142, 1)'],
+        hoverOffset: 4
       }
-    })
-  }
-
-  /** unpack data */
-  private getDatasets(model: GroupProgressModel[]) {
-    const bot = this.courses.find(course => course.id === this.activeCourse.id) as Bot;
-
-    // if AllCourses is selected we group with the course as our reference point.
-    if (!bot) {
-      return this.courses.map((bot, idx) => {
-        return {
-          labels: [bot.name],
-          data: this.unpackAllBots(model, bot),
-          backgroundColor: ['rgba(31, 124, 142, 1)'],
-          hoverOffset: 4
-        };
-      })
     }
 
-    // if a specific course is selected we group with the modules as our reference point.
-    else {
-      return bot.modules.map((botMod, idx) => {
-        const botModule = this.botModules.find(mod => mod.id === botMod) as BotModule;
-
-        return this.unpackAtModuleLevel(
-          model,
-          botModule,
-          idx,
-        )
-      });
+    const averageProgress =
+      chartData.progressData[this.activeCourse.id as string]?.modules[
+        this.selectedModule.id as string
+      ]?.avgModuleProgress;
+      
+    return {
+      label: this.selectedModule.name,
+      data: [averageProgress],
+      backgroundColor: ['rgba(31, 124, 142, 1)'],
+      hoverOffset: 4
     }
-  }
-
-  unpackAllBots(model:GroupProgressModel[], bot: Bot) {
-
-  }
-
-  unpackAtModuleLevel(model: GroupProgressModel[], botMod: BotModule, idx: number) {
-
   }
 }
