@@ -15,7 +15,9 @@
             <div class="module-wrapper">
               <div class="module-title">
                 <img src="assets/svgs/learners/module.svg">
-                <div class="module-progress-name">{{ module.name | titlecase }}</div>
+                <a [routerLink]="['/bots']">
+                  <div class="module-progress-name">{{ module.name | titlecase }}</div>
+                </a>
               </div>
 
               <ng-container *ngFor="let lesson of module?.lessons">
