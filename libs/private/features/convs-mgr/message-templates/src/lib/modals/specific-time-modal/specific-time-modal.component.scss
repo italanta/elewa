@@ -31,7 +31,13 @@
       font-family: Roboto;
       font-weight: 300;
       font-size: 1.125rem;
+      // border: 1px solid black;
     }
+    input:focus {
+      outline: none; // removes blue outline on focus
+      border: 1px solid black;  
+      box-shadow: none;
+     }
   }
   
   .recur {
@@ -203,4 +209,37 @@ img {
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 1.3rem !important;
+}
+
+
+
+.date-input{
+  display: flex;
+}
+
+.mat-datepicker-toggle{
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1.5rem;
+}
+
+:host ::ng-deep{
+ .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-form-field-infix{
+  padding: 0;
+  min-height: 2.9rem;
+ }
+ 
+ .mat-mdc-text-field-wrapper{
+  padding: 0;
+ }
+ 
+ .mat-mdc-form-field-input-control:not(.mat-mdc-form-field-textarea-control).mat-mdc-form-field-input-control.mdc-text-field__input{
+  padding: 0 1rem;
+  height: 2.9rem;
+ }
+ 
+ .mat-mdc-form-field-textarea-control.mat-mdc-form-field-input-control.mdc-text-field__input{
+  padding: 0.75rem;
+  margin-bottom: 0;
+ } 
 }

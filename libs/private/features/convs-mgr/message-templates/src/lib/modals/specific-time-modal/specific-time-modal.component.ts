@@ -46,6 +46,8 @@ export class SpecificTimeModalComponent {
     selectedDailyRepeat: number;
     selectedWeeklyRepeat: number;
     selectedMonthlyRepeat: number;
+    Date = "Date";
+    Time = "Date";
 
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 
