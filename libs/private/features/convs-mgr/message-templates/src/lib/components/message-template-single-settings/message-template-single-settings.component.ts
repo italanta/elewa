@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -23,12 +23,15 @@ import { getHumanReadableSchedule } from '../../utils/readable-schedule.util';
   templateUrl: './message-template-single-settings.component.html',
   styleUrls: ['./message-template-single-settings.component.scss'],
 })
-export class MessageTemplateSingleSettingsComponent implements OnInit{
+export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy {
   selectedTime: Date;
   inactivityTime: number;
   selectedMilestone: EventBlock;
   messageTemplateId: string;
   schedules: ScheduledMessage[];
+
+  // Milestone schedule
+  mtSchedule: ScheduledMessage;
   limit = 1;
 
   _sBS = new SubSink();
@@ -71,14 +74,18 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
     });
   }
 
-  openMilestoneModal() {
-  const dialogRef = this._dialog.open(MilestoneReachedModalComponent);
+  openMilestoneModal(schedule?: ScheduledMessage) {
+  const dialogRef = this._dialog.open(MilestoneReachedModalComponent, {
+    data: {schedule: schedule, templateId: this.messageTemplateId},
+  });
 
-  dialogRef.componentInstance?.milestoneSelected.subscribe((selectedData: any) => {
+  dialogRef.componentInstance?.milestoneSelected.subscribe((schedule: any) => {
+    this.mtSchedule = schedule;
+
     const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'milestone');
     if (specificTimeOption) {
-      specificTimeOption.viewValue = `${selectedData.selectedMilestone.eventName} - ${selectedData.selectedStory.name}`;
-      this.selectedMilestone = selectedData.selectedMilestone;
+      specificTimeOption.viewValue = `${schedule.milestone.selectedMilestone.eventName} - ${schedule.milestone.story.name}`;
+      this.selectedMilestone = schedule.milestone.selectedMilestone.selectedMilestone;
     }
     });
   }
@@ -107,9 +114,15 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   }
 
   deleteSchedule(schedule: ScheduledMessage){
-      this._scheduleMessageService.removeScheduledMesssage(schedule)
+    this._sBS.sink = this._scheduleMessageService.removeScheduledMesssage(schedule)
         .pipe(take(1))
           .subscribe();
+
+    if(schedule.scheduleOption == ScheduleOptionType.Milestone) {
+     this._sBS.sink = this._milestoneTriggerService.removeMilestoneTrigger(schedule.id as string)
+          .pipe(take(1))
+            .subscribe();
+    }
   }
 
   openInactivityModal(schedule?: ScheduledMessage) {
@@ -145,7 +158,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   editModal(schedule: ScheduledMessage) {
     switch (schedule.scheduleOption) {
       case ScheduleOptionType.Milestone:
-        this.openMilestoneModal();
+        this.openMilestoneModal(schedule);
         break;
       case ScheduleOptionType.SpecificTime:
         this.openSpecificTimeModal(schedule);
@@ -204,6 +217,8 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
   saveMilestone(template: MessageTemplate) {
     const event:string = this.selectedMilestone.eventName as string;
     const milestoneTriggerRequest: MilestoneTriggers = {
+        id: this.mtSchedule.id as string,
+
         message: {
           templateType: TemplateMessageTypes.Text,
           type: MessageTypes.TEXT,
@@ -231,5 +246,9 @@ export class MessageTemplateSingleSettingsComponent implements OnInit{
       frequency: this.cronSchedule,
       endDate: this.endDate ? this.endDate : null,
     }
+  }
+
+  ngOnDestroy(): void {
+    this._sBS.unsubscribe();
   }
 }

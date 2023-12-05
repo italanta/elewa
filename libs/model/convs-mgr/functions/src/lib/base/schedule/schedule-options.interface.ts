@@ -35,6 +35,8 @@ export interface ScheduleOptions extends IObject
 
    inactivityTime?: number;
 
+   milestone?: any;
+
    /**
     * The array of users id to send the message template/survey to
     */
