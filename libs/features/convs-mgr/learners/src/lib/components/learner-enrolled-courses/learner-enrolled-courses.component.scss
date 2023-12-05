@@ -46,11 +46,18 @@
   .module-title {
     display: flex;
     gap: 0.5rem;
+    align-items: center; 
     margin-top: 2rem;
 
     a{
-      color: #3e788a;
-      text-decoration-color:#3e788a;
+      color: #008080;
+      text-decoration-color:#008080;
+    }
+
+    .edit-icon{
+      height: 1.75em;
+      width: 1.75em;
+      margin-left: 0.625em;
     }
   }
 

@@ -18,6 +18,7 @@
                 <a [routerLink]="['/bots']">
                   <div class="module-progress-name">{{ module.name | titlecase }}</div>
                 </a>
+                <img src="assets/svgs/learners/edit.svg" class="edit-icon"/>
               </div>
 
               <ng-container *ngFor="let lesson of module?.lessons">
