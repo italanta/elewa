@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
+import { GET_RANDOM_COLOR, GET_USER_AVATAR } from 'libs/features/convs-mgr/conversations/chats/src/lib/providers/avatar.provider';
 
 @Component({
   selector: 'app-learner-information',
@@ -14,11 +15,8 @@ export class LearnerInformationComponent {
 
   @Input() currentLearner: EnrolledEndUser;
 
-  // Generate a random color in hex format for the avatar
-  getAvatarColor(): string {
-    const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-    return randomColor;
-  }  
+  // Generate a random color for the avatar
+  randomAvatarColor = () => GET_RANDOM_COLOR(); 
 
   getStatus() :string{
     return EnrolledEndUserStatus[this.currentLearner.status];
@@ -29,24 +27,7 @@ export class LearnerInformationComponent {
   }
 
   // Get initials of the learner's name for the avatar
-  getInitials(): string {
-    const name = this.currentLearner.name || '';
-    const nameParts = name.split(' ');
-  
-    if (nameParts.length >= 2) {
-      // Use the first letter of the first name and the first letter of the last name
-      const firstNameInitial = nameParts[0].charAt(0);
-      const lastNameInitial = nameParts[nameParts.length - 1].charAt(0);
-  
-      return (firstNameInitial + lastNameInitial).toUpperCase();
-    } else if (nameParts.length === 1) {
-      // If there's only one name, use the first two letters of that name
-      return nameParts[0].slice(0, 2).toUpperCase();
-    } else {
-      // Return an empty string if the name is empty
-      return '';
-    }
-  }
+  getInitials = (name: string) => GET_USER_AVATAR(name);
 
   // Format the phone number in the desired pattern(4-3-3)
   formatPhoneNumber(phoneNumber: string | undefined): string {

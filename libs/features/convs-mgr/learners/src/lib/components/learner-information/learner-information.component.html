@@ -1,8 +1,8 @@
 <div class="page-container">
     <div class="learner-information">
         <div class="learner-information-details">
-            <div class="learner-avatar" [style.background-color]="getAvatarColor()">
-                {{getInitials()}}
+            <div class="learner-avatar" [style.background-color]="randomAvatarColor()">
+                <span *ngIf="currentLearner.name">{{getInitials(currentLearner.name)}}</span>
             </div>
             <div class="learner-details">
                 <p>{{currentLearner.name}}</p>
