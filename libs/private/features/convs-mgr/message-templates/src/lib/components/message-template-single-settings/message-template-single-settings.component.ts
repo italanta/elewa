@@ -28,7 +28,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
   inactivityTime: number;
   selectedMilestone: EventBlock;
   messageTemplateId: string;
-  schedules: ScheduledMessage[];
+  schedules: ScheduledMessage[] = [];
 
   // Milestone schedule
   mtSchedule: ScheduledMessage;
@@ -71,9 +71,7 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
 
   getScheduleConditions() {
     this._scheduleMessageService.getScheduledMessages$().subscribe((schedules)=> {
-      this.schedules = schedules.sort((a, b) => {
-        return new Date(b.createdOn as Date).getTime() - new Date(a.createdOn as Date).getTime();
-      });
+      this.schedules = schedules;
     });
   }
 
@@ -84,12 +82,6 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
 
   dialogRef.componentInstance?.milestoneSelected.subscribe((schedule: any) => {
     this.mtSchedule = schedule;
-
-    const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'milestone');
-    if (specificTimeOption) {
-      specificTimeOption.viewValue = `${schedule.milestone.selectedMilestone.eventName} - ${schedule.milestone.story.name}`;
-      this.selectedMilestone = schedule.milestone.selectedMilestone.selectedMilestone;
-    }
     });
   }
 
@@ -103,13 +95,6 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
       this.selectedTime = schedule.data.dispatchTime as Date;
       this.cronSchedule = schedule.data.frequency as string;
       this.endDate = schedule.data.endDate as Date;
-
-      const formattedDateTime = this.getReadableFormat(schedule.data);
-      
-      const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'specific-time');
-      if (specificTimeOption) {
-        specificTimeOption.viewValue = formattedDateTime;
-      }
     });
   }
 
@@ -136,12 +121,6 @@ export class MessageTemplateSingleSettingsComponent implements OnInit, OnDestroy
     
     dialogRef.componentInstance?.timeInHoursSelected.subscribe((schedule: any) => {
       this.inactivitySchedule = schedule.data;
-
-      const specificTimeOption = this.messageTemplateFrequency.find(option => option.value === 'inactivity');
-      if (specificTimeOption) {
-        this.inactivityTime = schedule.data.inactivityTime;
-        specificTimeOption.viewValue = `Send message after ${this.inactivityTime } hours of inactivity.`;
-      }
     });
   }
 
