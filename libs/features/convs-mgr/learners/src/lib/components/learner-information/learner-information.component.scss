@@ -24,8 +24,8 @@ a:hover {
 
     .learner-avatar {
       margin-right: 0.625em; /* Converted from 10px */
-      width: 4.375em; /* Converted from 70px */
-      height: 4.375em; /* Converted from 70px */
+      width: 3.75em; /* Converted from 60px */
+      height: 3.75em; /* Converted from 60px */
       color: white;
       border-radius: 50%;
       display: flex;
@@ -52,20 +52,25 @@ a:hover {
           margin-bottom: 0.875em; /* Converted from 14px */
         }
 
+        &:nth-child(2) {
+          .phone-icon {
+            transform: rotateY(180deg); /* Flip the icon horizontally */
+          }     
+        }
+
+        &:nth-child(2)::after{
+          content: " | ";
+        }
         &:nth-child(2),
         &:nth-child(3) {
           font-weight: 400;
           font-size: 1.125em; /* Converted from 18px */
           color: black;
           line-height: 1.17em; /* Converted from 21px */
-          display: flex;
+          display: inline;
           align-items: center;
           margin: 0.3125em; /* Converted from 5px */
         }
-      }
-
-      .phone-icon {
-        transform: rotateY(180deg); /* Flip the icon horizontally */
       }
     }
   }
