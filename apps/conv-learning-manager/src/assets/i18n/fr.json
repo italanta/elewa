@@ -598,7 +598,8 @@
       },
       "SELECT-BOT": "Sélectionnez un Bot",
       "SELECT-MILESTONE-INDEX": "Sélectionnez une étape",
-      "MILESTONE-NUMBER": "Étape"
+      "MILESTONE-NUMBER": "Étape",
+      "NO-MILESTONE":"Le bot n'a pas de jalon"
     },
     "SAVE-BUTTON": {
       "SAVE": "Enregistrer"
