@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Route, PreloadAllModules }    from '@angular/router';
 
 import { CanAccessAnalyticsGuard, CanAccessAssessmentsGuard, CanAccessBotsGuard, 
-         CanAccessChatsGuard, CanAccessLearnersGuard, IsLoggedInGuard } from '@app/elements/base/authorisation';
-import { FeatureFlagGuard } from '@app/elements/base/authorisation';
+         CanAccessChatsGuard, CanAccessLearnersGuard, IsLoggedInGuard, 
+         CanAccessFFlagGuard 
+} from '@app/elements/base/authorisation';
 
 import { NoPermissionToAccessComponent } from '@app/private/elements/convs-mgr/access-control';
 
@@ -54,7 +55,7 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'analytics',
     loadChildren: () => import('@app/private/features/convs-mgr/analytics').then(m => m.AnalyticsModule),
-    canActivate: [IsLoggedInGuard, CanAccessAnalyticsGuard , FeatureFlagGuard],
+    canActivate: [IsLoggedInGuard, CanAccessAnalyticsGuard , CanAccessFFlagGuard],
     data: { feature: 'analytics' }
   },
 
@@ -85,7 +86,7 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'surveys',
     loadChildren: () => import('@app/features/convs-mgr/conversations/surveys').then(m => m.ConvsMgrSurveysModule),
-    canActivate: [IsLoggedInGuard , FeatureFlagGuard ],
+    canActivate: [IsLoggedInGuard , CanAccessFFlagGuard],
     data: { feature: 'surveys' }
   },
 

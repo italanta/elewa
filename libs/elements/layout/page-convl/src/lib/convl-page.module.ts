@@ -7,7 +7,7 @@ import { MaterialDesignModule, MaterialBricksModule, FlexLayoutModule } from '@i
 import { MultiLangModule } from '@ngfi/multi-lang';
 
 import { UserMenuModule } from '@app/elements/layout/user-menu';
-import { ElementsBaseFeatureFlagsModule } from '@app/elements/base/feature-flags';
+import { FeatureFlagsModule } from '@app/elements/base/feature-flags';
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
 
 
@@ -34,7 +34,7 @@ import { ConvlNavbarComponent } from './components/convl-navbar/navbar.component
     MultiLangModule,
     MaterialDesignModule, MaterialBricksModule, FlexLayoutModule,
     UserMenuModule,
-    ElementsBaseFeatureFlagsModule,
+    FeatureFlagsModule,
     AccessControlModule,
     CommonModule
   ],

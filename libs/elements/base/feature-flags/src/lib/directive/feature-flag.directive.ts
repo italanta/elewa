@@ -18,7 +18,7 @@ export class FeatureFlagDirectiveDirective implements OnInit {
 
   ngOnInit() {
     // Check if the feature is on
-    const isFeatureOff = this.featureFlagsService.isFeatureOn(this.featureName);
+    const isFeatureOn = this.featureFlagsService.isFeatureOn(this.featureName);
 
     // Create the embedded view
     const embeddedView = this.viewContainer.createEmbeddedView(this.templateRef);
@@ -31,7 +31,7 @@ export class FeatureFlagDirectiveDirective implements OnInit {
       const element = rootNodes[0] as HTMLElement;
 
        // Apply or remove a CSS class based on the feature status
-       if (isFeatureOff) {
+       if (!isFeatureOn) {
         
           // Feature is off, add the CSS class and "Coming Soon" text
           this.renderer.addClass(element, 'feature-flag-off');
