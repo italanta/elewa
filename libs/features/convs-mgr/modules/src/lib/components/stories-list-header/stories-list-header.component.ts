@@ -1,3 +1,4 @@
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -11,13 +12,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ActionSortingOptions, CreateLessonModalComponent } from '@app/features/convs-mgr/stories/home';
+import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'app-stories-list-header',
@@ -27,7 +29,7 @@ import { ActionSortingOptions, CreateLessonModalComponent } from '@app/features/
 export class StoriesListHeaderComponent implements OnInit {
   activeBotModId:string;
 
-  constructor(private _dialog: MatDialog, private _route: ActivatedRoute) {
+  constructor(private _dialog: MatDialog, private _route: ActivatedRoute, private botsStateService: BotsStateService) {
     this.activeBotModId = this._route.snapshot.paramMap.get('id') as string;
   }
 
@@ -64,6 +66,13 @@ export class StoriesListHeaderComponent implements OnInit {
           })).subscribe();
 
     this.configureFilter();
+  }
+
+  getBreadCrumb(module: string){
+      const breadcrumb={ icon: 'assets/icons/bot.png', paths: [{ label:'Skilled_aqua_earthworm', link: '' }, { label: module, link: '' }] } as ItalBreadCrumb
+
+    
+    return breadcrumb
   }
 
   /** order stories */

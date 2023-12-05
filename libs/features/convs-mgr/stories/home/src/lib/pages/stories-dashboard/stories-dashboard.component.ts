@@ -10,6 +10,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
+import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'italanta-apps-stories-dashboard',
@@ -18,6 +19,9 @@ import { HOME_CRUMB } from '@app/elements/nav/convl/breadcrumbs';
 })
 export class StoriesDashboardComponent implements OnInit 
 {
+  breadcrumb={ icon: 'assets/icons/bot.png', paths: [{ label: 'Home', link: '' }, { label: 'Bots', link: '' }] } as ItalBreadCrumb
+
+
   title: string;
   breadcrumbs: Breadcrumb[] = [];
 

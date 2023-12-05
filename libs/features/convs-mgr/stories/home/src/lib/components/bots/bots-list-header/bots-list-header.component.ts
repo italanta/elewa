@@ -11,7 +11,8 @@ import { BotCreateFlowModalComponent } from '../../../modals/bot-create-flow-mod
   styleUrls: ['./bots-list-header.component.scss'],
 })
 export class BotsListHeaderComponent {
-  constructor(private _dialog: MatDialog) {}
+  constructor(private _dialog: MatDialog) {
+  }
 
   createBot() {
     const dialogData = {

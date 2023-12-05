@@ -16,6 +16,7 @@ import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { ActionSortingOptions, CreateModuleModalComponent } from '@app/features/convs-mgr/stories/home';
+import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
@@ -25,6 +26,8 @@ import { ActionSortingOptions, CreateModuleModalComponent } from '@app/features/
 export class BotModulesListHeaderComponent implements OnInit {
   @Input() parentBot$: Observable<Bot>;
   @Input() botModules$: Observable<BotModule[]>
+
+
 
   private _sBs = new SubSink();
 
@@ -86,6 +89,12 @@ export class BotModulesListHeaderComponent implements OnInit {
       data: dialogData,
     });
   }
+
+  getBreadCrumb(bot:string){
+    const breadcrumb={ icon: 'assets/icons/bot.png', paths: [{ label: bot, link: '' }] } as ItalBreadCrumb
+    return breadcrumb
+  }
+
 
   configureFilter() {
     this.dataSource.filterPredicate = (data: BotModule, filter: string) => {

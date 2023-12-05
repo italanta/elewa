@@ -1,0 +1,14 @@
+<div class="ital-breadcrumb">
+  <span class="icon"><img src="assets/icons/bot.png"></span>
+    <ul>
+      <li *ngFor="let path of breadcrumb.paths; let last=last">
+        <a routerLink="path.link" *ngIf="path.link">
+          {{ path.label }}
+        </a>
+        <span [ngClass]="last? 'active': 'label'" *ngIf="!path.link">{{ path.label }}</span>
+        <span *ngIf="!last"> > </span>
+
+      </li>
+    </ul>
+  </div>
+  

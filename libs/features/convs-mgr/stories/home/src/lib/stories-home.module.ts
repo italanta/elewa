@@ -1,3 +1,4 @@
+import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -45,7 +46,8 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     ConvsMgrStoriesRouterModule,
     ChatsRouterModule,
     MatStepperModule,
-    FormsModule
+    FormsModule,
+    ItalBreadCrumbModule
   ],
   declarations: [
     StoriesDashboardComponent,

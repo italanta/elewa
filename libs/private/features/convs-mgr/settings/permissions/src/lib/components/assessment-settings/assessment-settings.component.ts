@@ -1,5 +1,7 @@
+import { Breadcrumb } from '@iote/bricks-angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'clm-assessment-settings',
