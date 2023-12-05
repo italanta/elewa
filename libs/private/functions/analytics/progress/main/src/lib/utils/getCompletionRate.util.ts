@@ -1,8 +1,6 @@
-import { ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
+import { CompletionRateProgress, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
 
-export function _getProgressCompletionRateData(
-  allUsersProgress: ParticipantProgressMilestone[]
-) {
+export function _getProgressCompletionRateData(allUsersProgress: ParticipantProgressMilestone[]) : CompletionRateProgress {
 
   const coursesProgressData: Record<
     string,
@@ -61,6 +59,23 @@ export function _getProgressCompletionRateData(
 
   return {
     allCourseAverage: overallCourseProgress,
-    progressData: coursesProgressData
+    progressData: convertObjectsToArray(coursesProgressData),
   }
+}
+
+/** parse the data into an array format */
+function convertObjectsToArray(data: Record<string, { avgCourseProgress: number; modules: Record<string, { avgModuleProgress: number }> }>) {
+  return Object.keys(data).map((id) => {
+    const item = data[id];
+    return {
+      courseId: id,
+      avgCourseProgress: item.avgCourseProgress,
+      modules: Object.keys(item.modules).map((moduleId) => {
+        return {
+          moduleId: moduleId,
+          avgModuleProgress: item.modules[moduleId].avgModuleProgress
+        };
+      })
+    };
+  });
 }

@@ -2,11 +2,12 @@ export interface CompletionRateProgress {
   allCourseAverage: number;
 
   // TODO: split into better types.
-  progressData: Record<
-    string,
-    {
-      avgCourseProgress: number;
-      modules: Record<string, { avgModuleProgress: number }>;
-    }
-  >;
+  progressData: {
+    courseId: string;
+    avgCourseProgress: number;
+    modules: {
+      moduleId: string;
+      avgModuleProgress: number;
+    }[];
+  }[]
 };
