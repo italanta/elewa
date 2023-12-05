@@ -37,6 +37,20 @@
             align-items: center;
             justify-content: space-evenly;
             margin-bottom: 3em;
+
+            .course-name-title {
+
+                text-decoration: underline;
+                text-decoration-color: var(--convs-mgr-button-color);
+                color: var(--convs-mgr-button-color);
+
+            }
+            .course-name-pen{
+
+                background-color: var(--convs-mgr-color-text-white);
+                color: var(--convs-mgr-button-color);
+
+            }
         }
         .course-progress-bars{
             display: flex;
@@ -57,3 +71,14 @@
 .mat-mdc-form-field + .mat-mdc-form-field {
     margin-left: 8px;
   }
+
+.isOpen {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        margin-right: 0.9em;
+    }
+}
