@@ -1,18 +1,18 @@
+import { IObject } from "@iote/bricks";
+
 /**
  * Defines the options required to send a template message or start a survey
  *  on a selected schedule or specified date.
  */
-export interface ScheduleOptions 
+export interface ScheduleOptions extends IObject
 {
    /** JOB ID - As scheduled on GCP Tasks */
    jobID?: string;
 
    /**
     * The id of the survey or message template
-    * 
-    * TODO:@Reagan Change name to objectID
     */
-   id: string;
+   objectID?: string;
 
    /** The time scheduled for the message to be sent 
     * 
@@ -23,6 +23,8 @@ export interface ScheduleOptions
  
    /** Interval to send message templates to users in cron format */
    frequency?: string;
+
+   rawSchedule?: any;
    
    /**
     * If it is a recurring schedule, the end date is the time the repetition will
@@ -33,15 +35,25 @@ export interface ScheduleOptions
 
    inactivityTime?: number;
 
+   milestone?: any;
+
    /**
     * The array of users id to send the message template/survey to
     */
-   enrolledEndUsers: string[];
+   enrolledEndUsers?: string[];
 
    /**
     * The type of the job scheduled. Can be survey or just one message
     */
    type?: JobTypes;
+
+   scheduleOption?: ScheduleOptionType;
+}
+
+export enum ScheduleOptionType {
+   Milestone = 'milestone',
+   Inactivity = 'inactivity',
+   SpecificTime = 'time'
 }
 
 export enum JobTypes 

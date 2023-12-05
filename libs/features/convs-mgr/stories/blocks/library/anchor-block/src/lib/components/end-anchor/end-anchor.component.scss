@@ -1,15 +1,19 @@
 .anchor {
 	border: none;
-	border-radius: 0.3rem;
-	height: fit-content;
+	border-radius: 1rem;
+	height: 1.5rem;
 	width: 6.5rem;
-	padding: 0.55rem;
-	background-color: var(--convs-mgr-color-primary-purple);
+	padding: 0.4rem;
+	background-color: var(--convs-mgr-button-color);
 	color: white;
 	text-align: center;
 	cursor: pointer;
 	z-index: 10;
 	font-size: small;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	flex-direction: row;
 }
 
 input[disabled]::placeholder {
@@ -19,3 +23,27 @@ input[disabled]::placeholder {
 ::ng-deep .form-border{
 	display: none !important;
 }
+.ic{
+	height: 1rem!important;
+	width: 1rem!important;
+}
+::ng-deep .mat-mdc-button-touch-target{
+	height: 1.5rem!important;
+	width: 2.1rem!important;
+	display: none!important;
+}
+div.anchor button.menu-button{
+	height: 1.5rem!important;
+	width: 1.5rem!important;
+	display: flex!important;
+	justify-content: center!important;
+	align-items: center!important;
+}
+circle{
+    fill:#C7D8C5;
+    stroke: none;
+}
+// svg{
+// 	width: 20px;
+// 	height: 20px;
+// }

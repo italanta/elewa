@@ -88,7 +88,7 @@ class CloudSchedulerService
   public async scheduleRecurringJob(payload: any, options: ScheduleOptions): Promise<any>
   {
     const endpoint = this.getEndpoint(payload.functionName);
-    const jobName = this.getJobName(options, options.id);
+    const jobName = this.getJobName(options, options.objectID);
     const job = this.generateJob(payload, options, jobName, endpoint);
 
     const request = { parent: `projects/${this.projectId}/locations/${this.locationId}`, job };

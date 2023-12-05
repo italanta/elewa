@@ -55,7 +55,7 @@ export abstract class NextBlockService
 
     this.tools.Logger.log(()=> `[MultipleOptionsMessageService].getNextBlock - Block id is ${lastBlock.id} and option block id is ${blockIdFromOptions}`);
 
-    if (lastBlock.id === blockIdFromOptions) {
+    if (lastBlock.id === blockIdFromOptions.trim()) {
       return null;
     }
 
