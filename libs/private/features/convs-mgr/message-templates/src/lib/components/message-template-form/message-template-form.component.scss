@@ -62,7 +62,7 @@
     cursor: pointer;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: flex-end;
     p{
       color: var(--convs-mgr-button-color) !important;
       font-size: 1rem;
@@ -123,10 +123,14 @@
   }
   .eveinputs{
     border-radius: 0.9375rem;
-  border: 1px solid var(--convs-mgr-color-707070);
-  height: 2rem;
-  margin: 0 1rem;
-  padding-left: .5rem;
+    border: 1px solid var(--convs-mgr-color-text-white);
+    height: 2rem;
+    margin: 0 1rem;
+    padding-left: .5rem;
+    //remove
+    background-color: var(--convs-mgr-button-color);
+    color: var(--convs-mgr-color-text-white);
+    width: 70%;
   }
   .pees {
     color: var(--convs-mgr-color-tertiary-contrast); 

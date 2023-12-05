@@ -1001,7 +1001,7 @@
             "CHANNEL": "Channel",
             "CHANNEL-DESCRIPTION": "Select channel to send to"
           },
-          "TITLE": "Title",
+          "TITLE": "Name",
           "TITLE-DESCRIPTION": "Add title for your template (should be unique, lowercase, no spacing, hyphen or underscore allowed):",
           "NO-CHANNEL": "Add channels first: None currently available",
           "CONTENT": {
