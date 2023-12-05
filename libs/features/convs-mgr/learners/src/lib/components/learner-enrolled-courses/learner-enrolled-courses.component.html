@@ -8,7 +8,7 @@
           <div class="course-name-wrapper">
             <span class="course-name-tooltip"></span>
             <p class="course-name">{{ course.name| titlecase }}</p>
-            <span>Enrolled On: {{ course.enrollmentDate | date: 'mediumDate'}}</span>
+            <span class="enrollment-date">Enrolled On: {{ course.enrollmentDate | date: 'mediumDate'}}</span>
           </div>
 
           <ng-container *ngFor="let module of course?.modules">
