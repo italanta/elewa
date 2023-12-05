@@ -30,7 +30,7 @@
                   <div class="lessons-wrapper">
                     <div class="course-progress-bars">
                       <div class="course-progress-name">{{ lesson.name | titlecase }}</div>
-                      <mat-progress-bar mode="determinate" [value]="70"></mat-progress-bar>
+                      <mat-progress-bar mode="determinate" [value]="lesson.progress"></mat-progress-bar>
                     </div>
                   </div>
                 </ng-container>
