@@ -12,10 +12,17 @@
     <form [formGroup]="schedulerForm">
     <div class="date-container">
       <div class="date">
-        <input type="date" id="date" name="date" formControlName="date">
+        <mat-form-field appearance="outline">
+          <div class="date-input">
+            <input matInput  [matDatepicker]="startDatePicker" id="startDate" [placeholder]="Date"  name="date"  formControlName="date">
+            <mat-datepicker-toggle matIconSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          </div>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+        
       </div>
       <div class="time">
-        <input type="time" id="time" name="time" formControlName="time">
+        <input type="time" id="time" name="time" formControlName="time" placeholder="Time" onfocus="(this.type='time')" onblur="if(this.value==''){this.type='text'}">
       </div>
     </div>
 
@@ -42,13 +49,7 @@
         <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-DAILY'| transloco }}</p>
 
         <div class="select-days" >
-          <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
-            <select name="dailyRepeat" id="dailyRepeat" formControlName="interval">
-              <option *ngFor="let option of dailyOptions" [value]="option">{{ option }}</option>
-            </select>
-            {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.DAYS'| transloco }}
-          </p>
-            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="endDate" name="daily-date" formControlName="endDate"></p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="endDate" name="daily-date" formControlName="endDate" ></p>
             <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
       </div>

@@ -144,6 +144,7 @@
     "SIDE-MENU": {
       "DASHBOARD": "Tableau de bord",
       "ANALYTICS": "Analytique",
+      "COMING-SOON":"à venir",
       "ACTIVE-BOTS": "Active Bots",
       "LOG-OUT": "Se déconnecter",
       "MAIN-TITLE": "Principal",
@@ -597,7 +598,8 @@
       },
       "SELECT-BOT": "Sélectionnez un Bot",
       "SELECT-MILESTONE-INDEX": "Sélectionnez une étape",
-      "MILESTONE-NUMBER": "Étape"
+      "MILESTONE-NUMBER": "Étape",
+      "NO-MILESTONE":"Le bot n'a pas de jalon"
     },
     "SAVE-BUTTON": {
       "SAVE": "Enregistrer"

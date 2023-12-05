@@ -1,10 +1,10 @@
-$text-color: black;
-$secondary-text-color: black;
+$text-color: var(--convs-mgr-color-primary-black);
+$secondary-text-color: var(--convs-mgr-color-primary-black);
 
-$bg-color: #F6F6F6;
-$secondary-bg-color: #d8dbde;
+$bg-color: var();
+$secondary-bg-color: var(--convs-mgr-color-d8dbde);
 
-$border-color: rgba(#535d7d, 0.3);
+$border-color: rgba(var(--convs-mgr-color-535d7d) 0.3);
 
 $sidebar-header-height: 100%;
 $sidebar-footer-height: 230px;
@@ -18,9 +18,9 @@ $sidebar-footer-height: 230px;
 
 .active {
   font-weight: bolder;
-  border-right: solid #1F7A8C 1px;
+  border-right: solid var(--convs-mgr-button-color) 1px;
   .menu-title{
-    color: #1F7A8C!important;
+    color: var(--convs-mgr-button-color)!important;
   }
   .menu-icon{
     .img{
@@ -519,7 +519,7 @@ body {
   margin: 0;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
-  color: #3f4750;
+  color: var(--convs-mgr-color-37f4750);
   font-size: 0.9rem;
 }
 
@@ -549,10 +549,10 @@ a {
         align-items: center;
         justify-content: center;
         border-radius: 8px;
-        color: #F6F6F6;
+        color: var(--convs-mgr-color-F6F6F6);
         font-size: 24px;
         font-weight: 700;
-        background-color: white;
+        background-color: var(--convs-mgr-color-text-white);
         margin-right: 10px;
       }
 
@@ -579,14 +579,14 @@ a {
       width: 180px;
       min-width: 190px;
       margin: 0 auto;
-      background-color: #162d4a;
+      background-color: var(--convs-mgr-color-162d4a);
       img.react-logo {
         width: 40px;
         height: 40px;
         margin-bottom: 10px;
       }
       a {
-        color: #fff;
+        color: var(--convs-mgr-color-text-white);
         font-weight: 600;
         margin-bottom: 10px;
       }
@@ -600,7 +600,7 @@ a {
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background-color: #00829f;
+      background-color: var(--convs-mgr-color-00829f);
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
@@ -611,7 +611,7 @@ a {
       transform: translateX(50%);
       z-index: 111;
       cursor: pointer;
-      color: white;
+      color: var(--convs-mgr-color-text-white);
       box-shadow: 1px 1px 4px $bg-color;
     }
 
@@ -644,15 +644,15 @@ a {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
-  color: #fff;
-  background-color: #6c757d;
+  color: var(--convs-mgr-color-text-white);
+  background-color: var(--convs-mgr-color-6c757d);
 
   &.primary {
-    background-color: #ab2dff;
+    background-color: var(--convs-mgr-color-ab2dff);
   }
 
   &.secondary {
-    background-color: #079b0b;
+    background-color: var(--convs-mgr-color-079b0b);
   }
 }
 
@@ -690,38 +690,49 @@ a {
 .social-links {
   a {
     margin: 0 10px;
-    color: #3f4750;
+    color: var(--convs-mgr-color-37f4750);
   }
 }
 
 .sub-active {
   margin-left: 40px!important;
   font-size: 0.9rem!important;
-  color: #ccc;
+  color: var(--convs-mgr-field-border-color);
 }
 
 .oper-drop-active {
   // background-color: white!important;
-  color: white!important;
+  color: var(--convs-mgr-color-text-white) !important;
 }
 
-.oper-drop-active  a {
-  // color: #F6F6F6!important;
-}
 
 .not-active {
-  background-color: #F6F6F6!important;
+  background-color: var(--convs-mgr-color-F6F6F6)!important;
 }
 
 .mat-expansion-panel {
   border-radius: 0px;
-  background-color: #F6F6F6;
+  background-color: var(--convs-mgr-color-F6F6F6);
 }
 
 .mat-expansion-panel-header {
   padding: 0px;
   border-radius: 0px;
-  background-color: #F6F6F6;
+  background-color: var(--convs-mgr-color-F6F6F6)
+}
+.feature-flag-off {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.comingSoon{
+  background-color: var(--convs-mgr-button-color);
+  color: var(--convs-mgr-color-text-white);
+  border-radius: 1rem;
+  font-size: 0.6rem;
+  font-family: Roboto;
+  padding: 0.2rem 0.5rem;
+  font-weight: 400;
+  word-wrap: break-word
 }
 
 :host ::ng-deep .nav-links-section .mat-expansion-panel-body {

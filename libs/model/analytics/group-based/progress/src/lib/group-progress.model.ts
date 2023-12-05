@@ -1,5 +1,7 @@
 import { IObject } from "@iote/bricks";
+
 import { ParticipantProgressMilestone } from "./participant-progress.model";
+import { CompletionRateProgress } from "./completion-rate.model";
 
 /**
  * Model for analysing and visualing grouping progress data. 
@@ -19,6 +21,9 @@ export interface GroupProgressModel extends IObject
 
   /** Today's EnrolledUserCount */
   todaysEnrolledUsersCount: EnrolledUserCount;
+
+  /** progress completion rate */
+  progressCompletion: CompletionRateProgress;
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
