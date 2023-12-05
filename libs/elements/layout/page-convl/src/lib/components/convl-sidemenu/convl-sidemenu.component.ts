@@ -70,8 +70,6 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
 
     this.handlerUserNavClicks();
     this.openActiveFeature(featureName);
-
-    
   }
 
   handlerUserNavClicks() {
@@ -133,6 +131,7 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
   navigateToAnalytics() {
     this._router$$.navigate(['/analytics/dashboard']);
   }
+
   navigateToSurveys(){
     this._router$$.navigate(['/surveys']);
   }

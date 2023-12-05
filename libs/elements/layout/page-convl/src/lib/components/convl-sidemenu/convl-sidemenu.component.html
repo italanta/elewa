@@ -52,7 +52,7 @@
                   {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }} </span>
 
                   <span >
-                    <p *ngIf="isExpanded && featureFlagsService.isFeatureOn('analytics')" class="comingSoon">
+                    <p *ngIf="isExpanded && !featureFlagsService.isFeatureOn('analytics')" class="comingSoon">
                       {{ 'PAGE-CONTENT.SIDE-MENU.COMING-SOON' | transloco }}
                     </p>
                   </span>
@@ -125,7 +125,7 @@
                   {{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}
                 </span>
                 <span >
-                  <p *ngIf="isExpanded && featureFlagsService.isFeatureOn('surveys')" class="comingSoon">
+                  <p *ngIf="isExpanded && !featureFlagsService.isFeatureOn('surveys')" class="comingSoon">
                     {{ 'PAGE-CONTENT.SIDE-MENU.COMING-SOON' | transloco }}
                   </p>
                 </span>

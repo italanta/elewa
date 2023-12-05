@@ -21,13 +21,10 @@ export class FeatureFlagsService {
     });
   }
 
-  // In FeatureFlagsService
   setFeatureFlag(featureName: string, value: boolean): void {
     this.flags[featureName] = value;
   }
 
-
-    // In FeatureFlagsService
   isFeatureOn(featureName: string): boolean {
     const value = this.flags[featureName];
     return value;

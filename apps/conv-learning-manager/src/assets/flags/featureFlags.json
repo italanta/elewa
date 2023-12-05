@@ -1,4 +1,4 @@
 {
-    "surveys": true,
-    "analytics": true
+    "surveys": false,
+    "analytics": false
 }
