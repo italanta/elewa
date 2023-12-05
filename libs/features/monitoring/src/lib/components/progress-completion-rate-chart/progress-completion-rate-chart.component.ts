@@ -5,7 +5,6 @@ import { SubSink } from 'subsink';
 import { switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
-
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
@@ -103,12 +102,12 @@ export class ProgressCompletionRateChartComponent implements OnDestroy {
       type: 'doughnut',
       data: {
         labels: ['Completion Rate'],
-        datasets: [this.getChartData(_chartData)]
+        datasets: [this._getChartData(_chartData)]
       }
     });
   }
 
-  getChartData(chartData: CompletionRateProgress) {
+  private _getChartData(chartData: CompletionRateProgress) {
     // if all course is selected we return avgProgress for allcourses;
     if (this.activeCourse.name === 'All') {
       return {
@@ -131,7 +130,9 @@ export class ProgressCompletionRateChartComponent implements OnDestroy {
     
     // if a course is selected and a course is selected we return the avg progress for the module;
     else {
-      const avgProg = chartData.progressData.find((course) => course.courseId)?.modules.find((mod) => mod.moduleId)?.avgModuleProgress ?? 0;
+      const avgProg = chartData.progressData.find((course) => course.courseId)?.modules.find(
+        (mod) => mod.moduleId === this.selectedModule.id
+      )?.avgModuleProgress ?? 0;
 
       return {
         label: this.selectedModule.name,

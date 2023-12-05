@@ -27,3 +27,22 @@
     }
   }
 }
+
+.selection-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  select {
+    width: 100%;
+    padding: 0.3rem;
+    border: 2px solid teal;
+    outline: none;
+    border-radius: 10px;
+    margin: 0;
+  }
+
+  .container {
+    width: 50%;
+  }
+}
