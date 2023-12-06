@@ -33,6 +33,7 @@ export class SpecificTimeModalComponent {
   selectedMonthlyDays: number[] = [];
   menuButtonText = 'Never';
   cronFormat: string; 
+  isTimeInputFocused = false;
 
 
     // Arrays to populate the "Repeat every" select dropdowns
@@ -85,6 +86,15 @@ export class SpecificTimeModalComponent {
     if(this.data.schedule) {
       this.schedulerForm.patchValue(this.data.schedule.rawSchedule)
     }
+  }
+  // Add a method to handle the focus event
+  onTimeInputFocus() {
+    this.isTimeInputFocused = true;
+  }
+
+  // Add a method to handle the blur event
+  onTimeInputBlur() {
+    this.isTimeInputFocused = false;
   }
 
   dateChanged(event: any): void {

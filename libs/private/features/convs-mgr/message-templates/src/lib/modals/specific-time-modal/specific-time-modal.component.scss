@@ -37,8 +37,16 @@
     input:focus {
       outline: none; // removes blue outline on focus
       border: 1px solid var(--convs-mgr-icon-color);  
-      box-shadow: none;
      }
+  }
+  .time{
+    position:relative;
+    cursor: pointer;
+  }
+  .clock{
+    position: absolute;
+    top: 0.8rem;
+    right: 0.4rem;
   }
   
   .recur {
