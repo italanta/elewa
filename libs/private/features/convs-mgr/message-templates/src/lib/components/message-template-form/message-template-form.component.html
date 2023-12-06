@@ -99,10 +99,10 @@
                             <p [matMenuTriggerFor]="menu" (click)="fetchBots()">add variable <i class="fas fa-chevron-down"></i></p>
                           </div>
                           <mat-menu #menu="matMenu">
-                            <mat-radio-group aria-label="Select an option" class="options"   formControlName="frequency">
+                            <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event)">
                               <mat-radio-button *ngFor="let bot of bots" [value]="bot.id">{{ bot.name }}</mat-radio-button>
                             </mat-radio-group>           
-                          </mat-menu>
+                          </mat-menu>                                                
                         <div class="variables" *ngIf="showVariableSection">
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>

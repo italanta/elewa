@@ -11,6 +11,7 @@ import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { OrganisationService } from '@app/private/state/organisation/main';
 
 import { createEmptyTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
@@ -35,6 +36,8 @@ export class MessageTemplateFormComponent implements OnInit{
   action: string;
   panelOpenState: boolean;
   isSaving: boolean;
+  selectedBot: string;
+
 
 
   categories: { display: string; value: string }[] = categoryOptions;
@@ -55,7 +58,8 @@ export class MessageTemplateFormComponent implements OnInit{
     private _route$$: Router,
     private _snackbar: SnackbarService,
     private _channelService: CommunicationChannelService,
-    private _botStateServ$: BotsStateService
+    private _botStateServ$: BotsStateService,
+    private _orgServ$ :OrganisationService
   ) {}
 
   ngOnInit() {
@@ -74,6 +78,12 @@ export class MessageTemplateFormComponent implements OnInit{
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
     
+    this._orgServ$.getActiveOrg().subscribe(
+      (orgData) => {
+        console.log(`orgs are japheth - ${orgData.id}`);
+        // Now you have access to the organization data, and you can use it as needed.
+      })
+   
   }
 
   initPage()
@@ -187,8 +197,15 @@ export class MessageTemplateFormComponent implements OnInit{
      this._botStateServ$.getBots().subscribe(data =>{
       this.bots = data
     })
-   
   }
+  onBotSelected(event: any) {
+    // Access the selected bot data using the selectedBot variable
+    this.selectedBot = event.value;
+    const selectedBotData = this.selectedBot;
+    // Do something with the selected bot data
+    console.log('Selected Bot Data:', selectedBotData);
+  }
+
 
   cancel() {
     this._route$$.navigate(['/messaging'])
