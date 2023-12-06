@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
-import { GET_RANDOM_COLOR, GET_USER_AVATAR } from 'libs/features/convs-mgr/conversations/chats/src/lib/providers/avatar.provider';
+import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '@app/providers/convs-mgr/avatar';
 
 @Component({
   selector: 'app-learner-information',

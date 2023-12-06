@@ -369,6 +369,9 @@
       "@app/private/state/user/base": [
         "libs/private/state/user/base/src/index.ts"
       ],
+      "@app/providers/convs-mgr/avatar": [
+        "libs/features/convs-mgr/conversations/chats/src/lib/providers/avatar.provider"
+      ],
       "@app/reply-message-block": ["libs/reply-message-block/src/index.ts"],
       "@app/state/convs-mgr/analytics": [
         "libs/state/convs-mgr/analytics/src/index.ts"
