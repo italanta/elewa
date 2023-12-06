@@ -21,7 +21,7 @@ export function _AudioBlockDecoratePlumb(block: VoiceMessageBlock, comp: Compone
     // Whether the anchor is target (Other Block -> This Block)
     target: true,
     cssClass:"block_endpoint",
-    endpoint: "Rectangle",
+    endpoint: "Dot",
     anchor: "Left",
     maxConnections: -1
   });
