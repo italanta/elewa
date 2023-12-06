@@ -6,4 +6,44 @@ h2{
 }
 table {
     width: 80%;
-  }
+}
+
+.assessmentNameData {
+    border-left: 0.25em black solid;
+    padding-left: 1em;
+    text-decoration: underline;
+    text-decoration-color: #1F1F1F;
+    color: #1F1F1F;
+}
+
+.score-category-pass {
+    
+    background-color: #18B018;
+    color: white;
+    padding: 0.3em 2.7em 0.3em 2.7em;
+    border-radius: 1em;
+}
+
+.score-category-fail {
+
+    background-color: #E81313;
+    color: white;
+    padding: 0.3em 3em 0.3em 3em;
+    border-radius: 1em
+}
+
+.score-category-average {
+    background-color: #EC6629;
+    color: white;
+    padding: 0.3em 1.9em 0.3em 1.9em;
+    border-radius: 1em
+}
+
+.mat-mdc-cell {
+
+    background-color: #f6f6f6 !important;
+}
+  
+.mdc-data-table__header-cell {
+    background-color: #f6f6f6 !important;
+}
