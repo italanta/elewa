@@ -20,6 +20,8 @@ import {
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
+import { _getProgressCompletionRateData } from '../utils/getCompletionRate.util';
+
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
  *
@@ -116,6 +118,9 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   //2. group users by milestones and classroom
   const groupedMeasurements = _parseGroupedProgressData(allUsersProgress);
 
+  //3. calc progress completion rate.
+  const progressCompletion = _getProgressCompletionRateData(allUsersProgress);
+
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Progress Successfully Grouped`);
 
   const date = new Date(timeInUnix);
@@ -129,6 +134,7 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
     measurements,
     groupedMeasurements,
     enrolledUserCount,
+    progressCompletion,
    `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
   );
 
