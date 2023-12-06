@@ -125,7 +125,7 @@
         "AUDIO": "Audio",
         "VIDEO": "Video",
         "STICKER": "Sticker",
-        "LIST": "List",
+        "LIST": "Question: List",
         "DOCUMENT": "Document",
         "MULTIPLE-INPUT": "Multiple-Input",
         "IMAGE-INPUT": "Image Input",
@@ -149,8 +149,8 @@
         }
       },
       "PLACEHOLDER": {
-        "ANCHOR": "Start here",
-        "END-ANCHOR": "End-here",
+        "ANCHOR": "Start",
+        "END-ANCHOR": "End",
         "CAPTION": "Caption",
         "IMAGE-LINK": "Image Url",
         "NAME": "Name",
@@ -260,7 +260,8 @@
       "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
-      "ANALYTICS": "Insights",
+      "ANALYTICS": "Analytics",
+      "COMING-SOON":"Coming soon",
       "CHATS": "Chats",
       "MESSAGING": "Messaging",  
       "MESSAGE-TEMPLATES": "Message Templates",    
@@ -901,7 +902,8 @@
       "SELECT-BOT": "Select Bot",
       "SELECT-MILESTONE-INDEX": "Select milestone",
       "SELECT-HINT": "Please select a bot to continue.",
-      "MILESTONE-NUMBER": "Milestone"
+      "MILESTONE-NUMBER": "Milestone",
+      "NO-MILESTONE":"Bot has no milestone"
     },
     "SAVE-BUTTON": {
       "SAVE": "Save"

@@ -34,4 +34,7 @@ export interface Story extends IObject
 
   /* time of publishing */
   publishedOn?: Date;
+
+  /** total number of blocks in the story */
+  blocksCount?: number;
 }
