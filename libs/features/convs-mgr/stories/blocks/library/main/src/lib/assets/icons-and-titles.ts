@@ -101,10 +101,6 @@ export const ICONS_AND_TITLES = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
     svgIcon: 'assets/svgs/blocks/system-uicons_location.svg',
-
-
-    
-
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
@@ -138,6 +134,7 @@ export const ICONS_AND_TITLES = {
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
     icon: 'fas fa-random',
+    svgIcon: 'assets/icons/conditional.svg',
   },
   34: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',

@@ -27,6 +27,5 @@ export function _ConditionalBlockDecoratePlumb(block: ConditionalBlock, comp: Co
     maxConnections: -1
 
   });
-
   return comp;
 }
