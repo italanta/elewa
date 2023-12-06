@@ -23,8 +23,8 @@
       </div>
       <div class="time">
         <input type="text" id="time" name="time" formControlName="time" placeholder="Time" (focus)="onTimeInputFocus()" (blur)="onTimeInputBlur()" onfocus="(this.type='time')" onblur="if(this.value==''){this.type='text'}" >
-        <div class="clock" *ngIf="!isTimeInputFocused">
-          <i class="fas fa-clock"></i>
+        <div class="clock" *ngIf="!isTimeInputFocused" (click)="focusTimeInput()">
+          <i class="fas fa-regular fa-clock"></i>
         </div>
       </div>
     </div>
