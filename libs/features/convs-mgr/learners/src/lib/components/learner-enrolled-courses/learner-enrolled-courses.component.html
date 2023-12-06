@@ -5,9 +5,24 @@
     <div *ngIf="!isLoading; else noData">
       <div *ngIf="leanerProgress">
         <div class="course" *ngFor="let course of leanerProgress">
-          <div class="course-name-wrapper">
-            <span class="course-name-tooltip"></span>
-            <p class="course-name">{{ course.name| titlecase }}</p>
+          <div class="course-name-wrapper" (click)="toggleCollapsible()">
+            <div class="course-name-title">
+              <span class="course-name-tooltip"></span>
+              <p class="course-name">{{ course.name| titlecase }}</p>
+            </div>
+            <div class="isOpen" *ngIf="!isOpen">
+              <p>View more</p>
+              <i  class="fas fa-chevron-up"></i>
+            </div>
+            <div class="isOpen" *ngIf="isOpen">
+              <p>View less</p>
+              <i  class="fas fa-chevron-down"></i>
+            </div>
+  
+          </div>
+
+          <ng-container *ngIf="isOpen">
+          <div class="enrolled-date-wrapper">
             <span>Enrolled On: {{ course.enrollmentDate | date: 'mediumDate'}}</span>
           </div>
 
@@ -16,6 +31,7 @@
               <div class="module-title">
                 <img src="assets/svgs/learners/module.svg">
                 <div class="module-progress-name">{{ module.name | titlecase }}</div>
+                <i class="course-name-pen fas fa-pen-square"></i>
               </div>
 
               <ng-container *ngFor="let lesson of module?.lessons">
@@ -27,6 +43,7 @@
                 </div>
               </ng-container>
             </div>
+          </ng-container>
           </ng-container>
         </div>
       </div>

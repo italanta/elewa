@@ -15,18 +15,46 @@
 .course-name-wrapper {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
 
-  .course-name-tooltip {
-    width: 3px;
-    height: 28px;
-    border-radius: 10%;
-    background-color: black;
+  .course-name-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .course-name-tooltip {
+      width: 3px;
+      height: 28px;
+      border-radius: 10%;
+      background-color: black;
+    }
+
   }
+
+  .isOpen {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    p {
+        margin-right: 0.9em;
+    }
+}
 
   .course-name {
     font-size: 20px;
   }
+}
+
+.enrolled-date-wrapper {
+  margin-bottom: 1em;
+
+  span{
+    font-weight: 200;
+  }
+  
 }
 
 .module-wrapper {
@@ -38,10 +66,19 @@
     display: flex;
     gap: 0.5rem;
     margin-bottom: 2rem;
+
+    .course-name-pen {
+      background-color: var(--convs-mgr-color-text-white);
+      color: var(--convs-mgr-button-color);
+      font-size: 17px;
+    }
   }
 
   .module-progress-name {
     font-size: 17px;
+    text-decoration: underline;
+    text-decoration-color: var(--convs-mgr-icon-color);
+    color: var(--convs-mgr-icon-color);
   }
 
   .lessons-wrapper {
