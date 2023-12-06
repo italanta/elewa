@@ -1,80 +1,93 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 input[type='text'] {
-  max-width: 100%;
-  width: 100%;
+  min-width: calc(100% - 20px);
+  min-height: 2.5rem;
   box-sizing: border-box;
-  margin: 0.3125rem 0; /* 5px / 16px = 0.3125rem */
-  border: none solid var(--convs-mgr-placeholder-color); /* 1px / 16px = 0.0625rem */
-  border-radius:  0.4375rem; /* 5px / 16px = 0.3125rem */
+  border-radius: 0.6rem;
   resize: none;
   padding: 10px;
+  border: none;
+  outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
+
+  &:focus-visible {
+    border: 1px solid var(--convs-mgr-color-primary-black);
+    outline-color: var(--convs-mgr-color-primary-black);
+  }
+
   &:disabled {
     border: none;
     width: 100%;
     background-color: var(--convs-mgr-placeholder-color);
-    border-radius:  0.4375rem;
-    font-family: Roboto;
-    font-size: 0.5625rem;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
     color: var(convs-mgr-text-color);
-    padding: 10px;
   }
 }
-.input {
-  margin: 0;
-  width: 100%;
-}
+
 .details-wrapper {
   position: relative;
-  width: 100%; 
+  width: 100%;
   padding-top: 0.125rem;
 }
-.assess-label{
+
+.assess-label {
   padding: 10px;
   border-radius: 0.4375rem;
-  width:100%;
+  width: 100%;
+  height: 3rem;
   appearance: none;
-  border-color: var(--convs-mgr-placeholder-color);
-  color:var(-convs-mgr-text-color);
+  border: 1px solid var(--convs-mgr-color-primary-black);
+  color: var(-convs-mgr-text-color);
   font-family: Roboto;
   font-size: 0.5625rem;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+
+  &:focus-visible {
+    outline-color: var(--convs-mgr-color-primary-black);
+  }
 }
-  .options-wrapper {
-    position: relative;
-    width: 100%;
-  }
-  .custom-dropdown-arrow {
-    position: absolute;
-    top: 50%;
-    right: 0.625rem; /* 10px converted to rem */
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 0.3125rem solid transparent; /* 5px converted to rem */
-    border-right: 0.3125rem solid transparent; /* 5px converted to rem */
-    border-top: 0.3125rem solid var(--convs-mgr-text-color); /* 5px converted to rem */
-    pointer-events: none;
-  }
-  
-  .add-option {
-    width: 100%;
-    background-color: var(--convs-mgr-placeholder-color);
-    border-radius: 0.4375rem;
-    color: var(--convs-mgr-text-color);
-    font-family: Roboto;
-    font-size: 0.5625rem;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-    padding: 10px;
-    text-align: left;
-    border-color: var(--convs-mgr-placeholder-color);
-    border: none;
-  }
+
+.options-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.custom-dropdown-arrow {
+  position: absolute;
+  top: 50%;
+  right: 0.625rem; /* 10px converted to rem */
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 0.3125rem solid transparent; /* 5px converted to rem */
+  border-right: 0.3125rem solid transparent; /* 5px converted to rem */
+  border-top: 0.3125rem solid var(--convs-mgr-text-color); /* 5px converted to rem */
+  pointer-events: none;
+}
+
+.btns-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center; 
+  width: 100%;
+  background-color: var(--convs-mgr-placeholder-color);
+  color: var(--convs-mgr-input-color);
+  border-radius: 0.6rem;
+}
+
 //* Container styles */
 .select-variable {
   display: flex;
@@ -88,25 +101,28 @@ input[type='text'] {
   flex-shrink: 0;
   margin-right: 10px; /* Adjust margin to prevent overlap */
   vertical-align: middle; /* Adjust vertical alignment if needed */
-  background-color:white;
-  // border: 0.5px solid var(--convs-mgr-text-color);
-  box-shadow: 0 0 0.5px var(--convs-mgr-text-color); 
+  background-color: white;
+  box-shadow: 0 0 0.5px var(--convs-mgr-text-color);
   cursor: pointer;
   border-radius: None;
-}
-.custom-checkbox.checked {
-  background-color:var(--convs-mgr-placeholder-color); /* Add a different color when checked */
-}
-.custom-checkbox:active {
-  background-color:var(--convs-mgr-placeholder-color); /* Change color on click for feedback */
-}
-/* You may also want to add a transition for a smooth animation */
-.custom-checkbox {
   transition: background-color 0.2s;
+
+  &::checked {
+    background-color: var(
+      --convs-mgr-placeholder-color
+    ); /* Add a different color when checked */
+  }
+  
+  &:active {
+    background-color: var(
+      --convs-mgr-placeholder-color
+    ); /* Change color on click for feedback */
+  }
 }
+
 /* Label styles */
 .custom-label {
-  color:var(--convs-mgr-input-color);
+  color: var(--convs-mgr-input-color);
   font-family: 'Roboto', sans-serif; /* Make sure to import the Roboto font if not already imported */
   font-size: 0.625rem;
   font-style: normal;
@@ -115,7 +131,18 @@ input[type='text'] {
   vertical-align: middle; /* Adjust vertical alignment if needed */
 }
 
-.listgone{
+.listgone {
   border: none;
   background-color: transparent;
+}
+
+.input {
+  margin: 0;
+  width: 100%;
+}
+
+.inputList {
+  width: auto;
+  display: flex;
+  align-items: center;
 }
