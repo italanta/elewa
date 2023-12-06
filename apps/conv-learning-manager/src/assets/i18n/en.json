@@ -805,10 +805,10 @@
         "ASSESSMENT-HISTORY": "Assessment History",
         "ENROLLED-ON": "Enrolled On",
         "ASSESSMENT-HISTORY-TABLE": {
-          "ASSESSMENT-NAME": "Assessment Name",
-          "SCORE-CATEGORY": "Score Category",
-          "DURATION-TAKEN": "Duration Taken",
-          "DATE-TAKEN": "Date Taken"
+          "ASSESSMENT-NAME": "Assessment name",
+          "SCORE-CATEGORY": "Score category",
+          "DURATION-TAKEN": "Duration taken",
+          "DATE-TAKEN": "Date done"
         }
       }
     }
