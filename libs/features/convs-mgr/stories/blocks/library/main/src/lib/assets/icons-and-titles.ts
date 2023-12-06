@@ -20,7 +20,7 @@ export const ICONS_AND_TITLES = {
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
     icon: 'fas fa-image',
-    svgIcon: '/assets/icons/ph_image-light.svg',
+    svgIcon: '/assets/svgs/blocks/ph_image-light.svg',
   },
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
