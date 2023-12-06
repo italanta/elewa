@@ -22,6 +22,7 @@ export * from './app/bot/main/schedule/schedule-message-templates.function';
 export * from './app/bot/main/schedule/check-inactivity.function';
 export * from './app/bot/main/schedule/set-inactivity.function';
 export * from './app/bot/main/schedule/run-schedule.function';
+export * from './app/variables/fetch-variables.function';
 
 export * from './app/micro-apps/cmi5/fetch-token.function';
 export * from './app/micro-apps/cmi5/cmi5-zip-parser.function';
