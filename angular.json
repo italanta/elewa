@@ -952,6 +952,33 @@
       },
       "tags": []
     },
+    "functions-convs-mgr-variables-block-variables": {
+      "root": "libs/functions/convs-mgr/variables/block-variables",
+      "sourceRoot": "libs/functions/convs-mgr/variables/block-variables/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "libs/functions/convs-mgr/variables/block-variables/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/functions/convs-mgr/variables/block-variables"
+          ],
+          "options": {
+            "jestConfig": "libs/functions/convs-mgr/variables/block-variables/jest.config.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "functions-user": "libs/functions/user",
     "model-analytics-group-based-progress": {
       "root": "libs/model/analytics/group-based/progress",

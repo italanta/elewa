@@ -224,6 +224,9 @@
       "@app/functions/convs-mgr/story-editor//check-story-for-errors": [
         "libs/functions/convs-mgr/story-editor/check-story-for-errors/src/index.ts"
       ],
+      "@app/functions/convs-mgr/variables/block-variables": [
+        "libs/functions/convs-mgr/variables/block-variables/src/index.ts"
+      ],
       "@app/functions/user": ["libs/functions/user/src/index.ts"],
       "@app/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block": [
         "libs/libs/private/features/convs-mgr/stories/blocks/library/cmi5-block/src/index.ts"
