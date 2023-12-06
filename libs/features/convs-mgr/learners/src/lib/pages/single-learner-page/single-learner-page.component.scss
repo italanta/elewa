@@ -1,7 +1,9 @@
+body {
+  min-height: calc(100vh - 8.5rem);
+}
 .page-container {
     padding: 2rem;
-    background-color: white;
-    min-height: calc(100vh - 8.5rem);
+    background-color: #F6F6F6;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
