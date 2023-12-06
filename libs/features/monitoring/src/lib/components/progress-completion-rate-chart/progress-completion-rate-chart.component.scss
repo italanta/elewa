@@ -1,0 +1,48 @@
+.chart-container {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 5px;
+  height: 280px;
+
+  .chart {
+    position: relative;
+    margin: auto;
+    height: 280px; // This value has to be less than 100% for the chart to be dynamically responsive
+    width: 95%; // same here
+    display: none;
+
+    &.show-canvas {
+      display: block;
+    }
+  }
+
+  .no-data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    &.hide-no-data {
+      display: none;
+    }
+  }
+}
+
+.selection-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  select {
+    width: 100%;
+    padding: 0.3rem;
+    border: 2px solid teal;
+    outline: none;
+    border-radius: 10px;
+    margin: 0;
+  }
+
+  .container {
+    width: 50%;
+  }
+}

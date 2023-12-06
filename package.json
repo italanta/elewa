@@ -44,6 +44,7 @@
     "axios": "^0.27.2",
     "caniuse-lite": "^1.0.30001519",
     "chart.js": "^4.2.1",
+    "cronstrue": "^2.47.0",
     "crypto-js": "^4.1.1",
     "dotenv": "^16.3.1",
     "firebase-admin": "^11.4.1",

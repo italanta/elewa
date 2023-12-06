@@ -12,22 +12,22 @@
         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.SET-UP-CONDITIONS'| transloco }} </p>
 
         <div class="data-result">
-          <form action="">
-            <input type="text" name="text"  >
+          <div class="schedule-list" *ngFor="let schedule of schedules| slice:0:limit">
+            <input type="text" name="text"  [value]="getReadableFormat(schedule)" readonly>
             <div class="buttons">
-              <img src="assets/icons/edit-item.svg" alt="edit">
-              <img src="assets/icons/delete-item.svg" alt="delete">
+              <img src="assets/icons/edit-item.svg" alt="edit" (click)="editModal(schedule)">
+              <img src="assets/icons/delete-item.svg" alt="delete" (click)="deleteSchedule(schedule)">
             </div>
-          </form>
+          </div>
         </div>
 
-        <p class="add-condition" (click)="showMessageConditions = !showMessageConditions">Add message condition</p>
+        <p class="add-condition" (click)="showMessageConditions = !showMessageConditions" *ngIf="schedules.length < 1">Add message condition</p>
 
         <ng-container *ngIf="showMessageConditions">
-          <mat-form-field appearance="outline" class="frequency-select">
+          <mat-form-field appearance="outline" class="frequency-select" *ngIf="schedules.length < 1">
             <mat-label>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-SETTINGS.FORM-GROUP.HEAD.MESSAGE-CONDITIONS-LABEL'| transloco }}</mat-label>
-            <mat-select [(ngModel)]="selectedOption" (selectionChange)="openModal()">
-              <mat-option *ngFor="let condition of messageTemplateFrequency" [value]="condition.value">
+            <mat-select [(ngModel)]="selectedOption">
+              <mat-option *ngFor="let condition of messageTemplateFrequency" (click)="openModal()" [value]="condition.value">
                 {{condition.viewValue}}
               </mat-option>
             </mat-select>
