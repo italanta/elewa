@@ -1,5 +1,11 @@
 mat-card {
-	min-width: 200px;
+  min-width: 200px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 mat-card-title {
@@ -7,25 +13,15 @@ mat-card-title {
 	color: var(--convs-mgr-color-primary-purple);
 }
 
-doc {
-	max-width: 100%;
-}
-
-form {
-	padding-top: 0.3125rem;
-}
-
 input {
-	width: 85%;
-	height: 20px;
-	padding: 5px 10px;
-	margin: 0.438rem auto;
-	border-radius: 0.5rem;
-	caret-color: var(--convs-mgr-color-text-black);
-	color: var(--convs-mgr-color-text-black);
-	outline: none;
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; // minus the padding
+	padding: 10px;
 	border: none;
-	background-color: var(--convs-mgr-color-primary-background);
+	resize: none;
+  outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
 }
 
 #docFile{
@@ -50,10 +46,11 @@ input {
 .doc-icon {
 	text-align: center;
 	color: var(--convs-mgr-color-primary-black) !important;
-	width: 220px;
-	height: 120px;
-	background-color: var(--convs-mgr-color-primary-background) !important;
-	border-radius: 20px;
+	min-width: calc(100% - 20px) !important; 
+	padding: 10px;
+	height: 4rem;
+	background-color: var(--convs-mgr-placeholder-color) !important;
+	border-radius: 0.6rem;
 	opacity: 1;
 
 	.fa-file-doc {
@@ -68,11 +65,9 @@ input {
 }
 
 .doc_bg {
-	margin: 5px auto;
-	width: 220px;
-	border-radius: 4px;
 	display: flex;
 	justify-content: center;
+	width: calc(100%);
 
 	&.error {
 		border: 3px solid red !important;
