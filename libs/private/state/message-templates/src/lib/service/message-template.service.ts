@@ -37,6 +37,11 @@ export class MessageTemplatesService {
     return templateRef(data);
   }
 
+  fetchVariablesFunction(orgId: string, botId: string): Observable<any> {
+    const callable = this._aff.httpsCallable('fetch-block-variables-fn');
+    return callable({ orgId, botId });
+  }
+  
   private sendMessagesCallFunction(data: any) {
     const scheduleRef = this._aff.httpsCallable('sendMultipleMessages');
     return scheduleRef(data);

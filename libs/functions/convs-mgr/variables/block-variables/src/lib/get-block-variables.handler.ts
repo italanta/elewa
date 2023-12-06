@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import { FunctionHandler } from '@ngfi/functions';
 
-export class FetchBlockVariables extends FunctionHandler<{ botId: string, orgId: string }, any> {
+export class fetchBlockVariables extends FunctionHandler<{ botId: string, orgId: string }, any> {
 
  public async execute(data: { botId: string, orgId: string }): Promise<any> {
    const { botId, orgId } = data;

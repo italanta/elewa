@@ -50,6 +50,7 @@ export class MessageTemplateFormComponent implements OnInit{
   private _sbS = new SubSink();
   showVariableSection: boolean;
   bots: any[] = [];
+  orgId:any;
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +81,8 @@ export class MessageTemplateFormComponent implements OnInit{
     
     this._orgServ$.getActiveOrg().subscribe(
       (orgData) => {
-        console.log(`orgs are japheth - ${orgData.id}`);
+        this.orgId = orgData.id
+        console.log(`orgs are japheth - ${this.orgId}`);
         // Now you have access to the organization data, and you can use it as needed.
       })
    
@@ -204,7 +206,12 @@ export class MessageTemplateFormComponent implements OnInit{
     const selectedBotData = this.selectedBot;
     // Do something with the selected bot data
     console.log('Selected Bot Data:', selectedBotData);
+
+    this._messageTemplatesService
+    .fetchVariablesFunction(this.orgId, this.selectedBot)
+    .subscribe();
   }
+
 
 
   cancel() {
