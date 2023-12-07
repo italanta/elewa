@@ -63,13 +63,21 @@
         padding: 1rem 0.5rem;
         border-radius: 30px;
         min-width: 22rem;
+
+        &::placeholder{
+          position: relative;
+          left: 20px;
+        }
       }
 
       .search-wrapper_tooltip {
+        position: absolute;
         color: gray;
         transform: rotate(90deg);
+        margin: 4.5% 0 0 1%;
         font-size: medium;
-        font-weight: 500;
+        font-weight: 300;
+        transform: rotate(-5deg);
       }
     }
   }
