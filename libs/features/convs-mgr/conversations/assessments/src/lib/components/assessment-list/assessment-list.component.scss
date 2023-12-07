@@ -58,6 +58,7 @@
 		transform: rotate(90deg);
 		font-size: 20px;
 		font-weight: 500;
+		transform: scaleX(-1);
 	}
 
 	&_input {
@@ -126,4 +127,12 @@ select::-ms-expand {
 /* Transition */
 .select:hover::after {
 	color: black;
+}
+
+.search_input {
+	background: transparent;
+}
+
+.search_tooltip {
+	transform: rotateX(4deg);
 }
