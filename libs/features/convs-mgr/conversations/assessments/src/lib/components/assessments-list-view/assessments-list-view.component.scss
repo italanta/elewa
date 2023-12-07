@@ -12,7 +12,7 @@
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: rgba(31, 122, 140, 0.4);
+	background-color: var(--convs-mgr-color-button);
 	cursor: pointer;
   opacity: 40%;
 }
@@ -32,7 +32,7 @@
   width: 3.5rem;
 
   &.active {
-    background-color: #FFFFFF;
+    background-color: var( --convs-mgr-color-FFFFFF );
     padding: 10px;
   }
 }
