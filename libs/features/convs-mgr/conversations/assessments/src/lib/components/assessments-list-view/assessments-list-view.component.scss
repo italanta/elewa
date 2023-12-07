@@ -12,7 +12,7 @@
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: #eee;
+	background-color: rgba(31, 122, 140, 0.4);
 	cursor: pointer;
 }
 
@@ -32,5 +32,6 @@
   &.active {
     background-color: #3E788A;
     padding:10px;
+    color: #fff;
   }
 }
