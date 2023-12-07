@@ -6,6 +6,7 @@
   .lessons-title {
     display: flex;
     gap: 0.5rem;
+    margin-top: -10px;
 
     .tooltip {
       width: 0.3rem;
@@ -13,8 +14,8 @@
     }
 
     .name {
-      font-size: 2.5rem;
-      font-weight: 300 !important;
+      font-size: 2rem;
+      font-weight: 400 !important;
       text-transform: capitalize;
     }
   }
@@ -73,7 +74,7 @@
       .search-wrapper_tooltip {
         position: absolute;
         color: grey;
-        margin: 4.5% 0 0 1%;
+        padding: 4.5% 0 0 2.2%;
         font-size: medium;
         font-weight: 500;
         transform: rotate(-5deg);
