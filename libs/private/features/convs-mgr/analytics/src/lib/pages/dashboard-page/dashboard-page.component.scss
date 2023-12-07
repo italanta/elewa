@@ -7,16 +7,17 @@
   padding: 30px 50px;
 
   .title {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 400;
     text-transform: capitalize;
+    margin-top: -10px;
   }
 
   .menu-items {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 10px;
+    gap: 30px;
     width: 100%;
 
     .items {
@@ -45,7 +46,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 1rem;
+    gap: 5rem;
   }
 }
 
