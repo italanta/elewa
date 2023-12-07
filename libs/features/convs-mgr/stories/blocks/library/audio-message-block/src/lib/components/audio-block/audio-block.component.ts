@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import WaveSurfer from 'wavesurfer.js';
+import WaveSurfer from 'wavesurfer.js'
 
 import { SubSink } from 'subsink';
 import { take } from 'rxjs';
