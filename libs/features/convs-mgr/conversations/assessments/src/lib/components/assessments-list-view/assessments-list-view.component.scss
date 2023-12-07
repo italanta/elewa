@@ -19,7 +19,7 @@
 
 .badge {
   display: inline-block;
-  padding: 0.25em 0.4em;
+  padding: 0.625em;
   font-size: .9em;
   font-weight: 400;
   line-height: 1;
@@ -33,6 +33,6 @@
 
   &.active {
     background-color: #3E788A;
-    padding:10px;
+    padding:0.625em;
   }
 }
