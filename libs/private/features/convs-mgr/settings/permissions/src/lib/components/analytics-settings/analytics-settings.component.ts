@@ -12,6 +12,8 @@ export class AnalyticsSettingsComponent {
 
   viewRoles: string[] = [];
 
+  panelState: boolean;
+
   constructor() {}
 
   ngOnInit(): void {
