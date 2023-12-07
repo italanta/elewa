@@ -10,7 +10,7 @@
                 </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
             </div>
-            
+
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="editBlock()">
                     <i class="far fa-edit"></i>
@@ -24,14 +24,14 @@
                     <i class="far fa-trash-alt"></i>
                     <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.DELETE' | transloco }}</span>
                 </button>
-            </mat-menu> 
+            </mat-menu>
             <button mat-icon-button [matMenuTriggerFor]="menu">
-                <i class="fas fa-ellipsis-v"></i>
-            </button> 
+                <img src="assets/svgs/blocks/menu-secondary.svg" />
+            </button>
         </div>
     
         <div *ngIf="block.type !== endStoryAnchor">
-            <hr>
+            <span class="line-splitter"></span>
         </div>
 
         <div *ngSwitchCase="messagetype">
@@ -113,10 +113,13 @@
             <app-open-ended-question-block [id]="id" [block]="block" [openEndedQuestionForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-open-ended-question-block>
         </div>
-        <div *ngSwitchCase="endStoryAnchor">
-            <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
-            </app-end-anchor>
-        </div>
+        <div *ngSwitchCase="endStoryAnchor" class="outer">
+                <div class="block-title-container2"> 
+                    <app-end-anchor [id]="id" [block]="block" [endStoryAnchorForm]="blockFormGroup" [jsPlumb]="jsPlumb" (deleteButtonClick)="handleDeleteEndStoryAnchor($event)" class="block">
+                    </app-end-anchor> 
+                </div>
+            </div>
+        
         <div *ngSwitchCase="videoInputType">
             <app-video-input-block [id]="id" [block]="block" [videoInputForm]="blockFormGroup" [jsPlumb]="jsPlumb" class="block">
             </app-video-input-block>

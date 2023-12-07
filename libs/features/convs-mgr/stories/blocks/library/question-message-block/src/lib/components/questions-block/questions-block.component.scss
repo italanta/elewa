@@ -2,27 +2,14 @@ mat-card {
   min-width: 200px;
 }
 
-textarea {
-  margin: 5px 0;
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  border-radius: 5px;
-  resize: none;
-  padding: 10px;
-}
-
-textarea:focus-visible {
-  border: 1px solid var(--convs-mgr-color-primary-purple);
-  outline-color: var(--convs-mgr-color-primary-purple);
-}
-
 .add-button {
   display: flex;
   justify-content: flex-start; 
   align-items: center; 
-  width: 90%;
+  width: 100%;
   background-color: var(--convs-mgr-placeholder-color);
   color: var(--convs-mgr-input-color);
-  border-radius: 0.7rem;
+  border-radius: 0.6rem;
 }
 
 .listgone {
@@ -44,10 +31,6 @@ textarea:focus-visible {
 
 .fa-xmark {
   color: #101010;
-}
-
-form{
-  padding-top: 0.3125rem;
 }
 
 .option-input-container {

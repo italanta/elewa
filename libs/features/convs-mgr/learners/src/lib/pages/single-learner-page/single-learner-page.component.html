@@ -1,17 +1,10 @@
 <convl-page title="User Detail Tab">
     <div class="page-container">
-        <div class="breadcrumb-container">
-            <ul class="breadcrumb">
-                <li><a routerLink="/learners/" routerLinkActive="router-link-active">{{'PAGE-CONTENT.SIDE-MENU.LEARNERS'| transloco }}</a></li>
-                <li>{{ getBreadcrumbTitle()}}</li>
-              </ul> 
-        </div>
-
         <div *ngIf="currentLearner">
             <app-learner-information [currentLearner]="currentLearner"></app-learner-information>
+            <app-learner-enrolled-courses [currentLearner]="currentLearner"></app-learner-enrolled-courses>
         </div>
-        
-        <app-learner-enrolled-courses></app-learner-enrolled-courses>
+
         <app-learner-assessment-history [assessments]="endUserAssessments"></app-learner-assessment-history>
     </div>
 </convl-page>

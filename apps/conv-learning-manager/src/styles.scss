@@ -24,15 +24,21 @@ body {
   stroke: var(--connector-outline-color-blue);
 }
 
+.jtk-endpoint circle {
+  fill: var(--connector-color-teal-blue);
+  stroke-width: 1px;
+  stroke: var(--connector-outline-color-blue);
+}
+
 //connector
 .jsplumb_instance svg path {
   stroke: var(--connector-color);
-  stroke-width: 0.2rem;
+  stroke-width: 0.0625rem;
 
 }
 
 //blocks
-.wide{
+.wide {
   padding: 1rem;
   width: 15rem;
 }

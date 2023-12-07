@@ -190,6 +190,7 @@ export class StoryEditorFrame
           type: 'Flowchart',
           options: {
             cssClass: 'frame-connector',
+            cornerRadius: 100
           },
         },
       });

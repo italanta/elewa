@@ -1,44 +1,34 @@
-<div class="wide" [id]="id" *ngIf="conditionalBlockForm">
-  <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutALign="start center">
+<div [id]="id" class="wide" *ngIf="conditionalBlockForm">
+  <form [formGroup]="conditionalBlockForm" fxLayout="column" fxLayoutAlign="start center">
     <div class="details-wrapper">
-
-      <div class="options-wrapper">
-        <mat-form-field>
-          <mat-label class="assess-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</mat-label>
-          <mat-select formControlName="selectedVar">
-            <mat-option *ngFor="let variable of (vars$ | async)" [value]="variable">
-              {{ variable }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="form-group">
+        <div class="options-wrapper">
+          <select class="assess-label" name="assessmentlabel" required id="assessmentlabel" [attr.disabled]="isTyped.value ? true : null">
+            <option disabled selected>{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.SELECT-VARIABLE' | transloco }}</option>
+            <option *ngFor="let variable of (vars$ | async)" [value]="variable">{{ variable }}</option>
+          </select>
+          
+          <span class="custom-dropdown-arrow"></span>
+        </div>
       </div>
-
       <div class="select-variable">
-        <label for="isTyped">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
-        <input type="checkbox" formControlName="isTyped" name="check" id="isTyped">
+        <input type="checkbox" class="custom-checkbox" formControlName="isTyped" name="check" id="isTyped">
+        <label class="custom-label">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.CHECKBOX' | transloco }}</label>
       </div>
-
       <div class="type-variable">
-        <!-- <label for="variableToCheck">{{ 'PAGE-CONTENT.BLOCK.LABELS.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}</label> -->
         <input class="input" type="text" formControlName="typedVar" placeholder="{{ 'PAGE-CONTENT.BLOCK.PLACEHOLDER.CONDITIONAL-BLOCK.INPUT-VARIABLE' | transloco }}" id="variableToCheck">
       </div>
     </div>
-
-    <div formArrayName="options" fxFlexFill>
+    <div formArrayName="options" fxFlexFill class="btns-wrapper">
       <div *ngFor="let option of options.controls; let i = index">
-        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutALign="start center" fxFlex="100">
-          <button (click)="deleteInput(i)" class="listgone"><i class="far fa-trash-alt"></i></button>
-          <app-option-input-field #optionInputFields [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i"
-            class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
+        <div [formGroupName]="i" class="inputList" fxLayout="row" fxLayoutAlign="start center" fxFlex="100">
+          <button (click)="deleteInput(i)" class="listgone"><i class="fa-solid fa-xmark fa-lg"></i></button>
+          <app-option-input-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm" [formGroupNameInput]="i" class="input" [charMaxlength]="listOptionInputLimit"></app-option-input-field>
         </div>
       </div>
+      <button (click)="addNewOption()" mat-flat-button class="add-button">{{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}</button>
+      <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
     </div>
-
-    <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="conditionalBlockForm"></app-default-option-field>
-
   </form>
-
-  <button (click)="addNewOption()" mat-flat-button class="add-button">
-    {{ 'BOTS.ACTIONS.ADD-OPTION' | transloco }}
-  </button>
 </div>
+
