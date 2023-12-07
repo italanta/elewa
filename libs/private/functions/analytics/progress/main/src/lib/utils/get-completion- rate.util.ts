@@ -62,13 +62,15 @@ export function _getProgressCompletionRateData(allUsersProgress: ParticipantProg
 }
 
 /** parse the data into an array format */
-function convertObjectsToArray(data: Record<string, { avgCourseProgress: number; modules: Record<string, { avgModuleProgress: number }> }>) {
+function convertObjectsToArray(data: ProgressDataRecord) {
   return Object.keys(data).map((id) => {
     const item = data[id];
+
     return {
       courseId: id,
       avgCourseProgress: item.avgCourseProgress,
       modules: Object.keys(item.modules).map((moduleId) => {
+
         return {
           moduleId: moduleId,
           avgModuleProgress: item.modules[moduleId].avgModuleProgress

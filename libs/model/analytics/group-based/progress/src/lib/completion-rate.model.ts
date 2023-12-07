@@ -1,18 +1,18 @@
 /** course completion rate progress */
 export interface CompletionRateProgress {
   allCourseAverage: number;
-  progressData: CourseProgress[];
+  progressData: CourseCompletionProgress[];
 }
 
-/** progress data at course level */
-export interface CourseProgress {
+/** completion rate progress data at course level */
+interface CourseCompletionProgress {
   courseId: string;
   avgCourseProgress: number;
-  modules: ModuleProgress[];
+  modules: ModuleCompletionProgress[];
 }
 
-/** progress data at module level */
-export interface ModuleProgress {
+/** completion rate progress data at module level */
+interface ModuleCompletionProgress {
   moduleId: string;
   avgModuleProgress: number;
 }
