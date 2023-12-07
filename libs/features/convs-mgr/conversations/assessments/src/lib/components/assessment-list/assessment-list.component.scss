@@ -136,3 +136,16 @@ select::-ms-expand {
 .search_tooltip {
 	transform: rotateX(4deg);
 }
+
+.search_input::-webkit-input-placeholder {
+	font-weight: 300;
+	color:#AFB2B3;
+}
+.search_input::-moz-placeholder {
+	font-weight: 300;
+	color:#AFB2B3;
+}
+.search_input::-ms-input-placeholder {
+	font-weight: 300;
+	color:#AFB2B3;
+}
