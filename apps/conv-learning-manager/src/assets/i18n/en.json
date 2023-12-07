@@ -260,7 +260,8 @@
       "HOME": "Home",
       "DASHBOARD": "Dashboard",
       "ACTIVE-BOTS": "Active Bots",
-      "ANALYTICS": "Insights",
+      "ANALYTICS": "Analytics",
+      "COMING-SOON":"Coming soon",
       "CHATS": "Chats",
       "MESSAGING": "Messaging",  
       "MESSAGE-TEMPLATES": "Message Templates",    
@@ -274,6 +275,7 @@
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
+      "SAVE-WITH-ERRORS": "Save Anyway",
       "PUBLISH-STORY": "Publish Story",
       "SEARCH": "Search"
     },
@@ -901,7 +903,8 @@
       "SELECT-BOT": "Select Bot",
       "SELECT-MILESTONE-INDEX": "Select milestone",
       "SELECT-HINT": "Please select a bot to continue.",
-      "MILESTONE-NUMBER": "Milestone"
+      "MILESTONE-NUMBER": "Milestone",
+      "NO-MILESTONE":"Bot has no milestone"
     },
     "SAVE-BUTTON": {
       "SAVE": "Save"
