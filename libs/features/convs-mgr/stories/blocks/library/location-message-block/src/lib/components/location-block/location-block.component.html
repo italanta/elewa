@@ -10,10 +10,9 @@
 			<input (change)="addressChanged($event)" formControlName="address" [ngModel]="currentAddress" #mapsSearchField
 				type="text" />
 		</div>
-
-		<google-map height="200px" width="200px" [zoom]="10" (mapClick)="addMarker($event)">
+		 <google-map height="200px" width="200px" [zoom]="10" (mapClick)="addMarker($event)">
 			<map-marker [position]="markerPositions" [options]="markerOptions"></map-marker>
-		</google-map>
+		</google-map> 
 
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="locationMessageForm">
 		</app-default-option-field>
