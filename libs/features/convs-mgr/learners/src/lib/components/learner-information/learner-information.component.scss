@@ -39,10 +39,10 @@ a:hover {
 
     .learner-details {
       p {
-        font-weight: 500;
+        font-weight: 400;
         font-size: 1.375em; /* Converted from 22px */
         color: black;
-        line-height: 1.19em; /* Converted from 26px */
+        line-height: normal; /* Converted from 26px */
         padding-bottom: 0.6em;
         padding-left: 0.5em;
         margin-bottom: 0.875em; /* Converted from 14px */
@@ -58,11 +58,14 @@ a:hover {
 
 
         p {
-          margin: 0;
-          font-weight: lighter;
-          font-size: 1.375em; /* Converted from 22px */
-          line-height: 1.19em; /* Converted from 26px */
-          padding-left: 1em; /* Converted from 8px */    
+
+          color: #000;
+          font-family: Roboto;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 300;
+          line-height: normal; 
+    
         }
 
       }
