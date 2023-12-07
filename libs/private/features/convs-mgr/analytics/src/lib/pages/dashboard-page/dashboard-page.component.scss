@@ -7,8 +7,9 @@
   padding: 30px 50px;
 
   .title {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 400;
+    margin-top: -10px;
     text-transform: capitalize;
   }
 
@@ -18,6 +19,8 @@
     align-items: center;
     gap: 10px;
     width: 100%;
+    margin-bottom: 1em;
+
 
     .items {
       display: flex;
