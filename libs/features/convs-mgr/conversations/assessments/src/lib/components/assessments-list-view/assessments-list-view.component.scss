@@ -12,14 +12,14 @@
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: #1F7A8C;
+	background-color: rgba(31, 122, 140, 0.4);
 	cursor: pointer;
   opacity: 40%;
 }
 
 .badge {
   display: inline-block;
-  padding: 0.25em 1.88em;
+  padding: 10px;
   font-size: .9em;
   font-weight: 400;
   line-height: 1;
@@ -29,6 +29,7 @@
   border-radius: 0.25rem;
   color: black;
   background-color: #DAE0F0;
+  width: 3.5rem;
 
   &.active {
     background-color: #FFFFFF;
