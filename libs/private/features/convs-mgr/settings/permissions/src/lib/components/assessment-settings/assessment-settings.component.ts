@@ -13,7 +13,7 @@ export class AssessmentSettingsComponent implements OnInit {
 
   viewRoles: string[] = [];
 
-  panelState: boolean;
+  panelState: boolean = false;
 
   constructor() {}
 

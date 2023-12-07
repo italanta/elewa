@@ -13,7 +13,7 @@ export class BotsSettingsComponent {
 
   viewRoles: string[] = [];
   
-  panelState: boolean;
+  panelState: boolean = false;
 
   constructor() {}
 

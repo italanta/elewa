@@ -12,7 +12,7 @@ export class LearnerSettingsComponent {
 
   viewRoles: string[] = [];
 
-  panelState: boolean;
+  panelState: boolean = false;
 
   constructor() {}
 

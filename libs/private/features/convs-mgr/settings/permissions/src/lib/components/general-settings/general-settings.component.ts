@@ -13,7 +13,7 @@ export class GeneralSettingsComponent implements OnInit {
   
   viewRoles: string[] = [];
 
-  panelState: boolean;
+  panelState: boolean =  false;
 
   constructor() {}
 

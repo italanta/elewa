@@ -12,7 +12,7 @@ export class AnalyticsSettingsComponent {
 
   viewRoles: string[] = [];
 
-  panelState: boolean;
+  panelState: boolean = false;
 
   constructor() {}
 

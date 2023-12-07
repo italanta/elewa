@@ -13,7 +13,7 @@ export class ChatsSettingsComponent implements OnInit {
 
   viewRoles: string[] = [];
 
-  panelState: boolean;
+  panelState: boolean = false;
 
   constructor() {}
 
