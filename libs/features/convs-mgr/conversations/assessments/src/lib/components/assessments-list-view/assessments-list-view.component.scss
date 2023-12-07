@@ -20,7 +20,7 @@
 
 .badge {
   display: inline-block;
-  padding: 0.25em 0.4em;
+  padding: 0.625em;
   font-size: .9em;
   font-weight: 400;
   line-height: 1;
@@ -30,6 +30,7 @@
   border-radius: 0.25rem;
   color: black;
   background-color: #DAE0F0;
+  width: 70px;
 
   &.active {
     background-color: #3E788A;
