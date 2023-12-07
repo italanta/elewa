@@ -52,8 +52,8 @@
     margin-top: 1.5rem;
 
     a{
-      color: #008080;
-      text-decoration-color:#008080;
+      color: var(--convs-mgr-button-color);
+      text-decoration-color:var(--convs-mgr-button-color);
     }
 
     .edit-icon{
