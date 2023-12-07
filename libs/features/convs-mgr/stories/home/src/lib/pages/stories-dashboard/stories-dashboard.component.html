@@ -1,8 +1,11 @@
-<convl-page [breadcrumbs]="breadcrumbs" fxLayout="column" fxFlexFill>
+<convl-page fxLayout="column" fxFlexFill>
 
   <div class="bots-page" fxLayout="column" fxLayoutAlign="start" fxFlex>
     <span class="bots"> {{ 'BOTS.BOTS-PAGE.BOTS' | transloco }} </span>
-    <app-ital-breadcrumb [breadcrumb]="breadcrumb"></app-ital-breadcrumb>
+
+    <div *ngIf="breadcrumbs$">
+      <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
+    </div>
 
     <div class="bots-header" fxFlex>
       <italanta-apps-bots-list-header></italanta-apps-bots-list-header>

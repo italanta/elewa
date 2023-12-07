@@ -4,8 +4,8 @@
     <span class="name" >{{ (parentBot$ | async)?.name }} </span>
   </div>
 
-  <div *ngIf="parentBot$ | async as bot">
-    <app-ital-breadcrumb [breadcrumb]="getBreadCrumb(bot.name)"></app-ital-breadcrumb>
+  <div *ngIf="breadcrumbs$">
+    <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
   </div>
 
   <div class="modules-btn">
