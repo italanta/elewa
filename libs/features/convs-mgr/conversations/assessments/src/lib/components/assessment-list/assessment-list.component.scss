@@ -46,7 +46,7 @@
 .search {
 	height: 5px;
 	width: 97%;
-	background-color: var(--convs-mgr-color-primary-white);
+	background-color: inherit;
 	border-radius: 8px;
 	display: flex;
 	align-items: center;
@@ -62,6 +62,7 @@
 
 	&_input {
 		width: 90%;
+		background-color: inherit;
 		height: 30px;
 		border: none;
 		outline: none;
