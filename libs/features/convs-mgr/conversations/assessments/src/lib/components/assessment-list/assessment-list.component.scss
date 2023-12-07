@@ -58,6 +58,7 @@
 		transform: rotate(90deg);
 		font-size: 20px;
 		font-weight: 500;
+		transform: scaleX(-1);
 	}
 
 	&_input {
@@ -75,7 +76,7 @@
 }
 
 .actions {
-	padding: 30px 0px;
+	padding: 15px 0px;
 }
 
 .grid-list button img {
@@ -126,4 +127,25 @@ select::-ms-expand {
 /* Transition */
 .select:hover::after {
 	color: black;
+}
+
+.search_input {
+	background: transparent;
+}
+
+.search_tooltip {
+	transform: rotateX(4deg);
+}
+
+.search_input::-webkit-input-placeholder {
+	font-weight: 300;
+	color:#AFB2B3;
+}
+.search_input::-moz-placeholder {
+	font-weight: 300;
+	color:#AFB2B3;
+}
+.search_input::-ms-input-placeholder {
+	font-weight: 300;
+	color:#AFB2B3;
 }

@@ -9,7 +9,7 @@
 				<i class="fas fa-circle-notch fa-spin"></i>
 			</div>
 			<div *ngIf="!this.block.fileSrc && !isDocLoading" class="doc-icon" (click)="docInput.click()">
-				<i class="far fa-file"></i>
+        		<img [src]="svgIcon" width="30px" class="svgIcon">
 			</div>
 			<div>
 				<input (change)="processDocs($event)" id="docFile" accept=".pdf" #docInput type="file" class="fileSrc" />

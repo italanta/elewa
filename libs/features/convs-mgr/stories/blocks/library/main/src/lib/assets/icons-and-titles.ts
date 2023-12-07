@@ -20,6 +20,7 @@ export const ICONS_AND_TITLES = {
   5: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.IMAGE',
     icon: 'fas fa-image',
+    svgIcon: '/assets/svgs/blocks/ph_image-light.svg',
   },
   6: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.QUESTION',
@@ -29,6 +30,7 @@ export const ICONS_AND_TITLES = {
   7: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.DOCUMENT',
     icon: 'fas fa-file-alt',
+    svgIcon: 'assets/svgs/blocks/system-uicons_document.svg'
   },
   8: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.AUDIO',
@@ -100,10 +102,6 @@ export const ICONS_AND_TITLES = {
     title: 'PAGE-CONTENT.BLOCK.TITLES.LOCATION-INPUT',
     icon: 'fas fa-map-marker-alt',
     svgIcon: 'assets/svgs/blocks/system-uicons_location.svg',
-
-
-    
-
   },
   23: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.VIDEO-INPUT',
@@ -137,6 +135,7 @@ export const ICONS_AND_TITLES = {
   32: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CONDITIONAL',
     icon: 'fas fa-random',
+    svgIcon: 'assets/icons/conditional.svg',
   },
   34: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.CMI5',
