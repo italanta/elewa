@@ -24,7 +24,7 @@ export class ModulesLessonsGridViewComponent {
   @Input() stories: Story[] = [];
 
   constructor(private _router$$: Router,
-              private _dialog: MatDialog,
+              private _dialog: MatDialog
   ) {}
 
   openLesson(id: string) {
@@ -40,8 +40,8 @@ export class ModulesLessonsGridViewComponent {
     }).afterClosed();
   }
 
-  deleteLesson(story: Story) {   
-    this._dialog.open(DeleteBotModalComponent, {      
+  deleteLesson(story: Story) {
+    this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
         mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule
