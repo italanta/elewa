@@ -1,4 +1,3 @@
-import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,8 +19,7 @@ import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ActionSortingOptions, CreateLessonModalComponent } from '@app/features/convs-mgr/stories/home';
+import { ActionSortingOptions, CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'app-stories-list-header',

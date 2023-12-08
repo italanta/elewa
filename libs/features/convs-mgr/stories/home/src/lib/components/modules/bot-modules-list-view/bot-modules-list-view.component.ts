@@ -9,14 +9,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-// TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { 
   DeleteBotModalComponent,
   DeleteElementsEnum, 
   CreateModuleModalComponent
-} from '@app/features/convs-mgr/stories/home';
-
+} from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-bot-modules-list-view',

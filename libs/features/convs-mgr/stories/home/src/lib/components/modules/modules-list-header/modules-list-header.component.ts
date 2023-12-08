@@ -16,8 +16,7 @@ import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ActionSortingOptions, CreateModuleModalComponent } from '@app/features/convs-mgr/stories/home';
+import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { BreadCrumbPath, ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({

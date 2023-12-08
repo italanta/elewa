@@ -25,13 +25,6 @@ import { BotPageComponent } from './pages/bot-page/bot-page.component';
 import { StoriesDashboardComponent } from './pages/stories-dashboard/stories-dashboard.component';
 import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/courses-view-all-page.component';
 
-import { CreateBotModalComponent } from './modals/create-bot-modal/create-bot-modal.component';
-import { DeleteBotModalComponent } from './modals/delete-bot-modal/delete-bot-modal.component';
-
-import { BotCreateFlowModalComponent } from './modals/bot-create-flow-modal/bot-create-flow-modal.component';
-import { CreateModuleModalComponent } from './modals/create-module-modal/create-module-modal.component';
-import { CreateLessonModalComponent } from './modals/create-lesson-modal/create-lesson-modal.component';
-
 import { ConvsMgrStoriesRouterModule } from './stories.router';
 import { FilterCoursePipe } from './pipes/filter-course.pipe';
 
@@ -51,15 +44,10 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
   ],
   declarations: [
     StoriesDashboardComponent,
-    CreateBotModalComponent,
-    DeleteBotModalComponent,
     StoriesDashboardComponent,
     BotsListHeaderComponent,
     BotsListLatestCoursesComponent,
     BotsListAllCoursesComponent,
-    BotCreateFlowModalComponent,
-    CreateModuleModalComponent,
-    CreateLessonModalComponent,
     BotPageComponent,
     CoursesViewAllPageComponent,
     CoursesListComponent,
