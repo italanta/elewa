@@ -29,6 +29,9 @@
       "@app/elements/base/date-time": [
         "libs/elements/base/date-time/src/index.ts"
       ],
+      "@app/elements/base/feature-flags": [
+        "libs/elements/base/feature-flags/src/index.ts"
+      ],
       "@app/elements/base/firebase": [
         "libs/elements/base/firebase/src/index.ts"
       ],

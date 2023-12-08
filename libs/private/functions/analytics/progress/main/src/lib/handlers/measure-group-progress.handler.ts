@@ -20,6 +20,8 @@ import {
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
+import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
+
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
  *
@@ -106,6 +108,8 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
 async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], timeInUnix:number, tools: HandlerTools, orgId: string) {
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Start grouping allusersProgress`);
+
   const monitoringDataServ = new MonitoringAndEvaluationService(tools, orgId);
 
   const enrolledUserDataServ = new EnrolledUserDataService(tools, orgId);
@@ -115,6 +119,9 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 
   //2. group users by milestones and classroom
   const groupedMeasurements = _parseGroupedProgressData(allUsersProgress);
+
+  //3. calc progress completion rate.
+  const progressCompletion = _getProgressCompletionRateData(allUsersProgress);
 
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Progress Successfully Grouped`);
 
@@ -129,6 +136,7 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
     measurements,
     groupedMeasurements,
     enrolledUserCount,
+    progressCompletion,
    `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
   );
 

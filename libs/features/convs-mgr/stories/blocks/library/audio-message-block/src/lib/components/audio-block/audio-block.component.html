@@ -12,7 +12,7 @@
                 <i class="fas fa-circle-notch fa-spin"></i>
             </div>
             <div *ngIf="!this.block.fileSrc && !isLoadingAudio" class="audio-icon" (click)="audioInput.click()">
-                <i class="fas fa-file-audio" (click)="audioInput.click()"></i>
+                <img [src]="svgIcon" (click)="audioInput.click()"  class="svgIcon" >
             </div>
             <div>
                 <input #audioInput (change)="processAudio($event)" type="file" accept=".mp3" class="fileSrc">
@@ -28,7 +28,12 @@
             [placeholder]="'PAGE-CONTENT.BLOCK.PLACEHOLDER.AUDIO-LINK' | transloco " name="audio-link "
             id="audio-link ">
 
+        <div *ngIf="this.block.fileSrc && !isLoadingAudio" class="waveform-container">
+            <img (click)="togglePlayPause()" src="assets/svgs/blocks/play.svg" class="play-button" alt="">
+            <div class="wave">
+                <div #waveform></div>
+            </div>
+        </div>
         <app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="audioMessageForm"></app-default-option-field>
-
     </form>
 </div>

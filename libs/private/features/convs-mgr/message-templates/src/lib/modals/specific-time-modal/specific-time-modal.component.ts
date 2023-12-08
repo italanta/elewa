@@ -1,12 +1,17 @@
+import { v4 as uuid } from 'uuid';
+import * as moment from 'moment';
+
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+
+import { ScheduleMessageService } from '@app/private/state/message-templates';
+import { ScheduleOptionType, ScheduleOptions, ScheduledMessage } from '@app/model/convs-mgr/functions';
 
 import { recurrenceOptions, weekdays } from '../../utils/constants';
 import { ConvertToCron } from '../../utils/convert-to-cron.util';
-
 
 @Component({
   selector: 'app-specific-time-modal',
@@ -16,7 +21,7 @@ import { ConvertToCron } from '../../utils/convert-to-cron.util';
 
 
 export class SpecificTimeModalComponent {
-  @Output() dateTimeSelected = new EventEmitter<{ date: Date, time: string, endDate?: Date ,cron: string }>();
+  @Output() dateTimeSelected = new EventEmitter<{ data: ScheduleOptions }>();
 
   schedulerForm: FormGroup;
   
@@ -46,17 +51,22 @@ export class SpecificTimeModalComponent {
     selectedDailyRepeat: number;
     selectedWeeklyRepeat: number;
     selectedMonthlyRepeat: number;
+    Date = "Date";
+    Time = "Date";
 
   constructor(
     private dialogRef: MatDialogRef<SpecificTimeModalComponent>, 
     private _route$$: Router,
     private _dialog: Dialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private _scheduleMessageService: ScheduleMessageService,
+    @Inject(MAT_DIALOG_DATA) public data: {schedule: ScheduledMessage, templateId: string}
     ) {}
 
   ngOnInit(): void {
     this.action = this._route$$.url.split('/')[2];
     this.buildForm();
+    this.patchValues();
   }
 
   buildForm(){
@@ -69,6 +79,12 @@ export class SpecificTimeModalComponent {
       interval: [null], // every x days/weeks/months
       endDate: ['']
     });
+  }
+
+  patchValues() {
+    if(this.data.schedule) {
+      this.schedulerForm.patchValue(this.data.schedule.rawSchedule)
+    }
   }
 
   dateChanged(event: any): void {
@@ -141,8 +157,32 @@ export class SpecificTimeModalComponent {
       if(this.schedulerForm.value.frequency !== 'Never') {
         this.cronFormat = ConvertToCron(this.schedulerForm.value);
       }
+      this.schedulerForm.value.date = moment(this.schedulerForm.value.date).format()
+      // Save schedule to DB
+      const scheduleMessage: ScheduledMessage = {
+        id: uuid(),
+        objectID: this.data.templateId,
+        dispatchTime: selectedDateTime,
+        frequency: this.cronFormat || '',
+        scheduledOn: new Date(),
+        scheduleOption: ScheduleOptionType.SpecificTime,
+        rawSchedule: this.schedulerForm.value
+      }
 
-      this.dateTimeSelected.emit({ date: selectedDateTime, time: this.selectedTime, endDate: endDate || undefined, cron: this.cronFormat });
+      this.dateTimeSelected.emit({ data: scheduleMessage });
+
+
+      if(endDate) {
+        scheduleMessage.endDate = endDate
+      }
+    
+      // Update the schedule if it was prepopulated
+      if(this.data.schedule) {
+        scheduleMessage.id = this.data.schedule.id;
+        this._scheduleMessageService.updateScheduledMesssage(scheduleMessage).subscribe();
+      } else {
+        this._scheduleMessageService.addScheduledMesssage(scheduleMessage).subscribe();
+      }
 
       this.dialogRef.close();
     }

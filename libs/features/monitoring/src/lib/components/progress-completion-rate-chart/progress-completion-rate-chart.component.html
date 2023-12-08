@@ -1,0 +1,20 @@
+<div class="chart-container">
+  <div class="chart" [ngClass]="showData ? 'show-canvas' : ''">
+
+    <div class="selection-wrapper" *ngIf="activeCourse?.name !== 'All'">
+      <div class="container">
+        <select [(ngModel)]="selectedModule" (change)="onSelectChange()">
+          <option *ngFor="let module of modulesInActiveCourse" [ngValue]="module">
+            {{ module.name | titlecase }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <canvas id="completion-chart">{{ chart }}</canvas>
+  </div>
+
+  <div class="no-data" [ngClass]="showData ? 'hide-no-data' : ''">
+    <span>{{'INSIGHTS.CHART.NO-CHART-MESSAGE' | transloco }}</span>
+  </div>
+</div>
