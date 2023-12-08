@@ -3,10 +3,10 @@ import { ScheduleOptions } from "./schedule-options.interface";
 export interface ScheduledMessage extends ScheduleOptions
 {
   /** Ids of the end users who have been successfully sent the message */
-  successful: string[];
+  successful?: string[];
   
   /** Ids of the end users who fail */
-  failed: string[];
+  failed?: string[];
 
   /** 
    * Ids of the end users who are yet to receive the message
@@ -16,6 +16,8 @@ export interface ScheduledMessage extends ScheduleOptions
   pending?: string[];
 
   status?: ScheduledMessageStatus;
+
+  scheduledOn?: Date;
 }
 
 export enum ScheduledMessageStatus 

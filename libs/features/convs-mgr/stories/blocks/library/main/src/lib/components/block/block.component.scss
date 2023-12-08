@@ -1,7 +1,36 @@
 mat-card {
 	width: 100%;
 	border-radius: 0.01rem;
+}
+
+.outer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	&:hover {
+		cursor: move;
+	}
+}
+
+.block-title-container {
+	display: flex;
+	align-items: center;
+	padding-left: 1rem;
+	gap: 0.5rem;
+}
+
+.line-splitter {
+	display: flex;
+	margin: 0 1rem;
+	margin-top: 0.1rem;
 	padding: 0;
+	height: 1px;
+	background-color: var(--convs-mgr-border-color);
+}
+
+:host ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base  {
+	padding: 0 !important;
 }
 
 .block {
@@ -19,46 +48,24 @@ mat-card {
 	height: 30px;
 }
 
-.block-title-container {
-	display: flex;
-	align-items: center;
-	padding-left: 1rem;
-}
-
 .icon-color {
 	color: var(--convs-mgr-color-primary-black)
 }
 
-img{
-	width: 25px;
-	margin-top: 3px;
-}
-
 .block-title {
-
-	font-weight: 400;	
-	margin: 0 0 0 .4em;
+	font-weight: 400;
 	color: var(--convs-mgr-color-text-black);
 	font-family: Roboto;
 	font-style: normal;
+	font-weight: 400;
 	font-size: 0.8125rem;
 	line-height: normal;
 }
 
-.outer {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-
-	&:hover {
-		cursor: move;
-	}
-}
-
 .block-card {
-	border-radius: 10px;
+	border-radius: 1rem;
 	padding: 0;
-	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+	box-shadow: 0 0.2rem 1rem rgb(0 0 0 / 0.2);
 }
 
 .hide-block {
@@ -78,6 +85,6 @@ hr {
 }
 
 :host ::ng-deep .mat-mdc-unelevated-button .mdc-button__label {
-    z-index: 0 !important;
+  z-index: 0 !important;
 }
 

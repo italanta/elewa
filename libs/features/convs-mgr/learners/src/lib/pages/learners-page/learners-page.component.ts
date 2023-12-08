@@ -249,11 +249,12 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   scheduleMessage(payload: any) {
     const scheduleRequest = {
       ...payload,
+      id: this.scheduleMessageOptions.id,
       dispatchTime: this.scheduleMessageOptions.dispatchDate,
       endDate:  this.scheduleMessageOptions.endDate || null,
       frequency: this.scheduleMessageOptions.frequency || null
     };
-
+    
     this._sBs.sink = this._scheduleMessageService.scheduleMessage(scheduleRequest).subscribe((resp)=> {
       if(resp) {
         // TODO: Display Toast Message based on Response
@@ -261,10 +262,11 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  
   scheduleInactivity(payload: any) {
     const inactivityRequest = {
       ...payload,
+      id: this.scheduleMessageOptions.id,
       inactivityTime: this.scheduleMessageOptions.inactivityTime
     };
   

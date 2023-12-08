@@ -1,10 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
-import { Observable, combineLatest, map, of, switchMap, tap } from 'rxjs';
+import { Observable, combineLatest, map, of } from 'rxjs';
 
 import { MessageTemplate, ScheduledMessage, TemplateHeaderTypes, TextHeader } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService, MessageStatusRes, ScheduleMessageService } from '@app/private/state/message-templates';
@@ -16,7 +16,7 @@ import { SnackbarService } from '../../services/snackbar.service';
   templateUrl: './message-template-list.component.html',
   styleUrls: ['./message-template-list.component.scss'],
 })
-export class MessageTemplateListComponent implements OnInit, OnDestroy{
+export class MessageTemplateListComponent implements OnInit, OnDestroy {
   private _sBS = new SubSink();
 
   messageTemplates$: Observable<MessageTemplate[]>;
@@ -32,7 +32,6 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
   dataSource = new MatTableDataSource<any>();
   searchForm: FormGroup;
 
-  
   constructor(
     private _messageTemplateService: MessageTemplatesService,
     private fb: FormBuilder,
@@ -41,52 +40,55 @@ export class MessageTemplateListComponent implements OnInit, OnDestroy{
     private _snackBar: SnackbarService
   ) {
     this.searchForm = this.fb.group({
-      searchInput: [''], 
+      searchInput: [''],
     });
   }
 
-
   ngOnInit(): void {
-    this.isSaving = true;
-    this.messageTemplates$ = this._messageTemplateService.getMessageTemplates$();
-
-    this._sBS.sink = this.messageTemplates$.pipe(
-      switchMap((templates) => {
-        const firstTemplate = templates[0];
-        if (!templates || templates.length === 0 || (!firstTemplate.channelId)) {
-          this.isSaving = false;
-          return [];
-        }
-        const channelId = firstTemplate ? firstTemplate.channelId : '';
-    
-        this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
-        this.scheduledMessages$ = this._scheduleMessageService.getScheduledMessages$();
-    
-        return combineLatest([of(templates), this.templateStatus$]).pipe(
-          map(([templates, statusData]) => {
-            const templateNames = templates.map(template => template.name);
-            const mergedData = templates.map((template) => {
-              const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
-              
-              return {
-                ...template,
-                status,
-              };
-            });
-            return mergedData;
-          })
-        );
-      })
-    ).subscribe((mergedData) => {
-      this.dataSource.data = mergedData;
-      this.isSaving = false;
-    });
-    
+    this.getTemplates();
 
     this._sBS.sink = this.searchForm.get('searchInput')?.valueChanges.subscribe((searchText) => {
       this.applyFilter(searchText);
     });
   }
+
+  getTemplates() {
+    this.isSaving = true;
+
+    this._sBS.sink = this._messageTemplateService.getMessageTemplates$().subscribe(
+        (templates) => {
+          this.isSaving = false;
+          this.dataSource.data = templates
+          this.getTemplateStatus(templates);
+        }
+      );
+  }
+
+  getTemplateStatus(templates: MessageTemplate[]) {
+    const firstTemplate = templates[0];
+
+    if (!templates || templates.length === 0 || !firstTemplate.channelId) {
+      return;
+    }
+
+    const channelId = firstTemplate ? firstTemplate.channelId : '';
+
+    this.templateStatus$ = this._messageTemplateService.getTemplateStatus(channelId);
+    this.scheduledMessages$ = this._scheduleMessageService.getScheduledMessages$();
+
+    this._sBS.sink = combineLatest([of(templates), this.templateStatus$])
+      .pipe(
+        map(([templates, statusData]) => {
+          const mergedData = templates.map((template) => {
+            const status = (statusData['templates'].find((status: any) => template.name === status.name) || {}).status || 'N/A';
+            return {...template, status};
+          });
+          return mergedData;
+        })
+      )
+      .subscribe((mergedData) => this.dataSource.data = mergedData);
+  }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim().toLowerCase();
     this.dataSource.filter = filterValue;

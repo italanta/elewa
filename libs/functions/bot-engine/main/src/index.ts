@@ -28,4 +28,6 @@ export * from './lib/services/data-services/channel-info.service';
 export * from './lib/services/data-services/enrolled-user.service';
 export * from './lib/services/data-services/classroom.service';
 export * from './lib/services/data-services/botmodules.service';
+export * from './lib/services/data-services/courses.service';
+export * from './lib/services/data-services/stories.service';
 export * from './lib/services/variable-injection/mail-merge-variables.service';

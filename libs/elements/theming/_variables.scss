@@ -45,10 +45,13 @@
   --convs-mgr-light-border-color: #DADADA;
   --convs-mgr-placeholder-color: #f3f3f3;
   --convs-mgr-input-color: #707070;
+  --convs-mgr-input-color-two: #7C7C7C;
+  --convs-mgr-webhook-button-bg-color: #1F7A8C;
   --convs-mgr-option-input-success: #19b016;
   --convs-mgr-option-input-failure: #d11717;
   --convs-mgr-icon-color: #1f7a8c;
 
+  --convs-mgr-text-color:#7c7c7c;
 
   /** secondary **/
   --convs-mgr-color-secondary: #ffa225;
@@ -130,10 +133,9 @@
   /** Jsplumb Endpoint & Connector **/
 
   --connector-color-teal-blue: #3e788a;
-  --connector-color: #ffab2d;
+  --connector-color: #101010;
   --endpoint-outline: #fff;
   --endpoint-color: #ffab2d;
-  --connector-color-blue:  #3E788A;
   --connector-outline-color-blue: #C7D8C5;
 
   convs-mgr-tab-button.tab-selected {
@@ -172,7 +174,15 @@
   --convs-mgr-color-3E788A: #3E788A;
   --convs-mgr-color-FFFFFF :#FFFFFF;
   --convs-mgr-color-F6F6F6 :#F6F6F6;
-
+  --convs-mgr-color-d8dbde :#d8dbde;
+  --convs-mgr-color-535d7d :#535d7d;
+  --convs-mgr-color-0047AB :#0047AB;
+  --convs-mgr-color-37f4750: #3f4750;
+  --convs-mgr-color-079b0b:#079b0b;
+  --convs-mgr-color-6c757d:#6c757d;
+  --convs-mgr-color-162d4a:#162d4a;
+  --convs-mgr-color-00829f:#00829f;
+  --convs-mgr-color-ab2dff:#ab2dff;
   /** custom colors **/
   --convs-mgr-color-101010 : #101010;
   --convs-mgr-color-button:#1f7a8c;
