@@ -54,6 +54,8 @@
     a{
       color: var(--convs-mgr-button-color);
       text-decoration-color:var(--convs-mgr-button-color);
+      font-size: 1em;
+      font-weight: 400;
     }
 
     .edit-icon{
@@ -96,17 +98,28 @@
     margin-top: 0.5em;
 
     .course-progress-name{
+      color: #000;
       font-size: 1.125em;
+      font-weight: 300;
     }
+
+    .custom-progress-bar {
+      height: 0.688em;
+      background-color: #D9D9D9;
+      border-radius: 0.5em; 
+      overflow: hidden;
+    }
+    
+    .progress-bar-fill {
+      height: 100%;
+      background-color: #1F7A8C; 
+      border-radius: 0.5em; 
+    }    
   }
 
   .course-progress-bars {
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 2.5fr 1fr;
-
-    mat-progress-bar {
-      border-radius: 0.625em; 
-    }  
   }
 }
