@@ -46,6 +46,12 @@ export class BreadcrumbService {
       // Construct the route URL
       const routeUrl = parentUrl.concat(route.url.map((url) => url.path));
 
+      // Check if the route path ends with "/modules" and remove the last element if true.
+      const isModulesRoute = route.routeConfig?.path?.endsWith('/modules');
+      if (isModulesRoute) {
+        routeUrl.pop();
+      }
+
       // Add an element for the current route part
       if (route.data['breadCrumb']) {
         const breadcrumb = {
