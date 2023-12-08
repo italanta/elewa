@@ -1,5 +1,56 @@
 <div class="wide" [id]="id" *ngIf=" webhookForm">
-	<form [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
+	<form (ngSubmit)="onSubmit()" [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
+
+		<div class="webhook-select-wrapper">
+			<div class="webhook-select-inputs">
+
+			<select class="webhook-select" name="webhookselect" required id="webhookselectId">
+				<option *ngFor="let  http of httpCategories ; let
+                	i=index" [value]="http.method" [selected]="i === 0">{{http.name}}
+            	</option>
+			</select>
+			<input placeholder="URL input" class="webhook-input" name="webhookinput" required id="webhookInputId"/>
+
+			</div>
+			<span class="custom-dropdown-arrow"></span>
+			<div class="vertical-line-select"></div>
+		</div>
+
+		<div class="second-block">
+			<p>Select the variables that will be included in the request to the webhook</p>
+			<input name="search" id="search" [formControl]="search" type="text" placeholder="Search" />
+			<div class="second-block-checkbox-wrapper" *ngIf="(vars$ | async) as variables">
+				<div *ngFor="let variable of (variables | filter: search.value)">
+					<div class="second-block-checkbox">
+						<input type="checkbox" [id]="variable">
+						<p>{{ variable }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="third-block">
+			<p>In this section, you configure the mapping of the webhook response to local variables within Goomza. Your webhook is expected to provide an object that holds the requested data, such as {{ '{ companyName: "Goomza" }' }}. </p>
+
+			<p>	To establish this mapping to a local variable, you should specify the location of the data within the object. For instance, you can create a local variable called "client" and link it to "companyName." It's important to note that nested objects are also supported for mapping, for example, 'data.company.name'.</p>
+
+			<!-- TODO: add logic to add variables to save -->
+				<!-- 
+			<div class="input-username">
+				<input required [formControl]="userName" placeholder="Username"/>
+				<div class="img-cont">
+					<img src="/assets/icons/ph_arrow-right-thin.svg"/>
+				</div>
+				<input required [formControl]="userValue" />
+			</div>
+
+			<div class="button-container">
+				<button [disabled]="userName.invalid || userValue.invalid" type="submit" class="update-button">
+					Update
+				</button>
+			</div> -->
+
+		</div>
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookForm"></app-default-option-field>
 	</form>
 </div>

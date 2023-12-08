@@ -111,6 +111,7 @@ export const ICONS_AND_TITLES = {
   25: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.WEBHOOK',
     icon: 'fas fa-link',
+    svgIcon: '/assets/icons/system-uicons_chain.svg',
   },
   27: {
     title: 'PAGE-CONTENT.BLOCK.TITLES.OPEN-ENDED-QUESTION',

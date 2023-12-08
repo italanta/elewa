@@ -16,6 +16,7 @@ export function _CreateWebhookBlockForm(_fb: FormBuilder, blockData: WebhookBloc
     id: [blockData?.id! ?? ''],
     httpUrl: [blockData.httpUrl ?? ''],
     variablesToPost: [blockData?.variablesToPost! ?? []],
+    variablesToSave: [blockData?.variablesToSave! ?? []],
     type: [blockData.type ?? StoryBlockTypes.WebhookBlock],
     position: [blockData.position ?? { x: 200, y: 50 }],
 
