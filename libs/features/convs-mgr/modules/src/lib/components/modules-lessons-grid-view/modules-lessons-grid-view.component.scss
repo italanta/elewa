@@ -71,6 +71,8 @@
 
 .card-header {
   .name {
+    position: absolute;
+    top: 20px;
     font-size: 1rem;
     text-wrap: wrap;
     width: 60%;

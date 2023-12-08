@@ -51,7 +51,7 @@ table {
 
 	&_tooltip {
 		color: gray;
-		transform: rotate(90deg);
+		transform: rotate(-5deg);
 		font-size: 20px;
 		font-weight: 500;
 	}
@@ -59,6 +59,7 @@ table {
 	&_input {
 		width: 90%;
 		height: 30px;
+		background-color: transparent;
 		border: none;
 		outline: none;
 		font-size: 15px;
@@ -89,7 +90,8 @@ select {
 	flex: 1;
 	padding: 0 1em;
 	color: black !important;
-	background-color: white;
+	background-color: #fff;
+	margin-right: 25px;
 	background-image: none;
 	cursor: pointer;
 }
@@ -111,10 +113,11 @@ select::-ms-expand {
 .select::after {
 	content: '\25BC';
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 1.8px;
+	right: 1.5px;
 	padding: .4rem;
-	background-color: #fff;
+	background-color: transparent;
+	margin-right: 17px;
 	color: black !important;
 	transition: .25s all ease;
 	pointer-events: none;
