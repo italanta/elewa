@@ -13,7 +13,7 @@ import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { BOT_FORM } from '../../providers/forms/bot-form.provider';
 
 @Component({
-  selector: 'convl-italanta-apps-create-bot-modal',
+  selector: 'app-create-bot-modal',
   templateUrl: './create-bot-modal.component.html',
   styleUrls: ['./create-bot-modal.component.scss'],
 })

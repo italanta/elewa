@@ -9,11 +9,11 @@ import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-import { STORY_FORM } from '../../providers/forms/story-form.provider';
 import { NewStoryService } from '../../services/new-story.service';
+import { STORY_FORM } from '../../providers/forms/story-form.provider';
 
 @Component({
-  selector: 'italanta-apps-create-lesson-modal',
+  selector: 'app-create-lesson-modal',
   templateUrl: './create-lesson-modal.component.html',
   styleUrls: ['./create-lesson-modal.component.scss'],
 })

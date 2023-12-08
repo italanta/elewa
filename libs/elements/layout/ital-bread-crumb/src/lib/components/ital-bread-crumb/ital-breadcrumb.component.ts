@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
+import { BreadCrumbPath, ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-ital-breadcrumb',
@@ -7,9 +8,5 @@ import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
   styleUrls: ['./ital-breadcrumb.component.scss'],
 })
 export class ItalBreadcrumbComponent {
-  @Input()
-  public breadcrumb: ItalBreadCrumb = {
-    icon: '',
-    paths: [],
-};
+  @Input() breadcrumbs$: Observable<BreadCrumbPath[]>;
 }

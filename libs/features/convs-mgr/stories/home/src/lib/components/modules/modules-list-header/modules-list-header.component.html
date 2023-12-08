@@ -4,8 +4,8 @@
     <span class="name" >{{ (parentBot$ | async)?.name }} </span>
   </div>
 
-  <div *ngIf="parentBot$ | async as bot">
-    <app-ital-breadcrumb [breadcrumb]="getBreadCrumb(bot.name)"></app-ital-breadcrumb>
+  <div *ngIf="breadcrumbs$">
+    <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
   </div>
 
   <div class="modules-btn">
@@ -54,7 +54,7 @@
   </div>
 
   <div class="content-section" *ngIf="dataFound">
-    <italanta-apps-bot-modules-list-view *ngIf="viewInListView" [botModulesData]="dataSource"></italanta-apps-bot-modules-list-view>
-    <italanta-apps-bot-modules-grid-view  *ngIf="!viewInListView" [botModules]="filteredBotModules"></italanta-apps-bot-modules-grid-view>
+    <italanta-apps-bot-modules-list-view *ngIf="viewInListView" [parentBot$]="parentBot$" [botModulesData]="dataSource"></italanta-apps-bot-modules-list-view>
+    <italanta-apps-bot-modules-grid-view  *ngIf="!viewInListView" [parentBot$]="parentBot$" [botModules]="filteredBotModules"></italanta-apps-bot-modules-grid-view>
   </div>
 </div>

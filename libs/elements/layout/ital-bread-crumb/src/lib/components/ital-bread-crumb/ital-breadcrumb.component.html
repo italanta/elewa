@@ -1,0 +1,34 @@
+<div class="ital-breadcrumb">
+  <img class="icon" src="assets/icons/bot.png">
+  
+  <!-- TODO:@Beryl-ajuoga add svgs as an asset to main app assets folder then import as image -->
+  <!-- TODO:@Beryl-ajuoga move styles in style tag to stylesheet -->
+
+  <svg class="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="iconamoon:arrow-right-2-thin">
+      <path id="Vector" d="M7.5 12.75L11.25 9L7.5 5.25" stroke="#101010" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </g>
+  </svg>
+
+  <div *ngIf="(breadcrumbs$ | async) as breadcrumbs">
+    <ul style="display: flex; align-items: center; flex-direction: row; list-style: none; padding: 0; margin: 0;">
+      <li *ngFor="let breadcrumb of breadcrumbs; let last=last" style="display: flex; align-items: center;">
+
+        <!-- fix this routerlink -->
+        <a class="breadcrumb" *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link"> 
+          {{ breadcrumb.label }}
+        </a>
+
+        <svg *ngIf="!last" class="arrow" width="18" height="18" viewBox="0 0 18 18" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <g id="iconamoon:arrow-right-2-thin">
+            <path id="Vector" d="M7.5 12.75L11.25 9L7.5 5.25" stroke="#101010" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </g>
+        </svg>
+
+      </li>
+    </ul>
+  </div>
+</div>

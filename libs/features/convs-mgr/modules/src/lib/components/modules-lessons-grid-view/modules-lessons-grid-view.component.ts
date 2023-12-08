@@ -7,12 +7,11 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-// TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
-import { 
+import {
   DeleteBotModalComponent,
   DeleteElementsEnum, 
   CreateLessonModalComponent
-} from '@app/features/convs-mgr/stories/home';
+} from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'app-modules-lessons-grid-view',

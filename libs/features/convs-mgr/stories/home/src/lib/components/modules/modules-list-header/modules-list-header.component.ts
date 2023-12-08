@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { SubSink } from 'subsink';
 import { BehaviorSubject, Observable, combineLatest, map, tap } from 'rxjs';
@@ -9,25 +9,26 @@ import { orderBy as __orderBy } from 'lodash';
 
 import { __DateFromStorage } from '@iote/time';
 
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
+
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ActionSortingOptions, CreateModuleModalComponent } from '@app/features/convs-mgr/stories/home';
-import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
+import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
+import { BreadCrumbPath, ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
   templateUrl: './modules-list-header.component.html',
   styleUrls: ['./modules-list-header.component.scss'],
 })
-export class BotModulesListHeaderComponent implements OnInit {
+export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
   @Input() parentBot$: Observable<Bot>;
   @Input() botModules$: Observable<BotModule[]>
 
-
+  breadcrumbs$: Observable<BreadCrumbPath[]>
 
   private _sBs = new SubSink();
 
@@ -47,8 +48,13 @@ export class BotModulesListHeaderComponent implements OnInit {
 
   botModules: BotModule[];
 
-  constructor(private _dialog: MatDialog, private _route: ActivatedRoute, private router:Router) {
+  constructor(
+    private _dialog: MatDialog, 
+    private _route: ActivatedRoute,
+    private _breadCrumbServ: BreadcrumbService
+  ) {
     this.activeBotId = this._route.snapshot.paramMap.get('id') as string;
+    this.breadcrumbs$ = this._breadCrumbServ.breadcrumbs$;
   }
 
   ngOnInit(): void {
@@ -127,5 +133,9 @@ export class BotModulesListHeaderComponent implements OnInit {
       return seconds;
     }
     return 0;
+  }
+
+  ngOnDestroy(): void {
+    this._sBs.unsubscribe();
   }
 }
