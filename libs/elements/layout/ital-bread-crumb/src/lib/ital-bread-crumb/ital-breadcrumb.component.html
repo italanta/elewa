@@ -14,7 +14,9 @@
   <div *ngIf="(breadcrumbs$ | async) as breadcrumbs">
     <ul style="display: flex; align-items: center; flex-direction: row; list-style: none; padding: 0; margin: 0;">
       <li *ngFor="let breadcrumb of breadcrumbs; let last=last" style="display: flex; align-items: center;">
-        <a *ngIf="breadcrumb.link" routerLink="breadcrumb.link" style="text-decoration: none;">
+
+        <!-- fix this routerlink -->
+        <a class="breadcrumb" *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link"> 
           {{ breadcrumb.label }}
         </a>
 
