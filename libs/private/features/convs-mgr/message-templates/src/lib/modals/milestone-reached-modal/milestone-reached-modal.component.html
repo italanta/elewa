@@ -26,6 +26,7 @@
               Milestone {{ i + 1 }}
             </mat-radio-button>
           </mat-radio-group>
+          <p *ngIf="!(milestones?.length)">{{ 'MESSAGE-TEMPLATES.MILESTONE.NO-MILESTONE' | transloco }}</p>
         </ng-container>
       </div>
       

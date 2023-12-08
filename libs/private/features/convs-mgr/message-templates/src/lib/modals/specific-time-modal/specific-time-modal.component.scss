@@ -25,15 +25,37 @@
   .months {
     input {
       height: 2rem;
+      width: 9rem;
       border-radius: 0.5rem;
       padding: 0.3rem;
+      font-family: Roboto;
+      font-weight: 300;
+      font-size: 1.125rem;
+      // border: 1px solid black;
     }
+    input:focus {
+      outline: none; // removes blue outline on focus
+      border: 1px solid black;  
+      box-shadow: none;
+     }
   }
+  
   .recur {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: 300;
+    .text{
+     font-size: 1.125rem;
+    }
     .select {
+      .custom-dropdown{
+        button{
+          font-size: 1rem;
+          font-weight: 300;
+          padding-right: 1.5rem;
+        }
+      }
       select {
         border: none;
         background-color: var(--convs-mgr-color-success-contrast);
@@ -49,17 +71,18 @@
   .buttons {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 1rem;
   }
   .weekly {
     .weeks {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
     }
   }
   .monthly {
     .months {
       display: flex;
-      justify-content: flex-start; 
+      justify-content: space-between;
       align-items: center;
       gap: 0.5rem; 
       width: 100%;
@@ -68,7 +91,7 @@
   }
   .xmark{
     position: absolute;
-    top: 1rem;
+    top: 2rem;
     right: 1rem;
   }
 }
@@ -83,7 +106,7 @@
   width: 4.875rem;
   height: 2.0625rem;
   flex-shrink: 0;
-  background-color: var(--convs-mgr-icon-color) !important;
+  background-color: var(--convs-mgr-button-color) !important;
   color: var(--convs-mgr-color-success-contrast) !important;
   font-family: Roboto;
   font-size: small;
@@ -110,8 +133,8 @@
 
 .selected-day {
   background-color: var(--convs-mgr-icon-color) !important;
-  color: var(--convs-mgr-color-primary-white) !important;
-  border-radius: 0.5rem;
+  color: var(--convs-mgr-color-text-white) !important;
+  padding:0.1rem 0.3rem;
 }
 
 .custom-dropdown {
@@ -121,11 +144,14 @@
 
 button.mat-button {
   display: flex;
-  align-items: center; /* Vertically center the content */
+  align-items: center; 
 }
 
 img {
-  height: 0.5rem;
+  position: absolute;
+  padding: 0 0.2rem;
+  top: 0.1rem;
+  height: 1rem;
 }
 .occur-text{
     // Repeat every
@@ -156,6 +182,7 @@ img {
   font-family: Roboto;
   font-weight: 400;
   word-wrap: break-word;
+  font-size: 1rem;
 }
 .date-bd {
   border: none !important;
@@ -182,4 +209,37 @@ img {
 
 ::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
     border-radius: 1.3rem !important;
+}
+
+
+
+.date-input{
+  display: flex;
+}
+
+.mat-datepicker-toggle{
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1.5rem;
+}
+
+:host ::ng-deep{
+ .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-form-field-infix{
+  padding: 0;
+  min-height: 2.9rem;
+ }
+ 
+ .mat-mdc-text-field-wrapper{
+  padding: 0;
+ }
+ 
+ .mat-mdc-form-field-input-control:not(.mat-mdc-form-field-textarea-control).mat-mdc-form-field-input-control.mdc-text-field__input{
+  padding: 0 1rem;
+  height: 2.9rem;
+ }
+ 
+ .mat-mdc-form-field-textarea-control.mat-mdc-form-field-input-control.mdc-text-field__input{
+  padding: 0.75rem;
+  margin-bottom: 0;
+ } 
 }

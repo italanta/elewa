@@ -1,59 +1,58 @@
-// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
-
-.page-container{
-    margin-top: 2em;
-    font-family: 'Inter', sans-serif;
-    h2{
-        font-size: 1.375em;
-        font-weight: 400;
-        line-height: 1.625em;
-    }
-    .course-item-container{
-        .course-item-title-container{
-            display: flex;
-            justify-content: space-between;
-            padding-right: 2em;
-            .course-item-title{
-                font-size: 1.25em;
-                line-height: 1.5em;
-                font-weight: 400;
-                height: 1.75em;
-                border-left: 0.25em black solid;
-                padding-left: 1;
-                width: 4.8125em;
-                text-align: end;
-            }
-        }
-        h3{
-            font-size: 1em;
-            line-height: 1.25em;
-            font-weight: 400;
-            color: rgba(0, 0, 0, 0.6);
-        }
-        .course-name{
-            display: flex;
-            width: 6.4375em;
-            height: 1.3125em;
-            align-items: center;
-            justify-content: space-evenly;
-            margin-bottom: 3em;
-        }
-        .course-progress-bars{
-            display: flex;
-            flex-direction: row;
-            padding-right: 15em;
-            align-items: center;
-            margin-top: 2em;
-            .course-progress-name{
-                font-size: 1.125em;
-                line-height: 1.5em;
-                font-weight: 400;
-                color: rgba(0, 0, 0, 1);
-                width:  31.25em;
-            }
-        }
-    }
-}
-.mat-mdc-form-field + .mat-mdc-form-field {
-    margin-left: 8px;
+.section-container {
+  .title {
+    font-size: 22px;
+    font-weight: 400;
   }
+
+  .course-item-container {
+    .course {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+.course-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .course-name-tooltip {
+    width: 3px;
+    height: 28px;
+    border-radius: 10%;
+    background-color: black;
+  }
+
+  .course-name {
+    font-size: 20px;
+  }
+}
+
+.module-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .module-title {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .module-progress-name {
+    font-size: 17px;
+  }
+
+  .lessons-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .course-progress-bars {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2.5fr 1fr;
+  }
+}
