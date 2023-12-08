@@ -3,7 +3,7 @@
 
   .title {
     font-size: 22px;
-    font-weight: 450;
+    font-weight: 400;
   }
 
   .course-item-container {
@@ -29,14 +29,15 @@
 
   .course-name {
     font-size: 20px;
-    font-weight: 450;
+    font-weight: 400;
   }
 
   .enrollment-date {
     position: absolute;
     top: 90%; 
     left: 0;
-    color: gray;  
+    color: rgba(0, 0, 0, 0.60);
+    font-weight: 300; 
   }
 }
 
@@ -98,7 +99,6 @@
     margin-top: 0.5em;
 
     .course-progress-name{
-      color: #000;
       font-size: 1.125em;
       font-weight: 300;
     }

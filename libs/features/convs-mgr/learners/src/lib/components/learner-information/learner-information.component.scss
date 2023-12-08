@@ -39,9 +39,10 @@ a:hover {
     .learner-details {
       p {
         margin: 0;
-        font-weight: lighter;
+        font-weight: 400;
         width: 10em; /* Converted from 160px */
-        height: 1.5em; /* Converted from 24px */
+        height: 1.375em; /* Converted from 22px */
+        color: #101010;
 
         &:nth-child(1) {
           font-weight: 450;
