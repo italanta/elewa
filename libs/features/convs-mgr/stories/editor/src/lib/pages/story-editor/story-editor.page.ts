@@ -161,6 +161,7 @@ export class StoryEditorPageComponent implements OnInit, OnDestroy
    
     // Get updated blocks from the frame-form
     this.state.blocks = [...this.frame.blocksArray.getRawValue()];
+    this.state.story.blocksCount = this.state.blocks.length;
    
     try {
       this._sb.sink =

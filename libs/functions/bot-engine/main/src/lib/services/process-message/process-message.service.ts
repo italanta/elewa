@@ -13,13 +13,15 @@ import { NextBlockFactory } from '../next-block/next-block.factory';
 import { CursorDataService } from '../data-services/cursor.service';
 import { ConnectionsDataService } from '../data-services/connections.service';
 import { BlockDataService } from '../data-services/blocks.service';
-import { ProcessInputFactory } from '../process-input/process-input.factory';
 
 import { BotMediaProcessService } from '../media/process-media-service';
+import { ProcessInputFactory } from '../process-input/process-input.factory';
 import { OperationBlockFactory } from '../process-operation-block/process-operation-block.factory';
 import { assessUserAnswer } from '../process-operation-block/block-type/assess-user-answer';
 import { SurveyService } from '../process-operation-block/block-type/survey-service';
 import { FallBackBlockService } from '../next-block/block-type/fallback-block.service';
+
+import { updateLearnerProgress } from '../../utils/updateLearnerProgress.util';
 
 
 export class ProcessMessageService
@@ -90,6 +92,11 @@ export class ProcessMessageService
     const inputPromise = this.processInput(msg, lastBlock, orgId, endUser);
 
     this.sideOperations.push(inputPromise);
+
+    // upodate leaner progrress
+    const updateLearnersProgressPromise = updateLearnerProgress(currentStory, lastBlock, endUser, tools, orgId);
+
+    this.sideOperations.push(updateLearnersProgressPromise);
 
     // Return the cursor updated with the next block in the story
     let {newCursor, nextBlock} = await this.__nextBlockService(currentCursor, lastBlock, orgId, currentStory, msg, endUser.id);

@@ -10,8 +10,9 @@
       background: var(--convs-mgr-color-primary-white);
       .data-result{
         padding: 1rem 0;
-        form{
+        .schedule-list{
           display: flex;
+          margin: 0.8rem 0;
           input{
             font-size: medium;
             width:90%; 
@@ -63,6 +64,9 @@
   .btn-cont{
     display: flex;
     justify-content: end;
+    span{
+      color:white ;
+    }
   }
   .form-group {
             
