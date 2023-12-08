@@ -1,10 +1,11 @@
 .courses-title {
-	font-size: 1.2rem;
+	font-size: 2rem;
 	font-weight: 400;
+	margin-top: -10px;
 }
 
 table {
-	width: 100%;
+	width: 100%;	
 }
 
 .mdc-data-table__header-cell {
@@ -21,7 +22,8 @@ table {
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: #eee;
+	background-color: #1F7A8C ;
+	opacity: 40%;
 	cursor: pointer;
 }
 
@@ -64,6 +66,10 @@ table {
 		outline: none;
 		font-size: 15px;
 		padding-left: 6px;
+
+		&::placeholder{
+			font-weight: 300;
+		}
 	}
 }
 
