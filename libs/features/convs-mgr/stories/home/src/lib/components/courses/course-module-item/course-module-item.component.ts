@@ -11,6 +11,7 @@ import { DeleteElementsEnum } from '../../../model/delete-element.enum';
 import { DeleteBotModalComponent } from '../../../modals/delete-bot-modal/delete-bot-modal.component';
 import { CreateLessonModalComponent } from '../../../modals/create-lesson-modal/create-lesson-modal.component';
 
+
 @Component({
   selector: 'italanta-apps-course-module-item',
   templateUrl: './course-module-item.component.html',
@@ -20,7 +21,7 @@ export class CourseModuleItemComponent {
   @Input() botModule: BotModule;
   @Input() story: Story;
 
-  constructor(private _dialog: MatDialog, private _router$: Router,){}
+  constructor(private _dialog: MatDialog, private _router$: Router){}
 
   openModule(id: string) {
     this._router$.navigate(['modules', id]);
