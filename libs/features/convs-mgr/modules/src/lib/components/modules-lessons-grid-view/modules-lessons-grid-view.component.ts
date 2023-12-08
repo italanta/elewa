@@ -29,7 +29,6 @@ export class ModulesLessonsGridViewComponent {
 
   openLesson(id: string) {
     this._router$$.navigate(['stories', id]);
-    console.log(this._router$$.navigate(['stories', id]))
   }
 
   editLesson(story: Story) {
