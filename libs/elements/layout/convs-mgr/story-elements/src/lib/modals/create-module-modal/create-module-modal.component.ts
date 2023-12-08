@@ -14,7 +14,7 @@ import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BOT_MODULE_FORM } from '../../providers/forms/bot-module-form.provider';
 
 @Component({
-  selector: 'italanta-apps-create-module-modal',
+  selector: 'app-create-module-modal',
   templateUrl: './create-module-modal.component.html',
   styleUrls: ['./create-module-modal.component.scss'],
 })

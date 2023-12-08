@@ -5,7 +5,7 @@ import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Bot } from '@app/model/convs-mgr/bots';
 
 @Component({
-  selector: 'italanta-apps-bot-create-flow-modal',
+  selector: 'app-bot-create-flow-modal',
   templateUrl: './bot-create-flow-modal.component.html',
   styleUrls: ['./bot-create-flow-modal.component.scss'],
 })

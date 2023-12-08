@@ -11,12 +11,13 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
-import { NewStoryService } from '../../services/new-story.service';
 import { DeleteElementsEnum } from '../../model/delete-element.enum';
 import { BotElementType } from '../../model/all-elements.type';
 
+import { NewStoryService } from '../../services/new-story.service';
+
 @Component({
-  selector: 'convl-italanta-apps-delete-bot-modal',
+  selector: 'app-delete-bot-modal',
   templateUrl: './delete-bot-modal.component.html',
   styleUrls: ['./delete-bot-modal.component.scss'],
 })
