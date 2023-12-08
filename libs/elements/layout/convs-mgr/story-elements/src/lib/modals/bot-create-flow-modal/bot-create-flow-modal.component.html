@@ -1,14 +1,11 @@
 <mat-stepper #stepper>
   <mat-step label="Create Bot" errorMessage="Create Bot first">
-    <convl-italanta-apps-create-bot-modal (nextStepEvent)="moveToNextStep($event)"></convl-italanta-apps-create-bot-modal>
+    <app-create-bot-modal (nextStepEvent)="moveToNextStep($event)"></app-create-bot-modal>
   </mat-step>
   <mat-step label="Create Module">
-    <italanta-apps-create-module-modal
-      (nextStepEvent)="moveToNextStep($event)"
-      [botFromStepper]="botFromStepper"
-    ></italanta-apps-create-module-modal>
+    <app-create-module-modal (nextStepEvent)="moveToNextStep($event)" [botFromStepper]="botFromStepper"></app-create-module-modal>
   </mat-step>
   <mat-step label="Create Lesson">
-    <italanta-apps-create-lesson-modal [botModFromStepper]="botModFromStepper"></italanta-apps-create-lesson-modal>
+    <app-create-lesson-modal [botModFromStepper]="botModFromStepper"></app-create-lesson-modal>
   </mat-step>
 </mat-stepper>
