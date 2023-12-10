@@ -1,8 +1,5 @@
 <div class="layout has-sidebar fixed-sidebar fixed-header">
   <aside id="sidebar" class="sidebar break-point-sm has-bg-image">
-    <div class="image-wrapper">
-      <img src="assets/images/sidebar-bg.jpg" alt="sidebar background" />
-    </div>
     <div class="sidebar-layout">
       <div class="sidebar-header" [ngClass]="!isExpanded ? 'make-col' : ''">
         <div class="pro-sidebar-logo">
@@ -20,8 +17,8 @@
         <nav class="menu open-current-submenu">
           <ul>
             <!-- Section Dashboard -->
-            <li routerLink="/home" routerLinkActive="active" class="menu-item" >
-              <a>
+            <li routerLinkActive="active" class="menu-item" >
+              <a (click)="navigateToHome()">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded"  src="assets/icons/home-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.HOME'| transloco }}"  src="assets/icons/home-stroked.svg" class="img" alt="">
@@ -33,8 +30,8 @@
 
             <!-- Section Bots -->
 
-            <li *hasViewAccess="CAN_ACCESS_BOTS" routerLink="/bots" routerLinkActive="active" class="menu-item" >
-              <a>
+            <li *hasViewAccess="CAN_ACCESS_BOTS"  routerLinkActive="active" class="menu-item" >
+              <a (click)="navigateToBots()">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/bots-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.BOT'| transloco }}" src="assets/icons/bots-stroked.svg" class="img" alt="">
@@ -45,14 +42,20 @@
             </li>
 
             <!-- Section Analytics -->
-            <li *hasViewAccess="CAN_ACCESS_ANALYTICS" routerLink="/analytics/dashboard" routerLinkActive="active" class="menu-item" >
-              <a>
+            <li *hasViewAccess="CAN_ACCESS_ANALYTICS" routerLinkActive="active" class="menu-item" >
+              <a (click)="navigateToAnalytics()" *appFeatureFlag="'analytics'">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/insights-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }}" src="assets/icons/insights-stroked.svg" class="img" alt="">
                 </span>
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.ANALYTICS'| transloco }} </span>
+
+                  <span >
+                    <p *ngIf="isExpanded && !featureFlagsService.isFeatureOn('analytics')" class="comingSoon">
+                      {{ 'PAGE-CONTENT.SIDE-MENU.COMING-SOON' | transloco }}
+                    </p>
+                  </span>
               </a>
             </li>
 
@@ -112,8 +115,8 @@
             </li>
 
             <!-- Surveys sections -->
-            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item" routerLink="/surveys" routerLinkActive="active" >
-              <a>
+            <li *hasViewAccess="CAN_ACCESS_ASSESSMENTS" class="menu-item"  routerLinkActive="active" >
+              <a (click)="navigateToSurveys()" *appFeatureFlag="'surveys'">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/survey.svg" class="img" alt="">
                   <img *ngIf="!isExpanded" matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}" src="assets/icons/survey.svg" class="img" alt="">
@@ -121,7 +124,11 @@
                 <span *ngIf="isExpanded" class="menu-title">
                   {{'PAGE-CONTENT.SIDE-MENU.SURVEYS'| transloco }}
                 </span>
-                
+                <span >
+                  <p *ngIf="isExpanded && !featureFlagsService.isFeatureOn('surveys')" class="comingSoon">
+                    {{ 'PAGE-CONTENT.SIDE-MENU.COMING-SOON' | transloco }}
+                  </p>
+                </span>
               </a>
             </li>
 

@@ -12,7 +12,7 @@ export interface ScheduleOptions extends IObject
    /**
     * The id of the survey or message template
     */
-   objectID: string;
+   objectID?: string;
 
    /** The time scheduled for the message to be sent 
     * 
@@ -23,6 +23,8 @@ export interface ScheduleOptions extends IObject
  
    /** Interval to send message templates to users in cron format */
    frequency?: string;
+
+   rawSchedule?: any;
    
    /**
     * If it is a recurring schedule, the end date is the time the repetition will
@@ -33,15 +35,25 @@ export interface ScheduleOptions extends IObject
 
    inactivityTime?: number;
 
+   milestone?: any;
+
    /**
     * The array of users id to send the message template/survey to
     */
-   enrolledEndUsers: string[];
+   enrolledEndUsers?: string[];
 
    /**
     * The type of the job scheduled. Can be survey or just one message
     */
    type?: JobTypes;
+
+   scheduleOption?: ScheduleOptionType;
+}
+
+export enum ScheduleOptionType {
+   Milestone = 'milestone',
+   Inactivity = 'inactivity',
+   SpecificTime = 'time'
 }
 
 export enum JobTypes 
