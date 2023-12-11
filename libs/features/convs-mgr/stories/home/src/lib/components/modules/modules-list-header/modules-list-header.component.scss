@@ -13,9 +13,10 @@
     }
 
     .name {
-      font-size: 2.5rem;
-      font-weight: 300 !important;
+      font-size: 2rem;
+      font-weight: 400 !important;
       text-transform: capitalize;
+      margin-top: -10px;
     }
   }
 
@@ -56,8 +57,18 @@
 
     .search-wrapper {
       position: relative;
+      height: 10px;
+      width: 50%;
+      background-color: var(--convs-mgr-color-primary-white);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
       .search-input {
+        background-color: transparent;
+        font-weight: 300;
         border: none;
         outline: none;
         padding: 1rem 0.5rem;
@@ -67,9 +78,9 @@
 
       .search-wrapper_tooltip {
         color: gray;
-        transform: rotate(90deg);
+        transform: rotate(360deg);
         font-size: medium;
-        font-weight: 500;
+        font-weight: 300;
       }
     }
   }

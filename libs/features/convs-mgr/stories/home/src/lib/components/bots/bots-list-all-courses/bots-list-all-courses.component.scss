@@ -21,8 +21,10 @@ table {
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: #eee;
+	background-color: #1F7A8C;
 	cursor: pointer;
+	opacity: 80%;
+	background-color: rgba(31, 122, 140, 0.4);
 }
 
 .channel-badge {
@@ -42,7 +44,6 @@ table {
 .search {
 	height: 5px;
 	width: 80%;
-	background-color: var(--convs-mgr-color-primary-white);
 	border-radius: 8px;
 	display: flex;
 	align-items: center;
@@ -51,18 +52,20 @@ table {
 
 	&_tooltip {
 		color: gray;
-		transform: rotate(90deg);
+		transform: rotate(360deg);
 		font-size: 20px;
 		font-weight: 500;
 	}
 
 	&_input {
+		font-weight: 300;
 		width: 90%;
 		height: 30px;
 		border: none;
 		outline: none;
 		font-size: 15px;
 		padding-left: 6px;
+		background-color: transparent;
 	}
 }
 
@@ -80,6 +83,21 @@ table {
 	width: auto;
 	object-fit: contain;
 }
+
+#btn-view-all{
+    padding: 1rem 1.3rem;
+    background-color: teal;
+    outline: none;
+    border: none;
+    color: rgb(68, 64, 64);
+    border-radius: 40px;
+    cursor: pointer;
+    transition: ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
 
 select {
 	appearance: none;
