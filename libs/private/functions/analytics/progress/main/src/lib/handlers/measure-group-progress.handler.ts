@@ -20,7 +20,7 @@ import {
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
-import { _getProgressCompletionRateData } from '../utils/getCompletionRate.util';
+import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
 
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
@@ -108,6 +108,8 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
 async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], timeInUnix:number, tools: HandlerTools, orgId: string) {
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Start grouping allusersProgress`);
+
   const monitoringDataServ = new MonitoringAndEvaluationService(tools, orgId);
 
   const enrolledUserDataServ = new EnrolledUserDataService(tools, orgId);
