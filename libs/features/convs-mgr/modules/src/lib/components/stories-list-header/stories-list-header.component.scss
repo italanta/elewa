@@ -77,8 +77,9 @@
         border-radius: 30px;
         min-width: 22rem;
         background-color: transparent;
+        font-weight: 300;
       }
-      
+
        // Removed the transform property it's default is 360deg
       .search-wrapper_tooltip {
         color: gray;
