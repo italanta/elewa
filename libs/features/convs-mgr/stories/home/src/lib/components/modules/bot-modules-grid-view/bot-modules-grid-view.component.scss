@@ -11,6 +11,9 @@
   }
 }
 
+.horizontal{
+  align-items: center;
+}
 .botModule-card {
   display: flex;
   flex-direction: column !important;
@@ -45,6 +48,12 @@
   position: relative;
 }
 
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .menu-btn {
   position: absolute;
   right: 0rem;
@@ -59,7 +68,14 @@
 }
 
 .card-header {
-  .name {
+    .name {
     font-size: 1rem;
   }
+}
+
+.card-footer {
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+  align-items: flex-end; 
 }

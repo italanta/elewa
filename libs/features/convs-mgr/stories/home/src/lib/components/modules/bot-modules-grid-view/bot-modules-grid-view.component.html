@@ -1,6 +1,7 @@
 <div class="grid" *ngIf="botModules">
   <div class="bot-cards" [ngClass]="botModules.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
     <div class="botModule-card" *ngFor="let botModule of botModules">
+     <div class="header-container">
       <div class="menu-btn">
         <button mat-button [matMenuTriggerFor]="menu">
           <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
@@ -13,12 +14,19 @@
           </button>
         </mat-menu>
       </div>
-
+      
       <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
         <span class="name">
           {{ botModule.name }}
         </span>
       </div>
+
+
+     </div>
+        
+        
+     
+     
 
       <div class="card-footer" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
         <span> OPEN MODULE </span>

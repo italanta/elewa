@@ -2,6 +2,8 @@
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
+  font-weight:400 ;
+  font-size: 2rem;
 
   &.grid-evenly-spaced {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -56,6 +58,11 @@
   }
 }
 
+.header-container{
+  display: flex;
+  align-items: center;
+}
+
 .menu-btn {
   position: absolute;
   right: 0rem;
@@ -68,11 +75,16 @@
 .tooltip {
   color: white;
 }
+.card-footer{
+  margin-top: 100px;
+}
+
 
 .card-header {
   .name {
     font-size: 1rem;
     text-wrap: wrap;
     width: 60%;
+   
   }
 }

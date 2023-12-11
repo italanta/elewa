@@ -7,6 +7,7 @@ table {
 	width: 100%;
 }
 
+
 .mdc-data-table__header-cell {
 	color: #7C7C7C;
 	font-weight: 400;
@@ -21,7 +22,8 @@ table {
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-	background-color: #eee;
+	background-color: rgba(31, 122, 140, 0.4) ;
+	// Opacity of 40% doesn't appeal 
 	cursor: pointer;
 }
 
@@ -48,14 +50,15 @@ table {
 	align-items: center;
 	padding: 20px;
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
+    //  Removed the tranform  property
+	// The default angle of the search icon is 360deg
 	&_tooltip {
 		color: gray;
-		transform: rotate(90deg);
 		font-size: 20px;
 		font-weight: 500;
 	}
-
+	// Removed the white background by giving a bg of transparent
+	// Lightened the font weight 
 	&_input {
 		width: 90%;
 		height: 30px;
@@ -63,6 +66,8 @@ table {
 		outline: none;
 		font-size: 15px;
 		padding-left: 6px;
+		background-color: transparent;
+		font-weight: 300;
 	}
 }
 
@@ -124,3 +129,17 @@ select::-ms-expand {
 .select:hover::after {
 	color: black;
 }
+#btn-view-all {
+    padding: 1rem 1.3rem;
+    background-color: teal;
+    outline: none;
+    border: none;
+    color: white;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
