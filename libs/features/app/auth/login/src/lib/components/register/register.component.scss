@@ -23,7 +23,7 @@ label {
   color: $primary-icon-color;
   opacity: 0.8;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .hr-with-text::before,
@@ -32,7 +32,7 @@ label {
   width: 20px;
   flex: 1;
   border-bottom: 1px solid $primary-icon-color;
-  margin: 0 3px 8px 3px;
+  margin: 0 3px 5px 3px;
   opacity: 0.6;
 }
 

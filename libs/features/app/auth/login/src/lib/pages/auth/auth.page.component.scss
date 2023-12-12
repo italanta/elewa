@@ -26,17 +26,19 @@
 }
 
 .actions {
-	padding: 0px 0px 10px 0px;
+	padding: 0px 0px 5px 0px;
 }
 
 .action-title {
 	font-size: 2rem;
+	text-align: center;
 	color: var(--convs-mgr-color-text-black);
 }
 
 .action-desc {
-	margin-top: 10px;
+	margin-top: 5px;
 	font-weight: 300;
+	text-align: center;
 }
 
 .action-buttons {
@@ -49,7 +51,7 @@
 		align-items: center!important;
 		justify-content: center!important;
 
-		margin-bottom: 10px;
+		margin-bottom: 5px;
 
 		img {
 			width: 20px;
@@ -64,7 +66,7 @@
 	width: 200px;
 	height: auto;
 	object-fit: contain;
-	margin: 40px 0 30px 0;
+	margin: 10px 0 10px 0;
 
 }
 
