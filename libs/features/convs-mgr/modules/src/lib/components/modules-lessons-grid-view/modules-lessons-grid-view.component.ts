@@ -44,7 +44,7 @@ export class ModulesLessonsGridViewComponent {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: story
+        mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule
       }
     }).afterClosed();
   }
