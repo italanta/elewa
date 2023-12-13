@@ -8,8 +8,8 @@ import { SubSink } from 'subsink';
 
 import * as _ from 'lodash';
 
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { filter, map, startWith, tap } from 'rxjs/operators';
 
 import { DataService } from '@ngfi/angular';
 import { Logger } from '@iote/bricks-angular';
@@ -18,14 +18,14 @@ import { __DateFromStorage } from '@iote/time';
 import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
 import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
-import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+import { ChatsStore, ActiveChatConnectedStore, ChatsListState, ChatsListStateProvider } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-list',
   templateUrl: './chats-list.component.html',
   styleUrls: ['./chats-list.component.scss']
 })
-export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
+export class ChatsListComponent implements AfterViewInit, OnDestroy
 {
   private _sbs = new SubSink()
   currentChat: Chat;
@@ -42,6 +42,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
   paidCustomers: string[] = [];
 
   searchString$: Observable<string>
+
   search = new FormControl<string>('');
 
   dataSource: MatTableDataSource<any>;
@@ -52,10 +53,13 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
+  _state$$: ChatsListState;
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
-  constructor(private _chats$: ChatsStore,
+  constructor(
+    // private _chats$: ChatsStore,
+    private _chats$: ChatsListStateProvider,
     private _activeChat$: ActiveChatConnectedStore,
     private cd: ChangeDetectorRef,
     _dS: DataService,
@@ -71,13 +75,16 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
 
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$ = this._chats$.get();
-    this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
-  }
+    this._state$$ = this._chats$.getChatListState();
 
-  
-  ngOnInit() {
     this.searchString$ = this.search.valueChanges as Observable<string>;
+
+    this.chats$ = combineLatest([this.searchString$.pipe(startWith('')), this._state$$.getChats()])
+                .pipe(map(([s, c]) => s == '' ? c : 
+                        c.filter((c) =>  this._searchChat(c, s))
+                  ));
+
+    this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
 
   ngAfterViewInit()
@@ -117,6 +124,13 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
     this.completed = [];
     this.stashed = [];
     this.blocked = [];
+  }
+
+  move(direction: 'past' | 'future') 
+  {
+    this.isLoading = true;
+
+    this._state$$.nextPage(direction);
   }
 
   categorize(chat: Chat)
@@ -214,6 +228,15 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
     }
     this.dataSource.data = this.displayedChats;
     this.isLoading = false;
+  }
+
+  _searchChat(chat: Chat, searchTerm: string): boolean {
+    const combinedProperties = Object.keys(chat)
+      .map(key => chat[key])
+      .join(' ')
+      .toLowerCase();
+
+    return combinedProperties.includes(searchTerm.toLocaleLowerCase());
   }
 
   hasCompleted(element: any)
