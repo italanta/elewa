@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, OnDestroy, ViewChildren, Query
 import { AbstractControl, FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { ConditionalBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
@@ -24,22 +24,20 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
 
   @ViewChildren('optionInputFields') optionInputFields: QueryList<OptionInputFieldComponent>;
 
-  private currentIndex = 0; 
+  private currentIndex = 0;
+  private _sBs = new SubSink();
 
   vars$: Observable<string[]>;
 
-  private _sBs = new SubSink();
   readonly listOptionInputLimit = 20;
   readonly listOptionsArrayLimit = 10;
 
-  constructor(private _fb: FormBuilder, 
-              private variables: VariablesService) 
-  {
+  constructor(private _fb: FormBuilder, private variables: VariablesService) {
     this.vars$ = this.variables.getAllVariables();
   }
 
   ngOnInit() {
-    this.manageFormControls()
+    this.manageFormControls();
   }
 
   ngAfterViewInit(): void {
@@ -49,30 +47,33 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   manageFormControls() {
-    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value),map(isTyped => {
+    this._sBs.sink = this.isTyped.valueChanges.pipe(startWith(this.isTyped.value)).subscribe((isTyped) => {
       if (isTyped) {
-        this.selectedVar.reset()
-        this.selectedVar.disable()
-        this.typedVar.enable()
+        this.selectedVar.reset();
+        this.selectedVar.disable();
+        this.typedVar.enable();
+        // Disable the select element if it's not null
+        this.conditionalBlockForm.get('assessmentlabel')?.disable();
+      } else {
+        this.typedVar.reset();
+        this.typedVar.disable();
+        this.selectedVar.enable();
+        // Enable the select element if it's not null
+        this.conditionalBlockForm.get('assessmentlabel')?.enable();
       }
-      else {
-        this.typedVar.reset()
-        this.typedVar.disable()
-        this.selectedVar.enable()
-      }
-    })).subscribe()
+    });
   }
 
   get isTyped(): AbstractControl {
-    return this.conditionalBlockForm.controls['isTyped']
+    return this.conditionalBlockForm.controls['isTyped'];
   }
 
   get selectedVar(): AbstractControl {
-    return this.conditionalBlockForm.controls['selectedVar']
+    return this.conditionalBlockForm.controls['selectedVar'];
   }
 
   get typedVar(): AbstractControl {
-    return this.conditionalBlockForm.controls['typedVar']
+    return this.conditionalBlockForm.controls['typedVar'];
   }
 
   get options(): FormArray {
@@ -83,8 +84,8 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
     return this._fb.group({
       id: [optionItem?.id ?? `${this.id}-${this.options.length + 1}`],
       message: [optionItem?.message ?? ''],
-      value: [optionItem?.value ?? '']
-    })
+      value: [optionItem?.value ?? ''],
+    });
   }
 
   addNewOption() {
@@ -101,13 +102,10 @@ export class ConditionalBlockComponent<T> implements OnInit, AfterViewInit, OnDe
   }
 
   setFocusOnNextInput() {
-    this.currentIndex = __FocusCursorOnNextInputOfBlock(
-      this.currentIndex,
-      this.optionInputFields
-    );
+    this.currentIndex = __FocusCursorOnNextInputOfBlock(this.currentIndex, this.optionInputFields);
   }
 
   ngOnDestroy() {
-    this._sBs.unsubscribe()
+    this._sBs .unsubscribe();
   }
 }

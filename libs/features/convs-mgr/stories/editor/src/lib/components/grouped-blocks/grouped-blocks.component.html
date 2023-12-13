@@ -2,7 +2,7 @@
   <ng-container *ngFor="let block of groupedBlocks">
     <div (click)="addBlock(block.type)" draggable="true" (dragend)="onDragEnd(block.type)" class="block">
       <div fxLayout="column" fxLayoutAlign="center center" class="blocks-main">
-        <i class="{{ block.blockIcon }}" id="icons"></i>
+          <i class="{{ block.blockIcon}}" class="icon-color"></i>
       </div>
       <p class="block-messages">
         {{ block.message }}

@@ -1,6 +1,6 @@
 
 mat-card {
-	min-width: 200px;
+	min-width: 12.5rem;
 }
 
 mat-card-title {
@@ -8,31 +8,47 @@ mat-card-title {
 	color: var(--convs-mgr-color-primary-purple);
 }
 
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
 label {
 	width: 100%;
-	min-height: 100px;
-	font-size: 2rem;
+	height: 4rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
-	color: var(--convs-mgr-color-primary-purple);
-	border-radius: 0.3rem;
-	cursor: pointer;
 }
 
-div {
-	margin-bottom: 10px;
+.image-file {
+	height: fit-content !important;
+}
+
+input {
+	box-sizing: border-box;
+	min-width: calc(100% - 20px) !important; // minus the padding
+	padding: 10px;
+	border: none;
+	resize: none;
+  outline: none;
+	border-radius: 0.6rem;
+	background-color: var(--convs-mgr-placeholder-color);
 }
 
 .image_bg {
-	margin: 5px 0;
-	width: 210px;
-	border-radius: 4px;
-	border: 2px solid var(--convs-mgr-color-primary-purple);
+	text-align: center;
+	color: var(--convs-mgr-color-primary-black) !important;
+	min-width: calc(100% - 20px) !important; 
+	padding: 10px;
+	height: 4rem;
+	background-color: var(--convs-mgr-placeholder-color) !important;
+	border-radius: 0.6rem;
+	opacity: 1;
 
 	&.error {
-		border: 3px solid red !important;
+		border: 0.1875rem solid red !important;
 	}
 }
 
@@ -47,20 +63,8 @@ div {
 
 .upload-image {
 	max-width: 100%;
-	max-height: 150px;
+	max-height: 9.375rem;
 	object-fit: cover;
-}
-
-#caption, #image-link {
-  max-width: 100%;
-  height: fit-content!important;
-  padding: 5px 10px;
-	margin-bottom: 5px;
-  border-radius: 3px;
-  caret-color: var(--convs-mgr-color-text-black);
-  color: var(--convs-mgr-color-text-black);
-  outline: none;
-  border: 1px solid var(--convs-mgr-color-text-black);
 }
 
 #imageFile {

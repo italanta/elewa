@@ -1,16 +1,21 @@
-import { AfterViewInit, Component, Inject, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
+import { Subscription } from 'rxjs';
 
 import { AppClaimDomains } from '@app/private/model/access-control';
+import { PermissionsStore } from '@app/private/state/organisation/main';
+import { FeatureFlagsService } from '@app/elements/base/feature-flags';
 
 import { MenuStateToggleService } from '../../providers/messages-menu-state';
 import { SidemenuToggleService } from '../../providers/sidemenu-toggle.service'
-import { PermissionsStore } from '@app/private/state/organisation/main';
+
 
 import { Poppers } from '../../model/side-menu-popper.model';
 import { slideToggle, slideUp } from '../../providers/side-menu-constants.function';
+
+
 /**
  * Sidemenu component for the CONVERSATIONAL LEARNING project. 
  * @see convl-page.module to learn more about how we determine usage of this component.
@@ -20,9 +25,10 @@ import { slideToggle, slideUp } from '../../providers/side-menu-constants.functi
   templateUrl: './convl-sidemenu.component.html',
   styleUrls: [ './convl-sidemenu.component.scss' ]
 })
-export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
+export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy 
 {
   private _sbS = new SubSink();
+  private _subscription: Subscription;
 
   @Input() user: any;
   
@@ -49,10 +55,14 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
               private sideMenu:SidemenuToggleService,
               private _mMenuState: MenuStateToggleService,
               private _ps: PermissionsStore,
+              public featureFlagsService: FeatureFlagsService,
+              private cdr: ChangeDetectorRef,
               @Inject('ENVIRONMENT') private _env: any)
   {
     this._sbS.sink = this.sideMenu.menuStatus$.subscribe((isOpen) => (this.isExpanded = isOpen));
     this._sbS.sink = this._mMenuState.menuState$.subscribe((isOpen) => (this.isDropdownOpen = isOpen));
+    this._sbS.sink = this.featureFlagsService.init(); 
+    
   }
 
   ngAfterViewInit(): void {
@@ -108,6 +118,22 @@ export class ConvlSideMenuComponent implements AfterViewInit, OnDestroy
         slideToggle(element.nextElementSibling);
       });
     });
+  }
+  
+  navigateToBots(){
+    this._router$$.navigate(['/bots'])
+  }
+
+  navigateToHome(){
+    this._router$$.navigate(['/home'])
+  }
+
+  navigateToAnalytics() {
+    this._router$$.navigate(['/analytics/dashboard']);
+  }
+
+  navigateToSurveys(){
+    this._router$$.navigate(['/surveys']);
   }
 
   openActiveFeature(feature: string, ) {
