@@ -27,6 +27,8 @@ export class ChatsListState
   /** Amount of pages we've loaded */
   private _pages = 0;
 
+  private allPages = 0;
+
   constructor(
     private _chats$$: ChatsStore,
     /** Number of days to load per page */
@@ -113,6 +115,8 @@ export class ChatsListState
 
   private _scopeChatsPage(chats: Chat[], page: number)
   {
+    this.allPages = this._calculatePageCount(chats.length, this._loadsPerPage);
+
     let scopedChatsList = ___clone(chats);
 
     const sliceFrom = page * this._loadsPerPage;
@@ -120,4 +124,19 @@ export class ChatsListState
 
     return scopedChatsList;
   }
+
+  getPageCount() {
+    return this.allPages;
+  }
+
+  private _calculatePageCount(chats: number, itemsPerPage: number): number {
+    let pagesCount = chats / itemsPerPage;
+    
+    if (chats % itemsPerPage !== 0) {
+      pagesCount = Math.floor(pagesCount) + 1;
+    }
+    
+    return pagesCount;
+  }
+  
 }
