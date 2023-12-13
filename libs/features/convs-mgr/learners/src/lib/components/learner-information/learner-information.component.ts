@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
@@ -9,14 +9,22 @@ import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '@app/providers/convs-mgr/avat
   templateUrl: './learner-information.component.html',
   styleUrls: ['./learner-information.component.scss'],
 })
-export class LearnerInformationComponent {
+export class LearnerInformationComponent implements OnInit {
   location = ""
+  
+  avatarColor: string;
+  learnerInitials: string;
+
   constructor( private _router: Router){}
 
   @Input() currentLearner: EnrolledEndUser;
 
-  // Generate a random color for the avatar
-  randomAvatarColor = () => GET_RANDOM_COLOR(); 
+  ngOnInit() {
+    // Generate a random color for the avatar once when the component is initialized
+    this.avatarColor = GET_RANDOM_COLOR();
+    // Get initials of the learner's name for the avatar once when the component is initialized
+    this.learnerInitials = this.getInitials(this.currentLearner.name);
+  }
 
   getStatus() :string{
     return EnrolledEndUserStatus[this.currentLearner.status];
@@ -27,7 +35,10 @@ export class LearnerInformationComponent {
   }
 
   // Get initials of the learner's name for the avatar
-  getInitials = (name: string) => GET_USER_AVATAR(name);
+  getInitials(name: string | undefined): string {
+    // Check if name is undefined before calling GET_USER_AVATAR
+    return name ? GET_USER_AVATAR(name) : '';
+  }
 
   // Format the phone number in the desired pattern(4-3-3)
   formatPhoneNumber(phoneNumber: string | undefined): string {
