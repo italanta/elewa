@@ -52,7 +52,8 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     if (!this.currentLearner.courses) {
-      return of([]);
+      this.isLoading = false;
+      return of([])
     }
 
     const progress = this.currentLearner.courses.map((course) =>

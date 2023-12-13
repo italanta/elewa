@@ -275,6 +275,7 @@
     },
     "TOP-BAR": {
       "SAVE-STORY": "Save",
+      "SAVE-WITH-ERRORS": "Save Anyway",
       "PUBLISH-STORY": "Publish Story",
       "SEARCH": "Search"
     },

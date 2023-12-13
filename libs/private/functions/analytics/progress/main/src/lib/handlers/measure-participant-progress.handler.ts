@@ -55,6 +55,9 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const story = await storyRepo.getDocumentById(storyId);
 
+    // TODO: create a default parentModule for null stories/lessons.
+    if (story === null || !story.parentModule) return;
+
     const parentModule = await botModDataService.getBotModule(story.parentModule);
 
     const progress = await _computeLearnerProgress(participant.enrolledUser, storiesDataService);

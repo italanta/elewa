@@ -7,7 +7,6 @@ mat-card {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: 3.5rem;
 
 	&:hover {
 		cursor: move;
@@ -58,6 +57,7 @@ mat-card {
 	color: var(--convs-mgr-color-text-black);
 	font-family: Roboto;
 	font-style: normal;
+	font-weight: 400;
 	font-size: 0.8125rem;
 	line-height: normal;
 }

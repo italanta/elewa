@@ -1,16 +1,13 @@
-import { CompletionRateProgress, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
+import { 
+  CompletionRateProgress, 
+  ParticipantProgressMilestone, 
+  ProgressDataRecord
+} from '@app/model/analytics/group-based/progress';
 
 export function _getProgressCompletionRateData(allUsersProgress: ParticipantProgressMilestone[]) : CompletionRateProgress {
+  const coursesProgressData: ProgressDataRecord = allUsersProgress.reduce((result, participantProgress) => {
+    if (!participantProgress) return result;
 
-  const coursesProgressData: Record<
-    string,
-    {
-      avgCourseProgress: number;
-      modules: Record<string, { avgModuleProgress: number }>;
-    }
-  > = {};
-
-  allUsersProgress.map((participantProgress) => {
     const { participant } = participantProgress;
 
     participant.progress.map((enrolledUserProgress) => {
@@ -19,19 +16,20 @@ export function _getProgressCompletionRateData(allUsersProgress: ParticipantProg
       enrolledUserProgress.modules.map((moduleProgress) => {
         const { moduleId } = moduleProgress;
 
-        if (!coursesProgressData[courseId]) {
-          coursesProgressData[courseId] = { avgCourseProgress: 0, modules: {} };
+        if (!result[courseId]) {
+          result[courseId] = { avgCourseProgress: 0, modules: {} };
         }
 
-        if (!coursesProgressData[courseId].modules[moduleId]) {
-          coursesProgressData[courseId].modules[moduleId] = { avgModuleProgress: 0 };
+        if (!result[courseId].modules[moduleId]) {
+          result[courseId].modules[moduleId] = { avgModuleProgress: 0 };
         }
 
-        coursesProgressData[courseId].modules[moduleId].avgModuleProgress +=
-          moduleProgress.moduleProgress;
+        result[courseId].modules[moduleId].avgModuleProgress += moduleProgress.moduleProgress;
       });
     });
-  });
+
+    return result;
+  }, {});
 
   // Calculate average progress for each module within each course
   for (const courseId in coursesProgressData) {
@@ -64,13 +62,15 @@ export function _getProgressCompletionRateData(allUsersProgress: ParticipantProg
 }
 
 /** parse the data into an array format */
-function convertObjectsToArray(data: Record<string, { avgCourseProgress: number; modules: Record<string, { avgModuleProgress: number }> }>) {
+function convertObjectsToArray(data: ProgressDataRecord) {
   return Object.keys(data).map((id) => {
     const item = data[id];
+
     return {
       courseId: id,
       avgCourseProgress: item.avgCourseProgress,
       modules: Object.keys(item.modules).map((moduleId) => {
+
         return {
           moduleId: moduleId,
           avgModuleProgress: item.modules[moduleId].avgModuleProgress
