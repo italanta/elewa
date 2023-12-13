@@ -7,7 +7,7 @@
 
 :host ::ng-deep .settings-page .mat-mdc-tab-group {
   border-radius: 5px;
-  background-color: white;
+  background-color: #f6f6f6;
 }
 
 :host ::ng-deep .mat-mdc-tab .mdc-tab__text-label{
@@ -20,7 +20,7 @@ div{
     .admin-header{   
       font-family: Roboto;
       word-wrap: break-word;
-      margin: 2vh 0 2vh 2vh;
+      margin: 2vh 0 2vh 10vh;
       color: #101010;
       font-size: 2rem;
       font-weight: 400;

@@ -12,6 +12,8 @@ export class BotsSettingsComponent {
   @Input() roles: string[];
 
   viewRoles: string[] = [];
+  
+  panelState: boolean = false;
 
   constructor() {}
 
