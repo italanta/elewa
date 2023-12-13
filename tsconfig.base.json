@@ -422,6 +422,9 @@
       "@app/state/convs-mgr/story-editor": [
         "libs/state/convs-mgr/story-editor/src/index.ts"
       ],
+      "@app/state/convs-mgr/variables": [
+        "libs/state/convs-mgr/variables/src/index.ts"
+      ],
       "@app/state/file": ["libs/state/file/store/src/index.ts"],
       "@app/state/file/whatsapp": ["libs/state/file/whatsapp/src/index.ts"],
       "@app/state/organisation": ["libs/state/organisation/main/src/index.ts"],
