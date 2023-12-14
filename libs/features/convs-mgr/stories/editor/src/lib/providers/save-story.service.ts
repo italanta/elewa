@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { Injectable } from "@angular/core";
 
 import { StoryError, StoryErrorType } from "@app/model/convs-mgr/stories/main";
@@ -11,22 +13,26 @@ import { KeywordMessageBlock, ListMessageBlock, QuestionMessageBlock } from "@ap
 @Injectable()
 export class SaveStoryService 
 {
-  private validator: StoryError[] = [];
+  private validator: StoryError[];
 
   constructor(private _editorState$$: StoryEditorStateService) 
   { }
 
   saveStory(state: StoryEditorState, frame: StoryEditorFrame, doValidation = true )
   {
+    this.validator = [];
     // STEP 1 - Prepare a validator. 
     //          The saving will be blocked unless the user explicitly approves to save invalid stories
-
+    
     // STEP 2 - Validate and process connections from JsPlumb
     // Connecting happens within JsPlumb and outside of our state's control
     state.connections = this._getConnectionsFromFrame(state, frame);
 
     // STEP 3 - Validate and process blocks (side effect which updates validators)
     this._validateBlocks(state.connections, state.blocks, state.story.id!);
+
+    // Remove duplicates (caused by jsplumb connection bug)
+    this.validator = _.uniqBy(this.validator, 'blockId');
 
     // IF there are errors and it is the first run, block save and throw the errors.
     if(doValidation && this.validator.length > 0)
