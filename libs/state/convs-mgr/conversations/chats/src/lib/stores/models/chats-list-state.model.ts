@@ -1,6 +1,6 @@
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
-import { BehaviorSubject, combineLatest, filter, map, tap } from "rxjs";
+import { BehaviorSubject, combineLatest, map, tap } from "rxjs";
 
 import { Chat } from "@app/model/convs-mgr/conversations/chats";
 
@@ -10,15 +10,11 @@ import { ChatsStore } from "../chats.store";
 const PAGES_TO_LOAD_PER_CALL = 2;
 
 /**
- * State holder for the @see {CalendarViewModel}. 
- *  For use on the booking calendar component.
+ * State holder for the @see {ChatsListComponent}. 
  *  Smartly paginates the loaded data.
  */
 export class ChatsListState 
 {
-  // private model!: AvailabilityCalendar;
-  // /** State of the availability calendar. */
-  // private _calendar$$: BehaviorSubject<AvailabilityCalendar> = new BehaviorSubject(null as any as AvailabilityCalendar);
   /** State of the current page we're navigating. */
   private _page$$: BehaviorSubject<number> = new BehaviorSubject(0);
 
@@ -130,15 +126,22 @@ export class ChatsListState
     return scopedChatsList;
   }
 
+  /**
+   * Navigates to specific page
+   * 
+   * @param page - Page number to navigate to
+   */
   goToPage(page: number) {
     this._pageCursor = page;
     this._page$$.next(this._pageCursor);
   }
 
+  /** Returns the current page */
   getPage() {
     return this._page$$;
   }
 
+  /** Returns the total number of pages */
   getPageCount() {
     return this.allPages$;
   }
