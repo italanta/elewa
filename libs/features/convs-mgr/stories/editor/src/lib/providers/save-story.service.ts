@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import { Injectable } from "@angular/core";
 
 import { StoryError, StoryErrorType } from "@app/model/convs-mgr/stories/main";
@@ -30,9 +28,6 @@ export class SaveStoryService
 
     // STEP 3 - Validate and process blocks (side effect which updates validators)
     this._validateBlocks(state.connections, state.blocks, state.story.id!);
-
-    // Remove duplicates (caused by jsplumb connection bug)
-    this.validator = _.uniqBy(this.validator, 'blockId');
 
     // IF there are errors and it is the first run, block save and throw the errors.
     if(doValidation && this.validator.length > 0)
