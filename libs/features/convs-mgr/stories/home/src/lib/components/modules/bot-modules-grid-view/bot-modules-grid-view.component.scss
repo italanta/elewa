@@ -19,6 +19,8 @@
   background-color: #111441;
   color: white;
   border-radius: 10px;
+  padding-left: 1.563em; 
+  padding-right: 1.563em;
 }
 
 .grid .bot-cards .botModule-card .card-body span {
@@ -48,6 +50,7 @@
 .menu-btn {
   position: absolute;
   right: 0rem;
+  top: 2.4rem;
 
   .menu-tooltip {
     color: white !important;

@@ -13,9 +13,10 @@
     }
 
     .name {
-      font-size: 2.5rem;
-      font-weight: 300 !important;
+      font-size: 2rem;
+      font-weight: 400 !important;
       text-transform: capitalize;
+      margin-top: 0.625em;
     }
   }
 
@@ -63,13 +64,17 @@
         padding: 1rem 0.5rem;
         border-radius: 30px;
         min-width: 22rem;
+        padding-left: 1.875rem;
       }
 
       .search-wrapper_tooltip {
+        position: absolute;
+        left: 0.625rem; 
+        top: 50%;
+        transform: translateY(-50%);
         color: gray;
-        transform: rotate(90deg);
         font-size: medium;
-        font-weight: 500;
+        font-weight: 300;
       }
     }
   }

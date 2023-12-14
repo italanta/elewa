@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import * as moment from 'moment';
 
 import { Dialog } from '@angular/cdk/dialog';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
@@ -156,12 +157,13 @@ export class SpecificTimeModalComponent {
       if(this.schedulerForm.value.frequency !== 'Never') {
         this.cronFormat = ConvertToCron(this.schedulerForm.value);
       }
+      this.schedulerForm.value.date = moment(this.schedulerForm.value.date).format()
       // Save schedule to DB
       const scheduleMessage: ScheduledMessage = {
         id: uuid(),
         objectID: this.data.templateId,
         dispatchTime: selectedDateTime,
-        frequency: this.cronFormat,
+        frequency: this.cronFormat || '',
         scheduledOn: new Date(),
         scheduleOption: ScheduleOptionType.SpecificTime,
         rawSchedule: this.schedulerForm.value
