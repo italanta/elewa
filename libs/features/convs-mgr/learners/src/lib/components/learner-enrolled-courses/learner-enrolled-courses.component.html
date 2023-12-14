@@ -19,13 +19,13 @@
                   <div class="module-progress-name">{{ module.name | titlecase }}</div>
                 </a>
                 <img src="assets/svgs/learners/edit.svg" class="edit-icon"/>
-                <div class="view-module-progress" (click)="toggleLessons()">
-                  <span>{{ showLessons ? 'View less' : 'View more' }}</span>
-                  <img src="assets/icons/chevron-down.png" class="dropdown-icon" [class.rotate180]="showLessons" />
+                <div class="view-module-progress" (click)="toggleLessons(module.name!)">
+                  <span>{{ showLessons[module.name!] ? 'View less' : 'View more' }}</span>
+                  <img src="assets/icons/chevron-down.png" class="dropdown-icon" [class.rotate180]="showLessons[module.name!]" />
                 </div>                               
               </div>
             
-              <ng-container *ngIf="showLessons">
+              <ng-container *ngIf="showLessons[module.name!]">
                 <ng-container *ngFor="let lesson of module?.lessons">
                   <div class="lessons-wrapper">
                     <div class="course-progress-bars">

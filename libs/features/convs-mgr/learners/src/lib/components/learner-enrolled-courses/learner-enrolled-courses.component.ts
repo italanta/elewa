@@ -23,7 +23,7 @@ import { EnrolledUserProgress } from '../../models/enrolled-user-progress.interf
 export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   isOpen = false;
   isLoading: boolean;
-  showLessons = false;
+  showLessons: {[moduleId: string]: boolean } = {};
 
   leanerProgress: EnrolledUserProgress[];
 
@@ -36,6 +36,14 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._sBs.sink = this.getLearnerProgress().subscribe((progresss) => {
       this.leanerProgress = progresss;
+      /** initialize the showLessons object with false values for each module */ 
+      this.leanerProgress.forEach((course) => {
+        course.modules.forEach((module) => {
+          if (module.name) {
+            this.showLessons[module.name] = false;
+          }
+        });
+      });
     });
   }
 
@@ -43,8 +51,8 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
     return (this.isOpen = !this.isOpen);
   }
 
-  toggleLessons() {
-    this.showLessons = !this.showLessons;
+  toggleLessons(moduleId: string) {
+    this.showLessons[moduleId] = !this.showLessons[moduleId];
   }
 
   /** gets the learner progress */
