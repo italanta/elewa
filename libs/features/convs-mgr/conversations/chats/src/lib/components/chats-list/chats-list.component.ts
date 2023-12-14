@@ -9,16 +9,15 @@ import { SubSink } from 'subsink';
 import * as _ from 'lodash';
 
 import { Observable, combineLatest } from 'rxjs';
-import { filter, map, startWith, tap } from 'rxjs/operators';
+import { filter, map, startWith } from 'rxjs/operators';
 
 import { DataService } from '@ngfi/angular';
 import { Logger } from '@iote/bricks-angular';
 import { __DateFromStorage } from '@iote/time';
 
 import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
-import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
-import { ChatsStore, ActiveChatConnectedStore, ChatsListState, ChatsListStateProvider } from '@app/state/convs-mgr/conversations/chats';
+import { ActiveChatConnectedStore, ChatsListState, ChatsListStateProvider } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-list',
