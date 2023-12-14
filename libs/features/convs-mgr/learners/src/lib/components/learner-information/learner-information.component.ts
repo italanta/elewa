@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '@app/features/convs-mgr/conversations/chats';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
-import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '@app/providers/convs-mgr/avatar';
 
 @Component({
   selector: 'app-learner-information',
