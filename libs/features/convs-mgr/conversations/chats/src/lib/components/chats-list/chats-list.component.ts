@@ -54,6 +54,8 @@ export class ChatsListComponent implements AfterViewInit, OnDestroy
   stashed: Chat[];
   blocked: Chat[];
   _state$$: ChatsListState;
+  totalPageCount: number;
+  currentPage: number;
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
@@ -78,25 +80,33 @@ export class ChatsListComponent implements AfterViewInit, OnDestroy
     this._state$$ = this._chats$.getChatListState();
 
     this.searchString$ = this.search.valueChanges as Observable<string>;
-
+    
     this.chats$ = combineLatest([this.searchString$.pipe(startWith('')), this._state$$.getChats()])
-                .pipe(map(([s, c]) => s == '' ? c : 
-                        c.filter((c) =>  this._searchChat(c, s))
-                  ));
-
+    .pipe(map(([s, c]) => s == '' ? c : 
+    c.filter((c) =>  this._searchChat(c, s))
+    ));
+    
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
-
+  
   ngAfterViewInit()
   {
     // Update paginator after it is initialized
     this._sbs.sink = this.paginator.changes.subscribe(item =>
-    {
-      if (this.paginator.length && this.dataSource) {
-        this.dataSource.paginator = this.paginator?.first;
-        // this.cd.detectChanges();
-      }
-    });
+      {
+        if (this.paginator.length && this.dataSource) {
+          this.dataSource.paginator = this.paginator?.first;
+          // this.cd.detectChanges();
+        }
+      });
+    
+    this._state$$.getPageCount().subscribe((count)=> this.totalPageCount = (count - 1));
+    this._state$$.getPage().subscribe((page)=> this.currentPage = (page + 1));
+  }
+
+  goToPage(page: number) 
+  {
+    this._state$$.goToPage(page);
   }
 
   getChats(chatList: Chat[])

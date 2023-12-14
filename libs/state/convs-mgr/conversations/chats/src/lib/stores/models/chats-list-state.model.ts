@@ -1,6 +1,6 @@
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
-import { BehaviorSubject, combineLatest, filter, map } from "rxjs";
+import { BehaviorSubject, combineLatest, filter, map, tap } from "rxjs";
 
 import { Chat } from "@app/model/convs-mgr/conversations/chats";
 
@@ -27,7 +27,7 @@ export class ChatsListState
   /** Amount of pages we've loaded */
   private _pages = 0;
 
-  private allPages = 0;
+  private allPages$: BehaviorSubject<number> = new BehaviorSubject(0);;
 
   constructor(
     private _chats$$: ChatsStore,
@@ -49,6 +49,11 @@ export class ChatsListState
     return combineLatest
       ([chatsAfterInit$, this._page$$])
       .pipe(
+        tap(([chats])=> {
+          const pageCount = this._calculatePageCount(chats.length, this._loadsPerPage);
+
+          this.allPages$.next(pageCount);
+        }),
         map(([chats, page]) =>
           this._scopeChatsPage(chats, page)));
   }
@@ -115,7 +120,7 @@ export class ChatsListState
 
   private _scopeChatsPage(chats: Chat[], page: number)
   {
-    this.allPages = this._calculatePageCount(chats.length, this._loadsPerPage);
+
 
     let scopedChatsList = ___clone(chats);
 
@@ -125,8 +130,17 @@ export class ChatsListState
     return scopedChatsList;
   }
 
+  goToPage(page: number) {
+    this._pageCursor = page;
+    this._page$$.next(this._pageCursor);
+  }
+
+  getPage() {
+    return this._page$$;
+  }
+
   getPageCount() {
-    return this.allPages;
+    return this.allPages$;
   }
 
   private _calculatePageCount(chats: number, itemsPerPage: number): number {
