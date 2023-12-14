@@ -1,6 +1,6 @@
 import { flatten as ___flatten, clone as ___clone } from 'lodash';
 
-import { BehaviorSubject, combineLatest, map, tap } from "rxjs";
+import { BehaviorSubject, combineLatest, map, tap, Observable } from "rxjs";
 
 import { Chat } from "@app/model/convs-mgr/conversations/chats";
 
@@ -18,6 +18,8 @@ export class ChatsListState
   /** State of the current page we're navigating. */
   private _page$$: BehaviorSubject<number> = new BehaviorSubject(0);
 
+  private _filter$$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
   /** Current page on which the user is viewing */
   private _pageCursor: number;
   /** Amount of pages we've loaded */
@@ -29,29 +31,47 @@ export class ChatsListState
     private _chats$$: ChatsStore,
     /** Number of days to load per page */
     private _loadsPerPage: number = 10,
-    )
+  )
   {
 
     // Perform initialLoad
     this._pageCursor = 0;
   }
 
-  /** Returns the calendar viewmodel
-   *    scoped to the current page the user is viewing. */
-  public getChats()
+  /** Returns chats scoped to the current page the user is viewing. */
+  public getChats(): Observable<Chat[]>
   {
-    const chatsAfterInit$ = this._chats$$.get()
+    const chatsAfterInit$ = this._chats$$.get();
 
-    return combineLatest
-      ([chatsAfterInit$, this._page$$])
-      .pipe(
-        tap(([chats])=> {
-          const pageCount = this._calculatePageCount(chats.length, this._loadsPerPage);
+    return combineLatest([chatsAfterInit$, this._page$$, this._filter$$]).pipe(
+      tap(([chats]) =>
+      {
+        const pageCount = this._calculatePageCount(this._applyFilter(chats).length, this._loadsPerPage);
+        this.allPages$.next(pageCount);
+      }),
+      map(([chats, page, filter]) =>
+      {
+        const filteredChats = this._applyFilter(chats);
+        return this._scopeChatsPage(filteredChats, page);
+      })
+    );
+  }
 
-          this.allPages$.next(pageCount);
-        }),
-        map(([chats, page]) =>
-          this._scopeChatsPage(chats, page)));
+  /** Returns filtered chats */
+  private _applyFilter(chats: Chat[])
+  {
+    const filterValue = this._filter$$.getValue();
+
+    if (filterValue == 'blocked') {
+      return this._filterHelpRequests(chats);
+    }
+
+    return chats;
+  }
+
+  private _filterHelpRequests(chats: Chat[])
+  {
+    return chats.filter((chats) => chats.isConversationComplete == -1);
   }
 
   //
@@ -72,7 +92,12 @@ export class ChatsListState
       : this._loadNextPage();
   }
 
-  /** Load the week before */
+  public filterChats(filter: string)
+  {
+    this._filter$$.next(filter);
+  }
+
+  /** Load the previous page */
   private async _loadPastPage()
   {
     // Case 1. We already loaded the page
@@ -92,7 +117,7 @@ export class ChatsListState
     }
   }
 
-  /** Load the week after */
+  /** Load the next page */
   private async _loadNextPage()
   {
     // Case 1. We already loaded the page
@@ -111,7 +136,7 @@ export class ChatsListState
     }
   }
   //
-  // SECTION - SCOPE CALENDAR TO CURRENT PAGE
+  // SECTION - SCOPE CHATS TO CURRENT PAGE
   //
 
   private _scopeChatsPage(chats: Chat[], page: number)
@@ -131,29 +156,33 @@ export class ChatsListState
    * 
    * @param page - Page number to navigate to
    */
-  goToPage(page: number) {
+  goToPage(page: number)
+  {
     this._pageCursor = page;
     this._page$$.next(this._pageCursor);
   }
 
   /** Returns the current page */
-  getPage() {
+  getPage()
+  {
     return this._page$$;
   }
 
   /** Returns the total number of pages */
-  getPageCount() {
+  getPageCount()
+  {
     return this.allPages$;
   }
 
-  private _calculatePageCount(chats: number, itemsPerPage: number): number {
+  private _calculatePageCount(chats: number, itemsPerPage: number): number
+  {
     let pagesCount = chats / itemsPerPage;
-    
+
     if (chats % itemsPerPage !== 0) {
       pagesCount = Math.floor(pagesCount) + 1;
     }
-    
+
     return pagesCount;
   }
-  
+
 }
