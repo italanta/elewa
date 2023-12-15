@@ -104,17 +104,16 @@
   }
   .eveinputs{
     border-radius: 0.9375rem;
-    border: 1px solid #707070;
     height: 2rem;
     margin: 0 1rem;
     padding-left: .5rem;
-    width: 30rem;
+    width: 70%;
     background-color: #1F7A8C;
     color: white;
     border: 2px solid white;
   }
   .eveinputs:focus{
-    border: 1px solid white;
+    border: none;
   }
   .eveinput{
     border: none;
@@ -125,6 +124,7 @@
   .eveinput:focus {
     outline: none;
     color: white;
+    border: none;
  }
   .pees {
     color: #000; 
@@ -138,6 +138,7 @@
   .variables{
     border-radius: 1rem;
     border: 1px solid #1F7A8C;
+    margin-top: 2rem;
     padding: 2rem 0.5rem;
     background-color: #1F7A8C;
     

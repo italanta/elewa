@@ -87,7 +87,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.templateForm = createTemplateForm(this.fb);
     this.initPage();
-
+    this.showCard = true;
     this.channels$ = this._channelService.getAllChannels();
     this.newVariableForm = this.fb.group({
       newVariable: ['', Validators.required],
@@ -215,6 +215,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
  }
 
  onBotSelected(event: any , selectedClass: string) {
+  this.showCard = true
   this.selectedClass = selectedClass;
   this.selectedBot = event.value;
   const selectedBotData = this.selectedBot;

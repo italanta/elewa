@@ -95,15 +95,14 @@
                                 <mat-radio-button *ngFor="let bot of bots" [value]="bot.id">{{ bot.name }}</mat-radio-button>
                               </mat-radio-group>                                       
                         </mat-menu>  
+                        <div class="var-card" *ngIf="showCard">
+                            <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
+                                <ul *ngIf="selectedClass === 'header'" class="header">
+                                    <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                </ul>
+                              </mat-card>
+                        </div>
 
-                      <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
-                        <ul *ngIf="selectedClass === 'header'" class="header">
-                            <li (click)="addVariableFromFetched(variable.name)">{{ '{{' + variable.name + '}}' }}</li>
-
-                        </ul>
-                      </mat-card>
-
-                    
                     <div class="form-group body" formGroupName="body">
                         <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
@@ -119,12 +118,14 @@
                                   </mat-radio-group>                                        
                             </mat-menu>  
 
-                          <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
-                            <ul *ngIf="selectedClass === 'body'" class="body">
-                                <li (click)="addVariableFromFetched(variable.name)">{{ '{{' + variable.name + '}}' }}</li>
-                            </ul>
-                          </mat-card>
-
+                         <div class="var-card" *ngIf="showCard">
+                            <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
+                                <ul *ngIf="selectedClass === 'body'" class="body">
+                                    <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                </ul>
+                              </mat-card>
+                         </div>   
+                          
                         <br>
 
                         <div class="variables" *ngIf="showVariablesSection">
