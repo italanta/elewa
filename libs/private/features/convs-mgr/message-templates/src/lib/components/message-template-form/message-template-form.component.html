@@ -34,6 +34,7 @@
                             </div>
                         </mat-panel-title>
                       </mat-expansion-panel-header>
+                      
                       <div class="dd-holder">
 
                         <div class="form-group">
@@ -85,6 +86,22 @@
                           <input type="text" matInput formControlName="text">
                         </mat-form-field>
                       </div>
+
+                      <div class="add-variable header">
+                        <p [matMenuTriggerFor]="menu" (click)="fetchBots()">add variable <i class="fas fa-chevron-down"></i></p>
+                    </div>
+                        <mat-menu #menu="matMenu">
+                            <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
+                                <mat-radio-button *ngFor="let bot of bots" [value]="bot.id">{{ bot.name }}</mat-radio-button>
+                              </mat-radio-group>                                       
+                        </mat-menu>  
+
+                      <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
+                        <ul *ngIf="selectedClass === 'header'" class="header">
+                            <li (click)="addVariableFromFetched(variable.name)">&#123;&#123; variable.name &#125;&#125;</li>
+                        </ul>
+                      </mat-card>
+
                     
                     <div class="form-group body" formGroupName="body">
                         <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
@@ -92,14 +109,31 @@
                         <mat-form-field>
                             <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
                         </mat-form-field>
-                        <div class="variables">
+                        <div class="add-variable body">
+                            <p [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">add variable <i class="fas fa-chevron-down"></i></p>
+                        </div>
+                            <mat-menu #bodymenu="matMenu">
+                                <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
+                                    <mat-radio-button *ngFor="let bot of bots" [value]="bot.id">{{ bot.name }}</mat-radio-button>
+                                  </mat-radio-group>                                        
+                            </mat-menu>  
+
+                          <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
+                            <ul *ngIf="selectedClass === 'body'" class="body">
+                                <li (click)="addVariableFromFetched(variable.name)">&#123;&#123; variable.name &#125;&#125;</li>
+                            </ul>
+                          </mat-card>
+
+                          <br>
+
+                        <div class="variables" *ngIf="showVariablesSection">
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
                             <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
                               <div [formGroup] = "newVariableForm">
-                                  <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinputs">
+                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput" [disabled]="isInputDisabled">
                                 <input type="text" formControlName="newVariable" placeholder="Placeholder" class="eveinputs">
                                 <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
                                 </div>

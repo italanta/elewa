@@ -3,6 +3,7 @@
     background: #FFF;
     margin-top: 1.55rem;
     padding: 1.5rem 2.2rem;
+    position: relative;
       p {
           color: #101010;
           font-family: Roboto;
@@ -103,11 +104,28 @@
   }
   .eveinputs{
     border-radius: 0.9375rem;
-  border: 1px solid #707070;
-  height: 2rem;
-  margin: 0 1rem;
-  padding-left: .5rem;
+    border: 1px solid #707070;
+    height: 2rem;
+    margin: 0 1rem;
+    padding-left: .5rem;
+    width: 30rem;
+    background-color: #1F7A8C;
+    color: white;
+    border: 2px solid white;
   }
+  .eveinputs:focus{
+    border: 1px solid white;
+  }
+  .eveinput{
+    border: none;
+    width: 10rem;
+    background-color: #1F7A8C;
+    color: white;
+  }
+  .eveinput:focus {
+    outline: none;
+    color: white;
+ }
   .pees {
     color: #000; 
     font-family: Roboto;
@@ -120,10 +138,11 @@
   .variables{
     border-radius: 1rem;
     border: 1px solid #1F7A8C;
-    padding: 1rem .5rem;
+    padding: 2rem 0.5rem;
+    background-color: #1F7A8C;
     
     .np{
-      color: #707070;
+      color: white !important;
       font-family: Roboto;
       font-size: 1.125rem;
       font-style: normal;
@@ -131,6 +150,9 @@
       line-height: normal;
       display: flex;
       justify-content: space-between;
+    }
+    .pees{
+      color: white !important;
     }
   }
   mat-form-field{
@@ -246,4 +268,29 @@ input{
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+}
+
+.card-item{
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.add-variable{
+  right: 2rem;
+  position: absolute;
+}
+li{
+  text-decoration: none;
+}
+.body-card, .header-card{
+  position: absolute;
+  right: 2rem;
+  width: 20%;
+}
+.conte{
+  position: relative;
+}
+ul{
+  list-style: none;
 }
