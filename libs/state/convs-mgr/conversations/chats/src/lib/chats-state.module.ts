@@ -6,6 +6,7 @@ import { ActiveChatStore } from './stores/active-chat.store';
 
 import { ChatsOfStatusQuery } from './queries/chats-of-status.query';
 import { ActiveChatConnectedStore } from './stores/active-chat-connected.store';
+import { ChatsListStateProvider } from './stores/chats-list-state.provider';
 
 @NgModule({
   imports: [RouterModule],
@@ -20,7 +21,8 @@ export class ChatsStateModule
       providers: [
         ChatsStore,
         ActiveChatConnectedStore,
-        ActiveChatStore
+        ActiveChatStore,
+        ChatsListStateProvider
       ]
     };
   }

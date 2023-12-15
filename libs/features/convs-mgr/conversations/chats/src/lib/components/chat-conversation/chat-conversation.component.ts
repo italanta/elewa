@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { SubSink } from 'subsink';
 import { Subscription, concatMap, map, tap } from 'rxjs';
@@ -35,13 +35,15 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
   constructor(
     private _activeChat$: ActiveChatConnectedStore,
     private _chatStore: ChatsStore,
-    private _logger: Logger
+    private _logger: Logger,
+    private _cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     if (!this.chat) {
       this.getActiveChat();
     }
+    this._cd.detectChanges();
   }
 
   getActiveChat() {
@@ -61,12 +63,14 @@ export class ChatConversationComponent implements OnInit, OnDestroy {
 
   getChatInfo() {
     this.getUserClass();
-    this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
-    this.chatStatus = this.getUserChatStatus(this.chat);
+    if(this.chat) {
+      this._sbs.sink = this.getCurrentUserPosAndStory(this.chat.id).subscribe();
+      this.chatStatus = this.getUserChatStatus(this.chat);
+    }
   }
 
   getUserClass() {
-    if (this.chat.labels) {
+    if (this.chat && this.chat.labels) {
       const userClass = this.chat.labels.map((label) => {
         const split = label.split('_');
         return split[1];

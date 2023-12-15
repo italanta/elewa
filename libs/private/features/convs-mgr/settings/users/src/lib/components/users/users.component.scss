@@ -12,7 +12,7 @@
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-  background-color: var(--convs-mgr-color-tablebg);
+  background-color: rgba(31, 124, 143, .4);
   cursor: pointer;
 }
 
@@ -59,11 +59,11 @@
       .search {
         height: 5px;
         width: 100%;
-        background-color: var(--convs-mgr-color-primary-white);
-        border-radius: 20px;
-        display: flex;
         align-items: center;
         padding: 20px;
+        position: relative;
+        display: inline-block;
+
 
       
         &_tooltip {
@@ -71,15 +71,20 @@
           transform: rotate(90deg);
           font-size: 20px;
           font-weight: 500;
+          position: absolute;
+          top: 45%;
+          left: 30px;
         }
       
         &_input {
+          border-radius: 20px;
           width: 440px;
-          height: 30px;
+          height: 40px;
           border: none;
           outline: none ;
           font-size: 15px;
-          padding-left: 6px;
+          padding-left: 40px;
+          margin-top: -32px;
         }
       }
     }
@@ -96,6 +101,7 @@
     }
    
   }
+
   .buttons{
     button{
       height: 45px;
@@ -103,7 +109,7 @@
       background: var(--convs-mgr-color-button); 
       border-radius: 25px;
       color: white;
-      font-size: 16px;
+      font-size: 14px;
       font-family: Roboto;
       font-weight: 400;
       word-wrap: break-word;
@@ -160,6 +166,13 @@
 .roles {
   display: flex;
   gap: 0.3rem;
+}
+
+.roles-selector-container{
+  background-color: var(--convs-mgr-color-text-white);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 :host ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined 

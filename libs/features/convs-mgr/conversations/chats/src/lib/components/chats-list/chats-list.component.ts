@@ -8,24 +8,23 @@ import { SubSink } from 'subsink';
 
 import * as _ from 'lodash';
 
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { filter, map, startWith } from 'rxjs/operators';
 
 import { DataService } from '@ngfi/angular';
 import { Logger } from '@iote/bricks-angular';
 import { __DateFromStorage } from '@iote/time';
 
 import { Chat, ChatFlowStatus } from '@app/model/convs-mgr/conversations/chats';
-import { Payment, PaymentStatus } from '@app/model/finance/payments';
 
-import { ChatsStore, ActiveChatConnectedStore } from '@app/state/convs-mgr/conversations/chats';
+import { ActiveChatConnectedStore, ChatsListState, ChatsListStateProvider } from '@app/state/convs-mgr/conversations/chats';
 
 @Component({
   selector: 'app-chats-list',
   templateUrl: './chats-list.component.html',
   styleUrls: ['./chats-list.component.scss']
 })
-export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
+export class ChatsListComponent implements AfterViewInit, OnDestroy
 {
   private _sbs = new SubSink()
   currentChat: Chat;
@@ -42,6 +41,7 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
   paidCustomers: string[] = [];
 
   searchString$: Observable<string>
+
   search = new FormControl<string>('');
 
   dataSource: MatTableDataSource<any>;
@@ -52,134 +52,64 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
   completed: Chat[];
   stashed: Chat[];
   blocked: Chat[];
+  _state$$: ChatsListState;
+  totalPageCount: number;
+  currentPage: number;
   
   @ViewChildren(MatPaginator) paginator: QueryList<MatPaginator>;
 
-  constructor(private _chats$: ChatsStore,
+  constructor(
+    // private _chats$: ChatsStore,
+    private _chats$: ChatsListStateProvider,
     private _activeChat$: ActiveChatConnectedStore,
     private cd: ChangeDetectorRef,
     _dS: DataService,
     private _logger: Logger)
   {
-    const _repo = _dS.getRepo<Payment>('payments');
-    this._sbs.sink = _repo
-      .getDocuments()
-      .pipe(
-        map(ps => ps.filter(p => p.status === PaymentStatus.Success)),
-        map(ps => _.orderBy(ps, p => __DateFromStorage(p.timestamp).unix(), 'desc')))
-      .subscribe((list) => list.forEach(payment => this.paidCustomers.push(payment.chatId)));
-
     this._sbs.sink = this._activeChat$.get().pipe(filter(x => !!x)).subscribe((chat) => this.currentChat = chat);
 
-    this.chats$ = this._chats$.get();
+    this._state$$ = this._chats$.getChatListState();
+
+    this.searchString$ = this.search.valueChanges as Observable<string>;
+    
+    this.chats$ = combineLatest([this.searchString$.pipe(startWith('')), this._state$$.getChats()])
+    .pipe(map(([s, c]) => s == '' ? c : 
+    c.filter((c) =>  this._searchChat(c, s))
+    ));
+    
     this._sbs.sink = this.chats$.subscribe(chatList => this.getChats(chatList));
   }
-
   
-  ngOnInit() {
-    this.searchString$ = this.search.valueChanges as Observable<string>;
-  }
-
   ngAfterViewInit()
   {
-    // Update paginator after it is initialized
-    this._sbs.sink = this.paginator.changes.subscribe(item =>
-    {
-      if (this.paginator.length && this.dataSource) {
-        this.dataSource.paginator = this.paginator?.first;
-        // this.cd.detectChanges();
-      }
-    });
+    this._state$$.getPageCount().subscribe((count)=> this.totalPageCount = (count - 1));
+    this._state$$.getPage().subscribe((page)=> this.currentPage = (page + 1));
+  }
+
+  goToPage(page: number) 
+  {
+    this._state$$.goToPage(page);
   }
 
   getChats(chatList: Chat[])
   {
-    this.dataSource = new MatTableDataSource<any>();
-    this.chats$ = this.dataSource.connect();
-
     this.chats = chatList;
-    this.initializeLists();
-    //Set into categories
-    chatList.forEach(chat => this.categorize(chat));
 
-    if (!this.filtrString) this.filtrString = '';
-    this.applyFilter();
-    this.dataSource.paginator = this.paginator?.first;
     this.isLoading = false;
   }
 
-  initializeLists()
+  move(direction: 'past' | 'future') 
   {
-    this.learning = [];
-    this.paused = [];
-    this.helpRequests = [];
-    this.onboarding = [];
-    this.completed = [];
-    this.stashed = [];
-    this.blocked = [];
-  }
-
-  categorize(chat: Chat)
-  {
-    if (chat.isConversationComplete === -1) {
-        this.blocked.push(chat);
-      return;
-    }
-
-    switch (chat.flow) {
-      case ChatFlowStatus.PausedByAgent:
-        this.paused.push(chat);
-        this.helpRequests.push(chat);
-        break;
-      case ChatFlowStatus.Flowing:
-        this.onboarding.push(chat);
-        break;
-      case ChatFlowStatus.Paused:
-      case ChatFlowStatus.OnWaitlist:
-        this.helpRequests.push(chat);
-        break;
-      case ChatFlowStatus.Completed:
-        this.completed.push(chat);
-        break;
-      case ChatFlowStatus.Stashed:
-        this.stashed.push(chat);
-        break;
-    }
-    if (chat.awaitingResponse && (chat.flow !== ChatFlowStatus.Paused
-      && chat.flow !== ChatFlowStatus.OnWaitlist
-      && chat.flow !== ChatFlowStatus.PausedByAgent)) {
-      this.helpRequests.push(chat);
-    }
-
-    if (this.paidCustomers.includes(chat.id) && !this.hasCompleted(chat) && !this.isInactive(chat)) {
-      this.learning.push(chat);
-    }
-  }
-
-  applyFilter(evt?: { target: EventTarget | null; } | undefined)
-  {
-    this.filterByCategory();
-    if (evt)
-      this.filtrString = (evt.target as HTMLInputElement).value.trim().toLowerCase();
-
-      this.dataSource.data = this.displayedChats;
-  }
-
-  toggleFilter()
-  {
-    this.filterMode = !this.filterMode;
-    if (!this.filterMode) {
-      this.filtrString = '';
-      this.filterByCategory();
-    }
-  }
-
-  updateList(values: any)
-  {
-    const options = values.target.value.split(',');
     this.isLoading = true;
-    this.filter = options[0];
-    this.selected = options[1];
+
+    this._state$$.nextPage(direction);
+  }
+
+
+  updateList(event: any)
+  {
+    this.isLoading = true;
+    this.filter = event.target.value;
     this.filterByCategory();
   }
 
@@ -206,14 +136,23 @@ export class ChatsListComponent implements AfterViewInit, OnInit, OnDestroy
         this.displayedChats = this.completed;
         break;
       case "blocked":
-        this.displayedChats = this.blocked;
+        this._state$$.filterChats('blocked');
         break;
       case 'all':
       default:
-        this.displayedChats = this.chats;
+        this._state$$.filterChats('');
     }
     this.dataSource.data = this.displayedChats;
     this.isLoading = false;
+  }
+
+  _searchChat(chat: Chat, searchTerm: string): boolean {
+    const combinedProperties = Object.keys(chat)
+      .map(key => chat[key])
+      .join(' ')
+      .toLowerCase();
+
+    return combinedProperties.includes(searchTerm.toLocaleLowerCase());
   }
 
   hasCompleted(element: any)

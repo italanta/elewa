@@ -1,6 +1,6 @@
 <mat-accordion>
-  <mat-expansion-panel (opened)="true">
-    <mat-expansion-panel-header class="custom-header">
+  <mat-expansion-panel (opened)="panelState = true" (closed)="panelState = false">
+    <mat-expansion-panel-header [ngClass]="{'hoverEffect': panelState === false}">
       <mat-panel-title>
         <p class="main-title">{{ 'PERMISSIONS.ANALYTICS.SETTINGS' | transloco }}</p>
       </mat-panel-title>
