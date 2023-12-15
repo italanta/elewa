@@ -16,10 +16,20 @@ import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { ActiveOrgStore, OrganisationService } from '@app/private/state/organisation/main';
+import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { createTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
+
+
+
+
+
+
 
 @Component({
   selector: 'app-message-template-form',
@@ -35,9 +45,19 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   templateForm: FormGroup;
   content: FormGroup;
 
+  orgId:string;
+  selectedVariable: string;
+  showCard: boolean;
+  selectedClass: string;
+
+
+
   templateId: string;
   panelOpenState: boolean;
   isSaving: boolean;
+  isInputDisabled : boolean;
+  showVariablesSection :boolean;
+  showSelectedVariableSection: boolean;
 
   categories: { display: string; value: string }[] = categoryOptions;
   languages: { display: string; value: string }[] = languageOptions;
@@ -45,6 +65,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   referenceForm: FormGroup;
   nextVariableId: number;
   newVariables: any = [];
+  fetchedVariables: any = [];
+  bots: any[] = [];
+  selectedBot: string;
   newVariableForm: FormGroup;
 
   private _sbS = new SubSink();
@@ -55,7 +78,11 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
-    private _channelService: CommunicationChannelService
+    private _botStateServ$: BotsStateService,
+    private _channelService: CommunicationChannelService, 
+    private _variableService$ : VariablesService,
+    private _activeOrgStore$$: ActiveOrgStore,
+    private _orgService$$:OrganisationService
   ) {}
 
   ngOnInit() {
@@ -63,13 +90,14 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.initPage();
 
     this.channels$ = this._channelService.getAllChannels();
-
+    this.isInputDisabled = true;
     this.newVariableForm = this.fb.group({
       newVariable: ['', Validators.required],
       newPlaceholder: ['', Validators.required],
     });
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
+    this.getActiveOrg();
   }
 
   initPage() {
@@ -101,24 +129,35 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     // Get values from the newVariableForm
     const newVariable = this.newVariableForm.get('newVariable')?.value;
     const newPlaceholder = this.newVariableForm.get('newPlaceholder')?.value;
-
-    // Surround the newVariable with {{}} and append it to the current content.body
+  
+    // Determine whether to append to header or body based on user choice
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
+    const formHeader = formContent.get('header') as FormGroup;
+    
     const bodyControl = formBody.get('text') as FormControl;
-    const updatedBody = `${bodyControl.value}{{${newPlaceholder}}}`;
-    bodyControl.setValue(updatedBody);
-
+    const headerControl = formHeader.get('text') as FormControl;
+  
+    // Check the selectedClass variable to determine where to append the variable
+    if (this.selectedClass === 'body') {
+      const updatedBody = `${bodyControl.value}{{${newPlaceholder}}}`;
+      bodyControl.setValue(updatedBody);
+    } else if (this.selectedClass === 'header') {
+      const updatedHeader = `${headerControl.value}{{${newPlaceholder}}}`;
+      headerControl.setValue(updatedHeader);
+    }
+  
     // Track new variables as strings
     this.newVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
-
+  
     // Clear the input fields in the newVariableForm
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
   }
+  
 
   removeVariable(index: number) {
     // Get the placeholder to be removed
@@ -161,6 +200,31 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  getActiveOrg() {
+    this._activeOrgStore$$.get().subscribe((org) => {
+      this.orgId = org.id ?? '';
+    });
+  }
+
+  fetchBots(){
+    this._botStateServ$.getBots().subscribe(data =>{
+     this.bots = data
+   })
+ }
+
+ onBotSelected(event: any , selectedClass: string) {
+  this.selectedClass = selectedClass;
+  this.selectedBot = event.value;
+  const selectedBotData = this.selectedBot;
+
+  this._variableService$.getBotVariables(selectedBotData, this.orgId).subscribe(
+    (data: StoryBlockVariable[]) => {
+      this.fetchedVariables = data;
+    }
+  );
+}
+
+
   cancel() {
     this._route$$.navigate(['/messaging']);
   }
@@ -193,6 +257,20 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  addVariableFromFetched(variable: any) {
+    console.log(variable);
+    // Set the selected variable
+    this.selectedVariable = variable;
+    this.hideCard();
+    this.showVariablesSection = true;
+    this.newVariableForm.patchValue({newPlaceholder : this.selectedVariable});
+  }
+  
+  hideCard() {
+    this.showCard = false;
+  }
+  
 
   saveTemplate() {
     if (!this.templateForm.valid) {
