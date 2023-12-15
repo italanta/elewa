@@ -18,6 +18,7 @@ import { VideoResourceMessageComponent } from './components/blocks/video-resourc
 import { AudioResourceMessageComponent } from './components/blocks/audio-resource-message/audio-resource-message.component';
 import { DocumentResourceMessageComponent } from './components/blocks/document-resource-message/document-resource-message.component';
 import { ListResourceMessageComponent } from './components/blocks/list-resource-message/list-resource-message.component';
+import { ImageResourceMessageComponent } from './components/blocks/image-resource-message/image-resource-message.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { ListResourceMessageComponent } from './components/blocks/list-resource-
     AudioResourceMessageComponent,
     DocumentResourceMessageComponent,
     ListResourceMessageComponent,
+    ImageResourceMessageComponent,
   ],
 
   exports: [
