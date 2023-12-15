@@ -55,7 +55,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   templateId: string;
   panelOpenState: boolean;
   isSaving: boolean;
-  isInputDisabled : boolean;
   showVariablesSection :boolean;
   showSelectedVariableSection: boolean;
 
@@ -90,11 +89,11 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.initPage();
 
     this.channels$ = this._channelService.getAllChannels();
-    this.isInputDisabled = true;
     this.newVariableForm = this.fb.group({
       newVariable: ['', Validators.required],
       newPlaceholder: ['', Validators.required],
     });
+    this.newVariableForm.get('newPlaceholder')?.disable();
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
     this.getActiveOrg();
@@ -153,9 +152,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       placeholder: newPlaceholder,
     });
   
+
+     
     // Clear the input fields in the newVariableForm
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
+
   }
   
 
@@ -259,7 +261,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   }
 
   addVariableFromFetched(variable: any) {
-    console.log(variable);
     // Set the selected variable
     this.selectedVariable = variable;
     this.hideCard();

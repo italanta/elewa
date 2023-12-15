@@ -98,7 +98,8 @@
 
                       <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
                         <ul *ngIf="selectedClass === 'header'" class="header">
-                            <li (click)="addVariableFromFetched(variable.name)">&#123;&#123; variable.name &#125;&#125;</li>
+                            <li (click)="addVariableFromFetched(variable.name)">{{ '{{' + variable.name + '}}' }}</li>
+
                         </ul>
                       </mat-card>
 
@@ -120,20 +121,20 @@
 
                           <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
                             <ul *ngIf="selectedClass === 'body'" class="body">
-                                <li (click)="addVariableFromFetched(variable.name)">&#123;&#123; variable.name &#125;&#125;</li>
+                                <li (click)="addVariableFromFetched(variable.name)">{{ '{{' + variable.name + '}}' }}</li>
                             </ul>
                           </mat-card>
 
-                          <br>
+                        <br>
 
                         <div class="variables" *ngIf="showVariablesSection">
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
-                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span> </h6>
                               <div [formGroup] = "newVariableForm">
-                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput" [disabled]="isInputDisabled">
+                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput" >
                                 <input type="text" formControlName="newVariable" placeholder="Placeholder" class="eveinputs">
                                 <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
                                 </div>
