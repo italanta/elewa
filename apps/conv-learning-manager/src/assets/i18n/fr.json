@@ -698,12 +698,12 @@
             "CHANNEL": "Canal",
             "CHANNEL-DESCRIPTION": "Sélectionnez le canal d'envoi"
           },
-          "TITLE": "Titre",
-          "TITLE-DESCRIPTION": "Ajoutez un titre à votre modèle",
+          "TITLE": "Nom",
+          "TITLE-DESCRIPTION": "Ajoutez le nom de votre modèle",
           "CONTENT": {
             "HEADER": {
               "HEADER": "En-tête",
-              "HEADER-DESCRIPTION": "Ajoutez un en-tête sous forme de texte ou d'image",
+              "HEADER-DESCRIPTION": "Ajouter un en-tête de texte ou d'image",
               "TEXT": "Texte"
             },
             "BODY": {

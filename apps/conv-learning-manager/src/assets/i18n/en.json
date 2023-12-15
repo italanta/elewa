@@ -1003,13 +1003,13 @@
             "CHANNEL": "Channel",
             "CHANNEL-DESCRIPTION": "Select channel to send to"
           },
-          "TITLE": "Title",
-          "TITLE-DESCRIPTION": "Add title for your template (should be unique, lowercase, no spacing, hyphen or underscore allowed):",
+          "TITLE": "Name",
+          "TITLE-DESCRIPTION": "Add the name for your template",
           "NO-CHANNEL": "Add channels first: None currently available",
           "CONTENT": {
             "HEADER": {
               "HEADER": "Header",
-              "HEADER-DESCRIPTION": "Add a header",
+              "HEADER-DESCRIPTION": "Add a header of either text or image",
               "TEXT": "Text"
             },
             "BODY": {
