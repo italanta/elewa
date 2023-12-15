@@ -15,6 +15,7 @@ import { NewMessageComponent } from './components/new-message/new-message.compon
 import { ResourceMessageComponent } from './components/resource-message/resource-message.component';
 import { ScrollPositionDirective } from './directives/scroll-position.directive';
 import { VideoResourceMessageComponent } from './components/blocks/video-resource-message/video-resource-message.component';
+import { AudioResourceMessageComponent } from './components/blocks/audio-resource-message/audio-resource-message.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { VideoResourceMessageComponent } from './components/blocks/video-resourc
     ResourceMessageComponent,
     ScrollPositionDirective,
     VideoResourceMessageComponent,
+    AudioResourceMessageComponent,
   ],
 
   exports: [
