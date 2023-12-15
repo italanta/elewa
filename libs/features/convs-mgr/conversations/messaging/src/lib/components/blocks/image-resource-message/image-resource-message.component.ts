@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FileMessage } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-image-resource-message',
@@ -7,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./image-resource-message.component.scss'],
 })
 export class ImageResourceMessageComponent {
+  @Input() message: FileMessage;
+
   constructor(private _sanetizer: DomSanitizer) {}
 
   cleanUrl(url?: string) {

@@ -20,3 +20,17 @@
     font-size: 0.7rem;
   }
 }
+
+// utility classes
+.green {
+  background-color: #4e416d !important;
+
+  span {
+    color: #f2f2f2;
+    font-weight: 300;
+  }
+}
+
+.grey {
+  background-color: #dae0f0 !important;
+}

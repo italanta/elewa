@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { Message } from '@app/model/convs-mgr/conversations/messages';
+import { FileMessage, Message } from '@app/model/convs-mgr/conversations/messages';
 
 @Component({
   selector: 'app-document-resource-message',
@@ -8,6 +8,8 @@ import { Message } from '@app/model/convs-mgr/conversations/messages';
   styleUrls: ['./document-resource-message.component.scss'],
 })
 export class DocumentResourceMessageComponent {
+  @Input() message: FileMessage;
+
   getClasses(message: Message) {
     if (message.direction === 5 || message.direction === 25) {
       return ['message-content', 'grey'];
