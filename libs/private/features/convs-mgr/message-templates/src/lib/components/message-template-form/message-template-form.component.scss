@@ -110,10 +110,10 @@
     width: 70%;
     background-color: var(--convs-mgr-button-color);
     color: white;
-    border: 2px solid white;
+    border: 1px solid white;
   }
   .eveinputs:focus{
-    border: none;
+    outline: none;
   }
   .eveinput{
     border: none;
