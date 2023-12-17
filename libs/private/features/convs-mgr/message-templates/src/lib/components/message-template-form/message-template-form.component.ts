@@ -49,6 +49,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   selectedVariable: string;
   showCard: boolean;
   selectedClass: string;
+  botName:string;
 
 
 
@@ -66,7 +67,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   newVariables: any = [];
   fetchedVariables: any = [];
   bots: any[] = [];
-  selectedBot: string;
+  selectedBot: any;
   newVariableForm: FormGroup;
 
   private _sbS = new SubSink();
@@ -151,7 +152,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       variable: newVariable,
       placeholder: newPlaceholder,
     });
-  
 
      
     // Clear the input fields in the newVariableForm
@@ -214,13 +214,18 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    })
  }
 
- onBotSelected(event: any , selectedClass: string) {
-  this.showCard = true
+ onBotSelected(event: any , selectedClass: any) {
+  this.showCard = true;
   this.selectedClass = selectedClass;
   this.selectedBot = event.value;
-  const selectedBotData = this.selectedBot;
+  // const selectedBotData = this.selectedBot;
+  const selectedBotData = this.selectedBot as { id: string; name: string };
 
-  this._variableService$.getBotVariables(selectedBotData, this.orgId).subscribe(
+   // Now you can access both id and name
+   const botId = selectedBotData.id;
+   this.botName = selectedBotData.name;
+
+  this._variableService$.getBotVariables(botId, this.orgId).subscribe(
     (data: StoryBlockVariable[]) => {
       this.fetchedVariables = data;
     }
@@ -266,7 +271,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.selectedVariable = variable;
     this.hideCard();
     this.showVariablesSection = true;
-    this.newVariableForm.patchValue({newPlaceholder : this.selectedVariable});
+    this.newVariableForm.patchValue({newPlaceholder: `{{${this.selectedVariable}}}`});
   }
   
   hideCard() {

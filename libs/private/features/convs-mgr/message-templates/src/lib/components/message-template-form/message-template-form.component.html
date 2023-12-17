@@ -92,14 +92,17 @@
                     </div>
                         <mat-menu #menu="matMenu">
                             <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
-                                <mat-radio-button *ngFor="let bot of bots" [value]="bot.id">{{ bot.name }}</mat-radio-button>
+                                <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
                               </mat-radio-group>                                       
                         </mat-menu>  
                         <div class="var-card" *ngIf="showCard">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
-                                <ul *ngIf="selectedClass === 'header'" class="header">
-                                    <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
-                                </ul>
+                                <div *ngIf="selectedClass === 'header'">
+                                    <h4>{{ botName }}</h4>
+                                    <ul  class="header">
+                                        <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                    </ul>
+                                </div>
                               </mat-card>
                         </div>
 
@@ -114,15 +117,18 @@
                         </div>
                             <mat-menu #bodymenu="matMenu">
                                 <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
-                                    <mat-radio-button *ngFor="let bot of bots" [value]="bot.id">{{ bot.name }}</mat-radio-button>
+                                    <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
                                   </mat-radio-group>                                        
                             </mat-menu>  
 
                          <div class="var-card" *ngIf="showCard">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
-                                <ul *ngIf="selectedClass === 'body'" class="body">
-                                    <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
-                                </ul>
+                                <div *ngIf="selectedClass === 'body'">
+                                    <h4>{{ botName }}</h4>
+                                    <ul  class="body">
+                                        <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                    </ul>
+                                </div>
                               </mat-card>
                          </div>   
                           
@@ -135,8 +141,8 @@
                             
                             <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span> </h6>
                               <div [formGroup] = "newVariableForm">
-                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput" >
-                                <input type="text" formControlName="newVariable" placeholder="Placeholder" class="eveinputs">
+                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
+                                <input type="text" formControlName="newVariable" placeholder="Enter Content " class="eveinputs">
                                 <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
                                 </div>
                         </div>

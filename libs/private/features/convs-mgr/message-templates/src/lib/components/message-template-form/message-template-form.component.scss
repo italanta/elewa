@@ -1,11 +1,11 @@
 .message-template-form{
     border-radius: 1.5625rem;
-    background: #FFF;
+    background: var(--convs-mgr-color-text-white);
     margin-top: 1.55rem;
     padding: 1.5rem 2.2rem;
     position: relative;
       p {
-          color: #101010;
+          color: var(--connector-color);
           font-family: Roboto;
           font-size: 1rem;
           font-style: normal;
@@ -27,7 +27,7 @@
               
             p:first-child {
               span {
-                  color: #1F7A8C;
+                  color: var(--convs-mgr-color-button);
               }
               color: #000; 
               font-family: Roboto;
@@ -39,7 +39,7 @@
             }
             
             p:nth-child(2), p:nth-child(3), p:nth-child(4) {
-              color: #707070;
+              color: var(--convs-mgr-color-707070);
               font-family: Roboto;
               font-size: .9rem;
               font-style: normal;
@@ -52,7 +52,7 @@
             mat-form-field > input {
               border-radius: 0.9375rem;
               background-color: transparent;
-              border: 1px solid #707070;
+              border: 1px solid var(--convs-mgr-color-707070);
               width: 100%;
             }
           }
@@ -66,8 +66,8 @@
       height: 2.0625rem;
     }
   .cancel-btn {
-      color: #1F7A8C!important;
-      border: 1px #1F7A8C solid!important;
+      color: var(--convs-mgr-color-button)!important;
+      border: 1px var(--convs-mgr-color-button) solid!important;
       box-shadow: none!important;
       font-family: Roboto;
       font-size: 0.875rem;
@@ -76,7 +76,7 @@
       line-height: normal;
     }
   .save-btn{
-      background-color: #1F7A8C!important;
+      background-color: var(--convs-mgr-color-button)!important;
       color: white!important;
       font-family: Roboto;
       font-size: 0.875rem;
@@ -91,7 +91,7 @@
       align-items: center;
       margin-bottom: 2rem;
       p{
-          color: #000;
+          color: var(--convs-mgr-color-primary-black);
           font-family: Roboto;
           font-size: 1.1rem;
           font-style: normal;
@@ -108,7 +108,7 @@
     margin: 0 1rem;
     padding-left: .5rem;
     width: 70%;
-    background-color: #1F7A8C;
+    background-color: var(--convs-mgr-button-color);
     color: white;
     border: 2px solid white;
   }
@@ -118,8 +118,9 @@
   .eveinput{
     border: none;
     width: 10rem;
-    background-color: #1F7A8C;
+    background-color: var(--convs-mgr-button-color);
     color: white;
+    padding-left: 0.7rem;
   }
   .eveinput:focus {
     outline: none;
@@ -127,7 +128,7 @@
     border: none;
  }
   .pees {
-    color: #000; 
+    color: var(--convs-mgr-color-primary-black); 
     font-family: Roboto;
     font-size: 1.25rem;
     font-style: normal;
@@ -137,10 +138,10 @@
   }
   .variables{
     border-radius: 1rem;
-    border: 1px solid #1F7A8C;
+    border: 1px solid var(--convs-mgr-button-color);
     margin-top: 2rem;
     padding: 2rem 0.5rem;
-    background-color: #1F7A8C;
+    background-color: var(--convs-mgr-button-color);
     
     .np{
       color: white !important;
@@ -161,7 +162,7 @@
       width: 100%;
   }
   .spec{
-      color: #1F7A8C;
+      color: var(--convs-mgr-button-color);
       font-family: Roboto;
       font-size: 1.5rem;
       font-style: normal;
@@ -186,7 +187,7 @@
   }
   .titles > p:first-child {
     /* Add your styles here */
-    color: #000;
+    color: var(--convs-mgr-color-primary-black);
   font-family: Roboto;
   font-size: 1.25rem;
   font-style: normal;
@@ -197,7 +198,7 @@
   /* Select the second <p> element within the .titles div */
   .titles > p:last-child {
     /* Add your styles here */
-    color: #707070;
+    color: var(--convs-mgr-input-color);
   font-family: Roboto;
   font-size: 1.125rem;
   font-style: normal;
@@ -226,7 +227,7 @@
   
   
   .vars{
-    color: #000; 
+    color: var(--convs-mgr-color-primary-black); 
     font-family: Roboto;
     font-size: 1rem;
     font-style: normal;
@@ -234,7 +235,7 @@
     height: 1rem;
     margin: 1rem;
     span{
-      color: #1F7A8C;
+      color: white;
     font-style: 300;
   
     }
@@ -246,6 +247,55 @@
     justify-content: space-evenly;
   }
 
+  input{
+    color: var(--convs-mgr-input-color);
+      font-family: Roboto;
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+  }
+  .channel-dd{
+    color: red!important;
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+  
+  .card-item{
+    border: none;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .add-variable{
+    right: 2rem;
+    position: absolute;
+  }
+  li{
+    text-decoration: none;
+  }
+  .body-card, .header-card{
+    position: absolute;
+    right: 2rem;
+    width: 20%;
+    text-align: center;
+    border-radius: 1rem;
+  }
+  .conte{
+    position: relative;
+  }
+  ul{
+    list-style: none;
+  }
+  .vars{
+    color: white;
+  }
+  .ng-star-inserted{
+    z-index: 1;
+  }
  ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
 
 
@@ -253,48 +303,8 @@
   background: transparent;
 
  }
+::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel{
+  border-radius: 1rem;
+} 
  
-input{
-  color: #707070;
-    font-family: Roboto;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-}
-.channel-dd{
-  color: red!important;
-  font-family: Roboto;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
 
-.card-item{
-  border: none;
-  background-color: white;
-  cursor: pointer;
-}
-
-.add-variable{
-  right: 2rem;
-  position: absolute;
-}
-li{
-  text-decoration: none;
-}
-.body-card, .header-card{
-  position: absolute;
-  right: 2rem;
-  width: 20%;
-}
-.conte{
-  position: relative;
-}
-ul{
-  list-style: none;
-}
-.vars{
-  color: white;
-}
