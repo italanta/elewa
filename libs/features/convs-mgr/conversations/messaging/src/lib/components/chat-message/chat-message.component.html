@@ -32,6 +32,10 @@
       <ng-container *ngSwitchCase="'audio'">
         <app-audio-resource-message [message]="message"></app-audio-resource-message>
       </ng-container>
+
+      <ng-container *ngSwitchCase="'video'">
+        <app-video-resource-message [message]="message"></app-video-resource-message>
+      </ng-container>
     </div>
   </div>
 
