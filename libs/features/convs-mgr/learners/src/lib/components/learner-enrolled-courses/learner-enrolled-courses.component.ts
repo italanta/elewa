@@ -36,13 +36,16 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._sBs.sink = this.getLearnerProgress().subscribe((progresss) => {
       this.leanerProgress = progresss;
-      /** initialize the showLessons object with false values for each module */ 
-      this.leanerProgress.forEach((course) => {
-        course.modules.forEach((module) => {
-          if (module.name) {
-            this.showLessons[module.name] = false;
-          }
-        });
+      this.initializeShowLessons();
+    });
+  }
+
+  private initializeShowLessons(): void {
+    this.leanerProgress.forEach((course) => {
+      course.modules.forEach((module) => {
+        if (module.name) {
+          this.showLessons[module.name] = false;
+        }
       });
     });
   }
