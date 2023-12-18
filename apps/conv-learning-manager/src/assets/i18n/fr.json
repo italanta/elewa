@@ -716,7 +716,8 @@
               "FOOTER": {
                 "FOOTER": "Pied de page",
                 "FOOTER-DESCRIPTION": "Ajoutez une courte ligne de texte au contenu du message à afficher en bas"
-              }
+              },
+              "ADD-VARIABLE":"Ajouter une variable"
             }
           },
           "ADD-RESPONSES": {
