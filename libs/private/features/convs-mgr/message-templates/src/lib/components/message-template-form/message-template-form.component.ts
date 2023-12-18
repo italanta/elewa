@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, map } from 'rxjs';
+import { Observable, debounceTime, map } from 'rxjs';
 
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
@@ -98,6 +98,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
     this.getActiveOrg();
+    this.detectVariableChange()
   }
 
   initPage() {
@@ -125,6 +126,18 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  detectVariableChange() {
+    this.newVariableForm.get('newVariable')?.valueChanges
+      .pipe(debounceTime(2000)) // Debounce for 2000 milliseconds (2 seconds)
+      .subscribe((value) => {
+        // Check if the user is currently typing
+        if (value !== '' && value !== null) {
+          // This code will be executed after the user stops typing for 2 seconds
+          this.addVariable();
+        }
+      });
+  }
+
   addVariable() {
     // Get values from the newVariableForm
     const newVariable = this.newVariableForm.get('newVariable')?.value;
@@ -140,10 +153,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   
     // Check the selectedClass variable to determine where to append the variable
     if (this.selectedClass === 'body') {
-      const updatedBody = `${bodyControl.value}{{${newPlaceholder}}}`;
+      const updatedBody = `${bodyControl.value}${newPlaceholder}`;
       bodyControl.setValue(updatedBody);
     } else if (this.selectedClass === 'header') {
-      const updatedHeader = `${headerControl.value}{{${newPlaceholder}}}`;
+      const updatedHeader = `${headerControl.value}${newPlaceholder}`;
       headerControl.setValue(updatedHeader);
     }
   
