@@ -20,10 +20,12 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ActiveOrgStore, OrganisationService } from '@app/private/state/organisation/main';
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { createTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
+
 
 
 
@@ -66,8 +68,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   nextVariableId: number;
   newVariables: any = [];
   fetchedVariables: any = [];
-  bots: any[] = [];
-  selectedBot: any;
+  bots: Bot[] = [];
+  selectedBot: Bot;
   newVariableForm: FormGroup;
 
   private _sbS = new SubSink();
