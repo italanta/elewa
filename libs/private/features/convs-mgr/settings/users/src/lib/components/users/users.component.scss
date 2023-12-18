@@ -4,15 +4,17 @@
   font-size: 15px;
   font-family: Roboto;
   font-weight: 300;
-  word-wrap: break-word
+  word-wrap: break-word;
 }
+
 
 .mat-mdc-row {
   border-bottom: 1px solid var(--convs-mgr-color-primary-black);
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-  background-color: rgba(31, 124, 143, .4);
+  background: color #1f7a8c;
+  opacity: 40%;
   cursor: pointer;
 }
 
@@ -27,71 +29,61 @@
 .new-clm-user {
   padding: 30px 0;
 }
-
-.users{
+.users {
   box-sizing: border-box;
   width: 100%;
   padding: 20px;
   margin-top: 64px;
-  .toolbar{
 
+  .toolbar {
     select {
       border: 0;
       border-radius: 25px;
       box-shadow: none;
       height: 42px;
-      // width: 142px;
-      padding: 0 1em;
       background-color: var(--convs-mgr-color-FFFFFF);
       background-image: none;
       cursor: pointer;
-      // All roles
       color: black;
       font-size: 14px;
       font-family: Roboto;
       font-weight: 300;
       word-wrap: break-word;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-
-     
     }
-    .search{
-      .search {
-        height: 5px;
-        width: 100%;
-        align-items: center;
-        padding: 20px;
+    .search {
+      .search-container {
         position: relative;
-        display: inline-block;
 
-
-      
-        &_tooltip {
+        .search_tooltip {
+          position: absolute;
+          top: 50%;
+          left: 10px;
+          transform: translateY(-50%);
           color: gray;
-          transform: rotate(90deg);
           font-size: 20px;
           font-weight: 500;
           position: absolute;
           top: 45%;
           left: 30px;
         }
-      
-        &_input {
-          border-radius: 20px;
-          width: 440px;
-          height: 40px;
+        .search_input {
+          width: calc(100% - 3px);
+          padding-left: 30px;
+          height: 30px;
           border: none;
-          outline: none ;
-          font-size: 15px;
-          padding-left: 40px;
-          margin-top: -32px;
+          outline: none;
+          font-size: 14px;
+          border-radius: 10px;
+          margin-left: 6px;
         }
       }
     }
-    .column{
-      .buttons{
-        div{
-          mat-form-field{
+
+    .column {
+      .buttons {
+        div {
+          mat-form-field {
             position: absolute;
             top: 2vh;
             display: none !important;
@@ -99,14 +91,13 @@
         }
       }
     }
-   
   }
 
-  .buttons{
-    button{
+  .buttons {
+    button {
       height: 45px;
       width: 142px;
-      background: var(--convs-mgr-color-button); 
+      background: var(--convs-mgr-color-button);
       border-radius: 25px;
       color: white;
       font-size: 14px;
@@ -116,9 +107,9 @@
       border: none;
     }
   }
-  .role {
-    border-radius: 25px; /* Add this line */
-  }
+
+}
+  
   .user-table{
     .table-container{
       margin-top: 30px;
@@ -161,7 +152,7 @@
       }
     }
   }
-}
+
 
 .roles {
   display: flex;
