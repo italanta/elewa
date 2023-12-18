@@ -227,7 +227,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    })
  }
 
- onBotSelected(event: any , selectedClass: any) {
+ onBotSelected(event: any , selectedClass: string) {
   this.showCard = true;
   this.selectedClass = selectedClass;
   this.selectedBot = event.value;
@@ -238,7 +238,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    const botId = selectedBotData.id;
    this.botName = selectedBotData.name;
 
-  this._variableService$.getBotVariables(botId, this.orgId).subscribe(
+  this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
     (data: StoryBlockVariable[]) => {
       this.fetchedVariables = data;
     }
