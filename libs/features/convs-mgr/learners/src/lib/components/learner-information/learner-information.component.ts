@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GET_RANDOM_COLOR, GET_USER_AVATAR } from '@app/features/convs-mgr/conversations/chats';
+import { GET_USER_AVATAR } from '@app/features/convs-mgr/conversations/chats';
 
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 
@@ -11,8 +11,7 @@ import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/lea
 })
 export class LearnerInformationComponent implements OnInit {
   location = ""
-  
-  avatarColor: string;
+
   learnerInitials: string;
 
   constructor( private _router: Router){}
@@ -20,8 +19,6 @@ export class LearnerInformationComponent implements OnInit {
   @Input() currentLearner: EnrolledEndUser;
 
   ngOnInit() {
-    // Generate a random color for the avatar once when the component is initialized
-    this.avatarColor = GET_RANDOM_COLOR();
     // Get initials of the learner's name for the avatar once when the component is initialized
     this.learnerInitials = this.getInitials(this.currentLearner.name);
   }
