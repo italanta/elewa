@@ -160,24 +160,61 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
   }
   
+  onPlaceholderKeydown(event: KeyboardEvent) {
+    if (event.key === 'Backspace') {
+      // Check if the input is empty and remove the last variable
+      const inputField = this.newVariableForm.get('newPlaceholder');
+      if (inputField && inputField.value === '') {
+        // Call the removeLastAppendedVariable method
+        this.removeLastAppendedVariable();
+      }
+    }else{
+      console.log("no key")
+    }
+  }
 
+  removeLastAppendedVariable() {
+    // Remove the last variable from the array
+    if (this.newVariables.length > 0) {
+      const lastVariable = this.newVariables.pop();
+      // ... (rest of the removal logic)
+
+      // Also remove the placeholder from the newVariableForm
+      this.newVariableForm.get('newPlaceholder')?.setValue('');
+      this.newVariableForm.get('newVariable')?.setValue('');
+      console.log("removed")
+    }
+  }
+  
   removeVariable(index: number) {
-    // Get the placeholder to be removed
-    const placeholder = this.newVariables[index];
-
-    // Remove the variable from the body
+    // Get the variable to be removed
+    const removedVariable = this.newVariables[index];
+    
+    // Remove the variable from either the body or header based on the selectedClass
     const formContent = this.templateForm.get('content') as FormGroup;
-    const formBody = formContent.get('body') as FormGroup;
-    const bodyControl = formBody.get('text') as FormControl;
-    let updatedText = bodyControl.value;
-    const variableTag = `{{${placeholder}}}`;
-    updatedText = updatedText.replace(new RegExp(variableTag, 'g'), '');
-
-    bodyControl.setValue(updatedText);
-
+  
+    if (this.selectedClass === 'body') {
+      const formBody = formContent.get('body') as FormGroup;
+      const bodyControl = formBody.get('text') as FormControl;
+      let updatedBody = bodyControl.value;
+      const bodyVariableTag = `{{${removedVariable.placeholder}}}`;
+      updatedBody = updatedBody.replace(new RegExp(bodyVariableTag, 'g'), '');
+      bodyControl.setValue(updatedBody);
+    } else if (this.selectedClass === 'header') {
+      const formHeader = formContent.get('header') as FormGroup;
+      const headerControl = formHeader.get('text') as FormControl;
+      let updatedHeader = headerControl.value;
+      const headerVariableTag = `{{${removedVariable.placeholder}}}`;
+      updatedHeader = updatedHeader.replace(new RegExp(headerVariableTag, 'g'), '');
+      headerControl.setValue(updatedHeader);
+    }
+  
     // Remove the placeholder from the newVariables array
     this.newVariables.splice(index, 1);
   }
+  
+  
+  
 
   updateReferencesFromBody(updatedBody: string) {
     const formContent = this.templateForm.get('content') as FormGroup;

@@ -83,7 +83,7 @@
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }} <span> <span class="spec">T</span> </span></p>
           
                         <mat-form-field >
-                          <input type="text" matInput formControlName="text">
+                          <input type="text" matInput formControlName="text" (keydown)="onPlaceholderKeydown($event)">
                         </mat-form-field>
                       </div>
 
