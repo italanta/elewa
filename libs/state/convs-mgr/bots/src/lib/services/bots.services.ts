@@ -9,6 +9,9 @@ import { BotsStore } from '../stores/bots.store';
   providedIn: 'root',
 })
 export class BotsStateService {
+  getAssessment() {
+      throw new Error('Method not implemented.');
+  }
   constructor(private _botsStore$$: BotsStore) {}
 
   getBots(): Observable<Bot[]> {

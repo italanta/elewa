@@ -1,12 +1,17 @@
+// import { BreadcrumbResolver } from '@app/elements/layout/ital-bread-crumb';
+// import { BreadcrumbResolver } from 'libs/elements/layout/ital-bread-crumb/src/lib/resolvers/breadcrumb.resolver';
+import { Breadcrumb } from './../../../../libs/util/iote/bricks-angular/src/lib/material-bricks/components/breadcrumbs/breadcrumb.interface';
+import { Assessment } from './../../../../libs/model/convs-mgr/conversations/assessments/src/lib/assessment.interface';
 import { NgModule } from '@angular/core';
 import { RouterModule, Route, PreloadAllModules }    from '@angular/router';
-
 import { CanAccessAnalyticsGuard, CanAccessAssessmentsGuard, CanAccessBotsGuard, 
          CanAccessChatsGuard, CanAccessLearnersGuard, IsLoggedInGuard, 
          CanAccessFFlagGuard 
 } from '@app/elements/base/authorisation';
 
 import { NoPermissionToAccessComponent } from '@app/private/elements/convs-mgr/access-control';
+import { AssessmentResultsComponent } from 'libs/features/convs-mgr/conversations/assessments/src/lib/pages/assessment-results/assessment-results.component';
+import { BreadcrumbResolver } from 'libs/elements/layout/ital-bread-crumb/src/lib/resolvers/breadcrumb.resolver';
 
 export const APP_ROUTES: Route[] = [
 
@@ -80,8 +85,23 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'assessments',
     loadChildren: () => import('@app/features/convs-mgr/conversations/assessments').then(m => m.ConvsMgrAssessmentsModule),
-    data: { breadCrumb: 'Assessments' },
     canActivate: [IsLoggedInGuard, CanAccessAssessmentsGuard],
+  },
+
+  {
+    path:'assessments/:id/results',
+    data: { breadCrumb: 'Results' },
+    component:AssessmentResultsComponent,
+    // resolve:{
+    //   _assessment: AssessmentsResolverService,
+    //   get assessment() {
+    //     return this._assessment;
+    //   },
+    //   set assessment(value) {
+    //     this._assessment = value;
+    //   },
+    //   breadcrumbs:BreadcrumbResolver
+    // },
   },
   
   {
