@@ -12,6 +12,10 @@ mat-expansion-panel {
   }
 }
 
+.hoverEffect:hover{
+  background-color: rgba(31, 124, 143, .4) !important;
+}
+
 .main-title {
   color: var(--convs-mgr-color-text-black);
   font-weight: 600;
