@@ -9,4 +9,5 @@ import { Observable } from 'rxjs';
 })
 export class ItalBreadcrumbComponent {
   @Input() breadcrumbs$: Observable<BreadCrumbPath[]>;
+  @Input() icon: string;
 }
