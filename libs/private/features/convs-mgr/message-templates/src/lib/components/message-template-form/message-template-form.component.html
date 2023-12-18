@@ -100,7 +100,7 @@
                                 <div *ngIf="selectedClass === 'header'">
                                     <h4>{{ botName }}</h4>
                                     <ul  class="header">
-                                        <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                        <li (click)="updateVariableAndPlaceholder(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
                                     </ul>
                                 </div>
                               </mat-card>
@@ -126,7 +126,7 @@
                                 <div *ngIf="selectedClass === 'body'">
                                     <h4>{{ botName }}</h4>
                                     <ul  class="body">
-                                        <li (click)="addVariableFromFetched(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                        <li (click)="updateVariableAndPlaceholder(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
                                     </ul>
                                 </div>
                               </mat-card>

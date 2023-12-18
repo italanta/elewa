@@ -45,7 +45,7 @@ export class VariablesService {
     this._variablesStore$$.write(variables, variableId);
   }
 
-  getBotVariables(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
+  getVariablesByBot(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
     return this._variablesStore$$.getBotVariables(botId, orgId)
   }
 }

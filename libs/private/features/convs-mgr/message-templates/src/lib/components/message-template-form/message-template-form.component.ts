@@ -20,10 +20,12 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { ActiveOrgStore, OrganisationService } from '@app/private/state/organisation/main';
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { createTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
+
 
 
 
@@ -66,8 +68,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   nextVariableId: number;
   newVariables: any = [];
   fetchedVariables: any = [];
-  bots: any[] = [];
-  selectedBot: any;
+  bots: Bot[] = [];
+  selectedBot: Bot;
   newVariableForm: FormGroup;
 
   private _sbS = new SubSink();
@@ -264,7 +266,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    })
  }
 
- onBotSelected(event: any , selectedClass: any) {
+ onBotSelected(event: any , selectedClass: string) {
   this.showCard = true;
   this.selectedClass = selectedClass;
   this.selectedBot = event.value;
@@ -275,7 +277,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    const botId = selectedBotData.id;
    this.botName = selectedBotData.name;
 
-  this._variableService$.getBotVariables(botId, this.orgId).subscribe(
+  this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
     (data: StoryBlockVariable[]) => {
       this.fetchedVariables = data;
     }
@@ -316,13 +318,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  addVariableFromFetched(variable: any) {
-    // Set the selected variable
+  updateVariableAndPlaceholder(variable: string) {
+    // Updates the selected variable, hides the card, displays the variables section, and updates the new variable form placeholder.
     this.selectedVariable = variable;
     this.hideCard();
     this.showVariablesSection = true;
-    this.newVariableForm.patchValue({newPlaceholder: `{{${this.selectedVariable}}}`});
-  }
+    this.newVariableForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
+  }  
   
   hideCard() {
     this.showCard = false;
