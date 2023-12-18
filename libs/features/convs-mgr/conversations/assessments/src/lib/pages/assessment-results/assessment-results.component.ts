@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, Resolve } from '@angular/router';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
-import { map, switchMap } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { Timestamp } from 'firebase-admin/firestore';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
@@ -18,11 +18,13 @@ import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/con
 
 import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
 import { pieChartOptions } from '../../utils/chart.util';
+import { BreadCrumbPath, ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 
 @Component({
   selector: 'app-assessment-results',
   templateUrl: './assessment-results.component.html',
-  styleUrls: ['./assessment-results.component.scss'],
+  styleUrls: ['./assessment-results.component.scss']
 })
 export class AssessmentResultsComponent implements OnInit, OnDestroy {
   chart: Chart;
@@ -43,21 +45,31 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  breadcrumbs$:Observable<BreadCrumbPath[]>;
   private _sBs = new SubSink();
 
   constructor(
     private _router: Router,
+    private _route:ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer,
     private _activeAssessment$$: ActiveAssessmentStore,
     private _assessmentQuestion: AssessmentQuestionService,
     private _aMetrics: AssessmentMetricsService,
-    private _endUserService: EndUserService
+    private _endUserService: EndUserService,
+    private _breadCrumbServ: BreadcrumbService
   ) {}
 
   ngOnInit() {
+    this.breadcrumbs$ = this._breadCrumbServ.breadcrumbs$;
     this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);
     this.getMetrics();
   };
+
+
+  getBreadCrumb(assessment:string){
+    const breadcrumb={ icon: 'assets/icons/assessment.png', paths: [{ label: assessment, link: '' }, {label: 'assessment_name', link: ''}] } as ItalBreadCrumb
+    return breadcrumb
+  }
 
   getMetrics() {
     this._sBs.sink = this._activeAssessment$$.get()
