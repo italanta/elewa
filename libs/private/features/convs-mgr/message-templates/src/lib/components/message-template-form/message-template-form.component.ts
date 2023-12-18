@@ -279,12 +279,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  addVariableFromFetched(variable: any) {
-    // Set the selected variable
+  updateSelectedVariableAndFormPlaceholder(variable: string) {
+    // Updates the selected variable, hides the card, displays the variables section, and updates the new variable form placeholder.
     this.selectedVariable = variable;
     this.hideCard();
     this.showVariablesSection = true;
-    this.newVariableForm.patchValue({newPlaceholder: `{{${this.selectedVariable}}}`});
+    this.newVariableForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
   }
   
   hideCard() {
