@@ -1023,7 +1023,8 @@
                 "FOOTER": "Footer",
                 "FOOTER-DESCRIPTION": "Add a short line of text to your message content to be shown at the bottom"
               }
-            }
+            },
+            "ADD-VARIABLE":"Add Variable"
           },
           "ADD-RESPONSES": {
             "ADD-RESPONSES": "Add responses",

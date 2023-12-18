@@ -88,7 +88,7 @@
                       </div>
 
                       <div class="add-variable header">
-                        <p [matMenuTriggerFor]="menu" (click)="fetchBots()">add variable <i class="fas fa-chevron-down"></i></p>
+                        <p [matMenuTriggerFor]="menu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                     </div>
                         <mat-menu #menu="matMenu">
                             <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
@@ -113,7 +113,7 @@
                             <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
                         </mat-form-field>
                         <div class="add-variable body">
-                            <p [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">add variable <i class="fas fa-chevron-down"></i></p>
+                            <p [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                         </div>
                             <mat-menu #bodymenu="matMenu">
                                 <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
@@ -143,7 +143,7 @@
                               <div [formGroup] = "newVariableForm">
                                 <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
                                 <input type="text" formControlName="newVariable" placeholder="Enter Content " class="eveinputs">
-                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
+                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}</button> 
                                 </div>
                         </div>
                         </div>
