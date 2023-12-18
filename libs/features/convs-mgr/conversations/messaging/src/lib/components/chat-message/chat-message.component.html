@@ -20,8 +20,6 @@
         [innerHtml]=" textMessage(message)"></span>
       </div>
 
-    <!-- <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message> -->
-
     <div class="resource-holder">
       <ng-container *ngSwitchCase="'image'">
         <app-image-resource-message [message]="message"></app-image-resource-message>
