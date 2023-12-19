@@ -1,11 +1,5 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -129,7 +123,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
   detectVariableChange() {
     this._sbS.sink = this.newVariableForm.get('newVariable')?.valueChanges
-      .pipe(debounceTime(2000)) // Debounce for 2000 milliseconds (2 seconds)
+      .pipe(debounceTime(2000)) 
       .subscribe((value) => {
         // Check if the user is currently typing
         if (value !== '' && value !== null) {
@@ -213,20 +207,20 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       if (value === '') {
         // Update currentVariables with an empty array
         this.currentVariables = [];
-        this.newVariables = this.currentVariables
+        this.newVariables = this.currentVariables;
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated body text
         const newVariables = extractVariables(value);
         // Update currentVariables with only the variables that are present in the input field
-        if(this.currentVariables.length !== newVariables.length){
+        if (this.currentVariables.length !== newVariables.length) {
           this.currentVariables = newVariables;
-          // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
-          this.newVariables = filterObjectsByPlaceholder(this.newVariables, this.currentVariables)  
+          this.newVariables = filterObjectsByPlaceholder(this.newVariables, this.currentVariables);
         }
         this._variableService$.updateNewVariables(this.newVariables);
       }
-     });
+    });
+    
      
      this._sbS.sink = headerControl.valueChanges.subscribe((value) => {
       // Check if the input field is cleared
