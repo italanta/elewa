@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 import { StoryBlock, StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
@@ -11,6 +11,8 @@ import { variableBlocksStore } from '@app/state/convs-mgr/variables';
 export class VariablesService {
   /** list of blocks with variables already set */
   blocksWithVars$: Observable<StoryBlock[]>;
+  private newVariablesSubject = new BehaviorSubject<any[]>([]);
+  newVariables$ = this.newVariablesSubject.asObservable();
 
   constructor(
     private _blockStore$$: StoryBlocksStore,
@@ -48,4 +50,9 @@ export class VariablesService {
   getVariablesByBot(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
     return this._variablesStore$$.getBotVariables(botId, orgId)
   }
+
+  updateNewVariables(newVariables: any[]) {
+    this.newVariablesSubject.next(newVariables);
+    console.log('New variables updated successfully',newVariables);
+    }
 }

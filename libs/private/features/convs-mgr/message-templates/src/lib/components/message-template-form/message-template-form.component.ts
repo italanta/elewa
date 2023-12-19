@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, debounceTime, map } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
@@ -67,7 +67,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   referenceForm: FormGroup;
   nextVariableId: number;
   newVariables: any = [];
+  newVariables$: Observable<any[]>;
+
   fetchedVariables: any = [];
+  currentVariables:any =[];
   bots: Bot[] = [];
   selectedBot: Bot;
   newVariableForm: FormGroup;
@@ -97,10 +100,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       newPlaceholder: ['', Validators.required],
     });
     this.newVariableForm.get('newPlaceholder')?.disable();
-    // Subscribe to changes in the content.body control
-    this.subscribeToBodyControlChanges();
     this.getActiveOrg();
-    this.detectVariableChange()
+    this.detectVariableChange();
+    this.onChangedVal();
+    this.newVariables$ = this._variableService$.newVariables$.pipe(distinctUntilChanged());
   }
 
   initPage() {
@@ -117,15 +120,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
           });
         }
       });
-  }
-
-  subscribeToBodyControlChanges() {
-    const bodyControl = this.templateForm.get(
-      'content.body.text'
-    ) as FormControl;
-    bodyControl.valueChanges.subscribe((updatedBody) => {
-      this.updateReferencesFromBody(updatedBody);
-    });
   }
 
   detectVariableChange() {
@@ -168,92 +162,65 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       placeholder: newPlaceholder,
     });
 
-     
+    this._variableService$.updateNewVariables(this.newVariables);
     // Clear the input fields in the newVariableForm
+
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
-
-  }
-  
-  onPlaceholderKeydown(event: KeyboardEvent) {
-    if (event.key === 'Backspace') {
-      // Check if the input is empty and remove the last variable
-      const inputField = this.newVariableForm.get('newPlaceholder');
-      if (inputField && inputField.value === '') {
-        // Call the removeLastAppendedVariable method
-        this.removeLastAppendedVariable();
-      }
-    }else{
-      console.log("no key")
-    }
-  }
-
-  removeLastAppendedVariable() {
-    // Remove the last variable from the array
-    if (this.newVariables.length > 0) {
-      const lastVariable = this.newVariables.pop();
-      // ... (rest of the removal logic)
-
-      // Also remove the placeholder from the newVariableForm
-      this.newVariableForm.get('newPlaceholder')?.setValue('');
-      this.newVariableForm.get('newVariable')?.setValue('');
-      console.log("removed")
-    }
-  }
-  
-  removeVariable(index: number) {
-    // Get the variable to be removed
-    const removedVariable = this.newVariables[index];
     
-    // Remove the variable from either the body or header based on the selectedClass
-    const formContent = this.templateForm.get('content') as FormGroup;
-  
-    if (this.selectedClass === 'body') {
-      const formBody = formContent.get('body') as FormGroup;
-      const bodyControl = formBody.get('text') as FormControl;
-      let updatedBody = bodyControl.value;
-      const bodyVariableTag = `{{${removedVariable.placeholder}}}`;
-      updatedBody = updatedBody.replace(new RegExp(bodyVariableTag, 'g'), '');
-      bodyControl.setValue(updatedBody);
-    } else if (this.selectedClass === 'header') {
-      const formHeader = formContent.get('header') as FormGroup;
-      const headerControl = formHeader.get('text') as FormControl;
-      let updatedHeader = headerControl.value;
-      const headerVariableTag = `{{${removedVariable.placeholder}}}`;
-      updatedHeader = updatedHeader.replace(new RegExp(headerVariableTag, 'g'), '');
-      headerControl.setValue(updatedHeader);
-    }
-  
-    // Remove the placeholder from the newVariables array
-    this.newVariables.splice(index, 1);
   }
-  
-  
-  
-
-  updateReferencesFromBody(updatedBody: string) {
+  onChangedVal() {
+    // Determine whether to append to header or body based on user choice
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
-
-    const referencesArray = formBody.get('examples') as FormArray;
-
-    // Iterate over the references and check if their placeholders exist in the updatedBody
-    for (let i = referencesArray.length - 1; i >= 0; i--) {
-      const referenceGroup = referencesArray.at(i) as FormGroup;
-      const placeholder = referenceGroup.get('placeholder')?.value;
-
-      // If the placeholder does not exist in the updated body, remove the reference
-      if (!updatedBody.includes(`{{${placeholder}}}`)) {
-        referencesArray.removeAt(i);
-        // Also remove the associated new variable
-        const variableIndex = this.newVariables.indexOf(placeholder);
-        if (variableIndex !== -1) {
-          this.newVariables.splice(variableIndex, 1);
-        }
+    const formHeader = formContent.get('header') as FormGroup;
+   
+    const bodyControl = formBody.get('text') as FormControl;
+    const headerControl = formHeader.get('text') as FormControl;
+   
+    // Helper function to extract variables from the template text
+    const extractVariables = (text: string) => {
+      const variableRegex = /\{\{([^}]+)\}\}/g;
+      const matches = [];
+      let match;
+      while ((match = variableRegex.exec(text)) !== null) {
+        matches.push(match[1]);
       }
-    }
-  }
+      return matches;
+    };
 
+    
+    bodyControl.valueChanges.subscribe((value) => {
+      // Check if the input field is cleared
+      if (value === '') {
+        // Update currentVariables with an empty array
+        this.currentVariables = [];
+        this._variableService$.updateNewVariables(this.currentVariables);
+      } else {
+        // Extract variables from the updated body text
+        const newVariables = extractVariables(value);
+        // Update currentVariables with only the variables that are present in the input field
+        this.currentVariables = newVariables;
+        this._variableService$.updateNewVariables(this.currentVariables);
+      }
+     });
+     
+     headerControl.valueChanges.subscribe((value) => {
+      // Check if the input field is cleared
+      if (value === '') {
+        // Update currentVariables with an empty array
+        this.currentVariables = [];
+        this._variableService$.updateNewVariables(this.currentVariables);
+      } else {
+        // Extract variables from the updated header text
+        const newVariables = extractVariables(value);
+        // Update currentVariables with only the variables that are present in the input field
+        this.currentVariables = newVariables;
+        this._variableService$.updateNewVariables(this.currentVariables);
+      }
+     });     
+  }
+   
   getActiveOrg() {
     this._activeOrgStore$$.get().subscribe((org) => {
       this.orgId = org.id ?? '';
@@ -318,8 +285,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Updates the selected variable, hides the card, displays the variables section, and updates the new variable form placeholder.
   updateVariableAndPlaceholder(variable: string) {
-    // Updates the selected variable, hides the card, displays the variables section, and updates the new variable form placeholder.
     this.selectedVariable = variable;
     this.hideCard();
     this.showVariablesSection = true;
