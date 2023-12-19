@@ -27,12 +27,12 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
 
   ngAfterViewInit(): void {
     if (this.message) {
-      this.messageIsNotMine = this.message.direction === MessageDirection.FROM_ENDUSER_TO_AGENT || this.message.direction === MessageDirection.FROM_END_USER_TO_CHATBOT;
-      this.agentMessage = this.message.direction === MessageDirection.FROM_AGENT_TO_END_USER  || this.message.direction === MessageDirection.FROM_CHATBOT_TO_END_USER;
+      this.messageIsNotMine = this.message.direction === MessageDirection.FROM_AGENT_TO_END_USER || this.message.direction === MessageDirection.FROM_CHATBOT_TO_END_USER;  
+      this.agentMessage = this.message.direction === MessageDirection.FROM_ENDUSER_TO_AGENT || this.message.direction === MessageDirection.FROM_END_USER_TO_CHATBOT;  
       this.timestamp = __DateFromStorage(this.message.createdOn as Date).format('DD/MM HH:mm');
     }
   }
-
+  
   textMessage(message: Message)
   {
     const html = this._convertText((message as TextMessage).text);

@@ -1,7 +1,7 @@
 <div class="message" 
   [class.message-agent]="agentMessage" 
-  [class.message-mine]="messageIsNotMine && !agentMessage"
-  [class.message-other]="!messageIsNotMine && agentMessage"> 
+  [class.message-mine]="messageIsNotMine"
+  [class.message-other]="messageIsNotMine"> 
 
   <div [ngSwitch]="message.type">
     <div *ngSwitchCase="'text'"
