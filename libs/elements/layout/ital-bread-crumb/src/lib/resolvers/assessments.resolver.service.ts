@@ -22,14 +22,12 @@ export class AssessmentResolverService implements Resolve<Assessment> {
 
     return this.fetchedAssessments$.pipe(
       switchMap((assessments) => {
-        const existingAssessments = assessments.find((assessment) => assessment.id === id);
+        const existingAssessment = assessments.find((assessment) => assessment.id === id);
 
-        if (existingAssessments) {
-          return of(existingAssessments);
+        if (existingAssessment) {
+          return of(existingAssessment);
         } else {
-          return (
-            this._assessmentService.getAssessment$(id) as Observable<Assessment>
-          ).pipe(
+          return (this._assessmentService.getAssessment$(id) as Observable<Assessment>).pipe(
             filter((assessment) => !!assessment),
             take(1)
           );
