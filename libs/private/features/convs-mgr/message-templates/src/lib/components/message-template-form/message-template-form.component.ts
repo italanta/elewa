@@ -66,8 +66,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
   referenceForm: FormGroup;
   nextVariableId: number;
-  newVariables: any = [];
-  newVariables$: Observable<any[]>;
+  newVariables: any = []; //This variable is an array used to keep track of new variables added by the user
+  newVariables$: Observable<any[]>; //used to subscribe to changes in the list of new variables from other parts of the application
   fetchedVariables: any = [];
   currentVariables:any =[];
   bots: Bot[] = [];
@@ -105,7 +105,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         this.newVariableForm.get('newVariable')?.disable();
       }
     });
-    // Subscribe to changes in the content.body control
     this.onChangedVal();
     this.getActiveOrg();
     this.detectVariableChange();
@@ -129,7 +128,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   }
 
   detectVariableChange() {
-    this.newVariableForm.get('newVariable')?.valueChanges
+    this._sbS.sink = this.newVariableForm.get('newVariable')?.valueChanges
       .pipe(debounceTime(2000)) // Debounce for 2000 milliseconds (2 seconds)
       .subscribe((value) => {
         // Check if the user is currently typing
@@ -209,7 +208,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
 
     
-    bodyControl.valueChanges.subscribe((value) => {
+    this._sbS.sink = bodyControl.valueChanges.subscribe((value) => {
       // Check if the input field is cleared
       if (value === '') {
         // Update currentVariables with an empty array
@@ -229,7 +228,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       }
      });
      
-     headerControl.valueChanges.subscribe((value) => {
+     this._sbS.sink = headerControl.valueChanges.subscribe((value) => {
       // Check if the input field is cleared
       if (value === '') {
         // Update currentVariables with an empty array
@@ -251,13 +250,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   }
    
   getActiveOrg() {
-    this._activeOrgStore$$.get().subscribe((org) => {
+    this._sbS.sink = this._activeOrgStore$$.get().subscribe((org) => {
       this.orgId = org.id ?? '';
     });
   }
 
   fetchBots(){
-    this._botStateServ$.getBots().subscribe(data =>{
+    this._sbS.sink = this._botStateServ$.getBots().subscribe(data =>{
      this.bots = data
    })
  }
@@ -273,7 +272,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    const botId = selectedBotData.id;
    this.botName = selectedBotData.name;
 
-  this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
+   this._sbS.sink = this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
     (data: StoryBlockVariable[]) => {
       this.fetchedVariables = data;
     }
