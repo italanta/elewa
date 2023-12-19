@@ -191,7 +191,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       while ((match = variableRegex.exec(text)) !== null) {
         matches.push(match[1]);
       }
-      console.log("matches are",matches)
       return matches;
     };
 
