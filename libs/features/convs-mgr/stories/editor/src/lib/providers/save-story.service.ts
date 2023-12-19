@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import { StoryError, StoryErrorType } from "@app/model/convs-mgr/stories/main";
-import { StoryBlock, StoryBlockConnection, isOptionBlock } from "@app/model/convs-mgr/stories/blocks/main";
+import { StoryBlock, StoryBlockConnection, isMediaBlock, isOptionBlock } from "@app/model/convs-mgr/stories/blocks/main";
 
 import { StoryEditorState, StoryEditorStateService } from "@app/state/convs-mgr/story-editor";
 
@@ -11,28 +11,30 @@ import { KeywordMessageBlock, ListMessageBlock, QuestionMessageBlock } from "@ap
 @Injectable()
 export class SaveStoryService 
 {
+  private validator: StoryError[];
+
   constructor(private _editorState$$: StoryEditorStateService) 
   { }
 
   saveStory(state: StoryEditorState, frame: StoryEditorFrame, doValidation = true )
   {
+    this.validator = [];
     // STEP 1 - Prepare a validator. 
     //          The saving will be blocked unless the user explicitly approves to save invalid stories
-    const validator: StoryError[] = [];
-
+    
     // STEP 2 - Validate and process connections from JsPlumb
     // Connecting happens within JsPlumb and outside of our state's control
-    state.connections = this._getConnectionsFromFrame(state, frame, validator);
+    state.connections = this._getConnectionsFromFrame(state, frame);
 
     // STEP 3 - Validate and process blocks (side effect which updates validators)
-    this._validateBlocks(state.connections, state.blocks, state.story.id!, validator);
+    this._validateBlocks(state.connections, state.blocks, state.story.id!);
 
     // IF there are errors and it is the first run, block save and throw the errors.
-    if(doValidation && validator.length > 0)
+    if(doValidation && this.validator.length > 0)
     {
       console.log(`Blocking save due to errors:`);
-      console.log(validator);
-      throw validator;
+      console.log(this.validator);
+      throw this.validator;
     }
     // IF validation passes, do the save
 
@@ -48,7 +50,7 @@ export class SaveStoryService
    * @param state -  
    * @param frame -
    */
-  private _getConnectionsFromFrame(state: StoryEditorState, frame: StoryEditorFrame, validator: StoryError[])
+  private _getConnectionsFromFrame(state: StoryEditorState, frame: StoryEditorFrame)
   {
     const connsToProcess = [];
     const connsPlumb = frame.jsPlumbInstance.connections;
@@ -61,7 +63,7 @@ export class SaveStoryService
       if(target)
         connsToProcess.push(({ id: c.id, sourceId: c.sourceId, targetId: target.id }) as StoryBlockConnection);
       else 
-        validator.push({ 
+        this.validator.push({ 
           type: StoryErrorType.MissingConnection,
           blockId: c.sourceId,
           // message: `Connection ${c.id} is missing a valid target`
@@ -78,24 +80,27 @@ export class SaveStoryService
   /** 
    * Validator function for the flow
    */
-  private _validateBlocks(connections: StoryBlockConnection[], blocks: StoryBlock[], storyId: string, errors: StoryError[]) 
+  private _validateBlocks(connections: StoryBlockConnection[], blocks: StoryBlock[], storyId: string) 
   {
     // Check if start anchor is connected
     const startAnchorError = this._hasMissingConnection(connections, storyId, storyId);
     if(startAnchorError)
-      errors.push(startAnchorError);
+      this.validator.push(startAnchorError);
 
     // Check if the blocks have errors
     for(const block of blocks)
     {
       if (block.id === 'story-end-anchor' || block.deleted) {
-        return; // Skip checking for errors for end anchor and deleted blocks
+        continue; // Skip checking for errors for end anchor and deleted blocks
       }
   
       // Check for empty text body
-      const hasEmptyTextFields = this.checkEmptyTextField(block.message, block.id as string);
+      const hasEmptyTextFields = !isMediaBlock(block.type) 
+                                    ? this.checkEmptyTextField(block.message, block.id as string) 
+                                        : false;
+
       if(hasEmptyTextFields)
-        errors.push(hasEmptyTextFields);
+        this.validator.push(hasEmptyTextFields);
 
       // Check for empty text options
       if (isOptionBlock(block.type) && (block as QuestionMessageBlock).options) 
@@ -109,17 +114,17 @@ export class SaveStoryService
           const hasEmptyOption = this.checkEmptyTextField(option.message, block.id as string, option.id);
           const hasEmptyConnectionOnOption = this._hasMissingConnection(connections, `i-${i}-${block.id}`, block.id, option.id);
 
-          if(hasEmptyOption) errors.push(hasEmptyOption);
-          if(hasEmptyConnectionOnOption) errors.push(hasEmptyConnectionOnOption);
+          if(hasEmptyOption) this.validator.push(hasEmptyOption);
+          if(hasEmptyConnectionOnOption) this.validator.push(hasEmptyConnectionOnOption);
           i++;
         }
       }
       else {
         const hasEmptyConnectionOnOption = this._hasMissingConnection(connections, `defo-${block.id}`, block.id);
-        if(hasEmptyConnectionOnOption) errors.push(hasEmptyConnectionOnOption);
+        if(hasEmptyConnectionOnOption) this.validator.push(hasEmptyConnectionOnOption);
       }
     }
-    return errors;
+    return this.validator;
   }
 
 

@@ -10,16 +10,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
 
-import { Observable, map } from 'rxjs';
+import { Observable, debounceTime, map } from 'rxjs';
 
 import { MessageTemplate } from '@app/model/convs-mgr/functions';
 import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { ActiveOrgStore, OrganisationService } from '@app/private/state/organisation/main';
+import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
+import { StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { createTemplateForm } from '../../providers/create-empty-message-template-form.provider';
 import { SnackbarService } from '../../services/snackbar.service';
 import { categoryOptions, languageOptions } from '../../utils/constants';
+
+
+
+
+
+
+
 
 @Component({
   selector: 'app-message-template-form',
@@ -35,9 +47,19 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   templateForm: FormGroup;
   content: FormGroup;
 
+  orgId:string;
+  selectedVariable: string;
+  showCard: boolean;
+  selectedClass: string;
+  botName:string;
+
+
+
   templateId: string;
   panelOpenState: boolean;
   isSaving: boolean;
+  showVariablesSection :boolean;
+  showSelectedVariableSection: boolean;
 
   categories: { display: string; value: string }[] = categoryOptions;
   languages: { display: string; value: string }[] = languageOptions;
@@ -45,6 +67,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   referenceForm: FormGroup;
   nextVariableId: number;
   newVariables: any = [];
+  fetchedVariables: any = [];
+  bots: Bot[] = [];
+  selectedBot: Bot;
   newVariableForm: FormGroup;
 
   private _sbS = new SubSink();
@@ -55,21 +80,33 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _route$$: Router,
     private _snackbar: SnackbarService,
-    private _channelService: CommunicationChannelService
+    private _botStateServ$: BotsStateService,
+    private _channelService: CommunicationChannelService, 
+    private _variableService$ : VariablesService,
+    private _activeOrgStore$$: ActiveOrgStore,
+    private _orgService$$:OrganisationService
   ) {}
 
   ngOnInit() {
     this.templateForm = createTemplateForm(this.fb);
     this.initPage();
-
+    this.showCard = true;
     this.channels$ = this._channelService.getAllChannels();
-
     this.newVariableForm = this.fb.group({
       newVariable: ['', Validators.required],
       newPlaceholder: ['', Validators.required],
     });
+    this.newVariableForm.get('newPlaceholder')?.valueChanges.subscribe((value) => {
+      if (value && value.trim() !== '') {
+        this.newVariableForm.get('newVariable')?.enable();
+      } else {
+        this.newVariableForm.get('newVariable')?.disable();
+      }
+    });
     // Subscribe to changes in the content.body control
     this.subscribeToBodyControlChanges();
+    this.getActiveOrg();
+    this.detectVariableChange()
   }
 
   initPage() {
@@ -97,28 +134,53 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  detectVariableChange() {
+    this.newVariableForm.get('newVariable')?.valueChanges
+      .pipe(debounceTime(2000)) // Debounce for 2000 milliseconds (2 seconds)
+      .subscribe((value) => {
+        // Check if the user is currently typing
+        if (value !== '' && value !== null) {
+          // This code will be executed after the user stops typing for 2 seconds
+          this.addVariable();
+        }
+      });
+  }
+
   addVariable() {
     // Get values from the newVariableForm
     const newVariable = this.newVariableForm.get('newVariable')?.value;
     const newPlaceholder = this.newVariableForm.get('newPlaceholder')?.value;
-
-    // Surround the newVariable with {{}} and append it to the current content.body
+  
+    // Determine whether to append to header or body based on user choice
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
+    const formHeader = formContent.get('header') as FormGroup;
+    
     const bodyControl = formBody.get('text') as FormControl;
-    const updatedBody = `${bodyControl.value}{{${newPlaceholder}}}`;
-    bodyControl.setValue(updatedBody);
-
+    const headerControl = formHeader.get('text') as FormControl;
+  
+    // Check the selectedClass variable to determine where to append the variable
+    if (this.selectedClass === 'body') {
+      const updatedBody = `${bodyControl.value}${newPlaceholder}`;
+      bodyControl.setValue(updatedBody);
+    } else if (this.selectedClass === 'header') {
+      const updatedHeader = `${headerControl.value}${newPlaceholder}`;
+      headerControl.setValue(updatedHeader);
+    }
+  
     // Track new variables as strings
     this.newVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
 
+     
     // Clear the input fields in the newVariableForm
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
+
   }
+  
 
   removeVariable(index: number) {
     // Get the placeholder to be removed
@@ -161,6 +223,37 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  getActiveOrg() {
+    this._activeOrgStore$$.get().subscribe((org) => {
+      this.orgId = org.id ?? '';
+    });
+  }
+
+  fetchBots(){
+    this._botStateServ$.getBots().subscribe(data =>{
+     this.bots = data
+   })
+ }
+
+ onBotSelected(event: any , selectedClass: string) {
+  this.showCard = true;
+  this.selectedClass = selectedClass;
+  this.selectedBot = event.value;
+  // const selectedBotData = this.selectedBot;
+  const selectedBotData = this.selectedBot as { id: string; name: string };
+
+   // Now you can access both id and name
+   const botId = selectedBotData.id;
+   this.botName = selectedBotData.name;
+
+  this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
+    (data: StoryBlockVariable[]) => {
+      this.fetchedVariables = data;
+    }
+  );
+}
+
+
   cancel() {
     this._route$$.navigate(['/messaging']);
   }
@@ -193,6 +286,19 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  // Updates the selected variable, hides the card, displays the variables section, and updates the new variable form placeholder.
+  updateVariableAndPlaceholder(variable: string) {
+    this.selectedVariable = variable;
+    this.hideCard();
+    this.showVariablesSection = true;
+    this.newVariableForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
+  }  
+  
+  hideCard() {
+    this.showCard = false;
+  }
+  
 
   saveTemplate() {
     if (!this.templateForm.valid) {
