@@ -20,8 +20,23 @@
         [innerHtml]=" textMessage(message)"></span>
       </div>
 
-    <app-resource-message *ngSwitchCase="'image'" [message]="message"></app-resource-message>
-    <app-resource-message *ngSwitchCase="'iframe'" [message]="message"></app-resource-message>
+    <div class="resource-holder">
+      <ng-container *ngSwitchCase="'image'">
+        <app-image-resource-message [message]="message"></app-image-resource-message>
+      </ng-container>
+    
+      <ng-container *ngSwitchCase="'document'">
+        <app-document-resource-message [message]="message"></app-document-resource-message>
+      </ng-container>
+    
+      <ng-container *ngSwitchCase="'audio'">
+        <app-audio-resource-message [message]="message"></app-audio-resource-message>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'video'">
+        <app-video-resource-message [message]="message"></app-video-resource-message>
+      </ng-container>
+    </div>
   </div>
 
   <span class="message-timestamp">{{ timestamp }}</span>
