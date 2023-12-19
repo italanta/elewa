@@ -53,6 +53,5 @@ export class VariablesService {
 
   updateNewVariables(newVariables: any[]) {
     this.newVariablesSubject.next(newVariables);
-    console.log('New variables updated successfully',newVariables);
     }
 }

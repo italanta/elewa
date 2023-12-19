@@ -68,7 +68,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   nextVariableId: number;
   newVariables: any = [];
   newVariables$: Observable<any[]>;
-
   fetchedVariables: any = [];
   currentVariables:any =[];
   bots: Bot[] = [];
