@@ -98,7 +98,15 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       newVariable: ['', Validators.required],
       newPlaceholder: ['', Validators.required],
     });
-    this.newVariableForm.get('newPlaceholder')?.disable();
+    this.newVariableForm.get('newPlaceholder')?.valueChanges.subscribe((value) => {
+      if (value && value.trim() !== '') {
+        this.newVariableForm.get('newVariable')?.enable();
+      } else {
+        this.newVariableForm.get('newVariable')?.disable();
+      }
+    });
+    // Subscribe to changes in the content.body control
+    this.subscribeToBodyControlChanges();
     this.getActiveOrg();
     this.detectVariableChange();
     this.onChangedVal();
