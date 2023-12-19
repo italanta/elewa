@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 
 import { StoryBlock, StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 import { StoryBlocksStore } from '@app/state/convs-mgr/stories/blocks';
-import { variableBlocksStore } from '@app/state/convs-mgr/variables';
+import { VariablesStoreService } from '@app/state/convs-mgr/variables';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class VariablesService {
 
   constructor(
     private _blockStore$$: StoryBlocksStore,
-    private _variablesStore$$: variableBlocksStore
+    private _variablesStoreService:VariablesStoreService
     ) {
     this.blocksWithVars$ = this.getBlocksWithVars();
   }
@@ -44,11 +44,11 @@ export class VariablesService {
   saveVariables(variables: StoryBlockVariable) {
     // Assuming you have a method in your variableBlocksStore to save variables
     const variableId = variables.id; // Assuming variables.id is a string
-    this._variablesStore$$.write(variables, variableId);
+    this._variablesStoreService.saveVariablesToStore(variables, variableId);
   }
 
   getVariablesByBot(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
-    return this._variablesStore$$.getBotVariables(botId, orgId)
+    return this._variablesStoreService.getVariablesByBotInStore(botId, orgId)
   }
 
   updateNewVariables(newVariables: any[]) {
