@@ -17,7 +17,7 @@ import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
-import { BreadCrumbPath, ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
+import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
@@ -95,12 +95,6 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
       data: dialogData,
     });
   }
-
-  getBreadCrumb(bot:string){
-    const breadcrumb={ icon: 'assets/icons/bot.png', paths: [{ label: bot, link: '' }] } as ItalBreadCrumb
-    return breadcrumb
-  }
-
 
   configureFilter() {
     this.dataSource.filterPredicate = (data: BotModule, filter: string) => {
