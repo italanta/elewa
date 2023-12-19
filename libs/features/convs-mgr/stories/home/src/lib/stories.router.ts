@@ -14,7 +14,6 @@ const BOTS_ROUTES: Route[] = [
   {
     path: 'dashboard',
     component: StoriesDashboardComponent,
-    data: { breadCrumb: 'Bots' },
     canActivate: [IsLoggedInGuard],
   },
   {
@@ -35,7 +34,7 @@ const BOTS_ROUTES: Route[] = [
     loadChildren: () => import('@app/features/convs-mgr/modules').then(m => m.ConvsMgrModulesModule),
     data: { breadCrumb: (data: { bot: Bot }) => `${data.bot.name}` },
     resolve: { bot: BotResolverService },
-    canActivate: [IsLoggedInGuard, CanAccessBotsGuard]
+    canActivate: [IsLoggedInGuard, CanAccessBotsGuard],
   },
 ];
 
