@@ -106,9 +106,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       }
     });
     // Subscribe to changes in the content.body control
+    this.onChangedVal();
     this.getActiveOrg();
     this.detectVariableChange();
-    this.onChangedVal();
     this.newVariables$ = this._variableService$.newVariables$.pipe(distinctUntilChanged());
   }
 
@@ -161,16 +161,15 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       const updatedHeader = `${headerControl.value}${newPlaceholder}`;
       headerControl.setValue(updatedHeader);
     }
-  
+
     // Track new variables as strings
     this.newVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
 
-    this._variableService$.updateNewVariables(this.newVariables);
-    // Clear the input fields in the newVariableForm
 
+    this._variableService$.updateNewVariables(this.newVariables);
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
     
@@ -192,8 +191,23 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       while ((match = variableRegex.exec(text)) !== null) {
         matches.push(match[1]);
       }
+      console.log("matches are",matches)
       return matches;
     };
+
+    function removeCharacters(inputString: string): string {
+      // Define a regular expression to match the characters you want to remove
+      const regex = /[{}]/g; // Replace 'a', 'b', 'c', '1', '2', '3' with the characters you want to remove
+
+      // Use the replace method to remove the matched characters
+      const resultString = inputString.replace(regex, '');
+
+      return resultString;
+    }
+
+    function filterObjectsByPlaceholder(list: any[], placeholders: string[]): any[] {
+      return list.filter((item, index) => placeholders[index] === removeCharacters(item.placeholder));
+    }
 
     
     bodyControl.valueChanges.subscribe((value) => {
@@ -201,13 +215,18 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       if (value === '') {
         // Update currentVariables with an empty array
         this.currentVariables = [];
+        this.newVariables = this.currentVariables
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated body text
         const newVariables = extractVariables(value);
         // Update currentVariables with only the variables that are present in the input field
-        this.currentVariables = newVariables;
-        this._variableService$.updateNewVariables(this.currentVariables);
+        if(this.currentVariables.length !== newVariables.length){
+          this.currentVariables = newVariables;
+          // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
+          this.newVariables = filterObjectsByPlaceholder(this.newVariables, this.currentVariables)  
+        }
+        this._variableService$.updateNewVariables(this.newVariables);
       }
      });
      
@@ -216,15 +235,20 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       if (value === '') {
         // Update currentVariables with an empty array
         this.currentVariables = [];
+        this.newVariables = this.currentVariables
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated header text
         const newVariables = extractVariables(value);
         // Update currentVariables with only the variables that are present in the input field
-        this.currentVariables = newVariables;
-        this._variableService$.updateNewVariables(this.currentVariables);
+        if(this.currentVariables.length !== newVariables.length){
+          this.currentVariables = newVariables;
+          // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
+          this.newVariables = filterObjectsByPlaceholder(this.newVariables, this.currentVariables)  
+        }
+        this._variableService$.updateNewVariables(this.newVariables);
       }
-     });     
+     }); 
   }
    
   getActiveOrg() {
