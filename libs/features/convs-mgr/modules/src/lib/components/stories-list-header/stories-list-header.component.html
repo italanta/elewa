@@ -4,6 +4,10 @@
     <span class="name" >{{ (parentBotModule$ | async)?.name }} </span>
   </div>
 
+  <div *ngIf="breadcrumbs$">
+    <app-ital-breadcrumb [breadcrumbs$]="breadcrumbs$"></app-ital-breadcrumb>
+  </div>
+
   <div class="lessons-btn">
     <button class="btn" (click)="createBot()">
       <img class="add-icon" src="assets\svgs\carbon-add-filled.svg" alt="add icon">

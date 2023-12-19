@@ -2,27 +2,27 @@
   <table mat-table [dataSource]="dataSource" matSort>
   
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
+    <ng-container *ngIf="(parentBot$ | async) as parentBot" matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "MODULES.MODULES-PAGE.NAME" | transloco }} </th>
-      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{element.name}} </td>
+      <td  mat-cell *matCellDef="let element" (click)="openBot(parentBot.id!, element.id!)"> {{element.name}} </td>
     </ng-container>
   
     <!-- Type Column -->
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef> {{ "MODULES.MODULES-PAGE.TYPE" | transloco }} </th>
-      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{ "MODULES.MODULES-PAGE.BEGINNER" | transloco }} </td>
+      <td mat-cell *matCellDef="let element"> {{ "MODULES.MODULES-PAGE.BEGINNER" | transloco }} </td>
     </ng-container>
   
     <!-- Last Edited Column -->
     <ng-container matColumnDef="lastEdited">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ "MODULES.MODULES-PAGE.LAST" | transloco }} </th>
-      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)"> {{element.lastEdited}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.lastEdited}} </td>
     </ng-container>
   
     <!-- Channel Column -->
     <ng-container matColumnDef="channel">
       <th mat-header-cell *matHeaderCellDef> {{ "MODULES.MODULES-PAGE.CHANNEL" | transloco }} </th>
-      <td mat-cell *matCellDef="let element" (click)="openBot(element.id)">
+      <td mat-cell *matCellDef="let element">
         <span class="channel-badge">
           Whatsapp
         </span>

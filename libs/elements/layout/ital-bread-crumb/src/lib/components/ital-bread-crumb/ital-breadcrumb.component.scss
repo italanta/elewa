@@ -1,0 +1,34 @@
+.ital-breadcrumb {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.ital-breadcrumb ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ital-breadcrumb li {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: Roboto, sans-serif;
+}
+
+.breadcrumb {
+  text-decoration: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.breadcrumbIcon {
+  cursor: pointer;
+}
+
+.active {
+  color: #1f7a8c;
+}

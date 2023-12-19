@@ -1,18 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
 import { MatDialog } from '@angular/material/dialog';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-// TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { 
   DeleteBotModalComponent,
   DeleteElementsEnum, 
   CreateModuleModalComponent
-} from '@app/features/convs-mgr/stories/home';
+} from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-bot-modules-grid-view',
@@ -20,15 +20,15 @@ import {
   styleUrls: ['./bot-modules-grid-view.component.scss'],
 })
 export class BotModulesGridViewComponent {
-  
+  @Input() parentBot$: Observable<Bot>;
   @Input() botModules: BotModule[] = [];
 
   constructor(private _router$$: Router,
               private _dialog: MatDialog
   ) {}
 
-  openBot(id: string) {
-    this._router$$.navigate(['/modules', id]);
+  openBot(botId: string, id: string) {
+    this._router$$.navigate(['bots', botId, 'modules', id]);
   }
 
   editBot(botModule: BotModule) {

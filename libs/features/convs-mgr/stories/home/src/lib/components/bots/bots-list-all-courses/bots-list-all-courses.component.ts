@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,18 +14,20 @@ import { __DateFromStorage } from '@iote/time';
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
-import { CreateBotModalComponent } from '../../../modals/create-bot-modal/create-bot-modal.component';
-import { DeleteBotModalComponent } from '../../../modals/delete-bot-modal/delete-bot-modal.component';
 
-import { ActionSortingOptions } from '../../../model/sorting.enum';
-import { DeleteElementsEnum } from '../../../model/delete-element.enum';
+import { 
+  CreateBotModalComponent,
+  DeleteBotModalComponent,
+  DeleteElementsEnum,
+  ActionSortingOptions
+} from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-bots-list-all-courses',
   templateUrl: './bots-list-all-courses.component.html',
   styleUrls: ['./bots-list-all-courses.component.scss'],
 })
-export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
+export class BotsListAllCoursesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _sbS = new SubSink();
 
@@ -123,5 +125,9 @@ export class BotsListAllCoursesComponent implements OnInit, AfterViewInit {
 
   openViewAllPage() {
     this._router$$.navigateByUrl('/bots/view-all')
+  }
+
+  ngOnDestroy() {
+    this._sbS.unsubscribe();
   }
 }
