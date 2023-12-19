@@ -8,14 +8,14 @@ import {
 
 import { BehaviorSubject, filter, map } from 'rxjs';
 
-import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BreadcrumbService {
   // Subject emitting the breadcrumb hierarchy
-  private readonly _breadcrumbs$ = new BehaviorSubject<BreadCrumbPath[]>([]);
+  private readonly _breadcrumbs$ = new BehaviorSubject<iTalBreadcrumb[]>([]);
 
   // Observable exposing the breadcrumb hierarchy
   readonly breadcrumbs$ = this._breadcrumbs$.asObservable();
@@ -31,7 +31,7 @@ export class BreadcrumbService {
       map(() => {
         // Construct the breadcrumb hierarchy
         const root = this.router.routerState.snapshot.root;
-        const breadcrumbs: BreadCrumbPath[] = [];
+        const breadcrumbs: iTalBreadcrumb[] = [];
         this.addBreadcrumb(root, [], breadcrumbs);
 
         // Emit the new hierarchy
@@ -41,7 +41,7 @@ export class BreadcrumbService {
     .subscribe();
   };
 
-  private addBreadcrumb(route: ActivatedRouteSnapshot, parentUrl: string[], breadcrumbs: BreadCrumbPath[]) {
+  private addBreadcrumb(route: ActivatedRouteSnapshot, parentUrl: string[], breadcrumbs: iTalBreadcrumb[]) {
     if (route) {
       // Construct the route URL
       const routeUrl = parentUrl.concat(route.url.map((url) => url.path));

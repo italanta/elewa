@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { BreadCrumbPath, BreadCrumbImage } from '@app/model/layout/ital-breadcrumb';
+import { iTalBreadcrumb, BreadCrumbImage } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'app-ital-breadcrumb',
@@ -11,7 +11,7 @@ import { BreadCrumbPath, BreadCrumbImage } from '@app/model/layout/ital-breadcru
   styleUrls: ['./ital-breadcrumb.component.scss'],
 })
 export class ItalBreadcrumbComponent {
-  @Input() breadcrumbs$: Observable<BreadCrumbPath[]>;
+  @Input() breadcrumbs$: Observable<iTalBreadcrumb[]>;
 
   constructor(private _router: Router) {};
 

@@ -17,7 +17,7 @@ import { EndUserDetails } from '@app/state/convs-mgr/end-users';
 import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
 
 import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb'; 
-import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 
 import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
 import { pieChartOptions } from '../../utils/chart.util';
@@ -43,7 +43,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   averageScore: number | string;
   totalQuestions: number;
 
-  breadcrumbs$: Observable<BreadCrumbPath[]>;
+  breadcrumbs$: Observable<iTalBreadcrumb[]>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;

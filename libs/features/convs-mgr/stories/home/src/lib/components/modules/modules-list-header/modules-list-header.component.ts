@@ -17,7 +17,7 @@ import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
 import { ActionSortingOptions, CreateModuleModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
-import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'italanta-apps-modules-list-header',
@@ -28,7 +28,7 @@ export class BotModulesListHeaderComponent implements OnInit, OnDestroy {
   @Input() parentBot$: Observable<Bot>;
   @Input() botModules$: Observable<BotModule[]>
 
-  breadcrumbs$: Observable<BreadCrumbPath[]>
+  breadcrumbs$: Observable<iTalBreadcrumb[]>
 
   private _sBs = new SubSink();
 
