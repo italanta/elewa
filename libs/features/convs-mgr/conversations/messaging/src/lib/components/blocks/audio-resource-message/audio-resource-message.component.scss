@@ -4,8 +4,14 @@
   gap: 0.7rem;
   min-width: 10rem;
   border-radius: 10px;
-  padding: 10px;
+  padding: 1rem;
+  width: 20rem;
 
+  border-top-left-radius: 1.25rem;
+  border-top-right-radius: 1,25rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius:1.25rem;
+  
   .top {
     display: flex;
     align-items: center;
@@ -22,8 +28,16 @@
   }
 }
 
+.audio-container{
+  position: relative;
+  width: 18.7rem; 
+  padding: 1rem;
+}
+
 #waveform {
   width: 100%;
+  border-radius: 0.3rem;
+  background-color: #F5F5F5;
 }
 
 .wave {
@@ -32,7 +46,7 @@
 
 // utility classes
 .green {
-  background-color: #4e416d !important;
+  background-color: #ffff !important;
 
   span {
     color: #f2f2f2;
@@ -41,5 +55,5 @@
 }
 
 .grey {
-  background-color: #dae0f0 !important;
+  background-color: #ffff !important;
 }

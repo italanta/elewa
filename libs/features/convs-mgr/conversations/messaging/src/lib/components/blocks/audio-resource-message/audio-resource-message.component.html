@@ -1,13 +1,15 @@
 <div class="audio-wrapper" [ngClass]="getClasses(message)">
-  <div class="top">
-    <img (click)="playAudio()" src="assets/svgs/chats/play.svg" alt="audio svg">
-    <div class="wave">
-      <div #waveform></div>
+  <div class="audio-container">
+    <div class="top">
+      <img (click)="playAudio()" src="assets/svgs/chats/play.svg" alt="audio svg">
+      <div class="wave">
+        <div #waveform></div>
+      </div>
+      <img (click)="downloadFile(message.payload?.fileSrc)" class="download" src="assets/svgs/chats/download.svg" alt="download svg">
     </div>
-    <img (click)="downloadFile(message.payload?.fileSrc)" class="download" src="assets/svgs/chats/download.svg" alt="download svg">
-  </div>
-
-  <div class="bottom">
-    <span>{{ unPackFileSize(message.payload?.fileSize) }}</span>
+    {{ unPackFileSize(message.payload?.fileSize) }}
+    <div class="bottom">
+      <span>{{ unPackFileSize(message.payload?.fileSize) }}</span>
+    </div>
   </div>
 </div>
