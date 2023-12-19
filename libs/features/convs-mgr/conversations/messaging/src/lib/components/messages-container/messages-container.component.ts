@@ -59,6 +59,7 @@ export class MessagesContainerComponent implements OnInit, OnChanges, OnDestroy,
      * 
      * @listens ChatMessageComponent[]
      */
+    // TODO:@LemmyMwaura - when we add this to our sink, the scroll to bottom no longer works. Check back at this later.
     this.chatMessages.changes.subscribe(() => {
       // Calculate the index of the message to scroll to
       const scrollToIndex = this.chatMessages.length - this.paginationNumber;
