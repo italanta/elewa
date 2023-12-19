@@ -1,6 +1,8 @@
 import { StoryBlockVariableValidators } from "./story-block-variable-validators.interface";
 
 export interface StoryBlockVariable {
+  id:string,
+  botId:string,
   name: string,
   type: VariableTypes,
   validate: boolean,

@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { cloneDeep as __cloneDeep } from 'lodash';
 import { map, switchMap } from 'rxjs';
@@ -10,6 +11,8 @@ import {
   StoryBlockVariable,
 } from '@app/model/convs-mgr/stories/blocks/main';
 import { VariableTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryStateService } from '@app/state/convs-mgr/stories';
+import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 
 import { VariablesService } from '../../providers/variables.service';
 
@@ -23,6 +26,9 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   @Input() BlockFormGroup: FormGroup;
   private _sub = new SubSink();
 
+  parentModuleId:string;
+  botId:string;
+  storyId:string;
   blockId: string;
   blockType: StoryBlockTypes;
   variablesForm: FormGroup;
@@ -41,7 +47,11 @@ export class VariableInputComponent implements OnInit, OnDestroy {
   locationtype = StoryBlockTypes.LocationInputBlock;
   OpenEndedQuestion = StoryBlockTypes.OpenEndedQuestion
 
-  constructor(private _variablesSer: VariablesService) {}
+  constructor(
+    private _variablesSer: VariablesService, 
+    private _storiesStateSer:StoryStateService,
+    private _moduleServ:BotModulesStateService,
+    private route:ActivatedRoute) {}
 
   ngOnInit(): void {
     this.blockId = this.BlockFormGroup.value.id;
@@ -53,6 +63,9 @@ export class VariableInputComponent implements OnInit, OnDestroy {
      */
     this.variablesForm = __cloneDeep(this.BlockFormGroup);
     this.validateForm();
+
+    // Subscribe to route param changes to get the botId
+   this.getBotId()
   }
 
   get name() {
@@ -91,9 +104,20 @@ export class VariableInputComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     // Patch variable values from the cloned variablesFrom to the BlocksFromGroup
+    const id = this.blockId;
     const form = this.BlockFormGroup.get('variable') as FormGroup;
     const name = this.variablesForm.get('variable.name')?.value;
     const type = this.variablesForm.get('variable.type')?.value;
+
+     // Create a StoryBlockVariable object
+    const storyBlockVariable: StoryBlockVariable = {
+      id, 
+      botId: this.botId, 
+      name: name,
+      type: parseInt(type),
+      validate: this.validate, // include the validate property
+    };
+
 
     form.patchValue({ name, type: parseInt(type), validate: this.validate });
 
@@ -110,7 +134,31 @@ export class VariableInputComponent implements OnInit, OnDestroy {
     } else {
       this.BlockFormGroup.get('variable.validators')?.reset();
     }
+
+    this._variablesSer.saveVariables(storyBlockVariable);
   }
+
+  getBotId() {
+    this._sub.sink = this.route.paramMap
+      .pipe(
+        switchMap((params) => {
+          this.storyId = params.get('id') || '';
+          return this._storiesStateSer.getStoryById(this.storyId);
+        }),
+        switchMap((data) => {
+          const parentModule = data?.parentModule;
+          this.parentModuleId = parentModule || '';
+          return this._moduleServ.getBotModuleById(this.parentModuleId);
+        })
+      )
+      .subscribe((data) => {
+        const parentBot = data?.parentBot;
+        // Set botId only if it's not already set
+        this.botId =  parentBot || '';
+      });
+  }
+
+  
 
   ngOnDestroy(): void {
     this._sub.unsubscribe();

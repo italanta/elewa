@@ -43,7 +43,9 @@ import { AccessControlStateModule } from '@app/private/state/access-control';
 import { StateAssessmentsModule } from '@app/state/convs-mgr/conversations/assessments';
 import { ChannelsStateModule } from '@app/state/convs-mgr/channels';
 import { StateSurveysModule } from '@app/state/convs-mgr/conversations/surveys';
+import { VariablesModule } from '@app/state/convs-mgr/variables';
 import { MessageTemplatesModule } from '@app/private/state/message-templates';
+
 
 import  { EnvironmentConfigModule } from '@app/admin/config/environment-config'
 
@@ -51,6 +53,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 
 import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -96,6 +99,7 @@ import { environment } from '../environments/environment';
     ChannelsStateModule.forRoot(),
     StateSurveysModule.forRoot(),
     MessageTemplatesModule.forRoot(),
+    VariablesModule.forRoot(),
 
     MtOrgStateModule.forRoot(),
 
