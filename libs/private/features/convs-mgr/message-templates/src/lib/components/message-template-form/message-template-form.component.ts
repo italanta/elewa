@@ -106,7 +106,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       }
     });
     // Subscribe to changes in the content.body control
-    this.subscribeToBodyControlChanges();
     this.getActiveOrg();
     this.detectVariableChange();
     this.onChangedVal();
