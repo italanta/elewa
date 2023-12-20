@@ -1,4 +1,3 @@
-import { from } from 'rxjs';
 
 export * from './lib/variables.module';
 
