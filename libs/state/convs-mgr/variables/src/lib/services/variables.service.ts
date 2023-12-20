@@ -17,12 +17,12 @@ export class VariablesStoreService {
   ) { }
 
 
-  saveVariablesToStore(variables: StoryBlockVariable, id:string) {
+  saveVariables(variables: StoryBlockVariable, id:string) {
     
     this._variablesStore$$.write(variables, id);
   }
 
-  getVariablesByBotInStore(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
+  getVariablesByBot(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
     return this._variablesStore$$.getBotVariables(botId, orgId)
   }
 }

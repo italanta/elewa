@@ -45,11 +45,11 @@ export class VariablesService {
   saveVariables(variables: StoryBlockVariable) {
     // Assuming you have a method in your variableBlocksStore to save variables
     const variableId = variables.id; // Assuming variables.id is a string
-    this._variablesStoreService$.saveVariablesToStore(variables, variableId);
+    this._variablesStoreService$.saveVariables(variables, variableId);
   }
 
   getVariablesByBot(botId:string, orgId:string) : Observable<StoryBlockVariable[]>{
-    return this._variablesStoreService$.getVariablesByBotInStore(botId, orgId)
+    return this._variablesStoreService$.getVariablesByBot(botId, orgId)
   }
 
   updateNewVariables(newVariables: any[]) {
