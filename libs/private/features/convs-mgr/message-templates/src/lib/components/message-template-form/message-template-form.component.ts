@@ -60,7 +60,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
   referenceForm: FormGroup;
   nextVariableId: number;
-  newVariables: any = []; //This variable is an array used to keep track of new variables added by the user
+  userAddedVariables: any = []; //This variable is an array used to keep track of new variables added by the user
   newVariables$: Observable<any[]>; //used to subscribe to changes in the list of new variables from other parts of the application
   fetchedVariables: any = [];
   currentVariables:any =[];
@@ -156,13 +156,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
 
     // Track new variables as strings
-    this.newVariables.push({
+    this.userAddedVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
 
 
-    this._variableService$.updateNewVariables(this.newVariables);
+    this._variableService$.updateNewVariables(this.userAddedVariables);
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
     
@@ -207,7 +207,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       if (value === '') {
         // Update currentVariables with an empty array
         this.currentVariables = [];
-        this.newVariables = this.currentVariables;
+        this.userAddedVariables = this.currentVariables;
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated body text
@@ -215,9 +215,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         // Update currentVariables with only the variables that are present in the input field
         if (this.currentVariables.length !== newVariables.length) {
           this.currentVariables = newVariables;
-          this.newVariables = filterObjectsByPlaceholder(this.newVariables, this.currentVariables);
+          this.userAddedVariables = filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables);
         }
-        this._variableService$.updateNewVariables(this.newVariables);
+        this._variableService$.updateNewVariables(this.userAddedVariables);
       }
     });
     
@@ -227,7 +227,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       if (value === '') {
         // Update currentVariables with an empty array
         this.currentVariables = [];
-        this.newVariables = this.currentVariables
+        this.userAddedVariables = this.currentVariables
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated header text
@@ -236,9 +236,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         if(this.currentVariables.length !== newVariables.length){
           this.currentVariables = newVariables;
           // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
-          this.newVariables = filterObjectsByPlaceholder(this.newVariables, this.currentVariables)  
+          this.userAddedVariables = filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables)  
         }
-        this._variableService$.updateNewVariables(this.newVariables);
+        this._variableService$.updateNewVariables(this.userAddedVariables);
       }
      }); 
   }
