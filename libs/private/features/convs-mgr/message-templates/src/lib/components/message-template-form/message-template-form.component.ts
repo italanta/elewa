@@ -176,30 +176,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     const bodyControl = formBody.get('text') as FormControl;
     const headerControl = formHeader.get('text') as FormControl;
    
-    // Helper function to extract variables from the template text
-    const extractVariables = (text: string) => {
-      const variableRegex = /\{\{([^}]+)\}\}/g;
-      const matches = [];
-      let match;
-      while ((match = variableRegex.exec(text)) !== null) {
-        matches.push(match[1]);
-      }
-      return matches;
-    };
 
-    function removeCharacters(inputString: string): string {
-      // Define a regular expression to match the characters you want to remove
-      const regex = /[{}]/g; // Replace 'a', 'b', 'c', '1', '2', '3' with the characters you want to remove
-
-      // Use the replace method to remove the matched characters
-      const resultString = inputString.replace(regex, '');
-
-      return resultString;
-    }
-
-    function filterObjectsByPlaceholder(list: any[], placeholders: string[]): any[] {
-      return list.filter((item, index) => placeholders[index] === removeCharacters(item.placeholder));
-    }
 
     
     this._sbS.sink = bodyControl.valueChanges.subscribe((value) => {
@@ -211,11 +188,11 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated body text
-        const newVariables = extractVariables(value);
+        const newVariables = this._variableService$.extractVariables(value);
         // Update currentVariables with only the variables that are present in the input field
         if (this.currentVariables.length !== newVariables.length) {
           this.currentVariables = newVariables;
-          this.userAddedVariables = filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables);
+          this.userAddedVariables = this._variableService$.filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables);
         }
         this._variableService$.updateNewVariables(this.userAddedVariables);
       }
@@ -231,12 +208,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         this._variableService$.updateNewVariables(this.currentVariables);
       } else {
         // Extract variables from the updated header text
-        const newVariables = extractVariables(value);
+        const newVariables = this._variableService$.extractVariables(value);;
         // Update currentVariables with only the variables that are present in the input field
         if(this.currentVariables.length !== newVariables.length){
           this.currentVariables = newVariables;
           // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
-          this.userAddedVariables = filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables)  
+          this.userAddedVariables = this._variableService$.filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables)  
         }
         this._variableService$.updateNewVariables(this.userAddedVariables);
       }

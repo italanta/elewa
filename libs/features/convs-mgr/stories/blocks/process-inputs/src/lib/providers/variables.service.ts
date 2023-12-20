@@ -55,4 +55,29 @@ export class VariablesService {
   updateNewVariables(newVariables: any[]) {
     this.newVariablesSubject.next(newVariables);
     }
+
+    extractVariables = (text: string) => {
+      const variableRegex = /\{\{([^}]+)\}\}/g;
+      const matches = [];
+      let match;
+      while ((match = variableRegex.exec(text)) !== null) {
+        matches.push(match[1]);
+      }
+      return matches;
+    };
+
+    filterObjectsByPlaceholder(list: any[], placeholders: string[]): any[] {
+      return list.filter((item, index) => placeholders[index] === this.removeCharacters(item.placeholder));
+    }
+
+    removeCharacters(inputString: string): string {
+      // Define a regular expression to match the characters you want to remove
+      const regex = /[{}]/g; // Replace 'a', 'b', 'c', '1', '2', '3' with the characters you want to remove
+
+      // Use the replace method to remove the matched characters
+      const resultString = inputString.replace(regex, '');
+
+      return resultString;
+    }
+
 }
