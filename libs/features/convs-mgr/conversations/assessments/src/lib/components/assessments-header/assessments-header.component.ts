@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,13 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './assessments-header.component.html',
   styleUrls: ['./assessments-header.component.scss'],
 })
-export class AssessmentsHeaderComponent implements OnInit {
-
+export class AssessmentsHeaderComponent {
   constructor(private _router$$: Router) {}
 
-  ngOnInit(): void {}
-
-  createAssessment(){
-   this._router$$.navigate(['assessments', 'create']);
+  createAssessment() {
+    this._router$$.navigate(['assessments', 'create']);
   }
 }

@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { Chart } from 'chart.js';
 import { SubSink } from 'subsink';
-import { map, switchMap } from 'rxjs';
+import { map, switchMap, Observable } from 'rxjs';
 import { Timestamp } from 'firebase-admin/firestore';
 
 import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
@@ -15,6 +15,9 @@ import { Assessment } from '@app/model/convs-mgr/conversations/assessments';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
 import { EndUserDetails } from '@app/state/convs-mgr/end-users';
 import { ActiveAssessmentStore, AssessmentQuestionService } from '@app/state/convs-mgr/conversations/assessments';
+
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb'; 
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 
 import { AssessmentMetricsService } from '../../services/assessment-metrics.service';
 import { pieChartOptions } from '../../utils/chart.util';
@@ -31,7 +34,7 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   assessment: Assessment;
 
   dataSource: MatTableDataSource<EndUserDetails>;
-  itemsLength: number
+  itemsLength: number;
   assessmentResults = ['index', 'name', 'phone', 'startedOn', 'finishedOn', 'score', 'scoreCategory'];
   pageTitle: string;
 
@@ -39,6 +42,8 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
   lowestScore: number;
   averageScore: number | string;
   totalQuestions: number;
+
+  breadcrumbs$: Observable<iTalBreadcrumb[]>;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -51,8 +56,11 @@ export class AssessmentResultsComponent implements OnInit, OnDestroy {
     private _activeAssessment$$: ActiveAssessmentStore,
     private _assessmentQuestion: AssessmentQuestionService,
     private _aMetrics: AssessmentMetricsService,
-    private _endUserService: EndUserService
-  ) {}
+    private _endUserService: EndUserService,
+    private _breadcrumbService: BreadcrumbService
+  ) {
+    this.breadcrumbs$ = this._breadcrumbService.breadcrumbs$;
+  };
 
   ngOnInit() {
     this._sBs.sink = this._assessmentQuestion.getQuestions$().subscribe((qstns) => this.totalQuestions = qstns.length);

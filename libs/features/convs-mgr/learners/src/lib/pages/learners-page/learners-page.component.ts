@@ -52,6 +52,7 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<EnrolledEndUser>();
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
+  allLearners: EnrolledEndUser[];
   allClasses: Classroom[] = [];
   allPlatforms: string[] = [];
   allCourses: Bot[] = [];
@@ -96,11 +97,13 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
     const allLearners$ = this._eLearners.getAllLearners$();
 
     this._sBs.sink = allLearners$.subscribe((alllearners) => {
+      this.allLearners = alllearners;
       this.dataSource.data = alllearners;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
   }
+
 
   getAllClasses() {
     this._sBs.sink = this._classroomServ$.getAllClassrooms().subscribe((allClasses) => {
@@ -149,11 +152,22 @@ export class LearnersPageComponent implements OnInit, OnDestroy {
   }
 
   filterTable(event: Event, mode:string) {
+    const selectedValue = (event.target as HTMLSelectElement).value;
     switch (mode) {
       case 'class':
-        this.dataSource.filter = this.selectedClass.ClassName;
+        this.filterLearnersByClass(selectedValue);
         break
     }
+  }
+
+  filterLearnersByClass(selectedClassId: string): void {
+    if (selectedClassId === 'allClasses') {
+      this.dataSource.data = this.allLearners;
+      return
+    }
+
+    const filteredLearners = this.allLearners.filter(learner => learner.classId === selectedClassId);
+    this.dataSource.data = filteredLearners;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
