@@ -4,7 +4,7 @@
       <li *ngFor="let breadcrumb of breadcrumbs; let last=last">
         <ng-container *ngIf="breadcrumb.label">
           <ng-container *ngIf="isStringLabel(breadcrumb.label); else imageTemplate">
-            <a class="breadcrumb" *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link">
+            <a class="breadcrumb" [ngClass]="last ? 'last' : ''" *ngIf="breadcrumb.link" [routerLink]="breadcrumb.link">
               {{ breadcrumb.label }}
             </a>
           </ng-container>

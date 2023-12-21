@@ -22,10 +22,19 @@
   text-decoration: none;
   cursor: pointer;
   color: #333;
+
+  &.last {
+    color: var(--convs-mgr-color-bright-teal);
+  }
+
+  &:hover {
+    color: var(--convs-mgr-color-bright-teal);
+  }
 }
 
 .breadcrumbIcon {
   cursor: pointer;
+  max-width: 1.4rem;
 }
 
 .active {
