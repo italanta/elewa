@@ -10,14 +10,14 @@
     class="toolbar"
   >
     <div fxLayout="column" class="search">
-      <div class="search">
+      <div class="search-container">
         <i class="fas fa-search search_tooltip"></i>
         <input
           class="search_input"
           type="text"
           name="{{ 'MEMBERS.SEARCH' | transloco }}"
           (keyup)="applyFilter($event)"
-          placeholder="Search by name, email or role"
+          placeholder="Search member"
           #input
         />
       </div>
@@ -32,7 +32,7 @@
         fxFlex="40%"
       >
         <!-- <mat-label class="form-label"> {{ 'LOGIN.LOGIN-FORM.LABELS.EMAIL' | transloco }}</mat-label> -->
-        <div fxLayout="column ">
+        <div fxLayout="column" class="roles-selector-container">
           <mat-form-field appearance="outline">
             <mat-select formControlName="role" placeholder="All Roles"  multiple>
               <mat-option *ngFor="let role of orgRoles" [value]="role">

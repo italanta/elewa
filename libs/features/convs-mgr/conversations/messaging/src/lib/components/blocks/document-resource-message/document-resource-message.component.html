@@ -1,0 +1,12 @@
+<div class="document-wrapper" [ngClass]="getClasses(message)">
+  <div class="top">
+    <img src="assets/svgs/chats/document-outline.svg" alt="document svg">
+    <!-- add document name -->
+    <!-- <span>{{  }}</span>  -->
+    <img (click)="downloadFile(message.payload?.fileSrc)" class="download" src="assets/svgs/chats/download.svg" alt="download svg">
+  </div>
+
+  <div class="bottom">
+    <span>{{ unPackFileSize(message.payload?.fileSize) }}</span>
+  </div>
+</div>

@@ -134,3 +134,40 @@ app-chat-card{
   height: 40px!important;
   padding: 7px!important;
 }
+
+.pagination {
+  display: flex;
+	width: 100%;
+	justify-content: space-around;
+	align-items: center;
+	padding: 0.6rem 0;
+	background-color: white;
+}
+
+.pagination a {
+	color: grey;
+  float: left;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+	border-radius: 15px;
+	cursor: pointer;
+}
+
+.pagination a.active {
+  background-color: var(--convs-mgr-color-primary-blue);
+  color: white;
+}
+
+.pagination a:hover {
+  background-color: var(--convs-mgr-color-primary-blue);
+  color: white;
+}
+
+.pagination-nav {
+	font-weight: 300;
+	cursor: pointer;
+}
+
+.current-page {
+	pointer-events: none;
+}

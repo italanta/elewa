@@ -1,7 +1,7 @@
-import { AudioMessage, ImageMessage, Message, QuestionMessage, QuestionMessageOptions, TextMessage, VideoMessage } from '@app/model/convs-mgr/conversations/messages';
+import { AudioMessage, DocumentMessage, ImageMessage, Message, QuestionMessage, QuestionMessageOptions, TextMessage, VideoMessage } from '@app/model/convs-mgr/conversations/messages';
 import { MessageTypes } from '@app/model/convs-mgr/functions';
 import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
-import { ImageMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ImageMessageBlock, ListMessageBlock, QuestionMessageBlock, TextMessageBlock, VideoMessageBlock, VoiceMessageBlock, DocumentMessageBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
 
 export class BlockToStandardMessage
 {
@@ -16,10 +16,11 @@ export class BlockToStandardMessage
       case StoryBlockTypes.PhoneNumber:              converter = this.convertTextMessageBlock;     break;   
       case StoryBlockTypes.QuestionBlock:            converter = this.convertQuestionMessageBlock; break;
       case StoryBlockTypes.Image:                    converter = this.convertImageMessageBlock;    break;
-      case StoryBlockTypes.ListBlock     :           converter = this.convertListMessageBlock;     break;
+      case StoryBlockTypes.ListBlock:                converter = this.convertListMessageBlock;     break;
       case StoryBlockTypes.LocationInputBlock:       converter = this.convertTextMessageBlock;     break;
       case StoryBlockTypes.Video:                    converter = this.convertVideoMessageBlock;     break;
       case StoryBlockTypes.Audio:                    converter = this.convertAudioMessageBlock;     break;
+      case StoryBlockTypes.Document:                 converter = this.convertDocumentMessageBlock;  break;
 
       default:
         converter = this.convertTextMessageBlock;
@@ -107,6 +108,18 @@ export class BlockToStandardMessage
     const standardMessage: AudioMessage = {
       mediaId: block.id,
       type: MessageTypes.AUDIO,
+      url: block.fileSrc,
+      payload: block,
+    };
+
+    return standardMessage;
+  }
+
+  protected convertDocumentMessageBlock(block: DocumentMessageBlock): DocumentMessage
+  {
+    const standardMessage: DocumentMessage = {
+      mediaId: block.id,
+      type: MessageTypes.DOCUMENT,
       url: block.fileSrc,
       payload: block,
     };

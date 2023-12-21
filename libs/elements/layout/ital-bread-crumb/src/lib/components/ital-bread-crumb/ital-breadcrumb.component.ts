@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { BreadCrumbPath, ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
+
+import { iTalBreadcrumb, BreadCrumbImage } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'app-ital-breadcrumb',
@@ -8,5 +11,24 @@ import { Observable } from 'rxjs';
   styleUrls: ['./ital-breadcrumb.component.scss'],
 })
 export class ItalBreadcrumbComponent {
-  @Input() breadcrumbs$: Observable<BreadCrumbPath[]>;
+  @Input() breadcrumbs$: Observable<iTalBreadcrumb[]>;
+
+  constructor(private _router: Router) {};
+
+  isStringLabel(label: string | BreadCrumbImage) {
+    return typeof label === 'string';
+  };
+
+  isObjectLabel(label: string | BreadCrumbImage) {
+    return typeof label === 'object';
+  };
+
+  navigateToRoute(route: string): void {
+    this._router.navigate([route]);
+  };
+
+  getBreadcrumbImageSrc(breadcrumbLabel: string | BreadCrumbImage) {
+    if (typeof breadcrumbLabel === 'object') return breadcrumbLabel.src;
+    else return;
+  };
 }

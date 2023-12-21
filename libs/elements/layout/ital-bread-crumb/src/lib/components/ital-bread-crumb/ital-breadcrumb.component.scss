@@ -6,6 +6,7 @@
 
 .ital-breadcrumb ul {
   display: flex;
+  flex-direction: row;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -24,31 +25,10 @@
   color: #333;
 }
 
-.ital-breadcrumb .arrow,
-.ital-breadcrumb .icon img {
-  vertical-align: middle;
-}
-.ital-breadcrumb .arrow,
-.ital-breadcrumb .icon img,
-.ital-breadcrumb .arrow path {
-  vertical-align: middle;
-}
-
-
-
-.ital-breadcrumb .icon,
-.ital-breadcrumb .arrow {
-  margin-right: 5px;
-}
-
-.ital-breadcrumb .icon img {
-  vertical-align: middle;
-}
-
-.ital-breadcrumb .label {
-  color: #000;
+.breadcrumbIcon {
+  cursor: pointer;
 }
 
 .active {
-  color: #1F7A8C;
+  color: #1f7a8c;
 }

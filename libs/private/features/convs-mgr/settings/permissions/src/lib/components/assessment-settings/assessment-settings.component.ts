@@ -1,7 +1,5 @@
-import { Breadcrumb } from '@iote/bricks-angular';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ItalBreadCrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'clm-assessment-settings',
@@ -14,6 +12,8 @@ export class AssessmentSettingsComponent implements OnInit {
   @Input() roles: string[];
 
   viewRoles: string[] = [];
+
+  panelState: boolean = false;
 
   constructor() {}
 

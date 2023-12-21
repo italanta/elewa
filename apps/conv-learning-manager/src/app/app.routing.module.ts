@@ -39,6 +39,9 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'bots',
     loadChildren: () => import('@app/features/convs-mgr/stories/home').then(m => m.ConvsMgrStoriesHomeModule),
+    data: {
+      breadCrumb: { src: 'assets/svgs/breadcrumbs/bots.png' },
+    },
     canActivate: [IsLoggedInGuard, CanAccessBotsGuard]
   },
 
@@ -80,10 +83,12 @@ export const APP_ROUTES: Route[] = [
   {
     path: 'assessments',
     loadChildren: () => import('@app/features/convs-mgr/conversations/assessments').then(m => m.ConvsMgrAssessmentsModule),
-    data: { breadCrumb: 'Assessments' },
+    data: {
+      breadCrumb: { src: 'assets/svgs/breadcrumbs/assessments.svg' },
+    },
     canActivate: [IsLoggedInGuard, CanAccessAssessmentsGuard],
   },
-  
+
   {
     path: 'surveys',
     loadChildren: () => import('@app/features/convs-mgr/conversations/surveys').then(m => m.ConvsMgrSurveysModule),

@@ -11,7 +11,7 @@
   --convs-mgr-color-primary-red: red;
   --convs-mgr-color-primary-black: #000;
   --convs-mgr-color-primary-pink: #ed576b;
-  --convs-mgr-color-primary-dark-blue: #151B4A;
+  --convs-mgr-color-primary-blue: #3e788a;
   --convs-mgr-color-primary-grey: #666;
   --convs-mgr-color-primary-light-grey: #f6f6f6;
   --convs-mgr-color-text-black: #263446;
@@ -45,6 +45,12 @@
   --convs-mgr-light-border-color: #DADADA;
   --convs-mgr-placeholder-color: #f3f3f3;
   --convs-mgr-input-color: #707070;
+  --convs-mgr-input-color-two: #7C7C7C;
+  --convs-mgr-webhook-button-bg-color: #1F7A8C;
+  --convs-mgr-option-input-success: #19b016;
+  --convs-mgr-option-input-failure: #d11717;
+  --convs-mgr-icon-color: #1f7a8c;
+
   --convs-mgr-text-color:#7c7c7c;
 
   /** secondary **/
@@ -130,7 +136,6 @@
   --connector-color: #101010;
   --endpoint-outline: #fff;
   --endpoint-color: #ffab2d;
-  --connector-color-blue:  #3E788A;
   --connector-outline-color-blue: #C7D8C5;
 
   convs-mgr-tab-button.tab-selected {

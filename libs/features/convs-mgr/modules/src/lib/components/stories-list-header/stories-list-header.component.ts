@@ -14,7 +14,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
-import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
 
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
@@ -29,7 +29,7 @@ import { ActionSortingOptions, CreateLessonModalComponent } from '@app/elements/
 export class StoriesListHeaderComponent implements OnInit, OnDestroy {
   activeBotModId:string;
 
-  breadcrumbs$: Observable<BreadCrumbPath[]>
+  breadcrumbs$: Observable<iTalBreadcrumb[]>
 
   constructor(
     private _dialog: MatDialog, 

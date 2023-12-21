@@ -1,9 +1,8 @@
-export interface ItalBreadCrumb {
-  icon: string;
-  paths: BreadCrumbPath[];
+export interface iTalBreadcrumb {
+  label: string | BreadCrumbImage;
+  link: string;
 }
 
-export interface BreadCrumbPath {
-  label: string;
-  link: string;
+export interface BreadCrumbImage {
+  src: string;
 }
