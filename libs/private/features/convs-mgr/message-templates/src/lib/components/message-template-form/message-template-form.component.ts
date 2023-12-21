@@ -34,6 +34,7 @@ import { categoryOptions, languageOptions } from '../../utils/constants';
 })
 export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   @ViewChild('textAreaElement') textAreaElement: ElementRef;
+  @ViewChild('radioInput') radioInput: ElementRef;
 
   template$: Observable<MessageTemplate | undefined>;
   channels$: Observable<CommunicationChannel[]>;
@@ -65,7 +66,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   fetchedVariables: any = [];
   currentVariables:any =[];
   bots: Bot[] = [];
-  selectedBot: Bot;
+  selectedBot: Bot | null;
   newVariableForm: FormGroup;
 
   private _sbS = new SubSink();
@@ -213,6 +214,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       }
      }); 
   }
+
+  onMenuClosed() {
+    // Reset the selectedClass and selectedBot when the menu is closed
+    this.selectedClass = '';
+    this.selectedBot = null;
+  }
    
   getActiveOrg() {
     this._sbS.sink = this._activeOrgStore$$.get().subscribe((org) => {
@@ -226,10 +233,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    })
  }
 
- onBotSelected(event: any , selectedClass: string) {
+ onBotSelected(bot: any , selectedClass: string) {
   this.showCard = true;
   this.selectedClass = selectedClass;
-  this.selectedBot = event.value;
+  this.selectedBot = bot;
   // const selectedBotData = this.selectedBot;
   const selectedBotData = this.selectedBot as { id: string; name: string };
 
@@ -242,9 +249,12 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       this.fetchedVariables = data;
     }
   );
+  this.clearRadio();
 }
-
-
+ // Function to clear the radio input
+ clearRadio() {
+  this.radioInput.nativeElement.checked = false;
+}
   cancel() {
     this._route$$.navigate(['/messaging']);
   }

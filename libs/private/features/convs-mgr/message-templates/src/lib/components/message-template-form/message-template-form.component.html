@@ -90,10 +90,11 @@
                       <div class="add-variable header">
                         <p [matMenuTriggerFor]="menu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                     </div>
-                        <mat-menu #menu="matMenu">
-                            <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
-                                <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
-                              </mat-radio-group>                                       
+                        <mat-menu #menu="matMenu" >                                       
+                            <div *ngFor="let bot of bots">
+                                <input type="radio"  [value]="bot" (click)="onBotSelected(bot, 'header')">
+                                <label for="header">{{ bot.name }}</label><br>
+                            </div>
                         </mat-menu>  
                         <div class="var-card" *ngIf="showCard">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
@@ -116,9 +117,10 @@
                             <p [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                         </div>
                             <mat-menu #bodymenu="matMenu">
-                                <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
-                                    <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
-                                  </mat-radio-group>                                        
+                                <div *ngFor="let bot of bots">
+                                    <input type="radio"  [value]="bot" (click)="onBotSelected(bot, 'body')">
+                                    <label for="name">{{ bot.name }}</label><br>
+                                </div>
                             </mat-menu>  
 
                          <div class="var-card" *ngIf="showCard">

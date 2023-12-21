@@ -313,4 +313,7 @@
   border-radius: 1rem;
 } 
  
+::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel{
+  padding: 1rem !important;
+}
 
