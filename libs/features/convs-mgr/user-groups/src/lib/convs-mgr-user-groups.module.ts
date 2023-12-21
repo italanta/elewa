@@ -6,11 +6,13 @@ import { UserGroupsHeaderComponent } from './components/user-groups-header/user-
 import { UserGroupsListComponent } from './components/user-groups-list/user-groups-list.component';
 import { CreateUserGroupComponent } from './modals/create-user-group/create-user-group.component';
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { UserGroupsRouterModule } from './user-groups.router';
 
 @NgModule({
   imports: [
     CommonModule,
     ConvlPageModule,
+    UserGroupsRouterModule
   ],
   declarations: [
     UserGroupsComponent,
