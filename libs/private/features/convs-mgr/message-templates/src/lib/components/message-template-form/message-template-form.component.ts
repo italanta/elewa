@@ -182,10 +182,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this._sbS.sink = bodyControl.valueChanges.subscribe((value) => {
       // Check if the input field is cleared
       if (value === '') {
-        // Update currentVariables with an empty array
-        this.currentVariables = [];
-        this.userAddedVariables = this.currentVariables;
-        this._variableService$.updateNewVariables(this.currentVariables);
+        this._variableService$.updateNewVariables([]);
       } else {
         // Extract variables from the updated body text
         const newVariables = this._variableService$.extractVariables(value);
@@ -202,10 +199,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
      this._sbS.sink = headerControl.valueChanges.subscribe((value) => {
       // Check if the input field is cleared
       if (value === '') {
-        // Update currentVariables with an empty array
-        this.currentVariables = [];
-        this.userAddedVariables = this.currentVariables
-        this._variableService$.updateNewVariables(this.currentVariables);
+        this._variableService$.updateNewVariables([]);
       } else {
         // Extract variables from the updated header text
         const newVariables = this._variableService$.extractVariables(value);;
