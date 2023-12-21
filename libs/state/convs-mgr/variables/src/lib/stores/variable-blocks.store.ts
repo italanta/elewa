@@ -57,6 +57,7 @@ export class variableBlocksStore extends DataStore< StoryBlockVariable>
     return this._activeRepo.write(block, id);
   }
 
+  // TODO:@JAPHETHNYARANGA: delete this method and use the get method from the data store to fetch the variables, and then filter them by botID in your service
   getBotVariables(botId?:string,orgId?:string){
     const repo = this._repoFac.getRepo<StoryBlockVariable>(`orgs/${orgId}/variables`);
 
