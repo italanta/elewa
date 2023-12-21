@@ -139,7 +139,7 @@
   .variables{
     border-radius: 1rem;
     border: 1px solid var(--convs-mgr-button-color);
-    margin-top: 2rem;
+    margin-top: 4rem;
     padding: 2rem 0.5rem;
     background-color: var(--convs-mgr-button-color);
     
@@ -240,7 +240,9 @@
   
     }
   }
-
+  .asteric{
+    color: red !important;
+  }
   .loading{
     display: flex;
     align-items: center;
@@ -270,12 +272,21 @@
     cursor: pointer;
   }
   
-  .add-variable{
+  .add-variable-body, .add-variable-header{
     right: 2rem;
     position: absolute;
   }
+  .add-variable-header{
+    top:8.6rem;
+  }
+  .add-variable-body{
+    top: 24.5rem;
+  }
   li{
     text-decoration: none;
+  }
+  .dropdown{
+    color: var(--convs-mgr-button-color) !important;
   }
   .body-card, .header-card{
     position: absolute;
@@ -296,6 +307,7 @@
   .ng-star-inserted{
     z-index: 1;
   }
+
  ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
 
 
@@ -306,5 +318,9 @@
 ::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel{
   border-radius: 1rem;
 } 
+:host ::ng-deep .mat-menu-panel .mat-radio-button {
+  display: block;
+ }
+ 
  
 
