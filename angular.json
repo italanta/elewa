@@ -821,6 +821,32 @@
     },
     "features-convs-mgr-stories-editor": "libs/features/convs-mgr/stories/editor",
     "features-convs-mgr-stories-home": "libs/features/convs-mgr/stories/home",
+    "features-convs-mgr-user-groups": {
+      "projectType": "library",
+      "root": "libs/features/convs-mgr/user-groups",
+      "sourceRoot": "libs/features/convs-mgr/user-groups/src",
+      "prefix": "app",
+      "targets": {
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/features/convs-mgr/user-groups"],
+          "options": {
+            "jestConfig": "libs/features/convs-mgr/user-groups/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/features/convs-mgr/user-groups/**/*.ts",
+              "libs/features/convs-mgr/user-groups/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "features-monitoring": {
       "projectType": "library",
       "root": "libs/features/monitoring",
