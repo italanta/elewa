@@ -61,7 +61,7 @@
 
             <!-- Messaging sections -->
             <li class="menu-item" (click)="toggleDropdown()">
-              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}">
+              <a matTooltipPosition="above" matTooltip="{{'PAGE-CONTENT.SIDE-MENU.MESSAGING'| transloco }}" [matTooltipDisabled]="isDropdownOpen">
                 <span class="menu-icon">
                   <img *ngIf="isExpanded" src="assets/icons/chats-stroked.svg" class="img" alt="">
                   <img *ngIf="!isExpanded"  src="assets/icons/chats-stroked.svg" class="img" alt="">
