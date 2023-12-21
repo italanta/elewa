@@ -52,6 +52,12 @@
     align-items: center; 
     margin-top: 1.5rem;
 
+    .module-link {
+      cursor: pointer;
+      text-decoration: underline;
+      color: var(--convs-mgr-color-bright-teal);
+    }
+
     a{
       color: var(--convs-mgr-button-color);
       text-decoration-color:var(--convs-mgr-button-color);
@@ -112,7 +118,7 @@
     
     .progress-bar-fill {
       height: 100%;
-      background-color: #1F7A8C; 
+      background-color: var(--convs-mgr-color-bright-teal); 
       border-radius: 0.5em; 
     }    
   }

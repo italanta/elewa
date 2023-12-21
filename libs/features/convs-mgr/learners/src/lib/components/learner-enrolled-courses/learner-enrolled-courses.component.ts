@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Timestamp } from '@firebase/firestore-types';
 
@@ -21,9 +22,8 @@ import { EnrolledUserProgress } from '../../models/enrolled-user-progress.interf
   styleUrls: ['./learner-enrolled-courses.component.scss'],
 })
 export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
-  isOpen = false;
   isLoading: boolean;
-  showLessons: {[moduleId: string]: boolean } = {};
+  showLessons: Record<string, boolean> = {};
 
   leanerProgress: EnrolledUserProgress[];
 
@@ -31,7 +31,10 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
 
   @Input() currentLearner: EnrolledEndUser;
 
-  constructor(private _lessonStateService$: StoryStateService) {}
+  constructor(
+    private _lessonStateService$: StoryStateService,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {
     this._sBs.sink = this.getLearnerProgress().subscribe((progresss) => {
@@ -41,8 +44,8 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
   }
 
   private initializeShowLessons(): void {
-    this.leanerProgress.forEach((course) => {
-      course.modules.forEach((module) => {
+    this.leanerProgress.map((course) => {
+      course.modules.map((module) => {
         if (module.name) {
           this.showLessons[module.name] = false;
         }
@@ -50,8 +53,8 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
     });
   }
 
-  toggleCollapsible() {
-    return (this.isOpen = !this.isOpen);
+  openModule(parentBot: string, id: string) {
+    this._router.navigate(['bots', parentBot, 'modules', id]);
   }
 
   toggleLessons(moduleId: string) {
@@ -64,7 +67,7 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
 
     if (!this.currentLearner.courses) {
       this.isLoading = false;
-      return of([])
+      return of([]);
     }
 
     const progress = this.currentLearner.courses.map((course) =>
@@ -74,6 +77,7 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
         )
       ).pipe(
         map((modules) => ({
+          id: course.courseId,
           name: course.courseName,
           enrollmentDate: (course.enrollmentDate as Timestamp).toDate(),
           modules: modules,
@@ -90,7 +94,13 @@ export class LearnerEnrolledCoursesComponent implements OnInit, OnDestroy {
       userProgModule.lessons.map((lesson) =>
         this.computeLearnerProgress(lesson)
       )
-    ).pipe(map((lessons) => ({ name: userProgModule.moduleName, lessons })));
+    ).pipe(
+      map((lessons) => ({
+        id: userProgModule.moduleId,
+        name: userProgModule.moduleName,
+        lessons,
+      }))
+    );
   }
 
   /** computes leaner progress per lesson(blocks covered) */
