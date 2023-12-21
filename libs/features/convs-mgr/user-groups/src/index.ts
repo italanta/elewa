@@ -1,1 +1,1 @@
-export * from './lib/features-convs-mgr-user-groups.module';
+export * from './lib/convs-mgr-user-groups.module';
