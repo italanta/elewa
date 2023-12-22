@@ -802,14 +802,14 @@
     "LEARNER-DETAIL-TAB": {
       "PAGE-TITLE": "Learner Detail Tab",
       "DETAILS": {
-        "COURSES-ENROLLED": "Courses Enrolled",
-        "ASSESSMENT-HISTORY": "Assessment History",
-        "ENROLLED-ON": "Enrolled On",
+        "COURSES-ENROLLED": "Courses enrolled",
+        "ASSESSMENT-HISTORY": "Assessment history",
+        "ENROLLED-ON": "Enrolled on",
         "ASSESSMENT-HISTORY-TABLE": {
-          "ASSESSMENT-NAME": "Assessment Name",
-          "SCORE-CATEGORY": "Score Category",
-          "DURATION-TAKEN": "Duration Taken",
-          "DATE-TAKEN": "Date Taken"
+          "ASSESSMENT-NAME": "Assessment name",
+          "SCORE-CATEGORY": "Score category",
+          "DURATION-TAKEN": "Duration taken",
+          "DATE-TAKEN": "Date done"
         }
       }
     }
@@ -831,6 +831,7 @@
     "MAX-CHARACTERS": "maximum characters reached"
   },
   "ADMIN-SETTINGS": {
+    "MAIN_TITLE": "Admin Settings",
     "TEAM-SECTION" : {
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",

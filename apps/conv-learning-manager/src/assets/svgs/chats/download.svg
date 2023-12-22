@@ -1,0 +1,7 @@
+<svg id="MDI_download-outline" data-name="MDI / download-outline" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Boundary" fill="#1f7a8c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+    <rect width="24" height="24" stroke="none"/>
+    <rect x="0.5" y="0.5" width="23" height="23" fill="none"/>
+  </g>
+  <path id="Path_download-outline" data-name="Path / download-outline" d="M13,5v6h1.17L12,13.17,9.83,11H11V5h2m2-2H9V9H5l7,7,7-7H15V3m4,15H5v2H19Z" transform="translate(0 1)" fill="#1f7a8c"/>
+</svg>

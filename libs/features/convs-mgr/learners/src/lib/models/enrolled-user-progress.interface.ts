@@ -1,5 +1,6 @@
 /** user progress per course */
 export interface EnrolledUserProgress {
+  id: string;
   name?: string;
   enrollmentDate: Date;
   modules: Module[];
@@ -7,6 +8,7 @@ export interface EnrolledUserProgress {
 
 /** user progress per module */
 export interface Module {
+  id: string;
   name?: string;
   lessons: Lesson[];
 }

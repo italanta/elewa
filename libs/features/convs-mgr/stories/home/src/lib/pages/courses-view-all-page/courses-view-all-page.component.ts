@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 import { Observable, map } from 'rxjs';
 
+import { ActionSortingOptions } from '@app/elements/layout/convs-mgr/story-elements';
 import { StoryStateService } from '@app/state/convs-mgr/stories';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
-import { ActionSortingOptions } from '../../model/sorting.enum';
 import { Course } from '../../model/courses.interface';
 
 @Component({

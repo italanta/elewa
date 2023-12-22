@@ -1,22 +1,21 @@
 import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
-import { BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-// TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { 
   DeleteBotModalComponent,
   DeleteElementsEnum, 
   CreateModuleModalComponent
-} from '@app/features/convs-mgr/stories/home';
-
+} from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-bot-modules-list-view',
@@ -25,7 +24,9 @@ import {
 })
 export class BotModulesListViewComponent implements AfterViewInit {
 
-  dataSource: MatTableDataSource<BotModule>
+  dataSource: MatTableDataSource<BotModule>;
+
+  @Input() parentBot$: Observable<Bot>;
 
   @Input()
   set botModulesData (value: MatTableDataSource<BotModule>) {
@@ -44,8 +45,8 @@ export class BotModulesListViewComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  openBot(id: string) {
-    this._router$$.navigate(['modules', id]);
+  openBot(botId: string, id: string) {
+    this._router$$.navigate(['bots', botId, 'modules', id]);
   }
 
   editBot(botModule: BotModule) {

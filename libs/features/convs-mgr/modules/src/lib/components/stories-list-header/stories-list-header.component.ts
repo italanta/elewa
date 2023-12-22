@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -14,21 +14,30 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
+import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
+
 import { TIME_AGO } from '@app/features/convs-mgr/conversations/chats';
 
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { ActionSortingOptions, CreateLessonModalComponent } from '@app/features/convs-mgr/stories/home';
+import { ActionSortingOptions, CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'app-stories-list-header',
   templateUrl: './stories-list-header.component.html',
   styleUrls: ['./stories-list-header.component.scss'],
 })
-export class StoriesListHeaderComponent implements OnInit {
+export class StoriesListHeaderComponent implements OnInit, OnDestroy {
   activeBotModId:string;
 
-  constructor(private _dialog: MatDialog, private _route: ActivatedRoute) {
+  breadcrumbs$: Observable<iTalBreadcrumb[]>
+
+  constructor(
+    private _dialog: MatDialog, 
+    private _route: ActivatedRoute,
+    private _breadCrumbServ: BreadcrumbService
+  ) {
     this.activeBotModId = this._route.snapshot.paramMap.get('id') as string;
+    this.breadcrumbs$ = this._breadCrumbServ.breadcrumbs$;
   }
 
   @Input() parentBotModule$: Observable<BotModule>;
@@ -122,5 +131,9 @@ export class StoriesListHeaderComponent implements OnInit {
       return seconds;
     }
     return 0;
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
   }
 }
