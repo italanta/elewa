@@ -125,7 +125,7 @@
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
-                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span> </h6>
+                            <h6 class="vars" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
                               <div [formGroup] = "newVariableForm">
                                 <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
                                 <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">

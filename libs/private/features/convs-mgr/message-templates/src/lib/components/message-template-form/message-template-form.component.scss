@@ -240,9 +240,7 @@
   
     }
   }
-  .asteric{
-    color: red !important;
-  }
+
   .loading{
     display: flex;
     align-items: center;
@@ -307,7 +305,9 @@
   .ng-star-inserted{
     z-index: 1;
   }
-
+  .trash{
+    padding-left: 0.5rem;
+  }
  ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
 
 
