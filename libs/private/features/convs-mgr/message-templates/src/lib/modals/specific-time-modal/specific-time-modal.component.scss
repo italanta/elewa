@@ -101,6 +101,15 @@
   height: 1.2rem;
 }
 
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+  display: none;
+}
+
+.fa-regular{
+  position:absolute;
+  right: 0;
+}
 .send-btn {
   border-radius: 1.5625rem;
   width: 4.875rem;
