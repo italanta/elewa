@@ -173,12 +173,14 @@
   }
   
   .body{
+    position: relative;
     margin-bottom: 1em;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 9.8125rem!important; 
   }
   }
   .head{
+    position: relative;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 5.0625rem!important; 
   }
@@ -280,7 +282,7 @@
     top:8.6rem;
   }
   .add-variable-body{
-    top: 24.5rem;
+    top: 13rem;
   }
   li{
     text-decoration: none;
