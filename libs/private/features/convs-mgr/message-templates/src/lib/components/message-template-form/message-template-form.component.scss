@@ -1,8 +1,9 @@
 .message-template-form{
+    overflow-y: hidden;
     border-radius: 1.5625rem;
     background: var(--convs-mgr-color-text-white);
     margin-top: 1.55rem;
-    padding: 1.5rem 2.2rem;
+    padding: 1.5rem 2.2rem 3rem;
     position: relative;
       p {
           color: var(--connector-color);
@@ -26,9 +27,6 @@
           .form-group {
               
             p:first-child {
-              span {
-                  color: var(--convs-mgr-color-button);
-              }
               color: #000; 
               font-family: Roboto;
               font-size: 1rem;
@@ -139,7 +137,7 @@
   .variables{
     border-radius: 1rem;
     border: 1px solid var(--convs-mgr-button-color);
-    margin-top: 2rem;
+    margin-top: 4rem;
     padding: 2rem 0.5rem;
     background-color: var(--convs-mgr-button-color);
     
@@ -175,12 +173,14 @@
   }
   
   .body{
+    position: relative;
     margin-bottom: 1em;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 9.8125rem!important; 
   }
   }
   .head{
+    position: relative;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 5.0625rem!important; 
   }
@@ -225,6 +225,10 @@
     margin: .6rem; /* Remove any default margins */
   }
   
+  .asteric{
+    color: red !important;
+    padding-left: 0.3rem;
+  }
   
   .vars{
     color: var(--convs-mgr-color-primary-black); 
@@ -238,9 +242,6 @@
       color: white;
     font-style: 300;
   
-    }
-    .fa-trash{
-      padding-left: 1rem;
     }
   }
 
@@ -273,12 +274,21 @@
     cursor: pointer;
   }
   
-  .add-variable{
+  .add-variable-body, .add-variable-header{
     right: 2rem;
     position: absolute;
   }
+  .add-variable-header{
+    top:8.6rem;
+  }
+  .add-variable-body{
+    top: 13rem;
+  }
   li{
     text-decoration: none;
+  }
+  .dropdown{
+    color: var(--convs-mgr-button-color) !important;
   }
   .body-card, .header-card{
     position: absolute;
@@ -302,6 +312,10 @@
   .trash{
     padding-left: 0.5rem;
   }
+  .form-header-buttons{
+    position: absolute;
+    right: 0;
+  }
  ::ng-deep .loading .mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
 
 
@@ -312,5 +326,9 @@
 ::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel{
   border-radius: 1rem;
 } 
+:host ::ng-deep .mat-menu-panel .mat-radio-button {
+  display: block;
+ }
+ 
  
 
