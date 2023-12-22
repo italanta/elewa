@@ -27,9 +27,6 @@
           .form-group {
               
             p:first-child {
-              span {
-                  color: var(--convs-mgr-color-button);
-              }
               color: #000; 
               font-family: Roboto;
               font-size: 1rem;
@@ -226,6 +223,10 @@
     margin: .6rem; /* Remove any default margins */
   }
   
+  .asteric{
+    color: red !important;
+    padding-left: 0.3rem;
+  }
   
   .vars{
     color: var(--convs-mgr-color-primary-black); 
