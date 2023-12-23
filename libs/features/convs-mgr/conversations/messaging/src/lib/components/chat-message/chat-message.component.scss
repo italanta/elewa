@@ -38,17 +38,18 @@
     border-bottom-left-radius: 20px!important;
 
     .message-content {
-      border-bottom-left-radius: 20px!important;
+      // border-bottom-left-radius: 20px!important;
       border-top-left-radius: 20px !important;
     }
   }
 
   &.message-mine {
-    float: right;
+    float: left;
 
     .message-content {
       border-top-left-radius: 20px !important;
-      border-bottom-left-radius: 20px!important;
+      border-bottom-right-radius: 20px!important;
+      
     }
     &::before {
       right: -11px;
@@ -57,12 +58,12 @@
   }
 
   &.message-other {
-    float: left;
+    float: right;
 
     .message-content {
       background-color: #0000008c;
       color: black;
-      border-bottom-right-radius: 20px!important;
+      border-bottom-left-radius: 20px!important;
     }
 
     &::before {
@@ -72,7 +73,7 @@
   }
 
   .green {
-    background-color:#4E416D !important;
+    background-color:#DAE0F0 !important;
 
     span {
       color: #f2f2f2;
@@ -81,7 +82,7 @@
   }
 
   .grey {
-    background-color: #DAE0F0 !important;
+    background-color: #ffff !important;
   }
 
   .message-sender {
@@ -93,7 +94,7 @@
   .message-timestamp {
     // display: none;
     display: inline;
-    color: gray;
+    color: #0000008c;
     font-size: 11px;
     margin-left: 10px;
   }
