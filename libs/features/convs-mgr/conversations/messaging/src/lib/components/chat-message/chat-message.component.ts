@@ -23,13 +23,35 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
 
   constructor(private _sanetizer: DomSanitizer, private elementRef: ElementRef) {}
 
-  ngOnInit() {}
-
-  ngAfterViewInit(): void {
+  ngOnInit() {
     if (this.message) {
       this.messageIsNotMine = this.message.direction === MessageDirection.FROM_ENDUSER_TO_AGENT || this.message.direction === MessageDirection.FROM_END_USER_TO_CHATBOT;
       this.agentMessage = this.message.direction === MessageDirection.FROM_AGENT_TO_END_USER  || this.message.direction === MessageDirection.FROM_CHATBOT_TO_END_USER;
       this.timestamp = __DateFromStorage(this.message.createdOn as Date).format('DD/MM HH:mm');
+  
+      // Add your condition here
+      if (this.message.type === 'text' && (this.message as TextMessage).text.trim().endsWith('?')) {
+        // Create a new message object
+        const autoQuestionMessage = {
+          type: 'question',
+          content: 'Yes or No?',
+          // Add other necessary properties here...
+        };
+  
+        // Add the new message to your messages array
+        // this.messages.push(autoQuestionMessage); // Replace this with the actual array that holds your messages
+      }
+    }
+  }
+  
+
+  ngAfterViewInit(): void {
+    if (this.message) {
+      
+      this.messageIsNotMine = this.message.direction === MessageDirection.FROM_ENDUSER_TO_AGENT || this.message.direction === MessageDirection.FROM_END_USER_TO_CHATBOT;
+      this.agentMessage = this.message.direction === MessageDirection.FROM_AGENT_TO_END_USER  || this.message.direction === MessageDirection.FROM_CHATBOT_TO_END_USER;
+      this.timestamp = __DateFromStorage(this.message.createdOn as Date).format('DD/MM HH:mm');
+    
     }
   }
 
