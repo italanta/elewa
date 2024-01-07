@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,6 +15,8 @@ import { DeleteUserGroupModalComponent } from '../../modals/delete-user-group-mo
 export class UserGroupsListComponent implements OnInit{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Output() groupSelect = new EventEmitter<string>();
+
 
   displayedColumns = [
     'name',
@@ -28,10 +30,11 @@ export class UserGroupsListComponent implements OnInit{
 
   
   allGroups = [{
-    "name": "Peter",
-    "users": 2,
-    "description": "Fake group for testing purposes",
-    "course": "Fake Course"
+    id:"abc123",
+    name: "Peter",
+    users: 2,
+    description: "Fake group for testing purposes",
+    course: "Fake Course"
   }];
 
   constructor(private _dialog: MatDialog) { }
@@ -57,4 +60,9 @@ export class UserGroupsListComponent implements OnInit{
       }
     )
   }
+  clickGroupRow(groupId:string){
+    this.groupSelect.emit(groupId)
+
+  }
+
 }
