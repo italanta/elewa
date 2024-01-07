@@ -19,4 +19,4 @@ const USERGROUPS_ROUTES: Route[] = [
     imports: [RouterModule.forChild(USERGROUPS_ROUTES)],
     exports: [RouterModule]
 })
-export class UserGroupsRouterModule { }
+export class UserGroupsRouterModule { } 
