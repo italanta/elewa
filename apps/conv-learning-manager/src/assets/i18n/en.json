@@ -463,9 +463,11 @@
     "MODALS": {
       "CREATE-CLASS": "Create Class",
       "CLASSNAME": "ClassName",
+      "GROUPNAME": "GroupName",
       "DESCRIPTION": "Description",
       "ACTION-BUTTONS": {
         "CANCEL": "Cancel",
+        "SAVE":"Save",
         "CONTINUE": "Continue"
       }
     }
