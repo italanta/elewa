@@ -53,6 +53,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   panelOpenState: boolean;
   isSaving: boolean;
   showVariablesSection :boolean;
+  showHeaderSection :boolean;
   showSelectedVariableSection: boolean;
 
   categories: { display: string; value: string }[] = categoryOptions;
@@ -282,6 +283,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   updateVariableAndPlaceholder(variable: string) {
     this.selectedVariable = variable;
     this.hideCard();
+    this.showHeaderSection = true
     this.showVariablesSection = true;
     this.newVariableForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
   }  
