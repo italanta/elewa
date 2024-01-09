@@ -23,6 +23,7 @@
       </div>
       <div class="time">
         <input type="time" id="time" name="time" formControlName="time" placeholder="Time" onfocus="(this.type='time')" onblur="if(this.value==''){this.type='text'}">
+        <!-- <i class="fa-regular fa-clock fa-2x"></i> -->
       </div>
     </div>
 
@@ -83,12 +84,6 @@
     
 
       <div class="select-days" >
-        <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
-          <select name="monthlyRepeat" id="monthlyRepeat" formControlName="interval">
-            <option *ngFor="let option of monthlyOptions" [value]="option">{{ option }}</option>
-          </select>
-          {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.MONTHS'| transloco }}
-        </p>
           <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="monthly-date" formControlName="endDate"></p>
           <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
       </div>
