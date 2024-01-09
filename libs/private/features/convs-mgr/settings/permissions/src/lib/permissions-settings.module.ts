@@ -13,6 +13,8 @@ import { MultiLangModule } from '@ngfi/multi-lang';
 import { MatSelectFilterModule } from 'mat-select-filter';
 
 import { AccessControlModule } from '@app/private/elements/convs-mgr/access-control';
+import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
+
 
 import { PermissionsComponent } from './components/permissions/permissions.component';
 import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
@@ -30,6 +32,7 @@ import { PermissionsModelService } from './services/permissions.service';
 import { PermissionsFormsService } from './services/permissions-forms.service';
 import { SwitchButtonComponent } from './modals/switch-button/switch-button.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -43,6 +46,8 @@ import { SwitchButtonComponent } from './modals/switch-button/switch-button.comp
     MaterialBricksModule,
     FormsModule,
     ReactiveFormsModule,
+    ItalBreadCrumbModule,
+
 
     AccessControlModule,
   ],

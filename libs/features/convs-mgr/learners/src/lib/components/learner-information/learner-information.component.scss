@@ -24,27 +24,28 @@ a:hover {
 
     .learner-avatar {
       margin-right: 0.625em; /* Converted from 10px */
-      width: 6.25em; /* Converted from 100px */
-      height: 6.25em; /* Converted from 100px */
-      background-color: #ddd;
+      width: 3.75em; /* Converted from 60px */
+      height: 3.75em; /* Converted from 60px */
+      color: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 400;
-      font-size: 1.5em; /* Converted from 24px */
+      font-size: 1.875em; /* Converted from 30px */
       line-height: 1.21em; /* Converted from 29.05px */
     }
 
     .learner-details {
       p {
         margin: 0;
-        font-weight: lighter;
+        font-weight: 400;
         width: 10em; /* Converted from 160px */
-        height: 1.5em; /* Converted from 24px */
+        height: 1.375em; /* Converted from 22px */
+        color: #101010;
 
         &:nth-child(1) {
-          font-weight: 500;
+          font-weight: 450;
           font-size: 1.375em; /* Converted from 22px */
           color: black;
           line-height: 1.19em; /* Converted from 26px */
@@ -52,13 +53,24 @@ a:hover {
           margin-bottom: 0.875em; /* Converted from 14px */
         }
 
+        &:nth-child(2) {
+          .phone-icon {
+            transform: rotateY(180deg); /* Flip the icon horizontally */
+          }     
+        }
+
+        &:nth-child(2)::after {
+          content: " | ";
+          margin: 0 0.625em;
+        }
+
         &:nth-child(2),
         &:nth-child(3) {
-          font-weight: 400;
+          font-weight: 300;
           font-size: 1.125em; /* Converted from 18px */
           color: black;
           line-height: 1.17em; /* Converted from 21px */
-          display: flex;
+          display: inline;
           align-items: center;
           margin: 0.3125em; /* Converted from 5px */
         }
@@ -95,7 +107,7 @@ a:hover {
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      background-color: teal;
+      background-color: var(--convs-mgr-button-color);
       border-radius: 3rem;
       color: white;
     }

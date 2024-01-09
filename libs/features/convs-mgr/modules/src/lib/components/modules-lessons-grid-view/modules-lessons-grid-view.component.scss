@@ -18,10 +18,11 @@
   flex-direction: column !important;
   height: 200px;
   padding: 10px;
-  padding-left: calc(1rem + 10px);
+  padding-left: calc(2rem + 10px);
   background-color: white;
   border-radius: 10px;
   width: 30%;
+  padding-right: 1.565em;
 
   min-width: 300px;
 
@@ -59,6 +60,7 @@
 .menu-btn {
   position: absolute;
   right: 0rem;
+  top: 2.4rem;
 
   .menu-tooltip {
     color: black !important;

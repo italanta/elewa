@@ -13,6 +13,8 @@ export class AssessmentSettingsComponent implements OnInit {
 
   viewRoles: string[] = [];
 
+  panelState: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {

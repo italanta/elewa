@@ -7,10 +7,11 @@ import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
-import { DeleteElementsEnum } from '../../../model/delete-element.enum';
-import { DeleteBotModalComponent } from '../../../modals/delete-bot-modal/delete-bot-modal.component';
-import { CreateLessonModalComponent } from '../../../modals/create-lesson-modal/create-lesson-modal.component';
-
+import { 
+  DeleteElementsEnum,
+  DeleteBotModalComponent,
+  CreateLessonModalComponent
+} from '@app/elements/layout/convs-mgr/story-elements';
 
 @Component({
   selector: 'italanta-apps-course-module-item',
@@ -21,7 +22,7 @@ export class CourseModuleItemComponent {
   @Input() botModule: BotModule;
   @Input() story: Story;
 
-  constructor(private _dialog: MatDialog, private _router$: Router){}
+  constructor(private _dialog: MatDialog, private _router$: Router) {}
 
   openModule(id: string) {
     this._router$.navigate(['modules', id]);
@@ -32,19 +33,22 @@ export class CourseModuleItemComponent {
   }
 
   editLesson(story: Story) {
-    this._dialog.open(CreateLessonModalComponent, {
-      minWidth: '600px', 
-      data: {
-        botMode: BotMutationEnum.EditMode, story: story
-      }
-    }).afterClosed();
+    this._dialog
+      .open(CreateLessonModalComponent, {
+        minWidth: '600px',
+        data: {
+          botMode: BotMutationEnum.EditMode,
+          story: story,
+        },
+      })
+      .afterClosed();
   }
 
   deleteLesson(story: Story) {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: story
+        mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule
       }
     }).afterClosed();
   }
