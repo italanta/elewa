@@ -61,7 +61,8 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
   referenceForm: FormGroup;
   nextVariableId: number;
-  userAddedVariables: any = []; //This variable is an array used to keep track of new variables added by the user
+  newHeaderVariables: any[] = [];
+  newVariables: any[] = [];
   newVariables$: Observable<any[]>; //used to subscribe to changes in the list of new variables from other parts of the application
   newHeaderVariables$: Observable<any[]>; //used to subscribe to changes in the list of new variables from other parts of the application
   fetchedVariables: any = [];
@@ -120,6 +121,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.detectHeaderVariableChange();
     this.newVariables$ = this._variableService$.newVariables$.pipe(distinctUntilChanged());
     this.newHeaderVariables$ = this._variableService$.newHeaderVariables$.pipe(distinctUntilChanged());
+
+
+    console.log("new variable is "+ this.newVariables$)
+    console.log("header variable is "+ this.newHeaderVariables$)
   }
 
   initPage() {
@@ -146,6 +151,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         if (value !== '' && value !== null) {
           // This code will be executed after the user stops typing for 2 seconds
           this.addVariable();
+          this.selectedVariable = '';
         }
       });
   
@@ -159,6 +165,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         if (value !== '' && value !== null) {
           // This code will be executed after the user stops typing for 2 seconds
           this.addHeaderVariable();
+          this.selectedVariable = '';
         }
       });
   
@@ -179,13 +186,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     
 
     // Track new variables as strings
-    this.userAddedVariables.push({
+    this.newHeaderVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
 
 
-    this._variableService$.updateHeaderVariables(this.userAddedVariables);
+    this._variableService$.updateHeaderVariables(this.newHeaderVariables);
     this.newVariableHeaderForm.get('newVariable')?.reset();
     this.newVariableHeaderForm.get('newPlaceholder')?.reset();
     
@@ -214,13 +221,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
 
     // Track new variables as strings
-    this.userAddedVariables.push({
+    this.newVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
 
 
-    this._variableService$.updateNewVariables(this.userAddedVariables);
+    this._variableService$.updateNewVariables(this.newVariables);
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
     
@@ -241,17 +248,15 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       // Check if the input field is cleared
       if (value === '') {
         this._variableService$.updateNewVariables([]);
-        // this._variableService$.updateHeaderVariables([]);
       } else {
         // Extract variables from the updated body text
         const newVariables = this._variableService$.extractVariables(value);
         // Update currentVariables with only the variables that are present in the input field
         if (this.currentVariables.length !== newVariables.length) {
           this.currentVariables = newVariables;
-          this.userAddedVariables = this._variableService$.filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables);
+          this.newVariables = this._variableService$.filterObjectsByPlaceholder(this.newVariables, this.currentVariables);
         }
-        this._variableService$.updateNewVariables(this.userAddedVariables);
-        // this._variableService$.updateHeaderVariables(this.userAddedVariables);
+        this._variableService$.updateNewVariables(this.newVariables);
       }
     });
     
@@ -267,9 +272,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         if(this.currentVariables.length !== newVariables.length){
           this.currentVariables = newVariables;
           // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
-          this.userAddedVariables = this._variableService$.filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables)  
+          this.newHeaderVariables = this._variableService$.filterObjectsByPlaceholder(this.newHeaderVariables, this.currentVariables)  
         }
-        this._variableService$.updateHeaderVariables(this.userAddedVariables);
+        this._variableService$.updateHeaderVariables(this.newHeaderVariables);
       }
      }); 
   }
