@@ -1,4 +1,5 @@
 .specific-time {
+  overflow-x: hidden;
   color: var(--convs-mgr-color-101010);;
   font-family: Roboto;
   font-size: medium;
@@ -19,25 +20,33 @@
     display: flex;
     justify-content: space-between;
     padding: 2rem 0;
-  }
+  } 
   .date,
   .time, 
   .months {
     input {
       height: 2rem;
       width: 9rem;
-      border-radius: 0.5rem;
+      border-radius: 0.3rem;
       padding: 0.3rem;
       font-family: Roboto;
       font-weight: 300;
       font-size: 1.125rem;
-      // border: 1px solid black;
+      border: 1px solid var(--convs-mgr-button-color);
     }
-    input:focus {
+     input:focus {
       outline: none; // removes blue outline on focus
-      border: 1px solid black;  
-      box-shadow: none;
-     }
+      border: 1.5px solid var(--convs-mgr-button-color);  
+    }
+  }
+  .time{
+    position:relative;
+    cursor: pointer;
+  }
+  .clock{
+    position: absolute;
+    top: 0.8rem;
+    right: 0.6rem;
   }
   
   .recur {
@@ -102,8 +111,7 @@
 }
 
 input[type="time"]::-webkit-calendar-picker-indicator {
-  background: none;
-  display: none;
+  pointer-events: none; 
 }
 
 .fa-regular{
@@ -153,22 +161,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 button.mat-button {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
-
-img {
+img.down-arrow {
   position: absolute;
-  padding: 0 0.2rem;
-  top: 0.1rem;
-  height: 1rem;
-}
-.occur-text{
-    // Repeat every
-    color: var(--convs-mgr-color-101010);;
-    font-size: 1rem;
-    font-family: Roboto;
-    font-weight: 300;
-    word-wrap: break-word
+  height: 0.8rem; /* Adjust height as needed */
+  top: 0.3rem;
+  right: -1rem;
 }
 .day-month{
     color: var(--convs-mgr-color-707070);
@@ -193,6 +192,7 @@ img {
   word-wrap: break-word;
   font-size: 1rem;
 }
+
 .date-bd {
   border: none !important;
   color: var(--convs-mgr-icon-color);
@@ -200,7 +200,22 @@ img {
   font-family: Roboto;
   font-weight: 300;
   word-wrap: break-word;
+  margin-left: 0.5rem; /* Add margin to separate the text and input */
+  cursor: pointer;
+  text-decoration: underline;
 }
+.occur-text {
+  color: var(--convs-mgr-color-101010);
+  font-size: 1rem;
+  font-family: Roboto;
+  font-weight: 300;
+  word-wrap: break-word;
+  display: flex;
+  width: 120%;
+}
+
+
+
 .remove-end {
   // Remove end date
   color: var(--convs-mgr-icon-color); 
@@ -209,6 +224,20 @@ img {
   font-weight: 300;
   text-decoration: underline;
   word-wrap: break-word;
+}
+
+.date-input{
+  display: flex;
+}
+
+.mat-datepicker-toggle{
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1.5rem;
+}
+
+:host ::ng-deep .mat-mdc-form-field-infix{
+  width: 10rem;
 }
 
 ::ng-deep .mat-mdc-radio-group.options {
@@ -220,17 +249,6 @@ img {
     border-radius: 1.3rem !important;
 }
 
-
-
-.date-input{
-  display: flex;
-}
-
-.mat-datepicker-toggle{
-  width: 1rem;
-  height: 1rem;
-  margin-right: 1.5rem;
-}
 
 :host ::ng-deep{
  .mat-mdc-form-field.mat-form-field-appearance-outline .mat-mdc-form-field-infix{

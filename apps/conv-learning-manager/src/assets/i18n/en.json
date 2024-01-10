@@ -929,7 +929,8 @@
       "REPEAT-EVERY":"Repeat every",
       "OCCURS-MONTHLY":"Occurs every month until",
       "OCCURS-WEEKLY":"Occurs every week until",
-      "OCCURS-DAILY":"Occurs every day until"
+      "OCCURS-DAILY":"Occurs every day until",
+      "CHOOSE-END":"Choose end date"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
