@@ -719,7 +719,12 @@
                 "FOOTER": "Pied de page",
                 "FOOTER-DESCRIPTION": "Ajoutez une courte ligne de texte au contenu du message à afficher en bas"
               },
-              "ADD-VARIABLE":"Ajouter une variable"
+              "ADD-VARIABLE":"Ajouter une variable",
+              "HEADER":"Entête",
+              "HEADER-SAMPLES":{
+                "SAMPLES": "Exemples de contenu d'en-tête",
+                "NOTICE": "Pour aider META à réviser votre modèle de message, veuillez ajouter un exemple pour chaque variable dans votre texte d'en-tête. N'utilisez pas d'informations client réelles"
+              }
             }
           },
           "ADD-RESPONSES": {

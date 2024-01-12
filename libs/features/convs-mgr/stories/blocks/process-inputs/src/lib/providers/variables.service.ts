@@ -13,7 +13,9 @@ export class VariablesService {
   /** list of blocks with variables already set */
   blocksWithVars$: Observable<StoryBlock[]>;
   private newVariablesSubject = new BehaviorSubject<any[]>([]);
+  private newHeaderVariablesSubject = new BehaviorSubject<any[]>([]);
   newVariables$ = this.newVariablesSubject.asObservable();
+  newHeaderVariables$ = this.newHeaderVariablesSubject.asObservable();
 
   constructor(
     private _blockStore$$: StoryBlocksStore,
@@ -55,6 +57,10 @@ export class VariablesService {
   updateNewVariables(newVariables: any[]) {
     this.newVariablesSubject.next(newVariables);
     }
+   
+    updateHeaderVariables(newVariables: any[]) {
+      this.newHeaderVariablesSubject.next(newVariables);
+      }
 
     extractVariables = (text: string) => {
       const variableRegex = /\{\{([^}]+)\}\}/g;

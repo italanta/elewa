@@ -1024,6 +1024,11 @@
               "FOOTER": {
                 "FOOTER": "Footer",
                 "FOOTER-DESCRIPTION": "Add a short line of text to your message content to be shown at the bottom"
+              },
+              "HEADER":"Header",
+              "HEADER-SAMPLES":{
+                "SAMPLES": "Samples for header content",
+                "NOTICE": "To help META review your message template, please add an example for each variable in your header text. Do not use real customer information"
               }
             },
             "ADD-VARIABLE":"Add Variable"

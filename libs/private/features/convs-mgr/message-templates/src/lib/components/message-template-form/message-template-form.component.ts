@@ -53,6 +53,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   panelOpenState: boolean;
   isSaving: boolean;
   showVariablesSection :boolean;
+  showHeaderSection :boolean;
   showSelectedVariableSection: boolean;
 
   categories: { display: string; value: string }[] = categoryOptions;
@@ -60,13 +61,16 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
 
   referenceForm: FormGroup;
   nextVariableId: number;
-  userAddedVariables: any = []; //This variable is an array used to keep track of new variables added by the user
+  newHeaderVariables: any[] = [];
+  newVariables: any[] = [];
   newVariables$: Observable<any[]>; //used to subscribe to changes in the list of new variables from other parts of the application
+  newHeaderVariables$: Observable<any[]>; //used to subscribe to changes in the list of new variables from other parts of the application
   fetchedVariables: any = [];
   currentVariables:any =[];
   bots: Bot[] = [];
   selectedBot: Bot;
   newVariableForm: FormGroup;
+  newVariableHeaderForm :FormGroup;
 
   private _sbS = new SubSink();
 
@@ -88,9 +92,21 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.initPage();
     this.showCard = true;
     this.channels$ = this._channelService.getAllChannels();
+    this.newVariableHeaderForm = this.fb.group({
+      newVariable :['', Validators.required],
+      newPlaceholder:['', Validators.required]
+    });
     this.newVariableForm = this.fb.group({
       newVariable: ['', Validators.required],
       newPlaceholder: ['', Validators.required],
+    });
+
+    this.newVariableHeaderForm.get('newPlaceholder')?.valueChanges.subscribe((value) => {
+      if (value && value.trim() !== '') {
+        this.newVariableHeaderForm.get('newVariable')?.enable();
+      } else {
+        this.newVariableHeaderForm.get('newVariable')?.disable();
+      }
     });
     this.newVariableForm.get('newPlaceholder')?.valueChanges.subscribe((value) => {
       if (value && value.trim() !== '') {
@@ -102,7 +118,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.onChangedVal();
     this.getActiveOrg();
     this.detectVariableChange();
+    this.detectHeaderVariableChange();
     this.newVariables$ = this._variableService$.newVariables$.pipe(distinctUntilChanged());
+    this.newHeaderVariables$ = this._variableService$.newHeaderVariables$.pipe(distinctUntilChanged());
+
   }
 
   initPage() {
@@ -129,8 +148,51 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         if (value !== '' && value !== null) {
           // This code will be executed after the user stops typing for 2 seconds
           this.addVariable();
+          this.selectedVariable = '';
         }
       });
+  
+  }
+
+  detectHeaderVariableChange() {
+    this._sbS.sink = this.newVariableHeaderForm.get('newVariable')?.valueChanges
+      .pipe(debounceTime(2000)) 
+      .subscribe((value) => {
+        // Check if the user is currently typing
+        if (value !== '' && value !== null) {
+          // This code will be executed after the user stops typing for 2 seconds
+          this.addHeaderVariable();
+          this.selectedVariable = '';
+        }
+      });
+  
+  }
+  addHeaderVariable() {
+    // Get values from the newVariableForm
+    const newVariable = this.newVariableHeaderForm.get('newVariable')?.value;
+    const newPlaceholder = this.newVariableHeaderForm.get('newPlaceholder')?.value;
+  
+    // Determine whether to append to header or body based on user choice
+    const formContent = this.templateForm.get('content') as FormGroup;
+    const formHeader = formContent.get('header') as FormGroup;
+  
+    const headerControl = formHeader.get('text') as FormControl;
+  
+      const updatedHeader = `${headerControl.value}${newPlaceholder}`;
+      headerControl.setValue(updatedHeader);
+    
+
+    // Track new variables as strings
+    this.newHeaderVariables.push({
+      variable: newVariable,
+      placeholder: newPlaceholder,
+    });
+
+
+    this._variableService$.updateHeaderVariables(this.newHeaderVariables);
+    this.newVariableHeaderForm.get('newVariable')?.reset();
+    this.newVariableHeaderForm.get('newPlaceholder')?.reset();
+    
   }
 
   addVariable() {
@@ -156,13 +218,13 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     }
 
     // Track new variables as strings
-    this.userAddedVariables.push({
+    this.newVariables.push({
       variable: newVariable,
       placeholder: newPlaceholder,
     });
 
 
-    this._variableService$.updateNewVariables(this.userAddedVariables);
+    this._variableService$.updateNewVariables(this.newVariables);
     this.newVariableForm.get('newVariable')?.reset();
     this.newVariableForm.get('newPlaceholder')?.reset();
     
@@ -189,9 +251,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         // Update currentVariables with only the variables that are present in the input field
         if (this.currentVariables.length !== newVariables.length) {
           this.currentVariables = newVariables;
-          this.userAddedVariables = this._variableService$.filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables);
+          this.newVariables = this._variableService$.filterObjectsByPlaceholder(this.newVariables, this.currentVariables);
         }
-        this._variableService$.updateNewVariables(this.userAddedVariables);
+        this._variableService$.updateNewVariables(this.newVariables);
       }
     });
     
@@ -199,7 +261,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
      this._sbS.sink = headerControl.valueChanges.subscribe((value) => {
       // Check if the input field is cleared
       if (value === '') {
-        this._variableService$.updateNewVariables([]);
+        this._variableService$.updateHeaderVariables([]);
       } else {
         // Extract variables from the updated header text
         const newVariables = this._variableService$.extractVariables(value);;
@@ -207,9 +269,9 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
         if(this.currentVariables.length !== newVariables.length){
           this.currentVariables = newVariables;
           // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
-          this.userAddedVariables = this._variableService$.filterObjectsByPlaceholder(this.userAddedVariables, this.currentVariables)  
+          this.newHeaderVariables = this._variableService$.filterObjectsByPlaceholder(this.newHeaderVariables, this.currentVariables)  
         }
-        this._variableService$.updateNewVariables(this.userAddedVariables);
+        this._variableService$.updateHeaderVariables(this.newHeaderVariables);
       }
      }); 
   }
@@ -282,9 +344,17 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   updateVariableAndPlaceholder(variable: string) {
     this.selectedVariable = variable;
     this.hideCard();
-    this.showVariablesSection = true;
-    this.newVariableForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
-  }  
+    if(this.selectedClass == 'header'){
+      this.showHeaderSection = true;
+      this.showVariablesSection = false;
+      this.newVariableHeaderForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
+    }else{
+      this.showVariablesSection = true;
+      this.showHeaderSection =false;
+      this.newVariableForm.patchValue({ newPlaceholder: `{{${this.selectedVariable}}}` });
+    }
+  }
+ 
   
   hideCard() {
     this.showCard = false;
