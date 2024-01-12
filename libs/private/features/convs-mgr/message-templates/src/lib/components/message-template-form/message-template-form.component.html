@@ -80,7 +80,7 @@
                         <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER'| transloco }}</p>
                         
                         <h6 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
-                          <div [formGroup] = "newVariableHeaderForm">
+                          <div [formGroup] = "newVariableHeaderForm" *ngIf="newHeaderVariables.length < 1" >
                             <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
                             <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
                             </div>
