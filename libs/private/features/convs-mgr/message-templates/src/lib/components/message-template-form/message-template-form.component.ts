@@ -122,9 +122,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.newVariables$ = this._variableService$.newVariables$.pipe(distinctUntilChanged());
     this.newHeaderVariables$ = this._variableService$.newHeaderVariables$.pipe(distinctUntilChanged());
 
-
-    console.log("new variable is "+ this.newVariables$)
-    console.log("header variable is "+ this.newHeaderVariables$)
   }
 
   initPage() {
