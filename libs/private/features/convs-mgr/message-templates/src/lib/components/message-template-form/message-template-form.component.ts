@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SubSink } from 'subsink';
@@ -11,7 +11,7 @@ import { MessageTemplatesService } from '@app/private/state/message-templates';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
-import { ActiveOrgStore, OrganisationService } from '@app/private/state/organisation/main';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 import { StoryBlockVariable } from '@app/model/convs-mgr/stories/blocks/main';
 import { Bot } from '@app/model/convs-mgr/bots';
@@ -185,7 +185,25 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     form.get('newPlaceholder')?.reset();
    }
    
-  onChangedVal() {
+   handleValueChange(control: AbstractControl, updateFunction: any, filterFunction: any) {
+    control.valueChanges.subscribe((value) => {
+      // Check if the input field is cleared
+      if (value === '') {
+        updateFunction([]);
+      } else {
+        // Extract variables from the updated text
+        const newVariables = this._variableService$.extractVariables(value);
+        // Update currentVariables with only the variables that are present in the input field
+        if (this.currentVariables.length !== newVariables.length) {
+          this.currentVariables = newVariables;
+          this.newVariables = filterFunction(this.newVariables, this.currentVariables);
+        }
+        updateFunction(this.newVariables);
+      }
+    });
+   }
+   
+   onChangedVal() {
     // Determine whether to append to header or body based on user choice
     const formContent = this.templateForm.get('content') as FormGroup;
     const formBody = formContent.get('body') as FormGroup;
@@ -194,41 +212,10 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     const bodyControl = formBody.get('text') as FormControl;
     const headerControl = formHeader.get('text') as FormControl;
    
-    
-    this._sbS.sink = bodyControl.valueChanges.subscribe((value) => {
-      // Check if the input field is cleared
-      if (value === '') {
-        this._variableService$.updateNewVariables([]);
-      } else {
-        // Extract variables from the updated body text
-        const newVariables = this._variableService$.extractVariables(value);
-        // Update currentVariables with only the variables that are present in the input field
-        if (this.currentVariables.length !== newVariables.length) {
-          this.currentVariables = newVariables;
-          this.newVariables = this._variableService$.filterObjectsByPlaceholder(this.newVariables, this.currentVariables);
-        }
-        this._variableService$.updateNewVariables(this.newVariables);
-      }
-    });
-    
-     
-     this._sbS.sink = headerControl.valueChanges.subscribe((value) => {
-      // Check if the input field is cleared
-      if (value === '') {
-        this._variableService$.updateHeaderVariables([]);
-      } else {
-        // Extract variables from the updated header text
-        const newVariables = this._variableService$.extractVariables(value);;
-        // Update currentVariables with only the variables that are present in the input field
-        if(this.currentVariables.length !== newVariables.length){
-          this.currentVariables = newVariables;
-          // this.newVariables = removeItemsByVariables(this.newVariables, this.currentVariables)  
-          this.newHeaderVariables = this._variableService$.filterObjectsByPlaceholder(this.newHeaderVariables, this.currentVariables)  
-        }
-        this._variableService$.updateHeaderVariables(this.newHeaderVariables);
-      }
-     }); 
-  }
+    this.handleValueChange(bodyControl, this._variableService$.updateNewVariables.bind(this._variableService$), this._variableService$.filterObjectsByPlaceholder.bind(this._variableService$));
+    this.handleValueChange(headerControl, this._variableService$.updateHeaderVariables.bind(this._variableService$), this._variableService$.filterObjectsByPlaceholder.bind(this._variableService$));
+   }
+   
    
   getActiveOrg() {
     this._sbS.sink = this._activeOrgStore$$.get().subscribe((org) => {
@@ -250,7 +237,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
    this._sbS.sink = this._variableService$.getVariablesByBot(botId, this.orgId).subscribe(
     (data: StoryBlockVariable[]) => {
       this.fetchedVariables = data;
-      console.log(data)
     }
   );
 }
