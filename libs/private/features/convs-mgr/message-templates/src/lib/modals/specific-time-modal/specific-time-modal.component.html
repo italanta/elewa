@@ -22,8 +22,7 @@
         
       </div>
       <div class="time">
-        <input type="time" id="time" name="time" formControlName="time" placeholder="Time" onfocus="(this.type='time')" onblur="if(this.value==''){this.type='text'}">
-        <!-- <i class="fa-regular fa-clock fa-2x"></i> -->
+        <input type="time" id="time" name="time" formControlName="time" placeholder="Time">
       </div>
     </div>
 
@@ -50,7 +49,7 @@
         <p class="recur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.RECUR-DAILY'| transloco }}</p>
 
         <div class="select-days" >
-            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }} <input type="date" class="date-bd" id="endDate" name="daily-date" formControlName="endDate" ></p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-DAILY'| transloco }}<input type="text" onfocus="(this.type='date')" placeholder="{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-END'| transloco }}" class="date-bd" id="endDate" name="daily-date" formControlName="endDate" ></p>
             <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
       </div>
@@ -70,7 +69,7 @@
             </select>
             {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.WEEKS'| transloco }}
           </p>
-            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-WEEKLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="weekly-date" endDate></p>
+            <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-WEEKLY'| transloco }} <input type="text" onfocus="(this.type='date')" placeholder="{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-END'| transloco }}" class="date-bd" id="endDate" name="weekly-date" endDate></p>
             <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
         </div>
     </div>
@@ -84,7 +83,13 @@
     
 
       <div class="select-days" >
-          <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="date" class="date-bd" id="endDate" name="monthly-date" formControlName="endDate"></p>
+        <p class="repeat">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REPEAT-EVERY'| transloco }}
+          <select name="monthlyRepeat" id="monthlyRepeat" formControlName="interval">
+            <option *ngFor="let option of monthlyOptions" [value]="option">{{ option }}</option>
+          </select>
+          {{'MESSAGE-TEMPLATES.SPECIFIC-TIME.MONTHS'| transloco }}
+        </p>
+          <p class="occur-text">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.OCCURS-MONTHLY'| transloco }} <input type="text" onfocus="(this.type='date')" placeholder="{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.CHOOSE-END'| transloco }}" class="date-bd" id="endDate" name="monthly-date" formControlName="endDate"></p>
           <p class="remove-end" (click)="removeEndDate()">{{'MESSAGE-TEMPLATES.SPECIFIC-TIME.REMOVE-END'| transloco }}</p>
       </div>
     </div>

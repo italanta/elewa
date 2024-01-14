@@ -624,7 +624,8 @@
       "REPEAT-EVERY":"Répétez tous les",
       "OCCURS-MONTHLY":"Se produit chaque mois jusqu'à",
       "OCCURS-WEEKLY":"Se produit chaque semaine jusqu'à",
-      "OCCURS-DAILY":"Se produit tous les jours jusqu'à"
+      "OCCURS-DAILY":"Se produit tous les jours jusqu'à",
+      "CHOOSE-END":"Choisissez la date de fin"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
