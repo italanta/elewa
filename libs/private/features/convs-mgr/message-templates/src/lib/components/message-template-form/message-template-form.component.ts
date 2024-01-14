@@ -44,8 +44,6 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
   selectedClass: string;
   botName:string;
 
-
-
   templateId: string;
   panelOpenState: boolean;
   isSaving: boolean;
@@ -88,15 +86,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
     this.initPage();
     this.showCard = true;
     this.channels$ = this._channelService.getAllChannels();
-    this.newVariableHeaderForm = this.fb.group({
-      newVariable :['', Validators.required],
-      newPlaceholder:['', Validators.required]
-    });
-    this.newVariableForm = this.fb.group({
-      newVariable: ['', Validators.required],
-      newPlaceholder: ['', Validators.required],
-    });
-
+    this.initializeForms()
     this.detectPlaceholderChange(this.newVariableHeaderForm);
     this.detectPlaceholderChange(this.newVariableForm);
     this.onChangedVal();
@@ -124,6 +114,16 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  initializeForms(){
+    this.newVariableHeaderForm = this.fb.group({
+      newVariable :['', Validators.required],
+      newPlaceholder:['', Validators.required]
+    });
+    this.newVariableForm = this.fb.group({
+      newVariable: ['', Validators.required],
+      newPlaceholder: ['', Validators.required],
+    });
+  }
  
   detectVariableChange(form: FormGroup, isHeader: boolean) {
     this._sbS.sink = form.get('newVariable')?.valueChanges
