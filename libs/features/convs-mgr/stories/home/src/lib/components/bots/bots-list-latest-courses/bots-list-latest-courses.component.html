@@ -9,7 +9,20 @@
 
     <span class="card-title" fxFlex>
       {{ bot.name }}
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
+      </button>
     </span>
+
+    
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item> Connect bot to channel</button>
+      <button mat-menu-item  > Publish Bot</button>
+      <button mat-menu-item > Archive Bot </button>
+      <button mat-menu-item > Delete Bot</button>
+    </mat-menu>
 
     <div class="open-bot" fxFlex="50">
       <img [src]="bot.imageField ? bot.imageField : defaultImageUrl">

@@ -29,6 +29,11 @@
       line-height: normal;
       word-wrap: break-word;
       padding: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .svg-inline--fa{
+      color: white;
     }
 
     .open-bot {
