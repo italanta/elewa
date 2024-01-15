@@ -1,15 +1,19 @@
 .home-page {
-	padding: 30px;
+	padding: 1.4rem;
 	background-color: var(--convs-mgr-color-primary-light-grey);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
 }
+
 .title{
 	color: #101010;
 	font-size: 2rem;
 	font-weight: 400;
-	position: relative;
-	left: 1.5rem;
-	line-height: 1.5;
+	margin: 0;
+	padding: 0;
 }
+
 p{
 	color: #101010;
 	font-family: Roboto;

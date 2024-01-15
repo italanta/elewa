@@ -804,14 +804,14 @@
     "LEARNER-DETAIL-TAB": {
       "PAGE-TITLE": "Learner Detail Tab",
       "DETAILS": {
-        "COURSES-ENROLLED": "Courses Enrolled",
-        "ASSESSMENT-HISTORY": "Assessment History",
-        "ENROLLED-ON": "Enrolled On",
+        "COURSES-ENROLLED": "Courses enrolled",
+        "ASSESSMENT-HISTORY": "Assessment history",
+        "ENROLLED-ON": "Enrolled on",
         "ASSESSMENT-HISTORY-TABLE": {
-          "ASSESSMENT-NAME": "Assessment Name",
-          "SCORE-CATEGORY": "Score Category",
-          "DURATION-TAKEN": "Duration Taken",
-          "DATE-TAKEN": "Date Taken"
+          "ASSESSMENT-NAME": "Assessment name",
+          "SCORE-CATEGORY": "Score category",
+          "DURATION-TAKEN": "Duration taken",
+          "DATE-TAKEN": "Date done"
         }
       }
     }
@@ -833,6 +833,7 @@
     "MAX-CHARACTERS": "maximum characters reached"
   },
   "ADMIN-SETTINGS": {
+    "MAIN_TITLE": "Admin Settings",
     "TEAM-SECTION" : {
       "TITLE": "Team",
       "DESCRIPTION": "Invite and/or manage Team Members within your organization",
@@ -930,7 +931,8 @@
       "REPEAT-EVERY":"Repeat every",
       "OCCURS-MONTHLY":"Occurs every month until",
       "OCCURS-WEEKLY":"Occurs every week until",
-      "OCCURS-DAILY":"Occurs every day until"
+      "OCCURS-DAILY":"Occurs every day until",
+      "CHOOSE-END":"Choose end date"
     },
     "MESSAGE-TEMPLATE-SETTINGS": {
       "BTN-CONT": {
@@ -1024,6 +1026,11 @@
               "FOOTER": {
                 "FOOTER": "Footer",
                 "FOOTER-DESCRIPTION": "Add a short line of text to your message content to be shown at the bottom"
+              },
+              "HEADER":"Header",
+              "HEADER-SAMPLES":{
+                "SAMPLES": "Samples for header content",
+                "NOTICE": "To help META review your message template, please add an example for each variable in your header text. Do not use real customer information"
               }
             },
             "ADD-VARIABLE":"Add Variable"

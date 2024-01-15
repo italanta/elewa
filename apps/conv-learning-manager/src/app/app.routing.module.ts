@@ -40,7 +40,7 @@ export const APP_ROUTES: Route[] = [
     path: 'bots',
     loadChildren: () => import('@app/features/convs-mgr/stories/home').then(m => m.ConvsMgrStoriesHomeModule),
     data: {
-      breadCrumb: { src: 'assets/svgs/breadcrumbs/bots.png' },
+      breadCrumb: { src: 'assets/svgs/breadcrumbs/bots-stroked.svg' },
     },
     canActivate: [IsLoggedInGuard, CanAccessBotsGuard]
   },

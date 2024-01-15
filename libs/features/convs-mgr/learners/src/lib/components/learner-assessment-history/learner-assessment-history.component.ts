@@ -10,7 +10,7 @@ import { AssessmentCursor } from '@app/model/convs-mgr/conversations/admin/syste
 export class LearnerAssessmentHistoryComponent implements OnInit{
   @Input() assessments: AssessmentCursor[];
 
-  displayedColumns: string[] = ['Assessment Name', 'Score', 'Duration Taken', 'Date Taken'];
+  displayedColumns: string[] = ['Assessment Name', 'Score', 'Date Done', 'Duration Taken'];
   dataSource: AssessmentCursor[]= [];
   
   ngOnInit() {
