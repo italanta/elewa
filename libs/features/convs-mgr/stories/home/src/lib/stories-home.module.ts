@@ -27,6 +27,7 @@ import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/cours
 
 import { ConvsMgrStoriesRouterModule } from './stories.router';
 import { FilterCoursePipe } from './pipes/filter-course.pipe';
+import { ConnectToChannelModalComponent } from './modals/connect-to-channel-modal/connect-to-channel-modal.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     ChatsRouterModule,
     MatStepperModule,
     FormsModule,
-    ItalBreadCrumbModule
+    ItalBreadCrumbModule,
   ],
   declarations: [
     StoriesDashboardComponent,
@@ -55,7 +56,8 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
     FilterCoursePipe,
     BotModulesGridViewComponent,
     BotModulesListViewComponent,
-    BotModulesListHeaderComponent
+    BotModulesListHeaderComponent,
+    ConnectToChannelModalComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}
