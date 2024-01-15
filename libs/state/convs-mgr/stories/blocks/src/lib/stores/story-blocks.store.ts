@@ -1,18 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
-import { of } from 'rxjs'
+import { combineLatest, of } from 'rxjs'
 import { tap, throttleTime, switchMap, map, take } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
 
 import { Story } from '@app/model/convs-mgr/stories/main';
-import { StoryBlock, StoryBlockTypes } from '@app/model/convs-mgr/stories/blocks/main';
+import { StoryBlock } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
 import { EndStoryAnchorBlock } from '@app/model/convs-mgr/stories/blocks/messaging';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable()
 export class StoryBlocksStore extends DataStore<StoryBlock>
@@ -28,16 +30,19 @@ export class StoryBlocksStore extends DataStore<StoryBlock>
   //
   // Answer: No, as Angular's DI engine is lazy, meaning it will only initialise services the first time they are called.
   constructor(private _story$$: ActiveStoryStore,
+              private _activeOrgStore$$: ActiveOrgStore,
               private _repoFac: DataService,
               _logger: Logger)
   {
     super("always", _logger);
 
-    const data$ = _story$$.get()
+    const activeOrg$ = this._activeOrgStore$$.get();
+
+    const data$ = combineLatest([activeOrg$,  _story$$.get()])
                     .pipe(
-                      tap((story: Story) => this._activeStory  = story),
-                      tap((story: Story) => this._activeRepo = _repoFac.getRepo<StoryBlock>(`orgs/${story.orgId}/stories/${story.id}/blocks`)),
-                      switchMap((story: Story) => 
+                      tap(([_org, story]) => this._activeStory  = story),
+                      tap(([org, story]) => this._activeRepo = _repoFac.getRepo<StoryBlock>(`orgs/${org.id}/stories/${story.id}/blocks`)),
+                      switchMap(([_org, story]) => 
                         story ? this._activeRepo.getDocuments() : of([] as StoryBlock[])),
                       throttleTime(400, undefined, { leading: true, trailing: true }));
 

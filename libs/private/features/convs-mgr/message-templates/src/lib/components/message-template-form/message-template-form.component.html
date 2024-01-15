@@ -2,20 +2,6 @@
     <div class="mt-form" >
         <div class="form-header">
             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.EDIT-TEMPLATE'| transloco }}</p>
-            <div class="form-header-buttons">
-                <button mat-raised-button  class="cancel-btn" (click)="cancel()">
-                    <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
-                </button>
-                <button mat-raised-button  class="save-btn" (click)="save()">
-                    <span *ngIf="isSaving; else saving" class="loading">
-                        <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVING'| transloco }} </span>
-                        <mat-spinner diameter="20"></mat-spinner>
-                    </span>
-                    <ng-template #saving>
-                        <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVE'| transloco }} </span>
-                    </ng-template>
-                </button>
-            </div>
         </div>
         <div class="form-body">
             <form [formGroup]="templateForm" >
@@ -34,6 +20,7 @@
                             </div>
                         </mat-panel-title>
                       </mat-expansion-panel-header>
+                      
                       <div class="dd-holder">
 
                         <div class="form-group">
@@ -70,9 +57,9 @@
                   </mat-accordion>
                   
                 <div class="form-group head-cont">
-                    <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}</p>
+                    <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}<span class="asteric">*</span> </p>
                     <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}</p>
-                    <mat-form-field appearance="outline">
+                    <mat-form-field >
                         <input type="text" matInput formControlName="name">
                     </mat-form-field>
                 </div>
@@ -85,23 +72,77 @@
                           <input type="text" matInput formControlName="text">
                         </mat-form-field>
                       </div>
-                    
+
+
+                      <div class="variables" *ngIf="showHeaderSection">
+                        <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER-SAMPLES.SAMPLES'| transloco }}</p>
+                        <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER-SAMPLES.NOTICE'| transloco }}</p>
+                        <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER'| transloco }}</p>
+                        
+                        <h6 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                          <div [formGroup] = "newVariableHeaderForm" *ngIf="newHeaderVariables.length < 1" >
+                            <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
+                            <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
+                            </div>
+                    </div>
+
+
+                      <div class="add-variable-header header">
+                        <p class="dropdown" [matMenuTriggerFor]="menu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
+                    </div>
+                        <mat-menu #menu="matMenu">
+                            <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
+                                <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
+                              </mat-radio-group>                                        
+                        </mat-menu>  
+                        <div class="var-card" *ngIf="showCard">
+                            <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
+                                <div *ngIf="selectedClass === 'header'">
+                                    <h4>{{ botName }}</h4>
+                                    <ul  class="header">
+                                        <li (click)="updateVariableAndPlaceholder(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                    </ul>
+                                </div>
+                              </mat-card>
+                        </div>
+
                     <div class="form-group body" formGroupName="body">
-                        <p><span>*</span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
+                        <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
                         <mat-form-field>
                             <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
                         </mat-form-field>
-                        <div class="variables">
+                        <div class="add-variable-body">
+                            <p class="dropdown" [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
+                        </div>
+                            <mat-menu #bodymenu="matMenu">
+                                <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
+                                    <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
+                                  </mat-radio-group>                                        
+                            </mat-menu>  
+
+                         <div class="var-card" *ngIf="showCard">
+                            <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
+                                <div *ngIf="selectedClass === 'body'">
+                                    <h4>{{ botName }}</h4>
+                                    <ul  class="body">
+                                        <li (click)="updateVariableAndPlaceholder(variable.name); hideCard()">{{ '{{' + variable.name + '}}' }}</li>
+                                    </ul>
+                                </div>
+                              </mat-card>
+                         </div>   
+                          
+                        <br>
+
+                        <div class="variables" *ngIf="showVariablesSection">
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.SAMPLES'| transloco }}</p>
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
-                            <h6 class="vars" *ngFor="let variable of newVariables">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                            <h6 class="vars" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
                               <div [formGroup] = "newVariableForm">
-                                  <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinputs">
-                                <input type="text" formControlName="newVariable" placeholder="Placeholder" class="eveinputs">
-                                <button (click)="addVariable()" *ngIf="newVariableForm.get('newPlaceholder')?.value && newVariableForm.get('newVariable')?.value">Add Variable</button> 
+                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
+                                <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
                                 </div>
                         </div>
                         </div>
@@ -111,6 +152,21 @@
                         <mat-form-field >
                             <input type="textarea" matInput formControlName="footer">
                         </mat-form-field>
+                    </div>
+
+                    <div class="form-header-buttons">
+                        <button mat-raised-button  class="cancel-btn" (click)="cancel()">
+                            <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.CANCEL-BUTTON'| transloco }} </span>
+                        </button>
+                        <button mat-raised-button  class="save-btn" (click)="save()">
+                            <span *ngIf="isSaving; else saving" class="loading">
+                                <span> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVING'| transloco }} </span>
+                                <mat-spinner diameter="20"></mat-spinner>
+                            </span>
+                            <ng-template #saving>
+                                <span > {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-HEADER.FORM-HEADER-BUTTONS.SAVE-BUTTON.SAVE'| transloco }} </span>
+                            </ng-template>
+                        </button>
                     </div>
                 </div>
                 

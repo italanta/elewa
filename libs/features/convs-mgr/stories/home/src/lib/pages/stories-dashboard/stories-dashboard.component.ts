@@ -6,7 +6,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { BreadcrumbService } from '@app/elements/layout/ital-bread-crumb';
-import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
+import { iTalBreadcrumb } from '@app/model/layout/ital-breadcrumb';
 
 @Component({
   selector: 'italanta-apps-stories-dashboard',
@@ -14,7 +14,7 @@ import { BreadCrumbPath } from '@app/model/layout/ital-breadcrumb';
   styleUrls: ['./stories-dashboard.component.scss'],
 })
 export class StoriesDashboardComponent implements OnInit {
-  breadcrumbs$: Observable<BreadCrumbPath[]>;
+  breadcrumbs$: Observable<iTalBreadcrumb[]>;
 
   title: string;
 

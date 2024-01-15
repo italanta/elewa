@@ -3,13 +3,17 @@
   background: #F6F6F6;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 8px;
-
 }
+
 mat-expansion-panel {
   mat-expansion-panel-header {
     height:85px; 
-    background: #F6F6F6;
+    background: #F6F6F6; 
   }
+}
+
+.hoverEffect:hover{
+  background-color: rgba(31, 122, 140, .4) !important;
 }
 
 .main-title {
@@ -52,10 +56,6 @@ mat-expansion-panel {
   margin: auto;
 }
 
-
-
-
-//button 
 .switch {
   position: relative;
   display: inline-block;
