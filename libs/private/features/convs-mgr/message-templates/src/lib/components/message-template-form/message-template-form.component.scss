@@ -118,7 +118,6 @@
     width: 10rem;
     background-color: var(--convs-mgr-button-color);
     color: white;
-    padding-left: 0.7rem;
   }
   .eveinput:focus {
     outline: none;
@@ -128,7 +127,7 @@
   .pees {
     color: var(--convs-mgr-color-primary-black); 
     font-family: Roboto;
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -138,13 +137,13 @@
     border-radius: 1rem;
     border: 1px solid var(--convs-mgr-button-color);
     margin-top: 4rem;
-    padding: 2rem 0.5rem;
+    padding: 2rem 0 2rem 2rem;
     background-color: var(--convs-mgr-button-color);
     
     .np{
       color: white !important;
       font-family: Roboto;
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-style: normal;
       font-weight: 300;
       line-height: normal;
@@ -153,6 +152,10 @@
     }
     .pees{
       color: white !important;
+      font-size: 1rem;
+      font-family: Roboto;
+      font-weight: 400;
+      word-wrap: break-word
     }
   }
   mat-form-field{
@@ -237,7 +240,7 @@
     font-style: normal;
     font-weight: 400;
     height: 1rem;
-    margin: 1rem;
+    // margin: 1rem;
     span{
       color: white;
     font-style: 300;
