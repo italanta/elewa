@@ -28,6 +28,7 @@ import { CoursesViewAllPageComponent } from './pages/courses-view-all-page/cours
 import { ConvsMgrStoriesRouterModule } from './stories.router';
 import { FilterCoursePipe } from './pipes/filter-course.pipe';
 import { ConnectToChannelModalComponent } from './modals/connect-to-channel-modal/connect-to-channel-modal.component';
+import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.component';
 
 @NgModule({
   imports: [
@@ -58,6 +59,7 @@ import { ConnectToChannelModalComponent } from './modals/connect-to-channel-moda
     BotModulesListViewComponent,
     BotModulesListHeaderComponent,
     ConnectToChannelModalComponent,
+    SpinnerModalComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}

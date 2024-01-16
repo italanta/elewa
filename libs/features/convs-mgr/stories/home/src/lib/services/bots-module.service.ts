@@ -9,11 +9,26 @@ import { Observable, map } from 'rxjs';
 })
 export class BotsModuleService {
 
-  constructor(private communicationChannel$ :CommunicationChannelService) { }
+  constructor(private communicationChannel$ :CommunicationChannelService, ) { }
 
 
   getChannels() :Observable<CommunicationChannel[]>{
     return this.communicationChannel$.getAllChannels().pipe(map(response => response));
+  }
+
+  getWhatsAppChannels():Observable<CommunicationChannel[]>{
+    return this.communicationChannel$.getAllChannels().pipe(
+      map((channels) => channels.filter(channel => channel.type === 'whatsapp'))
+    );
+  }
+  getMessengerChannels():Observable<CommunicationChannel[]>{
+    return this.communicationChannel$.getAllChannels().pipe(
+      map((channels) => channels.filter(channel => channel.type === 'messenger'))
+    );
+  }
+
+  updateChannel(channel: CommunicationChannel):Observable<CommunicationChannel>{
+    return this.communicationChannel$.updateChannel(channel)
   }
 
 }

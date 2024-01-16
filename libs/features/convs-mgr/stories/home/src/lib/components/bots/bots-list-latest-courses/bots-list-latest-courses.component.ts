@@ -41,12 +41,14 @@ export class BotsListLatestCoursesComponent implements OnInit {
     }
   }
 
-  connectToChannel(){
+  connectToChannel(botId:string){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '30rem'; // Set the width of the dialog
     dialogConfig.height = '20rem'; // Set the height of the dialog
+    dialogConfig.data = { botId: botId }; // Pass the botId to the dialog
     this._dialog.open(ConnectToChannelModalComponent, dialogConfig);
    }
+   
    
 
   openBot(id: string) {

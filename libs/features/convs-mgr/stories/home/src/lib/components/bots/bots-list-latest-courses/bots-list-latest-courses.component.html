@@ -8,17 +8,19 @@
     </span> -->
 
     <span class="card-title" fxFlex>
-      {{ bot.name }}
+      <!-- <italanta-apps-spinner-modal/> -->
+      
 
       <button mat-button [matMenuTriggerFor]="menu">
         <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
       </button>
     </span>
 
+    {{ bot.name }}
     
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="connectToChannel()"> Connect bot to channel</button>
+      <button mat-menu-item (click)="connectToChannel(bot.id!)"> Connect bot to channel</button>
       <button mat-menu-item  > Publish Bot</button>
       <button mat-menu-item > Archive Bot </button>
       <button mat-menu-item > Delete Bot</button>

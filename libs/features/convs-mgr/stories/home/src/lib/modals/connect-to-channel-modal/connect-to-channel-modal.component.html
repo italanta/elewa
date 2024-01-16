@@ -2,39 +2,50 @@
     <h4>Connect Bot to Channel</h4>
 
 
-    <div class="platform" *ngIf="!selectedPlatform">
+    <div class="platform" *ngIf="!showPlatform">
         <div class="select">
             <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
           </div>
         
         <div class="select" >
-            <div class="whats-app">
-                <input type="radio" id="html" name="fav_language"(change)="onPlatformSelected('messenger')">
-                <img src="assets/icons/whatsapp-icon.svg" alt="">
-                <label for="html">{{"COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP" | transloco}}</label><br>
-            </div>
-            <div class="messenger">
-                <input type="radio" id="css" name="fav_language" (change)="onPlatformSelected('messenger')">
-                <img src="assets/icons/facebook-messenger.png" alt="">
-                <label for="css">{{"COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco}}</label><br>
-            </div>
+            
+                <div class="whats-app">
+                  <input type="radio" id="whatsApp" name="platformType" [(ngModel)]="selectedPlatform" [value]="whatsappValue" (change)="onPlatformSelected()">
+                  <img src="assets/icons/whatsapp-icon.svg" alt="">
+                  <label for="whatsApp">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP" | transloco }}</label><br>
+                </div>
+                <div class="messenger">
+                  <input type="radio" id="messenger" name="platformType" [(ngModel)]="selectedPlatform" [value]="messengerValue" (change)="onPlatformSelected()">
+                  <img src="assets/icons/facebook-messenger.png" alt="">
+                  <label for="messenger">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco }}</label><br>
+                </div>
+              
+                
+            
+           
         </div>
     </div>
         
-    <div  class="channel" *ngIf="selectedPlatform">
-        <p>Select Channel</p>
+    <div  class="channel" *ngIf="showPlatform">
+        <form action="" (submit)="addBotToChannel()" >
+            <p>Select Channel</p>
         <mat-form-field appearance="outline" >
             <mat-label>Choose a Channel</mat-label>
-            <mat-select >
-                <mat-option *ngFor="let channel of channels" [value]="channel.id">{{channel.name}}</mat-option>
-            </mat-select>
+            <mat-select [(ngModel)]="selectedChannelId" name="selectedChannel">
+                <mat-option *ngFor="let channel of channels" [value]="channel.id" [ngStyle]="{'color': channel.bot ? 'white' : 'black'}">
+                    {{channel.name}}
+                  </mat-option>
+            </mat-select>               
         </mat-form-field>
+
+        <div class="buttons">
+            <button type="button" (click)="returnToPlatform()">Cancel</button>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+        
     </div>
 
-    <div class="buttons">
-        <button>Cancel</button>
-
-        <button>Submit</button>
-    </div>
+    
     
 </div>
