@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { Observable, map, tap } from 'rxjs';
 
@@ -8,6 +9,9 @@ import { orderBy as __orderBy } from 'lodash';
 import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
+
+
+import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -24,7 +28,7 @@ export class BotsListLatestCoursesComponent implements OnInit {
 
   screenWidth: number;
 
-  constructor(private _router$$: Router) {}
+  constructor(private _router$$: Router, private _dialog: MatDialog, ) {}
 
   ngOnInit(): void {
 
@@ -36,6 +40,14 @@ export class BotsListLatestCoursesComponent implements OnInit {
         tap((s) => this.bots = s)).subscribe();
     }
   }
+
+  connectToChannel(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '30rem'; // Set the width of the dialog
+    dialogConfig.height = '20rem'; // Set the height of the dialog
+    this._dialog.open(ConnectToChannelModalComponent, dialogConfig);
+   }
+   
 
   openBot(id: string) {
     this._router$$.navigate(['bots', id]);
