@@ -81,8 +81,8 @@
                         
                         <h1 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
                           <div [formGroup] = "newVariableHeaderForm" *ngIf="newHeaderVariables.length < 1" >
-                            <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
-                            <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
+                            <input type="text" formControlName="newPlaceholder"  class="eveinput">
+                            <input type="text" formControlName="newVariable"  class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
                             </div>
                     </div>
 
@@ -141,8 +141,8 @@
                             
                             <h1 class="vars" style="margin-left: 0.5rem;" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
                               <div [formGroup] = "newVariableForm">
-                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput" style="margin-left: 0.5rem;">
-                                <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
+                                <input type="text" formControlName="newPlaceholder"  class="eveinput" style="margin-left: 0.5rem;">
+                                <input type="text" formControlName="newVariable" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
                                 </div>
                         </div>
                         </div>
