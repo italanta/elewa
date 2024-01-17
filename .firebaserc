@@ -27,8 +27,7 @@
     "farmbetter-prod": {
       "hosting": {
         "convl-manager": [
-          "farmbetter-prod",
-          "farmbetter-review"
+          "farmbetter-prod"
         ]
       }
     },
