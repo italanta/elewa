@@ -1,8 +1,8 @@
 <div class="table-wrapper">
     <table mat-table [dataSource]="dataSource" class="user-groups-table">
-        <ng-container matColumnDef="name">
+        <ng-container matColumnDef="className">
             <th class="table-header" mat-header-cell *matHeaderCellDef>Group Name</th>
-                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.name}}</td>
+                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.className}}</td>
         </ng-container>
 
         <ng-container matColumnDef="users">
@@ -10,9 +10,9 @@
                 <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.users}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="description">
+        <ng-container matColumnDef="descriptionName">
             <th class="table-header" mat-header-cell *matHeaderCellDef>Description</th>
-                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.description}}</td>
+                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.descriptionName}}</td>
         </ng-container>
 
         <ng-container matColumnDef="course" >
@@ -30,7 +30,7 @@
             </span>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="openEditModal()">Edit</button>
-                    <button mat-menu-item (click)="openDeleteModal()">Delete</button>
+                    <button mat-menu-item (click)="openDeleteModal(group.id)">Delete</button>
                 </mat-menu>
             </td>  
         </ng-container>
