@@ -140,6 +140,12 @@
   //   font-weight: 400;
   //   line-height: normal;
   // }
+  .text{
+    font-size: 1rem !important;
+    font-family: Roboto !important;
+    font-weight: 400 !important;
+    word-wrap: break-word !important
+  }
   .variables{
     border-radius: 0.5rem;
     border: 1px solid var(--convs-mgr-button-color);
