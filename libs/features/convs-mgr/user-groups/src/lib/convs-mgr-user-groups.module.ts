@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -19,6 +20,8 @@ import { SingleGroupHeaderComponent } from './components/single-group-header/sin
 import { SingleGroupUserListComponent } from './components/single-group-user-list/single-group-user-list.component';
 import { AddUserToGroupModalComponent } from './modals/add-user-to-group-modal/add-user-to-group-modal.component';
 import { DeleteUserFromGroupModalComponent } from './modals/delete-user-from-group-modal/delete-user-from-group-modal.component';
+// import { UserGroupsStore } from 'libs/state/convs-mgr/user-groups/src/lib/store/user-groups.store';
+// import { UserGroupsService } from 'libs/state/convs-mgr/user-groups/src/lib/service/user-groups.service';
 
 @NgModule({
   imports: [
@@ -43,5 +46,6 @@ import { DeleteUserFromGroupModalComponent } from './modals/delete-user-from-gro
     AddUserToGroupModalComponent,
     DeleteUserFromGroupModalComponent,
   ],
+  providers:[]
 })
 export class ConvsMgrUserGroupsModule {}
