@@ -1,14 +1,15 @@
 <div class="container">
     <div class="buttons">
-        <button class="btn" (click)="openAddModal()">Move users to another group</button>
-        <button class="btn" (click)="openDeleteModal()">Delete Users from Group</button>
+      <button class="btn" (click)="openAddModal()" transloco="LEARNERS.USER-GROUPS.BUTTONS.ADD-USER-TO-GROUP"></button>
+      <!-- <button class="btn" >Add User to Group</button> -->
     </div>
     <div class="table-filters">
         <div class="search">
+          
             <i class="fas fa-search search_tooltip"></i>
             <input class="search_input" type="text" name="search table"
-              placeholder="{{'LEARNERS.PLACEHOLDERS.SEARCH-PLACEHOLDER'| transloco }}" id=""
-              >
+              placeholder="{{'LEARNERS.PLACEHOLDERS.SEARCH-PLACEHOLDER'| transloco }}" id="">
+              
         </div>
   
           <div class="dropdown">
