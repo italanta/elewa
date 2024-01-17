@@ -4,7 +4,8 @@ import { BotsModuleService } from '../../services/bots-module.service';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ChannelComponent } from '../channel/channel.component';
 
 @Component({
   selector: 'italanta-apps-connect-to-channel-modal',
@@ -16,7 +17,6 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 export class ConnectToChannelModalComponent {
   channels:CommunicationChannel[];
-  showPlatform:boolean;
   selectedPlatform: PlatformType;
   channelForm:FormGroup;
   selectedChannelId:string;
@@ -31,55 +31,26 @@ export class ConnectToChannelModalComponent {
     ){}
 
 
+    openChannel(){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.width = '30rem'; // Set the width of the dialog
+      dialogConfig.height = '25rem'; // Set the height of the dialog
+      dialogConfig.data = { selectedPlatform: this.selectedPlatform , botId:this.data};
+      this._dialog.open(ChannelComponent, dialogConfig);
+    }
+    
   returnToPlatform(){
     this.selectedPlatform=PlatformType.None;
-    this.showPlatform=false;
   }
 
   onPlatformSelected(){
-    this.showPlatform = true;
-    this.onChannelFormSubmit();
+    this.openChannel();
    }
    
-  onChannelFormSubmit(){
-    if (this.selectedPlatform === PlatformType.WhatsApp) {
-      this.botsService.getWhatsAppChannels().subscribe((channels) => {
-        this.channels = channels
-      })
-    } else {
-      this.botsService.getMessengerChannels().subscribe((channels) => {
-        this.channels = channels
-      })
-
-    }
-  }
-  addBotToChannel() {
-    if (!this.channels || this.channels.length === 0 || !this.selectedChannelId) {
-      console.error('Invalid channel selection');
-      return;
-    }
+   closeDialog(){
+    this._dialog.closeAll();
+   }
   
-    // Find the selected channel
-    const selectedChannel = this.channels.find((channel) => channel.id === this.selectedChannelId);
-  
-    if (!selectedChannel) {
-      console.error('Selected channel not found');
-      return;
-    }
-  
-    const botId = this.data.botId;
-  
-    // Add the botId to the selected channel
-    selectedChannel.bot = botId;
-  
-    // Log the botId associated with the selected channel
-    console.log('BotId associated with the selected channel:', selectedChannel.bot);
-  
-    // Update the channel
-    this.botsService.updateChannel(selectedChannel).subscribe(() => {
-      this._dialog.closeAll(); // Close the dialog after updating the channel
-    });
-  }
   
   
 }

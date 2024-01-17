@@ -1,51 +1,35 @@
 <div class="container">
-    <h4>Connect Bot to Channel</h4>
+    <p class="header">Connect Bot to Channel</p>
 
 
-    <div class="platform" *ngIf="!showPlatform">
-        <div class="select">
-            <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
-          </div>
+    <div class="platform">
+        <div class="select-channel">
+            <div class="platform">
+                <hr>
+                <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
+            </div>
+            <div class="channel">
+                <hr>
+                <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-CHANNEL" | transloco}}</p>
+            </div>
+        </div>
         
         <div class="select" >
-            
-                <div class="whats-app">
-                  <input type="radio" id="whatsApp" name="platformType" [(ngModel)]="selectedPlatform" [value]="whatsappValue" (change)="onPlatformSelected()">
-                  <img src="assets/icons/whatsapp-icon.svg" alt="">
-                  <label for="whatsApp">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP" | transloco }}</label><br>
-                </div>
-                <div class="messenger">
-                  <input type="radio" id="messenger" name="platformType" [(ngModel)]="selectedPlatform" [value]="messengerValue" (change)="onPlatformSelected()">
-                  <img src="assets/icons/facebook-messenger.png" alt="">
-                  <label for="messenger">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco }}</label><br>
-                </div>
-              
+            <div class="whatsApp">
+                <input type="radio" id="css" name="fav_language" [(ngModel)]="selectedPlatform" [value]="whatsappValue">
+                <label for="css"><img src="assets/icons/whatsapp-icon.svg" alt=""> {{ "COMPANY-INFORMATION.CHANNEL-MODAL.WHATSAPP" | transloco }}</label><br>
+            </div>
+            <div class="messenger">
+                <input type="radio" id="javascript" name="fav_language" [(ngModel)]="selectedPlatform" [value]="messengerValue">
+                <label for="javascript"><img src="assets/icons/facebook-messenger.png" alt="">{{ "COMPANY-INFORMATION.CHANNEL-MODAL.Messenger" | transloco }}</label>
+            </div>    
                 
-            
-           
         </div>
-    </div>
-        
-    <div  class="channel" *ngIf="showPlatform">
-        <form action="" (submit)="addBotToChannel()" >
-            <p>Select Channel</p>
-        <mat-form-field appearance="outline" >
-            <mat-label>Choose a Channel</mat-label>
-            <mat-select [(ngModel)]="selectedChannelId" name="selectedChannel">
-                <mat-option *ngFor="let channel of channels" [value]="channel.id" [ngStyle]="{'color': channel.bot ? 'white' : 'black'}">
-                    {{channel.name}}
-                  </mat-option>
-            </mat-select>               
-        </mat-form-field>
 
         <div class="buttons">
-            <button type="button" (click)="returnToPlatform()">Cancel</button>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-        
-    </div>
-
-    
+            <button class="cancel" type="button" (click)="closeDialog()" >Cancel</button>
+            <button class="submit" type="submit" (click)="onPlatformSelected()">Continue</button>
+        </div>
+    </div> 
     
 </div>

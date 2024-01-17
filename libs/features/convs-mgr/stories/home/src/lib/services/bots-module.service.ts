@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
-import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
-import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 import { Observable, map } from 'rxjs';
+
+import { Bot } from '@app/model/convs-mgr/bots';
+import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BotsModuleService {
 
-  constructor(private communicationChannel$ :CommunicationChannelService, ) { }
+  constructor(private communicationChannel$ :CommunicationChannelService,private _botServ$: BotsStateService ) { }
 
 
   getChannels() :Observable<CommunicationChannel[]>{
@@ -29,6 +33,18 @@ export class BotsModuleService {
 
   updateChannel(channel: CommunicationChannel):Observable<CommunicationChannel>{
     return this.communicationChannel$.updateChannel(channel)
+  }
+
+  deleteBot(bot:Bot){
+    this._botServ$.deleteBot(bot)
+  }
+
+  archiveBot(bot:Bot){
+    this._botServ$.updateBot(bot)
+  }
+
+  publishBot(bot:Bot):Observable<Bot>{
+    return this._botServ$.updateBot(bot)
   }
 
 }

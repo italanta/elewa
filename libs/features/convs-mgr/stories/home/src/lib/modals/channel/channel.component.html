@@ -1,0 +1,34 @@
+<div class="container">
+    <h4>Connect Bot to Channel</h4>
+
+
+    <div class="platform" >
+        <div class="select-channel">
+            <div class="platform">
+                <hr>
+                <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-PLATFORM" | transloco}}</p>
+            </div>
+            <div class="channel">
+                <hr>
+                <p>{{"COMPANY-INFORMATION.CHANNEL-MODAL.SELECT-CHANNEL" | transloco}}</p>
+            </div>
+        </div>
+
+        <p>To create a new channel, go to Admin Settings, then proceed</p>
+        <p>to Company information, and select the option to Add Channel</p>
+        
+        <div class="select-wrapper">
+            <div class="select" *ngFor="let channel of channels">
+            <input type="radio" id="html" name="fav_language" value="{{ channel.id }}" (change)="onChannelChange(channel.id)" [disabled]="channel.bot ">
+            <label for="html">{{ channel.name }}</label><br>
+               </div>                        
+           </div>
+           
+        <div class="buttons">
+            <button class="cancel" type="button" (click)="returnToPlatform()">Cancel</button>
+            <button class="submit" type="submit" (click)="addBotToChannel()">Connect</button>
+        </div>
+    </div>
+        
+    
+</div>

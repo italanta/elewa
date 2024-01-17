@@ -29,6 +29,7 @@ import { ConvsMgrStoriesRouterModule } from './stories.router';
 import { FilterCoursePipe } from './pipes/filter-course.pipe';
 import { ConnectToChannelModalComponent } from './modals/connect-to-channel-modal/connect-to-channel-modal.component';
 import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.component';
+import { ChannelComponent } from './modals/channel/channel.component';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.comp
     BotModulesListHeaderComponent,
     ConnectToChannelModalComponent,
     SpinnerModalComponent,
+    ChannelComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}

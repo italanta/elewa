@@ -12,6 +12,7 @@ import { Bot } from '@app/model/convs-mgr/bots';
 
 
 import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
+import { BotsModuleService } from '../../../services/bots-module.service';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -28,7 +29,9 @@ export class BotsListLatestCoursesComponent implements OnInit {
 
   screenWidth: number;
 
-  constructor(private _router$$: Router, private _dialog: MatDialog, ) {}
+  isPublishing :boolean;
+
+  constructor(private _router$$: Router, private _dialog: MatDialog, private _botsModuleService$:BotsModuleService ) {}
 
   ngOnInit(): void {
 
@@ -47,8 +50,23 @@ export class BotsListLatestCoursesComponent implements OnInit {
     dialogConfig.height = '20rem'; // Set the height of the dialog
     dialogConfig.data = { botId: botId }; // Pass the botId to the dialog
     this._dialog.open(ConnectToChannelModalComponent, dialogConfig);
-   }
-   
+  }
+  deleteBot(botId:Bot){
+    this._botsModuleService$.deleteBot(botId)
+  } 
+
+  archiveBot(bot:Bot){
+    bot.archived = true;
+    this._botsModuleService$.archiveBot(bot)
+  }
+  publishBot(bot:Bot){
+    this.isPublishing = true;
+    bot.isPublished = true;
+    this._botsModuleService$.publishBot(bot)
+      .subscribe(() => {
+        this.isPublishing = false;
+      });
+  }
    
 
   openBot(id: string) {

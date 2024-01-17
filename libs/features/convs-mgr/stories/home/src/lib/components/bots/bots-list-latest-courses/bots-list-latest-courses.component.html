@@ -3,27 +3,32 @@
   <div *ngFor="let bot of bots | slice: 0 : screenWidth < 1500 ? 3 : 4; let i = index" class="card" fxLayout="column" fxLayoutGap="20px"
     fxLayoutAlign="start" [fxFlex]="screenWidth < 1500 ? 32 : 25">
 
-    <!-- <span class="card-badge">
-      {{ "BOTS.BOTS-PAGE.BEGINNER" | transloco }}
-    </span> -->
-
     <span class="card-title" fxFlex>
-      <!-- <italanta-apps-spinner-modal/> -->
+      <div class="modals"  [ngClass]="{'hidden': !isPublishing}" >
+        <italanta-apps-spinner-modal/>
+      </div>
+      
+        <button class="published" *ngIf="bot.isPublished" [ngClass]="{'hidden': isPublishing}">PUBLISHED</button>
+        <button class="published" *ngIf="!bot.isPublished" [ngClass]="{'hidden': isPublishing}">DRAFT</button>
+      
       
 
       <button mat-button [matMenuTriggerFor]="menu">
         <i class="fa-solid fa-ellipsis-vertical menu-tooltip"></i>
       </button>
+
     </span>
 
-    {{ bot.name }}
+    <p class="botName">{{ bot.name }}</p>
+
+    
     
 
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="connectToChannel(bot.id!)"> Connect bot to channel</button>
-      <button mat-menu-item  > Publish Bot</button>
-      <button mat-menu-item > Archive Bot </button>
-      <button mat-menu-item > Delete Bot</button>
+      <button mat-menu-item (click)="publishBot(bot)" [disabled]="bot.isPublished"> Publish Bot</button>
+      <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.archived"> Archive Bot </button>
+      <button mat-menu-item (click)="deleteBot(bot)" [disabled]="bot.isPublished"> Delete Bot</button>
     </mat-menu>
 
     <div class="open-bot" fxFlex="50">
