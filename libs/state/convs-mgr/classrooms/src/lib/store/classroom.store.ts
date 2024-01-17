@@ -10,7 +10,7 @@ import { Logger } from '@iote/bricks-angular';
 import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 import { Organisation } from '@app/model/organisation';
-import { Classroom } from '@app/model/convs-mgr/classroom';
+import { Classroom} from '@app/model/convs-mgr/classroom';
 
 @Injectable()
 export class ClassroomStore extends DataStore<Classroom>

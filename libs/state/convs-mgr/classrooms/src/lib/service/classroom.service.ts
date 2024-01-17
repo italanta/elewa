@@ -4,7 +4,7 @@ import { Classroom } from '@app/model/convs-mgr/classroom';
 import { ClassroomStore } from '../store/classroom.store';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn:  'root',
 })
 export class ClassroomService {
   constructor(private _classroom$$: ClassroomStore) {}
