@@ -25,10 +25,10 @@
     
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="connectToChannel(bot.id!)"> Connect bot to channel</button>
-      <button mat-menu-item (click)="publishBot(bot)" [disabled]="bot.isPublished"> Publish Bot</button>
-      <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.archived"> Archive Bot </button>
-      <button mat-menu-item (click)="deleteBot(bot)" [disabled]="bot.isPublished"> Delete Bot</button>
+      <button mat-menu-item (click)="connectToChannel(bot.id!)"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
+      <button mat-menu-item (click)="publishBot(bot)" [disabled]="bot.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="archiveBot(bot)" [disabled]="bot.archived">{{ 'BOTS.ARCHIVE-BOT' | transloco }} </button>
+      <button mat-menu-item (click)="deleteBot(bot)" [disabled]="bot.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
     </mat-menu>
 
     <div class="open-bot" fxFlex="50">

@@ -377,7 +377,11 @@
       "HEADER":"Connect Bot to Channel",
       "INFO-TEXT1":"To create a new channel, go to Admin Settings, then proceed",
       "INFO-TEXT2":"to Company information, and select the option to Add Channel"
-    }
+    },
+    "CONNECT-BOT-TO-CHANNEL":"Connect bot to channel",
+    "PUBLISH-BOT":"Publish Bot",
+    "ARCHIVE-BOT":"Archive Bot",
+    "DELETE-BOT":"Delete Bot"
   },
   "MODULES": {
     "FIELDS": {

@@ -12,12 +12,18 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="editLesson(story)">
+      <!-- leaving this here incase it is needed later -->
+      
+      <!-- <button mat-menu-item (click)="editLesson(story)">
         <span> {{ "BOTS.BOTS-PAGE.EDIT" | transloco }} </span>
       </button>
       <button mat-menu-item (click)="deleteLesson(story)">
         <span> {{ "BOTS.BOTS-PAGE.DELETE" | transloco }} </span>
-      </button>
+      </button> -->
+      <button mat-menu-item  (click)="connectToChannel(specificBot.id)"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
+      <button mat-menu-item (click)="publishBot(specificBot)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="archiveBot(specificBot)" [disabled]="specificBot?.archived"> {{ 'BOTS.ARCHIVE-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="deleteBot(specificBot)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
     </mat-menu>
   </div>
 
