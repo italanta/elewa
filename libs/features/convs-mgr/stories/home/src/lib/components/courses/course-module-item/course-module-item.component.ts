@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { BotMutationEnum } from '@app/model/convs-mgr/bots';
+import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
@@ -12,17 +12,27 @@ import {
   DeleteBotModalComponent,
   CreateLessonModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
+import { BotsModuleService } from '../../../services/bots-module.service';
 
 @Component({
   selector: 'italanta-apps-course-module-item',
   templateUrl: './course-module-item.component.html',
   styleUrls: ['./course-module-item.component.scss'],
 })
-export class CourseModuleItemComponent {
+export class CourseModuleItemComponent implements OnInit{
   @Input() botModule: BotModule;
   @Input() story: Story;
 
-  constructor(private _dialog: MatDialog, private _router$: Router) {}
+
+  constructor(private _dialog: MatDialog, private _router$: Router, private _botsModuleService$:BotsModuleService) {}
+
+  specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
+
+  ngOnInit(): void {
+    this._botsModuleService$.getSpecificBot(this.botModule.parentBot).subscribe(response =>{
+      this.specificBot = response;
+    })
+   }
 
   openModule(id: string) {
     this._router$.navigate(['modules', id]);

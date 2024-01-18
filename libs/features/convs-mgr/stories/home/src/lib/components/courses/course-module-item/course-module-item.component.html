@@ -4,7 +4,7 @@
 
   <button class="btn btn-module" (click)="openModule(botModule.id!)">{{ botModule.name }}</button>
   <button class="btn btn-story" (click)="openLesson(story.id!)">View Story</button>
-  <div class="status">status</div>
+  <div class="status">{{ specificBot?.isPublished ? 'Published' : 'Draft' }}</div>
 
   <div class="actions">
     <button mat-flat-button [matMenuTriggerFor]="menu">

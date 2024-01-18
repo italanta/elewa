@@ -19,6 +19,9 @@ export class BotsModuleService {
   getChannels() :Observable<CommunicationChannel[]>{
     return this.communicationChannel$.getAllChannels().pipe(map(response => response));
   }
+  getSpecificBot(id:string) :Observable<Bot| undefined>{
+    return this._botServ$.getBotById(id)
+  }
 
   getWhatsAppChannels():Observable<CommunicationChannel[]>{
     return this.communicationChannel$.getAllChannels().pipe(
