@@ -21,7 +21,10 @@ export interface GroupProgressModel extends IObject
 
   /** Today's EnrolledUserCount */
   todaysEnrolledUsersCount: EnrolledUserCount;
-
+  
+  /** Number of users who engaged with the bot today */
+  todaysEngagedUsersCount: EnrolledUserCount;
+  
   /** progress completion rate */
   progressCompletion: CompletionRateProgress;
 }
@@ -57,6 +60,17 @@ export interface UsersProgressMilestone {
 }
 
 export interface EnrolledUserCount {
+  /** daily user count */
+  dailyCount: number;
+
+  /** weekly user count */
+  pastWeekCount: number;
+
+  /** monthly user count */
+  pastMonthCount: number;
+}
+
+export interface EngagedUserCount {
   /** daily user count */
   dailyCount: number;
 
