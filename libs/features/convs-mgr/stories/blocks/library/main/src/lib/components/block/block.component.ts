@@ -185,3 +185,4 @@ export class BlockComponent implements OnInit
   conditionalBlockType = StoryBlockTypes.Conditional;
   CMI5BlockType = StoryBlockTypes.CMI5Block;
 }
+
