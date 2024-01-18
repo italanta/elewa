@@ -1,7 +1,7 @@
 <mat-card  class="card" [id]="id" class="block-card">
     <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-            <div class="block-title-container"> 
+            <div class="block-title-container" (contextmenu)="openContextMenu($event)" > 
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
                 </ng-container>
