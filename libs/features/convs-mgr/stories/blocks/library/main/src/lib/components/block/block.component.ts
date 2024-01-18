@@ -73,6 +73,8 @@ export class BlockComponent implements OnInit
       this.blocksGroup.push(this.blockFormGroup);
     else 
       console.warn('Cannot determine block type!');
+
+    this.blockID = this.id;
   }
 
   getBlockIconAndTitle(type: number) {
