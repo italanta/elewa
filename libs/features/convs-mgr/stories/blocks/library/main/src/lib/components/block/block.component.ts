@@ -50,6 +50,8 @@ export class BlockComponent implements OnInit
   ref: ComponentRef<BlockComponent>;
 
   blockID: string;
+  blockIDSubject = new BehaviorSubject<string>('');
+
 
   constructor(private _el: ElementRef,
               private _fb: FormBuilder,
@@ -156,6 +158,29 @@ export class BlockComponent implements OnInit
   {
     this.deleteBlock.emit(this.block);
   }
+
+  copyBlockID() {
+    const tempTextArea = document.createElement('textarea');
+    tempTextArea.value = this.blockID;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+  
+    try {
+
+      navigator.clipboard.writeText(this.blockID)
+        .then(() => {
+          console.log('Block ID copied to clipboard');
+        })
+        .catch((error) => {
+          console.error('Unable to copy block ID to clipboard', error);
+        });
+    } catch (err) {
+      console.error('Unable to access clipboard API', err);
+    } finally {
+      document.body.removeChild(tempTextArea);
+    }
+  }
+  
 
   //
   // SECTION BOILERPLATE
