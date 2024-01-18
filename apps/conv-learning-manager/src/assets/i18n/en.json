@@ -342,7 +342,9 @@
       "CONNECT": "Connect",
       "CONTINUE":"Continue",
       "SUBMIT": "Create bot",
-      "CONNECTING":"Connecting"
+      "CONNECTING":"Connecting",
+      "PUBLISHED":"PUBLISHED",
+      "DRAFT":"DRAFT"
     },
     "EDIT-MODAL": {
       "TITLE": "Edit Bot"

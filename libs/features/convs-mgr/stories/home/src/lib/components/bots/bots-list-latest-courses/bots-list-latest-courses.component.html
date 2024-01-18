@@ -8,8 +8,8 @@
         <italanta-apps-spinner-modal/>
       </div>
       
-        <button class="published" *ngIf="bot.isPublished" [ngClass]="{'hidden': isPublishing}">PUBLISHED</button>
-        <button class="published" *ngIf="!bot.isPublished" [ngClass]="{'hidden': isPublishing}">DRAFT</button>
+        <button class="published" *ngIf="bot.isPublished" [ngClass]="{'hidden': isPublishing}">{{ 'BOTS.CREATE-MODAL.PUBLISHED' | transloco }}</button> 
+        <button class="published" *ngIf="!bot.isPublished" [ngClass]="{'hidden': isPublishing}">{{ 'BOTS.CREATE-MODAL.DRAFT' | transloco }}</button>
       
       
 

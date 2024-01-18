@@ -197,6 +197,8 @@
       "CONTINUE":"Continuer",
       "SUBMIT": "Créer un robot",
       "CONNECTING":"De liaison",
+      "PUBLISHED":"PUBLIÉ",
+      "DRAFT":"BROUILLON",
       "ACTIONS": {
         "OPEN-BOT": "Ouvert un robot",
         "LBL-NEW-BOT": "Créer un nouveau robot",
