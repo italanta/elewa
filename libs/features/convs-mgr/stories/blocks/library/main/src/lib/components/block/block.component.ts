@@ -49,6 +49,8 @@ export class BlockComponent implements OnInit
   @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
 
+  blockID: string;
+
   constructor(private _el: ElementRef,
               private _fb: FormBuilder,
               private _blockPortalBridge: BlockPortalService,
