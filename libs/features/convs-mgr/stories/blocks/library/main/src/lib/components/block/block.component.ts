@@ -14,7 +14,6 @@ import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/block
 
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
-import { BehaviorSubject } from 'rxjs';
 
 
 /**
@@ -49,10 +48,6 @@ export class BlockComponent implements OnInit
   @ViewChild(CdkPortal) portal: CdkPortal;
   ref: ComponentRef<BlockComponent>;
 
-  blockID: string;
-  blockIDSubject = new BehaviorSubject<string>('');
-
-
   constructor(private _el: ElementRef,
               private _fb: FormBuilder,
               private _blockPortalBridge: BlockPortalService,
@@ -75,8 +70,6 @@ export class BlockComponent implements OnInit
       this.blocksGroup.push(this.blockFormGroup);
     else 
       console.warn('Cannot determine block type!');
-
-    this.blockID = this.id;
   }
 
   getBlockIconAndTitle(type: number) {
@@ -158,29 +151,6 @@ export class BlockComponent implements OnInit
   {
     this.deleteBlock.emit(this.block);
   }
-
-  copyBlockID() {
-    const tempTextArea = document.createElement('textarea');
-    tempTextArea.value = this.blockID;
-    document.body.appendChild(tempTextArea);
-    tempTextArea.select();
-  
-    try {
-
-      navigator.clipboard.writeText(this.blockID)
-        .then(() => {
-          console.log('Block ID copied to clipboard');
-        })
-        .catch((error) => {
-          console.error('Unable to copy block ID to clipboard', error);
-        });
-    } catch (err) {
-      console.error('Unable to access clipboard API', err);
-    } finally {
-      document.body.removeChild(tempTextArea);
-    }
-  }
-  
 
   //
   // SECTION BOILERPLATE

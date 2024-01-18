@@ -5,13 +5,6 @@
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
                 </ng-container>
-                
-                 <!-- Copy button -->
-                <button class="copy-button" (click)="copyBlockID()" >
-                    <i class="far fa-clipboard"></i>
-                    <span> Copy reference</span>
-                </button>
-
                 <ng-template #showIcon>
                     <i [class]="iconClass" class="icon-color"></i>
                 </ng-template>                
@@ -27,7 +20,7 @@
                     <i class="far fa-clone"></i>
                     <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.COPY' | transloco }}</span>
                 </button>
-                <button mat-menu-item (click)="deleteMe()">
+                <button mat-mzzzenu-item (click)="deleteMe()">
                     <i class="far fa-trash-alt"></i>
                     <span class="icon-with-text">{{ 'PAGE-CONTENT.BLOCK.MENU.DELETE' | transloco }}</span>
                 </button>
