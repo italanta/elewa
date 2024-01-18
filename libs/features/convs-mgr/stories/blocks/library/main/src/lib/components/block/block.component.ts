@@ -35,6 +35,9 @@ export class BlockComponent implements OnInit
   @Output() deleteBlock: EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
   @Output() copyBlock  : EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
 
+  mouseX: number;
+  mouseY: number;
+
   type: StoryBlockTypes;
   blockFormGroup: FormGroup;
 
