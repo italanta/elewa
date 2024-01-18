@@ -171,6 +171,12 @@ export class BlockComponent implements OnInit
     });
   }
 
+  copyReference(event: MouseEvent): void {
+    event.stopPropagation();
+    const blockId = this.id; 
+    this.copyBlockIdToClipboard(blockId);
+  }
+
   //
   // SECTION BOILERPLATE
   //  Declare block types for interpretation by ngSwitchCase in the frontend
