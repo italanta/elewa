@@ -155,6 +155,14 @@ export class BlockComponent implements OnInit
     this.deleteBlock.emit(this.block);
   }
 
+  openContextMenu(event: MouseEvent) {
+    if (event.button === 2) {
+      event.preventDefault();
+      this.mouseX = event.clientX;
+      this.mouseY = event.clientY;
+    }
+  }
+
   //
   // SECTION BOILERPLATE
   //  Declare block types for interpretation by ngSwitchCase in the frontend
