@@ -163,6 +163,14 @@ export class BlockComponent implements OnInit
     }
   }
 
+  copyBlockIdToClipboard(blockId: string): void {
+    navigator.clipboard.writeText(blockId).then(() => {
+      console.log('Block ID copied to clipboard');
+    }).catch((err) => {
+      console.error('Unable to copy block ID to clipboard', err);
+    });
+  }
+
   //
   // SECTION BOILERPLATE
   //  Declare block types for interpretation by ngSwitchCase in the frontend
