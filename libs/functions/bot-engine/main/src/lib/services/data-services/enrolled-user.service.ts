@@ -1,5 +1,4 @@
-import { HandlerTools, Repository } from '@iote/cqrs';
-import { Query } from '@ngfi/firestore-qbuilder';
+import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from './data-service-abstract.class';
 
@@ -25,13 +24,6 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
     this._docPath = `orgs/${orgId}/enrolled-end-users`;
   }
 
-  private _getEnrolledUsrRepo(orgId: string): Repository<EnrolledEndUser>
-  {
-    const EnrolledUsrRepo = this.tools.getRepository<EnrolledEndUser>(`orgs/${orgId}/enrolled-end-users`);
-
-    return EnrolledUsrRepo;
-  }
-
   async createEnrolledUser(endUser: EndUser, platform: PlatformType, id?:string) {
     const enrolledUser: EnrolledEndUser = {
       id:id || '',
@@ -53,48 +45,6 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
 
     return this.createDocument(enrolledUser, this._docPath, id);
   }
-
-  /** get timeInDate's created user count */
-  async getSpecificDayUserCount(orgId: string, timeInUnix:number) {
-    // Set the time to the start of the day (00:00:00)
-    const startAt = new Date(timeInUnix);
-    startAt.setHours(0, 0, 0, 0);
-
-    const endAt = new Date(timeInUnix);
-    endAt.setHours(23, 59, 59, 999);
-
-    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
-      new Query().where('createdOn', ">=" , startAt).where('createdOn', '<=', endAt)
-    );
-
-    return enrolledUsers;
-  };
-
-  /** get the past week created user count */
-  async getPastWeekUserCount(orgId: string, timeInUnix:number) {
-    const timeInDate = new Date(timeInUnix);
-    const startAt = new Date(timeInDate.getTime() - 7 * 24 * 60 * 60 * 1000); // Calculate the start date (seven days ago) to millisecond equivalent
-    const endAt = timeInDate;
-
-    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
-      new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
-    );
-
-    return enrolledUsers;
-  };
-
-  /** get the past month created user count */
-  async getPastMonthUserCount(orgId: string, timeInUnix:number) {
-    const timeInDate = new Date(timeInUnix);
-    const startAt = new Date(timeInDate.getFullYear(), timeInDate.getMonth(), 0);
-    const endAt = new Date();
-
-    const enrolledUsers = this._getEnrolledUsrRepo(orgId).getDocuments(
-      new Query().where('createdOn', '>=', startAt).where('createdOn', '<=', endAt)
-    );
-
-    return enrolledUsers;
-  };
 
   getEnrolledUserByEndUser(endUserId: string) {
     const platformPrefix = endUserId.split("_")[0];
