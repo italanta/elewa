@@ -44,7 +44,6 @@ export class ChannelComponent implements OnInit{
 
   addBotToChannel() {
     if (!this.channels || this.channels.length === 0 || !this.selectedChannelId) {
-      console.error('Invalid channel selection');
       return;
     }
   
@@ -52,7 +51,6 @@ export class ChannelComponent implements OnInit{
     const selectedChannel = this.channels.find((channel) => channel.id === this.selectedChannelId);
   
     if (!selectedChannel) {
-      console.error('Selected channel not found');
       return;
     }
   

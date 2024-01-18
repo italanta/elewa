@@ -31,6 +31,9 @@ export interface Bot extends IObject {
   /* bot archive status*/
   archived?: boolean;
 
+  /** to help show the spinner */
+  isPublishing?: boolean;
+
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */

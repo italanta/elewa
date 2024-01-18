@@ -19,9 +19,7 @@
             height: 0.1rem;
             width: 10rem;
           }
-          .info-text{
-            color: var(--convs-mgr-color-tertiary-tint);
-          }
+          
         }
         .channel{
             p{
@@ -38,6 +36,7 @@
       .select-wrapper {
         height: 3rem; 
         overflow-y: auto;
+        margin-left: 2rem;
        }
        
       .buttons{
@@ -64,6 +63,11 @@
             border: none;
         }
       }
+      .info-text{
+        color: var(--convs-mgr-color-tertiary-tint) !important;
+        margin-left: 2rem;
+      }
+      
     }
   }
   

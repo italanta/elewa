@@ -60,13 +60,14 @@ export class BotsListLatestCoursesComponent implements OnInit {
     this._botsModuleService$.archiveBot(bot)
   }
   publishBot(bot:Bot){
-    this.isPublishing = true;
+    bot.isPublishing = true;
     bot.isPublished = true;
     this._botsModuleService$.publishBot(bot)
       .subscribe(() => {
-        this.isPublishing = false;
+        bot.isPublishing = false;
       });
-  }
+   }
+   
    
 
   openBot(id: string) {
