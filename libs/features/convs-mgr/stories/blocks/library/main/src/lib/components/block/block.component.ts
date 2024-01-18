@@ -14,6 +14,7 @@ import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/block
 
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
+import { BehaviorSubject } from 'rxjs';
 
 
 /**
@@ -185,4 +186,3 @@ export class BlockComponent implements OnInit
   conditionalBlockType = StoryBlockTypes.Conditional;
   CMI5BlockType = StoryBlockTypes.CMI5Block;
 }
-
