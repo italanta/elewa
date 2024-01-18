@@ -65,18 +65,22 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
   /**
    *  Updates the end-user's conversation status to complete
    */
-  async setConversationComplete(endUserId: string, value: number)
+  async setConversationComplete(endUserId: string, value: number, lastActiveTime?: Date)
   {
     const endUser = await this.getDocumentById(endUserId, this._docPath);
     if(endUser) {
       const isConversationComplete = value;
 
-      const newStatus: EndUser = {
+      const newEndUser: EndUser = {
         ...endUser,
         isConversationComplete
       };
+
+      if(lastActiveTime) {
+        newEndUser.lastActiveTime = lastActiveTime;
+      }
   
-      await this.updateDocument(newStatus, this._docPath, endUser.id);
+      await this.updateDocument(newEndUser, this._docPath, endUser.id);
     }
   }
 }
