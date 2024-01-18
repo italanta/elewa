@@ -20,7 +20,9 @@ import {
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
+import { getEnrolledUserCreationCount, getEngagedUserCount } from '../utils/get-user-count.util';
 import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
+import { UserMetricsService } from '../data-services/user-metrics.service';
 
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
@@ -112,7 +114,7 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 
   const monitoringDataServ = new MonitoringAndEvaluationService(tools, orgId);
 
-  const enrolledUserDataServ = new EnrolledUserDataService(tools, orgId);
+  const userMetricsService = new UserMetricsService(tools);
 
   //1. group users by milestones
   const measurements = _parseAllUserProgressData(allUsersProgress);
@@ -128,7 +130,9 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   const date = new Date(timeInUnix);
 
   //3. get newly Enrolled User Count
-  const enrolledUserCount = await getEnrolledUserCreationCount(enrolledUserDataServ, orgId, tools, timeInUnix);
+  const enrolledUserCount = await getEnrolledUserCreationCount(userMetricsService, orgId, tools, timeInUnix);
+
+  const engagedUserCount = await getEngagedUserCount(userMetricsService, orgId, tools, timeInUnix);
 
   //4. Add To Database
   const savedMilestone = await monitoringDataServ.createNewMilestone(
@@ -136,43 +140,12 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
     measurements,
     groupedMeasurements,
     enrolledUserCount,
+    engagedUserCount,
     progressCompletion,
    `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
   );
 
   return savedMilestone;
-}
-
-/**
- * Gets the number of enrolled users created today, in the past week (if it's friday), and in the past month (if end of month).
- * @param {enrolledUserDataServ} enrolledUserDataServ - The enrolled user data service.
- * @param {string} orgId - The organization ID.
- */
-async function getEnrolledUserCreationCount(enrolledUserDataServ: EnrolledUserDataService, orgId: string, tools:HandlerTools, timeInUnix:number) {
-  const timeToCollect = new Date(timeInUnix);
-  const dayOfWeek = timeToCollect.getDay(); // 0 = Sunday, 1 = Monday, ...
-  const isLastDayOfMonth = new Date(timeToCollect.getFullYear(), timeToCollect.getMonth() + 1, 0).getDate() === timeToCollect.getDate();
-
-  const dailyCount = (await enrolledUserDataServ.getSpecificDayUserCount(orgId, timeInUnix)).length;
-
-  let pastWeekCount = 0;
-  let pastMonthCount = 0;
-
-  if (dayOfWeek === 5) { // Friday (0-based index, where 5 represents Friday)
-    pastWeekCount = (await enrolledUserDataServ.getPastWeekUserCount(orgId, timeInUnix)).length;
-  }
-
-  if (isLastDayOfMonth) {
-    pastMonthCount = (await enrolledUserDataServ.getPastMonthUserCount(orgId, timeInUnix)).length;
-  }
-
-  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
-
-  return {
-    dailyCount,
-    pastWeekCount,
-    pastMonthCount
-  }
 }
 
 /**

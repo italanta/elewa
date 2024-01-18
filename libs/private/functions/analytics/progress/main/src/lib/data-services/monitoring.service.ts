@@ -6,7 +6,8 @@ import {
   UsersProgressMilestone, 
   GroupedProgressMilestone, 
   EnrolledUserCount,
-  CompletionRateProgress
+  CompletionRateProgress,
+  EngagedUserCount
 } from '@app/model/analytics/group-based/progress';
 
 /**
@@ -30,7 +31,8 @@ export class MonitoringAndEvaluationService extends BotDataService<GroupProgress
 
   async createNewMilestone(
     time:number, measurements: UsersProgressMilestone[], 
-    groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount, 
+    groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount,
+    todaysEngagedUsersCount: EngagedUserCount,  
     progressCompletion: CompletionRateProgress, Milestoneid: string
   )
   {
@@ -39,6 +41,7 @@ export class MonitoringAndEvaluationService extends BotDataService<GroupProgress
       measurements,
       groupedMeasurements,
       todaysEnrolledUsersCount,
+      todaysEngagedUsersCount,
       progressCompletion,
     };
 
