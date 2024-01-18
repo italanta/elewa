@@ -1,7 +1,9 @@
 .container{
-    h4{
-      text-align: center;
-    }
+    .header{
+        text-align: center;
+        font-size: large;
+        color: var(--connector-color-teal-blue);
+      }
     .platform{
       .select-channel{
         display: flex;
@@ -17,11 +19,14 @@
             height: 0.1rem;
             width: 10rem;
           }
+          .info-text{
+            color: var(--convs-mgr-color-tertiary-tint);
+          }
         }
         .channel{
             p{
                 margin-left: 1.4rem;
-                color: var(var(--convs-mgr-button-color));
+                color: var(--convs-mgr-button-color);
             }
           hr{
             background-color:  var(--convs-mgr-button-color);
@@ -41,7 +46,7 @@
         justify-content: space-between;
         .cancel{
             padding: 0.5rem 2rem;
-            color: #3E788A;
+            color: var(--connector-color-teal-blue);
             background-color: transparent;
             font-size: 14px;
             font-family: Roboto;

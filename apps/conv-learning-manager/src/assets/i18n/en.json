@@ -339,7 +339,10 @@
       "CREATE": "Create Bot",
       "UPDATE": "Update Bot",
       "CANCEL": "Cancel",
-      "SUBMIT": "Create bot"
+      "CONNECT": "Connect",
+      "CONTINUE":"Continue",
+      "SUBMIT": "Create bot",
+      "CONNECTING":"Connecting"
     },
     "EDIT-MODAL": {
       "TITLE": "Edit Bot"
@@ -367,6 +370,11 @@
       "DELETE" : "Delete",
       "OPEN-BOT" : "Open Bot",
       "VIEW-ALL" : "View All"
+    },
+    "CHANNEL":{
+      "HEADER":"Connect Bot to Channel",
+      "INFO-TEXT1":"To create a new channel, go to Admin Settings, then proceed",
+      "INFO-TEXT2":"to Company information, and select the option to Add Channel"
     }
   },
   "MODULES": {

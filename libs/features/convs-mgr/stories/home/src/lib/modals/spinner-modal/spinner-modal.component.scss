@@ -11,7 +11,7 @@
   padding: 0 2rem;
 }
 .loader {
-  border: 6px solid #f3f3f3;
+  border: 6px solid var(--convs-mgr-placeholder-color);
   border-radius: 50%;
   border-top: 6px solid transparent;
   width: 20px;

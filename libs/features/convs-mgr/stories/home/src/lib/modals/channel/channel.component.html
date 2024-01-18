@@ -1,5 +1,5 @@
 <div class="container">
-    <h4>Connect Bot to Channel</h4>
+    <p class="header">{{ "BOTS.CHANNEL.HEADER" | transloco }}</p>
 
 
     <div class="platform" >
@@ -14,8 +14,8 @@
             </div>
         </div>
 
-        <p>To create a new channel, go to Admin Settings, then proceed</p>
-        <p>to Company information, and select the option to Add Channel</p>
+        <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT1" | transloco }}</p>
+        <p class="info-text">{{ "BOTS.CHANNEL.INFO-TEXT2" | transloco }}</p>
         
         <div class="select-wrapper">
             <div class="select" *ngFor="let channel of channels">
@@ -25,8 +25,8 @@
            </div>
            
         <div class="buttons">
-            <button class="cancel" type="button" (click)="returnToPlatform()">Cancel</button>
-            <button class="submit" type="submit" (click)="addBotToChannel()">Connect</button>
+            <button class="cancel" type="button" (click)="returnToPlatform()">{{ "BOTS.CREATE-MODAL.CANCEL" | transloco }}</button>
+            <button class="submit" type="submit" (click)="addBotToChannel()">{{ "BOTS.CREATE-MODAL.CONNECT" | transloco }}</button>
         </div>
     </div>
         

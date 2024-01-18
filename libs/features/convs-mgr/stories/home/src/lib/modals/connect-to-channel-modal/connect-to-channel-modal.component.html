@@ -1,5 +1,5 @@
 <div class="container">
-    <p class="header">Connect Bot to Channel</p>
+    <p class="header">{{ "BOTS.CHANNEL.HEADER" | transloco }}</p>
 
 
     <div class="platform">
@@ -27,8 +27,8 @@
         </div>
 
         <div class="buttons">
-            <button class="cancel" type="button" (click)="closeDialog()" >Cancel</button>
-            <button class="submit" type="submit" (click)="onPlatformSelected()">Continue</button>
+            <button class="cancel" type="button" (click)="closeDialog()" >{{ "BOTS.CREATE-MODAL.CANCEL" | transloco }}</button>
+            <button class="submit" type="submit" (click)="onPlatformSelected()">{{ "BOTS.CREATE-MODAL.CONTINUE" | transloco }}</button>
         </div>
     </div> 
     

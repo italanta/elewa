@@ -193,7 +193,10 @@
         "DELETE": "Effacer"
       },
       "CANCEL": "Annuler",
+      "CONNECT":"Connecter",
+      "CONTINUE":"Continuer",
       "SUBMIT": "Créer un robot",
+      "CONNECTING":"De liaison",
       "ACTIONS": {
         "OPEN-BOT": "Ouvert un robot",
         "LBL-NEW-BOT": "Créer un nouveau robot",
@@ -212,6 +215,11 @@
         "SUBMIT": "Supprimer le robot",
         "MESSAGE": "Êtes-vous sûr de vouloir supprimer ce bot?"
       }
+    },
+    "CHANNEL":{
+      "HEADER":"Connecter le bot au canal",
+      "INFO-TEXT1":"Pour créer une nouvelle chaîne, accédez aux paramètres d'administration, puis continuez",
+      "INFO-TEXT2":"aux informations sur l'entreprise, puis sélectionnez l'option Ajouter une chaîne"
     }
   },
   "CLASSESS": {
