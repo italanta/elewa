@@ -153,8 +153,16 @@ export class BlockComponent implements OnInit
     console.log("nit nit")
   }
 
-  copyMenu(_e :MouseEvent){
+ 
+  copyMenu(e :MouseEvent){
     // prevent default action
+    e.preventDefault();
+
+    // initialised the copy button to be rendered
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-button';
+    copyButton.innerText = 'Copy Reference';
+
     // render a button on the title container with a label of copy reference
     // on clicking the button the block id is copied to the users clipboard
     // the button disappears 
