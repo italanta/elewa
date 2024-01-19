@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { HandlerTools } from '@iote/cqrs';
 import { FunctionHandler, HttpsContext, RestResult } from '@ngfi/functions';
 
@@ -23,6 +24,7 @@ import { MeasureParticipantProgressHandler } from './measure-participant-progres
 import { getEnrolledUserCreationCount, getEngagedUserCount } from '../utils/get-user-count.util';
 import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
 import { UserMetricsService } from '../data-services/user-metrics.service';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
@@ -98,7 +100,7 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
     const timeInUnix = interval ? interval : _getCurrentDateInUnix();
   
     // 4. Combine the progress of each user into a group progress model
-    return _groupProgress(allUsersProgress, timeInUnix, tools, orgId);
+    return _groupProgress(allUsersProgress, enrolledUsers, timeInUnix, tools, orgId);
   } catch (error) {
     tools.Logger.error(() => `[measureGroupProgressHandler].execute - Encountered an error ${error}`);
     return { error: error.message, status: 500 } as RestResult;
@@ -109,7 +111,7 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
  * Groups participant progress by milestone and group.
  * @param {Array} allUsersProgress - An array of participant progress milestone objects.
  */
-async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], timeInUnix:number, tools: HandlerTools, orgId: string) {
+async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], allUsers: EnrolledEndUser[], timeInUnix:number, tools: HandlerTools, orgId: string) {
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Start grouping allusersProgress`);
 
   const monitoringDataServ = new MonitoringAndEvaluationService(tools, orgId);
@@ -134,16 +136,23 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 
   const engagedUserCount = await getEngagedUserCount(userMetricsService, orgId, tools, timeInUnix);
 
+  const {coursesCompleted, coursesStarted} = getCourseStats(allUsers);
+
   //4. Add To Database
-  const savedMilestone = await monitoringDataServ.createNewMilestone(
-    timeInUnix,
+  const milestoneId = `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+
+  const milestone: GroupProgressModel = {
+    time: timeInUnix,
     measurements,
     groupedMeasurements,
-    enrolledUserCount,
-    engagedUserCount,
+    todaysEnrolledUsersCount: enrolledUserCount,
+    todaysEngagedUsersCount: engagedUserCount,
     progressCompletion,
-   `m_${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-  );
+    coursesCompleted,
+    coursesStarted
+  }
+
+  const savedMilestone = await monitoringDataServ.createNewMilestone(milestone, milestoneId);
 
   return savedMilestone;
 }
@@ -218,6 +227,23 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
   });
 
   return groupedByGroupAndMilestone;
+}
+
+function getCourseStats(enrolledUsers: EnrolledEndUser[]) {
+  const coursesCompleted = []
+  const coursesStarted = [];
+
+  for (const user of enrolledUsers) {
+    coursesCompleted.push(...user.completedCourses);
+
+    const coursesStartedIds = user.courses.map((course)=> course.courseId);
+    coursesStarted.push(...coursesStartedIds);
+  }
+
+  return {
+    coursesCompleted: _.uniq(coursesCompleted),
+    coursesStarted: _.uniq(coursesStarted)
+  }
 }
 
 /**
