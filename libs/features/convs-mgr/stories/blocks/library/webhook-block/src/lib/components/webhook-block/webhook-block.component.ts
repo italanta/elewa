@@ -1,9 +1,11 @@
+import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription, Observable } from 'rxjs';
-import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
-import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
 
+import { Subscription, Observable } from 'rxjs';
+
+import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 
 import {
