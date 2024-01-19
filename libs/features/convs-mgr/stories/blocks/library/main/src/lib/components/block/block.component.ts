@@ -163,7 +163,18 @@ export class BlockComponent implements OnInit
     copyButton.className = 'copy-button';
     copyButton.innerText = 'Copy Reference';
 
+    //checks if the copy button is already rendered
+    const existingCopyButton = this._el.nativeElement.querySelector('.copy-button');
+    if (existingCopyButton) {
+      existingCopyButton.remove();
+      return;
+    }
+
     // render a button on the title container with a label of copy reference
+    const titleContainer = this._el.nativeElement.querySelector('.block-title-container');
+    if (titleContainer) {
+      titleContainer.appendChild(copyButton);
+    }
     // on clicking the button the block id is copied to the users clipboard
     // the button disappears 
   }
