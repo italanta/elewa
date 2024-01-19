@@ -59,19 +59,19 @@
                 <div class="form-group head-cont">
                     <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE'| transloco }}<span class="asteric">*</span> </p>
                     <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TITLE-DESCRIPTION'| transloco }}</p>
-                    <mat-form-field >
-                        <input type="text" matInput formControlName="name">
-                    </mat-form-field>
+                    
+                        <input class="header-input" type="text" matInput formControlName="name">
+                    
                 </div>
                 <div class="conte" formGroupName="content">
                     <div class="form-group head" formGroupName="header">
-                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER'| transloco }}</p>
-                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }} <span> <span class="spec">T</span> </span></p>
+                        <p class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER'| transloco }}</p>
+                        <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.HEADER.HEADER-DESCRIPTION'| transloco }}</p>
           
-                        <mat-form-field >
-                          <input type="text" matInput formControlName="text">
-                        </mat-form-field>
-                      </div>
+                        
+                          <input class="header-input" type="text" matInput formControlName="text">
+                        
+                    </div>
 
 
                       <div class="variables" *ngIf="showHeaderSection">
@@ -79,10 +79,10 @@
                         <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER-SAMPLES.NOTICE'| transloco }}</p>
                         <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.HEADER'| transloco }}</p>
                         
-                        <h6 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                        <h1 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
                           <div [formGroup] = "newVariableHeaderForm" *ngIf="newHeaderVariables.length < 1" >
-                            <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
-                            <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
+                            <input type="text" formControlName="newPlaceholder"  class="eveinput">
+                            <input type="text" formControlName="newVariable"  class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
                             </div>
                     </div>
 
@@ -90,10 +90,10 @@
                       <div class="add-variable-header header">
                         <p class="dropdown" [matMenuTriggerFor]="menu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                     </div>
-                        <mat-menu #menu="matMenu">
-                            <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'header')">
-                                <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
-                              </mat-radio-group>                                        
+                        <mat-menu #menu="matMenu">                         
+                            <div class="div" *ngFor="let bot of bots">
+                                <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'header')">{{ bot.name }}</mat-radio-button>
+                            </div>  
                         </mat-menu>  
                         <div class="var-card" *ngIf="showCard">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="header-card">
@@ -107,19 +107,19 @@
                         </div>
 
                     <div class="form-group body" formGroupName="body">
-                        <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
-                        <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
-                        <mat-form-field>
-                            <input #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
-                        </mat-form-field>
+                        <p  class="text"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
+                        <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
+                       
+                            <input class="body-input" #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
+                       
                         <div class="add-variable-body">
                             <p class="dropdown" [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
                         </div>
-                            <mat-menu #bodymenu="matMenu">
-                                <mat-radio-group aria-label="Select an option" class="options" formControlName="frequency" (change)="onBotSelected($event, 'body')">
-                                    <mat-radio-button *ngFor="let bot of bots" [value]="{ id: bot.id, name: bot.name }">{{ bot.name }}</mat-radio-button>
-                                  </mat-radio-group>                                        
-                            </mat-menu>  
+                            <mat-menu #bodymenu="matMenu">                                    
+                                <div class="div" *ngFor="let bot of bots">
+                                    <mat-radio-button [value]="{ id: bot.id, name: bot.name }" (change)="onBotSelected(bot.id, bot.name, 'body')">{{ bot.name }}</mat-radio-button>
+                                </div>  
+                            </mat-menu>                            
 
                          <div class="var-card" *ngIf="showCard">
                             <mat-card  *ngFor="let variable of fetchedVariables" class="body-card">
@@ -139,19 +139,19 @@
                             <p class="np">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.NOTICE'| transloco }}</p>
                             <p class="pees">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}</p>
                             
-                            <h6 class="vars" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h6>
+                            <h1 class="vars" style="margin-left: 0.5rem;" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
                               <div [formGroup] = "newVariableForm">
-                                <input type="text" formControlName="newPlaceholder" placeholder="Variable Name" class="eveinput">
-                                <input type="text" formControlName="newVariable" placeholder="Enter Content" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
+                                <input type="text" formControlName="newPlaceholder"  class="eveinput" style="margin-left: 0.5rem;">
+                                <input type="text" formControlName="newVariable" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
                                 </div>
                         </div>
                         </div>
                     <div class="form-group">
                         <p> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.FOOTER.FOOTER-DESCRIPTION'| transloco }}</p>
-                        <mat-form-field >
-                            <input type="textarea" matInput formControlName="footer">
-                        </mat-form-field>
+                        
+                            <input class="header-input" type="textarea" matInput formControlName="footer">
+                       
                     </div>
 
                     <div class="form-header-buttons">
