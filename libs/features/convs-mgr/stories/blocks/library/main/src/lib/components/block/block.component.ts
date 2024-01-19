@@ -178,6 +178,7 @@ export class BlockComponent implements OnInit
     // on clicking the button the block id is copied to the users clipboard
     copyButton.addEventListener('click', () => {
       this.copyBlockIdToClipboard();
+      copyButton.remove();
       
     });
     // the button disappears 
