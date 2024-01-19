@@ -150,6 +150,7 @@ export class BlockComponent implements OnInit
   deleteMe() 
   {
     this.deleteBlock.emit(this.block);
+    console.log("nit nit")
   }
 
   copyMenu(_e :MouseEvent){

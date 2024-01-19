@@ -1,15 +1,10 @@
-<mat-card  class="card" [id]="id" class="block-card">
+<mat-card  class="card" [id]="id" class="block-card" (contextmenu)="copyMenu($event)" >
     <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
         <div *ngIf="type !== endStoryAnchor" class="outer">
-            <div class="block-title-container"> 
+            <div class="block-title-container" > 
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
-                </ng-container>
-                
-                <div class="copy-menu" (contextmenu)="copyMenu($event)">
-
-                </div>
-
+             </ng-container>
                 <ng-template #showIcon>
                     <i [class]="iconClass" class="icon-color"></i>
                 </ng-template>                
