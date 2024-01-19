@@ -7,9 +7,12 @@
                 </ng-container>
 
 
-                <div class="menu-area" (contextmenu)="contextMenu($event)" >
-
-                </div>
+                <mat-menu #contextMenu="matMenu">
+                    <button mat-menu-item (click)="copyBlockIdToClipboard()">
+                        <i class="far fa-copy"></i>
+                        <span class="icon-with-text">Copy reference</span>
+                    </button>
+                </mat-menu>
 
 
                 <ng-template #showIcon>
