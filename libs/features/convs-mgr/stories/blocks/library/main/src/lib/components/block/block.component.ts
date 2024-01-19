@@ -35,9 +35,6 @@ export class BlockComponent implements OnInit
   @Output() deleteBlock: EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
   @Output() copyBlock  : EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
 
-  mouseX: number;
-  mouseY: number;
-
   type: StoryBlockTypes;
   blockFormGroup: FormGroup;
 
@@ -153,28 +150,6 @@ export class BlockComponent implements OnInit
   deleteMe() 
   {
     this.deleteBlock.emit(this.block);
-  }
-
-  openContextMenu(event: MouseEvent) {
-    if (event.button === 2) {
-      event.preventDefault();
-      this.mouseX = event.clientX;
-      this.mouseY = event.clientY;
-    }
-  }
-
-  copyBlockIdToClipboard(blockId: string): void {
-    navigator.clipboard.writeText(blockId).then(() => {
-      console.log('Block ID copied to clipboard');
-    }).catch((err) => {
-      console.error('Unable to copy block ID to clipboard', err);
-    });
-  }
-
-  copyReference(event: MouseEvent): void {
-    event.stopPropagation();
-    const blockId = this.id; 
-    this.copyBlockIdToClipboard(blockId);
   }
 
   //
