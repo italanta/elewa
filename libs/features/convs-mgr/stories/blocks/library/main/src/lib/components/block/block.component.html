@@ -5,6 +5,14 @@
                 <ng-container *ngIf="svgIcon; else showIcon">
                     <img [src]="svgIcon" class="svgIcon">
                 </ng-container>
+
+                <mat-menu #rightClickMenu="matMenu">
+                    <button mat-menu-item (click)="copyIdToClipboard()">
+                        <i class="far fa-copy"></i>
+                        <span class="icon-with-text">Copy ID</span>
+                    </button>
+                </mat-menu>
+                
                 <ng-template #showIcon>
                     <i [class]="iconClass" class="icon-color"></i>
                 </ng-template>                
