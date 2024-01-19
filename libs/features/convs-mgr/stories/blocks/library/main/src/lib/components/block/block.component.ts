@@ -152,6 +152,10 @@ export class BlockComponent implements OnInit
     this.deleteBlock.emit(this.block);
   }
 
+  copyMenu(_e :MouseEvent){
+    console.log("copy context")
+  }
+
   //
   // SECTION BOILERPLATE
   //  Declare block types for interpretation by ngSwitchCase in the frontend
