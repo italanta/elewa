@@ -27,6 +27,12 @@ export interface GroupProgressModel extends IObject
   
   /** progress completion rate */
   progressCompletion: CompletionRateProgress;
+  
+  /** Courses Completed */
+  coursesCompleted: string[];
+
+  /** Courses started */
+  coursesStarted: string[];
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
