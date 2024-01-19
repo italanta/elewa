@@ -154,7 +154,10 @@ export class BlockComponent implements OnInit
   }
 
   copyMenu(_e :MouseEvent){
-    console.log("copy context")
+    // prevent default action
+    // render a button on the title container with a label of copy reference
+    // on clicking the button the block id is copied to the users clipboard
+    // the button disappears 
   }
 
   //
