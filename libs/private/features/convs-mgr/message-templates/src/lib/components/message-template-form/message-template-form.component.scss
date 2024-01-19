@@ -47,7 +47,15 @@
               justify-content: space-between;
             }
             
-            mat-form-field > input {
+            .header-input{
+              height: 4rem;
+              border-radius: 0.9375rem;
+              background-color: transparent;
+              border: 1px solid var(--convs-mgr-color-707070);
+              width: 100%;
+            }
+            .body-input{
+              height: 8rem;
               border-radius: 0.9375rem;
               background-color: transparent;
               border: 1px solid var(--convs-mgr-color-707070);
@@ -118,41 +126,41 @@
     width: 10rem;
     background-color: var(--convs-mgr-button-color);
     color: white;
-    padding-left: 0.7rem;
   }
   .eveinput:focus {
     outline: none;
     color: white;
     border: none;
  }
-  .pees {
-    color: var(--convs-mgr-color-primary-black); 
-    font-family: Roboto;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    
+  .text{
+    font-size: 1rem !important;
+    font-family: Roboto !important;
+    font-weight: 400 !important;
+    word-wrap: break-word !important
   }
   .variables{
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     border: 1px solid var(--convs-mgr-button-color);
-    margin-top: 4rem;
-    padding: 2rem 0.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem 0 2rem 2rem;
     background-color: var(--convs-mgr-button-color);
     
     .np{
       color: white !important;
-      font-family: Roboto;
-      font-size: 1.125rem;
-      font-style: normal;
-      font-weight: 300;
-      line-height: normal;
-      display: flex;
-      justify-content: space-between;
+      font-family: Roboto !important;
+      font-size: 1rem !important;
+      font-style: normal !important;
+      font-weight: 300 !important;
+      line-height: normal !important;
+      display: flex !important;
+      justify-content: space-between !important;
     }
     .pees{
       color: white !important;
+      font-size: 1rem !important;
+      font-family: Roboto !important;
+      font-weight: 400 !important;
+      word-wrap: break-word !important
     }
   }
   mat-form-field{
@@ -174,7 +182,7 @@
   
   .body{
     position: relative;
-    margin-bottom: 1em;
+    margin-top: 1rem;
       ::ng-deep .mat-mdc-text-field-wrapper {
       height: 9.8125rem!important; 
   }
@@ -237,7 +245,6 @@
     font-style: normal;
     font-weight: 400;
     height: 1rem;
-    margin: 1rem;
     span{
       color: white;
     font-style: 300;
@@ -279,10 +286,10 @@
     position: absolute;
   }
   .add-variable-header{
-    top:8.6rem;
+    top:7.0rem;
   }
   .add-variable-body{
-    top: 13rem;
+    top: 11.5rem;
   }
   li{
     text-decoration: none;
@@ -292,7 +299,7 @@
   }
   .body-card, .header-card{
     position: absolute;
-    right: 2rem;
+    right: 4rem;
     width: 20%;
     text-align: center;
     border-radius: 1rem;
@@ -313,6 +320,7 @@
     padding-left: 0.5rem;
   }
   .form-header-buttons{
+    padding-top: 0.5rem;
     position: absolute;
     right: 0;
   }
@@ -329,6 +337,5 @@
 :host ::ng-deep .mat-menu-panel .mat-radio-button {
   display: block;
  }
- 
  
 
