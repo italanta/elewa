@@ -15,6 +15,7 @@ import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/block
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
 
+import { MatMenu } from '@angular/material/menu';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 
@@ -37,6 +38,8 @@ export class BlockComponent implements OnInit
   @Output() deleteBlock: EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
   @Output() copyBlock  : EventEmitter<StoryBlock> = new EventEmitter<StoryBlock>();
 
+  @ViewChild('contextMenu') contextMenu: MatMenu; 
+
   type: StoryBlockTypes;
   blockFormGroup: FormGroup;
 
@@ -58,6 +61,14 @@ export class BlockComponent implements OnInit
               private matdialog: MatDialog,
               private _renderer: Renderer2
   ) { }
+
+  openContextMenu(event: MouseEvent): void {
+    event.preventDefault();
+    const x = event.clientX + 'px';
+    const y = event.clientY + 'px';
+    this.contextMenu.openMenu();
+    this.contextMenu.position = { left: x, top: y };
+  }
 
   ngOnInit(): void {
     this.type = this.block.type;
