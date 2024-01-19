@@ -157,13 +157,6 @@ export class BlockComponent implements OnInit
     console.log("copy context")
   }
 
-  handleContextMenu(event: MouseEvent): void {
-    const titleContainer = this._el.nativeElement.querySelector('.block-title-container');
-    if (titleContainer && titleContainer.contains(event.target as Node)) {
-      this.copyMenu(event);
-    }
-  }
-
   //
   // SECTION BOILERPLATE
   //  Declare block types for interpretation by ngSwitchCase in the frontend
