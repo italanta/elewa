@@ -5,12 +5,12 @@ import { Cursor, EndUserPosition } from "@app/model/convs-mgr/conversations/admi
 import { Message, QuestionMessage } from "@app/model/convs-mgr/conversations/messages";
 import { EndUser } from "@app/model/convs-mgr/conversations/chats";
 import { QuestionResponses, SurveyResults } from "@app/model/convs-mgr/learners";
+import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 import { BlockDataService } from "../../data-services/blocks.service";
 import { ConnectionsDataService } from "../../data-services/connections.service";
 import { IProcessOperationBlock } from "../models/process-operation-block.interface";
 import { EnrolledUserDataService } from "../../data-services/enrolled-user.service";
-import { MessageTypes } from "@app/model/convs-mgr/functions";
 
 
 export class SurveyService implements IProcessOperationBlock
