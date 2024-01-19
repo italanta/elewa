@@ -38,10 +38,15 @@ export interface EnrolledEndUser extends IObject {
    */
   currentCourse?: string;
 
+  currentStory?: string;
+
   /** The courses done by the end-user including the current one 
    * TODO: Limit the stack to 20, and add the logic to the bot engine
    */
   courses?: EnrolledUserCourse[];
+
+  /** An array of courses this user has fully completed  */
+  completedCourses?: string[];
 
   /**
    * Optional field to link to the whatsappend-userId collection using their ID.
