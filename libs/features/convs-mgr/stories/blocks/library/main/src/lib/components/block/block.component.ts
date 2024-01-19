@@ -176,6 +176,9 @@ export class BlockComponent implements OnInit
       titleContainer.appendChild(copyButton);
     }
     // on clicking the button the block id is copied to the users clipboard
+    copyButton.addEventListener('click', () => {
+     console.log("button works")
+    });
     // the button disappears 
   }
 
