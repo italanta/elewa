@@ -177,10 +177,27 @@ export class BlockComponent implements OnInit
     }
     // on clicking the button the block id is copied to the users clipboard
     copyButton.addEventListener('click', () => {
-     console.log("button works")
+      this.copyBlockIdToClipboard();
+      
     });
     // the button disappears 
   }
+
+  copyBlockIdToClipboard(): void {
+    const blockId = this.id;
+  
+    if (blockId) {
+      navigator.clipboard.writeText(blockId).then(
+        () => {
+          console.log('Block ID copied to clipboard');
+        },
+        (err) => {
+          console.error('Unable to copy block ID to clipboard', err);
+        }
+      );
+    }
+  }
+  
 
   //
   // SECTION BOILERPLATE
