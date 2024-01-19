@@ -6,6 +6,12 @@ export interface EnrolledUserCourse {
   courseName: string;
   enrollmentDate: Date | Timestamp;
   modules: EnrolledUserBotModule[];
+
+  /** Rate of completion of the course
+   * 
+   * (Lessons done by the user / All Stories)
+   */
+  completion?: string;
 };
 
 // Define a Module interface
