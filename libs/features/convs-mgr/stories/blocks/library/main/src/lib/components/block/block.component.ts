@@ -15,6 +15,8 @@ import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/block
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
 
+import { Clipboard } from '@angular/cdk/clipboard';
+
 
 /**
  * Block which sends a message from bot to user.
