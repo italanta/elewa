@@ -29,22 +29,8 @@ export class MonitoringAndEvaluationService extends BotDataService<GroupProgress
     this._docPath = `orgs/${orgId}/monitoring`;
   }
 
-  async createNewMilestone(
-    time:number, measurements: UsersProgressMilestone[], 
-    groupedMeasurements: GroupedProgressMilestone[], todaysEnrolledUsersCount: EnrolledUserCount,
-    todaysEngagedUsersCount: EngagedUserCount,  
-    progressCompletion: CompletionRateProgress, Milestoneid: string
-  )
+  async createNewMilestone(newMilestone: GroupProgressModel , Milestoneid: string)
   {
-    const newMilestone: GroupProgressModel = {
-      time,
-      measurements,
-      groupedMeasurements,
-      todaysEnrolledUsersCount,
-      todaysEngagedUsersCount,
-      progressCompletion,
-    };
-
     const milestone = await this.writeDocument(newMilestone, this._docPath, Milestoneid);
     return milestone;
   }
