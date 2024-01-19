@@ -1,4 +1,4 @@
-<mat-card  class="card" [id]="id" class="block-card" (contextmenu)="handleContextMenu($event)">
+<mat-card  class="card" [id]="id" class="block-card" >
     <div [id]="id" [ngSwitch]="type" (mouseenter)="highLight()" (mouseleave)="removeHighlight()">
         <div *ngIf="type !== endStoryAnchor" class="outer">
             <div class="block-title-container" (contextmenu)="copyMenu($event)" > 
