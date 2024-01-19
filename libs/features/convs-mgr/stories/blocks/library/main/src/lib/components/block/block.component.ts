@@ -161,7 +161,7 @@ export class BlockComponent implements OnInit
     // initialised the copy button to be rendered
     const copyButton = document.createElement('button');
     copyButton.className = 'copy-button';
-    copyButton.innerText = 'Copy Reference';
+    copyButton.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Reference';
 
     //checks if the copy button is already rendered
     const existingCopyButton = this._el.nativeElement.querySelector('.copy-button');
