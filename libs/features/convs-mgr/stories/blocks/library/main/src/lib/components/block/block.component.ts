@@ -168,8 +168,7 @@ export class BlockComponent implements OnInit
 
     // Use the Clipboard API to copy the text
     try {
-      navigator.clipboard.writeText(tempElement.value)
-        
+      navigator.clipboard.writeText(tempElement.value)  
     } catch (err) {
       console.error('Unable to copy to clipboard', err);
     } finally {
