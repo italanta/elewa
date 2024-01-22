@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 import { SubSink } from 'subsink';
+import { take } from 'rxjs/operators';
 
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
@@ -95,6 +96,7 @@ export class JumpBlockComponent implements OnInit, OnDestroy
   getStories()
   {
     this._sBS.sink = this._stories$$.get()
+      .pipe(take(1))
       .subscribe((stories: Story[]) =>
       {
         this.stories = stories;
