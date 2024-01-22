@@ -29,7 +29,7 @@ export interface Bot extends IObject {
   isPublished?: boolean;
 
   /* bot archive status*/
-  archived?: boolean;
+  isArchived?: boolean;
 
   /** to help show the spinner */
   isPublishing?: boolean;

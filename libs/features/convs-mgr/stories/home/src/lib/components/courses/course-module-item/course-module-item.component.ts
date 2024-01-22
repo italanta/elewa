@@ -76,7 +76,7 @@ export class CourseModuleItemComponent implements OnInit{
   } 
 
   archiveBot(bot:Bot){
-    bot.archived = true;
+    bot.isArchived = true;
     this._botsModuleService$.archiveBot(bot)
   }
   publishBot(bot:Bot){
