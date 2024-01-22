@@ -1,14 +1,7 @@
 import { HandlerTools } from '@iote/cqrs';
 
 import { BotDataService } from '@app/functions/bot-engine';
-import { 
-  GroupProgressModel, 
-  UsersProgressMilestone, 
-  GroupedProgressMilestone, 
-  EnrolledUserCount,
-  CompletionRateProgress,
-  EngagedUserCount
-} from '@app/model/analytics/group-based/progress';
+import { GroupProgressModel} from '@app/model/analytics/group-based/progress';
 
 /**
  * monitoring and eval data service
