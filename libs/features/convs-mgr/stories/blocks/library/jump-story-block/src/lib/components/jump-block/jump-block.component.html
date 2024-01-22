@@ -1,6 +1,6 @@
 <div class="wide" [id]="id" *ngIf="jumpBlockForm">
   <form [formGroup]="jumpBlockForm" fxLayout="column" fxLayoutALign="space-around center">
-    <select id="story" name="story" formControlName="targetStoryId" (change)='getBlocks()'>
+    <select id="story" name="story" formControlName="targetStoryId">
       <option *ngFor="let story of stories" [value]='story.id'>{{story.name}}</option>
       <option [value]="null" [selected]="true">{{"PAGE-CONTENT.BLOCK.PLACEHOLDER.JUMP.SELECT-STORY" | transloco}}</option>
     </select>
