@@ -19,7 +19,7 @@
         
         <div class="select-wrapper">
             <div class="select" *ngFor="let channel of channels">
-            <input type="radio" id="html" name="fav_language" value="{{ channel.id }}" (change)="onChannelChange(channel.id)" [disabled]="channel.bot ">
+            <input type="radio" id="html" name="fav_language" value="{{ channel.id }}" (change)="onChannelChange(channel.id)" [disabled]="channel.linkedBot ">
             <label for="html">{{ channel.name }}</label><br>
                </div>                        
            </div>

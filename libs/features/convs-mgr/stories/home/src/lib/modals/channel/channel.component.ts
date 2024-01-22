@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
+
 import { BotsModuleService } from '../../services/bots-module.service';
 
 @Component({
@@ -57,7 +58,7 @@ export class ChannelComponent implements OnInit{
     const botId = this.data.botId;
   
     // Add the botId to the selected channel
-    selectedChannel.bot = botId;
+    selectedChannel.linkedBot = botId;
   
     // Update the channel
     this.botsService.updateChannel(selectedChannel).subscribe(() => {

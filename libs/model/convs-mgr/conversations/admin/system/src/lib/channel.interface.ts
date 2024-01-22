@@ -46,5 +46,5 @@ export interface CommunicationChannel extends IObject
    /**
    * Each Channel can be assigned only a single bot 
    */
-   bot?:string
+   linkedBot?:string
 }
