@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
-import { ChannelComponent } from '../channel/channel.component';
 import { BotsModuleService } from '../../services/bots-module.service';
+import { ChannelComponent } from '../channel/channel.component';
 
 @Component({
   selector: 'italanta-apps-connect-to-channel-modal',
@@ -32,13 +32,13 @@ export class ConnectToChannelModalComponent {
     ){}
 
 
-    openChannel(){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.width = '30rem'; // Set the width of the dialog
-      dialogConfig.height = '25rem'; // Set the height of the dialog
-      dialogConfig.data = { selectedPlatform: this.selectedPlatform , botId:this.data};
-      this._dialog.open(ChannelComponent, dialogConfig);
-    }
+    openChannel() {
+      this._dialog.open(ChannelComponent,{
+        width: '30rem',
+         height: '25rem',
+         data: { selectedPlatform: this.selectedPlatform , botId:this.data}
+      });
+     } 
     
   returnToPlatform(){
     this.selectedPlatform=PlatformType.None;
