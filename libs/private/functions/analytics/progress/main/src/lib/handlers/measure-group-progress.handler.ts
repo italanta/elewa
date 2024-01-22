@@ -132,9 +132,9 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   const date = new Date(timeInUnix);
 
   //3. get newly Enrolled User Count
-  const enrolledUserCount = await getEnrolledUserCreationCount(userMetricsService, orgId, tools, timeInUnix);
+  const todaysEnrolledUsersCount = await getEnrolledUserCreationCount(userMetricsService, orgId, tools, timeInUnix);
 
-  const engagedUserCount = await getEngagedUserCount(userMetricsService, orgId, tools, timeInUnix);
+  const todaysEngagedUsersCount = await getEngagedUserCount(userMetricsService, orgId, tools, timeInUnix);
 
   const {coursesCompleted, coursesStarted} = getCourseStats(allUsers);
 
@@ -145,8 +145,8 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
     time: timeInUnix,
     measurements,
     groupedMeasurements,
-    todaysEnrolledUsersCount: enrolledUserCount,
-    todaysEngagedUsersCount: engagedUserCount,
+    todaysEnrolledUsersCount,
+    todaysEngagedUsersCount,
     progressCompletion,
     coursesCompleted,
     coursesStarted
