@@ -22,7 +22,7 @@
 			<div class="second-block-checkbox-wrapper" *ngIf="(vars$ | async) as variables">
 				<div *ngFor="let variable of (variables | filter: search.value)">
 					<div class="second-block-checkbox">
-						<input type="checkbox" [id]="variable">
+						<input type="checkbox" [id]="variable" [checked]="isChecked(variable)" (change)="onChanged(variable, $event)">
 						<p>{{ variable }}</p>
 					</div>
 				</div>

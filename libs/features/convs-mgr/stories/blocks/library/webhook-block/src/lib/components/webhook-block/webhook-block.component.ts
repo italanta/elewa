@@ -3,7 +3,7 @@ import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 
 import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
@@ -30,6 +30,7 @@ export class WebhookBlockComponent implements OnInit {
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
   vars$: Observable<string[]>;
+  variablesToPost: string[];
 
   httpCategories: HttpMethods[] = [
     { method: HttpMethodTypes.POST, name: 'POST' },
@@ -49,13 +50,11 @@ export class WebhookBlockComponent implements OnInit {
   userValue: FormControl;
   variables$: Observable<Variable[]>;
 
-  constructor(private _variablesStore$$: VariablesConfigStore, private variableser: VariablesService) {
-    this.vars$ = this.variableser.getAllVariables();
-  }
+  constructor(private variableService: VariablesService) { }
 
 
   ngOnInit() {
-    this.variables$ = this._variablesStore$$.get();
+    this.vars$ = this.variableService.getAllVariables();
     this.webhookInputId = `webhook-${this.id}`;
 
     this.search = new FormControl('');
@@ -64,9 +63,32 @@ export class WebhookBlockComponent implements OnInit {
 
   }
 
+  onChanged(variable: string, event: any) {
+    const variablesToPost = this.webhookForm.get('variablesToPost')?.value as string[];
+
+    // Use a set to ensure unique values
+    const variableSet = new Set(variablesToPost);
+
+    // If the action is check, then we add the variable to the set,
+    //  otherwise we remove it.
+    if(event.target.checked) {
+      variableSet.add(variable);
+    } else {
+      variableSet.delete(variable);
+    }
+    
+    this.webhookForm.patchValue({variablesToPost: Array.from(variableSet)});
+  }
+
+  isChecked(variable: string) {
+    const variablesToPost = this.webhookForm.get('variablesToPost')?.value as string[];
+
+    return variablesToPost.includes(variable);
+  }
+
   /**
- * submits webhook form
- */
+   * Submits webhook form
+   */
 
   onSubmit(){
     const variablesToSave: VariablesToSave = {
