@@ -23,7 +23,7 @@ export interface GroupProgressModel extends IObject
   todaysEnrolledUsersCount: EnrolledUserCount;
   
   /** Number of users who engaged with the bot today */
-  todaysEngagedUsersCount: EnrolledUserCount;
+  todaysEngagedUsersCount: EngagedUserCount;
   
   /** progress completion rate */
   progressCompletion: CompletionRateProgress;
