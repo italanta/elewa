@@ -30,16 +30,11 @@ export class ChannelComponent implements OnInit{
   }  
   
   fetchChannels(){
-    if (this.data.selectedPlatform === PlatformType.WhatsApp) {
-      this.botsService.getWhatsAppChannels().subscribe((channels) => {
-        this.channels = channels
-      })
-    } else {
-      this.botsService.getMessengerChannels().subscribe((channels) => {
-        this.channels = channels
-      })
-    }
+    this.botsService.getChannelsByType(this.data.selectedPlatform).subscribe((channels) => {
+       this.channels = channels
+    })
    }
+   
    onChannelChange(channelId: any){
     this.selectedChannelId = channelId;
    }

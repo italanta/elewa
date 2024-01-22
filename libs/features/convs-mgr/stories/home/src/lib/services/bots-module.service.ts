@@ -23,16 +23,11 @@ export class BotsModuleService {
     return this._botServ$.getBotById(id)
   }
 
-  getWhatsAppChannels():Observable<CommunicationChannel[]>{
+  getChannelsByType(platformType: string): Observable<CommunicationChannel[]> {
     return this.communicationChannel$.getAllChannels().pipe(
-      map((channels) => channels.filter(channel => channel.type === 'whatsapp'))
+       map((channels) => channels.filter(channel => channel.type === platformType))
     );
-  }
-  getMessengerChannels():Observable<CommunicationChannel[]>{
-    return this.communicationChannel$.getAllChannels().pipe(
-      map((channels) => channels.filter(channel => channel.type === 'messenger'))
-    );
-  }
+   }   
 
   updateChannel(channel: CommunicationChannel):Observable<CommunicationChannel>{
     return this.communicationChannel$.updateChannel(channel)
