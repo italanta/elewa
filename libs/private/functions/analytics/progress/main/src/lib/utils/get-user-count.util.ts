@@ -47,6 +47,10 @@ export async function getEngagedUserCount(userMetricsService: UserMetricsService
   const dayOfWeek = timeToCollect.getDay(); // 0 = Sunday, 1 = Monday, ...
   const isLastDayOfMonth = new Date(timeToCollect.getFullYear(), timeToCollect.getMonth() + 1, 0).getDate() === timeToCollect.getDate();
 
+  // Get all the users in that organisation
+  const totalUserCount = userMetricsService.getAllEnrolledUsers().length;
+
+  // Daily active users
   const dailyCount = (await userMetricsService.getDayUserEngagement(orgId, timeInUnix)).length;
 
   let pastWeekCount = 0;
@@ -63,8 +67,15 @@ export async function getEngagedUserCount(userMetricsService: UserMetricsService
   tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
 
   return {
-    dailyCount,
-    pastWeekCount,
-    pastMonthCount
+    active: {
+      dailyCount,
+      pastWeekCount,
+      pastMonthCount
+    },
+    inactive: {
+      dailyCount: totalUserCount - dailyCount,
+      pastWeekCount: totalUserCount - pastWeekCount,
+      pastMonthCount: totalUserCount - pastMonthCount
+    }
   };
 }
