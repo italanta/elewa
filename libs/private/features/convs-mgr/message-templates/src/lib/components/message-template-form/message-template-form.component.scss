@@ -23,8 +23,10 @@
     display: flex;
   }
   .mt-form{
-      form {
+      .form-body{
+        form {
           .form-group {
+            
               
             p:first-child {
               color: #000; 
@@ -53,16 +55,32 @@
               background-color: transparent;
               border: 1px solid var(--convs-mgr-color-707070);
               width: 100%;
+              padding: 0 0 0 1rem;
+              color: black;
+              font-size: 1rem;
+              font-family: Roboto;
+              font-weight: 400;
+              word-wrap: break-word
+              
             }
             .body-input{
-              height: 8rem;
+              height: 7rem;
               border-radius: 0.9375rem;
               background-color: transparent;
               border: 1px solid var(--convs-mgr-color-707070);
               width: 100%;
+
+              vertical-align: top;
+              padding: 1rem 0 0 1rem;
+              color: black;
+              font-size: 1rem;
+              font-family: Roboto;
+              font-weight: 400;
+              word-wrap: break-word
             }
           }
         }
+      }
         
   }
   

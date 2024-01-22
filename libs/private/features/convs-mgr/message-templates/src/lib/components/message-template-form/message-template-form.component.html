@@ -110,7 +110,7 @@
                         <p  class="text"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
                         <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
                        
-                            <input class="body-input" #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
+                            <textarea class="body-input" name="w3review" rows="4" cols="50" formControlName="text"></textarea>
                        
                         <div class="add-variable-body">
                             <p class="dropdown" [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
