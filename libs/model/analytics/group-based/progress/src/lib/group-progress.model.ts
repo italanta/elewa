@@ -21,13 +21,13 @@ export interface GroupProgressModel extends IObject
 
   /** Today's EnrolledUserCount */
   todaysEnrolledUsersCount: EnrolledUserCount;
-  
+
   /** Number of users who engaged with the bot today */
   todaysEngagedUsersCount: EngagedUserCount;
-  
+
   /** progress completion rate */
   progressCompletion: CompletionRateProgress;
-  
+
   /** Courses Completed */
   coursesCompleted: string[];
 
@@ -36,11 +36,13 @@ export interface GroupProgressModel extends IObject
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
-export interface GroupedParticipants { 
+export interface GroupedParticipants
+{
   [key: string]: ParticipantProgressMilestone[];
 }
 
-export interface GroupedProgressMilestone {
+export interface GroupedProgressMilestone
+{
   /** Name of course the user has reached */
   id: string;
 
@@ -49,7 +51,8 @@ export interface GroupedProgressMilestone {
 }
 
 /** Course visualisation  */
-export interface ClassroomProgressMilestone {
+export interface ClassroomProgressMilestone
+{
   /** Name of group / class the user has reached */
   id: string;
 
@@ -57,7 +60,8 @@ export interface ClassroomProgressMilestone {
   measurements: UsersProgressMilestone[];
 }
 
-export interface UsersProgressMilestone {
+export interface UsersProgressMilestone
+{
   /** Name of Milestone the user has reached */
   id: string;
 
@@ -65,7 +69,8 @@ export interface UsersProgressMilestone {
   participants: ParticipantProgressMilestone[];
 }
 
-export interface EnrolledUserCount {
+export interface EnrolledUserCount
+{
   /** daily user count */
   dailyCount: number;
 
@@ -76,13 +81,35 @@ export interface EnrolledUserCount {
   pastMonthCount: number;
 }
 
-export interface EngagedUserCount {
-  /** daily user count */
-  dailyCount: number;
+export interface EngagedUserCount
+{
+  /** 
+   * Number of users who have engaged with the bot for the
+   *  period specified.
+   */
+  active: {
+    /** daily user count */
+    dailyCount: number;
 
-  /** weekly user count */
-  pastWeekCount: number;
+    /** weekly user count */
+    pastWeekCount: number;
 
-  /** monthly user count */
-  pastMonthCount: number;
+    /** monthly user count */
+    pastMonthCount: number;
+  };
+
+  /** 
+   * Number of users who have not engaged with the bot for the
+   *  period specified.
+   */
+  inactive: {
+    /** daily user count */
+    dailyCount: number;
+
+    /** weekly user count */
+    pastWeekCount: number;
+
+    /** monthly user count */
+    pastMonthCount: number;
+  };
 }
