@@ -5,6 +5,8 @@ import { HandlerTools, Repository } from "@iote/cqrs";
 
 export class BaseUserMetrics
 {
+  protected totalEnrolledUsers: EnrolledEndUser[];
+
   constructor(private tools: HandlerTools) { }
 
   private getEnrolledUserRepo(orgId: string): Repository<EnrolledEndUser>
@@ -51,5 +53,13 @@ export class BaseUserMetrics
     );
 
     return enrolledUsers;
+  }
+
+  getAllEnrolledUsers() {
+    return this.totalEnrolledUsers;
+  }
+
+  setEnrolledUsers(enrolledUsers: EnrolledEndUser[]) {
+    this.totalEnrolledUsers = enrolledUsers;
   }
 }

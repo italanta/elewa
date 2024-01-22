@@ -118,6 +118,8 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
 
   const userMetricsService = new UserMetricsService(tools);
 
+  userMetricsService.setEnrolledUsers(allUsers);
+
   //1. group users by milestones
   const measurements = _parseAllUserProgressData(allUsersProgress);
 
