@@ -1,11 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { BotsModuleService } from '../../services/bots-module.service';
+import { Component, Inject } from '@angular/core';
 
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+
 import { ChannelComponent } from '../channel/channel.component';
+import { BotsModuleService } from '../../services/bots-module.service';
 
 @Component({
   selector: 'italanta-apps-connect-to-channel-modal',
