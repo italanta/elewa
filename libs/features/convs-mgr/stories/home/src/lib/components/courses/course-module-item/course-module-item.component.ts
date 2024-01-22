@@ -64,13 +64,13 @@ export class CourseModuleItemComponent implements OnInit{
     }).afterClosed();
   }
 
-  connectToChannel(botId:string){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '30rem'; // Set the width of the dialog
-    dialogConfig.height = '20rem'; // Set the height of the dialog
-    dialogConfig.data = { botId: botId }; // Pass the botId to the dialog
-    this._dialog.open(ConnectToChannelModalComponent, dialogConfig);
-  }
+  connectToChannel(botId: string) {
+    this._dialog.open(ConnectToChannelModalComponent,{
+      width: '30rem',
+       height: '20rem',
+       data: { botId: botId }
+    });
+   }
   deleteBot(botId:Bot){
     this._botsModuleService$.deleteBot(botId)
   } 
