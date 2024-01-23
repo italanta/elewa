@@ -301,7 +301,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       this._snackbar.showError('Please fill out all fields');
       return;
     }
-
+    
     this.isSaving = true;
     this._sbS.sink = this._messageTemplatesService
       .createTemplateMeta(this.templateForm.value)

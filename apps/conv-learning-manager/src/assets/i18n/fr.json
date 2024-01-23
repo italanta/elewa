@@ -713,7 +713,8 @@
               "BODY-DESCRIPTION": "Ajoutez le contenu du message à envoyer",
               "SAMPLES": {
                 "SAMPLES": "Exemples de contenu du corps",
-                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client"
+                "NOTICE": "Pour aider META à examiner votre modèle de message, veuillez ajouter un exemple pour chaque variable dans le texte du corps. Ne pas utiliser de vraies informations client",
+                "PLACEHOLDER":"Saisir un espace réservé au corps"
               },
               "FOOTER": {
                 "FOOTER": "Pied de page",
@@ -723,7 +724,8 @@
               "HEADER":"Entête",
               "HEADER-SAMPLES":{
                 "SAMPLES": "Exemples de contenu d'en-tête",
-                "NOTICE": "Pour aider META à réviser votre modèle de message, veuillez ajouter un exemple pour chaque variable dans votre texte d'en-tête. N'utilisez pas d'informations client réelles"
+                "NOTICE": "Pour aider META à réviser votre modèle de message, veuillez ajouter un exemple pour chaque variable dans votre texte d'en-tête. N'utilisez pas d'informations client réelles",
+                "PLACEHOLDER":"Saisissez un espace réservé pour l'en-tête"
               }
             }
           },

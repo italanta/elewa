@@ -1019,7 +1019,8 @@
               "BODY-DESCRIPTION": "Add content of the message to be sent",
               "SAMPLES": {
                 "SAMPLES": "Samples for body content",
-                "NOTICE": "To help META review your message template, please add an example for each variable in your body text. Do not use real customer information"
+                "NOTICE": "To help META review your message template, please add an example for each variable in your body text. Do not use real customer information",
+                "PLACEHOLDER":"Enter body placeholder"
               },
               "FOOTER": {
                 "FOOTER": "Footer",
@@ -1028,7 +1029,8 @@
               "HEADER":"Header",
               "HEADER-SAMPLES":{
                 "SAMPLES": "Samples for header content",
-                "NOTICE": "To help META review your message template, please add an example for each variable in your header text. Do not use real customer information"
+                "NOTICE": "To help META review your message template, please add an example for each variable in your header text. Do not use real customer information",
+                "PLACEHOLDER":"Enter header placeholder"
               }
             },
             "ADD-VARIABLE":"Add Variable"
