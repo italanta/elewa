@@ -141,6 +141,12 @@ select:focus, input:focus{
 
 .delete-icon {
   cursor: pointer;
+  padding-left: 0.625rem;
+  width: 0.7rem;
+}
+
+.delete-icon:hover {
+  color: var(--convs-mgr-webhook-button-bg-color);
 }
 
 .to-save {
