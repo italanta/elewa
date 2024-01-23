@@ -101,8 +101,8 @@ export class WebhookBlockComponent implements OnInit {
     this.variablesToSave.push(this.addVariablesToSave())
   }
 
-  deleteVariable(variableName: string) 
+  deleteVariable(i: number) 
   {
-    console.log(variableName);
+    this.variablesToSave.removeAt(i);
   }
 }

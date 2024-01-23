@@ -42,7 +42,7 @@
 							<img src="/assets/icons/ph_arrow-right-thin.svg"/>
 						</div>
 						<input type="text" placeholder="variable" formControlName="name"/>
-						<i class="fas fa-trash-alt delete-icon" (click)="deleteVariable(vars.value.name)"></i>
+						<span (click)="deleteVariable(i)"> <i class="fas fa-trash-alt delete-icon"></i> </span>
 
 				</div>
 				<div class="button-container">
