@@ -10,7 +10,7 @@
                 </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
                 <button 
-                    *ngIf="copyButtonVisible" class="copy-button">
+                    *ngIf="copyButtonVisible" class="copy-button" (click)="copyBlockIdToClipboard()">
                     Copy Reference
                 </button>
             </div>

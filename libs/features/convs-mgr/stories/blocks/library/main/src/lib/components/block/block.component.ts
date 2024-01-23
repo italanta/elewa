@@ -170,22 +170,29 @@ export class BlockComponent implements OnInit
 
     // render a button on the title container with a label of copy reference
     this.copyButtonVisible = true;
-    // the button disappears 
   }
 
   copyBlockIdToClipboard(): void {
+    // initialises a variable with the current block's id
     const blockId = this.id;
   
-    if (blockId) {
+    if (blockId){
+      // attempts to copy the block id to the clipboard
       navigator.clipboard.writeText(blockId).then(
-        () => {
-          console.log('Block ID copied to clipboard');
-        },
-        (err) => {
-          console.error('Unable to copy block ID to clipboard', err);
-        }
-      );
+        // if successfull it renders a success message
+        ()=>this.handleCopySuccess(),
+        // if not succesfull it renders an error message
+        (err)=>this.handleCopyError(err)
+      )
     }
+  }
+
+  private handleCopySuccess(): void{
+    console.log('Block ID copied to clipboard');
+  }
+
+  private handleCopyError(err: Error): void{
+    console.error('Unable to copy block ID to clipboard', err);
   }
   
 
