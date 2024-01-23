@@ -20,10 +20,10 @@
       <button mat-menu-item (click)="deleteLesson(story)">
         <span> {{ "BOTS.BOTS-PAGE.DELETE" | transloco }} </span>
       </button> -->
-      <button mat-menu-item  (click)="connectToChannel(specificBot.id)"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
-      <button mat-menu-item (click)="publishBot(specificBot)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
-      <button mat-menu-item (click)="archiveBot(specificBot)" [disabled]="specificBot?.archived"> {{ 'BOTS.ARCHIVE-BOT' | transloco }}</button>
-      <button mat-menu-item (click)="deleteBot(specificBot)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
+      <button mat-menu-item  (click)="connectToChannel(specificBot!.id ?? '')"> {{ 'BOTS.CONNECT-BOT-TO-CHANNEL' | transloco }}</button>
+      <button mat-menu-item (click)="publishBot(specificBot!)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.PUBLISH-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="archiveBot(specificBot!)" [disabled]="specificBot?.isArchived"> {{ 'BOTS.ARCHIVE-BOT' | transloco }}</button>
+      <button mat-menu-item (click)="deleteBot(specificBot!)" [disabled]="specificBot?.isPublished"> {{ 'BOTS.DELETE-BOT' | transloco }}</button>
     </mat-menu>
   </div>
 

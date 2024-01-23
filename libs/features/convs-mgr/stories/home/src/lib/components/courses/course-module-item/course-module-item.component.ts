@@ -27,7 +27,7 @@ export class CourseModuleItemComponent implements OnInit{
 
   constructor(private _dialog: MatDialog, private _router$: Router, private _botsModuleService$:BotsModuleService) {}
 
-  specificBot: Bot | any; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
+  specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
 
   ngOnInit(): void {
     this._botsModuleService$.getSpecificBot(this.botModule.parentBot).subscribe(response =>{
