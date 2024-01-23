@@ -189,6 +189,8 @@ export class BlockComponent implements OnInit
 
   private handleCopySuccess(): void{
     console.log('Block ID copied to clipboard');
+    // closes the button on successfull copy
+    this.copyButtonVisible = false;
   }
 
   private handleCopyError(err: Error): void{
