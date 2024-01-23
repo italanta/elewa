@@ -1,11 +1,10 @@
 import { BrowserJsPlumbInstance } from '@jsplumb/browser-ui';
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 
-import { Subscription, Observable, of } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
-import { VariablesConfigStore } from '@app/state/convs-mgr/stories/variables-config';
 import { VariablesService } from '@app/features/convs-mgr/stories/blocks/process-inputs';
 
 import {
@@ -29,7 +28,7 @@ export class WebhookBlockComponent implements OnInit {
   @Input() webhookForm: FormGroup;
   @Input() jsPlumb: BrowserJsPlumbInstance;
 
-  vars$: Observable<string[]>;
+  allVars$: Observable<string[]>;
   variablesToPost: string[];
 
   httpCategories: HttpMethods[] = [
@@ -46,21 +45,28 @@ export class WebhookBlockComponent implements OnInit {
   webhookType = StoryBlockTypes.WebhookBlock;
   variables = new FormControl();
   search: FormControl;
-  userName: FormControl;
-  userValue: FormControl;
+
   variables$: Observable<Variable[]>;
 
-  constructor(private variableService: VariablesService) { }
+  constructor(private variableService: VariablesService, private _fb: FormBuilder) { }
 
 
   ngOnInit() {
-    this.vars$ = this.variableService.getAllVariables();
+    this.allVars$ = this.variableService.getAllVariables();
     this.webhookInputId = `webhook-${this.id}`;
 
     this.search = new FormControl('');
-    this.userName = new FormControl('', Validators.required);
-    this.userValue = new FormControl('', Validators.required);
 
+    this.block.variablesToSave?.forEach((varToSave) => {
+      this.variablesToSave.push(this.addVariablesToSave(varToSave));
+    })
+  }
+
+  addVariablesToSave(varToSave?: VariablesToSave) {
+    return this._fb.group({
+      name: [varToSave?.name ?? ''],
+      value: [varToSave?.value ?? '']
+    })
   }
 
   onChanged(variable: string, event: any) {
@@ -86,18 +92,17 @@ export class WebhookBlockComponent implements OnInit {
     return variablesToPost.includes(variable);
   }
 
-  /**
-   * Submits webhook form
-   */
+  get variablesToSave(): FormArray {
+    return this.webhookForm.controls['variablesToSave'] as FormArray;
+  }
 
-  onSubmit(){
-    const variablesToSave: VariablesToSave = {
-      name:this.userName.value,
-      value: this.userValue.value
-    }
-    
-    // pushes variablesToSave in webhookForm control
-    this.webhookForm.get('variablesToSave')?.value.push(variablesToSave)
 
+  addVariable() {
+    this.variablesToSave.push(this.addVariablesToSave())
+  }
+
+  deleteVariable(variableName: string) 
+  {
+    console.log(variableName);
   }
 }

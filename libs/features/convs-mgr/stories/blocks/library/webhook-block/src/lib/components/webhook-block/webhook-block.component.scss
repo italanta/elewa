@@ -139,10 +139,16 @@ select:focus, input:focus{
 
 }
 
-.input-username {
+.delete-icon {
+  cursor: pointer;
+}
+
+.to-save {
   width: 100%;
   display: flex;
   color: var(--convs-mgr-input-color);
+  align-items: center;
+  justify-content: space-evenly;
 
   .img-cont{
     text-align: center;
@@ -163,7 +169,7 @@ select:focus, input:focus{
   text-align: right;
 }
 
-.update-button {
+.add-button {
   margin-top: 1rem;
   padding: 0.3rem 1rem 0.3rem 1rem;
   border-radius: 0.8rem;
@@ -171,7 +177,7 @@ select:focus, input:focus{
   border: 0.1rem solid var(--convs-mgr-webhook-button-bg-color);
   color:var(--convs-mgr-color-text-white);
   text-align: center;
-
+  cursor: pointer;
 }
 
 .webhook-select-inputs {

@@ -1,5 +1,5 @@
 <div class="wide" [id]="id" *ngIf=" webhookForm">
-	<form (ngSubmit)="onSubmit()" [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
+	<form [formGroup]="webhookForm" fxLayout="column" fxLayoutALign="start" fxFlex>
 
 		<div class="webhook-select-wrapper">
 			<div class="webhook-select-inputs">
@@ -19,7 +19,7 @@
 		<div class="second-block">
 			<p>Select the variables that will be included in the request to the webhook</p>
 			<input name="search" id="search" [formControl]="search" type="text" placeholder="Search" />
-			<div class="second-block-checkbox-wrapper" *ngIf="(vars$ | async) as variables">
+			<div class="second-block-checkbox-wrapper" *ngIf="(allVars$ | async) as variables">
 				<div *ngFor="let variable of (variables | filter: search.value)">
 					<div class="second-block-checkbox">
 						<input type="checkbox" [id]="variable" [checked]="isChecked(variable)" (change)="onChanged(variable, $event)">
@@ -33,22 +33,22 @@
 			<p>In this section, you configure the mapping of the webhook response to local variables within Goomza. Your webhook is expected to provide an object that holds the requested data, such as {{ '{ companyName: "Goomza" }' }}. </p>
 
 			<p>	To establish this mapping to a local variable, you should specify the location of the data within the object. For instance, you can create a local variable called "client" and link it to "companyName." It's important to note that nested objects are also supported for mapping, for example, 'data.company.name'.</p>
+				
+			<div fxFlexFill formArrayName="variablesToSave">
+				<div class="to-save" *ngFor="let vars of variablesToSave.controls; let i = index" [formGroupName]="i">
 
-			<!-- TODO: add logic to add variables to save -->
-				<!-- 
-			<div class="input-username">
-				<input required [formControl]="userName" placeholder="Username"/>
-				<div class="img-cont">
-					<img src="/assets/icons/ph_arrow-right-thin.svg"/>
+						<input type="text" placeholder="value" formControlName="value"/>
+						<div class="img-cont">
+							<img src="/assets/icons/ph_arrow-right-thin.svg"/>
+						</div>
+						<input type="text" placeholder="variable" formControlName="name"/>
+						<i class="fas fa-trash-alt delete-icon" (click)="deleteVariable(vars.value.name)"></i>
+
 				</div>
-				<input required [formControl]="userValue" />
+				<div class="button-container">
+					<button class="add-button" (click)="addVariable()"> + Add </button>
+				</div>
 			</div>
-
-			<div class="button-container">
-				<button [disabled]="userName.invalid || userValue.invalid" type="submit" class="update-button">
-					Update
-				</button>
-			</div> -->
 
 		</div>
 		<app-default-option-field [jsPlumb]="jsPlumb" [blockFormGroup]="webhookForm"></app-default-option-field>
