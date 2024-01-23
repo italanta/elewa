@@ -14,6 +14,7 @@ import { VideoUploadModalComponent } from '@app/features/convs-mgr/stories/block
 
 import { ICONS_AND_TITLES } from '../../assets/icons-and-titles';
 import { _DetermineBlockType } from '../../utils/block-inheritance.util';
+import { it } from 'node:test';
 
 
 /**
@@ -153,34 +154,22 @@ export class BlockComponent implements OnInit
     console.log("nit nit")
   }
 
- 
+  copyButtonVisible = false;
+
   copyMenu(e :MouseEvent){
     // prevent default action
     e.preventDefault();
 
-    // initialised the copy button to be rendered
-    const copyButton = document.createElement('button');
-    copyButton.className = 'copy-button';
-    copyButton.innerHTML = '<i class="fa-regular fa-copy"></i> Copy Reference';
-
-    //checks if the copy button is already rendered
-    const existingCopyButton = this._el.nativeElement.querySelector('.copy-button');
-    if (existingCopyButton) {
-      existingCopyButton.remove();
+    // checks if the copy button is already rendered
+    // if not it renders it
+    // if rendered it hides it
+    if (this.copyButtonVisible) {
+      this.copyButtonVisible = false;
       return;
     }
 
     // render a button on the title container with a label of copy reference
-    const titleContainer = this._el.nativeElement.querySelector('.block-title-container');
-    if (titleContainer) {
-      titleContainer.appendChild(copyButton);
-    }
-    // on clicking the button the block id is copied to the users clipboard
-    copyButton.addEventListener('click', () => {
-      this.copyBlockIdToClipboard();
-      copyButton.remove();
-      
-    });
+    this.copyButtonVisible = true;
     // the button disappears 
   }
 

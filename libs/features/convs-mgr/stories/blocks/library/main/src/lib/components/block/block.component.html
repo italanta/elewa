@@ -9,6 +9,10 @@
                     <i [class]="iconClass" class="icon-color"></i>
                 </ng-template>                
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
+                <button 
+                    *ngIf="copyButtonVisible" class="copy-button">
+                    Copy Reference
+                </button>
             </div>
 
             <mat-menu #menu="matMenu">
