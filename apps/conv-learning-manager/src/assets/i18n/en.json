@@ -470,8 +470,8 @@
       }
     }
   },
-  "INSIGHTS": {
-    "TITLE": "Insights",
+  "ANALYTICS": {
+    "TITLE": "Analytics",
     "ALL-OPTION": "All",
     "CHART": {
       "PERIODICALS": {
