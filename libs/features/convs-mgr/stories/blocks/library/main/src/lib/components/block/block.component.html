@@ -11,6 +11,7 @@
                 <h4 class="block-title"> {{ blockTitle | transloco }}</h4>
                 <button 
                     *ngIf="copyButtonVisible" class="copy-button" (click)="copyBlockIdToClipboard()">
+                    <i class="far fa-copy"></i>
                     Copy Reference
                 </button>
             </div>
