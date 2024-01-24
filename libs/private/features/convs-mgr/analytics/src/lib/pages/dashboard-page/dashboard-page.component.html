@@ -7,7 +7,7 @@
     <div class="top-filters">
       <!-- courses -->
       <div class="items courses">
-        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse.name | titlecase  }} Course(s) &nbsp; <i class="fas fa-caret-down"></i></button>
+        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu"> <div class="button-content"><div>{{ activeCourse.name | titlecase  }} Course(s)  &nbsp;</div> <div> <i class="fas fa-caret-down"></i></div> </div></button>
         <mat-menu #coursesMenu="matMenu">
           <button mat-menu-item (click)="selectActiveCourse(allCourse)">{{'ANALYTICS.ALL-OPTION' | transloco }}</button>
           <div *ngFor="let course of (courses$ | async)">
@@ -19,7 +19,7 @@
       <div class="menu-items">
   
         <!-- classrooms -->
-        <div class="items">
+        <!-- <div class="items">
           <button class="item_btn" mat-button [matMenuTriggerFor]="classMenu">{{ activeClassroom.className | titlecase  }} Classroom(s) &nbsp; <i class="fas fa-caret-down"></i></button>
           <mat-menu #classMenu="matMenu">
             <button mat-menu-item (click)="selectActiveClassroom(allClass)">{{'ANALYTICS.ALL-OPTION' | transloco }}</button>
@@ -27,17 +27,26 @@
                 <button mat-menu-item (click)="selectActiveClassroom(classroom)">{{ classroom.className | titlecase }}</button>
               </div>
           </mat-menu>
-        </div>
+        </div> -->
   
         <!-- periodical -->
-        <div class="items">
+        <!-- <div class="items">
           <button class="item_btn" mat-button [matMenuTriggerFor]="periodicalMenu">{{ periodical | titlecase  }} {{'ANALYTICS.CHART.PROGRESSION' | transloco }} &nbsp; <i class="fas fa-caret-down"></i></button>
           <mat-menu #periodicalMenu="matMenu">
             <button mat-menu-item (click)=" selectProgressTracking('Monthly')">{{'ANALYTICS.CHART.PERIODICALS.MONTH' | transloco }}</button>
             <button mat-menu-item (click)=" selectProgressTracking('Weekly')">{{'ANALYTICS.CHART.PERIODICALS.WEEK' | transloco }}</button>
             <button mat-menu-item (click)=" selectProgressTracking('Daily')">{{'ANALYTICS.CHART.PERIODICALS.DAY' | transloco }}</button>
           </mat-menu>
-        </div>
+        </div> -->
+
+        <div class="period-filters">
+          <ul>
+            <li><a>Daily</a></li>
+            <li><a>Weekly</a></li>
+            <li><a class="active">Monthly</a></li>
+            <li><a>Custom</a></li>
+          </ul>
+      </div>
       </div>
     </div>
 
