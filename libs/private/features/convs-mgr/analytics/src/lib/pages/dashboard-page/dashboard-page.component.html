@@ -5,17 +5,18 @@
     </div>
 
     <div class="top-filters">
+      <!-- courses -->
+      <div class="items courses">
+        <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse.name | titlecase  }} Course(s) &nbsp; <i class="fas fa-caret-down"></i></button>
+        <mat-menu #coursesMenu="matMenu">
+          <button mat-menu-item (click)="selectActiveCourse(allCourse)">{{'ANALYTICS.ALL-OPTION' | transloco }}</button>
+          <div *ngFor="let course of (courses$ | async)">
+              <button mat-menu-item (click)="selectActiveCourse(course)">{{ course.name | titlecase  }}</button>
+            </div>
+        </mat-menu>
+      </div>
+
       <div class="menu-items">
-        <!-- courses -->
-        <div class="items">
-          <button class="item_btn" mat-button [matMenuTriggerFor]="coursesMenu">{{ activeCourse.name | titlecase  }} Course(s) &nbsp; <i class="fas fa-caret-down"></i></button>
-          <mat-menu #coursesMenu="matMenu">
-            <button mat-menu-item (click)="selectActiveCourse(allCourse)">{{'ANALYTICS.ALL-OPTION' | transloco }}</button>
-            <div *ngFor="let course of (courses$ | async)">
-                <button mat-menu-item (click)="selectActiveCourse(course)">{{ course.name | titlecase  }}</button>
-              </div>
-          </mat-menu>
-        </div>
   
         <!-- classrooms -->
         <div class="items">
@@ -38,6 +39,9 @@
           </mat-menu>
         </div>
       </div>
+    </div>
+
+    <div class="top-stats">
 
     </div>
 

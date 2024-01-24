@@ -20,24 +20,26 @@
     gap: 10px;
     width: 100%;
 
-    .items {
+  }
+  .items {
+    display: flex;
+    gap: 0.5rem;
+    
+    .item_btn {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.2rem;
+      background-color: teal;
+      color: white;
+      width: max-content;
+      
+      border-radius: 1.875rem;
+      .btn {
+        background-color: #f0f0f0;
+      }
 
-      .item_btn {
-        display: flex;
-        gap: 0.2rem;
+      .active {
+        text-align: center;
         background-color: teal;
-        color: white;
-
-        .btn {
-          background-color: #f0f0f0;
-        }
-
-        .active {
-          text-align: center;
-          background-color: teal;
-        }
       }
     }
   }
@@ -51,14 +53,13 @@
   }
 }
 
-// buttons
-button {
-  border: none;
-  padding: 0.5rem;
-  border-radius: 5px;
-  cursor: pointer;
+.top-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem 0;
+}
 
-  &:active {
-    transform: scale(0.95);
-  }
+.courses.item_btn {
 }
