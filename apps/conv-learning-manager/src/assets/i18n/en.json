@@ -465,6 +465,8 @@
       "CLASSNAME": "ClassName",
       "GROUPNAME": "GroupName",
       "DESCRIPTION": "Description",
+      "USERNAME":"UserName",
+      "PHONENUMBER":"PhoneNumber",
       "ACTION-BUTTONS": {
         "SAVE":"Save",
         "CANCEL": "Cancel",
@@ -768,7 +770,9 @@
       "PHONE-NUMBER": "PhoneNumber",
       "COURSE": "Course",
       "CLASS": "Class",
-      "STATUS": "Status"
+      "STATUS": "Status",
+      "USERNAME":"UserName"
+
     },
 
     "USER-GROUPS":{
@@ -779,12 +783,18 @@
         "DESCRIPTION":"Description",
         "COURSENAME":"CourseName",
         "CLASSNAME":"ClassName"
+
       },
       "BUTTONS":{
         "CREATE-GROUP":"Create User Group",
         "MOVE-USERS":"Move users to another group",
         "DELETE-USERS":"Delete Users from group ",
-        "ADD-USER-TO-GROUP":"Add user to group"
+        "ADD-USER-TO-GROUP":"Add user to group",
+        "ACTION-BUTTONS":{
+          "SAVE":"Save",
+          "CANCEL":"Cancel",
+          "CONTINUE":"Continue"
+        }
       }
     },
 
@@ -807,7 +817,6 @@
       "ACTIONS": "Actions",
       "SEND-INVITATION":"Send Invitation",
       "SEND-REMINDER":"Send Reminder",
-
       "CANCEL":"Cancel",
       "CONTINUE":"Continue"
     },
