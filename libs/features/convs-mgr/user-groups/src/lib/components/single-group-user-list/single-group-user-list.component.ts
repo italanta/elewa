@@ -37,11 +37,12 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     'name',
     'phonenumber',
     'date-enrolled',
-    'status'
+    'status',
+    'actions'
   ];
 
   dataSource = new MatTableDataSource<EnrolledEndUser>();
-  classRoom: any;
+  classRoom: Classroom;
   selection = new SelectionModel<EnrolledEndUser>(true, []);
 
   classRoomId = '';
@@ -65,9 +66,14 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
   loadClassroomLearners()
   {
    this._sbs.sink = this._learnerService.getLearnersFromClass(this.classRoomId)
-      .pipe(take(1))
         .subscribe((learners) => this.dataSource.data = learners);
+
+    this.classroomService.getSpecificClassroom(this.classRoomId)
+      .subscribe((classroom)=> {
+        if(classroom) this.classRoom = classroom;
+      });
   }
+
   sortData(sortState: Sort)
   {
     if (sortState.direction) {
@@ -79,15 +85,8 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   openAddModal()
   {
-    const dialogRef = this._dialog.open(AddUserToGroupModalComponent, {
+    this._dialog.open(AddUserToGroupModalComponent, {
       data: this.classRoom
-    });
-
-    dialogRef.afterClosed().subscribe((result: Classroom) =>
-    {
-      if (result) {
-        this.addUserGroup(result);
-      }
     });
   }
 
@@ -131,15 +130,6 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
       EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
       EnrolledEndUserStatus[status].slice(1)
     );
-  }
-
-
-  addUserGroup(classroom: Classroom)
-  {
-    this.classroomService.addClassroom(classroom).subscribe(() =>
-    {
-      // this.loadClassroom();
-    });
   }
   
   ngOnDestroy(): void {

@@ -29,9 +29,10 @@ export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
               private _enrollLearnerService: EnrolledLearnersService,
               @Inject(MAT_DIALOG_DATA) public data: Classroom
               )
-    { this.classroom = data; }
+    { }
 
   ngOnInit(): void {
+    this.classroom = this.data;
     this.buildForm();
   }
 
