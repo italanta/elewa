@@ -125,7 +125,7 @@ function addExampleToHeader(header: WhatsappHeaderTemplateComponent, headerExamp
 }
 
 function parseVariables(text: string): { newText: string; varCount: number } {
-  const varExp: RegExp = new RegExp(/\{\{([^}]+)\}\}/g);
+  const varExp = new RegExp(/\{\{([^}]+)\}\}/g);
 
   let count = 0;
 
