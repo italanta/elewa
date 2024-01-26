@@ -8,6 +8,9 @@ export interface Classroom extends IObject {
   /** A brief description of the classroom */
   description: string;
 
+  /** Id of users present in this class */
+  users?: string[];
+
   /** A boolean flag indicating whether the classroom has been deleted */
   deleted: boolean;
 }
