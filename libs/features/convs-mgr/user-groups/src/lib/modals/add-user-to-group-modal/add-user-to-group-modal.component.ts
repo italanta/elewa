@@ -1,38 +1,70 @@
-import { Component, Input } from '@angular/core';
-import { modalState } from '../../models/modal-state';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { SubSink } from 'subsink';
+
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
+import { Classroom } from '@app/model/convs-mgr/classroom';
+
+import { modalState } from '../../models/modal-state';
 
 @Component({
   selector: 'app-add-user-to-group-modal',
   templateUrl: './add-user-to-group-modal.component.html',
   styleUrls: ['./add-user-to-group-modal.component.scss'],
 })
-export class AddUserToGroupModalComponent {
+export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
   [x:string]:any;
   @Input() modalType:modalState;
 
+  private _sBs = new SubSink();
   addUserToGroupForm:FormGroup;
   isLoading:boolean;
+  classroom: Classroom;
 
-  constructor(private _fb:FormBuilder, private _dialog:MatDialog, private _classroomService:ClassroomService){
+  constructor(private _fb:FormBuilder, 
+              private _dialog:MatDialog, 
+              private _classroomService:ClassroomService, 
+              private _enrollLearnerService: EnrolledLearnersService
+              ){ }
+
+  ngOnInit(): void {
+    this.buildForm();
+  }
+
+  buildForm(){
     this.addUserToGroupForm = this._fb.group({
-      userName:[''],
-      phoneNumber:['']
+      userName:['', Validators.required],
+      phoneNumber:['', Validators.required]
     })
-  }
-
-  buildFormGroup(){
-    return this._fb.group({});
-  }
-
-  submittedUserForm(){
-    this._classroomService.addClassroom(this.addUserToGroupForm.value)
-
   }
 
   closeModal(){
     this._dialog.closeAll();
+  }
+
+  addUserToGroup() 
+  {
+    if(this.addUserToGroupForm.valid) {
+      const newUser: EnrolledEndUser = {
+        name: this.addUserToGroupForm.value.userName,
+        phoneNumber: this.addUserToGroupForm.value.phoneNumber,
+        classId: this.classroom.id as string,
+        status: EnrolledEndUserStatus.Inactive
+      }
+
+      const addLearner$ = this._enrollLearnerService.addLearner$(newUser, this.classroom.id);
+
+      this._sBs.sink = addLearner$.subscribe();
+
+      this._dialog.closeAll();
+    }
+  }
+
+  ngOnDestroy() {
+    this._sBs.unsubscribe();
   }
 }
