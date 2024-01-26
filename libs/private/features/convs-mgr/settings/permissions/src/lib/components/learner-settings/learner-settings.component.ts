@@ -12,6 +12,8 @@ export class LearnerSettingsComponent {
 
   viewRoles: string[] = [];
 
+  panelState: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {

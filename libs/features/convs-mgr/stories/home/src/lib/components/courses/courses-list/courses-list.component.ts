@@ -3,9 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, of } from 'rxjs';
 
+import { CreateLessonModalComponent } from '@app/elements/layout/convs-mgr/story-elements';
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
-import { CreateLessonModalComponent } from '../../../modals/create-lesson-modal/create-lesson-modal.component';
 import { Course } from '../../../model/courses.interface';
 
 @Component({

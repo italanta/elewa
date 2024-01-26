@@ -91,6 +91,13 @@ export class SpecificTimeModalComponent {
     this.selectedDate = event.value;
   }
 
+  focusTimeInput() {
+    const timeInput = document.getElementById('time') as HTMLInputElement;
+    if (timeInput) {
+      timeInput.focus();
+    }
+  }
+  
   onRecurrenceChange(selectedValue: string): void {
     this.selectedRecurrence = selectedValue;
     this.updateMenuButtonText();

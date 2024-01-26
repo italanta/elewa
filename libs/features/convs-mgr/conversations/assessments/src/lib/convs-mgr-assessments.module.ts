@@ -22,6 +22,7 @@ import {
 } from '@app/state/convs-mgr/conversations/assessments';
 
 import { ConvlPageModule } from '@app/elements/layout/page-convl';
+import { ItalBreadCrumbModule } from '@app/elements/layout/ital-bread-crumb';
 
 import { AssessmentsRouterModule } from './assessments.router.module';
 
@@ -46,6 +47,7 @@ import { CreateAssessmentPageComponent } from './components/create-assessment-fl
 
 import { AssessmentFormService } from './services/assessment-form.service';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -59,7 +61,8 @@ import { AssessmentFormService } from './services/assessment-form.service';
     ConvlPageModule,
     FlexLayoutModule,
     MatSnackBarModule,
-    DragDropModule
+    DragDropModule,
+    ItalBreadCrumbModule
   ],
   declarations: [
     AssessmentsHomeComponent,

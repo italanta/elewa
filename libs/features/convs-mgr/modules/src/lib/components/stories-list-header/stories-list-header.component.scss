@@ -1,8 +1,7 @@
 .header {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-top: -10px;
+  gap: 1.3rem;
 
   .lessons-title {
     display: flex;
@@ -14,8 +13,8 @@
     }
 
     .name {
-      font-size: 2.5rem;
-      font-weight: 300 !important;
+      font-size: 2rem;
+      font-weight: 400 !important;
       text-transform: capitalize;
     }
   }
@@ -78,14 +77,18 @@
         min-width: 22rem;
         background-color: transparent;
         font-weight: 300;
+        padding-left: 1.875rem;
       }
 
        // Removed the transform property it's default is 360deg
       .search-wrapper_tooltip {
+        position: absolute;
+        left: 0.625rem; 
+        top: 50%;
+        transform: translateY(-50%);
         color: gray;
         font-size: medium;
-        font-weight: 500;
-        
+        font-weight: 300;
       }
     }
   }

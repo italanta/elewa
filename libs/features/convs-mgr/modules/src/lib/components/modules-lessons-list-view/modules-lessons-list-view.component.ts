@@ -7,13 +7,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Story } from '@app/model/convs-mgr/stories/main';
 
-// TODO:@LemmyMwaura This imports should come from a shared module. - fix after AT
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import {
   DeleteBotModalComponent, 
   DeleteElementsEnum, 
   CreateLessonModalComponent
-} from '@app/features/convs-mgr/stories/home';
+} from '@app/elements/layout/convs-mgr/story-elements';
+
 import { BotMutationEnum } from '@app/model/convs-mgr/bots';
 
 @Component({
@@ -62,7 +61,7 @@ export class ModulesLessonsListViewComponent implements AfterViewInit {
     this._dialog.open(DeleteBotModalComponent, {
       minWidth: 'fit-content', 
       data: { 
-        mode: DeleteElementsEnum.Story, element: story
+        mode: DeleteElementsEnum.Story, element: story, parentElement:story.parentModule
       }
     }).afterClosed();
   }

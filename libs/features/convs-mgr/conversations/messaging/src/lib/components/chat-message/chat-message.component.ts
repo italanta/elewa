@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Message, MessageDirection, TextMessage } from '@app/model/convs-mgr/conversations/messages';
 
@@ -21,7 +21,7 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
   agentMessage: boolean;
   timestamp: string;
 
-  constructor(private _sanetizer: DomSanitizer) {}
+  constructor(private _sanetizer: DomSanitizer, private elementRef: ElementRef) {}
 
   ngOnInit() {}
 
@@ -38,6 +38,16 @@ export class ChatMessageComponent implements OnInit, AfterViewInit
     const html = this._convertText((message as TextMessage).text);
     return this._sanetizer.bypassSecurityTrustHtml(html);
   }
+
+  /**
+   * Gets the native HTML element reference associated with this component.
+   *
+   * @returns {HTMLElement} The native HTML element.
+   */
+  getElementRef(): HTMLElement {
+    return this.elementRef.nativeElement;
+  }
+
 
   private _convertText(message: string)
   {

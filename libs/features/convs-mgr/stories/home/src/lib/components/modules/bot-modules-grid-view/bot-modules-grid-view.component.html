@@ -1,5 +1,5 @@
-<div class="grid" *ngIf="botModules">
-  <div class="bot-cards" [ngClass]="botModules.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
+<div class="grid" *ngIf="(parentBot$ | async) as parentBot">
+  <div *ngIf="botModules" class="bot-cards" [ngClass]="botModules.length >= 3 ? 'grid-evenly-spaced': 'grid-set-width'">
     <div class="botModule-card" *ngFor="let botModule of botModules">
      <div class="header-container">
       <div class="menu-btn">
@@ -8,7 +8,7 @@
         </button>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openBot(botModule.id!)" > Open</button>
+          <button mat-menu-item (click)="openBot(parentBot.id!, botModule.id!)" > Open </button>
           <button mat-menu-item (click)="editBot(botModule)" > Edit </button>
           <button mat-menu-item (click)="deleteBot(botModule)"> {{'ASSESSMENTS.BUTTON.DELETE' | transloco}}
           </button>
@@ -31,7 +31,7 @@
       <div class="card-footer" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
         <span> OPEN MODULE </span>
 
-        <button mat-fab color="primary" (click)="openBot(botModule.id!)">
+        <button mat-fab color="primary" (click)="openBot(parentBot.id!, botModule.id!)">
           <i class="fa-solid fa-arrow-right tooltip"></i>
         </button>
       </div>

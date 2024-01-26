@@ -34,20 +34,29 @@
       </div>
       <div class="select" fxFlex>
         <select (change)="updateList($event)">
-          <option [value]="['all', 'All']">All</option>
-          <option [value]="['blocked', 'Help Requests']">Help Requests</option>
+          <option value="all">All</option>
+          <option value="blocked">Help Requests</option>
         </select>
       </div>
     </div>
   </div>
 
-  <!-- <mat-paginator #matPagi [pageSizeOptions]="[ 10, 20, 30, 40, 100]" [hidePageSize]="isMobile()"></mat-paginator> -->
-
+  
   <div class="list" fxFlex="90">
-    <app-chat-card *ngFor="let item of (chats$|filter:searchString$) | async as chats; index as i" [chat]="chats[i]"
-      [routerLink]="['/chats', chats[i].id]" [currentChat]="currentChat">
-    </app-chat-card>
-  </div>
+    <app-chat-card *ngFor="let item of chats$ | async as chats; index as i" [chat]="chats[i]"
+    [routerLink]="['/chats', chats[i].id]" [currentChat]="currentChat">
+  </app-chat-card>
+</div>
+
+<div class="pagination">
+  <a (click)="goToPage(0)"><i class="pagination-nav fa-solid fa-angle-double-left"></i></a>
+  <a (click)="move('past')"><i class="pagination-nav fa-solid fa-angle-left"></i></a>
+
+  <a class="current-page">{{currentPage}}</a>
+
+  <a (click)="move('future')"><i class="pagination-nav fa-solid fa-angle-right"></i></a>
+  <a (click)="goToPage(totalPageCount)"><i class="pagination-nav fa-solid fa-angle-double-right"></i></a>
+</div>
 
 </div>
 
