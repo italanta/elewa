@@ -9,6 +9,8 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
     category: [template?.category ?? '', Validators.required],
     channelId: [template?.channelId ?? '', Validators.required],
     language: [template?.language ?? '', Validators.required],
+    id: [template?.id ?? ''],
+    templateId: [template?.templateId ?? ''],
     content: fb.group({
       header: fb.group({
         type: "TEXT",
@@ -20,9 +22,8 @@ export function createTemplateForm(fb: FormBuilder, template?: MessageTemplate):
         examples: fb.array([]),
       }),
       footer: [template?.content?.footer ?? ''],
-      templateId: [''],
-      sent: [''],
     }),
+    sent: [''],
     buttons: fb.array([]),
   });
 }
