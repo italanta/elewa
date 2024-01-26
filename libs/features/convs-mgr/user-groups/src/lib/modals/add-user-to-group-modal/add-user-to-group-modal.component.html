@@ -1,1 +1,25 @@
-<p>add-user-to-group-modal works!</p>
+<div class="modal-wrapper">
+    <ng-container *ngIf="modalType === 1">
+        <div class="title-section">
+            <p class="title">Add User to Group</p>
+          </div>
+    </ng-container> 
+
+    <form class="form"[formGroup]="addUserToGroupForm" (submit)="submittedUserForm()">
+        <div class="form-item">
+            <label for="userName">{{'CLASSES.MODALS.USERNAME' | transloco}}</label>
+            <input class="input" id="userName" type="text" id="" formControlName="userName">
+        </div>
+
+        <div class="form-item">
+            <label for="phoneNumber">{{'CLASSES.MODALS.PHONENUMBER' | transloco}}</label>
+            <input class="input" id="phoneNumber" type="text" id="" formControlName="phoneNumber">
+        </div>
+
+        <div class="action-btns">
+            <button class="btn" (click)="closeModal()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco
+            } }</button>
+            <button type="save">{{"CLASSES.MODALS.ACTION-BUTTONS.SAVE"}}</button>
+        </div>
+    </form>
+</div>
