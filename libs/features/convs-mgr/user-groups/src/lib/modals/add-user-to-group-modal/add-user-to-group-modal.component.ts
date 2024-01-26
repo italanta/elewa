@@ -15,7 +15,7 @@ import { modalState } from '../../models/modal-state';
   templateUrl: './add-user-to-group-modal.component.html',
   styleUrls: ['./add-user-to-group-modal.component.scss'],
 })
-export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
+export class AddUserToGroupModalComponent implements OnInit {
 
   @Input() modalType:modalState;
 
@@ -57,7 +57,7 @@ export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
         status: EnrolledEndUserStatus.Inactive
       }
 
-      const addLearner$ = this._enrollLearnerService.addLearner$(newUser, this.classroom.id);
+      const addLearner$ = this._enrollLearnerService.addLearnerWithClassroom$(newUser, this.classroom);
 
       this._sBs.sink = addLearner$.subscribe();
 
@@ -65,7 +65,4 @@ export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this._sBs.unsubscribe();
-  }
 }

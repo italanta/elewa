@@ -32,18 +32,13 @@ export class ClassroomService {
     return this._classroom$$.update(classroom);
   }
 
-  addUsersToClass(users: string[], classId: string) {
-    return this.getSpecificClassroom(classId)
-    .pipe(concatMap((cr)=> {
-      if (cr) {
-        if(cr.users) {
-          cr.users.push(...users);
-        } else {
-          cr.users = [...users];
-        }
-        return this._classroom$$.update(cr);
-      } else 
-      return of({})
-    }))
+  addUsersToClass(users: string[], cr: Classroom) {
+      if(cr.users) {
+        cr.users.push(...users);
+      } else {
+        cr.users = [...users];
+      }
+      return this._classroom$$.update(cr);
+    
    }
 }
