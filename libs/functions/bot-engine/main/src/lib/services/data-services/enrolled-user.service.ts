@@ -33,16 +33,29 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
   }
 
   async createEnrolledUser(endUser: EndUser, platform: PlatformType, id?:string) {
-    const enrolledUser: EnrolledEndUser = {
-      id:id || '',
-      name: endUser.name || '',
-      phoneNumber: endUser.phoneNumber || '',
-      classId: '',
-      currentCourse: '',
-      courses: [],
-      whatsappUserId: endUser.id,
-      status: EnrolledEndUserStatus.Active
-    };
+
+    let enrolledUser: EnrolledEndUser;
+
+    const existingEnrolledUser = await this.getEnrolledUserByPhoneNumber(endUser.phoneNumber);
+
+    if(existingEnrolledUser) {
+      enrolledUser = existingEnrolledUser;
+      enrolledUser.whatsappUserId = endUser.id;
+
+    } else {
+      enrolledUser = {
+        id:id || '',
+        name: endUser.name || '',
+        phoneNumber: endUser.phoneNumber || '',
+        classId: '',
+        currentCourse: '',
+        courses: [],
+        whatsappUserId: endUser.id,
+        status: EnrolledEndUserStatus.Active
+      };
+
+    }
+
     
     enrolledUser.platformDetails = {};
   
@@ -51,7 +64,22 @@ import { PlatformType, __PrefixToPlatformType } from '@app/model/convs-mgr/conve
       contactID: endUser.id.split('_')[2]
     }
 
-    return this.createDocument(enrolledUser, this._docPath, id);
+    if(existingEnrolledUser) {
+      return this.updateEnrolledUser(enrolledUser);
+    } else {
+
+      return this.createDocument(enrolledUser, this._docPath, id);
+    }
+  }
+
+  async getEnrolledUserByPhoneNumber(phone: string) {
+   const enrolledUser = await this.getDocumentByField('phoneNumber', phone, this._docPath);
+
+   if(enrolledUser.length > 0) {
+    return enrolledUser[0];
+   } else {
+    return null;
+   }
   }
 
   /** get timeInDate's created user count */
