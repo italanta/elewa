@@ -80,11 +80,11 @@
         <!-- ACTIONS Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-          <td mat-cell *matCellDef="let user">
+          <td mat-cell *matCellDef="let enrolledUsr">
             <span><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></span>
 
             <mat-menu #menu="matMenu">
-              <button class="mat-menu-item" mat-menu-item>
+              <button class="mat-menu-item" mat-menu-item (click)="deleteUserFromGroup(enrolledUsr.id)">
                 {{'LEARNERS.TABLE-CONTENT.ACTIONS.DELETE'| transloco }}
               </button>
             </mat-menu>

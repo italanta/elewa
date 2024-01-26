@@ -1,26 +1,25 @@
-import * as moment from 'moment';
-
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-import { SubSink } from 'subsink';
-
-
 import { Router } from '@angular/router';
-import { ClassroomService } from '@app/state/convs-mgr/classrooms';
-import { Classroom } from '@app/model/convs-mgr/classroom';
 import { MatDialog } from '@angular/material/dialog';
-import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
-import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
+
+import { SubSink } from 'subsink';
+import { combineLatest } from 'rxjs';
+
+
 import { Timestamp } from '@firebase/firestore-types';
 import { __DateFromStorage } from '@iote/time';
 
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { Classroom } from '@app/model/convs-mgr/classroom';
+import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
+import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
+
 import { AddUserToGroupModalComponent } from '../../modals/add-user-to-group-modal/add-user-to-group-modal.component';
-import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-single-group-user-list',
   templateUrl: './single-group-user-list.component.html',
@@ -65,12 +64,13 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   loadClassroomLearners()
   {
-   this._sbs.sink = this._learnerService.getLearnersFromClass(this.classRoomId)
-        .subscribe((learners) => this.dataSource.data = learners);
+    this._sbs.sink = this._learnerService.getLearnersFromClass(this.classRoomId)
+      .subscribe((learners) => this.dataSource.data = learners);
 
     this.classroomService.getSpecificClassroom(this.classRoomId)
-      .subscribe((classroom)=> {
-        if(classroom) this.classRoom = classroom;
+      .subscribe((classroom) =>
+      {
+        if (classroom) this.classRoom = classroom;
       });
   }
 
@@ -88,6 +88,17 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
     this._dialog.open(AddUserToGroupModalComponent, {
       data: this.classRoom
     });
+  }
+
+  deleteUserFromGroup(learnerId: string)
+  {
+    const learnerUpdate$ = this._learnerService.deleteLearnerFromGroup(learnerId);
+
+    this.classRoom.users = this.classRoom.users?.filter((id) => id !== learnerId);
+
+    const classroomUpdate$ = this.classroomService.updateClassroom(this.classRoom);
+
+    combineLatest([learnerUpdate$, classroomUpdate$]).subscribe();
   }
 
   masterToggle()
@@ -122,17 +133,19 @@ export class SingleGroupUserListComponent implements OnInit, OnDestroy
 
   formatDate(date: Timestamp) 
   {
-    return __DateFromStorage(date).format('MMM DD, YYYY')
+    return __DateFromStorage(date).format('MMM DD, YYYY');
   }
 
-  getStatus(status: number) {
+  getStatus(status: number)
+  {
     return (
       EnrolledEndUserStatus[status].charAt(0).toUpperCase() +
       EnrolledEndUserStatus[status].slice(1)
     );
   }
-  
-  ngOnDestroy(): void {
+
+  ngOnDestroy(): void
+  {
     this._sbs.unsubscribe();
   }
 }

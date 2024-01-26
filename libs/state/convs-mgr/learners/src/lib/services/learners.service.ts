@@ -2,7 +2,7 @@ import * as _ from "lodash";
 
 import { Injectable } from '@angular/core';
 
-import { map, switchMap, of, combineLatest, concatMap } from 'rxjs';
+import { map, switchMap, of, combineLatest, concatMap, take } from 'rxjs';
 
 import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { EndUserService } from '@app/state/convs-mgr/end-users';
@@ -10,6 +10,7 @@ import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { LearnersStore } from '../store/learners.store';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { Classroom } from "@app/model/convs-mgr/classroom";
 
 @Injectable({
   providedIn: 'root',
@@ -55,16 +56,31 @@ export class EnrolledLearnersService {
     return this._enrolledLearners$$.getOne(id);
   }
 
-  addLearner$(learner: EnrolledEndUser, classId?: string) {
+  deleteLearnerFromGroup(learnerId: string) {
+    return this.getSpecificLearner$(learnerId)
+    .pipe(
+      take(1),
+      concatMap((learner) =>
+      {
+        if (learner) {
+          learner.classId = "";
+          return this.updateLearner$(learner);
 
-    if(classId) {
+        } else {
+          return of({});
+        }
+      }));
+  }
+
+  addLearnerWithClassroom$(learner: EnrolledEndUser, classroom: Classroom) {
       return this._enrolledLearners$$.add(learner)
                 .pipe(concatMap((enrolledLearner)=> {
                   const learnerId = enrolledLearner.id as string;
-                  return this._classroomService.addUsersToClass([learnerId], classId)}))
-    } else {
-      return this._enrolledLearners$$.add(learner);
-    }
+                  return this._classroomService.addUsersToClass([learnerId], classroom)}))
+  }
+
+  addLearner$(learner: EnrolledEndUser) {
+    return this._enrolledLearners$$.add(learner);
   }
 
   removeLearner$(learner: EnrolledEndUser) {
