@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { concatMap, of } from 'rxjs';
+
 import { Classroom } from '@app/model/convs-mgr/classroom';
+
 import { ClassroomStore } from '../store/classroom.store';
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 @Injectable({
   providedIn:  'root',
@@ -30,16 +32,18 @@ export class ClassroomService {
     return this._classroom$$.update(classroom);
   }
 
-  addUsersToClass(users: string[], classId: string): void {
-    this.getSpecificClassroom(classId).subscribe((cr: Classroom | undefined) => {
+  addUsersToClass(users: string[], classId: string) {
+    return this.getSpecificClassroom(classId)
+    .pipe(concatMap((cr)=> {
       if (cr) {
         if(cr.users) {
           cr.users.push(...users);
         } else {
           cr.users = [...users];
         }
-        this._classroom$$.update(cr);
-      }
-    });
+        return this._classroom$$.update(cr);
+      } else 
+      return of({})
+    }))
    }
 }
