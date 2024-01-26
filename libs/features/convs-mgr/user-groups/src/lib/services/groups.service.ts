@@ -22,6 +22,12 @@ export class GroupsService {
     })
   }
 
+  addGroup(data: UserGroups){
+    this.groupsService.addUserGroups(data).subscribe((response)=>{
+      console.log(response);
+    })
+  }
+
   getUserGroups(): Observable<UserGroups[]> {
     return this.groupsService.getAllUserGroups().pipe(
       map(response => response)
