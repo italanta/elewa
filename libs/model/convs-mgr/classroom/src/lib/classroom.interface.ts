@@ -13,6 +13,9 @@ export interface Classroom extends IObject {
 
   /** A boolean flag indicating whether the classroom has been deleted */
   deleted: boolean;
+
+  /** The course the users in the classroom are enrolled to */
+  course?: string;
 }
 
 /** classroom mode enum - has the different classroom mutations you can perfom on a user */
