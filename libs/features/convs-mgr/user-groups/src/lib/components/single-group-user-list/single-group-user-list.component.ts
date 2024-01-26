@@ -57,7 +57,7 @@ export class SingleGroupUserListComponent implements OnInit {
 
   openAddModal() {
     const dialogRef = this._dialog.open(AddUserToGroupModalComponent, {
-      width: '400px', 
+     data: this.classRoom
     });
 
     dialogRef.afterClosed().subscribe((result:Classroom)=>{

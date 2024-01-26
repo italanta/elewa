@@ -1,10 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { SubSink } from 'subsink';
 
-import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { EnrolledLearnersService } from '@app/state/convs-mgr/learners';
 import { EnrolledEndUser, EnrolledEndUserStatus } from '@app/model/convs-mgr/learners';
 import { Classroom } from '@app/model/convs-mgr/classroom';
@@ -17,7 +16,7 @@ import { modalState } from '../../models/modal-state';
   styleUrls: ['./add-user-to-group-modal.component.scss'],
 })
 export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
-  [x:string]:any;
+
   @Input() modalType:modalState;
 
   private _sBs = new SubSink();
@@ -26,10 +25,11 @@ export class AddUserToGroupModalComponent implements OnInit, OnDestroy {
   classroom: Classroom;
 
   constructor(private _fb:FormBuilder, 
-              private _dialog:MatDialog, 
-              private _classroomService:ClassroomService, 
-              private _enrollLearnerService: EnrolledLearnersService
-              ){ }
+              private _dialog:MatDialog,
+              private _enrollLearnerService: EnrolledLearnersService,
+              @Inject(MAT_DIALOG_DATA) public data: Classroom
+              )
+    { this.classroom = data; }
 
   ngOnInit(): void {
     this.buildForm();
