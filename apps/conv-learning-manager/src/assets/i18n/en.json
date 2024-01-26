@@ -767,7 +767,8 @@
     "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "PhoneNumber",
+      "PHONE-NUMBER": "Phone number",
+      "DATE-ENROLLED": "Date Enrolled",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status",
