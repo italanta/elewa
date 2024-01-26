@@ -7,6 +7,7 @@ import { AddUserToGroupModalComponent } from '../../modals/add-user-to-group-mod
 import { Router } from '@angular/router';
 import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 import { Classroom } from '@app/model/convs-mgr/classroom';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-single-group-user-list',
@@ -27,12 +28,12 @@ export class SingleGroupUserListComponent implements OnInit {
   ];
 
   dataSource = new MatTableDataSource<any>();
-  dialog: any;
   classRoom: any;
 
   classRoomId = '';
 
   constructor(
+    private _dialog: MatDialog,
     private classroomService: ClassroomService,
     private router$$: Router
     ) {
@@ -54,14 +55,8 @@ export class SingleGroupUserListComponent implements OnInit {
     );
   }
 
-  // addUserGroup(userGroups: UserGroups) {
-  //   this.userGroupsService.addUserGroups(classRooms).subscribe(() => {
-  //     this.loadUserGroups();
-  //   });
-  // }
-
   openAddModal() {
-    const dialogRef = this.dialog.open(AddUserToGroupModalComponent, {
+    const dialogRef = this._dialog.open(AddUserToGroupModalComponent, {
       width: '400px', 
     });
 
