@@ -10,7 +10,7 @@ import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 })
 export class SingleGroupHeaderComponent {  
 
-  userGroupName = '';
+  classRoomName = '';
 
 
   constructor(
@@ -23,10 +23,10 @@ export class SingleGroupHeaderComponent {
   }
 
   loadClassroom() {
-    const userGroupId = this._router.url.split('/')[2].toString();
-    this.classroomService.getSpecificClassroom(userGroupId).subscribe(
+    const classRoomId = this._router.url.split('/')[2].toString();
+    this.classroomService.getSpecificClassroom(classRoomId).subscribe(
       (data: any) => {
-        this.userGroupName = data.className;
+        this.classRoomName = data.className;
       }
     );                
   }

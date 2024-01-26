@@ -14,8 +14,8 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
 {
   private _sBs = new SubSink();
 
-  userGroup: any;
-  userGroupId = '';
+  classRoom: any;
+  classRoomId = '';
 
   constructor(
     private _dialog: MatDialog,
@@ -23,7 +23,7 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
     @Inject(MAT_DIALOG_DATA) public data: { id: string; }
   )
   {
-    this.userGroupId = this.data.id;
+    this.classRoomId = this.data.id;
   }
   ngOnInit(): void
   {
@@ -32,10 +32,10 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
   }
   getUserGroup()
   {
-    this.classroomService.getSpecificClassroom(this.userGroupId).subscribe(
-      (userGroup) =>
+    this.classroomService.getSpecificClassroom(this.classRoomId).subscribe(
+      (classRoom) =>
       {
-        this.userGroup = userGroup;
+        this.classRoom = classRoom;
       }
     );
   }
@@ -49,7 +49,7 @@ export class DeleteUserGroupModalComponent implements OnInit, OnDestroy
 
   deleteClassroom()
   {
-    this.classroomService.deleteClassroom(this.userGroup);
+    this.classroomService.deleteClassroom(this.classRoom);
     this._dialog.closeAll();
 
   }

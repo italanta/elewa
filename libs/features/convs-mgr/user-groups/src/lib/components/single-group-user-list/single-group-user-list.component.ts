@@ -28,37 +28,34 @@ export class SingleGroupUserListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<any>();
   dialog: any;
-  userGroup: any;
+  classRoom: any;
 
-  userGroupId = '';
+  classRoomId = '';
 
   constructor(
     private classroomService: ClassroomService,
     private router$$: Router
     ) {
-      this.userGroupId = this.router$$.url.split('/')[2].toString();
+      this.classRoomId = this.router$$.url.split('/')[2].toString();
     }
 
   ngOnInit() {
     this.loadClassroom();
-    // const userGroup = this.userGroup as UserGroups;
-    // const users = userGroup.users as any[];
-    // this.dataSource.data = users;
   }
 
   loadClassroom() {
-    this.classroomService.getSpecificClassroom(this.userGroupId).subscribe(
+    this.classroomService.getSpecificClassroom(this.classRoomId).subscribe(
       (data) => {
-        this.userGroup = data;
-        const userGroup = this.userGroup as Classroom;
-        const users = userGroup.users as any[];
+        this.classRoom = data;
+        const classRoom = this.classRoom as Classroom;
+        const users = classRoom.users as any[];
         this.dataSource.data=users;
       }
     );
   }
 
   // addUserGroup(userGroups: UserGroups) {
-  //   this.userGroupsService.addUserGroups(userGroups).subscribe(() => {
+  //   this.userGroupsService.addUserGroups(classRooms).subscribe(() => {
   //     this.loadUserGroups();
   //   });
   // }
