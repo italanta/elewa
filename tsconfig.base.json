@@ -289,9 +289,6 @@
       "@app/model/convs-mgr/stories/main": [
         "libs/model/convs-mgr/stories/main/src/index.ts"
       ],
-      "@app/model/convs-mgr/user-groups": [
-        "libs/model/convs-mgr/user-groups/src/index.ts"
-      ],
       "@app/model/finance/payments": [
         "libs/model/finance/payments/src/index.ts"
       ],
@@ -436,12 +433,6 @@
       ],
       "@app/state/convs-mgr/story-editor": [
         "libs/state/convs-mgr/story-editor/src/index.ts"
-      ],
-      "@app/state/convs-mgr/user-group": [
-        "libs/state/convs-mgr/user-group/src/index.ts"
-      ],
-      "@app/state/convs-mgr/user-groups": [
-        "libs/state/convs-mgr/user-groups/src/index.ts"
       ],
       "@app/state/convs-mgr/variables": [
         "libs/state/convs-mgr/variables/src/index.ts"

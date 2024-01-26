@@ -1,15 +1,12 @@
-import { DialogRef } from '@angular/cdk/dialog';
-import { UserGroups } from '@app/model/convs-mgr/user-groups';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddUserToGroupModalComponent } from '../../modals/add-user-to-group-modal/add-user-to-group-modal.component';
-import { result } from 'lodash';
-import { GroupsService } from '../../services/groups.service';
-import { UserGroupService } from '@app/state/convs-mgr/user-group';
+
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+import { Classroom } from '@app/model/convs-mgr/classroom';
 
 @Component({
   selector: 'app-single-group-user-list',
@@ -36,24 +33,24 @@ export class SingleGroupUserListComponent implements OnInit {
   userGroupId = '';
 
   constructor(
-    private userGroupsService: UserGroupService,
+    private classroomService: ClassroomService,
     private router$$: Router
     ) {
       this.userGroupId = this.router$$.url.split('/')[2].toString();
     }
 
   ngOnInit() {
-    this.loadUserGroup();
+    this.loadClassroom();
     // const userGroup = this.userGroup as UserGroups;
     // const users = userGroup.users as any[];
     // this.dataSource.data = users;
   }
 
-  loadUserGroup() {
-    this.userGroupsService.getUserGroup$(this.userGroupId).subscribe(
+  loadClassroom() {
+    this.classroomService.getSpecificClassroom(this.userGroupId).subscribe(
       (data) => {
         this.userGroup = data;
-        const userGroup = this.userGroup as UserGroups;
+        const userGroup = this.userGroup as Classroom;
         const users = userGroup.users as any[];
         this.dataSource.data=users;
       }
@@ -71,15 +68,15 @@ export class SingleGroupUserListComponent implements OnInit {
       width: '400px', 
     });
 
-    dialogRef.afterClosed().subscribe((result:UserGroups)=>{
+    dialogRef.afterClosed().subscribe((result:Classroom)=>{
       if(result){
         this.addUserGroup(result)
       }
     })
   }
-  addUserGroup(userGroups: UserGroups) {
-    this.userGroupsService.addUserGroups(userGroups).subscribe(() => {
-      this.loadUserGroup();
+  addUserGroup(classroom: Classroom) {
+    this.classroomService.addClassroom(classroom).subscribe(() => {
+      // this.loadClassroom();
     });
   }   
   // openDeleteModal() {}

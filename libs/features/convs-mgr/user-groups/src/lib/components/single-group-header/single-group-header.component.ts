@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserGroups } from '@app/model/convs-mgr/user-groups';
-import { UserGroupService } from '@app/state/convs-mgr/user-group';
+
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 @Component({
   selector: 'app-single-group-header',
@@ -15,18 +15,17 @@ export class SingleGroupHeaderComponent {
 
   constructor(
     private _router: Router,
-    private _userGroupService: UserGroupService
+    private classroomService: ClassroomService
   ) {}
 
   ngOnInit() {
-    this.loadUserGroup();
+    this.loadClassroom();
   }
 
-  loadUserGroup() {
+  loadClassroom() {
     const userGroupId = this._router.url.split('/')[2].toString();
-    this._userGroupService.getUserGroup$(userGroupId).subscribe(
+    this.classroomService.getSpecificClassroom(userGroupId).subscribe(
       (data: any) => {
-        console.log("", data)
         this.userGroupName = data.className;
       }
     );                

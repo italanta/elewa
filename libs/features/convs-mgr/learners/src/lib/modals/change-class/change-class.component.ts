@@ -54,9 +54,9 @@ export class ChangeClassComponent implements OnInit, OnDestroy {
     if (!this.selectedClass || !this.enrolledUser) return;
 
     this.isUpdatingClass = true;
-    this.enrolledUser.classId = this.selectedClass;
+
     this._sBs.sink = this._enrolledUser$
-      .updateLearner$(this.enrolledUser)
+      .updateLearnerClass$(this.enrolledUser, this.selectedClass)
       .subscribe(() => {
         this.isUpdatingClass = false;
         this.dialogRef.close();

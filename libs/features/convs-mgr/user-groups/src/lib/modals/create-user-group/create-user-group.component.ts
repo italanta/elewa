@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
+
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
+
 import { modalState } from '../../models/modal-state';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { GroupsService } from '../../services/groups.service';
-import { take } from 'lodash';
 
 @Component({
   selector: 'app-create-user-group',
@@ -17,7 +18,7 @@ export class CreateUserGroupComponent  {
   createUserGroupForm: FormGroup;
   isLoading: boolean;
 
-  constructor(private _fb: FormBuilder, private _dialog: MatDialog, private _group:GroupsService) {
+  constructor(private _fb: FormBuilder, private _dialog: MatDialog,private _classroomService:ClassroomService) {
     this.createUserGroupForm = this._fb.group({
       className:[''],
       descriptionName:['']
@@ -31,7 +32,7 @@ export class CreateUserGroupComponent  {
   submitedUserForm(){
    
     console.log(this.createUserGroupForm.value)
-    this._group.createGroup(this.createUserGroupForm.value)
+    this._classroomService.addClassroom(this.createUserGroupForm.value)
     
   }
 

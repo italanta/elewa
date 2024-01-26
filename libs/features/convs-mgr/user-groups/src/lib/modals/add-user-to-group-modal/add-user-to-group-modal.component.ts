@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { modalState } from '../../models/modal-state';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { GroupsService } from '../../services/groups.service';
+import { ClassroomService } from '@app/state/convs-mgr/classrooms';
 
 @Component({
   selector: 'app-add-user-to-group-modal',
@@ -16,7 +16,7 @@ export class AddUserToGroupModalComponent {
   addUserToGroupForm:FormGroup;
   isLoading:boolean;
 
-  constructor(private _fb:FormBuilder, private _dialog:MatDialog, private _group:GroupsService){
+  constructor(private _fb:FormBuilder, private _dialog:MatDialog, private _classroomService:ClassroomService){
     this.addUserToGroupForm = this._fb.group({
       userName:[''],
       phoneNumber:['']
@@ -28,8 +28,7 @@ export class AddUserToGroupModalComponent {
   }
 
   submittedUserForm(){
-    console.log(this.addUserToGroupForm.value)
-    this._group.addGroup(this.addUserToGroupForm.value)
+    this._classroomService.addClassroom(this.addUserToGroupForm.value)
 
   }
 
