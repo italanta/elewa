@@ -776,6 +776,12 @@
 
     },
 
+    "TABLE-CONTENT": {
+      "ACTIONS": {
+        "DELETE": "Delete"
+      }
+    },
+
     "USER-GROUPS":{
       "TITLE":"userGroups",
       "USER-GROUPS-HEADER":{
