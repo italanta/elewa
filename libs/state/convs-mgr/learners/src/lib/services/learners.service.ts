@@ -57,6 +57,11 @@ export class EnrolledLearnersService {
     return this._enrolledLearners$$.update(learner);
   }
 
+  updateLearnerClass$(learner: EnrolledEndUser, classId: string) {
+    learner.classId = classId;
+    return this.updateLearner$(learner);
+  }
+
   getLearnerId$(platform: PlatformType, id: string ){
     return this._enrolledLearners$$.getLearnerByPlatfromId(platform, id)
   }
