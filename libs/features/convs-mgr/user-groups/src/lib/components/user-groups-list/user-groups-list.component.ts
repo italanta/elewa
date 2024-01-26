@@ -25,7 +25,7 @@ export class UserGroupsListComponent implements OnInit {
   displayedColumns = [
     'className',
     'users',
-    'descriptionName',
+    'description',
     'course',
     'actions'
   ];

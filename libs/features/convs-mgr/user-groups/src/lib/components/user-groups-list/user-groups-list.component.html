@@ -7,12 +7,12 @@
 
         <ng-container matColumnDef="users">
             <th class="table-header" mat-header-cell *matHeaderCellDef>Users</th>
-                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.users}}</td>
+                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.users ? group.users.length : 0}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="descriptionName">
+        <ng-container matColumnDef="description">
             <th class="table-header" mat-header-cell *matHeaderCellDef>Description</th>
-                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.descriptionName}}</td>
+                <td mat-cell *matCellDef="let group" (click)="clickGroupRow(group.id)">{{group.description}}</td>
         </ng-container>
 
         <ng-container matColumnDef="course" >

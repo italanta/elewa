@@ -21,7 +21,7 @@ export class CreateUserGroupComponent  {
   constructor(private _fb: FormBuilder, private _dialog: MatDialog,private _classroomService:ClassroomService) {
     this.createUserGroupForm = this._fb.group({
       className:[''],
-      descriptionName:['']
+      description:['']
     })
   }
   
