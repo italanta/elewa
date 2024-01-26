@@ -1,4 +1,3 @@
-// import { userGroupsStateModule } ';
 import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from '@angular/fire/compat';
