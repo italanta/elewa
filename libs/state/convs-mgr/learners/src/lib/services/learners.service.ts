@@ -1,3 +1,5 @@
+import * as _ from "lodash";
+
 import { Injectable } from '@angular/core';
 
 import { map, switchMap, of, combineLatest, concatMap } from 'rxjs';
@@ -41,6 +43,12 @@ export class EnrolledLearnersService {
         return combineLatest(endUsers);
       })
     );
+  }
+
+  getLearnersFromClass(classId: string) {
+    return this.getAllLearners$().pipe(map((learners)=> {
+      return _.filter(learners, {classId: classId});
+    }))
   }
 
   getSpecificLearner$(id: string) {
