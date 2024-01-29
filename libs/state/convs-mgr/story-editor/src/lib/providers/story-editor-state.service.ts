@@ -53,7 +53,7 @@ export class StoryEditorStateService
                       debounceTime(500),
                       // Load story editor state. This includes the story itself, the blocks which it consists and the connections.
                       switchMap(story => story ? combineLatest([of(story), 
-                                                                this._blocks$$.getBlocksByStory(story.id!), 
+                                                                this._blocks$$.get(), 
                                                                 this._connections$$.get()]) 
                                                 : of([])));
     
