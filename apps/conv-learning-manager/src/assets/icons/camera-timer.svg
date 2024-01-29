@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 45 45">
+  <g id="MDI_camera-timer" data-name="MDI / camera-timer" opacity="0.53">
+    <g id="Boundary" fill="#fff" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0">
+      <rect width="45" height="45" stroke="none"/>
+      <rect x="0.5" y="0.5" width="44" height="44" fill="none"/>
+    </g>
+    <path id="Path_camera-timer" data-name="Path / camera-timer" d="M8.027,11.7a1.981,1.981,0,0,1,0-2.84,2.078,2.078,0,0,1,2.89,0L24.693,19.62l.718.56a3.939,3.939,0,0,1,0,5.66,4.181,4.181,0,0,1-5.8,0l-.574-.7L8.027,11.7M22.5,39A16.2,16.2,0,0,0,38.9,23a15.835,15.835,0,0,0-4.8-11.32l2.89-2.82A19.7,19.7,0,0,1,43,23,20.255,20.255,0,0,1,22.5,43,20.255,20.255,0,0,1,2,23H6.1A16.2,16.2,0,0,0,22.5,39m0-38a4.051,4.051,0,0,1,4.1,4,4.1,4.1,0,0,1-8.2,0A4.051,4.051,0,0,1,22.5,1Z" transform="translate(0 1)" fill="#fff"/>
+  </g>
+</svg>
