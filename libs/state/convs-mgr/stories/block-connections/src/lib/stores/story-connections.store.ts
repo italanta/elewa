@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Repository, DataService } from '@ngfi/angular';
 import { DataStore }  from '@ngfi/state';
 
-import { of } from 'rxjs'
+import { combineLatest, of } from 'rxjs'
 import { tap, throttleTime, switchMap, map } from 'rxjs/operators';
 
 import { Logger } from '@iote/bricks-angular';
@@ -12,6 +12,7 @@ import { Story } from '@app/model/convs-mgr/stories/main';
 import { StoryBlockConnection } from '@app/model/convs-mgr/stories/blocks/main';
 
 import { ActiveStoryStore } from '@app/state/convs-mgr/stories';
+import { ActiveOrgStore } from '@app/private/state/organisation/main';
 
 @Injectable()
 export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
@@ -20,17 +21,20 @@ export class StoryConnectionsStore extends DataStore<StoryBlockConnection>
   protected _activeRepo: Repository<StoryBlockConnection>;
 
   constructor(_story$$: ActiveStoryStore,
+              private _activeOrgStore$$: ActiveOrgStore,
               private _repoFac: DataService,
               _logger: Logger)
   {
     super("always", _logger);
 
-    const data$ = _story$$.get()
-                    .pipe(
-                      tap((story: Story) => this._activeRepo = _repoFac.getRepo<StoryBlockConnection>(`orgs/${story.orgId}/stories/${story.id}/connections`)),
-                      switchMap((story: Story) =>
-                        story ? this._activeRepo.getDocuments() : of([] as any[])),
-                      throttleTime(400, undefined, { leading: true, trailing: true }));
+    const activeOrg$ = this._activeOrgStore$$.get();
+
+    const data$ = combineLatest([activeOrg$,  _story$$.get()])
+                .pipe(
+                  tap(([org, story]) => this._activeRepo = _repoFac.getRepo<StoryBlockConnection>(`orgs/${org.id}/stories/${story.id}/connections`)),
+                  switchMap(([_org, story]) => 
+                    story ? this._activeRepo.getDocuments() : of([] as StoryBlockConnection[])),
+                  throttleTime(400, undefined, { leading: true, trailing: true }));
 
     this._sbS.sink = data$.subscribe(connections => {
       this.set(connections, 'UPDATE - FROM DB');
