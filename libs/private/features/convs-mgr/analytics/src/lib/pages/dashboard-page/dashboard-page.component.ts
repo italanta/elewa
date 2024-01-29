@@ -27,6 +27,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   classrooms$: Observable<Classroom[]>;
   botModules$: Observable<BotModule[]>;
 
+  topStats = [{count: 7, text: "Courses Published", color: "#05668D", icon: "check-all.svg"},
+              {count: 12, text: "Courses UnPublished", color: "#392F5A", icon: "camera-timer.svg"},
+              {count: 4, text: "Courses Started", color: "#404E4D", icon: "book-multiple-outline.svg"},
+              {count: 3, text: "Courses Completed", color: "#69306D", icon: "book-check-outline.svg"}]
+
+
   periodical: Periodicals = 'Weekly';
 
   allCourse = AllCourse; // so i can access this in the template

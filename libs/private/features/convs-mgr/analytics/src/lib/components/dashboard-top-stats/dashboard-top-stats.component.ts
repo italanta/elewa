@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./dashboard-top-stats.component.scss'],
 })
 export class DashboardTopStatsComponent {
-  @Input() topStats: {count: number, color: string, text: string}[];
+  @Input() topStats: {count: number, color: string, text: string, icon: string}[];
 }
