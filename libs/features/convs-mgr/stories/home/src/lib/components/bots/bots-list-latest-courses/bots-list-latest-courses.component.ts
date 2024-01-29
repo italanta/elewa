@@ -46,8 +46,8 @@ export class BotsListLatestCoursesComponent implements OnInit {
 
   connectToChannel(botId: string) {
     this._dialog.open( MainChannelModalComponent,{
-      width: '40rem',
-      height:'30rem',
+      width: '30rem',
+      height:'27rem',
       data:{botId:botId}
     })
    }
