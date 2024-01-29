@@ -465,8 +465,6 @@
       "CLASSNAME": "ClassName",
       "GROUPNAME": "GroupName",
       "DESCRIPTION": "Description",
-      "USERNAME":"UserName",
-      "PHONENUMBER":"PhoneNumber",
       "ACTION-BUTTONS": {
         "SAVE":"Save",
         "CANCEL": "Cancel",
@@ -767,12 +765,12 @@
     "LEARNERS" : "Learners",
     "TABLE-HEADER": {
       "NAME": "Name",
-      "PHONE-NUMBER": "Phone number",
       "DATE-ENROLLED": "Date Enrolled",
       "COURSE": "Course",
       "CLASS": "Class",
       "STATUS": "Status",
-      "USERNAME":"UserName"
+      "USERNAME":"UserName",
+      "PHONE-NUMBER": "Phone number"
 
     },
 

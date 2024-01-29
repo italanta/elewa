@@ -5,20 +5,20 @@
           </div>
     </ng-container> 
 
-    <form class="form"[formGroup]="addUserToGroupForm">
+    <form class="form"[formGroup]="addUserToGroupForm" (submit)="submitedUserForm()">
         <div class="form-item">
-            <label for="userName">{{'CLASSES.MODALS.USERNAME' | transloco}}</label>
+            <label for="userName">{{'LEARNERS.TABLE-HEADER.USERNAME' | transloco}}</label>
             <input class="input" id="userName" type="text" id="" formControlName="userName">
         </div>
 
         <div class="form-item">
-            <label for="phoneNumber">{{'CLASSES.MODALS.PHONENUMBER' | transloco}}</label>
+            <label for="phoneNumber">{{'LEARNERS.TABLE-HEADER.PHONE-NUMBER' | transloco}}</label>
             <input class="input" id="phoneNumber" type="text" id="" formControlName="phoneNumber">
         </div>
 
         <div class="action-btns">
             <button class="btn" (click)="closeModal()">{{'CLASSESS.MODALS.ACTION-BUTTONS.CANCEL' | transloco }}</button>
-            <button class="btn save" (click)="addUserToGroup()">{{"CLASSES.MODALS.ACTION-BUTTONS.SAVE"}}</button>
-        </div>
+              <button type="submit">{{'CLASSESS.MODALS.ACTION-BUTTONS.SAVE' | transloco }}</button>
+          </div>
     </form>
 </div>
