@@ -15,6 +15,8 @@ import { ReportsPageComponent } from './pages/reports-page/reports-page.componen
 
 import { AnalyticsRouterModule } from './analytics.router.module';
 
+import { DashboardTopStatsComponent } from './components/dashboard-top-stats/dashboard-top-stats.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +27,6 @@ import { AnalyticsRouterModule } from './analytics.router.module';
     MultiLangModule,
     MaterialDesignModule
   ],
-  declarations: [DashboardPageComponent, ReportsPageComponent],
+  declarations: [DashboardPageComponent, ReportsPageComponent, DashboardTopStatsComponent],
 })
 export class AnalyticsModule {}

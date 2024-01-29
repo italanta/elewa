@@ -1,0 +1,11 @@
+<div class="cards" fxLayout="row" fxLayoutAlign="space-between center" fxFlex>
+
+  <div *ngFor="let stat of topStats" class="card" fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px" fxFlex="24">
+    <span class="card-title">
+      {{ stat.text }}
+    </span>
+    <span class="card-number">
+      {{stat.count}}
+    </span>
+  </div>
+</div>

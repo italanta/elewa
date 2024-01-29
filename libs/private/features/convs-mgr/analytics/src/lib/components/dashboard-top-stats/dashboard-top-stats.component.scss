@@ -1,0 +1,33 @@
+.card {
+  color: black;
+  padding: 20px;
+  height: 140px;
+  border-radius: 10px;
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .card-number {
+    font-size: 3rem;
+    font-weight: 400;
+  }
+}
+
+.card:first-of-type {
+  background-color: #C3FA6C;
+}
+
+.card:nth-child(2) {
+  background-color: #C7D8C5;
+}
+
+.card:nth-child(3) {
+  background-color: #EC652A;
+  color: white!important;
+}
+
+.card:nth-child(4) {
+  background-color: #B8AFDA;
+}
