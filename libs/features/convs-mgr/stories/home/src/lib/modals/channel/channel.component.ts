@@ -12,9 +12,9 @@ import { BotsModuleService } from '../../services/bots-module.service';
   styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent implements OnChanges{
-  private _selectedPlatformAndBot: {selectedPlatform: PlatformType, botId: any};
+  private _selectedPlatformAndBot: {selectedPlatform: PlatformType, botId: string};
   
-  @Input() set selectedPlatformAndBot(value: { selectedPlatform: PlatformType, botId: any }) {
+  @Input() set selectedPlatformAndBot(value: { selectedPlatform: PlatformType, botId: string }) {
     this._selectedPlatformAndBot = value;
     if (this._selectedPlatformAndBot && this._selectedPlatformAndBot.selectedPlatform !== undefined) {
       this.fetchChannels();
@@ -29,7 +29,7 @@ export class ChannelComponent implements OnChanges{
   
   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { selectedPlatform: PlatformType , botId:any },
+    @Inject(MAT_DIALOG_DATA) public data: { selectedPlatform: PlatformType , botId:string },
     private botsService :BotsModuleService,
     private dialogRef: MatDialogRef<ChannelComponent>,
     private _dialog: MatDialog

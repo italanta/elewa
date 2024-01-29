@@ -15,7 +15,7 @@ import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 export class MainChannelModalComponent implements OnInit, OnDestroy {
   private _sBs = new SubSink();
   selectedTab = 1;
-  selectedPlatformAndBot: {selectedPlatform: PlatformType, botId: any};
+  selectedPlatformAndBot: {selectedPlatform: PlatformType, botId: string};
   
 
   constructor(private router: ActivatedRoute) {}
@@ -26,7 +26,7 @@ export class MainChannelModalComponent implements OnInit, OnDestroy {
     });
   }
   
-  handlePlatformAndBotSelected(value: {selectedPlatform: PlatformType, botId: any}) {
+  handlePlatformAndBotSelected(value: {selectedPlatform: PlatformType, botId: string}) {
     this.selectedPlatformAndBot = value;
     this.selectedTab = 2;
 }

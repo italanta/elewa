@@ -17,7 +17,7 @@ import { BotsModuleService } from '../../services/bots-module.service';
 
 
 export class ConnectToChannelModalComponent {
-  @Output() platformAndBotSelected = new EventEmitter<{selectedPlatform: PlatformType, botId: any}>();
+  @Output() platformAndBotSelected = new EventEmitter<{selectedPlatform: PlatformType, botId: string}>();
 
   channels:CommunicationChannel[];
   selectedPlatform: PlatformType;
@@ -27,7 +27,7 @@ export class ConnectToChannelModalComponent {
   messengerValue: PlatformType = PlatformType.Messenger;
   
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: string,
     private fb: FormBuilder,
     private botsService :BotsModuleService,
     private _dialog: MatDialog
