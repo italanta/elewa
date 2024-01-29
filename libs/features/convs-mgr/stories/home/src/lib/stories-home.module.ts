@@ -30,6 +30,7 @@ import { FilterCoursePipe } from './pipes/filter-course.pipe';
 import { ConnectToChannelModalComponent } from './modals/connect-to-channel-modal/connect-to-channel-modal.component';
 import { SpinnerModalComponent } from './modals/spinner-modal/spinner-modal.component';
 import { ChannelComponent } from './modals/channel/channel.component';
+import { MainChannelModalComponent } from './modals/main-channel-modal/main-channel-modal.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { ChannelComponent } from './modals/channel/channel.component';
     ConnectToChannelModalComponent,
     SpinnerModalComponent,
     ChannelComponent,
+    MainChannelModalComponent,
   ],
 })
 export class ConvsMgrStoriesHomeModule {}

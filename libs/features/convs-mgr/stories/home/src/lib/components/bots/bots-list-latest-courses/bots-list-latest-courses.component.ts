@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 import { Observable, map, tap } from 'rxjs';
 
@@ -11,8 +11,8 @@ import { __DateFromStorage } from '@iote/time';
 import { Bot } from '@app/model/convs-mgr/bots';
 
 
-import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
 import { BotsModuleService } from '../../../services/bots-module.service';
+import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 
 @Component({
   selector: 'italanta-apps-bots-list-latest-courses',
@@ -45,11 +45,11 @@ export class BotsListLatestCoursesComponent implements OnInit {
   }
 
   connectToChannel(botId: string) {
-    this._dialog.open(ConnectToChannelModalComponent,{
-      width: '30rem',
-       height: '20rem',
-       data: { botId: botId }
-    });
+    this._dialog.open( MainChannelModalComponent,{
+      width: '40rem',
+      height:'30rem',
+      data:{botId:botId}
+    })
    }
   deleteBot(botId:Bot){
     this._botsModuleService$.deleteBot(botId)

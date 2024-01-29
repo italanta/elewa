@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -6,7 +6,7 @@ import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/s
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
 import { BotsModuleService } from '../../services/bots-module.service';
-import { ChannelComponent } from '../channel/channel.component';
+
 
 @Component({
   selector: 'italanta-apps-connect-to-channel-modal',
@@ -17,6 +17,8 @@ import { ChannelComponent } from '../channel/channel.component';
 
 
 export class ConnectToChannelModalComponent {
+  @Output() platformAndBotSelected = new EventEmitter<{selectedPlatform: PlatformType, botId: any}>();
+
   channels:CommunicationChannel[];
   selectedPlatform: PlatformType;
   channelForm:FormGroup;
@@ -32,26 +34,17 @@ export class ConnectToChannelModalComponent {
     ){}
 
 
-    openChannel() {
-      this._dialog.open(ChannelComponent,{
-        width: '30rem',
-         height: '25rem',
-         data: { selectedPlatform: this.selectedPlatform , botId:this.data}
-      });
-     } 
-    
+
   returnToPlatform(){
     this.selectedPlatform=PlatformType.None;
   }
 
   onPlatformSelected(){
-    this.openChannel();
-   }
+    this.platformAndBotSelected.emit({selectedPlatform: this.selectedPlatform, botId: this.data});
+  }
+
    
    closeDialog(){
     this._dialog.closeAll();
    }
-  
-  
-  
 }

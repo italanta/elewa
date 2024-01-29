@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges,  SimpleChanges } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
@@ -11,8 +11,19 @@ import { BotsModuleService } from '../../services/bots-module.service';
   templateUrl: './channel.component.html',
   styleUrls: ['./channel.component.scss'],
 })
-export class ChannelComponent implements OnInit{
-  selectedPlatform:PlatformType;
+export class ChannelComponent implements OnChanges{
+  private _selectedPlatformAndBot: {selectedPlatform: PlatformType, botId: any};
+  
+  @Input() set selectedPlatformAndBot(value: { selectedPlatform: PlatformType, botId: any }) {
+    this._selectedPlatformAndBot = value;
+    if (this._selectedPlatformAndBot && this._selectedPlatformAndBot.selectedPlatform !== undefined) {
+      this.fetchChannels();
+    }
+  }
+
+   
+   
+  // selectedPlatform:PlatformType;
   channels:CommunicationChannel[];
   selectedChannelId:string;
   
@@ -24,16 +35,25 @@ export class ChannelComponent implements OnInit{
     private _dialog: MatDialog
     ){}
 
-
-  ngOnInit(): void {
-      this.fetchChannels()
-  }  
+    
+    ngOnChanges(changes: SimpleChanges) {
+      if (changes['selectedPlatformAndBot'] && changes['selectedPlatformAndBot'].currentValue) {
+        this.fetchChannels();
+      }
+    }
+     
+     
   
-  fetchChannels(){
-    this.botsService.getChannelsByType(this.data.selectedPlatform).subscribe((channels) => {
-       this.channels = channels
-    })
-   }
+  
+     fetchChannels() {
+      // Check if selectedPlatformAndBot and selectedPlatform are defined
+      if (this._selectedPlatformAndBot && this._selectedPlatformAndBot.selectedPlatform) {
+        this.botsService.getChannelsByType(this._selectedPlatformAndBot.selectedPlatform).subscribe((channels) => {
+          this.channels = channels;
+        });
+      }
+    }  
+
    
    onChannelChange(channelId: any){
     this.selectedChannelId = channelId;
