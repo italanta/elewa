@@ -18,8 +18,6 @@ export enum PlatformType
   Telegram  =  'telegram',
   /** Messenger API */
   Messenger =  'messenger',
-  /**Added none for the check boxes */
-  None = ''
 }
 
 /**

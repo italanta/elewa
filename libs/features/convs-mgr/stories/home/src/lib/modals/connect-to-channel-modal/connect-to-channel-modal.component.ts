@@ -35,10 +35,6 @@ export class ConnectToChannelModalComponent {
 
 
 
-  returnToPlatform(){
-    this.selectedPlatform=PlatformType.None;
-  }
-
   onPlatformSelected(){
     this.platformAndBotSelected.emit({selectedPlatform: this.selectedPlatform, botId: this.data});
   }
