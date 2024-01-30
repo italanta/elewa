@@ -339,7 +339,12 @@
       "CREATE": "Create Bot",
       "UPDATE": "Update Bot",
       "CANCEL": "Cancel",
-      "SUBMIT": "Create bot"
+      "CONNECT": "Connect",
+      "CONTINUE":"Continue",
+      "SUBMIT": "Create bot",
+      "CONNECTING":"Connecting",
+      "PUBLISHED":"PUBLISHED",
+      "DRAFT":"DRAFT"
     },
     "EDIT-MODAL": {
       "TITLE": "Edit Bot"
@@ -367,7 +372,16 @@
       "DELETE" : "Delete",
       "OPEN-BOT" : "Open Bot",
       "VIEW-ALL" : "View All"
-    }
+    },
+    "CHANNEL":{
+      "HEADER":"Connect Bot to Channel",
+      "INFO-TEXT1":"To create a new channel, go to Admin Settings, then proceed",
+      "INFO-TEXT2":"to Company information, and select the option to Add Channel"
+    },
+    "CONNECT-BOT-TO-CHANNEL":"Connect bot to channel",
+    "PUBLISH-BOT":"Publish Bot",
+    "ARCHIVE-BOT":"Archive Bot",
+    "DELETE-BOT":"Delete Bot"
   },
   "MODULES": {
     "FIELDS": {
@@ -1156,6 +1170,7 @@
       },
       "ADD-CHANNEL":"Add Channel",
       "SELECT-PLATFORM":"Select Platform",
+      "SELECT-CHANNEL":"Select Channel",
       "ADD-DETAILS":"Add Details",
       "WHATSAPP":"WhatsApp",
       "Messenger":"Messenger",
