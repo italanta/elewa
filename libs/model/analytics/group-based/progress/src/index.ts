@@ -5,3 +5,4 @@ export * from './lib/completion-rate.model';
 
 export * from './lib/measure-progress.command';
 export * from './lib/measure-group-progress.command';
+export * from './lib/periodicals.model';
