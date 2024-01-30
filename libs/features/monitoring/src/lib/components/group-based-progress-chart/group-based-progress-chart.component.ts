@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { SubSink } from 'subsink';
-import { switchMap } from 'rxjs';
+import { combineLatest, switchMap } from 'rxjs';
 
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
 import { BotModulesStateService } from '@app/state/convs-mgr/modules'
@@ -73,24 +73,28 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.initDataLayer();
+    const dataLayer$ = this.initDataLayer();
+    
+    const milestones$ = this._progressService.getMilestones();
 
-    this._sBs.sink = this._progressService.getMilestones().subscribe((models) => {
-      if (models.length) {
-        this.showData = true;
+    this._sBs.sink = combineLatest([dataLayer$, milestones$])
+      .subscribe(([botModules, models]) => {
+        this.botModules = botModules;
+        if (models.length) {
+          this.showData = true;
 
-        // 1. save all progress
-        this.dailyProgress = getDailyProgress(models);
-        this.weeklyProgress = getWeeklyProgress(models);
-        this.monthlyProgress = getMonthlyProgress(models);
-        this.chart = this._loadChart(this.weeklyProgress);
-      }
-    });
+          // 1. save all progress
+          this.dailyProgress = getDailyProgress(models);
+          this.weeklyProgress = getWeeklyProgress(models);
+          this.monthlyProgress = getMonthlyProgress(models);
+          this.chart = this._loadChart(this.weeklyProgress);
+        }
+      });
   }
 
   /** initialise the data layer (fetch bots, modules and classrooms) */
   initDataLayer() {
-    this._sBs.sink = this._botServ$.getBots().pipe(
+    return this._botServ$.getBots().pipe(
       switchMap(bots => {
         this.courses = bots
 
@@ -101,7 +105,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
           return this._botModServ$.getBotModules()
         }))
       })
-    ).subscribe(botModules => this.botModules = botModules);
+    )
   }
 
   /** add default class */
@@ -113,6 +117,7 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
   /** select progress tracking periodicals */
   selectProgressTracking(periodical: periodicals) {
     if (!this.dailyProgress) return //return if there's no progress to visualise (avoid chart js errors)
+
 
     if (periodical === 'Daily') {
       this.chart = this._loadChart(this.dailyProgress);
