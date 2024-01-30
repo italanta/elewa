@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 
 import { CommunicationChannel, PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { BotsModuleService } from '../../services/bots-module.service';
+import { CommunicationChannelService } from '@app/state/convs-mgr/channels';
 
 @Component({
   selector: 'italanta-apps-channel',
@@ -30,7 +30,7 @@ export class ChannelComponent implements OnChanges{
   
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { selectedPlatform: PlatformType , botId:string },
-    private botsService :BotsModuleService,
+    private channelService :CommunicationChannelService,
     private dialogRef: MatDialogRef<ChannelComponent>,
     private _dialog: MatDialog
     ){}
@@ -48,7 +48,7 @@ export class ChannelComponent implements OnChanges{
      fetchChannels() {
       // Check if selectedPlatformAndBot and selectedPlatform are defined
       if (this._selectedPlatformAndBot && this._selectedPlatformAndBot.selectedPlatform) {
-        this.botsService.getChannelsByType(this._selectedPlatformAndBot.selectedPlatform).subscribe((channels) => {
+        this.channelService.getChannelsByType(this._selectedPlatformAndBot.selectedPlatform).subscribe((channels) => {
           this.channels = channels;
         });
       }
@@ -77,7 +77,7 @@ export class ChannelComponent implements OnChanges{
     selectedChannel.linkedBot = botId;
   
     // Update the channel
-    this.botsService.updateChannel(selectedChannel).subscribe(() => {
+    this.channelService.updateChannel(selectedChannel).subscribe(() => {
       this._dialog.closeAll(); // Close the dialog after updating the channel
     });
   }

@@ -10,8 +10,9 @@ import { __DateFromStorage } from '@iote/time';
 
 import { Bot } from '@app/model/convs-mgr/bots';
 
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
-import { BotsModuleService } from '../../../services/bots-module.service';
+
 import { MainChannelModalComponent } from '../../../modals/main-channel-modal/main-channel-modal.component';
 
 @Component({
@@ -31,7 +32,7 @@ export class BotsListLatestCoursesComponent implements OnInit {
 
   isPublishing :boolean;
 
-  constructor(private _router$$: Router, private _dialog: MatDialog, private _botsModuleService$:BotsModuleService ) {}
+  constructor(private _router$$: Router, private _dialog: MatDialog, private _botsService : BotsStateService ) {}
 
   ngOnInit(): void {
 
@@ -52,17 +53,17 @@ export class BotsListLatestCoursesComponent implements OnInit {
     })
    }
   deleteBot(botId:Bot){
-    this._botsModuleService$.deleteBot(botId)
+    this._botsService.deleteBot(botId)
   } 
 
   archiveBot(bot:Bot){
     bot.isArchived = true;
-    this._botsModuleService$.archiveBot(bot)
+    this._botsService.updateBot(bot)
   }
   publishBot(bot:Bot){
     bot.isPublishing = true;
     bot.isPublished = true;
-    this._botsModuleService$.publishBot(bot)
+    this._botsService.updateBot(bot)
       .subscribe(() => {
         bot.isPublishing = false;
       });

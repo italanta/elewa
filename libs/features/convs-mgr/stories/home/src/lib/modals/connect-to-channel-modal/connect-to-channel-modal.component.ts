@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CommunicationChannel } from '@app/model/convs-mgr/conversations/admin/system';
 import { PlatformType } from '@app/model/convs-mgr/conversations/admin/system';
 
-import { BotsModuleService } from '../../services/bots-module.service';
 
 
 @Component({
@@ -29,7 +28,6 @@ export class ConnectToChannelModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: string,
     private fb: FormBuilder,
-    private botsService :BotsModuleService,
     private _dialog: MatDialog
     ){}
 

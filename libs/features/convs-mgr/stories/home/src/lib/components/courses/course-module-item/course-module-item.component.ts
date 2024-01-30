@@ -1,18 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog  } from '@angular/material/dialog';
 
 import { Bot, BotMutationEnum } from '@app/model/convs-mgr/bots';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
 import { Story } from '@app/model/convs-mgr/stories/main';
+import { BotsStateService } from '@app/state/convs-mgr/bots';
 
 import { 
   DeleteElementsEnum,
   DeleteBotModalComponent,
   CreateLessonModalComponent
 } from '@app/elements/layout/convs-mgr/story-elements';
-import { BotsModuleService } from '../../../services/bots-module.service';
 import { ConnectToChannelModalComponent } from '../../../modals/connect-to-channel-modal/connect-to-channel-modal.component';
 
 @Component({
@@ -25,12 +25,12 @@ export class CourseModuleItemComponent implements OnInit{
   @Input() story: Story;
 
 
-  constructor(private _dialog: MatDialog, private _router$: Router, private _botsModuleService$:BotsModuleService) {}
+  constructor(private _dialog: MatDialog, private _router$: Router, private _botsService$: BotsStateService) {}
 
   specificBot: Bot | undefined; /**adding undefined here since it is described that way in the store service, removing might break something, check on this */
 
   ngOnInit(): void {
-    this._botsModuleService$.getSpecificBot(this.botModule.parentBot).subscribe(response =>{
+    this._botsService$.getBotById(this.botModule.parentBot).subscribe(response =>{
       this.specificBot = response;
     })
    }
@@ -72,17 +72,17 @@ export class CourseModuleItemComponent implements OnInit{
     });
    }
   deleteBot(botId:Bot){
-    this._botsModuleService$.deleteBot(botId)
+    this._botsService$.deleteBot(botId)
   } 
 
   archiveBot(bot:Bot){
     bot.isArchived = true;
-    this._botsModuleService$.archiveBot(bot)
+    this._botsService$.updateBot(bot)
   }
   publishBot(bot:Bot){
     bot.isPublishing = true;
     bot.isPublished = true;
-    this._botsModuleService$.publishBot(bot)
+    this._botsService$.updateBot(bot)
       .subscribe(() => {
         bot.isPublishing = false;
       });
