@@ -10,10 +10,9 @@ import { BotsStateService } from '@app/state/convs-mgr/bots';
 import { Bot } from '@app/model/convs-mgr/bots';
 import { Classroom } from '@app/model/convs-mgr/classroom';
 import { BotModule } from '@app/model/convs-mgr/bot-modules';
+import { Periodicals } from '@app/model/analytics/group-based/progress';
 
 import { AllClassroom, AllCourse } from '../../utils/mock.data';
-
-export type Periodicals = 'Daily' | 'Weekly' | 'Monthly';
 
 @Component({
   selector: 'app-dashboard-page',
