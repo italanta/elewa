@@ -13,18 +13,21 @@
           font-weight: 400;
           line-height: normal;
       }
-      ::ng-deep .mdc-text-field{
-        border-radius: 1rem!important;
-        border: 1px grey solid;
-       }
+      // this line adds the etra thick layer just remove the appearance outline
+      // ::ng-deep .mdc-text-field{
+      //   border-radius: 1rem!important;
+      //   border: 1px grey solid;
+      //  }
   }
   .fff{
     width: 100%;
     display: flex;
   }
   .mt-form{
-      form {
+      .form-body{
+        form {
           .form-group {
+            
               
             p:first-child {
               color: #000; 
@@ -53,16 +56,51 @@
               background-color: transparent;
               border: 1px solid var(--convs-mgr-color-707070);
               width: 100%;
+              padding: 0 0 0 1rem;
+              color: black;
+              font-size: 1rem;
+              font-family: Roboto;
+              font-weight: 400;
+              word-wrap: break-word
+              
             }
             .body-input{
-              height: 8rem;
+              height: 7rem;
               border-radius: 0.9375rem;
               background-color: transparent;
               border: 1px solid var(--convs-mgr-color-707070);
               width: 100%;
+
+              vertical-align: top;
+              padding: 1rem 0 0 1rem;
+              color: black;
+              font-size: 1rem;
+              font-family: Roboto;
+              font-weight: 400;
+              word-wrap: break-word
+            }
+            select{
+              height: 3rem;
+              border-radius: 0.9375rem;
+              background-color: transparent;
+              border: 1px solid var(--convs-mgr-color-707070);
+              width: 100%;
+              padding: 0 1rem 0 1rem;
+              color: black;
+              font-size: 1rem;
+              font-family: Roboto;
+              font-weight: 400;
+              word-wrap: break-word
             }
           }
+          input::placeholder{
+            color: white;
+            padding: 0 1rem 0 1rem;
+            font-size: 1rem;
+          }
+          
         }
+      }
         
   }
   

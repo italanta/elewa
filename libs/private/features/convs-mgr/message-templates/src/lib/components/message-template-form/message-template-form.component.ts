@@ -301,7 +301,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
       this._snackbar.showError('Please fill out all fields');
       return;
     }
-
+    
     this.isSaving = true;
     this._sbS.sink = this._messageTemplatesService
       .createTemplateMeta(this.templateForm.value)
@@ -311,7 +311,7 @@ export class MessageTemplateFormComponent implements OnInit, OnDestroy {
           this._snackbar.showError(response);
         }
 
-        this.templateForm.value.content.templateId = response.data.id;
+        this.templateForm.value.templateId = response.data.id;
 
         const templateId = `${this.templateForm.value.name}${this.templateForm.value.language}`;
 

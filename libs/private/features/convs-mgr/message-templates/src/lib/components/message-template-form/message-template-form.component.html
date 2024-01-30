@@ -10,12 +10,12 @@
                     (selectedOptionsChange)="onSelectedOptionsChange($event)"></app-template-form-dropdown>
                 </div> -->
                 <mat-accordion class="multi-drop">
-                    <mat-expansion-panel (opened)="panelOpenState = true"
+                    <mat-expansion-panel expanded="true" (opened)="panelOpenState = true"
                                          (closed)="panelOpenState = false">
                       <mat-expansion-panel-header>
                         <mat-panel-title>
                             <div class="titles">
-                                <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.TITLE'| transloco }}</p>
+                                <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.TITLE'| transloco }} <span class="asteric">*</span> </p>
                                 <!-- <p>Category, channel, language</p> -->
                             </div>
                         </mat-panel-title>
@@ -26,31 +26,44 @@
                         <div class="form-group">
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY'| transloco }}</p>
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CATEGORY-DESCRIPTION'| transloco }}</p>
-                              <mat-form-field  class="selec">
-                                <mat-select  formControlName="category">
+                              <mat-form-field  class="selec" appearance="outline"> 
+                                    <mat-select  formControlName="category">
                                     <mat-option *ngFor="let category of categories" [value]="category.value">{{ category.display }}</mat-option>
                                   </mat-select>
+                              
                               </mat-form-field>
                         </div>
                         
                         <div class="form-group">
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE'| transloco }}</p>
                             <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.LANGUAGE-DESCRIPTION'| transloco }}</p>
-                            <mat-form-field  class="selec" >
+                            <mat-form-field  class="selec" appearance="outline" >
                                 <mat-select formControlName="language">
                                     <mat-option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
+                                <!-- uncomment incase QA wants a border radius, but advice on selection color that cant be changed -->
+                            <!-- <select 
+                                formControlName="language">
+                                    <option></option>
+                                    <option *ngFor="let language of languages" [value]="language.value">{{ language.display }}</option>
+                            </select> -->
                         </div>
                       </div>
                       <div class="form-group">
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL'| transloco }}</p>
                         <p>{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.TEMPLATE-SETTINGS.CHANNEL-DESCRIPTION'| transloco }} </p>
-                        <mat-form-field  class="">
+                        <mat-form-field  appearance="outline">
                             <mat-select class="mat-outline" formControlName="channelId">
                                 <mat-option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</mat-option>
                             </mat-select>
                         </mat-form-field>
+                        <!-- uncomment incase QA wants a border radius, but advice on selection color that cant be changed -->
+                        <!-- <select 
+                            formControlName="channelId">
+                            <option></option>
+                            <option *ngFor="let channel of (channels$ | async)" [value]="channel.id">{{ channel.name }}</option>
+                        </select> -->
                         <p *ngIf="!(channels$ | async)?.length" class="channel-dd">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.NO-CHANNEL'| transloco }}</p>
                       </div>
                     </mat-expansion-panel>
@@ -82,7 +95,7 @@
                         <h1 class="vars" *ngFor="let variable of newHeaderVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
                           <div [formGroup] = "newVariableHeaderForm" *ngIf="newHeaderVariables.length < 1" >
                             <input type="text" formControlName="newPlaceholder"  class="eveinput">
-                            <input type="text" formControlName="newVariable"  class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
+                            <input type="text" formControlName="newVariable" class="placeholder" placeholder="{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.PLACEHOLDER'| transloco }}"  class="eveinputs" [attr.disabled]="newVariableHeaderForm.get('newVariable')?.disabled ? true : null">
                             </div>
                     </div>
 
@@ -110,7 +123,7 @@
                         <p  class="text"> {{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY'| transloco }}<span class="asteric">*</span></p>
                         <p  class="text">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.BODY-DESCRIPTION'| transloco }}</p>
                        
-                            <input class="body-input" #textAreaElement type="textarea" matInput formControlName="text" height="300px" >
+                            <textarea class="body-input" name="w3review" rows="4" cols="50" formControlName="text"></textarea>
                        
                         <div class="add-variable-body">
                             <p class="dropdown" [matMenuTriggerFor]="bodymenu" (click)="fetchBots()">{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.ADD-VARIABLE'| transloco }}<i class="fas fa-chevron-down"></i></p>
@@ -142,7 +155,7 @@
                             <h1 class="vars" style="margin-left: 0.5rem;" *ngFor="let variable of newVariables$ | async">{{variable.placeholder}}: <span>{{variable.variable}}</span></h1>
                               <div [formGroup] = "newVariableForm">
                                 <input type="text" formControlName="newPlaceholder"  class="eveinput" style="margin-left: 0.5rem;">
-                                <input type="text" formControlName="newVariable" class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
+                                <input type="text" formControlName="newVariable" placeholder="{{'MESSAGE-TEMPLATES.MESSAGE-TEMPLATE-FORM.MT-FORM.FORM-BODY.CONTENT.BODY.SAMPLES.PLACEHOLDER'| transloco }}"  class="eveinputs" [attr.disabled]="newVariableForm.get('newVariable')?.disabled ? true : null">
                                 </div>
                         </div>
                         </div>
