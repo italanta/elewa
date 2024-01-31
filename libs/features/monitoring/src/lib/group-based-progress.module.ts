@@ -12,6 +12,7 @@ import { GroupBasedProgressChartComponent } from './components/group-based-progr
 import { AssessmentProgressChartComponent } from './components/assessment-progress-chart/assessment-progress-chart.component';
 import { EnrolledUserProgressChartComponent } from './components/enrolled-user-progress-chart/enrolled-user-progress-chart.component';
 import { ProgressCompletionRateChartComponent } from './components/progress-completion-rate-chart/progress-completion-rate-chart.component';
+import { UserEngagementChartComponent } from './components/user-engagement-chart/user-engagement-chart.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ProgressCompletionRateChartComponent } from './components/progress-comp
     AssessmentProgressChartComponent,
     EnrolledUserProgressChartComponent,
     ProgressCompletionRateChartComponent,
+    UserEngagementChartComponent,
   ],
   imports: [
     CommonModule,
