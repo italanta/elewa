@@ -5,6 +5,7 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 1.4rem;
+  overflow-x: hidden;
 
   .title {
     font-size: 2rem;
@@ -115,4 +116,8 @@ li a:hover:not(.active) {
 .active {
   background-color: #101010;
   color: #FFFFFF !important;
+}
+
+.top-stats {
+  width: 100%;
 }
