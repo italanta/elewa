@@ -60,7 +60,12 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
 
     const parentModule = await botModDataService.getBotModule(story.parentModule);
 
-    const progress = await _computeLearnerProgress(participant.enrolledUser, storiesDataService);
+    let progress = null;
+
+    if(participant.enrolledUser.courses) {
+      progress = await _computeLearnerProgress(participant.enrolledUser, storiesDataService);
+    };
+    
 
     return {
       participant: {

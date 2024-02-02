@@ -64,7 +64,7 @@ export async function getEngagedUserCount(userMetricsService: UserMetricsService
     pastMonthCount = (await userMetricsService.getPastMonthUserEngagement(orgId, timeInUnix)).length;
   }
 
-  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Enrolled user creation count completed`);
+  tools.Logger.log(() => `[measureGroupProgressHandler].execute - Engaged user creation count completed`);
 
   return {
     active: {

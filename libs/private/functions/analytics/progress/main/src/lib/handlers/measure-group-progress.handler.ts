@@ -83,19 +83,19 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
     );
   
     tools.Logger.log(() => `[measureGroupProgressHandler].execute - EndUsers successfully fetched and grouped with classroom`);
-  
+    
     const engine = new MeasureParticipantProgressHandler();
-  
+    
     //4. get all users progress
     const allUsersProgress = await Promise.all(
       endUsersWithClassroom?.map((user) => {
-          if (user.endUser) {
-            return engine.execute({ orgId, participant: user, interval }, context, tools)
-          }
+        if (user.endUser) {
+          return engine.execute({ orgId, participant: user, interval }, context, tools)
         }
+      }
       )
-    );
-  
+      );
+
     // get the time/date for the measurement calculated in unix
     const timeInUnix = interval ? interval : _getCurrentDateInUnix();
   
@@ -234,11 +234,19 @@ function _parseGroupedProgressData(allUsersProgress: ParticipantProgressMileston
 function getCourseStats(enrolledUsers: EnrolledEndUser[]) {
   const coursesCompleted = []
   const coursesStarted = [];
+  let userCompletedCourses = [];
 
   for (const user of enrolledUsers) {
-    coursesCompleted.push(...user.completedCourses);
+    let courses = [];
+    if(user.courses) {
+      courses = user.courses;
+    }
+    if(user.completedCourses) {
+      userCompletedCourses = user.completedCourses;
+    }
+    coursesCompleted.push(...userCompletedCourses);
 
-    const coursesStartedIds = user.courses.map((course)=> course.courseId);
+    const coursesStartedIds = courses.map((course)=> course.courseId);
     coursesStarted.push(...coursesStartedIds);
   }
 
