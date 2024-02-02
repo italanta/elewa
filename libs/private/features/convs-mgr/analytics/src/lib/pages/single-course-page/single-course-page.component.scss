@@ -25,13 +25,20 @@
 .stat-card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: #FFFF;
   border-radius: 1.25rem;
   color: #101010;
   text-align: center;
-  height: 7rem;
+  height: 11rem;
   padding: 1.25rem;
   width: 92%;
+}
+
+.stat-card-info {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 .card-title {
