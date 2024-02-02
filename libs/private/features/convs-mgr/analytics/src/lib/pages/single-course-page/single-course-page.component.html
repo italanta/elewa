@@ -3,25 +3,27 @@
     <app-group-based-progress-chart 
     [setActiveCourse]="activeCourse" 
     [setActiveClassroom]="activeClassroom" 
-    [setPeriodical]="periodical"
-  ></app-group-based-progress-chart>
-  <div class="stat-section">
-    <div class="stat-card">
-      <div class="stat-card-info">
-        <span class="card-title">Completion rate</span>
-        <span class="stat">24%</span>
-        <span class="card-text">103 out of 500 students have completed all the modules in this course</span>
+    [setPeriodical]="periodical">
+    </app-group-based-progress-chart>
+    <div class="stat-section">
+      <div class="stat-card">
+        <div class="stat-card-info">
+          <span class="card-title">Completion rate</span>
+          <span class="stat">24%</span>
+          <span class="card-text">103 out of 500 students have completed all the modules in this course</span>
 
+        </div>
       </div>
-    </div>
 
-    <div class="stat-card">
-      <span class="card-title">Average time to completion</span>
-      <span class="stat">35days 2hours 34mins 2seconds</span>
-      <span class="card-text">An average student takes this amount of time to complete this course</span>
-    </div>
+      <div class="stat-card">
+        <span class="card-title">Average time to completion</span>
+        <span class="stat">35days 2hours 34mins 2seconds</span>
+        <span class="card-text">An average student takes this amount of time to complete this course</span>
+      </div>
   </div>
 
   </div>
-  <div class="bottom-section"></div>
+  <div class="bottom-section">
+    <app-user-engagement-chart [setPeriodical]="periodical"></app-user-engagement-chart>
+  </div>
 </div>
