@@ -30,6 +30,7 @@ import { UserEngagementChartComponent } from './components/user-engagement-chart
     FormsModule,
   ],
   exports: [
+    UserEngagementChartComponent,
     GroupBasedProgressChartComponent,
     AssessmentProgressChartComponent,
     EnrolledUserProgressChartComponent,
