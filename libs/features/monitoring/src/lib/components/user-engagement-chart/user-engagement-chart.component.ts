@@ -82,14 +82,29 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
           {
             /** Line styling */
             label: `Active users`,
-            data: this.getData(models),
+            data: this.getActiveUsers(models),
             tension: 0.6,
             borderWidth: 2,
             borderColor: '#00D0D6',
+            backgroundColor: '#00D0D6',
 
             /** Line point styling */
             pointBorderWidth: 1,
             pointBackgroundColor: '#00D0D6',
+          },
+
+          {
+            /** Line styling */
+            label: `Active users`,
+            data: this.getInactiveUsers(models),
+            tension: 0.6,
+            borderWidth: 2,
+            borderColor: '#F1CC00',
+            backgroundColor: '#F1CC00',
+
+            /** Line point styling */
+            pointBorderWidth: 1,
+            pointBackgroundColor: '#F1CC00',
           },
         ],
       },
@@ -135,14 +150,44 @@ export class UserEngagementChartComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getData(models: GroupProgressModel[]): number[] {
-    if (this.selectedPeriodical === 'Daily') {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.dailyCount);
-    } else if (this.selectedPeriodical === 'Weekly') {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.pastWeekCount);
-    } else {
-      return models.map((mod) => mod.todaysEnrolledUsersCount.pastMonthCount);
+  private getActiveUsers(models: GroupProgressModel[]): number[] {
+    const userCountArray = [];
+
+    for (const mod of models) {
+      if(!mod.todaysEngagedUsersCount) {
+        userCountArray.push(0);
+        continue;
+      }
+
+      if (this.selectedPeriodical === 'Daily') {
+        userCountArray.push(mod.todaysEngagedUsersCount.active.dailyCount);
+      } else if (this.selectedPeriodical === 'Weekly') {
+        userCountArray.push(mod.todaysEngagedUsersCount.active.pastWeekCount);
+      } else {
+        userCountArray.push(mod.todaysEngagedUsersCount.active.pastMonthCount);
+      }
     }
+    return userCountArray;
+  }
+
+  private getInactiveUsers(models: GroupProgressModel[]): number[] {
+    const userCountArray = [];
+
+    for (const mod of models) {
+      if(!mod.todaysEngagedUsersCount) {
+        userCountArray.push(0);
+        continue;
+      }
+
+      if (this.selectedPeriodical === 'Daily') {
+        userCountArray.push(mod.todaysEngagedUsersCount.inactive.dailyCount);
+      } else if (this.selectedPeriodical === 'Weekly') {
+        userCountArray.push(mod.todaysEngagedUsersCount.inactive.pastWeekCount);
+      } else {
+        userCountArray.push(mod.todaysEngagedUsersCount.inactive.pastMonthCount);
+      }
+    }
+    return userCountArray;
   }
 
   ngOnDestroy() {
