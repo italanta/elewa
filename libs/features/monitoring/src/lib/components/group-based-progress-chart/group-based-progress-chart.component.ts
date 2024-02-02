@@ -149,10 +149,31 @@ export class GroupBasedProgressChartComponent implements OnInit, OnDestroy {
             display: true,
             text: 'Course progression',
           },
+          legend: {
+            display: true,
+            position: "bottom",
+            labels: {
+              boxWidth: 12,
+              useBorderRadius: true,
+              borderRadius: 6
+            },
+          },
         },
         scales: {
-          x: { stacked: true },
-          y: { stacked: true },
+          x: { 
+            stacked: true, 
+            grid: {display: false} ,
+            ticks: { 
+              maxTicksLimit: 12
+            },
+          },
+          y: { 
+            stacked: true, 
+            grid: {color: '#F0F0F0'},  
+            ticks: { 
+              maxTicksLimit: 6, 
+              autoSkip: true 
+            }},
         },
       },
     });
