@@ -5,6 +5,7 @@ import { SubSink } from 'subsink';
 
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 import { ProgressMonitoringService } from '@app/state/convs-mgr/monitoring';
+import { Bot } from '@app/model/convs-mgr/bots';
 
 import { periodicals } from '../../models/periodicals.interface';
 import { formatDate, getDailyProgress, getMonthlyProgress, getWeeklyProgress } from '../../providers/helper-fns.util';
@@ -15,11 +16,12 @@ import { formatDate, getDailyProgress, getMonthlyProgress, getWeeklyProgress } f
   styleUrls: ['./user-engagement-chart.component.scss'],
 })
 export class UserEngagementChartComponent implements OnInit, OnDestroy {
+  @Input() activeCourse: Bot;
+
   private _sBs = new SubSink();
   
   chart: Chart;
 
-  activeCourse: string;
   activeClassroom: string;
   selectedPeriodical: periodicals;
 
