@@ -6,9 +6,4 @@
  * Needs to be converted into a format our engine can understand,
  *  doing so enriches the IncomingChatMessage to a "TextMessage", "ImageMessage", "VoiceMessage", ...
  */
-export interface IncomingMessagePayload
-{
-  fileSrc ?: string;
-
-  fileSize ?: string;
-}
+export interface IncomingMessagePayload { }
