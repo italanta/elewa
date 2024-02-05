@@ -33,11 +33,15 @@ export async function updateLearnerProgress (currentStory: string, lastBlock:Sto
       courseId: parentCourse.id, 
       courseName: parentCourse.name,
       enrollmentDate: new Date(),
+      lastEngagementTime: endUser.lastActiveTime,
       modules: [],
     };
 
     enrolledUser.courses.push(theCourse);
-  } else theCourse.courseName = parentCourse.name;
+  } else {
+    theCourse.courseName = parentCourse.name;
+    theCourse.lastEngagementTime = endUser.lastActiveTime;
+  };
 
   // Find or create the module
   let theModule = theCourse.modules.find(mod => mod.moduleId === parentModule.id);
