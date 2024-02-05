@@ -80,7 +80,7 @@ import { ChatStatus, EndUser } from '@app/model/convs-mgr/conversations/chats';
         newEndUser.lastActiveTime = lastActiveTime;
       }
   
-      await this.updateDocument(newEndUser, this._docPath, endUser.id);
+      return this.updateDocument(newEndUser, this._docPath, endUser.id);
     }
   }
 }
