@@ -14,7 +14,7 @@ import { Cursor } from '@app/model/convs-mgr/conversations/admin/system';
 import { defaultClassroom } from '@app/model/convs-mgr/classroom';
 import { EnrolledEndUser, EnrolledUserBotModule } from '@app/model/convs-mgr/learners';
 
-import { MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
+import { EnrolledUserProgress, MeasureProgressCommand, ParticipantProgressMilestone } from '@app/model/analytics/group-based/progress';
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
  */
@@ -92,15 +92,19 @@ const _computeLearnerProgress = async (enrolledUser: EnrolledEndUser, storiesDat
   
     const moduleProgress = await Promise.all(modulePromises);
 
-    // Calculate average module progress
+    // Calculate total course progress
+    //  Sums up all the progress in the module to get the total course progress
     const totalCourseProgress = moduleProgress.reduce((acc, mod) => acc + mod.moduleProgress, 0);
+
+    // Get the average by dividing the total course progress by the number of modules
     const avgCourseProgress = moduleProgress.length > 0 ? totalCourseProgress / moduleProgress.length : 0;
 
     return {
       courseId: course.courseId,
       courseProgress: avgCourseProgress,
-      modules: moduleProgress
-    };
+      modules: moduleProgress,
+      lastActiveTime: course.lastEngagementTime || null
+    } as EnrolledUserProgress;
   })
 
   const courses = await Promise.all(coursePromises);
