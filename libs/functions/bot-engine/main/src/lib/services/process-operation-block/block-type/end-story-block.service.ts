@@ -179,9 +179,9 @@ export class EndStoryBlockService implements IProcessOperationBlock
       //    to the array of completed courses.
       if(numOfStories == numOfStoriesComplete) {
         if(enrolledUser.completedCourses) {
-          enrolledUser.completedCourses.unshift(activeBot.id);
+          enrolledUser.completedCourses.unshift({id: activeBot.id, completionDate: new Date()});
         } else {
-          enrolledUser.completedCourses = [activeBot.id];
+          enrolledUser.completedCourses = [{id: activeBot.id, completionDate: new Date()}];
         }
       }
 
