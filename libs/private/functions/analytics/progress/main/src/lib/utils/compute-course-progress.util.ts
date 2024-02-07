@@ -12,6 +12,7 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
 
   const now = moment();
 
+  // TODO: Avoid repetion of this loop
   for (const user of enrolledUsers) {
 
     if (user.courses) {

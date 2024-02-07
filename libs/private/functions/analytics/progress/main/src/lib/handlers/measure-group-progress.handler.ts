@@ -236,6 +236,7 @@ function getCourseStats(enrolledUsers: EnrolledEndUser[]) {
   const coursesStarted = [];
   let userCompletedCourses = [];
 
+  // TODO: Avoid repetion of this loop
   for (const user of enrolledUsers) {
     let courses = [];
     if(user.courses) {
