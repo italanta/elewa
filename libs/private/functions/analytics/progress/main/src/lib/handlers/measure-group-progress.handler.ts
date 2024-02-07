@@ -17,6 +17,7 @@ import {
   GroupedProgressMilestone,
   AnalyticsConfig,
 } from '@app/model/analytics/group-based/progress';
+import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
@@ -24,7 +25,7 @@ import { MeasureParticipantProgressHandler } from './measure-participant-progres
 import { getEnrolledUserCreationCount, getEngagedUserCount } from '../utils/get-user-count.util';
 import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
 import { UserMetricsService } from '../data-services/user-metrics.service';
-import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
+import { computeCourseProgress } from '../utils/compute-course-progress.util';
 
 /**
  * Function which calculates progress of a given participant based on the stories they have completed.
@@ -87,14 +88,13 @@ async function _computeAnalyticsForOrg(tools: HandlerTools, orgId: string, conte
     const engine = new MeasureParticipantProgressHandler();
     
     //4. get all users progress
-    const allUsersProgress = await Promise.all(
-      endUsersWithClassroom?.map((user) => {
-        if (user.endUser) {
-          return engine.execute({ orgId, participant: user, interval }, context, tools)
-        }
+    const allUsersProgress: ParticipantProgressMilestone[] = [];
+    for (const user of endUsersWithClassroom || []) {
+      if (user.endUser) {
+        const progress = await engine.execute({ orgId, participant: user, interval }, context, tools);
+        allUsersProgress.push(progress);
       }
-      )
-      );
+    }
 
     // get the time/date for the measurement calculated in unix
     const timeInUnix = interval ? interval : _getCurrentDateInUnix();
@@ -136,7 +136,7 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
   //3. get newly Enrolled User Count
   const todaysEnrolledUsersCount = await getEnrolledUserCreationCount(userMetricsService, orgId, tools, timeInUnix);
 
-  const todaysEngagedUsersCount = await getEngagedUserCount(userMetricsService, orgId, tools, timeInUnix);
+  const courseProgress =  computeCourseProgress(allUsers);
 
   const {coursesCompleted, coursesStarted} = getCourseStats(allUsers);
 
@@ -148,10 +148,10 @@ async function _groupProgress(allUsersProgress: ParticipantProgressMilestone[], 
     measurements,
     groupedMeasurements,
     todaysEnrolledUsersCount,
-    todaysEngagedUsersCount,
     progressCompletion,
     coursesCompleted,
-    coursesStarted
+    coursesStarted,
+    courseProgress
   }
 
   const savedMilestone = await monitoringDataServ.createNewMilestone(milestone, milestoneId);
