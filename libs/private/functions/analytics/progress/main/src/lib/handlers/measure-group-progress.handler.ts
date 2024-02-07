@@ -22,7 +22,7 @@ import { EnrolledEndUser } from '@app/model/convs-mgr/learners';
 import { MonitoringAndEvaluationService } from '../data-services/monitoring.service';
 import { MeasureParticipantProgressHandler } from './measure-participant-progress.handler';
 
-import { getEnrolledUserCreationCount, getEngagedUserCount } from '../utils/get-user-count.util';
+import { getEnrolledUserCreationCount } from '../utils/get-user-count.util';
 import { _getProgressCompletionRateData } from '../utils/get-completion- rate.util';
 import { UserMetricsService } from '../data-services/user-metrics.service';
 import { computeCourseProgress } from '../utils/compute-course-progress.util';
@@ -251,8 +251,8 @@ function getCourseStats(enrolledUsers: EnrolledEndUser[]) {
   }
 
   return {
-    coursesCompleted: _.uniq(coursesCompleted),
-    coursesStarted: _.uniq(coursesStarted)
+    coursesCompleted: _.uniqBy(coursesCompleted, 'id'),
+    coursesStarted: _.uniqBy(coursesStarted, 'id')
   }
 }
 
