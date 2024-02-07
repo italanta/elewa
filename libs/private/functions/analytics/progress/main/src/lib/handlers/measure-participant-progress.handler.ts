@@ -79,7 +79,7 @@ export class MeasureParticipantProgressHandler extends FunctionHandler<MeasurePr
       milestoneId: story.parentModule,
       courseId: parentModule.parentBot,
       storyId: story.id,
-    }
+    } as ParticipantProgressMilestone;
   }
 }
 
@@ -94,10 +94,10 @@ const _computeLearnerProgress = async (enrolledUser: EnrolledEndUser, storiesDat
 
     // Calculate total course progress
     //  Sums up all the progress in the module to get the total course progress
-    const totalCourseProgress = moduleProgress.reduce((acc, mod) => acc + mod.moduleProgress, 0);
+    const totalModuleProgress = moduleProgress.reduce((acc, mod) => acc + mod.moduleProgress, 0);
 
     // Get the average by dividing the total course progress by the number of modules
-    const avgCourseProgress = moduleProgress.length > 0 ? totalCourseProgress / moduleProgress.length : 0;
+    const avgCourseProgress = moduleProgress.length > 0 ? totalModuleProgress / moduleProgress.length : 0;
 
     return {
       courseId: course.courseId,
