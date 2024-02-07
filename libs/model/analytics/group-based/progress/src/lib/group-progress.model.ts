@@ -1,5 +1,7 @@
 import { IObject } from "@iote/bricks";
 
+import { CompletedCourse } from "@app/model/convs-mgr/learners";
+
 import { ParticipantProgressMilestone } from "./participant-progress.model";
 import { CompletionRateProgress } from "./completion-rate.model";
 import { CourseProgress } from "./course-progress.interface";
@@ -30,10 +32,10 @@ export interface GroupProgressModel extends IObject
   courseProgress: {[key:string]: CourseProgress};
 
   /** Courses Completed */
-  coursesCompleted: string[];
+  coursesCompleted: CompletedCourse[];
 
   /** Courses started */
-  coursesStarted: string[];
+  coursesStarted: CompletedCourse[];
 }
 
 /** An object where each key represents a group name and the value is an array of participant objects belonging to that group. */
