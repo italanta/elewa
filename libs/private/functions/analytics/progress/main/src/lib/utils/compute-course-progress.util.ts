@@ -24,6 +24,8 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
         let dailyInactiveActiveCount = 0;
         let pastWeekInactiveActiveCount = 0;
         let pastMonthInactiveActiveCount = 0;
+        let completedLearnerCount = 0;
+        let totalCompletionDuration = 0;
 
         const lastEngagementTime = __DateFromStorage(course.lastEngagementTime);
 
@@ -46,6 +48,9 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
           pastMonthInactiveActiveCount++;
         }
 
+        completedLearnerCount = checkCourseCompleted(user, course.courseId);
+        totalCompletionDuration = getCompletionDuration(user, course.courseId);
+
         courseProgress[course.courseId].activeUsers.dailyCount += dailyActiveCount;
         courseProgress[course.courseId].activeUsers.pastWeekCount += pastWeekActiveCount;
         courseProgress[course.courseId].activeUsers.pastMonthCount += pastMonthActiveCount;
@@ -53,6 +58,8 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
         courseProgress[course.courseId].inactiveUsers.dailyCount += dailyInactiveActiveCount;
         courseProgress[course.courseId].inactiveUsers.pastWeekCount += pastWeekInactiveActiveCount;
         courseProgress[course.courseId].inactiveUsers.pastMonthCount += pastMonthInactiveActiveCount;
+        courseProgress[course.courseId].completedLearnerCount += completedLearnerCount;
+        courseProgress[course.courseId].totalCompletionDuration += totalCompletionDuration;
 
       }
     }
@@ -63,7 +70,7 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
   {
     const currentCourseProgress = courseProgress[courseId];
 
-    // Calculate total users for each time period
+    // Calculate total users for each period
     ['dailyCount', 'pastWeekCount', 'pastMonthCount'].forEach((period) =>
     {
       // Sum activeUsers and inactiveUsers
@@ -76,9 +83,28 @@ export function computeCourseProgress(enrolledUsers: EnrolledEndUser[])
     });
   });
 
-
-
   return courseProgress;
+}
+
+export function checkCourseCompleted(enrolledUser: EnrolledEndUser, courseId: string): number 
+{
+  const value = _.find(enrolledUser.completedCourses, {id: courseId});
+
+  if(value) return 1;
+  return 0;
+}
+
+export function getCompletionDuration(enrolledUser: EnrolledEndUser, courseId: string) 
+{
+  const completedCourseInfo = _.find(enrolledUser.completedCourses, {id: courseId});
+  if(!completedCourseInfo) return 0;
+
+  const courseInfo = _.find(enrolledUser.courses, {courseId: completedCourseInfo.id});
+
+  const startedOn = __DateFromStorage(courseInfo.enrollmentDate);
+  const completedOn = __DateFromStorage(completedCourseInfo.completionDate);
+
+  return startedOn.diff(completedOn, 'seconds');
 }
 
 
