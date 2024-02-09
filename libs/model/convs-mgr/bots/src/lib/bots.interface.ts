@@ -23,7 +23,9 @@ export interface Bot extends IObject {
   modules: string[];
 
   /** Type of the element */
-  type: 'Bot'
+  type: 'Bot';
+
+  isPublished?: boolean;
 }
 
 /** botmutation enum - has the different bot mutations you can perfom on a bot */
