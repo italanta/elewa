@@ -50,11 +50,6 @@
       </div>
     </div>
 
-    <div class="top-stats">
-      <app-dashboard-top-stats *ngIf="!activeCourse.id" [topStats]="topStatsAllCourses"></app-dashboard-top-stats>
-      <app-dashboard-top-stats *ngIf="activeCourse.id" [topStats]="topStatsSingleCourse"></app-dashboard-top-stats>
-    </div>
-
     <div class="period-paginator"></div>
 
 
