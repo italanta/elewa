@@ -1,3 +1,7 @@
+import * as moment from 'moment';
+
+import { __DateFromStorage } from '@iote/time';
+
 import { GroupProgressModel } from '@app/model/analytics/group-based/progress';
 
 const chartColors = [
@@ -36,7 +40,14 @@ export function getColor(idx: number) {
 
 /** Retrieves daily milestones of all users */
 export function getDailyProgress(allProgress: GroupProgressModel[]) {
-  return allProgress;
+  const now = moment();
+
+  // Show only data for the last 9 days
+  return allProgress.filter((progress)=> {
+    const date = __DateFromStorage(progress.createdOn as Date);
+
+    return now.diff(date, 'days') < 10;
+  })
 }
 
 /** Retrieves weekly milestones of all users */
