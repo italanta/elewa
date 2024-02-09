@@ -16,5 +16,8 @@ export interface CourseProgress {
 
   /** Total time in seconds all learners have taken to complete the course  */
   totalCompletionDuration: number;
+
+  /** Id's of the users enrolled in this course */
+  enrolledUsers: string[];
 }
 
